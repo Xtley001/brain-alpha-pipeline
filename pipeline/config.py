@@ -19,13 +19,18 @@ class MissingConfigError(RuntimeError):
 
 def _require(name: str) -> str:
     val = os.environ.get(name)
+    if val is not None:
+        val = val.strip()
     if not val:
         raise MissingConfigError(f"Required environment variable {name} is not set")
     return val
 
 
 def _optional(name: str, default: str | None = None) -> str | None:
-    return os.environ.get(name, default)
+    val = os.environ.get(name)
+    if val is None:
+        return default
+    return val.strip()
 
 
 @dataclass(frozen=True)
