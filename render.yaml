@@ -1,0 +1,40 @@
+services:
+  - type: worker
+    name: brain-alpha-pipeline
+    env: python
+    plan: starter   # continuous run -- free tier sleeps, not suitable here
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -m pipeline.run_worker"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: BRAIN_USERNAME
+        sync: false
+      - key: BRAIN_PASSWORD
+        sync: false
+      - key: BRAIN_MAX_CONCURRENT_SIMS
+        value: "3"
+      - key: GEMINI_API_KEY_1
+        sync: false
+      - key: GEMINI_API_KEY_2
+        sync: false
+      - key: GROQ_API_KEY_1
+        sync: false
+      - key: GROQ_API_KEY_2
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: QUEUE_TARGET_DEPTH
+        value: "75"
+      - key: STAGE0_MIN_FITNESS
+        value: "0.3"
+      - key: STAGE0_MIN_SHARPE
+        value: "0.5"
+      - key: FILTER_MIN_SHARPE
+        value: "1.25"
+      - key: FILTER_MIN_FITNESS
+        value: "1.0"
+      - key: FILTER_MAX_TURNOVER
+        value: "0.70"
