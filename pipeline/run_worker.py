@@ -1,16 +1,39 @@
 """
-Always-on entrypoint. Two internal loops in one process, per
-the deployment architecture and throughput/scaling design:
-
-  generation_loop(): keeps the `candidates` queue topped up (cheap,
-      frequent, never blocks on BRAIN).
-  simulation_loop(): a semaphore of size BRAIN_MAX_CONCURRENT_SIMS. Pulls
-      the oldest pending candidate the instant a slot frees, and runs it
-      through screen -> sweep -> filter -> correlation -> store -> alert.
-
-Deploy target is a Render Background Worker (see render.yaml) — NOT a Cron
-Job. This process is meant to run forever; it is not a batch script that
+Bounded-batch entrypoint. `run_once()` does a single fixed-size pass of
+work and returns -- it does NOT loop forever. Deploy target is a Render
+**Cron Job** (see render.yaml), invoked on a schedule (default: every 10
+minutes); each scheduled tick is a fresh process that runs `main()` and
 exits.
+
+One invocation of `run_once()`:
+
+  1. Reclaims any candidate orphaned in 'running' by a previous invocation
+     that got cut off mid-simulation (crash, or Render's cron timeout).
+     This recovery path matters *more* under cron than it did under the
+     old always-on worker, since a cron tick can be killed mid-run.
+  2. Runs ONE pass of the queue top-up logic (template tier, then LLM tier
+     if needed) -- what the old generation_loop() did once per 3-minute
+     sleep, now done once per cron tick instead.
+  3. Processes candidates in successive batches of up to
+     BRAIN_MAX_CONCURRENT_SIMS, concurrently, `await`ed to completion each
+     round (claim batch -> gather -> claim next batch -> ...), until either
+     the pending queue is drained, MAX_CANDIDATES_PER_RUN is reached, or
+     RUN_TIME_BUDGET_SECONDS of wall-clock time has elapsed -- whichever
+     comes first. This still never runs more than BRAIN_MAX_CONCURRENT_SIMS
+     `_process_candidate` coroutines concurrently (see
+     `_process_candidate_bounded` below); only the old infinite polling
+     wrapper around that bound is gone, not the bound itself.
+
+This was previously an always-on process (two internal `while True:` loops,
+`generation_loop()` and `simulation_loop()`, run concurrently via
+`run_forever()`) deployed as a Render Background Worker. See the refactor
+handoff doc for the full rationale: a Background Worker has no Render free
+tier (cheapest is $7/mo), so this was restructured into a bounded batch job
+that a Cron Job invocation can run to completion and exit -- trading
+continuous, low-latency throughput for a much cheaper, coarser-grained
+schedule. See run_worker refactor summary for the honest speed tradeoffs;
+this is not a like-for-like replacement of the always-on worker's
+throughput.
 
 No BRAIN submit/create-alpha call exists anywhere in this file or anything
 it imports. Submission is manual, always.
@@ -20,6 +43,8 @@ from __future__ import annotations
 import asyncio
 import logging
 import sys
+import time
+from dataclasses import dataclass, field
 
 from pipeline.brain.client import BrainClient
 from pipeline.config import Config, MissingConfigError
@@ -36,8 +61,21 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 log = logging.getLogger("run_worker")
 
 ORPHAN_RECLAIM_MINUTES = 30
-GENERATION_INTERVAL_SECONDS = 180  # 3 min, within the 2-5 min band in 01_DEPLOYMENT_ARCHITECTURE.md
 MAX_CORRELATION = 0.7
+
+
+@dataclass
+class RunSummary:
+    """What one `run_once()` invocation did -- returned so `main()` can log
+    it, and so tests can assert on behavior without scraping log output."""
+
+    reclaimed: int = 0
+    queue_depth_before: int = 0
+    candidates_generated: int = 0
+    candidates_processed: int = 0
+    batches_run: int = 0
+    stopped_reason: str = "queue_drained"  # or "max_candidates_reached" / "time_budget_exceeded"
+    errors: list[str] = field(default_factory=list)
 
 
 class Worker:
@@ -53,26 +91,32 @@ class Worker:
         # via pipeline_meta (see _load_seed_cursor / _save_seed_cursor) rather
         # than left as a plain in-memory int, so a restart doesn't reset
         # candidate diversity back to category A every deploy (code review
-        # §3.3). Restored lazily on first use of generation_loop, since Repo
-        # needs a live DB connection that may not exist yet at __init__ time
-        # in tests.
+        # §3.3). Restored lazily on first use of _generation_step, since
+        # Repo needs a live DB connection that may not exist yet at
+        # __init__ time in tests.
         self._seed_cursor = 0
         self._seed_cursor_loaded = False
 
-    # --- generation loop ---
+    # --- generation step (single pass; called once per run_once()) ---
 
-    async def generation_loop(self):
+    async def _generation_step(self) -> int:
+        """One iteration of what generation_loop()'s body used to do inside
+        its `while True`, minus the sleep -- the cron schedule now provides
+        the "interval" externally instead of an internal
+        `asyncio.sleep(GENERATION_INTERVAL_SECONDS)`. Returns the number of
+        candidates actually added (0 if the queue was already at target, or
+        on error)."""
         if not self._seed_cursor_loaded:
             self._load_seed_cursor()
-        while True:
-            try:
-                depth = self.repo.queue_depth()
-                if depth < self.config.queue_target_depth:
-                    await self._top_up_queue(self.config.queue_target_depth - depth)
-            except Exception as e:  # noqa: BLE001
-                log.exception("generation_loop error: %s", e)
-                self._safe_operational_alert(f"generation_loop error: {e}")
-            await asyncio.sleep(GENERATION_INTERVAL_SECONDS)
+        try:
+            depth = self.repo.queue_depth()
+            if depth < self.config.queue_target_depth:
+                return await self._top_up_queue(self.config.queue_target_depth - depth)
+            return 0
+        except Exception as e:  # noqa: BLE001
+            log.exception("generation step error: %s", e)
+            self._safe_operational_alert(f"generation step error: {e}")
+            return 0
 
     def _load_seed_cursor(self) -> None:
         try:
@@ -83,7 +127,7 @@ class Worker:
             log.warning("could not load persisted seed_cursor, starting from 0", exc_info=True)
         self._seed_cursor_loaded = True
 
-    async def _top_up_queue(self, needed: int) -> None:
+    async def _top_up_queue(self, needed: int) -> int:
         added = 0
         # Tier 1: template generator, cycling through seed ideas by category
         # order (build within a category before jumping around, per the
@@ -113,10 +157,13 @@ class Worker:
         # call a blocking time.sleep(...) internally on a 429 retry -- see
         # pipeline/llm/adapter.py). Run it in a worker thread rather than
         # awaiting it directly, so it can't freeze this coroutine's event
-        # loop -- the same loop simulation_loop() shares via
-        # asyncio.gather(...) in run_forever(). Without this, an LLM call
-        # (or its retry sleep) stalls candidate claiming and simulation
-        # dispatch for its entire duration (code review §1.2).
+        # loop. Under the old always-on design this mattered because
+        # simulation_loop() shared the same loop concurrently; under
+        # run_once() the generation step and simulation batches run
+        # sequentially within one invocation, but to_thread is kept anyway
+        # since a blocking multi-second (or retry-sleep) call with no
+        # yield point is bad practice in an async function regardless, and
+        # it costs nothing here (code review §1.2).
         remaining = needed - added
         if remaining > 0:
             try:
@@ -133,32 +180,68 @@ class Worker:
             except Exception as e:  # noqa: BLE001
                 log.warning("LLM proposal generation failed: %s", e)
 
+        return added
+
     def _pool_summary(self) -> str:
         return f"{len(SEED_IDEAS)} seed idea families across A-H; ML combiner ideas (Section I) not yet built."
 
     def _recent_failure_log(self) -> str:
         return "See review_store/candidates status for recent rejections."
 
-    # --- simulation loop ---
+    # --- bounded simulation batches (replaces the old simulation_loop) ---
 
-    async def simulation_loop(self):
-        while True:
-            # Don't claim a candidate into 'running' unless a sim slot is
-            # actually free. `Semaphore.locked()` here is a plain gate on the
-            # *claim*, separate from the semaphore acquired for the duration
-            # of the real work in `_process_candidate_bounded` below -- it
-            # exists so `claim_next_pending()` can't race ahead and pull a
-            # large batch of candidates into 'running' while they just sit
-            # queued in-process waiting for a slot (see the note in the code
-            # review's §1.1 fix).
-            if self._sim_semaphore.locked():
-                await asyncio.sleep(0.5)
-                continue
+    def _claim_batch(self, max_size: int) -> list[dict]:
+        """Claim up to `max_size` pending candidates via repeated
+        `claim_next_pending()` calls, stopping early if the queue runs dry.
+        `claim_next_pending()` does an atomic `UPDATE ... FOR UPDATE SKIP
+        LOCKED` claim per call (see Repo.claim_next_pending), so calling it
+        N times in a row here is safe against a concurrent invocation
+        double-claiming the same row -- and per Render's cron single-run
+        guarantee, there won't be a concurrent invocation of *this* job
+        anyway (Render queues/delays overlapping scheduled runs rather than
+        running them in parallel)."""
+        batch: list[dict] = []
+        for _ in range(max_size):
             candidate = self.repo.claim_next_pending()
             if candidate is None:
-                await asyncio.sleep(2)
-                continue
-            asyncio.create_task(self._process_candidate_bounded(candidate))
+                break
+            batch.append(candidate)
+        return batch
+
+    async def _process_candidates_bounded(self, max_candidates: int, deadline: float) -> tuple[int, int, str]:
+        """Process up to `max_candidates` pending candidates in successive
+        batches of size `BRAIN_MAX_CONCURRENT_SIMS`, each batch launched
+        concurrently and `await`ed to completion (`asyncio.gather`) before
+        the next batch is claimed -- claim batch -> gather -> claim next
+        batch -> ... -- until the queue is drained, the candidate cap is
+        hit, or `deadline` (a `time.monotonic()` timestamp) passes.
+
+        Returns (batches_run, candidates_processed, stopped_reason).
+
+        This never runs more than `BRAIN_MAX_CONCURRENT_SIMS`
+        `_process_candidate` coroutines concurrently -- each candidate in a
+        batch still goes through `_process_candidate_bounded`, which
+        acquires `self._sim_semaphore` for the full duration of its
+        simulation work (see below). The batch size here is capped at the
+        same number as the semaphore, so in the common case every batch
+        member acquires its slot immediately; the semaphore remains the
+        actual safety bound regardless (defense in depth, and it means this
+        method staying correct doesn't depend on batch size always equalling
+        semaphore size)."""
+        batch_size = max(1, self.config.brain_max_concurrent_sims)
+        processed = 0
+        batches_run = 0
+        while processed < max_candidates:
+            if time.monotonic() >= deadline:
+                return batches_run, processed, "time_budget_exceeded"
+            want = min(batch_size, max_candidates - processed)
+            batch = self._claim_batch(want)
+            if not batch:
+                return batches_run, processed, "queue_drained"
+            await asyncio.gather(*(self._process_candidate_bounded(c) for c in batch))
+            processed += len(batch)
+            batches_run += 1
+        return batches_run, processed, "max_candidates_reached"
 
     async def _process_candidate_bounded(self, candidate: dict) -> None:
         # The semaphore is acquired and held for the *entire* duration of
@@ -280,11 +363,40 @@ class Worker:
         except Exception:  # noqa: BLE001
             log.exception("failed to send operational alert")
 
-    async def run_forever(self):
+    async def run_once(self) -> RunSummary:
+        """One bounded pass: reclaim orphans, top up the queue once, process
+        a bounded number of candidates, then return. Does not loop or sleep
+        internally -- the caller (a Render Cron Job tick) provides the
+        "loop" externally via its schedule."""
+        summary = RunSummary()
+
         reclaimed = self.repo.reclaim_orphaned_running(ORPHAN_RECLAIM_MINUTES)
+        summary.reclaimed = reclaimed
         if reclaimed:
             log.info("reclaimed %d orphaned 'running' candidates back to 'pending'", reclaimed)
-        await asyncio.gather(self.generation_loop(), self.simulation_loop())
+
+        try:
+            summary.queue_depth_before = self.repo.queue_depth()
+        except Exception as e:  # noqa: BLE001
+            log.exception("could not read queue_depth: %s", e)
+            summary.errors.append(f"queue_depth: {e}")
+
+        summary.candidates_generated = await self._generation_step()
+
+        deadline = time.monotonic() + self.config.run_time_budget_seconds
+        batches_run, processed, stopped_reason = await self._process_candidates_bounded(
+            self.config.max_candidates_per_run, deadline
+        )
+        summary.batches_run = batches_run
+        summary.candidates_processed = processed
+        summary.stopped_reason = stopped_reason
+
+        log.info(
+            "run_once complete: reclaimed=%d generated=%d processed=%d batches=%d stopped_reason=%s",
+            summary.reclaimed, summary.candidates_generated, summary.candidates_processed,
+            summary.batches_run, summary.stopped_reason,
+        )
+        return summary
 
 
 def build_worker() -> Worker:
@@ -309,7 +421,10 @@ def main():
     except MissingConfigError as e:
         log.error("Startup aborted: %s", e)
         sys.exit(1)
-    asyncio.run(worker.run_forever())
+    asyncio.run(worker.run_once())
+    # Process exits here (returns from main()) -- no forever-loop. Under
+    # cron deployment, Render considers the invocation done once the
+    # process exits, and bills only for the time it was running.
 
 
 if __name__ == "__main__":

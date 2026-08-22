@@ -8,13 +8,6 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass, field
 
-from dotenv import load_dotenv
-
-# Loads variables from a local .env file into the process environment.
-# On Render (and any environment where DATABASE_URL etc. are already set
-# as real env vars), this is a no-op — it never overrides existing vars.
-load_dotenv()
-
 
 class MissingConfigError(RuntimeError):
     """Raised at startup when a required env var is missing.
@@ -52,6 +45,25 @@ class Config:
     stage0_min_fitness: float = 0.3
     stage0_min_sharpe: float = 0.5
 
+    # --- bounded-batch (cron) run tuning ---
+    # How many candidates a single `run_once()` invocation will claim and
+    # process (across possibly several BRAIN_MAX_CONCURRENT_SIMS-sized
+    # batches) before exiting, regardless of how deep the queue is. Default
+    # is 5x the concurrency cap: enough to make a single cron tick do real
+    # work (per the handoff doc's "process more per tick" mitigation) without
+    # letting one invocation run away and blow past the cron execution
+    # window if BRAIN simulations turn out to be fast that tick.
+    max_candidates_per_run: int = 15
+    # Wall-clock ceiling (seconds) on the batch-processing portion of
+    # `run_once()`. Render's free/cheap cron tier does not publish a hard
+    # per-invocation timeout as of this writing (see refactor summary), so
+    # this defaults conservatively short (8 min) to leave headroom under
+    # any schedule interval of 10+ minutes and under Render's platform-wide
+    # 12-hour cron kill switch. Any candidates left claimed-but-unprocessed
+    # when the budget trips stay in 'running' and are picked up by
+    # `reclaim_orphaned_running()` on a future run -- never silently lost.
+    run_time_budget_seconds: int = 480
+
     @classmethod
     def from_env(cls, require_brain: bool = True, require_telegram: bool = True) -> "Config":
         gemini_keys = [
@@ -72,4 +84,6 @@ class Config:
             queue_target_depth=int(_optional("QUEUE_TARGET_DEPTH", "75")),
             stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.3")),
             stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.5")),
+            max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "15")),
+            run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480")),
         )

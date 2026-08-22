@@ -1,0 +1,68 @@
+name: BRAIN Alpha Pipeline
+
+# Replaces render.yaml as the deploy target. run_worker.py already does one
+# bounded pass and exits (see its module docstring) -- that's exactly the
+# shape a scheduled Actions job needs, so no pipeline/ code changes were
+# required for this migration. See UPDATE.md at the repo root for the full
+# list of what changed and why.
+
+on:
+  schedule:
+    # Every 10 minutes, UTC -- mirrors render.yaml's cadence. GitHub does not
+    # guarantee this fires exactly on time; under load, scheduled runs can be
+    # delayed or occasionally skipped. See UPDATE.md, "Schedule is best-effort".
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
+
+concurrency:
+  # Belt-and-suspenders only -- pipeline/db/repo.py already claims candidates
+  # with `FOR UPDATE SKIP LOCKED`, so two overlapping runs can't double-process
+  # the same row. This just stops a slow run and the next scheduled tick from
+  # piling up in parallel.
+  group: brain-alpha-pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    # Headroom above RUN_TIME_BUDGET_SECONDS (480s) plus checkout/install
+    # time. If this trips, the run is killed mid-candidate; the next tick's
+    # reclaim_orphaned_running() picks up anything left claimed.
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run one bounded pass
+        env:
+          # --- secrets: set these in Settings -> Secrets and variables ->
+          # Actions -> New repository secret. Never put real values here. ---
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
+          BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
+          GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+          GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
+          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # --- tuning knobs: not secret, safe to leave visible in a public
+          # repo, same values as the old render.yaml ---
+          BRAIN_MAX_CONCURRENT_SIMS: "3"
+          QUEUE_TARGET_DEPTH: "75"
+          MAX_CANDIDATES_PER_RUN: "15"
+          RUN_TIME_BUDGET_SECONDS: "480"
+          STAGE0_MIN_FITNESS: "0.3"
+          STAGE0_MIN_SHARPE: "0.5"
+          FILTER_MIN_SHARPE: "1.25"
+          FILTER_MIN_FITNESS: "1.0"
+          FILTER_MAX_TURNOVER: "0.70"
+          FILTER_MIN_TURNOVER: "0.01"
+        run: python -m pipeline.run_worker
