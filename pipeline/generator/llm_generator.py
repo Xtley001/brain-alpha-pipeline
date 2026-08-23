@@ -72,20 +72,30 @@ def _safe_json_array(text: str) -> list:
     return [item for item in parsed if isinstance(item, dict) and "expression" in item]
 
 
+# Maps the provider name LLMAdapter.reasoning_call/mechanical_call actually
+# used (not just whichever was tried first) to the generation_tier value
+# stored on the candidate row. Update 03: this used to be hardcoded to
+# "llm_gemini" on every propose_new_ideas() result regardless of whether
+# Gemini was exhausted and Groq answered instead -- which silently corrupted
+# the generated-by-tier breakdown the heartbeat (Update 01 P1.1) reports.
+_PROVIDER_TO_TIER = {"gemini": "llm_gemini", "groq": "llm_groq"}
+
+
 def propose_new_ideas(
     adapter: LLMAdapter, pool_summary: str, failure_log: str, n: int = 5
 ) -> list[dict]:
     prompt = REASONING_PROMPT_TEMPLATE.format(pool_summary=pool_summary, failure_log=failure_log, n=n)
     try:
-        raw = adapter.reasoning_call(prompt)
+        raw, provider = adapter.reasoning_call(prompt)
     except QuotaExhausted:
         return []
+    generation_tier = _PROVIDER_TO_TIER.get(provider, f"llm_{provider}")
     items = _safe_json_array(raw)
     return [
         {
             "expression": item["expression"],
             "category": item.get("category", "llm_proposed"),
-            "generation_tier": "llm_gemini",
+            "generation_tier": generation_tier,
         }
         for item in items
     ]
@@ -96,15 +106,16 @@ def mutate_candidate(
 ) -> list[dict]:
     prompt = MECHANICAL_PROMPT_TEMPLATE.format(base_expression=base_expression, n=n, category=category)
     try:
-        raw = adapter.mechanical_call(prompt)
+        raw, provider = adapter.mechanical_call(prompt)
     except QuotaExhausted:
         return []
+    generation_tier = _PROVIDER_TO_TIER.get(provider, f"llm_{provider}")
     items = _safe_json_array(raw)
     return [
         {
             "expression": item["expression"],
             "category": item.get("category", category),
-            "generation_tier": "llm_groq",
+            "generation_tier": generation_tier,
         }
         for item in items
     ]

@@ -89,9 +89,27 @@ def test_reasoning_tier_falls_through_gemini_then_groq():
     groq = KeyedProvider(name="groq", keys=[("key_1", "k1")], call_fn=groq_call_fn)
 
     adapter = LLMAdapter(gemini_provider=gemini, groq_provider=groq, usage_logger=logger)
-    result = adapter.reasoning_call("prompt")
+    text, provider = adapter.reasoning_call("prompt")
 
-    assert result == "groq answered"
+    assert text == "groq answered"
+    assert provider == "groq"  # Update 03: must report who actually answered
+
+
+def test_reasoning_tier_reports_gemini_when_gemini_answers_directly():
+    def gemini_call_fn(prompt, model, key_value):
+        return "gemini answered"
+
+    def groq_call_fn(prompt, model, key_value):
+        raise AssertionError("groq should not be called if gemini succeeds")
+
+    gemini = KeyedProvider(name="gemini", keys=[("key_1", "k1")], call_fn=gemini_call_fn)
+    groq = KeyedProvider(name="groq", keys=[("key_1", "k1")], call_fn=groq_call_fn)
+
+    adapter = LLMAdapter(gemini_provider=gemini, groq_provider=groq)
+    text, provider = adapter.reasoning_call("prompt")
+
+    assert text == "gemini answered"
+    assert provider == "gemini"
 
 
 def test_mechanical_tier_falls_through_groq_then_gemini():
@@ -105,9 +123,10 @@ def test_mechanical_tier_falls_through_groq_then_gemini():
     groq = KeyedProvider(name="groq", keys=[("key_1", "k1")], call_fn=groq_call_fn)
 
     adapter = LLMAdapter(gemini_provider=gemini, groq_provider=groq)
-    result = adapter.mechanical_call("prompt")
+    text, provider = adapter.mechanical_call("prompt")
 
-    assert result == "gemini answered"
+    assert text == "gemini answered"
+    assert provider == "gemini"  # Update 03: must report who actually answered
 
 
 def test_total_exhaustion_callback_fires_when_both_providers_exhausted():

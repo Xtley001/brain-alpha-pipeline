@@ -10,6 +10,30 @@ method anywhere below, and none should ever be added.
 
 `wqb` is imported lazily so importing this module doesn't require network
 access or the package installed just to run the rest of the test suite.
+
+UNVERIFIED AGAINST A REAL ACCOUNT (Update 02 P0.1) -- READ BEFORE TRUSTING
+LIVE RESULTS FROM THIS MODULE:
+
+`_parse_sim_response`/`_parse_pnl_response` below pull metrics out of
+BRAIN's JSON with soft fallbacks (`.get(..., 0.0)`, tolerating a couple of
+plausible key names). If BRAIN's real response doesn't nest stats under
+`"is"`, or uses different key names than assumed, these functions do NOT
+raise -- they quietly return 0.0 / an empty series, and a genuinely strong
+candidate would then fail the local filter silently, looking exactly like a
+bad idea (see Update 02 P0.1 for the full failure mode). This has not been
+run against a live BRAIN account in this environment (no credentials were
+available at the time this pass was implemented). Before trusting any
+number this module produces:
+
+    1. Run `python scripts/verify_brain_parsing.py` against a real,
+       authenticated BrainClient (see that script's own docstring for
+       exact steps) and confirm the printed raw JSON matches what
+       `_parse_sim_response`/`_parse_pnl_response` extract from it.
+    2. Fix the key lookups in the two functions below if they don't match.
+
+Do not treat sharpe/fitness/turnover/alpha_id/daily-return values from this
+module as ground truth until that check has been run once, by a human,
+against a real account.
 """
 from __future__ import annotations
 

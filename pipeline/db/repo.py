@@ -159,6 +159,44 @@ class Repo:
                 )
                 return cur.fetchone()[0]
 
+    def insert_sweep_run_error(self, candidate_id: int, stage: str, settings, error_text: str) -> int:
+        """Records an *attempted* combo that failed to simulate -- error_text
+        set, every metric column left NULL (Update 04 fault isolation; see
+        SweepRun.ok in pipeline/sweep/settings_sweep.py). This is what keeps
+        one bad combo from silently vanishing from the data the way an
+        unhandled exception would have."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO sweep_runs (candidate_id, stage, delay, universe, "
+                    "neutralization, decay, truncation, pasteurization, nan_handling, error_text) "
+                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id",
+                    (
+                        candidate_id, stage, settings.delay, settings.universe,
+                        settings.neutralization, settings.decay, settings.truncation,
+                        settings.pasteurization, settings.nan_handling, error_text,
+                    ),
+                )
+                return cur.fetchone()[0]
+
+    def record_candidate_error(self, candidate_id: int, error_text: str, max_attempts: int) -> tuple[str, int]:
+        """Atomically increments `attempts` and flips `status` to
+        'rejected_error' once `max_attempts` is reached, else back to
+        'pending' so the next tick can retry it. Returns (new_status,
+        attempts) so the caller (Worker._record_candidate_error) knows
+        whether this was the final, alert-worthy failure or just a
+        transient hiccup worth retrying quietly (Update 04)."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "UPDATE candidates SET attempts = attempts + 1, last_error = %s, "
+                    "status = CASE WHEN attempts + 1 >= %s THEN 'rejected_error' ELSE 'pending' END "
+                    "WHERE id = %s RETURNING status, attempts",
+                    (error_text, max_attempts, candidate_id),
+                )
+                status, attempts = cur.fetchone()
+                return status, attempts
+
     def count_sweep_runs(self, candidate_id: int, stage: str) -> int:
         with self._conn() as conn:
             with conn.cursor() as cur:
@@ -243,6 +281,43 @@ class Repo:
                     "VALUES (%s, %s, %s, %s, %s)",
                     (provider, key_label, tier, succeeded, error_text),
                 )
+
+    def recent_llm_key_health(self) -> list[dict]:
+        """Most-recent success/failure per (provider, key_label) -- what the
+        heartbeat (Update 01 P1.1) surfaces so 'is the LLM tier even
+        working' stops being invisible in llm_usage forever. DISTINCT ON
+        picks each key's single latest row, ordered by recency."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT DISTINCT ON (provider, key_label) "
+                    "provider, key_label, tier, called_at, succeeded, error_text "
+                    "FROM llm_usage ORDER BY provider, key_label, called_at DESC"
+                )
+                cols = [d.name for d in cur.description]
+                return [dict(zip(cols, r)) for r in cur.fetchall()]
+
+    # --- run_history ---
+
+    def insert_run_history(self, row: dict) -> int:
+        """One row per Worker.run_once() invocation -- see schema.sql's
+        run_history table comment (Update 01 P1.1 / Update 02 P1.2). Written
+        unconditionally, same as the heartbeat Telegram message, from the
+        same RunSummary data so the two can never drift apart."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO run_history (reclaimed, queue_depth_before, "
+                    "candidates_generated, candidates_processed, rejected_stage0, "
+                    "rejected_filter, rejected_correlation, rejected_error, passed, "
+                    "stopped_reason, brain_auth_ok, errors) "
+                    "VALUES (%(reclaimed)s, %(queue_depth_before)s, %(candidates_generated)s, "
+                    "%(candidates_processed)s, %(rejected_stage0)s, %(rejected_filter)s, "
+                    "%(rejected_correlation)s, %(rejected_error)s, %(passed)s, "
+                    "%(stopped_reason)s, %(brain_auth_ok)s, %(errors)s) RETURNING id",
+                    row,
+                )
+                return cur.fetchone()[0]
 
     # --- pipeline_meta ---
 

@@ -4,11 +4,17 @@ End-to-end path: generate -> screen -> sweep -> filter -> correlate -> store
 no real Postgres, no real Telegram -- exercises the same call sequence
 run_worker.Worker._process_candidate uses, per the audit checklist's end-to-end coverage item.
 """
+import asyncio
+
 from pipeline.filter.correlation_check import compute_max_correlation, passes_correlation_gate
 from pipeline.filter.local_filter import FilterThresholds
 from pipeline.generator.template_generator import generate_template_candidates
 from pipeline.notify.telegram_notify import TelegramNotifier
 from pipeline.sweep.settings_sweep import STAGE0_SETTINGS, SimResult, run_staged_sweep
+
+
+def _run(coro):
+    return asyncio.run(coro)
 
 
 class InMemoryReviewStore:
@@ -25,7 +31,7 @@ def _fake_brain_simulate_factory(good_neutralization="SUBINDUSTRY", good_decay=8
     neutralization/decay combo (chosen to match Stage 0's own default so
     Stage 0 passes), mediocre everywhere else."""
 
-    def simulate(expression: str, settings) -> SimResult:
+    async def simulate(expression: str, settings) -> SimResult:
         if settings.neutralization == good_neutralization and settings.decay == good_decay:
             return SimResult(sharpe=1.8, fitness=1.6, turnover=0.25, returns_ann=0.12, drawdown=-0.06)
         return SimResult(sharpe=1.0, fitness=0.9, turnover=0.4, returns_ann=0.05, drawdown=-0.1)
@@ -43,7 +49,7 @@ def test_full_pipeline_happy_path_produces_a_review_store_row_and_alert():
     )
     thresholds = FilterThresholds(min_sharpe=1.25, min_fitness=1.0, max_turnover=0.7, min_turnover=0.01)
 
-    outcome = run_staged_sweep(expression, simulate, thresholds=thresholds)
+    outcome = _run(run_staged_sweep(expression, simulate, thresholds=thresholds))
     assert outcome.rejected_at_stage0 is False
     assert thresholds.passes(outcome.winning_result) is True
 
@@ -94,7 +100,7 @@ def test_full_pipeline_correlation_rejection_produces_no_alert():
         good_neutralization=STAGE0_SETTINGS.neutralization, good_decay=STAGE0_SETTINGS.decay
     )
     thresholds = FilterThresholds(min_sharpe=1.25, min_fitness=1.0, max_turnover=0.7, min_turnover=0.01)
-    outcome = run_staged_sweep(expression, simulate, thresholds=thresholds)
+    outcome = _run(run_staged_sweep(expression, simulate, thresholds=thresholds))
 
     dates = [f"2026-02-{d:02d}" for d in range(1, 21)]
     values = [0.01 * i for i in range(20)]
@@ -112,10 +118,10 @@ def test_full_pipeline_correlation_rejection_produces_no_alert():
 
 
 def test_full_pipeline_stage0_rejection_never_reaches_store_or_alert():
-    def bad_simulate(expression, settings):
+    async def bad_simulate(expression, settings):
         return SimResult(sharpe=0.1, fitness=0.05, turnover=0.5)
 
-    outcome = run_staged_sweep("junk", bad_simulate)
+    outcome = _run(run_staged_sweep("junk", bad_simulate))
     assert outcome.rejected_at_stage0 is True
 
     store = InMemoryReviewStore()

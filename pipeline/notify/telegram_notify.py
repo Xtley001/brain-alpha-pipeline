@@ -26,6 +26,50 @@ def format_candidate_alert(candidate: dict) -> str:
     )
 
 
+def format_run_report(summary, health: dict) -> str:
+    """Heartbeat report (Update 01 P1.1 / Update 02 P1.2), sent unconditionally
+    at the end of every `run_once()` -- pass, fail, or silence. `summary` is a
+    `pipeline.run_worker.RunSummary`; `health` is the dict Worker._build_run_report
+    assembles (brain_auth_ok, db_ok, llm_keys, stage_counts). The whole point of
+    this message is that silence stops being a valid healthy state -- see
+    Update 01/03's "black box" framing.
+
+    Uses a distinct prefix from both format_candidate_alert and
+    format_operational_alert so all three message types are visually
+    distinguishable at a glance in a Telegram thread."""
+    brain_flag = "\u2705" if health.get("brain_auth_ok") else "\u274c"
+    db_flag = "\u2705" if health.get("db_ok") else "\u274c"
+
+    key_lines = []
+    for row in health.get("llm_keys", []):
+        flag = "\u2705" if row.get("succeeded") else "\u274c"
+        key_lines.append(f"  {flag} {row['provider']}/{row['key_label']} ({row['tier']})")
+    keys_block = "\n".join(key_lines) if key_lines else "  (no llm_usage rows yet)"
+
+    stages = health.get("stage_counts", {})
+    stage_line = (
+        f"passed={stages.get('passed', 0)} "
+        f"rejected_stage0={stages.get('rejected_stage0', 0)} "
+        f"rejected_filter={stages.get('rejected_filter', 0)} "
+        f"rejected_correlation={stages.get('rejected_correlation', 0)} "
+        f"rejected_error={stages.get('rejected_error', 0)}"
+    )
+
+    errors_block = ("\n".join(f"  - {e}" for e in summary.errors)) if summary.errors else "  (none)"
+
+    return (
+        f"\U0001f4e1 *Heartbeat*\n\n"
+        f"BRAIN auth: {brain_flag} | DB reachable: {db_flag}\n"
+        f"LLM key health:\n{keys_block}\n\n"
+        f"Queue depth before: {summary.queue_depth_before}\n"
+        f"Candidates generated: {summary.candidates_generated}\n"
+        f"Candidates processed: {summary.candidates_processed} ({stage_line})\n"
+        f"Reclaimed (orphaned): {summary.reclaimed}\n"
+        f"Stopped reason: {summary.stopped_reason}\n"
+        f"Errors this tick:\n{errors_block}"
+    )
+
+
 def format_operational_alert(message: str) -> str:
     """Operational alerts (LLM exhaustion, BRAIN auth failure, worker error)
     use a visually distinct prefix so they never get mistaken for a
@@ -60,5 +104,10 @@ class TelegramNotifier:
 
     def send_operational_alert(self, message: str) -> str:
         text = format_operational_alert(message)
+        self._post(text)
+        return text
+
+    def send_run_report(self, summary, health: dict) -> str:
+        text = format_run_report(summary, health)
         self._post(text)
         return text

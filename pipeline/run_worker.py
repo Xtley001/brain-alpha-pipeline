@@ -1,39 +1,56 @@
 """
 Bounded-batch entrypoint. `run_once()` does a single fixed-size pass of
-work and returns -- it does NOT loop forever. Deploy target is a Render
-**Cron Job** (see render.yaml), invoked on a schedule (default: every 10
-minutes); each scheduled tick is a fresh process that runs `main()` and
-exits.
+work and returns -- it does NOT loop forever. Deploy target is a scheduled
+GitHub Actions job (see `.github/workflows/run.yml`; previously Render Cron,
+see `UPDATE.md`), invoked on a schedule (default: every 10 minutes); each
+scheduled tick is a fresh process that runs `main()` and exits.
 
 One invocation of `run_once()`:
 
   1. Reclaims any candidate orphaned in 'running' by a previous invocation
-     that got cut off mid-simulation (crash, or Render's cron timeout).
-     This recovery path matters *more* under cron than it did under the
-     old always-on worker, since a cron tick can be killed mid-run.
-  2. Runs ONE pass of the queue top-up logic (template tier, then LLM tier
-     if needed) -- what the old generation_loop() did once per 3-minute
-     sleep, now done once per cron tick instead.
+     that got cut off mid-simulation (crash, or a killed Actions run). This
+     recovery path matters *more* under a scheduled-job deployment than it
+     did under an always-on worker, since a tick can be killed mid-run.
+  2. Runs ONE pass of the queue top-up logic (template tier, then LLM
+     reasoning tier if needed, then LLM mechanical-mutation tier if there's
+     still room -- see `_top_up_queue`).
   3. Processes candidates in successive batches of up to
      BRAIN_MAX_CONCURRENT_SIMS, concurrently, `await`ed to completion each
      round (claim batch -> gather -> claim next batch -> ...), until either
      the pending queue is drained, MAX_CANDIDATES_PER_RUN is reached, or
      RUN_TIME_BUDGET_SECONDS of wall-clock time has elapsed -- whichever
-     comes first. This still never runs more than BRAIN_MAX_CONCURRENT_SIMS
-     `_process_candidate` coroutines concurrently (see
-     `_process_candidate_bounded` below); only the old infinite polling
-     wrapper around that bound is gone, not the bound itself.
+     comes first.
+  4. Sends a heartbeat report to Telegram and writes one `run_history` row,
+     unconditionally -- pass, fail, or "nothing happened this tick" (Update
+     01 P1.1 / Update 02 P1.2). Silence is no longer a valid healthy state.
 
-This was previously an always-on process (two internal `while True:` loops,
-`generation_loop()` and `simulation_loop()`, run concurrently via
-`run_forever()`) deployed as a Render Background Worker. See the refactor
-handoff doc for the full rationale: a Background Worker has no Render free
-tier (cheapest is $7/mo), so this was restructured into a bounded batch job
-that a Cron Job invocation can run to completion and exit -- trading
-continuous, low-latency throughput for a much cheaper, coarser-grained
-schedule. See run_worker refactor summary for the honest speed tradeoffs;
-this is not a like-for-like replacement of the always-on worker's
-throughput.
+## Concurrency model (Update 04)
+
+Real BRAIN-call concurrency is now bounded by ONE shared
+`asyncio.Semaphore(BRAIN_MAX_CONCURRENT_SIMS)` (`self._sim_semaphore`),
+acquired once per individual `simulate()` call *inside* the staged sweep
+(`run_staged_sweep`'s `_safe_simulate`), not once per candidate. Previously
+the semaphore wrapped an entire candidate's 41-sim sweep, which meant each
+candidate's own sweep still ran its 41 simulations one at a time -- the
+single biggest throughput bug found in the pipeline (a 7-14 minute sweep
+per candidate could alone blow the whole tick's time budget; see the audit
+docs' throughput analysis). `_process_candidate_bounded` no longer wraps a
+candidate in the semaphore at all; concurrency is enforced entirely inside
+`run_staged_sweep` now, shared across however many candidates happen to be
+in flight at once, so `BRAIN_MAX_CONCURRENT_SIMS` means what it says: the
+real ceiling on concurrent BRAIN calls, system-wide, regardless of which
+candidate or sweep stage they come from.
+
+## Fault isolation and attempt cap (Update 04)
+
+A single settings combo failing to simulate no longer takes the whole
+sweep down with it (`SweepRun.error` / `SweepOutcome.aborted_stage` -- see
+`pipeline/sweep/settings_sweep.py`). A candidate whose sweep can't produce
+*any* usable result, or that raises anywhere else in `_process_candidate`,
+gets `MAX_CANDIDATE_ATTEMPTS` retries (tracked via `candidates.attempts` /
+`last_error`) before permanently flipping to `rejected_error` with one
+alert -- not one alert per tick, forever, and not silently retried forever
+either.
 
 No BRAIN submit/create-alpha call exists anywhere in this file or anything
 it imports. Submission is manual, always.
@@ -42,11 +59,12 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 import sys
 import time
 from dataclasses import dataclass, field
 
-from pipeline.brain.client import BrainClient
+from pipeline.brain.client import BrainAuthError, BrainClient
 from pipeline.config import Config, MissingConfigError
 from pipeline.db.repo import Repo
 from pipeline.filter.correlation_check import compute_max_correlation, passes_correlation_gate
@@ -55,19 +73,33 @@ from pipeline.generator.llm_generator import mutate_candidate, propose_new_ideas
 from pipeline.generator.template_generator import SEED_IDEAS, generate_template_candidates
 from pipeline.llm.adapter import LLMAdapter, build_gemini_provider, build_groq_provider
 from pipeline.notify.telegram_notify import TelegramNotifier
-from pipeline.sweep.settings_sweep import run_staged_sweep
+from pipeline.sweep.settings_sweep import SweepRun, run_staged_sweep
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 log = logging.getLogger("run_worker")
 
 ORPHAN_RECLAIM_MINUTES = 30
 MAX_CORRELATION = 0.7
+# How many times a candidate that keeps hard-failing (BRAIN errors, not low
+# scores) gets retried before permanently flipping to 'rejected_error'
+# (Update 04). Not exposed as an env var -- 3 is a reasonable fixed default
+# and this isn't the kind of knob that needs tuning per-deployment; raise it
+# here directly if that changes.
+MAX_CANDIDATE_ATTEMPTS = 3
+
+# Terminal candidate outcomes the heartbeat/run_history break processing
+# down by (Update 01 P1.1 / Update 02 P1.2). A retried-but-not-yet-terminal
+# candidate (status flipped back to 'pending') intentionally has no bucket
+# here -- it isn't an "exit status" yet, it'll show up in a future tick's
+# breakdown once it resolves one way or another.
+_TERMINAL_STATUSES = ("passed", "rejected_stage0", "rejected_filter", "rejected_correlation", "rejected_error")
 
 
 @dataclass
 class RunSummary:
     """What one `run_once()` invocation did -- returned so `main()` can log
-    it, and so tests can assert on behavior without scraping log output."""
+    it, so the heartbeat/run_history can report it, and so tests can assert
+    on behavior without scraping log output."""
 
     reclaimed: int = 0
     queue_depth_before: int = 0
@@ -75,6 +107,15 @@ class RunSummary:
     candidates_processed: int = 0
     batches_run: int = 0
     stopped_reason: str = "queue_drained"  # or "max_candidates_reached" / "time_budget_exceeded"
+    brain_auth_ok: bool = True
+    # Per-exit-status breakdown of candidates_processed this tick (Update 01
+    # P1.1) -- previously only a total count existed, which couldn't answer
+    # "where are candidates dying".
+    passed: int = 0
+    rejected_stage0: int = 0
+    rejected_filter: int = 0
+    rejected_correlation: int = 0
+    rejected_error: int = 0
     errors: list[str] = field(default_factory=list)
 
 
@@ -86,7 +127,21 @@ class Worker:
         self.notifier = notifier
         self.llm = llm
         self.thresholds = FilterThresholds.from_env()
+        # Update 04: this is now the single, global ceiling on concurrent
+        # BRAIN simulate() calls, shared by every in-flight candidate's
+        # sweep -- see run_staged_sweep's `semaphore` parameter and this
+        # module's docstring. No longer acquired around a whole candidate
+        # in _process_candidate_bounded.
         self._sim_semaphore = asyncio.Semaphore(config.brain_max_concurrent_sims)
+        # A Worker instance is only ever constructed (via build_worker())
+        # after BrainClient.authenticate() has already succeeded -- a
+        # BrainAuthError raised there propagates out of build_worker()
+        # before any Worker exists (see main()'s handling of it). So a live
+        # Worker's BRAIN auth is always known-good at construction time;
+        # this is just what the heartbeat surfaces every tick (Update 01
+        # P1.1's "BRAIN auth status (already known at build_worker() time
+        # -- surface it)").
+        self._brain_auth_ok = True
         # Round-robin pointer into SEED_IDEAS for the template tier. Persisted
         # via pipeline_meta (see _load_seed_cursor / _save_seed_cursor) rather
         # than left as a plain in-memory int, so a restart doesn't reset
@@ -141,7 +196,7 @@ class Worker:
             added += 1
             idx += 1
             if idx >= len(template_candidates):
-                break  # exhausted this pass of the template pool; llm tier fills the rest
+                break  # exhausted this pass of the template pool; llm tiers fill the rest
 
         # Persist the cursor after this pass so a restart resumes roughly
         # where it left off instead of re-biasing toward category A.
@@ -150,20 +205,16 @@ class Worker:
         except Exception:  # noqa: BLE001
             log.warning("could not persist seed_cursor", exc_info=True)
 
-        # Tier 2: LLM-driven, only if template tier couldn't fill the gap
-        # (keeps LLM calls to the volume actually needed, not spammed).
+        # Tier 2: LLM reasoning tier, only if the template tier couldn't
+        # fill the gap (keeps LLM calls to the volume actually needed, not
+        # spammed).
         #
         # propose_new_ideas() makes a real, blocking network call (and can
         # call a blocking time.sleep(...) internally on a 429 retry -- see
         # pipeline/llm/adapter.py). Run it in a worker thread rather than
         # awaiting it directly, so it can't freeze this coroutine's event
-        # loop. Under the old always-on design this mattered because
-        # simulation_loop() shared the same loop concurrently; under
-        # run_once() the generation step and simulation batches run
-        # sequentially within one invocation, but to_thread is kept anyway
-        # since a blocking multi-second (or retry-sleep) call with no
-        # yield point is bad practice in an async function regardless, and
-        # it costs nothing here (code review §1.2).
+        # loop.
+        proposals: list[dict] = []
         remaining = needed - added
         if remaining > 0:
             try:
@@ -179,6 +230,37 @@ class Worker:
                     added += 1
             except Exception as e:  # noqa: BLE001
                 log.warning("LLM proposal generation failed: %s", e)
+
+        # Tier 3: mechanical mutation (Update 03) -- cheap, high-volume,
+        # Groq-first variations on a direction the reasoning tier just
+        # picked, per mutate_candidate()'s own docstring. Confirmed by grep
+        # before this fix: mutate_candidate was fully written, imported, and
+        # (per its docstring and tests) presumably working, but had zero
+        # call sites anywhere in the codebase -- an entire generation tier
+        # was dead code. Only fires if Tier 1 + Tier 2 still didn't fill the
+        # queue AND the reasoning tier actually proposed something this
+        # round to mutate a direction from -- if it proposed nothing (e.g.
+        # exhausted quota), there's no "direction already picked" to work
+        # from, and this tier intentionally sits out rather than mutating a
+        # template-tier idea instead (that would blur the tier boundary the
+        # two-tier design is built around: reasoning picks genuinely new
+        # directions, mechanical cheaply varies one of them).
+        remaining = needed - added
+        if remaining > 0 and proposals:
+            base = proposals[0]
+            try:
+                mutations = await asyncio.to_thread(
+                    mutate_candidate,
+                    self.llm,
+                    base["expression"],
+                    base["category"],
+                    min(remaining, 10),
+                )
+                for c in mutations:
+                    self.repo.insert_candidate(c["expression"], c["category"], c["generation_tier"])
+                    added += 1
+            except Exception as e:  # noqa: BLE001
+                log.warning("LLM mechanical mutation failed: %s", e)
 
         return added
 
@@ -196,10 +278,7 @@ class Worker:
         `claim_next_pending()` does an atomic `UPDATE ... FOR UPDATE SKIP
         LOCKED` claim per call (see Repo.claim_next_pending), so calling it
         N times in a row here is safe against a concurrent invocation
-        double-claiming the same row -- and per Render's cron single-run
-        guarantee, there won't be a concurrent invocation of *this* job
-        anyway (Render queues/delays overlapping scheduled runs rather than
-        running them in parallel)."""
+        double-claiming the same row."""
         batch: list[dict] = []
         for _ in range(max_size):
             candidate = self.repo.claim_next_pending()
@@ -208,7 +287,7 @@ class Worker:
             batch.append(candidate)
         return batch
 
-    async def _process_candidates_bounded(self, max_candidates: int, deadline: float) -> tuple[int, int, str]:
+    async def _process_candidates_bounded(self, max_candidates: int, deadline: float) -> tuple[int, int, str, dict]:
         """Process up to `max_candidates` pending candidates in successive
         batches of size `BRAIN_MAX_CONCURRENT_SIMS`, each batch launched
         concurrently and `await`ed to completion (`asyncio.gather`) before
@@ -216,71 +295,108 @@ class Worker:
         batch -> ... -- until the queue is drained, the candidate cap is
         hit, or `deadline` (a `time.monotonic()` timestamp) passes.
 
-        Returns (batches_run, candidates_processed, stopped_reason).
+        Returns (batches_run, candidates_processed, stopped_reason,
+        stage_counts) -- `stage_counts` is a dict of terminal-status ->
+        count for this call, used to build the heartbeat's per-stage
+        breakdown (Update 01 P1.1).
 
-        This never runs more than `BRAIN_MAX_CONCURRENT_SIMS`
-        `_process_candidate` coroutines concurrently -- each candidate in a
-        batch still goes through `_process_candidate_bounded`, which
-        acquires `self._sim_semaphore` for the full duration of its
-        simulation work (see below). The batch size here is capped at the
-        same number as the semaphore, so in the common case every batch
-        member acquires its slot immediately; the semaphore remains the
-        actual safety bound regardless (defense in depth, and it means this
-        method staying correct doesn't depend on batch size always equalling
-        semaphore size)."""
+        Note (Update 04): batching here is now a claiming/iteration
+        granularity, not the concurrency bound -- real BRAIN-call
+        concurrency is enforced by the shared `self._sim_semaphore` inside
+        each candidate's `run_staged_sweep`, regardless of how many
+        candidates this method dispatches concurrently. Batch size is kept
+        at `BRAIN_MAX_CONCURRENT_SIMS` anyway since it's a reasonable
+        default claiming chunk, not because it's load-bearing for the
+        concurrency guarantee anymore.
+        """
         batch_size = max(1, self.config.brain_max_concurrent_sims)
         processed = 0
         batches_run = 0
+        stage_counts = {status: 0 for status in _TERMINAL_STATUSES}
         while processed < max_candidates:
             if time.monotonic() >= deadline:
-                return batches_run, processed, "time_budget_exceeded"
+                return batches_run, processed, "time_budget_exceeded", stage_counts
             want = min(batch_size, max_candidates - processed)
             batch = self._claim_batch(want)
             if not batch:
-                return batches_run, processed, "queue_drained"
-            await asyncio.gather(*(self._process_candidate_bounded(c) for c in batch))
+                return batches_run, processed, "queue_drained", stage_counts
+            statuses = await asyncio.gather(*(self._process_candidate_bounded(c) for c in batch))
+            for status in statuses:
+                if status in stage_counts:
+                    stage_counts[status] += 1
             processed += len(batch)
             batches_run += 1
-        return batches_run, processed, "max_candidates_reached"
+        return batches_run, processed, "max_candidates_reached", stage_counts
 
-    async def _process_candidate_bounded(self, candidate: dict) -> None:
-        # The semaphore is acquired and held for the *entire* duration of
-        # the real simulation work (not just around claiming + dispatching
-        # the task), so it actually bounds how many `_process_candidate`
-        # coroutines -- and therefore how many concurrent BRAIN simulate()
-        # calls -- are in flight at once. Previously the `async with` block
-        # wrapped `asyncio.create_task(...)`, which schedules and returns
-        # immediately without waiting for the task to finish, so the
-        # semaphore only ever gated the tiny window between claiming a
-        # candidate and firing off its task -- it never limited real
-        # concurrency (code review §1.1, the single most dangerous bug
-        # found: unbounded concurrent BRAIN simulations risk rate-limiting
-        # or account-level flagging).
-        async with self._sim_semaphore:
-            await self._process_candidate(candidate)
+    async def _process_candidate_bounded(self, candidate: dict) -> str:
+        # Update 04: no semaphore acquired here anymore. Real BRAIN-call
+        # concurrency is enforced entirely inside run_staged_sweep now, via
+        # the shared self._sim_semaphore -- see this module's docstring.
+        # Previously this wrapped the whole candidate, which meant each
+        # candidate's own 41-sim sweep still ran serially inside it (the
+        # actual bottleneck; see the throughput analysis in the audit docs).
+        return await self._process_candidate(candidate)
 
-    async def _process_candidate(self, candidate: dict) -> None:
+    # --- per-candidate processing ---
+
+    def _persist_sweep_run(self, candidate_id: int, run: SweepRun) -> None:
+        """Called once per completed simulate() call, from inside
+        run_staged_sweep, via the `persist_run` callback -- results land in
+        the DB incrementally rather than only after the whole 41-sim sweep
+        finishes clean (Update 04). `run.ok` decides which table shape this
+        maps to: a real result (`insert_sweep_run`) or a recorded failure
+        with every metric column NULL (`insert_sweep_run_error`)."""
+        if run.ok:
+            self.repo.insert_sweep_run(candidate_id, run.stage, run.settings, run.result)
+        else:
+            self.repo.insert_sweep_run_error(candidate_id, run.stage, run.settings, run.error)
+
+    def _record_candidate_error(self, candidate_id: int, error_text: str) -> str:
+        """Increments the candidate's attempt counter and returns the
+        resulting status ('pending' if it'll be retried, 'rejected_error'
+        if this was the final permitted attempt). Alerts exactly once, on
+        the terminal failure -- not once per tick for however many ticks
+        it keeps failing (Update 04)."""
+        status, attempts = self.repo.record_candidate_error(candidate_id, error_text, MAX_CANDIDATE_ATTEMPTS)
+        if status == "rejected_error":
+            self._safe_operational_alert(
+                f"candidate {candidate_id} permanently failed after {attempts} attempts: {error_text}"
+            )
+        return status
+
+    async def _process_candidate(self, candidate: dict) -> str:
+        """Runs one candidate through the full pipeline and returns its
+        resulting status string -- used both to update the DB (as before)
+        and, new in this pass, to let the caller aggregate a per-tick
+        stage-count breakdown for the heartbeat without needing its own DB
+        query (Update 01 P1.1)."""
         candidate_id = candidate["id"]
         expression = candidate["expression"]
         try:
-            # run_staged_sweep is sync and calls `simulate` repeatedly; each
-            # call is run in its own thread with its own event loop so the
-            # sweep module itself stays framework-agnostic and trivially
-            # unit-testable with a plain synchronous fake.
-            def simulate_sync(expr: str, settings):
-                return asyncio.run(self.brain.simulate_one(expr, settings))
-
-            outcome = await asyncio.to_thread(
-                run_staged_sweep,
+            # run_staged_sweep is async now and awaited directly -- no more
+            # asyncio.run()/asyncio.to_thread() wrapper spinning up a fresh
+            # event loop per candidate (Update 03/04: that per-candidate
+            # event-loop churn was real overhead on top of the sequential-
+            # not-concurrent problem it was also hiding).
+            outcome = await run_staged_sweep(
                 expression,
-                simulate_sync,
+                self.brain.simulate_one,
                 self.thresholds,
                 self.config.stage0_min_fitness,
                 self.config.stage0_min_sharpe,
+                semaphore=self._sim_semaphore,
+                persist_run=lambda run: self._persist_sweep_run(candidate_id, run),
             )
 
-            for run in outcome.runs:
-                self.repo.insert_sweep_run(candidate_id, run.stage, run.settings, run.result)
+            if outcome.aborted_stage is not None:
+                # Every combo in some stage failed to simulate at all --
+                # this is an operational failure, not a quality verdict
+                # (see SweepOutcome.aborted_stage's docstring). Goes through
+                # the same attempt-cap path as any other hard failure below,
+                # rather than being recorded as rejected_stage0/filter.
+                return self._record_candidate_error(
+                    candidate_id, f"sweep aborted at {outcome.aborted_stage}: all combos in that stage failed"
+                )
 
             if outcome.rejected_at_stage0:
                 self.repo.set_candidate_status(
@@ -288,22 +404,19 @@ class Worker:
                     stage0_fitness=outcome.runs[0].result.fitness,
                     stage0_sharpe=outcome.runs[0].result.sharpe,
                 )
-                return
+                return "rejected_stage0"
 
             if not self.thresholds.passes(outcome.winning_result):
                 self.repo.set_candidate_status(candidate_id, "rejected_filter")
-                return
+                return "rejected_filter"
 
             # Correlation check vs. pool, on the *winning settings'* stream
-            # (per the settings-sweep spec -- not the Stage 0
-            # default settings' stream). `outcome.winning_result.alpha_id`
-            # is the id BRAIN assigned to that specific simulation run (see
+            # (per the settings-sweep spec -- not the Stage 0 default
+            # settings' stream). `outcome.winning_result.alpha_id` is the id
+            # BRAIN assigned to that specific simulation run (see
             # BrainClient.simulate_one -> _parse_sim_response), so this
             # fetches that exact run's daily-return series rather than
-            # re-simulating. Previously this was hardcoded to an empty dict,
-            # which made every candidate pass the correlation gate by
-            # construction regardless of actual overlap with the pool (code
-            # review §2.1).
+            # re-simulating.
             pool = self.repo.get_pool_returns()
             winning_alpha_id = outcome.winning_result.alpha_id
             if not winning_alpha_id:
@@ -321,13 +434,21 @@ class Worker:
                     candidate_id,
                 )
                 self.repo.set_candidate_status(candidate_id, "rejected_correlation")
-                return
+                return "rejected_correlation"
 
-            candidate_returns = await self.brain.get_alpha_pnl(winning_alpha_id)
+            try:
+                candidate_returns = await self.brain.get_alpha_pnl(winning_alpha_id)
+            except Exception as e:  # noqa: BLE001
+                # A PnL-fetch failure is operational (BRAIN/network), not a
+                # quality verdict -- goes through the same attempt-cap
+                # retry/permanent-fail path as a sweep failure, not a silent
+                # "pending forever" or a mis-bucketed rejection.
+                return self._record_candidate_error(candidate_id, f"pnl fetch failed: {e}")
+
             corr_result = compute_max_correlation(candidate_returns, pool)
             if not passes_correlation_gate(corr_result, MAX_CORRELATION):
                 self.repo.set_candidate_status(candidate_id, "rejected_correlation")
-                return
+                return "rejected_correlation"
 
             row = {
                 "candidate_id": candidate_id,
@@ -351,11 +472,20 @@ class Worker:
             self.repo.set_candidate_status(candidate_id, "passed")
             self.notifier.send_candidate_alert(row)
             self.repo.mark_telegram_sent(review_id)
+            # Update 02 P0.2 self-consistency fix: feed this pipeline's own
+            # passed alpha back into pool_returns immediately, so the *next*
+            # candidate's correlation check can actually see it. Previously
+            # nothing ever called upsert_pool_returns, so get_pool_returns()
+            # always returned {}, the correlation gate always passed by
+            # construction, and two near-duplicate candidates from this same
+            # pipeline could both sail through without ever seeing each
+            # other.
+            self.repo.upsert_pool_returns(winning_alpha_id, candidate_returns)
+            return "passed"
 
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:  # noqa: BLE001 -- anything unexpected, not already handled above
             log.exception("candidate %s failed: %s", candidate_id, e)
-            self.repo.set_candidate_status(candidate_id, "pending")  # let it be retried
-            self._safe_operational_alert(f"candidate {candidate_id} processing error: {e}")
+            return self._record_candidate_error(candidate_id, str(e))
 
     def _safe_operational_alert(self, message: str) -> None:
         try:
@@ -363,12 +493,66 @@ class Worker:
         except Exception:  # noqa: BLE001
             log.exception("failed to send operational alert")
 
+    # --- heartbeat / run_history (Update 01 P1.1, Update 02 P1.2) ---
+
+    def _health_snapshot(self, summary: RunSummary) -> dict:
+        """Assembles the health dict format_run_report()/insert_run_history()
+        expect, from data already gathered this tick plus one extra query
+        for LLM key health (llm_usage is otherwise never surfaced anywhere)."""
+        db_ok = not any(e.startswith("queue_depth") for e in summary.errors)
+        try:
+            llm_keys = self.repo.recent_llm_key_health()
+        except Exception:  # noqa: BLE001
+            log.warning("could not fetch llm key health for heartbeat", exc_info=True)
+            llm_keys = []
+        return {
+            "brain_auth_ok": summary.brain_auth_ok,
+            "db_ok": db_ok,
+            "llm_keys": llm_keys,
+            "stage_counts": {
+                "passed": summary.passed,
+                "rejected_stage0": summary.rejected_stage0,
+                "rejected_filter": summary.rejected_filter,
+                "rejected_correlation": summary.rejected_correlation,
+                "rejected_error": summary.rejected_error,
+            },
+        }
+
+    def _safe_send_run_report(self, summary: RunSummary, health: dict) -> None:
+        try:
+            self.notifier.send_run_report(summary, health)
+        except Exception:  # noqa: BLE001
+            # A heartbeat-delivery failure must never crash run_once() or
+            # mask the real results already computed above -- it's just
+            # logged, same defensive posture as _safe_operational_alert.
+            log.exception("failed to send heartbeat run report")
+
+    def _safe_insert_run_history(self, summary: RunSummary, health: dict) -> None:
+        try:
+            self.repo.insert_run_history({
+                "reclaimed": summary.reclaimed,
+                "queue_depth_before": summary.queue_depth_before,
+                "candidates_generated": summary.candidates_generated,
+                "candidates_processed": summary.candidates_processed,
+                "rejected_stage0": summary.rejected_stage0,
+                "rejected_filter": summary.rejected_filter,
+                "rejected_correlation": summary.rejected_correlation,
+                "rejected_error": summary.rejected_error,
+                "passed": summary.passed,
+                "stopped_reason": summary.stopped_reason,
+                "brain_auth_ok": health.get("brain_auth_ok"),
+                "errors": "; ".join(summary.errors) if summary.errors else None,
+            })
+        except Exception:  # noqa: BLE001
+            log.exception("failed to write run_history row")
+
     async def run_once(self) -> RunSummary:
         """One bounded pass: reclaim orphans, top up the queue once, process
-        a bounded number of candidates, then return. Does not loop or sleep
-        internally -- the caller (a Render Cron Job tick) provides the
-        "loop" externally via its schedule."""
+        a bounded number of candidates, send the heartbeat, then return.
+        Does not loop or sleep internally -- the caller (a scheduled job
+        tick) provides the "loop" externally via its schedule."""
         summary = RunSummary()
+        summary.brain_auth_ok = self._brain_auth_ok
 
         reclaimed = self.repo.reclaim_orphaned_running(ORPHAN_RECLAIM_MINUTES)
         summary.reclaimed = reclaimed
@@ -384,19 +568,60 @@ class Worker:
         summary.candidates_generated = await self._generation_step()
 
         deadline = time.monotonic() + self.config.run_time_budget_seconds
-        batches_run, processed, stopped_reason = await self._process_candidates_bounded(
+        batches_run, processed, stopped_reason, stage_counts = await self._process_candidates_bounded(
             self.config.max_candidates_per_run, deadline
         )
         summary.batches_run = batches_run
         summary.candidates_processed = processed
         summary.stopped_reason = stopped_reason
+        summary.passed = stage_counts["passed"]
+        summary.rejected_stage0 = stage_counts["rejected_stage0"]
+        summary.rejected_filter = stage_counts["rejected_filter"]
+        summary.rejected_correlation = stage_counts["rejected_correlation"]
+        summary.rejected_error = stage_counts["rejected_error"]
 
         log.info(
-            "run_once complete: reclaimed=%d generated=%d processed=%d batches=%d stopped_reason=%s",
+            "run_once complete: reclaimed=%d generated=%d processed=%d batches=%d stopped_reason=%s "
+            "passed=%d rejected_stage0=%d rejected_filter=%d rejected_correlation=%d rejected_error=%d",
             summary.reclaimed, summary.candidates_generated, summary.candidates_processed,
             summary.batches_run, summary.stopped_reason,
+            summary.passed, summary.rejected_stage0, summary.rejected_filter,
+            summary.rejected_correlation, summary.rejected_error,
         )
+
+        # Heartbeat: send + persist unconditionally, every tick, regardless
+        # of whether anything above found a passing candidate -- silence is
+        # no longer a valid healthy state (Update 01/03's "black box"
+        # framing). Both calls are individually defensive so a delivery
+        # failure here can't crash run_once() or discard the summary.
+        health = self._health_snapshot(summary)
+        self._safe_send_run_report(summary, health)
+        self._safe_insert_run_history(summary, health)
+
         return summary
+
+
+def _best_effort_startup_alert(message: str) -> None:
+    """Update 03: a BRAIN-auth failure at startup previously produced total
+    Telegram silence -- the crash happens inside build_worker(), before any
+    Worker (and therefore any already-wired TelegramNotifier) exists to send
+    an alert about it. This builds a throwaway notifier directly from env
+    vars, deliberately NOT via Config.from_env()'s require_telegram=True
+    path (which could itself raise MissingConfigError and mask the real
+    BRAIN failure being reported), and sends one best-effort alert before
+    main() exits non-zero. If Telegram itself is misconfigured, this can
+    only log a warning -- see SETUP.md's note on enabling GitHub's native
+    Actions-failure email notifications as the independent backup channel
+    for exactly this scenario."""
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        log.warning("cannot send startup alert -- TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID not set")
+        return
+    try:
+        TelegramNotifier(token, chat_id).send_operational_alert(message)
+    except Exception:  # noqa: BLE001
+        log.exception("failed to send best-effort startup alert")
 
 
 def build_worker() -> Worker:
@@ -404,6 +629,12 @@ def build_worker() -> Worker:
     repo = Repo(config.database_url)
     repo.migrate()
     brain = BrainClient(config.brain_username, config.brain_password, config.brain_max_concurrent_sims)
+    # BrainAuthError raised here propagates straight out of build_worker(),
+    # before any Worker/TelegramNotifier exists -- main() catches it
+    # specifically (as opposed to just MissingConfigError, which it already
+    # handled) and attempts a best-effort alert before exiting non-zero.
+    # See Update 03: this used to be a silent gap -- a failed GitHub Actions
+    # run and nothing else.
     brain.authenticate()
     notifier = TelegramNotifier(config.telegram_bot_token, config.telegram_chat_id)
     llm = LLMAdapter(
@@ -421,10 +652,14 @@ def main():
     except MissingConfigError as e:
         log.error("Startup aborted: %s", e)
         sys.exit(1)
+    except BrainAuthError as e:
+        log.error("Startup aborted: BRAIN authentication failed: %s", e)
+        _best_effort_startup_alert(f"BRAIN authentication failed at startup: {e}")
+        sys.exit(1)
     asyncio.run(worker.run_once())
-    # Process exits here (returns from main()) -- no forever-loop. Under
-    # cron deployment, Render considers the invocation done once the
-    # process exits, and bills only for the time it was running.
+    # Process exits here (returns from main()) -- no forever-loop. Under a
+    # scheduled-job deployment, the platform considers the invocation done
+    # once the process exits.
 
 
 if __name__ == "__main__":

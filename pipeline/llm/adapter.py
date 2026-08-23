@@ -135,23 +135,37 @@ class LLMAdapter:
         self.usage_logger = usage_logger
         self.on_total_exhaustion = on_total_exhaustion  # callable(tier: str) -> None, e.g. Telegram alert
 
-    def reasoning_call(self, prompt: str) -> str:
+    def reasoning_call(self, prompt: str) -> tuple[str, str]:
+        """Returns (response_text, provider_name) -- the provider name is
+        whichever one actually answered ('gemini' or 'groq'), not just
+        whichever was tried first. Update 03: propose_new_ideas() used to
+        hardcode generation_tier='llm_gemini' regardless of whether this
+        fell through to the Groq fallback, silently corrupting the
+        generated-by-tier breakdown the heartbeat (P1.1) reports. Callers
+        that only need the text can ignore the second element."""
         try:
-            return self.gemini_provider.call(prompt, "gemini-2.5-flash", "reasoning", self.usage_logger)
+            text = self.gemini_provider.call(prompt, "gemini-2.5-flash", "reasoning", self.usage_logger)
+            return text, "gemini"
         except QuotaExhausted:
             try:
-                return self.groq_provider.call(prompt, "llama-3.3-70b-versatile", "reasoning", self.usage_logger)
+                text = self.groq_provider.call(prompt, "llama-3.3-70b-versatile", "reasoning", self.usage_logger)
+                return text, "groq"
             except QuotaExhausted:
                 if self.on_total_exhaustion:
                     self.on_total_exhaustion("reasoning")
                 raise
 
-    def mechanical_call(self, prompt: str) -> str:
+    def mechanical_call(self, prompt: str) -> tuple[str, str]:
+        """Returns (response_text, provider_name) -- see reasoning_call's
+        docstring; same fix applies to the mechanical tier's Groq-first,
+        Gemini-fallback chain."""
         try:
-            return self.groq_provider.call(prompt, "llama-3.1-8b-instant", "mechanical", self.usage_logger)
+            text = self.groq_provider.call(prompt, "llama-3.1-8b-instant", "mechanical", self.usage_logger)
+            return text, "groq"
         except QuotaExhausted:
             try:
-                return self.gemini_provider.call(prompt, "gemini-2.5-flash", "mechanical", self.usage_logger)
+                text = self.gemini_provider.call(prompt, "gemini-2.5-flash", "mechanical", self.usage_logger)
+                return text, "gemini"
             except QuotaExhausted:
                 if self.on_total_exhaustion:
                     self.on_total_exhaustion("mechanical")

@@ -16,54 +16,130 @@ to a human via Telegram for **manual** review and submission.
 
 ## Architecture
 
-One always-on process (`pipeline/run_worker.py`, deployed as a Render **Background
-Worker**, not a Cron Job — see `render.yaml`) running two loops concurrently:
+`pipeline/run_worker.py`'s `run_once()` does one bounded pass and exits — deployed
+as a scheduled GitHub Actions job (`.github/workflows/run.yml`; see `UPDATE.md`),
+invoked every 10 minutes:
 
-- **generation loop**: tops up the `candidates` queue from two tiers — a template
-  generator (`pipeline/generator/template_generator.py`, pure string substitution
-  over the 50 seed ideas, no LLM) and an LLM generator
-  (`pipeline/generator/llm_generator.py`, used only to fill the gap the template
-  tier can't).
-- **simulation loop**: a semaphore bounded by `BRAIN_MAX_CONCURRENT_SIMS`, pulling
-  the oldest pending candidate the instant a slot frees and running it through:
+1. Reclaim any candidate orphaned in `running` by a previous invocation that got cut
+   off mid-simulation.
+2. Top up the `candidates` queue: template tier (`pipeline/generator/template_generator.py`,
+   pure string substitution over 50 seed ideas, no LLM) → LLM reasoning tier
+   (`propose_new_ideas`, genuinely new economic ideas) → LLM mechanical tier
+   (`mutate_candidate`, cheap high-volume variations on whatever the reasoning tier
+   just proposed), each only firing if the previous tier didn't fill the queue.
+3. Process a bounded batch of candidates through:
 
-  ```
-  Stage 0 screen -> staged settings sweep (Stages 1-4) -> local filter
-  -> correlation check vs. pool -> review_store -> Telegram alert
-  ```
+   ```
+   Stage 0 screen -> staged settings sweep (Stages 1-4) -> local filter
+   -> correlation check vs. pool -> review_store -> Telegram alert
+   ```
+
+4. Send a heartbeat report to Telegram and write one `run_history` row —
+   unconditionally, every tick, pass or fail or silence.
 
 ### The staged settings sweep (`pipeline/sweep/settings_sweep.py`)
 
 41 simulations per candidate that clears Stage 0, not a full cartesian grid
 (~1,200 sims):
 
-| Stage | What | Sims |
-|---|---|---|
-| 0 | Quick screen at default settings | 1 |
-| 1 | Neutralization (6) x Decay (5) grid | 30 |
-| 2 | Truncation refinement around the Stage 1 winner | 4 |
-| 3 | Delay / Pasteurization / Nan Handling, both values each | 6 |
-| 4 | Robustness check — computed from the 41 stored rows, **0 new sims** | 0 |
+| Stage | What | Sims | Concurrency |
+|---|---|---|---|
+| 0 | Quick screen at default settings | 1 | — |
+| 1 | Neutralization (6) x Decay (5) grid | 30 | **concurrent**, bounded by the shared sim semaphore |
+| 2 | Truncation refinement around the Stage 1 winner | 4 | **concurrent** |
+| 3 | Delay / Pasteurization / Nan Handling, both values each | 6 | sequential (each field depends on the previous field's winner) |
+| 4 | Robustness check — computed from the 41 stored rows, **0 new sims** | 0 | — |
 
-## Concurrency and correlation — how they actually work now
+Stages 1 and 2 run their combos concurrently (`asyncio.gather`, bounded by a
+semaphore) rather than one simulate() call at a time — the single biggest
+throughput fix in this codebase's history: a fully-serial 41-sim sweep could take
+7-14 minutes per candidate and alone blow past the whole tick's `RUN_TIME_BUDGET_SECONDS`.
+Stage 3 stays sequential on purpose: each field's test genuinely depends on
+whichever value the previous field settled on.
 
-Two pieces here are easy to get subtly wrong, so they're called out explicitly:
+**Per-combo fault isolation.** A single settings combo that fails to simulate
+(BRAIN error, timeout) is recorded as a `SweepRun` with `.error` set instead of
+raising and losing every other combo in that batch with it. If literally every
+combo in a stage fails, the whole sweep reports `aborted_stage` (an operational
+failure) rather than being silently treated as a quality verdict.
 
-- **Bounded simulation concurrency.** `simulation_loop` in `pipeline/run_worker.py`
-  claims a candidate only when a `BRAIN_MAX_CONCURRENT_SIMS` slot is actually free,
-  and holds the semaphore for the *entire* duration of that candidate's simulation
-  work — not just around scheduling the task. `tests/test_run_worker.py` asserts
-  peak concurrency never exceeds the configured limit.
-- **Correlation gate against the real pool.** `Worker._process_candidate` fetches
-  the winning settings' actual daily-return series from BRAIN
-  (`BrainClient.get_alpha_pnl`, keyed off the `alpha_id` BRAIN assigns each
-  simulation) before running `compute_max_correlation` against `pool_returns`. A
-  candidate is rejected outright if that fetch can't happen, rather than silently
-  passing the gate.
+## Concurrency, correlation, and fault handling — how they actually work now
 
-`_parse_pnl_response` in `pipeline/brain/client.py` is only tested against a
-synthetic response shape so far — confirm it against a real BRAIN account
-before trusting this gate live.
+- **Real BRAIN-call concurrency is a single shared semaphore.** `Worker` creates
+  exactly one `asyncio.Semaphore(BRAIN_MAX_CONCURRENT_SIMS)` and passes that same
+  instance into every in-flight candidate's `run_staged_sweep` call. This means
+  `BRAIN_MAX_CONCURRENT_SIMS` is a real, global ceiling on concurrent BRAIN calls —
+  regardless of how many candidates or sweep stages those calls come from — not a
+  per-candidate bound that let each candidate's sweep run its own 41 sims serially
+  inside it (the previous, much slower shape). `tests/test_settings_sweep.py` and
+  `tests/test_run_worker.py` both assert peak concurrency never exceeds the
+  configured limit, including across two sweeps sharing one semaphore instance.
+- **Correlation gate against the real pool, fed by the pipeline's own output.**
+  `Worker._process_candidate` fetches the winning settings' actual daily-return
+  series from BRAIN (`BrainClient.get_alpha_pnl`) before running
+  `compute_max_correlation` against `pool_returns` — and, once a candidate passes,
+  immediately upserts its own return series back into `pool_returns` so the *next*
+  candidate's correlation check can see it too. Previously nothing ever called
+  `upsert_pool_returns`, so the pool was permanently empty and every candidate
+  passed the correlation gate by construction, including near-duplicates of each
+  other.
+- **Attempt-capped retries for operational failures.** A candidate whose sweep
+  aborts (every combo in some stage failed) or that raises anywhere else in
+  `_process_candidate` (e.g. a PnL fetch failure) gets up to 3 retries
+  (`MAX_CANDIDATE_ATTEMPTS`, tracked via `candidates.attempts`/`last_error`)
+  before permanently flipping to `rejected_error` with exactly one Telegram
+  alert — not silently retried forever, and not one alert per tick either.
+
+## Observability: the heartbeat and `run_history`
+
+Every `run_once()` invocation sends a Telegram heartbeat and writes a
+`run_history` row — pass, fail, or "nothing happened this tick". Silence is no
+longer a valid healthy state. Each report includes: BRAIN auth status, DB
+reachability, Gemini/Groq per-key health (from `llm_usage`, previously never
+surfaced anywhere), queue depth, candidates generated, and candidates processed
+broken down by exit status (`passed` / `rejected_stage0` / `rejected_filter` /
+`rejected_correlation` / `rejected_error`). `run_history` turns that into a
+queryable trend: `SELECT * FROM run_history ORDER BY started_at DESC LIMIT 20`.
+
+Two gaps needed their own fix, not just the heartbeat, because they're invisible
+in exactly the channel meant to report invisibility:
+
+- A BRAIN-auth failure at startup happens *before* any `Worker`/`TelegramNotifier`
+  exists — `main()` now catches `BrainAuthError` specifically and sends a
+  best-effort alert built directly from env vars before exiting non-zero.
+- Enable GitHub's native Actions-failure email notifications as a fully
+  independent backup channel (see `SETUP.md`) — the only thing that still
+  reaches you if Telegram, the DB, and BRAIN are all down at once.
+
+## Generation tiers, honestly labeled
+
+`candidates.generation_tier` records which tier and which LLM provider actually
+produced a candidate (`template` / `llm_gemini` / `llm_groq`). The reasoning tier
+(`propose_new_ideas`) and mechanical tier (`mutate_candidate`, now actually wired
+into `Worker._top_up_queue` — it existed, fully written and tested, with zero call
+sites before this pass) both report back which provider *actually* answered
+(Gemini, or the Groq fallback on quota exhaustion), rather than hardcoding
+`llm_gemini` regardless of which one ran. That hardcoding bug would have silently
+corrupted the heartbeat's generated-by-tier breakdown the moment Gemini's quota
+was ever exhausted.
+
+## BRAIN response parsing — verify before trusting live numbers
+
+`pipeline/brain/client.py`'s `_parse_sim_response`/`_parse_pnl_response` pull
+metrics out of BRAIN's JSON with soft fallbacks that do **not** raise on a schema
+mismatch — a genuinely strong candidate could silently be scored `sharpe=0.0` and
+rejected if BRAIN's real key names don't match what's assumed. This has **not**
+been verified against a live BRAIN account in this environment (no credentials
+available). Before trusting any number this pipeline produces:
+
+```bash
+export BRAIN_USERNAME=... BRAIN_PASSWORD=...
+PYTHONPATH=. python scripts/verify_brain_parsing.py
+```
+
+See that script's own docstring for the full acceptance criteria (3 test
+expressions across a range of quality) and the warning comment at the top of
+`pipeline/brain/client.py`.
 
 ## One deliberate schema deviation (flagged, not silent)
 
@@ -72,7 +148,7 @@ a single-column `alpha_id` PK. A single-column PK would make it impossible to
 store more than one date per alpha, which breaks the correlation check this
 table exists to support. See the comment in `pipeline/db/schema.sql`.
 
-## Two ambiguities resolved during the build (flagged in code comments)
+## Ambiguities resolved during the build (flagged in code comments)
 
 1. **Stage 3's "2 alternatives each"**: Delay only has 2 possible values total
    (0, 1), so this only makes sense as "simulate both values of each field",
@@ -82,6 +158,16 @@ table exists to support. See the comment in `pipeline/db/schema.sql`.
    clears the bar" vs. "a healthy cluster" without a numeric cutoff. Implemented
    as: fragile if the count of **distinct** settings combos clearing the local
    filter bar is `<= 1`. See the comment in `settings_sweep.py`.
+3. **Shared sim semaphore vs. per-sweep semaphore (Update 04)**: the sweep-rewrite
+   spec's prose says the semaphore must be one instance shared across every
+   in-flight candidate, but its own literal code sample had `run_staged_sweep`
+   build a fresh semaphore from an int on every call — which, taken literally,
+   would let N concurrently-processed candidates each get their own
+   `BRAIN_MAX_CONCURRENT_SIMS`-sized semaphore (up to N× over the real limit).
+   Resolved by adding an optional `semaphore` parameter that `Worker` populates
+   with one shared instance; standalone/test callers that don't pass one still
+   get a private per-call semaphore built from the int, unchanged. See the
+   comment on `run_staged_sweep` in `settings_sweep.py`.
 
 ## Setup
 
@@ -94,11 +180,15 @@ database migration, and deployment steps.
 PYTHONPATH=. pytest tests/ -v
 ```
 
-45 tests, all against in-memory fakes — no live BRAIN, Postgres, Telegram, or LLM
+All tests run against in-memory fakes — no live BRAIN, Postgres, Telegram, or LLM
 credentials required or contacted. Covers: staged sweep correctness (stage counts,
-winner-holding, fragile flagging), LLM key-rotation fallback (rate-limit and
-hard-failure paths, total-exhaustion alerting), correlation math (identical/
-independent/inverted synthetic streams), local filter thresholds, Telegram message
-formatting, bounded simulation concurrency, BRAIN response parsing (alpha-id
-extraction, PnL-to-daily-returns conversion), and one full end-to-end mock run of
-generate -> screen -> sweep -> filter -> correlate -> store -> alert.
+winner-holding, fragile flagging, concurrent Stage 1/2 execution, per-combo fault
+isolation, shared-semaphore bounding across sweeps), LLM key-rotation fallback
+(rate-limit and hard-failure paths, total-exhaustion alerting, provider-reporting
+for the generation_tier fix), correlation math (identical/independent/inverted
+synthetic streams), local filter thresholds, Telegram message formatting
+(candidate alerts, operational alerts, heartbeat reports), bounded simulation
+concurrency, attempt-capped retry/permanent-failure handling, the pool
+self-consistency fix, BRAIN response parsing (alpha-id extraction, PnL-to-daily-
+returns conversion), and a full end-to-end mock run of generate -> screen -> sweep
+-> filter -> correlate -> store -> alert.

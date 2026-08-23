@@ -14,13 +14,26 @@ CREATE TABLE IF NOT EXISTS candidates (
     stage0_sharpe   NUMERIC,
     status          TEXT NOT NULL DEFAULT 'pending'
                     -- 'pending' | 'running' | 'rejected_stage0' | 'rejected_correlation'
-                    -- | 'rejected_filter' | 'passed' | 'submitted'
+                    -- | 'rejected_filter' | 'passed' | 'submitted' | 'rejected_error'
+                    -- 'rejected_error' is new (Update 04 / sweep rewrite): a candidate
+                    -- that hard-failed (BRAIN call raised, not "scored too low")
+                    -- MAX_CANDIDATE_ATTEMPTS times in a row. Distinct from the other
+                    -- 'rejected_*' values on purpose -- those are clean quality
+                    -- verdicts, this one means "we never got a real verdict".
 );
 
 -- Idempotent for pre-existing deployments where `candidates` was created
 -- before `claimed_at` existed: CREATE TABLE IF NOT EXISTS above is a no-op
 -- against an already-existing table, so the column must be added separately.
 ALTER TABLE candidates ADD COLUMN IF NOT EXISTS claimed_at TIMESTAMPTZ;
+
+-- Fault-isolation / attempt-cap fields (Update 04 sweep rewrite). A candidate
+-- that keeps hard-failing (BRAIN errors, not low scores) gets
+-- MAX_CANDIDATE_ATTEMPTS tries before permanently flipping to
+-- 'rejected_error' with the last error recorded -- see
+-- Repo.record_candidate_error and Worker._record_candidate_error.
+ALTER TABLE candidates ADD COLUMN IF NOT EXISTS attempts INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE candidates ADD COLUMN IF NOT EXISTS last_error TEXT;
 
 CREATE TABLE IF NOT EXISTS sweep_runs (
     id              BIGSERIAL PRIMARY KEY,
@@ -41,6 +54,15 @@ CREATE TABLE IF NOT EXISTS sweep_runs (
     simulated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS idx_sweep_runs_candidate ON sweep_runs(candidate_id);
+
+-- Update 04 sweep rewrite: per-combo fault isolation. When a single settings
+-- combo's simulate() call fails, the attempt is still recorded here (stage +
+-- settings), with error_text set and every metric column left NULL -- a
+-- record of an *attempted* combo that errored, not a result. This is what
+-- lets one bad combo (e.g. BRAIN rejecting one specific settings
+-- permutation) show up in the data instead of just vanishing, and is what
+-- Worker._persist_sweep_run's SweepRun.ok branch decides between.
+ALTER TABLE sweep_runs ADD COLUMN IF NOT EXISTS error_text TEXT;
 
 CREATE TABLE IF NOT EXISTS review_store (
     id                  BIGSERIAL PRIMARY KEY,
@@ -105,3 +127,28 @@ CREATE TABLE IF NOT EXISTS pipeline_meta (
     value        TEXT,
     updated_at   TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Heartbeat history (Update 01 P1.1 / Update 02 P1.2). One row written per
+-- Worker.run_once() invocation, unconditionally -- pass, fail, or silence.
+-- This is what turns "did the last tick look okay" (a Telegram message that
+-- scrolls away) into a queryable trend: `SELECT * FROM run_history ORDER BY
+-- started_at DESC LIMIT 20` answers "how has this thing been doing today"
+-- without needing a new always-on service. See Worker._build_run_report /
+-- Repo.insert_run_history.
+CREATE TABLE IF NOT EXISTS run_history (
+    id                    BIGSERIAL PRIMARY KEY,
+    started_at            TIMESTAMPTZ NOT NULL DEFAULT now(),
+    reclaimed             INTEGER,
+    queue_depth_before    INTEGER,
+    candidates_generated  INTEGER,
+    candidates_processed  INTEGER,
+    rejected_stage0       INTEGER,
+    rejected_filter       INTEGER,
+    rejected_correlation  INTEGER,
+    rejected_error        INTEGER,
+    passed                INTEGER,
+    stopped_reason        TEXT,
+    brain_auth_ok         BOOLEAN,
+    errors                TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_run_history_started_at ON run_history(started_at DESC);
