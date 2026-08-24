@@ -27,6 +27,7 @@ in production (GitHub Actions), set these as repository secrets instead (see
 | `GROQ_API_KEY_1` / `GROQ_API_KEY_2` | Groq keys, rotated on rate limit |
 | `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` | Where candidate-passed alerts, operational alerts, and the per-tick heartbeat are sent |
 | `QUEUE_TARGET_DEPTH` | Candidates the generation step tries to keep queued |
+| `TEMPLATE_TIER_MAX_SHARE` | Update 05: max fraction (0-1, default `0.5`) of a tick's queue-top-up gap the template tier is allowed to fill on its own. Guarantees the LLM reasoning/mechanical tiers actually get called every tick that needs topping up, instead of the ~53-expression template pool silently covering the whole gap and starving them out (see `UPDATE.md`) |
 | `MAX_CANDIDATES_PER_RUN` / `RUN_TIME_BUDGET_SECONDS` | Bounded-batch tuning for one `run_once()` invocation |
 | `STAGE0_MIN_FITNESS` / `STAGE0_MIN_SHARPE` | Quick-screen thresholds |
 | `FILTER_MIN_SHARPE` / `FILTER_MIN_FITNESS` / `FILTER_MAX_TURNOVER` / `FILTER_MIN_TURNOVER` | Local filter thresholds after the sweep |

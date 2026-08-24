@@ -42,8 +42,22 @@ def format_run_report(summary, health: dict) -> str:
 
     key_lines = []
     for row in health.get("llm_keys", []):
-        flag = "\u2705" if row.get("succeeded") else "\u274c"
-        key_lines.append(f"  {flag} {row['provider']}/{row['key_label']} ({row['tier']})")
+        # Update 05: a key that hasn't been *tried* recently is a different
+        # fact from a key that just failed -- rendering both as a flat ❌
+        # is exactly what made a fixed key look permanently broken. `stale`
+        # is only present once Repo.recent_llm_key_health() reports it;
+        # older/fake health dicts without it just render as before.
+        stale = row.get("stale")
+        if stale:
+            flag = "\u23f3"  # hourglass: no recent attempt, verdict unknown
+            suffix = " (stale)"
+        else:
+            flag = "\u2705" if row.get("succeeded") else "\u274c"
+            suffix = ""
+        rolling = ""
+        if row.get("attempted_last_10"):
+            rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} last 10]"
+        key_lines.append(f"  {flag} {row['provider']}/{row['key_label']} ({row['tier']}){suffix}{rolling}")
     keys_block = "\n".join(key_lines) if key_lines else "  (no llm_usage rows yet)"
 
     stages = health.get("stage_counts", {})
@@ -68,6 +82,22 @@ def format_run_report(summary, health: dict) -> str:
         f"Stopped reason: {summary.stopped_reason}\n"
         f"Errors this tick:\n{errors_block}"
     )
+
+
+def format_top_alphas(rows: list[dict]) -> str:
+    """Ranked leaderboard (Update 05 feedback engine) -- `rows` from
+    Repo.top_alphas(). Distinct prefix from the other message types, same
+    as format_run_report/format_operational_alert."""
+    if not rows:
+        return "\U0001f3c6 *Top alphas*\n\n(review_store is empty so far)"
+    lines = [
+        f"{i+1}. `{r['expression']}` [{r['category']} / {r['generation_tier']}]\n"
+        f"   Fitness {r['fitness']:.2f} | Sharpe {r['sharpe']:.2f} | "
+        f"Turnover {r['turnover']:.1%} | MaxCorr {r['max_correlation']:.2f} | "
+        f"{r['robust_count']}/{r['sweep_total']} robust"
+        for i, r in enumerate(rows)
+    ]
+    return "\U0001f3c6 *Top alphas*\n\n" + "\n".join(lines)
 
 
 def format_operational_alert(message: str) -> str:
@@ -109,5 +139,10 @@ class TelegramNotifier:
 
     def send_run_report(self, summary, health: dict) -> str:
         text = format_run_report(summary, health)
+        self._post(text)
+        return text
+
+    def send_top_alphas(self, rows: list[dict]) -> str:
+        text = format_top_alphas(rows)
         self._post(text)
         return text

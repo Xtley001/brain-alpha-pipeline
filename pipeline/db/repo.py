@@ -282,17 +282,146 @@ class Repo:
                     (provider, key_label, tier, succeeded, error_text),
                 )
 
-    def recent_llm_key_health(self) -> list[dict]:
+    def recent_llm_key_health(self, max_age_minutes: int = 120) -> list[dict]:
         """Most-recent success/failure per (provider, key_label) -- what the
         heartbeat (Update 01 P1.1) surfaces so 'is the LLM tier even
         working' stops being invisible in llm_usage forever. DISTINCT ON
-        picks each key's single latest row, ordered by recency."""
+        picks each key's single latest row, ordered by recency.
+
+        Update 05: also flags `stale` (no attempt within `max_age_minutes`)
+        and includes a rolling `succeeded_last_10`/`attempted_last_10` so a
+        key isn't judged by a single call. Without this, a key's ❌ from
+        the very first cold-start tick would render identically to a
+        genuinely-failing-right-now key forever, because nothing ever
+        overwrites a stale row once the LLM tiers stop being called (see
+        run_worker.py's template_tier_max_share fix for the other half of
+        that bug)."""
         with self._conn() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     "SELECT DISTINCT ON (provider, key_label) "
-                    "provider, key_label, tier, called_at, succeeded, error_text "
-                    "FROM llm_usage ORDER BY provider, key_label, called_at DESC"
+                    "provider, key_label, tier, called_at, succeeded, error_text, "
+                    "(now() - called_at) > (%s || ' minutes')::interval AS stale "
+                    "FROM llm_usage ORDER BY provider, key_label, called_at DESC",
+                    (max_age_minutes,),
+                )
+                cols = [d.name for d in cur.description]
+                rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+                for row in rows:
+                    cur.execute(
+                        "SELECT succeeded FROM llm_usage WHERE provider = %s AND key_label = %s "
+                        "ORDER BY called_at DESC LIMIT 10",
+                        (row["provider"], row["key_label"]),
+                    )
+                    recent = [r[0] for r in cur.fetchall()]
+                    row["attempted_last_10"] = len(recent)
+                    row["succeeded_last_10"] = sum(1 for s in recent if s)
+                return rows
+
+    # --- feedback engine (Update 05) ---
+    #
+    # Everything below reads data that already exists in `candidates` /
+    # `review_store` -- no schema migration needed. This is what closes the
+    # loop the pipeline never had: which categories/tiers actually clear the
+    # bar, what's been tried and failed recently, and what the LLM has
+    # already proposed (so it isn't re-proposing, and re-billing tokens for,
+    # the same idea tick after tick).
+
+    def category_performance(self, min_attempts: int = 1) -> list[dict]:
+        """Attempts/passes/avg stage0 metrics per (category, generation_tier),
+        straight off `candidates`. Feeds template-tier selection weighting
+        and the real `_pool_summary()` prompt context."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT category, generation_tier, "
+                    "COUNT(*) FILTER (WHERE status = ANY(%s)) AS attempts, "
+                    "COUNT(*) FILTER (WHERE status = 'passed') AS passed, "
+                    "AVG(stage0_fitness) FILTER (WHERE stage0_fitness IS NOT NULL) AS avg_stage0_fitness, "
+                    "AVG(stage0_sharpe) FILTER (WHERE stage0_sharpe IS NOT NULL) AS avg_stage0_sharpe "
+                    "FROM candidates GROUP BY category, generation_tier "
+                    "HAVING COUNT(*) FILTER (WHERE status = ANY(%s)) >= %s "
+                    "ORDER BY passed DESC, attempts DESC",
+                    (
+                        ["passed", "rejected_stage0", "rejected_filter", "rejected_correlation", "rejected_error"],
+                        ["passed", "rejected_stage0", "rejected_filter", "rejected_correlation", "rejected_error"],
+                        min_attempts,
+                    ),
+                )
+                cols = [d.name for d in cur.description]
+                return [dict(zip(cols, r)) for r in cur.fetchall()]
+
+    def category_quality(self) -> list[dict]:
+        """Post-sweep quality (real fitness/sharpe/correlation from
+        review_store, not just the stage0 gate) per (category,
+        generation_tier) -- the signal that actually matters once a
+        candidate has cleared stage0."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT c.category, c.generation_tier, COUNT(rs.id) AS reviewed, "
+                    "AVG(rs.fitness) AS avg_fitness, AVG(rs.sharpe) AS avg_sharpe, "
+                    "AVG(rs.max_correlation) AS avg_max_correlation, "
+                    "AVG(CASE WHEN rs.fragile THEN 1.0 ELSE 0.0 END) AS fragile_rate "
+                    "FROM candidates c JOIN review_store rs ON rs.candidate_id = c.id "
+                    "GROUP BY c.category, c.generation_tier ORDER BY avg_fitness DESC"
+                )
+                cols = [d.name for d in cur.description]
+                return [dict(zip(cols, r)) for r in cur.fetchall()]
+
+    def recent_rejections(self, limit: int = 10) -> list[dict]:
+        """Most recent terminal rejections, for the LLM's `failure_log`
+        prompt context (previously a hardcoded stub -- see
+        Worker._recent_failure_log)."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT expression, category, status, stage0_sharpe, stage0_fitness, last_error "
+                    "FROM candidates WHERE status IN "
+                    "('rejected_stage0','rejected_filter','rejected_correlation','rejected_error') "
+                    "ORDER BY created_at DESC LIMIT %s",
+                    (limit,),
+                )
+                cols = [d.name for d in cur.description]
+                return [dict(zip(cols, r)) for r in cur.fetchall()]
+
+    def recent_llm_expressions(self, limit: int = 50) -> list[str]:
+        """Expressions the LLM tiers have already proposed recently, so
+        propose_new_ideas() can be told 'don't repeat these' instead of
+        silently re-spending tokens (and a sweep slot) on an idea it already
+        gave us. Update 05 -- there was no dedup signal of any kind before
+        this; the reasoning prompt never saw its own prior output."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT expression FROM candidates "
+                    "WHERE generation_tier IN ('llm_gemini','llm_groq') "
+                    "ORDER BY created_at DESC LIMIT %s",
+                    (limit,),
+                )
+                return [r[0] for r in cur.fetchall()]
+
+    def expression_exists(self, expression: str) -> bool:
+        """Exact-match dedup check before inserting a candidate. Cheap
+        insurance against the LLM (or a template cycle) re-submitting an
+        expression already sitting in the queue/pool -- wasted tokens on
+        the LLM side, wasted a BRAIN simulation slot on the template side."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT 1 FROM candidates WHERE expression = %s LIMIT 1", (expression,))
+                return cur.fetchone() is not None
+
+    def top_alphas(self, limit: int = 10) -> list[dict]:
+        """Ranked leaderboard for a `/top` Telegram surface -- everything
+        needed already lives in review_store, this was just never queried."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT rs.expression, c.category, c.generation_tier, rs.fitness, rs.sharpe, "
+                    "rs.turnover, rs.max_correlation, rs.robust_count, rs.sweep_total, rs.created_at "
+                    "FROM review_store rs JOIN candidates c ON c.id = rs.candidate_id "
+                    "ORDER BY rs.fitness DESC LIMIT %s",
+                    (limit,),
                 )
                 cols = [d.name for d in cur.description]
                 return [dict(zip(cols, r)) for r in cur.fetchall()]

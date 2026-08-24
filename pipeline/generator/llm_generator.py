@@ -32,6 +32,12 @@ Recent failures (expression -> why it failed the local filter or \
 correlation check):
 {failure_log}
 
+Already proposed recently -- do NOT repeat any of these verbatim or as a \
+trivial rewording (same fields, same structure, different variable order/\
+window). Propose something that would NOT collapse into any of these if \
+simplified:
+{avoid_expressions}
+
 Propose {n} NEW expressions that are economically distinct from what's \
 already in the pool above -- not a field/window tweak on an existing one, \
 a genuinely different mechanism (different data category, different \
@@ -82,15 +88,30 @@ _PROVIDER_TO_TIER = {"gemini": "llm_gemini", "groq": "llm_groq"}
 
 
 def propose_new_ideas(
-    adapter: LLMAdapter, pool_summary: str, failure_log: str, n: int = 5
+    adapter: LLMAdapter,
+    pool_summary: str,
+    failure_log: str,
+    n: int = 5,
+    avoid_expressions: Optional[list[str]] = None,
 ) -> list[dict]:
-    prompt = REASONING_PROMPT_TEMPLATE.format(pool_summary=pool_summary, failure_log=failure_log, n=n)
+    """`avoid_expressions` (Update 05): recently-proposed LLM expressions to
+    tell the model not to repeat. Without this the reasoning tier had no
+    memory of its own prior output and nothing stopped it re-proposing (and
+    re-billing tokens for) something it already gave us last tick -- belt
+    and suspenders with the exact-match DB dedup in Worker._top_up_queue,
+    since the LLM can still reword a near-duplicate the DB check won't
+    catch, but at least the model is told explicitly not to."""
+    avoid_block = "\n".join(f"- {e}" for e in (avoid_expressions or [])) or "(none yet)"
+    prompt = REASONING_PROMPT_TEMPLATE.format(
+        pool_summary=pool_summary, failure_log=failure_log, avoid_expressions=avoid_block, n=n
+    )
     try:
         raw, provider = adapter.reasoning_call(prompt)
     except QuotaExhausted:
         return []
     generation_tier = _PROVIDER_TO_TIER.get(provider, f"llm_{provider}")
     items = _safe_json_array(raw)
+    avoid_set = set(avoid_expressions or [])
     return [
         {
             "expression": item["expression"],
@@ -98,6 +119,7 @@ def propose_new_ideas(
             "generation_tier": generation_tier,
         }
         for item in items
+        if item["expression"] not in avoid_set  # exact-match belt-and-suspenders
     ]
 
 

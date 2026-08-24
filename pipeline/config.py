@@ -50,6 +50,19 @@ class Config:
     stage0_min_fitness: float = 0.3
     stage0_min_sharpe: float = 0.5
 
+    # Update 05: the fixed 53-expression template pool almost always covers
+    # a tick's whole `needed` gap on its own (queue_target_depth - depth is
+    # rarely > 53 under a 10-minute cron cadence), which meant the LLM
+    # reasoning/mechanical tiers effectively never ran -- so llm_usage never
+    # got fresh rows and the heartbeat's "LLM key health" stayed frozen on
+    # whatever the very first cold-start attempt logged, forever, even after
+    # keys were rotated/fixed. This caps how much of `needed` the template
+    # tier is allowed to fill per tick, guaranteeing the LLM tiers get
+    # exercised (and llm_usage gets fresh, trustworthy rows) every tick the
+    # queue needs topping up at all, not just on the rare tick the deficit
+    # outruns the template pool.
+    template_tier_max_share: float = 0.5
+
     # --- bounded-batch (cron) run tuning ---
     # How many candidates a single `run_once()` invocation will claim and
     # process (across possibly several BRAIN_MAX_CONCURRENT_SIMS-sized
@@ -89,6 +102,7 @@ class Config:
             queue_target_depth=int(_optional("QUEUE_TARGET_DEPTH", "75")),
             stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.3")),
             stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.5")),
+            template_tier_max_share=float(_optional("TEMPLATE_TIER_MAX_SHARE", "0.5")),
             max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "15")),
             run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480")),
         )

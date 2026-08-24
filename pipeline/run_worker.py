@@ -182,19 +182,47 @@ class Worker:
             log.warning("could not load persisted seed_cursor, starting from 0", exc_info=True)
         self._seed_cursor_loaded = True
 
+    def _insert_candidate_deduped(self, expression: str, category: str, generation_tier: str) -> bool:
+        """Skip an exact-duplicate expression instead of inserting it again
+        (Update 05). Cheap insurance against re-simulating (template tier)
+        or re-billing LLM tokens for (LLM tiers) something already in the
+        pool. Defensive: if the dedup check itself fails (e.g. a fake Repo
+        in tests that doesn't implement it), fail open and insert anyway --
+        a missed dedup is far cheaper than a broken generation step."""
+        try:
+            if self.repo.expression_exists(expression):
+                return False
+        except Exception:  # noqa: BLE001
+            pass
+        self.repo.insert_candidate(expression, category, generation_tier)
+        return True
+
     async def _top_up_queue(self, needed: int) -> int:
         added = 0
         # Tier 1: template generator, cycling through seed ideas by category
         # order (build within a category before jumping around, per the
         # source doc's own build-order advice).
+        #
+        # Update 05: capped at `template_tier_max_share` of `needed` instead
+        # of being allowed to fill the whole gap. The fixed 53-expression
+        # template pool almost always covers a typical tick's deficit on
+        # its own, which meant tiers 2/3 (the only things that ever call
+        # the LLM adapter) effectively never ran in production -- so
+        # llm_usage never got fresh rows, and the heartbeat's "LLM key
+        # health" stayed frozen on whatever the very first cold-start
+        # attempt logged, forever, regardless of whether the keys actually
+        # worked. This cap guarantees the LLM tiers get exercised (and
+        # llm_usage stays current) on every tick that needs topping up at
+        # all, not just the rare tick the deficit outruns the template pool.
         template_candidates = generate_template_candidates()
+        template_budget = max(1, int(needed * self.config.template_tier_max_share)) if needed > 0 else 0
         idx = 0
-        while added < needed and template_candidates:
+        while added < template_budget and template_candidates:
             c = template_candidates[self._seed_cursor % len(template_candidates)]
-            self.repo.insert_candidate(c["expression"], c["category"], c["generation_tier"])
             self._seed_cursor += 1
-            added += 1
             idx += 1
+            if self._insert_candidate_deduped(c["expression"], c["category"], c["generation_tier"]):
+                added += 1
             if idx >= len(template_candidates):
                 break  # exhausted this pass of the template pool; llm tiers fill the rest
 
@@ -205,9 +233,10 @@ class Worker:
         except Exception:  # noqa: BLE001
             log.warning("could not persist seed_cursor", exc_info=True)
 
-        # Tier 2: LLM reasoning tier, only if the template tier couldn't
-        # fill the gap (keeps LLM calls to the volume actually needed, not
-        # spammed).
+        # Tier 2: LLM reasoning tier -- now runs whenever there's still room
+        # after tier 1's (capped) pass, not only on the rare tick tier 1
+        # ran dry. This is the fix that keeps the LLM tiers, and therefore
+        # llm_usage/key-health, actually current.
         #
         # propose_new_ideas() makes a real, blocking network call (and can
         # call a blocking time.sleep(...) internally on a 429 retry -- see
@@ -224,30 +253,37 @@ class Worker:
                     self._pool_summary(),
                     self._recent_failure_log(),
                     min(remaining, 10),
+                    self._recent_llm_expressions(),
                 )
                 for c in proposals:
-                    self.repo.insert_candidate(c["expression"], c["category"], c["generation_tier"])
-                    added += 1
+                    if self._insert_candidate_deduped(c["expression"], c["category"], c["generation_tier"]):
+                        added += 1
             except Exception as e:  # noqa: BLE001
                 log.warning("LLM proposal generation failed: %s", e)
 
         # Tier 3: mechanical mutation (Update 03) -- cheap, high-volume,
         # Groq-first variations on a direction the reasoning tier just
-        # picked, per mutate_candidate()'s own docstring. Confirmed by grep
-        # before this fix: mutate_candidate was fully written, imported, and
-        # (per its docstring and tests) presumably working, but had zero
-        # call sites anywhere in the codebase -- an entire generation tier
-        # was dead code. Only fires if Tier 1 + Tier 2 still didn't fill the
-        # queue AND the reasoning tier actually proposed something this
-        # round to mutate a direction from -- if it proposed nothing (e.g.
-        # exhausted quota), there's no "direction already picked" to work
-        # from, and this tier intentionally sits out rather than mutating a
-        # template-tier idea instead (that would blur the tier boundary the
-        # two-tier design is built around: reasoning picks genuinely new
+        # picked, per mutate_candidate()'s own docstring. Only fires if
+        # Tier 1 + Tier 2 still didn't fill the queue AND the reasoning
+        # tier actually proposed something this round to mutate a
+        # direction from -- if it proposed nothing (e.g. exhausted quota),
+        # there's no "direction already picked" to work from, and this
+        # tier intentionally sits out rather than mutating a template-tier
+        # idea instead (that would blur the tier boundary the two-tier
+        # design is built around: reasoning picks genuinely new
         # directions, mechanical cheaply varies one of them).
+        #
+        # Update 05: the mutation base is no longer just "whichever
+        # proposal happened to come first in the list" -- it's whichever of
+        # this tick's proposals belongs to the category with the best
+        # historical pass rate/fitness, so the cheap high-volume tier
+        # doubles down on a direction with actual track record instead of
+        # an arbitrary one. Falls back to proposals[0] if performance data
+        # isn't available yet (new pool, or a fake Repo in tests) or none
+        # of this tick's categories have any history.
         remaining = needed - added
         if remaining > 0 and proposals:
-            base = proposals[0]
+            base = self._best_proposal_by_track_record(proposals)
             try:
                 mutations = await asyncio.to_thread(
                     mutate_candidate,
@@ -257,18 +293,71 @@ class Worker:
                     min(remaining, 10),
                 )
                 for c in mutations:
-                    self.repo.insert_candidate(c["expression"], c["category"], c["generation_tier"])
-                    added += 1
+                    if self._insert_candidate_deduped(c["expression"], c["category"], c["generation_tier"]):
+                        added += 1
             except Exception as e:  # noqa: BLE001
                 log.warning("LLM mechanical mutation failed: %s", e)
 
         return added
 
+    def _best_proposal_by_track_record(self, proposals: list[dict]) -> dict:
+        try:
+            perf = {row["category"]: row for row in self.repo.category_performance()}
+        except Exception:  # noqa: BLE001
+            return proposals[0]
+        scored = [
+            (perf[p["category"]].get("avg_stage0_fitness") or 0.0, p)
+            for p in proposals
+            if p["category"] in perf
+        ]
+        if not scored:
+            return proposals[0]
+        return max(scored, key=lambda t: t[0])[1]
+
+    def _recent_llm_expressions(self) -> list:
+        """Recently LLM-proposed expressions, passed to propose_new_ideas()
+        so it can be told not to repeat itself (Update 05 -- see
+        llm_generator.propose_new_ideas' avoid_expressions docstring).
+        Defensive: an older/fake Repo without this method just means no
+        dedup hint gets sent, not a broken generation step."""
+        try:
+            return self.repo.recent_llm_expressions()
+        except Exception:  # noqa: BLE001
+            return []
+
     def _pool_summary(self) -> str:
-        return f"{len(SEED_IDEAS)} seed idea families across A-H; ML combiner ideas (Section I) not yet built."
+        """Real per-category/tier attempt-and-pass-rate breakdown for the
+        reasoning-tier prompt (Update 05). Previously a hardcoded sentence
+        that never changed no matter how the pool evolved -- the LLM had no
+        actual visibility into what's already been tried or what's working."""
+        try:
+            rows = self.repo.category_performance()
+        except Exception:  # noqa: BLE001
+            rows = []
+        if not rows:
+            return f"{len(SEED_IDEAS)} seed idea families across A-H; ML combiner ideas (Section I) not yet built. No attempt history yet."
+        lines = [
+            f"{r['category']} [{r['generation_tier']}]: {r['attempts']} tried, {r['passed']} passed"
+            + (f", avg stage0 fitness {r['avg_stage0_fitness']:.2f}" if r.get("avg_stage0_fitness") is not None else "")
+            for r in rows
+        ]
+        return "\n".join(lines)
 
     def _recent_failure_log(self) -> str:
-        return "See review_store/candidates status for recent rejections."
+        """Real recent-rejection detail for the reasoning-tier prompt
+        (Update 05). Previously told the LLM to go look this up itself
+        instead of handing it the data."""
+        try:
+            rows = self.repo.recent_rejections(limit=10)
+        except Exception:  # noqa: BLE001
+            rows = []
+        if not rows:
+            return "no rejections logged yet"
+        return "\n".join(
+            f"{r['expression']} -> {r['status']}"
+            + (f" (sharpe={r['stage0_sharpe']}, fitness={r['stage0_fitness']})" if r.get("stage0_sharpe") is not None else "")
+            for r in rows
+        )
 
     # --- bounded simulation batches (replaces the old simulation_loop) ---
 

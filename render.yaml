@@ -47,6 +47,8 @@ services:
         sync: false
       - key: QUEUE_TARGET_DEPTH
         value: "75"
+      - key: TEMPLATE_TIER_MAX_SHARE
+        value: "0.5"
       - key: MAX_CANDIDATES_PER_RUN
         value: "15"
       - key: RUN_TIME_BUDGET_SECONDS

@@ -66,12 +66,16 @@ class KeyedProvider:
             except RateLimitError as e:
                 last_err = e
                 usage_logger(self.name, key_label, tier, False, str(e))
+                # Only a rate limit is transient/self-resolving -- worth a
+                # short backoff before trying the next key. A hard failure
+                # (bad key, auth error, wrong model name) will never
+                # resolve itself, so paying a fixed sleep for it on every
+                # key, every call, is pure wasted wall-clock (Update 05).
                 sleep_fn(e.retry_after if e.retry_after else 2.0)
                 continue
             except Exception as e:  # noqa: BLE001 - any hard failure also falls through to next key
                 last_err = e
                 usage_logger(self.name, key_label, tier, False, str(e))
-                sleep_fn(2.0)
                 continue
         raise QuotaExhausted(f"All {self.name} keys exhausted: {last_err}")
 
@@ -84,8 +88,15 @@ def _gemini_call_fn(prompt: str, model: str, key_value: str) -> str:
         resp = client.models.generate_content(model=model, contents=prompt)
         return resp.text
     except Exception as e:  # noqa: BLE001
+        # Prefer the SDK's own status code when it's exposed -- matching on
+        # e.message substrings breaks silently the moment google-genai
+        # changes its wording. code/status_code cover the shapes seen
+        # across recent google-genai versions; the substring match stays
+        # only as a last-resort fallback for versions/wrappers that don't
+        # expose either (Update 05).
+        code = getattr(e, "code", None) or getattr(e, "status_code", None)
         msg = str(e)
-        if "429" in msg or "RESOURCE_EXHAUSTED" in msg.upper():
+        if code == 429 or "429" in msg or "RESOURCE_EXHAUSTED" in msg.upper():
             raise RateLimitError(msg) from e
         raise
 
@@ -98,8 +109,13 @@ def _groq_call_fn(prompt: str, model: str, key_value: str) -> str:
         resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}])
         return resp.choices[0].message.content
     except Exception as e:  # noqa: BLE001
+        # openai-python raises a typed openai.RateLimitError with a
+        # `.status_code` on real 429s -- prefer that over the message
+        # substring match, which is what's left for wrappers/mocks that
+        # don't set it (Update 05).
+        status_code = getattr(e, "status_code", None)
         msg = str(e)
-        if "429" in msg or "rate_limit" in msg.lower():
+        if status_code == 429 or "429" in msg or "rate_limit" in msg.lower():
             raise RateLimitError(msg) from e
         raise
 

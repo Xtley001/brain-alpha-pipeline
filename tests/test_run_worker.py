@@ -107,6 +107,18 @@ class _FakeRepo:
         self.run_history_rows.append(row)
         return len(self.run_history_rows)
 
+    def expression_exists(self, expression):
+        return False
+
+    def recent_llm_expressions(self):
+        return []
+
+    def category_performance(self):
+        return []
+
+    def recent_rejections(self, limit=10):
+        return []
+
 
 class _FakeNotifier:
     def __init__(self):
@@ -405,3 +417,74 @@ def test_candidate_permanently_fails_after_max_attempts_with_exactly_one_alert(m
     assert repo.candidate_attempts[9] == MAX_CANDIDATE_ATTEMPTS
     assert repo.statuses[9] == "rejected_error"
     assert len(worker.notifier.operational_alerts) == 1
+
+
+# --- Update 05: template tier must not starve the LLM tiers -------------
+
+
+class _FakeLLMAdapter:
+    """Minimal stand-in for LLMAdapter -- just enough for
+    propose_new_ideas()/mutate_candidate() to call through it."""
+
+    def __init__(self, reasoning_items, mechanical_items=None):
+        import json
+        self._reasoning_raw = json.dumps(reasoning_items)
+        self._mechanical_raw = json.dumps(mechanical_items or [])
+        self.reasoning_calls = 0
+        self.mechanical_calls = 0
+
+    def reasoning_call(self, prompt):
+        self.reasoning_calls += 1
+        return self._reasoning_raw, "gemini"
+
+    def mechanical_call(self, prompt):
+        self.mechanical_calls += 1
+        return self._mechanical_raw, "groq"
+
+
+def test_template_tier_does_not_starve_llm_tiers_when_pool_covers_the_gap():
+    """Update 05 regression test for the root cause of the false 'LLM key
+    health' alarm: the template pool (53 expressions) covers most ticks'
+    `needed` on its own, which used to mean propose_new_ideas() never got
+    called and llm_usage never got fresh rows. template_tier_max_share
+    must reserve real room for the LLM tiers even when the template pool
+    alone could satisfy `needed`."""
+    repo = _FakeRepo([])
+    brain = _FakeBrainConcurrencyTracker(max_concurrent=2)
+    config = Config(
+        database_url="postgres://fake", brain_username="u", brain_password="p",
+        brain_max_concurrent_sims=2, template_tier_max_share=0.5,
+    )
+    llm = _FakeLLMAdapter(
+        reasoning_items=[{"expression": "rank(new_idea)", "category": "novel"}],
+    )
+    worker = Worker(config, repo, brain, _FakeNotifier(), llm=llm)
+
+    added = asyncio.run(worker._top_up_queue(10))
+
+    assert llm.reasoning_calls == 1, (
+        "template tier consumed the whole gap again -- the LLM reasoning "
+        "tier never got called, which is exactly the bug that made "
+        "llm_usage (and therefore heartbeat key health) go stale forever"
+    )
+    assert added >= 5  # at least the template_tier_max_share portion landed
+
+
+def test_top_up_queue_dedupes_against_existing_expressions():
+    """Update 05: an expression already in the DB should not be inserted
+    (and counted) again -- wasted BRAIN slot / wasted LLM tokens."""
+    repo = _FakeRepo([])
+    existing = {"rank(close)"}
+    repo.expression_exists = lambda expr: expr in existing
+    brain = _FakeBrainConcurrencyTracker(max_concurrent=2)
+    config = Config(
+        database_url="postgres://fake", brain_username="u", brain_password="p",
+        brain_max_concurrent_sims=2, template_tier_max_share=1.0,
+    )
+    worker = Worker(config, repo, brain, _FakeNotifier(), llm=None)
+
+    inserted = worker._insert_candidate_deduped("rank(close)", "cat", "template")
+    assert inserted is False
+
+    inserted_new = worker._insert_candidate_deduped("rank(open)", "cat", "template")
+    assert inserted_new is True
