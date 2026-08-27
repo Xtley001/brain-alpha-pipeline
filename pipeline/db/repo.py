@@ -22,6 +22,11 @@ from datetime import datetime, timezone
 from typing import Optional
 
 SCHEMA_PATH = os.path.join(os.path.dirname(__file__), "schema.sql")
+# Update 10 Item 6: schema.sql is kept only as a historical/legacy
+# reference (and as the thing the Alembic baseline migration was verified
+# against -- see pipeline/db/alembic/versions/93b626538c0e_baseline_schema.py's
+# docstring) -- it is no longer executed by migrate() below.
+ALEMBIC_INI_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "alembic.ini")
 
 
 class Repo:
@@ -65,21 +70,64 @@ class Repo:
                 raise
 
     def migrate(self) -> None:
-        with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
-            ddl = f.read()
-        with self._conn() as conn:
-            with conn.cursor() as cur:
-                cur.execute(ddl)
+        """Update 10 Item 6: applies pending Alembic migrations
+        (`alembic upgrade head`, invoked programmatically via Alembic's own
+        Python API rather than shelling out) instead of unconditionally
+        re-executing the entire schema.sql file on every cold start.
+
+        This is Option (a) from the item's two allowed choices: automatic
+        migration stays in the hot path (every scheduled tick is a fresh
+        process -- see run_worker.py's module docstring -- so a manual
+        pre-deploy step would need to run before literally every tick,
+        which isn't practical for this deployment model), but it is now
+        gated by Alembic's own version tracking (the `alembic_version`
+        table) so a tick where the schema is already current does real
+        no-op work -- checking one version row -- rather than re-parsing
+        and re-executing every CREATE/ALTER statement in the file, every
+        ~10 minutes, forever. Verified as an actual no-op on an
+        already-migrated DB: see the Update 10 final report for the
+        `alembic upgrade head` output (empty) on a second run.
+
+        Both systems are not left running simultaneously: schema.sql is no
+        longer executed anywhere in this codebase (grep confirms it), it
+        remains in the repo purely as the historical reference the Alembic
+        baseline was verified against."""
+        from alembic import command
+        from alembic.config import Config as AlembicConfig
+
+        alembic_cfg = AlembicConfig(ALEMBIC_INI_PATH)
+        alembic_cfg.set_main_option(
+            "script_location", os.path.join(os.path.dirname(__file__), "alembic")
+        )
+        # env.py prefers the DATABASE_URL env var over alembic.ini's
+        # placeholder URL if the env var happens to be set (e.g. by the
+        # deploy environment) -- but Repo already has this Worker's actual
+        # database_url regardless of env var plumbing, so it's set
+        # directly as the sqlalchemy.url main option here rather than
+        # relying on (or mutating) process-global environment state.
+        sqlalchemy_url = self.database_url
+        if sqlalchemy_url.startswith("postgres://"):
+            sqlalchemy_url = "postgresql+psycopg://" + sqlalchemy_url[len("postgres://"):]
+        elif sqlalchemy_url.startswith("postgresql://") and "+psycopg" not in sqlalchemy_url:
+            sqlalchemy_url = "postgresql+psycopg://" + sqlalchemy_url[len("postgresql://"):]
+        alembic_cfg.set_main_option("sqlalchemy.url", sqlalchemy_url)
+        command.upgrade(alembic_cfg, "head")
 
     # --- candidates ---
 
-    def insert_candidate(self, expression: str, category: Optional[str], generation_tier: str) -> int:
+    def insert_candidate(
+        self, expression: str, category: Optional[str], generation_tier: str, provider: Optional[str] = None
+    ) -> int:
+        """`provider` (Update 10 Item 3) records which LLM provider actually
+        produced this candidate ('groq'/'cerebras'/'openrouter'/...), NULL
+        for template-tier candidates -- see schema.sql's column comment.
+        generation_tier itself is now just 'template' | 'llm'."""
         with self._conn() as conn:
             with conn.cursor() as cur:
                 cur.execute(
-                    "INSERT INTO candidates (expression, category, generation_tier) "
-                    "VALUES (%s, %s, %s) RETURNING id",
-                    (expression, category, generation_tier),
+                    "INSERT INTO candidates (expression, category, generation_tier, provider) "
+                    "VALUES (%s, %s, %s, %s) RETURNING id",
+                    (expression, category, generation_tier, provider),
                 )
                 return cur.fetchone()[0]
 
@@ -100,12 +148,15 @@ class Repo:
                     "WHERE id = ("
                     "  SELECT id FROM candidates WHERE status = 'pending' "
                     "  ORDER BY created_at ASC LIMIT 1 FOR UPDATE SKIP LOCKED"
-                    ") RETURNING id, expression, category, generation_tier"
+                    ") RETURNING id, expression, category, generation_tier, provider"
                 )
                 row = cur.fetchone()
                 if row is None:
                     return None
-                return {"id": row[0], "expression": row[1], "category": row[2], "generation_tier": row[3]}
+                return {
+                    "id": row[0], "expression": row[1], "category": row[2],
+                    "generation_tier": row[3], "provider": row[4],
+                }
 
     def set_candidate_status(self, candidate_id: int, status: str, stage0_fitness=None, stage0_sharpe=None) -> None:
         with self._conn() as conn:
@@ -390,12 +441,24 @@ class Repo:
         propose_new_ideas() can be told 'don't repeat these' instead of
         silently re-spending tokens (and a sweep slot) on an idea it already
         gave us. Update 05 -- there was no dedup signal of any kind before
-        this; the reasoning prompt never saw its own prior output."""
+        this; the reasoning prompt never saw its own prior output.
+
+        Update 10 Item 3: previously hardcoded
+        `WHERE generation_tier IN ('llm_gemini','llm_groq')` -- any
+        candidate produced by a provider added later (Cerebras, OpenRouter,
+        ...) got tagged with a tier string this IN-list never matched, so
+        the dedup check was blind to it despite still running and still
+        returning rows. generation_tier is now collapsed to a single
+        'llm' value for every LLM-sourced candidate regardless of which
+        provider answered (the actual provider lives in the `provider`
+        column instead), so this is a single equality check that is
+        mechanically guaranteed not to go blind to a new provider again --
+        there is no per-provider list left to fall out of date."""
         with self._conn() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     "SELECT expression FROM candidates "
-                    "WHERE generation_tier IN ('llm_gemini','llm_groq') "
+                    "WHERE generation_tier = 'llm' "
                     "ORDER BY created_at DESC LIMIT %s",
                     (limit,),
                 )

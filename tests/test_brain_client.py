@@ -66,3 +66,65 @@ def test_parse_pnl_response_handles_dict_shaped_records():
 def test_parse_pnl_response_empty_records_returns_empty_dict():
     resp = _FakeResp({"records": []})
     assert _parse_pnl_response(resp) == {}
+
+
+# --- Update 10 Item 8: missing-key warnings ------------------------------
+
+
+def test_parse_sim_response_warns_once_when_critical_key_missing(caplog):
+    """A response missing sharpe/fitness/turnover must log a loud
+    (ERROR-level) warning instead of silently defaulting to 0.0 with no
+    trace -- this is what stops a real schema mismatch from being
+    indistinguishable from a genuinely bad candidate."""
+    import logging
+    import pipeline.brain.client as client_module
+
+    client_module._warned_missing_keys.clear()
+    resp = _FakeResp({"id": "abc", "is": {"fitness": 1.2, "turnover": 0.3}})  # sharpe missing
+    with caplog.at_level(logging.ERROR, logger="brain_client"):
+        result = _parse_sim_response(resp)
+    assert result.sharpe == 0.0  # fallback value still used
+    assert any("sharpe" in r.message and "missing" in r.message for r in caplog.records)
+
+
+def test_parse_sim_response_missing_key_warning_only_logged_once():
+    """Update 10 Item 8: deduped so a sustained schema mismatch (every
+    simulation this tick) doesn't spam the log -- only the first
+    occurrence per key is loud."""
+    import pipeline.brain.client as client_module
+
+    client_module._warned_missing_keys.clear()
+    resp = _FakeResp({"id": "abc", "is": {"fitness": 1.2, "turnover": 0.3}})
+    _parse_sim_response(resp)
+    assert ("sim_response", "sharpe") in client_module._warned_missing_keys
+    # Calling again must not raise or duplicate-track -- the dedup set just
+    # already contains the key.
+    _parse_sim_response(resp)
+    assert list(client_module._warned_missing_keys).count(("sim_response", "sharpe")) == 1
+
+
+def test_parse_sim_response_does_not_warn_when_all_critical_keys_present():
+    import pipeline.brain.client as client_module
+
+    client_module._warned_missing_keys.clear()
+    resp = _FakeResp({"id": "abc", "is": {"sharpe": 1.0, "fitness": 1.2, "turnover": 0.3}})
+    _parse_sim_response(resp)
+    assert not client_module._warned_missing_keys
+
+
+def test_parse_pnl_response_warns_when_all_records_unusable(caplog):
+    """A response whose records don't yield any usable (date, pnl) pairs
+    -- e.g. BRAIN using different field names than assumed -- must warn
+    loudly rather than silently returning {} indistinguishable from 'no
+    PnL exists yet', since {} feeds into compute_max_correlation and
+    passes the correlation gate by construction (Update 02 P0.1's original
+    failure mode)."""
+    import logging
+    import pipeline.brain.client as client_module
+
+    client_module._warned_missing_keys.clear()
+    resp = _FakeResp({"records": [{"unexpected_date_field": "2026-01-01", "unexpected_pnl_field": 5.0}]})
+    with caplog.at_level(logging.ERROR, logger="brain_client"):
+        daily = _parse_pnl_response(resp)
+    assert daily == {}
+    assert any("date/pnl" in r.message for r in caplog.records)

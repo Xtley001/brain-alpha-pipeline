@@ -90,7 +90,10 @@ def test_full_pipeline_happy_path_produces_a_review_store_row_and_alert():
     notifier.send_candidate_alert(row)
 
     assert len(sent) == 1
-    assert expression in sent[0]["text"]
+    # Update 10 Item 2: the expression is Markdown-escaped before being
+    # embedded in the alert (its underscores are legacy-Markdown entity
+    # characters) -- stripping the escaping backslashes recovers it.
+    assert expression in sent[0]["text"].replace("\\", "")
 
 
 def test_full_pipeline_correlation_rejection_produces_no_alert():

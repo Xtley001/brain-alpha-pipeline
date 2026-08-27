@@ -43,6 +43,7 @@ class _FakeRepo:
         self.pool_returns = {}
         self.pool_upserts = []
         self.run_history_rows = []
+        self.telegram_sent_ids = []
 
     def queue_depth(self):
         return self._queue_depth
@@ -85,7 +86,7 @@ class _FakeRepo:
         return 1
 
     def mark_telegram_sent(self, review_id):
-        pass
+        self.telegram_sent_ids.append(review_id)
 
     def get_meta(self, key):
         return self.meta.get(key)
@@ -97,7 +98,7 @@ class _FakeRepo:
         self.reclaim_calls += 1
         return 0
 
-    def insert_candidate(self, expression, category, generation_tier):
+    def insert_candidate(self, expression, category, generation_tier, provider=None):
         return -1  # not exercised by these tests (queue_target_depth stays satisfied)
 
     def recent_llm_key_health(self):
@@ -180,7 +181,7 @@ def test_batch_processing_never_exceeds_configured_concurrency():
     import time
     deadline = time.monotonic() + 5
     batches_run, processed, stopped_reason, stage_counts = asyncio.run(
-        worker._process_candidates_bounded(max_candidates=15, deadline=deadline)
+        worker.executor.process_candidates_bounded(max_candidates=15, deadline=deadline)
     )
 
     assert brain.exceeded is False, (
@@ -212,7 +213,7 @@ def test_process_candidates_bounded_stops_at_max_candidates_per_run():
     import time
     deadline = time.monotonic() + 5
     batches_run, processed, stopped_reason, stage_counts = asyncio.run(
-        worker._process_candidates_bounded(max_candidates=4, deadline=deadline)
+        worker.executor.process_candidates_bounded(max_candidates=4, deadline=deadline)
     )
 
     assert processed == 4
@@ -235,7 +236,7 @@ def test_process_candidates_bounded_stops_at_time_budget():
     import time
     already_past_deadline = time.monotonic() - 1
     batches_run, processed, stopped_reason, stage_counts = asyncio.run(
-        worker._process_candidates_bounded(max_candidates=15, deadline=already_past_deadline)
+        worker.executor.process_candidates_bounded(max_candidates=15, deadline=already_past_deadline)
     )
 
     assert processed == 0
@@ -331,7 +332,7 @@ def test_process_candidate_rejects_when_winning_result_has_no_alpha_id(monkeypat
     )
     _patch_sweep(monkeypatch, outcome)
 
-    status = asyncio.run(worker._process_candidate({"id": 1, "expression": "expr"}))
+    status = asyncio.run(worker.executor.process_candidate({"id": 1, "expression": "expr"}))
 
     assert status == "rejected_correlation"
     assert repo.statuses[1] == "rejected_correlation"
@@ -358,12 +359,13 @@ def test_process_candidate_upserts_pool_returns_on_pass(monkeypatch):
     )
     _patch_sweep(monkeypatch, outcome)
 
-    status = asyncio.run(worker._process_candidate({"id": 1, "expression": "expr"}))
+    status = asyncio.run(worker.executor.process_candidate({"id": 1, "expression": "expr"}))
 
     assert status == "passed"
     assert repo.statuses[1] == "passed"
     assert repo.pool_upserts == [("alpha_123", {"2026-01-01": 0.01, "2026-01-02": 0.02})]
     assert len(worker.notifier.candidate_alerts) == 1
+    assert repo.telegram_sent_ids == [1]  # mark_telegram_sent called on send success
 
 
 def test_process_candidate_aborted_stage_goes_through_attempt_cap_not_a_quality_rejection(monkeypatch):
@@ -384,7 +386,7 @@ def test_process_candidate_aborted_stage_goes_through_attempt_cap_not_a_quality_
     )
     _patch_sweep(monkeypatch, outcome)
 
-    status = asyncio.run(worker._process_candidate({"id": 7, "expression": "expr"}))
+    status = asyncio.run(worker.executor.process_candidate({"id": 7, "expression": "expr"}))
 
     assert status == "pending"  # first attempt, retried
     assert repo.candidate_attempts[7] == 1
@@ -411,7 +413,7 @@ def test_candidate_permanently_fails_after_max_attempts_with_exactly_one_alert(m
 
     last_status = None
     for _ in range(MAX_CANDIDATE_ATTEMPTS):
-        last_status = asyncio.run(worker._process_candidate({"id": 9, "expression": "expr"}))
+        last_status = asyncio.run(worker.executor.process_candidate({"id": 9, "expression": "expr"}))
 
     assert last_status == "rejected_error"
     assert repo.candidate_attempts[9] == MAX_CANDIDATE_ATTEMPTS
@@ -460,7 +462,7 @@ def test_template_tier_does_not_starve_llm_tiers_when_pool_covers_the_gap():
     )
     worker = Worker(config, repo, brain, _FakeNotifier(), llm=llm)
 
-    added = asyncio.run(worker._top_up_queue(10))
+    added = asyncio.run(worker.generation.top_up_queue(10))
 
     assert llm.reasoning_calls == 1, (
         "template tier consumed the whole gap again -- the LLM reasoning "
@@ -483,8 +485,385 @@ def test_top_up_queue_dedupes_against_existing_expressions():
     )
     worker = Worker(config, repo, brain, _FakeNotifier(), llm=None)
 
-    inserted = worker._insert_candidate_deduped("rank(close)", "cat", "template")
+    # Update 10 Item 1: _insert_candidate_deduped is now async (its two
+    # repo calls are offloaded via asyncio.to_thread), so it must be
+    # awaited here rather than called synchronously.
+    inserted = asyncio.run(worker.generation.insert_candidate_deduped("rank(close)", "cat", "template"))
     assert inserted is False
 
-    inserted_new = worker._insert_candidate_deduped("rank(open)", "cat", "template")
+    inserted_new = asyncio.run(worker.generation.insert_candidate_deduped("rank(open)", "cat", "template"))
     assert inserted_new is True
+
+
+# --- Update 10 Item 1: repo calls inside _process_candidate must not ----
+# --- block the event loop and serialize a concurrent batch --------------
+
+
+class _SlowFakeRepo(_FakeRepo):
+    """Fake Repo whose methods sleep a small, deterministic duration to
+    simulate a real network round trip to Neon -- used to prove
+    _process_candidate's DB calls are non-blocking (Item 1), not to test
+    correctness of the calls themselves (already covered by _FakeRepo's
+    other consumers)."""
+
+    LATENCY = 0.05
+
+    def _delay(self):
+        import time as _time
+        _time.sleep(self.LATENCY)
+
+    def set_candidate_status(self, candidate_id, status, **kwargs):
+        self._delay()
+        super().set_candidate_status(candidate_id, status, **kwargs)
+
+    def insert_review_store(self, row):
+        self._delay()
+        return super().insert_review_store(row)
+
+    def mark_telegram_sent(self, review_id):
+        self._delay()
+        super().mark_telegram_sent(review_id)
+
+    def get_pool_returns(self):
+        self._delay()
+        return super().get_pool_returns()
+
+    def upsert_pool_returns(self, alpha_id, series):
+        self._delay()
+        super().upsert_pool_returns(alpha_id, series)
+
+    def insert_sweep_run(self, *a, **k):
+        self._delay()
+        return super().insert_sweep_run(*a, **k)
+
+    def insert_sweep_run_error(self, *a, **k):
+        self._delay()
+        return super().insert_sweep_run_error(*a, **k)
+
+
+def test_process_candidate_repo_calls_do_not_serialize_a_concurrent_batch(monkeypatch):
+    """Update 10 Item 1 regression test.
+
+    Before this fix, every `self.repo.*` call inside `_process_candidate`
+    (an `async def` run concurrently in batches via `asyncio.gather` in
+    `_process_candidates_bounded`) executed synchronously, directly on the
+    event loop -- including the incremental sweep_runs writes made via the
+    `persist_run` callback. That serializes an entire concurrent batch on
+    Postgres I/O that has nothing to do with BRAIN, defeating the whole
+    point of dispatching candidates concurrently.
+
+    This test drives several candidates through `_process_candidate`
+    concurrently (via asyncio.gather, matching how
+    `_process_candidates_bounded` dispatches a batch) against a `Repo`
+    whose methods each sleep `_SlowFakeRepo.LATENCY` seconds, and asserts
+    the wall-clock time for the whole batch stays close to a single
+    candidate's own latency chain rather than growing linearly with the
+    number of candidates -- i.e. closer to max(latencies) than
+    sum(latencies). This must fail against the pre-fix code (where it
+    would take roughly n * (repo calls per candidate) * LATENCY) and pass
+    after the fix."""
+    import time as time_module
+
+    from pipeline.sweep.settings_sweep import Settings, SweepOutcome, SweepRun
+
+    settings = Settings(
+        delay=1, universe="TOP3000", neutralization="SUBINDUSTRY", decay=8,
+        truncation=0.05, pasteurization=True, nan_handling=False,
+    )
+
+    def make_outcome(alpha_id):
+        winning_result = SimResult(sharpe=2.0, fitness=1.5, turnover=0.3, alpha_id=alpha_id)
+        run = SweepRun(stage="stage0", settings=settings, result=winning_result)
+        return SweepOutcome(
+            rejected_at_stage0=False, aborted_stage=None, runs=[run],
+            winning_settings=settings, winning_result=winning_result,
+            robust_count=5, sweep_total=41, error_count=0, fragile=False,
+        )
+
+    n = 4
+    repo = _SlowFakeRepo([])
+    brain = _FakeBrainForCorrelation({f"alpha_{i}": {"2026-01-01": 0.01} for i in range(n)})
+    worker = _make_worker(repo, brain, max_concurrent=n)
+
+    import pipeline.run_worker as run_worker_module
+
+    async def fake_run_staged_sweep(expression, *args, **kwargs):
+        # Also exercises the persist_run callback path (the sweep_runs
+        # writes), which is the one repo call site that can't simply be
+        # `await`ed since run_staged_sweep invokes it as a synchronous
+        # callback -- see _persist_sweep_run's docstring.
+        outcome = make_outcome(expression)
+        persist_run = kwargs.get("persist_run")
+        if persist_run:
+            for run in outcome.runs:
+                persist_run(run)
+        return outcome
+
+    monkeypatch.setattr(run_worker_module, "run_staged_sweep", fake_run_staged_sweep)
+
+    candidates = [{"id": i, "expression": f"alpha_{i}"} for i in range(n)]
+
+    start = time_module.monotonic()
+    statuses = asyncio.run(_gather_process_candidate(worker, candidates))
+    elapsed = time_module.monotonic() - start
+
+    assert statuses == ["passed"] * n
+
+    # Repo calls per candidate on this passing path: persist_run (1
+    # sweep_runs write) + get_pool_returns + insert_review_store +
+    # set_candidate_status + mark_telegram_sent + upsert_pool_returns = 6
+    # sleeping calls total.
+    #
+    # Update 10 Item 4 note: get_pool_returns + upsert_pool_returns are, as
+    # of that item, intentionally serialized across the whole batch by
+    # `self._correlation_lock` (guarding exactly that read-compare-write
+    # sequence, to close the reopened correlation-gate race) -- so those 2
+    # of the 6 calls are *expected* to add up linearly with n, not overlap.
+    # The other 4 calls have no such lock and must still overlap across
+    # candidates. Expected-best-case wall time is therefore roughly
+    # `n * locked_latency + unlocked_latency` (serialized lock portion plus
+    # one overlapped unlocked portion), which is well under the
+    # fully-serialized-on-every-call worst case this test exists to catch
+    # (`n * 6 * LATENCY`).
+    locked_calls = 2  # get_pool_returns, upsert_pool_returns
+    unlocked_calls = 4  # persist_run, insert_review_store, set_candidate_status, mark_telegram_sent
+    fully_serial_worst_case = n * (locked_calls + unlocked_calls) * _SlowFakeRepo.LATENCY
+    expected_best_case = n * locked_calls * _SlowFakeRepo.LATENCY + unlocked_calls * _SlowFakeRepo.LATENCY
+    # Generous margin above the expected best case, but still well below
+    # the fully-serial worst case, so this only fails if calls outside the
+    # correlation lock stop overlapping.
+    threshold = expected_best_case * 1.8
+    assert threshold < fully_serial_worst_case, "test thresholds not meaningfully distinguishing serial vs concurrent"
+    assert elapsed < threshold, (
+        f"elapsed={elapsed:.3f}s for {n} concurrently-dispatched candidates "
+        f"exceeds the expected-with-overlap threshold ({threshold:.3f}s; "
+        f"fully-serial worst case would be {fully_serial_worst_case:.3f}s) -- "
+        f"repo calls outside the Item 4 correlation lock are still blocking "
+        f"the event loop and serializing the batch"
+    )
+
+
+async def _gather_process_candidate(worker, candidates):
+    return await asyncio.gather(*(worker.executor.process_candidate(c) for c in candidates))
+
+
+# --- Update 10 Item 9.3: external healthcheck ping -----------------------
+
+
+def test_healthcheck_ping_is_noop_when_unconfigured():
+    """Config.healthcheck_ping_url defaults to None -- send_healthcheck_ping
+    must not attempt any network call in that case (and must not raise)."""
+    from pipeline.run_worker import RunReporter
+
+    reporter = RunReporter(repo=_FakeRepo([]), notifier=_FakeNotifier(), healthcheck_ping_url=None)
+    asyncio.run(reporter.send_healthcheck_ping())  # must not raise
+
+
+def test_healthcheck_ping_calls_configured_url(monkeypatch):
+    from pipeline.run_worker import RunReporter
+
+    calls = []
+    monkeypatch.setattr(
+        "urllib.request.urlopen",
+        lambda url, timeout=None: calls.append((url, timeout)),
+    )
+    reporter = RunReporter(
+        repo=_FakeRepo([]), notifier=_FakeNotifier(), healthcheck_ping_url="https://hc-ping.com/fake-uuid"
+    )
+    asyncio.run(reporter.send_healthcheck_ping())
+    assert calls == [("https://hc-ping.com/fake-uuid", 10)]
+
+
+def test_healthcheck_ping_failure_is_swallowed(monkeypatch):
+    """A ping failure (network error, service down, etc.) must never
+    propagate -- run_once() already completed successfully by the time
+    this fires, and a monitoring side-channel failing must not turn a
+    good run into a crashed one."""
+    from pipeline.run_worker import RunReporter
+
+    def _raise(url, timeout=None):
+        raise OSError("connection refused")
+
+    monkeypatch.setattr("urllib.request.urlopen", _raise)
+    reporter = RunReporter(
+        repo=_FakeRepo([]), notifier=_FakeNotifier(), healthcheck_ping_url="https://hc-ping.com/fake-uuid"
+    )
+    asyncio.run(reporter.send_healthcheck_ping())  # must not raise
+
+
+# --- Update 10 Item 9.4: _best_effort_startup_alert .strip() consistency -
+
+
+def test_best_effort_startup_alert_strips_whitespace_like_config_optional(monkeypatch):
+    """Update 10 Item 9.4 regression test. _best_effort_startup_alert reads
+    TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID directly from os.environ (bypassing
+    Config._optional(), deliberately -- see its docstring), which used to
+    mean a trailing-whitespace env var value (e.g. from a pasted secret
+    with a stray newline) behaved differently here than via the normal
+    Config.from_env() path, which does strip(). This confirms the two
+    paths now agree."""
+    from pipeline.run_worker import _best_effort_startup_alert
+
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "  token-with-whitespace  \n")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "\tchat-id-with-whitespace\t")
+
+    captured = {}
+
+    class _CapturingNotifier:
+        def __init__(self, token, chat_id):
+            captured["token"] = token
+            captured["chat_id"] = chat_id
+
+        def send_operational_alert(self, message):
+            captured["message"] = message
+
+    import pipeline.run_worker as run_worker_module
+    monkeypatch.setattr(run_worker_module, "TelegramNotifier", _CapturingNotifier)
+
+    _best_effort_startup_alert("test message")
+
+    assert captured["token"] == "token-with-whitespace"
+    assert captured["chat_id"] == "chat-id-with-whitespace"
+
+
+# --- Update 10 Item 2: a Telegram delivery failure after a candidate -----
+# --- has already passed must never flip its status back -----------------
+
+
+class _RaisingNotifier(_FakeNotifier):
+    """send_candidate_alert raises every time -- simulates Telegram's
+    legacy Markdown parser rejecting the message with a 400 (see
+    telegram_notify.py's escape_markdown / Item 2's root-cause fix)."""
+
+    def send_candidate_alert(self, row):
+        raise RuntimeError("Telegram API returned 400 Bad Request: can't parse entities")
+
+
+def test_notifier_failure_after_pass_does_not_revert_candidate_status(monkeypatch):
+    """Update 10 Item 2 regression test. Before this fix, an unguarded
+    `self.notifier.send_candidate_alert(row)` call sat between
+    `set_candidate_status(candidate_id, 'passed')` and
+    `mark_telegram_sent(review_id)`, with no try/except -- a delivery
+    failure propagated into _process_candidate's broad `except Exception`
+    handler, which called `_record_candidate_error` and flipped an
+    already-'passed' candidate (with an already-inserted review_store row)
+    back toward 'pending'/'rejected_error'.
+
+    This drives a full passing outcome through `_process_candidate` with a
+    notifier whose `send_candidate_alert` always raises, and asserts:
+    (a) the method still returns 'passed', not an error status,
+    (b) `repo.statuses[candidate_id]` is 'passed' and was never
+        overwritten with anything else afterward,
+    (c) no candidate-error/attempt-cap path was ever triggered (no
+        operational alert, no attempts recorded)."""
+    from pipeline.sweep.settings_sweep import Settings, SweepOutcome
+
+    repo = _FakeRepo([])
+    brain = _FakeBrainForCorrelation({"alpha_123": {"2026-01-01": 0.01, "2026-01-02": 0.02}})
+    worker = _make_worker(repo, brain)
+    worker.notifier = _RaisingNotifier()
+    worker.executor.notifier = worker.notifier  # CandidateExecutor holds its own notifier reference
+
+    settings = Settings(
+        delay=1, universe="TOP3000", neutralization="SUBINDUSTRY", decay=8,
+        truncation=0.05, pasteurization=True, nan_handling=False,
+    )
+    winning_result = SimResult(sharpe=2.0, fitness=1.5, turnover=0.3, alpha_id="alpha_123")
+    outcome = SweepOutcome(
+        rejected_at_stage0=False, aborted_stage=None, runs=[],
+        winning_settings=settings, winning_result=winning_result,
+        robust_count=5, sweep_total=41, error_count=0, fragile=False,
+    )
+    _patch_sweep(monkeypatch, outcome)
+
+    status = asyncio.run(worker.executor.process_candidate({"id": 1, "expression": "expr"}))
+
+    assert status == "passed"
+    assert repo.statuses[1] == "passed"
+    # The pool upsert (which happens after the guarded notifier call) must
+    # still have run -- a delivery failure must not short-circuit the rest
+    # of the passing path.
+    assert repo.pool_upserts == [("alpha_123", {"2026-01-01": 0.01, "2026-01-02": 0.02})]
+    # The attempt-cap/error path must never have been triggered.
+    assert repo.candidate_attempts == {}
+    assert worker.notifier.operational_alerts == []
+    # mark_telegram_sent must only be called on send *success* -- a failed
+    # delivery must stay honestly discoverable (no telegram_sent_at set).
+    assert repo.telegram_sent_ids == []
+
+
+# --- Update 10 Item 4: correlation gate must not be defeated by batch ----
+# --- concurrency -----------------------------------------------------------
+
+
+def test_two_near_duplicate_candidates_in_same_batch_do_not_both_pass_correlation(monkeypatch):
+    """Update 10 Item 4 regression test -- the exact bug this item fixes.
+
+    Update 02 fed a passed candidate's returns back into pool_returns
+    immediately so the *next* candidate's correlation check could see it.
+    Update 04 then dispatched a whole batch of candidates concurrently via
+    asyncio.gather, so two near-duplicate candidates claimed into the same
+    batch each called get_pool_returns() independently near the start of
+    their own run, before either had upserted -- both could see the same
+    stale (empty) pool and both pass, undetected by each other.
+
+    This drives two candidates with *identical* return streams through
+    `_process_candidates_bounded` in the same batch (batch size >= 2) and
+    asserts at most one of them ends 'passed'. Must fail against the
+    pre-Item-4 code (both would pass) and pass after the fix (the second
+    to acquire `self._correlation_lock` sees the first's freshly-upserted
+    returns and gets rejected on correlation)."""
+    from pipeline.sweep.settings_sweep import Settings, SweepOutcome
+
+    settings = Settings(
+        delay=1, universe="TOP3000", neutralization="SUBINDUSTRY", decay=8,
+        truncation=0.05, pasteurization=True, nan_handling=False,
+    )
+    # Identical return series for both candidates -- an identical stream
+    # correlates at 1.0 with itself, which must fail the |corr| <=
+    # MAX_CORRELATION (0.7) gate once the pool actually contains it.
+    identical_returns = {f"2026-01-{d:02d}": 0.01 * d for d in range(1, 25)}
+
+    def make_outcome(alpha_id):
+        winning_result = SimResult(sharpe=2.0, fitness=1.5, turnover=0.3, alpha_id=alpha_id)
+        return SweepOutcome(
+            rejected_at_stage0=False, aborted_stage=None, runs=[],
+            winning_settings=settings, winning_result=winning_result,
+            robust_count=5, sweep_total=41, error_count=0, fragile=False,
+        )
+
+    import pipeline.run_worker as run_worker_module
+
+    async def fake_run_staged_sweep(expression, *args, **kwargs):
+        # Both candidates' sweeps "finish" at effectively the same moment
+        # -- asyncio.sleep(0) yields control so both coroutines reach the
+        # correlation-check section before either has upserted, which is
+        # exactly the race window Item 4 closes.
+        await asyncio.sleep(0)
+        return make_outcome(expression)
+
+    monkeypatch.setattr(run_worker_module, "run_staged_sweep", fake_run_staged_sweep)
+
+    repo = _FakeRepo([
+        {"id": 1, "expression": "dup_a"},
+        {"id": 2, "expression": "dup_b"},
+    ])
+    brain = _FakeBrainForCorrelation({"dup_a": identical_returns, "dup_b": identical_returns})
+    worker = _make_worker(repo, brain, max_concurrent=2)
+
+    import time as time_module
+    deadline = time_module.monotonic() + 5
+    batches_run, processed, stopped_reason, stage_counts = asyncio.run(
+        worker.executor.process_candidates_bounded(max_candidates=2, deadline=deadline)
+    )
+
+    assert processed == 2
+    passed_count = sum(1 for s in repo.statuses.values() if s == "passed")
+    assert passed_count <= 1, (
+        f"{passed_count} candidates passed the correlation gate out of an "
+        f"identical-returns pair claimed into the same batch -- the "
+        f"correlation self-consistency check is not seeing its own "
+        f"sibling's result (Item 4 race reopened)"
+    )
+    rejected_count = sum(1 for s in repo.statuses.values() if s == "rejected_correlation")
+    assert passed_count + rejected_count == 2

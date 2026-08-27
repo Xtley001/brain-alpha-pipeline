@@ -1,5 +1,6 @@
 from pipeline.notify.telegram_notify import (
     TelegramNotifier,
+    escape_markdown,
     format_candidate_alert,
     format_operational_alert,
     format_run_report,
@@ -26,7 +27,12 @@ SAMPLE_CANDIDATE = {
 
 def test_candidate_alert_contains_expression_and_metrics():
     text = format_candidate_alert(SAMPLE_CANDIDATE)
-    assert SAMPLE_CANDIDATE["expression"] in text
+    # Update 10 Item 2: the expression is now Markdown-escaped before being
+    # embedded (its underscores are legacy-Markdown entity characters), so
+    # it no longer appears byte-for-byte -- stripping the escaping
+    # backslashes back out must recover the original expression exactly.
+    assert escape_markdown(SAMPLE_CANDIDATE["expression"]) in text
+    assert text.replace("\\", "").find(SAMPLE_CANDIDATE["expression"]) != -1
     assert "1.53" in text
     assert "1.21" in text
     assert "28.4%" in text
@@ -65,7 +71,7 @@ def test_notifier_posts_expected_payload_via_injected_http():
     assert captured["url"] == "https://api.telegram.org/botTESTTOKEN/sendMessage"
     assert captured["json"]["chat_id"] == "12345"
     assert captured["json"]["parse_mode"] == "Markdown"
-    assert SAMPLE_CANDIDATE["expression"] in captured["json"]["text"]
+    assert escape_markdown(SAMPLE_CANDIDATE["expression"]) in captured["json"]["text"]
 
 
 def test_notifier_never_sends_before_all_gates_pass_is_caller_responsibility():
@@ -143,6 +149,59 @@ def test_run_report_lists_llm_key_health_rows():
     text = format_run_report(summary, health)
     assert "gemini/key_1" in text
     assert "groq/key_1" in text
+
+
+# --- Update 10 Item 2: Markdown-metacharacter escaping ------------------
+
+
+def test_escape_markdown_escapes_every_legacy_entity_character():
+    raw = "group_neutralize(rank(-ts_delta(close, 1)), sector) * [x] `y`"
+    escaped = escape_markdown(raw)
+    # Every underscore, asterisk, backtick, and '[' must be preceded by a
+    # backslash; other characters must be untouched.
+    assert "\\_" in escaped and "_" not in escaped.replace("\\_", "")
+    assert "\\*" in escaped and "*" not in escaped.replace("\\*", "")
+    assert "\\`" in escaped and "`" not in escaped.replace("\\`", "")
+    assert "\\[" in escaped and "[" not in escaped.replace("\\[", "")
+    # Stripping the escaping backslashes must recover the original text.
+    assert escaped.replace("\\", "") == raw
+
+
+def test_candidate_alert_expression_with_metacharacters_is_fully_escaped():
+    """This is the exact scenario Item 2 exists to fix: an expression
+    containing underscores, asterisks, backticks, and square brackets must
+    not let any of those reach the wire unescaped outside the deliberate
+    bold (*...*) / code (`...`) spans this module itself controls -- an
+    unescaped metacharacter here is what caused Telegram's legacy Markdown
+    parser to reject the message with a 400 and, pre-fix, crash
+    _process_candidate after the candidate had already been marked
+    'passed'."""
+    dangerous_candidate = dict(
+        SAMPLE_CANDIDATE,
+        expression="ts_delta(rank(close), 1) * group_neutralize(x, `sector`) + [weird]",
+    )
+    text = format_candidate_alert(dangerous_candidate)
+
+    # Locate the code span the expression was embedded into and confirm
+    # every metacharacter *inside* it is backslash-escaped.
+    start = text.index("`")
+    end = text.index("`\n\n", start)
+    code_span_content = text[start:end]  # includes leading backtick
+
+    escaped_expression = escape_markdown(dangerous_candidate["expression"])
+    assert escaped_expression in code_span_content
+
+    # No bare (unescaped) underscore/asterisk/backtick/'[' from the
+    # expression survives -- every occurrence in the code span is preceded
+    # by a backslash.
+    body = code_span_content[1:]  # drop the opening backtick itself
+    for i, ch in enumerate(body):
+        if ch in "_*[":
+            assert body[i - 1] == "\\", f"unescaped '{ch}' at index {i} in {body!r}"
+        if ch == "`":
+            # the only bare backtick allowed is impossible here since we
+            # sliced up to the closing backtick already
+            assert body[i - 1] == "\\", f"unescaped backtick at index {i} in {body!r}"
 
 
 def test_send_run_report_posts_via_injected_http():

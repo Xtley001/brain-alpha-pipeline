@@ -40,11 +40,44 @@ class Config:
     brain_password: str
     brain_max_concurrent_sims: int
 
+    # Update 07: Gemini is no longer in the default provider chain (see
+    # pipeline/llm/adapter.py docstring -- GCP billing lapse took its quota
+    # to 0, and a provider that goes to zero the moment an invoice is late
+    # isn't actually free). gemini_keys is kept here, still loaded from env
+    # if present, purely so build_gemini_provider() can be wired back into
+    # a chain later without touching Config again -- it just isn't read by
+    # build_worker() right now.
     gemini_keys: list[str] = field(default_factory=list)
     groq_keys: list[str] = field(default_factory=list)
+    # Update 09: Cerebras free tier (1M tokens/day, no card) -- second full
+    # provider in the chain, not a fallback. Optional; empty list = skipped.
+    cerebras_keys: list[str] = field(default_factory=list)
+    # Update 07/08/09: OpenRouter free `:free`-tier, third leg of the chain.
+    # Up to 4 accounts (Update 08). Optional -- an empty list just means
+    # that step in the chain has 0 keys and falls through immediately.
+    openrouter_keys: list[str] = field(default_factory=list)
 
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None
+
+    # Update 10 Item 9.3: optional ping URL for a third-party dead-man's-
+    # switch / heartbeat-monitoring service (e.g. healthchecks.io,
+    # Cronitor, UptimeRobot's heartbeat monitors -- any service that
+    # alerts when it does NOT receive a ping within an expected window,
+    # not one that polls a URL itself). Fixes the specific gap the
+    # keepalive workflow left: keepalive.yml's job is itself a dead-man's-
+    # switch (commits monthly so GitHub doesn't auto-disable run.yml's
+    # schedule), but *that* switch has no external watchdog of its own --
+    # if GitHub Actions' scheduler silently stops firing keepalive.yml (or
+    # run.yml), or the repo gets auto-disabled for an unrelated reason,
+    # nothing inside this repo can notice, because the thing that would
+    # notice is the thing that went dark. A third-party service that
+    # expects a ping every run and alerts on silence is independent of
+    # GitHub Actions' own availability -- see SETUP.md's "before going
+    # live" section for setup steps. None if unset, in which case the
+    # ping is simply skipped (see RunReporter.safe_send_run_report's
+    # sibling for the ping call site).
+    healthcheck_ping_url: str | None = None
 
     queue_target_depth: int = 75
     stage0_min_fitness: float = 0.3
@@ -82,13 +115,73 @@ class Config:
     # `reclaim_orphaned_running()` on a future run -- never silently lost.
     run_time_budget_seconds: int = 480
 
+    # Update 10 Item 9.2: previously bare module-level constants in
+    # run_worker.py (MAX_CANDIDATE_ATTEMPTS, ORPHAN_RECLAIM_MINUTES,
+    # MAX_CORRELATION) with no env var, inconsistent with every other
+    # retry/tuning constant in this dataclass. Policy chosen: wire every
+    # tuning-adjacent constant into Config uniformly, rather than carve out
+    # an undocumented "these three are exempt" exception -- an
+    # inconsistent mix of configurable-vs-not constants is exactly the
+    # kind of thing that's easy to forget and hard to audit later.
+    max_candidate_attempts: int = 3
+    orphan_reclaim_minutes: int = 30
+    max_correlation: float = 0.7
+
     @classmethod
     def from_env(cls, require_brain: bool = True, require_telegram: bool = True) -> "Config":
         gemini_keys = [
             k for k in (_optional("GEMINI_API_KEY_1"), _optional("GEMINI_API_KEY_2")) if k
         ]
+        # Update 09: up to 4 Groq keys (was 2), matching the OpenRouter
+        # pattern below -- 4 separate accounts, each with its own free-tier
+        # quota, rotated in order by KeyedProvider.call() on 429/hard
+        # failure (pipeline/llm/adapter.py). Groq is the primary provider
+        # in the chain, so this is where more keys buys the most headroom.
         groq_keys = [
-            k for k in (_optional("GROQ_API_KEY_1"), _optional("GROQ_API_KEY_2")) if k
+            k
+            for k in (
+                _optional("GROQ_API_KEY_1"),
+                _optional("GROQ_API_KEY_2"),
+                _optional("GROQ_API_KEY_3"),
+                _optional("GROQ_API_KEY_4"),
+            )
+            if k
+        ]
+        # Update 09: Cerebras free tier (1M tokens/day, no card, resets
+        # daily). One key is normally plenty given that daily budget for
+        # this pipeline's call volume, but up to 4 accounts are supported
+        # for consistency with the other two providers if ever needed.
+        cerebras_keys = [
+            k
+            for k in (
+                _optional("CEREBRAS_API_KEY_1"),
+                _optional("CEREBRAS_API_KEY_2"),
+                _optional("CEREBRAS_API_KEY_3"),
+                _optional("CEREBRAS_API_KEY_4"),
+            )
+            if k
+        ]
+        # Update 08: up to 4 OpenRouter keys (4 separate accounts/emails).
+        # KeyedProvider.call() already rotates through a provider's key list
+        # in order and only advances to the next key on a 429/hard failure
+        # (pipeline/llm/adapter.py) -- so this isn't new rotation logic, just
+        # more keys in the list. Since OpenRouter's free tier is a per-account
+        # daily cap (50 req/day, or 1000/day only after a *paid* $10 top-up --
+        # see Update 07), each additional free account adds another ~50/day
+        # of fallback headroom: key_1 serves until it 429s for the day, then
+        # key_2, etc. This does NOT raise the 20-req/min cap, which is
+        # per-account and enforced by OpenRouter regardless of how many keys
+        # you rotate through -- four keys buys more requests *today*, not a
+        # higher burst rate at any one moment.
+        openrouter_keys = [
+            k
+            for k in (
+                _optional("OPENROUTER_API_KEY_1"),
+                _optional("OPENROUTER_API_KEY_2"),
+                _optional("OPENROUTER_API_KEY_3"),
+                _optional("OPENROUTER_API_KEY_4"),
+            )
+            if k
         ]
         return cls(
             database_url=_require("DATABASE_URL"),
@@ -97,12 +190,18 @@ class Config:
             brain_max_concurrent_sims=int(_optional("BRAIN_MAX_CONCURRENT_SIMS", "3")),
             gemini_keys=gemini_keys,
             groq_keys=groq_keys,
+            cerebras_keys=cerebras_keys,
+            openrouter_keys=openrouter_keys,
             telegram_bot_token=(_require("TELEGRAM_BOT_TOKEN") if require_telegram else _optional("TELEGRAM_BOT_TOKEN")),
             telegram_chat_id=(_require("TELEGRAM_CHAT_ID") if require_telegram else _optional("TELEGRAM_CHAT_ID")),
+            healthcheck_ping_url=_optional("HEALTHCHECK_PING_URL"),
             queue_target_depth=int(_optional("QUEUE_TARGET_DEPTH", "75")),
             stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.3")),
             stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.5")),
             template_tier_max_share=float(_optional("TEMPLATE_TIER_MAX_SHARE", "0.5")),
             max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "15")),
             run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480")),
+            max_candidate_attempts=int(_optional("MAX_CANDIDATE_ATTEMPTS", "3")),
+            orphan_reclaim_minutes=int(_optional("ORPHAN_RECLAIM_MINUTES", "30")),
+            max_correlation=float(_optional("MAX_CORRELATION", "0.7")),
         )

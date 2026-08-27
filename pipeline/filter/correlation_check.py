@@ -15,6 +15,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Mapping, Sequence
 
+import numpy as np
+
 
 @dataclass(frozen=True)
 class CorrelationResult:
@@ -24,18 +26,25 @@ class CorrelationResult:
 
 
 def _pearson(a: Sequence[float], b: Sequence[float]) -> float:
+    """Update 10 Item 9.1: was a hand-rolled pure-Python implementation --
+    replaced with numpy.corrcoef, which is the vectorized, well-tested
+    standard implementation of the exact same Pearson correlation formula.
+    `n == 0` / length-mismatch guards and the zero-variance ->
+    0.0 fallback are preserved so behavior (including on the audit
+    checklist's synthetic-data cases) is unchanged."""
     n = len(a)
     if n == 0 or n != len(b):
         raise ValueError("Return series must be non-empty and equal length")
-    mean_a = sum(a) / n
-    mean_b = sum(b) / n
-    cov = sum((x - mean_a) * (y - mean_b) for x, y in zip(a, b))
-    var_a = sum((x - mean_a) ** 2 for x in a)
-    var_b = sum((y - mean_b) ** 2 for y in b)
-    denom = (var_a * var_b) ** 0.5
-    if denom == 0:
+    arr_a = np.asarray(a, dtype=float)
+    arr_b = np.asarray(b, dtype=float)
+    if np.std(arr_a) == 0 or np.std(arr_b) == 0:
+        # Zero variance in either series -- undefined correlation
+        # mathematically; np.corrcoef would return NaN here, and the old
+        # hand-rolled version returned 0.0 for a zero denominator, so that
+        # behavior is preserved rather than propagating a NaN downstream.
         return 0.0
-    return cov / denom
+    corr_matrix = np.corrcoef(arr_a, arr_b)
+    return float(corr_matrix[0, 1])
 
 
 def align_series(

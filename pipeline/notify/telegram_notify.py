@@ -7,12 +7,42 @@ from __future__ import annotations
 
 from typing import Optional
 
+# Characters that open a Markdown entity under Telegram's legacy "Markdown"
+# parse_mode (the mode `_post` sends with): underscore (italic), asterisk
+# (bold), backtick (code span), and square bracket (link). Update 10 Item
+# 2: a BRAIN expression is arbitrary, untrusted-from-Telegram's-parser
+# content interpolated straight into a backtick code span
+# (format_candidate_alert/format_top_alphas) -- expressions routinely
+# contain underscores and asterisks (`ts_delta`, `group_neutralize`), and
+# an unescaped backtick would prematurely close the code span outright.
+# Any of these can produce an unbalanced/invalid entity that the Telegram
+# API rejects with a 400, which (pre-fix) propagated out of the unguarded
+# send_candidate_alert call and could flip an already-`passed` candidate
+# back toward pending/rejected_error (see _process_candidate).
+_MARKDOWN_SPECIAL_CHARS = "_*`["
+
+
+def escape_markdown(text: str) -> str:
+    """Backslash-escape every legacy-Markdown entity-opening character in
+    `text` so it can be safely interpolated into a Telegram message (inside
+    or outside a code span) without breaking the surrounding formatting or
+    producing an entity Telegram's API rejects. This is the root-cause fix
+    for Update 10 Item 2 -- previously nothing escaped dynamic content
+    (BRAIN expressions) before it was dropped into a backtick block."""
+    escaped_chars = []
+    for ch in text:
+        if ch in _MARKDOWN_SPECIAL_CHARS:
+            escaped_chars.append("\\")
+        escaped_chars.append(ch)
+    return "".join(escaped_chars)
+
 
 def format_candidate_alert(candidate: dict) -> str:
     frag = "\u26a0\ufe0f fragile (single-point pass)" if candidate["fragile"] else "\u2705 robust"
+    safe_expression = escape_markdown(candidate["expression"])
     return (
         f"*New alpha cleared the bar* {frag}\n\n"
-        f"`{candidate['expression']}`\n\n"
+        f"`{safe_expression}`\n\n"
         f"Sharpe: {candidate['sharpe']:.2f} | Fitness: {candidate['fitness']:.2f} | "
         f"Turnover: {candidate['turnover']:.1%}\n"
         f"Max corr vs pool: {candidate['max_correlation']:.2f}\n\n"
@@ -91,7 +121,7 @@ def format_top_alphas(rows: list[dict]) -> str:
     if not rows:
         return "\U0001f3c6 *Top alphas*\n\n(review_store is empty so far)"
     lines = [
-        f"{i+1}. `{r['expression']}` [{r['category']} / {r['generation_tier']}]\n"
+        f"{i+1}. `{escape_markdown(r['expression'])}` [{r['category']} / {r['generation_tier']}]\n"
         f"   Fitness {r['fitness']:.2f} | Sharpe {r['sharpe']:.2f} | "
         f"Turnover {r['turnover']:.1%} | MaxCorr {r['max_correlation']:.2f} | "
         f"{r['robust_count']}/{r['sweep_total']} robust"

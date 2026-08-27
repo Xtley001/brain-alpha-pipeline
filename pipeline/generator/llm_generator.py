@@ -78,13 +78,22 @@ def _safe_json_array(text: str) -> list:
     return [item for item in parsed if isinstance(item, dict) and "expression" in item]
 
 
-# Maps the provider name LLMAdapter.reasoning_call/mechanical_call actually
-# used (not just whichever was tried first) to the generation_tier value
-# stored on the candidate row. Update 03: this used to be hardcoded to
-# "llm_gemini" on every propose_new_ideas() result regardless of whether
-# Gemini was exhausted and Groq answered instead -- which silently corrupted
-# the generated-by-tier breakdown the heartbeat (Update 01 P1.1) reports.
-_PROVIDER_TO_TIER = {"gemini": "llm_gemini", "groq": "llm_groq"}
+# Update 10 Item 3: _PROVIDER_TO_TIER (a hardcoded {"gemini": "llm_gemini",
+# "groq": "llm_groq"} map) removed entirely. It silently went blind to any
+# provider added after those two -- Cerebras/OpenRouter candidates fell
+# through its `.get(provider, f"llm_{provider}")` default into tags
+# ('llm_cerebras'/'llm_openrouter') that recent_llm_expressions()'s
+# hardcoded IN-list never matched, making the Update 05 anti-duplication
+# check blind to roughly two-thirds of current LLM-generated candidates
+# while still silently running and returning rows.
+#
+# Every LLM-sourced candidate is now tagged with a single, fixed
+# generation_tier value regardless of which provider actually answered --
+# the provider itself is recorded separately (see `provider` below and the
+# `provider` column added to `candidates` in schema.sql). This survives
+# the next provider being added with zero changes required here or in
+# recent_llm_expressions().
+LLM_GENERATION_TIER = "llm"
 
 
 def propose_new_ideas(
@@ -109,14 +118,14 @@ def propose_new_ideas(
         raw, provider = adapter.reasoning_call(prompt)
     except QuotaExhausted:
         return []
-    generation_tier = _PROVIDER_TO_TIER.get(provider, f"llm_{provider}")
     items = _safe_json_array(raw)
     avoid_set = set(avoid_expressions or [])
     return [
         {
             "expression": item["expression"],
             "category": item.get("category", "llm_proposed"),
-            "generation_tier": generation_tier,
+            "generation_tier": LLM_GENERATION_TIER,
+            "provider": provider,
         }
         for item in items
         if item["expression"] not in avoid_set  # exact-match belt-and-suspenders
@@ -131,13 +140,13 @@ def mutate_candidate(
         raw, provider = adapter.mechanical_call(prompt)
     except QuotaExhausted:
         return []
-    generation_tier = _PROVIDER_TO_TIER.get(provider, f"llm_{provider}")
     items = _safe_json_array(raw)
     return [
         {
             "expression": item["expression"],
             "category": item.get("category", category),
-            "generation_tier": generation_tier,
+            "generation_tier": LLM_GENERATION_TIER,
+            "provider": provider,
         }
         for item in items
     ]

@@ -3,14 +3,13 @@ name: BRAIN Alpha Pipeline
 # Replaces render.yaml as the deploy target. run_worker.py already does one
 # bounded pass and exits (see its module docstring) -- that's exactly the
 # shape a scheduled Actions job needs, so no pipeline/ code changes were
-# required for this migration. See UPDATE.md at the repo root for the full
-# list of what changed and why.
+# required for this migration.
 
 on:
   schedule:
     # Every 10 minutes, UTC -- mirrors render.yaml's cadence. GitHub does not
     # guarantee this fires exactly on time; under load, scheduled runs can be
-    # delayed or occasionally skipped. See UPDATE.md, "Schedule is best-effort".
+    # delayed or occasionally skipped (schedule is best-effort).
     - cron: "*/10 * * * *"
   workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
 
@@ -42,17 +41,54 @@ jobs:
 
       - name: Run one bounded pass
         env:
+          # Update 10 Item 6: database schema migrations are now applied
+          # via `alembic upgrade head` (invoked automatically inside
+          # Repo.migrate(), called at the top of build_worker() -- see
+          # SETUP.md's "Migrate the database" section), not by
+          # re-executing pipeline/db/schema.sql. No separate workflow step
+          # needed here; this stays in the hot path since every tick is
+          # already a fresh process, but is now a real no-op once the
+          # schema is current.
           # --- secrets: set these in Settings -> Secrets and variables ->
           # Actions -> New repository secret. Never put real values here. ---
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
           BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
-          GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
-          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+          # Update 07: Gemini dropped from the default provider chain (GCP
+          # billing gates its quota to 0 the moment an invoice is late --
+          # see pipeline/llm/adapter.py). Leaving the secret refs commented
+          # rather than deleted so re-enabling later is uncommenting two
+          # lines here plus passing gemini_keys back into a chain.
+          # GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
+          # GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
           GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
           GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
+          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
+          # Update 09: Cerebras, second full provider in the chain (not a
+          # fallback). Optional -- empty secret is fine.
+          CEREBRAS_API_KEY_1: ${{ secrets.CEREBRAS_API_KEY_1 }}
+          CEREBRAS_API_KEY_2: ${{ secrets.CEREBRAS_API_KEY_2 }}
+          CEREBRAS_API_KEY_3: ${{ secrets.CEREBRAS_API_KEY_3 }}
+          CEREBRAS_API_KEY_4: ${{ secrets.CEREBRAS_API_KEY_4 }}
+          # Update 07/08: OpenRouter free-tier fallback, up to 4 accounts.
+          # All optional (empty secret is fine -- config.py just loads
+          # whichever are set; the openrouter chain step immediately
+          # QuotaExhausts with 0 keys, same as not having it at all).
+          OPENROUTER_API_KEY_1: ${{ secrets.OPENROUTER_API_KEY_1 }}
+          OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY_2 }}
+          OPENROUTER_API_KEY_3: ${{ secrets.OPENROUTER_API_KEY_3 }}
+          OPENROUTER_API_KEY_4: ${{ secrets.OPENROUTER_API_KEY_4 }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # Update 10 Item 9.3: optional third-party dead-man's-switch ping
+          # URL (e.g. a healthchecks.io check URL) -- unset by default (no
+          # such account exists yet for this deployment); RunReporter's
+          # send_healthcheck_ping() is a no-op when this is empty. Set this
+          # secret once you've created a check with that service -- see
+          # SETUP.md's "Before going live" section for why this closes a
+          # real gap the keepalive workflow otherwise leaves.
+          HEALTHCHECK_PING_URL: ${{ secrets.HEALTHCHECK_PING_URL }}
           # --- tuning knobs: not secret, safe to leave visible in a public
           # repo, same values as the old render.yaml ---
           BRAIN_MAX_CONCURRENT_SIMS: "3"

@@ -4,8 +4,7 @@ name: Keepalive
 # days with no repository activity (pushes/commits -- Actions runs themselves
 # don't reliably count). Since this pipeline is meant to run unattended
 # indefinitely, this job makes one trivial commit a month so the main
-# schedule in run.yml never gets silently switched off. See UPDATE.md,
-# "The 60-day auto-disable gotcha".
+# schedule in run.yml never gets silently switched off.
 
 on:
   schedule:

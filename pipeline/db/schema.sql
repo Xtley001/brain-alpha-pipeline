@@ -6,7 +6,20 @@ CREATE TABLE IF NOT EXISTS candidates (
     id              BIGSERIAL PRIMARY KEY,
     expression      TEXT NOT NULL,
     category        TEXT,               -- e.g. which of the 50 seed ideas it derives from
-    generation_tier TEXT,               -- 'template' | 'llm_gemini' | 'llm_groq'
+    -- Update 10 Item 3: collapsed to exactly 'template' | 'llm' (previously
+    -- a per-provider string like 'llm_gemini'/'llm_groq', which silently
+    -- went blind to any provider added after the two hardcoded here -- see
+    -- the `provider` column below and recent_llm_expressions()/
+    -- _PROVIDER_TO_TIER's removal in llm_generator.py for the fix this
+    -- replaces). Do not reintroduce a per-provider tier string.
+    generation_tier TEXT,               -- 'template' | 'llm'
+    -- Which LLM provider actually answered the call that produced this
+    -- candidate ('groq' | 'cerebras' | 'openrouter' | future providers),
+    -- NULL for template-tier candidates. This is the single source of
+    -- truth for "which provider", so adding a new provider to the chain
+    -- (see pipeline/llm/adapter.py) never requires touching this schema,
+    -- the dedup query, or the tier-mapping logic again.
+    provider        TEXT,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
     claimed_at      TIMESTAMPTZ,        -- set when status flips to 'running'; orphan-reclaim
                                          -- keys off this, NOT created_at (see repo.py)
@@ -26,6 +39,11 @@ CREATE TABLE IF NOT EXISTS candidates (
 -- before `claimed_at` existed: CREATE TABLE IF NOT EXISTS above is a no-op
 -- against an already-existing table, so the column must be added separately.
 ALTER TABLE candidates ADD COLUMN IF NOT EXISTS claimed_at TIMESTAMPTZ;
+
+-- Update 10 Item 3: added for pre-existing deployments where `candidates`
+-- was created before the `provider` column existed (same idempotent
+-- pattern as claimed_at above).
+ALTER TABLE candidates ADD COLUMN IF NOT EXISTS provider TEXT;
 
 -- Fault-isolation / attempt-cap fields (Update 04 sweep rewrite). A candidate
 -- that keeps hard-failing (BRAIN errors, not low scores) gets
@@ -110,7 +128,11 @@ CREATE TABLE IF NOT EXISTS pool_returns (
 
 CREATE TABLE IF NOT EXISTS llm_usage (
     id           BIGSERIAL PRIMARY KEY,
-    provider     TEXT NOT NULL,     -- 'gemini' | 'groq'
+    -- 'gemini' | 'groq' | 'cerebras' | 'openrouter' | future providers --
+    -- see pipeline/llm/adapter.py's build_default_llm_adapter() for the
+    -- current chain; this column is intentionally free-text/unconstrained
+    -- so adding a provider never requires a migration here.
+    provider     TEXT NOT NULL,
     key_label    TEXT NOT NULL,     -- 'key_1' | 'key_2'
     tier         TEXT NOT NULL,     -- 'reasoning' | 'mechanical'
     called_at    TIMESTAMPTZ NOT NULL DEFAULT now(),

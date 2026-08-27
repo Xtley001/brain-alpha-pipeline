@@ -17,7 +17,7 @@ to a human via Telegram for **manual** review and submission.
 ## Architecture
 
 `pipeline/run_worker.py`'s `run_once()` does one bounded pass and exits — deployed
-as a scheduled GitHub Actions job (`.github/workflows/run.yml`; see `UPDATE.md`),
+as a scheduled GitHub Actions job (`.github/workflows/run.yml`),
 invoked every 10 minutes:
 
 1. Reclaim any candidate orphaned in `running` by a previous invocation that got cut
