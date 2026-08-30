@@ -341,19 +341,17 @@ class Repo:
 
         Update 05: also flags `stale` (no attempt within `max_age_minutes`)
         and includes a rolling `succeeded_last_10`/`attempted_last_10` so a
-        key isn't judged by a single call. Without this, a key's ❌ from
-        the very first cold-start tick would render identically to a
-        genuinely-failing-right-now key forever, because nothing ever
-        overwrites a stale row once the LLM tiers stop being called (see
-        run_worker.py's template_tier_max_share fix for the other half of
-        that bug)."""
+        key isn't judged by a single call. Excludes legacy providers like
+        Gemini from active status views."""
         with self._conn() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     "SELECT DISTINCT ON (provider, key_label) "
                     "provider, key_label, tier, called_at, succeeded, error_text, "
                     "(now() - called_at) > (%s || ' minutes')::interval AS stale "
-                    "FROM llm_usage ORDER BY provider, key_label, called_at DESC",
+                    "FROM llm_usage "
+                    "WHERE provider != 'gemini' "
+                    "ORDER BY provider, key_label, called_at DESC",
                     (max_age_minutes,),
                 )
                 cols = [d.name for d in cur.description]
@@ -368,6 +366,45 @@ class Repo:
                     row["attempted_last_10"] = len(recent)
                     row["succeeded_last_10"] = sum(1 for s in recent if s)
                 return rows
+
+    def get_pipeline_stats(self) -> dict:
+        """Returns cumulative totals for alphas generated, tested/processed, and passed,
+        both for today (UTC) and all-time, as well as current queue depth."""
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT 
+                        COALESCE(COUNT(*), 0) AS total_today,
+                        COALESCE(COUNT(*) FILTER (WHERE status != 'pending'), 0) AS processed_today,
+                        COALESCE(COUNT(*) FILTER (WHERE status IN ('passed', 'submitted')), 0) AS passed_today
+                    FROM candidates
+                    WHERE created_at >= date_trunc('day', now())
+                    """
+                )
+                today_row = cur.fetchone()
+
+                cur.execute(
+                    """
+                    SELECT 
+                        COALESCE(COUNT(*), 0) AS total_all_time,
+                        COALESCE(COUNT(*) FILTER (WHERE status != 'pending'), 0) AS processed_all_time,
+                        COALESCE(COUNT(*) FILTER (WHERE status IN ('passed', 'submitted')), 0) AS passed_all_time,
+                        COALESCE(COUNT(*) FILTER (WHERE status = 'pending'), 0) AS queue_depth
+                    FROM candidates
+                    """
+                )
+                all_time_row = cur.fetchone()
+
+                return {
+                    "today_generated": int(today_row[0]) if today_row else 0,
+                    "today_processed": int(today_row[1]) if today_row else 0,
+                    "today_passed": int(today_row[2]) if today_row else 0,
+                    "all_time_generated": int(all_time_row[0]) if all_time_row else 0,
+                    "all_time_processed": int(all_time_row[1]) if all_time_row else 0,
+                    "all_time_passed": int(all_time_row[2]) if all_time_row else 0,
+                    "queue_depth": int(all_time_row[3]) if all_time_row else 0,
+                }
 
     # --- feedback engine (Update 05) ---
     #

@@ -141,14 +141,63 @@ def test_run_report_lists_llm_key_health_rows():
     health = {
         "brain_auth_ok": True, "db_ok": True,
         "llm_keys": [
-            {"provider": "gemini", "key_label": "key_1", "tier": "reasoning", "succeeded": True},
+            {"provider": "openrouter", "key_label": "key_1", "tier": "reasoning", "succeeded": True},
             {"provider": "groq", "key_label": "key_1", "tier": "mechanical", "succeeded": False},
         ],
         "stage_counts": {},
     }
     text = format_run_report(summary, health)
-    assert "gemini/key_1" in text
-    assert "groq/key_1" in text
+    assert "Openrouter/key_1" in text
+    assert "Groq/key_1" in text
+
+
+def test_run_report_excludes_gemini():
+    summary = _FakeRunSummary()
+    health = {
+        "brain_auth_ok": True, "db_ok": True,
+        "llm_keys": [
+            {"provider": "gemini", "key_label": "key_1", "tier": "reasoning", "succeeded": True},
+            {"provider": "groq", "key_label": "key_1", "tier": "mechanical", "succeeded": True},
+        ],
+        "stage_counts": {},
+    }
+    text = format_run_report(summary, health)
+    assert "gemini" not in text.lower()
+    assert "Groq/key_1" in text
+
+
+def test_run_report_conditional_errors():
+    no_errors_summary = _FakeRunSummary(errors=[])
+    text_no_err = format_run_report(no_errors_summary, {"brain_auth_ok": True, "db_ok": True, "llm_keys": [], "stage_counts": {}})
+    assert "⚠️ *Errors:*" not in text_no_err
+    assert "(none)" not in text_no_err
+
+    err_summary = _FakeRunSummary(errors=["connection timeout to BRAIN"])
+    text_err = format_run_report(err_summary, {"brain_auth_ok": True, "db_ok": True, "llm_keys": [], "stage_counts": {}})
+    assert "⚠️ *Errors:*" in text_err
+    assert "connection timeout to BRAIN" in text_err
+
+
+def test_run_report_renders_cumulative_stats():
+    summary = _FakeRunSummary()
+    health = {
+        "brain_auth_ok": True, "db_ok": True, "llm_keys": [], "stage_counts": {},
+        "stats": {
+            "today_generated": 11000,
+            "today_processed": 9500,
+            "today_passed": 12,
+            "all_time_generated": 50000,
+            "all_time_processed": 45000,
+            "all_time_passed": 85,
+            "queue_depth": 1500,
+        }
+    }
+    text = format_run_report(summary, health)
+    assert "11,000" in text
+    assert "9,500" in text
+    assert "50,000" in text
+    assert "Today's Activity" in text
+    assert "All-Time Statistics" in text
 
 
 # --- Update 10 Item 2: Markdown-metacharacter escaping ------------------
@@ -214,5 +263,4 @@ def test_send_run_report_posts_via_injected_http():
     summary = _FakeRunSummary()
     health = {"brain_auth_ok": True, "db_ok": True, "llm_keys": [], "stage_counts": {}}
     notifier.send_run_report(summary, health)
-
-    assert "Heartbeat" in captured["json"]["text"]
+    assert "Pipeline Status" in captured["json"]["text"]

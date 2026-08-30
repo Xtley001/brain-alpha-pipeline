@@ -757,18 +757,25 @@ class RunReporter:
 
     async def health_snapshot(self, summary: RunSummary) -> dict:
         """Assembles the health dict format_run_report()/insert_run_history()
-        expect, from data already gathered this tick plus one extra query
-        for LLM key health (llm_usage is otherwise never surfaced anywhere)."""
+        expect, from data already gathered this tick plus queries for LLM key
+        health and cumulative alpha pipeline statistics."""
         db_ok = not any(e.startswith("queue_depth") for e in summary.errors)
         try:
             llm_keys = await asyncio.to_thread(self.repo.recent_llm_key_health)
         except Exception:  # noqa: BLE001
             log.warning("could not fetch llm key health for heartbeat", exc_info=True)
             llm_keys = []
+        stats = {}
+        if hasattr(self.repo, "get_pipeline_stats"):
+            try:
+                stats = await asyncio.to_thread(self.repo.get_pipeline_stats)
+            except Exception:  # noqa: BLE001
+                log.warning("could not fetch pipeline stats for heartbeat", exc_info=True)
         return {
             "brain_auth_ok": summary.brain_auth_ok,
             "db_ok": db_ok,
             "llm_keys": llm_keys,
+            "stats": stats,
             "stage_counts": {
                 "passed": summary.passed,
                 "rejected_stage0": summary.rejected_stage0,

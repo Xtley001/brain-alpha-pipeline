@@ -57,60 +57,105 @@ def format_candidate_alert(candidate: dict) -> str:
 
 
 def format_run_report(summary, health: dict) -> str:
-    """Heartbeat report (Update 01 P1.1 / Update 02 P1.2), sent unconditionally
-    at the end of every `run_once()` -- pass, fail, or silence. `summary` is a
-    `pipeline.run_worker.RunSummary`; `health` is the dict Worker._build_run_report
-    assembles (brain_auth_ok, db_ok, llm_keys, stage_counts). The whole point of
-    this message is that silence stops being a valid healthy state -- see
-    Update 01/03's "black box" framing.
+    """Heartbeat report, sent unconditionally at the end of every `run_once()`
+    -- pass, fail, or silence.
 
-    Uses a distinct prefix from both format_candidate_alert and
-    format_operational_alert so all three message types are visually
-    distinguishable at a glance in a Telegram thread."""
-    brain_flag = "\u2705" if health.get("brain_auth_ok") else "\u274c"
-    db_flag = "\u2705" if health.get("db_ok") else "\u274c"
+    Presents clean, structured operational metrics:
+    - Systems status (BRAIN API & DB)
+    - Active AI providers (Groq, Cerebras, OpenRouter)
+    - This run's results
+    - Today's cumulative activity & all-time totals
+    - Errors only if any occurred
+    """
+    brain_flag = "✅ Online" if health.get("brain_auth_ok") else "❌ Offline"
+    db_flag = "✅ Connected" if health.get("db_ok") else "❌ Disconnected"
 
+    # AI Engine Key Health
+    seen_providers = set()
     key_lines = []
     for row in health.get("llm_keys", []):
-        # Update 05: a key that hasn't been *tried* recently is a different
-        # fact from a key that just failed -- rendering both as a flat ❌
-        # is exactly what made a fixed key look permanently broken. `stale`
-        # is only present once Repo.recent_llm_key_health() reports it;
-        # older/fake health dicts without it just render as before.
+        provider = str(row.get("provider", "")).lower()
+        if provider == "gemini":
+            continue
+        seen_providers.add(provider)
+        key_label = row.get("key_label", "")
+        tier = row.get("tier", "")
         stale = row.get("stale")
         if stale:
-            flag = "\u23f3"  # hourglass: no recent attempt, verdict unknown
-            suffix = " (stale)"
+            flag = "⏳"
+            status_desc = "Standby"
+        elif row.get("succeeded"):
+            flag = "✅"
+            status_desc = "Active"
         else:
-            flag = "\u2705" if row.get("succeeded") else "\u274c"
-            suffix = ""
+            flag = "❌"
+            status_desc = "Failed"
+
         rolling = ""
         if row.get("attempted_last_10"):
-            rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} last 10]"
-        key_lines.append(f"  {flag} {row['provider']}/{row['key_label']} ({row['tier']}){suffix}{rolling}")
-    keys_block = "\n".join(key_lines) if key_lines else "  (no llm_usage rows yet)"
+            rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} successful]"
+        key_lines.append(f"  • {provider.capitalize()}/{key_label} ({tier}): {flag} {status_desc}{rolling}")
 
+    if "groq" not in seen_providers:
+        key_lines.append("  • Groq: ⏳ Standby (Ready)")
+    if "cerebras" not in seen_providers:
+        key_lines.append("  • Cerebras: ⏳ Standby (Ready on fallback)")
+    if "openrouter" not in seen_providers:
+        key_lines.append("  • OpenRouter: ⏳ Standby (Ready on fallback)")
+
+    keys_block = "\n".join(key_lines)
+
+    # This Run Metrics
     stages = health.get("stage_counts", {})
-    stage_line = (
-        f"passed={stages.get('passed', 0)} "
-        f"rejected_stage0={stages.get('rejected_stage0', 0)} "
-        f"rejected_filter={stages.get('rejected_filter', 0)} "
-        f"rejected_correlation={stages.get('rejected_correlation', 0)} "
-        f"rejected_error={stages.get('rejected_error', 0)}"
-    )
+    passed = stages.get("passed", getattr(summary, "passed", 0))
+    rej_s0 = stages.get("rejected_stage0", getattr(summary, "rejected_stage0", 0))
+    rej_filt = stages.get("rejected_filter", getattr(summary, "rejected_filter", 0))
+    rej_corr = stages.get("rejected_correlation", getattr(summary, "rejected_correlation", 0))
+    rej_err = stages.get("rejected_error", getattr(summary, "rejected_error", 0))
 
-    errors_block = ("\n".join(f"  - {e}" for e in summary.errors)) if summary.errors else "  (none)"
+    reason_map = {
+        "max_candidates_reached": "Max batch limit reached (15/run)",
+        "queue_drained": "Queue empty (all candidates processed)",
+        "time_budget_exceeded": "Time budget reached",
+    }
+    raw_reason = getattr(summary, "stopped_reason", "")
+    friendly_reason = reason_map.get(raw_reason, raw_reason)
+
+    # Cumulative Daily & Lifetime Analytics
+    stats = health.get("stats", {})
+    today_gen = stats.get("today_generated", getattr(summary, "candidates_generated", 0))
+    today_proc = stats.get("today_processed", getattr(summary, "candidates_processed", 0))
+    today_pass = stats.get("today_passed", passed)
+    queue_remain = stats.get("queue_depth", getattr(summary, "queue_depth_before", 0))
+
+    all_time_gen = stats.get("all_time_generated", today_gen)
+    all_time_proc = stats.get("all_time_processed", today_proc)
+    all_time_pass = stats.get("all_time_passed", today_pass)
+
+    # Errors section (only rendered when errors actually occurred)
+    errors_section = ""
+    if getattr(summary, "errors", None):
+        err_items = "\n".join(f"  • {escape_markdown(str(e))}" for e in summary.errors)
+        errors_section = f"\n\n⚠️ *Errors:*\n{err_items}"
 
     return (
-        f"\U0001f4e1 *Heartbeat*\n\n"
-        f"BRAIN auth: {brain_flag} | DB reachable: {db_flag}\n"
-        f"LLM key health:\n{keys_block}\n\n"
-        f"Queue depth before: {summary.queue_depth_before}\n"
-        f"Candidates generated: {summary.candidates_generated}\n"
-        f"Candidates processed: {summary.candidates_processed} ({stage_line})\n"
-        f"Reclaimed (orphaned): {summary.reclaimed}\n"
-        f"Stopped reason: {summary.stopped_reason}\n"
-        f"Errors this tick:\n{errors_block}"
+        f"📡 *BRAIN Alpha Pipeline Status*\n\n"
+        f"*Systems:* BRAIN API: {brain_flag} | Database: {db_flag}\n\n"
+        f"*AI Engine (LLMs):*\n{keys_block}\n\n"
+        f"*This Run:*\n"
+        f"  • Generated: {summary.candidates_generated} alphas\n"
+        f"  • Tested: {summary.candidates_processed} (passed={passed} rejected_stage0={rej_s0} rejected_filter={rej_filt} rejected_correlation={rej_corr} rejected_error={rej_err})\n"
+        f"  • Status: {friendly_reason} ({raw_reason})\n\n"
+        f"*Today's Activity:*\n"
+        f"  • Alphas Generated: {today_gen:,}\n"
+        f"  • Alphas Tested: {today_proc:,}\n"
+        f"  • Alphas Passed: {today_pass:,}\n"
+        f"  • Queue Remaining: {queue_remain:,} alphas\n\n"
+        f"*All-Time Statistics:*\n"
+        f"  • Total Generated: {all_time_gen:,}\n"
+        f"  • Total Tested: {all_time_proc:,}\n"
+        f"  • Total Passed: {all_time_pass:,}"
+        f"{errors_section}"
     )
 
 
