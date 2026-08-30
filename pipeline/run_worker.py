@@ -750,10 +750,17 @@ class RunReporter:
     every tick (Update 01 P1.1 / Update 02 P1.2). Extracted from `Worker`
     in Update 10 Item 5; behavior is unchanged from before the split."""
 
-    def __init__(self, repo: Repo, notifier: TelegramNotifier, healthcheck_ping_url: Optional[str] = None):
+    def __init__(
+        self,
+        repo: Repo,
+        notifier: TelegramNotifier,
+        healthcheck_ping_url: Optional[str] = None,
+        configured_providers: Optional[list[str]] = None,
+    ):
         self.repo = repo
         self.notifier = notifier
         self.healthcheck_ping_url = healthcheck_ping_url
+        self.configured_providers = list(configured_providers) if configured_providers else []
 
     async def health_snapshot(self, summary: RunSummary) -> dict:
         """Assembles the health dict format_run_report()/insert_run_history()
@@ -776,6 +783,7 @@ class RunReporter:
             "db_ok": db_ok,
             "llm_keys": llm_keys,
             "stats": stats,
+            "configured_providers": self.configured_providers,
             "stage_counts": {
                 "passed": summary.passed,
                 "rejected_stage0": summary.rejected_stage0,
@@ -853,7 +861,16 @@ class Worker:
         self.thresholds = FilterThresholds.from_env()
         self.generation = GenerationQueue(repo, llm, config, notifier)
         self.executor = CandidateExecutor(repo, brain, notifier, self.thresholds, config)
-        self.reporter = RunReporter(repo, notifier, config.healthcheck_ping_url)
+
+        configured_providers = []
+        if getattr(config, "groq_keys", None):
+            configured_providers.append("groq")
+        if getattr(config, "cerebras_keys", None):
+            configured_providers.append("cerebras")
+        if getattr(config, "openrouter_keys", None):
+            configured_providers.append("openrouter")
+
+        self.reporter = RunReporter(repo, notifier, config.healthcheck_ping_url, configured_providers=configured_providers)
         # A Worker instance is only ever constructed (via build_worker())
         # after BrainClient.authenticate() has already succeeded -- a
         # BrainAuthError raised there propagates out of build_worker()

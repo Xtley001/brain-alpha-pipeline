@@ -147,7 +147,7 @@ def test_run_report_lists_llm_key_health_rows():
         "stage_counts": {},
     }
     text = format_run_report(summary, health)
-    assert "Openrouter/key_1" in text
+    assert "OpenRouter/key_1" in text
     assert "Groq/key_1" in text
 
 
@@ -164,6 +164,22 @@ def test_run_report_excludes_gemini():
     text = format_run_report(summary, health)
     assert "gemini" not in text.lower()
     assert "Groq/key_1" in text
+
+
+def test_run_report_shows_only_configured_providers():
+    summary = _FakeRunSummary()
+    health = {
+        "brain_auth_ok": True, "db_ok": True,
+        "llm_keys": [
+            {"provider": "groq", "key_label": "key_1", "tier": "mechanical", "succeeded": True},
+        ],
+        "configured_providers": ["groq", "openrouter"],
+        "stage_counts": {},
+    }
+    text = format_run_report(summary, health)
+    assert "Groq/key_1" in text
+    assert "OpenRouter" in text
+    assert "Cerebras" not in text
 
 
 def test_run_report_conditional_errors():

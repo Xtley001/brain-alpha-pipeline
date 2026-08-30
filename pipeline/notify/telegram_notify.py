@@ -71,11 +71,15 @@ def format_run_report(summary, health: dict) -> str:
     db_flag = "✅ Connected" if health.get("db_ok") else "❌ Disconnected"
 
     # AI Engine Key Health
+    provider_names = {"groq": "Groq", "cerebras": "Cerebras", "openrouter": "OpenRouter"}
+    configured_providers = [str(p).lower() for p in health.get("configured_providers", [])]
     seen_providers = set()
     key_lines = []
     for row in health.get("llm_keys", []):
         provider = str(row.get("provider", "")).lower()
         if provider == "gemini":
+            continue
+        if configured_providers and provider not in configured_providers:
             continue
         seen_providers.add(provider)
         key_label = row.get("key_label", "")
@@ -94,16 +98,16 @@ def format_run_report(summary, health: dict) -> str:
         rolling = ""
         if row.get("attempted_last_10"):
             rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} successful]"
-        key_lines.append(f"  • {provider.capitalize()}/{key_label} ({tier}): {flag} {status_desc}{rolling}")
+        display_name = provider_names.get(provider, provider.capitalize())
+        key_lines.append(f"  • {display_name}/{key_label} ({tier}): {flag} {status_desc}{rolling}")
 
-    if "groq" not in seen_providers:
-        key_lines.append("  • Groq: ⏳ Standby (Ready)")
-    if "cerebras" not in seen_providers:
-        key_lines.append("  • Cerebras: ⏳ Standby (Ready on fallback)")
-    if "openrouter" not in seen_providers:
-        key_lines.append("  • OpenRouter: ⏳ Standby (Ready on fallback)")
+    target_standby = configured_providers if configured_providers else [p for p in ["groq", "openrouter"] if p in seen_providers]
+    for prov in target_standby:
+        if prov not in seen_providers and prov != "gemini":
+            display_name = provider_names.get(prov, prov.capitalize())
+            key_lines.append(f"  • {display_name}: ⏳ Standby (Ready on fallback)")
 
-    keys_block = "\n".join(key_lines)
+    keys_block = "\n".join(key_lines) if key_lines else "  • AI Providers: Standby"
 
     # This Run Metrics
     stages = health.get("stage_counts", {})
