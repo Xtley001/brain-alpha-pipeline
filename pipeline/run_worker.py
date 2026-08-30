@@ -755,12 +755,12 @@ class RunReporter:
         repo: Repo,
         notifier: TelegramNotifier,
         healthcheck_ping_url: Optional[str] = None,
-        configured_providers: Optional[list[str]] = None,
+        configured_keys: Optional[dict[str, int]] = None,
     ):
         self.repo = repo
         self.notifier = notifier
         self.healthcheck_ping_url = healthcheck_ping_url
-        self.configured_providers = list(configured_providers) if configured_providers else []
+        self.configured_keys = dict(configured_keys) if configured_keys else {}
 
     async def health_snapshot(self, summary: RunSummary) -> dict:
         """Assembles the health dict format_run_report()/insert_run_history()
@@ -783,7 +783,7 @@ class RunReporter:
             "db_ok": db_ok,
             "llm_keys": llm_keys,
             "stats": stats,
-            "configured_providers": self.configured_providers,
+            "configured_keys": self.configured_keys,
             "stage_counts": {
                 "passed": summary.passed,
                 "rejected_stage0": summary.rejected_stage0,
@@ -862,15 +862,15 @@ class Worker:
         self.generation = GenerationQueue(repo, llm, config, notifier)
         self.executor = CandidateExecutor(repo, brain, notifier, self.thresholds, config)
 
-        configured_providers = []
+        configured_keys = {}
         if getattr(config, "groq_keys", None):
-            configured_providers.append("groq")
+            configured_keys["groq"] = len(config.groq_keys)
         if getattr(config, "cerebras_keys", None):
-            configured_providers.append("cerebras")
+            configured_keys["cerebras"] = len(config.cerebras_keys)
         if getattr(config, "openrouter_keys", None):
-            configured_providers.append("openrouter")
+            configured_keys["openrouter"] = len(config.openrouter_keys)
 
-        self.reporter = RunReporter(repo, notifier, config.healthcheck_ping_url, configured_providers=configured_providers)
+        self.reporter = RunReporter(repo, notifier, config.healthcheck_ping_url, configured_keys=configured_keys)
         # A Worker instance is only ever constructed (via build_worker())
         # after BrainClient.authenticate() has already succeeded -- a
         # BrainAuthError raised there propagates out of build_worker()

@@ -72,40 +72,62 @@ def format_run_report(summary, health: dict) -> str:
 
     # AI Engine Key Health
     provider_names = {"groq": "Groq", "cerebras": "Cerebras", "openrouter": "OpenRouter"}
-    configured_providers = [str(p).lower() for p in health.get("configured_providers", [])]
-    seen_providers = set()
-    key_lines = []
+    configured_keys = health.get("configured_keys", {})
+    if not configured_keys and "configured_providers" in health:
+        configured_keys = {p.lower(): 1 for p in health["configured_providers"]}
+
+    # Index existing usage rows by (provider, normalized_key_label)
+    usage_map = {}
     for row in health.get("llm_keys", []):
-        provider = str(row.get("provider", "")).lower()
-        if provider == "gemini":
+        prov = str(row.get("provider", "")).lower()
+        if prov == "gemini":
             continue
-        if configured_providers and provider not in configured_providers:
-            continue
-        seen_providers.add(provider)
-        key_label = row.get("key_label", "")
-        tier = row.get("tier", "")
-        stale = row.get("stale")
-        if stale:
-            flag = "⏳"
-            status_desc = "Standby"
-        elif row.get("succeeded"):
-            flag = "✅"
-            status_desc = "Active"
-        else:
-            flag = "❌"
-            status_desc = "Failed"
+        k_label = str(row.get("key_label", "")).lower().replace("_", "")
+        usage_map[(prov, k_label)] = row
 
-        rolling = ""
-        if row.get("attempted_last_10"):
-            rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} successful]"
-        display_name = provider_names.get(provider, provider.capitalize())
-        key_lines.append(f"  • {display_name}/{key_label} ({tier}): {flag} {status_desc}{rolling}")
-
-    target_standby = configured_providers if configured_providers else [p for p in ["groq", "openrouter"] if p in seen_providers]
-    for prov in target_standby:
-        if prov not in seen_providers and prov != "gemini":
-            display_name = provider_names.get(prov, prov.capitalize())
-            key_lines.append(f"  • {display_name}: ⏳ Standby (Ready on fallback)")
+    key_lines = []
+    if configured_keys:
+        for prov, count in configured_keys.items():
+            prov_lower = str(prov).lower()
+            if prov_lower == "gemini" or count <= 0:
+                continue
+            disp_name = provider_names.get(prov_lower, prov_lower.capitalize())
+            for i in range(1, count + 1):
+                k_key = f"key{i}"
+                k_label = f"key_{i}"
+                row = usage_map.get((prov_lower, k_key))
+                if row:
+                    tier_str = f" ({row['tier']})" if row.get("tier") else ""
+                    stale = row.get("stale")
+                    if stale:
+                        flag = "⏳"
+                        status_desc = "Standby"
+                    elif row.get("succeeded"):
+                        flag = "✅"
+                        status_desc = "Active"
+                    else:
+                        flag = "❌"
+                        status_desc = "Failed"
+                    rolling = ""
+                    if row.get("attempted_last_10"):
+                        rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} successful]"
+                    key_lines.append(f"  • {disp_name}/{k_label}{tier_str}: {flag} {status_desc}{rolling}")
+                else:
+                    role_desc = "Ready on rotation" if prov_lower == "groq" else "Ready on fallback"
+                    key_lines.append(f"  • {disp_name}/{k_label}: ⏳ Standby ({role_desc})")
+    else:
+        # Fallback when configured_keys is empty (e.g. mock test dicts)
+        for (prov, _), row in usage_map.items():
+            disp_name = provider_names.get(prov, prov.capitalize())
+            k_label = row.get("key_label", "")
+            tier_str = f" ({row['tier']})" if row.get("tier") else ""
+            stale = row.get("stale")
+            flag = "⏳" if stale else ("✅" if row.get("succeeded") else "❌")
+            status_desc = "Standby" if stale else ("Active" if row.get("succeeded") else "Failed")
+            rolling = ""
+            if row.get("attempted_last_10"):
+                rolling = f" [{row['succeeded_last_10']}/{row['attempted_last_10']} successful]"
+            key_lines.append(f"  • {disp_name}/{k_label}{tier_str}: {flag} {status_desc}{rolling}")
 
     keys_block = "\n".join(key_lines) if key_lines else "  • AI Providers: Standby"
 

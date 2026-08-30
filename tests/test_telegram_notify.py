@@ -173,12 +173,35 @@ def test_run_report_shows_only_configured_providers():
         "llm_keys": [
             {"provider": "groq", "key_label": "key_1", "tier": "mechanical", "succeeded": True},
         ],
-        "configured_providers": ["groq", "openrouter"],
+        "configured_keys": {"groq": 1, "openrouter": 1},
         "stage_counts": {},
     }
     text = format_run_report(summary, health)
     assert "Groq/key_1" in text
-    assert "OpenRouter" in text
+    assert "OpenRouter/key_1" in text
+    assert "Cerebras" not in text
+
+
+def test_run_report_shows_all_4_configured_keys_per_provider():
+    summary = _FakeRunSummary()
+    health = {
+        "brain_auth_ok": True, "db_ok": True,
+        "llm_keys": [
+            {"provider": "groq", "key_label": "key_1", "tier": "mechanical", "succeeded": True},
+            {"provider": "groq", "key_label": "key_2", "tier": "reasoning", "succeeded": False},
+        ],
+        "configured_keys": {"groq": 4, "openrouter": 4},
+        "stage_counts": {},
+    }
+    text = format_run_report(summary, health)
+    assert "Groq/key_1" in text
+    assert "Groq/key_2" in text
+    assert "Groq/key_3" in text
+    assert "Groq/key_4" in text
+    assert "OpenRouter/key_1" in text
+    assert "OpenRouter/key_2" in text
+    assert "OpenRouter/key_3" in text
+    assert "OpenRouter/key_4" in text
     assert "Cerebras" not in text
 
 
