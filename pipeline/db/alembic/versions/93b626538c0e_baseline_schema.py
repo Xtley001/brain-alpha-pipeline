@@ -31,9 +31,9 @@ def upgrade() -> None:
     """Upgrade schema -- reproduces pipeline/db/schema.sql's end state
     exactly (final column set, including every column added via a later
     ALTER TABLE ... ADD COLUMN IF NOT EXISTS in that file), as one
-    baseline revision."""
+    idempotent baseline revision."""
     op.execute("""
-        CREATE TABLE candidates (
+        CREATE TABLE IF NOT EXISTS candidates (
             id              BIGSERIAL PRIMARY KEY,
             expression      TEXT NOT NULL,
             category        TEXT,
@@ -48,9 +48,13 @@ def upgrade() -> None:
             last_error      TEXT
         )
     """)
+    op.execute("ALTER TABLE candidates ADD COLUMN IF NOT EXISTS claimed_at TIMESTAMPTZ")
+    op.execute("ALTER TABLE candidates ADD COLUMN IF NOT EXISTS provider TEXT")
+    op.execute("ALTER TABLE candidates ADD COLUMN IF NOT EXISTS attempts INTEGER NOT NULL DEFAULT 0")
+    op.execute("ALTER TABLE candidates ADD COLUMN IF NOT EXISTS last_error TEXT")
 
     op.execute("""
-        CREATE TABLE sweep_runs (
+        CREATE TABLE IF NOT EXISTS sweep_runs (
             id              BIGSERIAL PRIMARY KEY,
             candidate_id    BIGINT NOT NULL REFERENCES candidates(id),
             stage           TEXT NOT NULL,
@@ -70,10 +74,11 @@ def upgrade() -> None:
             error_text      TEXT
         )
     """)
-    op.execute("CREATE INDEX idx_sweep_runs_candidate ON sweep_runs(candidate_id)")
+    op.execute("ALTER TABLE sweep_runs ADD COLUMN IF NOT EXISTS error_text TEXT")
+    op.execute("CREATE INDEX IF NOT EXISTS idx_sweep_runs_candidate ON sweep_runs(candidate_id)")
 
     op.execute("""
-        CREATE TABLE review_store (
+        CREATE TABLE IF NOT EXISTS review_store (
             id                   BIGSERIAL PRIMARY KEY,
             candidate_id         BIGINT NOT NULL REFERENCES candidates(id),
             expression           TEXT NOT NULL,
@@ -99,11 +104,11 @@ def upgrade() -> None:
             created_at           TIMESTAMPTZ NOT NULL DEFAULT now()
         )
     """)
-    op.execute("CREATE INDEX idx_review_store_fitness ON review_store(fitness DESC)")
-    op.execute("CREATE INDEX idx_review_store_correlation ON review_store(max_correlation ASC)")
+    op.execute("CREATE INDEX IF NOT EXISTS idx_review_store_fitness ON review_store(fitness DESC)")
+    op.execute("CREATE INDEX IF NOT EXISTS idx_review_store_correlation ON review_store(max_correlation ASC)")
 
     op.execute("""
-        CREATE TABLE pool_returns (
+        CREATE TABLE IF NOT EXISTS pool_returns (
             alpha_id     TEXT NOT NULL,
             return_date  DATE NOT NULL,
             daily_return NUMERIC NOT NULL,
@@ -112,7 +117,7 @@ def upgrade() -> None:
     """)
 
     op.execute("""
-        CREATE TABLE llm_usage (
+        CREATE TABLE IF NOT EXISTS llm_usage (
             id           BIGSERIAL PRIMARY KEY,
             provider     TEXT NOT NULL,
             key_label    TEXT NOT NULL,
@@ -124,7 +129,7 @@ def upgrade() -> None:
     """)
 
     op.execute("""
-        CREATE TABLE pipeline_meta (
+        CREATE TABLE IF NOT EXISTS pipeline_meta (
             key          TEXT PRIMARY KEY,
             value        TEXT,
             updated_at   TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -132,7 +137,7 @@ def upgrade() -> None:
     """)
 
     op.execute("""
-        CREATE TABLE run_history (
+        CREATE TABLE IF NOT EXISTS run_history (
             id                    BIGSERIAL PRIMARY KEY,
             started_at            TIMESTAMPTZ NOT NULL DEFAULT now(),
             reclaimed             INTEGER,
@@ -149,7 +154,7 @@ def upgrade() -> None:
             errors                TEXT
         )
     """)
-    op.execute("CREATE INDEX idx_run_history_started_at ON run_history(started_at DESC)")
+    op.execute("CREATE INDEX IF NOT EXISTS idx_run_history_started_at ON run_history(started_at DESC)")
 
 
 def downgrade() -> None:
