@@ -80,8 +80,8 @@ class Config:
     healthcheck_ping_url: str | None = None
 
     queue_target_depth: int = 75
-    stage0_min_fitness: float = 0.3
-    stage0_min_sharpe: float = 0.5
+    stage0_min_fitness: float = 0.20
+    stage0_min_sharpe: float = 0.35
 
     # Update 05: the fixed 53-expression template pool almost always covers
     # a tick's whole `needed` gap on its own (queue_target_depth - depth is
@@ -196,8 +196,8 @@ class Config:
             telegram_chat_id=(_require("TELEGRAM_CHAT_ID") if require_telegram else _optional("TELEGRAM_CHAT_ID")),
             healthcheck_ping_url=_optional("HEALTHCHECK_PING_URL"),
             queue_target_depth=int(_optional("QUEUE_TARGET_DEPTH", "75")),
-            stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.3")),
-            stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.5")),
+            stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.20")),
+            stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.35")),
             template_tier_max_share=float(_optional("TEMPLATE_TIER_MAX_SHARE", "0.5")),
             max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "15")),
             run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480")),

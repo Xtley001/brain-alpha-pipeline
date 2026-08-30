@@ -22,41 +22,56 @@ from typing import Optional
 
 from pipeline.llm.adapter import LLMAdapter, QuotaExhausted
 
-REASONING_PROMPT_TEMPLATE = """You are proposing new WorldQuant BRAIN equities \
-cross-sectional alpha expressions (Fast Expression syntax, USA equities).
+REASONING_PROMPT_TEMPLATE = """You are an elite quantitative researcher designing WorldQuant BRAIN alpha expressions (Fast Expression syntax, USA Equities).
 
-Existing pool summary (categories and idea counts already covered):
+### VALID WORLDQUANT BRAIN DATA FIELDS:
+- Price / Volume: `open`, `high`, `low`, `close`, `volume`, `vwap`, `returns`, `cap`, `adv20`, `sharesout`
+- DO NOT invent variables like pe_ratio, market_cap, earnings_window, or custom flags.
+
+### VALID OPERATORS:
+- Cross-Sectional: `rank(x)`, `group_rank(x, group)`, `group_neutralize(x, group)`, `group_zscore(x, group)` (groups: `sector`, `industry`, `subindustry`)
+- Time-Series: `ts_rank(x, d)`, `ts_zscore(x, d)`, `ts_decay_linear(x, d)`, `ts_delta(x, d)`, `ts_delay(x, d)`, `ts_mean(x, d)`, `ts_std_dev(x, d)`, `ts_max(x, d)`, `ts_min(x, d)`, `ts_corr(x, y, d)`
+- Math: `signed_power(x, p)`, `abs(x)`, `min(x, y)`, `max(x, y)`, `log(x)`
+
+### HIGH-ALPHA MULTI-FACTOR PATTERNS:
+1. Volume Shock x Reversal: `group_neutralize(rank(-ts_zscore(close, 5)) * rank(volume / (adv20 + 0.001)), subindustry)`
+2. Risk-Adjusted Momentum: `group_neutralize(rank(ts_decay_linear(returns, 20) / (ts_std_dev(returns, 20) + 0.0001)), sector)`
+3. Intraday Pressure x Trend: `rank((close - open) / (high - low + 0.0001)) * rank(ts_delta(close, 5))`
+4. VWAP Deviation with Volatility Filter: `rank(ts_decay_linear((vwap - close) / close, 10)) * rank(-ts_std_dev(returns, 60))`
+5. Volume-Price Divergence: `group_neutralize(rank(ts_delta(close, 10)) * rank(-ts_delta(volume, 10)), industry)`
+
+### CONSTRAINTS:
+- Outer expression MUST be cross-sectionally normalized with `rank(...)` or `group_neutralize(rank(...), ...)`.
+- Windows `d` must be realistic trading horizons: 2, 3, 5, 10, 20, 60, 126, or 252.
+- Avoid repeating recently proposed expressions.
+
+Existing pool summary:
 {pool_summary}
 
-Recent failures (expression -> why it failed the local filter or \
-correlation check):
+Recent failures:
 {failure_log}
 
-Already proposed recently -- do NOT repeat any of these verbatim or as a \
-trivial rewording (same fields, same structure, different variable order/\
-window). Propose something that would NOT collapse into any of these if \
-simplified:
+Avoid these recently proposed expressions:
 {avoid_expressions}
 
-Propose {n} NEW expressions that are economically distinct from what's \
-already in the pool above -- not a field/window tweak on an existing one, \
-a genuinely different mechanism (different data category, different \
-horizon, or a different economic rationale entirely).
+Propose {n} NEW, distinct, multi-factor BRAIN expressions.
 
-Respond with ONLY a JSON array, no markdown fences, no preamble, in this \
-exact shape:
+Respond with ONLY a JSON array, no markdown fences, no preamble, in this exact shape:
 [{{"expression": "...", "category": "...", "rationale": "one sentence"}}]
 """
 
-MECHANICAL_PROMPT_TEMPLATE = """Given this BRAIN alpha expression:
+MECHANICAL_PROMPT_TEMPLATE = """You are a quantitative researcher generating parameter/operator variations of a WorldQuant BRAIN alpha expression.
+
+Base expression:
 {base_expression}
 
-Produce {n} mechanical variations by swapping fields, window lengths, or \
-group-neutralization targets -- keep the same economic idea, just \
-different parameters or a closely related field.
+Generate {n} variations by:
+- Swapping lookback windows (e.g. 5 -> 10, 20 -> 60)
+- Swapping neutralization targets (`sector`, `industry`, `subindustry`)
+- Testing decay smoothing (`ts_decay_linear`) or non-linear transform (`signed_power`)
+- Swapping price reference (`close` -> `vwap` or `returns`)
 
-Respond with ONLY a JSON array, no markdown fences, no preamble, in this \
-exact shape:
+Respond with ONLY a JSON array, no markdown fences, no preamble:
 [{{"expression": "...", "category": "{category}"}}]
 """
 
