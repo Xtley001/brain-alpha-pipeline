@@ -40,9 +40,12 @@ REASONING_PROMPT_TEMPLATE = """You are an elite quantitative researcher designin
 4. VWAP Deviation with Volatility Filter: `rank(ts_decay_linear((vwap - close) / close, 10)) * rank(-ts_std_dev(returns, 60))`
 5. Volume-Price Divergence: `group_neutralize(rank(ts_delta(close, 10)) * rank(-ts_delta(volume, 10)), industry)`
 
-### CONSTRAINTS:
+### CONSTRAINTS & HORIZON DIVERSITY:
 - Outer expression MUST be cross-sectionally normalized with `rank(...)` or `group_neutralize(rank(...), ...)`.
-- Windows `d` must be realistic trading horizons: 2, 3, 5, 10, 20, 60, 126, or 252.
+- Ensure a balanced mix across horizons:
+  * Short-Term (2-5 days): Fast mean-reversion, intraday pressure, gap fade.
+  * Medium-Term (10-60 days): Risk-adjusted momentum, volume-price divergence, VWAP reversion.
+  * Long-Term (126-252 days): Low-volatility anomaly, 52-week trend, quality/cap tilts.
 - Avoid repeating recently proposed expressions.
 
 Existing pool summary:
@@ -54,7 +57,7 @@ Recent failures:
 Avoid these recently proposed expressions:
 {avoid_expressions}
 
-Propose {n} NEW, distinct, multi-factor BRAIN expressions.
+Propose {n} NEW, distinct, multi-factor BRAIN expressions across varied horizons.
 
 Respond with ONLY a JSON array, no markdown fences, no preamble, in this exact shape:
 [{{"expression": "...", "category": "...", "rationale": "one sentence"}}]

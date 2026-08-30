@@ -179,11 +179,13 @@ def _gemini_call_fn(prompt: str, model: str, key_value: str) -> str:
 
 
 def _groq_call_fn(prompt: str, model: str, key_value: str) -> str:
+    import random
     from openai import OpenAI  # lazy import; Groq is OpenAI-SDK compatible
 
+    temp = random.choice([0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
     try:
         client = OpenAI(api_key=key_value, base_url="https://api.groq.com/openai/v1")
-        resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}])
+        resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}], temperature=temp)
         return resp.choices[0].message.content
     except Exception as e:  # noqa: BLE001
         # openai-python raises a typed openai.RateLimitError with a
@@ -199,11 +201,13 @@ def _groq_call_fn(prompt: str, model: str, key_value: str) -> str:
 
 def _cerebras_call_fn(prompt: str, model: str, key_value: str) -> str:
     """Cerebras is OpenAI-SDK compatible (Update 09)."""
+    import random
     from openai import OpenAI  # lazy import; Cerebras is OpenAI-SDK compatible
 
+    temp = random.choice([0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
     try:
         client = OpenAI(api_key=key_value, base_url="https://api.cerebras.ai/v1")
-        resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}])
+        resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}], temperature=temp)
         return resp.choices[0].message.content
     except Exception as e:  # noqa: BLE001
         status_code = getattr(e, "status_code", None)
@@ -220,11 +224,13 @@ def _openrouter_call_fn(prompt: str, model: str, key_value: str) -> str:
     not "add a key" -- there's no second free OpenRouter key to fall back
     to within one account, which is exactly why this sits behind Groq in
     the chain instead of beside it."""
+    import random
     from openai import OpenAI  # lazy import; OpenRouter is OpenAI-SDK compatible
 
+    temp = random.choice([0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
     try:
         client = OpenAI(api_key=key_value, base_url="https://openrouter.ai/api/v1")
-        resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}])
+        resp = client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}], temperature=temp)
         return resp.choices[0].message.content
     except Exception as e:  # noqa: BLE001
         status_code = getattr(e, "status_code", None)

@@ -79,7 +79,7 @@ class Config:
     # sibling for the ping call site).
     healthcheck_ping_url: str | None = None
 
-    queue_target_depth: int = 75
+    queue_target_depth: int = 120
     stage0_min_fitness: float = 0.20
     stage0_min_sharpe: float = 0.35
 
@@ -99,21 +99,11 @@ class Config:
     # --- bounded-batch (cron) run tuning ---
     # How many candidates a single `run_once()` invocation will claim and
     # process (across possibly several BRAIN_MAX_CONCURRENT_SIMS-sized
-    # batches) before exiting, regardless of how deep the queue is. Default
-    # is 5x the concurrency cap: enough to make a single cron tick do real
-    # work (per the handoff doc's "process more per tick" mitigation) without
-    # letting one invocation run away and blow past the cron execution
-    # window if BRAIN simulations turn out to be fast that tick.
-    max_candidates_per_run: int = 15
+    # batches) before exiting, regardless of how deep the queue is.
+    max_candidates_per_run: int = 25
     # Wall-clock ceiling (seconds) on the batch-processing portion of
-    # `run_once()`. Render's free/cheap cron tier does not publish a hard
-    # per-invocation timeout as of this writing (see refactor summary), so
-    # this defaults conservatively short (8 min) to leave headroom under
-    # any schedule interval of 10+ minutes and under Render's platform-wide
-    # 12-hour cron kill switch. Any candidates left claimed-but-unprocessed
-    # when the budget trips stay in 'running' and are picked up by
-    # `reclaim_orphaned_running()` on a future run -- never silently lost.
-    run_time_budget_seconds: int = 480
+    # `run_once()`.
+    run_time_budget_seconds: int = 540
 
     # Update 10 Item 9.2: previously bare module-level constants in
     # run_worker.py (MAX_CANDIDATE_ATTEMPTS, ORPHAN_RECLAIM_MINUTES,
@@ -195,12 +185,12 @@ class Config:
             telegram_bot_token=(_require("TELEGRAM_BOT_TOKEN") if require_telegram else _optional("TELEGRAM_BOT_TOKEN")),
             telegram_chat_id=(_require("TELEGRAM_CHAT_ID") if require_telegram else _optional("TELEGRAM_CHAT_ID")),
             healthcheck_ping_url=_optional("HEALTHCHECK_PING_URL"),
-            queue_target_depth=int(_optional("QUEUE_TARGET_DEPTH", "75")),
+            queue_target_depth=int(_optional("QUEUE_TARGET_DEPTH", "120")),
             stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.20")),
             stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.35")),
             template_tier_max_share=float(_optional("TEMPLATE_TIER_MAX_SHARE", "0.5")),
-            max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "15")),
-            run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480")),
+            max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "25")),
+            run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "540")),
             max_candidate_attempts=int(_optional("MAX_CANDIDATE_ATTEMPTS", "3")),
             orphan_reclaim_minutes=int(_optional("ORPHAN_RECLAIM_MINUTES", "30")),
             max_correlation=float(_optional("MAX_CORRELATION", "0.7")),
