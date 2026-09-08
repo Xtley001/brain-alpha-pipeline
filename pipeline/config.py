@@ -178,7 +178,7 @@ class Config:
             database_url=_require("DATABASE_URL"),
             brain_username=(_require("BRAIN_USERNAME") if require_brain else _optional("BRAIN_USERNAME", "")),
             brain_password=(_require("BRAIN_PASSWORD") if require_brain else _optional("BRAIN_PASSWORD", "")),
-            brain_max_concurrent_sims=int(_optional("BRAIN_MAX_CONCURRENT_SIMS", "3")),
+            brain_max_concurrent_sims=int(_optional("BRAIN_MAX_CONCURRENT_SIMS", "2")),
             gemini_keys=gemini_keys,
             groq_keys=groq_keys,
             cerebras_keys=cerebras_keys,
