@@ -190,7 +190,7 @@ class Config:
             stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.20")),
             stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.35")),
             template_tier_max_share=float(_optional("TEMPLATE_TIER_MAX_SHARE", "0.5")),
-            max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "25")),
+            max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "2")),
             run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "540")),
             max_candidate_attempts=int(_optional("MAX_CANDIDATE_ATTEMPTS", "3")),
             orphan_reclaim_minutes=int(_optional("ORPHAN_RECLAIM_MINUTES", "30")),
