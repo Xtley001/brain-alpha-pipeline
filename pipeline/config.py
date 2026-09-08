@@ -116,6 +116,7 @@ class Config:
     max_candidate_attempts: int = 3
     orphan_reclaim_minutes: int = 30
     max_correlation: float = 0.7
+    enable_correlation_check: bool = True
 
     @classmethod
     def from_env(cls, require_brain: bool = True, require_telegram: bool = True) -> "Config":
@@ -194,4 +195,5 @@ class Config:
             max_candidate_attempts=int(_optional("MAX_CANDIDATE_ATTEMPTS", "3")),
             orphan_reclaim_minutes=int(_optional("ORPHAN_RECLAIM_MINUTES", "30")),
             max_correlation=float(_optional("MAX_CORRELATION", "0.7")),
+            enable_correlation_check=(_optional("ENABLE_CORRELATION_CHECK", "true").lower() in ("true", "1", "yes")),
         )

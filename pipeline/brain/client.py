@@ -187,9 +187,34 @@ class BrainClient:
         handled inside wqb.WQBSession.simulate(...)."""
         session = self._get_session()
         target = settings_to_simulation_data(expression, settings)
-        resp = await session.simulate(target)
+        resp = None
+        for attempt in range(3):
+            try:
+                resp = await session.simulate(target)
+                if resp is not None:
+                    break
+            except Exception as e:
+                log.warning("simulate attempt %d failed: %s", attempt + 1, e)
+            await asyncio.sleep(2.0 * (attempt + 1))
+
         if resp is None:
             raise RuntimeError(f"Simulation failed to return a result for: {expression} / {settings}")
+        
+        sim_data = resp.json() if hasattr(resp, "json") else {}
+        alpha_id = sim_data.get("alpha") or sim_data.get("id") or sim_data.get("alphaId")
+
+        # If the simulation response directly contains 'is' metrics with 'sharpe', parse directly
+        if isinstance(sim_data.get("is"), dict) and "sharpe" in sim_data["is"]:
+            return _parse_sim_response(resp)
+
+        # BRAIN's /simulations endpoint returns {"id": ..., "status": "COMPLETE", "alpha": "<alpha_id>"}.
+        # The full performance stats (Sharpe, Fitness, Turnover, etc.) are located at /alphas/<alpha_id>.
+        if alpha_id:
+            alpha_url = f"https://api.worldquantbrain.com/alphas/{alpha_id}"
+            alpha_resp = await session.retry("GET", alpha_url, max_tries=30)
+            if alpha_resp is not None and alpha_resp.status_code < 400:
+                return _parse_sim_response(alpha_resp)
+
         return _parse_sim_response(resp)
 
     async def get_alpha_pnl(self, alpha_id: str) -> dict[str, float]:
@@ -213,32 +238,23 @@ class BrainClient:
         of two series is what actually matters for this gate, not units).
         """
         session = self._get_session()
-        resp = await session.get(f"alphas/{alpha_id}/recordsets/pnl")
-        if resp is None:
+        url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/recordsets/pnl"
+        resp = await session.retry("GET", url, max_tries=30)
+        if resp is None or resp.status_code >= 400:
             raise RuntimeError(f"Failed to fetch PnL recordset for alpha {alpha_id}")
         return _parse_pnl_response(resp)
 
 
 def _parse_sim_response(resp: Any) -> SimResult:
-    """Convert a wqb simulation-result Response into our SimResult. BRAIN's
-    response shape (as of the wqb client this wraps) nests performance
-    metrics under `is` (in-sample) — adjust the key lookups here first if
-    BRAIN changes its response schema; that's a one-place fix.
-
-    Update 10 Item 8: sharpe/fitness/turnover and alpha_id are the fields
-    every downstream decision (local filter thresholds, correlation gate,
-    review_store) actually depends on -- a missing one of these now logs a
-    loud warning (once per key, see `_warn_missing_key_once`) instead of
-    silently defaulting. `returns`/`drawdown` stay silent on absence since
-    they're just informational (Update 03) and are genuinely optional even
-    in a correctly-shaped response for stages BRAIN doesn't always return
-    them for."""
-    data = resp.json()
-    is_stats = data.get("is", data)  # tolerate either nested-under-`is` or flat
+    """Convert a wqb simulation-result Response or Alpha Response into our SimResult.
+    BRAIN's response shape nests performance metrics under `is` (in-sample)."""
+    data = resp.json() if hasattr(resp, "json") else resp
+    is_stats = data.get("is", data) if isinstance(data, dict) else {}
     for critical_key in ("sharpe", "fitness", "turnover"):
         if critical_key not in is_stats:
             _warn_missing_key_once("sim_response", critical_key, is_stats)
-    if "id" not in data and "alphaId" not in data:
+    alpha_id = data.get("id") or data.get("alpha") or data.get("alphaId")
+    if not alpha_id:
         _warn_missing_key_once("sim_response", "id/alphaId", data)
     return SimResult(
         sharpe=float(is_stats.get("sharpe", 0.0)),
@@ -246,11 +262,7 @@ def _parse_sim_response(resp: Any) -> SimResult:
         turnover=float(is_stats.get("turnover", 0.0)),
         returns_ann=float(is_stats["returns"]) if is_stats.get("returns") is not None else None,
         drawdown=float(is_stats["drawdown"]) if is_stats.get("drawdown") is not None else None,
-        # `alpha_id` sits alongside `is`/settings in the simulation-result
-        # payload -- tolerate a couple of plausible key names since this is
-        # the one field BRAIN's docs are least consistent about across
-        # endpoints.
-        alpha_id=data.get("id") or data.get("alphaId"),
+        alpha_id=alpha_id,
     )
 
 

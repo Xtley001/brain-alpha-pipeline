@@ -28,24 +28,21 @@ REASONING_PROMPT_TEMPLATE = """You are an elite quantitative researcher designin
 - Price / Volume: `open`, `high`, `low`, `close`, `volume`, `vwap`, `returns`, `cap`, `adv20`, `sharesout`
 - DO NOT invent variables like pe_ratio, market_cap, earnings_window, or custom flags.
 
-### VALID OPERATORS:
-- Cross-Sectional: `rank(x)`, `group_rank(x, group)`, `group_neutralize(x, group)`, `group_zscore(x, group)` (groups: `sector`, `industry`, `subindustry`)
+### VALID OPERATORS (from BRAIN Operator Library):
+- Cross-Sectional: `rank(x)`, `group_rank(x, group)`, `group_neutralize(x, group)`, `group_zscore(x, group)`, `group_mean(x, 1, group)`, `quantile(x, driver='gaussian')` (groups: `sector`, `industry`, `subindustry`)
 - Time-Series: `ts_rank(x, d)`, `ts_zscore(x, d)`, `ts_decay_linear(x, d)`, `ts_delta(x, d)`, `ts_delay(x, d)`, `ts_mean(x, d)`, `ts_std_dev(x, d)`, `ts_max(x, d)`, `ts_min(x, d)`, `ts_corr(x, y, d)`
-- Math: `signed_power(x, p)`, `abs(x)`, `min(x, y)`, `max(x, y)`, `log(x)`
+- Transform / Gating: `trade_when(condition, alpha, -1)` (e.g. `trade_when(volume > adv20, alpha, -1)`), `signed_power(x, p)`, `abs(x)`, `min(x, y)`, `max(x, y)`, `log(x)`
 
-### HIGH-ALPHA MULTI-FACTOR PATTERNS:
-1. Volume Shock x Reversal: `group_neutralize(rank(-ts_zscore(close, 5)) * rank(volume / (adv20 + 0.001)), subindustry)`
-2. Risk-Adjusted Momentum: `group_neutralize(rank(ts_decay_linear(returns, 20) / (ts_std_dev(returns, 20) + 0.0001)), sector)`
-3. Intraday Pressure x Trend: `rank((close - open) / (high - low + 0.0001)) * rank(ts_delta(close, 5))`
-4. VWAP Deviation with Volatility Filter: `rank(ts_decay_linear((vwap - close) / close, 10)) * rank(-ts_std_dev(returns, 60))`
-5. Volume-Price Divergence: `group_neutralize(rank(ts_delta(close, 10)) * rank(-ts_delta(volume, 10)), industry)`
+### HIGH-ALPHA MULTI-FACTOR ARCHETYPES:
+1. Sector-Relative Mean Reversion: `group_neutralize(rank(-(ts_delta(close, 2) - group_mean(ts_delta(close, 2), 1, sector))), sector)`
+2. Event-Gated Volume Surge Reversal: `trade_when(volume > adv20, group_neutralize(rank(-ts_delta(close, 2)), sector), -1)`
+3. Risk-Adjusted Momentum: `group_neutralize(rank(ts_decay_linear(returns, 20) / (ts_std_dev(returns, 20) + 0.0001)), sector)`
+4. Volatility-Conditioned Reversal: `trade_when(ts_rank(ts_std_dev(returns, 60), 126) > 0.50, group_neutralize(rank(-ts_delta(close, 3)), subindustry), -1)`
+5. Price-Volume Divergence: `group_neutralize(rank(ts_delta(close, 10)) * rank(-ts_delta(volume, 10)), subindustry)`
+6. VWAP Decay Trend with Volatility Dampening: `group_neutralize(rank(ts_decay_linear((close - vwap) / close, 10)) / (ts_std_dev(returns, 20) + 0.001), sector)`
 
-### CONSTRAINTS & HORIZON DIVERSITY:
-- Outer expression MUST be cross-sectionally normalized with `rank(...)` or `group_neutralize(rank(...), ...)`.
-- Ensure a balanced mix across horizons:
-  * Short-Term (2-5 days): Fast mean-reversion, intraday pressure, gap fade.
-  * Medium-Term (10-60 days): Risk-adjusted momentum, volume-price divergence, VWAP reversion.
-  * Long-Term (126-252 days): Low-volatility anomaly, 52-week trend, quality/cap tilts.
+### CONSTRAINTS:
+- Outer expression MUST be cross-sectionally normalized with `rank(...)` or `group_neutralize(...)` or `trade_when(..., group_neutralize(...), -1)`.
 - Avoid repeating recently proposed expressions.
 
 Existing pool summary:
@@ -57,10 +54,10 @@ Recent failures:
 Avoid these recently proposed expressions:
 {avoid_expressions}
 
-Propose {n} NEW, distinct, multi-factor BRAIN expressions across varied horizons.
+Propose {n} NEW, distinct, multi-factor BRAIN expressions across varied horizons (Short-term 2-5d, Medium-term 10-60d, Long-term 126-252d).
 
 Respond with ONLY a JSON array, no markdown fences, no preamble, in this exact shape:
-[{{"expression": "...", "category": "...", "rationale": "one sentence"}}]
+[{{"expression": "...", "category": "...", "hypothesis": "one sentence causal economic reason"}}]
 """
 
 MECHANICAL_PROMPT_TEMPLATE = """You are a quantitative researcher generating parameter/operator variations of a WorldQuant BRAIN alpha expression.
@@ -69,9 +66,9 @@ Base expression:
 {base_expression}
 
 Generate {n} variations by:
-- Swapping lookback windows (e.g. 5 -> 10, 20 -> 60)
+- Swapping lookback windows (e.g. 2 -> 5, 20 -> 60)
 - Swapping neutralization targets (`sector`, `industry`, `subindustry`)
-- Testing decay smoothing (`ts_decay_linear`) or non-linear transform (`signed_power`)
+- Testing decay smoothing (`ts_decay_linear`) or event gating (`trade_when(volume > adv20, ..., -1)`)
 - Swapping price reference (`close` -> `vwap` or `returns`)
 
 Respond with ONLY a JSON array, no markdown fences, no preamble:

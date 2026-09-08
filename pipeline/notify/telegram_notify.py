@@ -38,14 +38,15 @@ def escape_markdown(text: str) -> str:
 
 
 def format_candidate_alert(candidate: dict) -> str:
-    frag = "\u26a0\ufe0f fragile (single-point pass)" if candidate["fragile"] else "\u2705 robust"
+    frag = "\u26a0\ufe0f fragile (single-point pass)" if candidate.get("fragile") else "\u2705 robust"
     safe_expression = escape_markdown(candidate["expression"])
+    max_corr_str = f"{candidate['max_correlation']:.2f}" if candidate.get("max_correlation") is not None else "N/A (Bypassed)"
     return (
         f"*New alpha cleared the bar* {frag}\n\n"
         f"`{safe_expression}`\n\n"
         f"Sharpe: {candidate['sharpe']:.2f} | Fitness: {candidate['fitness']:.2f} | "
         f"Turnover: {candidate['turnover']:.1%}\n"
-        f"Max corr vs pool: {candidate['max_correlation']:.2f}\n\n"
+        f"Max corr vs pool: {max_corr_str}\n\n"
         f"*Settings (copy-paste into BRAIN):*\n"
         f"Region: USA | Universe: {candidate['universe']} | Delay: {candidate['delay']}\n"
         f"Neutralization: {candidate['neutralization']} | Decay: {candidate['decay']}\n"

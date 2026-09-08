@@ -575,19 +575,15 @@ class CandidateExecutor:
         query (Update 01 P1.1)."""
         candidate_id = candidate["id"]
         expression = candidate["expression"]
-        # Update 10 Item 1: captured once per candidate so the sweep's
-        # synchronous persist_run callback (see _persist_sweep_run) can
-        # schedule its repo writes via run_in_executor without blocking
-        # this coroutine or the event loop -- and so this coroutine can
-        # await every scheduled write below before acting on its result.
+        log.info("Processing candidate %s: %s", candidate_id, expression)
+
+        # Update 04: persist sweep runs as they arrive via background tasks
+        # on the event loop, rather than blocking the simulation coroutine.
+        # `persist_futures` tracks every in-flight DB write so we can await
+        # all of them before acting on the sweep's outcome.
         loop = asyncio.get_running_loop()
         persist_futures: list = []
         try:
-            # run_staged_sweep is async now and awaited directly -- no more
-            # asyncio.run()/asyncio.to_thread() wrapper spinning up a fresh
-            # event loop per candidate (Update 03/04: that per-candidate
-            # event-loop churn was real overhead on top of the sequential-
-            # not-concurrent problem it was also hiding).
             outcome = await run_staged_sweep(
                 expression,
                 self.brain.simulate_one,
@@ -597,21 +593,10 @@ class CandidateExecutor:
                 semaphore=self._sim_semaphore,
                 persist_run=lambda run: self._persist_sweep_run(candidate_id, run, loop, persist_futures),
             )
-            # Every sweep_runs write scheduled above must have actually
-            # completed before we act on the sweep's outcome -- awaiting
-            # here yields control back to the event loop (so sibling
-            # candidates' coroutines keep making progress) rather than
-            # blocking on it, but guarantees no persist write from this
-            # candidate's sweep is still in flight once we proceed.
             if persist_futures:
                 await asyncio.gather(*persist_futures)
 
             if outcome.aborted_stage is not None:
-                # Every combo in some stage failed to simulate at all --
-                # this is an operational failure, not a quality verdict
-                # (see SweepOutcome.aborted_stage's docstring). Goes through
-                # the same attempt-cap path as any other hard failure below,
-                # rather than being recorded as rejected_stage0/filter.
                 return await self._record_candidate_error(
                     candidate_id, f"sweep aborted at {outcome.aborted_stage}: all combos in that stage failed"
                 )
@@ -620,8 +605,8 @@ class CandidateExecutor:
                 await asyncio.to_thread(
                     self.repo.set_candidate_status,
                     candidate_id, "rejected_stage0",
-                    stage0_fitness=outcome.runs[0].result.fitness,
-                    stage0_sharpe=outcome.runs[0].result.sharpe,
+                    stage0_fitness=outcome.runs[0].result.fitness if outcome.runs and outcome.runs[0].ok else 0.0,
+                    stage0_sharpe=outcome.runs[0].result.sharpe if outcome.runs and outcome.runs[0].ok else 0.0,
                 )
                 return "rejected_stage0"
 
@@ -629,70 +614,36 @@ class CandidateExecutor:
                 await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "rejected_filter")
                 return "rejected_filter"
 
-            # Correlation check vs. pool, on the *winning settings'* stream
-            # (per the settings-sweep spec -- not the Stage 0 default
-            # settings' stream). `outcome.winning_result.alpha_id` is the id
-            # BRAIN assigned to that specific simulation run (see
-            # BrainClient.simulate_one -> _parse_sim_response), so this
-            # fetches that exact run's daily-return series rather than
-            # re-simulating.
-            winning_alpha_id = outcome.winning_result.alpha_id
-            if not winning_alpha_id:
-                # Defensive only: a real BrainClient always populates
-                # alpha_id from BRAIN's simulation response. Without one we
-                # cannot compute a real correlation figure at all -- reject
-                # explicitly here rather than falling through to
-                # compute_max_correlation({}, pool), which would report
-                # max_correlation=0.0 and pass by construction, silently
-                # reproducing the exact no-op gate this fix replaces (code
-                # review §2.1).
-                log.warning(
-                    "candidate %s: winning simulation result has no alpha_id, "
-                    "cannot run the correlation check -- rejecting",
-                    candidate_id,
-                )
-                await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "rejected_correlation")
-                return "rejected_correlation"
+            max_corr_val = None
+            winning_alpha_id = outcome.winning_result.alpha_id if outcome.winning_result else None
 
-            try:
-                candidate_returns = await self.brain.get_alpha_pnl(winning_alpha_id)
-            except Exception as e:  # noqa: BLE001
-                # A PnL-fetch failure is operational (BRAIN/network), not a
-                # quality verdict -- goes through the same attempt-cap
-                # retry/permanent-fail path as a sweep failure, not a silent
-                # "pending forever" or a mis-bucketed rejection.
-                return await self._record_candidate_error(candidate_id, f"pnl fetch failed: {e}")
+            # Correlation check vs. pool (optional, bypassable via ENABLE_CORRELATION_CHECK=false)
+            if self.config.enable_correlation_check:
+                if not winning_alpha_id:
+                    log.warning(
+                        "candidate %s: winning simulation result has no alpha_id, "
+                        "cannot run the correlation check -- rejecting",
+                        candidate_id,
+                    )
+                    await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "rejected_correlation")
+                    return "rejected_correlation"
 
-            # Update 10 Item 4: Update 02's self-consistency fix (feed a
-            # passed candidate's returns back into pool_returns immediately
-            # so the *next* candidate's correlation check can see it) was
-            # silently defeated by Update 04's batch concurrency -- each
-            # concurrently-dispatched candidate in the same batch called
-            # get_pool_returns() independently, before any sibling had a
-            # chance to upsert_pool_returns(), so two near-duplicate
-            # candidates in the same batch could both pass, unaware of each
-            # other. `self._correlation_lock` makes the
-            # read-pool -> compare -> (on pass) write-pool sequence atomic
-            # across every candidate in the batch, while everything slower
-            # -- BRAIN simulation above and the PnL fetch just above this
-            # comment -- stays fully concurrent, since neither is inside
-            # this lock.
-            async with self._correlation_lock:
-                pool = await asyncio.to_thread(self.repo.get_pool_returns)
-                corr_result = compute_max_correlation(candidate_returns, pool)
-                correlation_passed = passes_correlation_gate(corr_result, self.config.max_correlation)
-                if correlation_passed:
-                    # Written while still holding the lock so the *next*
-                    # candidate to acquire it (a sibling in this same
-                    # batch, possibly a near-duplicate of this one) is
-                    # guaranteed to see this candidate's returns in its own
-                    # get_pool_returns() call above -- this is exactly what
-                    # closes the reopened race.
-                    await asyncio.to_thread(self.repo.upsert_pool_returns, winning_alpha_id, candidate_returns)
+                try:
+                    candidate_returns = await self.brain.get_alpha_pnl(winning_alpha_id)
+                except Exception as e:  # noqa: BLE001
+                    return await self._record_candidate_error(candidate_id, f"pnl fetch failed: {e}")
 
-            if not correlation_passed:
-                await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "rejected_correlation")
-                return "rejected_correlation"
+                async with self._correlation_lock:
+                    pool = await asyncio.to_thread(self.repo.get_pool_returns)
+                    corr_result = compute_max_correlation(candidate_returns, pool)
+                    correlation_passed = passes_correlation_gate(corr_result, self.config.max_correlation)
+                    if correlation_passed:
+                        await asyncio.to_thread(self.repo.upsert_pool_returns, winning_alpha_id, candidate_returns)
+
+                if not correlation_passed:
+                    await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "rejected_correlation")
+                    return "rejected_correlation"
+                max_corr_val = corr_result.max_correlation
 
             row = {
                 "candidate_id": candidate_id,
@@ -707,18 +658,13 @@ class CandidateExecutor:
                 "sharpe": outcome.winning_result.sharpe,
                 "fitness": outcome.winning_result.fitness,
                 "turnover": outcome.winning_result.turnover,
-                "max_correlation": corr_result.max_correlation,
+                "max_correlation": max_corr_val,
                 "robust_count": outcome.robust_count,
                 "sweep_total": outcome.sweep_total,
                 "fragile": outcome.fragile,
             }
             review_id = await asyncio.to_thread(self.repo.insert_review_store, row)
             await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "passed")
-            # Update 10 Item 2: a candidate's fate in the DB must never
-            # depend on Telegram's HTTP status. Once status='passed' and
-            # the review_store row exist (both just above), a delivery
-            # failure here is logged and swallowed -- exactly the same
-            # defensive posture as _safe_operational_alert elsewhere in
             # this file -- rather than propagating into the broad `except
             # Exception` below, which used to flip an already-passed
             # candidate back toward pending/rejected_error and could
