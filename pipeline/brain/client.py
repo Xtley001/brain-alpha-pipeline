@@ -244,6 +244,28 @@ class BrainClient:
             raise RuntimeError(f"Failed to fetch PnL recordset for alpha {alpha_id}")
         return _parse_pnl_response(resp)
 
+    async def submit_alpha(self, alpha_id: str) -> dict[str, Any]:
+        """Submit a passed alpha to WorldQuant BRAIN platform via /alphas/{alpha_id}/submit.
+        Returns dict with {"ok": bool, "status_code": int, "data": dict, "message": str}."""
+        session = self._get_session()
+        url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/submit"
+        resp = await session.retry("POST", url, max_tries=5)
+        if resp is None:
+            return {"ok": False, "status_code": 500, "message": "No response from BRAIN submit endpoint"}
+
+        status_code = resp.status_code
+        if status_code in (200, 201):
+            log.info(f"Alpha {alpha_id} successfully SUBMITTED to WorldQuant BRAIN!")
+            return {"ok": True, "status_code": status_code, "message": "Successfully submitted"}
+
+        try:
+            err_data = resp.json()
+        except Exception:
+            err_data = {}
+
+        log.warning(f"Submission returned HTTP {status_code} for alpha {alpha_id}: {err_data}")
+        return {"ok": False, "status_code": status_code, "data": err_data, "message": str(err_data)}
+
 
 def _parse_sim_response(resp: Any) -> SimResult:
     """Convert a wqb simulation-result Response or Alpha Response into our SimResult.

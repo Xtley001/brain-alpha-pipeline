@@ -29,13 +29,17 @@ def test_tuning_constants_default_when_env_unset(_base_env):
     assert config.max_candidate_attempts == 3
     assert config.orphan_reclaim_minutes == 30
     assert config.max_correlation == 0.7
+    assert config.enable_auto_submit is False
 
 
 def test_tuning_constants_load_from_env(_base_env, monkeypatch):
     monkeypatch.setenv("MAX_CANDIDATE_ATTEMPTS", "5")
     monkeypatch.setenv("ORPHAN_RECLAIM_MINUTES", "45")
     monkeypatch.setenv("MAX_CORRELATION", "0.6")
+    monkeypatch.setenv("ENABLE_AUTO_SUBMIT", "true")
     config = Config.from_env()
     assert config.max_candidate_attempts == 5
     assert config.orphan_reclaim_minutes == 45
     assert config.max_correlation == 0.6
+    assert config.enable_auto_submit is True
+

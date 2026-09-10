@@ -44,6 +44,7 @@ class _FakeRepo:
         self.pool_upserts = []
         self.run_history_rows = []
         self.telegram_sent_ids = []
+        self.submitted_candidates = []
 
     def queue_depth(self):
         return self._queue_depth
@@ -87,6 +88,10 @@ class _FakeRepo:
 
     def mark_telegram_sent(self, review_id):
         self.telegram_sent_ids.append(review_id)
+
+    def mark_submitted(self, candidate_id, review_store_id=None):
+        self.submitted_candidates.append((candidate_id, review_store_id))
+        self.statuses[candidate_id] = "submitted"
 
     def get_meta(self, key):
         return self.meta.get(key)
@@ -157,7 +162,7 @@ class _FakeBrainConcurrencyTracker:
         return SimResult(sharpe=0.1, fitness=0.05, turnover=0.3)  # rejected at stage0, fast path
 
 
-def _make_worker(repo, brain, max_concurrent=2, max_candidates_per_run=15, run_time_budget_seconds=480):
+def _make_worker(repo, brain, max_concurrent=2, max_candidates_per_run=15, run_time_budget_seconds=480, enable_auto_submit=False):
     config = Config(
         database_url="postgres://fake",
         brain_username="u",
@@ -165,8 +170,10 @@ def _make_worker(repo, brain, max_concurrent=2, max_candidates_per_run=15, run_t
         brain_max_concurrent_sims=max_concurrent,
         max_candidates_per_run=max_candidates_per_run,
         run_time_budget_seconds=run_time_budget_seconds,
+        enable_auto_submit=enable_auto_submit,
     )
     return Worker(config, repo, brain, _FakeNotifier(), llm=None)
+
 
 
 def test_batch_processing_never_exceeds_configured_concurrency():
@@ -281,12 +288,17 @@ def test_run_once_reclaims_generates_and_processes_then_returns():
 class _FakeBrainForCorrelation:
     def __init__(self, pnl_by_alpha_id):
         self._pnl = pnl_by_alpha_id
+        self.submitted = []
 
     def simulate_one(self, expression, settings):
         raise AssertionError("run_staged_sweep is patched in this test; simulate_one should never be called")
 
     async def get_alpha_pnl(self, alpha_id):
         return self._pnl[alpha_id]
+
+    async def submit_alpha(self, alpha_id):
+        self.submitted.append(alpha_id)
+        return {"ok": True, "status_code": 201}
 
 
 def _patch_sweep(monkeypatch, outcome_or_factory):
@@ -867,3 +879,61 @@ def test_two_near_duplicate_candidates_in_same_batch_do_not_both_pass_correlatio
     )
     rejected_count = sum(1 for s in repo.statuses.values() if s == "rejected_correlation")
     assert passed_count + rejected_count == 2
+
+
+def test_auto_submit_when_enabled(monkeypatch):
+    """When enable_auto_submit is True, a passing candidate's winning alpha_id
+    must be automatically submitted to WorldQuant BRAIN and its status marked as 'submitted'."""
+    from pipeline.sweep.settings_sweep import Settings, SweepOutcome
+
+    repo = _FakeRepo([])
+    brain = _FakeBrainForCorrelation({"alpha_123": {"2026-01-01": 0.01, "2026-01-02": 0.02}})
+    worker = _make_worker(repo, brain, enable_auto_submit=True)
+
+    settings = Settings(
+        delay=1, universe="TOP3000", neutralization="SUBINDUSTRY", decay=8,
+        truncation=0.05, pasteurization=True, nan_handling=False,
+    )
+    winning_result = SimResult(sharpe=2.0, fitness=1.5, turnover=0.3, alpha_id="alpha_123")
+    outcome = SweepOutcome(
+        rejected_at_stage0=False, aborted_stage=None, runs=[],
+        winning_settings=settings, winning_result=winning_result,
+        robust_count=5, sweep_total=41, error_count=0, fragile=False,
+    )
+    _patch_sweep(monkeypatch, outcome)
+
+    status = asyncio.run(worker.executor.process_candidate({"id": 1, "expression": "expr"}))
+    assert status == "submitted"
+    assert "alpha_123" in brain.submitted
+    assert repo.statuses[1] == "submitted"
+    assert (1, 1) in repo.submitted_candidates
+
+
+def test_auto_submit_disabled_by_default(monkeypatch):
+    """When enable_auto_submit is False (default), a passing candidate remains 'passed'
+    and is not submitted."""
+    from pipeline.sweep.settings_sweep import Settings, SweepOutcome
+
+    repo = _FakeRepo([])
+    brain = _FakeBrainForCorrelation({"alpha_123": {"2026-01-01": 0.01, "2026-01-02": 0.02}})
+    worker = _make_worker(repo, brain, enable_auto_submit=False)
+
+
+    settings = Settings(
+        delay=1, universe="TOP3000", neutralization="SUBINDUSTRY", decay=8,
+        truncation=0.05, pasteurization=True, nan_handling=False,
+    )
+    winning_result = SimResult(sharpe=2.0, fitness=1.5, turnover=0.3, alpha_id="alpha_123")
+    outcome = SweepOutcome(
+        rejected_at_stage0=False, aborted_stage=None, runs=[],
+        winning_settings=settings, winning_result=winning_result,
+        robust_count=5, sweep_total=41, error_count=0, fragile=False,
+    )
+    _patch_sweep(monkeypatch, outcome)
+
+    status = asyncio.run(worker.executor.process_candidate({"id": 1, "expression": "expr"}))
+    assert status == "passed"
+    assert len(brain.submitted) == 0
+    assert repo.statuses[1] == "passed"
+    assert len(repo.submitted_candidates) == 0
+

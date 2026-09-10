@@ -117,6 +117,7 @@ class Config:
     orphan_reclaim_minutes: int = 30
     max_correlation: float = 0.7
     enable_correlation_check: bool = True
+    enable_auto_submit: bool = False
 
     @classmethod
     def from_env(cls, require_brain: bool = True, require_telegram: bool = True) -> "Config":
@@ -196,4 +197,5 @@ class Config:
             orphan_reclaim_minutes=int(_optional("ORPHAN_RECLAIM_MINUTES", "30")),
             max_correlation=float(_optional("MAX_CORRELATION", "0.7")),
             enable_correlation_check=(_optional("ENABLE_CORRELATION_CHECK", "true").lower() in ("true", "1", "yes")),
+            enable_auto_submit=(_optional("ENABLE_AUTO_SUBMIT", "false").lower() in ("true", "1", "yes")),
         )

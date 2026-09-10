@@ -665,6 +665,20 @@ class CandidateExecutor:
             }
             review_id = await asyncio.to_thread(self.repo.insert_review_store, row)
             await asyncio.to_thread(self.repo.set_candidate_status, candidate_id, "passed")
+
+            # Auto-submit if configured and winning alpha_id is present
+            if self.config.enable_auto_submit and winning_alpha_id:
+                try:
+                    submit_res = await self.brain.submit_alpha(winning_alpha_id)
+                    if submit_res.get("ok"):
+                        await asyncio.to_thread(self.repo.mark_submitted, candidate_id, review_id)
+                        row["submitted"] = True
+                        log.info("Candidate %s (alpha %s) auto-submitted to WorldQuant BRAIN successfully", candidate_id, winning_alpha_id)
+                    else:
+                        log.warning("Candidate %s (alpha %s) auto-submit failed: %s", candidate_id, winning_alpha_id, submit_res.get("message"))
+                except Exception as e:
+                    log.exception("Error during auto-submission of candidate %s: %s", candidate_id, e)
+
             # this file -- rather than propagating into the broad `except
             # Exception` below, which used to flip an already-passed
             # candidate back toward pending/rejected_error and could
@@ -683,7 +697,7 @@ class CandidateExecutor:
                 )
             else:
                 await asyncio.to_thread(self.repo.mark_telegram_sent, review_id)
-            return "passed"
+            return "submitted" if row.get("submitted") else "passed"
 
         except Exception as e:  # noqa: BLE001 -- anything unexpected, not already handled above
             log.exception("candidate %s failed: %s", candidate_id, e)

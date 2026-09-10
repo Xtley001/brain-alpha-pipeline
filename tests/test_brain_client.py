@@ -4,6 +4,7 @@ functions, no real `wqb` session, no network. Covers the alpha-id
 extraction and PnL-recordset -> daily-returns conversion added to wire the
 correlation gate for real (code review §2.1).
 """
+import pytest
 from pipeline.brain.client import _parse_pnl_response, _parse_sim_response
 
 
@@ -128,3 +129,45 @@ def test_parse_pnl_response_warns_when_all_records_unusable(caplog):
         daily = _parse_pnl_response(resp)
     assert daily == {}
     assert any("date/pnl" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+async def test_submit_alpha_success():
+    from pipeline.brain.client import BrainClient
+
+    client = BrainClient("user", "pass")
+
+    class _MockSession:
+        async def retry(self, method, url, max_tries=5):
+            class _Resp:
+                status_code = 201
+                def json(self):
+                    return {"id": "alpha_123", "status": "SUBMITTED"}
+            return _Resp()
+
+    client._session = _MockSession()
+    res = await client.submit_alpha("alpha_123")
+    assert res["ok"] is True
+    assert res["status_code"] == 201
+
+
+@pytest.mark.asyncio
+async def test_submit_alpha_failure():
+    from pipeline.brain.client import BrainClient
+
+    client = BrainClient("user", "pass")
+
+    class _MockSession:
+        async def retry(self, method, url, max_tries=5):
+            class _Resp:
+                status_code = 403
+                def json(self):
+                    return {"message": "High correlation with existing alpha"}
+            return _Resp()
+
+    client._session = _MockSession()
+    res = await client.submit_alpha("alpha_123")
+    assert res["ok"] is False
+    assert res["status_code"] == 403
+    assert "High correlation" in res["message"]
+

@@ -283,6 +283,24 @@ class Repo:
                     (review_store_id,),
                 )
 
+    def mark_submitted(self, candidate_id: int, review_store_id: Optional[int] = None) -> None:
+        with self._conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "UPDATE candidates SET status = 'submitted' WHERE id = %s",
+                    (candidate_id,),
+                )
+                if review_store_id:
+                    cur.execute(
+                        "UPDATE review_store SET submitted = true, submitted_at = now() WHERE id = %s",
+                        (review_store_id,),
+                    )
+                else:
+                    cur.execute(
+                        "UPDATE review_store SET submitted = true, submitted_at = now() WHERE candidate_id = %s",
+                        (candidate_id,),
+                    )
+
     def ranked_review_store(self, limit: int = 50) -> list[dict]:
         with self._conn() as conn:
             with conn.cursor() as cur:
