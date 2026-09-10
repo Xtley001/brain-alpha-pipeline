@@ -970,7 +970,13 @@ def build_worker() -> Worker:
 
 def main():
     try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except Exception:
+        pass
+    try:
         worker = build_worker()
+
     except MissingConfigError as e:
         log.error("Startup aborted: %s", e)
         sys.exit(1)
