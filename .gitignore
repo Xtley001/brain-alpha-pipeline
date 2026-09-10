@@ -20,3 +20,9 @@ env/
 .DS_Store
 .vscode/
 .idea/
+
+# Data and Alpha Exports
+*.csv
+*.jsonl
+exported_alphas/
+all_generated_alphas.csv

@@ -47,21 +47,21 @@ from pipeline.filter.local_filter import FilterThresholds
 
 # --- Settings field domains ---
 
-NEUTRALIZATIONS = ["NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY", "COUNTRY"]
-DECAYS = [0, 4, 8, 15, 20]
+NEUTRALIZATIONS = ["NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY"]
+DECAYS = [0, 4, 6, 8, 15, 20]
 TRUNCATIONS = [0.01, 0.03, 0.05, 0.08, 0.10]
 DELAYS = [0, 1]
 
-DEFAULT_TRUNCATION = 0.05
+DEFAULT_TRUNCATION = 0.08
 DEFAULT_DELAY = 1
 DEFAULT_UNIVERSE = "TOP3000"
 DEFAULT_NEUTRALIZATION = "SUBINDUSTRY"
-DEFAULT_DECAY = 8
+DEFAULT_DECAY = 4
 DEFAULT_PASTEURIZATION = True
 DEFAULT_NAN_HANDLING = False
 
 EXPECTED_STAGE1_COUNT = len(NEUTRALIZATIONS) * len(DECAYS)  # 30
-EXPECTED_STAGE2_COUNT = len(TRUNCATIONS) - 1  # 4 (0.05 already tested)
+EXPECTED_STAGE2_COUNT = len(TRUNCATIONS) - 1  # 4 (0.08 already tested)
 EXPECTED_STAGE3_COUNT = 6  # 2 alternatives each for delay, pasteurization, nan
 
 
@@ -188,17 +188,23 @@ async def _run_batch(
     return list(runs)
 
 
-def _pick_best(runs: list[SweepRun]) -> Optional[SweepRun]:
+def _pick_best(runs: list[SweepRun], thresholds: Optional[FilterThresholds] = None) -> Optional[SweepRun]:
     """Best Fitness; ties broken by lower Turnover, then higher Sharpe —
-    per the settings-sweep spec. Only considers runs that actually
-    succeeded (Update 04: a failed combo has no `.result` to rank)."""
+    prioritizing configurations that pass the local filter thresholds so that
+    a submittable passing scenario is never eclipsed by an invalid, high-turnover combo.
+    Only considers runs that actually succeeded (Update 04: a failed combo has no `.result` to rank)."""
     ok_runs = [r for r in runs if r.ok]
     if not ok_runs:
         return None
-    return sorted(
-        ok_runs,
-        key=lambda run: (-run.result.fitness, run.result.turnover, -run.result.sharpe),
-    )[0]
+
+    def rank_key(run: SweepRun):
+        is_passing = 1 if (thresholds and thresholds.passes(run.result)) else 0
+        fit = float(run.result.fitness) if run.result.fitness is not None else -999.0
+        turn = float(run.result.turnover) if run.result.turnover is not None else 999.0
+        shp = float(run.result.sharpe) if run.result.sharpe is not None else -999.0
+        return (-is_passing, -fit, turn, -shp)
+
+    return sorted(ok_runs, key=rank_key)[0]
 
 
 def _is_improvement(candidate: SimResult, current: SimResult, thresholds: FilterThresholds) -> bool:
@@ -311,7 +317,7 @@ async def run_staged_sweep(
             "(silent early-break bug flagged in the audit checklist)"
         )
 
-    best_stage1 = _pick_best(stage1_runs)
+    best_stage1 = _pick_best(stage1_runs, thresholds)
     if best_stage1 is None:
         # Every single Stage 1 combo errored -- can't proceed at all. This
         # is categorically different from Stage 0's rejected_at_stage0: we
@@ -329,7 +335,7 @@ async def run_staged_sweep(
             fragile=True,
         )
 
-    # --- Stage 2: truncation refinement (4 remaining values; 0.05 already
+    # --- Stage 2: truncation refinement (4 remaining values; 0.08 already
     # tested), run concurrently -- each combo only depends on Stage 1's
     # *winner*, not on the other Stage 2 combos, so this batch is safe to
     # parallelize the same way Stage 1 is. ---
@@ -344,7 +350,7 @@ async def run_staged_sweep(
     stage2_runs = await _run_batch(expression, stage2_settings, simulate, "stage2", semaphore, persist_run)
     runs.extend(stage2_runs)
 
-    best_trunc_run = _pick_best([best_stage1] + stage2_runs) or best_stage1
+    best_trunc_run = _pick_best([best_stage1] + stage2_runs, thresholds) or best_stage1
     current_settings = best_trunc_run.settings
     current_result = best_trunc_run.result
 

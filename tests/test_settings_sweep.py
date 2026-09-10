@@ -182,7 +182,7 @@ def test_a_single_failing_combo_does_not_take_down_the_whole_sweep():
     results with it."""
 
     async def simulate(expr, settings):
-        if settings.neutralization == "COUNTRY":
+        if settings.neutralization == "NONE":
             raise RuntimeError("simulated BRAIN failure for this combo")
         return SimResult(sharpe=1.0, fitness=0.8, turnover=0.3)
 
@@ -191,7 +191,7 @@ def test_a_single_failing_combo_does_not_take_down_the_whole_sweep():
     stage1_runs = [r for r in outcome.runs if r.stage == "stage1"]
     assert len(stage1_runs) == EXPECTED_STAGE1_COUNT
     failed = [r for r in stage1_runs if not r.ok]
-    assert len(failed) == len(DECAYS)  # one per decay value, all under COUNTRY
+    assert len(failed) == len(DECAYS)  # one per decay value, all under NONE
     assert all(r.error is not None for r in failed)
     assert all(r.result is None for r in failed)
     assert outcome.error_count == len(DECAYS)
@@ -298,7 +298,7 @@ def test_persist_run_callback_fires_once_per_completed_run_including_failures():
     persisted = []
 
     async def simulate(expr, settings):
-        if settings.neutralization == "COUNTRY" and settings.decay == 0:
+        if settings.neutralization == NEUTRALIZATIONS[0] and settings.decay == 0:
             raise RuntimeError("one bad combo")
         return SimResult(sharpe=1.0, fitness=0.8, turnover=0.3)
 

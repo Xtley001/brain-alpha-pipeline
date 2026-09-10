@@ -41,3 +41,14 @@ PYTHONPATH=. pytest tests/ -v
 
 All tests run against in-memory fakes — no live BRAIN, Postgres, Telegram,
 or LLM credentials required or contacted.
+
+## Exported Alphas Dataset
+
+All generated alphas are compiled and exported into [`all_generated_alphas.csv`](./all_generated_alphas.csv) and [`exported_alphas/`](./exported_alphas/).
+
+To refresh the dataset from both WorldQuant BRAIN and the Neon Postgres database at any time:
+
+```bash
+python scripts/export_alphas.py
+```
+
