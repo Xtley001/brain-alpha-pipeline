@@ -25,6 +25,11 @@ from brain_options.specialist.generator import OptionsGenerator
 from brain_options.specialist.templates import OptionCandidate
 from brain_options.store.store import OptionsStore
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -62,7 +67,7 @@ async def run_candidate(
         )
         return False
 
-    log.info("⭐ STAGE 0 PASSED! Proceeding to Stage 1 Grid Optimization...")
+    log.info("[*] STAGE 0 PASSED! Proceeding to Stage 1 Grid Optimization...")
 
     # 2. Stage 1: Neutralization x Decay Grid Sweep (25-30 simulations)
     best_settings, best_metrics = await sweep_engine.stage1_grid_sweep(candidate.expression, s0_settings)
@@ -79,7 +84,7 @@ async def run_candidate(
         log.info("Candidate failed local filter: %s", reason)
         return False
 
-    log.info("🌟 QUALIFIED FOR POOL! Checking correlation...")
+    log.info("[+] QUALIFIED FOR POOL! Checking correlation...")
 
     # 4. Correlation Gate
     pnl_series: dict[str, float] = {}
@@ -96,7 +101,7 @@ async def run_candidate(
 
     # 5. Success! Save to Store & Alert
     log.info(
-        "🏆 ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.2f",
+        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.2f",
         best_metrics.sharpe,
         best_metrics.fitness,
         best_metrics.turnover * 100,
