@@ -24,5 +24,9 @@ env/
 # Data and Alpha Exports
 *.csv
 *.jsonl
+*.zip
+*.tar.gz
 exported_alphas/
 all_generated_alphas.csv
+legacy_alphas_backup.zip
+brain_options/data/

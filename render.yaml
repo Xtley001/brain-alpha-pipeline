@@ -19,11 +19,11 @@ services:
   # more detail; this correction to the original "free" premise is worth
   # confirming before treating $/month as settled.
   - type: cron
-    name: brain-alpha-pipeline
+    name: brain-options-pipeline
     env: python
-    schedule: "*/10 * * * *"  # every 10 minutes, UTC; within the user's stated 10-15 min target -- confirm in the Render dashboard this is the cadence you want before relying on it
+    schedule: "*/10 * * * *"  # every 10 minutes, UTC
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python -m pipeline.run_worker"
+    startCommand: "python -m brain_options.run --single-batch"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -54,9 +54,9 @@ services:
       - key: RUN_TIME_BUDGET_SECONDS
         value: "480"
       - key: STAGE0_MIN_FITNESS
-        value: "0.3"
+        value: "0.20"
       - key: STAGE0_MIN_SHARPE
-        value: "0.5"
+        value: "0.35"
       - key: FILTER_MIN_SHARPE
         value: "1.25"
       - key: FILTER_MIN_FITNESS
