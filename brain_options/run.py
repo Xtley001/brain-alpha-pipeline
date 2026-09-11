@@ -14,7 +14,11 @@ from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 from brain_options.core.correlation import check_pool_correlation
 from brain_options.core.filter import evaluate_alpha_metrics
-from brain_options.core.notifier import send_telegram_alert
+from brain_options.core.notifier import (
+    send_telegram_alert,
+    send_telegram_batch_summary,
+    send_telegram_startup,
+)
 from brain_options.core.sweep import SweepEngine
 from brain_options.llm.adapter import LLMAdapter
 from brain_options.specialist.generator import OptionsGenerator
@@ -103,7 +107,7 @@ async def run_candidate(
     return True
 
 
-async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = False) -> int:
+async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = False, mode_label: str = "Single Batch") -> int:
     store = OptionsStore(database_url=config.database_url)
     evaluated = store.load_evaluated_expressions()
 
@@ -114,7 +118,7 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     log.info("Loaded %d previously evaluated candidates.", len(evaluated))
     log.info("Generating next batch of %d options candidates...", batch_size)
 
-    candidates = generator.get_next_batch(target_count=batch_size, template_ratio=0.5)
+    candidates = generator.get_next_batch(target_count=batch_size, template_ratio=0.4)
     log.info("Generated %d fresh options candidates.", len(candidates))
 
     if dry_run:
@@ -129,6 +133,9 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
         max_concurrent_sims=config.brain_max_concurrent_sims,
     )
     client.authenticate()
+
+    # Send startup notification
+    send_telegram_startup(config, mode=mode_label)
 
     sweep_engine = SweepEngine(client, config)
 
@@ -147,6 +154,7 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
             passed_count += 1
 
     log.info("\nBatch completed: %d/%d passed all criteria.", passed_count, len(candidates))
+    send_telegram_batch_summary(passed_count, len(candidates), config)
     return passed_count
 
 
@@ -156,9 +164,17 @@ def main():
     parser.add_argument("--daemon", action="store_true", help="Run continuously in a loop")
     parser.add_argument("--dry-run", action="store_true", help="Generate candidates and verify without simulating")
     parser.add_argument("--candidates", type=int, default=0, help="Override candidate count per batch")
+    parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     args = parser.parse_args()
 
     config = OptionsConfig.from_env()
+
+    if args.test_telegram:
+        log.info("Sending test notification to Telegram...")
+        success = send_telegram_startup(config, mode="Test Notification")
+        log.info("Telegram test result: %s", "SUCCESS" if success else "FAILED")
+        return
+
     batch_size = args.candidates if args.candidates > 0 else config.max_candidates_per_run
 
     log.info("Starting brain_options pipeline (Universe=%s, Delay=%d, MaxSims=%d)...", config.universe, config.delay, config.brain_max_concurrent_sims)
@@ -167,13 +183,13 @@ def main():
         log.info("Running in continuous daemon mode...")
         while True:
             try:
-                asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run))
+                asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon"))
             except Exception as e:
                 log.error("Batch encountered unhandled error: %s", e, exc_info=True)
             log.info("Sleeping 300 seconds before next batch...")
             time.sleep(300)
     else:
-        asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run))
+        asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch"))
 
 
 if __name__ == "__main__":

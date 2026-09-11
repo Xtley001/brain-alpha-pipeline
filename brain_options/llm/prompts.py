@@ -1,9 +1,12 @@
 """
 Prompt engineering for Options Alpha generation.
-Embeds genuine derivatives financial economics, live BRAIN option fields,
-and Fast Expression syntax rules.
+Embeds genuine derivatives financial economics from Options Master Knowledge Base (Books 1-4),
+live BRAIN option fields, and Fast Expression syntax rules.
 """
 from __future__ import annotations
+
+from typing import List, Optional
+from brain_options.specialist.kb import KnowledgeCard
 
 OPTIONS_SYSTEM_PROMPT = """You are an elite quantitative derivatives researcher designing WorldQuant BRAIN alpha expressions for USA Equities using the OPTIONS category.
 
@@ -14,7 +17,7 @@ OPTIONS_SYSTEM_PROMPT = """You are an elite quantitative derivatives researcher 
 2. Valid Operators:
    - Cross-Sectional: `rank(x)`, `group_neutralize(x, group)`, `group_rank(x, group)`, `group_zscore(x, group)`
    - Time-Series: `ts_rank(x, d)`, `ts_zscore(x, d)`, `ts_decay_linear(x, d)`, `ts_delta(x, d)`, `ts_delay(x, d)`, `ts_mean(x, d)`, `ts_std_dev(x, d)`, `ts_max(x, d)`, `ts_min(x, d)`
-   - Conditioning & Math: `trade_when(cond, alpha, -1)`, `signed_power(x, p)`, `min(x, y)`, `max(x, y)`, `abs(x)`
+   - Conditioning & Math: `trade_when(cond, alpha, -1)`, `signed_power(x, p)`, `min(x, y)`, `max(x, y)`, `abs(x)`, `sqrt(x)`
 3. Valid Groups: `sector`, `industry`, `subindustry`
 4. NEVER invent variables. Use ONLY the valid options and equity fields provided below.
 
@@ -27,23 +30,13 @@ OPTIONS_SYSTEM_PROMPT = """You are an elite quantitative derivatives researcher 
 - ATM Implied Volatility: `implied_volatility_mean_10`, `implied_volatility_mean_20`, `implied_volatility_mean_30`, `implied_volatility_mean_60`, `implied_volatility_mean_90`, `implied_volatility_mean_180`, `implied_volatility_mean_360`
 - Equity Reference Fields: `close`, `returns`, `volume`, `adv20`, `cap`
 
-### 5 QUANTITATIVE DERIVATIVES ARCHETYPES:
-1. Synthetic Forward Basis Spread:
-   `group_neutralize(rank((forward_price_30 - close) / close), sector)`
-   or forward acceleration:
-   `group_neutralize(rank(ts_delta((forward_price_30 - close) / close, 5)), subindustry)`
-2. Put-Call Volume Ratio Contrarian Reversal:
-   `group_neutralize(rank(-ts_zscore(pcr_vol_20, 40)), sector)`
-   or flow relative to open interest:
-   `group_neutralize(rank(-ts_rank(pcr_vol_30 / (pcr_oi_30 + 0.001), 10)), sector)`
-3. Volatility Skew Acceleration (Downside Tail Risk):
-   `group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_30, 5)), subindustry)`
-4. Call Breakeven Hurdle Rate:
-   `trade_when(volume > adv20, group_neutralize(rank((call_breakeven_30 - close) / close), sector), -1)`
-5. Volatility Term Structure & Risk Premium:
-   `group_neutralize(rank(-(implied_volatility_mean_30 / (implied_volatility_mean_90 + 0.001) - 1.0)), sector)`
-   or variance risk premium:
-   `group_neutralize(rank(-(implied_volatility_mean_30 - ts_std_dev(returns, 30) * 15.87)), sector)`
+### INSTITUTIONAL QUANTITATIVE DERIVATIVES PRINCIPLES (FROM MASTER BOOKS 1-4):
+1. Skew Square-Root Time Scaling: Skew decays proportional to sqrt(T). Normalize cross-tenor skew by `* sqrt(tenor/252.0)`.
+2. NEVER divide fixed-strike skew by ATM IV (it double-counts volatility effects).
+3. Mean-Reversion Entry: For mean-reverting spreads, the optimal entry threshold is ~0.75 standard deviations (`abs(ts_zscore(x, window)) > 0.75`), balancing edge size with trade opportunity frequency.
+4. Forward-Basis Anchor: Synthetic forward basis `(forward_price - close) / close` captures borrow/dividend pricing and consensus drift.
+5. PCR Volume-to-OI Flow Velocity: Volume relative to open interest `pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001)` reveals aggressive institutional order flow.
+6. Jensen's Inequality Debiasing: Short-window rolling realized volatility (`ts_std_dev(returns, win) * 15.87`) underestimates true vol for small windows.
 """
 
 OPTIONS_REASONING_PROMPT = """Generate {n} NEW, distinct WorldQuant BRAIN options alpha expressions.
@@ -63,3 +56,86 @@ Respond with ONLY a JSON array of objects (no markdown fences, no text before or
   }}
 ]
 """
+
+
+def build_options_system_prompt(catalog_summary: Optional[str] = None) -> str:
+    """Builds the comprehensive options system prompt with optional live field catalog summary."""
+    base = OPTIONS_SYSTEM_PROMPT
+    if catalog_summary:
+        base += f"\n\n### LIVE OPTIONS CATALOG FIELDS:\n{catalog_summary}"
+    return base
+
+
+def build_reasoning_prompt(
+    archetype: str,
+    kb_cards: list[KnowledgeCard],
+    n: int = 5,
+) -> str:
+    """
+    Builds a knowledge-injected reasoning prompt for generating novel alpha expressions
+    grounded in specific institutional derivatives cards and formula sketches.
+    """
+    kb_context = "\n\n".join(card.to_prompt_text() for card in kb_cards) if kb_cards else ""
+
+    prompt = f"""Generate {n} NOVEL, mathematically precise WorldQuant BRAIN options alpha expressions for the ARCHETYPE: '{archetype}'.
+
+### KNOWLEDGE BASE INSTITUTIONAL CARDS & FORMULAS (BOOKS 1-4):
+{kb_context if kb_context else "Apply standard quantitative derivatives theory for " + archetype}
+
+### RIGOROUS REQUIREMENTS:
+1. Ground your expressions in the principles and formula sketches from the knowledge base cards above.
+2. Comply strictly with Fast Expression syntax rules (outer layer `group_neutralize(rank(...), sector)` or `trade_when(...)`).
+3. Explicitly observe the pitfall warnings from the knowledge base (e.g. never divide skew by ATM IV; apply sqrt(T) scaling).
+4. Use realistic lookback windows (3 to 60 days) and valid options tenors (10, 20, 30, 60, 90).
+5. For each candidate, formulate a 1-sentence causal economic hypothesis explaining WHY the edge exists.
+
+Respond with ONLY a JSON array of objects (no markdown fences, no surrounding commentary):
+[
+  {{
+    "expression": "group_neutralize(rank(...), sector)",
+    "archetype": "{archetype}",
+    "hypothesis": "Economic mechanism explaining the edge..."
+  }}
+]
+"""
+    return prompt
+
+
+def build_mechanical_mutation_prompt(
+    candidate_expression: str,
+    candidate_hypothesis: str,
+    kb_cards: list[KnowledgeCard],
+    n: int = 4,
+) -> str:
+    """
+    Builds a mechanical tier prompt that generates systematic variations of a promising
+    candidate (operator variations, tenor shifts, decay windows, group neutralizations)
+    while preserving the core economic mechanism.
+    """
+    kb_context = "\n\n".join(card.to_prompt_text() for card in kb_cards) if kb_cards else ""
+
+    prompt = f"""Generate {n} HIGH-QUALITY SYSTEMATIC MUTATIONS of the following promising options candidate:
+
+Base Expression: `{candidate_expression}`
+Base Hypothesis: {candidate_hypothesis}
+
+### RELEVANT KNOWLEDGE BASE GUIDANCE:
+{kb_context if kb_context else "Preserve the core economic pricing logic."}
+
+### MUTATION DIRECTIONS:
+1. Tenor Variations: Shift between adjacent option tenors (e.g. 20d -> 30d -> 60d).
+2. Smoothing & Operator Variations: Replace `ts_delta(x, 5)` with `ts_decay_linear(ts_delta(x, 5), 5)` or `ts_zscore(x, 20)`.
+3. Granular Neutralization: Switch from `sector` to `subindustry` or `industry`.
+4. Regime / Volume Gating: Add `trade_when(volume > adv20, ..., -1)` or mean-reversion threshold gating.
+5. Maintain valid Fast Expression syntax and avoid syntax errors.
+
+Respond with ONLY a JSON array of objects (no markdown fences):
+[
+  {{
+    "expression": "...",
+    "archetype": "Mutation",
+    "hypothesis": "Variation hypothesis explaining the structural tweak..."
+  }}
+]
+"""
+    return prompt
