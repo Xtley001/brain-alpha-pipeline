@@ -2,22 +2,12 @@ services:
   # Cron Job, not a Background Worker: run_worker.py now does one bounded
   # pass (reclaim -> top up queue once -> process a bounded batch of
   # candidates) and exits, instead of running two `while True:` loops
-  # forever. See pipeline/run_worker.py's module docstring for the full
-  # design, and the refactor summary for the honest speed tradeoffs vs the
-  # old always-on worker.
+  # forever.
   #
   # NOTE ON COST: as of this writing, Render's "Deploy for Free" free
   # instance type is NOT available for Cron Jobs -- it's limited to Web
-  # Services, Static Sites, Postgres, and Key Value (see
-  # https://render.com/docs/free). Cron jobs are billed per second of
-  # actual run time with a $1/month minimum per cron job service (see
-  # https://render.com/docs/cronjobs). This is still much cheaper than the
-  # $7/month Background Worker "Starter" plan for a job that only runs a
-  # few minutes every 10 minutes, but it is NOT literally free -- verify
-  # actual cost against your real per-tick run time in the Render
-  # dashboard once a few scheduled runs have completed. See summary for
-  # more detail; this correction to the original "free" premise is worth
-  # confirming before treating $/month as settled.
+  # Services, Static Sites, Postgres, and Key Value. Cron jobs are billed
+  # per second of actual run time with a $1/month minimum per cron job service.
   - type: cron
     name: brain-options-pipeline
     env: python
@@ -25,6 +15,8 @@ services:
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python -m brain_options.run --single-batch"
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
       - key: DATABASE_URL
         sync: false
       - key: BRAIN_USERNAME
@@ -33,13 +25,25 @@ services:
         sync: false
       - key: BRAIN_MAX_CONCURRENT_SIMS
         value: "3"
-      - key: GEMINI_API_KEY_1
-        sync: false
-      - key: GEMINI_API_KEY_2
-        sync: false
       - key: GROQ_API_KEY_1
         sync: false
       - key: GROQ_API_KEY_2
+        sync: false
+      - key: GROQ_API_KEY_3
+        sync: false
+      - key: GROQ_API_KEY_4
+        sync: false
+      - key: OPENROUTER_API_KEY_1
+        sync: false
+      - key: OPENROUTER_API_KEY_2
+        sync: false
+      - key: OPENROUTER_API_KEY_3
+        sync: false
+      - key: OPENROUTER_API_KEY_4
+        sync: false
+      - key: GEMINI_API_KEY_1
+        sync: false
+      - key: GEMINI_API_KEY_2
         sync: false
       - key: TELEGRAM_BOT_TOKEN
         sync: false
