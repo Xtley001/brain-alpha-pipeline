@@ -72,17 +72,10 @@ class OptionsConfig:
         password = _require("BRAIN_PASSWORD")
         concurrent_sims = int(_optional("BRAIN_MAX_CONCURRENT_SIMS", "3") or "3")
 
-        groq_keys = [k for k in [os.environ.get("GROQ_API_KEY_1"), os.environ.get("GROQ_API_KEY_2")] if k and k.strip()]
-        cerebras_keys = [k for k in [os.environ.get("CEREBRAS_API_KEY_1"), os.environ.get("CEREBRAS_API_KEY_2")] if k and k.strip()]
-        openrouter_keys = [
-            k for k in [
-                os.environ.get("OPENROUTER_API_KEY_1"),
-                os.environ.get("OPENROUTER_API_KEY_2"),
-                os.environ.get("OPENROUTER_API_KEY_3"),
-                os.environ.get("OPENROUTER_API_KEY_4"),
-            ] if k and k.strip()
-        ]
-        gemini_keys = [k for k in [os.environ.get("GEMINI_API_KEY_1"), os.environ.get("GEMINI_API_KEY_2")] if k and k.strip()]
+        groq_keys = [k for k in [os.environ.get(f"GROQ_API_KEY_{i}") for i in range(1, 5)] if k and k.strip()]
+        cerebras_keys = [k for k in [os.environ.get(f"CEREBRAS_API_KEY_{i}") for i in range(1, 5)] if k and k.strip()]
+        openrouter_keys = [k for k in [os.environ.get(f"OPENROUTER_API_KEY_{i}") for i in range(1, 5)] if k and k.strip()]
+        gemini_keys = [k for k in [os.environ.get(f"GEMINI_API_KEY_{i}") for i in range(1, 5)] if k and k.strip()]
 
         return cls(
             brain_username=username,

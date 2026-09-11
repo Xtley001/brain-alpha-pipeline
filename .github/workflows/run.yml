@@ -1,33 +1,21 @@
-name: BRAIN Alpha Pipeline
-
-# Replaces render.yaml as the deploy target. run_worker.py already does one
-# bounded pass and exits (see its module docstring) -- that's exactly the
-# shape a scheduled Actions job needs, so no pipeline/ code changes were
-# required for this migration.
+name: BRAIN Options Alpha Pipeline
 
 on:
   schedule:
-    # Every 10 minutes, UTC -- mirrors render.yaml's cadence. GitHub does not
-    # guarantee this fires exactly on time; under load, scheduled runs can be
-    # delayed or occasionally skipped (schedule is best-effort).
+    # Every 10 minutes, UTC. GitHub runs automatically in the cloud.
     - cron: "*/10 * * * *"
-  workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
+  workflow_dispatch: {}  # lets you trigger a run manually anytime from the Actions tab
 
 concurrency:
-  # Belt-and-suspenders only -- pipeline/db/repo.py already claims candidates
-  # with `FOR UPDATE SKIP LOCKED`, so two overlapping runs can't double-process
-  # the same row. This just stops a slow run and the next scheduled tick from
-  # piling up in parallel.
   group: brain-alpha-pipeline
   cancel-in-progress: false
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    # Headroom above RUN_TIME_BUDGET_SECONDS (480s) plus checkout/install
-    # time. If this trips, the run is killed mid-candidate; the next tick's
-    # reclaim_orphaned_running() picks up anything left claimed.
-    timeout-minutes: 30
+    permissions:
+      contents: write
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -39,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run one bounded pass
+      - name: Run one bounded options batch
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
@@ -56,20 +44,31 @@ jobs:
           OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY_2 }}
           OPENROUTER_API_KEY_3: ${{ secrets.OPENROUTER_API_KEY_3 }}
           OPENROUTER_API_KEY_4: ${{ secrets.OPENROUTER_API_KEY_4 }}
+          GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          HEALTHCHECK_PING_URL: ${{ secrets.HEALTHCHECK_PING_URL }}
           BRAIN_MAX_CONCURRENT_SIMS: "3"
-          QUEUE_TARGET_DEPTH: "120"
-          TEMPLATE_TIER_MAX_SHARE: "0.5"
-          MAX_CANDIDATES_PER_RUN: "25"
-          RUN_TIME_BUDGET_SECONDS: "540"
+          MAX_CANDIDATES_PER_RUN: "15"
+          RUN_TIME_BUDGET_SECONDS: "480"
           STAGE0_MIN_FITNESS: "0.20"
           STAGE0_MIN_SHARPE: "0.35"
           FILTER_MIN_SHARPE: "1.25"
-          FILTER_MIN_FITNESS: "1.0"
+          FILTER_MIN_FITNESS: "1.00"
           FILTER_MAX_TURNOVER: "0.70"
           FILTER_MIN_TURNOVER: "0.01"
-          ENABLE_AUTO_SUBMIT: "true"
-        run: python -m pipeline.run_worker
+          UNIVERSE: "TOP3000"
+          DELAY: "1"
+        run: python -m brain_options.run --single-batch
 
+      - name: Commit and push updated candidate history
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add brain_options/data/
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(data): record evaluated candidates [skip ci]"
+            git pull --rebase origin main || true
+            git push || echo "Git push skipped or failed"
+          fi
