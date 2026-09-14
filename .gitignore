@@ -29,4 +29,6 @@ env/
 exported_alphas/
 all_generated_alphas.csv
 legacy_alphas_backup.zip
-brain_options/data/
+# Options Pipeline Data (versioned candidate and alpha history)
+!brain_options/data/
+!brain_options/data/**

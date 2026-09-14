@@ -1,0 +1,48 @@
+timestamp,expression,archetype,source,stage,status,sharpe,fitness,turnover,returns,drawdown,alpha_id
+2026-09-11T08:23:07.221877+00:00,"group_neutralize(rank((forward_price_20 - close) / close), sector)",Synthetic Forward Basis Spread,template,STAGE0,FAIL,0.0400,0.0100,0.1823,0.0032,0.1956,ZY0ajwJ3
+2026-09-11T08:32:49.923490+00:00,"group_neutralize(rank((forward_price_10 - close) / close), sector)",Forward Basis Spread,template,STAGE0,FAIL,0.0100,0.0000,0.1847,0.0010,0.1907,ZY0aWEr8
+2026-09-11T08:34:37.680279+00:00,"group_neutralize(rank((forward_price_10 - close) / close), subindustry)",Forward Basis Spread,template,STAGE0,FAIL,0.0200,0.0000,0.1829,0.0012,0.1913,RRVerj7z
+2026-09-11T08:36:31.554300+00:00,"group_neutralize(rank((forward_price_20 - close) / close), subindustry)",Forward Basis Spread,template,STAGE0,FAIL,0.0400,0.0100,0.1806,0.0033,0.1966,78ZYdK05
+2026-09-11T08:37:58.417630+00:00,"group_neutralize(rank((forward_price_30 - close) / close), sector)",Forward Basis Spread,template,STAGE0,FAIL,0.1000,0.0200,0.1791,0.0076,0.1815,pwPa7P7g
+2026-09-11T08:40:01.806138+00:00,"group_neutralize(rank((forward_price_30 - close) / close), subindustry)",Forward Basis Spread,template,STAGE0,FAIL,0.1000,0.0200,0.1774,0.0076,0.1824,883NLxoo
+2026-09-11T08:47:12.082956+00:00,"group_neutralize(rank((forward_price_60 - close) / close), sector)",Forward Basis Spread,template,STAGE0,FAIL,0.1400,0.0300,0.1699,0.0105,0.1713,mLga8v66
+2026-09-11T08:48:33.609821+00:00,"group_neutralize(rank((forward_price_60 - close) / close), subindustry)",Forward Basis Spread,template,STAGE0,FAIL,0.1400,0.0300,0.1681,0.0104,0.1724,om6alOZ2
+2026-09-11T08:49:59.692594+00:00,"group_neutralize(rank((forward_price_90 - close) / close), sector)",Forward Basis Spread,template,STAGE0,FAIL,0.2200,0.0700,0.1627,0.0160,0.1506,qMW7lnjP
+2026-09-11T08:52:10.171850+00:00,"group_neutralize(rank((forward_price_90 - close) / close), subindustry)",Forward Basis Spread,template,STAGE0,FAIL,0.2200,0.0700,0.1609,0.0162,0.1516,pwPalWMg
+2026-09-11T08:54:00.379758+00:00,"group_neutralize(rank(ts_delta((forward_price_20 - close) / close, 3)), sector)",Forward Basis Velocity,template,STAGE0,FAIL,0.0200,0.0000,0.8066,0.0006,0.0758,KPOg9Wzk
+2026-09-11T09:00:48.554583+00:00,"group_neutralize(rank(ts_delta((forward_price_20 - close) / close, 5)), sector)",Forward Basis Velocity,template,STAGE0,FAIL,-0.0300,0.0000,0.6562,-0.0010,0.1040,mLgaVEWW
+2026-09-11T09:02:20.510041+00:00,"group_neutralize(rank(ts_delta((forward_price_20 - close) / close, 10)), sector)",Forward Basis Velocity,template,STAGE0,FAIL,0.0800,0.0100,0.5233,0.0029,0.0740,6XrMpxWp
+2026-09-11T09:03:49.197987+00:00,"group_neutralize(rank(ts_delta((forward_price_30 - close) / close, 3)), sector)",Forward Basis Velocity,template,STAGE0,FAIL,0.5200,0.0800,0.8002,0.0180,0.0514,QP30GQWp
+2026-09-11T09:05:41.112074+00:00,"group_neutralize(rank(ts_delta((forward_price_30 - close) / close, 5)), sector)",Forward Basis Velocity,template,STAGE0,FAIL,0.3700,0.0500,0.6496,0.0133,0.0917,N1QPbKje
+2026-09-11T09:07:02.862730+00:00,"group_neutralize(rank(ts_delta((forward_price_30 - close) / close, 10)), sector)",Forward Basis Velocity,template,STAGE0,FAIL,0.4400,0.0800,0.5143,0.0159,0.0582,RRVemxob
+2026-09-11T09:09:24.091663+00:00,"group_neutralize(rank(ts_delta((forward_price_20 - close) / close, 5)), sector)",Synthetic Forward Basis Spread,llm,STAGE0,FAIL,-0.0300,0.0000,0.6562,-0.0010,0.1040,mLgaVEWW
+2026-09-11T09:16:23.486464+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_10, 20)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.6500,-0.1200,0.6213,-0.0202,0.1005,O0rWrmvY
+2026-09-11T09:18:01.236507+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_10, 20)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7100,-0.1300,0.6188,-0.0222,0.1106,WjPlPPjZ
+2026-09-11T09:19:49.251269+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_10, 40)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7200,-0.1500,0.5639,-0.0233,0.1295,le8a8NdA
+2026-09-11T09:22:14.339126+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_10, 40)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7600,-0.1600,0.5617,-0.0245,0.1350,ZY0abLE1
+2026-09-11T09:23:41.141396+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_10, 60)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.6800,-0.1400,0.5403,-0.0221,0.1434,WjPlbN3P
+2026-09-11T09:30:18.470585+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_10, 60)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7000,-0.1400,0.5379,-0.0230,0.1473,wpYobnjd
+2026-09-11T09:32:01.000737+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_20, 20)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.4700,-0.0700,0.6262,-0.0139,0.0698,LL9KZZXL
+2026-09-11T09:33:49.109519+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_20, 20)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.5200,-0.0800,0.6236,-0.0156,0.0779,RRVe6om1
+2026-09-11T09:35:31.444370+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_20, 40)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7400,-0.1500,0.5685,-0.0223,0.1196,le8aMOJl
+2026-09-11T09:37:16.620969+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_20, 40)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7700,-0.1600,0.5661,-0.0232,0.1251,Jjx8Pgv2
+2026-09-11T09:44:12.285045+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_20, 60)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.8200,-0.1800,0.5441,-0.0251,0.1320,O0rWAbMv
+2026-09-11T09:47:40.420985+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_20, 60)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.8300,-0.1800,0.5416,-0.0256,0.1355,mLgaoN6x
+2026-09-11T09:49:33.825549+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_30, 20)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7500,-0.1400,0.6312,-0.0219,0.1082,gJQaaE9M
+2026-09-11T09:51:02.626635+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_30, 20)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7800,-0.1500,0.6287,-0.0230,0.1134,O0rWW5MY
+2026-09-11T09:58:20.618139+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_30, 40)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.8000,-0.1600,0.5739,-0.0232,0.1248,LL9K8gqa
+2026-09-11T09:59:53.565771+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_30, 40)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.8000,-0.1600,0.5715,-0.0234,0.1259,KPOgVOrz
+2026-09-11T10:01:43.365207+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_30, 60)), sector)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7300,-0.1400,0.5497,-0.0216,0.1209,Vk6NMeJY
+2026-09-11T10:03:43.888741+00:00,"group_neutralize(rank(-ts_zscore(pcr_vol_30, 60)), subindustry)",Put-Call Ratio Contrarian Reversal,template,STAGE0,FAIL,-0.7200,-0.1400,0.5472,-0.0214,0.1196,om6aRpom
+2026-09-11T10:05:40.840099+00:00,"group_neutralize(rank(-ts_rank(pcr_vol_20 / (pcr_oi_20 + 0.001), 5)), subindustry)",PCR Volume-to-OI Flow Surge,template,STAGE0,FAIL,-0.4100,-0.0500,0.9081,-0.0120,0.0967,0mRPxeA8
+2026-09-11T10:12:40.459252+00:00,"group_neutralize(rank(-ts_rank(pcr_vol_20 / (pcr_oi_20 + 0.001), 10)), subindustry)",PCR Volume-to-OI Flow Surge,template,STAGE0,FAIL,-0.3700,-0.0400,0.7428,-0.0108,0.0815,zqYd2j8R
+2026-09-11T10:14:08.019079+00:00,"group_neutralize(rank(-ts_rank(pcr_vol_20 / (pcr_oi_20 + 0.001), 20)), subindustry)",PCR Volume-to-OI Flow Surge,template,STAGE0,FAIL,-0.4600,-0.0700,0.6630,-0.0136,0.0849,wpYo2E6v
+2026-09-11T10:15:40.479615+00:00,"group_neutralize(rank(-ts_rank(pcr_vol_30 / (pcr_oi_30 + 0.001), 5)), subindustry)",PCR Volume-to-OI Flow Surge,template,STAGE0,FAIL,-0.7800,-0.1200,0.9139,-0.0209,0.1378,e79aV1az
+2026-09-11T10:17:25.745323+00:00,"group_neutralize(rank(-ts_rank(pcr_vol_30 / (pcr_oi_30 + 0.001), 10)), subindustry)",PCR Volume-to-OI Flow Surge,template,STAGE0,FAIL,-0.3600,-0.0400,0.7502,-0.0101,0.0745,58QJAmKk
+2026-09-11T10:19:21.758153+00:00,"group_neutralize(rank(-ts_rank(pcr_vol_30 / (pcr_oi_30 + 0.001), 20)), subindustry)",PCR Volume-to-OI Flow Surge,template,STAGE0,FAIL,-0.3500,-0.0400,0.6707,-0.0101,0.0749,j23aGNbZ
+2026-09-11T10:21:36.271325+00:00,"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_20, 3)), sector)",Volatility Skew Steepness Shock,template,STAGE0,FAIL,0.7600,0.1300,0.8844,0.0273,0.0448,78ZYmzOZ
+2026-09-11T10:23:25.765694+00:00,"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_20, 5)), sector)",Volatility Skew Steepness Shock,template,STAGE0,PASS,1.1700,0.2600,0.7397,0.0361,0.0280,d5Oazz2Y
+2026-09-11T10:26:28.778798+00:00,"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_20, 10)), sector)",Volatility Skew Steepness Shock,template,STAGE0,FAIL,0.8200,0.1900,0.6148,0.0315,0.0611,O0rWVv9v
+2026-09-11T10:28:57.160426+00:00,"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_30, 3)), sector)",Volatility Skew Steepness Shock,template,STAGE0,FAIL,0.7100,0.1200,0.8953,0.0255,0.0571,d5OaoR7x
+2026-09-11T10:30:36.724731+00:00,"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_30, 5)), sector)",Volatility Skew Steepness Shock,template,STAGE0,PASS,1.0800,0.2300,0.7510,0.0333,0.0378,blRanJpM
+2026-09-11T10:32:03.204237+00:00,"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_30, 5)), sector)",Volatility Skew Steepness Shock,template,STAGE0,PASS,1.0800,0.2300,0.7510,0.0333,0.0378,blRanJpM

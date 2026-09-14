@@ -74,3 +74,63 @@ def test_generator_multi_tier(monkeypatch):
     assert len(mutation_batch) == 1
     assert mutation_batch[0].generation_source == "llm_mechanical"
     assert "subindustry" in mutation_batch[0].expression
+
+
+def test_clean_json_array_resilience():
+    from brain_options.llm.adapter import clean_json_array
+
+    # 1. Preamble and markdown fences
+    text1 = """Here are the requested candidates:
+```json
+[
+  {"expression": "alpha_1", "archetype": "skew", "hypothesis": "hyp 1"},
+  {"expression": "alpha_2", "archetype": "skew", "hypothesis": "hyp 2"}
+]
+```
+Let me know if you need more."""
+    res1 = clean_json_array(text1)
+    assert len(res1) == 2
+    assert res1[0]["expression"] == "alpha_1"
+    assert res1[1]["expression"] == "alpha_2"
+
+    # 2. Trailing commas before closing brackets
+    text2 = '[{"expression": "alpha_trail", "archetype": "term", "hypothesis": "hyp",}, ]'
+    res2 = clean_json_array(text2)
+    assert len(res2) == 1
+    assert res2[0]["expression"] == "alpha_trail"
+
+    # 3. Truncated output (cut off mid-stream) - must recover all complete items!
+    text3 = """[
+  {"expression": "alpha_complete_1", "archetype": "skew", "hypothesis": "hyp 1"},
+  {"expression": "alpha_complete_2", "archetype": "basis", "hypothesis": "hyp 2"},
+  {"expression": "alpha_truncated", "archetype": "skew", "hypoth"""
+    res3 = clean_json_array(text3)
+    assert len(res3) == 2
+    assert res3[0]["expression"] == "alpha_complete_1"
+    assert res3[1]["expression"] == "alpha_complete_2"
+
+
+def test_generator_procedural_fallback_when_templates_and_llm_exhausted(monkeypatch):
+    """Verifies that when all seed templates and LLM calls return 0, the pipeline never starves."""
+    config = OptionsConfig.from_env()
+    adapter = LLMAdapter(config)
+    generator = OptionsGenerator(adapter)
+
+    # 1. Mark all existing templates as already evaluated
+    all_templates = generate_template_candidates()
+    for t in all_templates:
+        generator.mark_evaluated(t.expression)
+
+    # 2. Simulate LLM failure (returns None)
+    monkeypatch.setattr(adapter, "generate", lambda *args, **kwargs: None)
+
+    # 3. Request a batch of 15 candidates
+    batch = generator.get_next_batch(target_count=15)
+    assert len(batch) == 15
+
+    # 4. Verify all generated candidates are fresh and procedural
+    for c in batch:
+        assert c.generation_source == "procedural"
+        assert c.expression not in [t.expression for t in all_templates]
+        assert "group_neutralize" in c.expression or "trade_when" in c.expression
+
