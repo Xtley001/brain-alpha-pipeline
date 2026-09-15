@@ -23,7 +23,9 @@ from brain_options.specialist.templates import OptionCandidate, generate_templat
 
 log = logging.getLogger("brain_options.generator")
 
-CORE_ARCHETYPES = ["skew", "term_structure", "forward_basis", "pcr_flow", "breakeven"]
+import random
+
+CORE_ARCHETYPES = ["breakeven", "skew", "term_structure", "forward_basis", "pcr_flow"]
 
 
 class OptionsGenerator:
@@ -39,6 +41,14 @@ class OptionsGenerator:
         self.evaluated_expressions: Set[str] = set()
         self._template_queue: list[OptionCandidate] = generate_template_candidates()
         self._archetype_idx = 0
+        # Multi-Armed Bandit prior weights based on empirical WorldQuant options dynamics
+        self.archetype_priors: dict[str, float] = {
+            "breakeven": 0.40,
+            "skew": 0.35,
+            "term_structure": 0.15,
+            "forward_basis": 0.05,
+            "pcr_flow": 0.05,
+        }
 
     def mark_evaluated(self, expression: str):
         self.evaluated_expressions.add(expression.strip())
@@ -46,10 +56,28 @@ class OptionsGenerator:
     def is_evaluated(self, expression: str) -> bool:
         return expression.strip() in self.evaluated_expressions
 
-    def _next_archetype(self) -> str:
-        arch = CORE_ARCHETYPES[self._archetype_idx % len(CORE_ARCHETYPES)]
-        self._archetype_idx += 1
-        return arch
+    def choose_archetype(self, archetype_summary: Optional[dict[str, dict[str, float]]] = None) -> str:
+        """
+        Multi-Armed Bandit (MAB) archetype selection with empirical pass-rate weighting.
+        Dynamically shifts generation budget toward high-yield archetypes (Breakeven & Skew)
+        and preserves small exploration probability for lower-yield families.
+        """
+        weights = dict(self.archetype_priors)
+
+        if archetype_summary:
+            for arch_key in CORE_ARCHETYPES:
+                # Find matching entries in DB summary
+                matched_pass_rate = 0.0
+                for db_arch, stats in archetype_summary.items():
+                    if arch_key.lower() in db_arch.lower():
+                        matched_pass_rate = max(matched_pass_rate, stats.get("pass_rate", 0.0))
+                # Boost weight proportional to pass rate (exploration floor 0.05)
+                weights[arch_key] = max(0.05, weights[arch_key] + matched_pass_rate * 0.5)
+
+        total = sum(weights.values())
+        norm_weights = [weights[a] / total for a in CORE_ARCHETYPES]
+        chosen = random.choices(CORE_ARCHETYPES, weights=norm_weights, k=1)[0]
+        return chosen
 
     def get_template_batch(self, count: int = 5) -> list[OptionCandidate]:
         """Tier 1: Deterministic seed template candidates."""
@@ -60,12 +88,17 @@ class OptionsGenerator:
                 batch.append(cand)
         return batch
 
-    def get_reasoning_batch(self, count: int = 5, archetype: Optional[str] = None) -> list[OptionCandidate]:
+    def get_reasoning_batch(
+        self,
+        count: int = 5,
+        archetype: Optional[str] = None,
+        top_exemplars: Optional[list[dict]] = None,
+        archetype_summary: Optional[dict] = None,
+    ) -> list[OptionCandidate]:
         """
         Tier 2: Knowledge-injected LLM reasoning tier.
-        Injects targeted institutional cards, formula sketches, and pitfall warnings
-        from Master Books 1-4. Chunks requests to at most 4 candidates per prompt
-        and rotates across archetypes to ensure diversity and avoid prompt bloat/truncation.
+        Injects targeted institutional cards, formula sketches, and top RL exemplars
+        from Master Books 1-4 and the PostgreSQL learning memory.
         """
         candidates: list[OptionCandidate] = []
         chunk_size = 4
@@ -73,12 +106,17 @@ class OptionsGenerator:
 
         while needed > 0 and len(candidates) < count:
             batch_n = min(chunk_size, needed)
-            target_arch = archetype or self._next_archetype()
+            target_arch = archetype or self.choose_archetype(archetype_summary)
             kb_cards = self.kb.get_cards_for_archetype(target_arch, max_cards=3)
             catalog_summary = self.catalog.summarize_for_prompt()
 
             system_prompt = build_options_system_prompt(catalog_summary)
-            prompt = build_reasoning_prompt(target_arch, kb_cards, n=batch_n)
+            prompt = build_reasoning_prompt(
+                target_arch,
+                kb_cards,
+                n=batch_n,
+                top_exemplars=top_exemplars,
+            )
 
             raw_output = self.llm_adapter.generate(
                 prompt=prompt,
@@ -105,6 +143,7 @@ class OptionsGenerator:
             needed -= batch_n
 
         return candidates
+
 
     def get_procedural_batch(self, count: int = 10) -> list[OptionCandidate]:
         """
@@ -238,7 +277,10 @@ class OptionsGenerator:
         return procedural[:count]
 
     def get_mutation_batch(
-        self, base_candidates: list[OptionCandidate], count_per_base: int = 2
+        self,
+        base_candidates: list[OptionCandidate],
+        count_per_base: int = 2,
+        top_exemplars: Optional[list[dict]] = None,
     ) -> list[OptionCandidate]:
         """
         Tier 3: Mechanical mutation tier.
@@ -255,6 +297,7 @@ class OptionsGenerator:
                 candidate_hypothesis=base.hypothesis,
                 kb_cards=kb_cards,
                 n=count_per_base,
+                top_exemplars=top_exemplars,
             )
             raw_output = self.llm_adapter.generate(
                 prompt=prompt,
@@ -282,14 +325,16 @@ class OptionsGenerator:
     def get_next_batch(
         self,
         target_count: int = 10,
-        template_ratio: float = 0.4,
+        template_ratio: float = 0.3,
         seed_candidates_for_mutation: Optional[list[OptionCandidate]] = None,
+        top_exemplars: Optional[list[dict]] = None,
+        archetype_summary: Optional[dict] = None,
     ) -> list[OptionCandidate]:
         """
         Assembles a balanced candidate batch across the generation tiers:
         1. Deterministic high-confidence templates (Tier 1)
-        2. Tier 3 Mutations (if seeds provided)
-        3. Tier 2 Knowledge-injected LLM reasoning (chunked & multi-archetype)
+        2. Tier 3 Mutations (seeded by top performing historical alphas from memory)
+        3. Tier 2 Knowledge-injected LLM reasoning (conditioned on MAB weights and RL exemplars)
         4. Dynamic procedural generator fallback (Tier 4) guarantees non-empty batch
         """
         template_count = max(1, int(target_count * template_ratio))
@@ -297,15 +342,33 @@ class OptionsGenerator:
 
         candidates: list[OptionCandidate] = self.get_template_batch(template_count)
 
-        # 1. Tier 3 Mutations (if seeds provided)
-        if seed_candidates_for_mutation:
-            mutations = self.get_mutation_batch(seed_candidates_for_mutation, count_per_base=2)
-            candidates.extend(mutations[: max(1, remaining // 2)])
+        # 1. Tier 3 Mutations: if no explicit seeds, auto-seed from top exemplars in memory
+        active_seeds = seed_candidates_for_mutation
+        if not active_seeds and top_exemplars:
+            active_seeds = [
+                OptionCandidate(
+                    expression=ex["expression"],
+                    archetype_name=ex.get("archetype", "TopExemplar"),
+                    hypothesis=ex.get("hypothesis", "Top performing alpha from learning memory"),
+                    generation_source="learning_memory_seed",
+                )
+                for ex in top_exemplars[:3]
+                if ex.get("expression")
+            ]
 
-        # 2. Tier 2 LLM Reasoning (chunked across rotating archetypes)
+        if active_seeds:
+            mutation_slots = max(1, remaining // 2)
+            mutations = self.get_mutation_batch(active_seeds, count_per_base=2, top_exemplars=top_exemplars)
+            candidates.extend(mutations[:mutation_slots])
+
+        # 2. Tier 2 LLM Reasoning (conditioned on top exemplars and bandit archetype weights)
         needed_reasoning = target_count - len(candidates)
         if needed_reasoning > 0:
-            llm_candidates = self.get_reasoning_batch(needed_reasoning)
+            llm_candidates = self.get_reasoning_batch(
+                needed_reasoning,
+                top_exemplars=top_exemplars,
+                archetype_summary=archetype_summary,
+            )
             candidates.extend(llm_candidates)
 
         # 3. Fallback top-up from static templates if any remain
@@ -322,3 +385,4 @@ class OptionsGenerator:
             candidates.extend(procedural_candidates)
 
         return candidates
+

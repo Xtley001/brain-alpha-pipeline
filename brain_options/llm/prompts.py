@@ -70,29 +70,49 @@ def build_reasoning_prompt(
     archetype: str,
     kb_cards: list[KnowledgeCard],
     n: int = 5,
+    top_exemplars: Optional[list[dict]] = None,
+    failure_guidance: Optional[str] = None,
 ) -> str:
     """
     Builds a knowledge-injected reasoning prompt for generating novel alpha expressions
-    grounded in specific institutional derivatives cards and formula sketches.
+    grounded in specific institutional derivatives cards, formula sketches, and RL exemplars.
     """
     kb_context = "\n\n".join(card.to_prompt_text() for card in kb_cards) if kb_cards else ""
 
+    exemplars_text = ""
+    if top_exemplars:
+        lines = ["### HALL OF FAME: HIGH-PERFORMING ALPHAS IN THIS UNIVERSE (REINFORCEMENT LEARNING EXEMPLARS):"]
+        for ex in top_exemplars[:4]:
+            expr = ex.get("expression", "")
+            sh = ex.get("sharpe", 0.0)
+            fit = ex.get("fitness", 0.0)
+            arch = ex.get("archetype", "")
+            lines.append(f"- Archetype: {arch} | Sharpe: {sh:.2f} | Fitness: {fit:.2f}\n  Formula: `{expr}`")
+        exemplars_text = "\n".join(lines) + "\n\n"
+
+    negative_guidance = failure_guidance or """### PROVEN FAILURE PATTERNS TO STRICTLY AVOID:
+1. Do NOT generate raw Put-Call Ratio contrarian reversals (e.g. -ts_zscore(pcr_vol_10, 20)); they consistently produce negative Sharpe (-0.80).
+2. Do NOT generate raw unsmoothed ts_delta without linear decay; it generates 50%+ turnover which crushes Fitness. Always wrap signals with `ts_decay_linear(..., 5)` or `ts_decay_linear(..., 10)`.
+3. Do NOT generate raw forward basis levels `(forward_price - close) / close`; they are static and have near-zero Sharpe."""
+
     prompt = f"""Generate {n} NOVEL, mathematically precise WorldQuant BRAIN options alpha expressions for the ARCHETYPE: '{archetype}'.
 
-### KNOWLEDGE BASE INSTITUTIONAL CARDS & FORMULAS (BOOKS 1-4):
+{exemplars_text}### KNOWLEDGE BASE INSTITUTIONAL CARDS & FORMULAS (BOOKS 1-4):
 {kb_context if kb_context else "Apply standard quantitative derivatives theory for " + archetype}
+
+{negative_guidance}
 
 ### RIGOROUS REQUIREMENTS:
 1. Ground your expressions in the principles and formula sketches from the knowledge base cards above.
-2. Comply strictly with Fast Expression syntax rules (outer layer `group_neutralize(rank(...), sector)` or `trade_when(...)`).
-3. Explicitly observe the pitfall warnings from the knowledge base (e.g. never divide skew by ATM IV; apply sqrt(T) scaling).
+2. Comply strictly with Fast Expression syntax rules (outer layer `group_neutralize(rank(...), subindustry)` or `trade_when(...)`).
+3. Apply smoothing (`ts_decay_linear(..., 5)` or `ts_decay_linear(..., 10)`) inside the rank to keep turnover under 30% and ensure Fitness >= 1.0.
 4. Use realistic lookback windows (3 to 60 days) and valid options tenors (10, 20, 30, 60, 90).
 5. For each candidate, formulate a 1-sentence causal economic hypothesis explaining WHY the edge exists.
 
 Respond with ONLY a JSON array of objects (no markdown fences, no surrounding commentary):
 [
   {{
-    "expression": "group_neutralize(rank(...), sector)",
+    "expression": "group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_20 - close) / close, 5), 5)), subindustry)",
     "archetype": "{archetype}",
     "hypothesis": "Economic mechanism explaining the edge..."
   }}
@@ -106,6 +126,7 @@ def build_mechanical_mutation_prompt(
     candidate_hypothesis: str,
     kb_cards: list[KnowledgeCard],
     n: int = 4,
+    top_exemplars: Optional[list[dict]] = None,
 ) -> str:
     """
     Builds a mechanical tier prompt that generates systematic variations of a promising
@@ -114,18 +135,25 @@ def build_mechanical_mutation_prompt(
     """
     kb_context = "\n\n".join(card.to_prompt_text() for card in kb_cards) if kb_cards else ""
 
+    exemplars_text = ""
+    if top_exemplars:
+        lines = ["### BENCHMARK PROVEN WINNERS:"]
+        for ex in top_exemplars[:3]:
+            lines.append(f"- `{ex.get('expression', '')}` (Sharpe: {ex.get('sharpe', 0.0):.2f})")
+        exemplars_text = "\n".join(lines) + "\n\n"
+
     prompt = f"""Generate {n} HIGH-QUALITY SYSTEMATIC MUTATIONS of the following promising options candidate:
 
 Base Expression: `{candidate_expression}`
 Base Hypothesis: {candidate_hypothesis}
 
-### RELEVANT KNOWLEDGE BASE GUIDANCE:
+{exemplars_text}### RELEVANT KNOWLEDGE BASE GUIDANCE:
 {kb_context if kb_context else "Preserve the core economic pricing logic."}
 
 ### MUTATION DIRECTIONS:
-1. Tenor Variations: Shift between adjacent option tenors (e.g. 20d -> 30d -> 60d).
-2. Smoothing & Operator Variations: Replace `ts_delta(x, 5)` with `ts_decay_linear(ts_delta(x, 5), 5)` or `ts_zscore(x, 20)`.
-3. Granular Neutralization: Switch from `sector` to `subindustry` or `industry`.
+1. Tenor Variations: Shift between adjacent option tenors (e.g. 20d -> 30d -> 60d) with sqrt(T) scaling.
+2. Turnover-Reduction Smoothing: Wrap raw differences in `ts_decay_linear(..., 5)` or `ts_decay_linear(..., 10)` to boost Fitness.
+3. Granular Neutralization: Switch from `sector` to `subindustry`.
 4. Regime / Volume Gating: Add `trade_when(volume > adv20, ..., -1)` or mean-reversion threshold gating.
 5. Maintain valid Fast Expression syntax and avoid syntax errors.
 
@@ -139,3 +167,4 @@ Respond with ONLY a JSON array of objects (no markdown fences):
 ]
 """
     return prompt
+

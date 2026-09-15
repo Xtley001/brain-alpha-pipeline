@@ -30,18 +30,41 @@ def send_telegram_startup(config: OptionsConfig, mode: str = "Single Batch") -> 
     return _send_telegram_raw(text, config)
 
 
-def send_telegram_batch_summary(passed_count: int, total_candidates: int, config: OptionsConfig) -> bool:
+def send_telegram_batch_summary(
+    passed_count: int,
+    total_candidates: int,
+    config: OptionsConfig,
+    stats: Optional[dict[str, Any]] = None,
+) -> bool:
     """Sends a completion summary after a batch of candidates finishes."""
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
 
-    text = (
-        f"🏁 *Options Alpha Batch Complete*\n\n"
-        f"• *Evaluated:* `{total_candidates}` candidates\n"
-        f"• *Qualified for Pool:* `{passed_count}` alphas\n"
-        f"• *Status:* `Store updated & sync complete`"
-    )
-    return _send_telegram_raw(text, config)
+    text_lines = [
+        "🏁 *Options Alpha Batch Complete*\n",
+        f"• *This Batch:* `{total_candidates}` evaluated | `{passed_count}` qualified",
+    ]
+
+    if stats:
+        today_eval = stats.get("today_evaluated", 0)
+        today_pass = stats.get("today_stage0_pass", 0)
+        today_qual = stats.get("today_qualified", 0)
+        all_time_eval = stats.get("all_time_evaluated", 0)
+        all_time_pool = stats.get("all_time_pool_alphas", 0)
+
+        text_lines.extend([
+            f"\n📅 *Today's Options Activity:*",
+            f"• Evaluated Today: `{today_eval}`",
+            f"• Stage 0 Passing: `{today_pass}`",
+            f"• Fully Qualified: `{today_qual}`",
+            f"\n📊 *All-Time Options Totals:*",
+            f"• Total Evaluated: `{all_time_eval}`",
+            f"• Qualified in Pool: `{all_time_pool}`",
+        ])
+
+    text_lines.append("\n• *Status:* `Learning memory & pool synced`")
+    return _send_telegram_raw("\n".join(text_lines), config)
+
 
 
 def send_telegram_alert(

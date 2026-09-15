@@ -78,7 +78,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 5. Volatility Skew Acceleration
     for tenor in [20, 30, 60]:
         for window in [3, 5, 10]:
-            expr = f"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_{tenor}, {window})), sector)"
+            expr = f"group_neutralize(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_{tenor}, {window}), 5)), subindustry)"
             candidates.append(
                 OptionCandidate(
                     expression=expr,
@@ -92,7 +92,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     for tenor in [20, 30, 60]:
         sqrt_t = round(math.sqrt(tenor / 252.0), 4)
         for window in [3, 5]:
-            expr = f"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_{tenor} * {sqrt_t}, {window})), subindustry)"
+            expr = f"group_neutralize(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_{tenor} * {sqrt_t}, {window}), 5)), subindustry)"
             candidates.append(
                 OptionCandidate(
                     expression=expr,
@@ -118,7 +118,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 8. Call Breakeven Hurdle Acceleration
     for tenor in [20, 30]:
         for window in [3, 5]:
-            expr = f"group_neutralize(rank(ts_delta((call_breakeven_{tenor} - close) / close, {window})), subindustry)"
+            expr = f"group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_{tenor} - close) / close, {window}), 5)), subindustry)"
             candidates.append(
                 OptionCandidate(
                     expression=expr,

@@ -38,6 +38,9 @@ logging.basicConfig(
 log = logging.getLogger("brain_options")
 
 
+from brain_options.core.optimizer import DiagnosticAlphaOptimizer
+
+
 async def run_candidate(
     candidate: OptionCandidate,
     sweep_engine: SweepEngine,
@@ -45,7 +48,7 @@ async def run_candidate(
     store: OptionsStore,
     config: OptionsConfig,
 ) -> bool:
-    """Executes the screening, optimization, filtering, and alert pipeline for one candidate."""
+    """Executes the screening, diagnostic optimization, filtering, and alert pipeline for one candidate."""
     log.info("=" * 70)
     log.info("TESTING CANDIDATE [%s]: %s", candidate.archetype_name, candidate.expression)
     log.info("Hypothesis: %s", candidate.hypothesis)
@@ -67,26 +70,30 @@ async def run_candidate(
         )
         return False
 
-    log.info("[*] STAGE 0 PASSED! Proceeding to Stage 1 Grid Optimization...")
+    log.info("[*] STAGE 0 PASSED! Proceeding to Closed-Loop Diagnostic Optimization...")
 
-    # 2. Stage 1: Neutralization x Decay Grid Sweep (25-30 simulations)
-    best_settings, best_metrics = await sweep_engine.stage1_grid_sweep(candidate.expression, s0_settings)
-    store.record_evaluated_candidate(
-        candidate,
-        stage="STAGE1",
-        status="OPTIMIZED",
-        metrics=best_metrics,
+    # 2. Closed-Loop Diagnostic Optimization Loop
+    optimizer = DiagnosticAlphaOptimizer(client, store, config)
+    best_cand, best_settings, best_metrics, passed_filter, opt_history = await optimizer.optimize(
+        candidate=candidate,
+        base_settings=s0_settings,
+        initial_metrics=s0_metrics,
+        max_steps=6,
     )
 
-    # 3. Local Acceptance Filter
-    passed_filter, reason = evaluate_alpha_metrics(best_metrics, config)
     if not passed_filter:
-        log.info("Candidate failed local filter: %s", reason)
+        log.info(
+            "Candidate failed local filter after %d diagnostic steps: Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%",
+            len(opt_history) - 1,
+            best_metrics.sharpe,
+            best_metrics.fitness,
+            best_metrics.turnover * 100,
+        )
         return False
 
     log.info("[+] QUALIFIED FOR POOL! Checking correlation...")
 
-    # 4. Correlation Gate
+    # 3. Correlation Gate
     pnl_series: dict[str, float] = {}
     max_corr = 0.0
     if best_metrics.alpha_id:
@@ -99,7 +106,7 @@ async def run_candidate(
             log.warning("Candidate rejected by correlation gate (MaxCorr=%.2f >= %.2f)", max_corr, config.max_pool_correlation)
             return False
 
-    # 5. Success! Save to Store & Alert
+    # 4. Success! Save to Store & Alert
     log.info(
         "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.2f",
         best_metrics.sharpe,
@@ -107,23 +114,42 @@ async def run_candidate(
         best_metrics.turnover * 100,
         max_corr,
     )
-    store.save_passed_alpha(candidate, best_settings, best_metrics, max_corr, pnl_series)
-    send_telegram_alert(candidate.expression, best_settings, best_metrics, max_corr, config)
+    store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
+    send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
+
+    # 5. Optional Auto-Submit to WorldQuant BRAIN platform
+    import os
+    if os.environ.get("ENABLE_AUTO_SUBMIT", "false").lower() == "true" and best_metrics.alpha_id:
+        log.info("Auto-submitting alpha %s to WorldQuant BRAIN...", best_metrics.alpha_id)
+        try:
+            sub_res = await client.submit_alpha(best_metrics.alpha_id)
+            log.info("WorldQuant BRAIN submission result: %s", sub_res)
+        except Exception as e:
+            log.warning("Auto-submit encountered error: %s", e)
+
     return True
 
 
 async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = False, mode_label: str = "Single Batch") -> int:
     store = OptionsStore(database_url=config.database_url)
     evaluated = store.load_evaluated_expressions()
+    top_exemplars = store.load_top_performing_exemplars(limit=5, min_sharpe=0.85)
+    archetype_summary = store.load_archetype_performance_summary()
 
     llm_adapter = LLMAdapter(config)
     generator = OptionsGenerator(llm_adapter)
     generator.evaluated_expressions.update(evaluated)
 
     log.info("Loaded %d previously evaluated candidates.", len(evaluated))
+    log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.", len(top_exemplars))
     log.info("Generating next batch of %d options candidates...", batch_size)
 
-    candidates = generator.get_next_batch(target_count=batch_size, template_ratio=0.4)
+    candidates = generator.get_next_batch(
+        target_count=batch_size,
+        template_ratio=0.3,
+        top_exemplars=top_exemplars,
+        archetype_summary=archetype_summary,
+    )
     log.info("Generated %d fresh options candidates.", len(candidates))
 
     if dry_run:
@@ -159,7 +185,8 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
             passed_count += 1
 
     log.info("\nBatch completed: %d/%d passed all criteria.", passed_count, len(candidates))
-    send_telegram_batch_summary(passed_count, len(candidates), config)
+    stats = store.get_options_stats()
+    send_telegram_batch_summary(passed_count, len(candidates), config, stats=stats)
     return passed_count
 
 
@@ -170,15 +197,32 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Generate candidates and verify without simulating")
     parser.add_argument("--candidates", type=int, default=0, help="Override candidate count per batch")
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
+    parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     args = parser.parse_args()
 
     config = OptionsConfig.from_env()
+
+    if args.stats:
+        store = OptionsStore(database_url=config.database_url)
+        stats = store.get_options_stats()
+        print("\n" + "=" * 55)
+        print(" WORLDQUANT BRAIN OPTIONS ALPHA PIPELINE STATS")
+        print("=" * 55)
+        print(f"  • Today's Evaluations:      {stats.get('today_evaluated', 0)}")
+        print(f"  • Today's Stage 0 Passing:  {stats.get('today_stage0_pass', 0)}")
+        print(f"  • Today's Qualified Alphas: {stats.get('today_qualified', 0)}")
+        print("-" * 55)
+        print(f"  • All-Time Evaluated:       {stats.get('all_time_evaluated', 0)}")
+        print(f"  • All-Time Qualified Pool:  {stats.get('all_time_pool_alphas', 0)}")
+        print("=" * 55 + "\n")
+        return
 
     if args.test_telegram:
         log.info("Sending test notification to Telegram...")
         success = send_telegram_startup(config, mode="Test Notification")
         log.info("Telegram test result: %s", "SUCCESS" if success else "FAILED")
         return
+
 
     batch_size = args.candidates if args.candidates > 0 else config.max_candidates_per_run
 

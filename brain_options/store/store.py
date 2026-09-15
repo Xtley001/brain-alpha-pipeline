@@ -159,3 +159,27 @@ class OptionsStore:
                 except Exception as e:
                     log.warning("Could not read pnl file %s: %s", fname, e)
         return series_list
+
+    def record_learning_memory(
+        self,
+        candidate: OptionCandidate,
+        metrics: SimMetrics,
+        reward: float,
+        optimization_steps: int = 0,
+        parent_expression: Optional[str] = None,
+        mutation_type: Optional[str] = None,
+        status: str = "EVALUATED",
+    ):
+        self.db.record_learning_memory(
+            candidate, metrics, reward, optimization_steps, parent_expression, mutation_type, status
+        )
+
+    def load_top_performing_exemplars(self, limit: int = 5, min_sharpe: float = 1.0) -> List[Dict[str, Any]]:
+        return self.db.load_top_performing_exemplars(limit=limit, min_sharpe=min_sharpe)
+
+    def load_archetype_performance_summary(self) -> Dict[str, Dict[str, float]]:
+        return self.db.load_archetype_performance_summary()
+
+    def get_options_stats(self) -> Dict[str, Any]:
+        return self.db.get_options_stats()
+
