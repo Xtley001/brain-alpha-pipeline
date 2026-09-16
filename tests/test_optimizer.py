@@ -13,17 +13,18 @@ def test_calculate_rl_reward():
     m_invalid = SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "ERROR", {})
     assert calculate_rl_reward(m_invalid) == -5.0
 
-    # 2. High turnover penalty
+    # 2. High turnover penalty vs low turnover efficiency
     m_high_to = SimMetrics("A1", sharpe=1.5, fitness=1.0, turnover=0.85, annualized_return=0.08, max_drawdown=0.05, margin=0.001, status="COMPLETE", raw_response={})
     reward_high_to = calculate_rl_reward(m_high_to, is_qualified=False)
-    # Sharpe(1.5) + 1.5*Fitness(1.0) - 3.0*(0.85 - 0.70) = 3.0 - 0.45 = 2.55
-    assert reward_high_to < 3.0
+    
+    m_low_to = SimMetrics("A2", sharpe=1.5, fitness=1.0, turnover=0.12, annualized_return=0.08, max_drawdown=0.05, margin=0.001, status="COMPLETE", raw_response={})
+    reward_low_to = calculate_rl_reward(m_low_to, is_qualified=False)
+    assert reward_low_to > reward_high_to + 3.0
 
     # 3. Qualified alpha with completion bonus
-    m_qual = SimMetrics("A2", sharpe=1.8, fitness=1.4, turnover=0.22, annualized_return=0.12, max_drawdown=0.04, margin=0.002, status="COMPLETE", raw_response={})
+    m_qual = SimMetrics("A3", sharpe=1.8, fitness=1.4, turnover=0.12, annualized_return=0.12, max_drawdown=0.04, margin=0.002, status="COMPLETE", raw_response={})
     reward_qual = calculate_rl_reward(m_qual, is_qualified=True)
-    # Sharpe(1.8) + 1.5*Fitness(1.4) + 5.0 bonus = 1.8 + 2.1 + 5.0 = 8.9
-    assert reward_qual >= 8.5
+    assert reward_qual >= 15.0
 
 
 def test_expression_transformation_operators():
@@ -35,7 +36,7 @@ def test_expression_transformation_operators():
     # 2. Re-adjust existing decay linear
     expr2 = "group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_20 - close) / close, 5), 5)), subindustry)"
     smoothed2 = DiagnosticAlphaOptimizer.wrap_decay_linear(expr2, window=10)
-    assert "ts_decay_linear(ts_delta((call_breakeven_20 - close) / close, 5), 10)" in smoothed2
+    assert "ts_decay_linear(ts_delta((call_breakeven_20 - close) / close, 5), 12)" in smoothed2
 
     # 3. Upgrade neutralization
     expr_sector = "group_neutralize(rank(X), sector)"
@@ -69,8 +70,12 @@ def test_expression_transformation_operators():
     wrapped_zs = DiagnosticAlphaOptimizer.wrap_zscore(expr_zs, window=20)
     assert "ts_zscore(X, 20)" in wrapped_zs
 
-    # 9. Inject conviction gating
+    # 9. Inject conviction gating with default 0.38 threshold and update to 0.42
     expr_conv = "group_neutralize(rank(ts_decay_linear(X, 8)), subindustry)"
-    gated_conv = DiagnosticAlphaOptimizer.inject_conviction_gate(expr_conv, threshold=0.15)
-    assert "trade_when(abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.15," in gated_conv
+    gated_conv = DiagnosticAlphaOptimizer.inject_conviction_gate(expr_conv, threshold=0.38)
+    assert "trade_when(abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.38," in gated_conv
     assert ", -1)" in gated_conv
+
+    # Update existing threshold
+    updated_conv = DiagnosticAlphaOptimizer.inject_conviction_gate(gated_conv, threshold=0.42)
+    assert "trade_when(abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.42," in updated_conv

@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: write
       actions: write
-    timeout-minutes: 120
+    timeout-minutes: 60
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
@@ -39,7 +39,7 @@ jobs:
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       BRAIN_MAX_CONCURRENT_SIMS: "3"
       MAX_CANDIDATES_PER_RUN: "25"
-      RUN_TIME_BUDGET_SECONDS: "1200"
+      RUN_TIME_BUDGET_SECONDS: "900"
       STAGE0_MIN_FITNESS: "0.20"
       STAGE0_MIN_SHARPE: "0.35"
       FILTER_MIN_SHARPE: "1.25"
@@ -61,7 +61,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Phase 1 - Re-optimize Stage 0 passed candidates
-        run: python -m brain_options.run --retry-stage0 --limit 100
+        run: python -m brain_options.run --retry-stage0 --limit 10
 
       - name: Phase 2 - Generate and evaluate fresh candidates
         run: python -m brain_options.run --single-batch
@@ -81,7 +81,7 @@ jobs:
           fi
 
       - name: Trigger next continuous workflow run
-        if: always()
+        if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

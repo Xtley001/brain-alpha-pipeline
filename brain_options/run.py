@@ -91,9 +91,21 @@ async def run_candidate(
             best_metrics.fitness,
             best_metrics.turnover * 100,
         )
+        store.record_evaluated_candidate(
+            candidate,
+            stage="RETRY_COMPLETED",
+            status="EXHAUSTED",
+            metrics=best_metrics,
+        )
         return False
 
     log.info("[+] QUALIFIED FOR POOL!")
+    store.record_evaluated_candidate(
+        candidate,
+        stage="RETRY_COMPLETED",
+        status="QUALIFIED",
+        metrics=best_metrics,
+    )
 
     # 3. Save to Store & Alert
     max_corr = 0.0
@@ -267,22 +279,41 @@ async def run_retry_stage0_batch(
 
     passed_count = 0
     total_evaluated = 0
-    concurrency = min(config.brain_max_concurrent_sims, 3)
-    semaphore = asyncio.Semaphore(concurrency)
+    start_time = time.time()
+    queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
+    for c in candidates:
+        queue.put_nowait(c)
 
-    async def worker(c: OptionCandidate):
+    async def worker(worker_id: int):
         nonlocal passed_count, total_evaluated
-        async with semaphore:
+        while not queue.empty():
+            elapsed = time.time() - start_time
+            if elapsed > config.run_time_budget_seconds:
+                log.warning("Retry Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
+                break
+            try:
+                c = queue.get_nowait()
+            except asyncio.QueueEmpty:
+                break
+
+            total_evaluated += 1
+            log.info("\n[Retry Worker %d | Cand %d/%d] Re-optimizing [%s]: %s",
+                     worker_id, total_evaluated, len(candidates), c.archetype_name, c.expression[:60])
             try:
                 qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True)
-                total_evaluated += 1
                 if qualified:
                     passed_count += 1
             except Exception as exc:
                 log.error("Error optimizing Stage 0 passer [%s]: %s", c.expression[:50], exc, exc_info=True)
+            finally:
+                queue.task_done()
+
+    concurrency = min(config.brain_max_concurrent_sims, 3)
+    log.info("Starting %d concurrent retry workers with %ds time budget...", concurrency, config.run_time_budget_seconds)
+    workers = [asyncio.create_task(worker(i + 1)) for i in range(concurrency)]
 
     try:
-        await asyncio.gather(*[worker(c) for c in candidates])
+        await asyncio.gather(*workers)
     except Exception as e:
         log.error("Re-optimization pool encountered exception: %s", e)
     finally:

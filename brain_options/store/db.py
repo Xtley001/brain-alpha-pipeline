@@ -363,9 +363,9 @@ class OptionsDatabase:
         sql_eval = """
             SELECT
                 COUNT(*) as all_time_evaluated,
-                COUNT(*) FILTER (WHERE status = 'PASS' OR stage LIKE 'DIAG_%' OR status = 'QUALIFIED') as all_time_pass,
+                COUNT(*) FILTER (WHERE status = 'PASS' OR LEFT(stage, 5) = 'DIAG_' OR status = 'QUALIFIED') as all_time_pass,
                 COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_evaluated,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR stage LIKE 'DIAG_%')) as today_stage0_pass,
+                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass,
                 COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND status = 'QUALIFIED') as today_qualified
             FROM options_evaluations;
         """
@@ -404,6 +404,10 @@ class OptionsDatabase:
                 FROM options_evaluations
                 WHERE ((stage = 'STAGE0' AND status = 'PASS') OR (sharpe >= 0.35 AND fitness >= 0.20))
                   AND expression NOT IN (SELECT expression FROM options_alphas)
+                  AND expression NOT IN (
+                      SELECT expression FROM options_evaluations
+                      WHERE stage = 'RETRY_COMPLETED' OR LEFT(stage, 5) = 'DIAG_' OR status IN ('OPTIMIZED', 'EXHAUSTED', 'RETRY_COMPLETED')
+                  )
                 ORDER BY expression, sharpe DESC
             ) sub
             ORDER BY sharpe DESC, fitness DESC
