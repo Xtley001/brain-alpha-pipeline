@@ -51,6 +51,7 @@ def send_telegram_batch_summary(
         today_pass = stats.get("today_stage0_pass", 0)
         today_qual = stats.get("today_qualified", 0)
         all_time_eval = stats.get("all_time_evaluated", 0)
+        all_time_pass = stats.get("all_time_stage0_pass", 0)
         all_time_pool = stats.get("all_time_pool_alphas", 0)
 
         text_lines.extend([
@@ -60,6 +61,7 @@ def send_telegram_batch_summary(
             f"• Fully Qualified: `{today_qual}`",
             f"\n📊 *All-Time Options Totals:*",
             f"• Total Evaluated: `{all_time_eval}`",
+            f"• Stage 0 Passing: `{all_time_pass}`",
             f"• Qualified in Pool: `{all_time_pool}`",
         ])
 

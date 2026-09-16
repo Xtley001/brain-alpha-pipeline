@@ -17,7 +17,6 @@ from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
     send_telegram_alert,
     send_telegram_batch_summary,
-    send_telegram_stage0_alert,
     send_telegram_startup,
 )
 from brain_options.core.sweep import SweepEngine
@@ -72,10 +71,6 @@ async def run_candidate(
         return False
 
     log.info("[*] STAGE 0 PASSED! Proceeding to Closed-Loop Diagnostic Optimization...")
-    try:
-        send_telegram_stage0_alert(candidate.archetype_name, candidate.expression, s0_metrics, config)
-    except Exception as e:
-        log.warning("Could not send Stage 0 Telegram alert: %s", e)
 
     # 2. Closed-Loop Diagnostic Optimization Loop
     optimizer = DiagnosticAlphaOptimizer(client, store, config)
@@ -273,6 +268,7 @@ def main():
         print(f"  • Today's Qualified Alphas: {stats.get('today_qualified', 0)}")
         print("-" * 55)
         print(f"  • All-Time Evaluated:       {stats.get('all_time_evaluated', 0)}")
+        print(f"  • All-Time Stage 0 Passing: {stats.get('all_time_stage0_pass', 0)}")
         print(f"  • All-Time Qualified Pool:  {stats.get('all_time_pool_alphas', 0)}")
         print("=" * 55 + "\n")
         return

@@ -170,3 +170,43 @@ def test_stage0_telegram_notification():
         assert "1.04" in call_payload["text"]
         assert "Call Breakeven" in call_payload["text"]
 
+
+def test_batch_summary_telegram_notification():
+    """Verify that send_telegram_batch_summary formats all-time stage 0 passing numbers."""
+    from brain_options.core.notifier import send_telegram_batch_summary
+    from unittest.mock import patch
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        telegram_bot_token="fake_token",
+        telegram_chat_id="123456",
+    )
+    stats = {
+        "today_evaluated": 15,
+        "today_stage0_pass": 6,
+        "today_qualified": 2,
+        "all_time_evaluated": 250,
+        "all_time_stage0_pass": 95,
+        "all_time_pool_alphas": 12,
+    }
+
+    with patch("requests.post") as mock_post:
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_post.return_value = mock_resp
+
+        result = send_telegram_batch_summary(2, 10, config, stats=stats)
+        assert result is True
+        assert mock_post.called
+        call_payload = mock_post.call_args[1]["json"]
+        text = call_payload["text"]
+        assert "Options Alpha Batch Complete" in text
+        assert "Today's Options Activity" in text
+        assert "• Stage 0 Passing: `6`" in text
+        assert "All-Time Options Totals" in text
+        assert "• Total Evaluated: `250`" in text
+        assert "• Stage 0 Passing: `95`" in text
+        assert "• Qualified in Pool: `12`" in text
+
+
