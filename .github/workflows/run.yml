@@ -16,7 +16,39 @@ jobs:
     permissions:
       contents: write
       actions: write
-    timeout-minutes: 45
+    timeout-minutes: 120
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
+      BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
+      GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
+      GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+      GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
+      GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
+      CEREBRAS_API_KEY_1: ${{ secrets.CEREBRAS_API_KEY_1 }}
+      CEREBRAS_API_KEY_2: ${{ secrets.CEREBRAS_API_KEY_2 }}
+      CEREBRAS_API_KEY_3: ${{ secrets.CEREBRAS_API_KEY_3 }}
+      CEREBRAS_API_KEY_4: ${{ secrets.CEREBRAS_API_KEY_4 }}
+      OPENROUTER_API_KEY_1: ${{ secrets.OPENROUTER_API_KEY_1 }}
+      OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY_2 }}
+      OPENROUTER_API_KEY_3: ${{ secrets.OPENROUTER_API_KEY_3 }}
+      OPENROUTER_API_KEY_4: ${{ secrets.OPENROUTER_API_KEY_4 }}
+      GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
+      GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      BRAIN_MAX_CONCURRENT_SIMS: "3"
+      MAX_CANDIDATES_PER_RUN: "25"
+      RUN_TIME_BUDGET_SECONDS: "1200"
+      STAGE0_MIN_FITNESS: "0.20"
+      STAGE0_MIN_SHARPE: "0.35"
+      FILTER_MIN_SHARPE: "1.25"
+      FILTER_MIN_FITNESS: "1.00"
+      FILTER_MAX_TURNOVER: "0.70"
+      FILTER_MIN_TURNOVER: "0.01"
+      ENABLE_AUTO_SUBMIT: "true"
+      UNIVERSE: "TOP3000"
+      DELAY: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -28,39 +60,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run one bounded options batch
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
-          BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
-          GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
-          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-          CEREBRAS_API_KEY_1: ${{ secrets.CEREBRAS_API_KEY_1 }}
-          CEREBRAS_API_KEY_2: ${{ secrets.CEREBRAS_API_KEY_2 }}
-          CEREBRAS_API_KEY_3: ${{ secrets.CEREBRAS_API_KEY_3 }}
-          CEREBRAS_API_KEY_4: ${{ secrets.CEREBRAS_API_KEY_4 }}
-          OPENROUTER_API_KEY_1: ${{ secrets.OPENROUTER_API_KEY_1 }}
-          OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY_2 }}
-          OPENROUTER_API_KEY_3: ${{ secrets.OPENROUTER_API_KEY_3 }}
-          OPENROUTER_API_KEY_4: ${{ secrets.OPENROUTER_API_KEY_4 }}
-          GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
-          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          BRAIN_MAX_CONCURRENT_SIMS: "3"
-          MAX_CANDIDATES_PER_RUN: "25"
-          RUN_TIME_BUDGET_SECONDS: "1200"
-          STAGE0_MIN_FITNESS: "0.20"
-          STAGE0_MIN_SHARPE: "0.35"
-          FILTER_MIN_SHARPE: "1.25"
-          FILTER_MIN_FITNESS: "1.00"
-          FILTER_MAX_TURNOVER: "0.70"
-          FILTER_MIN_TURNOVER: "0.01"
-          ENABLE_AUTO_SUBMIT: "true"
-          UNIVERSE: "TOP3000"
-          DELAY: "1"
+      - name: Phase 1 - Re-optimize Stage 0 passed candidates
+        run: python -m brain_options.run --retry-stage0 --limit 100
+
+      - name: Phase 2 - Generate and evaluate fresh candidates
         run: python -m brain_options.run --single-batch
 
       - name: Commit and push updated candidate history
@@ -83,4 +86,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run run.yml || echo "Continuous dispatch skipped or completed."
+
 
