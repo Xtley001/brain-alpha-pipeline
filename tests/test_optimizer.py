@@ -56,5 +56,21 @@ def test_expression_transformation_operators():
 
     # 6. Adjust delta window
     expr_delta = "group_neutralize(rank(ts_delta(X, 3)), subindustry)"
-    adjusted_delta = DiagnosticAlphaOptimizer.adjust_delta_window(expr_delta)
-    assert "ts_delta(X, 10)" in adjusted_delta
+    adjusted_delta = DiagnosticAlphaOptimizer.adjust_delta_window(expr_delta, target_window=20)
+    assert "ts_delta(X, 20)" in adjusted_delta
+
+    # 7. Wrap exponential decay
+    expr_exp = "group_neutralize(rank(ts_decay_linear(X, 8)), subindustry)"
+    wrapped_exp = DiagnosticAlphaOptimizer.wrap_decay_exp(expr_exp, window=10, factor=0.25)
+    assert "ts_decay_exp_window(X, 8, 0.25)" in wrapped_exp
+
+    # 8. Wrap Z-score
+    expr_zs = "group_neutralize(rank(ts_delta(X, 5)), subindustry)"
+    wrapped_zs = DiagnosticAlphaOptimizer.wrap_zscore(expr_zs, window=20)
+    assert "ts_zscore(X, 20)" in wrapped_zs
+
+    # 9. Inject conviction gating
+    expr_conv = "group_neutralize(rank(ts_decay_linear(X, 8)), subindustry)"
+    gated_conv = DiagnosticAlphaOptimizer.inject_conviction_gate(expr_conv, threshold=0.15)
+    assert "trade_when(abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.15," in gated_conv
+    assert ", -1)" in gated_conv

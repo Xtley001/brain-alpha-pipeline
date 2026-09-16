@@ -245,17 +245,84 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     return passed_count
 
 
+async def run_retry_stage0_batch(
+    config: OptionsConfig,
+    limit: int = 100,
+    dry_run: bool = False,
+) -> int:
+    """Retries previously passed Stage 0 candidates through the upgraded DiagnosticAlphaOptimizer."""
+    store = OptionsStore(database_url=config.database_url)
+    candidates = store.get_stage0_passed_candidates(limit=limit)
+    log.info("Loaded %d historical Stage 0 passed candidates for re-optimization.", len(candidates))
+
+    if not candidates:
+        log.warning("No Stage 0 passed candidates found in database.")
+        return 0
+
+    if dry_run:
+        log.info("DRY RUN MODE: Listing Stage 0 candidates to be re-optimized:")
+        for i, c in enumerate(candidates, 1):
+            log.info("  [%d] (%s) %s -> %s", i, c.generation_source, c.archetype_name, c.expression[:100])
+        return len(candidates)
+
+    send_telegram_startup(config, mode=f"Stage 0 Re-Optimization ({len(candidates)} candidates)")
+
+    client = BrainClient(
+        username=config.brain_username,
+        password=config.brain_password,
+        max_concurrent_sims=config.brain_max_concurrent_sims,
+    )
+    sweep_engine = SweepEngine(client, store, config)
+
+    passed_count = 0
+    total_evaluated = 0
+    concurrency = min(config.brain_max_concurrent_sims, 3)
+    semaphore = asyncio.Semaphore(concurrency)
+
+    async def worker(c: OptionCandidate):
+        nonlocal passed_count, total_evaluated
+        async with semaphore:
+            try:
+                qualified = await run_candidate(c, sweep_engine, client, store, config)
+                total_evaluated += 1
+                if qualified:
+                    passed_count += 1
+            except Exception as exc:
+                log.error("Error optimizing Stage 0 passer [%s]: %s", c.expression[:50], exc, exc_info=True)
+
+    try:
+        await asyncio.gather(*[worker(c) for c in candidates])
+    except Exception as e:
+        log.error("Re-optimization pool encountered exception: %s", e)
+    finally:
+        log.info("\nRe-optimization completed: %d passed / %d evaluated.", passed_count, total_evaluated)
+        try:
+            stats = store.get_options_stats()
+            send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+        except Exception as summary_err:
+            log.warning("Failed to send Telegram summary: %s", summary_err)
+
+    return passed_count
+
+
 def main():
     parser = argparse.ArgumentParser(description="WorldQuant BRAIN Options Alpha Pipeline")
     parser.add_argument("--single-batch", action="store_true", help="Run a single bounded batch and exit (Render cron mode)")
     parser.add_argument("--daemon", action="store_true", help="Run continuously in a loop")
     parser.add_argument("--dry-run", action="store_true", help="Generate candidates and verify without simulating")
     parser.add_argument("--candidates", type=int, default=0, help="Override candidate count per batch")
+    parser.add_argument("--retry-stage0", action="store_true", help="Retry historical Stage 0 passing candidates through upgraded optimizer")
+    parser.add_argument("--limit", type=int, default=100, help="Max Stage 0 candidates to retry")
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     args = parser.parse_args()
 
     config = OptionsConfig.from_env()
+
+    if args.retry_stage0:
+        log.info("Starting Stage 0 re-optimization pipeline...")
+        asyncio.run(run_retry_stage0_batch(config, limit=args.limit, dry_run=args.dry_run))
+        return
 
     if args.stats:
         store = OptionsStore(database_url=config.database_url)

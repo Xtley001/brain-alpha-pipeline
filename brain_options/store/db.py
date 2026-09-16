@@ -391,4 +391,35 @@ class OptionsDatabase:
             log.warning("Failed to load options stats: %s", e)
             return stats
 
+    def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
+        """Loads distinct candidates that passed Stage 0 screening for re-optimization."""
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT DISTINCT ON (expression)
+                expression, archetype, COALESCE(source, 'stage0_pass') as source,
+                sharpe, fitness, turnover
+            FROM options_evaluations
+            WHERE (stage = 'STAGE0' AND status = 'PASS') OR (sharpe >= 0.35 AND fitness >= 0.20)
+            ORDER BY expression, sharpe DESC
+            LIMIT %s;
+        """
+        candidates: List[OptionCandidate] = []
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (limit,))
+                    for row in cur.fetchall():
+                        expr, arch, src, sh, fit, to = row
+                        candidates.append(OptionCandidate(
+                            expression=expr,
+                            archetype_name=arch or "options_alpha",
+                            hypothesis=f"Stage 0 passer (Sharpe={float(sh or 0):.2f}, Fit={float(fit or 0):.2f})",
+                            generation_source=src or "stage0_pass",
+                        ))
+            return candidates
+        except Exception as e:
+            log.warning("Failed to load stage0 passed candidates: %s", e)
+            return []
+
 

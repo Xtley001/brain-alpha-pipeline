@@ -81,38 +81,94 @@ class DiagnosticAlphaOptimizer:
     # -------------------------------------------------------------------------
 
     @staticmethod
-    def wrap_decay_linear(expr: str, window: int = 5) -> str:
+    def wrap_decay_linear(expr: str, window: int = 8) -> str:
         """
         Wraps the inner ranking or signal with ts_decay_linear to reduce turnover
         and boost Fitness without altering cross-sectional logic.
         """
         expr = expr.strip()
-        # Case 1: If already contains ts_decay_linear, adjust the window
         m = re.search(r"ts_decay_linear\((.+),\s*(\d+)\)", expr)
         if m:
             inner, old_w = m.group(1), m.group(2)
-            new_w = min(15, int(old_w) + 5)
+            new_w = max(window, min(25, int(old_w) + 5))
             return expr.replace(m.group(0), f"ts_decay_linear({inner}, {new_w})")
 
-        # Case 2: group_neutralize(rank(X), G) -> group_neutralize(rank(ts_decay_linear(X, window)), G)
         m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
         if m_gn:
             inner, group = m_gn.group(1), m_gn.group(2)
             return f"group_neutralize(rank(ts_decay_linear({inner}, {window})), {group})"
 
-        # Case 3: trade_when(C, group_neutralize(rank(X), G), -1)
         m_tw = re.search(r"^trade_when\((.+),\s*group_neutralize\(rank\((.+)\),\s*([a-z_]+)\),\s*(-1)\)$", expr)
         if m_tw:
             cond, inner, group, exit_val = m_tw.group(1), m_tw.group(2), m_tw.group(3), m_tw.group(4)
             return f"trade_when({cond}, group_neutralize(rank(ts_decay_linear({inner}, {window})), {group}), {exit_val})"
 
-        # Fallback: wrap outer
         return f"group_neutralize(rank(ts_decay_linear({expr}, {window})), subindustry)"
+
+    @staticmethod
+    def wrap_decay_exp(expr: str, window: int = 10, factor: float = 0.25) -> str:
+        """
+        Wraps or replaces linear decay with ts_decay_exp_window(x, d, factor)
+        to exponentially weight recent options signals and sharply reduce churn.
+        """
+        expr = expr.strip()
+        m_exp = re.search(r"ts_decay_exp_window\((.+),\s*(\d+),\s*([0-9\.]+)\)", expr)
+        if m_exp:
+            inner, old_w, old_f = m_exp.group(1), m_exp.group(2), m_exp.group(3)
+            return expr.replace(m_exp.group(0), f"ts_decay_exp_window({inner}, {min(25, int(old_w) + 5)}, {old_f})")
+
+        m_lin = re.search(r"ts_decay_linear\((.+),\s*(\d+)\)", expr)
+        if m_lin:
+            inner, old_w = m_lin.group(1), m_lin.group(2)
+            return expr.replace(m_lin.group(0), f"ts_decay_exp_window({inner}, {old_w}, {factor})")
+
+        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
+        if m_gn:
+            inner, group = m_gn.group(1), m_gn.group(2)
+            return f"group_neutralize(rank(ts_decay_exp_window({inner}, {window}, {factor})), {group})"
+
+        return f"group_neutralize(rank(ts_decay_exp_window({expr}, {window}, {factor})), subindustry)"
+
+    @staticmethod
+    def wrap_zscore(expr: str, window: int = 20) -> str:
+        """
+        Replaces fast delta with ts_zscore(x, d) or normalizes signal
+        to remove non-stationary volatility drift and extend holding periods.
+        """
+        expr = expr.strip()
+        m_delta = re.search(r"ts_delta\((.+),\s*(\d+)\)", expr)
+        if m_delta:
+            inner = m_delta.group(1)
+            return expr.replace(m_delta.group(0), f"ts_zscore({inner}, {window})")
+
+        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
+        if m_gn:
+            inner, group = m_gn.group(1), m_gn.group(2)
+            return f"group_neutralize(rank(ts_zscore({inner}, {window})), {group})"
+
+        return f"ts_zscore({expr}, {window})"
+
+    @staticmethod
+    def inject_conviction_gate(expr: str, threshold: float = 0.15) -> str:
+        """
+        Wraps expression in trade_when(abs(rank(x) - 0.5) > threshold, signal, -1).
+        The exit condition '-1' directs WorldQuant BRAIN to maintain prior positions
+        when signal conviction is not extreme, dropping turnover by ~50%.
+        """
+        expr = expr.strip()
+        if "trade_when" in expr:
+            return expr
+
+        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
+        if m_gn:
+            inner = m_gn.group(1)
+            return f"trade_when(abs(rank({inner}) - 0.5) > {threshold}, {expr}, -1)"
+
+        return f"trade_when(volume > adv20, {expr}, -1)"
 
     @staticmethod
     def upgrade_neutralization(expr: str, target_group: str = "subindustry") -> str:
         """Upgrades coarse group neutralization (e.g. sector) to granular subindustry."""
-        # Replace , sector) or , industry) with , subindustry)
         new_expr = re.sub(r",\s*(sector|industry|market)\)", f", {target_group})", expr)
         return new_expr
 
@@ -139,12 +195,12 @@ class DiagnosticAlphaOptimizer:
         return expr
 
     @staticmethod
-    def adjust_delta_window(expr: str) -> str:
-        """Increases ts_delta window (3 -> 5 -> 10) to slow down fast signals."""
+    def adjust_delta_window(expr: str, target_window: int = 20) -> str:
+        """Increases ts_delta window (e.g. 5 -> 20) to capture monthly momentum and slow down churning."""
         m = re.search(r"ts_delta\((.+),\s*(\d+)\)", expr)
         if m:
             inner, old_w = m.group(1), int(m.group(2))
-            new_w = 10 if old_w <= 5 else 15
+            new_w = target_window if old_w < target_window else old_w + 10
             return expr.replace(m.group(0), f"ts_delta({inner}, {new_w})")
         return expr
 
@@ -209,78 +265,136 @@ class DiagnosticAlphaOptimizer:
 
             arms: List[Tuple[str, str, str, SimSettings]] = []
 
-            # Deficit A: High Turnover dragging down Fitness
-            if best_metrics.turnover > 0.35 or ("Fitness" in reason and best_metrics.sharpe >= 1.0):
-                # Arm 1: Mild linear decay smoothing (window 5) + decay 14
-                arms.append((
-                    "SMOOTH_DECAY_5_D14",
-                    "Wrapped signal in ts_decay_linear(x, 5) with decay=14",
-                    self.wrap_decay_linear(current_expr, window=5),
-                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=14, neutralization=current_settings.neutralization),
-                ))
-                # Arm 2: Deep linear decay smoothing (window 10) + delta window expansion + decay 18 + subindustry
-                arms.append((
-                    "DEEP_SMOOTH_D18_SUBIND",
-                    "Extended smoothing window to 10 with decay=18 and subindustry",
-                    self.adjust_delta_window(self.wrap_decay_linear(current_expr, window=10)),
-                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=18, neutralization="SUBINDUSTRY"),
-                ))
-                # Arm 3: High sim decay (decay 22) + subindustry
-                arms.append((
-                    "HIGH_SIM_DECAY_22",
-                    "Set decay=22 to tame residual trading velocity",
-                    current_expr,
-                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=22, neutralization="SUBINDUSTRY"),
-                ))
+            # DEFICIT: High Turnover dragging down Fitness (The Primary Bottleneck)
+            if best_metrics.turnover > 0.25 or ("Fitness" in reason and best_metrics.sharpe >= 1.0):
+                if round_idx == 1:
+                    # Round 1: Signal Smoothing & Lookback Expansion
+                    arms.append((
+                        "DELTA_EXPANSION_D16",
+                        "Expanded delta lookback to 20 with decay=16 to tame daily churn",
+                        self.adjust_delta_window(current_expr, 20),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=16, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "EXP_DECAY_SMOOTH",
+                        "Wrapped signal in ts_decay_exp_window(x, 10, 0.25) with decay=18",
+                        self.wrap_decay_exp(current_expr, window=10, factor=0.25),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=18, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "SMOOTH_DECAY_D20",
+                        "Deep linear smoothing with decay=20 and truncation=0.01",
+                        self.wrap_decay_linear(current_expr, window=10),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=20, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
 
-            # Deficit B: Sharpe is borderline (0.80 - 1.25)
+                elif round_idx == 2:
+                    # Round 2: Z-score Normalization & Conviction Gating
+                    arms.append((
+                        "ZSCORE_NORMALIZATION",
+                        "Transformed signal to rolling 20-day ts_zscore with decay=16",
+                        self.wrap_zscore(current_expr, window=20),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=16, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "CONVICTION_GATE_HOLD",
+                        "Gated positions on extreme rank conviction (trade_when -1 holds position)",
+                        self.inject_conviction_gate(current_expr, threshold=0.15),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=14, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "VOLUME_ADV_GATE",
+                        "Filtered trades by volume > adv20 to eliminate illiquid drag",
+                        self.inject_volume_gating(current_expr),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=16, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+
+                elif round_idx == 3:
+                    # Round 3: High-conviction combined with Z-score & Tenor migration
+                    arms.append((
+                        "CONVICTION_ZSCORE",
+                        "Combined 20-day Z-score with conviction gating and decay=18",
+                        self.inject_conviction_gate(self.wrap_zscore(current_expr, 20), threshold=0.18),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=18, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "SHIFT_TENOR_SMOOTH",
+                        "Shifted option maturity tenor and applied exponential decay",
+                        self.shift_tenor(self.wrap_decay_exp(current_expr, 12, 0.20)),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=18, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "DEEP_DELTA_D24",
+                        "Extended delta lookback to 25 with decay=24 and truncation=0.01",
+                        self.adjust_delta_window(current_expr, 25),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=24, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+
+                else:
+                    # Rounds 4-6: Fine calibration of truncation, decay and conviction
+                    for d, trunc, thresh in [(16, 0.01, 0.20), (22, 0.01, 0.15), (26, 0.05, 0.12)]:
+                        arms.append((
+                            f"CALIBRATION_D{d}_T{int(trunc*100)}",
+                            f"Fine calibration: decay={d}, truncation={trunc}, threshold={thresh}",
+                            self.inject_conviction_gate(current_expr, threshold=thresh) if "trade_when" not in current_expr else current_expr,
+                            SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=d, neutralization="SUBINDUSTRY", truncation=trunc),
+                        ))
+
+            # DEFICIT: Sharpe is borderline (0.35 - 1.25)
             elif best_metrics.sharpe < self.config.filter_min_sharpe:
                 if "subindustry" not in current_expr.lower():
                     arms.append((
                         "UPGRADE_TO_SUBINDUSTRY",
                         "Escalated neutralization to subindustry",
                         self.upgrade_neutralization(current_expr, "subindustry"),
-                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=12, neutralization="SUBINDUSTRY"),
-                    ))
-                if "trade_when" not in current_expr:
-                    arms.append((
-                        "INJECT_VOLUME_GATE",
-                        "Gated by volume > adv20 to avoid illiquid small-cap whipsaws",
-                        self.inject_volume_gating(current_expr),
-                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=10, neutralization=current_settings.neutralization),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=12, neutralization="SUBINDUSTRY", truncation=0.01),
                     ))
                 arms.append((
                     "SHIFT_TENOR",
                     "Migrated option tenor forward to test deeper derivative maturity",
                     self.shift_tenor(current_expr),
-                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=12, neutralization=current_settings.neutralization),
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=14, neutralization="SUBINDUSTRY", truncation=0.01),
+                ))
+                arms.append((
+                    "ZSCORE_TRANSFORM",
+                    "Transformed raw signal into 20-day rolling Z-score to boost signal-to-noise",
+                    self.wrap_zscore(current_expr, 20),
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=14, neutralization="SUBINDUSTRY", truncation=0.01),
                 ))
 
-            # Deficit C: Default fallback sweep
+            # DEFICIT: General fine-tuning
             else:
-                for d in (12, 16, 20):
+                for d in (14, 18, 22):
                     arms.append((
                         f"CALIBRATION_DECAY_{d}",
-                        f"Standard decay calibration ({d}) with subindustry",
+                        f"Standard decay calibration ({d}) with subindustry and truncation 0.01",
                         current_expr,
-                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=d, neutralization="SUBINDUSTRY"),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=d, neutralization="SUBINDUSTRY", truncation=0.01),
                     ))
 
             # Filter out duplicate arms against current history
-            evaluated_pairs = {(step.expression, step.settings.decay, step.settings.neutralization) for step in history}
+            evaluated_pairs = {(step.expression, step.settings.decay, step.settings.neutralization, step.settings.truncation) for step in history}
             unique_arms = [
                 arm for arm in arms
-                if (arm[2], arm[3].decay, arm[3].neutralization) not in evaluated_pairs
+                if (arm[2], arm[3].decay, arm[3].neutralization, arm[3].truncation) not in evaluated_pairs
             ]
 
             if not unique_arms:
-                nudge_d = current_settings.decay + 4
-                unique_arms = [(
-                    "DECAY_NUDGE",
-                    f"Nudged decay from {current_settings.decay} to {nudge_d}",
-                    current_expr,
-                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=nudge_d, neutralization="SUBINDUSTRY"),
-                )]
+                if "trade_when" not in current_expr:
+                    unique_arms = [(
+                        "CONVICTION_GATE_FALLBACK",
+                        "Fallback: apply state-holding conviction gate",
+                        self.inject_conviction_gate(current_expr, threshold=0.15),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=current_settings.decay, neutralization="SUBINDUSTRY", truncation=0.01),
+                    )]
+                else:
+                    nudge_d = current_settings.decay + 4
+                    unique_arms = [(
+                        "DECAY_NUDGE",
+                        f"Nudged decay from {current_settings.decay} to {nudge_d}",
+                        current_expr,
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=nudge_d, neutralization="SUBINDUSTRY", truncation=0.01),
+                    )]
 
             log.info("Firing %d concurrent diagnostic arms in parallel...", len(unique_arms))
             for i, (atype, _, aexpr, asett) in enumerate(unique_arms, 1):

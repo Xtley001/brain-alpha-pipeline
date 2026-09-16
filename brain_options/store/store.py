@@ -186,3 +186,6 @@ class OptionsStore:
     def get_options_stats(self) -> Dict[str, Any]:
         return self.db.get_options_stats()
 
+    def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
+        return self.db.get_stage0_passed_candidates(limit=limit)
+
