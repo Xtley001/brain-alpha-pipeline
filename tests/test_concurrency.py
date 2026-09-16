@@ -132,3 +132,41 @@ async def test_multi_arm_diagnostic_optimizer():
     assert best_metrics.fitness >= 1.00
     assert best_metrics.turnover <= 0.70
     assert "ts_decay_linear" in best_cand.expression
+
+
+def test_stage0_telegram_notification():
+    """Verify that send_telegram_stage0_alert correctly formats and attempts to send Stage 0 alerts."""
+    from brain_options.core.notifier import send_telegram_stage0_alert
+    from unittest.mock import patch
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        telegram_bot_token="fake_token",
+        telegram_chat_id="123456",
+    )
+    metrics = SimMetrics(
+        alpha_id="S0_TEST",
+        sharpe=1.04,
+        fitness=0.45,
+        turnover=0.33,
+        annualized_return=0.06,
+        max_drawdown=0.04,
+        margin=0.001,
+        status="COMPLETE",
+        raw_response={},
+    )
+
+    with patch("requests.post") as mock_post:
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_post.return_value = mock_resp
+
+        result = send_telegram_stage0_alert("Call Breakeven", "group_neutralize(rank(x), subindustry)", metrics, config)
+        assert result is True
+        assert mock_post.called
+        call_payload = mock_post.call_args[1]["json"]
+        assert "Stage 0 Alpha Signal Detected" in call_payload["text"]
+        assert "1.04" in call_payload["text"]
+        assert "Call Breakeven" in call_payload["text"]
+

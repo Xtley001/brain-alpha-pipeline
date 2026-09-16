@@ -148,9 +148,11 @@ class BrainClient:
                 resp = None
                 for attempt in range(3):
                     try:
-                        resp = await session.simulate(payload)
+                        resp = await asyncio.wait_for(session.simulate(payload), timeout=180.0)
                         if resp is not None:
                             break
+                    except asyncio.TimeoutError:
+                        log.warning("Simulation attempt %d timed out after 180s for: %s", attempt + 1, expression[:40])
                     except Exception as e:
                         log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
                     await asyncio.sleep(2.0 * (attempt + 1))
@@ -165,7 +167,7 @@ class BrainClient:
                 if (metrics.sharpe == 0.0 and metrics.fitness == 0.0) and metrics.alpha_id:
                     alpha_url = f"https://api.worldquantbrain.com/alphas/{metrics.alpha_id}"
                     try:
-                        alpha_resp = await session.retry("GET", alpha_url, max_tries=20)
+                        alpha_resp = await asyncio.wait_for(session.retry("GET", alpha_url, max_tries=15), timeout=45.0)
                         if alpha_resp is not None and alpha_resp.status_code < 400:
                             metrics = parse_brain_sim_response(alpha_resp)
                     except Exception as e:
@@ -180,7 +182,11 @@ class BrainClient:
         """Fetch daily returns for an alpha via /alphas/<id>/recordsets/pnl."""
         session = self._get_session()
         url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/recordsets/pnl"
-        resp = await session.retry("GET", url, max_tries=20)
+        try:
+            resp = await asyncio.wait_for(session.retry("GET", url, max_tries=15), timeout=45.0)
+        except Exception as e:
+            log.warning("Failed to fetch PnL recordset for alpha %s: %s", alpha_id, e)
+            return {}
         if resp is None or resp.status_code >= 400:
             return {}
 

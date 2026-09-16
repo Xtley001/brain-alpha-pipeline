@@ -67,6 +67,28 @@ def send_telegram_batch_summary(
     return _send_telegram_raw("\n".join(text_lines), config)
 
 
+def send_telegram_stage0_alert(
+    archetype_name: str,
+    expression: str,
+    metrics: SimMetrics,
+    config: OptionsConfig,
+) -> bool:
+    """Sends a real-time notification when a candidate passes Stage 0 and enters diagnostic optimization."""
+    if not config.telegram_bot_token or not config.telegram_chat_id:
+        return False
+
+    text = (
+        f"⭐ *Stage 0 Alpha Signal Detected!*\n\n"
+        f"• *Archetype:* `{archetype_name}`\n"
+        f"• *Stage 0 Sharpe:* `{metrics.sharpe:.2f}`\n"
+        f"• *Stage 0 Fitness:* `{metrics.fitness:.2f}`\n"
+        f"• *Turnover:* `{metrics.turnover * 100:.1f}%`\n\n"
+        f"📐 *Signal:*\n"
+        f"```\n{expression[:160]}\n```\n\n"
+        f"🔄 _Entering multi-arm diagnostic optimization to push Sharpe \u2265 1.25 & Fitness \u2265 1.0..._"
+    )
+    return _send_telegram_raw(text, config)
+
 
 def send_telegram_alert(
     expression: str,

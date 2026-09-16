@@ -17,6 +17,7 @@ from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
     send_telegram_alert,
     send_telegram_batch_summary,
+    send_telegram_stage0_alert,
     send_telegram_startup,
 )
 from brain_options.core.sweep import SweepEngine
@@ -71,6 +72,10 @@ async def run_candidate(
         return False
 
     log.info("[*] STAGE 0 PASSED! Proceeding to Closed-Loop Diagnostic Optimization...")
+    try:
+        send_telegram_stage0_alert(candidate.archetype_name, candidate.expression, s0_metrics, config)
+    except Exception as e:
+        log.warning("Could not send Stage 0 Telegram alert: %s", e)
 
     # 2. Closed-Loop Diagnostic Optimization Loop
     optimizer = DiagnosticAlphaOptimizer(client, store, config)
@@ -231,11 +236,17 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     num_workers = max(1, config.brain_max_concurrent_sims)
     log.info("Starting %d concurrent candidate workers to fully saturate BRAIN slots...", num_workers)
     workers = [asyncio.create_task(worker(i + 1)) for i in range(num_workers)]
-    await asyncio.gather(*workers)
-
-    log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
-    stats = store.get_options_stats()
-    send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+    try:
+        await asyncio.gather(*workers)
+    except Exception as e:
+        log.error("Worker pool encountered exception: %s", e)
+    finally:
+        log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
+        try:
+            stats = store.get_options_stats()
+            send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+        except Exception as summary_err:
+            log.warning("Failed to send Telegram batch summary: %s", summary_err)
     return passed_count
 
 
