@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    timeout-minutes: 30
+      actions: write
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
 
@@ -49,8 +50,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           BRAIN_MAX_CONCURRENT_SIMS: "3"
-          MAX_CANDIDATES_PER_RUN: "10"
-          RUN_TIME_BUDGET_SECONDS: "600"
+          MAX_CANDIDATES_PER_RUN: "25"
+          RUN_TIME_BUDGET_SECONDS: "1500"
           STAGE0_MIN_FITNESS: "0.20"
           STAGE0_MIN_SHARPE: "0.35"
           FILTER_MIN_SHARPE: "1.25"
@@ -75,4 +76,11 @@ jobs:
           else
             echo "No data changes to commit."
           fi
+
+      - name: Trigger next continuous workflow run
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run run.yml || echo "Continuous dispatch skipped or completed."
 

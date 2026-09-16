@@ -6,6 +6,7 @@ startup and batch completion summaries.
 from __future__ import annotations
 
 import logging
+from typing import Any, Optional
 import requests
 from brain_options.config import OptionsConfig
 from brain_options.core.client import SimMetrics, SimSettings

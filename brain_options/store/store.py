@@ -7,8 +7,9 @@ from __future__ import annotations
 import csv
 import json
 import logging
-import os
 from datetime import datetime, timezone
+import os
+import threading
 from typing import Any, Dict, List, Optional
 from brain_options.core.client import SimMetrics, SimSettings
 from brain_options.specialist.templates import OptionCandidate
@@ -31,6 +32,7 @@ class OptionsStore:
         os.makedirs(self.pnl_cache_dir, exist_ok=True)
 
         self.db = OptionsDatabase(database_url)
+        self._write_lock = threading.Lock()
 
     def load_evaluated_expressions(self) -> set[str]:
         evaluated = set()
@@ -71,11 +73,12 @@ class OptionsStore:
             "drawdown": f"{metrics.max_drawdown:.4f}",
             "alpha_id": metrics.alpha_id or "",
         }
-        with open(self.history_csv, "a", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            if not file_exists:
-                writer.writeheader()
-            writer.writerow(row)
+        with self._write_lock:
+            with open(self.history_csv, "a", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow(row)
         # Also sync to PostgreSQL table options_evaluations
         self.db.record_candidate(candidate, stage, status, metrics)
 

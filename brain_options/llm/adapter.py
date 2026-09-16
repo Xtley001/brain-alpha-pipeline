@@ -98,7 +98,7 @@ class LLMAdapter:
     ) -> Optional[str]:
         try:
             from openai import OpenAI
-            client = OpenAI(base_url=base_url, api_key=api_key, timeout=30.0)
+            client = OpenAI(base_url=base_url, api_key=api_key, timeout=25.0, max_retries=0)
             response = client.chat.completions.create(
                 model=model,
                 messages=[

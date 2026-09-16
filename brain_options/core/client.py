@@ -111,6 +111,18 @@ class BrainClient:
         self.password = password
         self.max_concurrent_sims = max_concurrent_sims
         self._session = None
+        self._semaphore: Optional[asyncio.Semaphore] = None
+        self._active_sims: int = 0
+
+    @property
+    def semaphore(self) -> asyncio.Semaphore:
+        if self._semaphore is None:
+            self._semaphore = asyncio.Semaphore(self.max_concurrent_sims)
+        return self._semaphore
+
+    @property
+    def active_simulations(self) -> int:
+        return self._active_sims
 
     def _get_session(self):
         if self._session is None:
@@ -126,36 +138,43 @@ class BrainClient:
         log.info("Successfully authenticated with WorldQuant BRAIN as %s", self.username)
 
     async def simulate_one(self, expression: str, settings: SimSettings) -> SimMetrics:
-        session = self._get_session()
-        payload = settings.to_simulation_payload(expression)
-
-        resp = None
-        for attempt in range(3):
+        async with self.semaphore:
+            self._active_sims += 1
+            log.info("Acquired simulation slot (%d/%d in-flight) for: %s", self._active_sims, self.max_concurrent_sims, expression[:50])
             try:
-                resp = await session.simulate(payload)
-                if resp is not None:
-                    break
-            except Exception as e:
-                log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
-            await asyncio.sleep(2.0 * (attempt + 1))
+                session = self._get_session()
+                payload = settings.to_simulation_payload(expression)
 
-        if resp is None:
-            log.error("Simulation returned None for expression: %s", expression)
-            return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "ERROR", {})
+                resp = None
+                for attempt in range(3):
+                    try:
+                        resp = await session.simulate(payload)
+                        if resp is not None:
+                            break
+                    except Exception as e:
+                        log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
+                    await asyncio.sleep(2.0 * (attempt + 1))
 
-        metrics = parse_brain_sim_response(resp)
+                if resp is None:
+                    log.error("Simulation returned None for expression: %s", expression)
+                    return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "ERROR", {})
 
-        # If metrics were not in simulation response directly, fetch from /alphas/<alpha_id>
-        if (metrics.sharpe == 0.0 and metrics.fitness == 0.0) and metrics.alpha_id:
-            alpha_url = f"https://api.worldquantbrain.com/alphas/{metrics.alpha_id}"
-            try:
-                alpha_resp = await session.retry("GET", alpha_url, max_tries=20)
-                if alpha_resp is not None and alpha_resp.status_code < 400:
-                    metrics = parse_brain_sim_response(alpha_resp)
-            except Exception as e:
-                log.warning("Could not fetch alpha detail for %s: %s", metrics.alpha_id, e)
+                metrics = parse_brain_sim_response(resp)
 
-        return metrics
+                # If metrics were not in simulation response directly, fetch from /alphas/<alpha_id>
+                if (metrics.sharpe == 0.0 and metrics.fitness == 0.0) and metrics.alpha_id:
+                    alpha_url = f"https://api.worldquantbrain.com/alphas/{metrics.alpha_id}"
+                    try:
+                        alpha_resp = await session.retry("GET", alpha_url, max_tries=20)
+                        if alpha_resp is not None and alpha_resp.status_code < 400:
+                            metrics = parse_brain_sim_response(alpha_resp)
+                    except Exception as e:
+                        log.warning("Could not fetch alpha detail for %s: %s", metrics.alpha_id, e)
+
+                return metrics
+            finally:
+                self._active_sims -= 1
+                log.info("Released simulation slot (%d/%d in-flight) for: %s", self._active_sims, self.max_concurrent_sims, expression[:50])
 
     async def get_alpha_pnl(self, alpha_id: str) -> dict[str, float]:
         """Fetch daily returns for an alpha via /alphas/<id>/recordsets/pnl."""

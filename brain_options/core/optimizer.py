@@ -5,6 +5,7 @@ tenor mismatches) and applies targeted mathematical transformations grounded in 
 """
 from __future__ import annotations
 
+import asyncio
 import logging
 import re
 from dataclasses import dataclass, field
@@ -196,178 +197,160 @@ class DiagnosticAlphaOptimizer:
         current_expr = candidate.expression
         current_settings = base_settings
 
-        for step_idx in range(1, max_steps + 1):
+        for round_idx in range(1, max_steps + 1):
             # Check if current best already passes all qualification gates
             passed_filter, reason = evaluate_alpha_metrics(best_metrics, self.config)
             if passed_filter:
-                log.info("[+] ALPHA QUALIFIED IN STEP %d! (Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%)",
-                         step_idx - 1, best_metrics.sharpe, best_metrics.fitness, best_metrics.turnover * 100)
+                log.info("[+] ALPHA QUALIFIED IN ROUND %d! (Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%)",
+                         round_idx - 1, best_metrics.sharpe, best_metrics.fitness, best_metrics.turnover * 100)
                 break
 
-            log.info("--- Step %d/%d: Diagnosing deficit (Reason: %s) ---", step_idx, max_steps, reason)
+            log.info("--- Round %d/%d: Formulating multi-arm diagnostic trials (Reason: %s) ---", round_idx, max_steps, reason)
 
-            action_type = "UNKNOWN"
-            action_desc = ""
-            trial_expr = current_expr
-            trial_settings = current_settings
+            arms: List[Tuple[str, str, str, SimSettings]] = []
 
-            # -----------------------------------------------------------------
-            # DIAGNOSTIC HEURISTIC RULES
-            # -----------------------------------------------------------------
             # Deficit A: High Turnover dragging down Fitness
             if best_metrics.turnover > 0.35 or ("Fitness" in reason and best_metrics.sharpe >= 1.0):
-                if step_idx == 1:
-                    # Tweak 1: Add expression-level linear decay smoothing
-                    trial_expr = self.wrap_decay_linear(current_expr, window=5)
-                    trial_settings = SimSettings(
-                        universe=current_settings.universe,
-                        delay=current_settings.delay,
-                        decay=14,
-                        neutralization=current_settings.neutralization,
-                    )
-                    action_type = "EXPR_SMOOTHING_DECAY_LINEAR"
-                    action_desc = "Wrapped signal in ts_decay_linear(x, 5) and set sim decay=14 to compress turnover."
-                elif step_idx == 2:
-                    # Tweak 2: Increase decay window and lengthen delta
-                    trial_expr = self.wrap_decay_linear(trial_expr, window=10)
-                    trial_expr = self.adjust_delta_window(trial_expr)
-                    trial_settings = SimSettings(
-                        universe=current_settings.universe,
-                        delay=current_settings.delay,
-                        decay=18,
-                        neutralization="SUBINDUSTRY",
-                    )
-                    action_type = "DEEPER_SMOOTHING_AND_DELTA"
-                    action_desc = "Extended smoothing window to 10 and slowed ts_delta window."
-                else:
-                    # Tweak 3: High sim decay test
-                    trial_settings = SimSettings(
-                        universe=current_settings.universe,
-                        delay=current_settings.delay,
-                        decay=22,
-                        neutralization="SUBINDUSTRY",
-                    )
-                    action_type = "HIGH_SIM_DECAY"
-                    action_desc = "Set decay=22 to tame residual trading velocity."
+                # Arm 1: Mild linear decay smoothing (window 5) + decay 14
+                arms.append((
+                    "SMOOTH_DECAY_5_D14",
+                    "Wrapped signal in ts_decay_linear(x, 5) with decay=14",
+                    self.wrap_decay_linear(current_expr, window=5),
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=14, neutralization=current_settings.neutralization),
+                ))
+                # Arm 2: Deep linear decay smoothing (window 10) + delta window expansion + decay 18 + subindustry
+                arms.append((
+                    "DEEP_SMOOTH_D18_SUBIND",
+                    "Extended smoothing window to 10 with decay=18 and subindustry",
+                    self.adjust_delta_window(self.wrap_decay_linear(current_expr, window=10)),
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=18, neutralization="SUBINDUSTRY"),
+                ))
+                # Arm 3: High sim decay (decay 22) + subindustry
+                arms.append((
+                    "HIGH_SIM_DECAY_22",
+                    "Set decay=22 to tame residual trading velocity",
+                    current_expr,
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=22, neutralization="SUBINDUSTRY"),
+                ))
 
             # Deficit B: Sharpe is borderline (0.80 - 1.25)
             elif best_metrics.sharpe < self.config.filter_min_sharpe:
                 if "subindustry" not in current_expr.lower():
-                    trial_expr = self.upgrade_neutralization(current_expr, "subindustry")
-                    trial_settings = SimSettings(
-                        universe=current_settings.universe,
-                        delay=current_settings.delay,
-                        decay=12,
-                        neutralization="SUBINDUSTRY",
-                    )
-                    action_type = "UPGRADE_TO_SUBINDUSTRY"
-                    action_desc = "Escalated neutralization to subindustry to eliminate industry factor beta."
-                elif "trade_when" not in current_expr:
-                    trial_expr = self.inject_volume_gating(current_expr)
-                    trial_settings = SimSettings(
-                        universe=current_settings.universe,
-                        delay=current_settings.delay,
-                        decay=10,
-                        neutralization=current_settings.neutralization,
-                    )
-                    action_type = "INJECT_VOLUME_GATE"
-                    action_desc = "Gated by volume > adv20 to avoid illiquid small-cap whipsaws."
-                else:
-                    trial_expr = self.shift_tenor(current_expr)
-                    trial_settings = SimSettings(
-                        universe=current_settings.universe,
-                        delay=current_settings.delay,
-                        decay=12,
-                        neutralization=current_settings.neutralization,
-                    )
-                    action_type = "SHIFT_TENOR"
-                    action_desc = "Migrated option tenor forward to test deeper derivative maturity."
+                    arms.append((
+                        "UPGRADE_TO_SUBINDUSTRY",
+                        "Escalated neutralization to subindustry",
+                        self.upgrade_neutralization(current_expr, "subindustry"),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=12, neutralization="SUBINDUSTRY"),
+                    ))
+                if "trade_when" not in current_expr:
+                    arms.append((
+                        "INJECT_VOLUME_GATE",
+                        "Gated by volume > adv20 to avoid illiquid small-cap whipsaws",
+                        self.inject_volume_gating(current_expr),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=10, neutralization=current_settings.neutralization),
+                    ))
+                arms.append((
+                    "SHIFT_TENOR",
+                    "Migrated option tenor forward to test deeper derivative maturity",
+                    self.shift_tenor(current_expr),
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=12, neutralization=current_settings.neutralization),
+                ))
 
-            # Deficit C: Default fallback test
+            # Deficit C: Default fallback sweep
             else:
-                trial_settings = SimSettings(
-                    universe=current_settings.universe,
-                    delay=current_settings.delay,
-                    decay=15,
-                    neutralization="SUBINDUSTRY",
+                for d in (12, 16, 20):
+                    arms.append((
+                        f"CALIBRATION_DECAY_{d}",
+                        f"Standard decay calibration ({d}) with subindustry",
+                        current_expr,
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=d, neutralization="SUBINDUSTRY"),
+                    ))
+
+            # Filter out duplicate arms against current history
+            evaluated_pairs = {(step.expression, step.settings.decay, step.settings.neutralization) for step in history}
+            unique_arms = [
+                arm for arm in arms
+                if (arm[2], arm[3].decay, arm[3].neutralization) not in evaluated_pairs
+            ]
+
+            if not unique_arms:
+                nudge_d = current_settings.decay + 4
+                unique_arms = [(
+                    "DECAY_NUDGE",
+                    f"Nudged decay from {current_settings.decay} to {nudge_d}",
+                    current_expr,
+                    SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=nudge_d, neutralization="SUBINDUSTRY"),
+                )]
+
+            log.info("Firing %d concurrent diagnostic arms in parallel...", len(unique_arms))
+            for i, (atype, _, aexpr, asett) in enumerate(unique_arms, 1):
+                log.info("  [Arm %d] %s: %s (Decay=%d, Neut=%s)", i, atype, aexpr[:50], asett.decay, asett.neutralization)
+
+            # Execute all arms in parallel via asyncio.gather (governed by BrainClient semaphore)
+            results = await asyncio.gather(*[
+                self.client.simulate_one(aexpr, asett) for _, _, aexpr, asett in unique_arms
+            ])
+
+            round_qualified = False
+            for (action_type, action_desc, trial_expr, trial_settings), trial_metrics in zip(unique_arms, results):
+                if not trial_metrics.is_valid:
+                    log.warning("Trial simulation returned invalid metrics for [%s]. Skipping arm.", action_type)
+                    continue
+
+                trial_qualified, _ = evaluate_alpha_metrics(trial_metrics, self.config)
+                trial_reward = calculate_rl_reward(trial_metrics, trial_qualified)
+
+                log.info("Arm [%s] Result: Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%, Ret=%.2f%% -> Reward=%.2f (Qualified=%s)",
+                         action_type, trial_metrics.sharpe, trial_metrics.fitness, trial_metrics.turnover * 100,
+                         trial_metrics.annualized_return * 100, trial_reward, trial_qualified)
+
+                step_record = DiagnosticStep(
+                    step=len(history),
+                    action_type=action_type,
+                    expression=trial_expr,
+                    settings=trial_settings,
+                    metrics=trial_metrics,
+                    reward=trial_reward,
+                    description=action_desc,
                 )
-                action_type = "GRID_REFINEMENT"
-                action_desc = "Standard parameter calibration (decay=15, subindustry)."
+                history.append(step_record)
 
-            # Avoid re-running exact same expression and settings
-            if trial_expr == current_expr and trial_settings == current_settings:
-                trial_settings = SimSettings(
-                    universe=current_settings.universe,
-                    delay=current_settings.delay,
-                    decay=current_settings.decay + 4,
-                    neutralization="SUBINDUSTRY",
+                trial_candidate = OptionCandidate(
+                    expression=trial_expr,
+                    archetype_name=candidate.archetype_name,
+                    hypothesis=f"{candidate.hypothesis} [Optimized: {action_type}]",
+                    generation_source="diagnostic_optimizer",
                 )
-                action_type = "DECAY_NUDGE"
-                action_desc = f"Nudged decay from {current_settings.decay} to {trial_settings.decay}"
+                self.store.record_evaluated_candidate(
+                    trial_candidate,
+                    stage=f"DIAG_R{round_idx}_{action_type}",
+                    status="QUALIFIED" if trial_qualified else "OPTIMIZED",
+                    metrics=trial_metrics,
+                )
+                self.store.record_learning_memory(
+                    trial_candidate,
+                    trial_metrics,
+                    reward=trial_reward,
+                    optimization_steps=round_idx,
+                    parent_expression=candidate.expression,
+                    mutation_type=action_type,
+                    status="QUALIFIED" if trial_qualified else "OPTIMIZED",
+                )
 
-            log.info("Action [%s]: %s", action_type, action_desc)
-            log.info("Testing: %s (Decay=%d, Neut=%s)", trial_expr[:60], trial_settings.decay, trial_settings.neutralization)
+                if trial_reward > best_reward or trial_qualified:
+                    best_reward = trial_reward
+                    best_cand = trial_candidate
+                    best_settings = trial_settings
+                    best_metrics = trial_metrics
+                    current_expr = trial_expr
+                    current_settings = trial_settings
+                    log.info("[*] NEW BEST ALPHA ACHIEVED! Reward=%.2f", best_reward)
 
-            # Execute simulation on WorldQuant BRAIN
-            trial_metrics = await self.client.simulate_one(trial_expr, trial_settings)
+                if trial_qualified:
+                    round_qualified = True
 
-            if not trial_metrics.is_valid:
-                log.warning("Trial simulation returned invalid metrics. Skipping step.")
-                continue
-
-            trial_qualified, _ = evaluate_alpha_metrics(trial_metrics, self.config)
-            trial_reward = calculate_rl_reward(trial_metrics, trial_qualified)
-
-            log.info("Result: Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%, Ret=%.2f%% -> Reward=%.2f",
-                     trial_metrics.sharpe, trial_metrics.fitness, trial_metrics.turnover * 100,
-                     trial_metrics.annualized_return * 100, trial_reward)
-
-            step_record = DiagnosticStep(
-                step=step_idx,
-                action_type=action_type,
-                expression=trial_expr,
-                settings=trial_settings,
-                metrics=trial_metrics,
-                reward=trial_reward,
-                description=action_desc,
-            )
-            history.append(step_record)
-
-            # Record candidate in evaluations history & learning memory
-            trial_candidate = OptionCandidate(
-                expression=trial_expr,
-                archetype_name=candidate.archetype_name,
-                hypothesis=f"{candidate.hypothesis} [Optimized: {action_type}]",
-                generation_source="diagnostic_optimizer",
-            )
-            self.store.record_evaluated_candidate(
-                trial_candidate,
-                stage=f"DIAG_STEP_{step_idx}",
-                status="QUALIFIED" if trial_qualified else "OPTIMIZED",
-                metrics=trial_metrics,
-            )
-            self.store.record_learning_memory(
-                trial_candidate,
-                trial_metrics,
-                reward=trial_reward,
-                optimization_steps=step_idx,
-                parent_expression=candidate.expression,
-                mutation_type=action_type,
-                status="QUALIFIED" if trial_qualified else "OPTIMIZED",
-            )
-
-            # Update best state
-            if trial_reward > best_reward or trial_qualified:
-                best_reward = trial_reward
-                best_cand = trial_candidate
-                best_settings = trial_settings
-                best_metrics = trial_metrics
-                current_expr = trial_expr
-                current_settings = trial_settings
-                log.info("[*] NEW BEST ALPHA ACHIEVED! Reward=%.2f", best_reward)
-
-            if trial_qualified:
-                log.info("[SUCCESS] Candidate fully passed all criteria in step %d!", step_idx)
+            if round_qualified:
+                log.info("[SUCCESS] Candidate fully passed all criteria in round %d!", round_idx)
                 break
 
         final_passed, final_reason = evaluate_alpha_metrics(best_metrics, self.config)

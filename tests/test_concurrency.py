@@ -1,0 +1,134 @@
+"""
+Unit tests for Concurrency, Slot Saturation, and Multi-Arm Diagnostic Optimizer.
+"""
+from __future__ import annotations
+
+import asyncio
+from unittest.mock import AsyncMock, MagicMock
+import pytest
+
+from brain_options.config import OptionsConfig
+from brain_options.core.client import BrainClient, SimMetrics, SimSettings
+from brain_options.core.optimizer import DiagnosticAlphaOptimizer
+from brain_options.specialist.templates import OptionCandidate
+from brain_options.store.store import OptionsStore
+
+
+@pytest.mark.asyncio
+async def test_brain_client_semaphore_concurrency():
+    """Verify that BrainClient semaphore strictly caps concurrent simulations at max_concurrent_sims."""
+    max_sims = 3
+    client = BrainClient("user", "pass", max_concurrent_sims=max_sims)
+
+    in_flight_peaks = []
+    current_in_flight = 0
+
+    async def mock_simulate(payload):
+        nonlocal current_in_flight
+        current_in_flight += 1
+        in_flight_peaks.append(current_in_flight)
+        await asyncio.sleep(0.05)
+        current_in_flight -= 1
+        return {"status": "COMPLETE", "is": {"sharpe": 1.2, "fitness": 1.0, "turnover": 0.25}}
+
+    mock_session = MagicMock()
+    mock_session.simulate = AsyncMock(side_effect=mock_simulate)
+    client._session = mock_session
+
+    settings = SimSettings()
+    # Launch 9 simulation requests concurrently
+    tasks = [
+        client.simulate_one(f"group_neutralize(rank(ts_decay_linear(x_{i}, 5)), subindustry)", settings)
+        for i in range(9)
+    ]
+    results = await asyncio.gather(*tasks)
+
+    assert len(results) == 9
+    assert all(r.is_valid for r in results)
+    assert max(in_flight_peaks) <= max_sims
+    assert client.active_simulations == 0
+
+
+@pytest.mark.asyncio
+async def test_multi_arm_diagnostic_optimizer():
+    """Verify that DiagnosticAlphaOptimizer fires multi-arm diagnostic trials concurrently."""
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        stage0_min_sharpe=0.35,
+        stage0_min_fitness=0.20,
+        filter_min_sharpe=1.25,
+        filter_min_fitness=1.00,
+        filter_max_turnover=0.70,
+        filter_min_turnover=0.01,
+    )
+
+    client = BrainClient("test", "test", max_concurrent_sims=3)
+    mock_store = MagicMock(spec=OptionsStore)
+
+    # Candidate with high turnover deficit
+    candidate = OptionCandidate(
+        expression="group_neutralize(rank(ts_delta(implied_volatility_mean_skew_20, 5)), sector)",
+        archetype_name="Volatility Skew",
+        hypothesis="High turnover skew test",
+        generation_source="unit_test",
+    )
+    initial_metrics = SimMetrics(
+        alpha_id="INIT1",
+        sharpe=1.35,
+        fitness=0.60,
+        turnover=0.55,
+        annualized_return=0.08,
+        max_drawdown=0.05,
+        margin=0.001,
+        status="COMPLETE",
+        raw_response={},
+    )
+    base_settings = SimSettings()
+
+    sim_calls = []
+
+    async def mock_simulate(expr, settings):
+        sim_calls.append((expr, settings.decay, settings.neutralization))
+        # Return passing metrics if smoothed with decay 14
+        if "ts_decay_linear" in expr and settings.decay >= 14:
+            return SimMetrics(
+                alpha_id="QUALIFIED1",
+                sharpe=1.45,
+                fitness=1.20,
+                turnover=0.22,
+                annualized_return=0.10,
+                max_drawdown=0.03,
+                margin=0.002,
+                status="COMPLETE",
+                raw_response={},
+            )
+        return SimMetrics(
+            alpha_id="TRIAL_FAIL",
+            sharpe=0.90,
+            fitness=0.50,
+            turnover=0.45,
+            annualized_return=0.04,
+            max_drawdown=0.07,
+            margin=0.001,
+            status="COMPLETE",
+            raw_response={},
+        )
+
+    client.simulate_one = AsyncMock(side_effect=mock_simulate)
+
+    optimizer = DiagnosticAlphaOptimizer(client, mock_store, config)
+    best_cand, best_settings, best_metrics, passed_filter, history = await optimizer.optimize(
+        candidate=candidate,
+        base_settings=base_settings,
+        initial_metrics=initial_metrics,
+        max_steps=2,
+    )
+
+    # Multi-arm optimization should fire 3 parallel arms in round 1 and immediately qualify
+    assert len(sim_calls) == 3
+    assert passed_filter is True
+    assert best_metrics.sharpe >= 1.25
+    assert best_metrics.fitness >= 1.00
+    assert best_metrics.turnover <= 0.70
+    assert "ts_decay_linear" in best_cand.expression

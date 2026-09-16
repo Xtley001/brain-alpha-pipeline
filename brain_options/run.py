@@ -144,17 +144,19 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.", len(top_exemplars))
     log.info("Generating next batch of %d options candidates...", batch_size)
 
-    candidates = generator.get_next_batch(
-        target_count=batch_size,
+    # Initial candidate batch generation
+    initial_candidates = generator.get_next_batch(
+        target_count=min(batch_size, 10),
         template_ratio=0.3,
         top_exemplars=top_exemplars,
         archetype_summary=archetype_summary,
     )
-    log.info("Generated %d fresh options candidates.", len(candidates))
+    log.info("Generated initial %d fresh options candidates (Batch Target: %d, Budget: %ds).",
+             len(initial_candidates), batch_size, config.run_time_budget_seconds)
 
     if dry_run:
         log.info("DRY RUN MODE: Listing generated candidates without running simulations:")
-        for idx, c in enumerate(candidates, 1):
+        for idx, c in enumerate(initial_candidates, 1):
             log.info("  [%d] (%s) %s -> %s", idx, c.generation_source, c.archetype_name, c.expression)
         return 0
 
@@ -171,22 +173,69 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     sweep_engine = SweepEngine(client, config)
 
     passed_count = 0
+    total_evaluated = 0
     start_time = time.time()
+    queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
 
-    for idx, cand in enumerate(candidates, 1):
-        elapsed = time.time() - start_time
-        if elapsed > config.run_time_budget_seconds:
-            log.warning("Run time budget (%ds) reached. Stopping batch.", config.run_time_budget_seconds)
-            break
+    for cand in initial_candidates:
+        queue.put_nowait(cand)
 
-        log.info("\n[%d/%d] Starting processing...", idx, len(candidates))
-        passed = await run_candidate(cand, sweep_engine, client, store, config)
-        if passed:
-            passed_count += 1
+    async def worker(worker_id: int):
+        nonlocal passed_count, total_evaluated
+        while True:
+            elapsed = time.time() - start_time
+            if elapsed > config.run_time_budget_seconds:
+                log.warning("Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
+                break
 
-    log.info("\nBatch completed: %d/%d passed all criteria.", passed_count, len(candidates))
+            if total_evaluated >= batch_size and queue.empty():
+                log.info("Worker %d: Batch evaluation target (%d) reached.", worker_id, batch_size)
+                break
+
+            try:
+                cand = queue.get_nowait()
+            except asyncio.QueueEmpty:
+                # If queue is empty, budget remains, and target not reached, generate next chunk
+                if total_evaluated < batch_size and (config.run_time_budget_seconds - elapsed > 60):
+                    fetch_n = min(6, batch_size - total_evaluated)
+                    log.info("Worker %d: Queue empty. Generating %d more candidates...", worker_id, fetch_n)
+                    try:
+                        fresh_cands = generator.get_next_batch(
+                            target_count=fetch_n,
+                            template_ratio=0.3,
+                            top_exemplars=top_exemplars,
+                            archetype_summary=archetype_summary,
+                        )
+                        for fc in fresh_cands:
+                            queue.put_nowait(fc)
+                        cand = queue.get_nowait()
+                    except Exception as gen_err:
+                        log.warning("Worker %d: Candidate generation encountered error: %s", worker_id, gen_err)
+                        break
+                else:
+                    break
+
+            total_evaluated += 1
+            log.info("\n[Worker %d | Cand %d/%d] Starting processing [%s]: %s",
+                     worker_id, total_evaluated, batch_size, cand.archetype_name, cand.expression[:60])
+            try:
+                passed = await run_candidate(cand, sweep_engine, client, store, config)
+                if passed:
+                    passed_count += 1
+            except Exception as e:
+                log.error("Worker %d encountered error processing candidate %s: %s",
+                          worker_id, cand.expression[:50], e, exc_info=True)
+            finally:
+                queue.task_done()
+
+    num_workers = max(1, config.brain_max_concurrent_sims)
+    log.info("Starting %d concurrent candidate workers to fully saturate BRAIN slots...", num_workers)
+    workers = [asyncio.create_task(worker(i + 1)) for i in range(num_workers)]
+    await asyncio.gather(*workers)
+
+    log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
     stats = store.get_options_stats()
-    send_telegram_batch_summary(passed_count, len(candidates), config, stats=stats)
+    send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
     return passed_count
 
 
