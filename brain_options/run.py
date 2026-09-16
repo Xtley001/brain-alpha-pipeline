@@ -12,7 +12,6 @@ import time
 
 from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient, SimMetrics, SimSettings
-from brain_options.core.correlation import check_pool_correlation
 from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
     send_telegram_alert,
@@ -91,28 +90,16 @@ async def run_candidate(
         )
         return False
 
-    log.info("[+] QUALIFIED FOR POOL! Checking correlation...")
+    log.info("[+] QUALIFIED FOR POOL!")
 
-    # 3. Correlation Gate
-    pnl_series: dict[str, float] = {}
+    # 3. Save to Store & Alert
     max_corr = 0.0
-    if best_metrics.alpha_id:
-        pnl_series = await client.get_alpha_pnl(best_metrics.alpha_id)
-        pool_pnl = store.load_pool_pnl_series()
-        passed_corr, max_corr = check_pool_correlation(
-            pnl_series, pool_pnl, max_threshold=config.max_pool_correlation
-        )
-        if not passed_corr:
-            log.warning("Candidate rejected by correlation gate (MaxCorr=%.2f >= %.2f)", max_corr, config.max_pool_correlation)
-            return False
-
-    # 4. Success! Save to Store & Alert
+    pnl_series: dict[str, float] = {}
     log.info(
-        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.2f",
+        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%",
         best_metrics.sharpe,
         best_metrics.fitness,
         best_metrics.turnover * 100,
-        max_corr,
     )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
     send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
