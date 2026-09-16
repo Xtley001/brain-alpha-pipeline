@@ -46,6 +46,7 @@ async def run_candidate(
     client: BrainClient,
     store: OptionsStore,
     config: OptionsConfig,
+    force_optimize: bool = False,
 ) -> bool:
     """Executes the screening, diagnostic optimization, filtering, and alert pipeline for one candidate."""
     log.info("=" * 70)
@@ -61,7 +62,9 @@ async def run_candidate(
         metrics=s0_metrics,
     )
 
-    if not s0_passed:
+    should_proceed = s0_passed or (force_optimize and s0_metrics.is_valid)
+
+    if not should_proceed:
         log.info(
             "Candidate rejected at Stage 0 (Sharpe=%.2f, Fitness=%.2f)",
             s0_metrics.sharpe,
@@ -69,7 +72,7 @@ async def run_candidate(
         )
         return False
 
-    log.info("[*] STAGE 0 PASSED! Proceeding to Closed-Loop Diagnostic Optimization...")
+    log.info("[*] STAGE 0 PASSED (or force-optimized)! Proceeding to Closed-Loop Diagnostic Optimization...")
 
     # 2. Closed-Loop Diagnostic Optimization Loop
     optimizer = DiagnosticAlphaOptimizer(client, store, config)
@@ -259,7 +262,8 @@ async def run_retry_stage0_batch(
         password=config.brain_password,
         max_concurrent_sims=config.brain_max_concurrent_sims,
     )
-    sweep_engine = SweepEngine(client, store, config)
+    client.authenticate()
+    sweep_engine = SweepEngine(client, config)
 
     passed_count = 0
     total_evaluated = 0
@@ -270,7 +274,7 @@ async def run_retry_stage0_batch(
         nonlocal passed_count, total_evaluated
         async with semaphore:
             try:
-                qualified = await run_candidate(c, sweep_engine, client, store, config)
+                qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True)
                 total_evaluated += 1
                 if qualified:
                     passed_count += 1

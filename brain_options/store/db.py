@@ -392,16 +392,21 @@ class OptionsDatabase:
             return stats
 
     def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
-        """Loads distinct candidates that passed Stage 0 screening for re-optimization."""
+        """Loads distinct candidates that passed Stage 0 screening for re-optimization, ordered by highest Sharpe & Fitness."""
         if not self.database_url:
             return []
         sql = """
-            SELECT DISTINCT ON (expression)
-                expression, archetype, COALESCE(source, 'stage0_pass') as source,
-                sharpe, fitness, turnover
-            FROM options_evaluations
-            WHERE (stage = 'STAGE0' AND status = 'PASS') OR (sharpe >= 0.35 AND fitness >= 0.20)
-            ORDER BY expression, sharpe DESC
+            SELECT expression, archetype, source, sharpe, fitness, turnover
+            FROM (
+                SELECT DISTINCT ON (expression)
+                    expression, archetype, COALESCE(source, 'stage0_pass') as source,
+                    sharpe, fitness, turnover
+                FROM options_evaluations
+                WHERE ((stage = 'STAGE0' AND status = 'PASS') OR (sharpe >= 0.35 AND fitness >= 0.20))
+                  AND expression NOT IN (SELECT expression FROM options_alphas)
+                ORDER BY expression, sharpe DESC
+            ) sub
+            ORDER BY sharpe DESC, fitness DESC
             LIMIT %s;
         """
         candidates: List[OptionCandidate] = []
