@@ -76,6 +76,21 @@ def test_expression_transformation_operators():
     assert "trade_when(abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.38," in gated_conv
     assert ", -1)" in gated_conv
 
-    # Update existing threshold
-    updated_conv = DiagnosticAlphaOptimizer.inject_conviction_gate(gated_conv, threshold=0.42)
-    assert "trade_when(abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.42," in updated_conv
+    # Update existing threshold specifically without corrupting other inequalities
+    expr_multi = "trade_when((opt_vol > 0.20) && (abs(rank(X) - 0.5) > 0.35), X, -1)"
+    updated_multi = DiagnosticAlphaOptimizer.inject_conviction_gate(expr_multi, threshold=0.42)
+    assert "opt_vol > 0.20" in updated_multi
+    assert "abs(rank(X) - 0.5) > 0.42" in updated_multi
+
+    # 10. Volume gating combined with existing trade_when condition
+    gated_tw = DiagnosticAlphaOptimizer.inject_volume_gating(gated_conv)
+    assert "trade_when((volume > adv20) && (abs(rank(ts_decay_linear(X, 8)) - 0.5) > 0.38)," in gated_tw
+
+    # 11. Neutralization upgrade on un-neutralized and case-insensitive expressions
+    expr_none = "ts_zscore(X, 10)"
+    upgraded_none = DiagnosticAlphaOptimizer.upgrade_neutralization(expr_none, "subindustry")
+    assert upgraded_none == "group_neutralize(rank(ts_zscore(X, 10)), subindustry)"
+
+    expr_cap = "group_neutralize(rank(X), SECTOR)"
+    upgraded_cap = DiagnosticAlphaOptimizer.upgrade_neutralization(expr_cap, "subindustry")
+    assert upgraded_cap == "group_neutralize(rank(X), subindustry)"

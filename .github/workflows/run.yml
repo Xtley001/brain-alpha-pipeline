@@ -74,8 +74,8 @@ jobs:
           git add -f brain_options/data/ || true
           if ! git diff --staged --quiet; then
             git commit -m "chore(data): record evaluated candidates [skip ci]"
-            git pull --rebase origin main || true
-            git push || echo "Git push skipped or failed"
+            git pull --rebase -X ours origin main || (git rebase --abort && echo "Rebase aborted") || true
+            git push origin main || echo "Git push skipped or failed"
           else
             echo "No data changes to commit."
           fi

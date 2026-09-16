@@ -96,75 +96,130 @@ class DiagnosticAlphaOptimizer:
     # -------------------------------------------------------------------------
 
     @staticmethod
-    def wrap_decay_linear(expr: str, window: int = 15) -> str:
+    def _parse_call_args(expr: str, func_name: str) -> Optional[Tuple[int, int, List[str]]]:
+        """Balanced-parenthesis parser returning start_idx, end_idx, and arguments list for func_name."""
+        tag = func_name + "("
+        idx = expr.find(tag)
+        if idx == -1:
+            return None
+        start_paren = idx + len(tag) - 1
+        depth = 0
+        comma_indices: List[int] = []
+        end_paren = -1
+        for i in range(start_paren, len(expr)):
+            ch = expr[i]
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    end_paren = i
+                    break
+            elif ch == "," and depth == 1:
+                comma_indices.append(i)
+        if end_paren == -1:
+            return None
+        args: List[str] = []
+        prev = start_paren + 1
+        for c_idx in comma_indices:
+            args.append(expr[prev:c_idx].strip())
+            prev = c_idx + 1
+        args.append(expr[prev:end_paren].strip())
+        return idx, end_paren, args
+
+    @classmethod
+    def wrap_decay_linear(cls, expr: str, window: int = 15) -> str:
         """
         Wraps the inner ranking or signal with ts_decay_linear to reduce turnover
         and boost Fitness without altering cross-sectional logic.
         """
         expr = expr.strip()
-        m = re.search(r"ts_decay_linear\((.+),\s*(\d+)\)", expr)
-        if m:
-            inner, old_w = m.group(1), m.group(2)
-            new_w = max(window, min(30, int(old_w) + 7))
-            return expr.replace(m.group(0), f"ts_decay_linear({inner}, {new_w})")
+        parsed = cls._parse_call_args(expr, "ts_decay_linear")
+        if parsed and len(parsed[2]) == 2:
+            start_idx, end_idx, (inner, old_w_str) = parsed
+            try:
+                old_w = int(old_w_str)
+                new_w = max(window, min(30, old_w + 7))
+                return expr[:start_idx] + f"ts_decay_linear({inner}, {new_w})" + expr[end_idx + 1:]
+            except ValueError:
+                pass
 
-        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
-        if m_gn:
-            inner, group = m_gn.group(1), m_gn.group(2)
-            return f"group_neutralize(rank(ts_decay_linear({inner}, {window})), {group})"
+        parsed_gn = cls._parse_call_args(expr, "group_neutralize")
+        if parsed_gn and len(parsed_gn[2]) == 2 and parsed_gn[0] == 0 and parsed_gn[1] == len(expr) - 1:
+            inner_gn, group = parsed_gn[2]
+            parsed_rank = cls._parse_call_args(inner_gn, "rank")
+            if parsed_rank and len(parsed_rank[2]) == 1 and parsed_rank[0] == 0:
+                inner_signal = parsed_rank[2][0]
+                return f"group_neutralize(rank(ts_decay_linear({inner_signal}, {window})), {group})"
 
-        m_tw = re.search(r"^trade_when\((.+),\s*group_neutralize\(rank\((.+)\),\s*([a-z_]+)\),\s*(-1)\)$", expr)
-        if m_tw:
-            cond, inner, group, exit_val = m_tw.group(1), m_tw.group(2), m_tw.group(3), m_tw.group(4)
-            return f"trade_when({cond}, group_neutralize(rank(ts_decay_linear({inner}, {window})), {group}), {exit_val})"
+        parsed_tw = cls._parse_call_args(expr, "trade_when")
+        if parsed_tw and len(parsed_tw[2]) == 3 and parsed_tw[0] == 0 and parsed_tw[1] == len(expr) - 1:
+            cond, body, exit_val = parsed_tw[2]
+            parsed_gn = cls._parse_call_args(body, "group_neutralize")
+            if parsed_gn and len(parsed_gn[2]) == 2:
+                inner_gn, group = parsed_gn[2]
+                parsed_rank = cls._parse_call_args(inner_gn, "rank")
+                if parsed_rank and len(parsed_rank[2]) == 1:
+                    inner_signal = parsed_rank[2][0]
+                    return f"trade_when({cond}, group_neutralize(rank(ts_decay_linear({inner_signal}, {window})), {group}), {exit_val})"
 
         return f"group_neutralize(rank(ts_decay_linear({expr}, {window})), subindustry)"
 
-    @staticmethod
-    def wrap_decay_exp(expr: str, window: int = 12, factor: float = 0.20) -> str:
+    @classmethod
+    def wrap_decay_exp(cls, expr: str, window: int = 12, factor: float = 0.20) -> str:
         """
         Wraps or replaces linear decay with ts_decay_exp_window(x, d, factor)
         to exponentially weight recent options signals and sharply reduce churn.
         """
         expr = expr.strip()
-        m_exp = re.search(r"ts_decay_exp_window\((.+),\s*(\d+),\s*([0-9\.]+)\)", expr)
-        if m_exp:
-            inner, old_w, old_f = m_exp.group(1), m_exp.group(2), m_exp.group(3)
-            return expr.replace(m_exp.group(0), f"ts_decay_exp_window({inner}, {min(28, int(old_w) + 5)}, {old_f})")
+        parsed_exp = cls._parse_call_args(expr, "ts_decay_exp_window")
+        if parsed_exp and len(parsed_exp[2]) == 3:
+            start_idx, end_idx, (inner, old_w_str, old_f) = parsed_exp
+            try:
+                old_w = int(old_w_str)
+                return expr[:start_idx] + f"ts_decay_exp_window({inner}, {min(28, old_w + 5)}, {old_f})" + expr[end_idx + 1:]
+            except ValueError:
+                pass
 
-        m_lin = re.search(r"ts_decay_linear\((.+),\s*(\d+)\)", expr)
-        if m_lin:
-            inner, old_w = m_lin.group(1), m_lin.group(2)
-            return expr.replace(m_lin.group(0), f"ts_decay_exp_window({inner}, {old_w}, {factor})")
+        parsed_lin = cls._parse_call_args(expr, "ts_decay_linear")
+        if parsed_lin and len(parsed_lin[2]) == 2:
+            start_idx, end_idx, (inner, old_w_str) = parsed_lin
+            return expr[:start_idx] + f"ts_decay_exp_window({inner}, {old_w_str}, {factor})" + expr[end_idx + 1:]
 
-        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
-        if m_gn:
-            inner, group = m_gn.group(1), m_gn.group(2)
-            return f"group_neutralize(rank(ts_decay_exp_window({inner}, {window}, {factor})), {group})"
+        parsed_gn = cls._parse_call_args(expr, "group_neutralize")
+        if parsed_gn and len(parsed_gn[2]) == 2 and parsed_gn[0] == 0 and parsed_gn[1] == len(expr) - 1:
+            inner_gn, group = parsed_gn[2]
+            parsed_rank = cls._parse_call_args(inner_gn, "rank")
+            if parsed_rank and len(parsed_rank[2]) == 1:
+                inner_signal = parsed_rank[2][0]
+                return f"group_neutralize(rank(ts_decay_exp_window({inner_signal}, {window}, {factor})), {group})"
 
         return f"group_neutralize(rank(ts_decay_exp_window({expr}, {window}, {factor})), subindustry)"
 
-    @staticmethod
-    def wrap_zscore(expr: str, window: int = 20) -> str:
+    @classmethod
+    def wrap_zscore(cls, expr: str, window: int = 20) -> str:
         """
         Replaces fast delta with ts_zscore(x, d) or normalizes signal
         to remove non-stationary volatility drift and extend holding periods.
         """
         expr = expr.strip()
-        m_delta = re.search(r"ts_delta\((.+),\s*(\d+)\)", expr)
-        if m_delta:
-            inner = m_delta.group(1)
-            return expr.replace(m_delta.group(0), f"ts_zscore({inner}, {window})")
+        parsed_delta = cls._parse_call_args(expr, "ts_delta")
+        if parsed_delta and len(parsed_delta[2]) == 2:
+            start_idx, end_idx, (inner, _) = parsed_delta
+            return expr[:start_idx] + f"ts_zscore({inner}, {window})" + expr[end_idx + 1:]
 
-        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
-        if m_gn:
-            inner, group = m_gn.group(1), m_gn.group(2)
-            return f"group_neutralize(rank(ts_zscore({inner}, {window})), {group})"
+        parsed_gn = cls._parse_call_args(expr, "group_neutralize")
+        if parsed_gn and len(parsed_gn[2]) == 2 and parsed_gn[0] == 0 and parsed_gn[1] == len(expr) - 1:
+            inner_gn, group = parsed_gn[2]
+            parsed_rank = cls._parse_call_args(inner_gn, "rank")
+            if parsed_rank and len(parsed_rank[2]) == 1:
+                inner_signal = parsed_rank[2][0]
+                return f"group_neutralize(rank(ts_zscore({inner_signal}, {window})), {group})"
 
         return f"ts_zscore({expr}, {window})"
 
-    @staticmethod
-    def inject_conviction_gate(expr: str, threshold: float = 0.38) -> str:
+    @classmethod
+    def inject_conviction_gate(cls, expr: str, threshold: float = 0.38) -> str:
         """
         Wraps expression in trade_when(abs(rank(x) - 0.5) > threshold, signal, -1).
         The exit condition '-1' directs WorldQuant BRAIN to maintain prior positions
@@ -172,30 +227,42 @@ class DiagnosticAlphaOptimizer:
         """
         expr = expr.strip()
         if "trade_when" in expr:
-            # Update existing rank conviction threshold if present
+            # Update existing rank conviction threshold specifically if present
             if "abs(rank(" in expr and ") - 0.5) >" in expr:
-                return re.sub(r">\s*0\.\d+", f"> {threshold:.2f}", expr)
+                return re.sub(r"(abs\(rank\(.+?\)\s*-\s*0\.5\)\s*>\s*)0\.\d+", rf"\g<1>{threshold:.2f}", expr)
             return expr
 
-        m_gn = re.search(r"^group_neutralize\(rank\((.+)\),\s*([a-z_]+)\)$", expr)
-        if m_gn:
-            inner = m_gn.group(1)
-            return f"trade_when(abs(rank({inner}) - 0.5) > {threshold:.2f}, {expr}, -1)"
+        parsed_gn = cls._parse_call_args(expr, "group_neutralize")
+        if parsed_gn and len(parsed_gn[2]) == 2 and parsed_gn[0] == 0 and parsed_gn[1] == len(expr) - 1:
+            inner_gn, group = parsed_gn[2]
+            parsed_rank = cls._parse_call_args(inner_gn, "rank")
+            if parsed_rank and len(parsed_rank[2]) == 1 and parsed_rank[0] == 0 and parsed_rank[1] == len(inner_gn) - 1:
+                inner_signal = parsed_rank[2][0]
+                return f"trade_when(abs(rank({inner_signal}) - 0.5) > {threshold:.2f}, {expr}, -1)"
 
         return f"trade_when(abs(rank({expr}) - 0.5) > {threshold:.2f}, {expr}, -1)"
 
     @staticmethod
     def upgrade_neutralization(expr: str, target_group: str = "subindustry") -> str:
         """Upgrades coarse group neutralization (e.g. sector) to granular subindustry."""
-        new_expr = re.sub(r",\s*(sector|industry|market)\)", f", {target_group})", expr)
-        return new_expr
+        expr_clean = expr.strip()
+        if re.search(r",\s*(sector|industry|market)\)", expr_clean, flags=re.IGNORECASE):
+            return re.sub(r",\s*(sector|industry|market)\)", f", {target_group})", expr_clean, flags=re.IGNORECASE)
+        if "group_neutralize" not in expr_clean.lower():
+            return f"group_neutralize(rank({expr_clean}), {target_group})"
+        return expr_clean
 
-    @staticmethod
-    def inject_volume_gating(expr: str) -> str:
+    @classmethod
+    def inject_volume_gating(cls, expr: str) -> str:
         """Wraps expression in trade_when(volume > adv20, ..., -1) to eliminate Leland drag."""
-        if "trade_when" in expr:
-            return expr
-        return f"trade_when(volume > adv20, {expr}, -1)"
+        expr_clean = expr.strip()
+        parsed_tw = cls._parse_call_args(expr_clean, "trade_when")
+        if parsed_tw and len(parsed_tw[2]) == 3 and parsed_tw[0] == 0 and parsed_tw[1] == len(expr_clean) - 1:
+            cond, body, exit_val = parsed_tw[2]
+            if "volume > adv20" in cond:
+                return expr_clean
+            return f"trade_when((volume > adv20) && ({cond}), {body}, {exit_val})"
+        return f"trade_when(volume > adv20, {expr_clean}, -1)"
 
     @staticmethod
     def shift_tenor(expr: str) -> str:
@@ -212,14 +279,19 @@ class DiagnosticAlphaOptimizer:
                 return re.sub(pattern, f"_{new_t}\\2", expr)
         return expr
 
-    @staticmethod
-    def adjust_delta_window(expr: str, target_window: int = 20) -> str:
+    @classmethod
+    def adjust_delta_window(cls, expr: str, target_window: int = 20) -> str:
         """Increases ts_delta window (e.g. 5 -> 20) to capture monthly momentum and slow down churning."""
-        m = re.search(r"ts_delta\((.+),\s*(\d+)\)", expr)
-        if m:
-            inner, old_w = m.group(1), int(m.group(2))
-            new_w = target_window if old_w < target_window else old_w + 10
-            return expr.replace(m.group(0), f"ts_delta({inner}, {new_w})")
+        expr = expr.strip()
+        parsed = cls._parse_call_args(expr, "ts_delta")
+        if parsed and len(parsed[2]) == 2:
+            start_idx, end_idx, (inner, old_w_str) = parsed
+            try:
+                old_w = int(old_w_str)
+                new_w = target_window if old_w < target_window else old_w + 10
+                return expr[:start_idx] + f"ts_delta({inner}, {new_w})" + expr[end_idx + 1:]
+            except ValueError:
+                pass
         return expr
 
     # -------------------------------------------------------------------------

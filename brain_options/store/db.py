@@ -92,7 +92,10 @@ class OptionsDatabase:
         if not self.database_url:
             return None
         import psycopg
-        return psycopg.connect(self.database_url)
+        url = self.database_url
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql://", 1)
+        return psycopg.connect(url)
 
     def _init_schema(self):
         try:
@@ -288,11 +291,16 @@ class OptionsDatabase:
 
                     # If learning memory is fresh/empty, bootstrap from options_evaluations
                     eval_sql = """
-                        SELECT expression, archetype, 'Historical evaluation' as hypothesis, sharpe, fitness, turnover, returns,
-                               (sharpe + 1.5 * LEAST(fitness, 2.0)) as reward
-                        FROM options_evaluations
-                        WHERE sharpe >= %s AND status = 'PASS' OR sharpe >= 1.0
-                        ORDER BY sharpe DESC
+                        SELECT expression, archetype, hypothesis, sharpe, fitness, turnover, returns, reward
+                        FROM (
+                            SELECT DISTINCT ON (expression)
+                                expression, archetype, 'Historical evaluation' as hypothesis, sharpe, fitness, turnover, returns,
+                                (sharpe + 1.5 * LEAST(fitness, 2.0)) as reward
+                            FROM options_evaluations
+                            WHERE sharpe >= %s AND (status = 'PASS' OR status = 'QUALIFIED')
+                            ORDER BY expression, sharpe DESC
+                        ) sub
+                        ORDER BY sharpe DESC, fitness DESC
                         LIMIT %s;
                     """
                     cur.execute(eval_sql, (min_sharpe, limit))
@@ -403,10 +411,11 @@ class OptionsDatabase:
                     sharpe, fitness, turnover
                 FROM options_evaluations
                 WHERE ((stage = 'STAGE0' AND status = 'PASS') OR (sharpe >= 0.35 AND fitness >= 0.20))
-                  AND expression NOT IN (SELECT expression FROM options_alphas)
+                  AND expression NOT IN (SELECT expression FROM options_alphas WHERE expression IS NOT NULL)
                   AND expression NOT IN (
                       SELECT expression FROM options_evaluations
-                      WHERE stage = 'RETRY_COMPLETED' OR LEFT(stage, 5) = 'DIAG_' OR status IN ('OPTIMIZED', 'EXHAUSTED', 'RETRY_COMPLETED')
+                      WHERE expression IS NOT NULL
+                        AND (stage = 'RETRY_COMPLETED' OR LEFT(stage, 5) = 'DIAG_' OR status IN ('OPTIMIZED', 'EXHAUSTED', 'RETRY_COMPLETED'))
                   )
                 ORDER BY expression, sharpe DESC
             ) sub

@@ -210,3 +210,66 @@ def test_batch_summary_telegram_notification():
         assert "• Qualified in Pool: `12`" in text
 
 
+@pytest.mark.asyncio
+async def test_run_candidate_pool_correlation_gate():
+    """Verify that run_candidate rejects an alpha if its correlation against the pool is >= max_threshold."""
+    from brain_options.run import run_candidate
+    from brain_options.core.sweep import SweepEngine
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        stage0_min_sharpe=0.35,
+        stage0_min_fitness=0.20,
+        filter_min_sharpe=1.25,
+        filter_min_fitness=1.00,
+        filter_max_turnover=0.70,
+        filter_min_turnover=0.01,
+        max_pool_correlation=0.70,
+    )
+
+    client = BrainClient("test", "test")
+    mock_sweep = MagicMock(spec=SweepEngine)
+    mock_store = MagicMock(spec=OptionsStore)
+
+    cand = OptionCandidate("group_neutralize(rank(X), subindustry)", "TestArch", "Hyp", "unit_test")
+    passing_metrics = SimMetrics(
+        alpha_id="ALPHA_CORR_TEST",
+        sharpe=1.60,
+        fitness=1.20,
+        turnover=0.15,
+        annualized_return=0.10,
+        max_drawdown=0.03,
+        margin=0.002,
+        status="COMPLETE",
+        raw_response={},
+    )
+    s0_settings = SimSettings()
+    mock_sweep.stage0_screen = AsyncMock(return_value=(True, s0_settings, passing_metrics))
+
+    # Mock optimizer to return passing metrics
+    with pytest.MonkeyPatch.context() as mp:
+        mock_opt = MagicMock()
+        mock_opt.optimize = AsyncMock(return_value=(cand, s0_settings, passing_metrics, True, []))
+        mp.setattr("brain_options.run.DiagnosticAlphaOptimizer", lambda c, s, cfg: mock_opt)
+
+        # Dates for identical return series -> correlation = 1.0
+        dates = [f"2025-01-{i:02d}" for i in range(1, 35)]
+        identical_series = {d: float(i % 5) for i, d in enumerate(dates)}
+
+        client.get_alpha_pnl = AsyncMock(return_value=identical_series)
+        mock_store.load_pool_pnl_series = MagicMock(return_value=[identical_series])
+
+        # Candidate should be rejected by the pool correlation gate
+        passed = await run_candidate(cand, mock_sweep, client, mock_store, config)
+        assert passed is False
+        # Store should record correlation gate rejection
+        mock_store.record_evaluated_candidate.assert_called_with(
+            cand,
+            stage="CORRELATION_GATE",
+            status="FAIL",
+            metrics=passing_metrics,
+        )
+
+
+

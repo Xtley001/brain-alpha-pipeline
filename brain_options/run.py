@@ -12,6 +12,7 @@ import time
 
 from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient, SimMetrics, SimSettings
+from brain_options.core.correlation import check_pool_correlation
 from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
     send_telegram_alert,
@@ -99,7 +100,32 @@ async def run_candidate(
         )
         return False
 
-    log.info("[+] QUALIFIED FOR POOL!")
+    # 3. Pool Correlation Check & PnL Series Extraction
+    max_corr = 0.0
+    pnl_series: dict[str, float] = {}
+    if best_metrics.alpha_id:
+        try:
+            log.info("Fetching daily PnL series for alpha %s to evaluate pool correlation...", best_metrics.alpha_id)
+            pnl_series = await client.get_alpha_pnl(best_metrics.alpha_id)
+            pool_pnl = store.load_pool_pnl_series()
+            corr_passed, max_corr = check_pool_correlation(pnl_series, pool_pnl, config.max_pool_correlation)
+            if not corr_passed:
+                log.warning(
+                    "Candidate rejected by Pool Correlation Gate: Max correlation %.2f >= %.2f threshold.",
+                    max_corr,
+                    config.max_pool_correlation,
+                )
+                store.record_evaluated_candidate(
+                    candidate,
+                    stage="CORRELATION_GATE",
+                    status="FAIL",
+                    metrics=best_metrics,
+                )
+                return False
+        except Exception as pnl_err:
+            log.warning("Could not complete pool correlation check for alpha %s: %s", best_metrics.alpha_id, pnl_err)
+
+    log.info("[+] QUALIFIED FOR POOL! (Max Correlation: %.2f)", max_corr)
     store.record_evaluated_candidate(
         candidate,
         stage="RETRY_COMPLETED",
@@ -107,14 +133,13 @@ async def run_candidate(
         metrics=best_metrics,
     )
 
-    # 3. Save to Store & Alert
-    max_corr = 0.0
-    pnl_series: dict[str, float] = {}
+    # 4. Save to Store & Alert
     log.info(
-        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%",
+        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.2f",
         best_metrics.sharpe,
         best_metrics.fitness,
         best_metrics.turnover * 100,
+        max_corr,
     )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
     send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
@@ -190,7 +215,7 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
                 log.warning("Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
                 break
 
-            if total_evaluated >= batch_size and queue.empty():
+            if total_evaluated >= batch_size:
                 log.info("Worker %d: Batch evaluation target (%d) reached.", worker_id, batch_size)
                 break
 

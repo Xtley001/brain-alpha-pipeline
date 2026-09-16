@@ -134,3 +134,24 @@ def test_generator_procedural_fallback_when_templates_and_llm_exhausted(monkeypa
         assert c.expression not in [t.expression for t in all_templates]
         assert "group_neutralize" in c.expression or "trade_when" in c.expression
 
+
+def test_llm_adapter_gemini_fallback(monkeypatch):
+    """Verifies that _call_gemini cleanly falls back to OpenAI-compatible endpoint without crashing."""
+    config = OptionsConfig(brain_username="u", brain_password="p", gemini_keys=["test_gemini_key"])
+    adapter = LLMAdapter(config)
+
+    # Mock _call_openai_compatible to simulate Gemini's OpenAI-compatible response
+    mock_called = []
+    def mock_openai_call(base_url, api_key, model, prompt, system_prompt, temperature=0.7):
+        mock_called.append((base_url, api_key, model))
+        return '[{"expression": "alpha_gemini", "archetype": "skew", "hypothesis": "gemini test"}]'
+
+    monkeypatch.setattr(adapter, "_call_openai_compatible", mock_openai_call)
+    res = adapter._call_gemini("test_key", "gemini-2.0-flash", "test prompt", "system prompt")
+    assert res is not None
+    assert len(mock_called) == 1
+    assert "generativelanguage.googleapis.com" in mock_called[0][0]
+    assert mock_called[0][1] == "test_key"
+    assert mock_called[0][2] == "gemini-2.0-flash"
+
+

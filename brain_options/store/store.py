@@ -113,32 +113,33 @@ class OptionsStore:
             "nan_handling": "ON" if settings.nan_handling else "OFF",
         }
 
-        # 1. Append to CSV
-        file_exists = os.path.exists(self.passed_csv)
-        fieldnames = list(record.keys())
-        with open(self.passed_csv, "a", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            if not file_exists:
-                writer.writeheader()
-            writer.writerow(record)
+        with self._write_lock:
+            # 1. Append to CSV
+            file_exists = os.path.exists(self.passed_csv)
+            fieldnames = list(record.keys())
+            with open(self.passed_csv, "a", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow(record)
 
-        # 2. Append to JSON list
-        existing_json: list[dict] = []
-        if os.path.exists(self.passed_json):
-            try:
-                with open(self.passed_json, "r", encoding="utf-8") as f:
-                    existing_json = json.load(f)
-            except Exception:
-                existing_json = []
-        existing_json.append(record)
-        with open(self.passed_json, "w", encoding="utf-8") as f:
-            json.dump(existing_json, f, indent=2)
+            # 2. Append to JSON list
+            existing_json: list[dict] = []
+            if os.path.exists(self.passed_json):
+                try:
+                    with open(self.passed_json, "r", encoding="utf-8") as f:
+                        existing_json = json.load(f)
+                except Exception:
+                    existing_json = []
+            existing_json.append(record)
+            with open(self.passed_json, "w", encoding="utf-8") as f:
+                json.dump(existing_json, f, indent=2)
 
-        # 3. Cache PnL series if available
-        if pnl_series and metrics.alpha_id:
-            pnl_path = os.path.join(self.pnl_cache_dir, f"{metrics.alpha_id}.json")
-            with open(pnl_path, "w", encoding="utf-8") as f:
-                json.dump(pnl_series, f)
+            # 3. Cache PnL series if available
+            if pnl_series and metrics.alpha_id:
+                pnl_path = os.path.join(self.pnl_cache_dir, f"{metrics.alpha_id}.json")
+                with open(pnl_path, "w", encoding="utf-8") as f:
+                    json.dump(pnl_series, f)
 
         # 4. Sync to PostgreSQL table options_alphas
         self.db.save_passed_alpha(candidate, settings, metrics, max_corr)
@@ -187,5 +188,67 @@ class OptionsStore:
         return self.db.get_options_stats()
 
     def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
-        return self.db.get_stage0_passed_candidates(limit=limit)
+        candidates = self.db.get_stage0_passed_candidates(limit=limit)
+        if candidates:
+            return candidates
+
+        # Fallback to local CSV history if database is offline, fresh, or returned empty
+        if not os.path.exists(self.history_csv):
+            return []
+
+        candidates_map: dict[str, OptionCandidate] = {}
+        completed_exprs: set[str] = set()
+
+        try:
+            with open(self.history_csv, "r", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                rows = list(reader)
+
+            # Find candidates that have already completed retry or qualified
+            for row in rows:
+                expr = (row.get("expression") or "").strip()
+                stage = (row.get("stage") or "").strip()
+                status = (row.get("status") or "").strip()
+                if stage == "RETRY_COMPLETED" or stage.startswith("DIAG_") or status in ("QUALIFIED", "OPTIMIZED", "EXHAUSTED"):
+                    completed_exprs.add(expr)
+
+            # Check passed_alphas CSV
+            if os.path.exists(self.passed_csv):
+                with open(self.passed_csv, "r", encoding="utf-8") as pf:
+                    preader = csv.DictReader(pf)
+                    for prow in preader:
+                        pexpr = (prow.get("expression") or "").strip()
+                        if pexpr:
+                            completed_exprs.add(pexpr)
+
+            # Collect eligible Stage 0 candidates
+            eligible: list[tuple[float, float, OptionCandidate]] = []
+            for row in rows:
+                expr = (row.get("expression") or "").strip()
+                if not expr or expr in completed_exprs or expr in candidates_map:
+                    continue
+
+                stage = (row.get("stage") or "").strip()
+                status = (row.get("status") or "").strip()
+                try:
+                    sh = float(row.get("sharpe") or 0.0)
+                    fit = float(row.get("fitness") or 0.0)
+                except ValueError:
+                    sh, fit = 0.0, 0.0
+
+                if (stage == "STAGE0" and status == "PASS") or (sh >= 0.35 and fit >= 0.20):
+                    cand = OptionCandidate(
+                        expression=expr,
+                        archetype_name=row.get("archetype") or "options_alpha",
+                        hypothesis=f"Stage 0 passer (Sharpe={sh:.2f}, Fit={fit:.2f})",
+                        generation_source=row.get("source") or "stage0_pass",
+                    )
+                    candidates_map[expr] = cand
+                    eligible.append((sh, fit, cand))
+
+            eligible.sort(key=lambda x: (x[0], x[1]), reverse=True)
+            return [c for _, _, c in eligible[:limit]]
+        except Exception as e:
+            log.warning("Could not load stage0 candidates from local CSV fallback: %s", e)
+            return []
 

@@ -116,6 +116,7 @@ class LLMAdapter:
     def _call_gemini(
         self, api_key: str, model: str, prompt: str, system_prompt: str, temperature: float = 0.7
     ) -> Optional[str]:
+        # 1. Try native google.genai if installed
         try:
             from google import genai
             client = genai.Client(api_key=api_key)
@@ -127,20 +128,30 @@ class LLMAdapter:
             )
             if resp and resp.text:
                 return resp.text.strip()
+        except ImportError:
+            pass
         except Exception as e:
-            log.warning("Gemini call failed (%s): %s", model, e)
-        return None
+            log.warning("Native Gemini call failed (%s): %s", model, e)
+
+        # 2. Fallback to Gemini's official OpenAI-compatible endpoint
+        return self._call_openai_compatible(
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            api_key=api_key,
+            model=model,
+            prompt=prompt,
+            system_prompt=system_prompt,
+            temperature=temperature,
+        )
 
     def generate(self, prompt: str, system_prompt: str, temperature: float = 0.7) -> Optional[str]:
         """Tries configured providers sequentially with key rotation."""
-        # 1. Groq (active models)
+        # 1. Groq (active & verified working models)
         for key in self.config.groq_keys:
             for model in [
                 "openai/gpt-oss-120b",
+                "groq/compound",
                 "openai/gpt-oss-20b",
                 "qwen/qwen3.8-27b",
-                "qwen/qwen3.6-27b",
-                "groq/compound",
             ]:
                 res = self._call_openai_compatible(
                     base_url="https://api.groq.com/openai/v1",
@@ -155,7 +166,7 @@ class LLMAdapter:
 
         # 2. Cerebras
         for key in self.config.cerebras_keys:
-            for model in ["llama-3.3-70b", "llama3.1-8b"]:
+            for model in ["llama-3.3-70b", "llama3.1-8b", "gpt-oss-120b"]:
                 res = self._call_openai_compatible(
                     base_url="https://api.cerebras.ai/v1",
                     api_key=key,

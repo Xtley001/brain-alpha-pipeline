@@ -140,6 +140,15 @@ def _send_telegram_raw(text: str, config: OptionsConfig) -> bool:
         if resp.status_code == 200:
             log.info("Telegram message sent successfully.")
             return True
+        elif resp.status_code == 400 and "parse" in resp.text.lower():
+            # Retry without parse_mode if unescaped symbols broke Markdown parsing
+            payload.pop("parse_mode", None)
+            resp2 = requests.post(url, json=payload, timeout=10)
+            if resp2.status_code == 200:
+                log.info("Telegram message sent successfully (plain text fallback).")
+                return True
+            log.warning("Telegram send failed on plain text fallback: %s %s", resp2.status_code, resp2.text)
+            return False
         else:
             log.warning("Telegram send failed: %s %s", resp.status_code, resp.text)
             return False
