@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2026-09-17T02:40:49.620676+00:00",
+    "alpha_id": "gJbAP76e",
+    "expression": "trade_when(abs(rank(ts_decay_linear((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)), 12)) - 0.5) > 0.35, group_neutralize(rank(ts_decay_linear((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)), 12)), subindustry), -1)",
+    "archetype": "breakeven",
+    "hypothesis": "The divergence between the OI-weighted call breakeven and the synthetic forward price, scaled by skew-normalized tail risk, identifies stocks where institutional hedging costs have inflated the downside protection hurdle above the consensus drift, signaling a mean-reverting compression of the risk premium. [Optimized: CONVICTION_SMOOTH_T35]",
+    "source": "diagnostic_optimizer",
+    "sharpe": 1.79,
+    "fitness": 1.46,
+    "turnover": 0.0411,
+    "returns": 0.0833,
+    "drawdown": 0.0831,
+    "margin": 0.004058,
+    "max_correlation": 0.0,
+    "universe": "TOP3000",
+    "neutralization": "SUBINDUSTRY",
+    "delay": 1,
+    "decay": 18,
+    "truncation": 0.05,
+    "pasteurization": "ON",
+    "nan_handling": "OFF"
+  }
+]
