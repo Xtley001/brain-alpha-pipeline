@@ -64,5 +64,27 @@
     "truncation": 0.05,
     "pasteurization": "ON",
     "nan_handling": "OFF"
+  },
+  {
+    "timestamp": "2026-09-17T09:03:26.229716+00:00",
+    "alpha_id": "blbZ9Wkp",
+    "expression": "trade_when(abs(rank(ts_decay_linear((call_breakeven_90 - forward_price_90) / close * (implied_volatility_mean_90 - ts_mean(implied_volatility_mean_90, 20)) * (1.0 / (pcr_oi_90 + 0.001)), 10)) - 0.5) > 0.38, group_neutralize(rank(ts_decay_linear((call_breakeven_90 - forward_price_90) / close * (implied_volatility_mean_90 - ts_mean(implied_volatility_mean_90, 20)) * (1.0 / (pcr_oi_90 + 0.001)), 10)), subindustry), -1)",
+    "archetype": "breakeven",
+    "hypothesis": "The divergence between the long-dated call breakeven forward basis and the 20-day ATM IV trend, normalized by open interest, captures the 'margin for error' in institutional volatility positioning, identifying mispriced tail risk expectations. [Optimized: CONVICTION_GATE_FALLBACK]",
+    "source": "diagnostic_optimizer",
+    "sharpe": 1.54,
+    "fitness": 1.0,
+    "turnover": 0.0599,
+    "returns": 0.0524,
+    "drawdown": 0.0411,
+    "margin": 0.001748,
+    "max_correlation": 0.3577534907257378,
+    "universe": "TOP3000",
+    "neutralization": "SUBINDUSTRY",
+    "delay": 1,
+    "decay": 14,
+    "truncation": 0.05,
+    "pasteurization": "ON",
+    "nan_handling": "OFF"
   }
 ]
