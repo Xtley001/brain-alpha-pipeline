@@ -42,5 +42,27 @@
     "truncation": 0.05,
     "pasteurization": "ON",
     "nan_handling": "OFF"
+  },
+  {
+    "timestamp": "2026-09-17T08:23:58.178252+00:00",
+    "alpha_id": "KPNd6Ovl",
+    "expression": "trade_when(abs(rank(ts_decay_linear(ts_decay_linear(((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)) * (pcr_vol_30 / (pcr_oi_30 + 0.001))), 12), 5)) - 0.5) > 0.32, group_neutralize(rank(ts_decay_linear(ts_decay_linear(((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)) * (pcr_vol_30 / (pcr_oi_30 + 0.001))), 12), 5)) * (volume / adv20), subindustry), -1)",
+    "archetype": "Mutation(breakeven)",
+    "hypothesis": "Adding the PCR volume\u2011to\u2011OI flow factor injects a measure of aggressive institutional order flow into the forward\u2011basis/skew signal. Double decay smoothing (12\u2011day then 5\u2011day) further attenuates noise, while scaling the rank by the relative volume (volume/adv20) emphasizes liquid stocks. This composite should sharpen the mean\u2011reversion edge and improve turnover\u2011adjusted performance.",
+    "source": "llm_mechanical",
+    "sharpe": 1.58,
+    "fitness": 1.27,
+    "turnover": 0.107,
+    "returns": 0.0805,
+    "drawdown": 0.1099,
+    "margin": 0.001505,
+    "max_correlation": 0.6040906538433963,
+    "universe": "TOP3000",
+    "neutralization": "SUBINDUSTRY",
+    "delay": 1,
+    "decay": 8,
+    "truncation": 0.05,
+    "pasteurization": "ON",
+    "nan_handling": "OFF"
   }
 ]
