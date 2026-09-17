@@ -193,4 +193,40 @@ def generate_template_candidates() -> list[OptionCandidate]:
         )
     )
 
+    # 15. Parkinson Extreme-Value Volatility Premium
+    for tenor in [20, 30, 60]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(ts_decay_linear(-(implied_volatility_mean_{tenor} / (parkinson_volatility_{tenor} + 0.001) - 1.0), 5)), {grp})",
+                    archetype_name="Parkinson Extreme-Value Volatility Premium",
+                    hypothesis=f"Fade overpriced {tenor}d IV against Parkinson extreme-value intraday realized volatility demeaned by {grp}.",
+                    generation_source="template",
+                )
+            )
+
+    # 16. Call-Put Implied Volatility Asymmetry
+    for tenor in [20, 30, 60]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(ts_decay_linear((implied_volatility_call_{tenor} - implied_volatility_put_{tenor}) / (implied_volatility_mean_{tenor} + 0.001), 5)), {grp})",
+                    archetype_name="Call-Put Implied Volatility Asymmetry",
+                    hypothesis=f"Directional flow divergence between {tenor}d call and put IV demeaned by {grp}.",
+                    generation_source="template",
+                )
+            )
+
+    # 17. Liquidity-Gated Breakeven Acceleration
+    for tenor in [20, 30, 60]:
+        for win in [3, 5]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"trade_when(volume > adv20, group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_{tenor} - close) / close, {win}), 5)), subindustry), -1)",
+                    archetype_name="Liquidity-Gated Breakeven Acceleration",
+                    hypothesis=f"Acceleration in {tenor}d call breakeven hurdle rate over {win}d conditioned on liquid trading volume.",
+                    generation_source="template",
+                )
+            )
+
     return candidates

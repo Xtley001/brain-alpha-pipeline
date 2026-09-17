@@ -150,3 +150,53 @@ async def test_drip_skips_ineligible_alphas_and_submits_clean_alpha(config, mock
         mock_client.submit_alpha.assert_called_once_with("ALPHA_PASS")
         mock_store.mark_alpha_submitted.assert_called_once_with("ALPHA_PASS")
         assert mock_alert.called
+
+
+@pytest.mark.asyncio
+async def test_drip_diversity_ranking_prefers_non_recent_archetype(config, mock_client, mock_store):
+    """Verifies that unsubmitted alphas are reordered to prioritize diverse archetypes over repeat archetypes."""
+    yesterday_ny = (datetime.datetime.now(NY_TZ) - datetime.timedelta(days=1)).date()
+    yesterday_iso = f"{yesterday_ny.isoformat()}T12:00:00-04:00"
+
+    mock_sess = MagicMock()
+    mock_sess.retry = AsyncMock()
+
+    resp_user_alphas = MagicMock()
+    resp_user_alphas.status_code = 200
+    resp_user_alphas.json.return_value = {
+        "results": [{"id": "OLD_SUB", "dateSubmitted": yesterday_iso}]
+    }
+
+    resp_alpha_clean = MagicMock()
+    resp_alpha_clean.status_code = 200
+    resp_alpha_clean.json.return_value = {
+        "status": "UNSUBMITTED",
+        "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
+    }
+
+    async def mock_retry(method, url, max_tries=3):
+        if "users/self/alphas" in url:
+            return resp_user_alphas
+        return resp_alpha_clean
+
+    mock_sess.retry = AsyncMock(side_effect=mock_retry)
+    mock_client._get_session.return_value = mock_sess
+    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+
+    # Last submitted archetype was 'breakeven'
+    mock_store.get_recently_submitted_archetypes.return_value = ["breakeven"]
+
+    # Queue has a higher Sharpe 'breakeven' alpha and a slightly lower Sharpe 'skew' alpha
+    mock_store.get_unsubmitted_pool_alphas.return_value = [
+        {"alpha_id": "ALPHA_BREAKEVEN", "archetype": "breakeven", "sharpe": 1.70, "fitness": 1.40},
+        {"alpha_id": "ALPHA_SKEW", "archetype": "skew", "sharpe": 1.60, "fitness": 1.30},
+    ]
+
+    with patch("brain_options.core.drip.send_telegram_drip_alert"):
+        drip = DripSubmitter(mock_client, mock_store, config)
+        submitted, alpha_id, reason = await drip.check_and_drip()
+
+        assert submitted is True
+        # ALPHA_SKEW should be submitted first because it provides diversity over repeat 'breakeven'!
+        assert alpha_id == "ALPHA_SKEW"
+        mock_client.submit_alpha.assert_called_once_with("ALPHA_SKEW")

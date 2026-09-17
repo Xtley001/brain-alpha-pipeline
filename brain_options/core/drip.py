@@ -96,7 +96,25 @@ class DripSubmitter:
             log.info("[DRIP QUEUE] %s", msg)
             return False, None, msg
 
-        log.info("[DRIP QUEUE] Submission window OPEN for %s EDT. Evaluating %d queue candidates...", today_ny, len(unsubmitted))
+        # Diversity optimization: prioritize candidates from archetypes distinct from recently submitted ones
+        recent_archs: List[str] = []
+        if hasattr(self.store, "get_recently_submitted_archetypes"):
+            try:
+                res = self.store.get_recently_submitted_archetypes(limit=2)
+                if isinstance(res, list):
+                    recent_archs = res
+            except Exception:
+                recent_archs = []
+
+        if recent_archs:
+            def _diversity_key(c):
+                arch = c.get("archetype") or ""
+                is_repeat = 1 if arch in recent_archs else 0
+                return (is_repeat, -float(c.get("sharpe") or 0.0))
+            unsubmitted.sort(key=_diversity_key)
+
+        log.info("[DRIP QUEUE] Submission window OPEN for %s EDT. Evaluating %d queue candidates (Diversity prioritized vs %s)...",
+                 today_ny, len(unsubmitted), recent_archs)
 
         for cand in unsubmitted:
             alpha_id = cand.get("alpha_id")

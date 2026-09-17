@@ -59,4 +59,21 @@ def evaluate_alpha_metrics(
     if metrics.turnover > 0.50 and metrics.margin < 0.0005 and metrics.annualized_return < 0.03:
         return False, f"Leland drag: turnover {metrics.turnover*100:.1f}% erodes thin margin ({metrics.margin:.4f})"
 
+    # Direct BRAIN checklist sanity gates (if checks are available in raw simulation response)
+    if isinstance(metrics.raw_response, dict):
+        is_block = metrics.raw_response.get("is") or {}
+        checks = is_block.get("checks") or metrics.raw_response.get("checks") or []
+        for chk in checks:
+            chk_name = chk.get("name", "")
+            chk_res = chk.get("result", "")
+            if chk_res == "FAIL":
+                if chk_name == "LOW_SUB_UNIVERSE_SHARPE":
+                    val = chk.get("value")
+                    lim = chk.get("limit")
+                    return False, f"Sub-universe Sharpe FAIL ({val} < {lim})"
+                if chk_name == "CONCENTRATED_WEIGHT":
+                    return False, "Concentrated weight FAIL"
+                if chk_name not in ("LOW_SHARPE", "LOW_FITNESS", "HIGH_TURNOVER", "LOW_TURNOVER"):
+                    return False, f"Checklist FAIL: {chk_name}"
+
     return True, "PASSED_ALL_GATES"

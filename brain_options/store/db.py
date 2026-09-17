@@ -222,6 +222,25 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
 
+    def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
+        """Returns archetypes of the most recently submitted alphas to promote portfolio diversity."""
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT archetype FROM options_alphas
+            WHERE status = 'SUBMITTED' AND archetype IS NOT NULL
+            ORDER BY updated_at DESC
+            LIMIT %s;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (limit,))
+                    return [row[0] for row in cur.fetchall() if row[0]]
+        except Exception as e:
+            log.warning("Failed to load recently submitted archetypes: %s", e)
+            return []
+
     def load_evaluated_expressions(self) -> Set[str]:
         if not self.database_url:
             return set()

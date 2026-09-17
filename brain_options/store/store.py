@@ -190,6 +190,9 @@ class OptionsStore:
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
         return self.db.get_unsubmitted_pool_alphas()
 
+    def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
+        return self.db.get_recently_submitted_archetypes(limit=limit)
+
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)
 

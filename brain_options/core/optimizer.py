@@ -57,6 +57,19 @@ def calculate_rl_reward(metrics: SimMetrics, is_qualified: bool = False) -> floa
     if metrics.turnover > 0.35 and metrics.annualized_return < 0.04:
         r -= 1.5
 
+    # Direct checklist failure penalty (sub-universe or weight concentration)
+    if isinstance(metrics.raw_response, dict):
+        is_block = metrics.raw_response.get("is") or {}
+        checks = is_block.get("checks") or metrics.raw_response.get("checks") or []
+        for chk in checks:
+            if chk.get("result") == "FAIL":
+                if chk.get("name") == "LOW_SUB_UNIVERSE_SHARPE":
+                    r -= 8.0
+                elif chk.get("name") == "CONCENTRATED_WEIGHT":
+                    r -= 5.0
+                elif chk.get("name") not in ("LOW_SHARPE", "LOW_FITNESS"):
+                    r -= 2.0
+
     # Qualification completion bonus
     if is_qualified:
         r += 10.0
