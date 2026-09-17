@@ -20,5 +20,27 @@
     "truncation": 0.05,
     "pasteurization": "ON",
     "nan_handling": "OFF"
+  },
+  {
+    "timestamp": "2026-09-17T03:31:43.844254+00:00",
+    "alpha_id": "blbkW8Vq",
+    "expression": "trade_when(volume > adv20, trade_when(abs(rank(ts_decay_linear((call_breakeven_60 - forward_price_60) / close * (implied_volatility_mean_skew_60 * sqrt(60/252.0)), 8)) - 0.5) > 0.35, group_neutralize(rank(ts_decay_linear((call_breakeven_60 - forward_price_60) / close * (implied_volatility_mean_skew_60 * sqrt(60/252.0)), 8)), subindustry), -1), -1)",
+    "archetype": "Mutation(breakeven)",
+    "hypothesis": "Stage 0 passer (Sharpe=1.52, Fit=1.22)",
+    "source": "llm_mechanical",
+    "sharpe": 1.52,
+    "fitness": 1.22,
+    "turnover": 0.0501,
+    "returns": 0.0807,
+    "drawdown": 0.0759,
+    "margin": 0.003219,
+    "max_correlation": 0.0,
+    "universe": "TOP3000",
+    "neutralization": "SUBINDUSTRY",
+    "delay": 1,
+    "decay": 8,
+    "truncation": 0.05,
+    "pasteurization": "ON",
+    "nan_handling": "OFF"
   }
 ]
