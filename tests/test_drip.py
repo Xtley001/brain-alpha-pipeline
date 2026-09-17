@@ -43,15 +43,19 @@ def mock_store():
 
 @pytest.mark.asyncio
 async def test_drip_skips_when_already_submitted_today(config, mock_client, mock_store):
-    """When BRAIN reports a submission already made today in EDT, drip must skip without submitting."""
+    """When BRAIN reports daily quota (2 submissions) already made today in EDT, drip must skip without submitting."""
     today_ny = datetime.datetime.now(NY_TZ).date()
-    today_iso = f"{today_ny.isoformat()}T05:00:00-04:00"
+    today_iso1 = f"{today_ny.isoformat()}T02:00:00-04:00"
+    today_iso2 = f"{today_ny.isoformat()}T08:00:00-04:00"
 
     mock_sess = MagicMock()
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.json.return_value = {
-        "results": [{"id": "ALREADY_SUB", "dateSubmitted": today_iso}]
+        "results": [
+            {"id": "ALREADY_SUB2", "dateSubmitted": today_iso2},
+            {"id": "ALREADY_SUB1", "dateSubmitted": today_iso1},
+        ]
     }
     mock_sess.retry = AsyncMock(return_value=mock_resp)
     mock_client._get_session.return_value = mock_sess
@@ -61,9 +65,78 @@ async def test_drip_skips_when_already_submitted_today(config, mock_client, mock
 
     assert submitted is False
     assert alpha_id is None
-    assert "already filled" in reason
+    assert "already reached" in reason
     assert not mock_client.submit_alpha.called
     assert not mock_store.mark_alpha_submitted.called
+
+
+@pytest.mark.asyncio
+async def test_drip_pacing_limit_when_one_recent_submission_today(config, mock_client, mock_store):
+    """When 1 submission was made today within the pacing window (< 4 hours ago), drip must skip."""
+    now_ny = datetime.datetime.now(NY_TZ)
+    recent_dt = now_ny - datetime.timedelta(hours=1)
+    recent_iso = recent_dt.isoformat()
+
+    mock_sess = MagicMock()
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.json.return_value = {
+        "results": [{"id": "RECENT_SUB", "dateSubmitted": recent_iso}]
+    }
+    mock_sess.retry = AsyncMock(return_value=mock_resp)
+    mock_client._get_session.return_value = mock_sess
+
+    drip = DripSubmitter(mock_client, mock_store, config)
+    submitted, alpha_id, reason = await drip.check_and_drip()
+
+    assert submitted is False
+    assert alpha_id is None
+    assert "Pacing limit" in reason
+    assert not mock_client.submit_alpha.called
+
+
+@pytest.mark.asyncio
+async def test_drip_submits_second_alpha_when_pacing_cleared(config, mock_client, mock_store):
+    """When 1 submission was made today > 4 hours ago, drip should proceed to submit the second alpha."""
+    now_ny = datetime.datetime.now(NY_TZ)
+    earlier_dt = now_ny - datetime.timedelta(hours=5)
+    earlier_iso = earlier_dt.isoformat()
+
+    mock_sess = MagicMock()
+    resp_user_alphas = MagicMock()
+    resp_user_alphas.status_code = 200
+    resp_user_alphas.json.return_value = {
+        "results": [{"id": "EARLIER_SUB", "dateSubmitted": earlier_iso}]
+    }
+
+    resp_alpha_clean = MagicMock()
+    resp_alpha_clean.status_code = 200
+    resp_alpha_clean.json.return_value = {
+        "status": "UNSUBMITTED",
+        "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
+    }
+
+    async def mock_retry(method, url, max_tries=3):
+        if "users/self/alphas" in url:
+            return resp_user_alphas
+        return resp_alpha_clean
+
+    mock_sess.retry = AsyncMock(side_effect=mock_retry)
+    mock_client._get_session.return_value = mock_sess
+    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+
+    mock_store.get_unsubmitted_pool_alphas.return_value = [
+        {"alpha_id": "SECOND_ALPHA", "archetype": "skew", "sharpe": 1.65, "fitness": 1.35}
+    ]
+
+    with patch("brain_options.core.drip.send_telegram_drip_alert"):
+        drip = DripSubmitter(mock_client, mock_store, config)
+        submitted, alpha_id, reason = await drip.check_and_drip()
+
+        assert submitted is True
+        assert alpha_id == "SECOND_ALPHA"
+        mock_client.submit_alpha.assert_called_once_with("SECOND_ALPHA")
+        mock_store.mark_alpha_submitted.assert_called_once_with("SECOND_ALPHA")
 
 
 @pytest.mark.asyncio

@@ -65,6 +65,8 @@ class OptionsConfig:
     delay: int = 1
     max_candidates_per_run: int = 10
     run_time_budget_seconds: int = 480
+    drip_max_daily: int = 2
+    drip_min_interval_hours: float = 4.0
 
     @classmethod
     def from_env(cls) -> OptionsConfig:
@@ -110,4 +112,6 @@ class OptionsConfig:
             delay=int(_optional("DELAY", "1") or "1"),
             max_candidates_per_run=int(_optional("MAX_CANDIDATES_PER_RUN", "10") or "10"),
             run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480") or "480"),
+            drip_max_daily=int(_optional("DRIP_MAX_DAILY", "2") or "2"),
+            drip_min_interval_hours=float(_optional("DRIP_MIN_INTERVAL_HOURS", "4.0") or "4.0"),
         )
