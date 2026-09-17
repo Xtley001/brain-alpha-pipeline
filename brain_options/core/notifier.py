@@ -97,6 +97,34 @@ def send_telegram_alert(
     return _send_telegram_raw(text, config)
 
 
+def send_telegram_drip_alert(
+    alpha_id: str,
+    date_label: str,
+    metrics: dict[str, Any],
+    config: OptionsConfig,
+) -> bool:
+    """Sends an instant Telegram alert when an automated 24-hour drip submission succeeds."""
+    if not config.telegram_bot_token or not config.telegram_chat_id:
+        return False
+
+    alpha_link = f"https://platform.worldquantbrain.com/alpha/{alpha_id}"
+    sharpe = float(metrics.get("sharpe") or 0.0)
+    fitness = float(metrics.get("fitness") or 0.0)
+    turnover = float(metrics.get("turnover") or 0.0) * 100.0
+    margin_bps = float(metrics.get("margin") or 0.0) * 10000.0
+
+    text = (
+        f"🚀 *DAILY ALPHA DRIP SUBMITTED!*\n\n"
+        f"• *Alpha ID:* [{alpha_id}]({alpha_link})\n"
+        f"• *Date Credit:* `{date_label} EDT`\n"
+        f"• *Sharpe:* `{sharpe:.2f}` | *Fitness:* `{fitness:.2f}`\n"
+        f"• *Turnover:* `{turnover:.1f}%` | *Margin:* `{margin_bps:.1f} bps`\n"
+        f"• *All Checklist Gates:* ✅ `PASSED`\n\n"
+        f"⏳ _Next submission window unlocks tomorrow at 00:00 EDT._"
+    )
+    return _send_telegram_raw(text, config)
+
+
 def _send_telegram_raw(text: str, config: OptionsConfig) -> bool:
     url = f"https://api.telegram.org/bot{config.telegram_bot_token}/sendMessage"
     payload = {

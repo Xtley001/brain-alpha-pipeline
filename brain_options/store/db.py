@@ -188,6 +188,40 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to save passed alpha in database: %s", e)
 
+    def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
+        """Returns alphas in options_alphas that have not yet been submitted, ordered by Sharpe and Fitness."""
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT alpha_id, expression, archetype, sharpe, fitness, turnover, returns, drawdown, margin
+            FROM options_alphas
+            WHERE status != 'SUBMITTED' AND alpha_id IS NOT NULL
+            ORDER BY sharpe DESC, fitness DESC;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql)
+                    cols = [desc[0] for desc in cur.description]
+                    return [dict(zip(cols, row)) for row in cur.fetchall()]
+        except Exception as e:
+            log.warning("Failed to load unsubmitted pool alphas: %s", e)
+            return []
+
+    def mark_alpha_submitted(self, alpha_id: str):
+        """Marks an alpha as SUBMITTED in options_alphas."""
+        if not self.database_url:
+            return
+        sql = "UPDATE options_alphas SET status = 'SUBMITTED' WHERE alpha_id = %s;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (alpha_id,))
+                conn.commit()
+            log.info("Marked alpha %s as SUBMITTED in database.", alpha_id)
+        except Exception as e:
+            log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
+
     def load_evaluated_expressions(self) -> Set[str]:
         if not self.database_url:
             return set()

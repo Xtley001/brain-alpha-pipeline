@@ -13,6 +13,7 @@ import time
 from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 from brain_options.core.correlation import check_pool_correlation
+from brain_options.core.drip import DripSubmitter
 from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
     send_telegram_alert,
@@ -247,6 +248,13 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
                 send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
+
+        # 24-hour interval drip submission check
+        try:
+            drip = DripSubmitter(client, store, config)
+            await drip.check_and_drip()
+        except Exception as drip_err:
+            log.warning("Drip submitter check failed: %s", drip_err)
     return passed_count
 
 
@@ -328,6 +336,13 @@ async def run_retry_stage0_batch(
         except Exception as summary_err:
             log.warning("Failed to send Telegram summary: %s", summary_err)
 
+        # 24-hour interval drip submission check
+        try:
+            drip = DripSubmitter(client, store, config)
+            await drip.check_and_drip()
+        except Exception as drip_err:
+            log.warning("Drip submitter check failed: %s", drip_err)
+
     return passed_count
 
 
@@ -341,9 +356,24 @@ def main():
     parser.add_argument("--limit", type=int, default=100, help="Max Stage 0 candidates to retry")
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
+    parser.add_argument("--drip", action="store_true", help="Run 24-hour drip submitter check and exit")
     args = parser.parse_args()
 
     config = OptionsConfig.from_env()
+
+    if args.drip:
+        log.info("Checking 24-hour drip submission window...")
+        client = BrainClient(
+            username=config.brain_username,
+            password=config.brain_password,
+            max_concurrent_sims=1,
+        )
+        client.authenticate()
+        store = OptionsStore(database_url=config.database_url)
+        drip = DripSubmitter(client, store, config)
+        drip_ok, aid, msg = asyncio.run(drip.check_and_drip())
+        log.info("Drip check finished: %s (alpha: %s, msg: %s)", drip_ok, aid, msg)
+        return
 
     if args.retry_stage0:
         log.info("Starting Stage 0 re-optimization pipeline...")
