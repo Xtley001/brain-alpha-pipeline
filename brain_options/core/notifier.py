@@ -14,20 +14,17 @@ from brain_options.core.client import SimMetrics, SimSettings
 log = logging.getLogger("brain_options.notifier")
 
 
+import os
+
+
 def send_telegram_startup(config: OptionsConfig, mode: str = "Single Batch") -> bool:
-    """Sends a startup notification when the pipeline initializes."""
+    """Sends a startup notification only when NOTIFY_ON_STARTUP=true to prevent cron noise."""
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
+    if os.environ.get("NOTIFY_ON_STARTUP", "false").lower() != "true":
+        return True
 
-    text = (
-        f"🚀 *Brain Options Pipeline Started*\n\n"
-        f"• *Mode:* `{mode}`\n"
-        f"• *Universe:* `{config.universe}` (Delay: `{config.delay}`)\n"
-        f"• *Knowledge Base:* `Master Books 1–4 (Sinclair, Derman, Natenberg, Handbook)`\n"
-        f"• *Max Concurrent Sims:* `{config.brain_max_concurrent_sims}`\n"
-        f"• *Max Correlation:* `{config.max_pool_correlation:.2f}`\n\n"
-        f"_Scanning options space for institutional pricing anomalies..._"
-    )
+    text = f"🚀 *Pipeline Started* (`{mode}`)"
     return _send_telegram_raw(text, config)
 
 
@@ -37,36 +34,19 @@ def send_telegram_batch_summary(
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
 ) -> bool:
-    """Sends a completion summary after a batch of candidates finishes."""
+    """Sends a clean, short summary when a batch completes."""
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
 
-    text_lines = [
-        "🏁 *Options Alpha Batch Complete*\n",
-        f"• *This Batch:* `{total_candidates}` evaluated | `{passed_count}` qualified",
-    ]
+    today_pool = stats.get("today_qualified", 0) if stats else 0
+    all_time_pool = stats.get("all_time_pool_alphas", 0) if stats else 0
 
-    if stats:
-        today_eval = stats.get("today_evaluated", 0)
-        today_pass = stats.get("today_stage0_pass", 0)
-        today_qual = stats.get("today_qualified", 0)
-        all_time_eval = stats.get("all_time_evaluated", 0)
-        all_time_pass = stats.get("all_time_stage0_pass", 0)
-        all_time_pool = stats.get("all_time_pool_alphas", 0)
-
-        text_lines.extend([
-            f"\n📅 *Today's Options Activity:*",
-            f"• Evaluated Today: `{today_eval}`",
-            f"• Stage 0 Passing: `{today_pass}`",
-            f"• Fully Qualified: `{today_qual}`",
-            f"\n📊 *All-Time Options Totals:*",
-            f"• Total Evaluated: `{all_time_eval}`",
-            f"• Stage 0 Passing: `{all_time_pass}`",
-            f"• Qualified in Pool: `{all_time_pool}`",
-        ])
-
-    text_lines.append("\n• *Status:* `Learning memory & pool synced`")
-    return _send_telegram_raw("\n".join(text_lines), config)
+    text = (
+        f"🏁 *Batch Complete*\n\n"
+        f"• *Evaluated:* `{total_candidates}` | *Passed:* `{passed_count}`\n"
+        f"• *Pool Today:* `{today_pool}` | *Total Pool:* `{all_time_pool}`"
+    )
+    return _send_telegram_raw(text, config)
 
 
 def send_telegram_stage0_alert(
@@ -80,14 +60,9 @@ def send_telegram_stage0_alert(
         return False
 
     text = (
-        f"⭐ *Stage 0 Alpha Signal Detected!*\n\n"
-        f"• *Archetype:* `{archetype_name}`\n"
-        f"• *Stage 0 Sharpe:* `{metrics.sharpe:.2f}`\n"
-        f"• *Stage 0 Fitness:* `{metrics.fitness:.2f}`\n"
-        f"• *Turnover:* `{metrics.turnover * 100:.1f}%`\n\n"
-        f"📐 *Signal:*\n"
-        f"```\n{expression[:160]}\n```\n\n"
-        f"🔄 _Entering multi-arm diagnostic optimization to push Sharpe \u2265 1.25 & Fitness \u2265 1.0..._"
+        f"⭐ *Stage 0 Pass: {archetype_name}*\n"
+        f"• Sharpe: `{metrics.sharpe:.2f}` | Fitness: `{metrics.fitness:.2f}` | TO: `{metrics.turnover * 100:.1f}%`\n"
+        f"```\n{expression[:140]}\n```"
     )
     return _send_telegram_raw(text, config)
 
@@ -99,31 +74,25 @@ def send_telegram_alert(
     max_corr: float,
     config: OptionsConfig,
 ) -> bool:
-    """Sends Telegram message with passed alpha stats and copy-paste ready settings."""
+    """Sends a clean, concise, easy-to-understand alert for passed alphas with direct BRAIN link."""
     if not config.telegram_bot_token or not config.telegram_chat_id:
         log.info("Telegram notification skipped (bot token or chat ID not set).")
         return False
 
+    alpha_id = metrics.alpha_id or "N/A"
+    alpha_link = f"https://platform.worldquantbrain.com/alpha/{alpha_id}" if metrics.alpha_id else ""
+    id_display = f"[{alpha_id}]({alpha_link})" if alpha_link else f"`{alpha_id}`"
+    margin_bps = (metrics.margin or 0.0) * 10000.0
+
     text = (
-        f"🎯 *PASSED OPTIONS ALPHA DISCOVERED!*\n\n"
-        f"📊 *Performance:*\n"
-        f"• *Sharpe:* `{metrics.sharpe:.2f}`\n"
-        f"• *Fitness:* `{metrics.fitness:.2f}`\n"
-        f"• *Turnover:* `{metrics.turnover * 100:.1f}%`\n"
-        f"• *Ann. Return:* `{metrics.annualized_return * 100:.1f}%`\n"
-        f"• *Max Drawdown:* `{metrics.max_drawdown * 100:.1f}%`\n"
-        f"• *Max Pool Correlation:* `{max_corr:.2f}`\n"
-        f"• *Alpha ID:* `{metrics.alpha_id or 'N/A'}`\n\n"
-        f"📐 *Fast Expression:*\n"
+        f"🎯 *PASSED ALPHA DISCOVERED*\n\n"
+        f"• *ID:* {id_display}\n"
+        f"• *Sharpe:* `{metrics.sharpe:.2f}` | *Fitness:* `{metrics.fitness:.2f}`\n"
+        f"• *Turnover:* `{metrics.turnover * 100:.1f}%` | *Margin:* `{margin_bps:.1f} bps`\n"
+        f"• *Return:* `{metrics.annualized_return * 100:.1f}%` | *Drawdown:* `{metrics.max_drawdown * 100:.1f}%`\n\n"
+        f"📐 *Expression:*\n"
         f"```\n{expression}\n```\n\n"
-        f"⚙️ *BRAIN Settings:*\n"
-        f"• Universe: `{settings.universe}`\n"
-        f"• Delay: `{settings.delay}`\n"
-        f"• Decay: `{settings.decay}`\n"
-        f"• Neutralization: `{settings.neutralization}`\n"
-        f"• Truncation: `{settings.truncation}`\n"
-        f"• Pasteurization: `{'ON' if settings.pasteurization else 'OFF'}`\n"
-        f"• NaN Handling: `{'ON' if settings.nan_handling else 'OFF'}`\n"
+        f"⚙️ *Settings:* `{settings.universe}` | Delay `{settings.delay}` | Decay `{settings.decay}` | `{settings.neutralization}` | Trunc `{settings.truncation}` | Past `{'ON' if settings.pasteurization else 'OFF'}`"
     )
     return _send_telegram_raw(text, config)
 

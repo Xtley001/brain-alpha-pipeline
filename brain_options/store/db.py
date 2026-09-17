@@ -373,11 +373,15 @@ class OptionsDatabase:
                 COUNT(*) as all_time_evaluated,
                 COUNT(*) FILTER (WHERE status = 'PASS' OR LEFT(stage, 5) = 'DIAG_' OR status = 'QUALIFIED') as all_time_pass,
                 COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_evaluated,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND status = 'QUALIFIED') as today_qualified
+                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass
             FROM options_evaluations;
         """
-        sql_alphas = "SELECT COUNT(*) FROM options_alphas;"
+        sql_alphas = """
+            SELECT
+                COUNT(*) as all_time_pool,
+                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_pool
+            FROM options_alphas;
+        """
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
@@ -388,12 +392,12 @@ class OptionsDatabase:
                         stats["all_time_stage0_pass"] = int(row[1] or 0)
                         stats["today_evaluated"] = int(row[2] or 0)
                         stats["today_stage0_pass"] = int(row[3] or 0)
-                        stats["today_qualified"] = int(row[4] or 0)
 
                     cur.execute(sql_alphas)
                     row_a = cur.fetchone()
                     if row_a:
                         stats["all_time_pool_alphas"] = int(row_a[0] or 0)
+                        stats["today_qualified"] = int(row_a[1] or 0)
             return stats
         except Exception as e:
             log.warning("Failed to load options stats: %s", e)

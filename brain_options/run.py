@@ -100,32 +100,19 @@ async def run_candidate(
         )
         return False
 
-    # 3. Pool Correlation Check & PnL Series Extraction
+    # 3. PnL Series Extraction (Correlation filter removed per user request)
     max_corr = 0.0
     pnl_series: dict[str, float] = {}
     if best_metrics.alpha_id:
         try:
-            log.info("Fetching daily PnL series for alpha %s to evaluate pool correlation...", best_metrics.alpha_id)
             pnl_series = await client.get_alpha_pnl(best_metrics.alpha_id)
             pool_pnl = store.load_pool_pnl_series()
-            corr_passed, max_corr = check_pool_correlation(pnl_series, pool_pnl, config.max_pool_correlation)
-            if not corr_passed:
-                log.warning(
-                    "Candidate rejected by Pool Correlation Gate: Max correlation %.2f >= %.2f threshold.",
-                    max_corr,
-                    config.max_pool_correlation,
-                )
-                store.record_evaluated_candidate(
-                    candidate,
-                    stage="CORRELATION_GATE",
-                    status="FAIL",
-                    metrics=best_metrics,
-                )
-                return False
+            if pool_pnl:
+                _, max_corr = check_pool_correlation(pnl_series, pool_pnl, 1.0)
         except Exception as pnl_err:
-            log.warning("Could not complete pool correlation check for alpha %s: %s", best_metrics.alpha_id, pnl_err)
+            log.debug("Could not complete pool correlation fetch for alpha %s: %s", best_metrics.alpha_id, pnl_err)
 
-    log.info("[+] QUALIFIED FOR POOL! (Max Correlation: %.2f)", max_corr)
+    log.info("[+] QUALIFIED! Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%", best_metrics.sharpe, best_metrics.fitness, best_metrics.turnover * 100)
     store.record_evaluated_candidate(
         candidate,
         stage="RETRY_COMPLETED",
@@ -135,25 +122,15 @@ async def run_candidate(
 
     # 4. Save to Store & Alert
     log.info(
-        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.2f",
+        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%",
         best_metrics.sharpe,
         best_metrics.fitness,
         best_metrics.turnover * 100,
-        max_corr,
     )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
     send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
 
-    # 5. Optional Auto-Submit to WorldQuant BRAIN platform
-    import os
-    if os.environ.get("ENABLE_AUTO_SUBMIT", "false").lower() == "true" and best_metrics.alpha_id:
-        log.info("Auto-submitting alpha %s to WorldQuant BRAIN...", best_metrics.alpha_id)
-        try:
-            sub_res = await client.submit_alpha(best_metrics.alpha_id)
-            log.info("WorldQuant BRAIN submission result: %s", sub_res)
-        except Exception as e:
-            log.warning("Auto-submit encountered error: %s", e)
-
+    # 5. Auto-Submit disabled per user preference (manual submission only)
     return True
 
 
@@ -265,8 +242,9 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     finally:
         log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
         try:
-            stats = store.get_options_stats()
-            send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+            if passed_count > 0 or os.environ.get("NOTIFY_EVERY_BATCH", "false").lower() == "true":
+                stats = store.get_options_stats()
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
     return passed_count
@@ -344,8 +322,9 @@ async def run_retry_stage0_batch(
     finally:
         log.info("\nRe-optimization completed: %d passed / %d evaluated.", passed_count, total_evaluated)
         try:
-            stats = store.get_options_stats()
-            send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+            if passed_count > 0 or os.environ.get("NOTIFY_EVERY_BATCH", "false").lower() == "true":
+                stats = store.get_options_stats()
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram summary: %s", summary_err)
 

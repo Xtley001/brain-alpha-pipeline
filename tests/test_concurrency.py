@@ -166,15 +166,64 @@ def test_stage0_telegram_notification():
         assert result is True
         assert mock_post.called
         call_payload = mock_post.call_args[1]["json"]
-        assert "Stage 0 Alpha Signal Detected" in call_payload["text"]
+        assert "Stage 0 Pass" in call_payload["text"]
         assert "1.04" in call_payload["text"]
         assert "Call Breakeven" in call_payload["text"]
 
 
+def test_passed_alpha_telegram_notification():
+    """Verify that send_telegram_alert formats short, clean alert with BRAIN link and margin."""
+    from brain_options.core.notifier import send_telegram_alert
+    from unittest.mock import patch, MagicMock
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        telegram_bot_token="fake_token",
+        telegram_chat_id="123456",
+    )
+    metrics = SimMetrics(
+        alpha_id="gJbAP76e",
+        sharpe=1.79,
+        fitness=1.46,
+        turnover=0.0411,
+        annualized_return=0.0833,
+        max_drawdown=0.0831,
+        margin=0.004058,
+        status="COMPLETE",
+        raw_response={},
+    )
+    settings = SimSettings(
+        universe="TOP3000",
+        delay=1,
+        decay=18,
+        neutralization="SUBINDUSTRY",
+        truncation=0.05,
+        pasteurization=True,
+    )
+
+    with patch("requests.post") as mock_post:
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_post.return_value = mock_resp
+
+        res = send_telegram_alert("trade_when(x, y, -1)", settings, metrics, 0.0, config)
+        assert res is True
+        assert mock_post.called
+        payload = mock_post.call_args[1]["json"]
+        text = payload["text"]
+        assert "PASSED ALPHA DISCOVERED" in text
+        assert "https://platform.worldquantbrain.com/alpha/gJbAP76e" in text
+        assert "40.6 bps" in text
+        assert "1.79" in text
+        assert "1.46" in text
+        assert "SUBINDUSTRY" in text
+
+
 def test_batch_summary_telegram_notification():
-    """Verify that send_telegram_batch_summary formats all-time stage 0 passing numbers."""
+    """Verify that send_telegram_batch_summary formats clean short batch numbers."""
     from brain_options.core.notifier import send_telegram_batch_summary
-    from unittest.mock import patch
+    from unittest.mock import patch, MagicMock
 
     config = OptionsConfig(
         brain_username="test",
@@ -201,18 +250,14 @@ def test_batch_summary_telegram_notification():
         assert mock_post.called
         call_payload = mock_post.call_args[1]["json"]
         text = call_payload["text"]
-        assert "Options Alpha Batch Complete" in text
-        assert "Today's Options Activity" in text
-        assert "• Stage 0 Passing: `6`" in text
-        assert "All-Time Options Totals" in text
-        assert "• Total Evaluated: `250`" in text
-        assert "• Stage 0 Passing: `95`" in text
-        assert "• Qualified in Pool: `12`" in text
+        assert "Batch Complete" in text
+        assert "• *Evaluated:* `10` | *Passed:* `2`" in text
+        assert "• *Pool Today:* `2` | *Total Pool:* `12`" in text
 
 
 @pytest.mark.asyncio
-async def test_run_candidate_pool_correlation_gate():
-    """Verify that run_candidate rejects an alpha if its correlation against the pool is >= max_threshold."""
+async def test_run_candidate_qualifies_without_correlation_rejection():
+    """Verify that run_candidate accepts an alpha without blocking on pool correlation."""
     from brain_options.run import run_candidate
     from brain_options.core.sweep import SweepEngine
 
@@ -260,16 +305,11 @@ async def test_run_candidate_pool_correlation_gate():
         client.get_alpha_pnl = AsyncMock(return_value=identical_series)
         mock_store.load_pool_pnl_series = MagicMock(return_value=[identical_series])
 
-        # Candidate should be rejected by the pool correlation gate
+        # Candidate should be accepted even if correlation against existing pool is high
         passed = await run_candidate(cand, mock_sweep, client, mock_store, config)
-        assert passed is False
-        # Store should record correlation gate rejection
-        mock_store.record_evaluated_candidate.assert_called_with(
-            cand,
-            stage="CORRELATION_GATE",
-            status="FAIL",
-            metrics=passing_metrics,
-        )
+        assert passed is True
+        # Store should save passed alpha directly
+        assert mock_store.save_passed_alpha.called
 
 
 
