@@ -1934,5 +1934,27 @@
     "truncation": 0.05,
     "pasteurization": "ON",
     "nan_handling": "OFF"
+  },
+  {
+    "timestamp": "2026-09-17T14:11:46.019367+00:00",
+    "alpha_id": "A1NMYoAQ",
+    "expression": "trade_when(abs(rank(ts_decay_linear((call_breakeven_20 - forward_price_20) / close * (implied_volatility_mean_skew_20 * sqrt(20/252.0)), 10)) - 0.5) > 0.35, group_neutralize(rank(ts_decay_linear((call_breakeven_20 - forward_price_20) / close * (implied_volatility_mean_skew_20 * sqrt(20/252.0)), 10)), subindustry), -1)",
+    "archetype": "Mutation(breakeven)",
+    "hypothesis": "By shifting to a 20\u2011day tenor and increasing the decay window to 10, the expression captures more immediate hedging dynamics while smoothing short\u2011term noise, potentially improving signal stability and Sharpe.",
+    "source": "llm_mechanical",
+    "sharpe": 1.54,
+    "fitness": 1.13,
+    "turnover": 0.0583,
+    "returns": 0.0677,
+    "drawdown": 0.0982,
+    "margin": 0.002322,
+    "max_correlation": 0.9966431765918471,
+    "universe": "TOP3000",
+    "neutralization": "SUBINDUSTRY",
+    "delay": 1,
+    "decay": 8,
+    "truncation": 0.05,
+    "pasteurization": "ON",
+    "nan_handling": "OFF"
   }
 ]
