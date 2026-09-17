@@ -273,3 +273,59 @@ async def test_drip_diversity_ranking_prefers_non_recent_archetype(config, mock_
         # ALPHA_SKEW should be submitted first because it provides diversity over repeat 'breakeven'!
         assert alpha_id == "ALPHA_SKEW"
         mock_client.submit_alpha.assert_called_once_with("ALPHA_SKEW")
+
+
+@pytest.mark.asyncio
+async def test_drip_populates_name_and_description_on_submission(config, mock_client, mock_store):
+    """When an alpha is submitted, DripSubmitter must generate name and description and call update_alpha_metadata."""
+    yesterday_ny = datetime.datetime.now(NY_TZ).date() - datetime.timedelta(days=1)
+    yesterday_iso = f"{yesterday_ny.isoformat()}T12:00:00-04:00"
+
+    mock_sess = MagicMock()
+    mock_resp_user = MagicMock()
+    mock_resp_user.status_code = 200
+    mock_resp_user.json.return_value = {
+        "results": [{"id": "OLD_ALPHA", "dateSubmitted": yesterday_iso}]
+    }
+
+    mock_resp_cand = MagicMock()
+    mock_resp_cand.status_code = 200
+    mock_resp_cand.json.return_value = {
+        "status": "UNSUBMITTED",
+        "is": {"checks": []},
+    }
+
+    async def mock_retry(method, url, max_tries=3):
+        if "users/self/alphas" in url:
+            return mock_resp_user
+        return mock_resp_cand
+
+    mock_sess.retry = AsyncMock(side_effect=mock_retry)
+    mock_client._get_session.return_value = mock_sess
+    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+    mock_client.update_alpha_metadata = AsyncMock(return_value={"ok": True, "status_code": 200})
+
+    mock_store.get_unsubmitted_pool_alphas.return_value = [
+        {
+            "alpha_id": "ALPHA_NEW_99",
+            "archetype": "Mutation(breakeven)",
+            "hypothesis": "Test breakeven hypothesis with volume liquidity surge.",
+            "expression": "trade_when(volume > adv20, call_breakeven_30)",
+            "sharpe": 1.60,
+            "fitness": 1.25,
+        }
+    ]
+
+    with patch("brain_options.core.drip.send_telegram_drip_alert"):
+        drip = DripSubmitter(mock_client, mock_store, config)
+        submitted, alpha_id, reason = await drip.check_and_drip()
+
+        assert submitted is True
+        assert alpha_id == "ALPHA_NEW_99"
+        mock_client.update_alpha_metadata.assert_called_once()
+        call_kwargs = mock_client.update_alpha_metadata.call_args.kwargs
+        assert call_kwargs["name"].startswith("OPT_Breakeven_")
+        assert "breakeven" in call_kwargs["description"].lower()
+        assert "options" in call_kwargs["tags"]
+        assert call_kwargs["category"] == "PRICE_VOLUME"
+        mock_client.submit_alpha.assert_called_once_with("ALPHA_NEW_99")

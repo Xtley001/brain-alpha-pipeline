@@ -220,3 +220,37 @@ class BrainClient:
             "data": resp.json() if hasattr(resp, "json") else {},
             "message": resp.text[:200] if hasattr(resp, "text") else "",
         }
+
+    async def update_alpha_metadata(
+        self,
+        alpha_id: str,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+        category: Optional[str] = None,
+    ) -> dict[str, Any]:
+        """Update alpha name, economic description, tags, and category via PATCH /alphas/<id>."""
+        session = self._get_session()
+        url = f"https://api.worldquantbrain.com/alphas/{alpha_id}"
+        payload: dict[str, Any] = {}
+        if name:
+            payload["name"] = name
+        if category:
+            payload["category"] = category
+        if tags is not None:
+            payload["tags"] = tags
+        if description:
+            payload["regular"] = {"description": description}
+
+        if not payload:
+            return {"ok": True, "status_code": 200}
+
+        resp = await session.retry("PATCH", url, json=payload, max_tries=3)
+        if resp is None:
+            return {"ok": False, "status_code": 500, "message": "No response"}
+        return {
+            "ok": resp.status_code < 400,
+            "status_code": resp.status_code,
+            "data": resp.json() if hasattr(resp, "json") else {},
+            "message": resp.text[:200] if hasattr(resp, "text") else "",
+        }

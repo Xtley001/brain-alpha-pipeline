@@ -193,7 +193,7 @@ class OptionsDatabase:
         if not self.database_url:
             return []
         sql = """
-            SELECT alpha_id, expression, archetype, sharpe, fitness, turnover, returns, drawdown, margin
+            SELECT alpha_id, expression, archetype, hypothesis, sharpe, fitness, turnover, returns, drawdown, margin
             FROM options_alphas
             WHERE status != 'SUBMITTED' AND alpha_id IS NOT NULL
             ORDER BY sharpe DESC, fitness DESC;

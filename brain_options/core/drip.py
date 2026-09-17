@@ -23,6 +23,51 @@ log = logging.getLogger("brain_options.drip")
 NY_TZ = zoneinfo.ZoneInfo("America/New_York")
 
 
+def build_alpha_submission_metadata(cand: Dict[str, Any]) -> Dict[str, Any]:
+    """Generates structured name, description, category, and tags for BRAIN submission."""
+    alpha_id = cand.get("alpha_id") or ""
+    arch = cand.get("archetype") or "Options Factor"
+    hyp = cand.get("hypothesis") or ""
+    expr = (cand.get("expression") or "").lower()
+
+    # Clean archetype slug for naming
+    clean_arch = arch.replace("Mutation(", "").replace(")", "").strip()
+    clean_arch = clean_arch.replace(" ", "_").replace("-", "_").title()
+    clean_arch = "".join(c for c in clean_arch if c.isalnum() or c == "_")
+    name_suffix = alpha_id[-6:] if alpha_id else "ALPHA"
+    name = f"OPT_{clean_arch[:18]}_{name_suffix}"
+
+    # Build descriptive economic hypothesis
+    if hyp and len(hyp.strip()) > 20:
+        description = hyp.strip()
+    else:
+        description = f"Quantitative options factor exploiting {arch.lower()} dynamics with subindustry neutralization."
+
+    # Derive tags and category based on formula features
+    tags = ["options"]
+    if "breakeven" in expr or "breakeven" in arch.lower():
+        tags.append("breakeven")
+    if "skew" in expr or "skew" in arch.lower():
+        tags.append("skew")
+    if "implied_volatility" in expr or "iv" in arch.lower() or "volatility" in arch.lower():
+        tags.append("volatility")
+    if "pcr" in expr:
+        tags.append("pcr")
+    if "forward_price" in expr or "basis" in arch.lower():
+        tags.append("forward-basis")
+    if "term_structure" in expr or "term_structure" in arch.lower():
+        tags.append("term-structure")
+
+    category = "PRICE_VOLUME" if ("volume" in expr or "adv" in expr) else "PRICE_REVERSION"
+
+    return {
+        "name": name,
+        "description": description,
+        "tags": list(dict.fromkeys(tags)),
+        "category": category,
+    }
+
+
 class DripSubmitter:
     def __init__(self, client: BrainClient, store: OptionsStore, config: OptionsConfig):
         self.client = client
@@ -182,7 +227,21 @@ class DripSubmitter:
                 log.warning("[DRIP QUEUE] Skipping %s: failed checks %s", alpha_id, failed_checks)
                 continue
 
-            # Candidate is 100% verified! Submit exactly this one
+            # Candidate is 100% verified! Populate name, description, tags, and category on BRAIN
+            meta = build_alpha_submission_metadata(cand)
+            if hasattr(self.client, "update_alpha_metadata"):
+                try:
+                    await self.client.update_alpha_metadata(
+                        alpha_id,
+                        name=meta["name"],
+                        description=meta["description"],
+                        tags=meta["tags"],
+                        category=meta["category"],
+                    )
+                    log.info("[DRIP QUEUE] Updated metadata on BRAIN for %s: name='%s'", alpha_id, meta["name"])
+                except Exception as meta_err:
+                    log.warning("[DRIP QUEUE] Non-fatal: could not update metadata for %s: %s", alpha_id, meta_err)
+
             log.info("[DRIP QUEUE] Submitting verified alpha %s for %s EDT...", alpha_id, today_ny)
             res = await self.client.submit_alpha(alpha_id)
             if res.get("ok"):
