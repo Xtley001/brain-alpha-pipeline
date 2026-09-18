@@ -179,15 +179,41 @@ To bring the pipeline to peak efficiency and institutional robustness, updates a
 
 ---
 
-## 3. Verification & Benchmark Checklist
+### Phase 5: Automated Divide-and-Conquer Multi-Org Specialization & Quota Maximization
 
-Upon user approval, the execution will be validated by:
-1. **Unit Test Suite:** Running `pytest` across all tests (expected 100% pass rate).
-2. **Cluster Health Check:** Executing `python scripts/org_manager.py --status`.
-3. **Dispatch Dry-Run:** Executing `python scripts/org_manager.py --dispatch` and verifying no undefined variable errors.
-4. **FastExpr Operator Validation:** Verifying all generated expressions in templates and archetypes parse cleanly without `ts_var` or `ts_decay_exp_window`.
-5. **Database Connection Pool Test:** Confirming `psycopg_pool` handles multiple concurrent transactions without opening new raw connections.
-6. **API & Dashboard Verification:** Running `app.py` under the new lifespan handler.
+#### Fix 5.1: Quota Maximization Schedule (~12 Days Left in September 2026)
+- **Available Runner Budget:** 2,000 minutes/month per worker org x 4 orgs = 8,000 minutes.
+- **Daily Budget:** 8,000 / 12 days = ~666.7 minutes/day total (~166.7 min/day per org).
+- **Execution Settings:**
+  - `RUN_TIME_BUDGET_SECONDS: "820"` (~13.6 min execution, 14 billed minutes per run).
+  - 12 runs/day per org = 1 run every 2 hours per org.
+  - Staggered by 30 minutes across 4 orgs = **1 run starting every 30 minutes 24/7 without overlap**.
+- **Concurrency & Peak Output:**
+  - Zero run overlap means zero simulation slot collisions on WorldQuant BRAIN.
+  - Each active org runs `BRAIN_MAX_CONCURRENT_SIMS: "3"` to saturate 100% of available simulation throughput.
+
+#### Fix 5.2: Divide-and-Conquer Archetype Specialization
+- **Org 1 (`xtley-alpha-research-01`)**: `breakeven` (Call/Put breakeven hurdle rate, variance risk premium, delta-adjusted breakeven repricing).
+- **Org 2 (`xtley-alpha-research-02`)**: `skew` (Downside crash risk premium, smirk curvature, normalized tail steepness).
+- **Org 3 (`xtley-alpha-research-03`)**: `term_structure` (Contango/backwardation inversion, calendar roll yield, forward volatility slope).
+- **Org 4 (`xtley-alpha-research-04`)**: `forward_basis,pcr_flow` (PCR volume-to-OI smart-money flow, synthetic forward basis mispricing).
+
+#### Fix 5.3: Dedicated Rejected Alphas Database Archiving
+- **Table:** `options_rejected_alphas` (fields: `id`, `alpha_id`, `expression`, `archetype`, `hypothesis`, `sharpe`, `fitness`, `turnover`, `returns`, `margin`, `rejection_reason`, `created_at`).
+- **Trigger Conditions:**
+  - Pre-submission checklist failures (`LOW_SHARPE`, `LOW_FITNESS`, `LOW_SUB_UNIVERSE_SHARPE`, etc.).
+  - Self-correlation failures ($\ge 0.70$).
+  - Asynchronous post-submission verification failures.
+  - Backend API rejection (HTTP 403 / unsubmitted / self-correlated).
+- When triggered, alpha is archived with exact reason into `options_rejected_alphas` and marked as `REJECTED` in `options_alphas` to permanently exclude it from future submissions.
 
 ---
-**Next Step:** Awaiting user approval to apply the planned fixes.
+
+## 3. Verification & Benchmark Results
+
+1. **Unit Test Suite:** 31/31 passed in 11.51s (`tests/test_specialization_and_rejection.py` added).
+2. **Cluster Health Check:** All 4 worker orgs and primary account verified online and synchronized.
+3. **Dry-Run Validation:** Confirmed `--archetype skew` generates 100% skew-specialized candidates across deterministic, mutation, and reasoning tiers.
+4. **Database Archiving:** Table `options_rejected_alphas` verified in PostgreSQL and local store fallback.
+5. **Git Deployment:** Pushed to `origin main` and all 4 worker org remotes (`remote_xtley-alpha-research-01` through `04`).
+

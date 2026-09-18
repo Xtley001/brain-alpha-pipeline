@@ -79,11 +79,23 @@ class OptionsGenerator:
         chosen = random.choices(CORE_ARCHETYPES, weights=norm_weights, k=1)[0]
         return chosen
 
-    def get_template_batch(self, count: int = 5) -> list[OptionCandidate]:
+    def get_template_batch(self, count: int = 5, archetype: Optional[str] = None) -> list[OptionCandidate]:
         """Tier 1: Deterministic seed template candidates."""
         batch: list[OptionCandidate] = []
-        while self._template_queue and len(batch) < count:
-            cand = self._template_queue.pop(0)
+        tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
+
+        i = 0
+        while i < len(self._template_queue) and len(batch) < count:
+            cand = self._template_queue[i]
+            if tokens:
+                matches = any(
+                    tok in cand.archetype_name.lower() or tok in cand.expression.lower()
+                    for tok in tokens
+                )
+                if not matches:
+                    i += 1
+                    continue
+            cand = self._template_queue.pop(i)
             if not self.is_evaluated(cand.expression):
                 batch.append(cand)
         return batch
@@ -107,6 +119,9 @@ class OptionsGenerator:
         while needed > 0 and len(candidates) < count:
             batch_n = min(chunk_size, needed)
             target_arch = archetype or self.choose_archetype(archetype_summary)
+            if "," in target_arch:
+                arch_choices = [t.strip() for t in target_arch.split(",") if t.strip()]
+                target_arch = random.choice(arch_choices)
             kb_cards = self.kb.get_cards_for_archetype(target_arch, max_cards=3)
             catalog_summary = self.catalog.summarize_for_prompt()
 
@@ -145,7 +160,7 @@ class OptionsGenerator:
         return candidates
 
 
-    def get_procedural_batch(self, count: int = 10) -> list[OptionCandidate]:
+    def get_procedural_batch(self, count: int = 10, archetype: Optional[str] = None) -> list[OptionCandidate]:
         """
         Tier 4 Fail-Safe: Dynamic Procedural Options Generator.
         Generates mathematically valid, institutionally grounded options alphas across
@@ -155,9 +170,17 @@ class OptionsGenerator:
         """
         import math
         procedural: list[OptionCandidate] = []
+        tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
 
         def _add(expr: str, arch: str, hyp: str):
             clean_expr = expr.strip()
+            if tokens:
+                matches = any(
+                    tok in arch.lower() or tok in clean_expr.lower() or tok in hyp.lower()
+                    for tok in tokens
+                )
+                if not matches:
+                    return
             if not self.is_evaluated(clean_expr) and not any(c.expression == clean_expr for c in procedural):
                 procedural.append(
                     OptionCandidate(
@@ -329,6 +352,7 @@ class OptionsGenerator:
         seed_candidates_for_mutation: Optional[list[OptionCandidate]] = None,
         top_exemplars: Optional[list[dict]] = None,
         archetype_summary: Optional[dict] = None,
+        target_archetype: Optional[str] = None,
     ) -> list[OptionCandidate]:
         """
         Assembles a balanced candidate batch across the generation tiers:
@@ -340,7 +364,7 @@ class OptionsGenerator:
         template_count = max(1, int(target_count * template_ratio))
         remaining = target_count - template_count
 
-        candidates: list[OptionCandidate] = self.get_template_batch(template_count)
+        candidates: list[OptionCandidate] = self.get_template_batch(template_count, archetype=target_archetype)
 
         # 1. Tier 3 Mutations: if no explicit seeds, auto-seed from top exemplars in memory
         active_seeds = seed_candidates_for_mutation
@@ -355,17 +379,24 @@ class OptionsGenerator:
                 for ex in top_exemplars[:3]
                 if ex.get("expression")
             ]
+            if target_archetype:
+                tokens = [t.strip().lower() for t in target_archetype.split(",")]
+                active_seeds = [
+                    s for s in active_seeds
+                    if any(t in s.archetype_name.lower() or t in s.expression.lower() for t in tokens)
+                ]
 
         if active_seeds:
             mutation_slots = max(1, remaining // 2)
             mutations = self.get_mutation_batch(active_seeds, count_per_base=2, top_exemplars=top_exemplars)
             candidates.extend(mutations[:mutation_slots])
 
-        # 2. Tier 2 LLM Reasoning (conditioned on top exemplars and bandit archetype weights)
+        # 2. Tier 2 LLM Reasoning (conditioned on target archetype or bandit weights)
         needed_reasoning = target_count - len(candidates)
         if needed_reasoning > 0:
             llm_candidates = self.get_reasoning_batch(
                 needed_reasoning,
+                archetype=target_archetype,
                 top_exemplars=top_exemplars,
                 archetype_summary=archetype_summary,
             )
@@ -374,14 +405,14 @@ class OptionsGenerator:
         # 3. Fallback top-up from static templates if any remain
         if len(candidates) < target_count:
             shortfall = target_count - len(candidates)
-            extra_templates = self.get_template_batch(shortfall)
+            extra_templates = self.get_template_batch(shortfall, archetype=target_archetype)
             candidates.extend(extra_templates)
 
         # 4. Fail-safe Tier 4: Dynamic procedural generator guarantees batch is never empty
         if len(candidates) < target_count:
             shortfall = target_count - len(candidates)
-            log.info("Top-up: generating %d fresh procedural options candidates...", shortfall)
-            procedural_candidates = self.get_procedural_batch(shortfall)
+            log.info("Top-up: generating %d fresh procedural options candidates (%s)...", shortfall, target_archetype or "all")
+            procedural_candidates = self.get_procedural_batch(shortfall, archetype=target_archetype)
             candidates.extend(procedural_candidates)
 
         return candidates

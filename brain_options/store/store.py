@@ -27,6 +27,7 @@ class OptionsStore:
 
         self.passed_csv = os.path.join(self.data_dir, "passed_options_alphas.csv")
         self.passed_json = os.path.join(self.data_dir, "passed_options_alphas.json")
+        self.rejected_csv = os.path.join(self.data_dir, "rejected_options_alphas.csv")
         self.history_csv = os.path.join(self.data_dir, "evaluated_candidates.csv")
         self.pnl_cache_dir = os.path.join(self.data_dir, "pnl_series")
         os.makedirs(self.pnl_cache_dir, exist_ok=True)
@@ -197,7 +198,60 @@ class OptionsStore:
         self.db.mark_alpha_submitted(alpha_id)
 
     def mark_alpha_correlated(self, alpha_id: str, reason: str = ""):
-        self.db.mark_alpha_correlated(alpha_id, reason)
+        self.archive_rejected_alpha(alpha_id, f"CORRELATED: {reason}")
+
+    def archive_rejected_alpha(
+        self,
+        alpha_id: str,
+        reason: str,
+        cand_data: Optional[Dict[str, Any]] = None,
+    ):
+        """Archives rejected/correlated alpha in both PostgreSQL and local storage."""
+        # 1. Archive in PostgreSQL dedicated table options_rejected_alphas
+        self.db.archive_rejected_alpha(alpha_id, reason, cand_data)
+
+        # 2. Archive locally in rejected_options_alphas.csv
+        cand = cand_data or {}
+        row = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "alpha_id": alpha_id,
+            "expression": cand.get("expression") or "",
+            "archetype": cand.get("archetype") or "",
+            "hypothesis": cand.get("hypothesis") or "",
+            "source": cand.get("source") or "",
+            "sharpe": cand.get("sharpe") or "",
+            "fitness": cand.get("fitness") or "",
+            "turnover": cand.get("turnover") or "",
+            "returns": cand.get("returns") or "",
+            "drawdown": cand.get("drawdown") or "",
+            "margin": cand.get("margin") or "",
+            "rejection_reason": reason,
+        }
+        with self._write_lock:
+            file_exists = os.path.exists(self.rejected_csv)
+            with open(self.rejected_csv, "a", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=list(row.keys()))
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow(row)
+
+            # Update passed_options_alphas.json status if present
+            if os.path.exists(self.passed_json):
+                try:
+                    with open(self.passed_json, "r", encoding="utf-8") as f:
+                        records = json.load(f)
+                    updated = False
+                    for r in records:
+                        if r.get("alpha_id") == alpha_id:
+                            r["status"] = "REJECTED"
+                            r["rejection_reason"] = reason
+                            updated = True
+                    if updated:
+                        with open(self.passed_json, "w", encoding="utf-8") as f:
+                            json.dump(records, f, indent=2)
+                except Exception as e:
+                    log.warning("Could not update status in passed_json: %s", e)
+
 
 
     def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:

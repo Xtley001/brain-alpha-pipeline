@@ -245,7 +245,9 @@ class DripSubmitter:
 
             is_eligible, failed_checks, alpha_data = await self.verify_alpha_checks(alpha_id)
             if not is_eligible:
-                log.warning("[DRIP QUEUE] Skipping %s: failed checks %s", alpha_id, failed_checks)
+                log.warning("[DRIP QUEUE] Rejecting %s: failed checks %s. Archiving to rejected alphas table.", alpha_id, failed_checks)
+                if hasattr(self.store, "archive_rejected_alpha"):
+                    self.store.archive_rejected_alpha(alpha_id, f"CHECK_FAIL: {', '.join(failed_checks)}", cand)
                 continue
 
             # Candidate is 100% verified! Populate name, description, tags, and category on BRAIN
@@ -272,13 +274,15 @@ class DripSubmitter:
                 is_actually_submitted = False
                 verified_data = alpha_data
                 sess = self.client._get_session()
+                v_stage = ""
+                v_status = ""
                 for attempt in range(5):
                     await asyncio.sleep(2.5)
                     v_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{alpha_id}", max_tries=2)
                     if v_resp and v_resp.status_code == 200:
                         v_json = v_resp.json()
-                        v_stage = v_json.get("stage")
-                        v_status = v_json.get("status")
+                        v_stage = v_json.get("stage", "")
+                        v_status = v_json.get("status", "")
                         if v_stage == "OS" and v_status == "ACTIVE":
                             is_actually_submitted = True
                             verified_data = v_json
@@ -313,18 +317,15 @@ class DripSubmitter:
                     )
                     return True, alpha_id, f"Submitted {alpha_id} (Slot {slot_num}/{max_daily}) for {today_ny} EDT"
                 else:
-                    log.warning("[DRIP QUEUE] Alpha %s failed post-submission validation (e.g. self-correlation). Marking as CORRELATED.", alpha_id)
-                    if hasattr(self.store, "mark_alpha_correlated"):
-                        self.store.mark_alpha_correlated(alpha_id, "FAILED_ASYNC_SUBMISSION_SELF_CORRELATION")
+                    log.warning("[DRIP QUEUE] Alpha %s failed post-submission validation (stage=%s, status=%s). Moving to options_rejected_alphas.", alpha_id, v_stage, v_status)
+                    if hasattr(self.store, "archive_rejected_alpha"):
+                        self.store.archive_rejected_alpha(alpha_id, f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})", cand)
                     continue
             else:
                 msg = res.get("message", "")
-                if "SELF_CORRELATION" in msg or "selfCorrelated" in msg or res.get("status_code") == 403:
-                    log.warning("[DRIP QUEUE] Alpha %s failed self-correlation on submit (%s). Marking as CORRELATED.", alpha_id, msg[:100])
-                    if hasattr(self.store, "mark_alpha_correlated"):
-                        self.store.mark_alpha_correlated(alpha_id, "SELF_CORRELATION")
-                else:
-                    log.warning("[DRIP QUEUE] Submission request for %s returned non-OK: %s", alpha_id, msg)
+                log.warning("[DRIP QUEUE] Alpha %s rejected during submission: %s. Moving to options_rejected_alphas.", alpha_id, msg[:100])
+                if hasattr(self.store, "archive_rejected_alpha"):
+                    self.store.archive_rejected_alpha(alpha_id, f"SUBMISSION_REJECTED: {msg[:200]}", cand)
 
         return False, None, "No candidate cleared all pre-submission checklist gates."
 

@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import logging
+import os
 import sys
 import time
 
@@ -135,7 +136,13 @@ async def run_candidate(
     return True
 
 
-async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = False, mode_label: str = "Single Batch") -> int:
+async def run_batch(
+    config: OptionsConfig,
+    batch_size: int,
+    dry_run: bool = False,
+    mode_label: str = "Single Batch",
+    target_archetype: Optional[str] = None,
+) -> int:
     store = OptionsStore(database_url=config.database_url)
     evaluated = store.load_evaluated_expressions()
     top_exemplars = store.load_top_performing_exemplars(limit=5, min_sharpe=0.85)
@@ -145,8 +152,9 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     generator = OptionsGenerator(llm_adapter)
     generator.evaluated_expressions.update(evaluated)
 
+    arch_label = f" [Specialization: {target_archetype}]" if target_archetype else ""
     log.info("Loaded %d previously evaluated candidates.", len(evaluated))
-    log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.", len(top_exemplars))
+    log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.%s", len(top_exemplars), arch_label)
     log.info("Generating next batch of %d options candidates...", batch_size)
 
     # Initial candidate batch generation (offloaded to thread to prevent blocking event loop)
@@ -156,6 +164,7 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
         template_ratio=0.3,
         top_exemplars=top_exemplars,
         archetype_summary=archetype_summary,
+        target_archetype=target_archetype,
     )
     log.info("Generated initial %d fresh options candidates (Batch Target: %d, Budget: %ds).",
              len(initial_candidates), batch_size, config.run_time_budget_seconds)
@@ -214,6 +223,7 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
                                 template_ratio=0.3,
                                 top_exemplars=top_exemplars,
                                 archetype_summary=archetype_summary,
+                                target_archetype=target_archetype,
                             )
                             for fc in fresh_cands:
                                 queue.put_nowait(fc)
@@ -362,6 +372,7 @@ def main():
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     parser.add_argument("--drip", action="store_true", help="Run 24-hour drip submitter check and exit")
+    parser.add_argument("--archetype", type=str, default=os.environ.get("ARCHETYPE", ""), help="Target specific archetype family (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)")
     args = parser.parse_args()
 
     config = OptionsConfig.from_env()
@@ -413,16 +424,16 @@ def main():
     log.info("Starting brain_options pipeline (Universe=%s, Delay=%d, MaxSims=%d)...", config.universe, config.delay, config.brain_max_concurrent_sims)
 
     if args.daemon:
-        log.info("Running in continuous daemon mode...")
+        log.info("Running in continuous daemon mode (Specialization: %s)...", args.archetype or "ALL")
         while True:
             try:
-                asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon"))
+                asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon", target_archetype=args.archetype or None))
             except Exception as e:
                 log.error("Batch encountered unhandled error: %s", e, exc_info=True)
             log.info("Sleeping 300 seconds before next batch...")
             time.sleep(300)
     else:
-        asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch"))
+        asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=args.archetype or None))
 
 
 if __name__ == "__main__":

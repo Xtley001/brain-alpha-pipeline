@@ -81,6 +81,23 @@ CREATE TABLE IF NOT EXISTS options_learning_memory (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS options_rejected_alphas (
+    id SERIAL PRIMARY KEY,
+    alpha_id VARCHAR(64),
+    expression TEXT NOT NULL,
+    archetype VARCHAR(128),
+    hypothesis TEXT,
+    source VARCHAR(32),
+    sharpe NUMERIC(8, 4),
+    fitness NUMERIC(8, 4),
+    turnover NUMERIC(8, 4),
+    returns NUMERIC(8, 4),
+    drawdown NUMERIC(8, 4),
+    margin NUMERIC(10, 6),
+    rejection_reason TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id ON options_alphas(alpha_id);
 CREATE INDEX IF NOT EXISTS idx_options_alphas_status_created ON options_alphas(status, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype ON options_alphas(archetype);
@@ -88,6 +105,9 @@ CREATE INDEX IF NOT EXISTS idx_options_evaluations_expr ON options_evaluations(e
 CREATE INDEX IF NOT EXISTS idx_options_eval_created_status ON options_evaluations(created_at DESC, status);
 CREATE INDEX IF NOT EXISTS idx_options_learning_reward ON options_learning_memory(reward DESC);
 CREATE INDEX IF NOT EXISTS idx_options_learning_archetype ON options_learning_memory(archetype);
+CREATE INDEX IF NOT EXISTS idx_options_rejected_alpha_id ON options_rejected_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_rejected_reason ON options_rejected_alphas(rejection_reason);
+CREATE INDEX IF NOT EXISTS idx_options_rejected_created ON options_rejected_alphas(created_at DESC);
 """
 
 
@@ -268,18 +288,85 @@ class OptionsDatabase:
             log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
 
     def mark_alpha_correlated(self, alpha_id: str, reason: str = ""):
-        """Marks an alpha as CORRELATED in options_alphas so it is excluded from future submission attempts."""
+        """Marks an alpha as CORRELATED in options_alphas and archives it into options_rejected_alphas."""
         if not self.database_url:
             return
-        sql = "UPDATE options_alphas SET status = 'CORRELATED' WHERE alpha_id = %s;"
+        self.archive_rejected_alpha(alpha_id, f"CORRELATED: {reason}")
+
+    def archive_rejected_alpha(
+        self,
+        alpha_id: str,
+        reason: str,
+        cand_data: Optional[Dict[str, Any]] = None,
+    ):
+        """
+        Archives a rejected alpha into options_rejected_alphas with exact failure diagnostic,
+        and updates options_alphas status to REJECTED so it is permanently excluded from future submissions.
+        """
+        if not self.database_url:
+            return
+
+        cand = cand_data or {}
+        expr = cand.get("expression") or ""
+        arch = cand.get("archetype") or ""
+        hyp = cand.get("hypothesis") or ""
+        src = cand.get("source") or ""
+        sharpe = cand.get("sharpe")
+        fitness = cand.get("fitness")
+        turnover = cand.get("turnover")
+        returns = cand.get("returns")
+        drawdown = cand.get("drawdown")
+        margin = cand.get("margin")
+
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (alpha_id,))
+                    # 1. Attempt to copy from options_alphas if record exists
+                    cur.execute(
+                        """
+                        INSERT INTO options_rejected_alphas (
+                            alpha_id, expression, archetype, hypothesis, source,
+                            sharpe, fitness, turnover, returns, drawdown, margin,
+                            rejection_reason
+                        )
+                        SELECT alpha_id, expression, archetype, hypothesis, source,
+                               sharpe, fitness, turnover, returns, drawdown, margin,
+                               %s
+                        FROM options_alphas
+                        WHERE alpha_id = %s
+                        RETURNING id;
+                        """,
+                        (reason, alpha_id),
+                    )
+                    row = cur.fetchone()
+
+                    # 2. If alpha was not in options_alphas but cand_data has expression, insert directly
+                    if not row and expr:
+                        cur.execute(
+                            """
+                            INSERT INTO options_rejected_alphas (
+                                alpha_id, expression, archetype, hypothesis, source,
+                                sharpe, fitness, turnover, returns, drawdown, margin,
+                                rejection_reason
+                            )
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                            """,
+                            (
+                                alpha_id, expr, arch, hyp, src,
+                                sharpe, fitness, turnover, returns, drawdown, margin,
+                                reason,
+                            ),
+                        )
+
+                    # 3. Mark status as REJECTED in options_alphas
+                    cur.execute(
+                        "UPDATE options_alphas SET status = 'REJECTED' WHERE alpha_id = %s;",
+                        (alpha_id,),
+                    )
                 conn.commit()
-            log.info("Marked alpha %s as CORRELATED in database (%s).", alpha_id, reason)
+            log.info("Archived rejected alpha %s to options_rejected_alphas (%s).", alpha_id, reason)
         except Exception as e:
-            log.warning("Failed to mark alpha %s as CORRELATED: %s", alpha_id, e)
+            log.warning("Failed to archive rejected alpha %s: %s", alpha_id, e)
 
     def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
         """Returns archetypes of the most recently submitted alphas to promote portfolio diversity."""
