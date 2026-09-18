@@ -107,4 +107,5 @@ python -m brain_options.run --daemon
 
 - **Passed Options Alphas:** `brain_options/data/passed_options_alphas.csv` and `.json`.
 - **Evaluated History:** `brain_options/data/evaluated_candidates.csv`.
-- **Legacy Price/Volume Alphas:** Safely preserved in `legacy_archive/all_generated_alphas.csv` and `legacy_archive/exported_alphas/`.
+- **PostgreSQL Database:** Single source of truth across all 5 research cluster organizations.
+
