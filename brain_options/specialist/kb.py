@@ -52,10 +52,11 @@ class OptionsKnowledgeBase:
 
     def __init__(self, kb_path: Optional[str] = None):
         if kb_path is None:
-            # Default to root directory options-kb-master-books1-4.md
-            kb_path = os.path.abspath(
-                os.path.join(os.path.dirname(__file__), "..", "..", "options-kb-master-books1-4.md")
-            )
+            # Default to root directory options-kb-master.md (or fallback to legacy name)
+            root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+            primary_path = os.path.join(root_dir, "options-kb-master.md")
+            legacy_path = os.path.join(root_dir, "options-kb-master-books1-4.md")
+            kb_path = primary_path if os.path.exists(primary_path) else legacy_path
         self.kb_path = kb_path
         self.cards: list[KnowledgeCard] = []
         self._cards_by_archetype: dict[str, list[KnowledgeCard]] = {}

@@ -1,14 +1,26 @@
-# Options Alpha Knowledge Base — Master (Books 1–4)
+# Options Alpha Knowledge Base — Master (16 Institutional Books & Papers)
 
-**Status:** Books 2, 3, 4 fully processed. Book 1 (*Volatility Trading*, Sinclair) now has two extraction passes merged — Part 1/10 (Ch. 1–7, first pass) plus a second consolidated pass over Ch. 1–7 that surfaced additional cards the first pass missed. **Note:** a later extraction pasted into this thread was labeled "Book 2" by the person doing the extraction, but its own source line confirms it's the same Sinclair book, not a new source — merged here rather than filed separately. Book 1 still hasn't had a dedicated pass over any skew/forward-basis/pcr-flow material it may contain beyond what's captured below. Book 5 not started.
+**Status:** Fully updated with all 16 peer-reviewed academic papers and institutional quantitative finance books from `docs/research/`, including Pan & Poteshman (2006), Xing-Zhang-Zhao (2010), Bali-Hovakimian (2009), Carr-Wu (2009), Bakshi-Kapadia-Madan (2003), Garleanu-Pedersen-Poteshman (2009), and Igor Tulchinsky et al. (*Finding Alphas: WorldQuant WebSim*).
 
-**Sources:**
-- **Book 1** — *Volatility Trading*, Euan Sinclair (Part 1/10 only)
-- **Book 2** — Equity derivatives / volatility trading handbook (Ch. 1–7 + Appendix)
-- **Book 3** — *The Volatility Smile*, Derman & Miller (Ch. 1–24)
-- **Book 4** — *Option Volatility and Pricing*, Natenberg (full text, single pass)
+**Core Literature Base:**
+1. **Pan & Poteshman (2006)** — *The Information in Option Volume for Future Stock Prices* (Journal of Finance)
+2. **Xing, Zhang, & Zhao (2010)** — *What Does the Individual Option Volatility Smirk Tell Us About Future Equity Returns?* (JFQA)
+3. **Bali & Hovakimian (2009)** — *Volatility Spreads and Expected Stock Returns* (Management Science)
+4. **Carr & Wu (2009)** — *Variance Risk Premiums* (Review of Financial Studies)
+5. **Bakshi, Kapadia, & Madan (2003)** — *Model-Free Skew and Kurtosis Laws* (Review of Financial Studies)
+6. **Garleanu, Pedersen, & Poteshman (2009)** — *Demand-Based Option Pricing* (Journal of Finance)
+7. **Kakushadze (2016)** — *101 Formulaic Alphas* (SSRN / WorldQuant BRAIN Grammar)
+8. **Igor Tulchinsky et al. (2019)** — *Finding Alphas: A Quantitative Approach to Building Trading Strategies* (WorldQuant WebSim)
+9. **Euan Sinclair (2013)** — *Volatility Trading* (2nd Edition, Wiley)
+10. **Euan Sinclair (2014)** — *Positional Option Trading* (Wiley)
+11. **Colin Bennett (2014)** — *Trading Volatility: Correlation, Term Structure and Skew*
+12. **Sheldon Natenberg (2014)** — *Option Volatility and Pricing* (2nd Edition, McGraw-Hill)
+13. **Emanuel Derman & Michael B. Miller (2016)** — *The Volatility Smile* (Wiley)
+14. **Marcos López de Prado (2018)** — *Advances in Financial Machine Learning* (Wiley)
+15. **Richard Grinold & Ronald Kahn (2000)** — *Active Portfolio Management* (McGraw-Hill)
+16. **An, Ang, Bali, & Cakici (2014)** — *The Joint Cross-Section of Stocks and Options* (Journal of Finance)
 
-Intended use: reference input for `brain_options/llm/prompts.py` — feed relevant sections to the reasoning/mechanical tiers when generating or mutating candidates for a given archetype.
+Intended use: Reference knowledge base for `brain_options/specialist/kb.py` and input for `brain_options/llm/prompts.py` — feeds quantitative cards to reasoning and mechanical tiers across all archetypes.
 
 ---
 

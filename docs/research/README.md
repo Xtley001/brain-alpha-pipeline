@@ -13,5 +13,5 @@ When you drop files here, notify the assistant in chat (e.g., *"I dropped Sincla
 The assistant will:
 1. Parse the text directly on your local machine.
 2. Extract mathematical expressions, empirical heuristics, economic rationales, and pitfall warnings.
-3. Cross-check against existing cards in `options-kb-master-books1-4.md`.
+3. Cross-check against existing cards in `options-kb-master.md`.
 4. Inject new quantitative cards into the project's knowledge base and archetype generators.
