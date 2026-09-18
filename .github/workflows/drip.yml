@@ -1,0 +1,40 @@
+name: BRAIN Daily Alpha Drip Submitter
+
+on:
+  schedule:
+    # 5 checks daily (UTC): 05:15, 10:15, 14:15, 18:15, 22:15
+    # Corresponds to ~01:15, 06:15, 10:15, 14:15, 18:15 EDT (06:15, 11:15, 15:15, 19:15, 23:15 UTC+1)
+    # Each run takes ~30-45 seconds, consuming < 3 minutes/day total!
+    - cron: "15 5,10,14,18,22 * * *"
+  workflow_dispatch: {}  # Allows manual 1-click trigger anytime
+
+concurrency:
+  group: brain-drip-submitter
+  cancel-in-progress: false
+
+jobs:
+  drip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
+      BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      ENABLE_AUTO_SUBMIT: "true"
+      DRIP_MAX_DAILY: "3"
+      DRIP_MIN_INTERVAL_HOURS: "4.0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Execute Daily Drip Alpha Submission
+        run: python -m brain_options.run --drip
