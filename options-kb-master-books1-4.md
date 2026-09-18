@@ -64,7 +64,27 @@ Intended use: reference input for `brain_options/llm/prompts.py` — feed releva
 **Note:** This is the flow-mechanism explanation behind several `skew`/`term-structure` correlation cards below (index skew, correlation-swap spreads) — treat as the flow-driver companion, not an independent tradeable signal on its own.
 **Source:** Book 2, Ch. 5.2, 6.3.
 
-> **Gap flagged explicitly by two sources:** Books 1, 3, and 4 all noted they contain essentially no put-call-ratio / open-interest / positioning-flow content — this archetype is thin across the corpus so far and is the one most worth targeting with a dedicated flow/positioning-focused book next.
+### Informed buyer-initiated put-call ratio predicts equity returns
+**Idea:** Open-buy option volume initiated by public customers carries informed directionality. A low put-call volume ratio predicts positive cross-sectional stock returns (+40 bps next-day), while a high put-call ratio predicts negative returns.
+**Heuristic:** Compute normalized put-call volume ratio `PCR = Put_Vol / (Put_Vol + Call_Vol)`. Demean or z-score over trailing 20 days; cross-sectionally rank against industry peers.
+**Expression sketch:** `feature = group_neutralize(rank(-ts_zscore(pcr_vol_30, 20)), subindustry)`
+**Pitfall:** Total volume conflates buyer-initiated with dealer market-making volume and closing positions. Filter out zero-volume and low-liquidity names (`volume > adv20`).
+**Source:** Pan & Poteshman (2006), Journal of Finance.
+
+### Option volume to open-interest surge (smart money velocity)
+**Idea:** When daily option volume sharply exceeds the stock of existing open interest, it indicates aggressive new positioning by informed traders ahead of catalysts rather than routine roll or hedging activity.
+**Heuristic:** Ratio of daily put-call volume to open interest stock reveals unusual velocity. Fading extreme put-to-OI surges isolates high-conviction contrarian setups.
+**Expression sketch:** `feature = trade_when(volume > adv20, group_neutralize(rank(-ts_decay_linear(pcr_vol_30 / (pcr_oi_30 + 0.001), 5)), subindustry), -1)`
+**Pitfall:** Unadjusted ratio is volatile for micro-cap options with low baseline open interest; require minimum denominator liquidity.
+**Source:** Pan & Poteshman (2006) & An, Ang, Bali, Cakici (2014), Journal of Finance.
+
+### Dealer inventory imbalance from end-user option demand
+**Idea:** Demand from non-market-makers forces option dealers into unhedgeable risk positions. High net end-user buying pressure in puts inflates implied volatility beyond fair value, creating contrarian return predictability.
+**Heuristic:** Track price pressure divergence between options and equity; when put volume spikes without equivalent spot selling, dealers hedge by shorting stock, temporarily depressing price before reversion.
+**Expression sketch:** `feature = group_neutralize(rank(ts_rank(implied_volatility_mean_30, 20) - ts_rank(close, 20)), subindustry)`
+**Pitfall:** Requires confirming the price move isn't accompanied by catastrophic fundamental earnings revisions.
+**Source:** Garleanu, Pedersen, & Poteshman (2009), Journal of Finance.
+
 
 ---
 
@@ -193,9 +213,22 @@ Intended use: reference input for `brain_options/llm/prompts.py` — feed releva
 **Heuristic:** When comparing an index's skew to its correlation-weighted component skew, a persistent gap is partly implied-correlation-channel, not pure hedging flow — relevant for dispersion trades (index vol/skew vs. basket vol/skew), which should model this channel directly.
 **Pitfall:** Don't attribute 100% of an index-vs-component skew gap to hedging flow without checking the correlation-channel contribution — conflating the two mis-specifies dispersion trades.
 **🔁 Same mechanism as "Index skew is structurally higher than single-stock skew (implied correlation channel)" in this section (Book 2)** — independent corroboration from a second source; high confidence.
-**Source:** Book 1, Ch. 3.
+### Volatility smirk steepness as jump-to-default predictor (Xing-Zhang-Zhao)
+**Idea:** Steepness of individual option smirk ($IV_{\text{OTM put}} - IV_{\text{ATM call}}$) is an empirical proxy for market-assessed downward jump risk. Firms in the steepest smirk quintile underperform firms in the lowest smirk quintile by 10.9% annualized.
+**Heuristic:** Measure the moneyness spread between 95% OTM puts and 100% ATM calls normalized by $\sqrt{T/252}$. Cross-sectionally short high-smirk and long low-smirk.
+**Expression sketch:** `feature = group_neutralize(rank(-ts_decay_linear(implied_volatility_mean_skew_{tenor} * sqrt({tenor} / 252.0), 5)), subindustry)`
+**Pitfall:** Smirk steepness naturally increases for highly leveraged firms. Neutralizing by subindustry eliminates structural leverage bias.
+**Source:** Xing, Zhang, & Zhao (2010), Journal of Financial and Quantitative Analysis.
+
+### Model-free implied skewness and kurtosis decomposition (BKM)
+**Idea:** Bakshi-Kapadia-Madan framework shows risk-neutral skewness can be calculated directly from a continuum of OTM calls and puts without assuming BSM. Negative implied skewness reflects asymmetric downside tail risk pricing.
+**Heuristic:** Disconnect between model-free implied skewness and trailing realized physical return skewness isolates tail-risk mispricing.
+**Expression sketch:** `feature = group_neutralize(rank(ts_skewness(returns, 60) - implied_volatility_mean_skew_30), subindustry)`
+**Pitfall:** Needs liquid strike distribution; sparse strike ladders introduce numerical integration error.
+**Source:** Bakshi, Kapadia, & Madan (2003), Review of Financial Studies.
 
 ---
+
 
 ## 4. TERM-STRUCTURE
 
@@ -433,9 +466,22 @@ Intended use: reference input for `brain_options/llm/prompts.py` — feed releva
 **Idea:** When a range-based estimator (Parkinson, Garman-Klass, etc.) runs well above the close-to-close estimate for the same name/period, realized variability is concentrated intraday rather than in day-over-day closes — relevant for choosing hedge frequency, or flagging names (e.g., ADRs missing their primary market's news flow) with a structurally elevated intraday/close ratio.
 **Heuristic:** Track the range-estimator/close-to-close ratio as its own diagnostic series per name; a ratio well outside that name's own historical norm signals a change in where information is being incorporated — relevant context before trusting close-based term-structure or skew signals for that name.
 **Pitfall:** Range-based estimators are systematically biased low under discrete sampling (worse for Garman-Klass than Parkinson) — correct for the known bias before comparing across names with very different liquidity/trade-count profiles, since the bias itself depends on sample size.
-**Source:** Book 1, Ch. 2.
+### Orthogonal volatility components: Call-Put vs Realized-Implied (Bali-Hovakimian)
+**Idea:** Total volatility separates into three orthogonal components: PC1 (total variance level, zero alpha), PC2 (realized minus implied volatility, variance risk premium proxy), and PC3 (call IV minus put IV spread, directional price expectation).
+**Heuristic:** The call-put implied volatility spread (PC3) directly forecasts equity returns. Simultaneously, PC2 (VRP) earns the volatility insurance premium.
+**Expression sketch:** `call_put_spread = group_neutralize(rank(ts_decay_linear((implied_volatility_call_30 - implied_volatility_put_30) / (implied_volatility_mean_30 + 0.001), 5)), subindustry)`
+**Pitfall:** Call-put spread can be contaminated during dividend record weeks; filter contracts with ex-dividend dates in tenor window.
+**Source:** Bali & Hovakimian (2009), Management Science.
+
+### Synthetic quadratic variance swap rate vs realized variance (Carr-Wu)
+**Idea:** Variance risk premium is rigorously measured by comparing the synthetic variance swap rate ($IV^2$) against rolling realized return variance ($\text{var}(\text{returns}) \times 252$). The quadratic term appropriately weights tail variance.
+**Heuristic:** Stocks with wide positive quadratic variance spreads have overpriced option volatility and exhibit suppressed future equity volatility.
+**Expression sketch:** `quadratic_vrp = group_neutralize(rank(-(signed_power(implied_volatility_mean_30, 2) - ts_var(returns, 30) * 252)), subindustry)`
+**Pitfall:** Extreme return spikes during black-swan events can cause realized variance to temporarily explode above implied variance.
+**Source:** Carr & Wu (2009), Review of Financial Studies.
 
 ---
+
 
 ## 5. BREAKEVEN
 
@@ -664,9 +710,22 @@ Intended use: reference input for `brain_options/llm/prompts.py` — feed releva
 **Expression sketch:** `vix_futures_roll_yield = (futures_price(t) − futures_price(t-1)) / spot_move(t)`, tracked by days-to-expiry bucket.
 **Pitfall:** Do not treat "VIX rose" as "RV about to rise" — near-zero empirical correlation between the two; VIX correlates strongly with *index returns* (negative), not with future RV.
 **Note:** Overlaps but is distinct from the Book 2 TERM-STRUCTURE cards on VIX futures pricing — this one is about the level/interpretation of VIX itself, those are about the futures curve's relative-value mechanics.
-**Source:** Book 4, Ch. 25.
+### WorldQuant WebSim Triple-Axis diversification and robustness (Tulchinsky)
+**Idea:** An institutional alpha portfolio requires exploration across three orthogonal axes: dataset type (options surface vs spot volume), universe liquidity cutoff (Top 3000 vs Top 500), and holding period horizon. Single-axis alphas suffer severe decay during factor rotation.
+**Heuristic:** Verify alpha viability across sub-universes (Top 3000, Top 1000, Top 500) without sign flipping. Filter candidates to ensure daily turnover remains between 1% and 30%.
+**Expression sketch:** `CQS = 1.0 * Sharpe + 1.2 * Fitness + 200 * Margin - 0.5 * Turnover`
+**Pitfall:** Overfitting parameters across small sample windows; always require robust operators (`ts_decay_linear`) and subindustry neutralization.
+**Source:** Igor Tulchinsky et al. (2019), *Finding Alphas: A Quantitative Approach to Building Trading Strategies*, Ch. 11, 12, 31.
+
+### Robust L-Estimators and Winsorization for derivatives features (Kozlov)
+**Idea:** Arithmetic means of derivatives variables are fragile to outliers caused by illiquid strikes or bad closing quotes. Robust order statistics (trimmed mean, winsorized mean, or median) prevent spurious backtest spikes.
+**Heuristic:** Apply rank transformations and decay smoothing prior to grouping to suppress quote noise without sacrificing signal power.
+**Expression sketch:** `feature = group_neutralize(rank(ts_decay_linear(signal, 5)), subindustry)`
+**Pitfall:** Raw nonlinear transformations can destabilize optimization algorithms; clamp extreme values using quantile boundaries.
+**Source:** Michael Kozlov, *Finding Alphas*, Ch. 12 (Techniques for Improving the Robustness of Alphas).
 
 ---
+
 
 ## Cross-book high-confidence themes (corroborated independently by 2+ sources)
 

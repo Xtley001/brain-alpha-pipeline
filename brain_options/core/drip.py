@@ -197,7 +197,8 @@ class DripSubmitter:
             log.info("[DRIP QUEUE] %s", msg)
             return False, None, msg
 
-        # Diversity optimization: prioritize candidates from archetypes distinct from recently submitted ones
+        # Diversity & Quality optimization: prioritize candidates with highest Composite Quality Score (CQS)
+        # while penalizing immediate repeats of recently submitted archetypes.
         recent_archs: List[str] = []
         if hasattr(self.store, "get_recently_submitted_archetypes"):
             try:
@@ -207,14 +208,21 @@ class DripSubmitter:
             except Exception:
                 recent_archs = []
 
-        if recent_archs:
-            def _diversity_key(c):
-                arch = c.get("archetype") or ""
-                is_repeat = 1 if arch in recent_archs else 0
-                return (is_repeat, -float(c.get("sharpe") or 0.0))
-            unsubmitted.sort(key=_diversity_key)
+        def _cqs_diversity_key(c):
+            arch = c.get("archetype") or ""
+            is_repeat = 1 if (recent_archs and arch in recent_archs) else 0
+            cqs = c.get("cqs")
+            if cqs is None:
+                s = float(c.get("sharpe") or 0.0)
+                f = float(c.get("fitness") or 0.0)
+                m = float(c.get("margin") or 0.0)
+                t = float(c.get("turnover") or 0.0)
+                cqs = 1.0 * s + 1.2 * f + 200.0 * m - 0.5 * t
+            return (is_repeat, -float(cqs), -float(c.get("sharpe") or 0.0))
 
-        log.info("[DRIP QUEUE] Submission window OPEN for %s EDT. Evaluating %d queue candidates (Diversity prioritized vs %s)...",
+        unsubmitted.sort(key=_cqs_diversity_key)
+
+        log.info("[DRIP QUEUE] Submission window OPEN for %s EDT. Evaluating %d queue candidates sorted by CQS (Diversity prioritized vs %s)...",
                  today_ny, len(unsubmitted), recent_archs)
 
         for cand in unsubmitted:

@@ -189,14 +189,15 @@ class OptionsDatabase:
             log.warning("Failed to save passed alpha in database: %s", e)
 
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
-        """Returns alphas in options_alphas that have not yet been submitted, ordered by Sharpe and Fitness."""
+        """Returns alphas in options_alphas that have not yet been submitted, ordered by Composite Quality Score (CQS)."""
         if not self.database_url:
             return []
         sql = """
-            SELECT alpha_id, expression, archetype, hypothesis, sharpe, fitness, turnover, returns, drawdown, margin
+            SELECT alpha_id, expression, archetype, hypothesis, sharpe, fitness, turnover, returns, drawdown, margin,
+                   (1.0 * COALESCE(sharpe, 0) + 1.2 * COALESCE(fitness, 0) + 200 * COALESCE(margin, 0) - 0.5 * COALESCE(turnover, 0)) AS cqs
             FROM options_alphas
-            WHERE status != 'SUBMITTED' AND alpha_id IS NOT NULL
-            ORDER BY sharpe DESC, fitness DESC;
+            WHERE status != 'SUBMITTED' AND status != 'CORRELATED' AND alpha_id IS NOT NULL
+            ORDER BY (1.0 * COALESCE(sharpe, 0) + 1.2 * COALESCE(fitness, 0) + 200 * COALESCE(margin, 0) - 0.5 * COALESCE(turnover, 0)) DESC, sharpe DESC;
         """
         try:
             with self._get_connection() as conn:

@@ -229,4 +229,60 @@ def generate_template_candidates() -> list[OptionCandidate]:
                 )
             )
 
+    # 18. Pan-Poteshman Informed Option Flow (Journal of Finance 2006)
+    for tenor in [20, 30]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"trade_when(volume > adv20, group_neutralize(rank(-ts_decay_linear(pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001), 5)), subindustry), -1)",
+                archetype_name="Pan-Poteshman Informed Option Flow",
+                hypothesis=f"Pan & Poteshman (2006): Informed buyer-initiated option flow velocity at {tenor}d tenor leads next-day equity returns under volume confirmation.",
+                generation_source="template",
+            )
+        )
+
+    # 19. Xing-Zhang-Zhao Volatility Smirk Smear (JFQA 2010)
+    for tenor in [20, 30, 60]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-ts_decay_linear(implied_volatility_mean_skew_{tenor} * sqrt({tenor} / 252.0), 5)), subindustry)",
+                archetype_name="Xing-Zhang-Zhao Volatility Smirk Smear",
+                hypothesis=f"Xing, Zhang, & Zhao (2010): Square-root-time normalized smirk steepness at {tenor}d tenor isolates downside jump-to-default risk.",
+                generation_source="template",
+            )
+        )
+
+    # 20. Bali-Hovakimian Volatility Spread PC3 (Management Science 2009)
+    for tenor in [20, 30, 60]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_decay_linear((implied_volatility_call_{tenor} - implied_volatility_put_{tenor}) / (implied_volatility_mean_{tenor} + 0.001), 5)), subindustry)",
+                archetype_name="Bali-Hovakimian Volatility Spread PC3",
+                hypothesis=f"Bali & Hovakimian (2009): Call IV minus Put IV spread at {tenor}d tenor predicts underlying cross-sectional price direction.",
+                generation_source="template",
+            )
+        )
+
+    # 21. Carr-Wu Quadratic Variance Risk Premium (RFS 2009)
+    for tenor in [20, 30]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-(signed_power(implied_volatility_mean_{tenor}, 2) - ts_var(returns, {tenor}) * 252)), subindustry)",
+                archetype_name="Carr-Wu Quadratic Variance Risk Premium",
+                hypothesis=f"Carr & Wu (2009): Quadratic variance swap rate minus realized variance at {tenor}d tenor isolates true volatility risk premium.",
+                generation_source="template",
+            )
+        )
+
+    # 22. Tulchinsky Winsorized Robust Breakeven (Finding Alphas Ch. 12)
+    for tenor in [20, 30, 60]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"trade_when(volume > adv20, group_neutralize(rank(ts_decay_linear((call_breakeven_{tenor} - close) / close, 5)), subindustry), -1)",
+                archetype_name="Tulchinsky Winsorized Robust Breakeven",
+                hypothesis=f"Tulchinsky et al. (2019): Robust linear decay smoothed call breakeven distance with volume gating eliminates quote noise in WebSim.",
+                generation_source="template",
+            )
+        )
+
     return candidates
+
