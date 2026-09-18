@@ -32,9 +32,3 @@ legacy_alphas_backup.zip
 # Options Pipeline Data (versioned candidate and alpha history)
 !brain_options/data/
 !brain_options/data/**
-
-# Research library binaries
-docs/research/*.pdf
-docs/research/*.epub
-docs/research/*.mobi
-docs/research/*.djvu
