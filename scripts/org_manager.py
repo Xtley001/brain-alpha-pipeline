@@ -64,7 +64,7 @@ def get_cluster_status() -> list[dict]:
     return statuses
 
 
-def dispatch_generation_job(org: Optional[str] = None, archetype: Optional[str] = None):
+def dispatch_generation_job(org: Optional[str] = None, candidates: int = 20) -> bool:
     """
     Selects the optimal organization (least loaded) and triggers the heavy generation workflow.
     """
@@ -86,9 +86,10 @@ def dispatch_generation_job(org: Optional[str] = None, archetype: Optional[str] 
         target_worker = online_workers[0]
 
     chosen_org = target_worker["org"]
+    target_repo = target_worker["repo"]
     print(f"\n>>> Routing Generation Job to: {target_repo} (Active Jobs: {target_worker['active_runs']})...")
 
-    cmd = f"gh workflow run run.yml --repo {target_repo}"
+    cmd = f"gh workflow run run.yml --repo {target_repo} -f candidates={candidates}"
     res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     if res.returncode == 0:
         print(f"SUCCESS: Heavy generation workflow triggered on {target_repo}!")
@@ -99,14 +100,46 @@ def dispatch_generation_job(org: Optional[str] = None, archetype: Optional[str] 
         return False
 
 
+def fanout_generation_jobs(candidates_per_org: int = 20) -> list[dict]:
+    """
+    Fans out parallel generation jobs across all online worker organizations in the cluster.
+    Unlocks maximum throughput by utilizing 100% of available cluster runners.
+    """
+    statuses = get_cluster_status()
+    online_workers = [s for s in statuses if s["online"]]
+    if not online_workers:
+        print("ERROR: No worker organizations are available for fanout.")
+        return []
+
+    print(f"\n>>> FANOUT: Dispatching {candidates_per_org} candidates to each of {len(online_workers)} worker orgs...")
+    results = []
+    for worker in online_workers:
+        repo = worker["repo"]
+        cmd = f"gh workflow run run.yml --repo {repo} -f candidates={candidates_per_org}"
+        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        ok = res.returncode == 0
+        status_msg = "SUCCESS" if ok else f"FAILED: {res.stderr.strip()}"
+        print(f"  [{worker['org']}] {status_msg}")
+        results.append({"org": worker["org"], "repo": repo, "success": ok})
+
+    successful = sum(1 for r in results if r["success"])
+    total_cand = successful * candidates_per_org
+    print(f"\nFanout complete: {successful}/{len(online_workers)} orgs triggered ({total_cand} candidates evaluating in parallel).")
+    return results
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Multi-Org Cluster Manager for Options Alpha Pipeline")
     parser.add_argument("--status", action="store_true", help="Display status of all organizations in cluster")
     parser.add_argument("--dispatch", action="store_true", help="Dispatch heavy generation job to least loaded org")
+    parser.add_argument("--fanout", action="store_true", help="Dispatch parallel heavy generation jobs across ALL online worker orgs")
     parser.add_argument("--org", type=str, help="Specify a particular organization to dispatch to")
+    parser.add_argument("--candidates", type=int, default=20, help="Number of candidates to evaluate per job (default: 20)")
     args = parser.parse_args()
 
-    if args.dispatch:
-        dispatch_generation_job(org=args.org)
+    if args.fanout:
+        fanout_generation_jobs(candidates_per_org=args.candidates)
+    elif args.dispatch:
+        dispatch_generation_job(org=args.org, candidates=args.candidates)
     else:
         get_cluster_status()

@@ -89,9 +89,24 @@ def clean_json_array(text: str) -> list[dict]:
     return []
 
 
+import asyncio
+
 class LLMAdapter:
     def __init__(self, config: OptionsConfig):
         self.config = config
+        self._key_indices = {
+            "groq": 0,
+            "cerebras": 0,
+            "openrouter": 0,
+            "gemini": 0,
+        }
+
+    def _rotate_keys(self, provider: str, keys: list[str]) -> list[str]:
+        if not keys:
+            return []
+        start_idx = self._key_indices.get(provider, 0) % len(keys)
+        self._key_indices[provider] = (start_idx + 1) % len(keys)
+        return keys[start_idx:] + keys[:start_idx]
 
     def _call_openai_compatible(
         self, base_url: str, api_key: str, model: str, prompt: str, system_prompt: str, temperature: float = 0.7
@@ -143,10 +158,14 @@ class LLMAdapter:
             temperature=temperature,
         )
 
+    async def generate_async(self, prompt: str, system_prompt: str, temperature: float = 0.7) -> Optional[str]:
+        """Asynchronous wrapper that offloads synchronous HTTP generation to a worker thread."""
+        return await asyncio.to_thread(self.generate, prompt, system_prompt, temperature)
+
     def generate(self, prompt: str, system_prompt: str, temperature: float = 0.7) -> Optional[str]:
-        """Tries configured providers sequentially with key rotation."""
+        """Tries configured providers sequentially with stateful round-robin key rotation."""
         # 1. Groq (active & verified working models)
-        for key in self.config.groq_keys:
+        for key in self._rotate_keys("groq", self.config.groq_keys):
             for model in [
                 "openai/gpt-oss-120b",
                 "groq/compound",
@@ -165,7 +184,7 @@ class LLMAdapter:
                     return res
 
         # 2. Cerebras
-        for key in self.config.cerebras_keys:
+        for key in self._rotate_keys("cerebras", self.config.cerebras_keys):
             for model in ["llama-3.3-70b", "llama3.1-8b", "gpt-oss-120b"]:
                 res = self._call_openai_compatible(
                     base_url="https://api.cerebras.ai/v1",
@@ -179,7 +198,7 @@ class LLMAdapter:
                     return res
 
         # 3. OpenRouter
-        for key in self.config.openrouter_keys:
+        for key in self._rotate_keys("openrouter", self.config.openrouter_keys):
             for model in [
                 "meta-llama/llama-3.3-70b-instruct:free",
                 "meta-llama/llama-3.1-8b-instruct:free",
@@ -197,7 +216,7 @@ class LLMAdapter:
                     return res
 
         # 4. Google Gemini (valid model identifiers)
-        for key in self.config.gemini_keys:
+        for key in self._rotate_keys("gemini", self.config.gemini_keys):
             for model in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
                 res = self._call_gemini(
                     api_key=key,

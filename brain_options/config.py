@@ -67,6 +67,7 @@ class OptionsConfig:
     run_time_budget_seconds: int = 480
     drip_max_daily: int = 3
     drip_min_interval_hours: float = 4.0
+    enable_auto_submit: bool = False
 
     @classmethod
     def from_env(cls) -> OptionsConfig:
@@ -114,5 +115,6 @@ class OptionsConfig:
             run_time_budget_seconds=int(_optional("RUN_TIME_BUDGET_SECONDS", "480") or "480"),
             drip_max_daily=int(_optional("DRIP_MAX_DAILY", "3") or "3"),
             drip_min_interval_hours=float(_optional("DRIP_MIN_INTERVAL_HOURS", "4.0") or "4.0"),
+            enable_auto_submit=(_optional("ENABLE_AUTO_SUBMIT", "false") or "false").lower() == "true",
         )
 

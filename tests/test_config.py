@@ -18,3 +18,4 @@ def test_config_from_env():
     assert config.filter_min_fitness == 1.00
     assert config.universe == "TOP3000"
     assert config.delay == 1
+    assert config.enable_auto_submit is not None

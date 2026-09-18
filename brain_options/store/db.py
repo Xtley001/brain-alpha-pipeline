@@ -11,6 +11,12 @@ from typing import Any, Dict, List, Optional, Set
 from brain_options.core.client import SimMetrics, SimSettings
 from brain_options.specialist.templates import OptionCandidate
 
+from contextlib import contextmanager
+try:
+    from psycopg_pool import ConnectionPool
+except ImportError:
+    ConnectionPool = None
+
 log = logging.getLogger("brain_options.db")
 
 SCHEMA_SQL = """
@@ -76,7 +82,10 @@ CREATE TABLE IF NOT EXISTS options_learning_memory (
 );
 
 CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id ON options_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_status_created ON options_alphas(status, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype ON options_alphas(archetype);
 CREATE INDEX IF NOT EXISTS idx_options_evaluations_expr ON options_evaluations(expression);
+CREATE INDEX IF NOT EXISTS idx_options_eval_created_status ON options_evaluations(created_at DESC, status);
 CREATE INDEX IF NOT EXISTS idx_options_learning_reward ON options_learning_memory(reward DESC);
 CREATE INDEX IF NOT EXISTS idx_options_learning_archetype ON options_learning_memory(archetype);
 """
@@ -85,17 +94,52 @@ CREATE INDEX IF NOT EXISTS idx_options_learning_archetype ON options_learning_me
 class OptionsDatabase:
     def __init__(self, database_url: Optional[str]):
         self.database_url = database_url
+        self._pool: Optional[ConnectionPool] = None
         if self.database_url:
+            url = self.database_url
+            if url.startswith("postgres://"):
+                url = url.replace("postgres://", "postgresql://", 1)
+            if ConnectionPool is not None:
+                try:
+                    self._pool = ConnectionPool(
+                        conninfo=url,
+                        min_size=1,
+                        max_size=10,
+                        open=True,
+                        timeout=15.0,
+                    )
+                    log.info("PostgreSQL connection pool initialized (min=1, max=10).")
+                except Exception as pool_err:
+                    log.warning("Connection pool initialization failed, falling back to direct connection: %s", pool_err)
+                    self._pool = None
             self._init_schema()
 
+    @contextmanager
     def _get_connection(self):
         if not self.database_url:
-            return None
-        import psycopg
-        url = self.database_url
-        if url.startswith("postgres://"):
-            url = url.replace("postgres://", "postgresql://", 1)
-        return psycopg.connect(url)
+            yield None
+            return
+
+        if self._pool is not None:
+            with self._pool.connection() as conn:
+                yield conn
+        else:
+            import psycopg
+            url = self.database_url
+            if url.startswith("postgres://"):
+                url = url.replace("postgres://", "postgresql://", 1)
+            conn = psycopg.connect(url)
+            try:
+                yield conn
+            finally:
+                conn.close()
+
+    def close(self):
+        if self._pool is not None:
+            try:
+                self._pool.close()
+            except Exception:
+                pass
 
     def _init_schema(self):
         try:

@@ -33,10 +33,12 @@ logging.basicConfig(
 )
 log = logging.getLogger("brain_options.huggingface")
 
+from contextlib import asynccontextmanager
+
 NY_TZ = zoneinfo.ZoneInfo("America/New_York")
 UTC = datetime.timezone.utc
 
-app = FastAPI(title="WorldQuant BRAIN Alpha Pipeline")
+_drip_lock = threading.Lock()
 
 # Global state for UI tracking
 PIPELINE_STATE = {
@@ -60,22 +62,23 @@ def background_drip_worker(config: OptionsConfig):
     while True:
         try:
             if PIPELINE_STATE["drip_active"]:
-                PIPELINE_STATE["last_drip_check"] = datetime.datetime.now(UTC).isoformat()
-                log.info("[HF DRIP] Checking daily submission status...")
-                client = BrainClient(
-                    username=config.brain_username,
-                    password=config.brain_password,
-                    max_concurrent_sims=1,
-                )
-                client.authenticate()
-                store = OptionsStore(database_url=config.database_url)
-                drip = DripSubmitter(client, store, config)
-                submitted, alpha_id, msg = loop.run_until_complete(drip.check_and_drip())
-                if submitted:
-                    PIPELINE_STATE["last_submitted_alpha"] = alpha_id
-                    log.info("[HF DRIP] Successfully submitted alpha %s: %s", alpha_id, msg)
-                else:
-                    log.info("[HF DRIP] Drip check skipped/completed: %s", msg)
+                with _drip_lock:
+                    PIPELINE_STATE["last_drip_check"] = datetime.datetime.now(UTC).isoformat()
+                    log.info("[HF DRIP] Checking daily submission status...")
+                    client = BrainClient(
+                        username=config.brain_username,
+                        password=config.brain_password,
+                        max_concurrent_sims=1,
+                    )
+                    client.authenticate()
+                    store = OptionsStore(database_url=config.database_url)
+                    drip = DripSubmitter(client, store, config)
+                    submitted, alpha_id, msg = loop.run_until_complete(drip.check_and_drip())
+                    if submitted:
+                        PIPELINE_STATE["last_submitted_alpha"] = alpha_id
+                        log.info("[HF DRIP] Successfully submitted alpha %s: %s", alpha_id, msg)
+                    else:
+                        log.info("[HF DRIP] Drip check skipped/completed: %s", msg)
         except Exception as e:
             log.error("[HF DRIP] Error in drip worker: %s", e)
             PIPELINE_STATE["errors"].append(f"Drip Error: {str(e)[:100]}")
@@ -115,8 +118,8 @@ def background_generator_worker(config: OptionsConfig):
         time.sleep(120)
 
 
-@app.on_event("startup")
-def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     config = OptionsConfig.from_env()
     # Start Drip Worker thread
     t_drip = threading.Thread(target=background_drip_worker, args=(config,), daemon=True)
@@ -125,6 +128,10 @@ def startup_event():
     # Start Generator Worker thread
     t_gen = threading.Thread(target=background_generator_worker, args=(config,), daemon=True)
     t_gen.start()
+    yield
+
+
+app = FastAPI(title="WorldQuant BRAIN Alpha Pipeline", lifespan=lifespan)
 
 
 @app.get("/health")
@@ -159,7 +166,8 @@ async def trigger_drip():
     client.authenticate()
     store = OptionsStore(database_url=config.database_url)
     drip = DripSubmitter(client, store, config)
-    submitted, alpha_id, msg = await drip.check_and_drip()
+    with _drip_lock:
+        submitted, alpha_id, msg = await drip.check_and_drip()
     return {"submitted": submitted, "alpha_id": alpha_id, "message": msg}
 
 

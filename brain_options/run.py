@@ -149,8 +149,9 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.", len(top_exemplars))
     log.info("Generating next batch of %d options candidates...", batch_size)
 
-    # Initial candidate batch generation
-    initial_candidates = generator.get_next_batch(
+    # Initial candidate batch generation (offloaded to thread to prevent blocking event loop)
+    initial_candidates = await asyncio.to_thread(
+        generator.get_next_batch,
         target_count=min(batch_size, 10),
         template_ratio=0.3,
         top_exemplars=top_exemplars,
@@ -181,6 +182,7 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
     total_evaluated = 0
     start_time = time.time()
     queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
+    refill_lock = asyncio.Lock()
 
     for cand in initial_candidates:
         queue.put_nowait(cand)
@@ -200,25 +202,28 @@ async def run_batch(config: OptionsConfig, batch_size: int, dry_run: bool = Fals
             try:
                 cand = queue.get_nowait()
             except asyncio.QueueEmpty:
-                # If queue is empty, budget remains, and target not reached, generate next chunk
-                if total_evaluated < batch_size and (config.run_time_budget_seconds - elapsed > 60):
-                    fetch_n = min(6, batch_size - total_evaluated)
-                    log.info("Worker %d: Queue empty. Generating %d more candidates...", worker_id, fetch_n)
+                # Guard refill with a lock so only one worker generates candidates
+                async with refill_lock:
+                    if queue.empty() and total_evaluated < batch_size and (config.run_time_budget_seconds - elapsed > 60):
+                        fetch_n = min(6, batch_size - total_evaluated)
+                        log.info("Worker %d: Queue empty. Generating %d more candidates in thread...", worker_id, fetch_n)
+                        try:
+                            fresh_cands = await asyncio.to_thread(
+                                generator.get_next_batch,
+                                target_count=fetch_n,
+                                template_ratio=0.3,
+                                top_exemplars=top_exemplars,
+                                archetype_summary=archetype_summary,
+                            )
+                            for fc in fresh_cands:
+                                queue.put_nowait(fc)
+                        except Exception as gen_err:
+                            log.warning("Worker %d: Candidate generation encountered error: %s", worker_id, gen_err)
+
                     try:
-                        fresh_cands = generator.get_next_batch(
-                            target_count=fetch_n,
-                            template_ratio=0.3,
-                            top_exemplars=top_exemplars,
-                            archetype_summary=archetype_summary,
-                        )
-                        for fc in fresh_cands:
-                            queue.put_nowait(fc)
                         cand = queue.get_nowait()
-                    except Exception as gen_err:
-                        log.warning("Worker %d: Candidate generation encountered error: %s", worker_id, gen_err)
+                    except asyncio.QueueEmpty:
                         break
-                else:
-                    break
 
             total_evaluated += 1
             log.info("\n[Worker %d | Cand %d/%d] Starting processing [%s]: %s",

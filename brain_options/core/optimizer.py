@@ -179,35 +179,12 @@ class DiagnosticAlphaOptimizer:
         return f"group_neutralize(rank(ts_decay_linear({expr}, {window})), subindustry)"
 
     @classmethod
-    def wrap_decay_exp(cls, expr: str, window: int = 12, factor: float = 0.20) -> str:
+    def wrap_decay_exp(cls, expr: str, window: int = 15, factor: float = 0.20) -> str:
         """
-        Wraps or replaces linear decay with ts_decay_exp_window(x, d, factor)
-        to exponentially weight recent options signals and sharply reduce churn.
+        Applies extended linear decay smoothing (window 15-25) in place of unsupported
+        exponential decay to maximize turnover compression in BRAIN FastExpr.
         """
-        expr = expr.strip()
-        parsed_exp = cls._parse_call_args(expr, "ts_decay_exp_window")
-        if parsed_exp and len(parsed_exp[2]) == 3:
-            start_idx, end_idx, (inner, old_w_str, old_f) = parsed_exp
-            try:
-                old_w = int(old_w_str)
-                return expr[:start_idx] + f"ts_decay_exp_window({inner}, {min(28, old_w + 5)}, {old_f})" + expr[end_idx + 1:]
-            except ValueError:
-                pass
-
-        parsed_lin = cls._parse_call_args(expr, "ts_decay_linear")
-        if parsed_lin and len(parsed_lin[2]) == 2:
-            start_idx, end_idx, (inner, old_w_str) = parsed_lin
-            return expr[:start_idx] + f"ts_decay_exp_window({inner}, {old_w_str}, {factor})" + expr[end_idx + 1:]
-
-        parsed_gn = cls._parse_call_args(expr, "group_neutralize")
-        if parsed_gn and len(parsed_gn[2]) == 2 and parsed_gn[0] == 0 and parsed_gn[1] == len(expr) - 1:
-            inner_gn, group = parsed_gn[2]
-            parsed_rank = cls._parse_call_args(inner_gn, "rank")
-            if parsed_rank and len(parsed_rank[2]) == 1:
-                inner_signal = parsed_rank[2][0]
-                return f"group_neutralize(rank(ts_decay_exp_window({inner_signal}, {window}, {factor})), {group})"
-
-        return f"group_neutralize(rank(ts_decay_exp_window({expr}, {window}, {factor})), subindustry)"
+        return cls.wrap_decay_linear(expr, window=max(15, window))
 
     @classmethod
     def wrap_zscore(cls, expr: str, window: int = 20) -> str:
@@ -407,8 +384,8 @@ class DiagnosticAlphaOptimizer:
                     ))
                     arms.append((
                         "EXP_DECAY_CONVICTION",
-                        "Exponential decay smoothing (factor=0.20) with 0.35 conviction gate",
-                        self.inject_conviction_gate(self.wrap_decay_exp(current_expr, window=12, factor=0.20), threshold=0.35),
+                        "Deep linear decay smoothing (window=15) with 0.35 conviction gate",
+                        self.inject_conviction_gate(self.wrap_decay_exp(current_expr, window=15, factor=0.20), threshold=0.35),
                         SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=20, neutralization="SUBINDUSTRY", truncation=0.05),
                     ))
 

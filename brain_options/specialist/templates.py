@@ -266,7 +266,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     for tenor in [20, 30]:
         candidates.append(
             OptionCandidate(
-                expression=f"group_neutralize(rank(-(signed_power(implied_volatility_mean_{tenor}, 2) - ts_var(returns, {tenor}) * 252)), subindustry)",
+                expression=f"group_neutralize(rank(-(signed_power(implied_volatility_mean_{tenor}, 2) - signed_power(ts_std_dev(returns, {tenor}), 2) * 252)), subindustry)",
                 archetype_name="Carr-Wu Quadratic Variance Risk Premium",
                 hypothesis=f"Carr & Wu (2009): Quadratic variance swap rate minus realized variance at {tenor}d tenor isolates true volatility risk premium.",
                 generation_source="template",

@@ -488,7 +488,7 @@ Intended use: Reference knowledge base for `brain_options/specialist/kb.py` and 
 ### Synthetic quadratic variance swap rate vs realized variance (Carr-Wu)
 **Idea:** Variance risk premium is rigorously measured by comparing the synthetic variance swap rate ($IV^2$) against rolling realized return variance ($\text{var}(\text{returns}) \times 252$). The quadratic term appropriately weights tail variance.
 **Heuristic:** Stocks with wide positive quadratic variance spreads have overpriced option volatility and exhibit suppressed future equity volatility.
-**Expression sketch:** `quadratic_vrp = group_neutralize(rank(-(signed_power(implied_volatility_mean_30, 2) - ts_var(returns, 30) * 252)), subindustry)`
+**Expression sketch:** `quadratic_vrp = group_neutralize(rank(-(signed_power(implied_volatility_mean_30, 2) - signed_power(ts_std_dev(returns, 30), 2) * 252)), subindustry)`
 **Pitfall:** Extreme return spikes during black-swan events can cause realized variance to temporarily explode above implied variance.
 **Source:** Carr & Wu (2009), Review of Financial Studies.
 

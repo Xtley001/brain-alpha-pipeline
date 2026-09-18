@@ -14,6 +14,7 @@ concurrency:
 
 jobs:
   drip:
+    if: github.repository_owner == 'Xtley001'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:

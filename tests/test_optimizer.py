@@ -60,10 +60,10 @@ def test_expression_transformation_operators():
     adjusted_delta = DiagnosticAlphaOptimizer.adjust_delta_window(expr_delta, target_window=20)
     assert "ts_delta(X, 20)" in adjusted_delta
 
-    # 7. Wrap exponential decay
+    # 7. Wrap exponential decay (maps to deep linear decay in FastExpr)
     expr_exp = "group_neutralize(rank(ts_decay_linear(X, 8)), subindustry)"
-    wrapped_exp = DiagnosticAlphaOptimizer.wrap_decay_exp(expr_exp, window=10, factor=0.25)
-    assert "ts_decay_exp_window(X, 8, 0.25)" in wrapped_exp
+    wrapped_exp = DiagnosticAlphaOptimizer.wrap_decay_exp(expr_exp, window=15, factor=0.25)
+    assert "ts_decay_linear(X, 15)" in wrapped_exp
 
     # 8. Wrap Z-score
     expr_zs = "group_neutralize(rank(ts_delta(X, 5)), subindustry)"
