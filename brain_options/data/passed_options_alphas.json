@@ -5212,5 +5212,27 @@
     "truncation": 0.05,
     "pasteurization": "ON",
     "nan_handling": "OFF"
+  },
+  {
+    "timestamp": "2026-09-18T08:31:22.489819+00:00",
+    "alpha_id": "3qXWRgvX",
+    "expression": "trade_when(abs(rank(ts_decay_linear(ts_decay_linear((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)), 12), 5)) - 0.5) > 0.35, group_neutralize(rank(ts_decay_linear(ts_decay_linear((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)), 12), 5)), subindustry), -1)",
+    "archetype": "Mutation(Mutation(breakeven))",
+    "hypothesis": "Combines the high-Sharpe 30-day tenor with double-smoothing (12d + 5d decay) and subindustry neutralization. The 30-day skew is less noisy than 10/20d but more responsive than 60d; the double decay reduces turnover while preserving the mean-reversion signal, and subindustry neutralization captures finer-grained relative value within the same sector, aligning with the proven 1.79 Sharpe benchmark structure.",
+    "source": "llm_mechanical",
+    "sharpe": 1.73,
+    "fitness": 1.38,
+    "turnover": 0.0487,
+    "returns": 0.0798,
+    "drawdown": 0.0839,
+    "margin": 0.00328,
+    "max_correlation": 0.992989705145658,
+    "universe": "TOP3000",
+    "neutralization": "SUBINDUSTRY",
+    "delay": 1,
+    "decay": 8,
+    "truncation": 0.05,
+    "pasteurization": "ON",
+    "nan_handling": "OFF"
   }
 ]
