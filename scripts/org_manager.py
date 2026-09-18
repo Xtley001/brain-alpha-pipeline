@@ -20,10 +20,10 @@ PRIMARY_ACCOUNT = "Xtley001"
 REPO_NAME = "brain-alpha-pipeline"
 
 ORG_SPECIALIZATIONS = {
-    "xtley-alpha-research-01": "breakeven",
-    "xtley-alpha-research-02": "skew",
-    "xtley-alpha-research-03": "term_structure",
-    "xtley-alpha-research-04": "forward_basis,pcr_flow",
+    "xtley-alpha-research-01": "breakeven,skew",
+    "xtley-alpha-research-02": "analyst_revisions",
+    "xtley-alpha-research-03": "short_interest",
+    "xtley-alpha-research-04": "hybrid_confluence,term_structure,pcr_flow",
 }
 
 ORG_SCHEDULES = {

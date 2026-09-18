@@ -90,13 +90,13 @@ jobs:
           if [ -n "$INPUT_ARCH" ]; then
             TARGET_ARCH="$INPUT_ARCH"
           elif [ "$OWNER" = "xtley-alpha-research-01" ]; then
-            TARGET_ARCH="breakeven"
+            TARGET_ARCH="breakeven,skew"
           elif [ "$OWNER" = "xtley-alpha-research-02" ]; then
-            TARGET_ARCH="skew"
+            TARGET_ARCH="analyst_revisions"
           elif [ "$OWNER" = "xtley-alpha-research-03" ]; then
-            TARGET_ARCH="term_structure"
+            TARGET_ARCH="short_interest"
           elif [ "$OWNER" = "xtley-alpha-research-04" ]; then
-            TARGET_ARCH="forward_basis,pcr_flow"
+            TARGET_ARCH="hybrid_confluence,term_structure,pcr_flow"
           else
             TARGET_ARCH=""
           fi

@@ -32,3 +32,6 @@ legacy_alphas_backup.zip
 # Options Pipeline Data (versioned candidate and alpha history)
 !brain_options/data/
 !brain_options/data/**
+
+# Scratch and temporary scripts
+scratch/

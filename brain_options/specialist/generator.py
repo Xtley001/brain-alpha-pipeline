@@ -25,7 +25,10 @@ log = logging.getLogger("brain_options.generator")
 
 import random
 
-CORE_ARCHETYPES = ["breakeven", "skew", "term_structure", "forward_basis", "pcr_flow"]
+CORE_ARCHETYPES = [
+    "breakeven", "skew", "term_structure", "forward_basis", "pcr_flow",
+    "analyst_revisions", "short_interest", "hybrid_confluence",
+]
 
 
 class OptionsGenerator:
@@ -41,13 +44,16 @@ class OptionsGenerator:
         self.evaluated_expressions: Set[str] = set()
         self._template_queue: list[OptionCandidate] = generate_template_candidates()
         self._archetype_idx = 0
-        # Multi-Armed Bandit prior weights based on empirical WorldQuant options dynamics
+        # Multi-Armed Bandit prior weights across all research domains
         self.archetype_priors: dict[str, float] = {
-            "breakeven": 0.40,
-            "skew": 0.35,
-            "term_structure": 0.15,
+            "breakeven": 0.20,
+            "skew": 0.20,
+            "term_structure": 0.10,
             "forward_basis": 0.05,
             "pcr_flow": 0.05,
+            "analyst_revisions": 0.20,
+            "short_interest": 0.10,
+            "hybrid_confluence": 0.10,
         }
 
     def mark_evaluated(self, expression: str):
@@ -296,6 +302,67 @@ class OptionsGenerator:
                     "Threshold-Gated VRP Mean Reversion",
                     f"Enter {tenor}d variance risk premium only when crossing 0.75 SD mean-reversion threshold.",
                 )
+
+        # 8. Analyst Estimates & Earnings Revisions (Givoly-Lakonishok & Diether-Malloy-Scherbina)
+        for win in [20, 30, 60, 90]:
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), 10)), {grp})",
+                    "Analyst Revision Momentum",
+                    f"Givoly & Lakonishok (1979): {win}d revision drift in consensus EPS demeaned by {grp}.",
+                )
+                _add(
+                    f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), 10)), {grp})",
+                    "Sales Revision Momentum",
+                    f"Consensus sales revision drift over {win}d demeaned by {grp}.",
+                )
+        for grp in ["subindustry", "sector"]:
+            _add(
+                f"group_neutralize(rank(-ts_decay_linear(std_dev_eps_est / (abs(est_eps) + 0.01), 10)), {grp})",
+                "Analyst Dispersion Fade",
+                f"Diether et al. (2002): Fade stocks with extreme analyst forecast dispersion demeaned by {grp}.",
+            )
+            _add(
+                f"trade_when(ts_delta(close, 10) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, 10)), {grp}), -1)",
+                "Price Target Implied Upside",
+                f"Fabozzi et al. (2010): Consensus price target upside filtered by positive price momentum.",
+            )
+
+        # 9. Short Interest & Securities Lending Flow (Cohen-Diether-Malloy & Rapach)
+        for grp in ["subindustry", "sector"]:
+            _add(
+                f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), 10)), {grp})",
+                "Short Demand Borrow Surge",
+                f"Cohen et al. (2007): Elevated institutional borrow cost and high short interest isolate informed shorting.",
+            )
+            _add(
+                f"group_neutralize(rank(-ts_zscore(short_interest / (float_shares + 0.001), 252)), {grp})",
+                "De-Trended Short Interest Z-Score",
+                f"Rapach et al. (2016): De-trended 252d short interest Z-score measures abnormal institutional positioning.",
+            )
+            _add(
+                f"trade_when((close > ts_mean(close, 20)) & (days_to_cover > 5.0), group_neutralize(rank(days_to_cover * ts_delta(close, 5)), {grp}), -1)",
+                "Days-to-Cover Short Squeeze Breakout",
+                f"Asquith et al. (2005): Short squeeze breakout trigger on high days-to-cover names.",
+            )
+
+        # 10. Cross-Asset Hybrids (Options + Shorts + Analyst Estimates)
+        for grp in ["subindustry", "sector"]:
+            _add(
+                f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_30 * sqrt(30 / 252.0)) * (borrow_fee + 1.0), 5)), {grp})",
+                "Volatility Smirk Borrow Fee Hybrid",
+                f"Cross-Asset Confluence: Confluence of steep downside put skew and high borrow fees confirms collapse.",
+            )
+            _add(
+                f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_30 * sqrt(30 / 252.0)), 10)), {grp})",
+                "Revision vs Skew Divergence Hybrid",
+                f"Cross-Asset Divergence: Target price upside vs options market downside hedging misalignment.",
+            )
+            _add(
+                f"group_neutralize(rank(-ts_decay_linear((pcr_vol_10 / (pcr_oi_10 + 0.001)) * (borrow_fee + 1.0), 5)), {grp})",
+                "PCR Borrow Fee Confluence Hybrid",
+                f"Surging put/call volume ratio paired with elevated borrow cost flags institutional exit.",
+            )
 
         return procedural[:count]
 

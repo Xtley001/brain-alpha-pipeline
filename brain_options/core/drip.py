@@ -148,11 +148,11 @@ class DripSubmitter:
                 # Pre-submission self-correlation verification (< 0.70 limit)
                 corr_url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/correlations/self"
                 try:
-                    c_resp = await sess.retry("GET", corr_url, max_tries=2)
+                    c_resp = await sess.retry("GET", corr_url, max_tries=1)
                     if c_resp and c_resp.status_code == 200 and not c_resp.text.strip():
-                        # BRAIN calculates self-correlation lazily; retry after brief delay
-                        await asyncio.sleep(1.5)
-                        c_resp = await sess.retry("GET", corr_url, max_tries=2)
+                        # BRAIN calculates self-correlation lazily; retry once after brief delay
+                        await asyncio.sleep(1.0)
+                        c_resp = await sess.retry("GET", corr_url, max_tries=1)
 
                     if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
                         c_data = json.loads(c_resp.text)
@@ -322,10 +322,27 @@ class DripSubmitter:
                         self.store.archive_rejected_alpha(alpha_id, f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})", cand)
                     continue
             else:
+                data = res.get("data") or {}
                 msg = res.get("message", "")
-                log.warning("[DRIP QUEUE] Alpha %s rejected during submission: %s. Moving to options_rejected_alphas.", alpha_id, msg[:100])
+                is_chk = data.get("is", {}).get("checks", [])
+                self_corr_fail = next((c for c in is_chk if c.get("name") == "SELF_CORRELATION" and c.get("result") == "FAIL"), None)
+                self_corr_records = data.get("selfCorrelated", {}).get("records", [])
+
+                if self_corr_fail:
+                    val = self_corr_fail.get("value", ">=0.70")
+                    top_corr_id = self_corr_records[0][0] if self_corr_records else "existing_sub"
+                    rejection_str = f"HIGH_SELF_CORRELATION: {val} vs {top_corr_id}"
+                elif "SELF_CORRELATION" in msg or "selfCorrelated" in msg or res.get("status_code") == 403:
+                    rejection_str = f"HIGH_SELF_CORRELATION: {msg[:120]}"
+                else:
+                    rejection_str = f"SUBMISSION_REJECTED: {msg[:120]}"
+
+                log.warning("[DRIP QUEUE] Alpha %s rejected during submission: %s. Moving to options_rejected_alphas.", alpha_id, rejection_str)
                 if hasattr(self.store, "archive_rejected_alpha"):
-                    self.store.archive_rejected_alpha(alpha_id, f"SUBMISSION_REJECTED: {msg[:200]}", cand)
+                    self.store.archive_rejected_alpha(alpha_id, rejection_str, cand)
+
+            # Brief pause to respect BRAIN platform request pacing
+            await asyncio.sleep(0.5)
 
         return False, None, "No candidate cleared all pre-submission checklist gates."
 

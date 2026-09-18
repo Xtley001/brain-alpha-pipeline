@@ -107,7 +107,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.71},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.34},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T09:40:33.534717+00:00",
@@ -129,7 +131,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.69},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.34},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T09:43:25.964211+00:00",
@@ -195,7 +199,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.67},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.3},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T09:45:16.743950+00:00",
@@ -217,7 +223,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.63},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T09:45:18.972708+00:00",
@@ -239,7 +247,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.64},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.24},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T09:45:58.343531+00:00",
@@ -261,7 +271,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.6},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.31},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T09:46:50.962430+00:00",
@@ -305,7 +317,9 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.59},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.19},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T09:50:58.960646+00:00",
@@ -327,7 +341,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T09:54:17.081638+00:00",
@@ -437,7 +453,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.56},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.26},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T10:15:48.187328+00:00",
@@ -481,7 +499,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.3},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T10:17:51.608002+00:00",
@@ -547,7 +567,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.26},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T10:19:43.978336+00:00",
@@ -591,7 +613,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.54},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.25},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T10:21:07.316146+00:00",
@@ -723,7 +747,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.58},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.29},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T10:33:26.099199+00:00",
@@ -811,7 +837,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.54},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.23},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T10:55:57.670355+00:00",
@@ -833,7 +861,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.53},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.24},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T10:56:00.375211+00:00",
@@ -1009,7 +1039,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.54},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.25},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T11:13:17.066693+00:00",
@@ -1295,7 +1327,9 @@
     "decay": 24,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.53},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.33},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T11:46:24.820740+00:00",
@@ -1339,7 +1373,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.58},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.33},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T11:55:12.552242+00:00",
@@ -1757,7 +1793,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.28},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.03},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T13:06:45.271674+00:00",
@@ -1977,7 +2015,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.6},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.34},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T14:41:35.677645+00:00",
@@ -2021,7 +2061,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.63},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.24},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T14:47:43.222573+00:00",
@@ -2065,7 +2107,9 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.53},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.22},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T14:53:52.492654+00:00",
@@ -2153,7 +2197,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.62},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.24},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T15:40:13.042152+00:00",
@@ -2505,7 +2551,9 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.67},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.34},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T16:51:20.361294+00:00",
@@ -2681,7 +2729,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.57},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.29},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T17:50:58.618337+00:00",
@@ -2835,7 +2885,9 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.64},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T18:23:33.746411+00:00",
@@ -2945,7 +2997,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.52},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.2},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T18:59:02.976122+00:00",
@@ -3187,7 +3241,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.72},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.35},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T19:36:41.876001+00:00",
@@ -3253,7 +3309,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.51},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.25},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T19:54:24.302782+00:00",
@@ -3275,7 +3333,9 @@
     "decay": 24,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.67},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.22},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T19:55:54.931911+00:00",
@@ -3297,7 +3357,9 @@
     "decay": 14,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.61},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.3},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T19:59:53.354372+00:00",
@@ -3341,7 +3403,9 @@
     "decay": 24,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.61},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.25},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T20:11:55.285791+00:00",
@@ -3539,7 +3603,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.66},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.29},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T20:50:43.138570+00:00",
@@ -3671,7 +3737,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.54},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.24},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T21:12:56.881135+00:00",
@@ -3803,7 +3871,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.27},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T21:29:11.676149+00:00",
@@ -3891,7 +3961,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.56},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.27},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T21:59:24.864348+00:00",
@@ -3957,7 +4029,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.64},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.26},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T22:05:57.418346+00:00",
@@ -3979,7 +4053,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.74},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.39},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T22:10:43.654929+00:00",
@@ -4089,7 +4165,9 @@
     "decay": 24,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.62},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.29},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T22:30:25.146176+00:00",
@@ -4221,7 +4299,9 @@
     "decay": 20,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.59},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.2},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T23:02:46.446227+00:00",
@@ -4243,7 +4323,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.57},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.34},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:07:31.226935+00:00",
@@ -4265,7 +4347,9 @@
     "decay": 16,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.71},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.23},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:09:27.065346+00:00",
@@ -4309,7 +4393,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.64},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.27},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:15:41.534815+00:00",
@@ -4331,7 +4417,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.58},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.29},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:29:46.202040+00:00",
@@ -4375,7 +4463,9 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.62},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.23},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:34:18.039283+00:00",
@@ -4397,7 +4487,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.69},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.38},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:34:26.161720+00:00",
@@ -4419,7 +4511,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.68},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.46},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:39:28.780478+00:00",
@@ -4441,7 +4535,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.61},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.29},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:41:30.343859+00:00",
@@ -4463,7 +4559,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.67},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.3},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-17T23:44:52.768575+00:00",
@@ -4551,7 +4649,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.65},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.26},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-17T23:52:22.744115+00:00",
@@ -4705,7 +4805,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.46},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T00:21:20.825741+00:00",
@@ -4727,7 +4829,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.58},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.27},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T00:28:59.048798+00:00",
@@ -4837,7 +4941,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.47},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.27},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T06:44:59.521882+00:00",
@@ -4859,7 +4965,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T06:58:25.106182+00:00",
@@ -4881,7 +4989,9 @@
     "decay": 24,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.4},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.11},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-18T07:08:36.198088+00:00",
@@ -4925,7 +5035,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.65},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.44},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T07:08:40.670840+00:00",
@@ -5035,7 +5147,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.3},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"val"
   },
   {
     "timestamp": "2026-09-18T07:30:50.324117+00:00",
@@ -5079,7 +5193,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T07:41:50.245122+00:00",
@@ -5101,7 +5217,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.68},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.45},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T08:07:02.030210+00:00",
@@ -5145,7 +5263,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.51},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.24},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T08:13:14.988466+00:00",
@@ -5321,7 +5441,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.57},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T09:24:47.339464+00:00",
@@ -5343,7 +5465,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T09:25:00.302430+00:00",
@@ -5365,7 +5489,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.68},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.34},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T09:40:45.606139+00:00",
@@ -5453,7 +5579,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.66},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.35},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T09:45:32.944611+00:00",
@@ -5475,7 +5603,9 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "REJECTED",
+    "rejection_reason": "SUBMISSION_REJECTED: {\"is\":{\"checks\":[{\"name\":\"LOW_SHARPE\",\"result\":\"PASS\",\"limit\":1.25,\"value\":1.55},{\"name\":\"LOW_FITNESS\",\"result\":\"PASS\",\"limit\":1.0,\"value\":1.28},{\"name\":\"LOW_TURNOVER\",\"result\":\"PASS\",\"limit\":0.01,\"va"
   },
   {
     "timestamp": "2026-09-18T09:53:29.080426+00:00",
