@@ -43,22 +43,25 @@ def mock_store():
 
 @pytest.mark.asyncio
 async def test_drip_skips_when_already_submitted_today(config, mock_client, mock_store):
-    """When BRAIN reports daily quota (2 submissions) already made today in EDT, drip must skip without submitting."""
+    """When BRAIN reports daily quota (3 submissions) already made today in EDT, drip must skip without submitting."""
     today_ny = datetime.datetime.now(NY_TZ).date()
     today_iso1 = f"{today_ny.isoformat()}T02:00:00-04:00"
     today_iso2 = f"{today_ny.isoformat()}T08:00:00-04:00"
+    today_iso3 = f"{today_ny.isoformat()}T14:00:00-04:00"
 
     mock_sess = MagicMock()
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.json.return_value = {
         "results": [
+            {"id": "ALREADY_SUB3", "dateSubmitted": today_iso3},
             {"id": "ALREADY_SUB2", "dateSubmitted": today_iso2},
             {"id": "ALREADY_SUB1", "dateSubmitted": today_iso1},
         ]
     }
     mock_sess.retry = AsyncMock(return_value=mock_resp)
     mock_client._get_session.return_value = mock_sess
+
 
     drip = DripSubmitter(mock_client, mock_store, config)
     submitted, alpha_id, reason = await drip.check_and_drip()

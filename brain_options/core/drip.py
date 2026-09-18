@@ -172,7 +172,7 @@ class DripSubmitter:
         """
         now_ny = datetime.datetime.now(NY_TZ)
         today_ny = now_ny.date()
-        max_daily = getattr(self.config, "drip_max_daily", 2)
+        max_daily = getattr(self.config, "drip_max_daily", 3)
         min_interval_hours = getattr(self.config, "drip_min_interval_hours", 4.0)
 
         today_subs = await self.get_today_submissions_ny()
@@ -201,7 +201,7 @@ class DripSubmitter:
         recent_archs: List[str] = []
         if hasattr(self.store, "get_recently_submitted_archetypes"):
             try:
-                res = self.store.get_recently_submitted_archetypes(limit=2)
+                res = self.store.get_recently_submitted_archetypes(limit=3)
                 if isinstance(res, list):
                     recent_archs = res
             except Exception:
@@ -260,6 +260,13 @@ class DripSubmitter:
                 send_telegram_drip_alert(alpha_id, today_ny.isoformat(), metrics_dict, self.config)
                 return True, alpha_id, f"Submitted {alpha_id} for {today_ny} EDT"
             else:
-                log.warning("[DRIP QUEUE] Submission request for %s returned non-OK: %s", alpha_id, res.get("message"))
+                msg = res.get("message", "")
+                if "SELF_CORRELATION" in msg or "selfCorrelated" in msg or res.get("status_code") == 403:
+                    log.warning("[DRIP QUEUE] Alpha %s failed self-correlation on submit (%s). Marking as CORRELATED.", alpha_id, msg[:100])
+                    if hasattr(self.store, "mark_alpha_correlated"):
+                        self.store.mark_alpha_correlated(alpha_id, "SELF_CORRELATION")
+                else:
+                    log.warning("[DRIP QUEUE] Submission request for %s returned non-OK: %s", alpha_id, msg)
 
         return False, None, "No candidate cleared all pre-submission checklist gates."
+

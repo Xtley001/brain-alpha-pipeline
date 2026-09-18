@@ -196,6 +196,10 @@ class OptionsStore:
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)
 
+    def mark_alpha_correlated(self, alpha_id: str, reason: str = ""):
+        self.db.mark_alpha_correlated(alpha_id, reason)
+
+
     def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
         candidates = self.db.get_stage0_passed_candidates(limit=limit)
         if candidates:

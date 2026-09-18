@@ -222,6 +222,20 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
 
+    def mark_alpha_correlated(self, alpha_id: str, reason: str = ""):
+        """Marks an alpha as CORRELATED in options_alphas so it is excluded from future submission attempts."""
+        if not self.database_url:
+            return
+        sql = "UPDATE options_alphas SET status = 'CORRELATED' WHERE alpha_id = %s;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (alpha_id,))
+                conn.commit()
+            log.info("Marked alpha %s as CORRELATED in database (%s).", alpha_id, reason)
+        except Exception as e:
+            log.warning("Failed to mark alpha %s as CORRELATED: %s", alpha_id, e)
+
     def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
         """Returns archetypes of the most recently submitted alphas to promote portfolio diversity."""
         if not self.database_url:
@@ -229,7 +243,7 @@ class OptionsDatabase:
         sql = """
             SELECT archetype FROM options_alphas
             WHERE status = 'SUBMITTED' AND archetype IS NOT NULL
-            ORDER BY updated_at DESC
+            ORDER BY created_at DESC
             LIMIT %s;
         """
         try:
@@ -240,6 +254,7 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to load recently submitted archetypes: %s", e)
             return []
+
 
     def load_evaluated_expressions(self) -> Set[str]:
         if not self.database_url:

@@ -214,10 +214,18 @@ class BrainClient:
         resp = await session.retry("POST", url, max_tries=5)
         if resp is None:
             return {"ok": False, "status_code": 500, "message": "No response"}
+        
+        data = {}
+        if hasattr(resp, "text") and resp.text and resp.text.strip():
+            try:
+                data = resp.json()
+            except Exception:
+                data = {}
+
         return {
             "ok": resp.status_code < 400,
             "status_code": resp.status_code,
-            "data": resp.json() if hasattr(resp, "json") else {},
+            "data": data,
             "message": resp.text[:200] if hasattr(resp, "text") else "",
         }
 
@@ -248,9 +256,18 @@ class BrainClient:
         resp = await session.retry("PATCH", url, json=payload, max_tries=3)
         if resp is None:
             return {"ok": False, "status_code": 500, "message": "No response"}
+
+        data = {}
+        if hasattr(resp, "text") and resp.text and resp.text.strip():
+            try:
+                data = resp.json()
+            except Exception:
+                data = {}
+
         return {
             "ok": resp.status_code < 400,
             "status_code": resp.status_code,
-            "data": resp.json() if hasattr(resp, "json") else {},
+            "data": data,
             "message": resp.text[:200] if hasattr(resp, "text") else "",
         }
+
