@@ -112,21 +112,37 @@ async def test_drip_submits_second_alpha_when_pacing_cleared(config, mock_client
         "results": [{"id": "EARLIER_SUB", "dateSubmitted": earlier_iso}]
     }
 
-    resp_alpha_clean = MagicMock()
-    resp_alpha_clean.status_code = 200
-    resp_alpha_clean.json.return_value = {
-        "status": "UNSUBMITTED",
-        "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
-    }
+    is_submitted = False
+
+    async def mock_submit(aid):
+        nonlocal is_submitted
+        is_submitted = True
+        return {"ok": True, "status_code": 201}
 
     async def mock_retry(method, url, max_tries=3):
         if "users/self/alphas" in url:
             return resp_user_alphas
-        return resp_alpha_clean
+        r = MagicMock()
+        r.status_code = 200
+        if is_submitted:
+            r.json.return_value = {
+                "id": "SECOND_ALPHA",
+                "status": "ACTIVE",
+                "stage": "OS",
+                "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
+            }
+        else:
+            r.json.return_value = {
+                "id": "SECOND_ALPHA",
+                "status": "UNSUBMITTED",
+                "stage": "IS",
+                "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
+            }
+        return r
 
     mock_sess.retry = AsyncMock(side_effect=mock_retry)
     mock_client._get_session.return_value = mock_sess
-    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+    mock_client.submit_alpha = AsyncMock(side_effect=mock_submit)
 
     mock_store.get_unsubmitted_pool_alphas.return_value = [
         {"alpha_id": "SECOND_ALPHA", "archetype": "skew", "sharpe": 1.65, "fitness": 1.35}
@@ -197,18 +213,35 @@ async def test_drip_skips_ineligible_alphas_and_submits_clean_alpha(config, mock
         }
     }
 
+    submitted_ids = set()
+
+    async def mock_submit(aid):
+        submitted_ids.add(aid)
+        return {"ok": True, "status_code": 201}
+
     async def mock_retry(method, url, max_tries=3):
         if "users/self/alphas" in url:
             return resp_user_alphas
         elif "ALPHA_FAIL" in url:
             return resp_alpha1
         elif "ALPHA_PASS" in url:
-            return resp_alpha2
+            r = MagicMock()
+            r.status_code = 200
+            if "ALPHA_PASS" in submitted_ids:
+                r.json.return_value = {
+                    "id": "ALPHA_PASS",
+                    "status": "ACTIVE",
+                    "stage": "OS",
+                    "is": resp_alpha2.json.return_value["is"],
+                }
+            else:
+                r.json.return_value = resp_alpha2.json.return_value
+            return r
         return None
 
     mock_sess.retry = AsyncMock(side_effect=mock_retry)
     mock_client._get_session.return_value = mock_sess
-    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+    mock_client.submit_alpha = AsyncMock(side_effect=mock_submit)
 
     # Unsubmitted queue has both alphas
     mock_store.get_unsubmitted_pool_alphas.return_value = [
@@ -250,14 +283,35 @@ async def test_drip_diversity_ranking_prefers_non_recent_archetype(config, mock_
         "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
     }
 
+    submitted_ids = set()
+
+    async def mock_submit(aid):
+        submitted_ids.add(aid)
+        return {"ok": True, "status_code": 201}
+
     async def mock_retry(method, url, max_tries=3):
         if "users/self/alphas" in url:
             return resp_user_alphas
-        return resp_alpha_clean
+        r = MagicMock()
+        r.status_code = 200
+        if any(aid in submitted_ids for aid in ["ALPHA_BREAKEVEN", "ALPHA_SKEW"]):
+            r.json.return_value = {
+                "id": "ALPHA_SKEW" if "ALPHA_SKEW" in submitted_ids else "ALPHA_BREAKEVEN",
+                "status": "ACTIVE",
+                "stage": "OS",
+                "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
+            }
+        else:
+            r.json.return_value = {
+                "status": "UNSUBMITTED",
+                "stage": "IS",
+                "is": {"checks": [{"name": "LOW_SHARPE", "result": "PASS"}]}
+            }
+        return r
 
     mock_sess.retry = AsyncMock(side_effect=mock_retry)
     mock_client._get_session.return_value = mock_sess
-    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+    mock_client.submit_alpha = AsyncMock(side_effect=mock_submit)
 
     # Last submitted archetype was 'breakeven'
     mock_store.get_recently_submitted_archetypes.return_value = ["breakeven"]
@@ -291,21 +345,37 @@ async def test_drip_populates_name_and_description_on_submission(config, mock_cl
         "results": [{"id": "OLD_ALPHA", "dateSubmitted": yesterday_iso}]
     }
 
-    mock_resp_cand = MagicMock()
-    mock_resp_cand.status_code = 200
-    mock_resp_cand.json.return_value = {
-        "status": "UNSUBMITTED",
-        "is": {"checks": []},
-    }
+    is_submitted_meta = False
+
+    async def mock_submit_meta(aid):
+        nonlocal is_submitted_meta
+        is_submitted_meta = True
+        return {"ok": True, "status_code": 201}
 
     async def mock_retry(method, url, max_tries=3):
         if "users/self/alphas" in url:
             return mock_resp_user
-        return mock_resp_cand
+        r = MagicMock()
+        r.status_code = 200
+        if is_submitted_meta:
+            r.json.return_value = {
+                "id": "ALPHA_NEW_99",
+                "status": "ACTIVE",
+                "stage": "OS",
+                "is": {"checks": []},
+            }
+        else:
+            r.json.return_value = {
+                "id": "ALPHA_NEW_99",
+                "status": "UNSUBMITTED",
+                "stage": "IS",
+                "is": {"checks": []},
+            }
+        return r
 
     mock_sess.retry = AsyncMock(side_effect=mock_retry)
     mock_client._get_session.return_value = mock_sess
-    mock_client.submit_alpha = AsyncMock(return_value={"ok": True, "status_code": 201})
+    mock_client.submit_alpha = AsyncMock(side_effect=mock_submit_meta)
     mock_client.update_alpha_metadata = AsyncMock(return_value={"ok": True, "status_code": 200})
 
     mock_store.get_unsubmitted_pool_alphas.return_value = [

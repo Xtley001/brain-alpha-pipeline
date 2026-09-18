@@ -102,10 +102,18 @@ def send_telegram_drip_alert(
     date_label: str,
     metrics: dict[str, Any],
     config: OptionsConfig,
+    slot_num: int = 1,
+    max_daily: int = 3,
+    next_unlock_str: Optional[str] = None,
 ) -> bool:
-    """Sends an instant Telegram alert when an automated 24-hour drip submission succeeds."""
+    """Sends an instant Telegram alert when an automated drip submission succeeds (UTC+1 localized)."""
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
+
+    import datetime
+    wat_tz = datetime.timezone(datetime.timedelta(hours=1))
+    now_wat = datetime.datetime.now(wat_tz)
+    submitted_time_wat = now_wat.strftime("%Y-%m-%d %H:%M WAT (UTC+1)")
 
     alpha_link = f"https://platform.worldquantbrain.com/alpha/{alpha_id}"
     sharpe = float(metrics.get("sharpe") or 0.0)
@@ -113,14 +121,24 @@ def send_telegram_drip_alert(
     turnover = float(metrics.get("turnover") or 0.0) * 100.0
     margin_bps = float(metrics.get("margin") or 0.0) * 10000.0
 
+    if next_unlock_str:
+        unlock_msg = next_unlock_str
+    elif slot_num < max_daily:
+        next_dt = now_wat + datetime.timedelta(hours=4)
+        unlock_msg = f"unlocks today at {next_dt.strftime('%H:%M')} UTC+1 (in 4h 00m)"
+    else:
+        unlock_msg = f"daily quota complete ({slot_num}/{max_daily}). Next window unlocks tomorrow at 05:00 UTC+1 (00:00 EDT)"
+
     text = (
         f"🚀 *DAILY ALPHA DRIP SUBMITTED!*\n\n"
         f"• *Alpha ID:* [{alpha_id}]({alpha_link})\n"
+        f"• *Submitted:* `{submitted_time_wat}`\n"
+        f"• *Slot:* `{slot_num} of {max_daily} (Silver Tier)`\n"
         f"• *Date Credit:* `{date_label} EDT`\n"
         f"• *Sharpe:* `{sharpe:.2f}` | *Fitness:* `{fitness:.2f}`\n"
         f"• *Turnover:* `{turnover:.1f}%` | *Margin:* `{margin_bps:.1f} bps`\n"
         f"• *All Checklist Gates:* ✅ `PASSED`\n\n"
-        f"⏳ _Next submission window unlocks tomorrow at 00:00 EDT._"
+        f"⏳ _Next submission window {unlock_msg}._"
     )
     return _send_telegram_raw(text, config)
 

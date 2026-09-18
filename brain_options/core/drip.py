@@ -7,6 +7,7 @@ via the BRAIN API before submitting.
 """
 from __future__ import annotations
 
+import asyncio
 import datetime
 import json
 import logging
@@ -148,11 +149,18 @@ class DripSubmitter:
                 corr_url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/correlations/self"
                 try:
                     c_resp = await sess.retry("GET", corr_url, max_tries=2)
+                    if c_resp and c_resp.status_code == 200 and not c_resp.text.strip():
+                        # BRAIN calculates self-correlation lazily; retry after brief delay
+                        await asyncio.sleep(1.5)
+                        c_resp = await sess.retry("GET", corr_url, max_tries=2)
+
                     if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
                         c_data = json.loads(c_resp.text)
                         for r in c_data.get("records") or []:
                             if len(r) > 5 and isinstance(r[5], (int, float)) and r[5] >= 0.70:
                                 failed.append(f"HIGH_SELF_CORRELATION ({r[5]:.2f} >= 0.70 vs {r[0]})")
+                                if hasattr(self.store, "mark_alpha_correlated"):
+                                    self.store.mark_alpha_correlated(alpha_id, f"High self-correlation {r[5]:.2f} vs {r[0]}")
                                 break
                 except Exception as e:
                     log.debug("Self correlation check skipped for %s: %s", alpha_id, e)
@@ -164,10 +172,10 @@ class DripSubmitter:
 
     async def check_and_drip(self) -> Tuple[bool, Optional[str], str]:
         """
-        Evaluates the daily submission cadence (up to 2 alphas per New York day,
+        Evaluates the daily submission cadence (up to 3 alphas per New York day,
         spaced by minimum interval hours to maintain optimal pacing).
         If a slot is free, selects the best fully verified alpha from the queue,
-        submits it, updates records, and notifies Telegram.
+        submits it, verifies Out-of-Sample status on BRAIN, updates records, and notifies Telegram.
         Returns (submitted: bool, alpha_id: Optional[str], reason: str).
         """
         now_ny = datetime.datetime.now(NY_TZ)
@@ -177,7 +185,7 @@ class DripSubmitter:
 
         today_subs = await self.get_today_submissions_ny()
         if len(today_subs) >= max_daily:
-            msg = f"Daily submission quota ({len(today_subs)}/{max_daily}) already reached for {today_ny} EDT. Next window opens tomorrow at 00:00 EDT."
+            msg = f"Daily submission quota ({len(today_subs)}/{max_daily}) already reached for {today_ny} EDT. Next window opens tomorrow at 05:00 UTC+1 (00:00 EDT)."
             log.info("[DRIP QUEUE] %s", msg)
             return False, None, msg
 
@@ -202,15 +210,20 @@ class DripSubmitter:
         recent_archs: List[str] = []
         if hasattr(self.store, "get_recently_submitted_archetypes"):
             try:
-                res = self.store.get_recently_submitted_archetypes(limit=3)
+                res = self.store.get_recently_submitted_archetypes(limit=5)
                 if isinstance(res, list):
                     recent_archs = res
             except Exception:
                 recent_archs = []
 
+        recent_archs_cleaned = [
+            a.replace("Mutation(", "").replace(")", "").strip().lower()
+            for a in recent_archs if a
+        ]
+
         def _cqs_diversity_key(c):
-            arch = c.get("archetype") or ""
-            is_repeat = 1 if (recent_archs and arch in recent_archs) else 0
+            arch = (c.get("archetype") or "").replace("Mutation(", "").replace(")", "").strip().lower()
+            is_repeat = 1 if (recent_archs_cleaned and arch in recent_archs_cleaned) else 0
             cqs = c.get("cqs")
             if cqs is None:
                 s = float(c.get("sharpe") or 0.0)
@@ -253,20 +266,57 @@ class DripSubmitter:
             log.info("[DRIP QUEUE] Submitting verified alpha %s for %s EDT...", alpha_id, today_ny)
             res = await self.client.submit_alpha(alpha_id)
             if res.get("ok"):
-                log.info("[DRIP QUEUE] Successfully submitted %s! Claimed progression for %s EDT.", alpha_id, today_ny)
-                self.store.mark_alpha_submitted(alpha_id)
+                # Asynchronous verification loop:
+                # BRAIN evaluates post-submission self-correlation and checklist gates asynchronously.
+                # Poll GET /alphas/{alpha_id} up to 5 times (total ~15s) to confirm it transitioned to stage 'OS'.
+                is_actually_submitted = False
+                verified_data = alpha_data
+                sess = self.client._get_session()
+                for attempt in range(5):
+                    await asyncio.sleep(2.5)
+                    v_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{alpha_id}", max_tries=2)
+                    if v_resp and v_resp.status_code == 200:
+                        v_json = v_resp.json()
+                        v_stage = v_json.get("stage")
+                        v_status = v_json.get("status")
+                        if v_stage == "OS" and v_status == "ACTIVE":
+                            is_actually_submitted = True
+                            verified_data = v_json
+                            break
+                        elif v_status == "UNSUBMITTED":
+                            log.warning("[DRIP QUEUE] Alpha %s rejected by BRAIN backend (stage=%s, status=%s).",
+                                        alpha_id, v_stage, v_status)
+                            break
 
-                # Format metrics for alert
-                is_metrics = alpha_data.get("is") or {}
-                metrics_dict = {
-                    "sharpe": is_metrics.get("sharpe", cand.get("sharpe", 0.0)),
-                    "fitness": is_metrics.get("fitness", cand.get("fitness", 0.0)),
-                    "turnover": is_metrics.get("turnover", cand.get("turnover", 0.0)),
-                    "returns": is_metrics.get("returns", cand.get("returns", 0.0)),
-                    "margin": is_metrics.get("margin", cand.get("margin", 0.0)),
-                }
-                send_telegram_drip_alert(alpha_id, today_ny.isoformat(), metrics_dict, self.config)
-                return True, alpha_id, f"Submitted {alpha_id} for {today_ny} EDT"
+                if is_actually_submitted:
+                    slot_num = len(today_subs) + 1
+                    log.info("[DRIP QUEUE] Successfully submitted and verified %s in stage OS (Slot %d/%d) for %s EDT.",
+                             alpha_id, slot_num, max_daily, today_ny)
+                    self.store.mark_alpha_submitted(alpha_id)
+
+                    # Format metrics for alert
+                    is_metrics = verified_data.get("is") or {}
+                    metrics_dict = {
+                        "sharpe": is_metrics.get("sharpe", cand.get("sharpe", 0.0)),
+                        "fitness": is_metrics.get("fitness", cand.get("fitness", 0.0)),
+                        "turnover": is_metrics.get("turnover", cand.get("turnover", 0.0)),
+                        "returns": is_metrics.get("returns", cand.get("returns", 0.0)),
+                        "margin": is_metrics.get("margin", cand.get("margin", 0.0)),
+                    }
+                    send_telegram_drip_alert(
+                        alpha_id=alpha_id,
+                        date_label=today_ny.isoformat(),
+                        metrics=metrics_dict,
+                        config=self.config,
+                        slot_num=slot_num,
+                        max_daily=max_daily,
+                    )
+                    return True, alpha_id, f"Submitted {alpha_id} (Slot {slot_num}/{max_daily}) for {today_ny} EDT"
+                else:
+                    log.warning("[DRIP QUEUE] Alpha %s failed post-submission validation (e.g. self-correlation). Marking as CORRELATED.", alpha_id)
+                    if hasattr(self.store, "mark_alpha_correlated"):
+                        self.store.mark_alpha_correlated(alpha_id, "FAILED_ASYNC_SUBMISSION_SELF_CORRELATION")
+                    continue
             else:
                 msg = res.get("message", "")
                 if "SELF_CORRELATION" in msg or "selfCorrelated" in msg or res.get("status_code") == 403:
