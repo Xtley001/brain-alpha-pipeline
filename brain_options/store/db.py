@@ -800,22 +800,23 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to release cluster run lock: %s", e)
 
-    def penalize_learning_memory(self, expression: str, penalty: float = -10.0, reason: str = ""):
+    def penalize_learning_memory(self, target: str, penalty: float = -10.0, reason: str = ""):
         """Slashes reward of an expression in learning memory when rejected for correlation."""
-        if not self.database_url or not expression:
+        if not self.database_url or not target:
             return
         sql = """
             UPDATE options_learning_memory
             SET reward = LEAST(reward, %s),
                 status = 'REJECTED'
-            WHERE expression = %s;
+            WHERE expression = %s 
+               OR expression IN (SELECT expression FROM options_alphas WHERE alpha_id = %s);
         """
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (penalty, expression))
+                    cur.execute(sql, (penalty, target, target))
                 conn.commit()
-            log.info("Penalized learning memory for %s (Reward capped at %.2f, reason=%s).", expression[:35], penalty, reason)
+            log.info("Penalized learning memory for %s (Reward capped at %.2f, reason=%s).", target[:35], penalty, reason)
         except Exception as e:
             log.warning("Failed to penalize learning memory: %s", e)
 
