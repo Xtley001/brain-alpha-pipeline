@@ -52,6 +52,21 @@ class OptionsStore:
         evaluated.update(db_evaluated)
         return evaluated
 
+    def load_top_performing_exemplars(
+        self,
+        limit: int = 5,
+        min_sharpe: float = 1.0,
+        exclude_archetypes: Optional[List[str]] = None,
+    ) -> List[Dict[str, Any]]:
+        return self.db.load_top_performing_exemplars(
+            limit=limit,
+            min_sharpe=min_sharpe,
+            exclude_archetypes=exclude_archetypes,
+        )
+
+    def load_archetype_performance_summary(self) -> Dict[str, Any]:
+        return self.db.load_archetype_performance_summary()
+
     def record_evaluated_candidate(
         self, candidate: OptionCandidate, stage: str, status: str, metrics: SimMetrics
     ):

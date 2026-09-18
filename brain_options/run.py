@@ -144,8 +144,10 @@ async def run_batch(
     target_archetype: Optional[str] = None,
 ) -> int:
     store = OptionsStore(database_url=config.database_url)
+    db = store.db
     evaluated = store.load_evaluated_expressions()
-    top_exemplars = store.load_top_performing_exemplars(limit=5, min_sharpe=0.85)
+    saturated_archetypes = db.get_recently_submitted_archetypes(limit=5) if db else []
+    top_exemplars = store.load_top_performing_exemplars(limit=5, min_sharpe=0.85, exclude_archetypes=saturated_archetypes)
     archetype_summary = store.load_archetype_performance_summary()
 
     llm_adapter = LLMAdapter(config)
@@ -155,6 +157,8 @@ async def run_batch(
     arch_label = f" [Specialization: {target_archetype}]" if target_archetype else ""
     log.info("Loaded %d previously evaluated candidates.", len(evaluated))
     log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.%s", len(top_exemplars), arch_label)
+    if saturated_archetypes:
+        log.info("Active Portfolio Saturated Archetypes: %s (Anti-correlation active)", saturated_archetypes)
     log.info("Generating next batch of %d options candidates...", batch_size)
 
     # Initial candidate batch generation (offloaded to thread to prevent blocking event loop)
@@ -165,6 +169,7 @@ async def run_batch(
         top_exemplars=top_exemplars,
         archetype_summary=archetype_summary,
         target_archetype=target_archetype,
+        saturated_archetypes=saturated_archetypes,
     )
     log.info("Generated initial %d fresh options candidates (Batch Target: %d, Budget: %ds).",
              len(initial_candidates), batch_size, config.run_time_budget_seconds)
@@ -179,6 +184,7 @@ async def run_batch(
         username=config.brain_username,
         password=config.brain_password,
         max_concurrent_sims=config.brain_max_concurrent_sims,
+        db=db,
     )
     client.authenticate()
 
@@ -224,6 +230,7 @@ async def run_batch(
                                 top_exemplars=top_exemplars,
                                 archetype_summary=archetype_summary,
                                 target_archetype=target_archetype,
+                                saturated_archetypes=saturated_archetypes,
                             )
                             for fc in fresh_cands:
                                 queue.put_nowait(fc)
@@ -295,10 +302,12 @@ async def run_retry_stage0_batch(
 
     send_telegram_startup(config, mode=f"Stage 0 Re-Optimization ({len(candidates)} candidates)")
 
+    store = OptionsStore(database_url=config.database_url)
     client = BrainClient(
         username=config.brain_username,
         password=config.brain_password,
         max_concurrent_sims=config.brain_max_concurrent_sims,
+        db=store.db,
     )
     client.authenticate()
     sweep_engine = SweepEngine(client, config)
@@ -368,7 +377,7 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Generate candidates and verify without simulating")
     parser.add_argument("--candidates", type=int, default=0, help="Override candidate count per batch")
     parser.add_argument("--retry-stage0", action="store_true", help="Retry historical Stage 0 passing candidates through upgraded optimizer")
-    parser.add_argument("--limit", type=int, default=100, help="Max Stage 0 candidates to retry")
+    parser.add_argument("--limit", type=int, default=2, help="Max Stage 0 candidates to retry (default: 2)")
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     parser.add_argument("--drip", action="store_true", help="Run 24-hour drip submitter check and exit")
@@ -379,21 +388,17 @@ def main():
 
     if args.drip:
         log.info("Checking 24-hour drip submission window...")
+        store = OptionsStore(database_url=config.database_url)
         client = BrainClient(
             username=config.brain_username,
             password=config.brain_password,
             max_concurrent_sims=1,
+            db=store.db,
         )
         client.authenticate()
-        store = OptionsStore(database_url=config.database_url)
         drip = DripSubmitter(client, store, config)
         drip_ok, aid, msg = asyncio.run(drip.check_and_drip())
         log.info("Drip check finished: %s (alpha: %s, msg: %s)", drip_ok, aid, msg)
-        return
-
-    if args.retry_stage0:
-        log.info("Starting Stage 0 re-optimization pipeline...")
-        asyncio.run(run_retry_stage0_batch(config, limit=args.limit, dry_run=args.dry_run))
         return
 
     if args.stats:
@@ -418,22 +423,52 @@ def main():
         log.info("Telegram test result: %s", "SUCCESS" if success else "FAILED")
         return
 
+    # Option D Cluster Concurrency Mutex:
+    # Ensure no two worker orgs simulate simultaneously across the single BRAIN account
+    worker_id = f"{os.getenv('GITHUB_REPOSITORY_OWNER', 'local')}-{os.getpid()}"
+    org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+    store = OptionsStore(database_url=config.database_url)
+    db = store.db
+    lock_acquired = False
 
-    batch_size = args.candidates if args.candidates > 0 else config.max_candidates_per_run
+    if not args.dry_run and db:
+        lock_acquired = db.acquire_cluster_lock(
+            org_name=org_name,
+            worker_id=worker_id,
+            archetype=args.archetype or "",
+            timeout_seconds=900,
+        )
+        if not lock_acquired:
+            log.warning(
+                "Cluster Mutex Busy: Another worker is currently simulating on BRAIN. "
+                "Gracefully yielding slot to strictly enforce the 3 max concurrent simulations limit."
+            )
+            return
 
-    log.info("Starting brain_options pipeline (Universe=%s, Delay=%d, MaxSims=%d)...", config.universe, config.delay, config.brain_max_concurrent_sims)
+    try:
+        if args.retry_stage0:
+            log.info("Starting Stage 0 re-optimization pipeline (Limit: %d)...", args.limit)
+            asyncio.run(run_retry_stage0_batch(config, limit=args.limit, dry_run=args.dry_run))
+            return
 
-    if args.daemon:
-        log.info("Running in continuous daemon mode (Specialization: %s)...", args.archetype or "ALL")
-        while True:
-            try:
-                asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon", target_archetype=args.archetype or None))
-            except Exception as e:
-                log.error("Batch encountered unhandled error: %s", e, exc_info=True)
-            log.info("Sleeping 300 seconds before next batch...")
-            time.sleep(300)
-    else:
-        asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=args.archetype or None))
+        batch_size = args.candidates if args.candidates > 0 else config.max_candidates_per_run
+        log.info("Starting brain_options pipeline (Universe=%s, Delay=%d, MaxSims=%d)...",
+                 config.universe, config.delay, config.brain_max_concurrent_sims)
+
+        if args.daemon:
+            log.info("Running in continuous daemon mode (Specialization: %s)...", args.archetype or "ALL")
+            while True:
+                try:
+                    asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon", target_archetype=args.archetype or None))
+                except Exception as e:
+                    log.error("Batch encountered unhandled error: %s", e, exc_info=True)
+                log.info("Sleeping 300 seconds before next batch...")
+                time.sleep(300)
+        else:
+            asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=args.archetype or None))
+    finally:
+        if lock_acquired and db:
+            db.release_cluster_lock(worker_id)
 
 
 if __name__ == "__main__":

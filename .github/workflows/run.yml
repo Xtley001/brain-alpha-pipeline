@@ -104,7 +104,7 @@ jobs:
           echo "Resolved divide-and-conquer specialization for $OWNER: $TARGET_ARCH"
 
       - name: Re-optimize Stage 0 passed candidates
-        run: python -m brain_options.run --retry-stage0 --limit 10
+        run: python -m brain_options.run --retry-stage0 --limit 2
 
       - name: Generate and evaluate specialized candidates
         run: python -m brain_options.run --single-batch

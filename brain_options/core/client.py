@@ -104,12 +104,13 @@ def parse_brain_sim_response(resp: Any) -> SimMetrics:
 
 
 class BrainClient:
-    """Async/sync facade over wqb.WQBSession for WorldQuant BRAIN operations."""
+    """Async/sync facade over wqb.WQBSession for WorldQuant BRAIN operations with PostgreSQL session caching."""
 
-    def __init__(self, username: str, password: str, max_concurrent_sims: int = 3):
+    def __init__(self, username: str, password: str, max_concurrent_sims: int = 3, db: Optional[Any] = None):
         self.username = username
         self.password = password
         self.max_concurrent_sims = max_concurrent_sims
+        self.db = db
         self._session = None
         self._semaphore: Optional[asyncio.Semaphore] = None
         self._active_sims: int = 0
@@ -132,10 +133,34 @@ class BrainClient:
 
     def authenticate(self) -> None:
         session = self._get_session()
+
+        # Check PostgreSQL cluster session cache to avoid 429 login rate-limits
+        if self.db is not None:
+            try:
+                cached = self.db.get_cached_session(key=f"brain_session_{self.username}")
+                if cached and cached.get("cookies"):
+                    for k, v in cached["cookies"].items():
+                        session.cookies.set(k, v)
+                    test_resp = session.get("https://api.worldquantbrain.com/users/self")
+                    if test_resp.status_code == 200:
+                        log.info("Successfully resumed BRAIN session from PostgreSQL cluster cache for %s (Zero 429 risk).", self.username)
+                        return
+            except Exception as cache_err:
+                log.warning("Cached session validation skipped: %s", cache_err)
+
         resp = session.post_authentication()
         if resp is None or getattr(resp, "status_code", 500) >= 400:
             raise RuntimeError(f"WorldQuant BRAIN authentication failed: {resp}")
         log.info("Successfully authenticated with WorldQuant BRAIN as %s", self.username)
+
+        # Save session cookies to PostgreSQL cluster cache (TTL 2 hours)
+        if self.db is not None:
+            try:
+                cookies_dict = session.cookies.get_dict()
+                token = getattr(session, "token", "") or "cookie_session"
+                self.db.save_cached_session(token=token, cookies=cookies_dict, expires_in_seconds=7200, key=f"brain_session_{self.username}")
+            except Exception as save_err:
+                log.warning("Failed to cache session cookies: %s", save_err)
 
     async def simulate_one(self, expression: str, settings: SimSettings) -> SimMetrics:
         async with self.semaphore:

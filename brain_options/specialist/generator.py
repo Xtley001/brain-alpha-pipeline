@@ -112,11 +112,12 @@ class OptionsGenerator:
         archetype: Optional[str] = None,
         top_exemplars: Optional[list[dict]] = None,
         archetype_summary: Optional[dict] = None,
+        saturated_archetypes: Optional[list[str]] = None,
     ) -> list[OptionCandidate]:
         """
         Tier 2: Knowledge-injected LLM reasoning tier.
         Injects targeted institutional cards, formula sketches, and top RL exemplars
-        from Master Books 1-4 and the PostgreSQL learning memory.
+        from Master Books 1-4 and the PostgreSQL learning memory, actively avoiding saturated archetypes.
         """
         candidates: list[OptionCandidate] = []
         chunk_size = 4
@@ -137,6 +138,7 @@ class OptionsGenerator:
                 kb_cards,
                 n=batch_n,
                 top_exemplars=top_exemplars,
+                saturated_archetypes=saturated_archetypes,
             )
 
             raw_output = self.llm_adapter.generate(
@@ -420,12 +422,13 @@ class OptionsGenerator:
         top_exemplars: Optional[list[dict]] = None,
         archetype_summary: Optional[dict] = None,
         target_archetype: Optional[str] = None,
+        saturated_archetypes: Optional[list[str]] = None,
     ) -> list[OptionCandidate]:
         """
         Assembles a balanced candidate batch across the generation tiers:
         1. Deterministic high-confidence templates (Tier 1)
         2. Tier 3 Mutations (seeded by top performing historical alphas from memory)
-        3. Tier 2 Knowledge-injected LLM reasoning (conditioned on MAB weights and RL exemplars)
+        3. Tier 2 Knowledge-injected LLM reasoning (conditioned on MAB weights, RL exemplars, and saturated exclusions)
         4. Dynamic procedural generator fallback (Tier 4) guarantees non-empty batch
         """
         template_count = max(1, int(target_count * template_ratio))
@@ -466,6 +469,7 @@ class OptionsGenerator:
                 archetype=target_archetype,
                 top_exemplars=top_exemplars,
                 archetype_summary=archetype_summary,
+                saturated_archetypes=saturated_archetypes,
             )
             candidates.extend(llm_candidates)
 

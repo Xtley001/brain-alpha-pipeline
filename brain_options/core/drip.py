@@ -340,6 +340,8 @@ class DripSubmitter:
                 log.warning("[DRIP QUEUE] Alpha %s rejected during submission: %s. Moving to options_rejected_alphas.", alpha_id, rejection_str)
                 if hasattr(self.store, "archive_rejected_alpha"):
                     self.store.archive_rejected_alpha(alpha_id, rejection_str, cand)
+                if hasattr(self.store, "db") and self.store.db and cand.get("expression"):
+                    self.store.db.penalize_learning_memory(cand.get("expression"), penalty=-15.0, reason=rejection_str)
 
             # Brief pause to respect BRAIN platform request pacing
             await asyncio.sleep(0.5)

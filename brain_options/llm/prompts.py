@@ -72,10 +72,12 @@ def build_reasoning_prompt(
     n: int = 5,
     top_exemplars: Optional[list[dict]] = None,
     failure_guidance: Optional[str] = None,
+    saturated_archetypes: Optional[list[str]] = None,
 ) -> str:
     """
     Builds a knowledge-injected reasoning prompt for generating novel alpha expressions
-    grounded in specific institutional derivatives cards, formula sketches, and RL exemplars.
+    grounded in specific institutional derivatives cards, formula sketches, and RL exemplars,
+    while strictly avoiding saturated archetypes to defeat self-correlation.
     """
     kb_context = "\n\n".join(card.to_prompt_text() for card in kb_cards) if kb_cards else ""
 
@@ -90,6 +92,15 @@ def build_reasoning_prompt(
             lines.append(f"- Archetype: {arch} | Sharpe: {sh:.2f} | Fitness: {fit:.2f}\n  Formula: `{expr}`")
         exemplars_text = "\n".join(lines) + "\n\n"
 
+    saturated_text = ""
+    if saturated_archetypes:
+        saturated_text = (
+            f"### CRITICAL ANTI-CORRELATION CONSTRAINT (SATURATED SIGNAL DOMAINS):\n"
+            f"The following archetypes/mechanisms ALREADY have accepted alphas in our portfolio: {', '.join(saturated_archetypes)}.\n"
+            f"DO NOT generate formulas that correlate with these archetypes. You MUST explore orthogonal formulations, "
+            f"different lookbacks, alternative data fields, or cross-asset interactions.\n\n"
+        )
+
     negative_guidance = failure_guidance or """### PROVEN FAILURE PATTERNS TO STRICTLY AVOID:
 1. Do NOT generate raw Put-Call Ratio contrarian reversals (e.g. -ts_zscore(pcr_vol_10, 20)); they consistently produce negative Sharpe (-0.80).
 2. Do NOT generate raw unsmoothed ts_delta without linear decay; it generates 50%+ turnover which crushes Fitness. Always wrap signals with `ts_decay_linear(..., 5)` or `ts_decay_linear(..., 10)`.
@@ -97,7 +108,7 @@ def build_reasoning_prompt(
 
     prompt = f"""Generate {n} NOVEL, mathematically precise WorldQuant BRAIN options alpha expressions for the ARCHETYPE: '{archetype}'.
 
-{exemplars_text}### KNOWLEDGE BASE INSTITUTIONAL CARDS & FORMULAS (BOOKS 1-4):
+{exemplars_text}{saturated_text}### KNOWLEDGE BASE INSTITUTIONAL CARDS & FORMULAS (BOOKS 1-4):
 {kb_context if kb_context else "Apply standard quantitative derivatives theory for " + archetype}
 
 {negative_guidance}

@@ -98,6 +98,22 @@ CREATE TABLE IF NOT EXISTS options_rejected_alphas (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS cluster_session_cache (
+    key VARCHAR(64) PRIMARY KEY,
+    token TEXT NOT NULL,
+    cookies JSONB,
+    expires_at TIMESTAMPTZ NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS cluster_run_lock (
+    worker_id VARCHAR(64) PRIMARY KEY,
+    org_name VARCHAR(64) NOT NULL,
+    archetype VARCHAR(128),
+    heartbeat TIMESTAMPTZ NOT NULL,
+    started_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id ON options_alphas(alpha_id);
 CREATE INDEX IF NOT EXISTS idx_options_alphas_status_created ON options_alphas(status, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype ON options_alphas(archetype);
@@ -108,6 +124,8 @@ CREATE INDEX IF NOT EXISTS idx_options_learning_archetype ON options_learning_me
 CREATE INDEX IF NOT EXISTS idx_options_rejected_alpha_id ON options_rejected_alphas(alpha_id);
 CREATE INDEX IF NOT EXISTS idx_options_rejected_reason ON options_rejected_alphas(rejection_reason);
 CREATE INDEX IF NOT EXISTS idx_options_rejected_created ON options_rejected_alphas(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_cluster_session_expires ON cluster_session_cache(expires_at DESC);
+CREATE INDEX IF NOT EXISTS idx_cluster_run_heartbeat ON cluster_run_lock(heartbeat DESC);
 """
 
 
@@ -413,6 +431,19 @@ class OptionsDatabase:
     ):
         if not self.database_url:
             return
+
+        # Option D: Institutional Anti-Correlation Penalty in Reinforcement Learning
+        corr_penalty = 0.0
+        max_c = getattr(metrics, "max_correlation", None)
+        if max_c is not None and float(max_c) > 0.60:
+            corr_penalty += 12.0 * (float(max_c) - 0.50)
+        if status == "CORRELATED":
+            corr_penalty += 8.0
+        elif status == "REJECTED":
+            corr_penalty += 15.0
+
+        adjusted_reward = reward - corr_penalty
+
         sql = """
             INSERT INTO options_learning_memory 
             (expression, archetype, hypothesis, source, sharpe, fitness, turnover, returns, drawdown,
@@ -444,7 +475,7 @@ class OptionsDatabase:
                             metrics.turnover,
                             metrics.annualized_return,
                             metrics.max_drawdown,
-                            reward,
+                            adjusted_reward,
                             optimization_steps,
                             parent_expression,
                             mutation_type,
@@ -453,19 +484,32 @@ class OptionsDatabase:
                         ),
                     )
                 conn.commit()
-            log.info("Recorded learning memory for %s (Reward=%.2f, Sharpe=%.2f)", candidate.expression[:35], reward, metrics.sharpe)
+            log.info("Recorded learning memory for %s (Reward=%.2f, Sharpe=%.2f, Status=%s)", candidate.expression[:35], adjusted_reward, metrics.sharpe, status)
         except Exception as e:
             log.warning("Failed to record learning memory: %s", e)
 
-    def load_top_performing_exemplars(self, limit: int = 5, min_sharpe: float = 1.0) -> List[Dict[str, Any]]:
-        """Loads top performing alpha formulas from learning memory or evaluations."""
+    def load_top_performing_exemplars(
+        self,
+        limit: int = 5,
+        min_sharpe: float = 1.0,
+        exclude_archetypes: Optional[List[str]] = None,
+    ) -> List[Dict[str, Any]]:
+        """Loads top performing alpha formulas from learning memory or evaluations, excluding saturated or rejected branches."""
         if not self.database_url:
             return []
-        # First check options_learning_memory
-        sql = """
+
+        # Exclude archetypes that are already saturated in submitted alphas to promote diversity
+        arch_filter = ""
+        params_mem: list = [min_sharpe]
+        if exclude_archetypes:
+            arch_filter = " AND archetype NOT IN %s"
+            params_mem.append(tuple(exclude_archetypes))
+        params_mem.append(limit)
+
+        sql = f"""
             SELECT expression, archetype, hypothesis, sharpe, fitness, turnover, returns, reward
             FROM options_learning_memory
-            WHERE sharpe >= %s
+            WHERE sharpe >= %s AND reward > 0.5 AND status NOT IN ('REJECTED', 'CORRELATED'){arch_filter}
             ORDER BY reward DESC, sharpe DESC
             LIMIT %s;
         """
@@ -473,7 +517,7 @@ class OptionsDatabase:
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (min_sharpe, limit))
+                    cur.execute(sql, tuple(params_mem))
                     rows = cur.fetchall()
                     for r in rows:
                         results.append({
@@ -490,20 +534,27 @@ class OptionsDatabase:
                         return results
 
                     # If learning memory is fresh/empty, bootstrap from options_evaluations
-                    eval_sql = """
+                    eval_params: list = [min_sharpe]
+                    eval_arch_filter = ""
+                    if exclude_archetypes:
+                        eval_arch_filter = " AND archetype NOT IN %s"
+                        eval_params.append(tuple(exclude_archetypes))
+                    eval_params.append(limit)
+
+                    eval_sql = f"""
                         SELECT expression, archetype, hypothesis, sharpe, fitness, turnover, returns, reward
                         FROM (
                             SELECT DISTINCT ON (expression)
                                 expression, archetype, 'Historical evaluation' as hypothesis, sharpe, fitness, turnover, returns,
                                 (sharpe + 1.5 * LEAST(fitness, 2.0)) as reward
                             FROM options_evaluations
-                            WHERE sharpe >= %s AND (status = 'PASS' OR status = 'QUALIFIED')
+                            WHERE sharpe >= %s AND (status = 'PASS' OR status = 'QUALIFIED'){eval_arch_filter}
                             ORDER BY expression, sharpe DESC
                         ) sub
                         ORDER BY sharpe DESC, fitness DESC
                         LIMIT %s;
                     """
-                    cur.execute(eval_sql, (min_sharpe, limit))
+                    cur.execute(eval_sql, tuple(eval_params))
                     rows = cur.fetchall()
                     for r in rows:
                         results.append({
@@ -642,6 +693,131 @@ class OptionsDatabase:
             return candidates
         except Exception as e:
             log.warning("Failed to load stage0 passed candidates: %s", e)
-            return []
+    def get_cached_session(self, key: str = "brain_session") -> Optional[Dict[str, Any]]:
+        """Retrieves valid cached session cookies/tokens from PostgreSQL cluster cache."""
+        if not self.database_url:
+            return None
+        sql = """
+            SELECT token, cookies, expires_at FROM cluster_session_cache
+            WHERE key = %s AND expires_at > CURRENT_TIMESTAMP;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (key,))
+                    row = cur.fetchone()
+                    if row:
+                        import json
+                        cookies = row[1] if isinstance(row[1], dict) else (json.loads(row[1]) if row[1] else {})
+                        return {"token": row[0], "cookies": cookies, "expires_at": row[2]}
+            return None
+        except Exception as e:
+            log.warning("Failed to read session cache: %s", e)
+            return None
+
+    def save_cached_session(
+        self,
+        token: str,
+        cookies: Dict[str, str],
+        expires_in_seconds: int = 7200,
+        key: str = "brain_session",
+    ):
+        """Saves BRAIN session cookies to PostgreSQL cluster cache with TTL (default 2 hours)."""
+        if not self.database_url:
+            return
+        import json
+        sql = """
+            INSERT INTO cluster_session_cache (key, token, cookies, expires_at, updated_at)
+            VALUES (%s, %s, %s::jsonb, CURRENT_TIMESTAMP + (%s || ' seconds')::interval, CURRENT_TIMESTAMP)
+            ON CONFLICT (key) DO UPDATE SET
+                token = EXCLUDED.token,
+                cookies = EXCLUDED.cookies,
+                expires_at = EXCLUDED.expires_at,
+                updated_at = CURRENT_TIMESTAMP;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (key, token, json.dumps(cookies), expires_in_seconds))
+                conn.commit()
+            log.info("Saved BRAIN session to PostgreSQL cluster cache (TTL=%ds).", expires_in_seconds)
+        except Exception as e:
+            log.warning("Failed to save session cache: %s", e)
+
+    def acquire_cluster_lock(
+        self,
+        org_name: str,
+        worker_id: str,
+        archetype: str = "",
+        timeout_seconds: int = 900,
+    ) -> bool:
+        """
+        Acquires a cluster-wide run lock to prevent simultaneous worker overlap on BRAIN,
+        ensuring total simulations across all 5 orgs never exceed 3.
+        """
+        if not self.database_url:
+            return True
+        cleanup_sql = "DELETE FROM cluster_run_lock WHERE heartbeat < CURRENT_TIMESTAMP - INTERVAL '15 minutes';"
+        insert_sql = """
+            INSERT INTO cluster_run_lock (worker_id, org_name, archetype, heartbeat, started_at)
+            SELECT %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+            WHERE NOT EXISTS (
+                SELECT 1 FROM cluster_run_lock
+                WHERE heartbeat >= CURRENT_TIMESTAMP - INTERVAL '15 minutes'
+                  AND worker_id != %s
+            )
+            ON CONFLICT (worker_id) DO UPDATE SET heartbeat = CURRENT_TIMESTAMP
+            RETURNING worker_id;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(cleanup_sql)
+                    cur.execute(insert_sql, (worker_id, org_name, archetype, worker_id))
+                    res = cur.fetchone()
+                conn.commit()
+                acquired = res is not None
+                if acquired:
+                    log.info("Acquired cluster run lock for %s (%s).", org_name, worker_id)
+                else:
+                    log.warning("Cluster run lock busy. Another worker is currently simulating on BRAIN.")
+                return acquired
+        except Exception as e:
+            log.warning("Failed to acquire cluster run lock: %s", e)
+            return True
+
+    def release_cluster_lock(self, worker_id: str):
+        """Releases the cluster run lock."""
+        if not self.database_url:
+            return
+        sql = "DELETE FROM cluster_run_lock WHERE worker_id = %s;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (worker_id,))
+                conn.commit()
+            log.info("Released cluster run lock for %s.", worker_id)
+        except Exception as e:
+            log.warning("Failed to release cluster run lock: %s", e)
+
+    def penalize_learning_memory(self, expression: str, penalty: float = -10.0, reason: str = ""):
+        """Slashes reward of an expression in learning memory when rejected for correlation."""
+        if not self.database_url or not expression:
+            return
+        sql = """
+            UPDATE options_learning_memory
+            SET reward = LEAST(reward, %s),
+                status = 'REJECTED'
+            WHERE expression = %s;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (penalty, expression))
+                conn.commit()
+            log.info("Penalized learning memory for %s (Reward capped at %.2f, reason=%s).", expression[:35], penalty, reason)
+        except Exception as e:
+            log.warning("Failed to penalize learning memory: %s", e)
+
 
 
