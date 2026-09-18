@@ -1,3 +1,13 @@
+---
+title: WorldQuant BRAIN Alpha Pipeline
+emoji: 🧠
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # `brain_options`: WorldQuant BRAIN Options Alpha Specialist Pipeline
 
 A standalone, hyper-specialized quantitative alpha discovery and simulation pipeline for **WorldQuant BRAIN**, focused exclusively on the **Options** category (Platform Value Score: **6.0**, 13x less crowded than Price/Volume).
