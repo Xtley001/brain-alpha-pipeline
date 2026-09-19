@@ -508,6 +508,31 @@ class OptionsDatabase:
             log.warning("Failed to load recently submitted archetypes: %s", e)
             return []
 
+    def get_today_saturated_archetypes(self, max_per_day: int = 1) -> List[str]:
+        """
+        Dynamic Archetype Quota Enforcer (Pillar 1):
+        Returns archetypes that have already produced >= max_per_day qualified or submitted alphas today.
+        Used to dynamically drop probability weight to 0.02 and steer workers to unfilled channels.
+        """
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT archetype, COUNT(*) as cnt
+            FROM options_alphas
+            WHERE status IN ('QUALIFIED', 'SUBMITTED')
+              AND archetype IS NOT NULL
+              AND created_at >= CURRENT_DATE
+            GROUP BY archetype
+            HAVING COUNT(*) >= %s;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (max_per_day,))
+                    return [row[0] for row in cur.fetchall() if row[0]]
+        except Exception as e:
+            log.warning("Failed to load today saturated archetypes: %s", e)
+            return []
 
     def load_evaluated_expressions(self) -> Set[str]:
         if not self.database_url:
@@ -605,8 +630,8 @@ class OptionsDatabase:
         arch_filter = ""
         params_mem: list = [min_sharpe]
         if exclude_archetypes:
-            arch_filter = " AND archetype NOT IN %s"
-            params_mem.append(tuple(exclude_archetypes))
+            arch_filter = " AND archetype != ALL(%s)"
+            params_mem.append(list(exclude_archetypes))
         params_mem.append(limit)
 
         sql = f"""
@@ -640,8 +665,8 @@ class OptionsDatabase:
                     eval_params: list = [min_sharpe]
                     eval_arch_filter = ""
                     if exclude_archetypes:
-                        eval_arch_filter = " AND archetype NOT IN %s"
-                        eval_params.append(tuple(exclude_archetypes))
+                        eval_arch_filter = " AND archetype != ALL(%s)"
+                        eval_params.append(list(exclude_archetypes))
                     eval_params.append(limit)
 
                     eval_sql = f"""
@@ -922,6 +947,31 @@ class OptionsDatabase:
             log.info("Penalized learning memory for %s (Reward capped at %.2f, reason=%s).", target[:35], penalty, reason)
         except Exception as e:
             log.warning("Failed to penalize learning memory: %s", e)
+
+
+def map_archetype_to_core(archetype_name: str) -> str:
+    """Maps arbitrary human-readable archetype titles to canonical core category keys."""
+    if not archetype_name:
+        return "breakeven"
+    name = archetype_name.lower()
+    if "hybrid" in name or "confluence" in name or "divergence" in name:
+        return "hybrid_confluence"
+    elif "breakeven" in name:
+        return "breakeven"
+    elif "skew" in name or "smirk" in name:
+        return "skew"
+    elif "term_structure" in name or "term structure" in name or "vrp" in name or "variance" in name or "parkinson" in name:
+        return "term_structure"
+    elif "forward" in name or "basis" in name:
+        return "forward_basis"
+    elif "pcr" in name or "put-call" in name or "put_call" in name or "flow" in name:
+        return "pcr_flow"
+    elif "analyst" in name or "revision" in name or "dispersion" in name or "pead" in name or "target_price" in name or "price target" in name or "sales" in name:
+        return "analyst_revisions"
+    elif "short" in name or "borrow" in name or "days_to_cover" in name:
+        return "short_interest"
+    return name
+
 
 
 

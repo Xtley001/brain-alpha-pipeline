@@ -284,94 +284,186 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
         )
 
-    # 23. Givoly-Lakonishok Analyst Revision Momentum (JAE 1979)
-    for win in [30, 60, 90]:
+    # 23. Givoly-Lakonishok Analyst Revision Momentum (JAE 1979) - Multi-Speed Dispersal
+    # Fast: win=15, decay=5 | Medium: win=30, decay=10 | Slow: win=60, decay=20
+    for win, dcy in [(15, 5), (30, 10), (60, 20)]:
         for grp in ["subindustry", "sector"]:
             candidates.append(
                 OptionCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), 10)), {grp})",
+                    expression=f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), {dcy})), {grp})",
                     archetype_name="Analyst Revision Momentum",
-                    hypothesis=f"Givoly & Lakonishok (1979): Sticky analyst forecast revisions over {win}d drift forward over multi-month horizons demeaned by {grp}.",
+                    hypothesis=f"Givoly & Lakonishok (1979): Sluggish analyst EPS forecast revisions over {win}d drift forward with decay={dcy} demeaned by {grp}.",
                     generation_source="template",
                 )
             )
 
-    # 24. Diether-Malloy-Scherbina Forecast Dispersion Fade (JF 2002)
+    # 24. Sales & Revenue Revision Momentum - Multi-Speed Dispersal
+    for win, dcy in [(15, 5), (30, 10), (60, 20)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), {dcy})), {grp})",
+                    archetype_name="Sales Revision Momentum",
+                    hypothesis=f"Consensus sales revision drift over {win}d with decay={dcy} captures top-line demand momentum demeaned by {grp}.",
+                    generation_source="template",
+                )
+            )
+
+    # 25. Diether-Malloy-Scherbina Forecast Dispersion Fade (JF 2002) - Multi-Speed Dispersal
+    for win, dcy in [(20, 5), (60, 10), (120, 20)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(-ts_decay_linear(ts_zscore(std_dev_eps_est / (abs(est_eps) + 0.01), {win}), {dcy})), {grp})",
+                    archetype_name="Analyst Dispersion Fade",
+                    hypothesis=f"Diether, Malloy, & Scherbina (2002): High analyst forecast dispersion over {win}d signals market overoptimism; fade high disagreement with decay={dcy}.",
+                    generation_source="template",
+                )
+            )
+
+    # 26. Bernard-Thomas PEAD Revision vs Price Momentum Gap
     for grp in ["subindustry", "sector"]:
         candidates.append(
             OptionCandidate(
-                expression=f"group_neutralize(rank(-ts_decay_linear(std_dev_eps_est / (abs(est_eps) + 0.01), 10)), {grp})",
-                archetype_name="Analyst Dispersion Fade",
-                hypothesis=f"Diether, Malloy, & Scherbina (2002): High analyst forecast dispersion signals market overoptimism under short-sale constraints; fade high disagreement names.",
+                expression=f"group_neutralize(rank(ts_decay_linear(((est_eps - ts_delay(est_eps, 30)) / (abs(ts_delay(est_eps, 30)) + 0.01)) - (ts_delta(close, 30) / (ts_delay(close, 30) + 0.001)), 10)), {grp})",
+                archetype_name="PEAD Revision Price Lag",
+                hypothesis=f"Bernard & Thomas (1989): Gap between 30d EPS revision surge and sluggish 30d realized stock return isolates unpriced post-earnings drift demeaned by {grp}.",
                 generation_source="template",
             )
         )
 
-    # 25. Fabozzi Price Target Implied Upside Momentum (Wiley 2010)
+    # 27. Fabozzi Price Target Implied Upside Momentum (Wiley 2010) - Multi-Speed Gated
+    for mom_win, dcy in [(5, 5), (10, 10), (20, 20)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"trade_when(ts_delta(close, {mom_win}) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, {dcy})), {grp}), -1)",
+                    archetype_name="Price Target Implied Upside",
+                    hypothesis=f"Fabozzi et al. (2010): Consensus price target upside conditioned on positive {mom_win}d price velocity eliminates value traps (decay={dcy}).",
+                    generation_source="template",
+                )
+            )
+
+    # 28. Cohen-Diether-Malloy Short Demand Borrow Surge (JF 2007) - Multi-Speed Dispersal
+    for dcy in [5, 10, 20]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
+                    archetype_name="Short Demand Borrow Surge",
+                    hypothesis=f"Cohen, Diether, & Malloy (2007): Elevated institutional borrow cost and high short interest isolate informed shorting with decay={dcy}.",
+                    generation_source="template",
+                )
+            )
+
+    # 29. Borrow Fee Acceleration Spike
+    for dcy in [5, 10]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(-ts_decay_linear(ts_delta(borrow_fee, 5) * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
+                    archetype_name="Borrow Fee Acceleration Spike",
+                    hypothesis=f"Sudden 5-day spike in institutional borrow fee multiplied by short interest scale isolates imminent borrow squeeze or collapse with decay={dcy}.",
+                    generation_source="template",
+                )
+            )
+
+    # 30. Rapach-Ringgenberg-Zhou De-Trended Short Interest Z-Score (JFE 2016) - Multi-Speed
+    for win, dcy in [(126, 10), (252, 20)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(-ts_decay_linear(ts_zscore(short_interest / (float_shares + 0.001), {win}), {dcy})), {grp})",
+                    archetype_name="De-Trended Short Interest Z-Score",
+                    hypothesis=f"Rapach, Ringgenberg, & Zhou (2016): De-trended {win}d short interest Z-score measures abnormal institutional positioning with decay={dcy}.",
+                    generation_source="template",
+                )
+            )
+
+    # 31. Asquith-Staley Days-to-Cover Short Squeeze Breakout (JFE 2005 / Staley 1997) - Multi-Speed
+    for dtc_thresh, mom_win, dcy in [(4.0, 5, 5), (6.0, 10, 10), (8.0, 20, 20)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"trade_when((close > ts_mean(close, {mom_win * 2})) & (days_to_cover > {dtc_thresh}), group_neutralize(rank(ts_decay_linear(days_to_cover * ts_delta(close, {mom_win}), {dcy})), {grp}), -1)",
+                    archetype_name="Days-to-Cover Short Squeeze Breakout",
+                    hypothesis=f"Asquith et al. (2005) & Staley (1997): Squeeze breakout on heavily shorted stocks with DTC > {dtc_thresh} and {mom_win}d positive momentum.",
+                    generation_source="template",
+                )
+            )
+
+    # 32. Short Loan Utilization Velocity
     for grp in ["subindustry", "sector"]:
         candidates.append(
             OptionCandidate(
-                expression=f"trade_when(ts_delta(close, 10) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, 10)), {grp}), -1)",
-                archetype_name="Price Target Implied Upside",
-                hypothesis=f"Fabozzi et al. (2010): Consensus price target upside conditioned on positive 10d trailing price velocity prevents value traps.",
+                expression=f"group_neutralize(rank(-ts_decay_linear(ts_delta(short_interest / (float_shares + 0.001), 5), 5)), {grp})",
+                archetype_name="Short Loan Utilization Velocity",
+                hypothesis=f"5-day rate of change in short interest relative to float captures rapid institutional accumulation of bearish positions.",
                 generation_source="template",
             )
         )
 
-    # 26. Cohen-Diether-Malloy Short Demand Borrow Surge (JF 2007)
-    for grp in ["subindustry", "sector"]:
-        candidates.append(
-            OptionCandidate(
-                expression=f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), 10)), {grp})",
-                archetype_name="Short Demand Borrow Surge",
-                hypothesis=f"Cohen, Diether, & Malloy (2007): Rising institutional borrow fees combined with high short interest isolates informed bearish demand.",
-                generation_source="template",
+    # 33. Volatility Smirk vs Borrow Fee Confluence Hybrid (MPRA 42566) - Multi-Speed
+    for tenor, dcy in [(20, 5), (30, 10), (60, 20)]:
+        sqrt_t = round(math.sqrt(tenor / 252.0), 4)
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
+                    archetype_name="Volatility Smirk Borrow Fee Hybrid",
+                    hypothesis=f"Cross-Asset Confluence: Confluence of steep {tenor}d downside OTM put skew and high borrow fee maximizes conviction with decay={dcy}.",
+                    generation_source="template",
+                )
             )
-        )
 
-    # 27. Rapach-Ringgenberg-Zhou De-Trended Short Interest Z-Score (JFE 2016)
-    for grp in ["subindustry", "sector"]:
-        candidates.append(
-            OptionCandidate(
-                expression=f"group_neutralize(rank(-ts_zscore(short_interest / (float_shares + 0.001), 252)), {grp})",
-                archetype_name="De-Trended Short Interest Z-Score",
-                hypothesis=f"Rapach, Ringgenberg, & Zhou (2016): De-trended 252d short interest Z-score measures abnormal institutional positioning.",
-                generation_source="template",
+    # 34. PCR Flow vs Borrow Fee Confluence Hybrid - Multi-Speed
+    for tenor, dcy in [(10, 5), (20, 10), (30, 20)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(-ts_decay_linear((pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001)) * (borrow_fee + 1.0), {dcy})), {grp})",
+                    archetype_name="PCR Borrow Fee Confluence Hybrid",
+                    hypothesis=f"Surging {tenor}d put/call volume ratio paired with elevated borrow cost flags coordinated institutional exit (decay={dcy}).",
+                    generation_source="template",
+                )
             )
-        )
 
-    # 28. Asquith-Staley Days-to-Cover Short Squeeze Breakout (JFE 2005 / Staley 1997)
-    for grp in ["subindustry", "sector"]:
-        candidates.append(
-            OptionCandidate(
-                expression=f"trade_when((close > ts_mean(close, 20)) & (days_to_cover > 5.0), group_neutralize(rank(days_to_cover * ts_delta(close, 5)), {grp}), -1)",
-                archetype_name="Days-to-Cover Short Squeeze Breakout",
-                hypothesis=f"Asquith et al. (2005) & Staley (1997): Squeeze breakout trigger on heavily shorted stocks with high days-to-cover and positive momentum.",
-                generation_source="template",
+    # 35. Analyst Revision vs Volatility Skew Divergence Hybrid - Multi-Speed
+    for tenor, dcy in [(20, 5), (30, 10), (60, 20)]:
+        sqrt_t = round(math.sqrt(tenor / 252.0), 4)
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_{tenor} * {sqrt_t}), {dcy})), {grp})",
+                    archetype_name="Revision vs Skew Divergence Hybrid",
+                    hypothesis=f"Cross-Asset Divergence: Exploits misalignments between optimistic price target expectations and {tenor}d downside hedging (decay={dcy}).",
+                    generation_source="template",
+                )
             )
-        )
 
-    # 29. Volatility Smirk vs Borrow Fee Confluence Hybrid (MPRA 42566)
-    for grp in ["subindustry", "sector"]:
-        candidates.append(
-            OptionCandidate(
-                expression=f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_30 * sqrt(30 / 252.0)) * (borrow_fee + 1.0), 5)), {grp})",
-                archetype_name="Volatility Smirk Borrow Fee Hybrid",
-                hypothesis=f"Cross-Asset Confluence: Confluence of steep downside OTM put skew and high institutional borrow fee maximizes conviction of downside collapse.",
-                generation_source="template",
+    # 36. Price Target Upside vs Call Breakeven Hurdle Confluence
+    for tenor, dcy in [(20, 5), (30, 10)]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"group_neutralize(rank(ts_decay_linear(((target_price - close) / close) + ((call_breakeven_{tenor} - close) / close), {dcy})), {grp})",
+                    archetype_name="Target Price Breakeven Confluence",
+                    hypothesis=f"Combined signal of consensus analyst price target upside and {tenor}d option call breakeven hurdle rate confirms upside repricing.",
+                    generation_source="template",
+                )
             )
-        )
 
-    # 30. Analyst Revision vs Volatility Skew Divergence Hybrid
-    for grp in ["subindustry", "sector"]:
-        candidates.append(
-            OptionCandidate(
-                expression=f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_30 * sqrt(30 / 252.0)), 10)), {grp})",
-                archetype_name="Revision vs Skew Divergence Hybrid",
-                hypothesis=f"Cross-Asset Divergence: Exploits misalignments between optimistic sell-side price target expectations and derivatives downside hedging.",
-                generation_source="template",
+    # 37. Short Squeeze Gated by Call Option Velocity
+    for tenor in [20, 30]:
+        for grp in ["subindustry", "sector"]:
+            candidates.append(
+                OptionCandidate(
+                    expression=f"trade_when((days_to_cover > 5.0) & (ts_delta(close, 5) > 0), group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_{tenor} - close) / close, 5), 5)), {grp}), -1)",
+                    archetype_name="Short Squeeze Call Hurdle Acceleration",
+                    hypothesis=f"Short squeeze trigger: Heavily shorted stocks (DTC > 5) experiencing upward shifts in {tenor}d call breakeven hurdle rate.",
+                    generation_source="template",
+                )
             )
-        )
 
     return candidates
 

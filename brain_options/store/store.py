@@ -240,6 +240,9 @@ class OptionsStore:
     def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
         return self.db.get_recently_submitted_archetypes(limit=limit)
 
+    def get_today_saturated_archetypes(self, max_per_day: int = 1) -> List[str]:
+        return self.db.get_today_saturated_archetypes(max_per_day=max_per_day)
+
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)
 

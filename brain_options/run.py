@@ -24,6 +24,7 @@ from brain_options.core.notifier import (
 )
 from brain_options.core.sweep import SweepEngine
 from brain_options.llm.adapter import LLMAdapter
+from brain_options.specialist.dedup import ASTDeduplicator
 from brain_options.specialist.generator import OptionsGenerator
 from brain_options.specialist.templates import OptionCandidate
 from brain_options.store.store import OptionsStore
@@ -51,11 +52,27 @@ async def run_candidate(
     store: OptionsStore,
     config: OptionsConfig,
     force_optimize: bool = False,
+    deduplicator: Optional[ASTDeduplicator] = None,
 ) -> bool:
     """Executes the screening, diagnostic optimization, filtering, and alert pipeline for one candidate."""
     log.info("=" * 70)
     log.info("TESTING CANDIDATE [%s]: %s", candidate.archetype_name, candidate.expression)
     log.info("Hypothesis: %s", candidate.hypothesis)
+
+    # 0. Pre-Simulation In-Memory Deduplication Gate (Pillar 2)
+    if deduplicator and deduplicator.is_duplicate(candidate.expression):
+        log.warning(
+            "[-] PRE-SIMULATION DEDUP GATE: Expression has duplicate AST operator structure to an existing evaluated alpha. Skipping simulation."
+        )
+        store.record_evaluated_candidate(
+            candidate,
+            stage="PRE_SCREEN",
+            status="DUPLICATE_AST",
+            metrics=SimMetrics(sharpe=0.0, fitness=0.0, turnover=0.0),
+        )
+        return False
+    if deduplicator:
+        deduplicator.add(candidate.expression)
 
     # 1. Stage 0: Fast Screen (1 simulation)
     s0_passed, s0_settings, s0_metrics = await sweep_engine.stage0_screen(candidate.expression)
@@ -216,17 +233,22 @@ async def run_batch(
     store = OptionsStore(database_url=config.database_url)
     db = store.db
     evaluated = store.load_evaluated_expressions()
-    saturated_archetypes = db.get_recently_submitted_archetypes(limit=5) if db else []
+    recently_submitted = db.get_recently_submitted_archetypes(limit=5) if db else []
+    today_saturated = db.get_today_saturated_archetypes(max_per_day=1) if db else []
+    saturated_archetypes = list(set(recently_submitted + today_saturated))
     top_exemplars = store.load_top_performing_exemplars(limit=5, min_sharpe=0.85, exclude_archetypes=saturated_archetypes)
     archetype_summary = store.load_archetype_performance_summary()
 
     llm_adapter = LLMAdapter(config)
     generator = OptionsGenerator(llm_adapter)
     generator.evaluated_expressions.update(evaluated)
+    generator.deduplicator.populate(evaluated)
 
     arch_label = f" [Specialization: {target_archetype}]" if target_archetype else ""
-    log.info("Loaded %d previously evaluated candidates.", len(evaluated))
+    log.info("Loaded %d previously evaluated candidates into AST Deduplicator (%d structural hashes).", len(evaluated), len(generator.deduplicator))
     log.info("Loaded %d top RL exemplars and archetype summary for MAB weighting.%s", len(top_exemplars), arch_label)
+    if today_saturated:
+        log.info("Daily Archetype Quota Hit Today (Cap=1/day): %s -> Probability dropped to 0.02 to steer workers into unfilled channels.", today_saturated)
     if saturated_archetypes:
         log.info("Active Portfolio Saturated Archetypes: %s (Anti-correlation active)", saturated_archetypes)
     log.info("Generating next batch of %d options candidates...", batch_size)
@@ -316,7 +338,14 @@ async def run_batch(
             log.info("\n[Worker %d | Cand %d/%d] Starting processing [%s]: %s",
                      worker_id, total_evaluated, batch_size, cand.archetype_name, cand.expression[:60])
             try:
-                passed = await run_candidate(cand, sweep_engine, client, store, config)
+                passed = await run_candidate(
+                    cand,
+                    sweep_engine,
+                    client,
+                    store,
+                    config,
+                    deduplicator=generator.deduplicator,
+                )
                 if passed:
                     passed_count += 1
             except Exception as e:

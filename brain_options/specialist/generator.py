@@ -18,8 +18,10 @@ from brain_options.llm.prompts import (
     build_reasoning_prompt,
 )
 from brain_options.specialist.catalog import OptionsCatalog
+from brain_options.specialist.dedup import ASTDeduplicator
 from brain_options.specialist.kb import OptionsKnowledgeBase
 from brain_options.specialist.templates import OptionCandidate, generate_template_candidates
+from brain_options.store.db import map_archetype_to_core
 
 log = logging.getLogger("brain_options.generator")
 
@@ -41,6 +43,7 @@ class OptionsGenerator:
         self.llm_adapter = llm_adapter
         self.kb = kb or OptionsKnowledgeBase()
         self.catalog = catalog or OptionsCatalog()
+        self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
         self._template_queue: list[OptionCandidate] = generate_template_candidates()
         self._archetype_idx = 0
@@ -57,16 +60,24 @@ class OptionsGenerator:
         }
 
     def mark_evaluated(self, expression: str):
-        self.evaluated_expressions.add(expression.strip())
+        cleaned = expression.strip()
+        self.evaluated_expressions.add(cleaned)
+        self.deduplicator.add(cleaned)
 
     def is_evaluated(self, expression: str) -> bool:
-        return expression.strip() in self.evaluated_expressions
+        cleaned = expression.strip()
+        return cleaned in self.evaluated_expressions or self.deduplicator.is_duplicate(cleaned)
 
-    def choose_archetype(self, archetype_summary: Optional[dict[str, dict[str, float]]] = None) -> str:
+    def choose_archetype(
+        self,
+        archetype_summary: Optional[dict[str, dict[str, float]]] = None,
+        saturated_archetypes: Optional[list[str]] = None,
+    ) -> str:
         """
-        Multi-Armed Bandit (MAB) archetype selection with empirical pass-rate weighting.
-        Dynamically shifts generation budget toward high-yield archetypes (Breakeven & Skew)
-        and preserves small exploration probability for lower-yield families.
+        Multi-Armed Bandit (MAB) archetype selection with empirical pass-rate weighting
+        and Dynamic Archetype Daily Caps (Pillar 1).
+        When an archetype achieves 1 qualified alpha in options_alphas today, its selection
+        weight is dropped to 0.02, dynamically steering generation toward unfilled channels.
         """
         weights = dict(self.archetype_priors)
 
@@ -75,27 +86,47 @@ class OptionsGenerator:
                 # Find matching entries in DB summary
                 matched_pass_rate = 0.0
                 for db_arch, stats in archetype_summary.items():
-                    if arch_key.lower() in db_arch.lower():
+                    if arch_key.lower() in db_arch.lower() or map_archetype_to_core(db_arch) == arch_key:
                         matched_pass_rate = max(matched_pass_rate, stats.get("pass_rate", 0.0))
                 # Boost weight proportional to pass rate (exploration floor 0.05)
                 weights[arch_key] = max(0.05, weights[arch_key] + matched_pass_rate * 0.5)
+
+        # Dynamic Archetype Daily Caps (Pillar 1): Drop saturated archetypes to 0.02
+        if saturated_archetypes:
+            sat_cores = {map_archetype_to_core(s) for s in saturated_archetypes}
+            for arch_key in CORE_ARCHETYPES:
+                if arch_key in sat_cores or any(arch_key in s.lower() for s in saturated_archetypes):
+                    weights[arch_key] = 0.02
 
         total = sum(weights.values())
         norm_weights = [weights[a] / total for a in CORE_ARCHETYPES]
         chosen = random.choices(CORE_ARCHETYPES, weights=norm_weights, k=1)[0]
         return chosen
 
-    def get_template_batch(self, count: int = 5, archetype: Optional[str] = None) -> list[OptionCandidate]:
-        """Tier 1: Deterministic seed template candidates."""
+    def get_template_batch(
+        self,
+        count: int = 5,
+        archetype: Optional[str] = None,
+        saturated_archetypes: Optional[list[str]] = None,
+    ) -> list[OptionCandidate]:
+        """Tier 1: Deterministic seed template candidates filtered by AST deduplication and saturation caps."""
         batch: list[OptionCandidate] = []
         tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
+        sat_cores = {map_archetype_to_core(s) for s in saturated_archetypes} if saturated_archetypes else set()
 
         i = 0
         while i < len(self._template_queue) and len(batch) < count:
             cand = self._template_queue[i]
+            cand_core = map_archetype_to_core(cand.archetype_name)
+
+            # Steer away from saturated daily channels if unsaturated ones remain
+            if sat_cores and cand_core in sat_cores:
+                i += 1
+                continue
+
             if tokens:
                 matches = any(
-                    tok in cand.archetype_name.lower() or tok in cand.expression.lower()
+                    tok in cand.archetype_name.lower() or tok in cand.expression.lower() or tok == cand_core
                     for tok in tokens
                 )
                 if not matches:
@@ -103,6 +134,7 @@ class OptionsGenerator:
                     continue
             cand = self._template_queue.pop(i)
             if not self.is_evaluated(cand.expression):
+                self.deduplicator.add(cand.expression)
                 batch.append(cand)
         return batch
 
@@ -117,7 +149,7 @@ class OptionsGenerator:
         """
         Tier 2: Knowledge-injected LLM reasoning tier.
         Injects targeted institutional cards, formula sketches, and top RL exemplars
-        from Master Books 1-4 and the PostgreSQL learning memory, actively avoiding saturated archetypes.
+        from Master Books 1-4 and PostgreSQL learning memory, actively avoiding saturated archetypes.
         """
         candidates: list[OptionCandidate] = []
         chunk_size = 4
@@ -125,7 +157,10 @@ class OptionsGenerator:
 
         while needed > 0 and len(candidates) < count:
             batch_n = min(chunk_size, needed)
-            target_arch = archetype or self.choose_archetype(archetype_summary)
+            target_arch = archetype or self.choose_archetype(
+                archetype_summary=archetype_summary,
+                saturated_archetypes=saturated_archetypes,
+            )
             if "," in target_arch:
                 arch_choices = [t.strip() for t in target_arch.split(",") if t.strip()]
                 target_arch = random.choice(arch_choices)
@@ -152,6 +187,7 @@ class OptionsGenerator:
                     expr = item.get("expression", "").strip()
                     if not expr or self.is_evaluated(expr):
                         continue
+                    self.deduplicator.add(expr)
                     candidates.append(
                         OptionCandidate(
                             expression=expr,
@@ -168,7 +204,12 @@ class OptionsGenerator:
         return candidates
 
 
-    def get_procedural_batch(self, count: int = 10, archetype: Optional[str] = None) -> list[OptionCandidate]:
+    def get_procedural_batch(
+        self,
+        count: int = 10,
+        archetype: Optional[str] = None,
+        saturated_archetypes: Optional[list[str]] = None,
+    ) -> list[OptionCandidate]:
         """
         Tier 4 Fail-Safe: Dynamic Procedural Options Generator.
         Generates mathematically valid, institutionally grounded options alphas across
@@ -179,17 +220,22 @@ class OptionsGenerator:
         import math
         procedural: list[OptionCandidate] = []
         tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
+        sat_cores = {map_archetype_to_core(s) for s in saturated_archetypes} if saturated_archetypes else set()
 
         def _add(expr: str, arch: str, hyp: str):
             clean_expr = expr.strip()
+            arch_core = map_archetype_to_core(arch)
+            if sat_cores and arch_core in sat_cores:
+                return
             if tokens:
                 matches = any(
-                    tok in arch.lower() or tok in clean_expr.lower() or tok in hyp.lower()
+                    tok in arch.lower() or tok in clean_expr.lower() or tok in hyp.lower() or tok == arch_core
                     for tok in tokens
                 )
                 if not matches:
                     return
             if not self.is_evaluated(clean_expr) and not any(c.expression == clean_expr for c in procedural):
+                self.deduplicator.add(clean_expr)
                 procedural.append(
                     OptionCandidate(
                         expression=clean_expr,
@@ -305,66 +351,76 @@ class OptionsGenerator:
                     f"Enter {tenor}d variance risk premium only when crossing 0.75 SD mean-reversion threshold.",
                 )
 
-        # 8. Analyst Estimates & Earnings Revisions (Givoly-Lakonishok & Diether-Malloy-Scherbina)
-        for win in [20, 30, 60, 90]:
+        # 8. Analyst Estimates & Earnings Revisions (Multi-Speed Dispersal)
+        for win, dcy in [(15, 5), (30, 10), (60, 20)]:
             for grp in ["subindustry", "sector"]:
                 _add(
-                    f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), 10)), {grp})",
+                    f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), {dcy})), {grp})",
                     "Analyst Revision Momentum",
-                    f"Givoly & Lakonishok (1979): {win}d revision drift in consensus EPS demeaned by {grp}.",
+                    f"Givoly & Lakonishok (1979): {win}d revision drift in consensus EPS with decay={dcy} demeaned by {grp}.",
                 )
                 _add(
-                    f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), 10)), {grp})",
+                    f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), {dcy})), {grp})",
                     "Sales Revision Momentum",
-                    f"Consensus sales revision drift over {win}d demeaned by {grp}.",
+                    f"Consensus sales revision drift over {win}d with decay={dcy} demeaned by {grp}.",
                 )
-        for grp in ["subindustry", "sector"]:
-            _add(
-                f"group_neutralize(rank(-ts_decay_linear(std_dev_eps_est / (abs(est_eps) + 0.01), 10)), {grp})",
-                "Analyst Dispersion Fade",
-                f"Diether et al. (2002): Fade stocks with extreme analyst forecast dispersion demeaned by {grp}.",
-            )
-            _add(
-                f"trade_when(ts_delta(close, 10) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, 10)), {grp}), -1)",
-                "Price Target Implied Upside",
-                f"Fabozzi et al. (2010): Consensus price target upside filtered by positive price momentum.",
-            )
+        for win, dcy in [(20, 5), (60, 10), (120, 20)]:
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"group_neutralize(rank(-ts_decay_linear(ts_zscore(std_dev_eps_est / (abs(est_eps) + 0.01), {win}), {dcy})), {grp})",
+                    "Analyst Dispersion Fade",
+                    f"Diether et al. (2002): Fade stocks with extreme {win}d analyst forecast dispersion with decay={dcy}.",
+                )
+        for mom_win, dcy in [(5, 5), (10, 10), (20, 20)]:
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"trade_when(ts_delta(close, {mom_win}) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, {dcy})), {grp}), -1)",
+                    "Price Target Implied Upside",
+                    f"Fabozzi et al. (2010): Consensus price target upside conditioned on positive {mom_win}d price momentum (decay={dcy}).",
+                )
 
-        # 9. Short Interest & Securities Lending Flow (Cohen-Diether-Malloy & Rapach)
-        for grp in ["subindustry", "sector"]:
-            _add(
-                f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), 10)), {grp})",
-                "Short Demand Borrow Surge",
-                f"Cohen et al. (2007): Elevated institutional borrow cost and high short interest isolate informed shorting.",
-            )
-            _add(
-                f"group_neutralize(rank(-ts_zscore(short_interest / (float_shares + 0.001), 252)), {grp})",
-                "De-Trended Short Interest Z-Score",
-                f"Rapach et al. (2016): De-trended 252d short interest Z-score measures abnormal institutional positioning.",
-            )
-            _add(
-                f"trade_when((close > ts_mean(close, 20)) & (days_to_cover > 5.0), group_neutralize(rank(days_to_cover * ts_delta(close, 5)), {grp}), -1)",
-                "Days-to-Cover Short Squeeze Breakout",
-                f"Asquith et al. (2005): Short squeeze breakout trigger on high days-to-cover names.",
-            )
+        # 9. Short Interest & Securities Lending Flow (Multi-Speed Dispersal)
+        for dcy in [5, 10, 20]:
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
+                    "Short Demand Borrow Surge",
+                    f"Cohen et al. (2007): Elevated institutional borrow cost and high short interest with decay={dcy}.",
+                )
+        for win, dcy in [(126, 10), (252, 20)]:
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"group_neutralize(rank(-ts_decay_linear(ts_zscore(short_interest / (float_shares + 0.001), {win}), {dcy})), {grp})",
+                    "De-Trended Short Interest Z-Score",
+                    f"Rapach et al. (2016): De-trended {win}d short interest Z-score measures abnormal positioning (decay={dcy}).",
+                )
+        for dtc, mom, dcy in [(4.0, 5, 5), (6.0, 10, 10), (8.0, 20, 20)]:
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"trade_when((close > ts_mean(close, {mom * 2})) & (days_to_cover > {dtc}), group_neutralize(rank(ts_decay_linear(days_to_cover * ts_delta(close, {mom}), {dcy})), {grp}), -1)",
+                    "Days-to-Cover Short Squeeze Breakout",
+                    f"Asquith et al. (2005): Short squeeze breakout trigger on high days-to-cover names (decay={dcy}).",
+                )
 
-        # 10. Cross-Asset Hybrids (Options + Shorts + Analyst Estimates)
-        for grp in ["subindustry", "sector"]:
-            _add(
-                f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_30 * sqrt(30 / 252.0)) * (borrow_fee + 1.0), 5)), {grp})",
-                "Volatility Smirk Borrow Fee Hybrid",
-                f"Cross-Asset Confluence: Confluence of steep downside put skew and high borrow fees confirms collapse.",
-            )
-            _add(
-                f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_30 * sqrt(30 / 252.0)), 10)), {grp})",
-                "Revision vs Skew Divergence Hybrid",
-                f"Cross-Asset Divergence: Target price upside vs options market downside hedging misalignment.",
-            )
-            _add(
-                f"group_neutralize(rank(-ts_decay_linear((pcr_vol_10 / (pcr_oi_10 + 0.001)) * (borrow_fee + 1.0), 5)), {grp})",
-                "PCR Borrow Fee Confluence Hybrid",
-                f"Surging put/call volume ratio paired with elevated borrow cost flags institutional exit.",
-            )
+        # 10. Cross-Asset Hybrids (Options + Shorts + Analyst Estimates - Multi-Speed)
+        for tenor, dcy in [(20, 5), (30, 10), (60, 20)]:
+            sqrt_t = round(math.sqrt(tenor / 252.0), 4)
+            for grp in ["subindustry", "sector"]:
+                _add(
+                    f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
+                    "Volatility Smirk Borrow Fee Hybrid",
+                    f"Cross-Asset Confluence: Confluence of steep {tenor}d downside put skew and high borrow fees (decay={dcy}).",
+                )
+                _add(
+                    f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_{tenor} * {sqrt_t}), {dcy})), {grp})",
+                    "Revision vs Skew Divergence Hybrid",
+                    f"Cross-Asset Divergence: Target price upside vs {tenor}d options downside hedging (decay={dcy}).",
+                )
+                _add(
+                    f"group_neutralize(rank(-ts_decay_linear((pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001)) * (borrow_fee + 1.0), {dcy})), {grp})",
+                    "PCR Borrow Fee Confluence Hybrid",
+                    f"Surging {tenor}d put/call volume ratio paired with elevated borrow cost (decay={dcy}).",
+                )
 
         return procedural[:count]
 
@@ -404,6 +460,7 @@ class OptionsGenerator:
                 expr = item.get("expression", "").strip()
                 if not expr or self.is_evaluated(expr):
                     continue
+                self.deduplicator.add(expr)
                 mutations.append(
                     OptionCandidate(
                         expression=expr,
@@ -434,7 +491,11 @@ class OptionsGenerator:
         template_count = max(1, int(target_count * template_ratio))
         remaining = target_count - template_count
 
-        candidates: list[OptionCandidate] = self.get_template_batch(template_count, archetype=target_archetype)
+        candidates: list[OptionCandidate] = self.get_template_batch(
+            template_count,
+            archetype=target_archetype,
+            saturated_archetypes=saturated_archetypes,
+        )
 
         # 1. Tier 3 Mutations: if no explicit seeds, auto-seed from top exemplars in memory
         active_seeds = seed_candidates_for_mutation
@@ -476,14 +537,22 @@ class OptionsGenerator:
         # 3. Fallback top-up from static templates if any remain
         if len(candidates) < target_count:
             shortfall = target_count - len(candidates)
-            extra_templates = self.get_template_batch(shortfall, archetype=target_archetype)
+            extra_templates = self.get_template_batch(
+                shortfall,
+                archetype=target_archetype,
+                saturated_archetypes=saturated_archetypes,
+            )
             candidates.extend(extra_templates)
 
         # 4. Fail-safe Tier 4: Dynamic procedural generator guarantees batch is never empty
         if len(candidates) < target_count:
             shortfall = target_count - len(candidates)
             log.info("Top-up: generating %d fresh procedural options candidates (%s)...", shortfall, target_archetype or "all")
-            procedural_candidates = self.get_procedural_batch(shortfall, archetype=target_archetype)
+            procedural_candidates = self.get_procedural_batch(
+                shortfall,
+                archetype=target_archetype,
+                saturated_archetypes=saturated_archetypes,
+            )
             candidates.extend(procedural_candidates)
 
         return candidates

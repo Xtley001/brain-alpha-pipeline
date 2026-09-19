@@ -124,6 +124,7 @@ Even within the same dataset, signals can be made non-correlated by varying temp
 - [x] Duplicate method in `store.py` eliminated.
 - [x] Pre-qualification correlation gate active and logging to `options_correlated_alphas`.
 - [x] Drip submitter updated to prevent false rejections of active submissions.
-- [ ] Implement Hard Archetype Daily Cap in `generator.py` (Max 1 qualified alpha/archetype/day).
-- [ ] Add 15 seed deterministic templates for `analyst_revisions` and `short_interest`.
-- [ ] Deploy AST pre-simulation deduplicator.
+- [x] Implement Hard Archetype Daily Cap in `generator.py` (Max 1 qualified alpha/archetype/day).
+- [x] Add 15 seed deterministic templates for `analyst_revisions` and `short_interest`.
+- [x] Deploy AST pre-simulation deduplicator.
+

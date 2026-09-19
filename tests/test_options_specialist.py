@@ -38,7 +38,7 @@ def test_archetypes_and_templates():
     assert any("0.75" in cand.expression for cand in templates)   # Sinclair optimal entry
 
     for cand in templates:
-        valid_tokens = ["close", "implied", "pcr", "est_eps", "short", "borrow", "target"]
+        valid_tokens = ["close", "implied", "pcr", "est_eps", "est_sales", "short", "borrow", "target"]
         assert any(token in cand.expression for token in valid_tokens)
 
 
