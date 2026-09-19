@@ -278,7 +278,7 @@ class OptionsDatabase:
             SELECT alpha_id, expression, archetype, hypothesis, sharpe, fitness, turnover, returns, drawdown, margin,
                    (1.0 * COALESCE(sharpe, 0) + 1.2 * COALESCE(fitness, 0) + 200 * COALESCE(margin, 0) - 0.5 * COALESCE(turnover, 0)) AS cqs
             FROM options_alphas
-            WHERE status != 'SUBMITTED' AND status != 'CORRELATED' AND alpha_id IS NOT NULL
+            WHERE status = 'QUALIFIED' AND alpha_id IS NOT NULL
             ORDER BY (1.0 * COALESCE(sharpe, 0) + 1.2 * COALESCE(fitness, 0) + 200 * COALESCE(margin, 0) - 0.5 * COALESCE(turnover, 0)) DESC, sharpe DESC;
         """
         try:
