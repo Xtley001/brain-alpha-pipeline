@@ -89,7 +89,7 @@
     "truncation": 0.05,
     "pasteurization": "ON",
     "nan_handling": "OFF",
-    "status": "QUALIFIED"
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-17T13:19:29.777287+00:00",
