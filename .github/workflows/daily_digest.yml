@@ -1,0 +1,35 @@
+name: BRAIN Daily Digest
+
+on:
+  schedule:
+    # 23:30 UTC daily = 00:30 UTC+1 (end of the WorldQuant BRAIN New York day)
+    - cron: "30 23 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: brain-daily-digest
+  cancel-in-progress: true
+
+jobs:
+  digest:
+    # Only runs from the primary submitter org — one summary per day
+    if: github.repository_owner == 'Xtley001'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send end-of-day digest to Telegram
+        run: python -m brain_options.run --daily-digest

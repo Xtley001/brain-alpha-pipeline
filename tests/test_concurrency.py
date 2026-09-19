@@ -135,8 +135,8 @@ async def test_multi_arm_diagnostic_optimizer():
 
 
 def test_stage0_telegram_notification():
-    """Verify that send_telegram_stage0_alert correctly formats and attempts to send Stage 0 alerts."""
-    from brain_options.core.notifier import send_telegram_stage0_alert
+    """Verify that send_telegram_health_check formats a clean hourly status message."""
+    from brain_options.core.notifier import send_telegram_health_check
     from unittest.mock import patch
 
     config = OptionsConfig(
@@ -145,34 +145,33 @@ def test_stage0_telegram_notification():
         telegram_bot_token="fake_token",
         telegram_chat_id="123456",
     )
-    metrics = SimMetrics(
-        alpha_id="S0_TEST",
-        sharpe=1.04,
-        fitness=0.45,
-        turnover=0.33,
-        annualized_return=0.06,
-        max_drawdown=0.04,
-        margin=0.001,
-        status="COMPLETE",
-        raw_response={},
-    )
+    stats = {
+        "today_evaluated": 87,
+        "today_stage0_pass": 12,
+        "today_qualified": 3,
+        "today_submitted": 1,
+        "reserve_count": 2,
+        "today_correlated": 4,
+    }
 
     with patch("requests.post") as mock_post:
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_post.return_value = mock_resp
 
-        result = send_telegram_stage0_alert("Call Breakeven", "group_neutralize(rank(x), subindustry)", metrics, config)
+        result = send_telegram_health_check(config, stats=stats)
         assert result is True
         assert mock_post.called
         call_payload = mock_post.call_args[1]["json"]
-        assert "Stage 0 Pass" in call_payload["text"]
-        assert "1.04" in call_payload["text"]
-        assert "Call Breakeven" in call_payload["text"]
+        text = call_payload["text"]
+        assert "Hourly Health" in text
+        assert "87" in text
+        assert "3" in text
+        assert "Orgs" in text
 
 
 def test_passed_alpha_telegram_notification():
-    """Verify that send_telegram_alert formats short, clean alert with BRAIN link and margin."""
+    """Verify that send_telegram_alert formats a clean, concise qualified-alpha alert."""
     from brain_options.core.notifier import send_telegram_alert
     from unittest.mock import patch, MagicMock
 
@@ -212,16 +211,18 @@ def test_passed_alpha_telegram_notification():
         assert mock_post.called
         payload = mock_post.call_args[1]["json"]
         text = payload["text"]
-        assert "PASSED ALPHA DISCOVERED" in text
-        assert "https://platform.worldquantbrain.com/alpha/gJbAP76e" in text
-        assert "40.6 bps" in text
-        assert "1.79" in text
-        assert "1.46" in text
-        assert "SUBINDUSTRY" in text
+        # New format: clean metrics, no inline links, no formula
+        # Numbers are MarkdownV2-escaped so dots become \\. in the raw string
+        assert "Alpha qualified" in text
+        assert "gJbAP76e" in text
+        assert "40" in text  # margin bps ~40.6 (escaped as 40\\.6)
+        assert "1" in text   # sharpe 1.79 present (escaped as 1\\.79)
+        assert "TOP3000" in text
+        assert "http" not in text  # no inline links
 
 
 def test_batch_summary_telegram_notification():
-    """Verify that send_telegram_batch_summary formats clean short batch numbers."""
+    """Verify that send_telegram_batch_summary sends a clean message when alphas qualified."""
     from brain_options.core.notifier import send_telegram_batch_summary
     from unittest.mock import patch, MagicMock
 
@@ -235,6 +236,8 @@ def test_batch_summary_telegram_notification():
         "today_evaluated": 15,
         "today_stage0_pass": 6,
         "today_qualified": 2,
+        "today_submitted": 0,
+        "reserve_count": 2,
         "all_time_evaluated": 250,
         "all_time_stage0_pass": 95,
         "all_time_pool_alphas": 12,
@@ -250,9 +253,16 @@ def test_batch_summary_telegram_notification():
         assert mock_post.called
         call_payload = mock_post.call_args[1]["json"]
         text = call_payload["text"]
-        assert "Batch Complete" in text
-        assert "• *Evaluated:* `10` | *Passed:* `2`" in text
-        assert "• *Pool Today:* `2` | *Total Pool:* `12`" in text
+        # New format: clean counters, no old-style header
+        assert "2 alphas qualified" in text
+        assert "2/10" in text
+        assert "2 qualified" in text
+
+    # Verify silent (no send) when passed_count == 0
+    with patch("requests.post") as mock_post2:
+        result_zero = send_telegram_batch_summary(0, 10, config, stats=stats)
+        assert result_zero is False
+        assert not mock_post2.called
 
 
 @pytest.mark.asyncio

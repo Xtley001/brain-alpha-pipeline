@@ -1,0 +1,35 @@
+name: BRAIN Hourly Health Check
+
+on:
+  schedule:
+    # Every hour at :05 past to avoid colliding with the discovery cron
+    - cron: "5 * * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: brain-health-check
+  cancel-in-progress: true
+
+jobs:
+  health:
+    # Only runs from the primary submitter org — single TG message per hour
+    if: github.repository_owner == 'Xtley001'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send hourly health check to Telegram
+        run: python -m brain_options.run --health

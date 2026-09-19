@@ -736,7 +736,7 @@ class OptionsDatabase:
             return {}
 
     def get_options_stats(self) -> Dict[str, Any]:
-        """Loads daily and all-time options alpha statistics."""
+        """Loads daily and all-time options alpha statistics including submitted, reserve, and correlated counts."""
         if not self.database_url:
             return {}
         stats: Dict[str, Any] = {
@@ -746,20 +746,30 @@ class OptionsDatabase:
             "today_evaluated": 0,
             "today_stage0_pass": 0,
             "today_qualified": 0,
+            "today_submitted": 0,
+            "reserve_count": 0,
+            "today_correlated": 0,
+            "all_time_correlated": 0,
         }
         sql_eval = """
             SELECT
                 COUNT(*) as all_time_evaluated,
                 COUNT(*) FILTER (WHERE status = 'PASS' OR LEFT(stage, 5) = 'DIAG_' OR status = 'QUALIFIED') as all_time_pass,
                 COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_evaluated,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass
+                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass,
+                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND status = 'CORRELATED') as today_correlated
             FROM options_evaluations;
         """
         sql_alphas = """
             SELECT
                 COUNT(*) as all_time_pool,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_pool
+                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_pool,
+                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND created_at >= CURRENT_DATE) as today_submitted,
+                COUNT(*) FILTER (WHERE status = 'QUALIFIED') as reserve_count
             FROM options_alphas;
+        """
+        sql_corr = """
+            SELECT COUNT(*) FROM options_correlated_alphas;
         """
         try:
             with self._get_connection() as conn:
@@ -771,12 +781,25 @@ class OptionsDatabase:
                         stats["all_time_stage0_pass"] = int(row[1] or 0)
                         stats["today_evaluated"] = int(row[2] or 0)
                         stats["today_stage0_pass"] = int(row[3] or 0)
+                        stats["today_correlated"] = int(row[4] or 0)
 
                     cur.execute(sql_alphas)
                     row_a = cur.fetchone()
                     if row_a:
                         stats["all_time_pool_alphas"] = int(row_a[0] or 0)
                         stats["today_qualified"] = int(row_a[1] or 0)
+                        stats["today_submitted"] = int(row_a[2] or 0)
+                        stats["reserve_count"] = int(row_a[3] or 0)
+
+                    # Correlated table may not exist yet — guard gracefully
+                    try:
+                        cur.execute(sql_corr)
+                        row_c = cur.fetchone()
+                        if row_c:
+                            stats["all_time_correlated"] = int(row_c[0] or 0)
+                    except Exception:
+                        pass
+
             return stats
         except Exception as e:
             log.warning("Failed to load options stats: %s", e)

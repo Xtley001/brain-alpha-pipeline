@@ -20,6 +20,8 @@ from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
     send_telegram_alert,
     send_telegram_batch_summary,
+    send_telegram_daily_digest,
+    send_telegram_health_check,
     send_telegram_startup,
 )
 from brain_options.core.sweep import SweepEngine
@@ -480,6 +482,8 @@ def main():
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     parser.add_argument("--drip", action="store_true", help="Run 24-hour drip submitter check and exit")
+    parser.add_argument("--health", action="store_true", help="Send hourly health check notification to Telegram and exit")
+    parser.add_argument("--daily-digest", action="store_true", help="Send end-of-day daily digest notification to Telegram and exit")
     parser.add_argument("--archetype", type=str, default=os.environ.get("ARCHETYPE", ""), help="Target specific archetype family (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)")
     args = parser.parse_args()
 
@@ -514,6 +518,20 @@ def main():
         print(f"  • All-Time Stage 0 Passing: {stats.get('all_time_stage0_pass', 0)}")
         print(f"  • All-Time Qualified Pool:  {stats.get('all_time_pool_alphas', 0)}")
         print("=" * 55 + "\n")
+        return
+
+    if args.health:
+        store = OptionsStore(database_url=config.database_url)
+        stats = store.get_options_stats()
+        success = send_telegram_health_check(config, stats=stats)
+        log.info("Health check sent: %s", "OK" if success else "FAILED")
+        return
+
+    if getattr(args, "daily_digest", False):
+        store = OptionsStore(database_url=config.database_url)
+        stats = store.get_options_stats()
+        success = send_telegram_daily_digest(config, stats=stats)
+        log.info("Daily digest sent: %s", "OK" if success else "FAILED")
         return
 
     if args.test_telegram:
