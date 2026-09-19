@@ -176,6 +176,7 @@ def sync_worker_repos() -> bool:
     for org in WORKER_ORGS:
         remote_name = f"remote_{org}"
         print(f">>> Pushing main to {remote_name} ({org}/brain-alpha-pipeline)...")
+        subprocess.run(f"git fetch {remote_name} main", shell=True, capture_output=True, text=True)
         cmd = f"git push --force-with-lease {remote_name} main:main"
         res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         if res.returncode == 0:
