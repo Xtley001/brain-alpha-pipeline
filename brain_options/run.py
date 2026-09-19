@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import json
 import logging
 import os
 import sys
@@ -102,37 +103,106 @@ async def run_candidate(
         )
         return False
 
-    # 3. PnL Series Extraction (Correlation filter removed per user request)
+    # 3. Mandatory Pre-Qualification Self-Correlation & Checklist Gates Verification
     max_corr = 0.0
     pnl_series: dict[str, float] = {}
+    top_corr_partner = "existing_pool"
+
     if best_metrics.alpha_id:
         try:
             pnl_series = await client.get_alpha_pnl(best_metrics.alpha_id)
             pool_pnl = store.load_pool_pnl_series()
-            if pool_pnl:
-                _, max_corr = check_pool_correlation(pnl_series, pool_pnl, 1.0)
+            if pool_pnl and pnl_series:
+                _, max_corr = check_pool_correlation(pnl_series, pool_pnl, max_threshold=0.70)
         except Exception as pnl_err:
             log.debug("Could not complete pool correlation fetch for alpha %s: %s", best_metrics.alpha_id, pnl_err)
 
-    log.info("[+] QUALIFIED! Sharpe=%.2f, Fitness=%.2f, TO=%.2f%%", best_metrics.sharpe, best_metrics.fitness, best_metrics.turnover * 100)
+        # Check BRAIN platform live self-correlation endpoint
+        try:
+            sess = client._get_session()
+            c_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}/correlations/self", max_tries=2)
+            if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
+                c_data = json.loads(c_resp.text)
+                platform_max = float(c_data.get("max", 0.0) or 0.0)
+                if platform_max > max_corr:
+                    max_corr = platform_max
+                records = c_data.get("records") or []
+                if records and len(records[0]) > 0:
+                    top_corr_partner = records[0][0]
+        except Exception as c_err:
+            log.debug("Could not complete platform self-correlation check for alpha %s: %s", best_metrics.alpha_id, c_err)
+
+    cand_dict = {
+        "expression": best_cand.expression,
+        "archetype": best_cand.archetype_name,
+        "hypothesis": best_cand.hypothesis,
+        "source": best_cand.generation_source,
+        "sharpe": best_metrics.sharpe,
+        "fitness": best_metrics.fitness,
+        "turnover": best_metrics.turnover,
+        "returns": best_metrics.annualized_return,
+        "drawdown": best_metrics.max_drawdown,
+        "margin": best_metrics.margin,
+        "max_correlation": max_corr,
+    }
+
+    # Mandatory Gate 1: If max_corr >= 0.70, REJECT as CORRELATED
+    if max_corr >= 0.70:
+        corr_reason = f"High self-correlation {max_corr:.4f} >= 0.70 vs {top_corr_partner}"
+        log.warning(
+            "[-] ALPHA REJECTED BY SELF-CORRELATION GATE: %s (Max Corr=%.4f >= 0.70 vs %s). Moving to options_correlated_alphas.",
+            best_metrics.alpha_id, max_corr, top_corr_partner
+        )
+        store.record_evaluated_candidate(
+            candidate,
+            stage="RETRY_COMPLETED",
+            status="CORRELATED",
+            metrics=best_metrics,
+        )
+        store.archive_correlated_alpha(
+            best_metrics.alpha_id or "",
+            reason=corr_reason,
+            cand_data=cand_dict,
+            max_corr=max_corr,
+        )
+        if store.db:
+            store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=corr_reason)
+        return False
+
+    # Mandatory Gate 2: Verify all platform checklist gates on BRAIN
+    if best_metrics.alpha_id:
+        try:
+            sess = client._get_session()
+            chk_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}", max_tries=2)
+            if chk_resp and chk_resp.status_code == 200:
+                is_block = chk_resp.json().get("is") or {}
+                checks = is_block.get("checks") or []
+                failed_gates = [c.get("name") for c in checks if c.get("result") == "FAIL"]
+                if failed_gates:
+                    rej_reason = f"CHECK_FAIL: {', '.join(failed_gates)}"
+                    log.warning("[-] ALPHA REJECTED BY PLATFORM GATE: %s (%s). Moving to options_rejected_alphas.", best_metrics.alpha_id, rej_reason)
+                    store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
+                    store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
+                    return False
+        except Exception as gate_err:
+            log.debug("Platform gate verification skipped: %s", gate_err)
+
+    # 4. Verified Uncorrelated Alpha Accepted & Saved to Clean Qualified Table
+    log.info(
+        "[SUCCESS] UNCORRELATED ALPHA QUALIFIED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%, MaxCorr=%.4f (<0.70)",
+        best_metrics.sharpe,
+        best_metrics.fitness,
+        best_metrics.turnover * 100,
+        max_corr,
+    )
     store.record_evaluated_candidate(
         candidate,
         stage="RETRY_COMPLETED",
         status="QUALIFIED",
         metrics=best_metrics,
     )
-
-    # 4. Save to Store & Alert
-    log.info(
-        "[SUCCESS] ALPHA ACCEPTED! Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%",
-        best_metrics.sharpe,
-        best_metrics.fitness,
-        best_metrics.turnover * 100,
-    )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
     send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
-
-    # 5. Auto-Submit disabled per user preference (manual submission only)
     return True
 
 

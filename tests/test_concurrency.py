@@ -256,8 +256,8 @@ def test_batch_summary_telegram_notification():
 
 
 @pytest.mark.asyncio
-async def test_run_candidate_qualifies_without_correlation_rejection():
-    """Verify that run_candidate accepts an alpha without blocking on pool correlation."""
+async def test_run_candidate_rejects_high_correlation():
+    """Verify that run_candidate rejects an alpha when self-correlation against existing pool is >= 0.70."""
     from brain_options.run import run_candidate
     from brain_options.core.sweep import SweepEngine
 
@@ -274,8 +274,13 @@ async def test_run_candidate_qualifies_without_correlation_rejection():
     )
 
     client = BrainClient("test", "test")
+    mock_session = MagicMock()
+    mock_session.retry = AsyncMock(return_value=None)
+    client._session = mock_session
+
     mock_sweep = MagicMock(spec=SweepEngine)
     mock_store = MagicMock(spec=OptionsStore)
+    mock_store.db = None
 
     cand = OptionCandidate("group_neutralize(rank(X), subindustry)", "TestArch", "Hyp", "unit_test")
     passing_metrics = SimMetrics(
@@ -305,10 +310,69 @@ async def test_run_candidate_qualifies_without_correlation_rejection():
         client.get_alpha_pnl = AsyncMock(return_value=identical_series)
         mock_store.load_pool_pnl_series = MagicMock(return_value=[identical_series])
 
-        # Candidate should be accepted even if correlation against existing pool is high
+        # Candidate should be rejected because correlation against existing pool is 1.0 >= 0.70
+        passed = await run_candidate(cand, mock_sweep, client, mock_store, config)
+        assert passed is False
+        assert mock_store.archive_correlated_alpha.called
+        assert not mock_store.save_passed_alpha.called
+
+
+@pytest.mark.asyncio
+async def test_run_candidate_qualifies_when_uncorrelated():
+    """Verify that run_candidate accepts and saves an alpha when correlation is < 0.70."""
+    from brain_options.run import run_candidate
+    from brain_options.core.sweep import SweepEngine
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        stage0_min_sharpe=0.35,
+        stage0_min_fitness=0.20,
+        filter_min_sharpe=1.25,
+        filter_min_fitness=1.00,
+        filter_max_turnover=0.70,
+        filter_min_turnover=0.01,
+        max_pool_correlation=0.70,
+    )
+
+    client = BrainClient("test", "test")
+    mock_session = MagicMock()
+    mock_session.retry = AsyncMock(return_value=None)
+    client._session = mock_session
+
+    mock_sweep = MagicMock(spec=SweepEngine)
+    mock_store = MagicMock(spec=OptionsStore)
+    mock_store.db = None
+
+    cand = OptionCandidate("group_neutralize(rank(X), subindustry)", "TestArch", "Hyp", "unit_test")
+    passing_metrics = SimMetrics(
+        alpha_id="ALPHA_UNCORR_TEST",
+        sharpe=1.60,
+        fitness=1.20,
+        turnover=0.15,
+        annualized_return=0.10,
+        max_drawdown=0.03,
+        margin=0.002,
+        status="COMPLETE",
+        raw_response={},
+    )
+    s0_settings = SimSettings()
+    mock_sweep.stage0_screen = AsyncMock(return_value=(True, s0_settings, passing_metrics))
+
+    with pytest.MonkeyPatch.context() as mp:
+        mock_opt = MagicMock()
+        mock_opt.optimize = AsyncMock(return_value=(cand, s0_settings, passing_metrics, True, []))
+        mp.setattr("brain_options.run.DiagnosticAlphaOptimizer", lambda c, s, cfg: mock_opt)
+
+        dates = [f"2025-01-{i:02d}" for i in range(1, 35)]
+        series_a = {d: float(i % 2) for i, d in enumerate(dates)}
+        series_b = {d: float((i // 2) % 2) for i, d in enumerate(dates)}
+
+        client.get_alpha_pnl = AsyncMock(return_value=series_a)
+        mock_store.load_pool_pnl_series = MagicMock(return_value=[series_b])
+
         passed = await run_candidate(cand, mock_sweep, client, mock_store, config)
         assert passed is True
-        # Store should save passed alpha directly
         assert mock_store.save_passed_alpha.called
 
 

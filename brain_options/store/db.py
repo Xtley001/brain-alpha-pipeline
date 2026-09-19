@@ -98,6 +98,24 @@ CREATE TABLE IF NOT EXISTS options_rejected_alphas (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS options_correlated_alphas (
+    id SERIAL PRIMARY KEY,
+    alpha_id VARCHAR(64),
+    expression TEXT NOT NULL,
+    archetype VARCHAR(128),
+    hypothesis TEXT,
+    source VARCHAR(32),
+    sharpe NUMERIC(8, 4),
+    fitness NUMERIC(8, 4),
+    turnover NUMERIC(8, 4),
+    returns NUMERIC(8, 4),
+    drawdown NUMERIC(8, 4),
+    margin NUMERIC(10, 6),
+    max_correlation NUMERIC(8, 4),
+    rejection_reason TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS cluster_session_cache (
     key VARCHAR(64) PRIMARY KEY,
     token TEXT NOT NULL,
@@ -124,6 +142,8 @@ CREATE INDEX IF NOT EXISTS idx_options_learning_archetype ON options_learning_me
 CREATE INDEX IF NOT EXISTS idx_options_rejected_alpha_id ON options_rejected_alphas(alpha_id);
 CREATE INDEX IF NOT EXISTS idx_options_rejected_reason ON options_rejected_alphas(rejection_reason);
 CREATE INDEX IF NOT EXISTS idx_options_rejected_created ON options_rejected_alphas(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_options_correlated_alpha_id ON options_correlated_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_correlated_created ON options_correlated_alphas(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_cluster_session_expires ON cluster_session_cache(expires_at DESC);
 CREATE INDEX IF NOT EXISTS idx_cluster_run_heartbeat ON cluster_run_lock(heartbeat DESC);
 """
@@ -305,11 +325,94 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
 
-    def mark_alpha_correlated(self, alpha_id: str, reason: str = ""):
-        """Marks an alpha as CORRELATED in options_alphas and archives it into options_rejected_alphas."""
+    def mark_alpha_correlated(
+        self,
+        alpha_id: str,
+        reason: str = "",
+        cand_data: Optional[Dict[str, Any]] = None,
+        max_corr: Optional[float] = None,
+    ):
+        """Archives alpha into options_correlated_alphas and frees it from options_alphas."""
         if not self.database_url:
             return
-        self.archive_rejected_alpha(alpha_id, f"CORRELATED: {reason}")
+        self.archive_correlated_alpha(alpha_id, f"CORRELATED: {reason}", cand_data, max_corr)
+
+    def archive_correlated_alpha(
+        self,
+        alpha_id: str,
+        reason: str,
+        cand_data: Optional[Dict[str, Any]] = None,
+        max_corr: Optional[float] = None,
+    ):
+        """
+        Archives a correlated alpha into options_correlated_alphas with correlation metrics,
+        and deletes it from options_alphas to completely free up the qualified table.
+        """
+        if not self.database_url:
+            return
+
+        cand = cand_data or {}
+        expr = cand.get("expression") or ""
+        arch = cand.get("archetype") or ""
+        hyp = cand.get("hypothesis") or ""
+        src = cand.get("source") or ""
+        sharpe = cand.get("sharpe")
+        fitness = cand.get("fitness")
+        turnover = cand.get("turnover")
+        returns = cand.get("returns")
+        drawdown = cand.get("drawdown")
+        margin = cand.get("margin")
+        corr_val = max_corr if max_corr is not None else cand.get("max_correlation")
+
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    # 1. Attempt to copy from options_alphas if record exists
+                    cur.execute(
+                        """
+                        INSERT INTO options_correlated_alphas (
+                            alpha_id, expression, archetype, hypothesis, source,
+                            sharpe, fitness, turnover, returns, drawdown, margin,
+                            max_correlation, rejection_reason
+                        )
+                        SELECT alpha_id, expression, archetype, hypothesis, source,
+                               sharpe, fitness, turnover, returns, drawdown, margin,
+                               COALESCE(%s, max_correlation), %s
+                        FROM options_alphas
+                        WHERE alpha_id = %s
+                        RETURNING id;
+                        """,
+                        (corr_val, reason, alpha_id),
+                    )
+                    row = cur.fetchone()
+
+                    # 2. If not in options_alphas, insert directly
+                    if not row and expr:
+                        cur.execute(
+                            """
+                            INSERT INTO options_correlated_alphas (
+                                alpha_id, expression, archetype, hypothesis, source,
+                                sharpe, fitness, turnover, returns, drawdown, margin,
+                                max_correlation, rejection_reason
+                            )
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                            """,
+                            (
+                                alpha_id, expr, arch, hyp, src,
+                                sharpe, fitness, turnover, returns, drawdown, margin,
+                                corr_val, reason,
+                            ),
+                        )
+
+                    # 3. Delete from options_alphas to free up the qualified table
+                    cur.execute(
+                        "DELETE FROM options_alphas WHERE alpha_id = %s;",
+                        (alpha_id,),
+                    )
+                conn.commit()
+            log.info("Archived correlated alpha %s to options_correlated_alphas and freed from options_alphas.", alpha_id)
+        except Exception as e:
+            log.warning("Failed to archive correlated alpha %s: %s", alpha_id, e)
 
     def archive_rejected_alpha(
         self,
@@ -319,7 +422,7 @@ class OptionsDatabase:
     ):
         """
         Archives a rejected alpha into options_rejected_alphas with exact failure diagnostic,
-        and updates options_alphas status to REJECTED so it is permanently excluded from future submissions.
+        and deletes it from options_alphas to completely free up the qualified table.
         """
         if not self.database_url:
             return
@@ -376,13 +479,13 @@ class OptionsDatabase:
                             ),
                         )
 
-                    # 3. Mark status as REJECTED in options_alphas
+                    # 3. Delete from options_alphas to free up the qualified table
                     cur.execute(
-                        "UPDATE options_alphas SET status = 'REJECTED' WHERE alpha_id = %s;",
+                        "DELETE FROM options_alphas WHERE alpha_id = %s;",
                         (alpha_id,),
                     )
                 conn.commit()
-            log.info("Archived rejected alpha %s to options_rejected_alphas (%s).", alpha_id, reason)
+            log.info("Archived rejected alpha %s to options_rejected_alphas and freed from options_alphas.", alpha_id)
         except Exception as e:
             log.warning("Failed to archive rejected alpha %s: %s", alpha_id, e)
 

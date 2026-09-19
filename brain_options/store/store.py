@@ -18,8 +18,11 @@ from brain_options.store.db import OptionsDatabase
 log = logging.getLogger("brain_options.store")
 
 
+_SENTINEL = object()
+
+
 class OptionsStore:
-    def __init__(self, data_dir: Optional[str] = None, database_url: Optional[str] = None):
+    def __init__(self, data_dir: Optional[str] = None, database_url: Any = _SENTINEL):
         if data_dir is None:
             data_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
         self.data_dir = data_dir
@@ -28,9 +31,13 @@ class OptionsStore:
         self.passed_csv = os.path.join(self.data_dir, "passed_options_alphas.csv")
         self.passed_json = os.path.join(self.data_dir, "passed_options_alphas.json")
         self.rejected_csv = os.path.join(self.data_dir, "rejected_options_alphas.csv")
+        self.correlated_csv = os.path.join(self.data_dir, "correlated_options_alphas.csv")
         self.history_csv = os.path.join(self.data_dir, "evaluated_candidates.csv")
         self.pnl_cache_dir = os.path.join(self.data_dir, "pnl_series")
         os.makedirs(self.pnl_cache_dir, exist_ok=True)
+
+        if database_url is _SENTINEL:
+            database_url = os.getenv("DATABASE_URL")
 
         self.db = OptionsDatabase(database_url)
         self._write_lock = threading.Lock()
@@ -204,7 +211,30 @@ class OptionsStore:
         return self.db.get_options_stats()
 
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
-        return self.db.get_unsubmitted_pool_alphas()
+        if self.db and self.db.database_url:
+            res = self.db.get_unsubmitted_pool_alphas()
+            if res:
+                return res
+        # Fallback to local passed_options_alphas.json if DB unavailable or returns empty
+        if os.path.exists(self.passed_json):
+            try:
+                with open(self.passed_json, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        unsub = [a for a in data if a.get("status") == "QUALIFIED" and a.get("alpha_id")]
+                        return sorted(
+                            unsub,
+                            key=lambda a: (
+                                1.0 * float(a.get("sharpe") or 0)
+                                + 1.2 * float(a.get("fitness") or 0)
+                                + 200 * float(a.get("margin") or 0)
+                                - 0.5 * float(a.get("turnover") or 0)
+                            ),
+                            reverse=True,
+                        )
+            except Exception as e:
+                log.warning("Could not load passed alphas from JSON fallback: %s", e)
+        return []
 
     def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
         return self.db.get_recently_submitted_archetypes(limit=limit)
@@ -212,8 +242,55 @@ class OptionsStore:
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)
 
-    def mark_alpha_correlated(self, alpha_id: str, reason: str = ""):
-        self.archive_rejected_alpha(alpha_id, f"CORRELATED: {reason}")
+    def mark_alpha_correlated(
+        self,
+        alpha_id: str,
+        reason: str = "",
+        cand_data: Optional[Dict[str, Any]] = None,
+        max_corr: Optional[float] = None,
+    ):
+        self.archive_correlated_alpha(alpha_id, f"CORRELATED: {reason}", cand_data, max_corr)
+
+    def archive_correlated_alpha(
+        self,
+        alpha_id: str,
+        reason: str,
+        cand_data: Optional[Dict[str, Any]] = None,
+        max_corr: Optional[float] = None,
+    ):
+        """Archives correlated alpha in PostgreSQL options_correlated_alphas and local correlated_options_alphas.csv, and frees from options_alphas."""
+        # 1. Archive in PostgreSQL dedicated table options_correlated_alphas
+        self.db.archive_correlated_alpha(alpha_id, reason, cand_data, max_corr)
+
+        # 2. Archive locally in correlated_options_alphas.csv
+        cand = cand_data or {}
+        corr_val = max_corr if max_corr is not None else cand.get("max_correlation")
+        row = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "alpha_id": alpha_id,
+            "expression": cand.get("expression") or "",
+            "archetype": cand.get("archetype") or "",
+            "hypothesis": cand.get("hypothesis") or "",
+            "source": cand.get("source") or "",
+            "sharpe": cand.get("sharpe") or "",
+            "fitness": cand.get("fitness") or "",
+            "turnover": cand.get("turnover") or "",
+            "returns": cand.get("returns") or "",
+            "drawdown": cand.get("drawdown") or "",
+            "margin": cand.get("margin") or "",
+            "max_correlation": corr_val or "",
+            "rejection_reason": reason,
+        }
+        with self._write_lock:
+            file_exists = os.path.exists(self.correlated_csv)
+            with open(self.correlated_csv, "a", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=list(row.keys()))
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow(row)
+
+            # Purge from passed_options_alphas.json and passed_options_alphas.csv
+            self._purge_from_passed_store(alpha_id)
 
     def archive_rejected_alpha(
         self,
@@ -221,7 +298,7 @@ class OptionsStore:
         reason: str,
         cand_data: Optional[Dict[str, Any]] = None,
     ):
-        """Archives rejected/correlated alpha in both PostgreSQL and local storage."""
+        """Archives rejected alpha in both PostgreSQL and local storage, and frees from options_alphas."""
         # 1. Archive in PostgreSQL dedicated table options_rejected_alphas
         self.db.archive_rejected_alpha(alpha_id, reason, cand_data)
 
@@ -250,22 +327,39 @@ class OptionsStore:
                     writer.writeheader()
                 writer.writerow(row)
 
-            # Update passed_options_alphas.json status if present
-            if os.path.exists(self.passed_json):
-                try:
-                    with open(self.passed_json, "r", encoding="utf-8") as f:
-                        records = json.load(f)
-                    updated = False
-                    for r in records:
-                        if r.get("alpha_id") == alpha_id:
-                            r["status"] = "REJECTED"
-                            r["rejection_reason"] = reason
-                            updated = True
-                    if updated:
-                        with open(self.passed_json, "w", encoding="utf-8") as f:
-                            json.dump(records, f, indent=2)
-                except Exception as e:
-                    log.warning("Could not update status in passed_json: %s", e)
+            # Purge from passed_options_alphas.json and passed_options_alphas.csv
+            self._purge_from_passed_store(alpha_id)
+
+    def _purge_from_passed_store(self, alpha_id: str):
+        """Removes alpha from passed_options_alphas.json and passed_options_alphas.csv to keep qualified store clean."""
+        if not alpha_id:
+            return
+
+        # Purge from passed_options_alphas.json
+        if os.path.exists(self.passed_json):
+            try:
+                with open(self.passed_json, "r", encoding="utf-8") as f:
+                    records = json.load(f)
+                new_records = [r for r in records if r.get("alpha_id") != alpha_id]
+                if len(new_records) != len(records):
+                    with open(self.passed_json, "w", encoding="utf-8") as f:
+                        json.dump(new_records, f, indent=2)
+            except Exception as e:
+                log.warning("Could not purge %s from passed_json: %s", alpha_id, e)
+
+        # Purge from passed_options_alphas.csv
+        if os.path.exists(self.passed_csv):
+            try:
+                with open(self.passed_csv, "r", encoding="utf-8") as f:
+                    reader = list(csv.DictReader(f))
+                new_rows = [r for r in reader if r.get("alpha_id") != alpha_id]
+                if len(new_rows) != len(reader) and new_rows:
+                    with open(self.passed_csv, "w", newline="", encoding="utf-8") as f:
+                        writer = csv.DictWriter(f, fieldnames=list(new_rows[0].keys()))
+                        writer.writeheader()
+                        writer.writerows(new_rows)
+            except Exception as e:
+                log.warning("Could not purge %s from passed_csv: %s", alpha_id, e)
 
 
 
