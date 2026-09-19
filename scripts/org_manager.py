@@ -1,8 +1,15 @@
 """
 Intelligent GitHub Organizations Load Balancer & Task Dispatcher.
-Coordinates and rotates heavy alpha generation, backtesting, and genetic optimization
-across the 4 dedicated research organizations while keeping the primary account
-exclusively dedicated to lean, timed submissions.
+Coordinates and rotates heavy alpha generation across the 4 dedicated
+research organizations and syncs the primary account (Xtley001) which
+runs the drip submitter, hourly health checks, and daily digest.
+
+Org roles:
+  Xtley001               — Primary: drip.yml (submit), health.yml, daily_digest.yml
+  xtley-alpha-research-01 — Worker: breakeven, skew
+  xtley-alpha-research-02 — Worker: analyst_revisions
+  xtley-alpha-research-03 — Worker: short_interest
+  xtley-alpha-research-04 — Worker: hybrid_confluence, term_structure, pcr_flow
 """
 import argparse
 import json
@@ -75,11 +82,19 @@ def check_org_status(org: str) -> dict:
 
 
 def get_cluster_status() -> list[dict]:
-    """Inspects all worker organizations in the cluster."""
+    """Inspects all 5 organizations in the cluster (4 workers + 1 primary)."""
     print("=" * 88)
-    print(" WORLDQUANT BRAIN MULTI-ORG DIVIDE-AND-CONQUER RESEARCH CLUSTER")
+    print(" WORLDQUANT BRAIN MULTI-ORG RESEARCH CLUSTER — 5 ORGS TOTAL")
     print("=" * 88)
-    statuses = []
+
+    # Primary org first
+    primary_st = check_org_status(PRIMARY_ACCOUNT)
+    primary_icon = "[ONLINE]" if primary_st["online"] else "[OFFLINE]"
+    print(f" {primary_icon:<9} Org: {PRIMARY_ACCOUNT:<24} | Role: PRIMARY (drip, health, digest)   | Active: {primary_st['active_runs']}")
+    print(f"           Workflows: drip.yml (3×/day) · health.yml (1×/hr) · daily_digest.yml (1×/day)")
+    print("-" * 88)
+
+    statuses = [primary_st]
     for org in WORKER_ORGS:
         st = check_org_status(org)
         statuses.append(st)
@@ -88,9 +103,9 @@ def get_cluster_status() -> list[dict]:
         sched = st["schedule"]
         print(f" {icon:<9} Org: {org:<24} | Spec: {spec:<22} | Active: {st['active_runs']}")
         print(f"           Schedule: {sched}")
+
     print("-" * 88)
-    print(f" Primary Submitter Account: {PRIMARY_ACCOUNT} (drip.yml, 5 checks/day, 24h New York pacing)")
-    print(" Automated Schedule Cadence: 1 run every 30 minutes 24/7 (48 runs/day total, zero slot collisions)")
+    print(" Automated Schedule Cadence: 1 discovery run every 30 minutes 24/7 (48 runs/day, zero slot collisions)")
     print("=" * 88)
     return statuses
 
@@ -167,12 +182,37 @@ def fanout_generation_jobs(candidates_per_org: int = 20, archetype: str = "") ->
 
 def sync_worker_repos() -> bool:
     """
-    Pushes local main branch to all 4 worker organizations to guarantee code parity.
+    Pushes local main branch to all 5 orgs:
+      - Xtley001 (primary): verified via 'git push origin main' — already done as part
+        of the normal git push workflow. This function confirms it and shows it explicitly.
+      - xtley-alpha-research-01 through 04 (workers): pushed via dedicated git remotes.
     """
     print("=" * 88)
-    print(" SYNCHRONIZING CODEBASE TO ALL 4 WORKER ORGANIZATIONS")
+    print(" SYNCHRONIZING CODEBASE TO ALL 5 ORGS (4 workers + 1 primary)")
     print("=" * 88)
     all_ok = True
+
+    # 1. Verify primary org (Xtley001) via origin remote — this is where git push origin main goes
+    print(f">>> Verifying primary org: Xtley001 (origin/main)...")
+    verify_res = subprocess.run(
+        "git fetch origin main && git rev-parse HEAD",
+        shell=True, capture_output=True, text=True
+    )
+    origin_head = subprocess.run(
+        "git rev-parse origin/main",
+        shell=True, capture_output=True, text=True
+    ).stdout.strip()
+    local_head = subprocess.run(
+        "git rev-parse HEAD",
+        shell=True, capture_output=True, text=True
+    ).stdout.strip()
+    if origin_head == local_head:
+        print(f"  [SUCCESS] Xtley001 (origin/main) is 100% in sync. [{local_head[:8]}]")
+    else:
+        print(f"  [WARNING] Xtley001 origin/main ({origin_head[:8]}) differs from local HEAD ({local_head[:8]}). Run: git push origin main")
+        all_ok = False
+
+    # 2. Push to all 4 worker orgs
     for org in WORKER_ORGS:
         remote_name = f"remote_{org}"
         print(f">>> Pushing main to {remote_name} ({org}/brain-alpha-pipeline)...")
@@ -184,6 +224,12 @@ def sync_worker_repos() -> bool:
         else:
             print(f"  [FAILED] {org}: {res.stderr.strip() or res.stdout.strip()}")
             all_ok = False
+
+    print("=" * 88)
+    if all_ok:
+        print(" All 5 orgs are in sync. Pipeline is running at full capacity.")
+    else:
+        print(" One or more orgs failed to sync. Check errors above.")
     print("=" * 88)
     return all_ok
 
