@@ -35,3 +35,10 @@ legacy_alphas_backup.zip
 
 # Scratch and temporary scripts
 scratch/
+
+# Research books and PDFs (heavy binaries)
+*.pdf
+*.epub
+*.mobi
+docs/research/*.pdf
+docs/research/
