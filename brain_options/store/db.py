@@ -1,8 +1,19 @@
 """
 PostgreSQL database adapter for brain_options.
-Manages dedicated tables:
-- `options_alphas`: qualified and accepted options alphas.
-- `options_evaluations`: tracking for every candidate screened or optimized.
+
+DATABASE SCHEMA — 7 Tables
+============================
+
+1. options_alphas          — The primary alpha pool (qualified, submitted, or archived).
+2. options_evaluations     — Immutable log of every single simulation run across all orgs.
+3. options_learning_memory — Reinforcement learning (MAB) memory: reward scores per expression.
+4. options_rejected_alphas — Archive of alphas that failed platform checklist gates.
+5. options_correlated_alphas — Archive of alphas that failed the self-correlation < 0.70 gate.
+6. cluster_session_cache   — Shared BRAIN session token cache across all 4 worker orgs.
+7. cluster_run_lock        — Cluster-wide mutex: prevents more than 1 org simulating at a time.
+
+All tables are created with IF NOT EXISTS so the schema is safe to run on first boot and on
+upgrades. Indexes are maintained for all hot query paths.
 """
 from __future__ import annotations
 
@@ -19,133 +30,261 @@ except ImportError:
 
 log = logging.getLogger("brain_options.db")
 
+# ---------------------------------------------------------------------------
+# Schema SQL
+# ---------------------------------------------------------------------------
+
 SCHEMA_SQL = """
+-- ============================================================
+-- TABLE 1: options_alphas
+-- Purpose: Primary alpha pool. Holds every alpha that passed
+--   all qualification gates (Sharpe >= 1.25, Fitness >= 1.00,
+--   self-correlation < 0.70, all BRAIN platform checklist gates).
+-- Lifecycle:
+--   QUALIFIED  → new, ready for submission via drip.yml
+--   SUBMITTED  → drip submitter confirmed OS stage on BRAIN
+-- When an alpha fails the correlation or checklist gate AFTER
+--   initially being qualified, it is moved out of this table
+--   into options_correlated_alphas or options_rejected_alphas
+--   so this table stays clean and only holds actionable alphas.
+-- ============================================================
 CREATE TABLE IF NOT EXISTS options_alphas (
-    id SERIAL PRIMARY KEY,
-    alpha_id VARCHAR(64),
-    expression TEXT NOT NULL,
-    archetype VARCHAR(128),
-    hypothesis TEXT,
-    source VARCHAR(32),
-    sharpe NUMERIC(8, 4),
-    fitness NUMERIC(8, 4),
-    turnover NUMERIC(8, 4),
-    returns NUMERIC(8, 4),
-    drawdown NUMERIC(8, 4),
-    margin NUMERIC(10, 6),
-    max_correlation NUMERIC(8, 4),
-    universe VARCHAR(32),
-    neutralization VARCHAR(32),
-    delay INTEGER,
-    decay INTEGER,
-    truncation NUMERIC(6, 4),
-    pasteurization VARCHAR(8),
-    nan_handling VARCHAR(8),
-    status VARCHAR(32) DEFAULT 'QUALIFIED',
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    id               SERIAL PRIMARY KEY,
+    alpha_id         VARCHAR(64),
+    expression       TEXT        NOT NULL,
+    archetype        VARCHAR(128),
+    hypothesis       TEXT,
+    source           VARCHAR(32),          -- 'template', 'llm', 'procedural'
+    sharpe           NUMERIC(8, 4),
+    fitness          NUMERIC(8, 4),
+    turnover         NUMERIC(8, 4),
+    returns          NUMERIC(8, 4),
+    drawdown         NUMERIC(8, 4),
+    margin           NUMERIC(10, 6),
+    max_correlation  NUMERIC(8, 4),
+    universe         VARCHAR(32),
+    neutralization   VARCHAR(32),
+    delay            INTEGER,
+    decay            INTEGER,
+    truncation       NUMERIC(6, 4),
+    pasteurization   VARCHAR(8),           -- 'ON' | 'OFF'
+    nan_handling     VARCHAR(8),           -- 'ON' | 'OFF'
+    status           VARCHAR(32) DEFAULT 'QUALIFIED',
+    submitted_at     TIMESTAMPTZ,          -- Set when BRAIN OS stage confirmed
+    created_at       TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ============================================================
+-- TABLE 2: options_evaluations
+-- Purpose: Immutable audit log of every candidate tested
+--   across all 4 worker orgs. Each simulation run appends
+--   one row here. Never updated — only inserted.
+-- Used for:
+--   - Deduplication seed (ASTDeduplicator.populate on startup)
+--   - MAB archetype performance summaries (win rates, avg Sharpe)
+--   - Stage 0 re-optimizer candidate selection
+--   - Daily/all-time discovery funnel stats
+-- Key stage values: STAGE0, RETRY_COMPLETED, PRE_SCREEN, DIAG_*
+-- Key status values: PASS, FAIL, QUALIFIED, EXHAUSTED,
+--                    CORRELATED, REJECTED, DUPLICATE_AST
+-- ============================================================
 CREATE TABLE IF NOT EXISTS options_evaluations (
-    id SERIAL PRIMARY KEY,
-    expression TEXT NOT NULL,
-    archetype VARCHAR(128),
-    source VARCHAR(32),
-    stage VARCHAR(32),
-    status VARCHAR(32),
-    sharpe NUMERIC(8, 4),
-    fitness NUMERIC(8, 4),
-    turnover NUMERIC(8, 4),
-    returns NUMERIC(8, 4),
-    drawdown NUMERIC(8, 4),
-    alpha_id VARCHAR(64),
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    id          SERIAL PRIMARY KEY,
+    expression  TEXT        NOT NULL,
+    archetype   VARCHAR(128),
+    source      VARCHAR(32),
+    stage       VARCHAR(32),
+    status      VARCHAR(32),
+    sharpe      NUMERIC(8, 4),
+    fitness     NUMERIC(8, 4),
+    turnover    NUMERIC(8, 4),
+    returns     NUMERIC(8, 4),
+    drawdown    NUMERIC(8, 4),
+    alpha_id    VARCHAR(64),
+    created_at  TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ============================================================
+-- TABLE 3: options_learning_memory
+-- Purpose: Multi-Armed Bandit (MAB) reinforcement learning
+--   memory. Stores one row per unique expression with an
+--   accumulated reward score.
+-- Used by OptionsGenerator to:
+--   - Weight archetype MAB arms (higher reward = more sampling)
+--   - Bootstrap top-performing expressions as mutation seeds
+--   - Penalise correlated/rejected expressions (reward -= 15)
+-- Unique constraint on expression ensures ON CONFLICT upserts.
+-- Status values: EVALUATED, QUALIFIED, REJECTED, CORRELATED
+-- ============================================================
 CREATE TABLE IF NOT EXISTS options_learning_memory (
-    id SERIAL PRIMARY KEY,
-    expression TEXT NOT NULL UNIQUE,
-    archetype VARCHAR(128),
-    hypothesis TEXT,
-    source VARCHAR(32),
-    sharpe NUMERIC(8, 4),
-    fitness NUMERIC(8, 4),
-    turnover NUMERIC(8, 4),
-    returns NUMERIC(8, 4),
-    drawdown NUMERIC(8, 4),
-    reward NUMERIC(10, 4),
-    optimization_steps INTEGER DEFAULT 0,
-    parent_expression TEXT,
-    mutation_type VARCHAR(64),
-    status VARCHAR(32),
-    alpha_id VARCHAR(64),
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    id                 SERIAL PRIMARY KEY,
+    expression         TEXT        NOT NULL UNIQUE,
+    archetype          VARCHAR(128),
+    hypothesis         TEXT,
+    source             VARCHAR(32),
+    sharpe             NUMERIC(8, 4),
+    fitness            NUMERIC(8, 4),
+    turnover           NUMERIC(8, 4),
+    returns            NUMERIC(8, 4),
+    drawdown           NUMERIC(8, 4),
+    reward             NUMERIC(10, 4),
+    optimization_steps INTEGER       DEFAULT 0,
+    parent_expression  TEXT,
+    mutation_type      VARCHAR(64),
+    status             VARCHAR(32),
+    alpha_id           VARCHAR(64),
+    created_at         TIMESTAMPTZ   DEFAULT CURRENT_TIMESTAMP,
+    updated_at         TIMESTAMPTZ   DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ============================================================
+-- TABLE 4: options_rejected_alphas
+-- Purpose: Archive of alphas that were initially qualified
+--   (Sharpe/Fitness thresholds met) but then failed a
+--   BRAIN platform checklist gate (LOW_SUB_UNIVERSE_SHARPE,
+--   CONCENTRATED_WEIGHT, etc.) or were rejected by BRAIN
+--   during submission.
+-- These alphas are permanently barred from resubmission.
+-- ============================================================
 CREATE TABLE IF NOT EXISTS options_rejected_alphas (
-    id SERIAL PRIMARY KEY,
-    alpha_id VARCHAR(64),
-    expression TEXT NOT NULL,
-    archetype VARCHAR(128),
-    hypothesis TEXT,
-    source VARCHAR(32),
-    sharpe NUMERIC(8, 4),
-    fitness NUMERIC(8, 4),
-    turnover NUMERIC(8, 4),
-    returns NUMERIC(8, 4),
-    drawdown NUMERIC(8, 4),
-    margin NUMERIC(10, 6),
+    id               SERIAL PRIMARY KEY,
+    alpha_id         VARCHAR(64),
+    expression       TEXT        NOT NULL,
+    archetype        VARCHAR(128),
+    hypothesis       TEXT,
+    source           VARCHAR(32),
+    sharpe           NUMERIC(8, 4),
+    fitness          NUMERIC(8, 4),
+    turnover         NUMERIC(8, 4),
+    returns          NUMERIC(8, 4),
+    drawdown         NUMERIC(8, 4),
+    margin           NUMERIC(10, 6),
     rejection_reason TEXT,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    created_at       TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ============================================================
+-- TABLE 5: options_correlated_alphas
+-- Purpose: Archive of alphas that passed Sharpe/Fitness gates
+--   but failed the self-correlation gate (corr >= 0.70
+--   against the existing live submission portfolio).
+-- Separated from rejected_alphas to allow future analysis:
+--   a correlated alpha may become submittable once its
+--   correlated peer is superseded or removed.
+-- ============================================================
 CREATE TABLE IF NOT EXISTS options_correlated_alphas (
-    id SERIAL PRIMARY KEY,
-    alpha_id VARCHAR(64),
-    expression TEXT NOT NULL,
-    archetype VARCHAR(128),
-    hypothesis TEXT,
-    source VARCHAR(32),
-    sharpe NUMERIC(8, 4),
-    fitness NUMERIC(8, 4),
-    turnover NUMERIC(8, 4),
-    returns NUMERIC(8, 4),
-    drawdown NUMERIC(8, 4),
-    margin NUMERIC(10, 6),
-    max_correlation NUMERIC(8, 4),
+    id               SERIAL PRIMARY KEY,
+    alpha_id         VARCHAR(64),
+    expression       TEXT        NOT NULL,
+    archetype        VARCHAR(128),
+    hypothesis       TEXT,
+    source           VARCHAR(32),
+    sharpe           NUMERIC(8, 4),
+    fitness          NUMERIC(8, 4),
+    turnover         NUMERIC(8, 4),
+    returns          NUMERIC(8, 4),
+    drawdown         NUMERIC(8, 4),
+    margin           NUMERIC(10, 6),
+    max_correlation  NUMERIC(8, 4),
     rejection_reason TEXT,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    created_at       TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ============================================================
+-- TABLE 6: cluster_session_cache
+-- Purpose: Shared BRAIN session token cache across all 4
+--   worker orgs and the Xtley001 drip org. Allows any of the
+--   5 GitHub Actions runners to reuse a live authenticated
+--   session instead of each logging in fresh, saving ~10s per
+--   run and preventing rate-limiting from repeated login calls.
+-- TTL is enforced by expires_at; stale rows are ignored on read.
+-- ============================================================
 CREATE TABLE IF NOT EXISTS cluster_session_cache (
-    key VARCHAR(64) PRIMARY KEY,
-    token TEXT NOT NULL,
-    cookies JSONB,
-    expires_at TIMESTAMPTZ NOT NULL,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    key         VARCHAR(64)  PRIMARY KEY,
+    token       TEXT         NOT NULL,
+    cookies     JSONB,
+    expires_at  TIMESTAMPTZ  NOT NULL,
+    updated_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ============================================================
+-- TABLE 7: cluster_run_lock
+-- Purpose: Cluster-wide mutex that ensures only 1 of the 4
+--   worker orgs runs simulations on BRAIN at a time. Since all
+--   worker orgs share the same BRAIN researcher account, running
+--   simulations concurrently would cause the BRAIN API to reject
+--   additional requests (3 concurrent sim limit).
+-- Rows auto-expire after 15 minutes via heartbeat-based cleanup.
+-- The drip org (Xtley001) is excluded — it only submits, not sims.
+-- ============================================================
 CREATE TABLE IF NOT EXISTS cluster_run_lock (
-    worker_id VARCHAR(64) PRIMARY KEY,
-    org_name VARCHAR(64) NOT NULL,
-    archetype VARCHAR(128),
-    heartbeat TIMESTAMPTZ NOT NULL,
-    started_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    worker_id   VARCHAR(64)  PRIMARY KEY,
+    org_name    VARCHAR(64)  NOT NULL,
+    archetype   VARCHAR(128),
+    heartbeat   TIMESTAMPTZ  NOT NULL,
+    started_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id ON options_alphas(alpha_id);
-CREATE INDEX IF NOT EXISTS idx_options_alphas_status_created ON options_alphas(status, created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype ON options_alphas(archetype);
-CREATE INDEX IF NOT EXISTS idx_options_evaluations_expr ON options_evaluations(expression);
-CREATE INDEX IF NOT EXISTS idx_options_eval_created_status ON options_evaluations(created_at DESC, status);
-CREATE INDEX IF NOT EXISTS idx_options_learning_reward ON options_learning_memory(reward DESC);
-CREATE INDEX IF NOT EXISTS idx_options_learning_archetype ON options_learning_memory(archetype);
-CREATE INDEX IF NOT EXISTS idx_options_rejected_alpha_id ON options_rejected_alphas(alpha_id);
-CREATE INDEX IF NOT EXISTS idx_options_rejected_reason ON options_rejected_alphas(rejection_reason);
-CREATE INDEX IF NOT EXISTS idx_options_rejected_created ON options_rejected_alphas(created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_options_correlated_alpha_id ON options_correlated_alphas(alpha_id);
-CREATE INDEX IF NOT EXISTS idx_options_correlated_created ON options_correlated_alphas(created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_cluster_session_expires ON cluster_session_cache(expires_at DESC);
-CREATE INDEX IF NOT EXISTS idx_cluster_run_heartbeat ON cluster_run_lock(heartbeat DESC);
+-- ============================================================
+-- INDEXES — All hot query paths covered
+-- ============================================================
+
+-- options_alphas: drip submitter reads by status frequently
+CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id
+    ON options_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_status_created
+    ON options_alphas(status, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype_status
+    ON options_alphas(archetype, status);
+
+-- options_evaluations: dedup seed loads all expressions;
+-- MAB summary groups by archetype; stats filter by date
+CREATE UNIQUE INDEX IF NOT EXISTS idx_options_eval_expr_stage_unique
+    ON options_evaluations(expression, stage);
+CREATE INDEX IF NOT EXISTS idx_options_eval_archetype
+    ON options_evaluations(archetype);
+CREATE INDEX IF NOT EXISTS idx_options_eval_created_status
+    ON options_evaluations(created_at DESC, status);
+
+-- options_learning_memory: MAB reads by reward and archetype
+CREATE INDEX IF NOT EXISTS idx_options_learning_reward
+    ON options_learning_memory(reward DESC);
+CREATE INDEX IF NOT EXISTS idx_options_learning_archetype
+    ON options_learning_memory(archetype);
+CREATE INDEX IF NOT EXISTS idx_options_learning_status
+    ON options_learning_memory(status);
+
+-- options_rejected_alphas: lookups by alpha_id and date
+CREATE INDEX IF NOT EXISTS idx_options_rejected_alpha_id
+    ON options_rejected_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_rejected_created
+    ON options_rejected_alphas(created_at DESC);
+
+-- options_correlated_alphas: lookups by alpha_id and date
+CREATE INDEX IF NOT EXISTS idx_options_correlated_alpha_id
+    ON options_correlated_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_correlated_created
+    ON options_correlated_alphas(created_at DESC);
+
+-- cluster_session_cache: validity check on every BRAIN API call
+CREATE INDEX IF NOT EXISTS idx_cluster_session_expires
+    ON cluster_session_cache(expires_at DESC);
+
+-- cluster_run_lock: heartbeat-based stale lock cleanup
+CREATE INDEX IF NOT EXISTS idx_cluster_run_heartbeat
+    ON cluster_run_lock(heartbeat DESC);
+"""
+
+# Migration SQL: idempotent column additions for existing deployments
+# These run after SCHEMA_SQL so fresh installs get everything from CREATE TABLE
+MIGRATION_SQL = """
+-- Add submitted_at to options_alphas if missing (added in v2.1)
+ALTER TABLE options_alphas
+    ADD COLUMN IF NOT EXISTS submitted_at TIMESTAMPTZ;
+
+-- Add updated_at to options_learning_memory if missing (added in v2.1)
+ALTER TABLE options_learning_memory
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;
 """
 
 
@@ -200,24 +339,44 @@ class OptionsDatabase:
                 pass
 
     def _init_schema(self):
+        """Creates all 7 tables and indexes, then runs idempotent migration patches."""
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(SCHEMA_SQL)
+                    # Apply migrations separately so individual statement failures don't
+                    # block the entire schema init
+                    for stmt in MIGRATION_SQL.strip().split(";"):
+                        stmt = stmt.strip()
+                        if stmt:
+                            try:
+                                cur.execute(stmt)
+                            except Exception as mig_err:
+                                log.debug("Migration statement skipped (likely already applied): %s", mig_err)
                 conn.commit()
-            log.info("Options database schema initialized successfully.")
+            log.info("Database schema initialized (7 tables, migrations applied).")
         except Exception as e:
             log.warning("Database schema initialization warning: %s", e)
+
+    # ------------------------------------------------------------------
+    # options_evaluations — write path
+    # ------------------------------------------------------------------
 
     def record_candidate(
         self, candidate: OptionCandidate, stage: str, status: str, metrics: SimMetrics
     ):
+        """
+        Appends one row to options_evaluations for every simulation stage event.
+        Uses INSERT … ON CONFLICT DO NOTHING on the (expression, stage) unique index
+        to prevent duplicate rows from concurrent workers writing the same result.
+        """
         if not self.database_url:
             return
         sql = """
-            INSERT INTO options_evaluations 
+            INSERT INTO options_evaluations
             (expression, archetype, source, stage, status, sharpe, fitness, turnover, returns, drawdown, alpha_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT (expression, stage) DO NOTHING;
         """
         try:
             with self._get_connection() as conn:
@@ -242,6 +401,10 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to record candidate in database: %s", e)
 
+    # ------------------------------------------------------------------
+    # options_alphas — write path
+    # ------------------------------------------------------------------
+
     def save_passed_alpha(
         self,
         candidate: OptionCandidate,
@@ -249,6 +412,11 @@ class OptionsDatabase:
         metrics: SimMetrics,
         max_corr: float,
     ):
+        """
+        Saves a fully qualified alpha to options_alphas with status='QUALIFIED'.
+        Uses ON CONFLICT (alpha_id) DO NOTHING to safely handle concurrent workers
+        discovering the same alpha simultaneously.
+        """
         if not self.database_url:
             return
         sql = """
@@ -256,7 +424,8 @@ class OptionsDatabase:
             (alpha_id, expression, archetype, hypothesis, source, sharpe, fitness, turnover, returns,
              drawdown, margin, max_correlation, universe, neutralization, delay, decay, truncation,
              pasteurization, nan_handling, status)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'QUALIFIED');
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'QUALIFIED')
+            ON CONFLICT DO NOTHING;
         """
         try:
             with self._get_connection() as conn:
@@ -286,12 +455,20 @@ class OptionsDatabase:
                         ),
                     )
                 conn.commit()
-            log.info("Saved passed alpha %s to database table options_alphas.", metrics.alpha_id or candidate.expression[:30])
+            log.info("Saved passed alpha %s to options_alphas.", metrics.alpha_id or candidate.expression[:30])
         except Exception as e:
             log.warning("Failed to save passed alpha in database: %s", e)
 
+    # ------------------------------------------------------------------
+    # options_alphas — read path
+    # ------------------------------------------------------------------
+
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
-        """Returns alphas in options_alphas that have not yet been submitted, ordered by Composite Quality Score (CQS)."""
+        """
+        Returns all alphas in options_alphas with status='QUALIFIED' (i.e. not yet
+        submitted), ranked by Composite Quality Score (CQS = Sharpe + 1.2×Fitness
+        + 200×Margin - 0.5×Turnover) for optimal drip ordering.
+        """
         if not self.database_url:
             return []
         sql = """
@@ -299,7 +476,7 @@ class OptionsDatabase:
                    (1.0 * COALESCE(sharpe, 0) + 1.2 * COALESCE(fitness, 0) + 200 * COALESCE(margin, 0) - 0.5 * COALESCE(turnover, 0)) AS cqs
             FROM options_alphas
             WHERE status = 'QUALIFIED' AND alpha_id IS NOT NULL
-            ORDER BY (1.0 * COALESCE(sharpe, 0) + 1.2 * COALESCE(fitness, 0) + 200 * COALESCE(margin, 0) - 0.5 * COALESCE(turnover, 0)) DESC, sharpe DESC;
+            ORDER BY cqs DESC, sharpe DESC;
         """
         try:
             with self._get_connection() as conn:
@@ -312,16 +489,19 @@ class OptionsDatabase:
             return []
 
     def mark_alpha_submitted(self, alpha_id: str):
-        """Marks an alpha as SUBMITTED in options_alphas."""
+        """
+        Marks an alpha as SUBMITTED in options_alphas and records the exact submission
+        timestamp. Called once BRAIN confirms the OS stage transition.
+        """
         if not self.database_url:
             return
-        sql = "UPDATE options_alphas SET status = 'SUBMITTED' WHERE alpha_id = %s;"
+        sql = "UPDATE options_alphas SET status = 'SUBMITTED', submitted_at = CURRENT_TIMESTAMP WHERE alpha_id = %s;"
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(sql, (alpha_id,))
                 conn.commit()
-            log.info("Marked alpha %s as SUBMITTED in database.", alpha_id)
+            log.info("Marked alpha %s as SUBMITTED.", alpha_id)
         except Exception as e:
             log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
 
@@ -332,10 +512,17 @@ class OptionsDatabase:
         cand_data: Optional[Dict[str, Any]] = None,
         max_corr: Optional[float] = None,
     ):
-        """Archives alpha into options_correlated_alphas and frees it from options_alphas."""
+        """
+        Moves an alpha from options_alphas → options_correlated_alphas.
+        Called when the drip submitter detects a late-stage correlation failure.
+        """
         if not self.database_url:
             return
         self.archive_correlated_alpha(alpha_id, f"CORRELATED: {reason}", cand_data, max_corr)
+
+    # ------------------------------------------------------------------
+    # Archive operations (move out of options_alphas)
+    # ------------------------------------------------------------------
 
     def archive_correlated_alpha(
         self,
@@ -345,8 +532,10 @@ class OptionsDatabase:
         max_corr: Optional[float] = None,
     ):
         """
-        Archives a correlated alpha into options_correlated_alphas with correlation metrics,
-        and deletes it from options_alphas to completely free up the qualified table.
+        Copies a correlated alpha into options_correlated_alphas then deletes it
+        from options_alphas, keeping the qualified pool clean.
+        Source data is pulled from options_alphas first; cand_data is used as fallback
+        for alphas that were never saved to options_alphas (e.g. caught at run_candidate gate).
         """
         if not self.database_url:
             return
@@ -367,7 +556,7 @@ class OptionsDatabase:
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    # 1. Attempt to copy from options_alphas if record exists
+                    # 1. Copy from options_alphas if it exists there
                     cur.execute(
                         """
                         INSERT INTO options_correlated_alphas (
@@ -380,13 +569,14 @@ class OptionsDatabase:
                                COALESCE(%s, max_correlation), %s
                         FROM options_alphas
                         WHERE alpha_id = %s
+                        ON CONFLICT DO NOTHING
                         RETURNING id;
                         """,
                         (corr_val, reason, alpha_id),
                     )
                     row = cur.fetchone()
 
-                    # 2. If not in options_alphas, insert directly
+                    # 2. If not in options_alphas, insert directly from cand_data
                     if not row and expr:
                         cur.execute(
                             """
@@ -395,7 +585,8 @@ class OptionsDatabase:
                                 sharpe, fitness, turnover, returns, drawdown, margin,
                                 max_correlation, rejection_reason
                             )
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            ON CONFLICT DO NOTHING;
                             """,
                             (
                                 alpha_id, expr, arch, hyp, src,
@@ -404,13 +595,10 @@ class OptionsDatabase:
                             ),
                         )
 
-                    # 3. Delete from options_alphas to free up the qualified table
-                    cur.execute(
-                        "DELETE FROM options_alphas WHERE alpha_id = %s;",
-                        (alpha_id,),
-                    )
+                    # 3. Free options_alphas
+                    cur.execute("DELETE FROM options_alphas WHERE alpha_id = %s;", (alpha_id,))
                 conn.commit()
-            log.info("Archived correlated alpha %s to options_correlated_alphas and freed from options_alphas.", alpha_id)
+            log.info("Archived correlated alpha %s → options_correlated_alphas.", alpha_id)
         except Exception as e:
             log.warning("Failed to archive correlated alpha %s: %s", alpha_id, e)
 
@@ -421,8 +609,10 @@ class OptionsDatabase:
         cand_data: Optional[Dict[str, Any]] = None,
     ):
         """
-        Archives a rejected alpha into options_rejected_alphas with exact failure diagnostic,
-        and deletes it from options_alphas to completely free up the qualified table.
+        Copies a checklist-failed alpha into options_rejected_alphas then deletes it
+        from options_alphas. Called when BRAIN returns a FAIL on any checklist gate
+        (LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, CONCENTRATED_WEIGHT, etc.)
+        or when post-submission async validation shows it was rejected by the platform.
         """
         if not self.database_url:
             return
@@ -442,7 +632,7 @@ class OptionsDatabase:
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    # 1. Attempt to copy from options_alphas if record exists
+                    # 1. Copy from options_alphas if it exists there
                     cur.execute(
                         """
                         INSERT INTO options_rejected_alphas (
@@ -455,13 +645,14 @@ class OptionsDatabase:
                                %s
                         FROM options_alphas
                         WHERE alpha_id = %s
+                        ON CONFLICT DO NOTHING
                         RETURNING id;
                         """,
                         (reason, alpha_id),
                     )
                     row = cur.fetchone()
 
-                    # 2. If alpha was not in options_alphas but cand_data has expression, insert directly
+                    # 2. If not in options_alphas, insert directly from cand_data
                     if not row and expr:
                         cur.execute(
                             """
@@ -470,7 +661,8 @@ class OptionsDatabase:
                                 sharpe, fitness, turnover, returns, drawdown, margin,
                                 rejection_reason
                             )
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            ON CONFLICT DO NOTHING;
                             """,
                             (
                                 alpha_id, expr, arch, hyp, src,
@@ -479,24 +671,29 @@ class OptionsDatabase:
                             ),
                         )
 
-                    # 3. Delete from options_alphas to free up the qualified table
-                    cur.execute(
-                        "DELETE FROM options_alphas WHERE alpha_id = %s;",
-                        (alpha_id,),
-                    )
+                    # 3. Free options_alphas
+                    cur.execute("DELETE FROM options_alphas WHERE alpha_id = %s;", (alpha_id,))
                 conn.commit()
-            log.info("Archived rejected alpha %s to options_rejected_alphas and freed from options_alphas.", alpha_id)
+            log.info("Archived rejected alpha %s → options_rejected_alphas.", alpha_id)
         except Exception as e:
             log.warning("Failed to archive rejected alpha %s: %s", alpha_id, e)
 
+    # ------------------------------------------------------------------
+    # Archetype saturation / diversity queries
+    # ------------------------------------------------------------------
+
     def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
-        """Returns archetypes of the most recently submitted alphas to promote portfolio diversity."""
+        """
+        Returns the archetypes of the most recently submitted alphas.
+        Used by the drip submitter's diversity ranker to deprioritise
+        repeating the same archetype family back-to-back.
+        """
         if not self.database_url:
             return []
         sql = """
             SELECT archetype FROM options_alphas
             WHERE status = 'SUBMITTED' AND archetype IS NOT NULL
-            ORDER BY created_at DESC
+            ORDER BY submitted_at DESC NULLS LAST, created_at DESC
             LIMIT %s;
         """
         try:
@@ -510,9 +707,10 @@ class OptionsDatabase:
 
     def get_today_saturated_archetypes(self, max_per_day: int = 1) -> List[str]:
         """
-        Dynamic Archetype Quota Enforcer (Pillar 1):
-        Returns archetypes that have already produced >= max_per_day qualified or submitted alphas today.
-        Used to dynamically drop probability weight to 0.02 and steer workers to unfilled channels.
+        Dynamic Archetype Quota Enforcer (Pillar 1 of the 5-channel strategy):
+        Returns archetypes that have already produced >= max_per_day qualified or
+        submitted alphas today. The generator drops these archetypes' MAB probability
+        weight to 0.02 to steer workers into unfilled orthogonal channels.
         """
         if not self.database_url:
             return []
@@ -534,7 +732,16 @@ class OptionsDatabase:
             log.warning("Failed to load today saturated archetypes: %s", e)
             return []
 
+    # ------------------------------------------------------------------
+    # options_evaluations — read path
+    # ------------------------------------------------------------------
+
     def load_evaluated_expressions(self) -> Set[str]:
+        """
+        Returns the complete set of expression strings ever evaluated.
+        Loaded on startup to seed the in-memory ASTDeduplicator so workers
+        never re-simulate structurally identical formulas.
+        """
         if not self.database_url:
             return set()
         sql = "SELECT DISTINCT expression FROM options_evaluations;"
@@ -547,6 +754,10 @@ class OptionsDatabase:
             log.warning("Failed to load evaluated expressions from database: %s", e)
             return set()
 
+    # ------------------------------------------------------------------
+    # options_learning_memory — write path
+    # ------------------------------------------------------------------
+
     def record_learning_memory(
         self,
         candidate: OptionCandidate,
@@ -557,10 +768,17 @@ class OptionsDatabase:
         mutation_type: Optional[str] = None,
         status: str = "EVALUATED",
     ):
+        """
+        Upserts a reward-adjusted learning memory entry for the expression.
+        Applies anti-correlation and rejection penalties before storing:
+          - corr > 0.60: penalty += 12 × (corr - 0.50)
+          - status CORRELATED: penalty += 8
+          - status REJECTED: penalty += 15
+        ON CONFLICT updates all metric fields so the most recent result wins.
+        """
         if not self.database_url:
             return
 
-        # Option D: Institutional Anti-Correlation Penalty in Reinforcement Learning
         corr_penalty = 0.0
         max_c = getattr(metrics, "max_correlation", None)
         if max_c is not None and float(max_c) > 0.60:
@@ -573,10 +791,10 @@ class OptionsDatabase:
         adjusted_reward = reward - corr_penalty
 
         sql = """
-            INSERT INTO options_learning_memory 
+            INSERT INTO options_learning_memory
             (expression, archetype, hypothesis, source, sharpe, fitness, turnover, returns, drawdown,
-             reward, optimization_steps, parent_expression, mutation_type, status, alpha_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+             reward, optimization_steps, parent_expression, mutation_type, status, alpha_id, updated_at)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP)
             ON CONFLICT (expression) DO UPDATE SET
                 sharpe = EXCLUDED.sharpe,
                 fitness = EXCLUDED.fitness,
@@ -586,7 +804,8 @@ class OptionsDatabase:
                 reward = EXCLUDED.reward,
                 optimization_steps = EXCLUDED.optimization_steps,
                 status = EXCLUDED.status,
-                alpha_id = EXCLUDED.alpha_id;
+                alpha_id = EXCLUDED.alpha_id,
+                updated_at = CURRENT_TIMESTAMP;
         """
         try:
             with self._get_connection() as conn:
@@ -612,9 +831,16 @@ class OptionsDatabase:
                         ),
                     )
                 conn.commit()
-            log.info("Recorded learning memory for %s (Reward=%.2f, Sharpe=%.2f, Status=%s)", candidate.expression[:35], adjusted_reward, metrics.sharpe, status)
+            log.info(
+                "Learning memory updated for %s (Reward=%.2f, Sharpe=%.2f, Status=%s)",
+                candidate.expression[:35], adjusted_reward, metrics.sharpe, status,
+            )
         except Exception as e:
             log.warning("Failed to record learning memory: %s", e)
+
+    # ------------------------------------------------------------------
+    # options_learning_memory — read path
+    # ------------------------------------------------------------------
 
     def load_top_performing_exemplars(
         self,
@@ -622,11 +848,15 @@ class OptionsDatabase:
         min_sharpe: float = 1.0,
         exclude_archetypes: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
-        """Loads top performing alpha formulas from learning memory or evaluations, excluding saturated or rejected branches."""
+        """
+        Loads top-performing alpha expressions from options_learning_memory to use as
+        mutation seeds for new candidate generation. Falls back to options_evaluations
+        if learning memory is empty (e.g. fresh deployment).
+        Excludes archetypes that are already saturated to enforce channel diversity.
+        """
         if not self.database_url:
             return []
 
-        # Exclude archetypes that are already saturated in submitted alphas to promote diversity
         arch_filter = ""
         params_mem: list = [min_sharpe]
         if exclude_archetypes:
@@ -661,7 +891,7 @@ class OptionsDatabase:
                     if results:
                         return results
 
-                    # If learning memory is fresh/empty, bootstrap from options_evaluations
+                    # Bootstrap from options_evaluations when learning memory is cold
                     eval_params: list = [min_sharpe]
                     eval_arch_filter = ""
                     if exclude_archetypes:
@@ -700,8 +930,16 @@ class OptionsDatabase:
             log.warning("Failed to load top performing exemplars: %s", e)
             return []
 
+    # ------------------------------------------------------------------
+    # MAB archetype performance summary
+    # ------------------------------------------------------------------
+
     def load_archetype_performance_summary(self) -> Dict[str, Dict[str, float]]:
-        """Loads win rates and average metrics per archetype for Multi-Armed Bandit weighting."""
+        """
+        Loads win rates and average metrics per archetype from options_evaluations
+        for Multi-Armed Bandit weight calculation in OptionsGenerator.
+        A 'win' = status PASS or Sharpe >= 0.70 (Stage 0 pass threshold).
+        """
         if not self.database_url:
             return {}
         sql = """
@@ -735,8 +973,25 @@ class OptionsDatabase:
             log.warning("Failed to load archetype performance summary: %s", e)
             return {}
 
+    # ------------------------------------------------------------------
+    # Stats / reporting
+    # ------------------------------------------------------------------
+
     def get_options_stats(self) -> Dict[str, Any]:
-        """Loads daily and all-time options alpha statistics including submitted, reserve, and correlated counts."""
+        """
+        Loads daily and all-time pipeline statistics for health checks and daily digests.
+        Returns:
+          today_evaluated     — total simulations run today across all orgs
+          today_stage0_pass   — how many passed Stage 0 screening today
+          today_qualified     — new qualified alphas added to pool today
+          today_submitted     — alphas submitted to BRAIN today
+          today_correlated    — alphas rejected for correlation today
+          reserve_count       — unsubmitted alphas currently in options_alphas
+          all_time_evaluated  — total simulations ever run
+          all_time_stage0_pass — total Stage 0 passes ever
+          all_time_pool_alphas — total rows ever in options_alphas
+          all_time_correlated  — total alphas in options_correlated_alphas
+        """
         if not self.database_url:
             return {}
         stats: Dict[str, Any] = {
@@ -764,13 +1019,11 @@ class OptionsDatabase:
             SELECT
                 COUNT(*) as all_time_pool,
                 COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_pool,
-                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND created_at >= CURRENT_DATE) as today_submitted,
+                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND submitted_at >= CURRENT_DATE) as today_submitted,
                 COUNT(*) FILTER (WHERE status = 'QUALIFIED') as reserve_count
             FROM options_alphas;
         """
-        sql_corr = """
-            SELECT COUNT(*) FROM options_correlated_alphas;
-        """
+        sql_corr = "SELECT COUNT(*) FROM options_correlated_alphas;"
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
@@ -791,7 +1044,6 @@ class OptionsDatabase:
                         stats["today_submitted"] = int(row_a[2] or 0)
                         stats["reserve_count"] = int(row_a[3] or 0)
 
-                    # Correlated table may not exist yet — guard gracefully
                     try:
                         cur.execute(sql_corr)
                         row_c = cur.fetchone()
@@ -805,8 +1057,17 @@ class OptionsDatabase:
             log.warning("Failed to load options stats: %s", e)
             return stats
 
+    # ------------------------------------------------------------------
+    # Stage 0 re-optimizer feed
+    # ------------------------------------------------------------------
+
     def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
-        """Loads distinct candidates that passed Stage 0 screening for re-optimization, ordered by highest Sharpe & Fitness."""
+        """
+        Loads distinct candidates from options_evaluations that passed Stage 0 screening
+        (Sharpe >= 0.35, Fitness >= 0.20) but were never fully optimised, for the
+        --retry-stage0 pipeline mode. Excludes any already in options_alphas
+        or already through a full retry/optimization cycle.
+        """
         if not self.database_url:
             return []
         sql = """
@@ -841,11 +1102,21 @@ class OptionsDatabase:
                             hypothesis=f"Stage 0 passer (Sharpe={float(sh or 0):.2f}, Fit={float(fit or 0):.2f})",
                             generation_source=src or "stage0_pass",
                         ))
-            return candidates
         except Exception as e:
             log.warning("Failed to load stage0 passed candidates: %s", e)
+        return candidates
+
+    # ------------------------------------------------------------------
+    # cluster_session_cache
+    # ------------------------------------------------------------------
+
     def get_cached_session(self, key: str = "brain_session") -> Optional[Dict[str, Any]]:
-        """Retrieves valid cached session cookies/tokens from PostgreSQL cluster cache."""
+        """
+        Retrieves a valid BRAIN session from the shared cluster cache.
+        Returns None if no valid (non-expired) session exists.
+        All 5 orgs (4 workers + drip) share one session entry to avoid
+        repeated login calls which can trigger BRAIN rate limiting.
+        """
         if not self.database_url:
             return None
         sql = """
@@ -873,7 +1144,10 @@ class OptionsDatabase:
         expires_in_seconds: int = 7200,
         key: str = "brain_session",
     ):
-        """Saves BRAIN session cookies to PostgreSQL cluster cache with TTL (default 2 hours)."""
+        """
+        Saves a fresh BRAIN session token + cookies to the cluster cache with a 2-hour TTL.
+        Uses ON CONFLICT upsert so concurrent orgs safely overwrite stale sessions.
+        """
         if not self.database_url:
             return
         import json
@@ -891,9 +1165,13 @@ class OptionsDatabase:
                 with conn.cursor() as cur:
                     cur.execute(sql, (key, token, json.dumps(cookies), expires_in_seconds))
                 conn.commit()
-            log.info("Saved BRAIN session to PostgreSQL cluster cache (TTL=%ds).", expires_in_seconds)
+            log.info("Saved BRAIN session to cluster cache (TTL=%ds).", expires_in_seconds)
         except Exception as e:
             log.warning("Failed to save session cache: %s", e)
+
+    # ------------------------------------------------------------------
+    # cluster_run_lock
+    # ------------------------------------------------------------------
 
     def acquire_cluster_lock(
         self,
@@ -903,8 +1181,12 @@ class OptionsDatabase:
         timeout_seconds: int = 900,
     ) -> bool:
         """
-        Acquires a cluster-wide run lock to prevent simultaneous worker overlap on BRAIN,
-        ensuring total simulations across all 5 orgs never exceed 3.
+        Acquires the cluster-wide run mutex for this worker org. Only one worker
+        can hold the lock at a time, enforcing the BRAIN platform's 3 concurrent
+        simulation limit across the entire cluster.
+        Stale locks (heartbeat > 15 minutes old) are cleaned up before attempting.
+        Returns True if lock acquired, False if another worker is already running.
+        On DB error, returns True (fail open) to avoid blocking all orgs on a DB outage.
         """
         if not self.database_url:
             return True
@@ -935,10 +1217,10 @@ class OptionsDatabase:
                 return acquired
         except Exception as e:
             log.warning("Failed to acquire cluster run lock: %s", e)
-            return True
+            return True  # Fail open
 
     def release_cluster_lock(self, worker_id: str):
-        """Releases the cluster run lock."""
+        """Releases the cluster run mutex immediately after batch completion."""
         if not self.database_url:
             return
         sql = "DELETE FROM cluster_run_lock WHERE worker_id = %s;"
@@ -951,15 +1233,25 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to release cluster run lock: %s", e)
 
+    # ------------------------------------------------------------------
+    # options_learning_memory — penalty path
+    # ------------------------------------------------------------------
+
     def penalize_learning_memory(self, target: str, penalty: float = -10.0, reason: str = ""):
-        """Slashes reward of an expression in learning memory when rejected for correlation."""
+        """
+        Caps the reward of an expression (or the expression of an alpha_id) in
+        learning memory to the penalty value and marks it REJECTED.
+        Called when an alpha is rejected for correlation or platform gate failure
+        so the generator avoids mutating this branch in future discovery cycles.
+        """
         if not self.database_url or not target:
             return
         sql = """
             UPDATE options_learning_memory
             SET reward = LEAST(reward, %s),
-                status = 'REJECTED'
-            WHERE expression = %s 
+                status = 'REJECTED',
+                updated_at = CURRENT_TIMESTAMP
+            WHERE expression = %s
                OR expression IN (SELECT expression FROM options_alphas WHERE alpha_id = %s);
         """
         try:
@@ -967,13 +1259,25 @@ class OptionsDatabase:
                 with conn.cursor() as cur:
                     cur.execute(sql, (penalty, target, target))
                 conn.commit()
-            log.info("Penalized learning memory for %s (Reward capped at %.2f, reason=%s).", target[:35], penalty, reason)
+            log.info(
+                "Penalised learning memory for %s (reward capped at %.2f, reason=%s).",
+                target[:35], penalty, reason,
+            )
         except Exception as e:
-            log.warning("Failed to penalize learning memory: %s", e)
+            log.warning("Failed to penalise learning memory: %s", e)
 
+
+# ---------------------------------------------------------------------------
+# Archetype normalisation utility
+# ---------------------------------------------------------------------------
 
 def map_archetype_to_core(archetype_name: str) -> str:
-    """Maps arbitrary human-readable archetype titles to canonical core category keys."""
+    """
+    Normalises arbitrary archetype labels (from LLM output, mutation tags, etc.)
+    to the canonical 8-key taxonomy used throughout the pipeline:
+      breakeven, skew, term_structure, forward_basis, pcr_flow,
+      analyst_revisions, short_interest, hybrid_confluence
+    """
     if not archetype_name:
         return "breakeven"
     name = archetype_name.lower()
@@ -994,7 +1298,3 @@ def map_archetype_to_core(archetype_name: str) -> str:
     elif "short" in name or "borrow" in name or "days_to_cover" in name:
         return "short_interest"
     return name
-
-
-
-
