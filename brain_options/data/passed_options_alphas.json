@@ -19,14 +19,15 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-17T08:23:58.178252+00:00",
     "alpha_id": "KPNd6Ovl",
     "expression": "trade_when(abs(rank(ts_decay_linear(ts_decay_linear(((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)) * (pcr_vol_30 / (pcr_oi_30 + 0.001))), 12), 5)) - 0.5) > 0.32, group_neutralize(rank(ts_decay_linear(ts_decay_linear(((call_breakeven_30 - forward_price_30) / close * (implied_volatility_mean_skew_30 * sqrt(30/252.0)) * (pcr_vol_30 / (pcr_oi_30 + 0.001))), 12), 5)) * (volume / adv20), subindustry), -1)",
     "archetype": "Mutation(breakeven)",
-    "hypothesis": "Adding the PCR volume\u2011to\u2011OI flow factor injects a measure of aggressive institutional order flow into the forward\u2011basis/skew signal. Double decay smoothing (12\u2011day then 5\u2011day) further attenuates noise, while scaling the rank by the relative volume (volume/adv20) emphasizes liquid stocks. This composite should sharpen the mean\u2011reversion edge and improve turnover\u2011adjusted performance.",
+    "hypothesis": "Adding the PCR volume‑to‑OI flow factor injects a measure of aggressive institutional order flow into the forward‑basis/skew signal. Double decay smoothing (12‑day then 5‑day) further attenuates noise, while scaling the rank by the relative volume (volume/adv20) emphasizes liquid stocks. This composite should sharpen the mean‑reversion edge and improve turnover‑adjusted performance.",
     "source": "llm_mechanical",
     "sharpe": 1.58,
     "fitness": 1.27,
@@ -41,7 +42,8 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-17T09:03:26.229716+00:00",
@@ -63,7 +65,8 @@
     "decay": 14,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-17T11:46:24.820740+00:00",
@@ -85,7 +88,8 @@
     "decay": 14,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "QUALIFIED"
   },
   {
     "timestamp": "2026-09-17T13:19:29.777287+00:00",
@@ -107,14 +111,15 @@
     "decay": 16,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-17T14:00:55.898467+00:00",
     "alpha_id": "0mX0kG86",
     "expression": "trade_when(abs(rank(ts_decay_linear(((call_breakeven_60 - forward_price_60)/close * (implied_volatility_mean_skew_60 * sqrt(60/252.0)) - (call_breakeven_30 - forward_price_30)/close * (implied_volatility_mean_skew_30 * sqrt(30/252.0))), 12)) - 0.5) > 0.42, group_neutralize(rank(ts_decay_linear(((call_breakeven_60 - forward_price_60)/close * (implied_volatility_mean_skew_60 * sqrt(60/252.0)) - (call_breakeven_30 - forward_price_30)/close * (implied_volatility_mean_skew_30 * sqrt(30/252.0))), 12)), subindustry), -1)",
     "archetype": "term_structure",
-    "hypothesis": "The differential between skew\u2011adjusted call\u2011breakeven spreads at 60\u2011 versus 30\u2011day horizons captures changes in market\u2011wide risk\u2011premia and expected upside moves, offering a cross\u2011sectional signal of relative equity strength. [Optimized: ULTRA_CONVICTION_T42]",
+    "hypothesis": "The differential between skew‑adjusted call‑breakeven spreads at 60‑ versus 30‑day horizons captures changes in market‑wide risk‑premia and expected upside moves, offering a cross‑sectional signal of relative equity strength. [Optimized: ULTRA_CONVICTION_T42]",
     "source": "diagnostic_optimizer",
     "sharpe": 1.42,
     "fitness": 1.03,
@@ -129,7 +134,8 @@
     "decay": 18,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-17T19:24:20.499764+00:00",
@@ -151,7 +157,8 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   },
   {
     "timestamp": "2026-09-18T00:04:41.245086+00:00",
@@ -173,6 +180,7 @@
     "decay": 8,
     "truncation": 0.05,
     "pasteurization": "ON",
-    "nan_handling": "OFF"
+    "nan_handling": "OFF",
+    "status": "SUBMITTED"
   }
 ]

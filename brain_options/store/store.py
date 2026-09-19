@@ -11,9 +11,13 @@ from datetime import datetime, timezone
 import os
 import threading
 from typing import Any, Dict, List, Optional
+from dotenv import load_dotenv
+
 from brain_options.core.client import SimMetrics, SimSettings
 from brain_options.specialist.templates import OptionCandidate
 from brain_options.store.db import OptionsDatabase
+
+load_dotenv()
 
 log = logging.getLogger("brain_options.store")
 
