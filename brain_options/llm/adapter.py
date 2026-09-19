@@ -168,7 +168,6 @@ class LLMAdapter:
         for key in self._rotate_keys("groq", self.config.groq_keys):
             for model in [
                 "openai/gpt-oss-120b",
-                "groq/compound",
                 "openai/gpt-oss-20b",
                 "qwen/qwen3.8-27b",
             ]:
