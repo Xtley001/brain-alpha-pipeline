@@ -165,9 +165,32 @@ def fanout_generation_jobs(candidates_per_org: int = 20, archetype: str = "") ->
     return results
 
 
+def sync_worker_repos() -> bool:
+    """
+    Pushes local main branch to all 4 worker organizations to guarantee code parity.
+    """
+    print("=" * 88)
+    print(" SYNCHRONIZING CODEBASE TO ALL 4 WORKER ORGANIZATIONS")
+    print("=" * 88)
+    all_ok = True
+    for org in WORKER_ORGS:
+        remote_name = f"remote_{org}"
+        print(f">>> Pushing main to {remote_name} ({org}/brain-alpha-pipeline)...")
+        cmd = f"git push --force-with-lease {remote_name} main:main"
+        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if res.returncode == 0:
+            print(f"  [SUCCESS] {org} is now 100% in sync with main.")
+        else:
+            print(f"  [FAILED] {org}: {res.stderr.strip() or res.stdout.strip()}")
+            all_ok = False
+    print("=" * 88)
+    return all_ok
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Multi-Org Cluster Manager for Options Alpha Pipeline")
     parser.add_argument("--status", action="store_true", help="Display status of all organizations in cluster")
+    parser.add_argument("--sync", action="store_true", help="Push latest main branch to all 4 worker organizations")
     parser.add_argument("--dispatch", action="store_true", help="Dispatch heavy generation job to least loaded org")
     parser.add_argument("--fanout", action="store_true", help="Dispatch parallel heavy generation jobs across ALL online worker orgs")
     parser.add_argument("--org", type=str, help="Specify a particular organization to dispatch to")
@@ -175,7 +198,9 @@ if __name__ == "__main__":
     parser.add_argument("--candidates", type=int, default=20, help="Number of candidates to evaluate per job (default: 20)")
     args = parser.parse_args()
 
-    if args.fanout:
+    if args.sync:
+        sync_worker_repos()
+    elif args.fanout:
         fanout_generation_jobs(candidates_per_org=args.candidates, archetype=args.archetype)
     elif args.dispatch:
         dispatch_generation_job(org=args.org, candidates=args.candidates, archetype=args.archetype)
