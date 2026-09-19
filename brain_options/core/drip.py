@@ -135,6 +135,12 @@ class DripSubmitter:
             if resp and resp.status_code == 200:
                 data = resp.json()
                 status = data.get("status")
+                stage = data.get("stage")
+                if stage == "OS" and status == "ACTIVE":
+                    log.info("Alpha %s is already submitted and ACTIVE on BRAIN. Marking SUBMITTED.", alpha_id)
+                    if hasattr(self.store, "mark_alpha_submitted"):
+                        self.store.mark_alpha_submitted(alpha_id)
+                    return False, ["ALREADY_SUBMITTED"], data
                 if status != "UNSUBMITTED":
                     return False, [f"Status is {status}, not UNSUBMITTED"], data
 
@@ -245,6 +251,9 @@ class DripSubmitter:
 
             is_eligible, failed_checks, alpha_data = await self.verify_alpha_checks(alpha_id)
             if not is_eligible:
+                if "ALREADY_SUBMITTED" in failed_checks:
+                    log.info("[DRIP QUEUE] %s is already ACTIVE on BRAIN; marked as SUBMITTED.", alpha_id)
+                    continue
                 log.warning("[DRIP QUEUE] Rejecting %s: failed checks %s. Archiving to rejected alphas table.", alpha_id, failed_checks)
                 if hasattr(self.store, "archive_rejected_alpha"):
                     self.store.archive_rejected_alpha(alpha_id, f"CHECK_FAIL: {', '.join(failed_checks)}", cand)

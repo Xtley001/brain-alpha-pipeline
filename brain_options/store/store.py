@@ -205,9 +205,6 @@ class OptionsStore:
             candidate, metrics, reward, optimization_steps, parent_expression, mutation_type, status
         )
 
-    def load_top_performing_exemplars(self, limit: int = 5, min_sharpe: float = 1.0) -> List[Dict[str, Any]]:
-        return self.db.load_top_performing_exemplars(limit=limit, min_sharpe=min_sharpe)
-
     def load_archetype_performance_summary(self) -> Dict[str, Dict[str, float]]:
         return self.db.load_archetype_performance_summary()
 
