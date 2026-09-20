@@ -167,7 +167,7 @@ def test_stage0_telegram_notification():
         assert "Hourly Health" in text
         assert "87" in text
         assert "3" in text
-        assert "Orgs" in text
+        assert "5/5" in text
 
 
 def test_passed_alpha_telegram_notification():

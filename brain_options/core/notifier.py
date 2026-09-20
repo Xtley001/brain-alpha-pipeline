@@ -195,7 +195,7 @@ def send_telegram_drip_alert(
 def send_telegram_health_check(
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
-    org_count: int = 4,
+    org_count: int = 5,
 ) -> bool:
     """
     Hourly system heartbeat. Shows today's discovery funnel progress at a glance.
@@ -233,7 +233,7 @@ def send_telegram_health_check(
         f"Reserve \\(unsubmitted\\): `{_escape(str(reserve))}`",
         f"Corr\\-rejected today: `{_escape(str(today_corr))}`",
         "",
-        f"Orgs running: `{_escape(str(org_count))}/4` \\| Drip: active",
+        f"Orgs: `{_escape(str(org_count))}/5` · 4 discovery \\+ drip active",
     ]
     return _send("\n".join(lines), config)
 
