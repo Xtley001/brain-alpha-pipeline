@@ -164,12 +164,13 @@ class LLMAdapter:
 
     def generate(self, prompt: str, system_prompt: str, temperature: float = 0.7) -> Optional[str]:
         """Tries configured providers sequentially with stateful round-robin key rotation."""
-        # 1. Groq (active & verified working models)
+        # 1. Groq — verified active models (as of Sept 2026)
+        # Compound-beta DEPRECATED Sept 21 2026 — not used here.
         for key in self._rotate_keys("groq", self.config.groq_keys):
             for model in [
-                "openai/gpt-oss-120b",
-                "openai/gpt-oss-20b",
-                "qwen/qwen3.8-27b",
+                "llama-3.3-70b-versatile",
+                "deepseek-r1-distill-llama-70b",
+                "llama-3.1-8b-instant",
             ]:
                 res = self._call_openai_compatible(
                     base_url="https://api.groq.com/openai/v1",
@@ -182,9 +183,9 @@ class LLMAdapter:
                 if res:
                     return res
 
-        # 2. Cerebras
+        # 2. Cerebras — verified active models
         for key in self._rotate_keys("cerebras", self.config.cerebras_keys):
-            for model in ["llama-3.3-70b", "llama3.1-8b", "gpt-oss-120b"]:
+            for model in ["llama-3.3-70b", "llama3.1-70b", "llama3.1-8b"]:
                 res = self._call_openai_compatible(
                     base_url="https://api.cerebras.ai/v1",
                     api_key=key,

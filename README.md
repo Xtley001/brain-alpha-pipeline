@@ -1,150 +1,206 @@
----
-title: WorldQuant BRAIN Alpha Pipeline
-emoji: 🧠
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-app_port: 7860
-pinned: false
----
+# BRAIN Options Alpha Pipeline
 
-# `brain_options`: WorldQuant BRAIN Options Alpha Specialist Pipeline
-
-A standalone, hyper-specialized quantitative alpha discovery and simulation pipeline for **WorldQuant BRAIN**, focused exclusively on the **Options** category (Platform Value Score: **6.0**, 13x less crowded than Price/Volume).
+> Autonomous WorldQuant BRAIN options alpha discovery engine.
+> 5-org distributed cluster · 48 discovery runs/day · 3 daily submissions · Neon PostgreSQL · Telegram alerts.
 
 ---
 
-## 1. Why Options?
-
-| Metric | Price/Volume (`pv`) | Options (`option`) | Edge |
-| :--- | :---: | :---: | :--- |
-| **Brain Value Score** | `2.0` (Lowest tier) | **`6.0` (3x higher)** | Huge platform allocation multiplier |
-| **Platform Alphas** | `4,775,794` (Saturated) | **`353,031` (Uncrowded)** | 13x less platform correlation penalty |
-| **Available Fields** | `32` pure PV fields | **`138` institutional fields** | Smart money derivatives positioning |
-
-The Options category unlocks institutional derivatives pricing data—including put-call ratios, volatility skew steepness, call breakeven prices, and synthetic forward expectations—that pure technical price-volume formulas cannot capture.
-
----
-
-## 2. Quantitative Archetypes
-
-`brain_options` generates alpha expressions strictly across 5 proven derivatives-pricing phenomena:
-
-1. **Synthetic Forward Basis Spread (Market-Implied Stock Drift)**:
-   $$\text{group\_neutralize}(\text{rank}((\text{forward\_price\_30} - \text{close}) / \text{close}), \text{sector})$$
-   *Quant Logic:* Compares institutional synthetic forward expectations against spot prices.
-
-2. **Put-Call Volume & Open Interest Ratios (Smart Money Flow & Squeezes)**:
-   $$\text{group\_neutralize}(\text{rank}(-\text{ts\_zscore}(\text{pcr\_vol\_20}, 40)), \text{sector})$$
-   *Quant Logic:* Identifies capitulation / excessive put buying (bullish squeeze) vs euphoria / call speculation (bearish top).
-
-3. **Implied Volatility Skew Acceleration (Downside Tail Risk)**:
-   $$\text{group\_neutralize}(\text{rank}(-\text{ts\_delta}(\text{implied\_volatility\_mean\_skew\_30}, 5)), \text{subindustry})$$
-   *Quant Logic:* Sudden steepening of OTM put skew signals institutional crash-protection buying prior to breakdowns.
-
-4. **Call Breakeven Hurdle Rate Gating**:
-   $$\text{trade\_when}(\text{volume} > \text{adv20}, \text{group\_neutralize}(\text{rank}((\text{call\_breakeven\_30} - \text{close}) / \text{close}), \text{sector}), -1)$$
-   *Quant Logic:* Evaluates upside potential to reach option writers' breakeven hurdle price, confirmed by volume.
-
-5. **Volatility Term Structure & Variance Risk Premium (VRP)**:
-   $$\text{group\_neutralize}(\text{rank}(-(\text{implied\_volatility\_mean\_30} / (\text{implied\_volatility\_mean\_90} + 0.001) - 1.0)), \text{sector})$$
-   *Quant Logic:* Exploits mean-reverting shocks in front-month vs 3-month implied volatility.
-
----
-
-## 3. Architecture & Screening Funnel
+## Architecture — 5 Orgs, 2 Roles
 
 ```
-[Options Candidate: Templates & LLM Reasoning]
-                     │
-                     ▼
-┌──────────────────────────────────────────────┐
-│  STAGE 0: Fast Screen (1 Simulation)         │  Settings: Universe=TOP3000, Delay=1, Decay=8, Neut=SUBINDUSTRY
-│  Criteria: Sharpe ≥ 0.35, Fitness ≥ 0.20     │  Purpose: Weed out unviable noise quickly
-└──────────────────────┬───────────────────────┘
-                       │ (PASS)
-                       ▼
-┌──────────────────────────────────────────────┐
-│  STAGE 1: Neutralization × Decay Grid        │  Sweeps: 5 Neutralizations (SUBINDUSTRY, INDUSTRY, SECTOR,
-│  Optimization (25-30 Simulations)            │          MARKET, NONE) × 5 Decays (0, 4, 8, 15, 20)
-│  Criteria: Pick highest Fitness combo        │
-└──────────────────────┬───────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────┐
-│  LOCAL FILTER & CORRELATION GATES            │  Criteria: Sharpe ≥ 1.25, Fitness ≥ 1.00,
-│  Final Acceptance Bar                        │            Turnover 1% - 70%, Max Pool Correlation < 0.70
-└──────────────────────┬───────────────────────┘
-                       │ (PASS)
-                       ▼
-⭐ [PASSED ALPHA: Saved to store & Alerted via Telegram with full BRAIN parameters]
+┌─────────────────────────────────────────────────────────────────┐
+│                   BRAIN ALPHA CLUSTER                           │
+│                                                                 │
+│  ┌──────────────────────────────────────────┐                  │
+│  │         Xtley001/brain-alpha-pipeline    │  PRIMARY ORG     │
+│  │  drip.yml       → 3 submissions/day      │  (this repo)     │
+│  │  health.yml     → hourly Telegram ping   │                  │
+│  │  daily_digest.yml → EOD Telegram report  │                  │
+│  │  status.yml     → on-demand dispatch     │                  │
+│  └──────────────────────────────────────────┘                  │
+│                                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
+│  │  research-01  │  │  research-02  │  │  research-03  │        │
+│  │ breakeven     │  │ analyst_rev   │  │ short_interest│        │
+│  │ skew          │  │               │  │               │        │
+│  └──────────────┘  └──────────────┘  └──────────────┘         │
+│                                                                 │
+│  ┌──────────────────────────────────────────┐                  │
+│  │             research-04                  │                  │
+│  │  hybrid_confluence · term_structure      │                  │
+│  │  pcr_flow                                │                  │
+│  └──────────────────────────────────────────┘                  │
+│                                                                 │
+│  Shared: Neon PostgreSQL DB · Telegram Bot                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Org Roles
+
+| Org | Role | Specialization | Schedule |
+|---|---|---|---|
+| `Xtley001` | **Primary** — drip, health, digest | submit + monitor | On-demand / cron |
+| `xtley-alpha-research-01` | **Worker** | `breakeven`, `skew` | Every 2h even UTC |
+| `xtley-alpha-research-02` | **Worker** | `analyst_revisions` | Every 2h even +30m |
+| `xtley-alpha-research-03` | **Worker** | `short_interest` | Every 2h odd UTC |
+| `xtley-alpha-research-04` | **Worker** | `hybrid_confluence`, `term_structure`, `pcr_flow` | Every 2h odd +30m |
+
+**Zero slot collision:** Workers are staggered 30 minutes apart so only one org sims on BRAIN at a time (enforced also by `cluster_run_lock` in Neon).
+
+---
+
+## Workflows
+
+### Primary Org (Xtley001)
+
+| Workflow | Trigger | What It Does |
+|---|---|---|
+| [`drip.yml`](.github/workflows/drip.yml) | 3× daily (08:00, 14:00, 20:00 WAT) | Submits 1 qualified alpha from reserve to BRAIN, paced by 4h New York window |
+| [`health.yml`](.github/workflows/health.yml) | Hourly at `:00` | Sends Telegram heartbeat with today's funnel stats |
+| [`daily_digest.yml`](.github/workflows/daily_digest.yml) | Daily at 23:30 UTC | Sends full-day summary: simulated, qualified, submitted, reserve, correlated |
+| [`status.yml`](.github/workflows/status.yml) | **Manual dispatch** | On-demand cluster status report + DB stats in Actions logs |
+
+### Worker Orgs (research-01 to 04)
+
+| Workflow | Trigger | What It Does |
+|---|---|---|
+| [`run.yml`](.github/workflows/run.yml) | Staggered cron (every 2h) | Discovers new alpha candidates for assigned archetype channels |
+
+---
+
+## Telegram Notifications
+
+All notifications are minimalist, no links, no raw formulas, straight to the point.
+
+### 🟢 Hourly Health (every hour at :00)
+```
+🟢 Hourly Health · 18:00 UTC+1
+
+Simulated today: 142
+Qualified: 3/5  ●●●○○
+Submitted: 1/3  ●○○
+Reserve (unsubmitted): 2
+Corr-rejected today: 4
+
+Orgs: 5/5 · 4 discovery + drip active
+```
+
+### ✅ Alpha Qualified (real-time, when a worker finds a pass)
+```
+✅ Alpha Qualified
+
+xA3872wq
+
+Sharpe 1.47 · Fitness 1.16 · TO 3.8%
+Margin 38.2 bps · Corr 0.35 < 0.70 ✓
+Universe TOP3000 · Delay 1 · Decay 14
+```
+
+### 🚀 Alpha Submitted (real-time drip confirmation)
+```
+🚀 Submitted [1/3]
+
+Alpha gJbAP76e
+
+Sharpe 1.79 · Fitness 1.46
+Margin 40.6 bps · TO 4.1%
+```
+
+### 📊 Daily Digest (23:30 UTC every day)
+```
+📊 Daily Digest · Sat 20 Sept
+
+Simulated    : 486
+Stage0 pass  : 31
+Qualified    : 5
+Submitted    : 3
+Corr-rejected: 12
+Reserve      : 2
+
+All-time pool: 47
+All-time corr: 38
 ```
 
 ---
 
-## 4. 5-Channel Orthogonality Architecture (Target: 5 Qualified Alphas/Day)
+## Database — 7 Tables
 
-To guarantee that newly qualified alphas remain mutually non-correlated ($\text{Corr} < 0.70$), generation is structured across **5 independent information regimes**:
-
-```mermaid
-flowchart TD
-    subgraph "5 Daily Orthogonal Channels (Target: 1 Alpha Each)"
-        C1["Channel 1: Options Vol Surface<br><b>Archetypes:</b> skew, term_structure<br><b>Features:</b> IV 10d vs 60d slope, Put-Call skew<br><i>Expected Correlation: 0.15 - 0.30</i>"]
-        C2["Channel 2: Analyst Revisions & Forecasts<br><b>Archetypes:</b> analyst_revisions<br><b>Features:</b> Upward vs downward EPS revisions, price target drift<br><i>Expected Correlation: 0.10 - 0.25</i>"]
-        C3["Channel 3: Short Interest & Borrow Pressure<br><b>Archetypes:</b> short_interest<br><b>Features:</b> Short volume ratio, borrow fee acceleration, DTC<br><i>Expected Correlation: 0.05 - 0.20</i>"]
-        C4["Channel 4: Order Flow & Liquidity Asymmetry<br><b>Archetypes:</b> pcr_flow<br><b>Features:</b> PCR volume/OI delta, institutional block volume<br><i>Expected Correlation: 0.15 - 0.35</i>"]
-        C5["Channel 5: Cross-Domain Confluence<br><b>Archetypes:</b> hybrid_confluence, forward_basis<br><b>Features:</b> Forward basis discrepancy × borrow fee × skew<br><i>Expected Correlation: 0.10 - 0.30</i>"]
-    end
-
-    C1 --> Pool["options_alphas Pool<br>(Daily Qualified: 5 Alphas)"]
-    C2 --> Pool
-    C3 --> Pool
-    C4 --> Pool
-    C5 --> Pool
-
-    Pool --> Drip["Primary Submitter (Xtley001)<br>3 Timed Daily Submissions<br>(07:00, 11:30, 17:00 UTC+1)"]
-```
-
-### Core Execution Pillars
-1. **Dynamic Archetype Daily Caps (Hard Cap = 1/family/day):**
-   When an archetype produces 1 qualified alpha for the current calendar day, its MAB selection weight is automatically dropped to **`0.02`**, actively steering worker organizations into unfilled orthogonal channels.
-2. **Pre-Simulation In-Memory Deduplication (AST Distance):**
-   Formulas are parsed into canonical Python Abstract Syntax Trees (AST). Floating-point constants are normalized, integer lookbacks are bucketed into speed regimes, and structural duplicates are rejected in **`< 1 ms`**, saving $\sim 30\%$ of WorldQuant BRAIN simulation quota.
-3. **Multi-Speed Horizon Dispersal:**
-   - **Fast / High-Turnover (Holding: 1–3 Days):** `decay=3-5, delay=1, lookback=5-15`
-   - **Medium / Swing (Holding: 1–2 Weeks):** `decay=10, delay=1, lookback=20-30`
-   - **Slow / Structural (Holding: 1 Month+):** `decay=20, delay=1, lookback=60-252`
-4. **Pre-Qualification Correlation Gate:**
-   Every candidate meeting raw Sharpe $\ge 1.25$ and Fitness $\ge 1.00$ is screened in real time against historical pool PnL and live BRAIN `/correlations/self`. Alphas with $\ge 0.70$ correlation are routed to `options_correlated_alphas` to keep the qualified pool pristine.
+| Table | Purpose |
+|---|---|
+| `options_alphas` | Live alpha pool — `QUALIFIED` (ready to submit) or `SUBMITTED` |
+| `options_evaluations` | Immutable audit log of every simulation across all 5 orgs |
+| `options_learning_memory` | MAB RL brain — reward scores per expression, drives archetype weighting |
+| `options_rejected_alphas` | Alphas that failed BRAIN platform checklist gates (permanent ban) |
+| `options_correlated_alphas` | Alphas that failed self-correlation < 0.70 gate |
+| `cluster_session_cache` | Shared BRAIN session token (2h TTL) across all 5 orgs |
+| `cluster_run_lock` | Cluster mutex — ensures only 1 org sims at a time on BRAIN |
 
 ---
 
-## 5. Usage & Operations
+## LLM Providers (Generation)
 
-### Quick Test / Dry Run (No simulation quota spent)
+Alpha expression generation uses a 4-provider sequential fallback chain:
+
+| Priority | Provider | Models | Notes |
+|---|---|---|---|
+| 1 | **Groq** | `llama-3.3-70b-versatile`, `deepseek-r1-distill-llama-70b`, `llama-3.1-8b-instant` | Primary — fastest inference |
+| 2 | **Cerebras** | `llama-3.3-70b`, `llama3.1-70b`, `llama3.1-8b` | Secondary |
+| 3 | **OpenRouter** | `meta-llama/llama-3.3-70b-instruct:free`, `mistralai/mistral-7b-instruct:free` | Tertiary — free tier |
+| 4 | **Google Gemini** | `gemini-2.0-flash`, `gemini-1.5-flash`, `gemini-1.5-pro` | Final fallback |
+
+> **Note:** Groq `compound-beta` (deprecated Sept 21 2026) is **not used** in this pipeline.
+
+---
+
+## Daily Alpha Target
+
+**Goal: 5 non-correlated qualified alphas per day** (Sharpe ≥ 1.25, Fitness ≥ 1.00, Corr < 0.70)
+
+Each of the 4 archetype channels is expected to contribute ≥ 1 qualified alpha per day:
+
+| Channel | Target |
+|---|---|
+| Breakeven / Skew | 1–2 |
+| Analyst Revisions | 1 |
+| Short Interest | 1 |
+| Hybrid / Term Structure / PCR | 1–2 |
+
+---
+
+## Secrets Required
+
+```
+DATABASE_URL          — Neon PostgreSQL connection string
+TELEGRAM_BOT_TOKEN    — Telegram bot token
+TELEGRAM_CHAT_ID      — Your Telegram chat/channel ID
+GROQ_API_KEYS         — Comma-separated Groq API keys
+CEREBRAS_API_KEYS     — Comma-separated Cerebras API keys
+OPENROUTER_API_KEYS   — Comma-separated OpenRouter API keys
+GEMINI_API_KEYS       — Comma-separated Gemini API keys
+BRAIN_EMAIL           — WorldQuant BRAIN login email
+BRAIN_PASSWORD        — WorldQuant BRAIN login password
+ORG_SYNC_PAT          — GitHub PAT with repo scope (for cross-org pushes)
+```
+
+> All secrets must be set on **all 5 orgs**. Use `python scripts/org_manager.py --sync` to push code updates to all 4 worker orgs after any change to the primary.
+
+---
+
+## Operations
+
 ```bash
-python -m brain_options.run --dry-run --candidates 8
-```
-
-### Single Bounded Batch (Scheduled Worker Mode)
-Runs one bounded batch of candidates, screens, optimizes, runs AST deduplication, and records metrics:
-```bash
-python -m brain_options.run --single-batch --candidates 10
-```
-
-### Multi-Organization Synchronization
-Synchronize latest code, templates, and algorithms across all 4 satellite worker organizations:
-```bash
+# Sync all 5 orgs to latest main
 python scripts/org_manager.py --sync
+
+# Check status of all 5 orgs
+python scripts/org_manager.py --status
+
+# Manually trigger a health ping to Telegram
+python -m brain_options.run --health
+
+# Manually trigger a daily digest to Telegram
+python -m brain_options.run --daily-digest
+
+# Run tests
+python -m pytest tests/ -v
 ```
-
----
-
-## 6. Storage & Infrastructure
-
-- **Qualified Alphas:** `options_alphas` (PostgreSQL Neon DB & local CSV/JSON mirrors).
-- **Correlated Alphas Archive:** `options_correlated_alphas` (tracks near-misses with correlation $\ge 0.70$).
-- **Evaluations History:** `options_evaluations` (comprehensive telemetry for every simulated candidate).
-- **Cluster Locks:** Distributed Postgres mutex (`cluster_run_lock`) preventing worker overlap.
-- **Shared Session Cache:** Multi-org centralized BRAIN JWT cookie reuse.
-

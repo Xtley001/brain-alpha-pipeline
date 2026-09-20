@@ -1,0 +1,80 @@
+name: BRAIN Cluster Status
+
+on:
+  workflow_dispatch:
+    inputs:
+      verbose:
+        description: "Show extended org details"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+jobs:
+  status:
+    name: Cluster Status Report
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Show cluster org status
+        env:
+          GH_TOKEN: ${{ secrets.ORG_SYNC_PAT || secrets.GITHUB_TOKEN }}
+        run: python scripts/org_manager.py --status
+
+      - name: Show DB pipeline stats
+        run: |
+          python - <<'EOF'
+          import os, json
+          from brain_options.store.store import OptionsStore
+          from brain_options.config import OptionsConfig
+
+          store = OptionsStore()
+          stats = store.get_options_stats()
+
+          print("=" * 60)
+          print("  BRAIN PIPELINE — LIVE DB STATS")
+          print("=" * 60)
+          print(f"  All-time simulated  : {stats.get('all_time_evaluated', 0):,}")
+          print(f"  All-time Stage0 pass: {stats.get('all_time_stage0_pass', 0):,}")
+          print(f"  All-time pool alphas: {stats.get('all_time_pool_alphas', 0):,}")
+          print(f"  All-time correlated : {stats.get('all_time_correlated', 0):,}")
+          print("-" * 60)
+          print(f"  Today simulated     : {stats.get('today_evaluated', 0):,}")
+          print(f"  Today Stage0 pass   : {stats.get('today_stage0_pass', 0):,}")
+          print(f"  Today qualified     : {stats.get('today_qualified', 0):,}")
+          print(f"  Today submitted     : {stats.get('today_submitted', 0):,}")
+          print(f"  Today corr-rejected : {stats.get('today_correlated', 0):,}")
+          print("-" * 60)
+          print(f"  Reserve (QUALIFIED) : {stats.get('reserve_count', 0):,}")
+          print("=" * 60)
+
+          pool = store.get_unsubmitted_pool_alphas()
+          if pool:
+              print(f"\n  QUALIFIED RESERVE — {len(pool)} alpha(s) ready to submit:")
+              for a in pool:
+                  sharpe = float(a.get('sharpe') or 0)
+                  fitness = float(a.get('fitness') or 0)
+                  print(f"    [{a.get('alpha_id')}] Sharpe={sharpe:.2f} Fit={fitness:.2f} Arch={a.get('archetype','?')}")
+          else:
+              print("\n  QUALIFIED RESERVE: empty — workers generating new alphas.")
+          EOF
+
+      - name: Send status to Telegram
+        if: inputs.verbose == 'true'
+        run: python -m brain_options.run --health

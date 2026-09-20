@@ -2,8 +2,8 @@ name: BRAIN Hourly Health Check
 
 on:
   schedule:
-    # Every hour at :05 past to avoid colliding with the discovery cron
-    - cron: "5 * * * *"
+    # Every hour exactly on the :00 — on-time alerts, no delay
+    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 concurrency:
