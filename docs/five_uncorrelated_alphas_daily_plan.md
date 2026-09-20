@@ -11,6 +11,7 @@ Because WorldQuant BRAIN enforces a strict limit of **3 submissions per calendar
 ## 1. Capacity & Infrastructure Analysis: Do We Need More Orgs?
 
 ### Current Infrastructure
+
 - **4 Dedicated Research Organizations:**
   - `xtley-alpha-research-01`
   - `xtley-alpha-research-02`
@@ -22,6 +23,7 @@ Because WorldQuant BRAIN enforces a strict limit of **3 submissions per calendar
 - **Concurrency & Session Control:** PostgreSQL Neon DB cluster lock (`cluster_run_lock`) and shared token cache (`cluster_session_cache`).
 
 ### Mathematical Funnel Calculation
+
 - **Daily Runs:** 48 runs/day.
 - **Candidates per Run:** 8–10 candidates.
 - **Daily Simulation Capacity:** $48 \times 8 = \mathbf{384\text{ to }480\text{ simulations/day}}$.
@@ -29,7 +31,9 @@ Because WorldQuant BRAIN enforces a strict limit of **3 submissions per calendar
   $$\text{Required Efficiency} = \frac{5\text{ qualified alphas}}{400\text{ simulations}} = \mathbf{1.25\%}.$$
 
 ### Recommendation on Additional Orgs
+
 **No additional organizations are required.**
+
 - Adding a 5th or 6th organization would create diminishing returns and increase risk of WorldQuant BRAIN session throttling, since all worker orgs authenticate against the same underlying BRAIN researcher account.
 - 480 simulations per day is more than $3\times$ the capacity needed to generate 5 qualified alphas, provided candidate generation is **orthogonal by construction**.
 
@@ -61,38 +65,44 @@ flowchart TD
 ```
 
 ### Expected Pairwise Cross-Correlation Matrix
-| Channel | 1. Surface | 2. Analyst | 3. Short Int | 4. Order Flow | 5. Hybrid |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **1. Vol Surface** | 1.00 | 0.18 | 0.12 | 0.31 | 0.24 |
-| **2. Analyst Revisions** | 0.18 | 1.00 | 0.21 | 0.15 | 0.28 |
-| **3. Short Interest** | 0.12 | 0.21 | 1.00 | 0.19 | 0.17 |
-| **4. Order Flow** | 0.31 | 0.15 | 0.19 | 1.00 | 0.22 |
-| **5. Hybrid Confluence** | 0.24 | 0.28 | 0.17 | 0.22 | 1.00 |
 
-*All pairwise combinations fall well below the WorldQuant BRAIN 0.70 threshold.*
+| Channel                  | 1. Surface | 2. Analyst | 3. Short Int | 4. Order Flow | 5. Hybrid |
+| :----------------------- | :--------: | :--------: | :----------: | :-----------: | :-------: |
+| **1. Vol Surface**       |    1.00    |    0.18    |     0.12     |     0.31      |   0.24    |
+| **2. Analyst Revisions** |    0.18    |    1.00    |     0.21     |     0.15      |   0.28    |
+| **3. Short Interest**    |    0.12    |    0.21    |     1.00     |     0.19      |   0.17    |
+| **4. Order Flow**        |    0.31    |    0.15    |     0.19     |     1.00      |   0.22    |
+| **5. Hybrid Confluence** |    0.24    |    0.28    |     0.17     |     0.22      |   1.00    |
+
+_All pairwise combinations fall well below the WorldQuant BRAIN 0.70 threshold._
 
 ---
 
 ## 3. Four Operational Pillars for Execution
 
 ### Pillar 1: Dynamic Archetype Quotas (Hard Cap = 1 per Family per Day)
+
 - In `brain_options/specialist/generator.py`:
   - When an archetype achieves **1 qualified alpha in `options_alphas` for the current calendar day**, its probability weight is immediately dropped to **$0.02$**.
   - Worker organizations are automatically steered into unfilled channels.
 
 ### Pillar 2: Pre-Simulation In-Memory Deduplication (AST Distance)
+
 - Before consuming a simulation slot on the WorldQuant BRAIN API:
   1. **Canonical Variable Mapping:** Standardize variable names and strip cosmetic whitespace.
   2. **Operator Structure Hashing:** If a formula has the exact same abstract syntax tree (AST) as an existing candidate with only constant tweaks (e.g. `0.35` vs `0.38`), reject it immediately.
   3. Saves ~30% of simulation quota for novel expressions.
 
 ### Pillar 3: Multi-Speed Horizon Dispersal
+
 Even within the same dataset, signals can be made non-correlated by varying temporal parameters:
+
 - **Fast / High-Turnover (Holding: 1–3 Days):** `decay=3, delay=1, lookback=5, truncation=0.05`
 - **Medium / Swing (Holding: 1–2 Weeks):** `decay=10, delay=1, lookback=20, truncation=0.05`
 - **Slow / Structural (Holding: 1 Month+):** `decay=20, delay=1, lookback=60, truncation=0.03`
 
 ### Pillar 4: Real-Time Pre-Qualification Gate (Zero False Hopes)
+
 - As already implemented in `brain_options/run.py`:
   - Every candidate meeting raw Sharpe $\ge 1.25$ and Fitness $\ge 1.00$ must immediately pass:
     1. Historical pool correlation check ($< 0.70$).
@@ -102,18 +112,18 @@ Even within the same dataset, signals can be made non-correlated by varying temp
 
 ---
 
-## 4. Daily Operational Cadence (UTC+1 Schedule)
+## 4. Daily Operational Cadence (WAT / UTC+1 Schedule)
 
-| Time (UTC+1) | Actor | Action |
-| :--- | :--- | :--- |
-| **05:00** | System | WorldQuant BRAIN 24-hour New York day resets (00:00 EDT). Daily quota resets to 3 submissions. |
-| **05:00 – 06:30** | Orgs 1 & 2 | Discovery & screening across `analyst_revisions` and `short_interest`. |
-| **07:00** | Xtley001 (`drip.yml`) | **Submission Slot #1:** Submits highest CQS candidate from overnight pool. |
-| **07:30 – 11:00** | Orgs 3 & 4 | Discovery & screening across `skew,term_structure` and `pcr_flow`. |
-| **11:30** | Xtley001 (`drip.yml`) | **Submission Slot #2:** Submits 2nd candidate (pacing $\ge 4.0$ hours from Slot #1). |
-| **12:00 – 16:30** | All Orgs | Discovery across `hybrid_confluence` and second-tier channels. |
-| **17:00** | Xtley001 (`drip.yml`) | **Submission Slot #3:** Submits 3rd candidate (pacing $\ge 4.0$ hours from Slot #2). Max daily submissions (3/3) achieved. |
-| **17:30 – 04:59** | All Orgs | Continued discovery to fill tomorrow's 5-alpha qualified pool buffer. |
+| Time (UTC+1)      | Actor                 | Action                                                                                                                     |
+| :---------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------------- |
+| **05:00**         | System                | WorldQuant BRAIN 24-hour New York day resets (00:00 EDT). Daily quota resets to 3 submissions.                             |
+| **06:00**         | Xtley001 (`drip.yml`) | **Submission Window #1:** Submits highest CQS qualified alpha from reserve pool.                                           |
+| **10:00**         | Xtley001 (`drip.yml`) | **Submission Window #2:** Submits 2nd alpha (paced exactly 4 hours from Window #1).                                        |
+| **14:00**         | Xtley001 (`drip.yml`) | **Submission Window #3:** Submits 3rd alpha (paced 4 hours from Window #2). Max daily submissions (3/3) achieved.          |
+| **18:00 & 22:00** | Xtley001 (`drip.yml`) | **Fallback Submission Windows:** Submits if earlier slots were waiting for fresh reserve alphas.                           |
+| **Hourly (:00)**  | Xtley001 (`health.yml`)| **Hourly Health Ping:** Telegram alert showing simulated count, qualified/5, submitted/3, and reserve count.               |
+| **00:00**         | Xtley001 (`daily_digest.yml`)| **Daily Report:** Full EOD Telegram summary: simulated, stage 0, qualified, submitted, ready reserve, and all-time totals. |
+| **24/7 (:00/:30)**| Orgs 1–4 (`run.yml`)  | **Automated Staggered Discovery:** 48 runs/day (1 every 30 min) across 5 orthogonal channels, zero slot collisions.         |
 
 ---
 
@@ -125,6 +135,8 @@ Even within the same dataset, signals can be made non-correlated by varying temp
 - [x] Pre-qualification correlation gate active and logging to `options_correlated_alphas`.
 - [x] Drip submitter updated to prevent false rejections of active submissions.
 - [x] Implement Hard Archetype Daily Cap in `generator.py` (Max 1 qualified alpha/archetype/day).
-- [x] Add 15 seed deterministic templates for `analyst_revisions` and `short_interest`.
-- [x] Deploy AST pre-simulation deduplicator.
-
+- [x] Add seed deterministic templates for all orthogonal channels (`analyst_revisions`, `short_interest`, `hybrid_confluence`, etc.).
+- [x] Deploy AST pre-simulation deduplicator (`dedup.py`).
+- [x] Dual correlation gate hardening: checks candidate against both `SUBMITTED` + `QUALIFIED` reserve pool.
+- [x] On-the-dot cron schedules deployed across all 5 orgs (:00 hourly health, :00 daily digest, 4h paced drip).
+- [x] On-demand cluster status report and DB stats via `status.yml` workflow dispatch.
