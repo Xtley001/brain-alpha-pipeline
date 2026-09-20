@@ -10,6 +10,7 @@ import json
 import logging
 import os
 import sys
+import threading
 import time
 
 from brain_options.config import OptionsConfig
@@ -21,6 +22,7 @@ from brain_options.core.notifier import (
     send_telegram_alert,
     send_telegram_batch_summary,
     send_telegram_daily_digest,
+    send_telegram_emergency_alert,
     send_telegram_health_check,
     send_telegram_startup,
 )
@@ -45,6 +47,45 @@ log = logging.getLogger("brain_options")
 
 
 from brain_options.core.optimizer import DiagnosticAlphaOptimizer
+
+
+class ClusterLockHeartbeat:
+    """
+    Background daemon thread that touches the cluster lock every 60 seconds
+    to guarantee in-flight workers (> 15 minutes) are never evicted as stale.
+    """
+
+    def __init__(self, db: Any, worker_id: str, interval_seconds: int = 60):
+        self.db = db
+        self.worker_id = worker_id
+        self.interval = interval_seconds
+        self._stop_event = threading.Event()
+        self._thread: Optional[threading.Thread] = None
+
+    def start(self):
+        if not self.db or not getattr(self.db, "database_url", None):
+            return
+        self._thread = threading.Thread(
+            target=self._run,
+            daemon=True,
+            name=f"heartbeat-{self.worker_id}",
+        )
+        self._thread.start()
+        log.info("Started cluster lock heartbeat daemon for %s (interval: %ds).", self.worker_id, self.interval)
+
+    def _run(self):
+        while not self._stop_event.wait(self.interval):
+            try:
+                if self.db:
+                    self.db.touch_cluster_lock(self.worker_id)
+            except Exception as e:
+                log.debug("Heartbeat touch exception: %s", e)
+
+    def stop(self):
+        self._stop_event.set()
+        if self._thread and self._thread.is_alive():
+            self._thread.join(timeout=2.0)
+            log.info("Stopped cluster lock heartbeat daemon for %s.", self.worker_id)
 
 
 async def run_candidate(
@@ -192,7 +233,7 @@ async def run_candidate(
     if best_metrics.alpha_id:
         try:
             sess = client._get_session()
-            chk_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}", max_tries=2)
+            chk_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}", max_tries=3)
             if chk_resp and chk_resp.status_code == 200:
                 is_block = chk_resp.json().get("is") or {}
                 checks = is_block.get("checks") or []
@@ -203,8 +244,12 @@ async def run_candidate(
                     store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
                     store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
                     return False
+            else:
+                log.warning("[-] Could not verify checklist from BRAIN for alpha %s (status %s). Rejecting as unverified.", best_metrics.alpha_id, chk_resp.status_code if chk_resp else "None")
+                return False
         except Exception as gate_err:
-            log.debug("Platform gate verification skipped: %s", gate_err)
+            log.warning("[-] Platform gate verification error for %s: %s. Rejecting as unverified.", best_metrics.alpha_id, gate_err)
+            return False
 
     # 4. Verified Uncorrelated Alpha Accepted & Saved to Clean Qualified Table
     log.info(
@@ -562,6 +607,11 @@ def main():
             )
             return
 
+    heartbeat_runner = None
+    if lock_acquired and db:
+        heartbeat_runner = ClusterLockHeartbeat(db, worker_id, interval_seconds=60)
+        heartbeat_runner.start()
+
     try:
         if args.retry_stage0:
             log.info("Starting Stage 0 re-optimization pipeline (Limit: %d)...", args.limit)
@@ -583,7 +633,20 @@ def main():
                 time.sleep(300)
         else:
             asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=args.archetype or None))
+    except Exception as exc:
+        log.error("Fatal pipeline crash in main: %s", exc, exc_info=True)
+        try:
+            send_telegram_emergency_alert(
+                error_summary=str(exc),
+                config=config,
+                context=f"{org_name} worker ({args.archetype or 'general'})",
+            )
+        except Exception as alert_err:
+            log.warning("Could not send emergency Telegram alert: %s", alert_err)
+        raise
     finally:
+        if heartbeat_runner:
+            heartbeat_runner.stop()
         if lock_acquired and db:
             db.release_cluster_lock(worker_id)
 

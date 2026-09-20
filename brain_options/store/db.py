@@ -306,6 +306,13 @@ class OptionsDatabase:
                         max_size=10,
                         open=True,
                         timeout=15.0,
+                        kwargs={
+                            "connect_timeout": 15,
+                            "keepalives": 1,
+                            "keepalives_idle": 30,
+                            "keepalives_interval": 10,
+                            "keepalives_count": 5,
+                        },
                     )
                     log.info("PostgreSQL connection pool initialized (min=1, max=10).")
                 except Exception as pool_err:
@@ -327,7 +334,14 @@ class OptionsDatabase:
             url = self.database_url
             if url.startswith("postgres://"):
                 url = url.replace("postgres://", "postgresql://", 1)
-            conn = psycopg.connect(url)
+            conn = psycopg.connect(
+                url,
+                connect_timeout=15,
+                keepalives=1,
+                keepalives_idle=30,
+                keepalives_interval=10,
+                keepalives_count=5,
+            )
             try:
                 yield conn
             finally:
@@ -1211,7 +1225,7 @@ class OptionsDatabase:
         simulation limit across the entire cluster.
         Stale locks (heartbeat > 15 minutes old) are cleaned up before attempting.
         Returns True if lock acquired, False if another worker is already running.
-        On DB error, returns True (fail open) to avoid blocking all orgs on a DB outage.
+        On DB error, returns False (fail closed) to prevent multi-worker collisions.
         """
         if not self.database_url:
             return True
@@ -1241,8 +1255,28 @@ class OptionsDatabase:
                     log.warning("Cluster run lock busy. Another worker is currently simulating on BRAIN.")
                 return acquired
         except Exception as e:
-            log.warning("Failed to acquire cluster run lock: %s", e)
-            return True  # Fail open
+            log.warning("Failed to acquire cluster run lock (failing closed): %s", e)
+            return False  # Fail closed: never simulate without a verified lock
+
+    def touch_cluster_lock(self, worker_id: str) -> bool:
+        """
+        Updates the in-flight heartbeat timestamp for this worker to prevent
+        stale lock eviction during long-running discovery batches (> 15 minutes).
+        Returns True if heartbeat was refreshed, False otherwise.
+        """
+        if not self.database_url:
+            return True
+        sql = "UPDATE cluster_run_lock SET heartbeat = CURRENT_TIMESTAMP WHERE worker_id = %s RETURNING worker_id;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (worker_id,))
+                    res = cur.fetchone()
+                conn.commit()
+            return res is not None
+        except Exception as e:
+            log.debug("Failed to touch cluster run lock heartbeat: %s", e)
+            return False
 
     def release_cluster_lock(self, worker_id: str):
         """Releases the cluster run mutex immediately after batch completion."""

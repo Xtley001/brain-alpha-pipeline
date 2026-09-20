@@ -56,8 +56,8 @@ def evaluate_alpha_metrics(
             return False, f"Sharpe {metrics.sharpe:.2f} < 1.96 * SE({se:.2f}) - statistically noisy edge"
 
     # Leland transaction drag check: very high turnover with minimal margin
-    if metrics.turnover > 0.50 and metrics.margin < 0.0005 and metrics.annualized_return < 0.03:
-        return False, f"Leland drag: turnover {metrics.turnover*100:.1f}% erodes thin margin ({metrics.margin:.4f})"
+    if metrics.margin < 0.0010 and metrics.turnover > 0.40:
+        return False, f"Leland drag: turnover {metrics.turnover*100:.1f}% erodes thin margin ({metrics.margin:.4f} < 0.0010)"
 
     # Direct BRAIN checklist sanity gates (if checks are available in raw simulation response)
     if isinstance(metrics.raw_response, dict):
@@ -73,7 +73,6 @@ def evaluate_alpha_metrics(
                     return False, f"Sub-universe Sharpe FAIL ({val} < {lim})"
                 if chk_name == "CONCENTRATED_WEIGHT":
                     return False, "Concentrated weight FAIL"
-                if chk_name not in ("LOW_SHARPE", "LOW_FITNESS", "HIGH_TURNOVER", "LOW_TURNOVER"):
-                    return False, f"Checklist FAIL: {chk_name}"
+                return False, f"Checklist FAIL: {chk_name}"
 
     return True, "PASSED_ALL_GATES"

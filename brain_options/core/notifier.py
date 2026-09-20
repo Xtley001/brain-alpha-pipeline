@@ -65,6 +65,7 @@ def _send(text: str, config: OptionsConfig) -> bool:
             return True
         # Fallback: strip parse_mode and retry with plain text
         payload.pop("parse_mode", None)
+        payload["text"] = re.sub(r"\\([_*\[\]()~`>#+\-=|{}.!])", r"\1", text)
         resp2 = requests.post(url, json=payload, timeout=10)
         if resp2.status_code == 200:
             log.info("Telegram message sent (plain text fallback).")
@@ -295,3 +296,57 @@ def send_telegram_daily_digest(
         f"Pool: `{_escape(str(all_pool))}` · Ready: `{_escape(str(reserve))}` · Corr\\-archive: `{_escape(str(all_corr))}`",
     ]
     return _send("\n".join(lines), config)
+
+
+def send_telegram_emergency_alert(
+    error_summary: str,
+    config: OptionsConfig,
+    context: str = "Worker Failure",
+) -> bool:
+    """
+    Sends an immediate high-priority alert when an unhandled exception or worker crash occurs.
+    Guarantees operator observability even when runners fail mid-batch.
+    """
+    if not config.telegram_bot_token or not config.telegram_chat_id:
+        return False
+
+    ts = _now_wat().strftime("%H:%M")
+    clean_err = str(error_summary).strip()
+    if len(clean_err) > 300:
+        clean_err = clean_err[:297] + "..."
+
+    lines = [
+        f"🚨 *PIPELINE CRITICAL ALERT* · {_escape(ts)} WAT",
+        "",
+        f"*Context:* `{_escape(context)}`",
+        f"*Error:* `{_escape(clean_err)}`",
+        "",
+        "Worker process crashed. Immediate investigation recommended.",
+    ]
+    return _send("\n".join(lines), config)
+
+
+def send_telegram_drip_failure_alert(
+    alpha_id: str,
+    reason: str,
+    config: OptionsConfig,
+) -> bool:
+    """
+    Sends an alert when a scheduled alpha drip submission fails or is rejected by BRAIN.
+    """
+    if not config.telegram_bot_token or not config.telegram_chat_id:
+        return False
+
+    ts = _now_wat().strftime("%H:%M")
+    clean_reason = str(reason).strip()
+    if len(clean_reason) > 200:
+        clean_reason = clean_reason[:197] + "..."
+
+    lines = [
+        f"⚠️ *Submission Failed* · {_escape(ts)} WAT",
+        "",
+        f"Alpha: `{_escape(alpha_id)}`",
+        f"Reason: `{_escape(clean_reason)}`",
+    ]
+    return _send("\n".join(lines), config)
+

@@ -347,7 +347,11 @@ async def test_run_candidate_qualifies_when_uncorrelated():
 
     client = BrainClient("test", "test")
     mock_session = MagicMock()
-    mock_session.retry = AsyncMock(return_value=None)
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.text = "{}"
+    mock_resp.json = MagicMock(return_value={"is": {"checks": [{"name": "CONCENTRATED_WEIGHT", "result": "PASS"}]}})
+    mock_session.retry = AsyncMock(return_value=mock_resp)
     client._session = mock_session
 
     mock_sweep = MagicMock(spec=SweepEngine)
@@ -384,6 +388,112 @@ async def test_run_candidate_qualifies_when_uncorrelated():
         passed = await run_candidate(cand, mock_sweep, client, mock_store, config)
         assert passed is True
         assert mock_store.save_passed_alpha.called
+
+
+@pytest.mark.asyncio
+async def test_run_candidate_rejects_unverified_checklist():
+    """Verify that run_candidate fails closed (rejects) if BRAIN checklist verification fails."""
+    from brain_options.run import run_candidate
+    from brain_options.core.sweep import SweepEngine
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        filter_min_sharpe=1.25,
+        filter_min_fitness=1.00,
+        filter_max_turnover=0.70,
+        filter_min_turnover=0.01,
+        max_pool_correlation=0.70,
+    )
+
+    client = BrainClient("test", "test")
+    mock_session = MagicMock()
+    # Simulate network error / unverified endpoint
+    mock_session.retry = AsyncMock(return_value=None)
+    client._session = mock_session
+
+    mock_sweep = MagicMock(spec=SweepEngine)
+    mock_store = MagicMock(spec=OptionsStore)
+    mock_store.db = None
+
+    cand = OptionCandidate("group_neutralize(rank(X), subindustry)", "TestArch", "Hyp", "unit_test")
+    passing_metrics = SimMetrics(
+        alpha_id="ALPHA_UNVERIFIED_TEST",
+        sharpe=1.60,
+        fitness=1.20,
+        turnover=0.15,
+        margin=0.002,
+        status="COMPLETE",
+        raw_response={},
+    )
+    s0_settings = SimSettings()
+    mock_sweep.stage0_screen = AsyncMock(return_value=(True, s0_settings, passing_metrics))
+
+    with pytest.MonkeyPatch.context() as mp:
+        mock_opt = MagicMock()
+        mock_opt.optimize = AsyncMock(return_value=(cand, s0_settings, passing_metrics, True, []))
+        mp.setattr("brain_options.run.DiagnosticAlphaOptimizer", lambda c, s, cfg: mock_opt)
+
+        dates = [f"2025-01-{i:02d}" for i in range(1, 35)]
+        series_a = {d: float(i % 2) for i, d in enumerate(dates)}
+        series_b = {d: float((i // 2) % 2) for i, d in enumerate(dates)}
+
+        client.get_alpha_pnl = AsyncMock(return_value=series_a)
+        mock_store.load_pool_pnl_series = MagicMock(return_value=[series_b])
+
+        passed = await run_candidate(cand, mock_sweep, client, mock_store, config)
+        assert passed is False
+        assert not mock_store.save_passed_alpha.called
+
+
+def test_cluster_lock_fails_closed_on_db_error():
+    """Verify that acquire_cluster_lock fails closed (returns False) when database raises exception."""
+    from brain_options.store.db import OptionsDatabase
+
+    db = OptionsDatabase(None)
+    db.database_url = "postgresql://mock_db"
+    # Patch _get_connection to raise an exception simulating network outage
+    with pytest.MonkeyPatch.context() as mp:
+        def raise_err():
+            raise RuntimeError("Neon connection timeout")
+        mp.setattr(db, "_get_connection", raise_err)
+
+        locked = db.acquire_cluster_lock("TestOrg", "worker-123")
+        assert locked is False, "Cluster lock must fail closed on DB connection error"
+
+
+def test_cluster_lock_heartbeat_lifecycle():
+    """Verify that ClusterLockHeartbeat daemon starts, touches DB, and stops cleanly."""
+    import time
+    from brain_options.run import ClusterLockHeartbeat
+
+    mock_db = MagicMock()
+    mock_db.database_url = "postgresql://test"
+    mock_db.touch_cluster_lock = MagicMock(return_value=True)
+
+    heartbeat = ClusterLockHeartbeat(mock_db, "worker-test", interval_seconds=1)
+    heartbeat.start()
+    assert heartbeat._thread is not None and heartbeat._thread.is_alive()
+    time.sleep(1.2)
+    assert mock_db.touch_cluster_lock.called
+    heartbeat.stop()
+    assert not heartbeat._thread.is_alive()
+
+
+def test_dedup_commutative_binops():
+    """Verify that commutative operators like (a + b) and (b + a) produce identical fingerprints."""
+    from brain_options.specialist.dedup import ASTDeduplicator
+
+    dedup = ASTDeduplicator()
+    expr1 = "close + open"
+    expr2 = "open + close"
+    fp1 = dedup.get_fingerprint(expr1)
+    fp2 = dedup.get_fingerprint(expr2)
+    assert fp1 == fp2, f"Commutative addition should produce identical fingerprint: {fp1} != {fp2}"
+
+    dedup.add(expr1)
+    assert dedup.is_duplicate(expr2)
+
 
 
 

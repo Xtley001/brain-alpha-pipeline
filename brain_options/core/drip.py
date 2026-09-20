@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient
-from brain_options.core.notifier import send_telegram_drip_alert
+from brain_options.core.notifier import send_telegram_drip_alert, send_telegram_drip_failure_alert
 from brain_options.store.store import OptionsStore
 
 log = logging.getLogger("brain_options.drip")
@@ -155,18 +155,23 @@ class DripSubmitter:
                 corr_url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/correlations/self"
                 try:
                     c_resp = await sess.retry("GET", corr_url, max_tries=1)
-                    if c_resp and c_resp.status_code == 200 and not c_resp.text.strip():
-                        # BRAIN calculates self-correlation lazily; retry once after brief delay
-                        await asyncio.sleep(1.0)
-                        c_resp = await sess.retry("GET", corr_url, max_tries=1)
+                    # BRAIN calculates self-correlation lazily; retry with exponential backoff if empty
+                    backoff = 1.0
+                    for _ in range(3):
+                        if c_resp and c_resp.status_code == 200 and not c_resp.text.strip():
+                            await asyncio.sleep(backoff)
+                            backoff *= 2.0
+                            c_resp = await sess.retry("GET", corr_url, max_tries=1)
+                        else:
+                            break
 
                     if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
                         c_data = json.loads(c_resp.text)
                         for r in c_data.get("records") or []:
-                            if len(r) > 5 and isinstance(r[5], (int, float)) and r[5] >= 0.70:
-                                failed.append(f"HIGH_SELF_CORRELATION ({r[5]:.2f} >= 0.70 vs {r[0]})")
+                            if len(r) > 5 and isinstance(r[5], (int, float)) and abs(float(r[5])) >= 0.70:
+                                failed.append(f"HIGH_SELF_CORRELATION (|{float(r[5]):.2f}| >= 0.70 vs {r[0]})")
                                 if hasattr(self.store, "mark_alpha_correlated"):
-                                    self.store.mark_alpha_correlated(alpha_id, f"High self-correlation {r[5]:.2f} vs {r[0]}")
+                                    self.store.mark_alpha_correlated(alpha_id, f"High self-correlation {float(r[5]):.2f} vs {r[0]}")
                                 break
                 except Exception as e:
                     log.debug("Self correlation check skipped for %s: %s", alpha_id, e)
@@ -327,8 +332,10 @@ class DripSubmitter:
                     return True, alpha_id, f"Submitted {alpha_id} (Slot {slot_num}/{max_daily}) for {today_ny} EDT"
                 else:
                     log.warning("[DRIP QUEUE] Alpha %s failed post-submission validation (stage=%s, status=%s). Moving to options_rejected_alphas.", alpha_id, v_stage, v_status)
+                    rej_msg = f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})"
                     if hasattr(self.store, "archive_rejected_alpha"):
-                        self.store.archive_rejected_alpha(alpha_id, f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})", cand)
+                        self.store.archive_rejected_alpha(alpha_id, rej_msg, cand)
+                    send_telegram_drip_failure_alert(alpha_id, rej_msg, self.config)
                     continue
             else:
                 data = res.get("data") or {}
@@ -351,6 +358,7 @@ class DripSubmitter:
                     self.store.archive_rejected_alpha(alpha_id, rejection_str, cand)
                 if hasattr(self.store, "db") and self.store.db and cand.get("expression"):
                     self.store.db.penalize_learning_memory(cand.get("expression"), penalty=-15.0, reason=rejection_str)
+                send_telegram_drip_failure_alert(alpha_id, rejection_str, self.config)
 
             # Brief pause to respect BRAIN platform request pacing
             await asyncio.sleep(0.5)

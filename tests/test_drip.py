@@ -402,3 +402,38 @@ async def test_drip_populates_name_and_description_on_submission(config, mock_cl
         assert "options" in call_kwargs["tags"]
         assert call_kwargs["category"] == "PRICE_VOLUME"
         mock_client.submit_alpha.assert_called_once_with("ALPHA_NEW_99")
+
+
+@pytest.mark.asyncio
+async def test_drip_rejects_negative_self_correlation(config, mock_client, mock_store):
+    """Verify that verify_alpha_checks rejects negative self-correlation (-0.85 <= -0.70)."""
+    import json
+    mock_sess = MagicMock()
+
+    async def mock_retry(method, url, **kwargs):
+        r = MagicMock()
+        r.status_code = 200
+        if "/alphas/ALPHA_NEG_CORR" in url and "/correlations/self" not in url:
+            r.json.return_value = {
+                "id": "ALPHA_NEG_CORR",
+                "status": "UNSUBMITTED",
+                "stage": "IS",
+                "is": {"checks": []},
+            }
+        elif "/correlations/self" in url:
+            r.text = json.dumps({
+                "records": [
+                    ["EXISTING_ALPHA", "desc", 1.5, 1.0, 0.2, -0.85]
+                ]
+            })
+        return r
+
+    mock_sess.retry = AsyncMock(side_effect=mock_retry)
+    mock_client._get_session.return_value = mock_sess
+
+    drip = DripSubmitter(mock_client, mock_store, config)
+    passed, failed_checks, data = await drip.verify_alpha_checks("ALPHA_NEG_CORR")
+
+    assert passed is False
+    assert any("HIGH_SELF_CORRELATION" in f for f in failed_checks)
+

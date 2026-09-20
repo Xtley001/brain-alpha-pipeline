@@ -52,6 +52,16 @@ class _ASTConstantNormalizer(ast.NodeTransformer):
         node.attr = node.attr.lower()
         return self.generic_visit(node)
 
+    def visit_BinOp(self, node: ast.BinOp):
+        """Sort commutative binary operands alphabetically so (a + b) == (b + a)."""
+        self.generic_visit(node)
+        if isinstance(node.op, (ast.Add, ast.Mult)):
+            left_repr = ast.dump(node.left)
+            right_repr = ast.dump(node.right)
+            if left_repr > right_repr:
+                node.left, node.right = node.right, node.left
+        return node
+
 
 class ASTDeduplicator:
     """
@@ -70,12 +80,23 @@ class ASTDeduplicator:
         """Strips cosmetic whitespace, semicolons, and converts BRAIN ternary syntax."""
         cleaned = expression.strip().rstrip(";")
         # Convert ternary syntax (cond ? a : b) to if_else(cond, a, b) for standard AST parsing
-        if "?" in cleaned and ":" in cleaned:
-            cleaned = re.sub(
-                r"([^\?]+)\?([^\:]+)\:([^\;,\)]+)",
-                r"if_else(\1, \2, \3)",
-                cleaned,
-            )
+        for _ in range(5):
+            if "?" in cleaned and ":" in cleaned:
+                prev = cleaned
+                cleaned = re.sub(
+                    r"([^?(),]+)\?([^?():,]+)\:([^?(),;]+)",
+                    r"if_else(\1, \2, \3)",
+                    cleaned,
+                )
+                if cleaned == prev:
+                    cleaned = re.sub(
+                        r"([^\?]+)\?([^\:]+)\:([^\;,\)]+)",
+                        r"if_else(\1, \2, \3)",
+                        cleaned,
+                    )
+                    break
+            else:
+                break
         return cleaned
 
     def get_fingerprint(self, expression: str) -> str:
