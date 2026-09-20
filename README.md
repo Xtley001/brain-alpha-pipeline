@@ -57,7 +57,7 @@
 |---|---|---|
 | [`drip.yml`](.github/workflows/drip.yml) | 3× daily (08:00, 14:00, 20:00 WAT) | Submits 1 qualified alpha from reserve to BRAIN, paced by 4h New York window |
 | [`health.yml`](.github/workflows/health.yml) | Hourly at `:00` | Sends Telegram heartbeat with today's funnel stats |
-| [`daily_digest.yml`](.github/workflows/daily_digest.yml) | Daily at 23:30 UTC | Sends full-day summary: simulated, qualified, submitted, reserve, correlated |
+| [`daily_digest.yml`](.github/workflows/daily_digest.yml) | Daily at 23:00 UTC (midnight WAT) | Sends full-day summary: simulated, qualified, submitted, reserve, correlated |
 | [`status.yml`](.github/workflows/status.yml) | **Manual dispatch** | On-demand cluster status report + DB stats in Actions logs |
 
 ### Worker Orgs (research-01 to 04)
@@ -72,53 +72,56 @@
 
 All notifications are minimalist, no links, no raw formulas, straight to the point.
 
-### 🟢 Hourly Health (every hour at :00)
+### 🟢 Hourly Health (hourly at :00)
 ```
 🟢 Hourly Health · 18:00 UTC+1
 
 Simulated today: 142
-Qualified: 3/5  ●●●○○
-Submitted: 1/3  ●○○
+Qualified: 3/5 ●●●○○
+Submitted: 1/3 ●○○
 Reserve (unsubmitted): 2
 Corr-rejected today: 4
 
 Orgs: 5/5 · 4 discovery + drip active
 ```
 
-### ✅ Alpha Qualified (real-time, when a worker finds a pass)
+### ✅ Alpha Qualified (real-time, when a worker passes all gates)
 ```
-✅ Alpha Qualified
+✅ Qualified · 17:45 UTC+1
 
 xA3872wq
 
-Sharpe 1.47 · Fitness 1.16 · TO 3.8%
-Margin 38.2 bps · Corr 0.35 < 0.70 ✓
-Universe TOP3000 · Delay 1 · Decay 14
+Sharpe 1.47 · Fitness 1.16 · TO 3.8% · Margin 38.2 bps
+Corr 0.35 < 0.70 ✓ · TOP3000 · Delay 1 · Decay 14
 ```
 
-### 🚀 Alpha Submitted (real-time drip confirmation)
+### 📬 Alpha Submitted (real-time drip confirmation)
 ```
-🚀 Submitted [1/3]
+📬 Submitted · Slot 1/3 · 08:00 UTC+1
 
-Alpha gJbAP76e
+xA3872wq
 
-Sharpe 1.79 · Fitness 1.46
-Margin 40.6 bps · TO 4.1%
+Sharpe 1.47 · Fitness 1.16 · TO 3.8% · Margin 38.2 bps
+
+Next slot opens at 12:00 UTC+1
 ```
 
-### 📊 Daily Digest (23:30 UTC every day)
+### 📊 Daily Report (23:00 UTC / midnight WAT every day)
 ```
-📊 Daily Digest · Sat 20 Sept
+📊 Daily Report · Sat 20 Sept
 
-Simulated    : 486
-Stage0 pass  : 31
-Qualified    : 5
-Submitted    : 3
+Discovery
+Simulated: 486 · Stage 0: 31 · Qualified: 5
 Corr-rejected: 12
-Reserve      : 2
 
-All-time pool: 47
-All-time corr: 38
+Submissions
+Submitted: 3/3 ●●●
+Ready (drip reserve): 2
+
+Daily goal: 5 qualified · 🎯 Target reached
+
+All-time
+Pool: 47 · Ready: 2 · Corr-archive: 38
 ```
 
 ---

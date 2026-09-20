@@ -512,6 +512,25 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to mark alpha %s as SUBMITTED: %s", alpha_id, e)
 
+    def get_submitted_alpha_ids(self) -> Set[str]:
+        """
+        Returns the set of alpha_ids currently in options_alphas with status='SUBMITTED'.
+        Used by load_pool_pnl_series() to build the exact active correlation reference
+        set = QUALIFIED (reserve) ∪ SUBMITTED (live on BRAIN). This prevents the
+        correlation gate from comparing a new candidate against stale archived alphas.
+        """
+        if not self.database_url:
+            return set()
+        sql = "SELECT alpha_id FROM options_alphas WHERE status = 'SUBMITTED' AND alpha_id IS NOT NULL;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql)
+                    return {row[0] for row in cur.fetchall() if row[0]}
+        except Exception as e:
+            log.warning("Failed to load submitted alpha IDs: %s", e)
+            return set()
+
     def mark_alpha_correlated(
         self,
         alpha_id: str,

@@ -281,17 +281,17 @@ def send_telegram_daily_digest(
     lines = [
         f"📊 *Daily Report* · {date_label}",
         "",
-        f"*Discovery funnel*",
-        f"Simulated: `{_escape(str(today_eval))}` → Stage 0: `{_escape(str(today_s0))}` → Qualified: `{_escape(str(today_q))}`",
+        f"*Discovery*",
+        f"Simulated: `{_escape(str(today_eval))}` · Stage 0: `{_escape(str(today_s0))}` · Qualified: `{_escape(str(today_q))}`",
         f"Corr\\-rejected: `{_escape(str(today_corr))}`",
         "",
         f"*Submissions*",
         f"{_escape(sub_status)}",
-        f"Reserve \\(unsubmitted pool\\): `{_escape(str(reserve))}`",
+        f"Ready \\(drip reserve\\): `{_escape(str(reserve))}`",
         "",
         f"*Daily goal: 5 qualified* · {_escape(goal_icon)} {_escape(goal_note)}",
         "",
         f"*All\\-time*",
-        f"Pool: `{_escape(str(all_pool))}` qualified · Correlated archive: `{_escape(str(all_corr))}`",
+        f"Pool: `{_escape(str(all_pool))}` · Ready: `{_escape(str(reserve))}` · Corr\\-archive: `{_escape(str(all_corr))}`",
     ]
     return _send("\n".join(lines), config)

@@ -174,11 +174,96 @@ class OptionsStore:
         log.info("Saved passed alpha %s to store.", metrics.alpha_id or candidate.expression[:40])
 
     def load_pool_pnl_series(self) -> List[Dict[str, float]]:
-        """Loads all cached daily return series of previously passed alphas."""
+        """
+        Loads daily return series ONLY for alphas currently in the live pool:
+          - status = QUALIFIED  (unsubmitted reserve)
+          - status = SUBMITTED  (already live on BRAIN)
+
+        This ensures the correlation gate checks against the true live portfolio,
+        not against alphas that were later archived as correlated or rejected.
+        Without this filter, a new alpha could be rejected for correlating with
+        a stale alpha that was already removed from the pool — wasting a slot.
+
+        Resolution order:
+        1. Fetch active alpha_ids from Neon DB (QUALIFIED + SUBMITTED).
+        2. Load only the matching pnl_series/<alpha_id>.json files.
+        3. If DB unavailable, fall back to passed_options_alphas.json filtering
+           by status=SUBMITTED or status=QUALIFIED (or no status field = legacy).
+        """
         series_list: list[dict[str, float]] = []
         if not os.path.exists(self.pnl_cache_dir):
             return series_list
 
+        # --- 1. Get active alpha IDs from DB ---
+        active_ids: set[str] = set()
+        if self.db and self.db.database_url:
+            try:
+                # Pull QUALIFIED (reserve) + SUBMITTED from options_alphas
+                pool_rows = self.db.get_unsubmitted_pool_alphas()  # returns QUALIFIED only
+                for row in pool_rows:
+                    aid = row.get("alpha_id")
+                    if aid:
+                        active_ids.add(aid)
+
+                # Also pull SUBMITTED alpha_ids directly
+                submitted_rows = self.db.get_submitted_alpha_ids()
+                active_ids.update(submitted_rows)
+
+                log.debug(
+                    "Correlation pool: %d active alpha IDs loaded from DB (%d QUALIFIED, %d SUBMITTED).",
+                    len(active_ids),
+                    len(pool_rows),
+                    len(submitted_rows),
+                )
+            except Exception as db_err:
+                log.debug("DB unavailable for correlation pool load, using CSV fallback: %s", db_err)
+                active_ids = set()
+
+        # --- 2. Load PnL files for active IDs only ---
+        if active_ids:
+            for alpha_id in active_ids:
+                path = os.path.join(self.pnl_cache_dir, f"{alpha_id}.json")
+                if os.path.exists(path):
+                    try:
+                        with open(path, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                            if isinstance(data, dict):
+                                series_list.append(data)
+                    except Exception as e:
+                        log.warning("Could not read pnl file %s.json: %s", alpha_id, e)
+            if series_list:
+                return series_list
+
+        # --- 3. CSV fallback: filter by status ---
+        # Only include SUBMITTED or QUALIFIED (or legacy rows with no status)
+        active_from_csv: set[str] = set()
+        if os.path.exists(self.passed_json):
+            try:
+                with open(self.passed_json, "r", encoding="utf-8") as f:
+                    records = json.load(f)
+                for rec in records:
+                    st = rec.get("status", "QUALIFIED")
+                    aid = rec.get("alpha_id", "")
+                    if aid and st in ("SUBMITTED", "QUALIFIED", ""):
+                        active_from_csv.add(aid)
+            except Exception:
+                pass
+
+        if active_from_csv:
+            for alpha_id in active_from_csv:
+                path = os.path.join(self.pnl_cache_dir, f"{alpha_id}.json")
+                if os.path.exists(path):
+                    try:
+                        with open(path, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                            if isinstance(data, dict):
+                                series_list.append(data)
+                    except Exception as e:
+                        log.warning("Could not read pnl file %s.json: %s", alpha_id, e)
+            return series_list
+
+        # Final fallback: load all files (cold start with no DB and no JSON)
+        log.debug("Correlation pool: cold start fallback — loading all PnL files.")
         for fname in os.listdir(self.pnl_cache_dir):
             if fname.endswith(".json"):
                 path = os.path.join(self.pnl_cache_dir, fname)
@@ -210,6 +295,10 @@ class OptionsStore:
 
     def get_options_stats(self) -> Dict[str, Any]:
         return self.db.get_options_stats()
+
+    def get_submitted_alpha_ids(self) -> set:
+        """Returns set of alpha_ids with status=SUBMITTED in options_alphas."""
+        return self.db.get_submitted_alpha_ids()
 
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
         if self.db and self.db.database_url:

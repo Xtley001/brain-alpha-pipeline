@@ -2,10 +2,9 @@ name: BRAIN Daily Alpha Drip Submitter
 
 on:
   schedule:
-    # 5 checks daily (UTC): 05:15, 10:15, 14:15, 18:15, 22:15
-    # Corresponds to ~01:15, 06:15, 10:15, 14:15, 18:15 EDT (06:15, 11:15, 15:15, 19:15, 23:15 UTC+1)
-    # Each run takes ~30-45 seconds, consuming < 3 minutes/day total!
-    - cron: "15 5,10,14,18,22 * * *"
+    # 5 checks daily (UTC) on the dot: 05:00, 09:00, 13:00, 17:00, 21:00
+    # Spaced exactly 4 hours apart to respect BRAIN's submission window
+    - cron: "0 5,9,13,17,21 * * *"
   workflow_dispatch: {}  # Allows manual 1-click trigger anytime
 
 concurrency:
