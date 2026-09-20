@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional
 
 log = logging.getLogger("brain_options.client")
@@ -48,15 +48,15 @@ class SimSettings:
 
 @dataclass(frozen=True)
 class SimMetrics:
-    alpha_id: Optional[str]
-    sharpe: float
-    fitness: float
-    turnover: float
-    annualized_return: float
-    max_drawdown: float
-    margin: float
-    status: str
-    raw_response: dict[str, Any]
+    alpha_id: Optional[str] = None
+    sharpe: float = 0.0
+    fitness: float = 0.0
+    turnover: float = 0.0
+    annualized_return: float = 0.0
+    max_drawdown: float = 0.0
+    margin: float = 0.0
+    status: str = "ERROR"
+    raw_response: dict[str, Any] = field(default_factory=dict)
 
     @property
     def is_valid(self) -> bool:

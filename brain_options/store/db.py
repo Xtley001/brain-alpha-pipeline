@@ -382,8 +382,7 @@ class OptionsDatabase:
         sql = """
             INSERT INTO options_evaluations
             (expression, archetype, source, stage, status, sharpe, fitness, turnover, returns, drawdown, alpha_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            ON CONFLICT (expression, stage) DO NOTHING;
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """
         try:
             with self._get_connection() as conn:
