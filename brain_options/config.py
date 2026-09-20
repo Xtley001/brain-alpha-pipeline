@@ -71,8 +71,8 @@ class OptionsConfig:
 
     @classmethod
     def from_env(cls) -> OptionsConfig:
-        username = _require("BRAIN_USERNAME")
-        password = _require("BRAIN_PASSWORD")
+        username = _optional("BRAIN_USERNAME", "")
+        password = _optional("BRAIN_PASSWORD", "")
         concurrent_sims = int(_optional("BRAIN_MAX_CONCURRENT_SIMS", "3") or "3")
 
         def _gather_keys(prefix: str) -> list[str]:
