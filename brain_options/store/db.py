@@ -239,8 +239,10 @@ CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype_status
 
 -- options_evaluations: dedup seed loads all expressions;
 -- MAB summary groups by archetype; stats filter by date
-CREATE UNIQUE INDEX IF NOT EXISTS idx_options_eval_expr_stage_unique
-    ON options_evaluations(expression, stage);
+-- NOTE: No unique index here — historical data has duplicate (expression, stage) pairs.
+-- Deduplication is handled in-memory by ASTDeduplicator on startup.
+CREATE INDEX IF NOT EXISTS idx_options_eval_expr
+    ON options_evaluations(expression);
 CREATE INDEX IF NOT EXISTS idx_options_eval_archetype
     ON options_evaluations(archetype);
 CREATE INDEX IF NOT EXISTS idx_options_eval_created_status
@@ -339,24 +341,29 @@ class OptionsDatabase:
                 pass
 
     def _init_schema(self):
-        """Creates all 7 tables and indexes, then runs idempotent migration patches."""
-        try:
-            with self._get_connection() as conn:
-                with conn.cursor() as cur:
-                    cur.execute(SCHEMA_SQL)
-                    # Apply migrations separately so individual statement failures don't
-                    # block the entire schema init
-                    for stmt in MIGRATION_SQL.strip().split(";"):
-                        stmt = stmt.strip()
-                        if stmt:
-                            try:
-                                cur.execute(stmt)
-                            except Exception as mig_err:
-                                log.debug("Migration statement skipped (likely already applied): %s", mig_err)
-                conn.commit()
-            log.info("Database schema initialized (7 tables, migrations applied).")
-        except Exception as e:
-            log.warning("Database schema initialization warning: %s", e)
+        """
+        Creates all 7 tables and indexes, then runs idempotent migration patches.
+        Each SQL statement is executed independently so a single failure (e.g. a
+        unique index that can't be created on existing data) never blocks the
+        critical migration statements that add new columns.
+        """
+        def _run_statements(sql_block: str, label: str):
+            """Split a SQL block on semicolons and execute each statement independently."""
+            for stmt in sql_block.split(";"):
+                stmt = stmt.strip()
+                if not stmt:
+                    continue
+                try:
+                    with self._get_connection() as conn:
+                        with conn.cursor() as cur:
+                            cur.execute(stmt)
+                        conn.commit()
+                except Exception as err:
+                    log.debug("%s statement skipped: %s | SQL: %s", label, err, stmt[:80])
+
+        _run_statements(SCHEMA_SQL, "SCHEMA")
+        _run_statements(MIGRATION_SQL, "MIGRATION")
+        log.info("Database schema initialized (7 tables, migrations applied).")
 
     # ------------------------------------------------------------------
     # options_evaluations — write path
@@ -1019,7 +1026,7 @@ class OptionsDatabase:
             SELECT
                 COUNT(*) as all_time_pool,
                 COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_pool,
-                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND submitted_at >= CURRENT_DATE) as today_submitted,
+                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND created_at >= CURRENT_DATE) as today_submitted,
                 COUNT(*) FILTER (WHERE status = 'QUALIFIED') as reserve_count
             FROM options_alphas;
         """
