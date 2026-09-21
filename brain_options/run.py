@@ -698,11 +698,19 @@ async def run_decorrelate_batch(
     from brain_options.specialist.decorrelator import DecorrelationEngine
 
     store = OptionsStore(database_url=config.database_url)
+    org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+
+    # If running on primary org, activate cluster blitz mode to pause background workers
+    if store.db and org_name == "Xtley001":
+        store.db.set_blitz_mode(True, hours=12)
+
     salvageable = store.get_salvageable_correlated_alphas(min_sharpe=1.25, min_fitness=1.00, limit=limit)
     log.info("Loaded %d high-performing correlated alphas for orthogonalization salvage.", len(salvageable))
 
     if not salvageable:
         log.info("No salvageable correlated alphas (Sharpe >= 1.25, Fitness >= 1.00) found.")
+        if store.db and org_name == "Xtley001":
+            store.db.set_blitz_mode(False)
         return 0
 
     engine = DecorrelationEngine()
@@ -824,6 +832,9 @@ async def run_decorrelate_batch(
         except Exception as drip_err:
             log.warning("Drip submitter check failed: %s", drip_err)
 
+        if store.db and os.getenv("GITHUB_REPOSITORY_OWNER", "local") == "Xtley001":
+            store.db.set_blitz_mode(False)
+
     return passed_count
 
 
@@ -932,6 +943,17 @@ def main():
         return
 
     org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+    store = OptionsStore(database_url=config.database_url)
+    db = store.db
+
+    # Blitz Mode Check: If primary org (Xtley001) is running a Decorrelation Blitz,
+    # all background worker orgs immediately yield 100% of the BRAIN simulation allocation.
+    if org_name != "Xtley001" and db and hasattr(db, "is_blitz_active") and db.is_blitz_active():
+        log.info(
+            "Decorrelation Blitz Active on primary org: '%s' gracefully yielding all simulation slots.",
+            org_name,
+        )
+        return
 
     # Worker schedule slot gate (strictly prevents cron collisions):
     # During scheduled cron executions, only the assigned worker runs in each 30-min window.

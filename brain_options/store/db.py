@@ -1221,6 +1221,7 @@ class OptionsDatabase:
         """
         Loads high-performing candidates from options_correlated_alphas that failed
         exclusively on self-correlation, for the --decorrelate optimization tier.
+        Orders by WorldQuant BRAIN Composite Quality Score (CQS).
         """
         if not self.database_url:
             return []
@@ -1229,7 +1230,7 @@ class OptionsDatabase:
             FROM options_correlated_alphas
             WHERE sharpe >= %s AND fitness >= %s
               AND expression NOT IN (SELECT expression FROM options_alphas WHERE expression IS NOT NULL)
-            ORDER BY sharpe DESC, fitness DESC
+            ORDER BY (1.0 * COALESCE(sharpe, 0.0) + 1.2 * COALESCE(fitness, 0.0) + 200.0 * COALESCE(margin, 0.0) - 0.5 * COALESCE(turnover, 0.0)) DESC
             LIMIT %s;
         """
         try:
@@ -1253,6 +1254,42 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to load salvageable correlated alphas: %s", e)
             return []
+
+    def is_blitz_active(self) -> bool:
+        """Returns True if a decorrelation blitz is active on the primary org, pausing other workers."""
+        if not self.database_url:
+            return False
+        sql = "SELECT 1 FROM cluster_session_cache WHERE key = 'blitz_mode_active' AND expires_at > CURRENT_TIMESTAMP;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql)
+                    return bool(cur.fetchone())
+        except Exception as e:
+            log.debug("Failed to check blitz mode status: %s", e)
+            return False
+
+    def set_blitz_mode(self, active: bool, hours: int = 24):
+        """Activates or deactivates cluster-wide blitz mode via cluster_session_cache."""
+        if not self.database_url:
+            return
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    if active:
+                        sql = """
+                            INSERT INTO cluster_session_cache (key, token, cookies, expires_at, updated_at)
+                            VALUES ('blitz_mode_active', 'active', '{}'::jsonb, CURRENT_TIMESTAMP + (%s * INTERVAL '1 hour'), CURRENT_TIMESTAMP)
+                            ON CONFLICT (key) DO UPDATE
+                            SET expires_at = CURRENT_TIMESTAMP + (%s * INTERVAL '1 hour'), updated_at = CURRENT_TIMESTAMP;
+                        """
+                        cur.execute(sql, (hours, hours))
+                    else:
+                        cur.execute("DELETE FROM cluster_session_cache WHERE key = 'blitz_mode_active';")
+                conn.commit()
+            log.info("Cluster blitz mode set to %s (duration=%dh).", active, hours)
+        except Exception as e:
+            log.warning("Failed to update cluster blitz mode: %s", e)
 
     # ------------------------------------------------------------------
     # org_runs — multi-org heartbeat tracking
