@@ -28,18 +28,14 @@ concurrency:
 
 jobs:
   discovery:
-    if: |
-      github.repository_owner != 'Xtley001' && (
-        github.event_name == 'workflow_dispatch' ||
-        (github.repository_owner == 'xtley-alpha-research-01' && github.event.schedule == '7 */2 * * *') ||
-        (github.repository_owner == 'xtley-alpha-research-02' && github.event.schedule == '37 */2 * * *') ||
-        (github.repository_owner == 'xtley-alpha-research-03' && github.event.schedule == '7 1-23/2 * * *') ||
-        (github.repository_owner == 'xtley-alpha-research-04' && github.event.schedule == '37 1-23/2 * * *')
-      )
+    # Only worker orgs run discovery — primary org (Xtley001) is excluded.
+    # The cron schedule string comparison was removed (it was fragile and silently skipped runs).
+    # Each org now runs on every trigger; archetype specialization is resolved in the Python step.
+    if: github.repository_owner != 'Xtley001'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     permissions:
-      contents: write
+      contents: read
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
@@ -72,6 +68,7 @@ jobs:
       ENABLE_AUTO_SUBMIT: "false"
       UNIVERSE: "TOP3000"
       DELAY: "1"
+      NOTIFY_EVERY_BATCH: "true"
     steps:
       - uses: actions/checkout@v4
 
@@ -103,22 +100,26 @@ jobs:
           echo "ARCHETYPE=$TARGET_ARCH" >> $GITHUB_ENV
           echo "Resolved divide-and-conquer specialization for $OWNER: $TARGET_ARCH"
 
+      - name: Record org heartbeat (run start)
+        run: |
+          python -c "
+          import os, sys
+          sys.path.insert(0, '.')
+          from dotenv import load_dotenv; load_dotenv()
+          from brain_options.config import OptionsConfig
+          from brain_options.store.db import OptionsDatabase
+          config = OptionsConfig.from_env()
+          db = OptionsDatabase(config.database_url)
+          org = os.environ.get('GITHUB_REPOSITORY_OWNER', 'unknown')
+          arch = os.environ.get('ARCHETYPE', '')
+          db.record_org_run(org, archetype=arch)
+          db.close()
+          print(f'Heartbeat written for org: {org}')
+          "
+        continue-on-error: true
+
       - name: Re-optimize Stage 0 passed candidates
         run: python -m brain_options.run --retry-stage0 --limit 2
 
       - name: Generate and evaluate specialized candidates
         run: python -m brain_options.run --single-batch
-
-      - name: Commit and push updated candidate history
-        if: always()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f brain_options/data/ || true
-          if ! git diff --staged --quiet; then
-            git commit -m "chore(data): record evaluated candidates [skip ci]"
-            git pull --rebase -X ours origin main || (git rebase --abort && echo "Rebase aborted") || true
-            git push origin main || echo "Git push skipped or failed"
-          else
-            echo "No data changes to commit."
-          fi

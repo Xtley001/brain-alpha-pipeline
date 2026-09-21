@@ -1,6 +1,6 @@
 """
 Master execution runner for brain_options.
-Supports single bounded batch (ideal for Render cron jobs) or continuous daemon loop.
+Supports single bounded batch (GitHub Actions cron) or continuous daemon loop.
 """
 from __future__ import annotations
 
@@ -411,11 +411,28 @@ async def run_batch(
     finally:
         log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
         try:
-            if passed_count > 0 or os.environ.get("NOTIFY_EVERY_BATCH", "false").lower() == "true":
-                stats = store.get_options_stats()
-                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+            stats = store.get_options_stats()
+            # Always send batch summary — even on 0-pass batches.
+            # Use a different icon so 0-pass is visually distinct from a qualifying batch.
+            send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
+
+        # Zero-qualified tripwire: alert mid-day if funnel is broken
+        try:
+            stats = store.get_options_stats()
+            if stats.get("today_evaluated", 0) >= 30 and stats.get("today_qualified", 0) == 0:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=(
+                        f"today_evaluated={stats.get('today_evaluated')} but today_qualified=0. "
+                        "Funnel is producing zero qualified alphas. Correlation gate or optimizer may need calibration."
+                    ),
+                    config=config,
+                    context="Zero-Qualified Tripwire",
+                )
+        except Exception:
+            pass
 
         # 24-hour interval drip submission check
         try:
@@ -518,7 +535,7 @@ async def run_retry_stage0_batch(
 
 def main():
     parser = argparse.ArgumentParser(description="WorldQuant BRAIN Options Alpha Pipeline")
-    parser.add_argument("--single-batch", action="store_true", help="Run a single bounded batch and exit (Render cron mode)")
+    parser.add_argument("--single-batch", action="store_true", help="Run a single bounded batch and exit (GitHub Actions cron mode)")
     parser.add_argument("--daemon", action="store_true", help="Run continuously in a loop")
     parser.add_argument("--dry-run", action="store_true", help="Generate candidates and verify without simulating")
     parser.add_argument("--candidates", type=int, default=0, help="Override candidate count per batch")
@@ -568,7 +585,8 @@ def main():
     if args.health:
         store = OptionsStore(database_url=config.database_url)
         stats = store.get_options_stats()
-        success = send_telegram_health_check(config, stats=stats)
+        org_activity = store.db.get_org_activity(hours=26)
+        success = send_telegram_health_check(config, stats=stats, org_activity=org_activity)
         log.info("Health check sent: %s", "OK" if success else "FAILED")
         return
 
@@ -649,6 +667,12 @@ def main():
             heartbeat_runner.stop()
         if lock_acquired and db:
             db.release_cluster_lock(worker_id)
+        # Explicit DB pool close to prevent psycopg_pool finalizer errors
+        try:
+            if db:
+                db.close()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":

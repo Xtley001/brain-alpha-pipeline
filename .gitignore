@@ -29,12 +29,24 @@ env/
 exported_alphas/
 all_generated_alphas.csv
 legacy_alphas_backup.zip
-# Options Pipeline Data (versioned candidate and alpha history)
-!brain_options/data/
-!brain_options/data/**
+# Options Pipeline Data — all local data files excluded; source of truth is Neon DB
+brain_options/data/*.csv
+brain_options/data/*.json
+brain_options/data/*.jsonl
+brain_options/data/pnl_series/
 
 # Scratch and temporary scripts
 scratch/
+
+# Planning / audit documents — never commit these
+fix.md
+build.md
+update.md
+walkthrough.md
+implementation_plan.md
+task.md
+docs/system_audit_*.md
+docs/*_plan.md
 
 # Research books and PDFs (heavy binaries)
 *.pdf

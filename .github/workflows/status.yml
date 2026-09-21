@@ -1,6 +1,9 @@
 name: BRAIN Cluster Status
 
 on:
+  schedule:
+    # Automatic morning status ping: 07:00 UTC = 08:00 WAT every day
+    - cron: "0 7 * * *"
   workflow_dispatch:
     inputs:
       verbose:
@@ -76,5 +79,4 @@ jobs:
           EOF
 
       - name: Send status to Telegram
-        if: inputs.verbose == 'true'
         run: python -m brain_options.run --health

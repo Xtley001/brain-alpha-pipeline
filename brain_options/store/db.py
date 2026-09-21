@@ -275,18 +275,74 @@ CREATE INDEX IF NOT EXISTS idx_cluster_session_expires
 -- cluster_run_lock: heartbeat-based stale lock cleanup
 CREATE INDEX IF NOT EXISTS idx_cluster_run_heartbeat
     ON cluster_run_lock(heartbeat DESC);
+
+-- ============================================================
+-- TABLE 8: org_runs
+-- Purpose: Heartbeat log - one row per GitHub Actions org run.
+-- Proves which orgs are actually firing and allows the health
+-- check to report multi-org activity status.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS org_runs (
+    id          SERIAL PRIMARY KEY,
+    org_name    VARCHAR(64)  NOT NULL,
+    archetype   VARCHAR(128),
+    run_at      TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP,
+    evals_done  INTEGER      DEFAULT 0,
+    qualified   INTEGER      DEFAULT 0
+);
+
+CREATE INDEX IF NOT EXISTS idx_org_runs_org_run_at
+    ON org_runs(org_name, run_at DESC);
 """
 
-# Migration SQL: idempotent column additions for existing deployments
-# These run after SCHEMA_SQL so fresh installs get everything from CREATE TABLE
+
+
+# Migration SQL: idempotent patches for existing deployments.
+# Each statement runs independently (split on ;) so a single failure
+# never blocks subsequent migrations.
 MIGRATION_SQL = """
--- Add submitted_at to options_alphas if missing (added in v2.1)
+-- v2.1: submitted_at for options_alphas
 ALTER TABLE options_alphas
     ADD COLUMN IF NOT EXISTS submitted_at TIMESTAMPTZ;
 
--- Add updated_at to options_learning_memory if missing (added in v2.1)
+-- v2.1: updated_at for learning memory
 ALTER TABLE options_learning_memory
     ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;
+
+-- v2.2: backfill submitted_at for existing SUBMITTED rows so drip pacing works
+UPDATE options_alphas
+    SET submitted_at = created_at
+    WHERE status = 'SUBMITTED' AND submitted_at IS NULL;
+
+-- v2.2: UNIQUE constraint on alpha_id in archive tables to prevent duplicate rows
+-- for the same alpha being rejected/correlated multiple times.
+-- Uses CREATE UNIQUE INDEX IF NOT EXISTS (safer than ALTER TABLE on existing data).
+CREATE UNIQUE INDEX IF NOT EXISTS uq_corr_alpha_id
+    ON options_correlated_alphas(alpha_id)
+    WHERE alpha_id IS NOT NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_rej_alpha_id
+    ON options_rejected_alphas(alpha_id)
+    WHERE alpha_id IS NOT NULL;
+
+-- v2.2: Upgrade SERIAL sequences to BIGINT for long-term durability
+ALTER SEQUENCE IF EXISTS options_evaluations_id_seq AS BIGINT;
+ALTER SEQUENCE IF EXISTS options_alphas_id_seq AS BIGINT;
+ALTER SEQUENCE IF EXISTS options_correlated_alphas_id_seq AS BIGINT;
+ALTER SEQUENCE IF EXISTS options_rejected_alphas_id_seq AS BIGINT;
+
+-- v2.2: org_runs table for multi-org heartbeat (added here as a migration too)
+CREATE TABLE IF NOT EXISTS org_runs (
+    id          BIGSERIAL    PRIMARY KEY,
+    org_name    VARCHAR(64)  NOT NULL,
+    archetype   VARCHAR(128),
+    run_at      TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP,
+    evals_done  INTEGER      DEFAULT 0,
+    qualified   INTEGER      DEFAULT 0
+);
+
+CREATE INDEX IF NOT EXISTS idx_org_runs_org_run_at
+    ON org_runs(org_name, run_at DESC);
 """
 
 
@@ -748,8 +804,7 @@ class OptionsDatabase:
         """
         Dynamic Archetype Quota Enforcer (Pillar 1 of the 5-channel strategy):
         Returns archetypes that have already produced >= max_per_day qualified or
-        submitted alphas today. The generator drops these archetypes' MAB probability
-        weight to 0.02 to steer workers into unfilled orthogonal channels.
+        submitted alphas today. Uses New York calendar date to match BRAIN's day.
         """
         if not self.database_url:
             return []
@@ -758,7 +813,7 @@ class OptionsDatabase:
             FROM options_alphas
             WHERE status IN ('QUALIFIED', 'SUBMITTED')
               AND archetype IS NOT NULL
-              AND created_at >= CURRENT_DATE
+              AND created_at >= (CURRENT_TIMESTAMP AT TIME ZONE 'America/New_York')::date
             GROUP BY archetype
             HAVING COUNT(*) >= %s;
         """
@@ -777,21 +832,33 @@ class OptionsDatabase:
 
     def load_evaluated_expressions(self) -> Set[str]:
         """
-        Returns the complete set of expression strings ever evaluated.
-        Loaded on startup to seed the in-memory ASTDeduplicator so workers
-        never re-simulate structurally identical formulas.
+        Returns the complete set of expression strings ever evaluated across all tables.
+        Loaded on startup to seed the in-memory ASTDeduplicator so workers never
+        re-simulate structurally identical formulas — including expressions that were
+        correlated, rejected, or already in the alpha pool.
         """
         if not self.database_url:
             return set()
-        sql = "SELECT DISTINCT expression FROM options_evaluations;"
+        exprs: Set[str] = set()
+        queries = [
+            "SELECT DISTINCT expression FROM options_evaluations WHERE expression IS NOT NULL;",
+            "SELECT DISTINCT expression FROM options_correlated_alphas WHERE expression IS NOT NULL;",
+            "SELECT DISTINCT expression FROM options_rejected_alphas WHERE expression IS NOT NULL;",
+            "SELECT DISTINCT expression FROM options_alphas WHERE expression IS NOT NULL;",
+        ]
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql)
-                    return {row[0].strip() for row in cur.fetchall() if row[0]}
+                    for q in queries:
+                        try:
+                            cur.execute(q)
+                            exprs.update(row[0].strip() for row in cur.fetchall() if row[0])
+                        except Exception as qe:
+                            log.debug("load_evaluated_expressions sub-query skipped: %s", qe)
+            log.info("Seeded ASTDeduplicator with %d known expressions from all tables.", len(exprs))
         except Exception as e:
             log.warning("Failed to load evaluated expressions from database: %s", e)
-            return set()
+        return exprs
 
     # ------------------------------------------------------------------
     # options_learning_memory — write path
@@ -1045,20 +1112,22 @@ class OptionsDatabase:
             "today_correlated": 0,
             "all_time_correlated": 0,
         }
-        sql_eval = """
+        # All today_* filters use New York calendar date to match BRAIN's submission day.
+        ny_today = "(CURRENT_TIMESTAMP AT TIME ZONE 'America/New_York')::date"
+        sql_eval = f"""
             SELECT
                 COUNT(*) as all_time_evaluated,
                 COUNT(*) FILTER (WHERE status = 'PASS' OR LEFT(stage, 5) = 'DIAG_' OR status = 'QUALIFIED') as all_time_pass,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_evaluated,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE AND status = 'CORRELATED') as today_correlated
+                COUNT(*) FILTER (WHERE created_at >= {ny_today}) as today_evaluated,
+                COUNT(*) FILTER (WHERE created_at >= {ny_today} AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass,
+                COUNT(*) FILTER (WHERE created_at >= {ny_today} AND status = 'CORRELATED') as today_correlated
             FROM options_evaluations;
         """
-        sql_alphas = """
+        sql_alphas = f"""
             SELECT
                 COUNT(*) as all_time_pool,
-                COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE) as today_pool,
-                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND created_at >= CURRENT_DATE) as today_submitted,
+                COUNT(*) FILTER (WHERE created_at >= {ny_today}) as today_pool,
+                COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND submitted_at >= {ny_today}) as today_submitted,
                 COUNT(*) FILTER (WHERE status = 'QUALIFIED') as reserve_count
             FROM options_alphas;
         """
@@ -1146,6 +1215,73 @@ class OptionsDatabase:
         return candidates
 
     # ------------------------------------------------------------------
+    # org_runs — multi-org heartbeat tracking
+    # ------------------------------------------------------------------
+
+    def record_org_run(
+        self,
+        org_name: str,
+        archetype: str = "",
+        evals_done: int = 0,
+        qualified: int = 0,
+    ):
+        """
+        Writes a heartbeat row for an org run. Called at the start (evals_done=0)
+        and optionally updated at the end with actual counts. Provides proof of
+        which orgs are actually firing, independent of the cluster run lock.
+        """
+        if not self.database_url:
+            return
+        sql = """
+            INSERT INTO org_runs (org_name, archetype, evals_done, qualified)
+            VALUES (%s, %s, %s, %s);
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (org_name, archetype or "", evals_done, qualified))
+                conn.commit()
+            log.info("Org run heartbeat recorded: %s (arch=%s)", org_name, archetype)
+        except Exception as e:
+            log.debug("Failed to record org run heartbeat: %s", e)
+
+    def get_org_activity(self, hours: int = 26) -> List[Dict[str, Any]]:
+        """
+        Returns summary of org activity in the last `hours` hours.
+        Used by health check to report: 'Orgs active last 24h: 2/4'.
+        """
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT org_name,
+                   COUNT(*) as run_count,
+                   MAX(run_at) as last_seen,
+                   SUM(evals_done) as total_evals,
+                   SUM(qualified) as total_qualified
+            FROM org_runs
+            WHERE run_at >= NOW() - (%s * INTERVAL '1 hour')
+            GROUP BY org_name
+            ORDER BY last_seen DESC;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (hours,))
+                    return [
+                        {
+                            "org": row[0],
+                            "runs": int(row[1] or 0),
+                            "last_seen": str(row[2])[:16] if row[2] else "never",
+                            "evals": int(row[3] or 0),
+                            "qualified": int(row[4] or 0),
+                        }
+                        for row in cur.fetchall()
+                    ]
+        except Exception as e:
+            log.warning("Failed to load org activity: %s", e)
+            return []
+
+    # ------------------------------------------------------------------
     # cluster_session_cache
     # ------------------------------------------------------------------
 
@@ -1160,7 +1296,7 @@ class OptionsDatabase:
             return None
         sql = """
             SELECT token, cookies, expires_at FROM cluster_session_cache
-            WHERE key = %s AND expires_at > CURRENT_TIMESTAMP;
+            WHERE key = %s AND expires_at > CURRENT_TIMESTAMP + INTERVAL '10 minutes';
         """
         try:
             with self._get_connection() as conn:

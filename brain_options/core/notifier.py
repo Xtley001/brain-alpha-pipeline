@@ -96,23 +96,29 @@ def send_telegram_batch_summary(
     stats: Optional[dict[str, Any]] = None,
 ) -> bool:
     """
-    Fires only when a batch yields at least one new qualified alpha.
-    Clean, one-glance summary — no links, no expressions.
+    Always fires at the end of every batch — whether 0 or more alphas qualify.
+    Uses \u26aa (grey) for 0-pass batches so you can spot them instantly vs \u2705 (green) for qualifiers.
+    This ensures you always get a ping after each run, regardless of outcome.
     """
-    if not passed_count:
-        return False  # Silent if nothing qualified — no noise.
-
     stats = stats or {}
     today_q = stats.get("today_qualified", 0)
     reserve = stats.get("reserve_count", 0)
     today_sub = stats.get("today_submitted", 0)
+    today_eval = stats.get("today_evaluated", 0)
     ts = _now_wat().strftime("%H:%M")
 
+    if passed_count > 0:
+        icon = "\u2705"
+        headline = f"{_escape(str(passed_count))} alpha{'s' if passed_count > 1 else ''} qualified"
+    else:
+        icon = "\u26aa"
+        headline = "0 qualified this batch"
+
     lines = [
-        f"✅ *{_escape(str(passed_count))} alpha{'s' if passed_count > 1 else ''} qualified* · {_escape(ts)} UTC\\+1",
+        f"{icon} *{headline}* \u00b7 {_escape(ts)} UTC\\+1",
         "",
         f"Batch: {_escape(str(passed_count))}/{_escape(str(total_candidates))} passed",
-        f"Today: {_escape(str(today_q))} qualified · {_escape(str(today_sub))} submitted · {_escape(str(reserve))} reserve",
+        f"Today total: {_escape(str(today_eval))} sims \u00b7 {_escape(str(today_q))} qualified \u00b7 {_escape(str(today_sub))} submitted \u00b7 {_escape(str(reserve))} reserve",
     ]
     return _send("\n".join(lines), config)
 
@@ -196,16 +202,18 @@ def send_telegram_drip_alert(
 def send_telegram_health_check(
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
-    org_count: int = 5,
+    org_activity: Optional[list] = None,
 ) -> bool:
     """
     Hourly system heartbeat. Shows today's discovery funnel progress at a glance.
+    Now includes real org-level activity from the org_runs heartbeat table.
     Called by the health.yml workflow every hour.
     """
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
 
     stats = stats or {}
+    org_activity = org_activity or []
     ts = _now_wat().strftime("%H:%M")
     today_eval = stats.get("today_evaluated", 0)
     today_q = stats.get("today_qualified", 0)
@@ -217,16 +225,16 @@ def send_telegram_health_check(
     # Submission slot indicator
     slot_bar = ""
     for i in range(1, max_daily + 1):
-        slot_bar += "●" if i <= today_sub else "○"
+        slot_bar += "\u25cf" if i <= today_sub else "\u25cb"
 
     # Qualified progress toward daily target
     target = 5
     q_bar = ""
     for i in range(1, target + 1):
-        q_bar += "●" if i <= today_q else "○"
+        q_bar += "\u25cf" if i <= today_q else "\u25cb"
 
     lines = [
-        f"🟢 *Hourly Health* · {_escape(ts)} UTC\\+1",
+        f"\U0001f7e2 *Hourly Health* \u00b7 {_escape(ts)} UTC\\+1",
         "",
         f"Simulated today: `{_escape(str(today_eval))}`",
         f"Qualified: `{_escape(str(today_q))}/{_escape(str(target))}` {_escape(q_bar)}",
@@ -234,8 +242,21 @@ def send_telegram_health_check(
         f"Reserve \\(unsubmitted\\): `{_escape(str(reserve))}`",
         f"Corr\\-rejected today: `{_escape(str(today_corr))}`",
         "",
-        f"Orgs: `{_escape(str(org_count))}/5` · 4 discovery \\+ drip active",
     ]
+
+    # Org activity block
+    if org_activity:
+        org_lines = []
+        for entry in org_activity[:5]:  # cap at 5 orgs
+            org_name = _escape(str(entry.get("org", "unknown")))
+            last = _escape(str(entry.get("last_seen", "?")))
+            evals = _escape(str(entry.get("evals", 0)))
+            org_lines.append(f"  `{org_name}` \u00b7 last: {last} \u00b7 evals: {evals}")
+        lines.append(f"Orgs active \\(26h\\): `{_escape(str(len(org_activity)))}/4`")
+        lines.extend(org_lines)
+    else:
+        lines.append("Orgs active \\(26h\\): `0/4` \u26a0\ufe0f no heartbeat\u2014check worker secrets")
+
     return _send("\n".join(lines), config)
 
 

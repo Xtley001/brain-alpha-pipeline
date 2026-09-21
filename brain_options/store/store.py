@@ -301,29 +301,9 @@ class OptionsStore:
         return self.db.get_submitted_alpha_ids()
 
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
+        """Returns qualified but not-yet-submitted alphas from Neon DB (source of truth)."""
         if self.db and self.db.database_url:
-            res = self.db.get_unsubmitted_pool_alphas()
-            if res:
-                return res
-        # Fallback to local passed_options_alphas.json if DB unavailable or returns empty
-        if os.path.exists(self.passed_json):
-            try:
-                with open(self.passed_json, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        unsub = [a for a in data if a.get("status") == "QUALIFIED" and a.get("alpha_id")]
-                        return sorted(
-                            unsub,
-                            key=lambda a: (
-                                1.0 * float(a.get("sharpe") or 0)
-                                + 1.2 * float(a.get("fitness") or 0)
-                                + 200 * float(a.get("margin") or 0)
-                                - 0.5 * float(a.get("turnover") or 0)
-                            ),
-                            reverse=True,
-                        )
-            except Exception as e:
-                log.warning("Could not load passed alphas from JSON fallback: %s", e)
+            return self.db.get_unsubmitted_pool_alphas()
         return []
 
     def get_recently_submitted_archetypes(self, limit: int = 3) -> List[str]:
@@ -331,6 +311,20 @@ class OptionsStore:
 
     def get_today_saturated_archetypes(self, max_per_day: int = 1) -> List[str]:
         return self.db.get_today_saturated_archetypes(max_per_day=max_per_day)
+
+    def record_org_run(
+        self,
+        org_name: str,
+        archetype: str = "",
+        evals_done: int = 0,
+        qualified: int = 0,
+    ):
+        """Write an org run heartbeat row to the org_runs table."""
+        self.db.record_org_run(org_name, archetype=archetype, evals_done=evals_done, qualified=qualified)
+
+    def get_org_activity(self, hours: int = 26) -> List[Dict[str, Any]]:
+        """Return per-org activity summary from org_runs for the last N hours."""
+        return self.db.get_org_activity(hours=hours)
 
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)

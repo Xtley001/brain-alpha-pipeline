@@ -590,5 +590,6 @@ class DiagnosticAlphaOptimizer:
                 break
 
         final_passed, final_reason = evaluate_alpha_metrics(best_metrics, self.config)
-        log.info("Diagnostic Optimization finished: Qualified=%s (Reason: %s)", final_passed, final_reason)
+        log.info("Diagnostic Optimization finished: Qualified=%s, Best Sharpe=%.2f, Best Fitness=%.2f (Reason: %s)",
+                 final_passed, best_metrics.sharpe, best_metrics.fitness, final_reason)
         return best_cand, best_settings, best_metrics, final_passed, history

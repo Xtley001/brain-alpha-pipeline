@@ -1,114 +1,93 @@
 # Architecture
 
-## Pipeline stages
+## Deployment
 
-```
-reclaim orphaned candidates
-  -> top up queue: template tier -> LLM reasoning tier -> LLM mechanical tier
-  -> for each candidate:
-       Stage 0 screen -> staged settings sweep (Stages 1-4) -> local filter
-       -> correlation check vs. pool -> review_store -> Telegram alert
-  -> heartbeat + run_history row
-```
+This system runs **entirely on GitHub Actions** - there is no Render, HuggingFace Spaces,
+or Docker deployment. The Dockerfile, render.yaml, and app.py previously in the repo
+have been deleted as dead code.
 
-**Generation tiers**, each only firing if the previous one didn't fill the
-queue:
-- **Template** (`pipeline/generator/template_generator.py`) — pure string
-  substitution over ~53 seed expressions, no LLM call.
-- **LLM reasoning** (`propose_new_ideas`) — genuinely new economic ideas.
-- **LLM mechanical** (`mutate_candidate`) — cheap, high-volume variations on
-  whatever the reasoning tier just proposed.
+## Org Structure
 
-`candidates.generation_tier` records which tier *and* which LLM provider
-actually produced a candidate (e.g. `llm_groq`), based on whichever
-provider in the fallback chain actually answered — not just whichever was
-tried first.
-
-## The staged settings sweep
-
-`pipeline/sweep/settings_sweep.py` runs 41 simulations per candidate that
-clears Stage 0, not a full cartesian grid (~1,200 sims):
-
-| Stage | What | Sims | Concurrency |
+| Org | Role | Cron | Archetype |
 |---|---|---|---|
-| 0 | Quick screen at default settings | 1 | — |
-| 1 | Neutralization (6) × Decay (5) grid | 30 | concurrent, bounded by shared sim semaphore |
-| 2 | Truncation refinement around Stage 1's winner | 4 | concurrent |
-| 3 | Delay / Pasteurization / Nan Handling, both values each | 6 | sequential — each field depends on the previous field's winner |
-| 4 | Robustness check, computed from the 41 stored rows | 0 | — |
+| Xtley001 (primary) | Drip submitter, health check, status | Various | N/A - no discovery |
+| xtley-alpha-research-01 | Worker | Every 2h at :07 | breakeven, skew |
+| xtley-alpha-research-02 | Worker | Every 2h at :37 | analyst_revisions |
+| xtley-alpha-research-03 | Worker | Odd hours at :07 | short_interest |
+| xtley-alpha-research-04 | Worker | Odd hours at :37 | hybrid_confluence, term_structure, pcr_flow |
 
-Stages 1–2 run concurrently via `asyncio.gather` bounded by a semaphore,
-rather than one simulation at a time — a fully-serial sweep can take
-7–14 minutes per candidate, which alone can exceed a tick's
-`RUN_TIME_BUDGET_SECONDS`.
+All 5 orgs share one Neon Postgres database and one BRAIN researcher account session,
+cached in the cluster_session_cache table.
 
-**Per-combo fault isolation.** A settings combo that fails to simulate is
-recorded as a `SweepRun` with `.error` set, rather than losing every other
-combo in that batch. If every combo in a stage fails, the sweep reports
-`aborted_stage` (an operational failure) rather than a quality verdict.
+## Pipeline Stages
 
-## Concurrency and correlation
+For each batch run (one GitHub Actions job):
+  1. record_org_run() - write heartbeat to org_runs table
+  2. --retry-stage0   - re-optimize older Stage 0 passers
+  3. --single-batch   - generate, Stage 0 screen, optimize, correlate, archive
+     - ASTDeduplicator (seeded from all 4 archive tables on startup)
+     - Stage 0 fast screen (Sharpe >= 0.35, Fitness >= 0.20)
+     - DiagnosticAlphaOptimizer (max 6 rounds, returns best-seen metrics)
+     - Correlation gate (max_corr < 0.70 vs SUBMITTED+QUALIFIED portfolio)
+     - archive to options_alphas (QUALIFIED)
+  4. send_telegram_batch_summary() - always fires (grey circle for 0-pass, green check for qualifiers)
+  5. Zero-qualified tripwire - red alert if today_evaluated >= 30 and today_qualified = 0
 
-- **One shared semaphore.** `Worker` creates a single
-  `asyncio.Semaphore(BRAIN_MAX_CONCURRENT_SIMS)` and passes it into every
-  in-flight candidate's sweep, so the limit is a real global ceiling on
-  concurrent BRAIN calls, not a per-candidate bound.
-- **Correlation gate fed by the pipeline's own output.**
-  `Worker._process_candidate` fetches the winning settings' actual daily
-  returns from BRAIN, checks `compute_max_correlation` against
-  `pool_returns`, then upserts the candidate's own returns back into the
-  pool once it passes — so later candidates see it too.
-- **Attempt-capped retries.** A candidate whose sweep aborts, or that
-  raises anywhere in `_process_candidate`, gets up to
-  `MAX_CANDIDATE_ATTEMPTS` (3, a fixed constant) retries before
-  permanently flipping to `rejected_error` with one Telegram alert.
+## Workflows
 
-## Observability
+| File | Runs on | Trigger | Purpose |
+|---|---|---|---|
+| run.yml | Worker orgs only | Cron 48x/day + manual | Discovery pipeline |
+| drip.yml | Xtley001 only | Cron 5x/day + manual | Submit qualified alphas to BRAIN |
+| health.yml | Xtley001 only | Cron every hour at :04 | Hourly Telegram health check |
+| status.yml | Xtley001 only | Cron 07:00 UTC daily + manual | Morning status report |
+| daily_digest.yml | Xtley001 only | Cron 23:30 UTC daily | End-of-day Telegram digest |
 
-Every tick sends a Telegram heartbeat and writes a `run_history` row —
-pass, fail, or "nothing happened." Each report includes BRAIN auth
-status, DB reachability, per-key LLM provider health, queue depth, and
-candidates processed broken down by exit status
-(`passed` / `rejected_stage0` / `rejected_filter` / `rejected_correlation`
-/ `rejected_error`).
+## Database Tables (Neon Postgres)
 
-```sql
-SELECT * FROM run_history ORDER BY started_at DESC LIMIT 20;
-```
+| Table | Purpose |
+|---|---|
+| options_alphas | Qualified alpha pool + submission status |
+| options_evaluations | Full evaluation log (every Stage 0 sim) |
+| options_learning_memory | MAB reward memory for generation |
+| options_rejected_alphas | Checklist-failed alphas (UNIQUE on alpha_id) |
+| options_correlated_alphas | Correlation-rejected alphas (UNIQUE on alpha_id) |
+| cluster_session_cache | Shared BRAIN session token (TTL-enforced, 10-min margin) |
+| cluster_run_lock | Cluster-wide mutex (one org simulating at a time) |
+| org_runs | Per-org run heartbeat for multi-org activity monitoring |
 
-A BRAIN auth failure at startup happens before any `Worker` exists, so
-`main()` catches `BrainAuthError` specifically and sends a best-effort
-alert built directly from env vars before exiting non-zero.
+## Key Config Env Vars
 
-## BRAIN response parsing — verify before trusting live numbers
+| Variable | Default | Purpose |
+|---|---|---|
+| FILTER_MIN_SHARPE | 1.25 | Qualification threshold |
+| FILTER_MIN_FITNESS | 1.00 | Qualification threshold |
+| FILTER_MAX_TURNOVER | 0.70 | Max turnover to qualify |
+| MAX_CANDIDATES_PER_RUN | 20 | Batch size |
+| RUN_TIME_BUDGET_SECONDS | 820 | Hard time limit per batch |
+| NOTIFY_EVERY_BATCH | true | Always send Telegram after every batch |
+| ENABLE_AUTO_SUBMIT | false | Auto-submit to BRAIN (drip handles manually) |
 
-`_parse_sim_response` / `_parse_pnl_response` in `pipeline/brain/client.py`
-use soft key-lookup fallbacks that do not raise on a schema mismatch — a
-genuinely strong candidate could silently score `sharpe=0.0` if BRAIN's
-real response shape doesn't match what's assumed. A missing key now logs
-a loud warning the first time it's observed (`_warn_missing_key_once`),
-but that's a safety net, not a substitute for running
-`scripts/verify_brain_parsing.py` against a live account (see `SETUP.md`
-step 7).
+## Module Layout
 
-## Deliberate schema deviation
-
-`pool_returns` uses a composite `(alpha_id, return_date)` primary key
-rather than a single-column `alpha_id` key, since a single-column key
-would make it impossible to store more than one date per alpha — which
-breaks the correlation check the table exists to support. See the comment
-in `pipeline/db/schema.sql`.
-
-## Ambiguities resolved during the build
-
-1. **Stage 3 field values**: Delay has only 2 possible values (0, 1), so
-   each field is simulated at both values, not just "the one value that
-   differs from current" — that reading is what produces the spec's
-   stated 6 sims. See the comment in `settings_sweep.py`.
-2. **Stage 4 fragile threshold**: implemented as fragile if the count of
-   distinct settings combos clearing the local filter bar is `<= 1`. See
-   the comment in `settings_sweep.py`.
-3. **Shared vs. per-sweep semaphore**: `run_staged_sweep` takes an
-   optional `semaphore` parameter that `Worker` populates with one shared
-   instance; standalone/test callers that don't pass one get a private
-   per-call semaphore built from the int, unchanged.
+brain_options/
+  config.py             - OptionsConfig (env vars to typed config)
+  run.py                - Main entry point: --single-batch, --retry-stage0, --health, --status
+  core/
+    client.py           - BrainClient (BRAIN API: login, simulate, submit)
+    filter.py           - evaluate_alpha_metrics() quality gate
+    notifier.py         - Telegram notifications (batch, health, drip, digest, emergency)
+    optimizer.py        - DiagnosticAlphaOptimizer (RL multi-arm bandit)
+    drip.py             - DripSubmitter (paced submission of qualified alphas)
+  specialist/
+    generator.py        - OptionsGenerator (LLM + template + MAB)
+    templates.py        - OptionCandidate dataclass + seed expressions
+  store/
+    db.py               - OptionsDatabase (all SQL: schema, migrations, queries)
+    store.py            - OptionsStore (high-level wrapper around OptionsDatabase)
+scripts/
+  org_manager.py        - CLI tool for syncing secrets across worker orgs
+  verify_brain_parsing.py - Validates BRAIN API response parsing against live account
+tests/
+  test_filter.py        - Unit tests for quality gate
+  test_optimizer.py     - Unit tests for optimizer transformation operators
