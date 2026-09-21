@@ -18,7 +18,8 @@ import datetime
 import logging
 import os
 import re
-from typing import Any, Optional
+import time
+from typing import Any, Optional, Tuple
 
 import requests
 
@@ -45,48 +46,129 @@ def _now_wat() -> datetime.datetime:
     return datetime.datetime.now(WAT_TZ)
 
 
-def _send(text: str, config: OptionsConfig) -> bool:
+def _post_with_retry(
+    url: str,
+    payload: dict,
+    max_attempts: int = 2,
+    backoff_seconds: float = 1.5,
+) -> Optional[requests.Response]:
     """
-    Sends a MarkdownV2 message to Telegram with plain-text fallback.
-    Returns True on success.
+    POSTs to Telegram, retrying once (with a short backoff) on connection/timeout
+    exceptions. Returns the Response on a completed request (any status code), or
+    None if every attempt raised an exception.
+    """
+    last_exc: Optional[Exception] = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return requests.post(url, json=payload, timeout=10)
+        except Exception as exc:
+            last_exc = exc
+            if attempt < max_attempts:
+                log.warning(
+                    "Telegram request exception (attempt %d/%d), retrying in %.1fs: %s",
+                    attempt,
+                    max_attempts,
+                    backoff_seconds,
+                    exc,
+                )
+                time.sleep(backoff_seconds)
+    log.warning("Telegram notification exception after %d attempt(s): %s", max_attempts, last_exc)
+    return None
+
+
+def _send(text: str, config: OptionsConfig, db: Any = None) -> Tuple[bool, str]:
+    """
+    Sends a MarkdownV2 message to Telegram with plain-text fallback, 429 backoff,
+    and connection-error retry.
+
+    Returns (success, reason). reason is "" on success; otherwise a short
+    machine-readable code ("not_configured", "rate_limited", "request_exception",
+    "http_<code>") describing why the message was not delivered.
     """
     if not config.telegram_bot_token or not config.telegram_chat_id:
-        return False
+        return False, "not_configured"
+
+    if db is not None and hasattr(db, "acquire_telegram_send_lease"):
+        try:
+            db.acquire_telegram_send_lease(min_gap_seconds=1.2, max_wait_seconds=6.0)
+        except Exception as exc:
+            log.debug("Telegram send-lease acquisition skipped: %s", exc)
+
     url = f"https://api.telegram.org/bot{config.telegram_bot_token}/sendMessage"
-    payload = {
-        "chat_id": config.telegram_chat_id,
-        "text": text,
-        "parse_mode": "MarkdownV2",
-    }
-    try:
-        resp = requests.post(url, json=payload, timeout=10)
+    payload = {"chat_id": config.telegram_chat_id, "text": text, "parse_mode": "MarkdownV2"}
+
+    resp = _post_with_retry(url, payload)
+    if resp is None:
+        return False, "request_exception"
+
+    if resp.status_code == 200:
+        log.info("Telegram message sent.")
+        return True, ""
+
+    if resp.status_code == 429:
+        retry_after = 3.0
+        try:
+            retry_after = float((resp.json() or {}).get("parameters", {}).get("retry_after", retry_after))
+        except Exception:
+            pass
+        log.warning("Telegram rate-limited (429). Backing off %.1fs before one retry.", retry_after)
+        time.sleep(retry_after)
+        resp = _post_with_retry(url, payload, max_attempts=1)
+        if resp is None:
+            return False, "request_exception"
         if resp.status_code == 200:
-            log.info("Telegram message sent.")
-            return True
-        # Fallback: strip parse_mode and retry with plain text
-        payload.pop("parse_mode", None)
-        payload["text"] = re.sub(r"\\([_*\[\]()~`>#+\-=|{}.!])", r"\1", text)
-        resp2 = requests.post(url, json=payload, timeout=10)
-        if resp2.status_code == 200:
-            log.info("Telegram message sent (plain text fallback).")
-            return True
-        log.warning("Telegram send failed: %s %s", resp2.status_code, resp2.text[:200])
-        return False
-    except Exception as exc:
-        log.warning("Telegram notification exception: %s", exc)
-        return False
+            log.info("Telegram message sent (after 429 backoff).")
+            return True, ""
+        if resp.status_code == 429:
+            log.warning("Telegram still rate-limited (429) after backoff; dropping message.")
+            return False, "rate_limited"
+        # fall through to the plain-text fallback below with whatever error this was
+
+    # Fallback: strip parse_mode and retry with plain text (handles MarkdownV2 escaping bugs)
+    payload.pop("parse_mode", None)
+    payload["text"] = re.sub(r"\\([_*\[\]()~`>#+\-=|{}.!])", r"\1", text)
+    resp2 = _post_with_retry(url, payload, max_attempts=1)
+    if resp2 is None:
+        return False, "request_exception"
+    if resp2.status_code == 200:
+        log.info("Telegram message sent (plain text fallback).")
+        return True, ""
+    if resp2.status_code == 429:
+        log.warning("Telegram still rate-limited (429) after fallback; dropping message.")
+        return False, "rate_limited"
+
+    log.warning("Telegram send failed: %s %s", resp2.status_code, resp2.text[:200])
+    return False, f"http_{resp2.status_code}"
+
+
+def _send_bool(text: str, config: OptionsConfig, db: Any = None, label: str = "notification") -> bool:
+    """
+    Thin wrapper around _send() that preserves the existing bool-returning public
+    API (callers and tests check `if success:` / `assert result is True`) while
+    still surfacing *why* a send failed via a log line, instead of a bare False
+    that looks identical whether Telegram rate-limited us or the bot token is
+    unset.
+    """
+    success, reason = _send(text, config, db=db)
+    if not success:
+        log.warning("Telegram %s not delivered (reason=%s).", label, reason)
+    return success
 
 
 # ---------------------------------------------------------------------------
 # Public notification functions
 # ---------------------------------------------------------------------------
 
-def send_telegram_startup(config: OptionsConfig, mode: str = "Single Batch") -> bool:
+def send_telegram_startup(
+    config: OptionsConfig,
+    mode: str = "Single Batch",
+    db: Any = None,
+) -> bool:
     """Startup ping — only sent when NOTIFY_ON_STARTUP=true to prevent cron noise."""
     if os.environ.get("NOTIFY_ON_STARTUP", "false").lower() != "true":
         return True
     text = f"🚀 *Pipeline started* — {_escape(mode)}"
-    return _send(text, config)
+    return _send_bool(text, config, db=db, label="startup ping")
 
 
 def send_telegram_batch_summary(
@@ -94,6 +176,7 @@ def send_telegram_batch_summary(
     total_candidates: int,
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
+    db: Any = None,
 ) -> bool:
     """
     Fires at the end of a batch ONLY when at least 1 alpha qualifies (passed_count > 0).
@@ -118,7 +201,7 @@ def send_telegram_batch_summary(
         f"Batch: {_escape(str(passed_count))}/{_escape(str(total_candidates))} passed",
         f"Today total: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified · {_escape(str(today_sub))} submitted · {_escape(str(reserve))} reserve",
     ]
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="batch summary")
 
 
 def check_and_send_hourly_health(
@@ -152,7 +235,7 @@ def check_and_send_hourly_health(
     elif hasattr(store, "db") and store.db and hasattr(store.db, "get_org_activity"):
         org_activity = store.db.get_org_activity(hours=26)
 
-    return send_telegram_health_check(config, stats=stats, org_activity=org_activity)
+    return send_telegram_health_check(config, stats=stats, org_activity=org_activity, db=store)
 
 
 
@@ -162,6 +245,7 @@ def send_telegram_alert(
     metrics: SimMetrics,
     max_corr: float,
     config: OptionsConfig,
+    db: Any = None,
 ) -> bool:
     """
     Instant alert when a new alpha passes all gates and enters the qualified pool.
@@ -186,7 +270,7 @@ def send_telegram_alert(
         f"Corr `{_escape(f'{max_corr:.2f}')}` \\< 0\\.70 ✓",
         f"Universe `{_escape(settings.universe)}` · Delay `{_escape(str(settings.delay))}` · Decay `{_escape(str(settings.decay))}`",
     ]
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="alpha qualified alert")
 
 
 def send_telegram_drip_alert(
@@ -197,6 +281,7 @@ def send_telegram_drip_alert(
     slot_num: int = 1,
     max_daily: int = 3,
     next_unlock_str: Optional[str] = None,
+    db: Any = None,
 ) -> bool:
     """
     Fires the moment an automated drip submission is confirmed live on BRAIN.
@@ -229,13 +314,14 @@ def send_telegram_drip_alert(
         "",
         f"_{next_msg}_",
     ]
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="drip submission alert")
 
 
 def send_telegram_health_check(
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
     org_activity: Optional[list] = None,
+    db: Any = None,
 ) -> bool:
     """
     Hourly system heartbeat. Shows today's discovery funnel progress at a glance.
@@ -290,12 +376,13 @@ def send_telegram_health_check(
     else:
         lines.append("Orgs active \\(26h\\): `0/4` \u26a0\ufe0f no heartbeat\u2014check worker secrets")
 
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="hourly health check")
 
 
 def send_telegram_daily_digest(
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
+    db: Any = None,
 ) -> bool:
     """
     End-of-day full summary. Called once daily at 23:30 UTC by daily_digest.yml.
@@ -349,13 +436,14 @@ def send_telegram_daily_digest(
         f"*All\\-time*",
         f"Pool: `{_escape(str(all_pool))}` · Ready: `{_escape(str(reserve))}` · Corr\\-archive: `{_escape(str(all_corr))}`",
     ]
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="daily digest")
 
 
 def send_telegram_emergency_alert(
     error_summary: str,
     config: OptionsConfig,
     context: str = "Worker Failure",
+    db: Any = None,
 ) -> bool:
     """
     Sends an immediate high-priority alert when an unhandled exception or worker crash occurs.
@@ -378,13 +466,14 @@ def send_telegram_emergency_alert(
         "",
         _escape(footer),
     ]
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="critical alert")
 
 
 def send_telegram_drip_failure_alert(
     alpha_id: str,
     reason: str,
     config: OptionsConfig,
+    db: Any = None,
 ) -> bool:
     """
     Sends an alert when a scheduled alpha drip submission fails or is rejected by BRAIN.
@@ -403,5 +492,5 @@ def send_telegram_drip_failure_alert(
         f"Alpha: `{_escape(alpha_id)}`",
         f"Reason: `{_escape(clean_reason)}`",
     ]
-    return _send("\n".join(lines), config)
+    return _send_bool("\n".join(lines), config, db=db, label="drip failure alert")
 

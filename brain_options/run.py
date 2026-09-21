@@ -328,7 +328,7 @@ async def run_candidate(
         metrics=best_metrics,
     )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
-    send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
+    send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config, db=store)
 
     # Immediately submit straight up if enabled and daily target quota is not yet full
     if getattr(config, "enable_auto_submit", False):
@@ -402,7 +402,7 @@ async def run_batch(
     client.authenticate()
 
     # Send startup notification
-    send_telegram_startup(config, mode=mode_label)
+    send_telegram_startup(config, mode=mode_label, db=store)
 
     sweep_engine = SweepEngine(client, config)
 
@@ -487,7 +487,7 @@ async def run_batch(
         try:
             if passed_count > 0:
                 stats = store.get_options_stats()
-                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats, db=store)
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
 
@@ -547,9 +547,8 @@ async def run_retry_stage0_batch(
             log.info("  [%d] (%s) %s -> %s", i, c.generation_source, c.archetype_name, c.expression[:100])
         return len(candidates)
 
-    send_telegram_startup(config, mode=f"Stage 0 Re-Optimization ({len(candidates)} candidates)")
+    send_telegram_startup(config, mode=f"Stage 0 Re-Optimization ({len(candidates)} candidates)", db=store)
 
-    store = OptionsStore(database_url=config.database_url)
     client = BrainClient(
         username=config.brain_username,
         password=config.brain_password,
@@ -603,7 +602,7 @@ async def run_retry_stage0_batch(
         try:
             if passed_count > 0:
                 stats = store.get_options_stats()
-                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats, db=store)
         except Exception as summary_err:
             log.warning("Failed to send Telegram summary: %s", summary_err)
 
@@ -683,7 +682,7 @@ async def run_decorrelate_batch(
                      i, getattr(c, "base_alpha_id", "N/A"), getattr(c, "n_variants_tried", 1), c.archetype_name, c.expression[:100])
         return len(candidates)
 
-    send_telegram_startup(config, mode=f"Decorrelation Salvage ({len(candidates)} variants from {len(salvageable)} bases)")
+    send_telegram_startup(config, mode=f"Decorrelation Salvage ({len(candidates)} variants from {len(salvageable)} bases)", db=store)
 
     client = BrainClient(
         username=config.brain_username,
@@ -751,7 +750,7 @@ async def run_decorrelate_batch(
         try:
             if passed_count > 0:
                 stats = store.get_options_stats()
-                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats, db=store)
         except Exception as summary_err:
             log.warning("Failed to send Telegram summary: %s", summary_err)
 
@@ -832,7 +831,7 @@ def main():
         store = OptionsStore(database_url=config.database_url)
         stats = store.get_options_stats()
         org_activity = store.db.get_org_activity(hours=26)
-        success = send_telegram_health_check(config, stats=stats, org_activity=org_activity)
+        success = send_telegram_health_check(config, stats=stats, org_activity=org_activity, db=store)
         if success and hasattr(store, "claim_hourly_health_slot"):
             store.claim_hourly_health_slot(min_interval_minutes=0)
         log.info("Health check sent: %s", "OK" if success else "FAILED")
@@ -841,13 +840,14 @@ def main():
     if getattr(args, "daily_digest", False):
         store = OptionsStore(database_url=config.database_url)
         stats = store.get_options_stats()
-        success = send_telegram_daily_digest(config, stats=stats)
+        success = send_telegram_daily_digest(config, stats=stats, db=store)
         log.info("Daily digest sent: %s", "OK" if success else "FAILED")
         return
 
     if args.test_telegram:
         log.info("Sending test notification to Telegram...")
-        success = send_telegram_startup(config, mode="Test Notification")
+        store = OptionsStore(database_url=config.database_url)
+        success = send_telegram_startup(config, mode="Test Notification", db=store)
         log.info("Telegram test result: %s", "SUCCESS" if success else "FAILED")
         return
 
@@ -911,6 +911,7 @@ def main():
                 error_summary=str(exc),
                 config=config,
                 context=f"{org_name} worker ({args.archetype or 'general'})",
+                db=store,
             )
         except Exception as alert_err:
             log.warning("Could not send emergency Telegram alert: %s", alert_err)

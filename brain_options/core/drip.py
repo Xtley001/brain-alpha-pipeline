@@ -371,6 +371,7 @@ class DripSubmitter:
                         config=self.config,
                         slot_num=slot_num,
                         max_daily=max_daily,
+                        db=self.store,
                     )
 
                     # Pause briefly between consecutive submissions if more slots need filling
@@ -381,7 +382,7 @@ class DripSubmitter:
                     rej_msg = f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})"
                     if hasattr(self.store, "archive_rejected_alpha"):
                         self.store.archive_rejected_alpha(alpha_id, rej_msg, cand)
-                    send_telegram_drip_failure_alert(alpha_id, rej_msg, self.config)
+                    send_telegram_drip_failure_alert(alpha_id, rej_msg, self.config, db=self.store)
                     continue
             else:
                 data = res.get("data") or {}
@@ -404,7 +405,7 @@ class DripSubmitter:
                     self.store.archive_rejected_alpha(alpha_id, rejection_str, cand)
                 if hasattr(self.store, "db") and self.store.db and cand.get("expression"):
                     self.store.db.penalize_learning_memory(cand.get("expression"), penalty=-15.0, reason=rejection_str)
-                send_telegram_drip_failure_alert(alpha_id, rejection_str, self.config)
+                send_telegram_drip_failure_alert(alpha_id, rejection_str, self.config, db=self.store)
 
             # Brief pause to respect BRAIN platform request pacing
             await asyncio.sleep(0.5)

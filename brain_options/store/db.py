@@ -18,6 +18,7 @@ upgrades. Indexes are maintained for all hot query paths.
 from __future__ import annotations
 
 import logging
+import time
 from typing import Any, Dict, List, Optional, Set
 from brain_options.core.client import SimMetrics, SimSettings
 from brain_options.specialist.templates import OptionCandidate
@@ -1347,6 +1348,48 @@ class OptionsDatabase:
         except Exception as e:
             log.warning("Failed to claim hourly health slot: %s", e)
             return False
+
+    def acquire_telegram_send_lease(self, min_gap_seconds: float = 1.2, max_wait_seconds: float = 6.0) -> bool:
+        """
+        Cross-org pacing lock for Telegram sends. Ensures at least `min_gap_seconds`
+        elapses between ANY two Telegram sends across the whole cluster (4 discovery
+        orgs + drip + health/digest workflows), so concurrent workers don't collide
+        and trip Telegram's per-chat rate limit (HTTP 429).
+
+        Spins for up to `max_wait_seconds`, re-attempting the atomic claim every
+        `min_gap_seconds`. Returns True once the lease is acquired, or immediately
+        if no database is configured (pacing is skipped rather than blocking the
+        caller). Returns False if the lease could not be acquired within the wait
+        budget -- callers should still attempt the send in that case, since this
+        is a best-effort mitigation, not a hard gate: the 429 handling in
+        notifier._send is the backstop if pacing doesn't fully prevent a collision.
+        """
+        if not self.database_url:
+            return True
+        sql = """
+            INSERT INTO cluster_session_cache (key, token, cookies, expires_at, updated_at)
+            VALUES ('telegram_send_pacer', 'lease', '{}'::jsonb, CURRENT_TIMESTAMP + INTERVAL '1 day', CURRENT_TIMESTAMP)
+            ON CONFLICT (key) DO UPDATE
+            SET updated_at = CURRENT_TIMESTAMP
+            WHERE cluster_session_cache.updated_at < CURRENT_TIMESTAMP - (%s * INTERVAL '1 second')
+            RETURNING key;
+        """
+        deadline = time.monotonic() + max_wait_seconds
+        while True:
+            try:
+                with self._get_connection() as conn:
+                    with conn.cursor() as cur:
+                        cur.execute(sql, (min_gap_seconds,))
+                        row = cur.fetchone()
+                        conn.commit()
+                        if row:
+                            return True
+            except Exception as e:
+                log.warning("Failed to acquire telegram send lease (failing open): %s", e)
+                return True  # Don't block sends if the DB is unreachable.
+            if time.monotonic() >= deadline:
+                return False
+            time.sleep(min_gap_seconds)
 
     # ------------------------------------------------------------------
     # cluster_session_cache

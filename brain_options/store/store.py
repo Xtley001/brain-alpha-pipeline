@@ -332,6 +332,12 @@ class OptionsStore:
             return self.db.claim_hourly_health_slot(min_interval_minutes=min_interval_minutes)
         return True
 
+    def acquire_telegram_send_lease(self, min_gap_seconds: float = 1.2, max_wait_seconds: float = 6.0) -> bool:
+        """Cross-org pacing lock so concurrent workers don't collide on Telegram sends."""
+        if hasattr(self.db, "acquire_telegram_send_lease"):
+            return self.db.acquire_telegram_send_lease(min_gap_seconds=min_gap_seconds, max_wait_seconds=max_wait_seconds)
+        return True
+
 
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)
