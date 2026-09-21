@@ -198,13 +198,10 @@ class DiagnosticAlphaOptimizer:
             start_idx, end_idx, (inner, _) = parsed_delta
             return expr[:start_idx] + f"ts_zscore({inner}, {window})" + expr[end_idx + 1:]
 
-        parsed_gn = cls._parse_call_args(expr, "group_neutralize")
-        if parsed_gn and len(parsed_gn[2]) == 2 and parsed_gn[0] == 0 and parsed_gn[1] == len(expr) - 1:
-            inner_gn, group = parsed_gn[2]
-            parsed_rank = cls._parse_call_args(inner_gn, "rank")
-            if parsed_rank and len(parsed_rank[2]) == 1:
-                inner_signal = parsed_rank[2][0]
-                return f"group_neutralize(rank(ts_zscore({inner_signal}, {window})), {group})"
+        parsed_tw = cls._parse_call_args(expr, "trade_when")
+        if parsed_tw and len(parsed_tw[2]) == 3 and parsed_tw[0] == 0 and parsed_tw[1] == len(expr) - 1:
+            cond, body, exit_val = parsed_tw[2]
+            return f"trade_when({cond}, {cls.wrap_zscore(body, window)}, {exit_val})"
 
         return f"ts_zscore({expr}, {window})"
 
@@ -442,6 +439,47 @@ class DiagnosticAlphaOptimizer:
                     SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=14, neutralization="SUBINDUSTRY", truncation=0.05),
                 ))
 
+            # DEFICIT: Sub-universe Sharpe failure (Concentrated in illiquid names)
+            elif "Sub-universe Sharpe" in reason or "LOW_SUB_UNIVERSE_SHARPE" in reason:
+                if round_idx == 1:
+                    arms.append((
+                        "SUB_UNIV_TRUNCATION_01",
+                        "Cap max weight at 1% (truncation=0.01) to eliminate small-cap concentration",
+                        current_expr,
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=max(16, current_settings.decay), neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "SUB_UNIV_TRUNCATION_02",
+                        "Cap max weight at 2% (truncation=0.02) with higher decay",
+                        current_expr,
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=max(20, current_settings.decay + 4), neutralization="SUBINDUSTRY", truncation=0.02),
+                    ))
+                    arms.append((
+                        "SUB_UNIV_INDUSTRY_NEUT",
+                        "Neutralize by industry to diversify across broader peer groups",
+                        self.upgrade_neutralization(current_expr, "industry"),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=max(16, current_settings.decay), neutralization="INDUSTRY", truncation=0.03),
+                    ))
+                else:
+                    arms.append((
+                        "SUB_UNIV_TRUNCATION_005",
+                        "Ultra-diffuse portfolio (truncation=0.005) with decay=24",
+                        current_expr,
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=24, neutralization="SUBINDUSTRY", truncation=0.005),
+                    ))
+                    arms.append((
+                        "SUB_UNIV_DEEP_CONVICTION",
+                        "Deep conviction gate (0.42) with truncation=0.01 to isolate high-conviction liquid names",
+                        self.inject_conviction_gate(current_expr, threshold=0.42),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=22, neutralization="SUBINDUSTRY", truncation=0.01),
+                    ))
+                    arms.append((
+                        "SUB_UNIV_MARKET_NEUT",
+                        "Broad market neutralization with decay=20 and truncation=0.02",
+                        self.upgrade_neutralization(current_expr, "market"),
+                        SimSettings(universe=current_settings.universe, delay=current_settings.delay, decay=20, neutralization="MARKET", truncation=0.02),
+                    ))
+
             # DEFICIT: General fine-tuning
             else:
                 for d in (16, 20, 24):
@@ -484,6 +522,15 @@ class DiagnosticAlphaOptimizer:
             for (action_type, action_desc, trial_expr, trial_settings), trial_metrics in zip(unique_arms, results):
                 if not trial_metrics.is_valid:
                     log.warning("Trial simulation returned invalid metrics for [%s]. Skipping arm.", action_type)
+                    history.append(DiagnosticStep(
+                        step=len(history),
+                        action_type=action_type,
+                        expression=trial_expr,
+                        settings=trial_settings,
+                        metrics=trial_metrics,
+                        reward=-15.0,
+                        description=f"INVALID: {action_desc}",
+                    ))
                     continue
 
                 trial_qualified, _ = evaluate_alpha_metrics(trial_metrics, self.config)
