@@ -35,36 +35,34 @@
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Org Roles
+### Unified Runner Architecture
 
-| Org | Role | Specialization | Schedule |
+The pipeline runs on **Xtley001/brain-alpha-pipeline** with all 8 modular strategy families operating on a rotating schedule or targeted workflow dispatch.
+
+### 8 Modular Strategy Packages (`brain_options/strategies/`)
+
+| Strategy | Domain | Theoretical Basis | Primary Datasets |
 |---|---|---|---|
-| `Xtley001` | **Primary** — drip, health, digest | submit + monitor | On-demand / cron |
-| `xtley-alpha-research-01` | **Worker** | `breakeven`, `skew` | Every 2h even UTC |
-| `xtley-alpha-research-02` | **Worker** | `analyst_revisions` | Every 2h even +30m |
-| `xtley-alpha-research-03` | **Worker** | `short_interest` | Every 2h odd UTC |
-| `xtley-alpha-research-04` | **Worker** | `hybrid_confluence`, `term_structure`, `pcr_flow` | Every 2h odd +30m |
-
-**Zero slot collision:** Workers are staggered 30 minutes apart so only one org sims on BRAIN at a time (enforced also by `cluster_run_lock` in Neon).
+| `term_structure` | Pure Options | Variance Risk Premium & Volatility Term Slope | `iv_atm_call_30` .. `iv_atm_call_90`, `vol_term_slope` |
+| `skew` | Pure Options | Tail Risk & Risk-Neutral Skewness | `skew_smirk`, `skew_25d_vs_50d`, `iv_skew_call_put` |
+| `pcr_flow` | Pure Options | Informed Order Flow & Hedging Imbalances | `pcr_oi_ratio`, `pcr_volume_ratio`, `put_volume_surge` |
+| `breakeven` | Pure Options | Straddle & Call Breakeven Hurdle Mispricing | `call_breakeven_cost`, `call_breakeven_spread` |
+| `forward_basis` | Pure Options | Synthetic Forward Parity Spreads & Dividends | `synth_fwd_basis`, `fwd_spot_basis_ratio` |
+| `short_interest` | Equity Lending | Borrow Fee Spikes, Utilization & Squeeze | `borrow_fee_spike`, `loan_utilization_ratio`, `days_to_cover` |
+| `analyst_revisions` | Fundamental | Consensus Estimate Drift, Dispersion & PEAD | `eps_rev_30d_pct`, `rev_estimate_breadth`, `surprise_drift` |
+| `hybrid_confluence` | Multi-Asset | Multi-Factor Skew x Borrow Fee x Revisions | Cross-surface confluent interaction terms |
 
 ---
 
-## Workflows
-
-### Primary Org (Xtley001)
+## Workflows (Xtley001)
 
 | Workflow | Trigger | What It Does |
 |---|---|---|
-| [`drip.yml`](.github/workflows/drip.yml) | 3× daily (08:00, 14:00, 20:00 WAT) | Submits 1 qualified alpha from reserve to BRAIN, paced by 4h New York window |
-| [`health.yml`](.github/workflows/health.yml) | Hourly at `:00` | Sends Telegram heartbeat with today's funnel stats |
+| [`run.yml`](.github/workflows/run.yml) | 48× daily (every 30 min) + manual | Discovers and optimizes alpha candidates across rotating strategies & universes |
+| [`drip.yml`](.github/workflows/drip.yml) | 3× daily (08:00, 14:00, 20:00 WAT) | Submits 1 qualified orthogonal alpha from reserve to BRAIN |
+| [`health.yml`](.github/workflows/health.yml) | Hourly at `:00` | Sends Telegram heartbeat with today's discovery funnel stats |
 | [`daily_digest.yml`](.github/workflows/daily_digest.yml) | Daily at 23:00 UTC (midnight WAT) | Sends full-day summary: simulated, qualified, submitted, reserve, correlated |
 | [`status.yml`](.github/workflows/status.yml) | **Manual dispatch** | On-demand cluster status report + DB stats in Actions logs |
-
-### Worker Orgs (research-01 to 04)
-
-| Workflow | Trigger | What It Does |
-|---|---|---|
-| [`run.yml`](.github/workflows/run.yml) | Staggered cron (every 2h) | Discovers new alpha candidates for assigned archetype channels |
 
 ---
 
@@ -182,21 +180,15 @@ OPENROUTER_API_KEYS   — Comma-separated OpenRouter API keys
 GEMINI_API_KEYS       — Comma-separated Gemini API keys
 BRAIN_EMAIL           — WorldQuant BRAIN login email
 BRAIN_PASSWORD        — WorldQuant BRAIN login password
-ORG_SYNC_PAT          — GitHub PAT with repo scope (for cross-org pushes)
 ```
-
-> All secrets must be set on **all 5 orgs**. Use `python scripts/org_manager.py --sync` to push code updates to all 4 worker orgs after any change to the primary.
 
 ---
 
 ## Operations
 
 ```bash
-# Sync all 5 orgs to latest main
-python scripts/org_manager.py --sync
-
-# Check status of all 5 orgs
-python scripts/org_manager.py --status
+# Run a single discovery and optimization batch locally
+python -m brain_options.run --single-batch --strategy skew
 
 # Manually trigger a health ping to Telegram
 python -m brain_options.run --health
@@ -204,6 +196,6 @@ python -m brain_options.run --health
 # Manually trigger a daily digest to Telegram
 python -m brain_options.run --daily-digest
 
-# Run tests
+# Run the test suite
 python -m pytest tests/ -v
 ```

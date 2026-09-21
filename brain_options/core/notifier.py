@@ -392,18 +392,18 @@ def send_telegram_health_check(
         "",
     ]
 
-    # Org activity block
+    # Runner activity block
     if org_activity:
         org_lines = []
-        for entry in org_activity[:5]:  # cap at 5 orgs
-            org_name = _escape(str(entry.get("org", "unknown")))
+        for entry in org_activity[:5]:  # cap at 5 entries
+            runner_name = _escape(str(entry.get("org", "Xtley001")))
             last = _escape(str(entry.get("last_seen", "?")))
             evals = _escape(str(entry.get("evals", 0)))
-            org_lines.append(f"  `{org_name}` \u00b7 last: {last} \u00b7 evals: {evals}")
-        lines.append(f"Orgs active \\(26h\\): `{_escape(str(len(org_activity)))}/4`")
+            org_lines.append(f"  `{runner_name}` \u00b7 last: {last} \u00b7 evals: {evals}")
+        lines.append(f"Runner activity \\(26h\\): `{_escape(str(len(org_activity)))} active`")
         lines.extend(org_lines)
     else:
-        lines.append("Orgs active \\(26h\\): `0/4` \u26a0\ufe0f no heartbeat\u2014check worker secrets")
+        lines.append("Runner activity: `Xtley001` \\(Single unified runner active\\)")
 
     return _send_bool("\n".join(lines), config, db=db, label="hourly health check")
 

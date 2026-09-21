@@ -21,46 +21,45 @@ WorldQuant BRAIN restricts simulations and submission pacing to prevent system o
 ```
                               ┌──────────────────────────────────┐
                               │     Xtley001 (PRIMARY CONTROLLER)│
-                              │  - Drip Submitter (Max 3/day)    │
                               │  - Hourly Health Checks (:04)    │
                               │  - Morning Briefing (6:00 AM WAT)│
                               │  - End-of-Day Digest (11:50 PM)  │
+                              │  - Discovery & Optimization (48x)│
                               └────────────────┬─────────────────┘
                                                │
-                        Shared Database: Neon PostgreSQL
-               ┌───────────────────────┼───────────────────────┐
-               │                       │                       │
- ┌─────────────▼─────────┐ ┌───────────▼─────────┐ ┌───────────▼─────────┐ ┌───────────▼─────────┐
- │xtley-alpha-research-01│ │xtley-alpha-research-02│ │xtley-alpha-research-03│ │xtley-alpha-research-04│
- │  Breakeven & Skew     │ │  Analyst Revisions  │ │   Short Interest    │ │ Hybrid Confluence,    │
- │  Even Hours at :07    │ │  Even Hours at :37  │ │   Odd Hours at :07  │ │ Term Structure, PCR   │
- │  (12 runs/day)        │ │  (12 runs/day)      │ │   (12 runs/day)     │ │ Odd Hours at :37      │
- └───────────────────────┘ └─────────────────────┘ └─────────────────────┘ └───────────────────────┘
+                         Database: Neon PostgreSQL (Shared State & RL Memory)
+                ┌───────────────────────┼───────────────────────┐
+                │                       │                       │
+  ┌─────────────▼─────────┐ ┌───────────▼─────────┐ ┌───────────▼─────────┐
+  │ Options Derivatives   │ │ Equity Financing    │ │ Fundamental / PEAD  │
+  │ - Term Structure      │ │ - Short Interest    │ │ - Analyst Revisions │
+  │ - Skew Smirk          │ │   (Borrow fee spikes│ │   (EPS revisions &  │
+  │ - Put-Call Flow       │ │    & utilization)   │ │    surprise drift)  │
+  │ - Breakeven Hurdle    │ └─────────────────────┘ └─────────────────────┘
+  │ - Forward Basis       │ ┌─────────────────────────────────────────────┐
+  └───────────────────────┘ │ Cross-Asset Hybrid Confluence               │
+                            │ (Options Skew x Borrow Fee x Revisions)     │
+                            └─────────────────────────────────────────────┘
 ```
 
 ### Roles & Responsibilities
 
-1. **`Xtley001` (Primary Controller)**:
-   - Does **not** run raw discovery (it is excluded in `run.yml` to prevent runner congestion).
-   - Responsible for **orchestration**:
-     - **Drip Submitter (`drip.yml`)**: Checks every 4 hours (and catch-up mode) to submit verified alphas.
-     - **Hourly Health Check (`health.yml`)**: Pings Telegram at `:04` past every hour with live cluster counters.
-     - **Morning Status Briefing (`status.yml`)**: Sends the daily cluster status report at **6:00 AM WAT (05:00 UTC)**.
-     - **Daily Digest (`daily_digest.yml`)**: Sends the end-of-day trading recap at **11:50 PM WAT (22:50 UTC)**.
+1. **`Xtley001` (Unified Engine)**:
+   - Houses the complete end-to-end alpha mining, diagnostic optimization, and submission pipeline.
+   - **Continuous Discovery (`run.yml`)**: Scheduled every 30 minutes (48 runs/day) rotating smoothly across all 8 modular strategy packages and 6 liquid asset universes (`TOP3000`, `USA500`, `SP500`, `RUSSELL2000`, `MINVOL1000`, `GLOBAL3000`).
+   - **Drip Submitter (`drip.yml`)**: Submits verified orthogonal alphas paced according to WorldQuant submission guidelines.
+   - **Hourly Health Check (`health.yml`)**: Pings Telegram at `:00` past every hour with live pipeline funnel counters and qualified alpha progress.
+   - **Daily Digest (`daily_digest.yml`)**: Sends the end-of-day trading recap at **11:50 PM WAT (22:50 UTC)**.
 
-2. **Satellite Research Organizations (`01`, `02`, `03`, `04`)**:
-   - Pure mathematical mining engines.
-   - Staggered so that **one worker runs every 30 minutes, 24/7 (48 runs/day)**:
-     - **Org 1 (`xtley-alpha-research-01`)**: Specialized in **Breakeven & Volatility Skew** (implied vs. historical volatility spreads, put/call IV skew, smile steepness).
-     - **Org 2 (`xtley-alpha-research-02`)**: Specialized in **Analyst Revisions & PEAD** (analyst forecast dispersion, EPS revisions, revenue estimate changes).
-     - **Org 3 (`xtley-alpha-research-03`)**: Specialized in **Short Interest** (borrow fee spikes, short interest ratios, days-to-cover, loan utilization pressure).
-     - **Org 4 (`xtley-alpha-research-04`)**: Specialized in **Hybrid Confluence & Term Structure** (put/call volume imbalances, term structure slope/curvature, cross-surface confirmation).
+2. **Modular Strategy Packages (`brain_options/strategies/`)**:
+   - Each strategy is completely isolated in its own package with its own mathematical rationale, field definitions, generator templates, and strategy-scoped RL weights (`options_strategy_rl_state`).
+   - Enables independent tuning, scaling, and backtesting without cross-contamination.
 
-### Concurrency & The Mutex Lock
-All 4 satellite organizations simulate against the same underlying WorldQuant BRAIN account credentials. To guarantee that two organizations never execute simulations concurrently (which causes BRAIN `429 Too Many Requests` or `Simulations in Progress Limit Exceeded`), the database enforces a cluster-wide lock:
+### Concurrency & Serialized Execution
+Simulations execute against the authenticated WorldQuant BRAIN account credentials. To guarantee that scheduled workflows never trigger concurrent overlapping simulation batches, the system enforces a strict process-level lock and runner schedule:
 - Table: `cluster_run_lock`
 - Function: `db.acquire_cluster_lock(worker_id, org_name)`
-- If Org 2 triggers while Org 1 is finishing a batch, Org 2 waits for the lock or gracefully exits. A 15-minute heartbeat auto-cleans stale locks if a runner ever crashes unexpectedly.
+- A 15-minute heartbeat auto-cleans stale locks if a runner ever crashes unexpectedly.
 
 ---
 
