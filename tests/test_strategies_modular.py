@@ -17,7 +17,7 @@ from brain_options.store.store import OptionsStore
 
 
 def test_strategy_registry_completeness():
-    """Verify all 8 institutional strategy pillars are registered."""
+    """Verify all 15 institutional strategy pillars are registered."""
     expected = [
         "term_structure",
         "skew",
@@ -27,6 +27,13 @@ def test_strategy_registry_completeness():
         "short_interest",
         "analyst_revisions",
         "hybrid_confluence",
+        "supply_chain",
+        "accruals_cashflow",
+        "informed_short_demand",
+        "extreme_tail_risk",
+        "iv_lead_lag",
+        "network_momentum",
+        "formulaic_101",
     ]
     registered = list_strategy_ids()
     for exp in expected:

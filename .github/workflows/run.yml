@@ -18,7 +18,7 @@ on:
         required: false
         default: "40"
       strategy:
-        description: "Strategy module override (e.g. all, term_structure, pcr_flow, short_interest, breakeven, skew, forward_basis, analyst_revisions, hybrid_confluence)"
+        description: "Strategy module override (all, term_structure, skew, pcr_flow, breakeven, forward_basis, short_interest, analyst_revisions, hybrid_confluence, supply_chain, accruals_cashflow, informed_short_demand, extreme_tail_risk, iv_lead_lag, network_momentum, formulaic_101)"
         required: false
         default: ""
       universe:
@@ -91,17 +91,17 @@ jobs:
           HOUR=$(date -u +"%H")
           MIN=$(date -u +"%M")
 
-          # 1. Resolve Strategy & Universe schedule rotation
+          # 1. Resolve Strategy & Universe schedule rotation (Cycling 15 strategies across 4 slots)
           if [ -n "$INPUT_STRAT" ]; then
             TARGET_STRAT="$INPUT_STRAT"
           elif [ $((HOUR % 2)) -eq 0 ] && [ "$MIN" -lt 30 ]; then
-            TARGET_STRAT="term_structure,skew"
+            TARGET_STRAT="term_structure,skew,extreme_tail_risk,iv_lead_lag"
           elif [ $((HOUR % 2)) -eq 0 ] && [ "$MIN" -ge 30 ]; then
-            TARGET_STRAT="pcr_flow,forward_basis"
+            TARGET_STRAT="pcr_flow,forward_basis,formulaic_101"
           elif [ $((HOUR % 2)) -ne 0 ] && [ "$MIN" -lt 30 ]; then
-            TARGET_STRAT="breakeven,short_interest"
+            TARGET_STRAT="breakeven,short_interest,informed_short_demand"
           else
-            TARGET_STRAT="hybrid_confluence,analyst_revisions"
+            TARGET_STRAT="hybrid_confluence,analyst_revisions,accruals_cashflow,supply_chain,network_momentum"
           fi
 
           if [ -n "$INPUT_UNIV" ]; then

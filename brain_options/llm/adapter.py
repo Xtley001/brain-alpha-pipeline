@@ -168,8 +168,8 @@ class LLMAdapter:
         # Compound-beta DEPRECATED Sept 21 2026 — not used here.
         for key in self._rotate_keys("groq", self.config.groq_keys):
             for model in [
+                "qwen/qwen3.8-27b",
                 "llama-3.3-70b-versatile",
-                "deepseek-r1-distill-llama-70b",
                 "llama-3.1-8b-instant",
             ]:
                 res = self._call_openai_compatible(

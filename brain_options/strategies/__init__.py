@@ -15,8 +15,15 @@ from brain_options.strategies.forward_basis import ForwardBasisStrategy
 from brain_options.strategies.short_interest import ShortInterestStrategy
 from brain_options.strategies.analyst_revisions import AnalystRevisionsStrategy
 from brain_options.strategies.hybrid_confluence import HybridConfluenceStrategy
+from brain_options.strategies.supply_chain import SupplyChainStrategy
+from brain_options.strategies.accruals_cashflow import AccrualsCashflowStrategy
+from brain_options.strategies.informed_short_demand import InformedShortDemandStrategy
+from brain_options.strategies.extreme_tail_risk import ExtremeTailRiskStrategy
+from brain_options.strategies.iv_lead_lag import IvLeadLagStrategy
+from brain_options.strategies.network_momentum import NetworkMomentumStrategy
+from brain_options.strategies.formulaic_101 import Formulaic101Strategy
 
-# Standard Strategy Registry
+# Standard Strategy Registry (15 Modular Quantitative Strategies)
 STRATEGY_REGISTRY: dict[str, BaseStrategy] = {
     "term_structure": TermStructureStrategy(),
     "skew": SkewStrategy(),
@@ -26,6 +33,13 @@ STRATEGY_REGISTRY: dict[str, BaseStrategy] = {
     "short_interest": ShortInterestStrategy(),
     "analyst_revisions": AnalystRevisionsStrategy(),
     "hybrid_confluence": HybridConfluenceStrategy(),
+    "supply_chain": SupplyChainStrategy(),
+    "accruals_cashflow": AccrualsCashflowStrategy(),
+    "informed_short_demand": InformedShortDemandStrategy(),
+    "extreme_tail_risk": ExtremeTailRiskStrategy(),
+    "iv_lead_lag": IvLeadLagStrategy(),
+    "network_momentum": NetworkMomentumStrategy(),
+    "formulaic_101": Formulaic101Strategy(),
 }
 
 

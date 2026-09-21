@@ -63,56 +63,32 @@ Testing solely on `TOP3000` creates severe portfolio crowding. The WorldQuant BR
 
 ---
 
-## Pillar 3: The League of 6 Quantitative Strategies
+## Pillar 3: The League of 15 Institutional Quantitative Strategies
 
-Extracted directly from our 32 institutional papers (`docs/research/`):
+Extracted directly from our 32 institutional papers and books (`docs/research/`), structured as isolated modular sub-systems in `brain_options/strategies/`:
 
-### 1. Volatility Risk Premium (VRP) — *Carr & Wu (2009), Sinclair (2013), Bennett (2014)*
-* **Thesis:** Structural variance risk premium: option implied volatility systematically exceeds realized volatility due to institutional demand for downside tail insurance.
-* **Core Expression:**
-  ```python
-  group_neutralize(rank(ts_decay_linear(implied_volatility_mean_30 - ts_std_dev(returns, 20) * 15.87, 20)), subindustry)
-  ```
-* **Expected Correlation to Skew Alphas:** **$0.20 – 0.35$** (Uncorrelated).
+### Pure Options Derivatives
+1. **`term_structure`**: Variance Risk Premium ($IV - RV$) & 30d/90d Term Structure Inversion (*Carr & Wu, Bennett, Sinclair*).
+2. **`skew`**: 25-delta vs 50-delta Call-Put Implied Volatility Smirk & Asymmetry (*Bakshi-Kapadia-Madan, Xing-Zhang-Zhao*).
+3. **`pcr_flow`**: Put-Call Volume & Open Interest Surge Imbalances (*Pan & Poteshman, Garleanu & Pedersen*).
+4. **`breakeven`**: Call Breakeven Hurdle Repricing vs Realized Volatility (*Natenberg, Sinclair*).
+5. **`forward_basis`**: Synthetic Forward Basis Parity Spreads across Tenors (*Derman & Miller, Carr & Wu*).
+6. **`extreme_tail_risk`**: OTM Put Jump-Diffusion Disaster Insurance Pricing (*Bakshi-Kapadia-Madan, Bennett*).
+7. **`iv_lead_lag`**: Implied Volatility Expansions Leading Forward Cash Equities (*Bali & Hovakimian, Pan & Poteshman*).
 
-### 2. Term Structure Inversion & Calendar Spreads — *Derman & Miller, Sinclair (2014)*
-* **Thesis:** Long-dated vs. short-dated volatility term structure slope reflects market stress vs. mean reversion. Inverted term structures ($IV_{30} > IV_{180}$) signal aggressive near-term hedging.
-* **Core Expression:**
-  ```python
-  group_neutralize(rank(ts_decay_linear((implied_volatility_mean_180 - implied_volatility_mean_30) / (implied_volatility_mean_90 + 0.001), 20)), subindustry)
-  ```
-* **Expected Correlation to Skew Alphas:** **$0.25 – 0.40$** (Uncorrelated).
+### Fundamental Quality & Analyst Estimates
+8. **`analyst_revisions`**: Consensus EPS/Revenue Drift, Forecast Dispersion & PEAD (*Givoly & Lakonishok, Martineau*).
+9. **`accruals_cashflow`**: Sloan Accruals Anomaly & Operating Cash Flow Divergence (*Sloan, Fabozzi, Grinold & Kahn*).
 
-### 3. Order Flow & Put-Call Volume/OI Imbalances — *Pan & Poteshman (2006), Garleanu & Pedersen (2009)*
-* **Thesis:** Informed institutional option buying leads stock price discovery. Surges in Open Interest relative to volume extract liquidity concessions from market makers.
-* **Core Expression:**
-  ```python
-  trade_when(volume > adv20, group_neutralize(rank(-ts_decay_linear(pcr_vol_30 / (pcr_oi_30 + 0.001), 15)), subindustry), -1)
-  ```
-* **Expected Correlation to Skew Alphas:** **$0.15 – 0.30$** (Uncorrelated).
+### Equity Financing & Borrow Friction
+10. **`short_interest`**: Borrow Fee Spikes, Loan Utilization & Squeeze Ratios (*Rapach, Ringgenberg & Zhou, Asquith et al.*).
+11. **`informed_short_demand`**: Disentangling Institutional Short Demand Shifts from Lender Supply Friction (*Engelberg, Reed & Ringgenberg, Cohen, Diether & Malloy*).
 
-### 4. Short Interest & Borrow Pressure — *Rapach, Ringgenberg, Zhou (2016), Asquith et al. (2005)*
-* **Thesis:** Aggregate short interest is one of the strongest cross-sectional predictors of equity returns. Extreme short interest coupled with rising borrow fees forces short squeezes or signals private negative information.
-* **Core Expression:**
-  ```python
-  group_neutralize(rank(-ts_decay_linear(short_interest / (shares_out + 0.001), 20)), subindustry)
-  ```
-* **Expected Correlation to Options Skew:** **$0.10 – 0.25$** (Orthogonal).
-
-### 5. Analyst Consensus Momentum & PEAD — *Diether, Malloy, Scherbina (2002), Martineau (2021)*
-* **Thesis:** Analyst forecast revisions drift over 30–60 days due to cognitive anchoring and slow institutional information diffusion.
-* **Core Expression:**
-  ```python
-  group_neutralize(rank(ts_decay_linear((target_price - close) / close, 20)), subindustry)
-  ```
-* **Expected Correlation to Options Skew:** **$0.05 – 0.20$** (Completely Independent).
-
-### 6. Supply Chain & Customer-Supplier Momentum — *Barrot & Sauvagnat (2016), Cohen et al. (2007)*
-* **Thesis:** Earnings and cash flow shocks propagate downstream from major customers to suppliers with an 8 to 20 day lag.
-* **Core Expression:**
-  ```python
-  group_neutralize(rank(ts_decay_linear(ts_mean(customer_returns, 10) - returns, 15)), subindustry)
-  ```
+### Network, Macro & Price-Volume Dynamics
+12. **`supply_chain`**: Production Network Shock Propagation & Customer-Supplier Lead-Lag (*Barrot & Sauvagnat, Cohen & Frazzini*).
+13. **`network_momentum`**: Community Cluster Centroid Lead-Lag & Co-Movement Momentum (*Lopez de Prado, Tulchinsky*).
+14. **`formulaic_101`**: Canonical WorldQuant Price-Volume Cross-Sectional Interactions (*Kakushadze 101 Alphas, Tulchinsky*).
+15. **`hybrid_confluence`**: Multi-Factor Confluence (Options Skew $\times$ Borrow Fee $\times$ SUE Earnings Revisions).
 
 ---
 
