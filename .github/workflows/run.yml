@@ -16,7 +16,7 @@ on:
       candidates:
         description: "Number of candidates to evaluate in this batch"
         required: false
-        default: "20"
+        default: "40"
       archetype:
         description: "Archetype specialization override (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)"
         required: false
@@ -33,7 +33,7 @@ jobs:
     # Each org now runs on every trigger; archetype specialization is resolved in the Python step.
     if: github.repository_owner != 'Xtley001'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 26
     permissions:
       contents: read
     env:
@@ -57,8 +57,8 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       BRAIN_MAX_CONCURRENT_SIMS: "3"
-      MAX_CANDIDATES_PER_RUN: ${{ github.event.inputs.candidates || '20' }}
-      RUN_TIME_BUDGET_SECONDS: "820"
+      MAX_CANDIDATES_PER_RUN: ${{ github.event.inputs.candidates || '40' }}
+      RUN_TIME_BUDGET_SECONDS: "1150"
       STAGE0_MIN_FITNESS: "0.20"
       STAGE0_MIN_SHARPE: "0.35"
       FILTER_MIN_SHARPE: "1.25"

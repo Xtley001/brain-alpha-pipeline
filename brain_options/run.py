@@ -144,7 +144,7 @@ async def run_candidate(
         candidate=candidate,
         base_settings=s0_settings,
         initial_metrics=s0_metrics,
-        max_steps=6,
+        max_steps=8,
     )
 
     if not passed_filter:
