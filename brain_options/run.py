@@ -977,12 +977,38 @@ def main():
     lock_acquired = False
 
     if not args.dry_run and db:
-        lock_acquired = db.acquire_cluster_lock(
-            org_name=org_name,
-            worker_id=worker_id,
-            archetype=args.archetype or "",
-            timeout_seconds=900,
-        )
+        # If running on primary org (blitz or dispatch), wait up to 120s for active worker to yield
+        max_lock_attempts = 12 if org_name == "Xtley001" else 1
+        for attempt in range(max_lock_attempts):
+            lock_acquired = db.acquire_cluster_lock(
+                org_name=org_name,
+                worker_id=worker_id,
+                archetype=args.archetype or "",
+                timeout_seconds=18000 if getattr(args, "decorrelate", False) else 900,
+            )
+            if lock_acquired:
+                break
+            if attempt < max_lock_attempts - 1:
+                log.info("Primary org waiting for active worker to yield simulation lock (attempt %d/%d)...", attempt + 1, max_lock_attempts)
+                time.sleep(10)
+
+        # Primary org blitz priority: force override if still held after waiting
+        if not lock_acquired and org_name == "Xtley001" and getattr(args, "decorrelate", False):
+            log.warning("Primary org blitz overriding active lock to take priority.")
+            try:
+                with db._get_connection() as conn:
+                    with conn.cursor() as cur:
+                        cur.execute("DELETE FROM cluster_run_lock;")
+                    conn.commit()
+                lock_acquired = db.acquire_cluster_lock(
+                    org_name=org_name,
+                    worker_id=worker_id,
+                    archetype=args.archetype or "",
+                    timeout_seconds=18000,
+                )
+            except Exception as e:
+                log.warning("Failed to override lock: %s", e)
+
         if not lock_acquired:
             log.warning(
                 "Cluster Mutex Busy: Another worker is currently simulating on BRAIN. "

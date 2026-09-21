@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "Number of top-CQS correlated base alphas to salvage (e.g. 50)"
+        description: "Number of top-CQS correlated base alphas to salvage (e.g. 100)"
         required: false
-        default: "50"
+        default: "100"
 
 concurrency:
   group: brain-decorrelate-blitz
@@ -50,4 +50,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Decorrelation Blitz
-        run: python -m brain_options.run --decorrelate --limit ${{ github.event.inputs.limit || '50' }}
+        run: python -m brain_options.run --decorrelate --limit ${{ github.event.inputs.limit || '100' }}
