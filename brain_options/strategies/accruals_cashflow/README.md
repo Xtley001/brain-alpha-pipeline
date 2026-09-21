@@ -1,20 +1,41 @@
-# Accounting Quality, Sloan Cash Flow Divergence & Accruals Anomaly
+# Strategy: Accounting Quality & Accruals Anomaly
 
-## 1. Academic & Economic Foundations
-The accrual anomaly is one of the most robust and persistent market anomalies in empirical finance. Formulated initially by Richard Sloan (1996), it documents that the accrual component of earnings exhibits much lower persistence than the cash flow component. Investors consistently overprice the accrual component and underprice operating cash flows, leading to predictable subsequent return reversals as lower-quality earnings revert.
+Operating cash flow divergence from reported earnings predicts subsequent return reversals.
 
-## 2. Mathematical Formulation
-Total accounting accruals ($TA$) are defined as net income minus operating cash flows, scaled by total assets:
+The accrual anomaly, formulated by Sloan (1996), documents that the accrual component of earnings exhibits lower persistence than the cash flow component. Investors consistently overprice accruals and underprice operating cash flows, leading to predictable reversals as lower-quality earnings revert toward cash flow fundamentals. Cross-sectionally, stocks with high accruals underperform stocks with high cash flows by 10%+ annualized.
+
+## Mechanism
+
+**Sloan accrual spread:**
 
 $$TA_t = \frac{\text{NetIncome}_t - \text{OperatingCashFlow}_t}{\text{TotalAssets}_t}$$
 
-The fundamental Sloan Alpha is synthesized as:
 $$\alpha_{\text{Sloan}} = \text{rank}\left(\frac{\text{OperatingCashFlow}_t}{\text{TotalAssets}_t}\right) - \text{rank}\left(\frac{\text{NetIncome}_t}{\text{TotalAssets}_t}\right)$$
 
-When normalized across subindustries to control for varying capital structures:
-$$\alpha_{\text{AccrualNeutral}} = \text{group\_neutralize}\left(\alpha_{\text{Sloan}}, \text{subindustry}\right)$$
+**Subindustry-neutralized:**
 
-## 3. Academic Citations
-* **Sloan, R.G. (1996)**. *Do Stock Prices Fully Reflect Information in Accruals and Cash Flows about Future Earnings?* The Accounting Review, 71(3), 289-315.
-* **Fabozzi, F.J. (2007)**. *Quantitative Equity Investing: Techniques and Strategies*. John Wiley & Sons.
-* **Grinold, R.C., & Kahn, R.N. (1999)**. *Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Controlling Risk*. McGraw-Hill.
+$$\alpha_{\text{AccrualNeutral}} = \text{group\_neutralize}\left(\alpha_{\text{Sloan}},\ \text{subindustry}\right)$$
+
+*Worked example:* A company with Net Income = 50M, Operating Cash Flow = 30M, and Total Assets = 500M has TA = (50 – 30) / 500 = +0.04 — a high-accrual (lower quality) score, placing it in the short book.
+
+## Execution Parameters
+
+| Parameter | Value |
+|---|---|
+| Universes | `TOPSP500`, `TOP1000`, `TOP3000` |
+| Holding decay | 20–30 days |
+| Neutralizations | `SUBINDUSTRY`, `SECTOR` |
+| Data fields | `net_income`, `operating_cash_flow`, `total_assets` |
+
+## Academic Basis
+
+- **Sloan (1996):** Accrual component of earnings exhibits lower persistence than cash flow; documented 10%+ annual return spread.
+- **Fabozzi, Focardi & Kolm (2010):** Quantitative implementation of accruals-based factors across liquid equity universes.
+- **Grinold & Kahn (2000):** Cash flow quality as a fundamental alpha source in active portfolio management.
+
+## Testing
+
+```bash
+python -m pytest tests/ -v -k accruals_cashflow
+python -m brain_options.run --single-batch --strategy accruals_cashflow
+```

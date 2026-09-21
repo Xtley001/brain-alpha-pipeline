@@ -1,20 +1,43 @@
-# Network Graph Clustering & Co-Movement Lead-Lag Momentum Strategy
+# Strategy: Network Graph Clustering & Co-Movement Lead-Lag Momentum
 
-## 1. Academic & Economic Foundations
-Financial markets exhibit complex community clustering architectures where assets in the same industrial or correlation cluster share underlying common risk factors. As formulated by Marcos Lopez de Prado (2018) in Hierarchical Risk Parity (HRP) and network clustering graph literature, asset returns can be decomposed into a cluster centroid component and an idiosyncratic residual component. Assets exhibiting short-term divergence from their cluster centroid provide high-Sharpe mean-reverting alpha, while the cluster centroid itself provides directional momentum.
+Assets diverging from their cluster centroid provide high-Sharpe mean-reverting alpha.
 
-## 2. Mathematical Formulation
-Let $\mathcal{C}_k$ be the peer community cluster (subindustry/industry) for asset $i$:
+Financial markets exhibit community clustering architectures where assets in the same industrial or correlation cluster share common underlying risk factors. As formulated by Lopez de Prado (2018) in Hierarchical Risk Parity literature, asset returns decompose into a cluster centroid component and an idiosyncratic residual. Assets exhibiting short-term divergence from their cluster centroid provide high-Sharpe mean-reverting alpha, while the cluster centroid itself provides directional momentum — two distinct signals from the same network structure.
 
-$$\bar{R}_{\mathcal{C}_k, t} = \frac{1}{|\mathcal{C}_k|} \sum_{j \in \mathcal{C}_k} R_{j, t}$$
+## Mechanism
 
-The lead-lag catch-up momentum signal is formulated as:
-$$\alpha_{\text{ClusterCatchUp}} = \text{group\_rank}\left(\text{ts\_decay\_linear}(R_{i, t}, 20), \mathcal{C}_k\right) - \text{group\_rank}(R_{i, t}, \mathcal{C}_k)$$
+Let $\mathcal{C}_k$ be the peer community cluster (subindustry or industry group) for asset $i$:
 
-When trading the mean-reverting idiosyncratic deviation:
-$$\alpha_{\text{DevReversion}} = -\text{group\_neutralize}\left(R_{i, t} - \text{ts\_mean}(\bar{R}_{\mathcal{C}_k}, 20), \mathcal{C}_k\right)$$
+**Cluster mean-reversion signal:**
 
-## 3. Academic Citations
-* **Lopez de Prado, M. (2018)**. *Advances in Financial Machine Learning*. John Wiley & Sons.
-* **Lead-Lag Detection Network Clustering Research Papers**. Institutional Quantitative Finance & Network Topology.
-* **Tulchinsky, I. (2019)**. *Finding Alphas: A Quantitative Approach to Building Trading Strategies*. WorldQuant.
+$$\text{ClusterCentroid}_{k,t} = \text{group\_mean}(\text{returns},\ \text{subindustry})$$
+
+$$\alpha_{\text{MeanRev}} = \text{group\_neutralize}\left(\text{rank}\left(-\text{ts\_zscore}(\text{returns}_t - \text{ClusterCentroid}_{k,t},\ 10)\right),\ \text{subindustry}\right)$$
+
+**Centroid momentum lead-lag:**
+
+$$\alpha_{\text{Momentum}} = \text{group\_neutralize}\left(\text{rank}\left(\text{ts\_decay\_linear}(\text{ClusterCentroid}_{k,t-5},\ 10)\right),\ \text{subindustry}\right)$$
+
+*Worked example:* A stock that has returned –3% over 5 days while its subindustry centroid returned +1% shows an idiosyncratic deviation of –4%. The ts_zscore of this gap over 10 days is negative — the stock is oversold relative to its cluster and goes long on the mean-reversion signal.
+
+## Execution Parameters
+
+| Parameter | Value |
+|---|---|
+| Universes | `TOP1000`, `TOP2000`, `TOP3000` |
+| Holding decay | 10–20 days |
+| Neutralizations | `SUBINDUSTRY`, `INDUSTRY` |
+| Data fields | `returns`, `close`, `volume` |
+| Cluster proxy | `subindustry`, `industry` group operators |
+
+## Academic Basis
+
+- **Lopez de Prado (2018):** Hierarchical Risk Parity and cluster-based portfolio construction; asset co-movement within network communities.
+- **Tulchinsky et al. (2019):** Cross-sectional momentum and mean-reversion within industry clusters as a source of persistent alpha.
+
+## Testing
+
+```bash
+python -m pytest tests/ -v -k network_momentum
+python -m brain_options.run --single-batch --strategy network_momentum
+```

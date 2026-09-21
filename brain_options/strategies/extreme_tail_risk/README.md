@@ -1,20 +1,41 @@
-# Extreme Tail Risk Asymmetry & OTM Put Jump Diffusion Strategy
+# Strategy: Extreme Tail Risk & OTM Put Smirk
 
-## 1. Academic & Economic Foundations
-The volatility smirk in individual equity options captures the market's pricing of negative jump risk. Under the Bakshi, Kapadia, & Madan (2003) framework, the difference in implied volatility between out-of-the-money puts and at-the-money calls directly measures higher-order moments (risk-neutral skewness and kurtosis). Xing, Zhang, & Zhao (2010) empirically prove that firms with the steepest smirks underperform those with flatter smirks by over 10% annualized, as sophisticated investors bid up protective puts ahead of negative firm-specific shocks.
+Volatility smirk steepness measures jump disaster pricing and predicts equity underperformance.
 
-## 2. Mathematical Formulation
-Let $\text{IV}(\Delta=-0.25)$ be the implied volatility of a 25-delta put and $\text{IV}(\Delta=0.50)$ be the ATM call implied volatility:
+The volatility smirk in individual equity options captures the market's pricing of negative jump risk. Under the Bakshi, Kapadia & Madan (2003) framework, the difference in implied volatility between out-of-the-money puts and at-the-money calls directly measures higher-order moments — risk-neutral skewness and kurtosis. Firms with the steepest smirks underperform those with flatter smirks by over 10% annualized, as sophisticated investors bid up protective puts ahead of firm-specific negative shocks.
 
-$$\text{Smirk}_t = \text{IV}_{25\Delta put, t} - \text{IV}_{50\Delta call, t}$$
+## Mechanism
 
-The normalized tail risk cross-sectional signal is:
-$$\alpha_{\text{TailRisk}} = -\text{group\_neutralize}\left(\text{ts\_zscore}(\text{Smirk}_t, 60), \text{subindustry}\right)$$
+**Smirk asymmetry signal:**
 
-Concurrently testing interaction with surface convexity:
-$$\alpha_{\text{Convexity}} = -\text{group\_rank}(\text{SurfaceConvexity}_t, \text{industry})$$
+$$\text{Smirk}_t = \text{IV}_{25\Delta\text{put},\, t} - \text{IV}_{50\Delta\text{call},\, t}$$
 
-## 3. Academic Citations
-* **Bakshi, G., Kapadia, N., & Madan, D. (2003)**. *Stock Return Characteristics, Skew Laws, and the Differential Pricing of Individual Equity Options*. The Review of Financial Studies, 16(1), 101-143.
-* **Xing, Y., Zhang, X., & Zhao, R. (2010)**. *What Does the Individual Option Volatility Smirk Tell Us About Future Equity Returns?* Journal of Financial and Quantitative Analysis, 45(3), 641-662.
-* **Bennett, C. (2014)**. *Trading Volatility: Correlation, Term Structure and Skew*. CreateSpace Independent Publishing.
+$$\alpha_{\text{TailRisk}} = -\text{group\_neutralize}\left(\text{ts\_zscore}(\text{Smirk}_t,\ 60),\ \text{subindustry}\right)$$
+
+**Surface convexity extension:**
+
+$$\alpha_{\text{Convexity}} = -\text{group\_rank}(\text{SurfaceConvexity}_t,\ \text{industry})$$
+
+*Worked example:* A stock with 25-delta put IV of 0.35 and ATM call IV of 0.25 has Smirk = +0.10. If this is elevated relative to the 60-day history (ts_zscore > +1.5), the alpha assigns a negative (short) score after neutralization — stock is expected to underperform.
+
+## Execution Parameters
+
+| Parameter | Value |
+|---|---|
+| Universes | `TOP1000`, `TOP2000`, `TOP3000` |
+| Holding decay | 14–22 days |
+| Neutralizations | `SUBINDUSTRY`, `INDUSTRY` |
+| Data fields | `iv_skew_25d_put`, `iv_atm_call_30`, `skew_smirk` |
+
+## Academic Basis
+
+- **Bakshi, Kapadia & Madan (2003):** Model-free skewness and kurtosis from option prices; OTM put premium reflects jump risk pricing.
+- **Xing, Zhang & Zhao (2010):** Steepest-smirk quintile underperforms flattest-smirk quintile by 10%+ annualized in individual equities.
+- **Bennett (2014):** Practical construction of vol surface asymmetry signals from 25-delta put vs ATM call IV.
+
+## Testing
+
+```bash
+python -m pytest tests/ -v -k extreme_tail_risk
+python -m brain_options.run --single-batch --strategy extreme_tail_risk
+```

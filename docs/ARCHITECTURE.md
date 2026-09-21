@@ -2,104 +2,122 @@
 
 ## Deployment
 
-This system runs **entirely on GitHub Actions** - there is no Render, HuggingFace Spaces,
-or Docker deployment. The Dockerfile, render.yaml, and app.py previously in the repo
-have been deleted as dead code.
+This system runs entirely on GitHub Actions — no Docker, no Render, no Hugging Face Spaces. The single unified runner is `Xtley001/brain-alpha-pipeline`.
 
-## Single Unified Pipeline Architecture
+## Unified Pipeline
 
-The entire pipeline runs on **Xtley001/brain-alpha-pipeline** using GitHub Actions with a unified Neon PostgreSQL database. All previous secondary worker orgs have been decommissioned and consolidated.
+All discovery, optimization, and submission runs on `Xtley001/brain-alpha-pipeline` via GitHub Actions with a shared Neon PostgreSQL database.
 
-### Unified Scheduling & Dispatch
-
-| Runner | Role | Schedule | Strategies Handled |
+| Runner | Role | Schedule | Strategies |
 |---|---|---|---|
-| `Xtley001` (Unified) | Discovery & Optimization | Every 30 min (48x/day) | All 8 modular strategies (rotating) |
-| `Xtley001` (Drip Submitter) | Paced Submissions | 3x/day | Submits top orthogonal qualified alphas |
-| `Xtley001` (Health / Digest) | Telemetry & Monitoring | Hourly / Midnight UTC | Funnel metrics, reserve status & Telegram alerts |
+| `Xtley001` — Discovery | Alpha generation & optimization | Every 30 min (48×/day) | All 15 strategies, rotating |
+| `Xtley001` — Drip | Paced submissions | 3×/day | Submits top orthogonal qualified alphas |
+| `Xtley001` — Health/Digest | Telemetry & monitoring | Hourly / midnight UTC | Funnel metrics & Telegram alerts |
 
-### Modular Strategy Sub-Systems (`brain_options/strategies/`)
+## Strategy Packages
 
-Each strategy family is isolated in its own sub-system package with dedicated fields, templates, generator logic, and strategy-scoped RL weights:
-1. `term_structure` (VRP, IV vs HV, 30d/90d term structure curvature)
-2. `skew` (25-delta vs 50-delta skew, Put-Call IV smirk steepness)
-3. `pcr_flow` (Put-Call Volume & Open Interest flow surges)
-4. `breakeven` (Call Breakeven Hurdle Repricing vs Realized Vol)
-5. `forward_basis` (Synthetic Forward Basis Parity Spreads)
-6. `short_interest` (Borrow Fee Spikes, Utilization, Squeeze Pressure)
-7. `analyst_revisions` (Consensus EPS/Revenue Drift, Forecast Dispersion, PEAD)
-8. `hybrid_confluence` (Cross-Asset Options Skew x Borrow Fee x Analyst Drift)
+15 modular sub-systems in `brain_options/strategies/`, each with its own fields, generator templates, and strategy-scoped RL weights:
+
+| # | Package | Domain |
+|---|---|---|
+| 1 | `term_structure` | VRP, IV vs HV, 30d/90d term structure curvature |
+| 2 | `skew` | 25-delta vs 50-delta smirk steepness |
+| 3 | `pcr_flow` | Put-call volume & open interest flow surges |
+| 4 | `breakeven` | Call breakeven hurdle repricing vs realized vol |
+| 5 | `forward_basis` | Synthetic forward basis parity spreads |
+| 6 | `extreme_tail_risk` | OTM put jump-diffusion disaster pricing |
+| 7 | `iv_lead_lag` | IV innovations leading cash equity returns |
+| 8 | `short_interest` | Borrow fee spikes, utilization, squeeze pressure |
+| 9 | `informed_short_demand` | Demand shifts vs lender supply friction |
+| 10 | `analyst_revisions` | Consensus EPS/revenue drift, forecast dispersion, PEAD |
+| 11 | `accruals_cashflow` | Sloan accrual anomaly & operating cash flow divergence |
+| 12 | `supply_chain` | Supplier shock propagation to downstream customers |
+| 13 | `network_momentum` | Cluster centroid lead-lag & co-movement momentum |
+| 14 | `formulaic_101` | Kakushadze canonical price-volume cross-sectional alphas |
+| 15 | `hybrid_confluence` | Skew × borrow fee × analyst revision multi-factor |
 
 ## Pipeline Stages
 
-For each batch run (one GitHub Actions job):
-  1. `record_org_run()` - write heartbeat to `org_runs` table
-  2. `--retry-stage0`   - re-optimize older Stage 0 passers
-  3. `--single-batch`   - generate, Stage 0 screen, optimize, correlate, archive
-     - `ASTDeduplicator` (seeded from all archive tables on startup)
-     - Stage 0 fast screen (Sharpe >= 0.35, Fitness >= 0.20)
-     - `DiagnosticAlphaOptimizer` (max 6 rounds, returns best-seen metrics)
-     - Correlation gate (max_corr < 0.70 vs SUBMITTED+QUALIFIED portfolio)
-     - archive to `options_alphas` (QUALIFIED)
-  4. `send_telegram_batch_summary()` - always fires (grey circle for 0-pass, green check for qualifiers)
-  5. Zero-qualified tripwire - red alert if today_evaluated >= 30 and today_qualified = 0
+Each GitHub Actions batch job runs the following stages in order:
+
+1. `record_org_run()` — write heartbeat to `org_runs` table
+2. `--retry-stage0` — re-optimize older Stage 0 passers
+3. `--single-batch` — generate → Stage 0 screen → optimize → correlate → archive
+   - `ASTDeduplicator` seeded from all archive tables on startup
+   - Stage 0 fast screen (Sharpe ≥ 0.35, Fitness ≥ 0.20)
+   - `DiagnosticAlphaOptimizer` — up to 6 rounds, returns best-seen metrics
+   - Correlation gate (max_corr < 0.70 vs SUBMITTED + QUALIFIED portfolio)
+   - Archive to `options_alphas` as `QUALIFIED`
+4. `send_telegram_batch_summary()` — fires on any qualified result
+5. Zero-qualified tripwire — warning log if `today_evaluated ≥ 30` and `today_qualified = 0`
 
 ## Workflows
 
-| File | Runs on | Trigger | Purpose |
-|---|---|---|---|
-| `run.yml` | `Xtley001` | Cron 48x/day + manual dispatch | Discovery & multi-strategy optimization |
-| `drip.yml` | `Xtley001` | Cron 3x/day + manual | Submit qualified alphas to BRAIN |
-| `health.yml` | `Xtley001` | Cron every hour at :04 | Hourly Telegram health check |
-| `status.yml` | `Xtley001` | On-demand / scheduled | System status report |
-| `daily_digest.yml` | `Xtley001` | Cron 23:30 UTC daily | End-of-day Telegram digest |
+| File | Trigger | Purpose |
+|---|---|---|
+| `run.yml` | Cron 48×/day + manual | Discovery & multi-strategy optimization |
+| `drip.yml` | Cron 3×/day + manual | Submit qualified alphas to BRAIN |
+| `health.yml` | Cron hourly at `:00` | Telegram health check |
+| `daily_digest.yml` | Cron 23:30 UTC daily | End-of-day Telegram digest |
+| `status.yml` | Manual dispatch | System status report |
 
-## Database Tables (Neon Postgres)
+## Database
+
+9 tables on Neon PostgreSQL:
 
 | Table | Purpose |
 |---|---|
 | `options_alphas` | Qualified alpha pool + submission status |
-| `options_evaluations` | Full evaluation log (every Stage 0 sim) |
-| `options_strategy_rl_state` | Strategy-scoped reinforcement learning operator weights |
+| `options_evaluations` | Full evaluation log (every Stage 0 simulation) |
+| `options_strategy_rl_state` | Strategy-scoped RL operator weights |
 | `options_learning_memory` | Global operator reward memory |
-| `options_rejected_alphas` | Checklist-failed alphas (UNIQUE on alpha_id) |
-| `options_correlated_alphas` | Correlation-rejected alphas (UNIQUE on alpha_id) |
-| `cluster_session_cache` | Shared BRAIN session token (TTL-enforced, 10-min margin) |
-| `cluster_run_lock` | Mutex ensuring clean serialized simulations |
-| `org_runs` | Heartbeat log for runner telemetry |
+| `options_rejected_alphas` | Checklist-failed alphas (unique on alpha_id) |
+| `options_correlated_alphas` | Correlation-rejected alphas (unique on alpha_id) |
+| `cluster_session_cache` | Shared BRAIN session token (TTL-enforced) |
+| `cluster_run_lock` | Mutex ensuring serialized simulations |
+| `org_runs` | Runner heartbeat & telemetry log |
 
-## Key Config Env Vars
+## Configuration
 
 | Variable | Default | Purpose |
 |---|---|---|
-| FILTER_MIN_SHARPE | 1.25 | Qualification threshold |
-| FILTER_MIN_FITNESS | 1.00 | Qualification threshold |
-| FILTER_MAX_TURNOVER | 0.70 | Max turnover to qualify |
-| MAX_CANDIDATES_PER_RUN | 20 | Batch size |
-| RUN_TIME_BUDGET_SECONDS | 820 | Hard time limit per batch |
-| NOTIFY_EVERY_BATCH | true | Always send Telegram after every batch |
-| ENABLE_AUTO_SUBMIT | false | Auto-submit to BRAIN (drip handles manually) |
+| `FILTER_MIN_SHARPE` | `1.25` | Qualification threshold |
+| `FILTER_MIN_FITNESS` | `1.00` | Qualification threshold |
+| `FILTER_MAX_TURNOVER` | `0.70` | Max turnover to qualify |
+| `MAX_CANDIDATES_PER_RUN` | `20` | Batch size |
+| `RUN_TIME_BUDGET_SECONDS` | `820` | Hard time limit per batch |
+| `NOTIFY_EVERY_BATCH` | `true` | Always send Telegram after every batch |
+| `ENABLE_AUTO_SUBMIT` | `false` | Auto-submit to BRAIN (drip handles submissions) |
 
 ## Module Layout
 
+```
 brain_options/
-  config.py             - OptionsConfig (env vars to typed config)
-  run.py                - Main entry point: --single-batch, --retry-stage0, --health, --status
-  core/
-    client.py           - BrainClient (BRAIN API: login, simulate, submit)
-    filter.py           - evaluate_alpha_metrics() quality gate
-    notifier.py         - Telegram notifications (batch, health, drip, digest, emergency)
-    optimizer.py        - DiagnosticAlphaOptimizer (RL multi-arm bandit)
-    drip.py             - DripSubmitter (paced submission of qualified alphas)
-  specialist/
-    generator.py        - OptionsGenerator (LLM + template + MAB)
-    templates.py        - OptionCandidate dataclass + seed expressions
-  store/
-    db.py               - OptionsDatabase (all SQL: schema, migrations, queries)
-    store.py            - OptionsStore (high-level wrapper around OptionsDatabase)
+├── config.py                   # OptionsConfig — env vars to typed config
+├── run.py                      # Entry point: --single-batch, --retry-stage0, --health, --status
+├── core/
+│   ├── client.py               # BrainClient — BRAIN API: login, simulate, submit
+│   ├── filter.py               # evaluate_alpha_metrics() quality gate
+│   ├── notifier.py             # Telegram notifications: batch, health, drip, digest, emergency
+│   ├── optimizer.py            # DiagnosticAlphaOptimizer — RL multi-arm bandit
+│   └── drip.py                 # DripSubmitter — paced submission of qualified alphas
+├── specialist/
+│   ├── generator.py            # OptionsGenerator — LLM + template + MAB
+│   └── templates.py            # OptionCandidate dataclass + seed expressions
+├── store/
+│   ├── db.py                   # OptionsDatabase — all SQL: schema, migrations, queries
+│   └── store.py                # OptionsStore — high-level wrapper around OptionsDatabase
+└── strategies/
+    └── <strategy_name>/        # 15 isolated strategy packages
+        ├── __init__.py
+        ├── fields.py
+        ├── strategy.py
+        └── README.md
 scripts/
-  org_manager.py        - CLI tool for syncing secrets across worker orgs
-  verify_brain_parsing.py - Validates BRAIN API response parsing against live account
+├── verify_brain_parsing.py     # Validates BRAIN API response parsing against live account
 tests/
-  test_filter.py        - Unit tests for quality gate
-  test_optimizer.py     - Unit tests for optimizer transformation operators
+├── test_filter.py              # Unit tests for quality gate
+├── test_optimizer.py           # Unit tests for optimizer transformation operators
+├── test_notifier.py            # Unit tests for Telegram notifier resilience
+└── test_strategies_modular.py  # Validates all 15 strategy modules
+```
