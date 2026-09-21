@@ -457,6 +457,14 @@ class OptionsStore:
 
 
 
+    def get_salvageable_correlated_alphas(
+        self, min_sharpe: float = 1.25, min_fitness: float = 1.00, limit: int = 10
+    ) -> List[Dict[str, Any]]:
+        """Returns high-performing correlated alphas eligible for orthogonalization."""
+        if hasattr(self, "db") and self.db:
+            return self.db.get_salvageable_correlated_alphas(min_sharpe=min_sharpe, min_fitness=min_fitness, limit=limit)
+        return []
+
     def get_stage0_passed_candidates(self, limit: int = 100) -> List[OptionCandidate]:
         candidates = self.db.get_stage0_passed_candidates(limit=limit)
         if candidates:

@@ -597,6 +597,127 @@ async def run_retry_stage0_batch(
     return passed_count
 
 
+async def run_decorrelate_batch(
+    config: OptionsConfig,
+    limit: int = 2,
+    dry_run: bool = False,
+) -> int:
+    """
+    Decorrelation Optimizer Tier: Salvages high-Sharpe (>= 1.25) and high-Fitness (>= 1.00)
+    alphas from options_correlated_alphas by applying systematic orthogonalization transforms.
+    """
+    from brain_options.specialist.decorrelator import DecorrelationEngine
+
+    store = OptionsStore(database_url=config.database_url)
+    salvageable = store.get_salvageable_correlated_alphas(min_sharpe=1.25, min_fitness=1.00, limit=limit)
+    log.info("Loaded %d high-performing correlated alphas for orthogonalization salvage.", len(salvageable))
+
+    if not salvageable:
+        log.info("No salvageable correlated alphas (Sharpe >= 1.25, Fitness >= 1.00) found.")
+        return 0
+
+    engine = DecorrelationEngine()
+    candidates: List[OptionCandidate] = []
+    for item in salvageable:
+        variants = engine.generate_orthogonal_variants(
+            base_expr=item["expression"],
+            archetype=item["archetype"],
+            base_sharpe=item["sharpe"],
+            colliding_id=item["alpha_id"],
+        )
+        log.info("Generated %d orthogonal variants for base alpha %s (Sharpe=%.2f)", len(variants), item["alpha_id"], item["sharpe"])
+        candidates.extend(variants)
+
+    if not candidates:
+        return 0
+
+    if dry_run:
+        log.info("DRY RUN: Generated %d decorrelated candidates across %d base alphas:", len(candidates), len(salvageable))
+        for i, c in enumerate(candidates, 1):
+            log.info("  [%d] %s -> %s", i, c.archetype_name, c.expression[:100])
+        return len(candidates)
+
+    send_telegram_startup(config, mode=f"Decorrelation Salvage ({len(candidates)} variants from {len(salvageable)} bases)")
+
+    client = BrainClient(
+        username=config.brain_username,
+        password=config.brain_password,
+        max_concurrent_sims=config.brain_max_concurrent_sims,
+        db=store.db,
+    )
+    client.authenticate()
+    sweep_engine = SweepEngine(client, config)
+
+    passed_count = 0
+    total_evaluated = 0
+    start_time = time.time()
+    queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
+    for c in candidates:
+        queue.put_nowait(c)
+
+    async def worker(worker_id: int):
+        nonlocal passed_count, total_evaluated
+        while not queue.empty():
+            elapsed = time.time() - start_time
+            if elapsed > config.run_time_budget_seconds:
+                log.warning("Decorrelator Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
+                break
+            try:
+                c = queue.get_nowait()
+            except asyncio.QueueEmpty:
+                break
+
+            total_evaluated += 1
+            log.info("\n[Decorrelator Worker %d | Cand %d/%d] Evaluating [%s]: %s",
+                     worker_id, total_evaluated, len(candidates), c.archetype_name, c.expression[:60])
+            try:
+                qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True)
+                if qualified:
+                    passed_count += 1
+            except Exception as exc:
+                log.error("Error evaluating decorrelated candidate [%s]: %s", c.expression[:50], exc, exc_info=True)
+            finally:
+                queue.task_done()
+
+    concurrency = min(config.brain_max_concurrent_sims, 3)
+    log.info("Starting %d concurrent decorrelator workers with %ds time budget...", concurrency, config.run_time_budget_seconds)
+    workers = [asyncio.create_task(worker(i + 1)) for i in range(concurrency)]
+
+    try:
+        await asyncio.gather(*workers)
+    except Exception as e:
+        log.error("Decorrelation pool encountered exception: %s", e)
+    finally:
+        log.info("\nDecorrelation salvage completed: %d passed / %d evaluated.", passed_count, total_evaluated)
+        try:
+            if passed_count > 0:
+                stats = store.get_options_stats()
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+        except Exception as summary_err:
+            log.warning("Failed to send Telegram summary: %s", summary_err)
+
+        try:
+            org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+            if total_evaluated > 0:
+                store.record_org_run(
+                    org_name=org_name,
+                    archetype="decorrelate",
+                    evals_done=total_evaluated,
+                    qualified=passed_count,
+                )
+        except Exception as org_err:
+            log.debug("Failed to record org run: %s", org_err)
+
+        # 24-hour interval drip submission check
+        try:
+            drip = DripSubmitter(client, store, config)
+            await drip.check_and_drip()
+        except Exception as drip_err:
+            log.warning("Drip submitter check failed: %s", drip_err)
+
+    return passed_count
+
+
 def main():
     parser = argparse.ArgumentParser(description="WorldQuant BRAIN Options Alpha Pipeline")
     parser.add_argument("--single-batch", action="store_true", help="Run a single bounded batch and exit (GitHub Actions cron mode)")
@@ -604,7 +725,8 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Generate candidates and verify without simulating")
     parser.add_argument("--candidates", type=int, default=0, help="Override candidate count per batch")
     parser.add_argument("--retry-stage0", action="store_true", help="Retry historical Stage 0 passing candidates through upgraded optimizer")
-    parser.add_argument("--limit", type=int, default=2, help="Max Stage 0 candidates to retry (default: 2)")
+    parser.add_argument("--decorrelate", action="store_true", help="Run Decorrelation Optimizer to salvage high-Sharpe correlated alphas")
+    parser.add_argument("--limit", type=int, default=2, help="Max candidates to process in retry/decorrelate modes (default: 2)")
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     parser.add_argument("--drip", action="store_true", help="Run 24-hour drip submitter check and exit")
@@ -698,6 +820,11 @@ def main():
         heartbeat_runner.start()
 
     try:
+        if getattr(args, "decorrelate", False):
+            log.info("Starting Decorrelation Optimizer salvage pipeline (Limit: %d)...", args.limit)
+            asyncio.run(run_decorrelate_batch(config, limit=args.limit, dry_run=args.dry_run))
+            return
+
         if args.retry_stage0:
             log.info("Starting Stage 0 re-optimization pipeline (Limit: %d)...", args.limit)
             asyncio.run(run_retry_stage0_batch(config, limit=args.limit, dry_run=args.dry_run))

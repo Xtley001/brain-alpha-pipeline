@@ -33,7 +33,7 @@ jobs:
     # Each org now runs on every trigger; archetype specialization is resolved in the Python step.
     if: github.repository_owner != 'Xtley001'
     runs-on: ubuntu-latest
-    timeout-minutes: 26
+    timeout-minutes: 30
     permissions:
       contents: read
     env:
@@ -100,8 +100,11 @@ jobs:
           echo "ARCHETYPE=$TARGET_ARCH" >> $GITHUB_ENV
           echo "Resolved divide-and-conquer specialization for $OWNER: $TARGET_ARCH"
 
+      - name: Salvage high-Sharpe correlated alphas
+        run: python -m brain_options.run --decorrelate --limit 1 || true
+
       - name: Re-optimize Stage 0 passed candidates
-        run: python -m brain_options.run --retry-stage0 --limit 2
+        run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
         run: python -m brain_options.run --single-batch

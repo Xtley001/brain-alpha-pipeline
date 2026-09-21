@@ -1214,6 +1214,45 @@ class OptionsDatabase:
             log.warning("Failed to load stage0 passed candidates: %s", e)
         return candidates
 
+    def get_salvageable_correlated_alphas(
+        self, min_sharpe: float = 1.25, min_fitness: float = 1.00, limit: int = 10
+    ) -> List[Dict[str, Any]]:
+        """
+        Loads high-performing candidates from options_correlated_alphas that failed
+        exclusively on self-correlation, for the --decorrelate optimization tier.
+        """
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT alpha_id, expression, archetype, sharpe, fitness, turnover, margin, max_correlation, rejection_reason
+            FROM options_correlated_alphas
+            WHERE sharpe >= %s AND fitness >= %s
+              AND expression NOT IN (SELECT expression FROM options_alphas WHERE expression IS NOT NULL)
+            ORDER BY sharpe DESC, fitness DESC
+            LIMIT %s;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (min_sharpe, min_fitness, limit))
+                    return [
+                        {
+                            "alpha_id": row[0],
+                            "expression": row[1],
+                            "archetype": row[2] or "options_alpha",
+                            "sharpe": float(row[3] or 0.0),
+                            "fitness": float(row[4] or 0.0),
+                            "turnover": float(row[5] or 0.0),
+                            "margin": float(row[6] or 0.0),
+                            "max_correlation": float(row[7] or 0.0),
+                            "rejection_reason": row[8] or "",
+                        }
+                        for row in cur.fetchall()
+                    ]
+        except Exception as e:
+            log.warning("Failed to load salvageable correlated alphas: %s", e)
+            return []
+
     # ------------------------------------------------------------------
     # org_runs — multi-org heartbeat tracking
     # ------------------------------------------------------------------
