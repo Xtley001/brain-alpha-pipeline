@@ -127,11 +127,16 @@ class ASTDeduplicator:
             no_ints = re.sub(r"\b\d+\b", _bucket_int, no_floats)
             return re.sub(r"\s+", "", no_ints)
 
+    def hash(self, expression: str) -> str:
+        """Alias for get_fingerprint."""
+        return self.get_fingerprint(expression)
+
     def is_duplicate(self, expression: str) -> bool:
         """Returns True if the expression shares its canonical structure with an existing formula."""
         fp = self.get_fingerprint(expression)
         with self._lock:
             return fp in self._fingerprints
+
 
     def add(self, expression: str) -> bool:
         """

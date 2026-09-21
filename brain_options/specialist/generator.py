@@ -111,6 +111,7 @@ class OptionsGenerator:
     ) -> list[OptionCandidate]:
         """Tier 1: Deterministic seed template candidates filtered by AST deduplication and saturation caps."""
         batch: list[OptionCandidate] = []
+        batch_hashes: set[str] = set()
         tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
         sat_cores = {map_archetype_to_core(s) for s in saturated_archetypes} if saturated_archetypes else set()
 
@@ -134,8 +135,10 @@ class OptionsGenerator:
                     continue
             cand = self._template_queue.pop(i)
             if not self.is_evaluated(cand.expression):
-                self.deduplicator.add(cand.expression)
-                batch.append(cand)
+                ast_h = self.deduplicator.hash(cand.expression)
+                if ast_h not in batch_hashes:
+                    batch_hashes.add(ast_h)
+                    batch.append(cand)
         return batch
 
     def get_reasoning_batch(
@@ -152,6 +155,7 @@ class OptionsGenerator:
         from Master Books 1-4 and PostgreSQL learning memory, actively avoiding saturated archetypes.
         """
         candidates: list[OptionCandidate] = []
+        batch_hashes: set[str] = set()
         chunk_size = 4
         needed = count
 
@@ -187,7 +191,10 @@ class OptionsGenerator:
                     expr = item.get("expression", "").strip()
                     if not expr or self.is_evaluated(expr):
                         continue
-                    self.deduplicator.add(expr)
+                    ast_h = self.deduplicator.hash(expr)
+                    if ast_h in batch_hashes:
+                        continue
+                    batch_hashes.add(ast_h)
                     candidates.append(
                         OptionCandidate(
                             expression=expr,
@@ -219,6 +226,7 @@ class OptionsGenerator:
         """
         import math
         procedural: list[OptionCandidate] = []
+        batch_hashes: set[str] = set()
         tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
         sat_cores = {map_archetype_to_core(s) for s in saturated_archetypes} if saturated_archetypes else set()
 
@@ -235,7 +243,10 @@ class OptionsGenerator:
                 if not matches:
                     return
             if not self.is_evaluated(clean_expr) and not any(c.expression == clean_expr for c in procedural):
-                self.deduplicator.add(clean_expr)
+                ast_h = self.deduplicator.hash(clean_expr)
+                if ast_h in batch_hashes:
+                    return
+                batch_hashes.add(ast_h)
                 procedural.append(
                     OptionCandidate(
                         expression=clean_expr,
@@ -519,13 +530,18 @@ class OptionsGenerator:
             return []
 
         mutations: list[OptionCandidate] = []
-        for base in base_candidates[:3]:  # mutate up to 3 top candidates
-            kb_cards = self.kb.get_cards_for_archetype(base.archetype_name, max_cards=2)
+        batch_hashes: set[str] = set()
+        system_prompt = (
+            "You are a WorldQuant BRAIN quantitative research assistant specializing in Equity Options alpha expressions. "
+            "Your job is to apply systematic mathematical mutations to existing options alphas to explore adjacent parameter space.\n"
+            "Return valid JSON array of objects with keys: expression, hypothesis, mutation_type."
+        )
+
+        for base in base_candidates:
             prompt = build_mechanical_mutation_prompt(
-                candidate_expression=base.expression,
-                candidate_hypothesis=base.hypothesis,
-                kb_cards=kb_cards,
-                n=count_per_base,
+                base.expression,
+                base.archetype_name,
+                count_per_base,
                 top_exemplars=top_exemplars,
             )
             raw_output = self.llm_adapter.generate(
@@ -541,7 +557,10 @@ class OptionsGenerator:
                 expr = item.get("expression", "").strip()
                 if not expr or self.is_evaluated(expr):
                     continue
-                self.deduplicator.add(expr)
+                ast_h = self.deduplicator.hash(expr)
+                if ast_h in batch_hashes:
+                    continue
+                batch_hashes.add(ast_h)
                 mutations.append(
                     OptionCandidate(
                         expression=expr,
