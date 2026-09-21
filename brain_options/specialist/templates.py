@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 from brain_options.specialist.archetypes import ARCHETYPES, OptionArchetype
 
 
@@ -16,7 +16,9 @@ class OptionCandidate:
     expression: str
     archetype_name: str
     hypothesis: str
-    generation_source: str  # "template" or "llm_reasoning" or "llm_mechanical"
+    generation_source: str  # "template" or "llm_reasoning" or "llm_mechanical" or "decorrelator"
+    n_variants_tried: int = 1
+    base_alpha_id: Optional[str] = None
 
 
 def generate_template_candidates() -> list[OptionCandidate]:

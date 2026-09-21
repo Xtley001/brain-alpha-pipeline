@@ -8,6 +8,7 @@ import argparse
 import asyncio
 import json
 import logging
+import math
 import os
 import sys
 import threading
@@ -193,6 +194,9 @@ async def run_candidate(
         except Exception as c_err:
             log.debug("Could not complete platform self-correlation check for alpha %s: %s", best_metrics.alpha_id, c_err)
 
+    n_variants_tried = getattr(best_cand, "n_variants_tried", 1) or 1
+    base_id = getattr(best_cand, "base_alpha_id", None) or ""
+
     cand_dict = {
         "expression": best_cand.expression,
         "archetype": best_cand.archetype_name,
@@ -205,7 +209,42 @@ async def run_candidate(
         "drawdown": best_metrics.max_drawdown,
         "margin": best_metrics.margin,
         "max_correlation": max_corr,
+        "n_variants_tried": n_variants_tried,
+        "base_alpha_id": base_id,
     }
+
+    # Mandatory Gate 0: Multiple-Hypothesis Testing Defense (Deflated Sharpe Hurdle)
+    # When multiple variants are generated from a single base alpha (e.g. decorrelation salvage),
+    # scale the minimum required Sharpe to guard against selection bias eating the scarce 3/day submission quota.
+    if best_cand.generation_source == "decorrelator" and n_variants_tried > 1:
+        min_required_sharpe = max(1.25, round(1.25 + 0.04 * math.log(n_variants_tried), 4))
+        if float(best_metrics.sharpe) < min_required_sharpe:
+            rej_reason = (
+                f"DEFLATED_SHARPE_FAIL: Sharpe {best_metrics.sharpe:.2f} < hurdle {min_required_sharpe:.2f} "
+                f"(n_variants_tried={n_variants_tried} for base {base_id or 'unknown'})"
+            )
+            log.warning(
+                "[-] ALPHA REJECTED BY MULTIPLE-TESTING DEFENSE: %s (%s). Protecting daily 3/day submission quota.",
+                best_metrics.alpha_id,
+                rej_reason,
+            )
+            store.record_evaluated_candidate(
+                candidate,
+                stage="RETRY_COMPLETED",
+                status="REJECTED",
+                metrics=best_metrics,
+            )
+            store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
+            return False
+        else:
+            log.info(
+                "[+] MULTIPLE-TESTING DEFENSE PASSED: %s cleared Deflated Sharpe hurdle %.2f (Achieved: %.2f with N=%d variants for base %s)",
+                best_metrics.alpha_id,
+                min_required_sharpe,
+                best_metrics.sharpe,
+                n_variants_tried,
+                base_id,
+            )
 
     # Mandatory Gate 1: If max_corr >= 0.70, REJECT as CORRELATED
     if max_corr >= 0.70:
@@ -625,7 +664,13 @@ async def run_decorrelate_batch(
             base_sharpe=item["sharpe"],
             colliding_id=item["alpha_id"],
         )
-        log.info("Generated %d orthogonal variants for base alpha %s (Sharpe=%.2f)", len(variants), item["alpha_id"], item["sharpe"])
+        log.info(
+            "Generated %d orthogonal variants for base alpha %s (Base Sharpe=%.2f, n_variants_tried=%d)",
+            len(variants),
+            item["alpha_id"],
+            item["sharpe"],
+            len(variants),
+        )
         candidates.extend(variants)
 
     if not candidates:
@@ -634,7 +679,8 @@ async def run_decorrelate_batch(
     if dry_run:
         log.info("DRY RUN: Generated %d decorrelated candidates across %d base alphas:", len(candidates), len(salvageable))
         for i, c in enumerate(candidates, 1):
-            log.info("  [%d] %s -> %s", i, c.archetype_name, c.expression[:100])
+            log.info("  [%d] [Base: %s | Variants Tried: %d] %s -> %s",
+                     i, getattr(c, "base_alpha_id", "N/A"), getattr(c, "n_variants_tried", 1), c.archetype_name, c.expression[:100])
         return len(candidates)
 
     send_telegram_startup(config, mode=f"Decorrelation Salvage ({len(candidates)} variants from {len(salvageable)} bases)")
@@ -668,12 +714,25 @@ async def run_decorrelate_batch(
                 break
 
             total_evaluated += 1
-            log.info("\n[Decorrelator Worker %d | Cand %d/%d] Evaluating [%s]: %s",
-                     worker_id, total_evaluated, len(candidates), c.archetype_name, c.expression[:60])
+            log.info(
+                "\n[Decorrelator Worker %d | Cand %d/%d] Evaluating [%s] (Base: %s, Variant Tried %d): %s",
+                worker_id,
+                total_evaluated,
+                len(candidates),
+                c.archetype_name,
+                getattr(c, "base_alpha_id", "N/A"),
+                getattr(c, "n_variants_tried", 1),
+                c.expression[:60],
+            )
             try:
                 qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True)
                 if qualified:
                     passed_count += 1
+                    log.info(
+                        "[Decorrelator] Qualified decorrelated candidate (Base: %s, Total Variants Tested: %d) successfully cleared all gates!",
+                        getattr(c, "base_alpha_id", "N/A"),
+                        getattr(c, "n_variants_tried", 1),
+                    )
             except Exception as exc:
                 log.error("Error evaluating decorrelated candidate [%s]: %s", c.expression[:50], exc, exc_info=True)
             finally:
