@@ -21,6 +21,7 @@ from brain_options.specialist.catalog import OptionsCatalog
 from brain_options.specialist.dedup import ASTDeduplicator
 from brain_options.specialist.kb import OptionsKnowledgeBase
 from brain_options.specialist.templates import OptionCandidate, generate_template_candidates
+from brain_options.strategies import generate_modular_candidates
 from brain_options.store.db import map_archetype_to_core
 
 log = logging.getLogger("brain_options.generator")
@@ -45,8 +46,17 @@ class OptionsGenerator:
         self.catalog = catalog or OptionsCatalog()
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
-        self._template_queue: list[OptionCandidate] = generate_template_candidates()
+        # Seed queue with both deterministic templates and all 8 modular strategy systems
+        seen_hashes = set()
+        queue: list[OptionCandidate] = []
+        for c in generate_template_candidates() + generate_modular_candidates():
+            h = self.deduplicator.hash(c.expression)
+            if h not in seen_hashes:
+                seen_hashes.add(h)
+                queue.append(c)
+        self._template_queue: list[OptionCandidate] = queue
         self._archetype_idx = 0
+
         # Multi-Armed Bandit prior weights across all research domains
         self.archetype_priors: dict[str, float] = {
             "breakeven": 0.20,

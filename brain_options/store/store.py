@@ -536,3 +536,25 @@ class OptionsStore:
             log.warning("Could not load stage0 candidates from local CSV fallback: %s", e)
             return []
 
+    def record_strategy_operator_reward(
+        self,
+        strategy_name: str,
+        operator_name: str,
+        parameter_name: str,
+        parameter_val: str,
+        reward: float,
+        success: bool = True,
+    ):
+        """Records strategy-scoped operator reward in database."""
+        if self.db:
+            self.db.record_strategy_operator_reward(
+                strategy_name, operator_name, parameter_name, parameter_val, reward, success
+            )
+
+    def get_strategy_operator_weights(self, strategy_name: str) -> dict[str, float]:
+        """Fetches strategy-scoped operator weights from database."""
+        if self.db:
+            return self.db.get_strategy_operator_weights(strategy_name)
+        return {}
+
+

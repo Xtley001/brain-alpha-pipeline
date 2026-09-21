@@ -34,7 +34,7 @@ class SimSettings:
                 "universe": self.universe,
                 "delay": self.delay,
                 "decay": self.decay,
-                "neutralization": self.neutralization,
+                "neutralization": self.neutralization.upper() if self.neutralization else "SUBINDUSTRY",
                 "truncation": self.truncation,
                 "pasteurization": "ON" if self.pasteurization else "OFF",
                 "unitHandling": self.unit_handling,

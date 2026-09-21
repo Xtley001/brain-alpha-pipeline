@@ -344,7 +344,33 @@ CREATE TABLE IF NOT EXISTS org_runs (
 
 CREATE INDEX IF NOT EXISTS idx_org_runs_org_run_at
     ON org_runs(org_name, run_at DESC);
+
+-- v2.3: Strategy-Scoped Reinforcement Learning (RL) state
+CREATE TABLE IF NOT EXISTS options_strategy_rl_state (
+    id              BIGSERIAL PRIMARY KEY,
+    strategy_name   VARCHAR(64) NOT NULL,
+    operator_name   VARCHAR(64) NOT NULL,
+    parameter_name  VARCHAR(64) NOT NULL,
+    parameter_val   VARCHAR(64) NOT NULL,
+    reward_score    NUMERIC(10, 4) DEFAULT 0,
+    sample_count    INTEGER DEFAULT 0,
+    success_count   INTEGER DEFAULT 0,
+    fail_count      INTEGER DEFAULT 0,
+    last_reward     NUMERIC(10, 4) DEFAULT 0,
+    updated_at      TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(strategy_name, operator_name, parameter_name, parameter_val)
+);
+
+CREATE INDEX IF NOT EXISTS idx_strat_rl_lookup
+    ON options_strategy_rl_state(strategy_name, operator_name);
+
+ALTER TABLE options_evaluations
+    ADD COLUMN IF NOT EXISTS strategy_name VARCHAR(64);
+
+ALTER TABLE options_alphas
+    ADD COLUMN IF NOT EXISTS strategy_name VARCHAR(64);
 """
+
 
 
 class OptionsDatabase:
@@ -411,13 +437,16 @@ class OptionsDatabase:
             except Exception:
                 pass
 
+    _schema_initialized: bool = False
+
     def _init_schema(self):
         """
-        Creates all 7 tables and indexes, then runs idempotent migration patches.
-        Each SQL statement is executed independently so a single failure (e.g. a
-        unique index that can't be created on existing data) never blocks the
-        critical migration statements that add new columns.
+        Creates all tables and indexes, then runs idempotent migration patches.
+        Guarded so it only executes once per process.
         """
+        if OptionsDatabase._schema_initialized:
+            return
+
         def _run_statements(sql_block: str, label: str):
             """Split a SQL block on semicolons and execute each statement independently."""
             for stmt in sql_block.split(";"):
@@ -434,7 +463,9 @@ class OptionsDatabase:
 
         _run_statements(SCHEMA_SQL, "SCHEMA")
         _run_statements(MIGRATION_SQL, "MIGRATION")
-        log.info("Database schema initialized (7 tables, migrations applied).")
+        OptionsDatabase._schema_initialized = True
+        log.info("Database schema initialized (tables and migrations applied).")
+
 
     # ------------------------------------------------------------------
     # options_evaluations — write path
@@ -1608,6 +1639,89 @@ class OptionsDatabase:
             )
         except Exception as e:
             log.warning("Failed to penalise learning memory: %s", e)
+
+    # ------------------------------------------------------------------
+    # Strategy-Scoped Reinforcement Learning State
+    # ------------------------------------------------------------------
+
+    def record_strategy_operator_reward(
+        self,
+        strategy_name: str,
+        operator_name: str,
+        parameter_name: str,
+        parameter_val: str,
+        reward: float,
+        success: bool = True,
+    ):
+        """
+        Updates the strategy-specific RL memory table.
+        Isolates learned operator effectiveness by strategy family.
+        """
+        if not self.database_url:
+            return
+        sql = """
+            INSERT INTO options_strategy_rl_state (
+                strategy_name, operator_name, parameter_name, parameter_val,
+                reward_score, sample_count, success_count, fail_count, last_reward, updated_at
+            )
+            VALUES (%s, %s, %s, %s, %s, 1, %s, %s, %s, CURRENT_TIMESTAMP)
+            ON CONFLICT (strategy_name, operator_name, parameter_name, parameter_val) DO UPDATE
+            SET reward_score = options_strategy_rl_state.reward_score + EXCLUDED.reward_score,
+                sample_count = options_strategy_rl_state.sample_count + 1,
+                success_count = options_strategy_rl_state.success_count + EXCLUDED.success_count,
+                fail_count = options_strategy_rl_state.fail_count + EXCLUDED.fail_count,
+                last_reward = EXCLUDED.last_reward,
+                updated_at = CURRENT_TIMESTAMP;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        sql,
+                        (
+                            strategy_name,
+                            operator_name,
+                            parameter_name,
+                            str(parameter_val),
+                            reward,
+                            1 if success else 0,
+                            0 if success else 1,
+                            reward,
+                        ),
+                    )
+                conn.commit()
+        except Exception as e:
+            log.warning("Failed to record strategy operator reward: %s", e)
+
+    def get_strategy_operator_weights(self, strategy_name: str) -> Dict[str, float]:
+        """
+        Returns normalized operator sampling weights for a given strategy family.
+        """
+        if not self.database_url:
+            return {}
+        sql = """
+            SELECT operator_name, SUM(reward_score) as total_reward, SUM(sample_count) as total_samples
+            FROM options_strategy_rl_state
+            WHERE strategy_name = %s
+            GROUP BY operator_name;
+        """
+        weights: Dict[str, float] = {}
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (strategy_name,))
+                    for row in cur.fetchall():
+                        op_name = row[0]
+                        total_reward = float(row[1] or 0.0)
+                        samples = int(row[2] or 1)
+                        # Softplus / baseline weighting
+                        avg_reward = total_reward / max(1, samples)
+                        weights[op_name] = max(0.1, 1.0 + avg_reward)
+            return weights
+        except Exception as e:
+            log.warning("Failed to fetch strategy operator weights: %s", e)
+            return {}
+
 
 
 # ---------------------------------------------------------------------------

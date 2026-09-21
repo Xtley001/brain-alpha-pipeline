@@ -1,15 +1,15 @@
-name: BRAIN Options Alpha Discovery (Auto Staggered)
+name: BRAIN Alpha Discovery (Single Public Org - Xtley001)
 
 on:
   schedule:
-    # 48 runs/day across 4 worker orgs (1 run every 30 minutes, 24/7):
-    # Org 1 (xtley-alpha-research-01): even hours at :07 (12 runs/day)
+    # 48 discovery runs/day (1 run every 30 minutes, 24/7 on Xtley001 public runner):
+    # Slot 1: Even hours at :07 -> TOP1000 (Term Structure & Skew)
     - cron: "7 */2 * * *"
-    # Org 2 (xtley-alpha-research-02): even hours at :37 (12 runs/day)
+    # Slot 2: Even hours at :37 -> TOP2000 (PCR Flow & Forward Basis)
     - cron: "37 */2 * * *"
-    # Org 3 (xtley-alpha-research-03): odd hours at :07 (12 runs/day)
+    # Slot 3: Odd hours at :07 -> TOP500 (Call Breakeven & Short Interest)
     - cron: "7 1-23/2 * * *"
-    # Org 4 (xtley-alpha-research-04): odd hours at :37 (12 runs/day)
+    # Slot 4: Odd hours at :37 -> TOPSP500 (Hybrid Confluence & Analyst Revisions)
     - cron: "37 1-23/2 * * *"
   workflow_dispatch:
     inputs:
@@ -17,25 +17,25 @@ on:
         description: "Number of candidates to evaluate in this batch"
         required: false
         default: "40"
-      archetype:
-        description: "Archetype specialization override (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)"
+      strategy:
+        description: "Strategy module override (e.g. all, term_structure, pcr_flow, short_interest, breakeven, skew, forward_basis, analyst_revisions, hybrid_confluence)"
         required: false
         default: ""
       universe:
-        description: "Universe override (e.g. TOP3000, TOP2000, TOP1000, TOP500, TOP200, TOPSP500)"
+        description: "Universe override (TOP3000, TOP2000, TOP1000, TOP500, TOP200, TOPSP500)"
+        required: false
+        default: ""
+      neutralization:
+        description: "Neutralization override (SUBINDUSTRY, INDUSTRY, SECTOR, MARKET, NONE)"
         required: false
         default: ""
 
 concurrency:
-  group: brain-discovery-${{ github.repository_owner }}
+  group: brain-discovery-cluster
   cancel-in-progress: false
 
 jobs:
   discovery:
-    # Only worker orgs run discovery — primary org (Xtley001) is excluded.
-    # The cron schedule string comparison was removed (it was fragile and silently skipped runs).
-    # Each org now runs on every trigger; archetype specialization is resolved in the Python step.
-    if: github.repository_owner != 'Xtley001'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -83,45 +83,46 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Resolve Multiverse Universe & Archetype Specialization
+      - name: Resolve Multiverse Strategy, Universe & Neutralization
         run: |
-          INPUT_ARCH="${{ github.event.inputs.archetype }}"
+          INPUT_STRAT="${{ github.event.inputs.strategy }}"
           INPUT_UNIV="${{ github.event.inputs.universe }}"
-          OWNER="${{ github.repository_owner }}"
+          INPUT_NEUT="${{ github.event.inputs.neutralization }}"
+          HOUR=$(date -u +"%H")
+          MIN=$(date -u +"%M")
 
-          # Archetype specialization
-          if [ -n "$INPUT_ARCH" ]; then
-            TARGET_ARCH="$INPUT_ARCH"
-          elif [ "$OWNER" = "xtley-alpha-research-01" ]; then
-            TARGET_ARCH="term_structure,skew"
-          elif [ "$OWNER" = "xtley-alpha-research-02" ]; then
-            TARGET_ARCH="pcr_flow,forward_basis"
-          elif [ "$OWNER" = "xtley-alpha-research-03" ]; then
-            TARGET_ARCH="breakeven,short_interest"
-          elif [ "$OWNER" = "xtley-alpha-research-04" ]; then
-            TARGET_ARCH="hybrid_confluence,term_structure,pcr_flow"
+          # 1. Resolve Strategy & Universe schedule rotation
+          if [ -n "$INPUT_STRAT" ]; then
+            TARGET_STRAT="$INPUT_STRAT"
+          elif [ $((HOUR % 2)) -eq 0 ] && [ "$MIN" -lt 30 ]; then
+            TARGET_STRAT="term_structure,skew"
+          elif [ $((HOUR % 2)) -eq 0 ] && [ "$MIN" -ge 30 ]; then
+            TARGET_STRAT="pcr_flow,forward_basis"
+          elif [ $((HOUR % 2)) -ne 0 ] && [ "$MIN" -lt 30 ]; then
+            TARGET_STRAT="breakeven,short_interest"
           else
-            TARGET_ARCH=""
+            TARGET_STRAT="hybrid_confluence,analyst_revisions"
           fi
 
-          # Multiverse Universe specialization
           if [ -n "$INPUT_UNIV" ]; then
             TARGET_UNIV="$INPUT_UNIV"
-          elif [ "$OWNER" = "xtley-alpha-research-01" ]; then
+          elif [ $((HOUR % 2)) -eq 0 ] && [ "$MIN" -lt 30 ]; then
             TARGET_UNIV="TOP1000"
-          elif [ "$OWNER" = "xtley-alpha-research-02" ]; then
+          elif [ $((HOUR % 2)) -eq 0 ] && [ "$MIN" -ge 30 ]; then
             TARGET_UNIV="TOP2000"
-          elif [ "$OWNER" = "xtley-alpha-research-03" ]; then
+          elif [ $((HOUR % 2)) -ne 0 ] && [ "$MIN" -lt 30 ]; then
             TARGET_UNIV="TOP500"
-          elif [ "$OWNER" = "xtley-alpha-research-04" ]; then
-            TARGET_UNIV="TOPSP500"
           else
-            TARGET_UNIV="TOP3000"
+            TARGET_UNIV="TOPSP500"
           fi
 
-          echo "ARCHETYPE=$TARGET_ARCH" >> $GITHUB_ENV
+          echo "STRATEGY=$TARGET_STRAT" >> $GITHUB_ENV
+          echo "ARCHETYPE=$TARGET_STRAT" >> $GITHUB_ENV
           echo "UNIVERSE=$TARGET_UNIV" >> $GITHUB_ENV
-          echo "Resolved Multiverse Specialization for $OWNER: Universe=$TARGET_UNIV, Archetype=$TARGET_ARCH"
+          if [ -n "$INPUT_NEUT" ]; then
+            echo "NEUTRALIZATION=$INPUT_NEUT" >> $GITHUB_ENV
+          fi
+          echo "Resolved Single-Org Execution: Strategy=$TARGET_STRAT, Universe=$TARGET_UNIV"
 
       - name: Salvage high-Sharpe correlated alphas
         run: python -m brain_options.run --decorrelate --limit 1 || true
@@ -130,4 +131,4 @@ jobs:
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
-        run: python -m brain_options.run --single-batch --candidates ${{ env.MAX_CANDIDATES_PER_RUN }}
+        run: python -m brain_options.run --single-batch --candidates ${{ env.MAX_CANDIDATES_PER_RUN }} --strategy "$STRATEGY"

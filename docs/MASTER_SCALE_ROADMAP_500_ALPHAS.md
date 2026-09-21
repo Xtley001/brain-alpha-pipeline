@@ -35,8 +35,14 @@ $$\text{Points Yield} \approx \text{Base Points} \times f(\text{CQS}) \times (\t
    * Derivatives surfaces, analyst revision dispersion, and short interest borrow dynamics earn maximum data uniqueness points.
 3. **Sub-Universe Monotonicity:**
    * Alphas whose Sharpe remains stable across `TOP3000`, `TOP1000`, and `TOP500` receive 0% decay penalties on the leaderboard.
-4. **Strict Neutralization:**
-   * Always neutralize by `SUBINDUSTRY` (or `INDUSTRY` / `SECTOR` where specified) to eliminate factor bets.
+4. **The 5-Tier Platform Neutralization Spectrum:**
+   * WorldQuant BRAIN platform natively provides 5 distinct neutralization tiers:
+     * **`Subindustry`** (Default): Eliminates intra-subindustry factor drift; highest granularity.
+     * **`Industry`**: Balances broader industry exposure.
+     * **`Sector`**: Neutralizes broad sector trends while harvesting industry dispersion.
+     * **`Market`**: Dollar-neutral market beta hedge.
+     * **`None`**: Unconstrained pure cross-sectional ranking.
+
 
 ---
 
@@ -110,47 +116,45 @@ Extracted directly from our 32 institutional papers (`docs/research/`):
 
 ---
 
-## Pillar 4: Cluster Architecture & Division of Labor
+## Pillar 4: Single Public Repository Architecture (`Xtley001`)
 
-Do you need new GitHub orgs? **No, our current 5-org architecture is optimal.**
+Now that `Xtley001/brain-alpha-pipeline` is a public repository, **GitHub Actions provides 100% UNLIMITED and FREE runner minutes**. All 4 secondary orgs have been decommissioned, eliminating multi-repo synchronization overhead.
 
-Because WorldQuant BRAIN enforces a hard account-wide limit of **3 concurrent simulations**, adding more orgs would create race conditions. Instead, our 4 worker orgs divide the search space by strategy pillar and universe:
+Execution is unified inside `Xtley001` via automated rotating schedules and dynamic dispatch:
 
 ```mermaid
 graph TD
-    A[WorldQuant BRAIN Account Limit: Max 3 Concurrent Sims] --> B[Neon PostgreSQL Mutex & Pacer]
+    A[WorldQuant BRAIN Account Limit: Max 3 Concurrent Sims] --> B[Neon PostgreSQL Mutex & Strategy RL]
     
-    B --> C[Org 01: xtley-alpha-research-01]
-    B --> D[Org 02: xtley-alpha-research-02]
-    B --> E[Org 03: xtley-alpha-research-03]
-    B --> F[Org 04: xtley-alpha-research-04]
-    B --> G[Primary Org: Xtley001]
+    B --> C[Primary Repository: Xtley001/brain-alpha-pipeline]
     
-    C -->|Slot: Even Hours :07| H[TOP1000 Universe: VRP & Term Structure Inversion]
-    D -->|Slot: Even Hours :37| I[TOP2000 Universe: PCR Flow & Forward Basis]
-    E -->|Slot: Odd Hours :07| J[TOP500 Universe: Short Interest & Borrow Pressure]
-    F -->|Slot: Odd Hours :37| K[TOPSP500 Universe: Analyst Consensus Revisions & PEAD]
-    G -->|Dedicated Submissions| L[Auto-Drip Submitter & Daily Digest]
+    C -->|Even Hours :07| D[TOP1000 Universe: Term Structure & Skew Strategies]
+    C -->|Even Hours :37| E[TOP2000 Universe: PCR Flow & Forward Basis Strategies]
+    C -->|Odd Hours :07| F[TOP500 Universe: Breakeven & Short Interest Strategies]
+    C -->|Odd Hours :37| G[TOPSP500 Universe: Hybrid Confluence & PEAD Strategies]
+    C -->|Auto-Drip Schedule| H[Auto-Drip Submitter & Real-Time Telegram Health]
 ```
 
-### Staggered Schedule (48 Runs/Day, 24/7):
-* **00:07, 02:07, 04:07...** $\rightarrow$ **Worker 01:** `TOP1000` · Options Term Structure & VRP
-* **00:37, 02:37, 04:37...** $\rightarrow$ **Worker 02:** `TOP2000` · Order Flow & PCR Open Interest
-* **01:07, 03:07, 05:07...** $\rightarrow$ **Worker 03:** `TOP500` · Short Interest & Borrow Squeeze
-* **01:37, 03:37, 05:37...** $\rightarrow$ **Worker 04:** `TOPSP500` · Analyst Consensus Revisions & PEAD
-* **Primary (`Xtley001`):** Drip Submissions (06:15, 14:15, 18:15 WAT), hourly health, and digests.
+### Rotating 24/7 Discovery Schedule (48 Runs/Day on `Xtley001`):
+* **Even Hours `:07`** $\rightarrow$ `TOP1000` · `brain_options/strategies/term_structure/` & `skew/`
+* **Even Hours `:37`** $\rightarrow$ `TOP2000` · `brain_options/strategies/pcr_flow/` & `forward_basis/`
+* **Odd Hours `:07`** $\rightarrow$ `TOP500` · `brain_options/strategies/breakeven/` & `short_interest/`
+* **Odd Hours `:37`** $\rightarrow$ `TOPSP500` · `brain_options/strategies/hybrid_confluence/` & `analyst_revisions/`
 
 ---
 
-## Pillar 5: Quality Control & Codebase Integrity
+## Pillar 5: Strategy-Scoped RL & Quality Control
 
-1. **Gate 2 Calibration:**
-   * Gate 2 verifies that real statistical gates (`LOW_SHARPE`, `LOW_FITNESS`, `LOW_TURNOVER`, `HIGH_TURNOVER`, `CONCENTRATED_WEIGHT`, `LOW_SUB_UNIVERSE_SHARPE`) are `PASS`.
+1. **Strategy-Scoped Reinforcement Learning (`options_strategy_rl_state`):**
+   * Reinforcement learning rewards and operator mutations are strictly partitioned by `strategy_name`.
+   * Cross-strategy contamination is prevented: lessons learned in Term Structure (`sqrt(T)`, `signed_power`) never pollute PCR Flow or Borrow Fee distributions.
+2. **Gate 2 Calibration:**
+   * Gate 2 strictly verifies that real statistical gates (`LOW_SHARPE`, `LOW_FITNESS`, `LOW_TURNOVER`, `HIGH_TURNOVER`, `CONCENTRATED_WEIGHT`, `LOW_SUB_UNIVERSE_SHARPE`) are `PASS`.
    * Ignores the static `SELF_CORRELATION: PENDING` placeholder on unsubmitted alphas.
    * Delegates self-correlation verification exclusively to live pairwise evaluation on `/correlations/self`.
-2. **Codebase Ship-Shape Cleanliness:**
-   * Production codebase (`brain_options/`, `.github/workflows/`, `tests/`) is maintained clean with 100% test coverage.
-   * Ad-hoc diagnostic and temporary blitz workflows are pruned after execution.
+3. **Clean Codebase & 100% Test Coverage:**
+   * Modular architecture ensures each strategy can be tested, tuned, or doubled down on in complete isolation without touching platform plumbing.
+
 
 ---
 

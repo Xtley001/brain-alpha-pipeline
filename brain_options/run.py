@@ -849,8 +849,9 @@ def check_worker_schedule_slot(org_name: str, now_utc: Optional[datetime.datetim
       - Org 4 (xtley-alpha-research-04): odd hours, 30-59 min (e.g. 01:37, 03:37, ...)
     """
     event_name = os.getenv("GITHUB_EVENT_NAME", "").strip().lower()
-    if event_name != "schedule":
+    if event_name != "schedule" or org_name == "Xtley001" or org_name == "local":
         return True, "dispatch_or_local"
+
 
     if now_utc is None:
         now_utc = datetime.datetime.now(datetime.timezone.utc)
@@ -866,6 +867,7 @@ def check_worker_schedule_slot(org_name: str, now_utc: Optional[datetime.datetim
     designated_org = slot_map.get((is_even_hour, is_first_half), "unknown")
     is_our_slot = (org_name == designated_org)
     return is_our_slot, designated_org
+
 
 
 def main():
@@ -884,7 +886,12 @@ def main():
     parser.add_argument("--health", action="store_true", help="Send hourly health check notification to Telegram and exit")
     parser.add_argument("--daily-digest", action="store_true", help="Send end-of-day daily digest notification to Telegram and exit")
     parser.add_argument("--archetype", type=str, default=os.environ.get("ARCHETYPE", ""), help="Target specific archetype family (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)")
+    parser.add_argument("--strategy", type=str, default=os.environ.get("STRATEGY", ""), help="Target specific modular strategy (e.g. term_structure, pcr_flow, short_interest, etc.)")
     args = parser.parse_args()
+
+    # Consolidate strategy / archetype selector
+    active_strategy = (args.strategy or args.archetype or os.environ.get("STRATEGY", "") or os.environ.get("ARCHETYPE", "")).strip() or None
+
 
     config = OptionsConfig.from_env()
 
@@ -1038,25 +1045,26 @@ def main():
                  config.universe, config.delay, config.brain_max_concurrent_sims)
 
         if args.daemon:
-            log.info("Running in continuous daemon mode (Specialization: %s)...", args.archetype or "ALL")
+            log.info("Running in continuous daemon mode (Specialization: %s)...", active_strategy or "ALL")
             while True:
                 try:
-                    asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon", target_archetype=args.archetype or None))
+                    asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon", target_archetype=active_strategy))
                 except Exception as e:
                     log.error("Batch encountered unhandled error: %s", e, exc_info=True)
                 log.info("Sleeping 300 seconds before next batch...")
                 time.sleep(300)
         else:
-            asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=args.archetype or None))
+            asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=active_strategy))
     except Exception as exc:
         log.error("Fatal pipeline crash in main: %s", exc, exc_info=True)
         try:
             send_telegram_emergency_alert(
                 error_summary=str(exc),
                 config=config,
-                context=f"{org_name} worker ({args.archetype or 'general'})",
+                context=f"{org_name} worker ({active_strategy or 'general'})",
                 db=store,
             )
+
         except Exception as alert_err:
             log.warning("Could not send emergency Telegram alert: %s", alert_err)
         raise

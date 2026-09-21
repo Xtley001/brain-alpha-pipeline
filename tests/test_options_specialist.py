@@ -115,10 +115,11 @@ def test_generator_procedural_fallback_when_templates_and_llm_exhausted(monkeypa
     adapter = LLMAdapter(config)
     generator = OptionsGenerator(adapter)
 
-    # 1. Mark all existing templates as already evaluated
-    all_templates = generate_template_candidates()
+    # 1. Mark all existing queue templates as already evaluated
+    all_templates = list(generator._template_queue)
     for t in all_templates:
         generator.mark_evaluated(t.expression)
+
 
     # 2. Simulate LLM failure (returns None)
     monkeypatch.setattr(adapter, "generate", lambda *args, **kwargs: None)
