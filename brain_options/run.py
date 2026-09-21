@@ -277,7 +277,7 @@ async def run_candidate(
             sess = client._get_session()
             import json
 
-            # 1. BRAIN computes SELF_CORRELATION asynchronously. Poll until no longer PENDING (up to 30s).
+            # 1. BRAIN computes statistical checks asynchronously. Poll until non-correlation checks are no longer PENDING (up to 30s).
             alpha_data = None
             for attempt in range(8):
                 chk_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}", max_tries=2)
@@ -285,7 +285,7 @@ async def run_candidate(
                     alpha_data = chk_resp.json()
                     is_block = alpha_data.get("is") or {}
                     checks = is_block.get("checks") or []
-                    pending_checks = [c.get("name") for c in checks if c.get("result") == "PENDING"]
+                    pending_checks = [c.get("name") for c in checks if c.get("result") == "PENDING" and c.get("name") != "SELF_CORRELATION"]
                     if not pending_checks:
                         break
                 await asyncio.sleep(2.0 + attempt * 0.5)
@@ -297,7 +297,8 @@ async def run_candidate(
             is_block = alpha_data.get("is") or {}
             checks = is_block.get("checks") or []
             failed_gates = [c.get("name") for c in checks if c.get("result") == "FAIL"]
-            pending_gates = [c.get("name") for c in checks if c.get("result") == "PENDING"]
+            # SELF_CORRELATION on BRAIN is a static placeholder that stays PENDING until submission; Gate 3 verifies true correlation
+            pending_gates = [c.get("name") for c in checks if c.get("result") == "PENDING" and c.get("name") != "SELF_CORRELATION"]
 
             if failed_gates:
                 rej_reason = f"CHECK_FAIL: {', '.join(failed_gates)}"
