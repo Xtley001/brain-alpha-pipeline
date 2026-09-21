@@ -100,24 +100,6 @@ jobs:
           echo "ARCHETYPE=$TARGET_ARCH" >> $GITHUB_ENV
           echo "Resolved divide-and-conquer specialization for $OWNER: $TARGET_ARCH"
 
-      - name: Record org heartbeat (run start)
-        run: |
-          python -c "
-          import os, sys
-          sys.path.insert(0, '.')
-          from dotenv import load_dotenv; load_dotenv()
-          from brain_options.config import OptionsConfig
-          from brain_options.store.db import OptionsDatabase
-          config = OptionsConfig.from_env()
-          db = OptionsDatabase(config.database_url)
-          org = os.environ.get('GITHUB_REPOSITORY_OWNER', 'unknown')
-          arch = os.environ.get('ARCHETYPE', '')
-          db.record_org_run(org, archetype=arch)
-          db.close()
-          print(f'Heartbeat written for org: {org}')
-          "
-        continue-on-error: true
-
       - name: Re-optimize Stage 0 passed candidates
         run: python -m brain_options.run --retry-stage0 --limit 2
 

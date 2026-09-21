@@ -430,6 +430,18 @@ async def run_batch(
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
 
+        # Record real org run results in org_runs audit table
+        try:
+            org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+            store.record_org_run(
+                org_name=org_name,
+                archetype=target_archetype or "options",
+                evals_done=total_evaluated,
+                qualified=passed_count,
+            )
+        except Exception as org_rec_err:
+            log.warning("Failed to record org run telemetry: %s", org_rec_err)
+
         # Multi-org guaranteed hourly health heartbeat:
         # Ensures operator receives a health report every hour across whichever org is currently running
         try:
@@ -533,6 +545,19 @@ async def run_retry_stage0_batch(
                 send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram summary: %s", summary_err)
+
+        # Record real reopt results in org_runs audit table
+        try:
+            org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+            if total_evaluated > 0:
+                store.record_org_run(
+                    org_name=org_name,
+                    archetype="reopt",
+                    evals_done=total_evaluated,
+                    qualified=passed_count,
+                )
+        except Exception as org_rec_err:
+            log.warning("Failed to record reopt telemetry: %s", org_rec_err)
 
         # Multi-org guaranteed hourly health heartbeat
         try:
