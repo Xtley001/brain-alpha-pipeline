@@ -1281,9 +1281,38 @@ class OptionsDatabase:
             log.warning("Failed to load org activity: %s", e)
             return []
 
+    def claim_hourly_health_slot(self, min_interval_minutes: int = 55) -> bool:
+        """
+        Atomically checks if >= min_interval_minutes have passed since the last
+        hourly health notification was sent across any runner in the cluster.
+        If so, updates the timestamp and returns True. If already sent recently, returns False.
+        This provides a 100% race-condition-free distributed lock across all 5 orgs.
+        """
+        if not self.database_url:
+            return True
+        sql = """
+            INSERT INTO cluster_session_cache (key, token, cookies, expires_at, updated_at)
+            VALUES ('hourly_health_lock', 'heartbeat', '{}'::jsonb, CURRENT_TIMESTAMP + INTERVAL '1 day', CURRENT_TIMESTAMP)
+            ON CONFLICT (key) DO UPDATE
+            SET updated_at = CURRENT_TIMESTAMP
+            WHERE cluster_session_cache.updated_at < CURRENT_TIMESTAMP - (%s * INTERVAL '1 minute')
+            RETURNING key;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (min_interval_minutes,))
+                    row = cur.fetchone()
+                    conn.commit()
+                    return bool(row)
+        except Exception as e:
+            log.warning("Failed to claim hourly health slot: %s", e)
+            return False
+
     # ------------------------------------------------------------------
     # cluster_session_cache
     # ------------------------------------------------------------------
+
 
     def get_cached_session(self, key: str = "brain_session") -> Optional[Dict[str, Any]]:
         """

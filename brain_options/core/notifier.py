@@ -96,10 +96,12 @@ def send_telegram_batch_summary(
     stats: Optional[dict[str, Any]] = None,
 ) -> bool:
     """
-    Always fires at the end of every batch — whether 0 or more alphas qualify.
-    Uses \u26aa (grey) for 0-pass batches so you can spot them instantly vs \u2705 (green) for qualifiers.
-    This ensures you always get a ping after each run, regardless of outcome.
+    Fires at the end of a batch ONLY when at least 1 alpha qualifies (passed_count > 0).
+    Zero-pass batches remain completely silent to eliminate notification noise.
     """
+    if passed_count <= 0 or total_candidates <= 0:
+        return True
+
     stats = stats or {}
     today_q = stats.get("today_qualified", 0)
     reserve = stats.get("reserve_count", 0)
@@ -107,20 +109,51 @@ def send_telegram_batch_summary(
     today_eval = stats.get("today_evaluated", 0)
     ts = _now_wat().strftime("%H:%M")
 
-    if passed_count > 0:
-        icon = "\u2705"
-        headline = f"{_escape(str(passed_count))} alpha{'s' if passed_count > 1 else ''} qualified"
-    else:
-        icon = "\u26aa"
-        headline = "0 qualified this batch"
+    icon = "✅"
+    headline = f"{_escape(str(passed_count))} alpha{'s' if passed_count > 1 else ''} qualified"
 
     lines = [
-        f"{icon} *{headline}* \u00b7 {_escape(ts)} UTC\\+1",
+        f"{icon} *{headline}* · {_escape(ts)} UTC\\+1",
         "",
         f"Batch: {_escape(str(passed_count))}/{_escape(str(total_candidates))} passed",
-        f"Today total: {_escape(str(today_eval))} sims \u00b7 {_escape(str(today_q))} qualified \u00b7 {_escape(str(today_sub))} submitted \u00b7 {_escape(str(reserve))} reserve",
+        f"Today total: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified · {_escape(str(today_sub))} submitted · {_escape(str(reserve))} reserve",
     ]
     return _send("\n".join(lines), config)
+
+
+def check_and_send_hourly_health(
+    store: Any,
+    config: OptionsConfig,
+    min_interval_minutes: int = 55,
+) -> bool:
+    """
+    Distributed multi-org hourly health trigger.
+    Atomically checks if >= min_interval_minutes have elapsed since the last hourly health check
+    was sent anywhere across all 5 orgs. If so, atomically claims the slot in PostgreSQL and sends
+    the 🟢 Hourly Health report.
+
+    Guarantees operator receives an hourly heartbeat 24/7 without fail, regardless of GitHub Actions
+    cron jitter, while ensuring exactly ONE notification per hour across the cluster.
+    """
+    can_send = False
+    if hasattr(store, "claim_hourly_health_slot"):
+        can_send = store.claim_hourly_health_slot(min_interval_minutes=min_interval_minutes)
+    elif hasattr(store, "db") and store.db and hasattr(store.db, "claim_hourly_health_slot"):
+        can_send = store.db.claim_hourly_health_slot(min_interval_minutes=min_interval_minutes)
+
+    if not can_send:
+        return False
+
+    log.info("[HOURLY HEALTH] Slot claimed. Sending cluster hourly health heartbeat to Telegram...")
+    stats = store.get_options_stats() if hasattr(store, "get_options_stats") else {}
+    org_activity = []
+    if hasattr(store, "get_org_activity"):
+        org_activity = store.get_org_activity(hours=26)
+    elif hasattr(store, "db") and store.db and hasattr(store.db, "get_org_activity"):
+        org_activity = store.db.get_org_activity(hours=26)
+
+    return send_telegram_health_check(config, stats=stats, org_activity=org_activity)
+
 
 
 def send_telegram_alert(

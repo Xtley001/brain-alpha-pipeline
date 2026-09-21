@@ -351,78 +351,159 @@ class OptionsGenerator:
                     f"Enter {tenor}d variance risk premium only when crossing 0.75 SD mean-reversion threshold.",
                 )
 
-        # 8. Analyst Estimates & Earnings Revisions (Multi-Speed Dispersal)
-        for win, dcy in [(15, 5), (30, 10), (60, 20)]:
-            for grp in ["subindustry", "sector"]:
-                _add(
-                    f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), {dcy})), {grp})",
-                    "Analyst Revision Momentum",
-                    f"Givoly & Lakonishok (1979): {win}d revision drift in consensus EPS with decay={dcy} demeaned by {grp}.",
-                )
-                _add(
-                    f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), {dcy})), {grp})",
-                    "Sales Revision Momentum",
-                    f"Consensus sales revision drift over {win}d with decay={dcy} demeaned by {grp}.",
-                )
-        for win, dcy in [(20, 5), (60, 10), (120, 20)]:
-            for grp in ["subindustry", "sector"]:
-                _add(
-                    f"group_neutralize(rank(-ts_decay_linear(ts_zscore(std_dev_eps_est / (abs(est_eps) + 0.01), {win}), {dcy})), {grp})",
-                    "Analyst Dispersion Fade",
-                    f"Diether et al. (2002): Fade stocks with extreme {win}d analyst forecast dispersion with decay={dcy}.",
-                )
-        for mom_win, dcy in [(5, 5), (10, 10), (20, 20)]:
-            for grp in ["subindustry", "sector"]:
-                _add(
-                    f"trade_when(ts_delta(close, {mom_win}) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, {dcy})), {grp}), -1)",
-                    "Price Target Implied Upside",
-                    f"Fabozzi et al. (2010): Consensus price target upside conditioned on positive {mom_win}d price momentum (decay={dcy}).",
-                )
+        # 8. Analyst Estimates & Earnings Revisions (Expanded Combinatorics)
+        for win in [5, 10, 15, 20, 30, 45, 60, 90]:
+            for dcy in [3, 5, 8, 10, 15, 20]:
+                for grp in ["subindustry", "sector", "industry"]:
+                    _add(
+                        f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), {dcy})), {grp})",
+                        "Analyst Revision Momentum",
+                        f"Givoly & Lakonishok (1979): {win}d revision drift in consensus EPS with decay={dcy} demeaned by {grp}.",
+                    )
+        for win in [10, 20, 30, 60]:
+            for dcy in [5, 10, 15, 20]:
+                for grp in ["subindustry", "sector"]:
+                    _add(
+                        f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), {dcy})), {grp})",
+                        "Sales Revision Momentum",
+                        f"Consensus sales revision drift over {win}d with decay={dcy} demeaned by {grp}.",
+                    )
+        for win in [10, 20, 40, 60, 90, 120]:
+            for dcy in [3, 5, 8, 10, 15, 20]:
+                for grp in ["subindustry", "sector"]:
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear(ts_zscore(std_dev_eps_est / (abs(est_eps) + 0.01), {win}), {dcy})), {grp})",
+                        "Analyst Dispersion Fade",
+                        f"Diether et al. (2002): Fade stocks with extreme {win}d analyst forecast dispersion with decay={dcy}.",
+                    )
+        for mom_win in [3, 5, 10, 15, 20]:
+            for dcy in [3, 5, 8, 10, 15, 20]:
+                for grp in ["subindustry", "sector", "industry"]:
+                    _add(
+                        f"trade_when(ts_delta(close, {mom_win}) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, {dcy})), {grp}), -1)",
+                        "Price Target Implied Upside",
+                        f"Fabozzi et al. (2010): Consensus price target upside conditioned on positive {mom_win}d price momentum (decay={dcy}).",
+                    )
+        for win in [60, 120, 252]:
+            for dcy in [5, 10, 20]:
+                for grp in ["subindustry", "sector"]:
+                    _add(
+                        f"group_neutralize(rank(ts_decay_linear((est_eps - ts_mean(est_eps, {win})) / (ts_std_dev(est_eps, {win}) + 0.01), {dcy})), {grp})",
+                        "Normalized Analyst Consensus Drift",
+                        f"Long-term {win}d normalized earnings revision drift with decay={dcy} demeaned by {grp}.",
+                    )
 
-        # 9. Short Interest & Securities Lending Flow (Multi-Speed Dispersal)
-        for dcy in [5, 10, 20]:
-            for grp in ["subindustry", "sector"]:
+        # 9. Short Interest & Securities Lending Flow (Vastly Expanded Multi-Speed Grid)
+        for dcy in [3, 5, 8, 10, 15, 20, 30]:
+            for grp in ["subindustry", "sector", "industry"]:
                 _add(
                     f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
                     "Short Demand Borrow Surge",
                     f"Cohen et al. (2007): Elevated institutional borrow cost and high short interest with decay={dcy}.",
                 )
-        for win, dcy in [(126, 10), (252, 20)]:
-            for grp in ["subindustry", "sector"]:
                 _add(
-                    f"group_neutralize(rank(-ts_decay_linear(ts_zscore(short_interest / (float_shares + 0.001), {win}), {dcy})), {grp})",
-                    "De-Trended Short Interest Z-Score",
-                    f"Rapach et al. (2016): De-trended {win}d short interest Z-score measures abnormal positioning (decay={dcy}).",
+                    f"group_neutralize(rank(-ts_decay_linear(short_interest / (adv20 + 0.001), {dcy})), {grp})",
+                    "Short Interest to Volume Ratio",
+                    f"High short interest relative to 20d average daily volume with decay={dcy}.",
                 )
-        for dtc, mom, dcy in [(4.0, 5, 5), (6.0, 10, 10), (8.0, 20, 20)]:
-            for grp in ["subindustry", "sector"]:
-                _add(
-                    f"trade_when((close > ts_mean(close, {mom * 2})) & (days_to_cover > {dtc}), group_neutralize(rank(ts_decay_linear(days_to_cover * ts_delta(close, {mom}), {dcy})), {grp}), -1)",
-                    "Days-to-Cover Short Squeeze Breakout",
-                    f"Asquith et al. (2005): Short squeeze breakout trigger on high days-to-cover names (decay={dcy}).",
-                )
+        for delta_win in [3, 5, 10, 15]:
+            for dcy in [5, 10, 15, 20]:
+                for grp in ["subindustry", "sector"]:
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear(ts_delta(borrow_fee, {delta_win}) * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
+                        "Borrow Fee Acceleration Squeeze Risk",
+                        f"Acceleration in institutional borrow cost over {delta_win}d weighted by short interest.",
+                    )
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear(ts_delta(short_interest / (float_shares + 0.001), {delta_win}), {dcy})), {grp})",
+                        "Short Interest Flow Acceleration",
+                        f"Rate of change in short interest as percentage of float over {delta_win}d.",
+                    )
+        for win in [20, 40, 60, 90, 126, 252]:
+            for dcy in [5, 10, 15, 20]:
+                for grp in ["subindustry", "sector", "industry"]:
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear(ts_zscore(short_interest / (float_shares + 0.001), {win}), {dcy})), {grp})",
+                        "De-Trended Short Interest Z-Score",
+                        f"Rapach et al. (2016): De-trended {win}d short interest Z-score measures abnormal positioning (decay={dcy}).",
+                    )
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear(ts_rank(short_interest / (adv20 + 0.001), {win}), {dcy})), {grp})",
+                        "Rolling Short Interest Percentile",
+                        f"Rolling {win}d percentile rank of short interest relative to liquidity.",
+                    )
+        for win in [20, 60, 120]:
+            for dcy in [5, 10, 20]:
+                for grp in ["subindustry", "sector"]:
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear(borrow_fee / (ts_mean(borrow_fee, {win}) + 0.01), {dcy})), {grp})",
+                        "Relative Borrow Fee Dislocation",
+                        f"Institutional borrow fee relative to its {win}d baseline mean.",
+                    )
+        for dtc in [2.0, 3.0, 4.0, 5.0, 6.0, 8.0]:
+            for mom in [3, 5, 10, 20]:
+                for dcy in [3, 5, 8, 10, 15, 20]:
+                    for grp in ["subindustry", "sector"]:
+                        _add(
+                            f"trade_when((close > ts_mean(close, {mom * 2})) & (days_to_cover > {dtc}), group_neutralize(rank(ts_decay_linear(days_to_cover * ts_delta(close, {mom}), {dcy})), {grp}), -1)",
+                            "Days-to-Cover Short Squeeze Breakout",
+                            f"Asquith et al. (2005): Short squeeze breakout trigger on high days-to-cover names (decay={dcy}).",
+                        )
 
         # 10. Cross-Asset Hybrids (Options + Shorts + Analyst Estimates - Multi-Speed)
-        for tenor, dcy in [(20, 5), (30, 10), (60, 20)]:
+        for tenor in [10, 20, 30, 60, 90, 120, 180]:
             sqrt_t = round(math.sqrt(tenor / 252.0), 4)
-            for grp in ["subindustry", "sector"]:
-                _add(
-                    f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
-                    "Volatility Smirk Borrow Fee Hybrid",
-                    f"Cross-Asset Confluence: Confluence of steep {tenor}d downside put skew and high borrow fees (decay={dcy}).",
-                )
-                _add(
-                    f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_{tenor} * {sqrt_t}), {dcy})), {grp})",
-                    "Revision vs Skew Divergence Hybrid",
-                    f"Cross-Asset Divergence: Target price upside vs {tenor}d options downside hedging (decay={dcy}).",
-                )
-                _add(
-                    f"group_neutralize(rank(-ts_decay_linear((pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001)) * (borrow_fee + 1.0), {dcy})), {grp})",
-                    "PCR Borrow Fee Confluence Hybrid",
-                    f"Surging {tenor}d put/call volume ratio paired with elevated borrow cost (decay={dcy}).",
-                )
+            for dcy in [3, 5, 8, 10, 15, 20]:
+                for grp in ["subindustry", "sector", "industry"]:
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
+                        "Volatility Smirk Borrow Fee Hybrid",
+                        f"Cross-Asset Confluence: Confluence of steep {tenor}d downside put skew and high borrow fees (decay={dcy}).",
+                    )
+                    _add(
+                        f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_{tenor} * {sqrt_t}), {dcy})), {grp})",
+                        "Revision vs Skew Divergence Hybrid",
+                        f"Cross-Asset Divergence: Target price upside vs {tenor}d options downside hedging (decay={dcy}).",
+                    )
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear((pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001)) * (borrow_fee + 1.0), {dcy})), {grp})",
+                        "PCR Borrow Fee Confluence Hybrid",
+                        f"Surging {tenor}d put/call volume ratio paired with elevated borrow cost (decay={dcy}).",
+                    )
+                    _add(
+                        f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_{tenor} - ts_mean(implied_volatility_mean_{tenor}, 60)) * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
+                        "IV Surge Short Interest Confluence",
+                        f"Confluence of abnormal {tenor}d IV expansion and heavy short interest positioning.",
+                    )
+
+        # Fail-Safe Backfill: If the targeted archetype filter produced fewer than count candidates
+        # (e.g. all specific variations evaluated), backfill from the broader cross-asset pool so workers NEVER starve
+        if len(procedural) < count and tokens:
+            log.info("Specialized procedural set yielded %d/%d candidates for '%s'. Backfilling from cross-asset pool...",
+                     len(procedural), count, archetype)
+            # Temporarily clear tokens to allow backfill
+            saved_tokens = tokens
+            tokens = []
+            # Call Section 10 Cross-Asset and Section 2 Skew backfill
+            for tenor in [10, 20, 30, 60, 90, 120]:
+                sqrt_t = round(math.sqrt(tenor / 252.0), 4)
+                for dcy in [5, 10, 15, 20]:
+                    for grp in ["subindustry", "sector"]:
+                        _add(
+                            f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
+                            "Cross-Asset Backfill Hybrid",
+                            f"Fail-safe backfill: Volatility skew and lending fee confluence (decay={dcy}).",
+                        )
+                        if len(procedural) >= count:
+                            break
+                    if len(procedural) >= count:
+                        break
+                if len(procedural) >= count:
+                    break
+            tokens = saved_tokens
 
         return procedural[:count]
+
 
     def get_mutation_batch(
         self,

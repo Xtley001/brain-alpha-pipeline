@@ -326,6 +326,13 @@ class OptionsStore:
         """Return per-org activity summary from org_runs for the last N hours."""
         return self.db.get_org_activity(hours=hours)
 
+    def claim_hourly_health_slot(self, min_interval_minutes: int = 55) -> bool:
+        """Atomically claims hourly health lock if >= min_interval_minutes have elapsed."""
+        if hasattr(self.db, "claim_hourly_health_slot"):
+            return self.db.claim_hourly_health_slot(min_interval_minutes=min_interval_minutes)
+        return True
+
+
     def mark_alpha_submitted(self, alpha_id: str):
         self.db.mark_alpha_submitted(alpha_id)
 

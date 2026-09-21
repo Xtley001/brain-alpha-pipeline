@@ -19,6 +19,7 @@ from brain_options.core.correlation import check_pool_correlation
 from brain_options.core.drip import DripSubmitter
 from brain_options.core.filter import evaluate_alpha_metrics
 from brain_options.core.notifier import (
+    check_and_send_hourly_health,
     send_telegram_alert,
     send_telegram_batch_summary,
     send_telegram_daily_digest,
@@ -423,12 +424,18 @@ async def run_batch(
     finally:
         log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
         try:
-            stats = store.get_options_stats()
-            # Always send batch summary — even on 0-pass batches.
-            # Use a different icon so 0-pass is visually distinct from a qualifying batch.
-            send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
+            if passed_count > 0:
+                stats = store.get_options_stats()
+                send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
+
+        # Multi-org guaranteed hourly health heartbeat:
+        # Ensures operator receives a health report every hour across whichever org is currently running
+        try:
+            check_and_send_hourly_health(store, config)
+        except Exception as health_err:
+            log.warning("Hourly health auto-check encountered error: %s", health_err)
 
         # Zero-qualified check: only alert if high volume (>= 150) has ZERO Stage 0 passes (indicating broken generator)
         try:
@@ -521,11 +528,17 @@ async def run_retry_stage0_batch(
     finally:
         log.info("\nRe-optimization completed: %d passed / %d evaluated.", passed_count, total_evaluated)
         try:
-            if passed_count > 0 or os.environ.get("NOTIFY_EVERY_BATCH", "false").lower() == "true":
+            if passed_count > 0:
                 stats = store.get_options_stats()
                 send_telegram_batch_summary(passed_count, total_evaluated, config, stats=stats)
         except Exception as summary_err:
             log.warning("Failed to send Telegram summary: %s", summary_err)
+
+        # Multi-org guaranteed hourly health heartbeat
+        try:
+            check_and_send_hourly_health(store, config)
+        except Exception as health_err:
+            log.warning("Hourly health auto-check encountered error: %s", health_err)
 
         # 24-hour interval drip submission check
         try:
@@ -592,6 +605,8 @@ def main():
         stats = store.get_options_stats()
         org_activity = store.db.get_org_activity(hours=26)
         success = send_telegram_health_check(config, stats=stats, org_activity=org_activity)
+        if success and hasattr(store, "claim_hourly_health_slot"):
+            store.claim_hourly_health_slot(min_interval_minutes=0)
         log.info("Health check sent: %s", "OK" if success else "FAILED")
         return
 

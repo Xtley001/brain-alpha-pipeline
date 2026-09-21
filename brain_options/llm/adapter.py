@@ -200,9 +200,11 @@ class LLMAdapter:
         # 3. OpenRouter
         for key in self._rotate_keys("openrouter", self.config.openrouter_keys):
             for model in [
-                "meta-llama/llama-3.3-70b-instruct:free",
-                "meta-llama/llama-3.1-8b-instruct:free",
-                "mistralai/mistral-7b-instruct:free",
+                "meta-llama/llama-3.3-70b-instruct",
+                "meta-llama/llama-3.2-3b-instruct:free",
+                "google/gemini-2.0-flash-exp:free",
+                "qwen/qwen-2.5-72b-instruct",
+                "mistralai/mistral-small-24b-instruct-2501:free",
             ]:
                 res = self._call_openai_compatible(
                     base_url="https://openrouter.ai/api/v1",
@@ -214,6 +216,7 @@ class LLMAdapter:
                 )
                 if res:
                     return res
+
 
         # 4. Google Gemini (valid model identifiers)
         for key in self._rotate_keys("gemini", self.config.gemini_keys):

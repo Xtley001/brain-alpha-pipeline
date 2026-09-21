@@ -257,16 +257,42 @@ def test_batch_summary_telegram_notification():
         assert "2/10" in text
         assert "2 qualified" in text
 
-    # Verify behavior when passed_count == 0 (fires grey circle summary)
+    # Verify behavior when passed_count == 0 (strictly silent, no telegram notification)
     with patch("requests.post") as mock_post2:
-        mock_resp2 = MagicMock()
-        mock_resp2.status_code = 200
-        mock_post2.return_value = mock_resp2
         result_zero = send_telegram_batch_summary(0, 10, config, stats=stats)
         assert result_zero is True
-        assert mock_post2.called
-        text_zero = mock_post2.call_args[1]["json"]["text"]
-        assert "0 qualified this batch" in text_zero
+        assert not mock_post2.called
+
+
+def test_check_and_send_hourly_health_distributed_lock():
+    """Verify that check_and_send_hourly_health respects the distributed lock and fires only when slot is claimed."""
+    from brain_options.core.notifier import check_and_send_hourly_health
+    from unittest.mock import MagicMock, patch
+
+    config = OptionsConfig(
+        brain_username="test",
+        brain_password="test",
+        telegram_bot_token="fake_token",
+        telegram_chat_id="123456",
+    )
+    mock_store = MagicMock()
+    # Case 1: slot is already claimed by another runner within 55m
+    mock_store.claim_hourly_health_slot.return_value = False
+    with patch("brain_options.core.notifier.send_telegram_health_check") as mock_health:
+        sent = check_and_send_hourly_health(mock_store, config, min_interval_minutes=55)
+        assert sent is False
+        assert not mock_health.called
+
+    # Case 2: slot is open and successfully claimed
+    mock_store.claim_hourly_health_slot.return_value = True
+    mock_store.get_options_stats.return_value = {"today_evaluated": 10, "today_qualified": 1}
+    mock_store.get_org_activity.return_value = []
+    with patch("brain_options.core.notifier.send_telegram_health_check") as mock_health:
+        mock_health.return_value = True
+        sent = check_and_send_hourly_health(mock_store, config, min_interval_minutes=55)
+        assert sent is True
+        assert mock_health.called
+
 
 
 @pytest.mark.asyncio
