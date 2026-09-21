@@ -248,6 +248,28 @@ async def run_candidate(
             else:
                 log.warning("[-] Could not verify checklist from BRAIN for alpha %s (status %s). Rejecting as unverified.", best_metrics.alpha_id, chk_resp.status_code if chk_resp else "None")
                 return False
+
+            # Mandatory Gate 3: Live BRAIN platform self-correlation check against active submitted portfolio
+            corr_url = f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}/correlations/self"
+            try:
+                c_resp = await sess.retry("GET", corr_url, max_tries=2)
+                if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
+                    import json
+                    c_data = json.loads(c_resp.text)
+                    for r in c_data.get("records") or []:
+                        if len(r) > 5 and isinstance(r[5], (int, float)) and abs(float(r[5])) >= 0.70:
+                            live_corr_val = float(r[5])
+                            corr_against = r[0]
+                            rej_reason = f"HIGH_LIVE_CORRELATION: |{live_corr_val:.2f}| >= 0.70 vs {corr_against}"
+                            log.warning("[-] ALPHA REJECTED BY LIVE BRAIN SELF-CORRELATION: %s (%s). Moving to options_correlated_alphas.", best_metrics.alpha_id, rej_reason)
+                            store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="CORRELATED", metrics=best_metrics)
+                            store.archive_correlated_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict, max_corr=live_corr_val)
+                            if hasattr(store, "db") and store.db:
+                                store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=rej_reason)
+                            return False
+            except Exception as corr_err:
+                log.debug("Live self-correlation check skipped for %s: %s", best_metrics.alpha_id, corr_err)
+
         except Exception as gate_err:
             log.warning("[-] Platform gate verification error for %s: %s. Rejecting as unverified.", best_metrics.alpha_id, gate_err)
             return False
