@@ -135,7 +135,7 @@ Respond with ONLY a JSON array of objects (no markdown fences, no surrounding co
 def build_mechanical_mutation_prompt(
     candidate_expression: str,
     candidate_hypothesis: str,
-    kb_cards: list[KnowledgeCard],
+    kb_cards: Optional[list[KnowledgeCard]] = None,
     n: int = 4,
     top_exemplars: Optional[list[dict]] = None,
 ) -> str:
@@ -144,7 +144,12 @@ def build_mechanical_mutation_prompt(
     candidate (operator variations, tenor shifts, decay windows, group neutralizations)
     while preserving the core economic mechanism.
     """
-    kb_context = "\n\n".join(card.to_prompt_text() for card in kb_cards) if kb_cards else ""
+    if kb_cards and isinstance(kb_cards, (list, tuple, set)):
+        kb_context = "\n\n".join(
+            card.to_prompt_text() for card in kb_cards if hasattr(card, "to_prompt_text")
+        )
+    else:
+        kb_context = ""
 
     exemplars_text = ""
     if top_exemplars:

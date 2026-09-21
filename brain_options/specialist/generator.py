@@ -538,15 +538,17 @@ class OptionsGenerator:
         )
 
         for base in base_candidates:
+            kb_cards = self.kb.get_cards_for_archetype(base.archetype_name, max_cards=2)
             prompt = build_mechanical_mutation_prompt(
-                base.expression,
-                base.archetype_name,
-                count_per_base,
+                candidate_expression=base.expression,
+                candidate_hypothesis=base.hypothesis,
+                kb_cards=kb_cards,
+                n=count_per_base,
                 top_exemplars=top_exemplars,
             )
             raw_output = self.llm_adapter.generate(
                 prompt=prompt,
-                system_prompt=OPTIONS_SYSTEM_PROMPT,
+                system_prompt=system_prompt,
                 temperature=0.6,
             )
             if not raw_output:
