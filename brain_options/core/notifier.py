@@ -336,13 +336,14 @@ def send_telegram_emergency_alert(
     if len(clean_err) > 300:
         clean_err = clean_err[:297] + "..."
 
+    footer = "Worker process exception. Investigation recommended." if "Crash" in context or "Exception" in context else "Diagnostic threshold alert. Pipeline continues operating."
     lines = [
         f"🚨 *PIPELINE CRITICAL ALERT* · {_escape(ts)} WAT",
         "",
         f"*Context:* `{_escape(context)}`",
         f"*Error:* `{_escape(clean_err)}`",
         "",
-        "Worker process crashed. Immediate investigation recommended.",
+        _escape(footer),
     ]
     return _send("\n".join(lines), config)
 

@@ -1116,9 +1116,9 @@ class OptionsDatabase:
         ny_today = "(CURRENT_TIMESTAMP AT TIME ZONE 'America/New_York')::date"
         sql_eval = f"""
             SELECT
-                COUNT(*) as all_time_evaluated,
+                COUNT(*) FILTER (WHERE status != 'DUPLICATE_AST') as all_time_evaluated,
                 COUNT(*) FILTER (WHERE status = 'PASS' OR LEFT(stage, 5) = 'DIAG_' OR status = 'QUALIFIED') as all_time_pass,
-                COUNT(*) FILTER (WHERE created_at >= {ny_today}) as today_evaluated,
+                COUNT(*) FILTER (WHERE created_at >= {ny_today} AND status != 'DUPLICATE_AST') as today_evaluated,
                 COUNT(*) FILTER (WHERE created_at >= {ny_today} AND (status = 'PASS' OR LEFT(stage, 5) = 'DIAG_')) as today_stage0_pass,
                 COUNT(*) FILTER (WHERE created_at >= {ny_today} AND status = 'CORRELATED') as today_correlated
             FROM options_evaluations;

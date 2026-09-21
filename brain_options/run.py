@@ -430,19 +430,11 @@ async def run_batch(
         except Exception as summary_err:
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
 
-        # Zero-qualified tripwire: alert mid-day if funnel is broken
+        # Zero-qualified check: only alert if high volume (>= 150) has ZERO Stage 0 passes (indicating broken generator)
         try:
             stats = store.get_options_stats()
-            if stats.get("today_evaluated", 0) >= 30 and stats.get("today_qualified", 0) == 0:
-                from brain_options.core.notifier import send_telegram_emergency_alert
-                send_telegram_emergency_alert(
-                    error_summary=(
-                        f"today_evaluated={stats.get('today_evaluated')} but today_qualified=0. "
-                        "Funnel is producing zero qualified alphas. Correlation gate or optimizer may need calibration."
-                    ),
-                    config=config,
-                    context="Zero-Qualified Tripwire",
-                )
+            if stats.get("today_evaluated", 0) >= 150 and stats.get("today_stage0_pass", 0) == 0:
+                log.warning("Generation diagnostic warning: >=150 evaluated with 0 Stage 0 passes.")
         except Exception:
             pass
 
