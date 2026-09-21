@@ -539,12 +539,11 @@ async def run_batch(
         except Exception as org_rec_err:
             log.warning("Failed to record org run telemetry: %s", org_rec_err)
 
-        # Worker completion ping to Telegram (Option B):
-        # Always delivers real-time visibility on batch size, qualified alphas, and daily totals
+        # Batch completion ping — real-time visibility into strategy activity
         try:
             stats = store.get_options_stats()
             send_telegram_worker_batch_ping(
-                org_name=org_name,
+                strategy=target_archetype or "options",
                 passed_count=passed_count,
                 total_evaluated=total_evaluated,
                 archetype=target_archetype or "options",
@@ -553,12 +552,11 @@ async def run_batch(
                 db=store,
             )
         except Exception as ping_err:
-            log.warning("Failed to send worker batch completion ping: %s", ping_err)
+            log.warning("Failed to send batch completion ping: %s", ping_err)
 
-        # Multi-org guaranteed hourly health heartbeat:
-        # Ensures operator receives a health report every hour across whichever org is currently running
+        # Guaranteed hourly health heartbeat (unified runner)
         try:
-            check_and_send_hourly_health(store, config)
+            check_and_send_hourly_health(store, config, active_strategy=target_archetype)
         except Exception as health_err:
             log.warning("Hourly health auto-check encountered error: %s", health_err)
 

@@ -205,7 +205,7 @@ def send_telegram_batch_summary(
 
 
 def send_telegram_worker_batch_ping(
-    org_name: str,
+    strategy: str,
     passed_count: int,
     total_evaluated: int,
     archetype: str,
@@ -214,9 +214,9 @@ def send_telegram_worker_batch_ping(
     db: Any = None,
 ) -> bool:
     """
-    Worker batch completion ping (Option B).
-    Fires at the end of every worker run to give the operator real-time visibility
-    into worker activity, candidates evaluated, and qualification outcomes.
+    Batch completion ping — fires at the end of every strategy batch run.
+    Gives real-time visibility into strategy activity, candidates evaluated,
+    and qualification outcomes for the unified Xtley001 runner.
     """
     ts = _now_wat().strftime("%H:%M")
     stats = stats or {}
@@ -225,27 +225,26 @@ def send_telegram_worker_batch_ping(
     icon = "🎯" if passed_count > 0 else "⚪"
     status_text = f"{passed_count}/{total_evaluated} qualified" if passed_count > 0 else f"0/{total_evaluated} qualified"
     lines = [
-        f"{icon} *[{_escape(org_name)}]* Batch finished · {ts} WAT",
-        f"Archetype: `{_escape(archetype or 'general')}`",
+        f"{icon} *Batch done* · {_escape(ts)} UTC\\+1",
+        f"Strategy: `{_escape(strategy or 'general')}`",
         f"Result: *{_escape(status_text)}*",
         f"Today: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified",
     ]
-    return _send_bool("\n".join(lines), config, db=db, label=f"worker ping ({org_name})")
+    return _send_bool("\n".join(lines), config, db=db, label=f"batch ping ({strategy})")
 
 
 def check_and_send_hourly_health(
     store: Any,
     config: OptionsConfig,
     min_interval_minutes: int = 55,
+    active_strategy: Optional[str] = None,
 ) -> bool:
     """
-    Distributed multi-org hourly health trigger.
-    Atomically checks if >= min_interval_minutes have elapsed since the last hourly health check
-    was sent anywhere across all 5 orgs. If so, atomically claims the slot in PostgreSQL and sends
-    the 🟢 Hourly Health report.
+    Hourly health trigger for the unified Xtley001 runner.
+    Atomically checks if >= min_interval_minutes have elapsed since the last health check
+    was sent. If so, claims the slot in PostgreSQL and sends the 🟢 Hourly Health report.
 
-    Guarantees operator receives an hourly heartbeat 24/7 without fail, regardless of GitHub Actions
-    cron jitter, while ensuring exactly ONE notification per hour across the cluster.
+    Guarantees exactly one heartbeat per hour, regardless of GitHub Actions cron jitter.
     """
     can_send = False
     if hasattr(store, "claim_hourly_health_slot"):
@@ -256,15 +255,9 @@ def check_and_send_hourly_health(
     if not can_send:
         return False
 
-    log.info("[HOURLY HEALTH] Slot claimed. Sending cluster hourly health heartbeat to Telegram...")
+    log.info("[HOURLY HEALTH] Slot claimed. Sending hourly health heartbeat to Telegram...")
     stats = store.get_options_stats() if hasattr(store, "get_options_stats") else {}
-    org_activity = []
-    if hasattr(store, "get_org_activity"):
-        org_activity = store.get_org_activity(hours=26)
-    elif hasattr(store, "db") and store.db and hasattr(store.db, "get_org_activity"):
-        org_activity = store.db.get_org_activity(hours=26)
-
-    return send_telegram_health_check(config, stats=stats, org_activity=org_activity, db=store)
+    return send_telegram_health_check(config, stats=stats, active_strategy=active_strategy, db=store)
 
 
 
@@ -349,19 +342,17 @@ def send_telegram_drip_alert(
 def send_telegram_health_check(
     config: OptionsConfig,
     stats: Optional[dict[str, Any]] = None,
-    org_activity: Optional[list] = None,
+    active_strategy: Optional[str] = None,
     db: Any = None,
 ) -> bool:
     """
-    Hourly system heartbeat. Shows today's discovery funnel progress at a glance.
-    Now includes real org-level activity from the org_runs heartbeat table.
+    Hourly system heartbeat. Shows today's discovery funnel at a glance.
     Called by the health.yml workflow every hour.
     """
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
 
     stats = stats or {}
-    org_activity = org_activity or []
     ts = _now_wat().strftime("%H:%M")
     today_eval = stats.get("today_evaluated", 0)
     today_q = stats.get("today_qualified", 0)
@@ -381,6 +372,8 @@ def send_telegram_health_check(
     for i in range(1, target + 1):
         q_bar += "\u25cf" if i <= today_q else "\u25cb"
 
+    strategy_line = f"Strategy: `{_escape(active_strategy)}`" if active_strategy else "Runner: `Xtley001`"
+
     lines = [
         f"\U0001f7e2 *Hourly Health* \u00b7 {_escape(ts)} UTC\\+1",
         "",
@@ -390,21 +383,8 @@ def send_telegram_health_check(
         f"Reserve \\(unsubmitted\\): `{_escape(str(reserve))}`",
         f"Corr\\-rejected today: `{_escape(str(today_corr))}`",
         "",
+        strategy_line,
     ]
-
-    # Runner activity block
-    if org_activity:
-        org_lines = []
-        for entry in org_activity[:5]:  # cap at 5 entries
-            runner_name = _escape(str(entry.get("org", "Xtley001")))
-            last = _escape(str(entry.get("last_seen", "?")))
-            evals = _escape(str(entry.get("evals", 0)))
-            org_lines.append(f"  `{runner_name}` \u00b7 last: {last} \u00b7 evals: {evals}")
-        lines.append(f"Runner activity \\(26h\\): `{_escape(str(len(org_activity)))} active`")
-        lines.extend(org_lines)
-    else:
-        lines.append("Runner activity: `Xtley001` \\(Single unified runner active\\)")
-
     return _send_bool("\n".join(lines), config, db=db, label="hourly health check")
 
 
