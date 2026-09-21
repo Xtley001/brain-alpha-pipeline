@@ -275,41 +275,74 @@ async def run_candidate(
     if best_metrics.alpha_id:
         try:
             sess = client._get_session()
-            chk_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}", max_tries=3)
-            if chk_resp and chk_resp.status_code == 200:
-                is_block = chk_resp.json().get("is") or {}
-                checks = is_block.get("checks") or []
-                failed_gates = [c.get("name") for c in checks if c.get("result") == "FAIL"]
-                if failed_gates:
-                    rej_reason = f"CHECK_FAIL: {', '.join(failed_gates)}"
-                    log.warning("[-] ALPHA REJECTED BY PLATFORM GATE: %s (%s). Moving to options_rejected_alphas.", best_metrics.alpha_id, rej_reason)
-                    store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
-                    store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
-                    return False
-            else:
-                log.warning("[-] Could not verify checklist from BRAIN for alpha %s (status %s). Rejecting as unverified.", best_metrics.alpha_id, chk_resp.status_code if chk_resp else "None")
+            import json
+
+            # 1. BRAIN computes SELF_CORRELATION asynchronously. Poll until no longer PENDING (up to 30s).
+            alpha_data = None
+            for attempt in range(8):
+                chk_resp = await sess.retry("GET", f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}", max_tries=2)
+                if chk_resp and chk_resp.status_code == 200:
+                    alpha_data = chk_resp.json()
+                    is_block = alpha_data.get("is") or {}
+                    checks = is_block.get("checks") or []
+                    pending_checks = [c.get("name") for c in checks if c.get("result") == "PENDING"]
+                    if not pending_checks:
+                        break
+                await asyncio.sleep(2.0 + attempt * 0.5)
+
+            if not alpha_data:
+                log.warning("[-] Could not verify checklist from BRAIN for alpha %s. Rejecting as unverified.", best_metrics.alpha_id)
+                return False
+
+            is_block = alpha_data.get("is") or {}
+            checks = is_block.get("checks") or []
+            failed_gates = [c.get("name") for c in checks if c.get("result") == "FAIL"]
+            pending_gates = [c.get("name") for c in checks if c.get("result") == "PENDING"]
+
+            if failed_gates:
+                rej_reason = f"CHECK_FAIL: {', '.join(failed_gates)}"
+                log.warning("[-] ALPHA REJECTED BY PLATFORM GATE: %s (%s). Moving to options_rejected_alphas.", best_metrics.alpha_id, rej_reason)
+                store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
+                store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
+                return False
+
+            if pending_gates:
+                rej_reason = f"CHECK_TIMEOUT: {', '.join(pending_gates)} still PENDING after 30s"
+                log.warning("[-] ALPHA REJECTED (TIMED OUT WAITING FOR PLATFORM): %s (%s).", best_metrics.alpha_id, rej_reason)
+                store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
+                store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
                 return False
 
             # Mandatory Gate 3: Live BRAIN platform self-correlation check against active submitted portfolio
             corr_url = f"https://api.worldquantbrain.com/alphas/{best_metrics.alpha_id}/correlations/self"
-            try:
-                c_resp = await sess.retry("GET", corr_url, max_tries=2)
-                if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
-                    import json
-                    c_data = json.loads(c_resp.text)
-                    for r in c_data.get("records") or []:
-                        if len(r) > 5 and isinstance(r[5], (int, float)) and abs(float(r[5])) >= 0.70:
-                            live_corr_val = float(r[5])
-                            corr_against = r[0]
-                            rej_reason = f"HIGH_LIVE_CORRELATION: |{live_corr_val:.2f}| >= 0.70 vs {corr_against}"
-                            log.warning("[-] ALPHA REJECTED BY LIVE BRAIN SELF-CORRELATION: %s (%s). Moving to options_correlated_alphas.", best_metrics.alpha_id, rej_reason)
-                            store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="CORRELATED", metrics=best_metrics)
-                            store.archive_correlated_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict, max_corr=live_corr_val)
-                            if hasattr(store, "db") and store.db:
-                                store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=rej_reason)
-                            return False
-            except Exception as corr_err:
-                log.debug("Live self-correlation check skipped for %s: %s", best_metrics.alpha_id, corr_err)
+            live_corr_records = []
+            for _ in range(5):
+                try:
+                    c_resp = await sess.retry("GET", corr_url, max_tries=2)
+                    if c_resp and c_resp.status_code == 200 and c_resp.text.strip():
+                        c_data = json.loads(c_resp.text)
+                        live_corr_records = c_data.get("records") or []
+                        if live_corr_records:
+                            break
+                except Exception as corr_err:
+                    log.debug("Live self-correlation fetch attempt error: %s", corr_err)
+                await asyncio.sleep(2.0)
+
+            for r in live_corr_records:
+                if len(r) > 5 and isinstance(r[5], (int, float)) and abs(float(r[5])) >= 0.70:
+                    live_corr_val = float(r[5])
+                    corr_against = r[0]
+                    rej_reason = f"HIGH_LIVE_CORRELATION: |{live_corr_val:.2f}| >= 0.70 vs {corr_against}"
+                    log.warning("[-] ALPHA REJECTED BY LIVE BRAIN SELF-CORRELATION: %s (%s). Moving to options_correlated_alphas.", best_metrics.alpha_id, rej_reason)
+                    store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="CORRELATED", metrics=best_metrics)
+                    store.archive_correlated_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict, max_corr=live_corr_val)
+                    if hasattr(store, "db") and store.db:
+                        store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=rej_reason)
+                    return False
+
+            if live_corr_records:
+                real_max_corr = max([abs(float(r[5])) for r in live_corr_records if len(r) > 5 and isinstance(r[5], (int, float))] or [0.0])
+                max_corr = max(max_corr, real_max_corr)
 
         except Exception as gate_err:
             log.warning("[-] Platform gate verification error for %s: %s. Rejecting as unverified.", best_metrics.alpha_id, gate_err)
