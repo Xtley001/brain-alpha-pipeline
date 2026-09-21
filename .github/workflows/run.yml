@@ -21,6 +21,10 @@ on:
         description: "Archetype specialization override (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)"
         required: false
         default: ""
+      universe:
+        description: "Universe override (e.g. TOP3000, TOP2000, TOP1000, TOP500, TOP200, TOPSP500)"
+        required: false
+        default: ""
 
 concurrency:
   group: brain-discovery-${{ github.repository_owner }}
@@ -66,7 +70,6 @@ jobs:
       FILTER_MAX_TURNOVER: "0.70"
       FILTER_MIN_TURNOVER: "0.01"
       ENABLE_AUTO_SUBMIT: "true"
-      UNIVERSE: "TOP3000"
       DELAY: "1"
       NOTIFY_EVERY_BATCH: "true"
     steps:
@@ -80,25 +83,45 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Resolve Archetype Specialization
+      - name: Resolve Multiverse Universe & Archetype Specialization
         run: |
           INPUT_ARCH="${{ github.event.inputs.archetype }}"
+          INPUT_UNIV="${{ github.event.inputs.universe }}"
           OWNER="${{ github.repository_owner }}"
+
+          # Archetype specialization
           if [ -n "$INPUT_ARCH" ]; then
             TARGET_ARCH="$INPUT_ARCH"
           elif [ "$OWNER" = "xtley-alpha-research-01" ]; then
-            TARGET_ARCH="breakeven,skew"
+            TARGET_ARCH="term_structure,skew"
           elif [ "$OWNER" = "xtley-alpha-research-02" ]; then
-            TARGET_ARCH="analyst_revisions"
+            TARGET_ARCH="pcr_flow,forward_basis"
           elif [ "$OWNER" = "xtley-alpha-research-03" ]; then
-            TARGET_ARCH="short_interest"
+            TARGET_ARCH="breakeven,short_interest"
           elif [ "$OWNER" = "xtley-alpha-research-04" ]; then
             TARGET_ARCH="hybrid_confluence,term_structure,pcr_flow"
           else
             TARGET_ARCH=""
           fi
+
+          # Multiverse Universe specialization
+          if [ -n "$INPUT_UNIV" ]; then
+            TARGET_UNIV="$INPUT_UNIV"
+          elif [ "$OWNER" = "xtley-alpha-research-01" ]; then
+            TARGET_UNIV="TOP1000"
+          elif [ "$OWNER" = "xtley-alpha-research-02" ]; then
+            TARGET_UNIV="TOP2000"
+          elif [ "$OWNER" = "xtley-alpha-research-03" ]; then
+            TARGET_UNIV="TOP500"
+          elif [ "$OWNER" = "xtley-alpha-research-04" ]; then
+            TARGET_UNIV="TOPSP500"
+          else
+            TARGET_UNIV="TOP3000"
+          fi
+
           echo "ARCHETYPE=$TARGET_ARCH" >> $GITHUB_ENV
-          echo "Resolved divide-and-conquer specialization for $OWNER: $TARGET_ARCH"
+          echo "UNIVERSE=$TARGET_UNIV" >> $GITHUB_ENV
+          echo "Resolved Multiverse Specialization for $OWNER: Universe=$TARGET_UNIV, Archetype=$TARGET_ARCH"
 
       - name: Salvage high-Sharpe correlated alphas
         run: python -m brain_options.run --decorrelate --limit 1 || true

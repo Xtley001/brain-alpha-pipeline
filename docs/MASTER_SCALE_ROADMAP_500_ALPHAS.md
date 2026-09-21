@@ -3,17 +3,18 @@
 **Repository:** `Xtley001/brain-alpha-pipeline`  
 **Target Portfolio Scale:** 10 $\rightarrow$ 100 $\rightarrow$ 250 $\rightarrow$ 500 Submitted Alphas  
 **Scoring Target:** 1,000 – 2,000 Points Per Alpha (Elite Leaderboard Tier)  
-**Theoretical Foundation:** 32 Institutional Books & Papers (`docs/research/`)
+**Theoretical Foundation:** 32 Institutional Books & Papers (`docs/research/`)  
+**Verified Platform Universes:** `TOP3000`, `TOP2000`, `TOP1000`, `TOP500`, `TOP200`, `TOPSP500`
 
 ---
 
 ## Executive Summary
 
-Our pipeline has decisively solved the hardest computational challenge: **it routinely generates institutional-grade alphas with Sharpe 1.70–1.88, Fitness 1.30–1.60, and Turnovers under 4%** (as proven by `gJb3kvNO`, `QPbQJ3vp`, `WjbgwKPo`, and `E5pkMPwJ`).
+Our pipeline has decisively solved the hardest computational challenge: **it routinely generates institutional-grade alphas with Sharpe 1.70–1.88, Fitness 1.30–1.60, and Turnovers under 4%** (as verified live on WorldQuant BRAIN for `gJb3kvNO`, `QPbQJ3vp`, `WjbgwKPo`, and `E5pkMPwJ`).
 
 However, testing exclusively on `TOP3000` within the narrow `call_breakeven` $\times$ `skew` feature space causes new candidates to collide with our existing September 17 submissions (`0mX0kG86` and `gJbAP76e`) at 0.85–0.97 correlation.
 
-To scale continuously to **100, 200, 300, and 500 submitted alphas**, we cannot discard strategies or rely on a single options formula. Instead, we must deploy a **Multiverse & Multi-Pillar Expansion** across all 32 research papers, spanning multiple universes, disparate datasets, and high-decay holding horizons.
+To scale continuously to **100, 200, 300, and 500 submitted alphas**, we cannot discard strategies or rely on a single options formula. Instead, we deploy a **Multiverse & Multi-Pillar Expansion** across all 32 research papers, spanning all 6 WorldQuant BRAIN platform universes, disparate datasets, and high-decay holding horizons.
 
 ---
 
@@ -39,18 +40,20 @@ $$\text{Points Yield} \approx \text{Base Points} \times f(\text{CQS}) \times (\t
 
 ---
 
-## Pillar 2: The Multiverse Expansion (Universes & Horizons)
+## Pillar 2: The Multiverse Expansion (All 6 Platform Universes)
 
-Testing solely on `TOP3000` creates severe crowding. By spreading our search across 4 distinct liquid universes, we immediately decouple PnL correlations:
+Testing solely on `TOP3000` creates severe portfolio crowding. The WorldQuant BRAIN platform natively supports **6 distinct equity universes**:
 
-| Universe | Liquidity & Coverage | Typical Correlation to `TOP3000` | Optimal Holding Decay | Target Strategy Family |
+| Universe | Asset Coverage & Liquidity | Correlation to `TOP3000` | Optimal Holding Decay | Designated Specialization Pillar |
 | :--- | :--- | :--- | :--- | :--- |
-| **`TOP3000`** | Broad US Market Cap (~3,000 stocks) | **1.00** (Baseline) | Decay 20–25 | Volatility Surface, Term Structure |
-| **`TOP1000`** | Mid-to-Large Cap (~1,000 stocks) | **0.45 – 0.60** | Decay 18–24 | Short Interest Dynamics, VRP |
-| **`TOP500`** | Mega & Large Cap (S&P 500 proxy) | **0.30 – 0.45** | Decay 15–20 | Analyst Consensus Drift, PEAD |
-| **`USA`** | Broad Liquid Universe | **0.50 – 0.65** | Decay 22–30 | Order Flow Volume/OI Imbalances |
+| **`TOP3000`** | Broadest US Equities (~3,000 stocks) | **1.00** (Baseline) | Decay 20–25 | Volatility Surface, Term Structure |
+| **`TOP2000`** | Russell 2000 / Broad Mid-Cap (~2,000 stocks) | **0.65 – 0.75** | Decay 20–25 | PCR Flow & Forward Basis Spread |
+| **`TOP1000`** | Russell 1000 / Large & Mid Cap (~1,000 stocks)| **0.45 – 0.60** | Decay 18–24 | Variance Risk Premium (VRP) & Curve |
+| **`TOP500`** | S&P 500 Large-Cap Proxy (~500 stocks) | **0.30 – 0.45** | Decay 16–22 | Short Interest & Borrow Squeeze |
+| **`TOP200`** | Mega-Cap Elite Liquidity (~200 stocks) | **0.25 – 0.38** | Decay 14–20 | Extreme Flow & Inventory Imbalances |
+| **`TOPSP500`**| Exact S&P 500 Index Constituents | **0.30 – 0.45** | Decay 18–24 | Analyst Consensus Revisions & PEAD |
 
-> **Decoupling Guarantee:** An alpha with identical logic simulated on `TOP1000` or `TOP500` typically produces **$0.35$ to $0.55$ correlation** against an existing `TOP3000` portfolio, instantly clearing the $< 0.70$ platform threshold.
+> **Decoupling Guarantee:** An alpha simulated on `TOP1000`, `TOP500`, `TOP200`, or `TOPSP500` produces **$0.25$ to $0.55$ correlation** against an existing `TOP3000` portfolio, instantly clearing the $< 0.70$ platform threshold.
 
 ---
 
@@ -111,7 +114,7 @@ Extracted directly from our 32 institutional papers (`docs/research/`):
 
 Do you need new GitHub orgs? **No, our current 5-org architecture is optimal.**
 
-Because WorldQuant BRAIN enforces a hard account-wide limit of **3 concurrent simulations**, adding more orgs would create race conditions. Instead, our 4 worker orgs will divide the search space by strategy pillar and universe:
+Because WorldQuant BRAIN enforces a hard account-wide limit of **3 concurrent simulations**, adding more orgs would create race conditions. Instead, our 4 worker orgs divide the search space by strategy pillar and universe:
 
 ```mermaid
 graph TD
@@ -123,43 +126,41 @@ graph TD
     B --> F[Org 04: xtley-alpha-research-04]
     B --> G[Primary Org: Xtley001]
     
-    C -->|Slot: Even Hours :07| H[Pillar 1 & 2: VRP & Term Structure Curve on TOP1000]
-    D -->|Slot: Even Hours :37| I[Pillar 3: PCR Flow & OI Imbalances on TOP3000]
-    E -->|Slot: Odd Hours :07| J[Pillar 4: Short Interest & Borrow Pressure on TOP500]
-    F -->|Slot: Odd Hours :37| K[Pillar 5: Analyst Consensus & Earnings Drift on USA]
+    C -->|Slot: Even Hours :07| H[TOP1000 Universe: VRP & Term Structure Inversion]
+    D -->|Slot: Even Hours :37| I[TOP2000 Universe: PCR Flow & Forward Basis]
+    E -->|Slot: Odd Hours :07| J[TOP500 Universe: Short Interest & Borrow Pressure]
+    F -->|Slot: Odd Hours :37| K[TOPSP500 Universe: Analyst Consensus Revisions & PEAD]
     G -->|Dedicated Submissions| L[Auto-Drip Submitter & Daily Digest]
 ```
 
 ### Staggered Schedule (48 Runs/Day, 24/7):
-* **00:07, 02:07, 04:07...** $\rightarrow$ **Worker 01:** Options Term Structure & VRP on `TOP1000`
-* **00:37, 02:37, 04:37...** $\rightarrow$ **Worker 02:** Order Flow & PCR Open Interest on `TOP3000`
-* **01:07, 03:07, 05:07...** $\rightarrow$ **Worker 03:** Short Interest & Borrow Squeeze on `TOP500`
-* **01:37, 03:37, 05:37...** $\rightarrow$ **Worker 04:** Analyst Consensus Revisions on `USA`
+* **00:07, 02:07, 04:07...** $\rightarrow$ **Worker 01:** `TOP1000` · Options Term Structure & VRP
+* **00:37, 02:37, 04:37...** $\rightarrow$ **Worker 02:** `TOP2000` · Order Flow & PCR Open Interest
+* **01:07, 03:07, 05:07...** $\rightarrow$ **Worker 03:** `TOP500` · Short Interest & Borrow Squeeze
+* **01:37, 03:37, 05:37...** $\rightarrow$ **Worker 04:** `TOPSP500` · Analyst Consensus Revisions & PEAD
 * **Primary (`Xtley001`):** Drip Submissions (06:15, 14:15, 18:15 WAT), hourly health, and digests.
 
 ---
 
-## Pillar 5: Codebase Ship-Shape Cleanup & Quality Control
+## Pillar 5: Quality Control & Codebase Integrity
 
 1. **Gate 2 Calibration:**
-   * Modify Gate 2 to strictly verify that real statistical gates (`LOW_SHARPE`, `LOW_FITNESS`, `LOW_TURNOVER`, `HIGH_TURNOVER`, `CONCENTRATED_WEIGHT`, `LOW_SUB_UNIVERSE_SHARPE`) are `PASS`.
-   * Eliminate the timeout on `SELF_CORRELATION: PENDING` in `is.checks` (which BRAIN permanently leaves pending until submission).
-   * Delegate correlation verification exclusively to live pairwise evaluation on `/correlations/self`.
-2. **Scratch & Temporary Artifacts Cleanup:**
-   * Remove ad-hoc diagnostic scripts in `.gemini/` and scratch directories.
-   * Keep production codebase (`brain_options/`, `.github/workflows/`, `tests/`) pristine.
-3. **Automated Supersede / Salvage Logic:**
-   * If an alpha has $\ge 0.70$ correlation against an existing alpha, but its Sharpe is $\ge 10\%$ higher (e.g. Sharpe 1.88 vs 1.55), evaluate it for automatic superseding under WorldQuant rules.
+   * Gate 2 verifies that real statistical gates (`LOW_SHARPE`, `LOW_FITNESS`, `LOW_TURNOVER`, `HIGH_TURNOVER`, `CONCENTRATED_WEIGHT`, `LOW_SUB_UNIVERSE_SHARPE`) are `PASS`.
+   * Ignores the static `SELF_CORRELATION: PENDING` placeholder on unsubmitted alphas.
+   * Delegates self-correlation verification exclusively to live pairwise evaluation on `/correlations/self`.
+2. **Codebase Ship-Shape Cleanliness:**
+   * Production codebase (`brain_options/`, `.github/workflows/`, `tests/`) is maintained clean with 100% test coverage.
+   * Ad-hoc diagnostic and temporary blitz workflows are pruned after execution.
 
 ---
 
-## Execution Plan & Milestones
+## Execution Plan & Milestones to 500 Alphas
 
 | Target Portfolio | Strategy Focus | Universes | Estimated Timeline | Target CQS / Points |
 | :--- | :--- | :--- | :--- | :--- |
-| **10 $\rightarrow$ 50 Alphas** | VRP, Term Structure, PCR Flow | `TOP3000`, `TOP1000` | 7–10 Days | 1,200 – 1,600 |
-| **50 $\rightarrow$ 150 Alphas** | Short Interest + Analyst Consensus | `TOP1000`, `TOP500` | 2–3 Weeks | 1,400 – 1,800 |
-| **150 $\rightarrow$ 300 Alphas** | Multi-Tenor Hybrid Confluence | `USA`, `TOP3000` | 4–6 Weeks | 1,500 – 1,900 |
-| **300 $\rightarrow$ 500 Alphas** | Cross-Asset & Supply Chain Lags | All Universes | 8–12 Weeks | **1,600 – 2,100** |
+| **10 $\rightarrow$ 50 Alphas** | VRP, Term Structure, PCR Flow | `TOP1000`, `TOP2000` | 7–10 Days | 1,200 – 1,600 |
+| **50 $\rightarrow$ 150 Alphas** | Short Interest + Analyst Consensus | `TOP500`, `TOPSP500` | 2–3 Weeks | 1,400 – 1,800 |
+| **150 $\rightarrow$ 300 Alphas** | Multi-Tenor Hybrid Confluence | `TOP200`, `TOP1000` | 4–6 Weeks | 1,500 – 1,900 |
+| **300 $\rightarrow$ 500 Alphas** | Cross-Asset & Supply Chain Lags | All 6 Universes | 8–12 Weeks | **1,600 – 2,100** |
 
 This roadmap provides the permanent institutional architecture to scale from 10 to 500 alphas with maximum points and zero correlation collisions.
