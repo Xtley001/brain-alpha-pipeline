@@ -65,7 +65,7 @@ jobs:
       FILTER_MIN_FITNESS: "1.00"
       FILTER_MAX_TURNOVER: "0.70"
       FILTER_MIN_TURNOVER: "0.01"
-      ENABLE_AUTO_SUBMIT: "false"
+      ENABLE_AUTO_SUBMIT: "true"
       UNIVERSE: "TOP3000"
       DELAY: "1"
       NOTIFY_EVERY_BATCH: "true"

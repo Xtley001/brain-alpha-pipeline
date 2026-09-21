@@ -267,6 +267,18 @@ async def run_candidate(
     )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
     send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config)
+
+    # Immediately submit straight up if enabled and daily target quota is not yet full
+    if getattr(config, "enable_auto_submit", False):
+        log.info("[AUTO-SUBMIT] Immediate submission triggered for qualified alpha %s", best_metrics.alpha_id)
+        try:
+            from brain_options.core.drip import DripSubmitter
+            drip = DripSubmitter(client, store, config)
+            sub_ok, sub_id, sub_msg = await drip.check_and_drip(force_catchup=True)
+            log.info("[AUTO-SUBMIT] Immediate drip result: %s (alpha: %s, msg: %s)", sub_ok, sub_id, sub_msg)
+        except Exception as sub_err:
+            log.warning("[AUTO-SUBMIT] Immediate submission encountered an error: %s", sub_err)
+
     return True
 
 
@@ -544,6 +556,7 @@ def main():
     parser.add_argument("--test-telegram", action="store_true", help="Send a test notification to Telegram and exit")
     parser.add_argument("--stats", action="store_true", help="Display daily and all-time options alpha statistics")
     parser.add_argument("--drip", action="store_true", help="Run 24-hour drip submitter check and exit")
+    parser.add_argument("--force-catchup", action="store_true", help="Bypass pacing interval to catch up on missed daily submission quota")
     parser.add_argument("--health", action="store_true", help="Send hourly health check notification to Telegram and exit")
     parser.add_argument("--daily-digest", action="store_true", help="Send end-of-day daily digest notification to Telegram and exit")
     parser.add_argument("--archetype", type=str, default=os.environ.get("ARCHETYPE", ""), help="Target specific archetype family (e.g. breakeven, skew, term_structure, forward_basis,pcr_flow)")
@@ -552,7 +565,7 @@ def main():
     config = OptionsConfig.from_env()
 
     if args.drip:
-        log.info("Checking 24-hour drip submission window...")
+        log.info("Checking 24-hour drip submission window (force_catchup=%s)...", args.force_catchup)
         store = OptionsStore(database_url=config.database_url)
         client = BrainClient(
             username=config.brain_username,
@@ -562,7 +575,7 @@ def main():
         )
         client.authenticate()
         drip = DripSubmitter(client, store, config)
-        drip_ok, aid, msg = asyncio.run(drip.check_and_drip())
+        drip_ok, aid, msg = asyncio.run(drip.check_and_drip(force_catchup=args.force_catchup))
         log.info("Drip check finished: %s (alpha: %s, msg: %s)", drip_ok, aid, msg)
         return
 

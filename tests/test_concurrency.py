@@ -166,8 +166,7 @@ def test_stage0_telegram_notification():
         text = call_payload["text"]
         assert "Hourly Health" in text
         assert "87" in text
-        assert "3" in text
-        assert "5/5" in text
+        assert "3/5" in text
 
 
 def test_passed_alpha_telegram_notification():
@@ -258,11 +257,16 @@ def test_batch_summary_telegram_notification():
         assert "2/10" in text
         assert "2 qualified" in text
 
-    # Verify silent (no send) when passed_count == 0
+    # Verify behavior when passed_count == 0 (fires grey circle summary)
     with patch("requests.post") as mock_post2:
+        mock_resp2 = MagicMock()
+        mock_resp2.status_code = 200
+        mock_post2.return_value = mock_resp2
         result_zero = send_telegram_batch_summary(0, 10, config, stats=stats)
-        assert result_zero is False
-        assert not mock_post2.called
+        assert result_zero is True
+        assert mock_post2.called
+        text_zero = mock_post2.call_args[1]["json"]["text"]
+        assert "0 qualified this batch" in text_zero
 
 
 @pytest.mark.asyncio

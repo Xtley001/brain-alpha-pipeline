@@ -181,12 +181,13 @@ class DripSubmitter:
             log.warning("Failed to verify checks for alpha %s: %s", alpha_id, e)
         return False, ["API_FETCH_ERROR"], {}
 
-    async def check_and_drip(self) -> Tuple[bool, Optional[str], str]:
+    async def check_and_drip(self, force_catchup: bool = False) -> Tuple[bool, Optional[str], str]:
         """
-        Evaluates the daily submission cadence (up to 3 alphas per New York day,
-        spaced by minimum interval hours to maintain optimal pacing).
+        Main drip submitter entry point. Evaluates whether a submission window is open.
         If a slot is free, selects the best fully verified alpha from the queue,
         submits it, verifies Out-of-Sample status on BRAIN, updates records, and notifies Telegram.
+        If force_catchup is True or earlier submission windows were missed, pacing intervals
+        are bypassed to immediately fulfill today's daily quota.
         Returns (submitted: bool, alpha_id: Optional[str], reason: str).
         """
         now_ny = datetime.datetime.now(NY_TZ)
@@ -200,14 +201,23 @@ class DripSubmitter:
             log.info("[DRIP QUEUE] %s", msg)
             return False, None, msg
 
-        if today_subs:
+        if today_subs and not force_catchup:
             latest_dt = max(s["datetime_ny"] for s in today_subs)
             hours_since = (now_ny - latest_dt).total_seconds() / 3600.0
-            if hours_since < min_interval_hours:
+
+            # Catch-up logic: If we have missed earlier windows (behind the expected pace),
+            # bypass interval spacing to fulfill the required submission target.
+            expected_by_now = min(max_daily, int((now_ny.hour / 24.0) * max_daily) + 1)
+            is_behind_schedule = len(today_subs) < expected_by_now
+
+            if hours_since < min_interval_hours and not is_behind_schedule:
                 rem_hours = min_interval_hours - hours_since
                 msg = f"Pacing limit: {len(today_subs)}/{max_daily} submitted today (latest: {today_subs[0]['id']}). Next slot opens in {rem_hours:.1f} hours ({rem_hours * 60:.0f} mins)."
                 log.info("[DRIP QUEUE] %s", msg)
                 return False, None, msg
+            elif is_behind_schedule:
+                log.info("[DRIP QUEUE] Catch-up mode active: %d/%d submitted today, behind schedule (expected %d). Bypassing spacing interval to submit.",
+                         len(today_subs), max_daily, expected_by_now)
 
         # Today's submission slot is open! Load candidate queue
         unsubmitted = self.store.get_unsubmitted_pool_alphas()
