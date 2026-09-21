@@ -2,8 +2,8 @@ name: BRAIN Daily Digest
 
 on:
   schedule:
-    # 23:00 UTC daily = 00:00 UTC+1 / midnight WAT (end of BRAIN New York day)
-    - cron: "0 23 * * *"
+    # 23:50 UTC daily = 00:50 WAT (end of BRAIN New York day, off-peak zero delay)
+    - cron: "50 23 * * *"
   workflow_dispatch: {}
 
 concurrency:

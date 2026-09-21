@@ -34,10 +34,10 @@ ORG_SPECIALIZATIONS = {
 }
 
 ORG_SCHEDULES = {
-    "xtley-alpha-research-01": "0 */2 * * * (Even :00 UTC)",
-    "xtley-alpha-research-02": "30 */2 * * * (Even :30 UTC)",
-    "xtley-alpha-research-03": "0 1-23/2 * * * (Odd :00 UTC)",
-    "xtley-alpha-research-04": "30 1-23/2 * * * (Odd :30 UTC)",
+    "xtley-alpha-research-01": "7 */2 * * * (Even :07 UTC)",
+    "xtley-alpha-research-02": "37 */2 * * * (Even :37 UTC)",
+    "xtley-alpha-research-03": "7 1-23/2 * * * (Odd :07 UTC)",
+    "xtley-alpha-research-04": "37 1-23/2 * * * (Odd :37 UTC)",
 }
 
 

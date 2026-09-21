@@ -3,14 +3,14 @@ name: BRAIN Options Alpha Discovery (Auto Staggered)
 on:
   schedule:
     # 48 runs/day across 4 worker orgs (1 run every 30 minutes, 24/7):
-    # Org 1 (xtley-alpha-research-01): even hours at :00 (12 runs/day)
-    - cron: "0 */2 * * *"
-    # Org 2 (xtley-alpha-research-02): even hours at :30 (12 runs/day)
-    - cron: "30 */2 * * *"
-    # Org 3 (xtley-alpha-research-03): odd hours at :00 (12 runs/day)
-    - cron: "0 1-23/2 * * *"
-    # Org 4 (xtley-alpha-research-04): odd hours at :30 (12 runs/day)
-    - cron: "30 1-23/2 * * *"
+    # Org 1 (xtley-alpha-research-01): even hours at :07 (12 runs/day)
+    - cron: "7 */2 * * *"
+    # Org 2 (xtley-alpha-research-02): even hours at :37 (12 runs/day)
+    - cron: "37 */2 * * *"
+    # Org 3 (xtley-alpha-research-03): odd hours at :07 (12 runs/day)
+    - cron: "7 1-23/2 * * *"
+    # Org 4 (xtley-alpha-research-04): odd hours at :37 (12 runs/day)
+    - cron: "37 1-23/2 * * *"
   workflow_dispatch:
     inputs:
       candidates:
@@ -31,10 +31,10 @@ jobs:
     if: |
       github.repository_owner != 'Xtley001' && (
         github.event_name == 'workflow_dispatch' ||
-        (github.repository_owner == 'xtley-alpha-research-01' && github.event.schedule == '0 */2 * * *') ||
-        (github.repository_owner == 'xtley-alpha-research-02' && github.event.schedule == '30 */2 * * *') ||
-        (github.repository_owner == 'xtley-alpha-research-03' && github.event.schedule == '0 1-23/2 * * *') ||
-        (github.repository_owner == 'xtley-alpha-research-04' && github.event.schedule == '30 1-23/2 * * *')
+        (github.repository_owner == 'xtley-alpha-research-01' && github.event.schedule == '7 */2 * * *') ||
+        (github.repository_owner == 'xtley-alpha-research-02' && github.event.schedule == '37 */2 * * *') ||
+        (github.repository_owner == 'xtley-alpha-research-03' && github.event.schedule == '7 1-23/2 * * *') ||
+        (github.repository_owner == 'xtley-alpha-research-04' && github.event.schedule == '37 1-23/2 * * *')
       )
     runs-on: ubuntu-latest
     timeout-minutes: 25
