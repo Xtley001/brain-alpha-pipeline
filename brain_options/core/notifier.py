@@ -204,6 +204,35 @@ def send_telegram_batch_summary(
     return _send_bool("\n".join(lines), config, db=db, label="batch summary")
 
 
+def send_telegram_worker_batch_ping(
+    org_name: str,
+    passed_count: int,
+    total_evaluated: int,
+    archetype: str,
+    config: OptionsConfig,
+    stats: Optional[dict[str, Any]] = None,
+    db: Any = None,
+) -> bool:
+    """
+    Worker batch completion ping (Option B).
+    Fires at the end of every worker run to give the operator real-time visibility
+    into worker activity, candidates evaluated, and qualification outcomes.
+    """
+    ts = _now_wat().strftime("%H:%M")
+    stats = stats or {}
+    today_eval = stats.get("today_evaluated", total_evaluated)
+    today_q = stats.get("today_qualified", passed_count)
+    icon = "🎯" if passed_count > 0 else "⚪"
+    status_text = f"{passed_count}/{total_evaluated} qualified" if passed_count > 0 else f"0/{total_evaluated} qualified"
+    lines = [
+        f"{icon} *[{_escape(org_name)}]* Batch finished · {ts} WAT",
+        f"Archetype: `{_escape(archetype or 'general')}`",
+        f"Result: *{_escape(status_text)}*",
+        f"Today: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified",
+    ]
+    return _send_bool("\n".join(lines), config, db=db, label=f"worker ping ({org_name})")
+
+
 def check_and_send_hourly_health(
     store: Any,
     config: OptionsConfig,

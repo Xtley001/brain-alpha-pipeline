@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import datetime
 import json
 import logging
 import math
@@ -27,6 +28,7 @@ from brain_options.core.notifier import (
     send_telegram_emergency_alert,
     send_telegram_health_check,
     send_telegram_startup,
+    send_telegram_worker_batch_ping,
 )
 from brain_options.core.sweep import SweepEngine
 from brain_options.llm.adapter import LLMAdapter
@@ -492,8 +494,8 @@ async def run_batch(
             log.warning("Failed to send Telegram batch summary: %s", summary_err)
 
         # Record real org run results in org_runs audit table
+        org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
         try:
-            org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
             store.record_org_run(
                 org_name=org_name,
                 archetype=target_archetype or "options",
@@ -502,6 +504,22 @@ async def run_batch(
             )
         except Exception as org_rec_err:
             log.warning("Failed to record org run telemetry: %s", org_rec_err)
+
+        # Worker completion ping to Telegram (Option B):
+        # Always delivers real-time visibility on batch size, qualified alphas, and daily totals
+        try:
+            stats = store.get_options_stats()
+            send_telegram_worker_batch_ping(
+                org_name=org_name,
+                passed_count=passed_count,
+                total_evaluated=total_evaluated,
+                archetype=target_archetype or "options",
+                config=config,
+                stats=stats,
+                db=store,
+            )
+        except Exception as ping_err:
+            log.warning("Failed to send worker batch completion ping: %s", ping_err)
 
         # Multi-org guaranteed hourly health heartbeat:
         # Ensures operator receives a health report every hour across whichever org is currently running
@@ -776,6 +794,35 @@ async def run_decorrelate_batch(
     return passed_count
 
 
+def check_worker_schedule_slot(org_name: str, now_utc: Optional[datetime.datetime] = None) -> tuple[bool, str]:
+    """
+    Enforces strict non-overlapping execution across the 4 worker orgs during scheduled cron runs.
+    48 runs/day across 4 worker orgs (1 run every 30 minutes, 24/7):
+      - Org 1 (xtley-alpha-research-01): even hours, 00-29 min (e.g. 00:07, 02:07, ...)
+      - Org 2 (xtley-alpha-research-02): even hours, 30-59 min (e.g. 00:37, 02:37, ...)
+      - Org 3 (xtley-alpha-research-03): odd hours, 00-29 min (e.g. 01:07, 03:07, ...)
+      - Org 4 (xtley-alpha-research-04): odd hours, 30-59 min (e.g. 01:37, 03:37, ...)
+    """
+    event_name = os.getenv("GITHUB_EVENT_NAME", "").strip().lower()
+    if event_name != "schedule":
+        return True, "dispatch_or_local"
+
+    if now_utc is None:
+        now_utc = datetime.datetime.now(datetime.timezone.utc)
+    is_even_hour = (now_utc.hour % 2 == 0)
+    is_first_half = (now_utc.minute < 30)
+
+    slot_map = {
+        (True, True): "xtley-alpha-research-01",
+        (True, False): "xtley-alpha-research-02",
+        (False, True): "xtley-alpha-research-03",
+        (False, False): "xtley-alpha-research-04",
+    }
+    designated_org = slot_map.get((is_even_hour, is_first_half), "unknown")
+    is_our_slot = (org_name == designated_org)
+    return is_our_slot, designated_org
+
+
 def main():
     parser = argparse.ArgumentParser(description="WorldQuant BRAIN Options Alpha Pipeline")
     parser.add_argument("--single-batch", action="store_true", help="Run a single bounded batch and exit (GitHub Actions cron mode)")
@@ -851,10 +898,25 @@ def main():
         log.info("Telegram test result: %s", "SUCCESS" if success else "FAILED")
         return
 
+    org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+
+    # Worker schedule slot gate (strictly prevents cron collisions):
+    # During scheduled cron executions, only the assigned worker runs in each 30-min window.
+    # Manual dispatches (workflow_dispatch) and local runs bypass this check.
+    is_slot, designated_org = check_worker_schedule_slot(org_name)
+    if not is_slot:
+        log.info(
+            "Worker Slot Gate: Scheduled trigger at %s UTC belongs to designated worker '%s'. "
+            "'%s' gracefully yielding slot to prevent multi-org collision.",
+            datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M"),
+            designated_org,
+            org_name,
+        )
+        return
+
     # Option D Cluster Concurrency Mutex:
     # Ensure no two worker orgs simulate simultaneously across the single BRAIN account
-    worker_id = f"{os.getenv('GITHUB_REPOSITORY_OWNER', 'local')}-{os.getpid()}"
-    org_name = os.getenv("GITHUB_REPOSITORY_OWNER", "local")
+    worker_id = f"{org_name}-{os.getpid()}"
     store = OptionsStore(database_url=config.database_url)
     db = store.db
     lock_acquired = False

@@ -25,6 +25,7 @@ from brain_options.core.notifier import (
     send_telegram_daily_digest,
     send_telegram_emergency_alert,
     send_telegram_drip_failure_alert,
+    send_telegram_worker_batch_ping,
 )
 from brain_options.core.client import SimMetrics, SimSettings
 
@@ -184,7 +185,42 @@ def test_all_public_functions_accept_db_parameter(test_config, monkeypatch):
         send_telegram_daily_digest(test_config, stats={}, db=mock_db)
         send_telegram_emergency_alert("crash error", test_config, db=mock_db)
         send_telegram_drip_failure_alert("alpha1", "rejected", test_config, db=mock_db)
+        send_telegram_worker_batch_ping("org-01", 0, 10, "skew", test_config, db=mock_db)
 
-        assert mock_send_bool.call_count == 8
+        assert mock_send_bool.call_count == 9
         for call_args in mock_send_bool.call_args_list:
             assert call_args[1].get("db") is mock_db
+
+
+def test_send_telegram_worker_batch_ping_formats_message(test_config):
+    with patch("brain_options.core.notifier._send_bool") as mock_send_bool:
+        mock_send_bool.return_value = True
+
+        # Test zero-pass ping
+        send_telegram_worker_batch_ping(
+            org_name="xtley-alpha-research-01",
+            passed_count=0,
+            total_evaluated=40,
+            archetype="breakeven,skew",
+            config=test_config,
+            stats={"today_evaluated": 120, "today_qualified": 2},
+        )
+        assert mock_send_bool.called
+        msg = mock_send_bool.call_args[0][0]
+        assert "xtley" in msg
+        assert "Batch finished" in msg
+        assert "0/40 qualified" in msg
+        assert "Today: 120 sims · 2 qualified" in msg
+
+        # Test positive-pass ping
+        send_telegram_worker_batch_ping(
+            org_name="xtley-alpha-research-02",
+            passed_count=1,
+            total_evaluated=40,
+            archetype="analyst_revisions",
+            config=test_config,
+            stats={"today_evaluated": 160, "today_qualified": 3},
+        )
+        msg2 = mock_send_bool.call_args[0][0]
+        assert "xtley" in msg2
+        assert "1/40 qualified" in msg2

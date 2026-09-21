@@ -525,5 +525,55 @@ def test_dedup_commutative_binops():
     assert dedup.is_duplicate(expr2)
 
 
+def test_check_worker_schedule_slot_bypasses_for_dispatch_and_local(monkeypatch):
+    from brain_options.run import check_worker_schedule_slot
+
+    # Unset GITHUB_EVENT_NAME (local mode)
+    monkeypatch.delenv("GITHUB_EVENT_NAME", raising=False)
+    is_slot, desig = check_worker_schedule_slot("xtley-alpha-research-01")
+    assert is_slot is True
+    assert desig == "dispatch_or_local"
+
+    # Workflow dispatch
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "workflow_dispatch")
+    is_slot, desig = check_worker_schedule_slot("xtley-alpha-research-03")
+    assert is_slot is True
+    assert desig == "dispatch_or_local"
+
+
+def test_check_worker_schedule_slot_enforces_30min_windows(monkeypatch):
+    import datetime
+    from brain_options.run import check_worker_schedule_slot
+
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "schedule")
+
+    # 14:07 UTC -> Even hour (14), minute < 30 -> Org 1
+    t1 = datetime.datetime(2026, 9, 21, 14, 7, tzinfo=datetime.timezone.utc)
+    is_slot, desig = check_worker_schedule_slot("xtley-alpha-research-01", now_utc=t1)
+    assert is_slot is True
+    assert desig == "xtley-alpha-research-01"
+
+    is_slot2, _ = check_worker_schedule_slot("xtley-alpha-research-02", now_utc=t1)
+    assert is_slot2 is False
+
+    # 14:37 UTC -> Even hour (14), minute >= 30 -> Org 2
+    t2 = datetime.datetime(2026, 9, 21, 14, 37, tzinfo=datetime.timezone.utc)
+    is_slot, desig = check_worker_schedule_slot("xtley-alpha-research-02", now_utc=t2)
+    assert is_slot is True
+    assert desig == "xtley-alpha-research-02"
+
+    # 15:07 UTC -> Odd hour (15), minute < 30 -> Org 3
+    t3 = datetime.datetime(2026, 9, 21, 15, 7, tzinfo=datetime.timezone.utc)
+    is_slot, desig = check_worker_schedule_slot("xtley-alpha-research-03", now_utc=t3)
+    assert is_slot is True
+    assert desig == "xtley-alpha-research-03"
+
+    # 15:37 UTC -> Odd hour (15), minute >= 30 -> Org 4
+    t4 = datetime.datetime(2026, 9, 21, 15, 37, tzinfo=datetime.timezone.utc)
+    is_slot, desig = check_worker_schedule_slot("xtley-alpha-research-04", now_utc=t4)
+    assert is_slot is True
+    assert desig == "xtley-alpha-research-04"
+
+
 
 

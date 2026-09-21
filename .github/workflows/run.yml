@@ -33,7 +33,7 @@ jobs:
     # Each org now runs on every trigger; archetype specialization is resolved in the Python step.
     if: github.repository_owner != 'Xtley001'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     permissions:
       contents: read
     env:
@@ -58,7 +58,7 @@ jobs:
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       BRAIN_MAX_CONCURRENT_SIMS: "3"
       MAX_CANDIDATES_PER_RUN: ${{ github.event.inputs.candidates || '40' }}
-      RUN_TIME_BUDGET_SECONDS: "1150"
+      RUN_TIME_BUDGET_SECONDS: "900"
       STAGE0_MIN_FITNESS: "0.20"
       STAGE0_MIN_SHARPE: "0.35"
       FILTER_MIN_SHARPE: "1.25"
@@ -107,4 +107,4 @@ jobs:
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
-        run: python -m brain_options.run --single-batch
+        run: python -m brain_options.run --single-batch --candidates ${{ env.MAX_CANDIDATES_PER_RUN }}

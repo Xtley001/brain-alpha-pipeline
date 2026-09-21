@@ -76,21 +76,21 @@ async def test_drip_skips_when_already_submitted_today(config, mock_client, mock
 @pytest.mark.asyncio
 async def test_drip_pacing_limit_when_one_recent_submission_today(config, mock_client, mock_store):
     """When 1 submission was made today within the pacing window (< 4 hours ago), drip must skip."""
-    now_ny = datetime.datetime.now(NY_TZ)
-    recent_dt = now_ny - datetime.timedelta(hours=1)
+    fixed_utc = datetime.datetime(2026, 9, 21, 8, 0, tzinfo=datetime.timezone.utc)
+    fixed_ny = fixed_utc.astimezone(NY_TZ)
+    recent_dt = fixed_ny - datetime.timedelta(hours=1)
     recent_iso = recent_dt.isoformat()
 
-    mock_sess = MagicMock()
-    mock_resp = MagicMock()
-    mock_resp.status_code = 200
-    mock_resp.json.return_value = {
-        "results": [{"id": "RECENT_SUB", "dateSubmitted": recent_iso}]
-    }
-    mock_sess.retry = AsyncMock(return_value=mock_resp)
-    mock_client._get_session.return_value = mock_sess
-
     drip = DripSubmitter(mock_client, mock_store, config)
-    submitted, alpha_id, reason = await drip.check_and_drip()
+    drip.get_today_submissions_ny = AsyncMock(return_value=[{
+        "id": "RECENT_SUB",
+        "datetime_ny": recent_dt,
+        "dateSubmitted": recent_iso,
+    }])
+
+    with patch("brain_options.core.drip.datetime.datetime") as mock_dt:
+        mock_dt.now.side_effect = lambda tz=None: fixed_utc if tz == datetime.timezone.utc else fixed_ny
+        submitted, alpha_id, reason = await drip.check_and_drip()
 
     assert submitted is False
     assert alpha_id is None
