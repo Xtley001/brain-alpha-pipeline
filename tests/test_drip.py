@@ -437,3 +437,68 @@ async def test_drip_rejects_negative_self_correlation(config, mock_client, mock_
     assert passed is False
     assert any("HIGH_SELF_CORRELATION" in f for f in failed_checks)
 
+
+@pytest.mark.asyncio
+async def test_drip_catchup_missed_slots_preserves_remaining(config, mock_client, mock_store):
+    """
+    When earlier slots were missed (e.g. 15:00 UTC = 16:00 WAT -> 2 slots expected),
+    drip submits straight up for the missed slots (2 alphas) and preserves the rest for tomorrow.
+    """
+    mock_sess = MagicMock()
+
+    async def mock_retry(method, url, **kwargs):
+        r = MagicMock()
+        r.status_code = 200
+        if "stage=OS" in url:
+            # 0 submissions today
+            r.json.return_value = {"results": []}
+        elif "/correlations/self" in url:
+            r.text = '{"records": []}'
+        elif "/alphas/" in url:
+            # Both alphas pass checks and verify ACTIVE on OS
+            r.json.return_value = {
+                "id": "ALPHA",
+                "status": "ACTIVE",
+                "stage": "OS",
+                "is": {"checks": []},
+            }
+        return r
+
+    mock_sess.retry = AsyncMock(side_effect=mock_retry)
+    mock_client._get_session.return_value = mock_sess
+    mock_client.submit_alpha = AsyncMock(return_value={"ok": True})
+    mock_client.update_alpha_metadata = AsyncMock(return_value=True)
+
+    # 4 qualified alphas in reserve pool
+    mock_store.get_unsubmitted_pool_alphas.return_value = [
+        {"alpha_id": f"ALPHA_{i}", "sharpe": 1.5 + i*0.1, "fitness": 1.1, "archetype": "volatility_skew"}
+        for i in range(1, 5)
+    ]
+    mock_store.get_recently_submitted_archetypes.return_value = []
+
+    # Mock time to 15:00 UTC (16:00 WAT) -> expected_slots_by_now = 2
+    mock_utc_dt = datetime.datetime(2026, 9, 21, 15, 0, 0, tzinfo=datetime.timezone.utc)
+    with patch("datetime.datetime") as mock_dt:
+        mock_dt.now.side_effect = lambda tz=None: (
+            mock_utc_dt if (tz == datetime.timezone.utc or tz == datetime.timezone.utc)
+            else mock_utc_dt.astimezone(NY_TZ) if tz == NY_TZ
+            else mock_utc_dt
+        )
+        mock_dt.fromisoformat = datetime.datetime.fromisoformat
+        mock_dt.timezone = datetime.timezone
+
+        with patch("brain_options.core.drip.send_telegram_drip_alert"):
+            drip = DripSubmitter(mock_client, mock_store, config)
+            # Patch verify_alpha_checks to return True
+            drip.verify_alpha_checks = AsyncMock(return_value=(True, [], {"stage": "OS", "status": "ACTIVE", "is": {}}))
+
+            submitted, last_id, reason = await drip.check_and_drip()
+
+            assert submitted is True
+            # Exactly 2 submitted (catching up for Slot 1 and Slot 2)
+            assert mock_client.submit_alpha.call_count == 2
+            assert "Submitted 2 alpha(s)" in reason
+            # The other 2 alphas remain untouched in reserve for tomorrow!
+            assert mock_store.mark_alpha_submitted.call_count == 2
+
+

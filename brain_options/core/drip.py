@@ -184,10 +184,11 @@ class DripSubmitter:
     async def check_and_drip(self, force_catchup: bool = False) -> Tuple[bool, Optional[str], str]:
         """
         Main drip submitter entry point. Evaluates whether a submission window is open.
-        If a slot is free, selects the best fully verified alpha from the queue,
-        submits it, verifies Out-of-Sample status on BRAIN, updates records, and notifies Telegram.
-        If force_catchup is True or earlier submission windows were missed, pacing intervals
-        are bypassed to immediately fulfill today's daily quota.
+        Under normal operations, automatically submits up to 3 alphas per day spaced across
+        the designated daily submission windows (Slot 1 at 06:15 WAT, Slot 2 at 14:15 WAT, Slot 3 at 18:15 WAT).
+        If earlier timeslots were missed due to lack of qualified alphas in the reserve pool,
+        catch-up mode immediately submits straight up for the missed timeslot(s) (1, 2, or 3),
+        and strictly preserves any remaining qualified alphas in reserve for tomorrow.
         Returns (submitted: bool, alpha_id: Optional[str], reason: str).
         """
         now_ny = datetime.datetime.now(NY_TZ)
@@ -196,28 +197,49 @@ class DripSubmitter:
         min_interval_hours = getattr(self.config, "drip_min_interval_hours", 4.0)
 
         today_subs = await self.get_today_submissions_ny()
-        if len(today_subs) >= max_daily:
-            msg = f"Daily submission quota ({len(today_subs)}/{max_daily}) already reached for {today_ny} EDT. Next window opens tomorrow at 05:00 UTC+1 (00:00 EDT)."
+        current_subs = len(today_subs)
+
+        # 1. Hard Daily Ceiling: Never exceed max_daily (3 alphas/day). Keep the rest for tomorrow.
+        if current_subs >= max_daily:
+            msg = f"Daily submission quota ({current_subs}/{max_daily}) already reached for {today_ny} EDT. Remaining alphas kept in reserve for tomorrow."
             log.info("[DRIP QUEUE] %s", msg)
             return False, None, msg
 
-        if today_subs and not force_catchup:
-            latest_dt = max(s["datetime_ny"] for s in today_subs)
-            hours_since = (now_ny - latest_dt).total_seconds() / 3600.0
+        # 2. Determine how many slots should have been filled by this time of day:
+        # Slot 1: 06:15 WAT (05:15 UTC / 01:15 EDT)
+        # Slot 2: 14:15 WAT (13:15 UTC / 09:15 EDT)
+        # Slot 3: 18:15 WAT (17:15 UTC / 13:15 EDT)
+        utc_now = datetime.datetime.now(datetime.timezone.utc)
+        utc_minute_of_day = utc_now.hour * 60 + utc_now.minute
 
-            # Catch-up logic: If we have missed earlier windows (behind the expected pace),
-            # bypass interval spacing to fulfill the required submission target.
-            expected_by_now = min(max_daily, int((now_ny.hour / 24.0) * max_daily) + 1)
-            is_behind_schedule = len(today_subs) < expected_by_now
+        if utc_minute_of_day >= 1035:       # >= 17:15 UTC (18:15 WAT): All 3 slots have opened
+            expected_slots_by_now = 3
+        elif utc_minute_of_day >= 795:      # >= 13:15 UTC (14:15 WAT): Slots 1 & 2 have opened
+            expected_slots_by_now = 2
+        elif utc_minute_of_day >= 315:      # >= 05:15 UTC (06:15 WAT): Slot 1 has opened
+            expected_slots_by_now = 1
+        else:                               # Early morning before Slot 1 opens
+            expected_slots_by_now = 0
 
-            if hours_since < min_interval_hours and not is_behind_schedule:
-                rem_hours = min_interval_hours - hours_since
-                msg = f"Pacing limit: {len(today_subs)}/{max_daily} submitted today (latest: {today_subs[0]['id']}). Next slot opens in {rem_hours:.1f} hours ({rem_hours * 60:.0f} mins)."
-                log.info("[DRIP QUEUE] %s", msg)
-                return False, None, msg
-            elif is_behind_schedule:
-                log.info("[DRIP QUEUE] Catch-up mode active: %d/%d submitted today, behind schedule (expected %d). Bypassing spacing interval to submit.",
-                         len(today_subs), max_daily, expected_by_now)
+        # Calculate how many submissions to perform in this run:
+        if force_catchup:
+            slots_needed = max_daily - current_subs
+        elif current_subs < expected_slots_by_now:
+            # We missed 1, 2, or 3 timeslots! Submit straight up for the missed timeslots.
+            slots_needed = expected_slots_by_now - current_subs
+            log.info("[DRIP QUEUE] Catch-up active: %d/%d submitted today, missed %d timeslot(s) by %02d:%02d WAT. Submitting straight up to catch up.",
+                     current_subs, max_daily, slots_needed, (utc_now.hour + 1) % 24, utc_now.minute)
+        else:
+            # On schedule: 1 slot at a time, enforcing standard spacing
+            slots_needed = 1
+            if today_subs:
+                latest_dt = max(s["datetime_ny"] for s in today_subs)
+                hours_since = (now_ny - latest_dt).total_seconds() / 3600.0
+                if hours_since < min_interval_hours:
+                    rem_hours = min_interval_hours - hours_since
+                    msg = f"Pacing limit: {current_subs}/{max_daily} submitted today (latest: {today_subs[0]['id']}). Next slot opens in {rem_hours:.1f} hours ({rem_hours * 60:.0f} mins). Alphas kept in reserve."
+                    log.info("[DRIP QUEUE] %s", msg)
+                    return False, None, msg
 
         # Today's submission slot is open! Load candidate queue
         unsubmitted = self.store.get_unsubmitted_pool_alphas()
@@ -256,10 +278,23 @@ class DripSubmitter:
 
         unsubmitted.sort(key=_cqs_diversity_key)
 
-        log.info("[DRIP QUEUE] Submission window OPEN for %s EDT. Evaluating %d queue candidates sorted by CQS (Diversity prioritized vs %s)...",
-                 today_ny, len(unsubmitted), recent_archs)
+        log.info("[DRIP QUEUE] Submission window OPEN for %s EDT. Need %d submission(s) (Cap: %d/%d). Evaluating %d queue candidates sorted by CQS...",
+                 today_ny, slots_needed, current_subs, max_daily, len(unsubmitted))
+
+        submitted_alphas: List[str] = []
 
         for cand in unsubmitted:
+            # Stop immediately if daily cap is reached or required slots are filled
+            if current_subs + len(submitted_alphas) >= max_daily:
+                log.info("[DRIP QUEUE] Daily quota full (%d/%d). Preserving remaining %d alphas in reserve for tomorrow.",
+                         max_daily, max_daily, len(unsubmitted) - len(submitted_alphas))
+                break
+
+            if len(submitted_alphas) >= slots_needed:
+                log.info("[DRIP QUEUE] Target slots filled (%d submitted this run). Preserving remaining %d alphas in reserve for next slot/tomorrow.",
+                         len(submitted_alphas), len(unsubmitted) - len(submitted_alphas))
+                break
+
             alpha_id = cand.get("alpha_id")
             if not alpha_id:
                 continue
@@ -292,9 +327,6 @@ class DripSubmitter:
             log.info("[DRIP QUEUE] Submitting verified alpha %s for %s EDT...", alpha_id, today_ny)
             res = await self.client.submit_alpha(alpha_id)
             if res.get("ok"):
-                # Asynchronous verification loop:
-                # BRAIN evaluates post-submission self-correlation and checklist gates asynchronously.
-                # Poll GET /alphas/{alpha_id} up to 5 times (total ~15s) to confirm it transitioned to stage 'OS'.
                 is_actually_submitted = False
                 verified_data = alpha_data
                 sess = self.client._get_session()
@@ -317,7 +349,8 @@ class DripSubmitter:
                             break
 
                 if is_actually_submitted:
-                    slot_num = len(today_subs) + 1
+                    slot_num = current_subs + len(submitted_alphas) + 1
+                    submitted_alphas.append(alpha_id)
                     log.info("[DRIP QUEUE] Successfully submitted and verified %s in stage OS (Slot %d/%d) for %s EDT.",
                              alpha_id, slot_num, max_daily, today_ny)
                     self.store.mark_alpha_submitted(alpha_id)
@@ -339,7 +372,10 @@ class DripSubmitter:
                         slot_num=slot_num,
                         max_daily=max_daily,
                     )
-                    return True, alpha_id, f"Submitted {alpha_id} (Slot {slot_num}/{max_daily}) for {today_ny} EDT"
+
+                    # Pause briefly between consecutive submissions if more slots need filling
+                    if len(submitted_alphas) < slots_needed and current_subs + len(submitted_alphas) < max_daily:
+                        await asyncio.sleep(4.0)
                 else:
                     log.warning("[DRIP QUEUE] Alpha %s failed post-submission validation (stage=%s, status=%s). Moving to options_rejected_alphas.", alpha_id, v_stage, v_status)
                     rej_msg = f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})"
@@ -373,5 +409,10 @@ class DripSubmitter:
             # Brief pause to respect BRAIN platform request pacing
             await asyncio.sleep(0.5)
 
-        return False, None, "No candidate cleared all pre-submission checklist gates."
+        if submitted_alphas:
+            total_now = current_subs + len(submitted_alphas)
+            primary_id = submitted_alphas[-1]
+            return True, primary_id, f"Submitted {len(submitted_alphas)} alpha(s) (Total {total_now}/{max_daily}) for {today_ny} EDT. Remaining kept in reserve for tomorrow."
+        return False, None, "No eligible unsubmitted alphas passed verification in pool."
+
 
