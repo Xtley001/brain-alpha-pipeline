@@ -24,7 +24,7 @@ class ShortInterestStrategy(BaseStrategy):
                 "Asquith, P., Pathak, P. A., & Ritter, J. R. (2005). Short Interest, Institutional Ownership, and Stock Returns. JFE.",
             ],
             preferred_universes=["TOP500", "TOP1000", "TOPSP500"],
-            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY"],
+            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY", "MARKET"],
             preferred_decays=[16, 20, 24],
         )
 

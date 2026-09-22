@@ -66,4 +66,26 @@ def generate_breakeven_candidates() -> list[OptionCandidate]:
                 )
             )
 
+    # 6. Breakeven Term Structure Slope (30d vs 90d)
+    for grp in groups:
+        candidates.append(
+            OptionCandidate(
+                expression=f"trade_when(volume > adv20, group_neutralize(rank(ts_decay_linear((call_breakeven_30 - close) / close - (call_breakeven_90 - close) / close, 5)), {grp}), -1)",
+                archetype_name="Breakeven Term Structure",
+                hypothesis="Comparing 30d to 90d call breakeven hurdle captures term divergence in option writer upside conviction.",
+                generation_source="template",
+            )
+        )
+
+    # 7. Group-Relative Breakeven Velocity
+    for grp in ["subindustry", "industry"]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_rank(ts_delta((call_breakeven_20 - close) / close, 5), {grp})",
+                archetype_name="Group Relative Breakeven Velocity",
+                hypothesis="Group rank of breakeven acceleration isolates idiosyncratic dealer repositioning within peers.",
+                generation_source="template",
+            )
+        )
+
     return candidates

@@ -22,8 +22,8 @@ class ExtremeTailRiskStrategy(BaseStrategy):
                 "Xing, Y., Zhang, X., & Zhao, R. (2010). What Does the Individual Option Volatility Smirk Tell Us About Future Equity Returns? Journal of Financial and Quantitative Analysis.",
                 "Bennett, C. (2014). Trading Volatility: Correlation, Term Structure and Skew.",
             ],
-            preferred_universes=["TOP3000", "TOP2000", "USA500"],
-            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR"],
+            preferred_universes=["TOP3000", "TOP2000", "TOP1000", "TOP500", "TOPSP500"],
+            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR", "MARKET"],
             preferred_decays=[8, 10, 12],
         )
 

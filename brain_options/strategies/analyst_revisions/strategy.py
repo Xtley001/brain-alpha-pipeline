@@ -23,7 +23,7 @@ class AnalystRevisionsStrategy(BaseStrategy):
                 "Diether, K. B., Malloy, C. J., & Scherbina, A. (2002). Differences of Opinion and the Cross Section of Stock Returns. JF.",
             ],
             preferred_universes=["TOPSP500", "TOP500", "TOP1000"],
-            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY"],
+            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY", "MARKET"],
             preferred_decays=[18, 24, 30],
         )
 

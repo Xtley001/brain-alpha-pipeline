@@ -44,15 +44,27 @@ def generate_skew_candidates() -> list[OptionCandidate]:
             )
 
     # 4. Call-Put Implied Volatility Asymmetry / Bali-Hovakimian Spread
-    for tenor in [20, 30]:
+    for tenor in [10, 20, 30]:
         for grp in groups:
+            norm_field = f"implied_volatility_mean_{tenor}" if tenor != 10 else "implied_volatility_mean_30"
             candidates.append(
                 OptionCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear((implied_volatility_call_{tenor} - implied_volatility_put_{tenor}) / (implied_volatility_mean_{tenor} + 0.001), 5)), {grp})",
+                    expression=f"group_neutralize(rank(ts_decay_linear((implied_volatility_call_{tenor} - implied_volatility_put_{tenor}) / ({norm_field} + 0.001), 5)), {grp})",
                     archetype_name="Call-Put IV Asymmetry",
                     hypothesis=f"Call IV exceeding Put IV at {tenor}d captures speculative institutional upside demand.",
                     generation_source="template",
                 )
             )
+
+    # 5. Skew Term Structure Slope (30d vs 60d)
+    for grp in groups:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(implied_volatility_mean_skew_30 - implied_volatility_mean_skew_60), {grp})",
+                archetype_name="Skew Term Structure",
+                hypothesis="Comparing 30d to 60d skew isolates the term slope of crash risk protection demand.",
+                generation_source="template",
+            )
+        )
 
     return candidates

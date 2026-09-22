@@ -50,5 +50,13 @@ def generate_short_interest_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_zscore(volume / adv20, 10) * rank(short_interest / (float_shares + 1.0))), {grp})",
+                archetype_name="Volume Squeeze Forced Covering",
+                hypothesis="Sudden volume surge in heavily shorted equities indicates forced buy-ins and short covering rallies.",
+                generation_source="template",
+            )
+        )
 
     return candidates

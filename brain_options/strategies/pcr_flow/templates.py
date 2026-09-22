@@ -56,4 +56,23 @@ def generate_pcr_flow_candidates() -> list[OptionCandidate]:
                 )
             )
 
+    # 5. Slow Flow-Regime Baseline Companion & Strict Liquidity Gating
+    for grp in groups:
+        candidates.append(
+            OptionCandidate(
+                expression=f"trade_when(volume > adv20, group_neutralize(rank(-ts_decay_linear(pcr_vol_10 / (pcr_oi_10 + 0.001) - pcr_vol_60 / (pcr_oi_60 + 0.001), 5)), {grp}), -1)",
+                archetype_name="Flow Regime Baseline Spread",
+                hypothesis="Nets out short-term volume-to-OI surge relative to 60-day baseline to isolate signed institutional order flow.",
+                generation_source="template",
+            )
+        )
+        candidates.append(
+            OptionCandidate(
+                expression=f"trade_when(volume > 1.5 * adv20, group_neutralize(rank(-ts_decay_linear(pcr_vol_20 / (pcr_oi_20 + 0.001), 5)), {grp}), -1)",
+                archetype_name="Strict Liquidity Gated Flow",
+                hypothesis="1.5x ADV20 volume confirmation ensures flow surges reflect true high-conviction order flow.",
+                generation_source="template",
+            )
+        )
+
     return candidates

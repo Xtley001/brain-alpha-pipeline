@@ -41,5 +41,29 @@ def generate_formulaic_101_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(sign(ts_delta(volume, 1)) * (-1 * ts_delta(close, 1))), {grp})",
+                archetype_name="Alpha 12 Volume Sign Delta Reversal",
+                hypothesis="Alpha #12: Volume expansion coupled with opposite price direction reflects liquidity absorption.",
+                generation_source="template",
+            )
+        )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-ts_max(ts_corr(ts_rank(volume, 5), ts_rank(high, 5), 5), 3)), {grp})",
+                archetype_name="Alpha 26 High Volume Max Correlation",
+                hypothesis="Alpha #26: High correlation between intraday volume rank and high price rank signals cyclical exhaustion.",
+                generation_source="template",
+            )
+        )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-((ts_delay(close, 20) - ts_delay(close, 10)) / 10.0 - (ts_delay(close, 10) - close) / 10.0)), {grp})",
+                archetype_name="Alpha 46 Multi-Horizon Trend Reversal",
+                hypothesis="Alpha #46: Multi-horizon velocity differential detects deceleration in equity momentum trend.",
+                generation_source="template",
+            )
+        )
 
     return candidates

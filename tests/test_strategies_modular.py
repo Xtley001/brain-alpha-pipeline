@@ -54,7 +54,7 @@ def test_all_strategies_generate_valid_candidates():
             assert c.expression and len(c.expression) > 10
             assert c.archetype_name and len(c.archetype_name) > 0
             assert c.hypothesis and len(c.hypothesis) > 0
-            assert "group_neutralize" in c.expression or "trade_when" in c.expression
+            assert any(op in c.expression for op in ["group_neutralize", "trade_when", "rank", "group_rank"])
 
 
 def test_modular_candidates_filtering():

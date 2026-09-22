@@ -41,5 +41,13 @@ def generate_informed_short_demand_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-ts_delta(lendable_shares / (float_shares + 1.0), 10) * ts_delta(loan_utilization_ratio, 5)), {grp})",
+                archetype_name="Lendable Inventory Contraction",
+                hypothesis="Lendable share contraction interacting with utilization surge isolates high-conviction short supply withdrawal.",
+                generation_source="template",
+            )
+        )
 
     return candidates

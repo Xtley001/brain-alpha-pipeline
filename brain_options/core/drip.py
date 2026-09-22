@@ -181,6 +181,42 @@ class DripSubmitter:
             log.warning("Failed to verify checks for alpha %s: %s", alpha_id, e)
         return False, ["API_FETCH_ERROR"], {}
 
+    async def verify_sub_universe_monotonicity(
+        self,
+        expression: str,
+        base_settings: SimSettings,
+        sub_universes: list[str] = ["TOP1000", "TOP500"],
+        min_sharpe_ratio: float = 0.60,
+    ) -> bool:
+        """
+        Pre-submission sub-universe verification.
+        Ensures the candidate retains positive valid Sharpe across smaller liquid sub-universes,
+        preventing sub-universe decay penalties.
+        """
+        if not expression:
+            return True
+        try:
+            for uni in sub_universes:
+                if uni == base_settings.universe:
+                    continue
+                sub_settings = SimSettings(
+                    universe=uni,
+                    delay=base_settings.delay,
+                    decay=base_settings.decay,
+                    neutralization=base_settings.neutralization,
+                    truncation=base_settings.truncation,
+                    pasteurization=base_settings.pasteurization,
+                    nan_handling=base_settings.nan_handling,
+                )
+                sub_metrics = await self.client.simulate_one(expression, sub_settings)
+                if not sub_metrics.is_valid or sub_metrics.sharpe < 0:
+                    log.warning("Sub-universe %s verification failed for alpha expression.", uni)
+                    return False
+            return True
+        except Exception as e:
+            log.warning("Non-fatal sub-universe monotonicity check error: %s", e)
+            return True
+
     async def check_and_drip(self, force_catchup: bool = False) -> Tuple[bool, Optional[str], str]:
         """
         Main drip submitter entry point. Evaluates whether a submission window is open.

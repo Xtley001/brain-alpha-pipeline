@@ -15,7 +15,7 @@ from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 log = logging.getLogger("brain_options.sweep")
 
 NEUTRALIZATIONS = ["SUBINDUSTRY", "INDUSTRY", "SECTOR", "MARKET", "NONE"]
-DECAYS = [0, 4, 8, 15, 20]
+DECAYS = [0, 4, 8, 15, 20, 26, 30]
 
 
 class SweepEngine:
@@ -53,10 +53,17 @@ class SweepEngine:
         return passed, default_settings, metrics
 
     async def stage1_grid_sweep(
-        self, expression: str, base_settings: SimSettings
+        self,
+        expression: str,
+        base_settings: SimSettings,
+        decays: Optional[list[int]] = None,
+        neutralizations: Optional[list[str]] = None,
     ) -> Tuple[SimSettings, SimMetrics]:
         """Sweeps Neutralization x Decay grid to find the optimal combination."""
         log.info("Starting Stage 1 Grid Sweep for: %s", expression[:60])
+
+        decay_grid = decays if decays and len(decays) > 0 else DECAYS
+        neut_grid = neutralizations if neutralizations and len(neutralizations) > 0 else NEUTRALIZATIONS
 
         candidates_settings = [
             SimSettings(
@@ -68,8 +75,8 @@ class SweepEngine:
                 pasteurization=base_settings.pasteurization,
                 nan_handling=base_settings.nan_handling,
             )
-            for n in NEUTRALIZATIONS
-            for d in DECAYS
+            for n in neut_grid
+            for d in decay_grid
         ]
 
         best_settings = base_settings

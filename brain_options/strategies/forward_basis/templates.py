@@ -43,4 +43,15 @@ def generate_forward_basis_candidates() -> list[OptionCandidate]:
                 )
             )
 
+    # 4. Forward Basis Term Structure Slope (30d vs 90d)
+    for grp in groups:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_decay_linear((forward_price_30 - close) / close - (forward_price_90 - close) / close, 10)), {grp})",
+                archetype_name="Forward Basis Term Structure",
+                hypothesis="Comparing 30d to 90d forward basis captures term structure divergence in implied carrying cost.",
+                generation_source="template",
+            )
+        )
+
     return candidates

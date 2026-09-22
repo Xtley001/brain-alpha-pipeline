@@ -22,8 +22,8 @@ class NetworkMomentumStrategy(BaseStrategy):
                 "Lead-Lag Detection Network Clustering Research Papers (Institutional Quantitative Finance).",
                 "Tulchinsky, I. (2019). Finding Alphas: A Quantitative Approach to Building Trading Strategies. WorldQuant.",
             ],
-            preferred_universes=["TOP3000", "USA500", "RUSSELL2000"],
-            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR"],
+            preferred_universes=["TOP3000", "TOP2000", "TOP1000", "TOP500", "TOPSP500"],
+            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR", "MARKET", "NONE"],
             preferred_decays=[5, 10, 15],
         )
 

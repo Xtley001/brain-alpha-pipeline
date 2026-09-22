@@ -22,8 +22,8 @@ class SupplyChainStrategy(BaseStrategy):
                 "Cohen, L., & Frazzini, A. (2008). Economic Links and Predictable Returns. Journal of Finance.",
                 "Menzies et al. (2020). Economically Linked Firms and Cross-Industry Lead-Lag Predictability.",
             ],
-            preferred_universes=["TOP3000", "TOP2000", "USA500"],
-            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR"],
+            preferred_universes=["TOP3000", "TOP2000", "TOP1000", "TOP500", "TOPSP500"],
+            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR", "MARKET", "NONE"],
             preferred_decays=[8, 10, 15],
         )
 

@@ -39,5 +39,13 @@ def generate_analyst_revisions_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_decay_linear((target_price - close) / close, 15)), {grp})",
+                archetype_name="Pure Target Price Upside",
+                hypothesis="Consensus price target implied return captures fundamental undervaluation and analyst price target conviction.",
+                generation_source="template",
+            )
+        )
 
     return candidates

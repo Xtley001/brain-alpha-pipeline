@@ -41,5 +41,13 @@ def generate_iv_lead_lag_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_decay_linear((iv_atm_call_30 - iv_atm_put_30) * (call_volume / (call_volume + put_volume + 1.0)), 10)), {grp})",
+                archetype_name="Volume-Share Weighted IV Spread",
+                hypothesis="Weighting call-put IV spread by call volume share isolates high-conviction institutional directional buying pressure.",
+                generation_source="template",
+            )
+        )
 
     return candidates

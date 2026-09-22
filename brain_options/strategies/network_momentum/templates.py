@@ -41,5 +41,13 @@ def generate_network_momentum_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-ts_zscore(returns - group_mean(returns * (cap / (group_mean(cap, {grp}) + 0.001)), {grp}), 10)), {grp})",
+                archetype_name="Cap-Weighted Centroid Reversion",
+                hypothesis="Large-cap weighted cluster centroids provide higher-fidelity lead signals than equal-weighted centroids.",
+                generation_source="template",
+            )
+        )
 
     return candidates

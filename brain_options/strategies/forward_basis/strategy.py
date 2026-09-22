@@ -23,7 +23,7 @@ class ForwardBasisStrategy(BaseStrategy):
                 "Ofek, E., Richardson, M., & Whitelaw, R. F. (2004). Limited Arbitrage and Short Sales Restrictions. JFE.",
             ],
             preferred_universes=["TOP2000", "TOP1000", "TOP3000"],
-            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY"],
+            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY", "MARKET"],
             preferred_decays=[18, 22, 26],
         )
 

@@ -41,5 +41,24 @@ def generate_extreme_tail_risk_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-(iv_skew_call_put * vol_surface_convexity)), {grp})",
+                archetype_name="BKM Higher-Moment Kurtosis Proxy",
+                hypothesis="Interaction of call-put skew and volatility surface convexity captures non-linear kurtosis disaster hedging.",
+                generation_source="template",
+            )
+        )
+
+    # Standalone pure surface convexity
+    for grp in ["industry", "subindustry"]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_rank(-vol_surface_convexity, {grp})",
+                archetype_name="Standalone Surface Convexity",
+                hypothesis="Pure negative surface convexity ranks assets with excessive out-of-the-money variance pricing.",
+                generation_source="template",
+            )
+        )
 
     return candidates

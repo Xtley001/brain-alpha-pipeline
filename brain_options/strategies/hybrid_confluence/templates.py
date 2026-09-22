@@ -39,4 +39,15 @@ def generate_hybrid_confluence_candidates() -> list[OptionCandidate]:
             )
         )
 
+    # 4. Multi-Factor 4-Way Confluence (Skew + Borrow + Revision + Flow)
+    for grp in groups:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-ts_zscore(implied_volatility_mean_skew_30, 30) - ts_zscore(borrow_fee, 60) + ts_zscore(est_eps - ts_delay(est_eps, 20), 20) - ts_zscore(pcr_vol_30, 20)), {grp})",
+                archetype_name="4-Way Multi-Factor Confluence",
+                hypothesis="Simultaneous alignment of skew smirk, borrow fee tightness, positive EPS revision, and put flow capitulation produces maximal Sharpe alpha.",
+                generation_source="template",
+            )
+        )
+
     return candidates

@@ -24,7 +24,7 @@ class SkewStrategy(BaseStrategy):
                 "Bollen, N. P., & Whaley, R. E. (2004). Does Net Buying Pressure Affect the Shape of Implied Volatility Functions? Journal of Finance.",
             ],
             preferred_universes=["TOP1000", "TOP2000", "TOP3000"],
-            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY"],
+            preferred_neutralizations=["SUBINDUSTRY", "SECTOR", "INDUSTRY", "MARKET"],
             preferred_decays=[18, 22, 26],
         )
 

@@ -41,5 +41,21 @@ def generate_accruals_cashflow_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(working_capital / (total_assets + 1.0) - (net_income - operating_cashflow) / (total_assets + 1.0)), {grp})",
+                archetype_name="Richardson Working Capital Decomposition",
+                hypothesis="Richardson et al. (2005): Disentangling working-capital accruals from operating cash flow yields superior earnings quality forecast.",
+                generation_source="template",
+            )
+        )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank((net_income - operating_cashflow - capex) / (total_assets + debt + 1.0)), {grp})",
+                archetype_name="Leverage-Adjusted Free Cash Flow Accrual",
+                hypothesis="Scaling non-cash earnings by total enterprise capital structure (assets + debt) isolates balance sheet financing distortion.",
+                generation_source="template",
+            )
+        )
 
     return candidates

@@ -21,6 +21,17 @@ class OptionCandidate:
     base_alpha_id: Optional[str] = None
 
 
+def with_liquidity_gate(inner_expr: str, threshold_mult: float = 1.0) -> str:
+    """Wraps any alpha expression in a volume-confirmation gate."""
+    cond = f"volume > {threshold_mult} * adv20" if threshold_mult != 1.0 else "volume > adv20"
+    return f"trade_when({cond}, {inner_expr}, -1)"
+
+
+def with_regime_gate(inner_expr: str, regime_field: str, window: int = 60) -> str:
+    """Wraps any alpha expression in a field-vs-own-trend regime gate."""
+    return f"trade_when({regime_field} > ts_mean({regime_field}, {window}), {inner_expr}, -1)"
+
+
 def generate_template_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
 

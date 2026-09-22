@@ -81,4 +81,26 @@ def generate_term_structure_candidates() -> list[OptionCandidate]:
             )
         )
 
+    # 7. VRP Velocity (Rolling Acceleration)
+    for grp in ["subindustry", "industry"]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_delta(-(implied_volatility_mean_30 - ts_std_dev(returns, 30) * 15.87), 5)), {grp})",
+                archetype_name="VRP Velocity",
+                hypothesis="VRP velocity captures rapid variance risk premium acceleration before consensus recognizes mean-reversion.",
+                generation_source="template",
+            )
+        )
+
+    # 8. Long-Tenor 30d/180d Vol Term Structure Slope
+    for grp in ["subindustry", "sector"]:
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(-(implied_volatility_mean_30 / (implied_volatility_mean_180 + 0.001) - 1.0)), {grp})",
+                archetype_name="Long Tenor Term Slope",
+                hypothesis="Comparing 30d to 180d IV provides structural long-horizon volatility risk premium read.",
+                generation_source="template",
+            )
+        )
+
     return candidates

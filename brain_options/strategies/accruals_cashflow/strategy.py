@@ -22,8 +22,8 @@ class AccrualsCashflowStrategy(BaseStrategy):
                 "Fabozzi, F.J. (2007). Quantitative Equity Investing. John Wiley & Sons.",
                 "Grinold, R., & Kahn, R. (1999). Active Portfolio Management. McGraw-Hill.",
             ],
-            preferred_universes=["TOP3000", "USA500", "SP500"],
-            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR"],
+            preferred_universes=["TOP3000", "TOP2000", "TOP1000", "TOP500", "TOPSP500"],
+            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR", "MARKET"],
             preferred_decays=[15, 20, 24],
         )
 

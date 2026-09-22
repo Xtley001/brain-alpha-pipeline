@@ -22,7 +22,7 @@ class InformedShortDemandStrategy(BaseStrategy):
                 "Cohen, L., Diether, K.B., & Malloy, C.J. (2007). Supply and Demand Shifts in the Shorting Market. Journal of Finance.",
                 "Rapach, D.E., Ringgenberg, M.C., & Zhou, G. (2016). Short Interest and Aggregate Stock Returns. Journal of Financial Economics.",
             ],
-            preferred_universes=["TOP3000", "TOP2000", "RUSSELL2000"],
+            preferred_universes=["TOP3000", "TOP2000", "TOP1000", "TOP500", "TOPSP500"],
             preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "MARKET"],
             preferred_decays=[10, 12, 15],
         )

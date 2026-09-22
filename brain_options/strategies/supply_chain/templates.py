@@ -41,5 +41,13 @@ def generate_supply_chain_candidates() -> list[OptionCandidate]:
                 generation_source="template",
             )
         )
+        candidates.append(
+            OptionCandidate(
+                expression=f"group_neutralize(rank(ts_delay(group_mean(-ts_delta(cogs / (sales + 1.0), 20), {grp}), 10)), industry)",
+                archetype_name="COGS Cost-Pressure Propagation",
+                hypothesis="Rising COGS/sales in supplier clusters propagates forward to customer margins independent of earnings calendar clustering.",
+                generation_source="template",
+            )
+        )
 
     return candidates

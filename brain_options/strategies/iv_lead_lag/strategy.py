@@ -22,8 +22,8 @@ class IvLeadLagStrategy(BaseStrategy):
                 "Pan, J., & Poteshman, A.M. (2006). The Information in Option Volume for Future Stock Prices. Review of Financial Studies.",
                 "Garleanu, N., & Pedersen, L.H. (2011). Margin Requirements and Asset Prices.",
             ],
-            preferred_universes=["TOP3000", "TOP2000", "USA500"],
-            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR"],
+            preferred_universes=["TOP3000", "TOP2000", "TOP1000", "TOP500", "TOPSP500"],
+            preferred_neutralizations=["SUBINDUSTRY", "INDUSTRY", "SECTOR", "MARKET"],
             preferred_decays=[8, 10, 12],
         )
 
