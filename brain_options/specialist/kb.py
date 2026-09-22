@@ -42,11 +42,16 @@ class OptionsKnowledgeBase:
     """Loads and queries the master options derivatives knowledge base."""
 
     SECTION_TO_ARCHETYPE = {
+        "FORWARD BASIS": "forward_basis",
         "FORWARD-BASIS": "forward_basis",
+        "PCR FLOW": "pcr_flow",
         "PCR-FLOW": "pcr_flow",
         "SKEW": "skew",
+        "TERM STRUCTURE": "term_structure",
         "TERM-STRUCTURE": "term_structure",
         "BREAKEVEN": "breakeven",
+        "SHORT INTEREST": "short_interest",
+        "ANALYST REVISIONS": "analyst_revisions",
         "OTHER": "other",
     }
 

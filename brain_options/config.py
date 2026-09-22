@@ -49,8 +49,8 @@ class OptionsConfig:
     telegram_chat_id: str | None = None
 
     # Pipeline thresholds
-    stage0_min_sharpe: float = 0.35
-    stage0_min_fitness: float = 0.20
+    stage0_min_sharpe: float = 0.60
+    stage0_min_fitness: float = 0.50
     filter_min_sharpe: float = 1.25
     filter_min_fitness: float = 1.00
     filter_min_turnover: float = 0.01
@@ -102,8 +102,8 @@ class OptionsConfig:
             telegram_bot_token=_optional("TELEGRAM_BOT_TOKEN"),
             telegram_chat_id=_optional("TELEGRAM_CHAT_ID"),
             database_url=_optional("DATABASE_URL"),
-            stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.35") or "0.35"),
-            stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.20") or "0.20"),
+            stage0_min_sharpe=float(_optional("STAGE0_MIN_SHARPE", "0.60") or "0.60"),
+            stage0_min_fitness=float(_optional("STAGE0_MIN_FITNESS", "0.50") or "0.50"),
             filter_min_sharpe=float(_optional("FILTER_MIN_SHARPE", "1.25") or "1.25"),
             filter_min_fitness=float(_optional("FILTER_MIN_FITNESS", "1.00") or "1.00"),
             filter_min_turnover=float(_optional("FILTER_MIN_TURNOVER", "0.01") or "0.01"),

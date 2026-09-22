@@ -927,8 +927,7 @@ def main():
     if args.health:
         store = OptionsStore(database_url=config.database_url)
         stats = store.get_options_stats()
-        org_activity = store.db.get_org_activity(hours=26)
-        success = send_telegram_health_check(config, stats=stats, org_activity=org_activity, db=store)
+        success = send_telegram_health_check(config, stats=stats, db=store)
         if success and hasattr(store, "claim_hourly_health_slot"):
             store.claim_hourly_health_slot(min_interval_minutes=0)
         log.info("Health check sent: %s", "OK" if success else "FAILED")

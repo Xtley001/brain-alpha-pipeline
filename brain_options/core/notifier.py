@@ -344,6 +344,7 @@ def send_telegram_health_check(
     stats: Optional[dict[str, Any]] = None,
     active_strategy: Optional[str] = None,
     db: Any = None,
+    **kwargs: Any,
 ) -> bool:
     """
     Hourly system heartbeat. Shows today's discovery funnel at a glance.
@@ -355,11 +356,15 @@ def send_telegram_health_check(
     stats = stats or {}
     ts = _now_wat().strftime("%H:%M")
     today_eval = stats.get("today_evaluated", 0)
+    today_s0 = stats.get("today_stage0_pass", 0)
     today_q = stats.get("today_qualified", 0)
     today_sub = stats.get("today_submitted", 0)
     reserve = stats.get("reserve_count", 0)
     today_corr = stats.get("today_correlated", 0)
     max_daily = 3
+
+    # Stage 0 pass rate percentage
+    s0_pct_str = f" \\({today_s0 * 100 // today_eval}%\\)" if today_eval > 0 else ""
 
     # Submission slot indicator
     slot_bar = ""
@@ -378,6 +383,7 @@ def send_telegram_health_check(
         f"\U0001f7e2 *Hourly Health* \u00b7 {_escape(ts)} UTC\\+1",
         "",
         f"Simulated today: `{_escape(str(today_eval))}`",
+        f"Stage 0 pass: `{_escape(str(today_s0))}`{s0_pct_str}",
         f"Qualified: `{_escape(str(today_q))}/{_escape(str(target))}` {_escape(q_bar)}",
         f"Submitted: `{_escape(str(today_sub))}/{_escape(str(max_daily))}` {_escape(slot_bar)}",
         f"Reserve \\(unsubmitted\\): `{_escape(str(reserve))}`",
