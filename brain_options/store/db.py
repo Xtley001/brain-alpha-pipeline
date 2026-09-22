@@ -1217,6 +1217,22 @@ class OptionsDatabase:
                     except Exception:
                         pass
 
+                    try:
+                        cur.execute(f"""
+                            SELECT corr_partner_alpha_id, COUNT(*) as cnt
+                            FROM options_correlated_alphas
+                            WHERE created_at >= {ny_today} AND corr_partner_alpha_id IS NOT NULL
+                            GROUP BY corr_partner_alpha_id
+                            ORDER BY cnt DESC
+                            LIMIT 1;
+                        """)
+                        row_b = cur.fetchone()
+                        if row_b and row_b[0]:
+                            stats["top_corr_partner"] = str(row_b[0])
+                            stats["top_corr_partner_count"] = int(row_b[1] or 0)
+                    except Exception:
+                        pass
+
             return stats
         except Exception as e:
             log.warning("Failed to load options stats: %s", e)

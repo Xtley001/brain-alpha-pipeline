@@ -222,13 +222,15 @@ def send_telegram_worker_batch_ping(
     stats = stats or {}
     today_eval = stats.get("today_evaluated", total_evaluated)
     today_q = stats.get("today_qualified", passed_count)
+    reserve = stats.get("reserve_count", 0)
     icon = "🎯" if passed_count > 0 else "⚪"
     status_text = f"{passed_count}/{total_evaluated} qualified" if passed_count > 0 else f"0/{total_evaluated} qualified"
+    summary_suffix = f" · {_escape(str(reserve))} reserve" if reserve > 0 else ""
     lines = [
         f"{icon} *Batch done* · {_escape(ts)} UTC\\+1",
         f"Strategy: `{_escape(strategy or 'general')}`",
         f"Result: *{_escape(status_text)}*",
-        f"Today: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified",
+        f"Today: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified{summary_suffix}",
     ]
     return _send_bool("\n".join(lines), config, db=db, label=f"batch ping ({strategy})")
 
@@ -361,6 +363,8 @@ def send_telegram_health_check(
     today_sub = stats.get("today_submitted", 0)
     reserve = stats.get("reserve_count", 0)
     today_corr = stats.get("today_correlated", 0)
+    top_blocker = stats.get("top_corr_partner", "")
+    top_blocker_cnt = stats.get("top_corr_partner_count", 0)
     max_daily = 3
 
     # Stage 0 pass rate percentage
@@ -387,6 +391,8 @@ def send_telegram_health_check(
         f"Reserve \\(Ready to Drip\\): `{_escape(str(reserve))}`",
         f"Corr\\-rejected today: `{_escape(str(today_corr))}`",
     ]
+    if top_blocker and today_corr >= 3:
+        lines.append(f"Top blocker: `{_escape(top_blocker)}` \\({_escape(str(top_blocker_cnt))}/{_escape(str(today_corr))}\\)")
     if active_strategy:
         lines.extend(["", f"Strategy: `{_escape(active_strategy)}`"])
     return _send_bool("\n".join(lines), config, db=db, label="hourly health check")
