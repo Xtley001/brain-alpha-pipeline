@@ -347,7 +347,7 @@ def send_telegram_health_check(
     **kwargs: Any,
 ) -> bool:
     """
-    Hourly system heartbeat. Shows today's discovery funnel at a glance.
+    Hourly system heartbeat. Shows today's complete discovery funnel across all pipeline stages.
     Called by the health.yml workflow every hour.
     """
     if not config.telegram_bot_token or not config.telegram_chat_id:
@@ -366,31 +366,29 @@ def send_telegram_health_check(
     # Stage 0 pass rate percentage
     s0_pct_str = f" \\({today_s0 * 100 // today_eval}%\\)" if today_eval > 0 else ""
 
-    # Submission slot indicator
+    # Submission slot indicator (Stage 3)
     slot_bar = ""
     for i in range(1, max_daily + 1):
         slot_bar += "\u25cf" if i <= today_sub else "\u25cb"
 
-    # Qualified progress toward daily target
+    # Qualified progress toward daily target (Stage 1-2)
     target = 5
     q_bar = ""
     for i in range(1, target + 1):
         q_bar += "\u25cf" if i <= today_q else "\u25cb"
 
-    strategy_line = f"Strategy: `{_escape(active_strategy)}`" if active_strategy else "Runner: `Xtley001`"
-
     lines = [
         f"\U0001f7e2 *Hourly Health* \u00b7 {_escape(ts)} UTC\\+1",
         "",
         f"Simulated today: `{_escape(str(today_eval))}`",
-        f"Stage 0 pass: `{_escape(str(today_s0))}`{s0_pct_str}",
-        f"Qualified: `{_escape(str(today_q))}/{_escape(str(target))}` {_escape(q_bar)}",
-        f"Submitted: `{_escape(str(today_sub))}/{_escape(str(max_daily))}` {_escape(slot_bar)}",
-        f"Reserve \\(unsubmitted\\): `{_escape(str(reserve))}`",
+        f"Stage 0 \\(Fast Screen\\): `{_escape(str(today_s0))}`{s0_pct_str}",
+        f"Stage 1\\-2 \\(Qualified\\): `{_escape(str(today_q))}/{_escape(str(target))}` {_escape(q_bar)}",
+        f"Stage 3 \\(Submitted\\): `{_escape(str(today_sub))}/{_escape(str(max_daily))}` {_escape(slot_bar)}",
+        f"Reserve \\(Ready to Drip\\): `{_escape(str(reserve))}`",
         f"Corr\\-rejected today: `{_escape(str(today_corr))}`",
-        "",
-        strategy_line,
     ]
+    if active_strategy:
+        lines.extend(["", f"Strategy: `{_escape(active_strategy)}`"])
     return _send_bool("\n".join(lines), config, db=db, label="hourly health check")
 
 
@@ -400,8 +398,8 @@ def send_telegram_daily_digest(
     db: Any = None,
 ) -> bool:
     """
-    End-of-day full summary. Called once daily at 23:30 UTC by daily_digest.yml.
-    Covers the full picture: funnel, submissions, reserve, and lifetime totals.
+    End-of-day full summary. Called once daily at 22:50 UTC by daily_digest.yml.
+    Covers the full picture across all pipeline stages, submissions, reserve, and lifetime totals.
     """
     if not config.telegram_bot_token or not config.telegram_chat_id:
         return False
@@ -417,8 +415,12 @@ def send_telegram_daily_digest(
     today_sub = stats.get("today_submitted", 0)
     reserve = stats.get("reserve_count", 0)
     today_corr = stats.get("today_correlated", 0)
+    all_eval = stats.get("all_time_evaluated", 0)
+    all_s0 = stats.get("all_time_stage0_pass", 0)
     all_pool = stats.get("all_time_pool_alphas", 0)
     all_corr = stats.get("all_time_correlated", 0)
+
+    s0_pct_str = f" \\({today_s0 * 100 // today_eval}%\\)" if today_eval > 0 else ""
 
     # Daily goal assessment
     if today_q >= 5:
@@ -438,8 +440,11 @@ def send_telegram_daily_digest(
     lines = [
         f"📊 *Daily Report* · {date_label}",
         "",
-        f"*Discovery*",
-        f"Simulated: `{_escape(str(today_eval))}` · Stage 0: `{_escape(str(today_s0))}` · Qualified: `{_escape(str(today_q))}`",
+        f"*Pipeline Stages*",
+        f"Simulated: `{_escape(str(today_eval))}`",
+        f"Stage 0 Screen: `{_escape(str(today_s0))}`{s0_pct_str}",
+        f"Stage 1\\-2 Qualified: `{_escape(str(today_q))}`",
+        f"Stage 3 Submitted: `{_escape(str(today_sub))}/{_escape(str(max_daily))}`",
         f"Corr\\-rejected: `{_escape(str(today_corr))}`",
         "",
         f"*Submissions*",
@@ -448,7 +453,8 @@ def send_telegram_daily_digest(
         "",
         f"*Daily goal: 5 qualified* · {_escape(goal_icon)} {_escape(goal_note)}",
         "",
-        f"*All\\-time*",
+        f"*All\\-time Totals*",
+        f"Evaluated: `{_escape(str(all_eval))}` · Stage 0: `{_escape(str(all_s0))}`",
         f"Pool: `{_escape(str(all_pool))}` · Ready: `{_escape(str(reserve))}` · Corr\\-archive: `{_escape(str(all_corr))}`",
     ]
     return _send_bool("\n".join(lines), config, db=db, label="daily digest")
