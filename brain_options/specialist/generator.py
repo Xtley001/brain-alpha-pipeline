@@ -29,8 +29,10 @@ log = logging.getLogger("brain_options.generator")
 import random
 
 CORE_ARCHETYPES = [
-    "breakeven", "skew", "term_structure", "forward_basis", "pcr_flow",
-    "analyst_revisions", "short_interest", "hybrid_confluence",
+    "term_structure", "skew", "pcr_flow", "breakeven", "forward_basis",
+    "short_interest", "analyst_revisions", "hybrid_confluence", "supply_chain",
+    "accruals_cashflow", "informed_short_demand", "extreme_tail_risk", "iv_lead_lag",
+    "network_momentum", "formulaic_101",
 ]
 
 
@@ -46,7 +48,7 @@ class OptionsGenerator:
         self.catalog = catalog or OptionsCatalog()
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
-        # Seed queue with both deterministic templates and all 8 modular strategy systems
+        # Seed queue with both deterministic templates and all 15 modular strategy systems
         seen_hashes = set()
         queue: list[OptionCandidate] = []
         for c in generate_template_candidates() + generate_modular_candidates():
@@ -57,16 +59,23 @@ class OptionsGenerator:
         self._template_queue: list[OptionCandidate] = queue
         self._archetype_idx = 0
 
-        # Multi-Armed Bandit prior weights across all research domains
+        # Multi-Armed Bandit prior weights across all 15 research domains
         self.archetype_priors: dict[str, float] = {
-            "breakeven": 0.20,
-            "skew": 0.20,
-            "term_structure": 0.10,
-            "forward_basis": 0.05,
-            "pcr_flow": 0.05,
-            "analyst_revisions": 0.20,
-            "short_interest": 0.10,
-            "hybrid_confluence": 0.10,
+            "term_structure": 0.08,
+            "skew": 0.08,
+            "pcr_flow": 0.08,
+            "breakeven": 0.08,
+            "forward_basis": 0.08,
+            "short_interest": 0.06,
+            "analyst_revisions": 0.08,
+            "hybrid_confluence": 0.08,
+            "supply_chain": 0.06,
+            "accruals_cashflow": 0.06,
+            "informed_short_demand": 0.06,
+            "extreme_tail_risk": 0.06,
+            "iv_lead_lag": 0.06,
+            "network_momentum": 0.06,
+            "formulaic_101": 0.06,
         }
 
     def mark_evaluated(self, expression: str):
@@ -84,10 +93,9 @@ class OptionsGenerator:
         saturated_archetypes: Optional[list[str]] = None,
     ) -> str:
         """
-        Multi-Armed Bandit (MAB) archetype selection with empirical pass-rate weighting
-        and Dynamic Archetype Daily Caps (Pillar 1).
-        When an archetype achieves 1 qualified alpha in options_alphas today, its selection
-        weight is dropped to 0.02, dynamically steering generation toward unfilled channels.
+        Multi-Armed Bandit (MAB) archetype selection across all 15 strategies with empirical
+        pass-rate weighting, repeat-collision penalties, and Dynamic Archetype Daily Caps.
+        Applies a client-side hard ceiling: no single archetype family exceeds 30% of sampling share.
         """
         weights = dict(self.archetype_priors)
 
@@ -95,11 +103,20 @@ class OptionsGenerator:
             for arch_key in CORE_ARCHETYPES:
                 # Find matching entries in DB summary
                 matched_pass_rate = 0.0
+                recent_collisions = 0
                 for db_arch, stats in archetype_summary.items():
                     if arch_key.lower() in db_arch.lower() or map_archetype_to_core(db_arch) == arch_key:
                         matched_pass_rate = max(matched_pass_rate, stats.get("pass_rate", 0.0))
-                # Boost weight proportional to pass rate (exploration floor 0.05)
-                weights[arch_key] = max(0.05, weights[arch_key] + matched_pass_rate * 0.5)
+                        recent_collisions += int(stats.get("corr_count", 0) or stats.get("correlated", 0))
+
+                # Boost weight proportional to pass rate (exploration floor 0.04)
+                weights[arch_key] = max(0.04, weights[arch_key] + matched_pass_rate * 0.5)
+
+                # Priority 1: Multi-Armed Bandit repeat-collision penalty
+                if recent_collisions >= 3:
+                    weights[arch_key] *= 0.20
+                elif recent_collisions >= 1:
+                    weights[arch_key] *= 0.50
 
         # Dynamic Archetype Daily Caps (Pillar 1): Drop saturated archetypes to 0.02
         if saturated_archetypes:
@@ -108,8 +125,12 @@ class OptionsGenerator:
                 if arch_key in sat_cores or any(arch_key in s.lower() for s in saturated_archetypes):
                     weights[arch_key] = 0.02
 
+        # Priority 1: Client-side family cap — no single archetype exceeds 30% of a batch
         total = sum(weights.values())
-        norm_weights = [weights[a] / total for a in CORE_ARCHETYPES]
+        clamped_weights = [min(weights[a] / total, 0.30) for a in CORE_ARCHETYPES]
+        clamped_total = sum(clamped_weights)
+        norm_weights = [w / clamped_total for w in clamped_weights]
+
         chosen = random.choices(CORE_ARCHETYPES, weights=norm_weights, k=1)[0]
         return chosen
 

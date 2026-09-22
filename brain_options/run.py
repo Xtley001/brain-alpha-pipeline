@@ -266,6 +266,8 @@ async def run_candidate(
             reason=corr_reason,
             cand_data=cand_dict,
             max_corr=max_corr,
+            corr_partner_alpha_id=top_corr_partner,
+            decorrelation_attempts=getattr(candidate, "decorrelation_attempts", 0),
         )
         if store.db:
             store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=corr_reason)
@@ -336,7 +338,14 @@ async def run_candidate(
                     rej_reason = f"HIGH_LIVE_CORRELATION: |{live_corr_val:.2f}| >= 0.70 vs {corr_against}"
                     log.warning("[-] ALPHA REJECTED BY LIVE BRAIN SELF-CORRELATION: %s (%s). Moving to options_correlated_alphas.", best_metrics.alpha_id, rej_reason)
                     store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="CORRELATED", metrics=best_metrics)
-                    store.archive_correlated_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict, max_corr=live_corr_val)
+                    store.archive_correlated_alpha(
+                        best_metrics.alpha_id or "",
+                        rej_reason,
+                        cand_dict,
+                        max_corr=live_corr_val,
+                        corr_partner_alpha_id=corr_against,
+                        decorrelation_attempts=getattr(candidate, "decorrelation_attempts", 0),
+                    )
                     if hasattr(store, "db") and store.db:
                         store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=rej_reason)
                     return False
@@ -715,22 +724,37 @@ async def run_decorrelate_batch(
     engine = DecorrelationEngine()
     candidates: List[OptionCandidate] = []
     for item in salvageable:
+        base_id = item["alpha_id"]
+        partner_id = item.get("corr_partner_alpha_id")
+        attempts = item.get("decorrelation_attempts", 0)
+
+        # Check pair blacklist before spending simulation budget
+        if store.db and store.db.is_pair_blacklisted(base_id, partner_id):
+            log.warning("Skipping blacklisted pair: base %s vs partner %s (attempts >= 2 in cooldown window)", base_id, partner_id)
+            continue
+
         variants = engine.generate_orthogonal_variants(
             base_expr=item["expression"],
             archetype=item["archetype"],
             base_sharpe=item["sharpe"],
-            colliding_id=item["alpha_id"],
+            colliding_id=base_id,
+            corr_partner_id=partner_id,
+            decorrelation_attempts=attempts + 1,
         )
         log.info(
-            "Generated %d orthogonal variants for base alpha %s (Base Sharpe=%.2f, n_variants_tried=%d)",
+            "Generated %d orthogonal variants for base alpha %s (vs %s, attempts=%d, Base Sharpe=%.2f)",
             len(variants),
-            item["alpha_id"],
+            base_id,
+            partner_id or "unknown",
+            attempts + 1,
             item["sharpe"],
-            len(variants),
         )
         candidates.extend(variants)
 
     if not candidates:
+        log.info("No actionable decorrelation candidates after blacklist/cooldown filtering.")
+        if store.db and org_name == "Xtley001":
+            store.db.set_blitz_mode(False)
         return 0
 
     if dry_run:

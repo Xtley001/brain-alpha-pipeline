@@ -187,6 +187,8 @@ CREATE TABLE IF NOT EXISTS options_correlated_alphas (
     drawdown         NUMERIC(8, 4),
     margin           NUMERIC(10, 6),
     max_correlation  NUMERIC(8, 4),
+    corr_partner_alpha_id VARCHAR(64),
+    decorrelation_attempts INTEGER DEFAULT 0,
     rejection_reason TEXT,
     created_at       TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
@@ -198,64 +200,58 @@ CREATE TABLE IF NOT EXISTS options_correlated_alphas (
 --   5 GitHub Actions runners to reuse a live authenticated
 --   session instead of each logging in fresh, saving ~10s per
 --   run and preventing rate-limiting from repeated login calls.
--- TTL is enforced by expires_at; stale rows are ignored on read.
 -- ============================================================
 CREATE TABLE IF NOT EXISTS cluster_session_cache (
-    key         VARCHAR(64)  PRIMARY KEY,
-    token       TEXT         NOT NULL,
-    cookies     JSONB,
+    key         VARCHAR(64) PRIMARY KEY,
+    session_id  VARCHAR(128) NOT NULL,
+    user_id     VARCHAR(64),
+    org_name    VARCHAR(64),
     expires_at  TIMESTAMPTZ  NOT NULL,
-    updated_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
+    created_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ============================================================
 -- TABLE 7: cluster_run_lock
--- Purpose: Cluster-wide mutex that ensures only 1 of the 4
---   worker orgs runs simulations on BRAIN at a time. Since all
---   worker orgs share the same BRAIN researcher account, running
---   simulations concurrently would cause the BRAIN API to reject
---   additional requests (3 concurrent sim limit).
--- Rows auto-expire after 15 minutes via heartbeat-based cleanup.
--- The drip org (Xtley001) is excluded — it only submits, not sims.
+-- Purpose: Cluster-wide mutual exclusion lock so that only
+--   one org runs simulations against BRAIN at any given moment.
+--   Prevents concurrent API rate limiting and token exhaustion.
 -- ============================================================
 CREATE TABLE IF NOT EXISTS cluster_run_lock (
-    worker_id   VARCHAR(64)  PRIMARY KEY,
-    org_name    VARCHAR(64)  NOT NULL,
-    archetype   VARCHAR(128),
-    heartbeat   TIMESTAMPTZ  NOT NULL,
-    started_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
+    lock_name   VARCHAR(64) PRIMARY KEY,
+    locked_by   VARCHAR(64) NOT NULL,
+    acquired_at TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP,
+    expires_at  TIMESTAMPTZ  NOT NULL,
+    heartbeat   TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
 );
 
--- ============================================================
--- INDEXES — All hot query paths covered
--- ============================================================
+-- ------------------------------------------------------------
+-- Indexes
+-- ------------------------------------------------------------
 
--- options_alphas: drip submitter reads by status frequently
-CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id
-    ON options_alphas(alpha_id);
+-- options_alphas: frequent lookups by status, created_at, alpha_id
 CREATE INDEX IF NOT EXISTS idx_options_alphas_status_created
     ON options_alphas(status, created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype_status
-    ON options_alphas(archetype, status);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_alpha_id
+    ON options_alphas(alpha_id);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_archetype
+    ON options_alphas(archetype);
+CREATE INDEX IF NOT EXISTS idx_options_alphas_expression
+    ON options_alphas(expression);
 
 -- options_evaluations: dedup seed loads all expressions;
--- MAB summary groups by archetype; stats filter by date
--- NOTE: No unique index here — historical data has duplicate (expression, stage) pairs.
--- Deduplication is handled in-memory by ASTDeduplicator on startup.
-CREATE INDEX IF NOT EXISTS idx_options_eval_expr
+-- MAB queries aggregate by archetype; daily stats filter by date
+CREATE INDEX IF NOT EXISTS idx_options_eval_expression
     ON options_evaluations(expression);
 CREATE INDEX IF NOT EXISTS idx_options_eval_archetype
     ON options_evaluations(archetype);
 CREATE INDEX IF NOT EXISTS idx_options_eval_created_status
     ON options_evaluations(created_at DESC, status);
 
--- options_learning_memory: MAB reads by reward and archetype
-CREATE INDEX IF NOT EXISTS idx_options_learning_reward
+-- options_learning_memory: expression lookup for MAB rewards
+CREATE INDEX IF NOT EXISTS idx_options_mem_reward
     ON options_learning_memory(reward DESC);
-CREATE INDEX IF NOT EXISTS idx_options_learning_archetype
+CREATE INDEX IF NOT EXISTS idx_options_mem_archetype
     ON options_learning_memory(archetype);
-CREATE INDEX IF NOT EXISTS idx_options_learning_status
-    ON options_learning_memory(status);
 
 -- options_rejected_alphas: lookups by alpha_id and date
 CREATE INDEX IF NOT EXISTS idx_options_rejected_alpha_id
@@ -268,14 +264,12 @@ CREATE INDEX IF NOT EXISTS idx_options_correlated_alpha_id
     ON options_correlated_alphas(alpha_id);
 CREATE INDEX IF NOT EXISTS idx_options_correlated_created
     ON options_correlated_alphas(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_corr_alphas_partner
+    ON options_correlated_alphas(corr_partner_alpha_id);
 
 -- cluster_session_cache: validity check on every BRAIN API call
 CREATE INDEX IF NOT EXISTS idx_cluster_session_expires
     ON cluster_session_cache(expires_at DESC);
-
--- cluster_run_lock: heartbeat-based stale lock cleanup
-CREATE INDEX IF NOT EXISTS idx_cluster_run_heartbeat
-    ON cluster_run_lock(heartbeat DESC);
 
 -- ============================================================
 -- TABLE 8: org_runs
@@ -369,6 +363,19 @@ ALTER TABLE options_evaluations
 
 ALTER TABLE options_alphas
     ADD COLUMN IF NOT EXISTS strategy_name VARCHAR(64);
+
+-- v2.4: Correlation partner tracking & decorrelation cooldown counters
+ALTER TABLE options_correlated_alphas
+    ADD COLUMN IF NOT EXISTS corr_partner_alpha_id VARCHAR(64);
+
+ALTER TABLE options_correlated_alphas
+    ADD COLUMN IF NOT EXISTS decorrelation_attempts INTEGER DEFAULT 0;
+
+CREATE INDEX IF NOT EXISTS idx_corr_alphas_partner
+    ON options_correlated_alphas(corr_partner_alpha_id);
+
+ALTER TABLE options_rejected_alphas
+    ADD COLUMN IF NOT EXISTS corr_partner_alpha_id VARCHAR(64);
 """
 
 
@@ -657,12 +664,15 @@ class OptionsDatabase:
         reason: str,
         cand_data: Optional[Dict[str, Any]] = None,
         max_corr: Optional[float] = None,
+        corr_partner_alpha_id: Optional[str] = None,
+        decorrelation_attempts: Optional[int] = None,
     ):
         """
         Copies a correlated alpha into options_correlated_alphas then deletes it
         from options_alphas, keeping the qualified pool clean.
         Source data is pulled from options_alphas first; cand_data is used as fallback
         for alphas that were never saved to options_alphas (e.g. caught at run_candidate gate).
+        Populates structured corr_partner_alpha_id and tracks decorrelation_attempts.
         """
         if not self.database_url:
             return
@@ -679,6 +689,15 @@ class OptionsDatabase:
         drawdown = cand.get("drawdown")
         margin = cand.get("margin")
         corr_val = max_corr if max_corr is not None else cand.get("max_correlation")
+        attempts = decorrelation_attempts if decorrelation_attempts is not None else cand.get("decorrelation_attempts", 0)
+
+        # Extract structured partner id if not explicitly passed
+        partner_id = corr_partner_alpha_id or cand.get("corr_partner_alpha_id")
+        if not partner_id and reason:
+            import re
+            m = re.search(r"(?:vs|with)\s+([a-zA-Z0-9_]+)", reason)
+            if m:
+                partner_id = m.group(1)
 
         try:
             with self._get_connection() as conn:
@@ -689,17 +708,20 @@ class OptionsDatabase:
                         INSERT INTO options_correlated_alphas (
                             alpha_id, expression, archetype, hypothesis, source,
                             sharpe, fitness, turnover, returns, drawdown, margin,
-                            max_correlation, rejection_reason
+                            max_correlation, corr_partner_alpha_id, decorrelation_attempts, rejection_reason
                         )
                         SELECT alpha_id, expression, archetype, hypothesis, source,
                                sharpe, fitness, turnover, returns, drawdown, margin,
-                               COALESCE(%s, max_correlation), %s
+                               COALESCE(%s, max_correlation), %s, %s, %s
                         FROM options_alphas
                         WHERE alpha_id = %s
-                        ON CONFLICT DO NOTHING
+                        ON CONFLICT (alpha_id) DO UPDATE SET
+                            decorrelation_attempts = options_correlated_alphas.decorrelation_attempts + 1,
+                            corr_partner_alpha_id = COALESCE(EXCLUDED.corr_partner_alpha_id, options_correlated_alphas.corr_partner_alpha_id),
+                            rejection_reason = EXCLUDED.rejection_reason
                         RETURNING id;
                         """,
-                        (corr_val, reason, alpha_id),
+                        (corr_val, partner_id, attempts, reason, alpha_id),
                     )
                     row = cur.fetchone()
 
@@ -710,22 +732,25 @@ class OptionsDatabase:
                             INSERT INTO options_correlated_alphas (
                                 alpha_id, expression, archetype, hypothesis, source,
                                 sharpe, fitness, turnover, returns, drawdown, margin,
-                                max_correlation, rejection_reason
+                                max_correlation, corr_partner_alpha_id, decorrelation_attempts, rejection_reason
                             )
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            ON CONFLICT DO NOTHING;
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            ON CONFLICT (alpha_id) DO UPDATE SET
+                                decorrelation_attempts = options_correlated_alphas.decorrelation_attempts + 1,
+                                corr_partner_alpha_id = COALESCE(EXCLUDED.corr_partner_alpha_id, options_correlated_alphas.corr_partner_alpha_id),
+                                rejection_reason = EXCLUDED.rejection_reason;
                             """,
                             (
                                 alpha_id, expr, arch, hyp, src,
                                 sharpe, fitness, turnover, returns, drawdown, margin,
-                                corr_val, reason,
+                                corr_val, partner_id, attempts, reason,
                             ),
                         )
 
                     # 3. Free options_alphas
                     cur.execute("DELETE FROM options_alphas WHERE alpha_id = %s;", (alpha_id,))
                 conn.commit()
-            log.info("Archived correlated alpha %s → options_correlated_alphas.", alpha_id)
+            log.info("Archived correlated alpha %s (vs %s) → options_correlated_alphas.", alpha_id, partner_id or "unknown")
         except Exception as e:
             log.warning("Failed to archive correlated alpha %s: %s", alpha_id, e)
 
@@ -1246,28 +1271,99 @@ class OptionsDatabase:
             log.warning("Failed to load stage0 passed candidates: %s", e)
         return candidates
 
+    def get_frequently_blocking_partners(self, min_blocks: int = 3, hours: int = 24) -> List[str]:
+        """
+        Returns list of corr_partner_alpha_id values that have blocked >= min_blocks
+        decorrelation/submission attempts within the past `hours`.
+        """
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT corr_partner_alpha_id
+            FROM options_correlated_alphas
+            WHERE corr_partner_alpha_id IS NOT NULL
+              AND created_at >= CURRENT_TIMESTAMP - (%s || ' hours')::INTERVAL
+            GROUP BY corr_partner_alpha_id
+            HAVING COUNT(*) >= %s;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (hours, min_blocks))
+                    return [r[0] for r in cur.fetchall() if r[0]]
+        except Exception as e:
+            log.warning("Failed to fetch frequently blocking partners: %s", e)
+            return []
+
+    def is_pair_blacklisted(
+        self,
+        base_alpha_id: Optional[str],
+        corr_partner_alpha_id: Optional[str],
+        cooldown_hours: int = 24,
+    ) -> bool:
+        """
+        Returns True if the (base_alpha_id, corr_partner_alpha_id) pair has failed
+        decorrelation attempts >= 2 within the last `cooldown_hours`.
+        """
+        if not self.database_url or not base_alpha_id or not corr_partner_alpha_id:
+            return False
+        sql = """
+            SELECT COUNT(*)
+            FROM options_correlated_alphas
+            WHERE alpha_id = %s
+              AND corr_partner_alpha_id = %s
+              AND decorrelation_attempts >= 2
+              AND created_at >= CURRENT_TIMESTAMP - (%s || ' hours')::INTERVAL;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (base_alpha_id, corr_partner_alpha_id, cooldown_hours))
+                    cnt = cur.fetchone()[0]
+                    return cnt > 0
+        except Exception as e:
+            log.warning("Failed to check pair blacklist: %s", e)
+            return False
+
     def get_salvageable_correlated_alphas(
         self, min_sharpe: float = 1.25, min_fitness: float = 1.00, limit: int = 10
     ) -> List[Dict[str, Any]]:
         """
         Loads high-performing candidates from options_correlated_alphas that failed
         exclusively on self-correlation, for the --decorrelate optimization tier.
+        Applies cooldown & blacklist filters:
+        - Excludes candidates with decorrelation_attempts >= 2 against the same partner.
+        - Excludes candidates whose corr_partner_alpha_id is frequently blocking (>=3 blocks in 24h).
         Orders by WorldQuant BRAIN Composite Quality Score (CQS).
         """
         if not self.database_url:
             return []
+        
+        blocking_partners = self.get_frequently_blocking_partners(min_blocks=3, hours=24)
+        
         sql = """
-            SELECT alpha_id, expression, archetype, sharpe, fitness, turnover, margin, max_correlation, rejection_reason
+            SELECT alpha_id, expression, archetype, sharpe, fitness, turnover, margin,
+                   max_correlation, rejection_reason, corr_partner_alpha_id, decorrelation_attempts
             FROM options_correlated_alphas
             WHERE sharpe >= %s AND fitness >= %s
+              AND COALESCE(decorrelation_attempts, 0) < 2
               AND expression NOT IN (SELECT expression FROM options_alphas WHERE expression IS NOT NULL)
+        """
+        params: List[Any] = [min_sharpe, min_fitness]
+        if blocking_partners:
+            sql += " AND (corr_partner_alpha_id IS NULL OR corr_partner_alpha_id != ALL(%s))"
+            params.append(blocking_partners)
+            
+        sql += """
             ORDER BY (1.0 * COALESCE(sharpe, 0.0) + 1.2 * COALESCE(fitness, 0.0) + 200.0 * COALESCE(margin, 0.0) - 0.5 * COALESCE(turnover, 0.0)) DESC
             LIMIT %s;
         """
+        params.append(limit)
+
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (min_sharpe, min_fitness, limit))
+                    cur.execute(sql, tuple(params))
                     return [
                         {
                             "alpha_id": row[0],
@@ -1279,6 +1375,8 @@ class OptionsDatabase:
                             "margin": float(row[6] or 0.0),
                             "max_correlation": float(row[7] or 0.0),
                             "rejection_reason": row[8] or "",
+                            "corr_partner_alpha_id": row[9],
+                            "decorrelation_attempts": int(row[10] or 0),
                         }
                         for row in cur.fetchall()
                     ]
@@ -1731,14 +1829,31 @@ class OptionsDatabase:
 def map_archetype_to_core(archetype_name: str) -> str:
     """
     Normalises arbitrary archetype labels (from LLM output, mutation tags, etc.)
-    to the canonical 8-key taxonomy used throughout the pipeline:
-      breakeven, skew, term_structure, forward_basis, pcr_flow,
-      analyst_revisions, short_interest, hybrid_confluence
+    to the canonical 15-strategy taxonomy:
+      term_structure, skew, pcr_flow, breakeven, forward_basis, short_interest,
+      analyst_revisions, hybrid_confluence, supply_chain, accruals_cashflow,
+      informed_short_demand, extreme_tail_risk, iv_lead_lag, network_momentum, formulaic_101
     """
     if not archetype_name:
         return "breakeven"
-    name = archetype_name.lower()
-    if "hybrid" in name or "confluence" in name or "divergence" in name:
+    name = archetype_name.lower().strip()
+
+    # 1. Exact / high-specificity prefix and substring matching for 15 strategies
+    if "supply_chain" in name or "supply chain" in name:
+        return "supply_chain"
+    elif "informed_short" in name or "informed short" in name:
+        return "informed_short_demand"
+    elif "extreme_tail" in name or "tail_risk" in name or "extreme tail" in name:
+        return "extreme_tail_risk"
+    elif "iv_lead" in name or "lead_lag" in name or "lead lag" in name:
+        return "iv_lead_lag"
+    elif "network_momentum" in name or "network momentum" in name:
+        return "network_momentum"
+    elif "accruals" in name or "sloan" in name or "cashflow" in name:
+        return "accruals_cashflow"
+    elif "formulaic" in name or "101" in name or "kakushadze" in name:
+        return "formulaic_101"
+    elif "hybrid" in name or "confluence" in name or "divergence" in name:
         return "hybrid_confluence"
     elif "breakeven" in name:
         return "breakeven"

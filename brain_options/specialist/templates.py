@@ -19,6 +19,8 @@ class OptionCandidate:
     generation_source: str  # "template" or "llm_reasoning" or "llm_mechanical" or "decorrelator"
     n_variants_tried: int = 1
     base_alpha_id: Optional[str] = None
+    corr_partner_alpha_id: Optional[str] = None
+    decorrelation_attempts: int = 0
 
 
 def with_liquidity_gate(inner_expr: str, threshold_mult: float = 1.0) -> str:

@@ -33,6 +33,8 @@ class DecorrelationEngine:
         archetype: str,
         base_sharpe: float = 1.5,
         colliding_id: Optional[str] = None,
+        corr_partner_id: Optional[str] = None,
+        decorrelation_attempts: int = 0,
     ) -> List[OptionCandidate]:
         """
         Generates 5 to 8 systematic orthogonal variants of a high-Sharpe candidate.
@@ -267,7 +269,7 @@ class DecorrelationEngine:
         total_variants = len(variants)
         final_candidates: List[OptionCandidate] = []
         for v in variants:
-            # Stamp n_variants_tried and base_alpha_id explicitly
+            # Stamp n_variants_tried, base_alpha_id, corr_partner_alpha_id, and decorrelation_attempts explicitly
             updated = OptionCandidate(
                 expression=v.expression,
                 archetype_name=v.archetype_name,
@@ -275,6 +277,8 @@ class DecorrelationEngine:
                 generation_source=v.generation_source,
                 n_variants_tried=total_variants,
                 base_alpha_id=colliding_id,
+                corr_partner_alpha_id=corr_partner_id,
+                decorrelation_attempts=decorrelation_attempts,
             )
             final_candidates.append(updated)
 

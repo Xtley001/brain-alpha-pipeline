@@ -357,10 +357,19 @@ class OptionsStore:
         reason: str,
         cand_data: Optional[Dict[str, Any]] = None,
         max_corr: Optional[float] = None,
+        corr_partner_alpha_id: Optional[str] = None,
+        decorrelation_attempts: Optional[int] = None,
     ):
         """Archives correlated alpha in PostgreSQL options_correlated_alphas and local correlated_options_alphas.csv, and frees from options_alphas."""
         # 1. Archive in PostgreSQL dedicated table options_correlated_alphas
-        self.db.archive_correlated_alpha(alpha_id, reason, cand_data, max_corr)
+        self.db.archive_correlated_alpha(
+            alpha_id,
+            reason,
+            cand_data,
+            max_corr,
+            corr_partner_alpha_id=corr_partner_alpha_id,
+            decorrelation_attempts=decorrelation_attempts,
+        )
 
         # 2. Archive locally in correlated_options_alphas.csv
         cand = cand_data or {}

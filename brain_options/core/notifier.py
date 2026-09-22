@@ -415,6 +415,8 @@ def send_telegram_daily_digest(
     today_sub = stats.get("today_submitted", 0)
     reserve = stats.get("reserve_count", 0)
     today_corr = stats.get("today_correlated", 0)
+    today_rej = stats.get("today_rejected", 0)
+    top_blocker = stats.get("top_corr_partner", "")
     all_eval = stats.get("all_time_evaluated", 0)
     all_s0 = stats.get("all_time_stage0_pass", 0)
     all_pool = stats.get("all_time_pool_alphas", 0)
@@ -446,6 +448,13 @@ def send_telegram_daily_digest(
         f"Stage 1\\-2 Qualified: `{_escape(str(today_q))}`",
         f"Stage 3 Submitted: `{_escape(str(today_sub))}/{_escape(str(max_daily))}`",
         f"Corr\\-rejected: `{_escape(str(today_corr))}`",
+    ]
+    if today_rej > 0:
+        lines.append(f"Checklist\\-rejected: `{_escape(str(today_rej))}`")
+    if top_blocker:
+        lines.append(f"Dominant Blocker: `{_escape(str(top_blocker))}`")
+
+    lines.extend([
         "",
         f"*Submissions*",
         f"{_escape(sub_status)}",
@@ -456,7 +465,7 @@ def send_telegram_daily_digest(
         f"*All\\-time Totals*",
         f"Evaluated: `{_escape(str(all_eval))}` · Stage 0: `{_escape(str(all_s0))}`",
         f"Pool: `{_escape(str(all_pool))}` · Ready: `{_escape(str(reserve))}` · Corr\\-archive: `{_escape(str(all_corr))}`",
-    ]
+    ])
     return _send_bool("\n".join(lines), config, db=db, label="daily digest")
 
 
@@ -514,4 +523,31 @@ def send_telegram_drip_failure_alert(
         f"Reason: `{_escape(clean_reason)}`",
     ]
     return _send_bool("\n".join(lines), config, db=db, label="drip failure alert")
+
+
+def send_telegram_correlation_concentration_alert(
+    blocking_partner: str,
+    collision_count: int,
+    total_corr_today: int,
+    config: OptionsConfig,
+    db: Any = None,
+) -> bool:
+    """
+    Alerts when a single submitted alpha blocks > 70% of correlation-rejected candidates today.
+    """
+    if not config.telegram_bot_token or not config.telegram_chat_id:
+        return False
+
+    ts = _now_wat().strftime("%H:%M")
+    pct = (collision_count / total_corr_today * 100) if total_corr_today > 0 else 0.0
+
+    lines = [
+        f"🚨 *Correlation Concentration Alert* · {_escape(ts)} WAT",
+        "",
+        f"Blocker Alpha: `{_escape(blocking_partner)}`",
+        f"Today's Collisions: `{_escape(str(collision_count))}/{_escape(str(total_corr_today))}` \\({_escape(f'{pct:.0f}%')}\\)",
+        "",
+        "⚠️ Excessive correlation against single pool alpha detected\\. Generation auto\\-cooldown triggered\\.",
+    ]
+    return _send_bool("\n".join(lines), config, db=db, label="correlation concentration alert")
 

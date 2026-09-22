@@ -63,7 +63,7 @@ jobs:
       BRAIN_MAX_CONCURRENT_SIMS: "3"
       MAX_CANDIDATES_PER_RUN: ${{ github.event.inputs.candidates || '40' }}
       RUN_TIME_BUDGET_SECONDS: "900"
-      STAGE0_MIN_FITNESS: "0.50"
+      STAGE0_MIN_FITNESS: "0.30"
       STAGE0_MIN_SHARPE: "0.60"
       FILTER_MIN_SHARPE: "1.25"
       FILTER_MIN_FITNESS: "1.00"
@@ -122,12 +122,14 @@ jobs:
           echo "STRATEGY=$TARGET_STRAT" >> $GITHUB_ENV
           echo "ARCHETYPE=$TARGET_STRAT" >> $GITHUB_ENV
           echo "UNIVERSE=$TARGET_UNIV" >> $GITHUB_ENV
+          echo "SLOT_2HR=$SLOT_2HR" >> $GITHUB_ENV
           if [ -n "$INPUT_NEUT" ]; then
             echo "NEUTRALIZATION=$INPUT_NEUT" >> $GITHUB_ENV
           fi
           echo "Resolved Single-Org Execution: Slot=$SLOT_2HR, Cycle=$CYCLE_6, Strategy=$TARGET_STRAT, Universe=$TARGET_UNIV"
 
-      - name: Salvage high-Sharpe correlated alphas
+      - name: Salvage high-Sharpe correlated alphas (1x per 2hr cycle)
+        if: env.SLOT_2HR == '0' || github.event_name == 'workflow_dispatch'
         run: python -m brain_options.run --decorrelate --limit 1 || true
 
       - name: Re-optimize Stage 0 passed candidates
