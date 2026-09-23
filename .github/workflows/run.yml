@@ -134,13 +134,15 @@ jobs:
 
       - name: Salvage high-Sharpe correlated alphas (Worker 0 only)
         if: matrix.slot == 0
-        timeout-minutes: 4
+        continue-on-error: true
+        timeout-minutes: 5
         env:
           RUN_TIME_BUDGET_SECONDS: "180"
         run: python -m brain_options.run --decorrelate --limit 1 || true
 
       - name: Re-optimize Stage 0 passed candidates
-        timeout-minutes: 4
+        continue-on-error: true
+        timeout-minutes: 5
         env:
           RUN_TIME_BUDGET_SECONDS: "180"
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
