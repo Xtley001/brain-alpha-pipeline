@@ -85,6 +85,7 @@ jobs:
           INPUT_STRAT="${{ github.event.inputs.strategy }}"
           INPUT_UNIV="${{ github.event.inputs.universe }}"
           INPUT_NEUT="${{ github.event.inputs.neutralization }}"
+          INPUT_CAND="${{ github.event.inputs.candidates }}"
           SLOT_IDX=${{ matrix.slot }}
           HOUR=$(date -u +"%H")
           CYCLE_6=$(( (10#$HOUR / 2) % 6 ))
@@ -112,14 +113,24 @@ jobs:
             TARGET_UNIV="${UNIVERSES[$UNIV_IDX]}"
           fi
 
+          # 3. Resolve Candidate Batch Size (160 for Workers 1 & 3; 80 for Workers 0 & 2)
+          if [ -n "$INPUT_CAND" ]; then
+            TARGET_CAND="$INPUT_CAND"
+          elif [ $SLOT_IDX -eq 1 ] || [ $SLOT_IDX -eq 3 ]; then
+            TARGET_CAND="160"
+          else
+            TARGET_CAND="80"
+          fi
+
           echo "STRATEGY=$TARGET_STRAT" >> $GITHUB_ENV
           echo "ARCHETYPE=$TARGET_STRAT" >> $GITHUB_ENV
           echo "UNIVERSE=$TARGET_UNIV" >> $GITHUB_ENV
           echo "SLOT_IDX=$SLOT_IDX" >> $GITHUB_ENV
+          echo "CANDIDATES_COUNT=$TARGET_CAND" >> $GITHUB_ENV
           if [ -n "$INPUT_NEUT" ]; then
             echo "NEUTRALIZATION=$INPUT_NEUT" >> $GITHUB_ENV
           fi
-          echo "Resolved Matrix Worker $SLOT_IDX: Strategy=$TARGET_STRAT, Universe=$TARGET_UNIV"
+          echo "Resolved Matrix Worker $SLOT_IDX: Strategy=$TARGET_STRAT, Universe=$TARGET_UNIV, Candidates=$TARGET_CAND"
 
       - name: Salvage high-Sharpe correlated alphas (Worker 0 only)
         if: matrix.slot == 0
@@ -129,7 +140,7 @@ jobs:
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
-        run: python -m brain_options.run --single-batch --candidates ${{ env.MAX_CANDIDATES_PER_RUN }} --strategy "$STRATEGY"
+        run: python -m brain_options.run --single-batch --candidates "$CANDIDATES_COUNT" --strategy "$STRATEGY"
 
       - name: Chain Auto-Dispatch Next Discovery Run (24/7 Perpetual Execution)
         if: always() && matrix.slot == 0
