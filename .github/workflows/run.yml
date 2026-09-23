@@ -40,6 +40,7 @@ jobs:
     timeout-minutes: 45
     permissions:
       contents: read
+      actions: write
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
@@ -137,3 +138,13 @@ jobs:
 
       - name: Generate and evaluate specialized candidates
         run: python -m brain_options.run --single-batch --candidates ${{ env.MAX_CANDIDATES_PER_RUN }} --strategy "$STRATEGY"
+
+      - name: Chain Auto-Dispatch Next Discovery Run (24/7 Perpetual Execution)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Triggering next 24/7 perpetual discovery run in chain..."
+          sleep 30
+          gh workflow run run.yml --ref main || echo "Auto-dispatch chaining completed or skipped."
+
