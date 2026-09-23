@@ -25,10 +25,17 @@ class SweepEngine:
 
     async def stage0_screen(self, expression: str) -> Tuple[bool, SimSettings, SimMetrics]:
         """Runs a single simulation on default settings to weed out noise early."""
+        # For high-turnover feature vectors (forward basis, supply chain, pcr flow, analyst revisions),
+        # use higher decay (18) to compress daily churn and elevate Fitness past platform hurdle (>=1.00).
+        default_decay = 8
+        expr_lower = expression.lower()
+        if any(k in expr_lower for k in ("forward_price", "forward_basis", "supply_chain", "pcr_vol", "pcr_oi", "analyst_")):
+            default_decay = 18
+
         default_settings = SimSettings(
             universe=self.config.universe,
             delay=self.config.delay,
-            decay=8,
+            decay=default_decay,
             neutralization="SUBINDUSTRY",
             truncation=0.05,
             pasteurization=True,
