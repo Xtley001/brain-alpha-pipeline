@@ -134,12 +134,21 @@ jobs:
 
       - name: Salvage high-Sharpe correlated alphas (Worker 0 only)
         if: matrix.slot == 0
+        timeout-minutes: 4
+        env:
+          RUN_TIME_BUDGET_SECONDS: "180"
         run: python -m brain_options.run --decorrelate --limit 1 || true
 
       - name: Re-optimize Stage 0 passed candidates
+        timeout-minutes: 4
+        env:
+          RUN_TIME_BUDGET_SECONDS: "180"
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
+        timeout-minutes: 20
+        env:
+          RUN_TIME_BUDGET_SECONDS: "900"
         run: python -m brain_options.run --single-batch --candidates "$CANDIDATES_COUNT" --strategy "$STRATEGY"
 
       - name: Chain Auto-Dispatch Next Discovery Run (24/7 Perpetual Execution)
