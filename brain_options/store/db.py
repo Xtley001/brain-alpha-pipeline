@@ -1845,17 +1845,44 @@ class OptionsDatabase:
 def map_archetype_to_core(archetype_name: str) -> str:
     """
     Normalises arbitrary archetype labels (from LLM output, mutation tags, etc.)
-    to the canonical 15-strategy taxonomy:
-      term_structure, skew, pcr_flow, breakeven, forward_basis, short_interest,
-      analyst_revisions, hybrid_confluence, supply_chain, accruals_cashflow,
-      informed_short_demand, extreme_tail_risk, iv_lead_lag, network_momentum, formulaic_101
+    to the canonical 30-strategy taxonomy.
     """
     if not archetype_name:
-        return "breakeven"
+        return "forward_basis"
     name = archetype_name.lower().strip()
 
-    # 1. Exact / high-specificity prefix and substring matching for 15 strategies
-    if "supply_chain" in name or "supply chain" in name:
+    # 1. High-specificity matching for 30 strategies
+    if "dynamic_short_squeeze" in name or "dynamic short squeeze" in name or "borrow fee convexity" in name:
+        return "dynamic_short_squeeze"
+    elif "days_to_cover" in name or "days-to-cover" in name or "days to cover" in name:
+        return "short_interest"
+    elif "vpin" in name or "toxicity" in name or "order_flow" in name:
+        return "order_flow_vpin"
+    elif "gamma" in name or "pinning" in name:
+        return "gamma_pinning_clustering"
+    elif "customer" in name or "cascades" in name or "customer_supplier" in name:
+        return "customer_supplier_cascades"
+    elif "rd_" in name or "r&d" in name or "spillover" in name:
+        return "rd_capitalization_spillovers"
+    elif "capex" in name or "asset_growth" in name or "asset growth" in name:
+        return "capex_asset_growth"
+    elif "peavrp" in name or "vrp compression" in name or "vrp crush" in name:
+        return "peavrp_volatility_premia"
+    elif "jump" in name or "realized_jump" in name:
+        return "realized_jump_intensity"
+    elif "default" in name or "merton" in name or "distance_to_default" in name:
+        return "distance_to_default_debt"
+    elif "macro" in name or "fomc" in name or "cpi" in name:
+        return "macro_fomc_cpi_drift"
+    elif "patent" in name or "innovation" in name:
+        return "patent_innovation_efficiency"
+    elif "peavd" in name:
+        return "peavd_earnings_vol_drift"
+    elif "insider" in name or "cluster" in name:
+        return "insider_cluster_buying"
+    elif "13f" in name or "institutional" in name or "breadth" in name:
+        return "institutional_13f_breadth"
+    elif "supply_chain" in name or "supply chain" in name:
         return "supply_chain"
     elif "informed_short" in name or "informed short" in name:
         return "informed_short_demand"

@@ -58,7 +58,7 @@ jobs:
       GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      BRAIN_MAX_CONCURRENT_SIMS: "1"
+      BRAIN_MAX_CONCURRENT_SIMS: "3"
       MAX_CANDIDATES_PER_RUN: ${{ github.event.inputs.candidates || '80' }}
       RUN_TIME_BUDGET_SECONDS: "1200"
       STAGE0_MIN_FITNESS: "0.30"
@@ -91,17 +91,17 @@ jobs:
           HOUR=$(date -u +"%H")
           CYCLE_6=$(( (10#$HOUR / 2) % 6 ))
 
-          # 1. Resolve Strategy schedule rotation (100% Orthogonal & Uncrowded Strategies across 4 slots)
+          # 1. Resolve Strategy schedule rotation (30 Orthogonal Institutional Strategies across 4 slots)
           if [ -n "$INPUT_STRAT" ]; then
             TARGET_STRAT="$INPUT_STRAT"
           elif [ $SLOT_IDX -eq 0 ]; then
-            TARGET_STRAT="term_structure,extreme_tail_risk,jump_variance_moments,iv_lead_lag"
+            TARGET_STRAT="term_structure,extreme_tail_risk,jump_variance_moments,iv_lead_lag,macro_fomc_cpi_drift,realized_jump_intensity"
           elif [ $SLOT_IDX -eq 1 ]; then
-            TARGET_STRAT="forward_basis,pcr_flow,peavd_earnings_vol_drift,formulaic_101"
+            TARGET_STRAT="forward_basis,pcr_flow,peavd_earnings_vol_drift,peavrp_volatility_premia,gamma_pinning_clustering,formulaic_101"
           elif [ $SLOT_IDX -eq 2 ]; then
-            TARGET_STRAT="analyst_revisions,accruals_cashflow,institutional_13f_breadth,informed_short_demand,short_interest"
+            TARGET_STRAT="analyst_revisions,accruals_cashflow,institutional_13f_breadth,informed_short_demand,short_interest,order_flow_vpin,capex_asset_growth"
           else
-            TARGET_STRAT="insider_cluster_buying,supply_chain,patent_innovation_efficiency,network_momentum,hybrid_confluence"
+            TARGET_STRAT="insider_cluster_buying,supply_chain,patent_innovation_efficiency,network_momentum,hybrid_confluence,dynamic_short_squeeze,customer_supplier_cascades,distance_to_default_debt,rd_capitalization_spillovers"
           fi
 
           # 2. Resolve 6-Universe Cyclic Shift (TOP3000, TOP2000, TOP1000, TOP500, TOP200, TOPSP500)

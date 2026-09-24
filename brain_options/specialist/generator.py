@@ -34,7 +34,10 @@ CORE_ARCHETYPES = [
     "accruals_cashflow", "informed_short_demand", "extreme_tail_risk", "iv_lead_lag",
     "network_momentum", "formulaic_101", "institutional_13f_breadth",
     "insider_cluster_buying", "peavd_earnings_vol_drift", "jump_variance_moments",
-    "patent_innovation_efficiency",
+    "patent_innovation_efficiency", "dynamic_short_squeeze", "order_flow_vpin",
+    "gamma_pinning_clustering", "customer_supplier_cascades", "rd_capitalization_spillovers",
+    "capex_asset_growth", "peavrp_volatility_premia", "realized_jump_intensity",
+    "distance_to_default_debt", "macro_fomc_cpi_drift",
 ]
 
 
@@ -50,7 +53,7 @@ class OptionsGenerator:
         self.catalog = catalog or OptionsCatalog()
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
-        # Seed queue with both deterministic templates and all 20 modular strategy systems
+        # Seed queue with both deterministic templates and all 30 modular strategy systems
         seen_hashes = set()
         queue: list[OptionCandidate] = []
         for c in generate_template_candidates() + generate_modular_candidates():
@@ -61,26 +64,36 @@ class OptionsGenerator:
         self._template_queue: list[OptionCandidate] = queue
         self._archetype_idx = 0
 
-        # Multi-Armed Bandit prior weights across research domains (Decommission saturated breakeven/skew)
+        # Multi-Armed Bandit prior weights across research domains (Heavy weights on 10 virgin strategies)
         self.archetype_priors: dict[str, float] = {
-            "forward_basis": 0.14,
-            "term_structure": 0.12,
-            "pcr_flow": 0.12,
-            "institutional_13f_breadth": 0.10,
-            "insider_cluster_buying": 0.10,
-            "peavd_earnings_vol_drift": 0.09,
-            "jump_variance_moments": 0.08,
-            "patent_innovation_efficiency": 0.08,
-            "analyst_revisions": 0.07,
-            "supply_chain": 0.06,
-            "accruals_cashflow": 0.06,
-            "extreme_tail_risk": 0.05,
-            "informed_short_demand": 0.03,
-            "iv_lead_lag": 0.03,
-            "network_momentum": 0.03,
+            "dynamic_short_squeeze": 0.12,
+            "customer_supplier_cascades": 0.12,
+            "order_flow_vpin": 0.10,
+            "gamma_pinning_clustering": 0.10,
+            "rd_capitalization_spillovers": 0.10,
+            "capex_asset_growth": 0.10,
+            "peavrp_volatility_premia": 0.10,
+            "distance_to_default_debt": 0.10,
+            "realized_jump_intensity": 0.08,
+            "macro_fomc_cpi_drift": 0.08,
+            "forward_basis": 0.08,
+            "term_structure": 0.08,
+            "pcr_flow": 0.08,
+            "institutional_13f_breadth": 0.06,
+            "insider_cluster_buying": 0.06,
+            "peavd_earnings_vol_drift": 0.06,
+            "jump_variance_moments": 0.05,
+            "patent_innovation_efficiency": 0.05,
+            "analyst_revisions": 0.04,
+            "supply_chain": 0.04,
+            "accruals_cashflow": 0.04,
+            "extreme_tail_risk": 0.03,
+            "informed_short_demand": 0.02,
+            "iv_lead_lag": 0.02,
+            "network_momentum": 0.02,
             "short_interest": 0.02,
-            "formulaic_101": 0.02,
-            "hybrid_confluence": 0.02,
+            "formulaic_101": 0.01,
+            "hybrid_confluence": 0.01,
             "breakeven": 0.00,
             "skew": 0.00,
         }
