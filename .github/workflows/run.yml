@@ -95,13 +95,13 @@ jobs:
           if [ -n "$INPUT_STRAT" ]; then
             TARGET_STRAT="$INPUT_STRAT"
           elif [ $SLOT_IDX -eq 0 ]; then
-            TARGET_STRAT="term_structure,extreme_tail_risk,iv_lead_lag"
+            TARGET_STRAT="term_structure,extreme_tail_risk,jump_variance_moments,iv_lead_lag"
           elif [ $SLOT_IDX -eq 1 ]; then
-            TARGET_STRAT="forward_basis,pcr_flow,formulaic_101"
+            TARGET_STRAT="forward_basis,pcr_flow,peavd_earnings_vol_drift,formulaic_101"
           elif [ $SLOT_IDX -eq 2 ]; then
-            TARGET_STRAT="analyst_revisions,accruals_cashflow,informed_short_demand"
+            TARGET_STRAT="analyst_revisions,accruals_cashflow,institutional_13f_breadth,informed_short_demand,short_interest"
           else
-            TARGET_STRAT="supply_chain,network_momentum,hybrid_confluence"
+            TARGET_STRAT="insider_cluster_buying,supply_chain,patent_innovation_efficiency,network_momentum,hybrid_confluence"
           fi
 
           # 2. Resolve 6-Universe Cyclic Shift (TOP3000, TOP2000, TOP1000, TOP500, TOP200, TOPSP500)

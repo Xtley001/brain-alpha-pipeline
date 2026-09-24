@@ -32,7 +32,9 @@ CORE_ARCHETYPES = [
     "term_structure", "skew", "pcr_flow", "breakeven", "forward_basis",
     "short_interest", "analyst_revisions", "hybrid_confluence", "supply_chain",
     "accruals_cashflow", "informed_short_demand", "extreme_tail_risk", "iv_lead_lag",
-    "network_momentum", "formulaic_101",
+    "network_momentum", "formulaic_101", "institutional_13f_breadth",
+    "insider_cluster_buying", "peavd_earnings_vol_drift", "jump_variance_moments",
+    "patent_innovation_efficiency",
 ]
 
 
@@ -48,7 +50,7 @@ class OptionsGenerator:
         self.catalog = catalog or OptionsCatalog()
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
-        # Seed queue with both deterministic templates and all 15 modular strategy systems
+        # Seed queue with both deterministic templates and all 20 modular strategy systems
         seen_hashes = set()
         queue: list[OptionCandidate] = []
         for c in generate_template_candidates() + generate_modular_candidates():
@@ -61,19 +63,24 @@ class OptionsGenerator:
 
         # Multi-Armed Bandit prior weights across research domains (Decommission saturated breakeven/skew)
         self.archetype_priors: dict[str, float] = {
-            "forward_basis": 0.20,
-            "term_structure": 0.18,
-            "pcr_flow": 0.18,
-            "analyst_revisions": 0.12,
-            "supply_chain": 0.10,
-            "accruals_cashflow": 0.08,
-            "extreme_tail_risk": 0.08,
-            "informed_short_demand": 0.04,
-            "iv_lead_lag": 0.04,
-            "network_momentum": 0.04,
-            "short_interest": 0.04,
-            "formulaic_101": 0.04,
-            "hybrid_confluence": 0.04,
+            "forward_basis": 0.14,
+            "term_structure": 0.12,
+            "pcr_flow": 0.12,
+            "institutional_13f_breadth": 0.10,
+            "insider_cluster_buying": 0.10,
+            "peavd_earnings_vol_drift": 0.09,
+            "jump_variance_moments": 0.08,
+            "patent_innovation_efficiency": 0.08,
+            "analyst_revisions": 0.07,
+            "supply_chain": 0.06,
+            "accruals_cashflow": 0.06,
+            "extreme_tail_risk": 0.05,
+            "informed_short_demand": 0.03,
+            "iv_lead_lag": 0.03,
+            "network_momentum": 0.03,
+            "short_interest": 0.02,
+            "formulaic_101": 0.02,
+            "hybrid_confluence": 0.02,
             "breakeven": 0.00,
             "skew": 0.00,
         }

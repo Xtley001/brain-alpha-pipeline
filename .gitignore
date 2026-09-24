@@ -26,6 +26,8 @@ env/
 *.jsonl
 *.zip
 *.tar.gz
+*.db
+alphas.db
 exported_alphas/
 all_generated_alphas.csv
 legacy_alphas_backup.zip

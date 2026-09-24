@@ -22,8 +22,13 @@ from brain_options.strategies.extreme_tail_risk import ExtremeTailRiskStrategy
 from brain_options.strategies.iv_lead_lag import IvLeadLagStrategy
 from brain_options.strategies.network_momentum import NetworkMomentumStrategy
 from brain_options.strategies.formulaic_101 import Formulaic101Strategy
+from brain_options.strategies.institutional_13f_breadth import Institutional13fBreadthStrategy
+from brain_options.strategies.insider_cluster_buying import InsiderClusterBuyingStrategy
+from brain_options.strategies.peavd_earnings_vol_drift import PEAVDEarningsVolDriftStrategy
+from brain_options.strategies.jump_variance_moments import JumpVarianceMomentsStrategy
+from brain_options.strategies.patent_innovation_efficiency import PatentInnovationEfficiencyStrategy
 
-# Standard Strategy Registry (15 Modular Quantitative Strategies)
+# Standard Strategy Registry (20 Modular Quantitative Strategies)
 STRATEGY_REGISTRY: dict[str, BaseStrategy] = {
     "term_structure": TermStructureStrategy(),
     "skew": SkewStrategy(),
@@ -40,6 +45,11 @@ STRATEGY_REGISTRY: dict[str, BaseStrategy] = {
     "iv_lead_lag": IvLeadLagStrategy(),
     "network_momentum": NetworkMomentumStrategy(),
     "formulaic_101": Formulaic101Strategy(),
+    "institutional_13f_breadth": Institutional13fBreadthStrategy(),
+    "insider_cluster_buying": InsiderClusterBuyingStrategy(),
+    "peavd_earnings_vol_drift": PEAVDEarningsVolDriftStrategy(),
+    "jump_variance_moments": JumpVarianceMomentsStrategy(),
+    "patent_innovation_efficiency": PatentInnovationEfficiencyStrategy(),
 }
 
 
