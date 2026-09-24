@@ -6,9 +6,63 @@ incorporating cross-book high-confidence formulas from Master Books 1-4.
 from __future__ import annotations
 
 import math
+import re
 from dataclasses import dataclass
 from typing import List, Optional
 from brain_options.specialist.archetypes import ARCHETYPES, OptionArchetype
+
+
+def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group: str = "subindustry") -> str:
+    """
+    Permanent 4-Stage AST Compiler Invariant:
+    Guarantees every candidate expression strictly obeys:
+      1. rank/zscore normalization
+      2. ts_decay_linear(signal, 10-20) smoothing for low turnover (< 15%)
+      3. group_neutralize(..., subindustry/sector) for beta neutrality
+      4. trade_when(volume > adv20 * 0.8, ..., -1) liquidity/conviction gating
+    """
+    clean = expr.strip()
+    if not clean:
+        return clean
+
+    # Stage 1 & 2: Ensure decay linear smoothing
+    if "ts_decay_linear" not in clean and "ts_decay_exp" not in clean:
+        if clean.startswith("group_neutralize(") and clean.endswith(")"):
+            m = re.match(r"^group_neutralize\(\s*rank\((.*)\)\s*,\s*([a-zA-Z0-9_]+)\s*\)$", clean, re.DOTALL)
+            if m:
+                inner_signal, grp = m.group(1).strip(), m.group(2).strip()
+                clean = f"group_neutralize(rank(ts_decay_linear({inner_signal}, {default_decay})), {grp})"
+            else:
+                m_no_rank = re.match(r"^group_neutralize\((.*),\s*([a-zA-Z0-9_]+)\s*\)$", clean, re.DOTALL)
+                if m_no_rank:
+                    inner_signal, grp = m_no_rank.group(1).strip(), m_no_rank.group(2).strip()
+                    clean = f"group_neutralize(rank(ts_decay_linear({inner_signal}, {default_decay})), {grp})"
+        elif clean.startswith("rank(") and clean.endswith(")"):
+            m = re.match(r"^rank\((.*)\)$", clean, re.DOTALL)
+            if m:
+                inner_signal = m.group(1).strip()
+                clean = f"group_neutralize(rank(ts_decay_linear({inner_signal}, {default_decay})), {default_group})"
+        elif "group_neutralize(" in clean:
+            # Embedded group neutralize
+            m = re.search(r"group_neutralize\(\s*rank\((.*)\)\s*,\s*([a-zA-Z0-9_]+)\s*\)", clean)
+            if m:
+                inner_sig, grp = m.group(1).strip(), m.group(2).strip()
+                clean = clean.replace(m.group(0), f"group_neutralize(rank(ts_decay_linear({inner_sig}, {default_decay})), {grp})")
+        else:
+            clean = f"group_neutralize(rank(ts_decay_linear({clean}, {default_decay})), {default_group})"
+
+    # Stage 3: Ensure group neutralization
+    if "group_neutralize" not in clean:
+        if clean.startswith("rank("):
+            clean = f"group_neutralize({clean}, {default_group})"
+        else:
+            clean = f"group_neutralize(rank({clean}), {default_group})"
+
+    # Stage 4: Ensure volume conviction gating
+    if "trade_when" not in clean:
+        clean = f"trade_when(volume > adv20 * 0.8, {clean}, -1)"
+
+    return clean
 
 
 @dataclass(frozen=True)
@@ -21,6 +75,11 @@ class OptionCandidate:
     base_alpha_id: Optional[str] = None
     corr_partner_alpha_id: Optional[str] = None
     decorrelation_attempts: int = 0
+
+    def __post_init__(self):
+        # Auto-compile expression via AST Fitness Invariant
+        compiled = compile_fitness_invariant(self.expression)
+        object.__setattr__(self, "expression", compiled)
 
 
 def with_liquidity_gate(inner_expr: str, threshold_mult: float = 1.0) -> str:

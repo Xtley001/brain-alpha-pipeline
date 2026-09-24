@@ -20,7 +20,7 @@ from brain_options.llm.prompts import (
 from brain_options.specialist.catalog import OptionsCatalog
 from brain_options.specialist.dedup import ASTDeduplicator
 from brain_options.specialist.kb import OptionsKnowledgeBase
-from brain_options.specialist.templates import OptionCandidate, generate_template_candidates
+from brain_options.specialist.templates import OptionCandidate, compile_fitness_invariant, generate_template_candidates
 from brain_options.strategies import generate_modular_candidates
 from brain_options.store.db import map_archetype_to_core
 
@@ -99,12 +99,12 @@ class OptionsGenerator:
         }
 
     def mark_evaluated(self, expression: str):
-        cleaned = expression.strip()
+        cleaned = compile_fitness_invariant(expression.strip())
         self.evaluated_expressions.add(cleaned)
         self.deduplicator.add(cleaned)
 
     def is_evaluated(self, expression: str) -> bool:
-        cleaned = expression.strip()
+        cleaned = compile_fitness_invariant(expression.strip())
         return cleaned in self.evaluated_expressions or self.deduplicator.is_duplicate(cleaned)
 
     def choose_archetype(
@@ -282,7 +282,7 @@ class OptionsGenerator:
         sat_cores = {map_archetype_to_core(s) for s in saturated_archetypes} if saturated_archetypes else set()
 
         def _add(expr: str, arch: str, hyp: str):
-            clean_expr = expr.strip()
+            clean_expr = compile_fitness_invariant(expr.strip())
             arch_core = map_archetype_to_core(arch)
             if sat_cores and arch_core in sat_cores:
                 return
