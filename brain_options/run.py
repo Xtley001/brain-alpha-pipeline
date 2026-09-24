@@ -373,7 +373,8 @@ async def run_candidate(
         metrics=best_metrics,
     )
     store.save_passed_alpha(best_cand, best_settings, best_metrics, max_corr, pnl_series)
-    send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config, db=store)
+    if not getattr(config, "enable_auto_submit", False):
+        send_telegram_alert(best_cand.expression, best_settings, best_metrics, max_corr, config, db=store)
 
     # Immediately submit straight up if enabled and daily target quota is not yet full
     if getattr(config, "enable_auto_submit", False):
@@ -563,12 +564,6 @@ async def run_batch(
         except Exception as ping_err:
             log.warning("Failed to send batch completion ping: %s", ping_err)
 
-        # Guaranteed hourly health heartbeat (unified runner)
-        try:
-            check_and_send_hourly_health(store, config, active_strategy=target_archetype)
-        except Exception as health_err:
-            log.warning("Hourly health auto-check encountered error: %s", health_err)
-
         # Zero-qualified check: only alert if high volume (>= 150) has ZERO Stage 0 passes (indicating broken generator)
         try:
             stats = store.get_options_stats()
@@ -677,12 +672,6 @@ async def run_retry_stage0_batch(
                 )
         except Exception as org_rec_err:
             log.warning("Failed to record reopt telemetry: %s", org_rec_err)
-
-        # Multi-org guaranteed hourly health heartbeat
-        try:
-            check_and_send_hourly_health(store, config)
-        except Exception as health_err:
-            log.warning("Hourly health auto-check encountered error: %s", health_err)
 
         # 24-hour interval drip submission check
         try:

@@ -214,20 +214,21 @@ def send_telegram_worker_batch_ping(
     db: Any = None,
 ) -> bool:
     """
-    Batch completion ping — fires at the end of every strategy batch run.
-    Gives real-time visibility into strategy activity, candidates evaluated,
-    and qualification outcomes for the unified Xtley001 runner.
+    Batch completion ping — ONLY fires when a batch produces >= 1 qualified alpha
+    to completely eliminate 0-yield message noise from the chat.
     """
+    if passed_count <= 0:
+        return True
+
     ts = _now_wat().strftime("%H:%M")
     stats = stats or {}
     today_eval = stats.get("today_evaluated", total_evaluated)
     today_q = stats.get("today_qualified", passed_count)
     reserve = stats.get("reserve_count", 0)
-    icon = "🎯" if passed_count > 0 else "⚪"
-    status_text = f"{passed_count}/{total_evaluated} qualified" if passed_count > 0 else f"0/{total_evaluated} qualified"
+    status_text = f"{passed_count}/{total_evaluated} qualified"
     summary_suffix = f" · {_escape(str(reserve))} reserve" if reserve > 0 else ""
     lines = [
-        f"{icon} *Batch done* · {_escape(ts)} UTC\\+1",
+        f"🎯 *Batch Yield* · {_escape(ts)} WAT",
         f"Strategy: `{_escape(strategy or 'general')}`",
         f"Result: *{_escape(status_text)}*",
         f"Today: {_escape(str(today_eval))} sims · {_escape(str(today_q))} qualified{summary_suffix}",
@@ -382,7 +383,7 @@ def send_telegram_health_check(
         q_bar += "\u25cf" if i <= today_q else "\u25cb"
 
     lines = [
-        f"\U0001f7e2 *Hourly Health* \u00b7 {_escape(ts)} UTC\\+1",
+        f"🟢 *Hourly Health* · {_escape(ts)} WAT",
         "",
         f"Simulated today: `{_escape(str(today_eval))}`",
         f"Stage 0 \\(Fast Screen\\): `{_escape(str(today_s0))}`{s0_pct_str}",
@@ -394,7 +395,7 @@ def send_telegram_health_check(
     if top_blocker and today_corr >= 3:
         lines.append(f"Top blocker: `{_escape(top_blocker)}` \\({_escape(str(top_blocker_cnt))}/{_escape(str(today_corr))}\\)")
     if active_strategy:
-        lines.extend(["", f"Strategy: `{_escape(active_strategy)}`"])
+        lines.extend(["", f"Strategy Rotation: `{_escape(active_strategy)}`"])
     return _send_bool("\n".join(lines), config, db=db, label="hourly health check")
 
 
