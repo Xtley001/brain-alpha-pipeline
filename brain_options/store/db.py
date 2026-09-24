@@ -403,6 +403,18 @@ UPDATE cluster_run_lock
 
 
 
+class ClusterLockDBError(Exception):
+    """
+    Raised by acquire_cluster_lock when the failure is a DB-level error
+    (schema mismatch, connection drop, SQL exception) rather than a legitimate
+    case where another worker is actively holding the lock.
+
+    Callers MUST distinguish this from a False return (genuine contention):
+      - False return  → another worker is simulating, yield gracefully
+      - ClusterLockDBError → infra failure, escalate to Telegram immediately
+    """
+
+
 class OptionsDatabase:
     def __init__(self, database_url: Optional[str]):
         self.database_url = database_url
@@ -468,6 +480,7 @@ class OptionsDatabase:
                 pass
 
     _schema_initialized: bool = False
+    _migration_failures: list = []
 
     def _init_schema(self):
         """
@@ -476,6 +489,8 @@ class OptionsDatabase:
         """
         if OptionsDatabase._schema_initialized:
             return
+
+        migration_failures: list = []
 
         def _run_statements(sql_block: str, label: str):
             """Split a SQL block on semicolons and execute each statement independently."""
@@ -489,11 +504,24 @@ class OptionsDatabase:
                             cur.execute(stmt)
                         conn.commit()
                 except Exception as err:
-                    log.debug("%s statement skipped: %s | SQL: %s", label, err, stmt[:80])
+                    # Migration failures at WARNING so they're visible in GH Actions logs.
+                    # Most are benign (IF NOT EXISTS on already-existing columns) but real
+                    # failures (wrong type, constraint violations) must be visible.
+                    short_err = str(err).split("\n")[0][:120]
+                    log.warning("%s statement failed: %s | SQL: %s", label, short_err, stmt[:100])
+                    if label == "MIGRATION":
+                        migration_failures.append((stmt[:60], short_err))
 
         _run_statements(SCHEMA_SQL, "SCHEMA")
         _run_statements(MIGRATION_SQL, "MIGRATION")
         OptionsDatabase._schema_initialized = True
+        if migration_failures:
+            log.warning(
+                "[SCHEMA] %d migration statement(s) failed — store them on the DB instance for Telegram reporting.",
+                len(migration_failures),
+            )
+        # Expose failures so run.py can check and Telegram-alert if needed
+        OptionsDatabase._migration_failures = migration_failures
         log.info("Database schema initialized (tables and migrations applied).")
 
 
@@ -1725,8 +1753,11 @@ class OptionsDatabase:
                     log.warning("Cluster run lock busy. Another worker is currently simulating on BRAIN.")
                 return acquired
         except Exception as e:
-            log.warning("Failed to acquire cluster run lock (failing closed): %s", e)
-            return False  # Fail closed: never simulate without a verified lock
+            # Re-raise as ClusterLockDBError so callers can distinguish a DB failure
+            # (schema mismatch, connection drop) from a legitimate busy lock (False return).
+            # This ensures run.py can escalate DB failures to Telegram instead of silently
+            # yielding as if another worker is running.
+            raise ClusterLockDBError(str(e)) from e
 
     def touch_cluster_lock(self, worker_id: str) -> bool:
         """
@@ -1745,7 +1776,9 @@ class OptionsDatabase:
                 conn.commit()
             return res is not None
         except Exception as e:
-            log.debug("Failed to touch cluster run lock heartbeat: %s", e)
+            # WARNING (not DEBUG) — repeated heartbeat failures mean the lock will
+            # expire and another worker could take over, causing concurrent simulation.
+            log.warning("Failed to touch cluster run lock heartbeat: %s", e)
             return False
 
     def release_cluster_lock(self, worker_id: str):

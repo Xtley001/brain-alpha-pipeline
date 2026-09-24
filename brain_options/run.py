@@ -24,10 +24,12 @@ from brain_options.core.notifier import (
     check_and_send_hourly_health,
     send_telegram_alert,
     send_telegram_batch_summary,
+    send_telegram_correlation_concentration_alert,
     send_telegram_daily_digest,
     send_telegram_emergency_alert,
     send_telegram_startup,
 )
+from brain_options.store.db import ClusterLockDBError
 from brain_options.core.sweep import SweepEngine
 from brain_options.llm.adapter import LLMAdapter
 from brain_options.specialist.dedup import ASTDeduplicator
@@ -76,12 +78,31 @@ class ClusterLockHeartbeat:
         log.info("Started cluster lock heartbeat daemon for %s (interval: %ds).", self.worker_id, self.interval)
 
     def _run(self):
+        consecutive_failures = 0
         while not self._stop_event.wait(self.interval):
             try:
                 if self.db:
-                    self.db.touch_cluster_lock(self.worker_id)
+                    ok = self.db.touch_cluster_lock(self.worker_id)
+                    if ok:
+                        consecutive_failures = 0
+                    else:
+                        consecutive_failures += 1
+                        if consecutive_failures >= 3:
+                            log.warning(
+                                "[HEARTBEAT] Cluster lock touch returned False for %d consecutive attempts "
+                                "on worker %s. Lock may have been evicted — concurrent simulation risk.",
+                                consecutive_failures, self.worker_id,
+                            )
             except Exception as e:
-                log.debug("Heartbeat touch exception: %s", e)
+                consecutive_failures += 1
+                if consecutive_failures >= 3:
+                    log.warning(
+                        "[HEARTBEAT] Cluster lock touch exception (attempt %d): %s. "
+                        "Worker %s lock may expire and allow concurrent workers in.",
+                        consecutive_failures, e, self.worker_id,
+                    )
+                else:
+                    log.warning("[HEARTBEAT] Cluster lock touch exception: %s", e)
 
     def stop(self):
         self._stop_event.set()
@@ -269,6 +290,23 @@ async def run_candidate(
         )
         if store.db:
             store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=corr_reason)
+        # Correlation concentration alert: fire Telegram if one alpha is blocking
+        # the majority of today's qualified candidates from reaching the pool.
+        try:
+            corr_stats = store.get_options_stats()
+            today_corr = corr_stats.get("today_correlated", 0)
+            top_blocker = corr_stats.get("top_corr_partner", "")
+            top_blocker_cnt = corr_stats.get("top_corr_partner_count", 0)
+            if today_corr >= 3 and top_blocker and top_blocker_cnt / today_corr > 0.70:
+                send_telegram_correlation_concentration_alert(
+                    blocking_partner=top_blocker,
+                    collision_count=top_blocker_cnt,
+                    total_corr_today=today_corr,
+                    config=config,
+                    db=store,
+                )
+        except Exception as _conc_err:
+            log.debug("Concentration alert check skipped: %s", _conc_err)
         return False
 
     # Mandatory Gate 2: Verify all platform checklist gates on BRAIN
@@ -551,11 +589,19 @@ async def run_batch(
         # notification. send_telegram_worker_batch_ping was redundant — same info,
         # double message — so it's removed to reduce noise and rate-limit pressure.
 
-        # Zero-qualified check: only alert if high volume (>= 150) has ZERO Stage 0 passes (indicating broken generator)
+        # Zero Stage-0 pass alert — if >150 alphas evaluated with zero passing
+        # the lowest bar, the generator is broken (LLM failure, template bug, etc.).
+        # This warrants an immediate Telegram emergency, not just a log line.
         try:
             stats = store.get_options_stats()
             if stats.get("today_evaluated", 0) >= 150 and stats.get("today_stage0_pass", 0) == 0:
-                log.warning("Generation diagnostic warning: >=150 evaluated with 0 Stage 0 passes.")
+                log.warning("[CRITICAL] Generation diagnostic: >=150 evaluated with 0 Stage 0 passes.")
+                send_telegram_emergency_alert(
+                    error_summary=f"{stats.get('today_evaluated', 0)} candidates evaluated today with 0 passing Stage 0. Generator may be producing invalid expressions (LLM failure or template regression).",
+                    config=config,
+                    context="Generator Zero-Yield Diagnostic",
+                    db=store,
+                )
         except Exception:
             pass
 
@@ -565,6 +611,17 @@ async def run_batch(
             await drip.check_and_drip()
         except Exception as drip_err:
             log.warning("Drip submitter check failed: %s", drip_err)
+            # Drip submitter crash is serious — alphas will accumulate unsubmitted.
+            # Fire Telegram so the issue is visible without reading logs.
+            try:
+                send_telegram_emergency_alert(
+                    error_summary=str(drip_err),
+                    config=config,
+                    context="Drip Submitter Exception",
+                    db=store,
+                )
+            except Exception:
+                pass
 
         # Opportunistic hourly health heartbeat — piggybacks on the discovery run so the
         # health ping doesn't depend solely on health.yml cron (which GH can delay 20-60min).
@@ -1007,13 +1064,80 @@ def main():
         # For all other modes on the primary org, wait up to 120s (12 × 10s).
         is_retry_prestep = args.retry_stage0
         max_lock_attempts = 1 if is_retry_prestep else (12 if org_name == "Xtley001" else 1)
+
+        # --- Stale lock detection ---
+        # If a lock is being held for >60 min the heartbeat is almost certainly dead.
+        # Warn loudly so the operator can clear it manually or wait for auto-expiry.
+        try:
+            stale_age_sql = """
+                SELECT EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - heartbeat)) / 60.0
+                FROM cluster_run_lock
+                WHERE heartbeat IS NOT NULL
+                ORDER BY heartbeat ASC LIMIT 1;
+            """
+            with db._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(stale_age_sql)
+                    row = cur.fetchone()
+            if row and row[0] is not None:
+                age_minutes = float(row[0])
+                if age_minutes > 60:
+                    log.warning(
+                        "[STALE LOCK] Cluster lock has not been refreshed for %.0f minutes. "
+                        "The holding worker may have crashed. Lock will auto-expire at 15min mark, "
+                        "but this lock is %.0f minutes old — it may already be stale.",
+                        age_minutes, age_minutes,
+                    )
+                    send_telegram_emergency_alert(
+                        error_summary=f"Cluster lock held for {age_minutes:.0f} minutes without heartbeat refresh. All workers are blocked. Manual DELETE FROM cluster_run_lock; may be needed.",
+                        config=config,
+                        context="Stale Cluster Lock Detected",
+                        db=store,
+                    )
+        except Exception as stale_err:
+            log.debug("Stale lock check failed: %s", stale_err)
+
+        # --- Check for migration failures and alert ---
+        try:
+            failures = getattr(db, "_migration_failures", [])
+            if failures:
+                summary = "; ".join(f"{s[:50]}: {e[:60]}" for s, e in failures[:3])
+                send_telegram_emergency_alert(
+                    error_summary=f"{len(failures)} DB migration(s) failed on startup: {summary}",
+                    config=config,
+                    context="Schema Migration Failure",
+                    db=store,
+                )
+        except Exception:
+            pass
+
+        lock_db_error = False
         for attempt in range(max_lock_attempts):
-            lock_acquired = db.acquire_cluster_lock(
-                org_name=org_name,
-                worker_id=worker_id,
-                archetype=args.archetype or "",
-                timeout_seconds=18000 if getattr(args, "decorrelate", False) else 900,
-            )
+            try:
+                lock_acquired = db.acquire_cluster_lock(
+                    org_name=org_name,
+                    worker_id=worker_id,
+                    archetype=args.archetype or "",
+                    timeout_seconds=18000 if getattr(args, "decorrelate", False) else 900,
+                )
+            except ClusterLockDBError as lock_err:
+                # DB-level failure — distinct from genuine lock contention.
+                # Log, alert, and stop retrying — retrying won't fix a schema/connection issue.
+                lock_db_error = True
+                log.warning(
+                    "[LOCK DB ERROR] acquire_cluster_lock raised a DB exception (attempt %d/%d): %s",
+                    attempt + 1, max_lock_attempts, lock_err,
+                )
+                try:
+                    send_telegram_emergency_alert(
+                        error_summary=str(lock_err),
+                        config=config,
+                        context=f"{org_name} Lock DB Error (attempt {attempt+1})",
+                        db=store,
+                    )
+                except Exception:
+                    pass
+                break  # No point retrying a DB-level error
             if lock_acquired:
                 break
             if attempt < max_lock_attempts - 1:
