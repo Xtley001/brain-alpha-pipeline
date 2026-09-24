@@ -113,11 +113,11 @@ jobs:
             TARGET_UNIV="${UNIVERSES[$UNIV_IDX]}"
           fi
 
-          # 3. Resolve Candidate Batch Size (200 candidates per worker = 800 per matrix cycle)
+          # 3. Resolve Candidate Batch Size (Balanced 100 candidates per worker = 400 per matrix cycle)
           if [ -n "$INPUT_CAND" ]; then
             TARGET_CAND="$INPUT_CAND"
           else
-            TARGET_CAND="200"
+            TARGET_CAND="100"
           fi
 
           echo "STRATEGY=$TARGET_STRAT" >> $GITHUB_ENV
@@ -138,9 +138,9 @@ jobs:
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
-        timeout-minutes: 20
+        timeout-minutes: 15
         env:
-          RUN_TIME_BUDGET_SECONDS: "900"
+          RUN_TIME_BUDGET_SECONDS: "600"
         run: python -m brain_options.run --single-batch --candidates "$CANDIDATES_COUNT" --strategy "$STRATEGY"
 
       - name: Chain Auto-Dispatch Next Discovery Run (24/7 Perpetual Execution)
@@ -149,5 +149,5 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           echo "Worker 0 triggering next 4-worker cloud matrix run in chain..."
-          sleep 45
+          sleep 60
           gh workflow run run.yml --ref main || echo "Auto-dispatch chaining completed or skipped."
