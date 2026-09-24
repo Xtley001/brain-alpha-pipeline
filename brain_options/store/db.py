@@ -376,7 +376,30 @@ CREATE INDEX IF NOT EXISTS idx_corr_alphas_partner
 
 ALTER TABLE options_rejected_alphas
     ADD COLUMN IF NOT EXISTS corr_partner_alpha_id VARCHAR(64);
+
+-- v2.5: cluster_run_lock schema upgrade
+-- The original table only had (lock_name, locked_by, acquired_at, expires_at, heartbeat).
+-- The acquire_cluster_lock function expects (worker_id, org_name, archetype, heartbeat, started_at).
+-- Add missing columns idempotently; use TEXT for archetype to avoid VARCHAR(128) overflow
+-- when multi-strategy strings like slot-3's 200+ char list are passed.
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS worker_id   VARCHAR(128);
+
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS org_name    VARCHAR(64);
+
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS archetype   TEXT;
+
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS started_at  TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;
+
+-- Back-fill worker_id from locked_by for any live rows so the heartbeat still works.
+UPDATE cluster_run_lock
+    SET worker_id = locked_by
+    WHERE worker_id IS NULL AND locked_by IS NOT NULL;
 """
+
 
 
 
@@ -1652,13 +1675,29 @@ class OptionsDatabase:
         Acquires the cluster-wide run mutex for this worker org. Only one worker
         can hold the lock at a time, enforcing the BRAIN platform's 3 concurrent
         simulation limit across the entire cluster.
+
+        Schema: cluster_run_lock has worker_id as a UNIQUE column (added via v2.5
+        migration). lock_name VARCHAR(64) is the PK but worker_id is the natural
+        conflict key for upsert. archetype is TEXT (no length limit) after v2.5.
+
         Stale locks (heartbeat > 15 minutes old) are cleaned up before attempting.
         Returns True if lock acquired, False if another worker is already running.
         On DB error, returns False (fail closed) to prevent multi-worker collisions.
         """
         if not self.database_url:
             return True
+
+        # Truncate archetype defensively — the multi-strategy slot strings can exceed
+        # 200+ chars (e.g. slot 3). TEXT column handles any length after v2.5 migration
+        # but truncate here as a belt-and-suspenders guard for pre-migration DBs.
+        safe_archetype = archetype[:500] if archetype else ""
+
+        # worker_id is "<org>-<pid>" — safe at max ~40 chars, but guard anyway.
+        safe_worker_id = worker_id[:127] if worker_id else "unknown"
+
         cleanup_sql = "DELETE FROM cluster_run_lock WHERE heartbeat < CURRENT_TIMESTAMP - INTERVAL '15 minutes';"
+        # Upsert: try to insert a new lock row. If this worker already holds the lock,
+        # refresh its heartbeat. Blocked if any OTHER live worker holds the lock.
         insert_sql = """
             INSERT INTO cluster_run_lock (worker_id, org_name, archetype, heartbeat, started_at)
             SELECT %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
@@ -1667,19 +1706,21 @@ class OptionsDatabase:
                 WHERE heartbeat >= CURRENT_TIMESTAMP - INTERVAL '15 minutes'
                   AND worker_id != %s
             )
-            ON CONFLICT (worker_id) DO UPDATE SET heartbeat = CURRENT_TIMESTAMP
+            ON CONFLICT (worker_id) DO UPDATE
+                SET heartbeat  = CURRENT_TIMESTAMP,
+                    archetype  = EXCLUDED.archetype
             RETURNING worker_id;
         """
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(cleanup_sql)
-                    cur.execute(insert_sql, (worker_id, org_name, archetype, worker_id))
+                    cur.execute(insert_sql, (safe_worker_id, org_name, safe_archetype, safe_worker_id))
                     res = cur.fetchone()
                 conn.commit()
                 acquired = res is not None
                 if acquired:
-                    log.info("Acquired cluster run lock for %s (%s).", org_name, worker_id)
+                    log.info("Acquired cluster run lock for %s (%s).", org_name, safe_worker_id)
                 else:
                     log.warning("Cluster run lock busy. Another worker is currently simulating on BRAIN.")
                 return acquired

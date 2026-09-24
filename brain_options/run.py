@@ -26,9 +26,7 @@ from brain_options.core.notifier import (
     send_telegram_batch_summary,
     send_telegram_daily_digest,
     send_telegram_emergency_alert,
-    send_telegram_health_check,
     send_telegram_startup,
-    send_telegram_worker_batch_ping,
 )
 from brain_options.core.sweep import SweepEngine
 from brain_options.llm.adapter import LLMAdapter
@@ -549,20 +547,9 @@ async def run_batch(
         except Exception as org_rec_err:
             log.warning("Failed to record org run telemetry: %s", org_rec_err)
 
-        # Batch completion ping — real-time visibility into strategy activity
-        try:
-            stats = store.get_options_stats()
-            send_telegram_worker_batch_ping(
-                strategy=target_archetype or "options",
-                passed_count=passed_count,
-                total_evaluated=total_evaluated,
-                archetype=target_archetype or "options",
-                config=config,
-                stats=stats,
-                db=store,
-            )
-        except Exception as ping_err:
-            log.warning("Failed to send batch completion ping: %s", ping_err)
+        # NOTE: send_telegram_batch_summary (above) already covers the qualified-batch
+        # notification. send_telegram_worker_batch_ping was redundant — same info,
+        # double message — so it's removed to reduce noise and rate-limit pressure.
 
         # Zero-qualified check: only alert if high volume (>= 150) has ZERO Stage 0 passes (indicating broken generator)
         try:
@@ -578,6 +565,19 @@ async def run_batch(
             await drip.check_and_drip()
         except Exception as drip_err:
             log.warning("Drip submitter check failed: %s", drip_err)
+
+        # Opportunistic hourly health heartbeat — piggybacks on the discovery run so the
+        # health ping doesn't depend solely on health.yml cron (which GH can delay 20-60min).
+        # The atomic DB slot ensures exactly one ping per hour even with 4 concurrent workers.
+        try:
+            check_and_send_hourly_health(
+                store,
+                config,
+                min_interval_minutes=55,
+                active_strategy=target_archetype,
+            )
+        except Exception as health_err:
+            log.debug("Opportunistic health check skipped: %s", health_err)
     return passed_count
 
 
@@ -939,11 +939,16 @@ def main():
 
     if args.health:
         store = OptionsStore(database_url=config.database_url)
-        stats = store.get_options_stats()
-        success = send_telegram_health_check(config, stats=stats, db=store)
-        if success and hasattr(store, "claim_hourly_health_slot"):
-            store.claim_hourly_health_slot(min_interval_minutes=0)
-        log.info("Health check sent: %s", "OK" if success else "FAILED")
+        # Use check_and_send_hourly_health: atomically claims the DB slot BEFORE sending
+        # to prevent duplicate pings when health.yml fires multiple concurrent runners.
+        # min_interval_minutes=0 so a manual --health dispatch always goes through.
+        sent = check_and_send_hourly_health(
+            store,
+            config,
+            min_interval_minutes=0,
+            active_strategy=active_strategy,
+        )
+        log.info("Health check sent: %s", "OK" if sent else "SKIPPED (slot already claimed)")
         return
 
     if getattr(args, "daily_digest", False):
@@ -995,8 +1000,13 @@ def main():
     lock_acquired = False
 
     if not args.dry_run and db:
-        # If running on primary org (blitz or dispatch), wait up to 120s for active worker to yield
-        max_lock_attempts = 12 if org_name == "Xtley001" else 1
+        # retry-stage0 is a lightweight pre-step that runs before --single-batch
+        # in the same GH matrix job. If another worker is busy, yield immediately —
+        # don't burn 2 minutes of the job's time budget waiting. The main batch step
+        # will acquire the lock once the pre-step exits cleanly.
+        # For all other modes on the primary org, wait up to 120s (12 × 10s).
+        is_retry_prestep = args.retry_stage0
+        max_lock_attempts = 1 if is_retry_prestep else (12 if org_name == "Xtley001" else 1)
         for attempt in range(max_lock_attempts):
             lock_acquired = db.acquire_cluster_lock(
                 org_name=org_name,
