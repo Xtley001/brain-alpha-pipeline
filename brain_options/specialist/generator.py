@@ -59,23 +59,23 @@ class OptionsGenerator:
         self._template_queue: list[OptionCandidate] = queue
         self._archetype_idx = 0
 
-        # Multi-Armed Bandit prior weights across all 15 research domains
+        # Multi-Armed Bandit prior weights across research domains (Decommission saturated breakeven/skew)
         self.archetype_priors: dict[str, float] = {
-            "term_structure": 0.08,
-            "skew": 0.08,
-            "pcr_flow": 0.08,
-            "breakeven": 0.08,
-            "forward_basis": 0.08,
-            "short_interest": 0.06,
-            "analyst_revisions": 0.08,
-            "hybrid_confluence": 0.08,
-            "supply_chain": 0.06,
-            "accruals_cashflow": 0.06,
-            "informed_short_demand": 0.06,
-            "extreme_tail_risk": 0.06,
-            "iv_lead_lag": 0.06,
-            "network_momentum": 0.06,
-            "formulaic_101": 0.06,
+            "forward_basis": 0.20,
+            "term_structure": 0.18,
+            "pcr_flow": 0.18,
+            "analyst_revisions": 0.12,
+            "supply_chain": 0.10,
+            "accruals_cashflow": 0.08,
+            "extreme_tail_risk": 0.08,
+            "informed_short_demand": 0.04,
+            "iv_lead_lag": 0.04,
+            "network_momentum": 0.04,
+            "short_interest": 0.04,
+            "formulaic_101": 0.04,
+            "hybrid_confluence": 0.04,
+            "breakeven": 0.00,
+            "skew": 0.00,
         }
 
     def mark_evaluated(self, expression: str):
