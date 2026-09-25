@@ -50,7 +50,7 @@ logging.basicConfig(
 log = logging.getLogger("brain_options")
 
 
-from brain_options.core.optimizer import DiagnosticAlphaOptimizer
+from brain_options.core.optimizer import DiagnosticAlphaOptimizer, calculate_rl_reward
 
 
 class ClusterLockHeartbeat:
@@ -157,6 +157,33 @@ async def run_candidate(
     if deduplicator:
         deduplicator.add(candidate.expression)
 
+    def _record_rl_outcome(is_qual: bool, m: SimMetrics):
+        try:
+            store.record_learning_memory(
+                candidate=candidate,
+                metrics=m,
+                reward=calculate_rl_reward(m, is_qualified=is_qual),
+                optimization_steps=0,
+                parent_expression=getattr(candidate, "base_alpha_id", None),
+                mutation_type=getattr(candidate, "operator_name", None),
+                status="QUALIFIED" if is_qual else "REJECTED",
+            )
+        except Exception as lm_err:
+            log.debug("Failed to record learning memory: %s", lm_err)
+
+        if candidate.operator_name:
+            try:
+                store.record_strategy_operator_reward(
+                    strategy_name=candidate.archetype_name,
+                    operator_name=candidate.operator_name,
+                    parameter_name="outcome",
+                    parameter_val="qualified" if is_qual else "rejected",
+                    reward=calculate_rl_reward(m, is_qualified=is_qual),
+                    success=is_qual,
+                )
+            except Exception as e:
+                log.warning("Failed to record strategy operator reward: %s", e)
+
     # 1. Stage 0: Fast Screen (1 simulation)
     s0_passed, s0_settings, s0_metrics = await sweep_engine.stage0_screen(candidate.expression)
     store.record_evaluated_candidate(
@@ -174,6 +201,7 @@ async def run_candidate(
             s0_metrics.sharpe,
             s0_metrics.fitness,
         )
+        _record_rl_outcome(False, s0_metrics)
         return False
 
     log.info("[*] STAGE 0 PASSED (or force-optimized)! Proceeding to Closed-Loop Diagnostic Optimization...")
@@ -201,6 +229,7 @@ async def run_candidate(
             status="EXHAUSTED",
             metrics=best_metrics,
         )
+        _record_rl_outcome(False, best_metrics)
         return False
 
     # 3. Mandatory Pre-Qualification Self-Correlation & Checklist Gates Verification
@@ -273,6 +302,7 @@ async def run_candidate(
                 metrics=best_metrics,
             )
             store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
+            _record_rl_outcome(False, best_metrics)
             return False
         else:
             log.info(
@@ -324,6 +354,7 @@ async def run_candidate(
                 )
         except Exception as _conc_err:
             log.debug("Concentration alert check skipped: %s", _conc_err)
+        _record_rl_outcome(False, best_metrics)
         return False
 
     # Mandatory Gate 2: Verify all platform checklist gates on BRAIN
@@ -347,6 +378,7 @@ async def run_candidate(
 
             if not alpha_data:
                 log.warning("[-] Could not verify checklist from BRAIN for alpha %s. Rejecting as unverified.", best_metrics.alpha_id)
+                _record_rl_outcome(False, best_metrics)
                 return False
 
             is_block = alpha_data.get("is") or {}
@@ -360,6 +392,7 @@ async def run_candidate(
                 log.warning("[-] ALPHA REJECTED BY PLATFORM GATE: %s (%s). Moving to options_rejected_alphas.", best_metrics.alpha_id, rej_reason)
                 store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
                 store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
+                _record_rl_outcome(False, best_metrics)
                 return False
 
             if pending_gates:
@@ -367,6 +400,7 @@ async def run_candidate(
                 log.warning("[-] ALPHA REJECTED (TIMED OUT WAITING FOR PLATFORM): %s (%s).", best_metrics.alpha_id, rej_reason)
                 store.record_evaluated_candidate(candidate, stage="RETRY_COMPLETED", status="REJECTED", metrics=best_metrics)
                 store.archive_rejected_alpha(best_metrics.alpha_id or "", rej_reason, cand_dict)
+                _record_rl_outcome(False, best_metrics)
                 return False
 
             # Mandatory Gate 3: Live BRAIN platform self-correlation check against active submitted portfolio
@@ -401,6 +435,7 @@ async def run_candidate(
                     )
                     if hasattr(store, "db") and store.db:
                         store.db.penalize_learning_memory(best_cand.expression, penalty=-15.0, reason=rej_reason)
+                    _record_rl_outcome(False, best_metrics)
                     return False
 
             if live_corr_records:
@@ -409,6 +444,7 @@ async def run_candidate(
 
         except Exception as gate_err:
             log.warning("[-] Platform gate verification error for %s: %s. Rejecting as unverified.", best_metrics.alpha_id, gate_err)
+            _record_rl_outcome(False, best_metrics)
             return False
 
     # 4. Verified Uncorrelated Alpha Accepted & Saved to Clean Qualified Table
@@ -440,6 +476,7 @@ async def run_candidate(
         except Exception as sub_err:
             log.warning("[AUTO-SUBMIT] Immediate submission encountered an error: %s", sub_err)
 
+    _record_rl_outcome(True, best_metrics)
     return True
 
 

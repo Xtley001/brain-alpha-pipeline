@@ -103,3 +103,52 @@ def test_strategy_scoped_rl_isolation():
     w_term = store.get_strategy_operator_weights("term_structure")
     assert isinstance(w_term, dict)
     store.record_strategy_operator_reward("term_structure", "ts_decay_linear", "decay", "20", 5.0)
+
+
+def test_operator_name_wiring_in_decorrelator():
+    """Verify that decorrelator populates operator_name with the axis key."""
+    from brain_options.specialist.decorrelator import DecorrelationEngine
+    engine = DecorrelationEngine()
+    expr = "group_neutralize(rank(ts_decay_linear(implied_volatility_mean_skew_20 * 0.28, 5)), subindustry)"
+    variants = engine.generate_orthogonal_variants(expr, "skew", colliding_id="TEST_ALPHA", base_sharpe=1.5)
+    assert len(variants) > 0
+    assert all(v.operator_name is not None for v in variants)
+    assert any("Axis" in v.operator_name for v in variants)
+
+
+@pytest.mark.asyncio
+async def test_run_candidate_records_strategy_operator_reward():
+    """Verify run_candidate records operator reward when operator_name is present."""
+    from unittest.mock import AsyncMock, MagicMock
+    from brain_options.config import OptionsConfig
+    from brain_options.core.client import BrainClient, SimMetrics, SimSettings
+    from brain_options.core.sweep import SweepEngine
+    from brain_options.specialist.templates import OptionCandidate
+    from brain_options.run import run_candidate
+
+    cand = OptionCandidate(
+        expression="group_neutralize(rank(ts_decay_linear(close, 5)), subindustry)",
+        archetype_name="term_structure",
+        hypothesis="Test operator reward recording",
+        generation_source="decorrelator",
+        operator_name="Axis 1 (Velocity Shift)",
+    )
+
+    mock_sweep = MagicMock(spec=SweepEngine)
+    s0_metrics = SimMetrics(sharpe=0.1, fitness=0.05, turnover=0.10, status="FAIL")
+    mock_sweep.stage0_screen = AsyncMock(return_value=(False, SimSettings(), s0_metrics))
+
+    mock_client = MagicMock(spec=BrainClient)
+    mock_store = MagicMock(spec=OptionsStore)
+    mock_store.db = None
+    config = OptionsConfig(brain_username="test", brain_password="test")
+
+    passed = await run_candidate(cand, mock_sweep, mock_client, mock_store, config)
+    assert passed is False
+    assert mock_store.record_strategy_operator_reward.called
+    call_kwargs = mock_store.record_strategy_operator_reward.call_args[1]
+    assert call_kwargs["strategy_name"] == "term_structure"
+    assert call_kwargs["operator_name"] == "Axis 1 (Velocity Shift)"
+    assert call_kwargs["parameter_val"] == "rejected"
+    assert call_kwargs["success"] is False
+

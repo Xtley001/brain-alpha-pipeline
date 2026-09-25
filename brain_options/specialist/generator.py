@@ -253,6 +253,7 @@ class OptionsGenerator:
                             archetype_name=item.get("archetype", target_arch.title()),
                             hypothesis=item.get("hypothesis", f"Knowledge-guided reasoning on {target_arch}"),
                             generation_source="llm_reasoning",
+                            operator_name=item.get("mutation_type"),
                         )
                     )
                     if len(candidates) >= count:
@@ -621,6 +622,7 @@ class OptionsGenerator:
                         archetype_name=f"Mutation({base.archetype_name})",
                         hypothesis=item.get("hypothesis", f"Mutation of {base.expression}"),
                         generation_source="llm_mechanical",
+                        operator_name=item.get("mutation_type"),
                     )
                 )
         return mutations

@@ -80,6 +80,7 @@ class DecorrelationEngine:
                     hypothesis=f"{hypothesis} [Salvaged from base Sharpe={base_sharpe:.2f}]",
                     generation_source="decorrelator",
                     base_alpha_id=colliding_id,
+                    operator_name=axis_key,
                 )
             )
             axis_audit[axis_key]["applied"] += 1
@@ -279,6 +280,7 @@ class DecorrelationEngine:
                 base_alpha_id=colliding_id,
                 corr_partner_alpha_id=corr_partner_id,
                 decorrelation_attempts=decorrelation_attempts,
+                operator_name=v.operator_name,
             )
             final_candidates.append(updated)
 

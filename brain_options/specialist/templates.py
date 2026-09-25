@@ -90,6 +90,7 @@ class OptionCandidate:
     base_alpha_id: Optional[str] = None
     corr_partner_alpha_id: Optional[str] = None
     decorrelation_attempts: int = 0
+    operator_name: Optional[str] = None
 
     def __post_init__(self):
         # Auto-compile expression via AST Fitness Invariant
