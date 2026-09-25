@@ -150,7 +150,19 @@ class BrainClient:
 
         resp = session.post_authentication()
         if resp is None or getattr(resp, "status_code", 500) >= 400:
-            raise RuntimeError(f"WorldQuant BRAIN authentication failed: {resp}")
+            err_msg = f"WorldQuant BRAIN authentication failed for {self.username}: {resp}"
+            log.error(err_msg)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=err_msg,
+                    context="BRAIN Auth Failure",
+                    db=self.db,
+                    cooldown_minutes=60,
+                )
+            except Exception:
+                pass
+            raise RuntimeError(err_msg)
         log.info("Successfully authenticated with WorldQuant BRAIN as %s", self.username)
 
         # Save session cookies to PostgreSQL cluster cache (TTL 2 hours)
@@ -182,8 +194,47 @@ class BrainClient:
                         log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
                     await asyncio.sleep(2.0 * (attempt + 1))
 
+                # Check for session token expiry (401)
+                if resp is not None and getattr(resp, "status_code", 200) == 401:
+                    log.error("BRAIN session token expired during batch for %s!", self.username)
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"BRAIN session token expired mid-batch for {self.username}. Needs re-auth.",
+                            context="BRAIN Session Expired",
+                            db=self.db,
+                            cooldown_minutes=30,
+                        )
+                    except Exception:
+                        pass
+
+                # Check for non-200 simulation submit API error
+                if resp is not None and getattr(resp, "status_code", 200) >= 400:
+                    status_code = getattr(resp, "status_code", "unknown")
+                    log.error("Simulation submit returned non-200 (%s) for %s: %s", status_code, expression[:50], getattr(resp, 'text', '')[:100])
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"Simulation submit returned HTTP {status_code} for {expression[:40]}: {getattr(resp, 'text', '')[:100]}",
+                            context="BRAIN Sim API Error",
+                            db=self.db,
+                            cooldown_minutes=60,
+                        )
+                    except Exception:
+                        pass
+
                 if resp is None:
-                    log.error("Simulation returned None for expression: %s", expression)
+                    log.error("Simulation returned None (timeout/failure across all attempts) for expression: %s", expression)
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"Simulation result fetch returned null after all retries for: {expression[:50]}",
+                            context="BRAIN Sim Result Null",
+                            db=self.db,
+                            cooldown_minutes=60,
+                        )
+                    except Exception:
+                        pass
                     return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "ERROR", {})
 
                 metrics = parse_brain_sim_response(resp)
@@ -195,6 +246,8 @@ class BrainClient:
                         alpha_resp = await asyncio.wait_for(session.retry("GET", alpha_url, max_tries=15), timeout=45.0)
                         if alpha_resp is not None and alpha_resp.status_code < 400:
                             metrics = parse_brain_sim_response(alpha_resp)
+                        elif alpha_resp is not None and alpha_resp.status_code >= 400:
+                            log.error("Simulation detail fetch returned HTTP %s for %s", alpha_resp.status_code, metrics.alpha_id)
                     except Exception as e:
                         log.warning("Could not fetch alpha detail for %s: %s", metrics.alpha_id, e)
 

@@ -477,8 +477,8 @@ async def test_run_candidate_rejects_unverified_checklist():
 
 
 def test_cluster_lock_fails_closed_on_db_error():
-    """Verify that acquire_cluster_lock fails closed (returns False) when database raises exception."""
-    from brain_options.store.db import OptionsDatabase
+    """Verify that acquire_cluster_lock fails closed (raises ClusterLockDBError) when database raises exception."""
+    from brain_options.store.db import OptionsDatabase, ClusterLockDBError
 
     db = OptionsDatabase(None)
     db.database_url = "postgresql://mock_db"
@@ -488,8 +488,8 @@ def test_cluster_lock_fails_closed_on_db_error():
             raise RuntimeError("Neon connection timeout")
         mp.setattr(db, "_get_connection", raise_err)
 
-        locked = db.acquire_cluster_lock("TestOrg", "worker-123")
-        assert locked is False, "Cluster lock must fail closed on DB connection error"
+        with pytest.raises(ClusterLockDBError):
+            db.acquire_cluster_lock("TestOrg", "worker-123")
 
 
 def test_cluster_lock_heartbeat_lifecycle():

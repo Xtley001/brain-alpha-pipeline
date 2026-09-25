@@ -23,6 +23,7 @@ from brain_options.specialist.kb import OptionsKnowledgeBase
 from brain_options.specialist.templates import OptionCandidate, compile_fitness_invariant, generate_template_candidates
 from brain_options.strategies import generate_modular_candidates
 from brain_options.store.db import map_archetype_to_core
+from brain_options.core.notifier import send_telegram_emergency_alert
 
 log = logging.getLogger("brain_options.generator")
 
@@ -707,6 +708,23 @@ class OptionsGenerator:
                 saturated_archetypes=saturated_archetypes,
             )
             candidates.extend(procedural_candidates)
+
+        if target_count >= 5 and len(candidates) < 5:
+            log.error("Candidate batch size (%d) fell below threshold (< 5 candidates generated, target=%d)", len(candidates), target_count)
+            send_telegram_emergency_alert(
+                f"<b>CRITICAL: Candidate Generation Starvation</b>\n\n"
+                f"Generated only {len(candidates)} candidates (target: {target_count}). Generator pipeline starved.",
+                context="Candidate Generation Starvation",
+                cooldown_minutes=60,
+            )
+        elif not candidates:
+            log.error("Candidate batch size is 0 (target=%d)", target_count)
+            send_telegram_emergency_alert(
+                f"<b>CRITICAL: Candidate Generation Starvation</b>\n\n"
+                f"Generated 0 candidates (target: {target_count}). Generator pipeline completely starved.",
+                context="Candidate Generation Starvation",
+                cooldown_minutes=60,
+            )
 
         return candidates
 

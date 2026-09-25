@@ -232,4 +232,14 @@ class LLMAdapter:
                     return res
 
         log.error("All LLM providers and keys failed for generation request.")
+        try:
+            from brain_options.core.notifier import send_telegram_emergency_alert
+            send_telegram_emergency_alert(
+                error_summary="All LLM API keys and providers (Groq, Cerebras, OpenRouter, Gemini) exhausted or returned errors.",
+                config=self.config,
+                context="LLM Keys Exhausted",
+                cooldown_minutes=120,
+            )
+        except Exception:
+            pass
         return None

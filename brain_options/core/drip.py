@@ -132,6 +132,21 @@ class DripSubmitter:
         url = f"https://api.worldquantbrain.com/alphas/{alpha_id}"
         try:
             resp = await sess.retry("GET", url, max_tries=3)
+            if resp and resp.status_code >= 500:
+                log.error("Platform gate check returned HTTP %s for alpha %s (BRAIN API down)", resp.status_code, alpha_id)
+                try:
+                    from brain_options.core.notifier import send_telegram_emergency_alert
+                    send_telegram_emergency_alert(
+                        error_summary=f"Platform gate check returned HTTP {resp.status_code} for {alpha_id}. BRAIN API down.",
+                        config=self.config,
+                        context="BRAIN Platform Gate 5xx",
+                        db=self.store,
+                        cooldown_minutes=60,
+                    )
+                except Exception:
+                    pass
+                return False, [f"HTTP_{resp.status_code}"], {}
+
             if resp and resp.status_code == 200:
                 data = resp.json()
                 status = data.get("status")
@@ -174,7 +189,18 @@ class DripSubmitter:
                                     self.store.mark_alpha_correlated(alpha_id, f"High self-correlation {float(r[5]):.2f} vs {r[0]}")
                                 break
                 except Exception as e:
-                    log.debug("Self correlation check skipped for %s: %s", alpha_id, e)
+                    log.error("Self correlation live check failed with exception for %s: %s", alpha_id, e)
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"Self-correlation live check exception on {alpha_id}: {e}",
+                            config=self.config,
+                            context="Self-Correlation Check Error",
+                            db=self.store,
+                            cooldown_minutes=60,
+                        )
+                    except Exception:
+                        pass
 
                 return len(failed) == 0, failed, data
         except Exception as e:
@@ -414,11 +440,22 @@ class DripSubmitter:
                     if len(submitted_alphas) < slots_needed and current_subs + len(submitted_alphas) < max_daily:
                         await asyncio.sleep(4.0)
                 else:
-                    log.warning("[DRIP QUEUE] Alpha %s failed post-submission validation (stage=%s, status=%s). Moving to options_rejected_alphas.", alpha_id, v_stage, v_status)
+                    log.error("[DRIP QUEUE] Alpha %s failed post-submission validation: polling exhausted (stage=%s, status=%s). Moving to options_rejected_alphas.", alpha_id, v_stage, v_status)
                     rej_msg = f"FAILED_ASYNC_SUBMISSION (stage={v_stage}, status={v_status})"
                     if hasattr(self.store, "archive_rejected_alpha"):
                         self.store.archive_rejected_alpha(alpha_id, rej_msg, cand)
                     send_telegram_drip_failure_alert(alpha_id, rej_msg, self.config, db=self.store)
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"Alpha {alpha_id} post-submission verification never reached ACTIVE after 5 polling cycles: stage={v_stage}, status={v_status}",
+                            config=self.config,
+                            context="Alpha Post-Submit Verification Exhausted",
+                            db=self.store,
+                            cooldown_minutes=60,
+                        )
+                    except Exception:
+                        pass
                     continue
             else:
                 data = res.get("data") or {}
@@ -435,6 +472,18 @@ class DripSubmitter:
                     rejection_str = f"HIGH_SELF_CORRELATION: {msg[:120]}"
                 else:
                     rejection_str = f"SUBMISSION_REJECTED: {msg[:120]}"
+                    log.error("[DRIP QUEUE] Alpha %s rejected with NON-CORRELATION reason: %s. BRAIN API policy change?", alpha_id, rejection_str)
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"Alpha {alpha_id} rejected with non-correlation reason: {rejection_str}. Check BRAIN API policy / syntax requirements.",
+                            config=self.config,
+                            context="Submission Non-Corr Rejection",
+                            db=self.store,
+                            cooldown_minutes=60,
+                        )
+                    except Exception:
+                        pass
 
                 log.warning("[DRIP QUEUE] Alpha %s rejected during submission: %s. Moving to options_rejected_alphas.", alpha_id, rejection_str)
                 if hasattr(self.store, "archive_rejected_alpha"):
@@ -450,6 +499,21 @@ class DripSubmitter:
             total_now = current_subs + len(submitted_alphas)
             primary_id = submitted_alphas[-1]
             return True, primary_id, f"Submitted {len(submitted_alphas)} alpha(s) (Total {total_now}/{max_daily}) for {today_ny} EDT. Remaining kept in reserve for tomorrow."
+
+        if unsubmitted and len(submitted_alphas) == 0:
+            log.error("All %d eligible alphas in pool failed drip verification! Pool may be corrupted or stale.", len(unsubmitted))
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"All {len(unsubmitted)} eligible alphas in pool failed drip verification! Pool may be corrupted or stale.",
+                    config=self.config,
+                    context="Drip Pool Verification Exhausted",
+                    db=self.store,
+                    cooldown_minutes=120,
+                )
+            except Exception:
+                pass
+
         return False, None, "No eligible unsubmitted alphas passed verification in pool."
 
 

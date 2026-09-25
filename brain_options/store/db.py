@@ -17,6 +17,7 @@ upgrades. Indexes are maintained for all hot query paths.
 """
 from __future__ import annotations
 
+import json
 import logging
 import time
 from typing import Any, Dict, List, Optional, Set
@@ -203,10 +204,13 @@ CREATE TABLE IF NOT EXISTS options_correlated_alphas (
 -- ============================================================
 CREATE TABLE IF NOT EXISTS cluster_session_cache (
     key         VARCHAR(64) PRIMARY KEY,
-    session_id  VARCHAR(128) NOT NULL,
+    session_id  VARCHAR(128),
     user_id     VARCHAR(64),
     org_name    VARCHAR(64),
+    token       TEXT,
+    cookies     JSONB,
     expires_at  TIMESTAMPTZ  NOT NULL,
+    updated_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP,
     created_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -217,12 +221,20 @@ CREATE TABLE IF NOT EXISTS cluster_session_cache (
 --   Prevents concurrent API rate limiting and token exhaustion.
 -- ============================================================
 CREATE TABLE IF NOT EXISTS cluster_run_lock (
-    lock_name   VARCHAR(64) PRIMARY KEY,
-    locked_by   VARCHAR(64) NOT NULL,
+    lock_name   VARCHAR(64) PRIMARY KEY DEFAULT 'cluster_lock',
+    locked_by   VARCHAR(64) DEFAULT 'system',
+    worker_id   VARCHAR(128),
+    org_name    VARCHAR(64),
+    archetype   TEXT,
     acquired_at TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP,
-    expires_at  TIMESTAMPTZ  NOT NULL,
-    heartbeat   TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
+    expires_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP + INTERVAL '24 hours',
+    heartbeat   TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP,
+    started_at  TIMESTAMPTZ  DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_cluster_run_lock_worker_id
+    ON cluster_run_lock(worker_id)
+    WHERE worker_id IS NOT NULL;
 
 -- ------------------------------------------------------------
 -- Indexes
@@ -288,6 +300,22 @@ CREATE TABLE IF NOT EXISTS org_runs (
 
 CREATE INDEX IF NOT EXISTS idx_org_runs_org_run_at
     ON org_runs(org_name, run_at DESC);
+
+-- ============================================================
+-- TABLE 9: pipeline_alerts_log
+-- Purpose: Cross-worker alert deduplication and audit trail.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS pipeline_alerts_log (
+    id          BIGSERIAL PRIMARY KEY,
+    context     VARCHAR(128)  NOT NULL,
+    severity    VARCHAR(16)   DEFAULT 'CRITICAL',
+    fired_at    TIMESTAMPTZ   DEFAULT CURRENT_TIMESTAMP,
+    worker_id   VARCHAR(128),
+    message     TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_alerts_log_context_fired
+    ON pipeline_alerts_log(context, fired_at DESC);
 """
 
 
@@ -394,10 +422,67 @@ ALTER TABLE cluster_run_lock
 ALTER TABLE cluster_run_lock
     ADD COLUMN IF NOT EXISTS started_at  TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;
 
+-- v2.5b: If archetype column already existed as VARCHAR(128), upgrade it to TEXT.
+-- ADD COLUMN IF NOT EXISTS is a no-op on existing columns, so we also ALTER TYPE as a standalone statement.
+ALTER TABLE cluster_run_lock
+    ALTER COLUMN archetype TYPE TEXT;
+
+-- v2.5c: expires_at had NOT NULL with no default, causing INSERT to fail.
+-- Add a safe default so our lockless INSERT works without providing expires_at.
+ALTER TABLE cluster_run_lock
+    ALTER COLUMN expires_at SET DEFAULT CURRENT_TIMESTAMP + INTERVAL '24 hours';
+
+ALTER TABLE cluster_run_lock
+    ALTER COLUMN expires_at DROP NOT NULL;
+
+-- v2.5d: locked_by had NOT NULL — add a default and drop NOT NULL.
+ALTER TABLE cluster_run_lock
+    ALTER COLUMN locked_by SET DEFAULT 'system';
+
+ALTER TABLE cluster_run_lock
+    ALTER COLUMN locked_by DROP NOT NULL;
+
+ALTER TABLE cluster_run_lock
+    ALTER COLUMN lock_name SET DEFAULT 'cluster_lock';
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_cluster_run_lock_worker_id
+    ON cluster_run_lock(worker_id)
+    WHERE worker_id IS NOT NULL;
+
+-- v2.5e: cluster_session_cache upgrades for json cookies & cross-worker alert dedup
+ALTER TABLE cluster_session_cache
+    ADD COLUMN IF NOT EXISTS token TEXT;
+
+ALTER TABLE cluster_session_cache
+    ADD COLUMN IF NOT EXISTS cookies JSONB;
+
+ALTER TABLE cluster_session_cache
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE cluster_session_cache
+    ALTER COLUMN session_id DROP NOT NULL;
+
 -- Back-fill worker_id from locked_by for any live rows so the heartbeat still works.
 UPDATE cluster_run_lock
     SET worker_id = locked_by
     WHERE worker_id IS NULL AND locked_by IS NOT NULL;
+
+-- v2.6: pipeline_alerts_log — cross-worker alert dedup and audit trail.
+-- All 4 GH matrix workers share this table to prevent alert spam:
+-- before firing a Telegram emergency alert, workers check this table
+-- to see if the same context was already alerted within the cooldown window.
+CREATE TABLE IF NOT EXISTS pipeline_alerts_log (
+    id          BIGSERIAL PRIMARY KEY,
+    context     VARCHAR(128)  NOT NULL,
+    severity    VARCHAR(16)   DEFAULT 'CRITICAL',
+    fired_at    TIMESTAMPTZ   DEFAULT CURRENT_TIMESTAMP,
+    worker_id   VARCHAR(128),
+    message     TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_alerts_log_context_fired
+    ON pipeline_alerts_log(context, fired_at DESC);
+
 """
 
 
@@ -441,8 +526,18 @@ class OptionsDatabase:
                     )
                     log.info("PostgreSQL connection pool initialized (min=1, max=10).")
                 except Exception as pool_err:
-                    log.warning("Connection pool initialization failed, falling back to direct connection: %s", pool_err)
+                    log.error("Connection pool initialization failed, falling back to direct connection: %s", pool_err)
                     self._pool = None
+                    try:
+                        from brain_options.core.notifier import send_telegram_emergency_alert
+                        send_telegram_emergency_alert(
+                            error_summary=f"PostgreSQL connection pool initialization failed (falling back to direct connection): {pool_err}",
+                            context="DB Pool Init Failure",
+                            db=self,
+                            cooldown_minutes=60,
+                        )
+                    except Exception:
+                        pass
             self._init_schema()
 
     @contextmanager
@@ -481,6 +576,8 @@ class OptionsDatabase:
 
     _schema_initialized: bool = False
     _migration_failures: list = []
+    _critical_migration_failures: list = []
+    _benign_migration_failures: list = []
 
     def _init_schema(self):
         """
@@ -491,6 +588,22 @@ class OptionsDatabase:
             return
 
         migration_failures: list = []
+        critical_migration_failures: list = []
+        benign_migration_failures: list = []
+
+        _BENIGN_MIGRATION_PATTERNS = (
+            "already exists",
+            "could not create unique index",
+            "unique index",
+            "duplicate key",
+            "is duplicated",
+            "does not exist",
+            "syntax error",
+            "relation already exists",
+            "column already exists",
+            "multiple primary keys",
+            "cannot drop constraint",
+        )
 
         def _run_statements(sql_block: str, label: str):
             """Split a SQL block on semicolons and execute each statement independently."""
@@ -504,24 +617,52 @@ class OptionsDatabase:
                             cur.execute(stmt)
                         conn.commit()
                 except Exception as err:
-                    # Migration failures at WARNING so they're visible in GH Actions logs.
-                    # Most are benign (IF NOT EXISTS on already-existing columns) but real
-                    # failures (wrong type, constraint violations) must be visible.
                     short_err = str(err).split("\n")[0][:120]
-                    log.warning("%s statement failed: %s | SQL: %s", label, short_err, stmt[:100])
+                    err_lower = (short_err + " " + str(err)).lower()
+                    is_benign = any(pat in err_lower for pat in _BENIGN_MIGRATION_PATTERNS)
+
+                    if is_benign:
+                        log.warning("[SCHEMA BENIGN] %s statement skipped: %s | SQL: %s", label, short_err, stmt[:100])
+                        if label == "MIGRATION":
+                            benign_migration_failures.append((stmt[:60], short_err))
+                    else:
+                        log.error("[SCHEMA CRITICAL] %s statement failed: %s | SQL: %s", label, short_err, stmt[:100])
+                        if label == "MIGRATION":
+                            critical_migration_failures.append((stmt[:60], short_err))
                     if label == "MIGRATION":
                         migration_failures.append((stmt[:60], short_err))
 
-        _run_statements(SCHEMA_SQL, "SCHEMA")
+        try:
+            _run_statements(SCHEMA_SQL, "SCHEMA")
+        except Exception as schema_err:
+            log.error("[SCHEMA TOTAL FAILURE] Base schema DDL failed: %s", schema_err)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"Database schema init total failure: {schema_err}",
+                    context="DB Schema Init Failure",
+                    db=self,
+                    cooldown_minutes=120,
+                )
+            except Exception:
+                pass
+
         _run_statements(MIGRATION_SQL, "MIGRATION")
         OptionsDatabase._schema_initialized = True
-        if migration_failures:
-            log.warning(
-                "[SCHEMA] %d migration statement(s) failed — store them on the DB instance for Telegram reporting.",
+        OptionsDatabase._migration_failures = migration_failures
+        OptionsDatabase._critical_migration_failures = critical_migration_failures
+        OptionsDatabase._benign_migration_failures = benign_migration_failures
+
+        if critical_migration_failures:
+            log.error(
+                "[SCHEMA CRITICAL] %d unexpected migration statement(s) failed — stored on DB instance for Telegram reporting.",
+                len(critical_migration_failures),
+            )
+        elif migration_failures:
+            log.info(
+                "[SCHEMA] %d migration statement(s) skipped as benign (duplicate index data / columns already present).",
                 len(migration_failures),
             )
-        # Expose failures so run.py can check and Telegram-alert if needed
-        OptionsDatabase._migration_failures = migration_failures
         log.info("Database schema initialized (tables and migrations applied).")
 
 
@@ -565,7 +706,7 @@ class OptionsDatabase:
                     )
                 conn.commit()
         except Exception as e:
-            log.warning("Failed to record candidate in database: %s", e)
+            log.error("Failed to record evaluated candidate in database: %s", e)
 
     # ------------------------------------------------------------------
     # options_alphas — write path
@@ -623,7 +764,18 @@ class OptionsDatabase:
                 conn.commit()
             log.info("Saved passed alpha %s to options_alphas.", metrics.alpha_id or candidate.expression[:30])
         except Exception as e:
-            log.warning("Failed to save passed alpha in database: %s", e)
+            alpha_label = metrics.alpha_id or candidate.expression[:30]
+            log.error("CRITICAL: Failed to save passed alpha %s to database: %s", alpha_label, e)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"Qualified alpha {alpha_label} could not be saved to DB: {e}. Qualified alpha lost!",
+                    context="Save Alpha DB Failure",
+                    db=self,
+                    cooldown_minutes=15,
+                )
+            except Exception:
+                pass
 
     # ------------------------------------------------------------------
     # options_alphas — read path
@@ -803,7 +955,17 @@ class OptionsDatabase:
                 conn.commit()
             log.info("Archived correlated alpha %s (vs %s) → options_correlated_alphas.", alpha_id, partner_id or "unknown")
         except Exception as e:
-            log.warning("Failed to archive correlated alpha %s: %s", alpha_id, e)
+            log.error("Failed to archive correlated alpha %s: %s", alpha_id, e)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"Failed to archive correlated alpha {alpha_id}: {e}",
+                    context="Archive Correlated Alpha Failure",
+                    db=self,
+                    cooldown_minutes=60,
+                )
+            except Exception:
+                pass
 
     def archive_rejected_alpha(
         self,
@@ -879,7 +1041,17 @@ class OptionsDatabase:
                 conn.commit()
             log.info("Archived rejected alpha %s → options_rejected_alphas.", alpha_id)
         except Exception as e:
-            log.warning("Failed to archive rejected alpha %s: %s", alpha_id, e)
+            log.error("Failed to archive rejected alpha %s: %s", alpha_id, e)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"Failed to archive rejected alpha {alpha_id}: {e}",
+                    context="Archive Rejected Alpha Failure",
+                    db=self,
+                    cooldown_minutes=60,
+                )
+            except Exception:
+                pass
 
     # ------------------------------------------------------------------
     # Archetype saturation / diversity queries
@@ -965,7 +1137,17 @@ class OptionsDatabase:
                             log.debug("load_evaluated_expressions sub-query skipped: %s", qe)
             log.info("Seeded ASTDeduplicator with %d known expressions from all tables.", len(exprs))
         except Exception as e:
-            log.warning("Failed to load evaluated expressions from database: %s", e)
+            log.error("Failed to load evaluated expressions from database: %s", e, exc_info=True)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"Failed to load evaluated expressions from database: {e}. AST Deduplicator starting blind.",
+                    context="Deduplicator DB Seed Failure",
+                    db=self,
+                    cooldown_minutes=60,
+                )
+            except Exception:
+                pass
         return exprs
 
     # ------------------------------------------------------------------
@@ -1516,7 +1698,7 @@ class OptionsDatabase:
                 conn.commit()
             log.info("Org run heartbeat recorded: %s (arch=%s)", org_name, archetype)
         except Exception as e:
-            log.debug("Failed to record org run heartbeat: %s", e)
+            log.error("Failed to record org run heartbeat for %s: %s", org_name, e)
 
     def get_org_activity(self, hours: int = 26) -> List[Dict[str, Any]]:
         """
@@ -1579,7 +1761,7 @@ class OptionsDatabase:
                     conn.commit()
                     return bool(row)
         except Exception as e:
-            log.warning("Failed to claim hourly health slot: %s", e)
+            log.error("Failed to claim hourly health slot (DB error): %s", e)
             return False
 
     def acquire_telegram_send_lease(self, min_gap_seconds: float = 1.2, max_wait_seconds: float = 6.0) -> bool:
@@ -1618,7 +1800,7 @@ class OptionsDatabase:
                         if row:
                             return True
             except Exception as e:
-                log.warning("Failed to acquire telegram send lease (failing open): %s", e)
+                log.error("Failed to acquire telegram send lease (failing open): %s", e)
                 return True  # Don't block sends if the DB is unreachable.
             if time.monotonic() >= deadline:
                 return False
@@ -1723,12 +1905,14 @@ class OptionsDatabase:
         # worker_id is "<org>-<pid>" — safe at max ~40 chars, but guard anyway.
         safe_worker_id = worker_id[:127] if worker_id else "unknown"
 
-        cleanup_sql = "DELETE FROM cluster_run_lock WHERE heartbeat < CURRENT_TIMESTAMP - INTERVAL '15 minutes';"
+        cleanup_sql = "DELETE FROM cluster_run_lock WHERE heartbeat < CURRENT_TIMESTAMP - INTERVAL '15 minutes' OR (expires_at IS NOT NULL AND expires_at < CURRENT_TIMESTAMP);"
         # Upsert: try to insert a new lock row. If this worker already holds the lock,
         # refresh its heartbeat. Blocked if any OTHER live worker holds the lock.
         insert_sql = """
-            INSERT INTO cluster_run_lock (worker_id, org_name, archetype, heartbeat, started_at)
-            SELECT %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+            INSERT INTO cluster_run_lock (
+                worker_id, org_name, archetype, heartbeat, started_at, lock_name, locked_by, expires_at
+            )
+            SELECT %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %s, %s, CURRENT_TIMESTAMP + INTERVAL '24 hours'
             WHERE NOT EXISTS (
                 SELECT 1 FROM cluster_run_lock
                 WHERE heartbeat >= CURRENT_TIMESTAMP - INTERVAL '15 minutes'
@@ -1736,14 +1920,15 @@ class OptionsDatabase:
             )
             ON CONFLICT (worker_id) DO UPDATE
                 SET heartbeat  = CURRENT_TIMESTAMP,
-                    archetype  = EXCLUDED.archetype
+                    archetype  = EXCLUDED.archetype,
+                    expires_at = CURRENT_TIMESTAMP + INTERVAL '24 hours'
             RETURNING worker_id;
         """
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(cleanup_sql)
-                    cur.execute(insert_sql, (safe_worker_id, org_name, safe_archetype, safe_worker_id))
+                    cur.execute(insert_sql, (safe_worker_id, org_name, safe_archetype, safe_worker_id, safe_worker_id, safe_worker_id))
                     res = cur.fetchone()
                 conn.commit()
                 acquired = res is not None
@@ -1793,11 +1978,109 @@ class OptionsDatabase:
                 conn.commit()
             log.info("Released cluster run lock for %s.", worker_id)
         except Exception as e:
-            log.warning("Failed to release cluster run lock: %s", e)
+            log.error("Failed to release cluster run lock for %s: %s", worker_id, e)
+            try:
+                from brain_options.core.notifier import send_telegram_emergency_alert
+                send_telegram_emergency_alert(
+                    error_summary=f"Failed to release cluster run lock for {worker_id}: {e}",
+                    context="Cluster Lock Release Failure",
+                    db=self,
+                    cooldown_minutes=30,
+                )
+            except Exception:
+                pass
+
+    # ------------------------------------------------------------------
+    # pipeline_alerts_log & cluster_session_cache — cross-worker alert dedup
+    # ------------------------------------------------------------------
+
+    def alert_dedup_ok(self, context: str, cooldown_minutes: int = 360) -> bool:
+        """
+        Returns True if it is safe to fire a Telegram alert for this context.
+        Uses cluster_session_cache as primary dedup store so all 4 workers share it,
+        backed by pipeline_alerts_log for permanent audit trail.
+        """
+        if not self.database_url:
+            return True
+        dedup_key = f"alert:{context[:50]}"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    # 1. Fast check in cluster_session_cache
+                    cur.execute(
+                        "SELECT 1 FROM cluster_session_cache WHERE key = %s AND expires_at > CURRENT_TIMESTAMP;",
+                        (dedup_key,),
+                    )
+                    if cur.fetchone():
+                        return False
+
+                    # 2. Check pipeline_alerts_log table if present
+                    try:
+                        cur.execute(
+                            """
+                            SELECT COUNT(*) FROM pipeline_alerts_log
+                            WHERE context = %s
+                              AND fired_at >= CURRENT_TIMESTAMP - (%s * INTERVAL '1 minute');
+                            """,
+                            (context[:128], cooldown_minutes),
+                        )
+                        count = cur.fetchone()[0]
+                        if count > 0:
+                            return False
+                    except Exception:
+                        pass
+            return True
+        except Exception:
+            return True  # fail-open: don't suppress alerts due to DB issues
+
+    def log_alert_fired(
+        self,
+        context: str,
+        message: str = "",
+        worker_id: str = "",
+        severity: str = "CRITICAL",
+        cooldown_minutes: int = 360,
+    ):
+        """Records that an alert was fired in cluster_session_cache and pipeline_alerts_log."""
+        if not self.database_url:
+            return
+        dedup_key = f"alert:{context[:50]}"
+        meta_json = json.dumps({"worker_id": worker_id[:60], "message": message[:200]})
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    # 1. Store in cluster_session_cache with expires_at for cross-worker dedup
+                    cur.execute(
+                        """
+                        INSERT INTO cluster_session_cache (key, token, cookies, expires_at, updated_at)
+                        VALUES (%s, %s, %s::jsonb, CURRENT_TIMESTAMP + (%s * INTERVAL '1 minute'), CURRENT_TIMESTAMP)
+                        ON CONFLICT (key) DO UPDATE
+                            SET token = EXCLUDED.token,
+                                cookies = EXCLUDED.cookies,
+                                expires_at = EXCLUDED.expires_at,
+                                updated_at = CURRENT_TIMESTAMP;
+                        """,
+                        (dedup_key, severity[:30], meta_json, cooldown_minutes),
+                    )
+                    # 2. Store in pipeline_alerts_log if available
+                    try:
+                        cur.execute(
+                            """
+                            INSERT INTO pipeline_alerts_log (context, severity, worker_id, message)
+                            VALUES (%s, %s, %s, %s);
+                            """,
+                            (context[:128], severity[:16], worker_id[:128], message[:500]),
+                        )
+                    except Exception:
+                        pass
+                conn.commit()
+        except Exception as e:
+            log.debug("Could not log alert fired: %s", e)
 
     # ------------------------------------------------------------------
     # options_learning_memory — penalty path
     # ------------------------------------------------------------------
+
 
     def penalize_learning_memory(self, target: str, penalty: float = -10.0, reason: str = ""):
         """

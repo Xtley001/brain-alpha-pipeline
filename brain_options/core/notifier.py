@@ -145,13 +145,12 @@ def _send_bool(text: str, config: OptionsConfig, db: Any = None, label: str = "n
     """
     Thin wrapper around _send() that preserves the existing bool-returning public
     API (callers and tests check `if success:` / `assert result is True`) while
-    still surfacing *why* a send failed via a log line, instead of a bare False
-    that looks identical whether Telegram rate-limited us or the bot token is
-    unset.
+    surfacing delivery failures as errors so silent drops don't happen.
     """
     success, reason = _send(text, config, db=db)
     if not success:
         log.warning("Telegram %s not delivered (reason=%s).", label, reason)
+        log.error("Telegram %s not delivered after all retries (reason=%s).", label, reason)
     return success
 
 
@@ -260,6 +259,15 @@ def check_and_send_hourly_health(
 
     log.info("[HOURLY HEALTH] Slot claimed. Sending hourly health heartbeat to Telegram...")
     stats = store.get_options_stats() if hasattr(store, "get_options_stats") else {}
+    if not stats:
+        log.error("Health check DB query returned no stats (store query broken)!")
+        send_telegram_emergency_alert(
+            error_summary="Health check DB query returned no stats (store query broken).",
+            config=config,
+            context="Health Check Query Empty",
+            db=store,
+            cooldown_minutes=60,
+        )
     return send_telegram_health_check(config, stats=stats, active_strategy=active_strategy, db=store)
 
 
@@ -478,16 +486,63 @@ def send_telegram_daily_digest(
 
 def send_telegram_emergency_alert(
     error_summary: str,
-    config: OptionsConfig,
+    config: Optional[OptionsConfig] = None,
     context: str = "Worker Failure",
     db: Any = None,
+    cooldown_minutes: int = 240,
 ) -> bool:
     """
-    Sends an immediate high-priority alert when an unhandled exception or worker crash occurs.
-    Guarantees operator observability even when runners fail mid-batch.
+    Sends an immediate high-priority alert when an unhandled exception or
+    worker crash occurs.
+
+    Cross-worker dedup: uses cluster_session_cache & pipeline_alerts_log (shared
+    across all 4 GH matrix workers) to ensure only ONE alert fires per context per cooldown
+    window, even when all 4 workers hit the same error simultaneously.
+
+    cooldown_minutes (default 4h):
+      - Schema Migration Failure: 360 min (6h) — same failures fire every run
+      - Lock DB Error: 60 min — important but resolves quickly
+      - Generator Zero-Yield: 120 min — fires at most twice a day
+      - All others: 240 min (4h)
     """
-    if not config.telegram_bot_token or not config.telegram_chat_id:
+    if config is None:
+        try:
+            from brain_options.config import OptionsConfig
+            config = OptionsConfig.from_env()
+        except Exception:
+            pass
+
+    if not config or not config.telegram_bot_token or not config.telegram_chat_id:
+        log.error(
+            "[ALERT SILENT] Telegram credentials missing! Critical alert dropped: [%s] %s",
+            context,
+            error_summary,
+        )
         return False
+
+    # --- Cross-worker dedup check ---
+    # Resolve the db object regardless of whether it's an OptionsStore or OptionsDatabase
+    _db = None
+    if db is not None:
+        if hasattr(db, "alert_dedup_ok"):
+            _db = db
+        elif hasattr(db, "db") and hasattr(db.db, "alert_dedup_ok"):
+            _db = db.db
+
+    if _db is None and config and config.database_url:
+        try:
+            from brain_options.store.db import OptionsDatabase
+            _db = OptionsDatabase(config.database_url)
+        except Exception:
+            pass
+
+    if _db is not None:
+        try:
+            if not _db.alert_dedup_ok(context, cooldown_minutes=cooldown_minutes):
+                log.debug("Alert suppressed (dedup): context=%s cooldown=%dmin", context, cooldown_minutes)
+                return False  # Already fired by another worker within cooldown
+        except Exception:
+            pass  # fail-open: still send the alert
 
     ts = _now_wat().strftime("%H:%M")
     clean_err = str(error_summary).strip()
@@ -503,7 +558,21 @@ def send_telegram_emergency_alert(
         "",
         _escape(footer),
     ]
-    return _send_bool("\n".join(lines), config, db=db, label="critical alert")
+    result = _send_bool("\n".join(lines), config, db=db, label="critical alert")
+
+    # --- Log to dedup table so other workers don't repeat it ---
+    if _db is not None and result:
+        try:
+            _db.log_alert_fired(
+                context=context,
+                message=clean_err[:500],
+                severity="CRITICAL",
+                cooldown_minutes=cooldown_minutes,
+            )
+        except Exception:
+            pass
+
+    return result
 
 
 def send_telegram_drip_failure_alert(

@@ -88,18 +88,35 @@ class ClusterLockHeartbeat:
                     else:
                         consecutive_failures += 1
                         if consecutive_failures >= 3:
-                            log.warning(
+                            log.error(
                                 "[HEARTBEAT] Cluster lock touch returned False for %d consecutive attempts "
-                                "on worker %s. Lock may have been evicted — concurrent simulation risk.",
+                                "on worker %s. Lock heartbeat is dead.",
                                 consecutive_failures, self.worker_id,
+                            )
+                            send_telegram_emergency_alert(
+                                f"<b>CRITICAL: Cluster Lock Heartbeat Dead</b>\n\n"
+                                f"Worker: <code>{self.worker_id}</code>\n"
+                                f"Touch returned False for {consecutive_failures} consecutive attempts.\n"
+                                f"Lock may be evicted — risk of concurrent simulation collision.",
+                                context="Cluster Lock Heartbeat Dead",
+                                cooldown_minutes=60,
+                                db=self.db,
                             )
             except Exception as e:
                 consecutive_failures += 1
                 if consecutive_failures >= 3:
-                    log.warning(
-                        "[HEARTBEAT] Cluster lock touch exception (attempt %d): %s. "
-                        "Worker %s lock may expire and allow concurrent workers in.",
-                        consecutive_failures, e, self.worker_id,
+                    log.error(
+                        "[HEARTBEAT] Cluster lock touch exception (attempt %d) on worker %s: %s",
+                        consecutive_failures, self.worker_id, e, exc_info=True,
+                    )
+                    send_telegram_emergency_alert(
+                        f"<b>CRITICAL: Cluster Lock Heartbeat Dead</b>\n\n"
+                        f"Worker: <code>{self.worker_id}</code>\n"
+                        f"Touch exception: <code>{e}</code> ({consecutive_failures} consecutive failures).\n"
+                        f"Lock may expire.",
+                        context="Cluster Lock Heartbeat Dead",
+                        cooldown_minutes=60,
+                        db=self.db,
                     )
                 else:
                     log.warning("[HEARTBEAT] Cluster lock touch exception: %s", e)
@@ -435,7 +452,19 @@ async def run_batch(
 ) -> int:
     store = OptionsStore(database_url=config.database_url)
     db = store.db
-    evaluated = store.load_evaluated_expressions()
+    try:
+        evaluated = store.load_evaluated_expressions()
+    except Exception as e:
+        log.error("Failed to load evaluated expressions in run_batch: %s", e, exc_info=True)
+        send_telegram_emergency_alert(
+            f"<b>CRITICAL: Deduplicator DB Seed Failure</b>\n\n"
+            f"Failed to load evaluated expressions: <code>{e}</code>\n"
+            f"AST Deduplicator starting blind.",
+            context="Deduplicator DB Seed Failure",
+            cooldown_minutes=60,
+            db=db,
+        )
+        evaluated = set()
     recently_submitted = db.get_recently_submitted_archetypes(limit=5) if db else []
     today_saturated = db.get_today_saturated_archetypes(max_per_day=1) if db else []
     saturated_archetypes = list(set(recently_submitted + today_saturated))
@@ -563,9 +592,25 @@ async def run_batch(
     try:
         await asyncio.gather(*workers)
     except Exception as e:
-        log.error("Worker pool encountered exception: %s", e)
+        log.error("Worker pool encountered exception: %s", e, exc_info=True)
+        send_telegram_emergency_alert(
+            f"<b>CRITICAL: Worker Pool Exception</b>\n\n"
+            f"Worker pool asyncio.gather raised exception: <code>{e}</code>",
+            context="Worker Pool Exception",
+            cooldown_minutes=60,
+            db=store,
+        )
     finally:
         log.info("\nBatch completed: %d passed / %d evaluated.", passed_count, total_evaluated)
+        if not dry_run and total_evaluated == 0:
+            log.error("All workers yielded without evaluating or simulating any candidate (total miss — zero throughput)")
+            send_telegram_emergency_alert(
+                f"<b>CRITICAL: Worker Pool Zero Throughput</b>\n\n"
+                f"All {num_workers} candidate workers exited with 0 candidates evaluated. Total simulation miss.",
+                context="Worker Pool Zero Throughput",
+                cooldown_minutes=60,
+                db=store,
+            )
         try:
             if passed_count > 0:
                 stats = store.get_options_stats()
@@ -707,7 +752,14 @@ async def run_retry_stage0_batch(
     try:
         await asyncio.gather(*workers)
     except Exception as e:
-        log.error("Re-optimization pool encountered exception: %s", e)
+        log.error("Re-optimization pool encountered exception: %s", e, exc_info=True)
+        send_telegram_emergency_alert(
+            f"<b>CRITICAL: Stage 0 Retry Pool Exception</b>\n\n"
+            f"Re-optimization pool crashed with exception: <code>{e}</code>",
+            context="Stage 0 Retry Exception",
+            cooldown_minutes=60,
+            db=store.db,
+        )
     finally:
         log.info("\nRe-optimization completed: %d passed / %d evaluated.", passed_count, total_evaluated)
         try:
@@ -938,6 +990,74 @@ def check_worker_schedule_slot(org_name: str, now_utc: Optional[datetime.datetim
 
 
 
+def validate_environment(config: OptionsConfig) -> None:
+    """
+    Validates essential environment configuration and alerts immediately on critical issues:
+    - Point 46: Missing DATABASE_URL
+    - Point 47: Missing BRAIN_USERNAME or BRAIN_PASSWORD
+    - Point 48: Missing TELEGRAM_BOT_TOKEN
+    - Point 49: Missing all LLM API keys
+    - Point 50: ENABLE_AUTO_SUBMIT=true but DRIP_MAX_DAILY <= 0
+    """
+    # 46. Missing DATABASE_URL
+    if not config.database_url:
+        log.error("[CONFIG] Missing DATABASE_URL at startup. Persistent state, dedup, and cluster locks will fail.")
+        send_telegram_emergency_alert(
+            "<b>CRITICAL: Missing DATABASE_URL</b>\n\n"
+            "DATABASE_URL is not configured at startup. Pipeline is running without database persistence.",
+            context="Config Missing DATABASE_URL",
+            cooldown_minutes=60,
+        )
+
+    # 47. Missing BRAIN credentials
+    if not config.brain_username or not config.brain_password:
+        log.error("[CONFIG] Missing BRAIN_USERNAME or BRAIN_PASSWORD at startup. Simulations will fail auth.")
+        send_telegram_emergency_alert(
+            "<b>CRITICAL: Missing BRAIN Credentials</b>\n\n"
+            "BRAIN_USERNAME or BRAIN_PASSWORD is not configured.",
+            context="Config Missing BRAIN Auth",
+            cooldown_minutes=60,
+        )
+
+    # 48. Missing TELEGRAM_BOT_TOKEN
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+    if not bot_token or not chat_id:
+        log.error("[CONFIG] Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID at startup. Telegram alerts are silenced.")
+
+    # 49. Missing LLM keys (Groq, Cerebras, OpenRouter, Gemini)
+    groq_keys = [k for k in [
+        os.getenv("GROQ_API_KEY"), os.getenv("GROQ_API_KEY_2"),
+        os.getenv("GROQ_API_KEY_3"), os.getenv("GROQ_API_KEY_4"),
+    ] if k and k.strip()]
+    openrouter_keys = [k for k in [
+        os.getenv("OPENROUTER_API_KEY"), os.getenv("OPENROUTER_API_KEY_2"),
+        os.getenv("OPENROUTER_API_KEY_3"), os.getenv("OPENROUTER_API_KEY_4"),
+    ] if k and k.strip()]
+    other_llm_keys = [k for k in [
+        os.getenv("CEREBRAS_API_KEY"), os.getenv("GEMINI_API_KEY")
+    ] if k and k.strip()]
+    total_llm_keys = len(groq_keys) + len(openrouter_keys) + len(other_llm_keys)
+    if total_llm_keys == 0:
+        log.error("[CONFIG] Missing LLM API keys: all Groq, OpenRouter, Cerebras, and Gemini keys are absent.")
+        send_telegram_emergency_alert(
+            "<b>CRITICAL: Missing LLM API Keys</b>\n\n"
+            "No Groq, OpenRouter, Cerebras, or Gemini API keys found. Pipeline will rely solely on templates and procedural fallbacks.",
+            context="Config Missing LLM Keys",
+            cooldown_minutes=120,
+        )
+
+    # 50. ENABLE_AUTO_SUBMIT=true but DRIP_MAX_DAILY <= 0
+    if config.enable_auto_submit and config.drip_max_daily <= 0:
+        log.error("[CONFIG] ENABLE_AUTO_SUBMIT=true but DRIP_MAX_DAILY <= 0 (%d). Alphas will never be submitted.", config.drip_max_daily)
+        send_telegram_emergency_alert(
+            f"<b>CRITICAL: Submissions Permanently Disabled</b>\n\n"
+            f"ENABLE_AUTO_SUBMIT is true, but DRIP_MAX_DAILY is {config.drip_max_daily}. Submission window is permanently blocked.",
+            context="Config Drip Cap Zero",
+            cooldown_minutes=120,
+        )
+
+
 def main():
     parser = argparse.ArgumentParser(description="WorldQuant BRAIN Options Alpha Pipeline")
     parser.add_argument("--single-batch", action="store_true", help="Run a single bounded batch and exit (GitHub Actions cron mode)")
@@ -960,8 +1080,8 @@ def main():
     # Consolidate strategy / archetype selector
     active_strategy = (args.strategy or args.archetype or os.environ.get("STRATEGY", "") or os.environ.get("ARCHETYPE", "")).strip() or None
 
-
     config = OptionsConfig.from_env()
+    validate_environment(config)
 
     if args.drip:
         log.info("Checking 24-hour drip submission window (force_catchup=%s)...", args.force_catchup)
@@ -1093,20 +1213,41 @@ def main():
                         config=config,
                         context="Stale Cluster Lock Detected",
                         db=store,
+                        cooldown_minutes=120,  # alert at most every 2h for stale lock
                     )
         except Exception as stale_err:
             log.debug("Stale lock check failed: %s", stale_err)
 
         # --- Check for migration failures and alert ---
+        # Filter out benign migration failures (IF NOT EXISTS no-ops, unique index on
+        # duplicate data, already-existing columns) — these fire every run and are
+        # known data-quality issues that don't affect operation. Only truly unexpected
+        # failures (wrong column type, constraint violation on a NEW table) warrant alert.
+        _BENIGN_MIGRATION_PATTERNS = [
+            "already exists",
+            "could not create unique index",
+            "does not exist",
+            "syntax error",  # split-on-semicolon artifact from comment-only blocks
+        ]
         try:
-            failures = getattr(db, "_migration_failures", [])
-            if failures:
-                summary = "; ".join(f"{s[:50]}: {e[:60]}" for s, e in failures[:3])
+            critical_failures = getattr(db, "_critical_migration_failures", None)
+            if critical_failures is None:
+                failures = getattr(db, "_migration_failures", [])
+                critical_failures = [
+                    (s, e) for s, e in failures
+                    if not any(pat in e.lower() for pat in _BENIGN_MIGRATION_PATTERNS)
+                ]
+            benign_failures = getattr(db, "_benign_migration_failures", [])
+            if benign_failures:
+                log.info("[SCHEMA] %d migration statement(s) skipped as benign (already exists / duplicate data).", len(benign_failures))
+            if critical_failures:
+                summary = "; ".join(f"{s[:40]}: {e[:50]}" for s, e in critical_failures[:3])
                 send_telegram_emergency_alert(
-                    error_summary=f"{len(failures)} DB migration(s) failed on startup: {summary}",
+                    error_summary=f"{len(critical_failures)} unexpected DB migration(s) failed: {summary}",
                     config=config,
                     context="Schema Migration Failure",
                     db=store,
+                    cooldown_minutes=360,  # 6h — same schema error fires every run until fixed
                 )
         except Exception:
             pass
@@ -1122,7 +1263,8 @@ def main():
                 )
             except ClusterLockDBError as lock_err:
                 # DB-level failure — distinct from genuine lock contention.
-                # Log, alert, and stop retrying — retrying won't fix a schema/connection issue.
+                # Use a stable context key (no attempt number) so the DB dedup
+                # across all 4 workers correctly suppresses repeated alerts.
                 lock_db_error = True
                 log.warning(
                     "[LOCK DB ERROR] acquire_cluster_lock raised a DB exception (attempt %d/%d): %s",
@@ -1132,8 +1274,9 @@ def main():
                     send_telegram_emergency_alert(
                         error_summary=str(lock_err),
                         config=config,
-                        context=f"{org_name} Lock DB Error (attempt {attempt+1})",
+                        context="Cluster Lock DB Error",  # stable key — no attempt number
                         db=store,
+                        cooldown_minutes=60,  # 60min — lock errors are transient, alert each hour max
                     )
                 except Exception:
                     pass
@@ -1181,7 +1324,18 @@ def main():
 
         if args.retry_stage0:
             log.info("Starting Stage 0 re-optimization pipeline (Limit: %d)...", args.limit)
-            asyncio.run(run_retry_stage0_batch(config, limit=args.limit, dry_run=args.dry_run))
+            try:
+                asyncio.run(run_retry_stage0_batch(config, limit=args.limit, dry_run=args.dry_run))
+            except Exception as e:
+                log.error("run_retry_stage0_batch crashed: %s", e, exc_info=True)
+                send_telegram_emergency_alert(
+                    f"<b>CRITICAL: Stage 0 Retry Crash</b>\n\n"
+                    f"run_retry_stage0_batch unhandled crash: <code>{e}</code>",
+                    context="Stage 0 Retry Crash",
+                    cooldown_minutes=60,
+                    db=store,
+                )
+                raise
             return
 
         batch_size = args.candidates if args.candidates > 0 else config.max_candidates_per_run
@@ -1195,10 +1349,28 @@ def main():
                     asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Continuous Daemon", target_archetype=active_strategy))
                 except Exception as e:
                     log.error("Batch encountered unhandled error: %s", e, exc_info=True)
+                    send_telegram_emergency_alert(
+                        f"<b>CRITICAL: Run Batch Crash</b>\n\n"
+                        f"run_batch crashed in daemon loop: <code>{e}</code>",
+                        context="Run Batch Exception",
+                        cooldown_minutes=60,
+                        db=store,
+                    )
                 log.info("Sleeping 300 seconds before next batch...")
                 time.sleep(300)
         else:
-            asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=active_strategy))
+            try:
+                asyncio.run(run_batch(config, batch_size=batch_size, dry_run=args.dry_run, mode_label="Single Batch", target_archetype=active_strategy))
+            except Exception as e:
+                log.error("Single batch crashed: %s", e, exc_info=True)
+                send_telegram_emergency_alert(
+                    f"<b>CRITICAL: Run Batch Crash</b>\n\n"
+                    f"run_batch crashed in single batch mode: <code>{e}</code>",
+                    context="Run Batch Exception",
+                    cooldown_minutes=60,
+                    db=store,
+                )
+                raise
     except Exception as exc:
         log.error("Fatal pipeline crash in main: %s", exc, exc_info=True)
         try:
