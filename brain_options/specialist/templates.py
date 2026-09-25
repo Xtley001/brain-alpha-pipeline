@@ -16,6 +16,38 @@ from brain_options.specialist.archetypes import ARCHETYPES, OptionArchetype
 logger = logging.getLogger("brain_options.specialist.templates")
 
 
+def _parse_call_args(expr: str, func_name: str) -> Optional[Tuple[int, int, List[str]]]:
+    """Balanced-parenthesis parser returning start_idx, end_idx, and arguments list for func_name."""
+    tag = func_name + "("
+    idx = expr.find(tag)
+    if idx == -1:
+        return None
+    start_paren = idx + len(tag) - 1
+    depth = 0
+    comma_indices: List[int] = []
+    end_paren = -1
+    for i in range(start_paren, len(expr)):
+        ch = expr[i]
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+            if depth == 0:
+                end_paren = i
+                break
+        elif ch == "," and depth == 1:
+            comma_indices.append(i)
+    if end_paren == -1:
+        return None
+    args: List[str] = []
+    prev = start_paren + 1
+    for c_idx in comma_indices:
+        args.append(expr[prev:c_idx].strip())
+        prev = c_idx + 1
+    args.append(expr[prev:end_paren].strip())
+    return idx, end_paren, args
+
+
 def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group: str = "subindustry") -> str:
     """
     Permanent 4-Stage AST Compiler Invariant:
@@ -61,19 +93,33 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
             else:
                 clean = f"group_neutralize(rank(ts_decay_linear({clean}, {default_decay})), {default_group})"
 
-        # Stage 3: Ensure group neutralization strictly uses subindustry
-        if "group_neutralize" not in clean:
-            if clean.startswith("rank("):
-                clean = f"group_neutralize({clean}, {default_group})"
+        # Stage 3 & 4: Ensure group neutralization and trade_when canonical structure
+        parsed_tw = _parse_call_args(clean, "trade_when")
+        if parsed_tw and parsed_tw[0] == 0 and parsed_tw[1] == len(clean) - 1 and len(parsed_tw[2]) == 3:
+            cond, body, exit_val = parsed_tw[2]
+            if "group_neutralize" not in body:
+                if body.startswith("-rank("):
+                    body = f"-group_neutralize({body[1:]}, {default_group})"
+                elif body.startswith("rank("):
+                    body = f"group_neutralize({body}, {default_group})"
+                elif body.startswith("-"):
+                    body = f"-group_neutralize(rank({body[1:]}), {default_group})"
+                else:
+                    body = f"group_neutralize(rank({body}), {default_group})"
             else:
-                clean = f"group_neutralize(rank({clean}), {default_group})"
+                body = re.sub(r",\s*(sector|industry|market)\)", f", {default_group})", body, flags=re.IGNORECASE)
+            clean = f"trade_when({cond}, {body}, {exit_val})"
         else:
-            # Upgrade any coarse sector/industry/market group to subindustry
-            clean = re.sub(r",\s*(sector|industry|market)\)", f", {default_group})", clean, flags=re.IGNORECASE)
+            if "group_neutralize" not in clean:
+                if clean.startswith("rank("):
+                    clean = f"group_neutralize({clean}, {default_group})"
+                else:
+                    clean = f"group_neutralize(rank({clean}), {default_group})"
+            else:
+                clean = re.sub(r",\s*(sector|industry|market)\)", f", {default_group})", clean, flags=re.IGNORECASE)
 
-        # Stage 4: Ensure volume conviction gating
-        if "trade_when" not in clean:
-            clean = f"trade_when(volume > adv20 * 0.8, {clean}, -1)"
+            if "trade_when" not in clean:
+                clean = f"trade_when(volume > adv20 * 0.8, {clean}, -1)"
 
         return clean
     except Exception as e:

@@ -172,6 +172,17 @@ class DecorrelationEngine:
         else:
             axis_audit[axis_key]["reasons"].append("No option tenor fields matching _(10|20|30|...) found")
 
+        def _inject_gate_condition(gate_cond: str, expr: str) -> str:
+            """Injects a gate condition into trade_when without creating invalid nested trade_when."""
+            expr_clean = expr.strip()
+            tw_match = re.match(r"^trade_when\s*\(\s*(.+?)\s*,\s*(.+)\s*,\s*(-?1)\s*\)$", expr_clean, re.DOTALL)
+            if tw_match:
+                existing_cond = tw_match.group(1).strip()
+                body = tw_match.group(2).strip()
+                exit_val = tw_match.group(3).strip()
+                return f"trade_when(({gate_cond}) && ({existing_cond}), {body}, {exit_val})"
+            return f"trade_when({gate_cond}, {expr_clean}, -1)"
+
         # -------------------------------------------------------------
         # Axis 3: Bivariate Volume Regime Gating
         # -------------------------------------------------------------
@@ -179,7 +190,7 @@ class DecorrelationEngine:
         axis_audit[axis_key]["attempted"] = True
         if "volume > adv20" not in base_expr:
             for vol_mult in ["1.0", "1.15", "1.25"]:
-                mod_expr = f"trade_when(volume > adv20 * {vol_mult}, {base_expr}, -1)"
+                mod_expr = _inject_gate_condition(f"volume > adv20 * {vol_mult}", base_expr)
                 _add(
                     mod_expr,
                     axis_key,
@@ -196,7 +207,7 @@ class DecorrelationEngine:
         axis_audit[axis_key]["attempted"] = True
         if "implied_volatility_mean_30 > ts_mean" not in base_expr and "implied_volatility_mean" in base_expr:
             vol_gate = "implied_volatility_mean_30 > ts_mean(implied_volatility_mean_30, 40)"
-            mod_expr = f"trade_when({vol_gate}, {base_expr}, -1)"
+            mod_expr = _inject_gate_condition(vol_gate, base_expr)
             _add(
                 mod_expr,
                 axis_key,
@@ -263,6 +274,57 @@ class DecorrelationEngine:
                 axis_audit[axis_key]["reasons"].append("No rank() call found for confluence modulation")
         else:
             axis_audit[axis_key]["reasons"].append("Expression already contains pcr_vol")
+
+        # -------------------------------------------------------------
+        # Axis 7: Put-Call Ratio Modulation (Proven blbZ9Wkp / KPNd6Ovl Architecture)
+        # -------------------------------------------------------------
+        axis_key = "Axis 7 (PCR Order Flow Modulation)"
+        axis_audit[axis_key] = {"attempted": True, "applied": 0, "reasons": []}
+        if "pcr_oi" not in base_expr:
+            t_match = re.search(r"_(10|20|30|60|90)\b", base_expr)
+            t_val = t_match.group(1) if t_match else "30"
+            decay_match = re.search(r"ts_decay_linear\s*\(\s*(.+?)\s*,\s*(\d+)\s*\)", base_expr)
+            if decay_match:
+                inner_content = decay_match.group(1).strip()
+                # Pattern A: Inverse PCR OI modulation (Proven blbZ9Wkp pattern: MaxCorr 0.35)
+                sub_a = f"ts_decay_linear(({inner_content}) * (1.0 / (pcr_oi_{t_val} + 0.001)), {decay_match.group(2)})"
+                mod_a = base_expr[:decay_match.start()] + sub_a + base_expr[decay_match.end():]
+                _add(
+                    mod_a,
+                    axis_key,
+                    "Inverse PCR OI Modulation",
+                    f"Modulating options signal by inverse Put-Call open interest ({t_val}d) breaks market directional covariance.",
+                )
+                # Pattern B: PCR Volume-to-OI divergence (Proven KPNd6Ovl pattern: MaxCorr 0.60)
+                sub_b = f"ts_decay_linear(({inner_content}) * (pcr_vol_{t_val} / (pcr_oi_{t_val} + 0.001)), {decay_match.group(2)})"
+                mod_b = base_expr[:decay_match.start()] + sub_b + base_expr[decay_match.end():]
+                _add(
+                    mod_b,
+                    axis_key,
+                    "PCR Vol-to-OI Velocity Modulation",
+                    f"Modulating options signal by Put-Call volume-to-open-interest divergence ({t_val}d) isolates order flow shifts.",
+                )
+            else:
+                axis_audit[axis_key]["reasons"].append("No ts_decay_linear found for PCR modulation injection")
+        else:
+            axis_audit[axis_key]["reasons"].append("Expression already contains pcr_oi")
+
+        # -------------------------------------------------------------
+        # Axis 8: Systematic Expiration Tenor Shift (30d -> 60d / 90d)
+        # -------------------------------------------------------------
+        axis_key = "Axis 8 (Tenor Rotation)"
+        axis_audit[axis_key] = {"attempted": True, "applied": 0, "reasons": []}
+        if "_30" in base_expr:
+            for new_t in ["60", "90"]:
+                mod_expr = re.sub(r"_30\b", f"_{new_t}", base_expr)
+                mod_expr = re.sub(r"30/252(?:\.0)?", f"{new_t}/252.0", mod_expr)
+                if mod_expr != base_expr:
+                    _add(
+                        mod_expr,
+                        axis_key,
+                        f"Tenor Shift (30d -> {new_t}d)",
+                        f"Rotating options tenor from 30d to {new_t}d shifts expiration term and eliminates 30d anchor correlation.",
+                    )
 
         # -------------------------------------------------------------
         # Post-Processing: Embed Multiple-Testing Metadata on Candidates

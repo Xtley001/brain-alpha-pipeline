@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS options_rejected_alphas (
 -- ============================================================
 CREATE TABLE IF NOT EXISTS options_correlated_alphas (
     id               SERIAL PRIMARY KEY,
-    alpha_id         VARCHAR(64),
+    alpha_id         VARCHAR(64) UNIQUE,
     expression       TEXT        NOT NULL,
     archetype        VARCHAR(128),
     hypothesis       TEXT,
