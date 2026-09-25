@@ -1130,7 +1130,7 @@ def main():
     # Consolidate strategy / archetype selector
     active_strategy = (args.strategy or args.archetype or os.environ.get("STRATEGY", "") or os.environ.get("ARCHETYPE", "")).strip() or None
 
-    is_utility_run = args.health or args.stats or args.daily_digest or args.test_telegram
+    is_utility_run = args.health or args.stats or args.daily_digest or args.test_telegram or args.drip
     config = OptionsConfig.from_env()
     validate_environment(config, skip_llm=is_utility_run)
 

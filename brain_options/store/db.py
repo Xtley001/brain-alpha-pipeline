@@ -340,7 +340,15 @@ UPDATE options_alphas
 
 -- v2.2: UNIQUE constraint on alpha_id in archive tables to prevent duplicate rows
 -- for the same alpha being rejected/correlated multiple times.
--- Uses CREATE UNIQUE INDEX IF NOT EXISTS (safer than ALTER TABLE on existing data).
+-- Deduplicate existing rows keeping the most recent id before creating index:
+DELETE FROM options_correlated_alphas a
+    USING options_correlated_alphas b
+    WHERE a.alpha_id = b.alpha_id AND a.id < b.id;
+
+DELETE FROM options_rejected_alphas a
+    USING options_rejected_alphas b
+    WHERE a.alpha_id = b.alpha_id AND a.id < b.id;
+
 CREATE UNIQUE INDEX IF NOT EXISTS uq_corr_alpha_id
     ON options_correlated_alphas(alpha_id)
     WHERE alpha_id IS NOT NULL;
@@ -428,8 +436,19 @@ ALTER TABLE cluster_run_lock
 ALTER TABLE cluster_run_lock
     ALTER COLUMN archetype TYPE TEXT;
 
--- v2.5c: expires_at had NOT NULL with no default, causing INSERT to fail.
--- Add a safe default so our lockless INSERT works without providing expires_at.
+-- v2.5c: Ensure lock_name, locked_by, acquired_at, and expires_at exist before altering them
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS lock_name VARCHAR(64) DEFAULT 'cluster_lock';
+
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS locked_by VARCHAR(64) DEFAULT 'system';
+
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS acquired_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE cluster_run_lock
+    ADD COLUMN IF NOT EXISTS expires_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP + INTERVAL '24 hours';
+
 ALTER TABLE cluster_run_lock
     ALTER COLUMN expires_at SET DEFAULT CURRENT_TIMESTAMP + INTERVAL '24 hours';
 
