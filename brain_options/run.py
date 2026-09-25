@@ -185,11 +185,23 @@ async def run_candidate(
         except Exception as lm_err:
             log.debug("Failed to record learning memory: %s", lm_err)
 
-        if candidate.operator_name:
+        op_name = getattr(candidate, "operator_name", None)
+        if not op_name and getattr(candidate, "expression", None):
+            for op in [
+                "ts_decay_linear", "ts_zscore", "ts_std_dev", "ts_delta", "ts_delay",
+                "ts_rank", "ts_mean", "ts_corr", "ts_max", "ts_min", "trade_when",
+                "group_neutralize", "group_zscore", "group_rank", "signed_power"
+            ]:
+                if f"{op}(" in candidate.expression:
+                    op_name = op
+                    break
+
+        if op_name:
+            strat_name = (getattr(candidate, "archetype_name", None) or "general").split(",")[0].strip()[:64]
             try:
                 store.record_strategy_operator_reward(
-                    strategy_name=candidate.archetype_name,
-                    operator_name=candidate.operator_name,
+                    strategy_name=strat_name,
+                    operator_name=op_name[:64],
                     parameter_name="outcome",
                     parameter_val="qualified" if is_qual else "rejected",
                     reward=reward_val,
