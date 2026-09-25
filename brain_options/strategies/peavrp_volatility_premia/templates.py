@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_peavrp_volatility_premia_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. PEAVRP (Variance Risk Premium Overhang Post-Earnings)
     # VRP = IV30 - HV30. High VRP post earnings collapse indicates overpriced insurance -> bullish rebound drift

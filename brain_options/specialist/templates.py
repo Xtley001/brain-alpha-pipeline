@@ -21,8 +21,8 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
     Permanent 4-Stage AST Compiler Invariant:
     Guarantees every candidate expression strictly obeys:
       1. rank/zscore normalization
-      2. ts_decay_linear(signal, 10-20) smoothing for low turnover (< 15%)
-      3. group_neutralize(..., subindustry/sector) for beta neutrality
+      2. Smoothing/decay for low turnover (< 15%) via ts_decay_linear, ts_zscore, ts_rank, etc.
+      3. group_neutralize(..., subindustry) for granular beta and factor neutrality
       4. trade_when(volume > adv20 * 0.8, ..., -1) liquidity/conviction gating
     """
     clean = expr.strip()
@@ -30,8 +30,13 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
         return clean
 
     try:
-        # Stage 1 & 2: Ensure decay linear smoothing
-        if "ts_decay_linear" not in clean and "ts_decay_exp" not in clean:
+        # Stage 1 & 2: Ensure time-series smoothing / normalization operator
+        smoothing_ops = (
+            "ts_decay_linear", "ts_decay_exp", "ts_zscore", "ts_rank",
+            "ts_regression_residuals", "ts_mean", "ts_median", "ts_corr", "ts_weighted_delay"
+        )
+        has_smoothing = any(op in clean for op in smoothing_ops)
+        if not has_smoothing:
             if clean.startswith("group_neutralize(") and clean.endswith(")"):
                 m = re.match(r"^group_neutralize\(\s*rank\((.*)\)\s*,\s*([a-zA-Z0-9_]+)\s*\)$", clean, re.DOTALL)
                 if m:
@@ -56,12 +61,15 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
             else:
                 clean = f"group_neutralize(rank(ts_decay_linear({clean}, {default_decay})), {default_group})"
 
-        # Stage 3: Ensure group neutralization
+        # Stage 3: Ensure group neutralization strictly uses subindustry
         if "group_neutralize" not in clean:
             if clean.startswith("rank("):
                 clean = f"group_neutralize({clean}, {default_group})"
             else:
                 clean = f"group_neutralize(rank({clean}), {default_group})"
+        else:
+            # Upgrade any coarse sector/industry/market group to subindustry
+            clean = re.sub(r",\s*(sector|industry|market)\)", f", {default_group})", clean, flags=re.IGNORECASE)
 
         # Stage 4: Ensure volume conviction gating
         if "trade_when" not in clean:
@@ -113,8 +121,8 @@ def generate_template_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
 
     # 1. Forward Basis Spread across tenors and groups
-    for tenor in [10, 20, 30, 60, 90]:
-        for grp in ["sector", "subindustry"]:
+    for tenor in [10, 20, 30, 60, 90, 120, 150, 180, 270, 360]:
+        for grp in ["subindustry"]:
             expr = f"group_neutralize(rank((forward_price_{tenor} - close) / close), {grp})"
             candidates.append(
                 OptionCandidate(
@@ -126,9 +134,9 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 2. Forward Basis Velocity
-    for tenor in [20, 30]:
+    for tenor in [10, 20, 30, 60, 90]:
         for window in [3, 5, 10]:
-            expr = f"group_neutralize(rank(ts_delta((forward_price_{tenor} - close) / close, {window})), sector)"
+            expr = f"group_neutralize(rank(ts_delta((forward_price_{tenor} - close) / close, {window})), subindustry)"
             candidates.append(
                 OptionCandidate(
                     expression=expr,
@@ -139,9 +147,9 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 3. Put-Call Ratio Contrarian Reversal
-    for tenor in [10, 20, 30]:
+    for tenor in [10, 20, 30, 60, 90]:
         for window in [20, 40, 60]:
-            for grp in ["sector", "subindustry"]:
+            for grp in ["subindustry"]:
                 expr = f"group_neutralize(rank(-ts_zscore(pcr_vol_{tenor}, {window})), {grp})"
                 candidates.append(
                     OptionCandidate(
@@ -166,7 +174,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 5. Volatility Skew Acceleration
-    for tenor in [20, 30, 60]:
+    for tenor in [10, 20, 30, 60, 90]:
         for window in [3, 5, 10]:
             expr = f"group_neutralize(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_{tenor}, {window}), 5)), subindustry)"
             candidates.append(
@@ -193,8 +201,8 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 7. Call Breakeven Hurdle Spread
-    for tenor in [10, 20, 30, 60]:
-        for grp in ["sector", "subindustry"]:
+    for tenor in [10, 20, 30, 60, 90, 120]:
+        for grp in ["subindustry"]:
             expr = f"group_neutralize(rank((call_breakeven_{tenor} - close) / close), {grp})"
             candidates.append(
                 OptionCandidate(
@@ -206,7 +214,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 8. Call Breakeven Hurdle Acceleration
-    for tenor in [20, 30]:
+    for tenor in [10, 20, 30, 60]:
         for window in [3, 5]:
             expr = f"group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_{tenor} - close) / close, {window}), 5)), subindustry)"
             candidates.append(
@@ -220,7 +228,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 9. Liquidity-Gated Breakeven Surge
     for tenor in [20, 30]:
-        expr = f"trade_when(volume > adv20, group_neutralize(rank((call_breakeven_{tenor} - close) / close), sector), -1)"
+        expr = f"trade_when(volume > adv20, group_neutralize(rank((call_breakeven_{tenor} - close) / close), subindustry), -1)"
         candidates.append(
             OptionCandidate(
                 expression=expr,
@@ -233,7 +241,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 10. Volatility Term Structure Slope
     candidates.append(
         OptionCandidate(
-            expression="group_neutralize(rank(-(implied_volatility_mean_30 / (implied_volatility_mean_90 + 0.001) - 1.0)), sector)",
+            expression="group_neutralize(rank(-(implied_volatility_mean_30 / (implied_volatility_mean_90 + 0.001) - 1.0)), subindustry)",
             archetype_name="Volatility Term Structure Slope",
             hypothesis="Fade extreme inversion between 30d and 90d implied volatility term structure.",
             generation_source="template",
@@ -244,7 +252,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # Forward var = (IV90^2 * 90 - IV30^2 * 30) / 60
     candidates.append(
         OptionCandidate(
-            expression="group_neutralize(rank(-(sqrt(max(0.0001, (signed_power(implied_volatility_mean_90, 2) * 90 - signed_power(implied_volatility_mean_30, 2) * 30) / 60)) - implied_volatility_mean_30)), sector)",
+            expression="group_neutralize(rank(-(sqrt(max(0.0001, (signed_power(implied_volatility_mean_90, 2) * 90 - signed_power(implied_volatility_mean_30, 2) * 30) / 60)) - implied_volatility_mean_30)), subindustry)",
             archetype_name="Pairwise Forward Volatility Term Notch",
             hypothesis="Forward volatility notch between 30d and 90d isolates mispriced scheduled event variance.",
             generation_source="template",
@@ -252,8 +260,8 @@ def generate_template_candidates() -> list[OptionCandidate]:
     )
 
     # 12. Variance Risk Premium (IV vs RV)
-    for tenor, win in [(20, 20), (30, 30)]:
-        expr = f"group_neutralize(rank(-(implied_volatility_mean_{tenor} - ts_std_dev(returns, {win}) * 15.87)), sector)"
+    for tenor, win in [(10, 10), (20, 20), (30, 30), (60, 60), (90, 90)]:
+        expr = f"group_neutralize(rank(-(implied_volatility_mean_{tenor} - ts_std_dev(returns, {win}) * 15.87)), subindustry)"
         candidates.append(
             OptionCandidate(
                 expression=expr,
@@ -276,7 +284,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 14. Optimal Mean-Reversion Threshold Gated VRP (Sinclair Book 1: 0.75 SD optimal entry)
     candidates.append(
         OptionCandidate(
-            expression="trade_when(abs(ts_zscore(implied_volatility_mean_30 - ts_std_dev(returns, 30) * 15.87, 40)) > 0.75, group_neutralize(rank(-(implied_volatility_mean_30 - ts_std_dev(returns, 30) * 15.87)), sector), -1)",
+            expression="trade_when(abs(ts_zscore(implied_volatility_mean_30 - ts_std_dev(returns, 30) * 15.87, 40)) > 0.75, group_neutralize(rank(-(implied_volatility_mean_30 - ts_std_dev(returns, 30) * 15.87)), subindustry), -1)",
             archetype_name="Optimal Mean-Reversion Threshold Gated VRP",
             hypothesis="Condition VRP entry on crossing the 0.75 SD optimal mean-reversion threshold to maximize long-term growth.",
             generation_source="template",
@@ -285,7 +293,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 15. Parkinson Extreme-Value Volatility Premium
     for tenor in [20, 30, 60]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(ts_decay_linear(-(implied_volatility_mean_{tenor} / (parkinson_volatility_{tenor} + 0.001) - 1.0), 5)), {grp})",
@@ -297,7 +305,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 16. Call-Put Implied Volatility Asymmetry
     for tenor in [20, 30, 60]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(ts_decay_linear((implied_volatility_call_{tenor} - implied_volatility_put_{tenor}) / (implied_volatility_mean_{tenor} + 0.001), 5)), {grp})",
@@ -377,7 +385,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 23. Givoly-Lakonishok Analyst Revision Momentum (JAE 1979) - Multi-Speed Dispersal
     # Fast: win=15, decay=5 | Medium: win=30, decay=10 | Slow: win=60, decay=20
     for win, dcy in [(15, 5), (30, 10), (60, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), {dcy})), {grp})",
@@ -389,7 +397,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 24. Sales & Revenue Revision Momentum - Multi-Speed Dispersal
     for win, dcy in [(15, 5), (30, 10), (60, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), {dcy})), {grp})",
@@ -401,7 +409,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 25. Diether-Malloy-Scherbina Forecast Dispersion Fade (JF 2002) - Multi-Speed Dispersal
     for win, dcy in [(20, 5), (60, 10), (120, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(-ts_decay_linear(ts_zscore(std_dev_eps_est / (abs(est_eps) + 0.01), {win}), {dcy})), {grp})",
@@ -412,7 +420,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 26. Bernard-Thomas PEAD Revision vs Price Momentum Gap
-    for grp in ["subindustry", "sector"]:
+    for grp in ["subindustry"]:
         candidates.append(
             OptionCandidate(
                 expression=f"group_neutralize(rank(ts_decay_linear(((est_eps - ts_delay(est_eps, 30)) / (abs(ts_delay(est_eps, 30)) + 0.01)) - (ts_delta(close, 30) / (ts_delay(close, 30) + 0.001)), 10)), {grp})",
@@ -424,7 +432,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 27. Fabozzi Price Target Implied Upside Momentum (Wiley 2010) - Multi-Speed Gated
     for mom_win, dcy in [(5, 5), (10, 10), (20, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"trade_when(ts_delta(close, {mom_win}) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, {dcy})), {grp}), -1)",
@@ -436,7 +444,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 28. Cohen-Diether-Malloy Short Demand Borrow Surge (JF 2007) - Multi-Speed Dispersal
     for dcy in [5, 10, 20]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
@@ -448,7 +456,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 29. Borrow Fee Acceleration Spike
     for dcy in [5, 10]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(-ts_decay_linear(ts_delta(borrow_fee, 5) * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
@@ -460,7 +468,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 30. Rapach-Ringgenberg-Zhou De-Trended Short Interest Z-Score (JFE 2016) - Multi-Speed
     for win, dcy in [(126, 10), (252, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(-ts_decay_linear(ts_zscore(short_interest / (float_shares + 0.001), {win}), {dcy})), {grp})",
@@ -472,7 +480,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 31. Asquith-Staley Days-to-Cover Short Squeeze Breakout (JFE 2005 / Staley 1997) - Multi-Speed
     for dtc_thresh, mom_win, dcy in [(4.0, 5, 5), (6.0, 10, 10), (8.0, 20, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"trade_when((close > ts_mean(close, {mom_win * 2})) & (days_to_cover > {dtc_thresh}), group_neutralize(rank(ts_decay_linear(days_to_cover * ts_delta(close, {mom_win}), {dcy})), {grp}), -1)",
@@ -483,7 +491,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
             )
 
     # 32. Short Loan Utilization Velocity
-    for grp in ["subindustry", "sector"]:
+    for grp in ["subindustry"]:
         candidates.append(
             OptionCandidate(
                 expression=f"group_neutralize(rank(-ts_decay_linear(ts_delta(short_interest / (float_shares + 0.001), 5), 5)), {grp})",
@@ -496,7 +504,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 33. Volatility Smirk vs Borrow Fee Confluence Hybrid (MPRA 42566) - Multi-Speed
     for tenor, dcy in [(20, 5), (30, 10), (60, 20)]:
         sqrt_t = round(math.sqrt(tenor / 252.0), 4)
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
@@ -508,7 +516,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 34. PCR Flow vs Borrow Fee Confluence Hybrid - Multi-Speed
     for tenor, dcy in [(10, 5), (20, 10), (30, 20)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(-ts_decay_linear((pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001)) * (borrow_fee + 1.0), {dcy})), {grp})",
@@ -521,7 +529,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
     # 35. Analyst Revision vs Volatility Skew Divergence Hybrid - Multi-Speed
     for tenor, dcy in [(20, 5), (30, 10), (60, 20)]:
         sqrt_t = round(math.sqrt(tenor / 252.0), 4)
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(ts_decay_linear((target_price - close) / close - (implied_volatility_mean_skew_{tenor} * {sqrt_t}), {dcy})), {grp})",
@@ -533,7 +541,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 36. Price Target Upside vs Call Breakeven Hurdle Confluence
     for tenor, dcy in [(20, 5), (30, 10)]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"group_neutralize(rank(ts_decay_linear(((target_price - close) / close) + ((call_breakeven_{tenor} - close) / close), {dcy})), {grp})",
@@ -545,7 +553,7 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     # 37. Short Squeeze Gated by Call Option Velocity
     for tenor in [20, 30]:
-        for grp in ["subindustry", "sector"]:
+        for grp in ["subindustry"]:
             candidates.append(
                 OptionCandidate(
                     expression=f"trade_when((days_to_cover > 5.0) & (ts_delta(close, 5) > 0), group_neutralize(rank(ts_decay_linear(ts_delta((call_breakeven_{tenor} - close) / close, 5), 5)), {grp}), -1)",

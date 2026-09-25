@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_capex_asset_growth_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Total Asset Growth Anomaly (Cooper, Gulen, Schill 2008)
     # Asset growth is negatively correlated with future stock returns (overinvestment / empire building)

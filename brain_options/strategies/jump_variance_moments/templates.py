@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_jump_variance_moments_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector", "industry"]
+    groups = ["subindustry"]
 
     # 1. Carr-Madan Discontinuous Jump Variance Curvature (Carr & Madan 2001, Bollerslev 2009)
     for tenor in [30, 60]:

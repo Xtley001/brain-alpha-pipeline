@@ -318,6 +318,35 @@ class DiagnosticAlphaOptimizer:
         log.info("Initial Stage 0: Sharpe=%.2f, Fitness=%.2f, Turnover=%.2f%%",
                  initial_metrics.sharpe, initial_metrics.fitness, initial_metrics.turnover * 100)
 
+        # Invariant: Guarantee candidate is neutralized by granular subindustry
+        sanitized_expr = self.upgrade_neutralization(candidate.expression, "subindustry")
+        if sanitized_expr != candidate.expression:
+            candidate = OptionCandidate(
+                expression=sanitized_expr,
+                archetype_name=candidate.archetype_name,
+                hypothesis=candidate.hypothesis,
+                generation_source=candidate.generation_source,
+                operator_name=candidate.operator_name,
+                operator_category=candidate.operator_category,
+                operator_param=candidate.operator_param,
+                base_alpha_id=candidate.base_alpha_id,
+                n_variants_tried=candidate.n_variants_tried,
+            )
+
+        if base_settings.neutralization.upper() != "SUBINDUSTRY":
+            base_settings = SimSettings(
+                region=base_settings.region,
+                universe=base_settings.universe,
+                delay=base_settings.delay,
+                decay=base_settings.decay,
+                neutralization="SUBINDUSTRY",
+                truncation=base_settings.truncation,
+                pasteurization=base_settings.pasteurization,
+                nan_handling=base_settings.nan_handling,
+                unit_handling=base_settings.unit_handling,
+                language=base_settings.language,
+            )
+
         best_cand = candidate
         best_settings = base_settings
         best_metrics = initial_metrics

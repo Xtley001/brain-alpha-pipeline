@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_rd_capitalization_spillovers_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. R&D Capital Intensity relative to Assets
     for grp in groups:

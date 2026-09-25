@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_short_interest_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Institutional Borrow Fee Surge x Short Scale
     for grp in groups:

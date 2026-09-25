@@ -171,11 +171,11 @@ class DripSubmitter:
                 try:
                     c_resp = await sess.retry("GET", corr_url, max_tries=1)
                     # BRAIN calculates self-correlation lazily; retry with exponential backoff if empty
-                    backoff = 1.0
-                    for _ in range(3):
+                    backoff = 2.0
+                    for _ in range(6):
                         if c_resp and c_resp.status_code == 200 and not c_resp.text.strip():
                             await asyncio.sleep(backoff)
-                            backoff *= 2.0
+                            backoff = min(15.0, backoff * 1.5)
                             c_resp = await sess.retry("GET", corr_url, max_tries=1)
                         else:
                             break
@@ -366,8 +366,11 @@ class DripSubmitter:
                 if "ALREADY_SUBMITTED" in failed_checks:
                     log.info("[DRIP QUEUE] %s is already ACTIVE on BRAIN; marked as SUBMITTED.", alpha_id)
                     continue
-                log.warning("[DRIP QUEUE] Rejecting %s: failed checks %s. Archiving to rejected alphas table.", alpha_id, failed_checks)
-                if hasattr(self.store, "archive_rejected_alpha"):
+                log.warning("[DRIP QUEUE] Rejecting %s: failed checks %s.", alpha_id, failed_checks)
+                if any("HIGH_SELF_CORRELATION" in f for f in failed_checks):
+                    if hasattr(self.store, "mark_alpha_correlated"):
+                        self.store.mark_alpha_correlated(alpha_id, f"CHECK_FAIL: {', '.join(failed_checks)}")
+                elif hasattr(self.store, "archive_rejected_alpha"):
                     self.store.archive_rejected_alpha(alpha_id, f"CHECK_FAIL: {', '.join(failed_checks)}", cand)
                 continue
 

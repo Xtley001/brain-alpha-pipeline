@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_hybrid_confluence_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Volatility Smirk Borrow Fee Hybrid
     for grp in groups:

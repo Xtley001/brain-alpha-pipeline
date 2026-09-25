@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_patent_innovation_efficiency_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["industry", "subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Innovative Efficiency Ratio (Hirshleifer, Hsu, Li 2013, Cohen et al. 2013)
     for grp in groups:

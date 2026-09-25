@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_realized_jump_intensity_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Realized Jump vs Continuous Volatility Ratio (Amaya et al. 2015, Nonejad 2013)
     # Parkinson/Garman-Klass proxy vs close-to-close ratio captures discontinuous jumps

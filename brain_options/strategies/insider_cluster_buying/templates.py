@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_insider_cluster_buying_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector", "industry"]
+    groups = ["subindustry"]
 
     # 1. Opportunistic Cluster Buying Mask (Cohen, Malloy, Pomorski 2012)
     for min_buyers in [2, 3]:

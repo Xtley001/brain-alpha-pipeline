@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_forward_basis_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Forward Basis Spread across tenors with linear decay smoothing (window=15)
     for tenor in [10, 20, 30, 60, 90]:

@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_peavd_earnings_vol_drift_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector", "industry"]
+    groups = ["subindustry"]
 
     # 1. Earnings Surprise x Options IV Slope (Ball & Brown 1968, Patel & Wolfson 1984)
     for window in [40, 60]:

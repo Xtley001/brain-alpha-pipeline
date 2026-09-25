@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_institutional_13f_breadth_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector", "industry"]
+    groups = ["subindustry"]
 
     # 1. Breadth of Ownership Delta (Chen, Hong, Stein 2002)
     for window in [30, 60, 90]:

@@ -6,7 +6,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_network_momentum_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "industry", "sector"]
+    groups = ["subindustry"]
 
     for grp in groups:
         candidates.append(

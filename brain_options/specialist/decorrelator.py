@@ -212,13 +212,13 @@ class DecorrelationEngine:
         axis_key = "Axis 5 (Neutralization Rotation)"
         axis_audit[axis_key]["attempted"] = True
         if "subindustry" in base_expr:
-            mod_expr = re.sub(r"\bsubindustry\b", "sector", base_expr)
+            mod_expr = re.sub(r"\bsubindustry\b", "industry", base_expr)
             if mod_expr != base_expr:
                 _add(
                     mod_expr,
                     axis_key,
                     "Group Neutralization Rotation",
-                    "Switching neutralization from subindustry to sector alters cross-sectional weights.",
+                    "Switching neutralization from subindustry to industry alters cross-sectional weights without coarse sector dilution.",
                 )
             else:
                 axis_audit[axis_key]["reasons"].append("subindustry substitution was no-op")

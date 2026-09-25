@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_macro_fomc_cpi_drift_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Macro Risk Premium Beta Dispersion (Savor & Wilson 2013)
     # High-beta assets earn disproportionate risk premium during macro resolution windows

@@ -311,14 +311,14 @@ class OptionsGenerator:
 
         # 1. Forward Basis Spreads & Momentum across expanded tenors & neutralizations
         for tenor in [10, 20, 30, 60, 90, 120, 150, 180, 270, 360]:
-            for grp in ["sector", "subindustry", "industry"]:
+            for grp in ["subindustry"]:
                 _add(
                     f"group_neutralize(rank((forward_price_{tenor} - close) / close), {grp})",
                     "Forward Basis Spread",
                     f"Synthetic forward basis at {tenor}d tenor demeaned by {grp} captures institutional drift.",
                 )
             for window in [2, 3, 5, 10, 15, 20]:
-                for grp in ["sector", "subindustry"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(ts_delta((forward_price_{tenor} - close) / close, {window})), {grp})",
                         "Forward Basis Velocity",
@@ -334,7 +334,7 @@ class OptionsGenerator:
         for tenor in [10, 20, 30, 60, 90, 120, 150, 180]:
             sqrt_t = round(math.sqrt(tenor / 252.0), 4)
             for window in [2, 3, 5, 8, 10, 15]:
-                for grp in ["sector", "subindustry"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_delta(implied_volatility_mean_skew_{tenor} * {sqrt_t}, {window})), {grp})",
                         "Sqrt-T Normalized Skew Acceleration",
@@ -350,7 +350,7 @@ class OptionsGenerator:
         for t1, t2 in [(10, 30), (20, 60), (30, 90), (60, 180)]:
             sq1 = round(math.sqrt(t1 / 252.0), 4)
             sq2 = round(math.sqrt(t2 / 252.0), 4)
-            for grp in ["sector", "subindustry"]:
+            for grp in ["subindustry"]:
                 _add(
                     f"group_neutralize(rank(-(implied_volatility_mean_skew_{t1} * {sq1} - implied_volatility_mean_skew_{t2} * {sq2})), {grp})",
                     "Cross-Tenor Skew Curvature Spread",
@@ -364,7 +364,7 @@ class OptionsGenerator:
 
         # 4. Volatility Term Structure Slopes & Inversions
         for t1, t2 in [(10, 30), (20, 60), (30, 90), (60, 180), (90, 360)]:
-            for grp in ["sector", "subindustry"]:
+            for grp in ["subindustry"]:
                 _add(
                     f"group_neutralize(rank(-(implied_volatility_mean_{t1} / (implied_volatility_mean_{t2} + 0.001) - 1.0)), {grp})",
                     "Volatility Term Structure Slope",
@@ -374,7 +374,7 @@ class OptionsGenerator:
         # 5. PCR Smart-Money Flow to Open Interest Surge with Gating
         for tenor in [10, 20, 30, 60, 90, 120]:
             for window in [3, 5, 10, 15, 20]:
-                for grp in ["subindustry", "sector"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_rank(pcr_vol_{tenor} / (pcr_oi_{tenor} + 0.001), {window})), {grp})",
                         "PCR Volume-to-OI Flow Surge",
@@ -388,7 +388,7 @@ class OptionsGenerator:
 
         # 6. Call Breakeven Hurdle Rates & Repricing
         for tenor in [10, 20, 30, 60, 90, 120, 180]:
-            for grp in ["sector", "subindustry"]:
+            for grp in ["subindustry"]:
                 _add(
                     f"group_neutralize(rank((call_breakeven_{tenor} - close) / close), {grp})",
                     "Call Breakeven Hurdle Spread",
@@ -403,7 +403,7 @@ class OptionsGenerator:
 
         # 7. Variance Risk Premium (IV vs RV) with Jensen-Debiasing & Entry Gating
         for tenor, win, mult in [(10, 10, 15.65), (20, 20, 16.53), (30, 30, 15.87), (60, 60, 15.87)]:
-            for grp in ["sector", "subindustry"]:
+            for grp in ["subindustry"]:
                 _add(
                     f"group_neutralize(rank(-(implied_volatility_mean_{tenor} - ts_std_dev(returns, {win}) * {mult})), {grp})",
                     "Jensen-Debiased Variance Risk Premium",
@@ -418,7 +418,7 @@ class OptionsGenerator:
         # 8. Analyst Estimates & Earnings Revisions (Expanded Combinatorics)
         for win in [5, 10, 15, 20, 30, 45, 60, 90]:
             for dcy in [3, 5, 8, 10, 15, 20]:
-                for grp in ["subindustry", "sector", "industry"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(ts_decay_linear((est_eps - ts_delay(est_eps, {win})) / (abs(ts_delay(est_eps, {win})) + 0.01), {dcy})), {grp})",
                         "Analyst Revision Momentum",
@@ -426,7 +426,7 @@ class OptionsGenerator:
                     )
         for win in [10, 20, 30, 60]:
             for dcy in [5, 10, 15, 20]:
-                for grp in ["subindustry", "sector"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(ts_decay_linear((est_sales - ts_delay(est_sales, {win})) / (abs(ts_delay(est_sales, {win})) + 0.01), {dcy})), {grp})",
                         "Sales Revision Momentum",
@@ -434,7 +434,7 @@ class OptionsGenerator:
                     )
         for win in [10, 20, 40, 60, 90, 120]:
             for dcy in [3, 5, 8, 10, 15, 20]:
-                for grp in ["subindustry", "sector"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_decay_linear(ts_zscore(std_dev_eps_est / (abs(est_eps) + 0.01), {win}), {dcy})), {grp})",
                         "Analyst Dispersion Fade",
@@ -442,7 +442,7 @@ class OptionsGenerator:
                     )
         for mom_win in [3, 5, 10, 15, 20]:
             for dcy in [3, 5, 8, 10, 15, 20]:
-                for grp in ["subindustry", "sector", "industry"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"trade_when(ts_delta(close, {mom_win}) > 0, group_neutralize(rank(ts_decay_linear((target_price - close) / close, {dcy})), {grp}), -1)",
                         "Price Target Implied Upside",
@@ -450,7 +450,7 @@ class OptionsGenerator:
                     )
         for win in [60, 120, 252]:
             for dcy in [5, 10, 20]:
-                for grp in ["subindustry", "sector"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(ts_decay_linear((est_eps - ts_mean(est_eps, {win})) / (ts_std_dev(est_eps, {win}) + 0.01), {dcy})), {grp})",
                         "Normalized Analyst Consensus Drift",
@@ -459,7 +459,7 @@ class OptionsGenerator:
 
         # 9. Short Interest & Securities Lending Flow (Vastly Expanded Multi-Speed Grid)
         for dcy in [3, 5, 8, 10, 15, 20, 30]:
-            for grp in ["subindustry", "sector", "industry"]:
+            for grp in ["subindustry"]:
                 _add(
                     f"group_neutralize(rank(-ts_decay_linear(borrow_fee * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
                     "Short Demand Borrow Surge",
@@ -472,7 +472,7 @@ class OptionsGenerator:
                 )
         for delta_win in [3, 5, 10, 15]:
             for dcy in [5, 10, 15, 20]:
-                for grp in ["subindustry", "sector"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_decay_linear(ts_delta(borrow_fee, {delta_win}) * (short_interest / (float_shares + 0.001)), {dcy})), {grp})",
                         "Borrow Fee Acceleration Squeeze Risk",
@@ -485,7 +485,7 @@ class OptionsGenerator:
                     )
         for win in [20, 40, 60, 90, 126, 252]:
             for dcy in [5, 10, 15, 20]:
-                for grp in ["subindustry", "sector", "industry"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_decay_linear(ts_zscore(short_interest / (float_shares + 0.001), {win}), {dcy})), {grp})",
                         "De-Trended Short Interest Z-Score",
@@ -498,7 +498,7 @@ class OptionsGenerator:
                     )
         for win in [20, 60, 120]:
             for dcy in [5, 10, 20]:
-                for grp in ["subindustry", "sector"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_decay_linear(borrow_fee / (ts_mean(borrow_fee, {win}) + 0.01), {dcy})), {grp})",
                         "Relative Borrow Fee Dislocation",
@@ -507,7 +507,7 @@ class OptionsGenerator:
         for dtc in [2.0, 3.0, 4.0, 5.0, 6.0, 8.0]:
             for mom in [3, 5, 10, 20]:
                 for dcy in [3, 5, 8, 10, 15, 20]:
-                    for grp in ["subindustry", "sector"]:
+                    for grp in ["subindustry"]:
                         _add(
                             f"trade_when((close > ts_mean(close, {mom * 2})) & (days_to_cover > {dtc}), group_neutralize(rank(ts_decay_linear(days_to_cover * ts_delta(close, {mom}), {dcy})), {grp}), -1)",
                             "Days-to-Cover Short Squeeze Breakout",
@@ -518,7 +518,7 @@ class OptionsGenerator:
         for tenor in [10, 20, 30, 60, 90, 120, 180]:
             sqrt_t = round(math.sqrt(tenor / 252.0), 4)
             for dcy in [3, 5, 8, 10, 15, 20]:
-                for grp in ["subindustry", "sector", "industry"]:
+                for grp in ["subindustry"]:
                     _add(
                         f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
                         "Volatility Smirk Borrow Fee Hybrid",
@@ -552,7 +552,7 @@ class OptionsGenerator:
             for tenor in [10, 20, 30, 60, 90, 120]:
                 sqrt_t = round(math.sqrt(tenor / 252.0), 4)
                 for dcy in [5, 10, 15, 20]:
-                    for grp in ["subindustry", "sector"]:
+                    for grp in ["subindustry"]:
                         _add(
                             f"group_neutralize(rank(-ts_decay_linear((implied_volatility_mean_skew_{tenor} * {sqrt_t}) * (borrow_fee + 1.0), {dcy})), {grp})",
                             "Cross-Asset Backfill Hybrid",

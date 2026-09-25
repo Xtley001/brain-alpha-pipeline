@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_term_structure_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "industry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Volatility Term Structure Slope / Inversion (Front vs 3-month)
     for grp in groups:

@@ -4,7 +4,7 @@ from brain_options.specialist.templates import OptionCandidate
 
 def generate_distance_to_default_debt_candidates() -> list[OptionCandidate]:
     candidates: list[OptionCandidate] = []
-    groups = ["subindustry", "sector"]
+    groups = ["subindustry"]
 
     # 1. Merton Distance-to-Default Structural Proxy (Merton 1974, Bharath & Shumway 2008)
     # DD ~ (Assets - Debt) / (Assets * Volatility)
