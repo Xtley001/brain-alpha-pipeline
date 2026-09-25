@@ -145,7 +145,7 @@ jobs:
         run: python -m brain_options.run --single-batch --candidates "$CANDIDATES_COUNT" --strategy "$STRATEGY"
 
       - name: Handle Job Timeout / Cancellation & Emergency Lock Release
-        if: cancelled()
+        if: cancelled() || failure()
         run: |
           echo "Job cancelled or timed out! Releasing cluster lock and alerting..."
           python -c "
