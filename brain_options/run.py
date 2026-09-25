@@ -1041,7 +1041,7 @@ def check_worker_schedule_slot(org_name: str, now_utc: Optional[datetime.datetim
 
 
 
-def validate_environment(config: OptionsConfig) -> None:
+def validate_environment(config: OptionsConfig, skip_llm: bool = False, db: Any = None) -> None:
     """
     Validates essential environment configuration and alerts immediately on critical issues:
     - Point 46: Missing DATABASE_URL
@@ -1058,6 +1058,7 @@ def validate_environment(config: OptionsConfig) -> None:
             "DATABASE_URL is not configured at startup. Pipeline is running without database persistence.",
             context="Config Missing DATABASE_URL",
             cooldown_minutes=60,
+            db=db,
         )
 
     # 47. Missing BRAIN credentials
@@ -1068,6 +1069,7 @@ def validate_environment(config: OptionsConfig) -> None:
             "BRAIN_USERNAME or BRAIN_PASSWORD is not configured.",
             context="Config Missing BRAIN Auth",
             cooldown_minutes=60,
+            db=db,
         )
 
     # 48. Missing TELEGRAM_BOT_TOKEN
@@ -1077,26 +1079,22 @@ def validate_environment(config: OptionsConfig) -> None:
         log.error("[CONFIG] Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID at startup. Telegram alerts are silenced.")
 
     # 49. Missing LLM keys (Groq, Cerebras, OpenRouter, Gemini)
-    groq_keys = [k for k in [
-        os.getenv("GROQ_API_KEY"), os.getenv("GROQ_API_KEY_2"),
-        os.getenv("GROQ_API_KEY_3"), os.getenv("GROQ_API_KEY_4"),
-    ] if k and k.strip()]
-    openrouter_keys = [k for k in [
-        os.getenv("OPENROUTER_API_KEY"), os.getenv("OPENROUTER_API_KEY_2"),
-        os.getenv("OPENROUTER_API_KEY_3"), os.getenv("OPENROUTER_API_KEY_4"),
-    ] if k and k.strip()]
-    other_llm_keys = [k for k in [
-        os.getenv("CEREBRAS_API_KEY"), os.getenv("GEMINI_API_KEY")
-    ] if k and k.strip()]
-    total_llm_keys = len(groq_keys) + len(openrouter_keys) + len(other_llm_keys)
-    if total_llm_keys == 0:
-        log.error("[CONFIG] Missing LLM API keys: all Groq, OpenRouter, Cerebras, and Gemini keys are absent.")
-        send_telegram_emergency_alert(
-            "<b>CRITICAL: Missing LLM API Keys</b>\n\n"
-            "No Groq, OpenRouter, Cerebras, or Gemini API keys found. Pipeline will rely solely on templates and procedural fallbacks.",
-            context="Config Missing LLM Keys",
-            cooldown_minutes=120,
+    if not skip_llm:
+        total_llm_keys = (
+            len(config.groq_keys)
+            + len(config.cerebras_keys)
+            + len(config.openrouter_keys)
+            + len(config.gemini_keys)
         )
+        if total_llm_keys == 0:
+            log.error("[CONFIG] Missing LLM API keys: all Groq, OpenRouter, Cerebras, and Gemini keys are absent.")
+            send_telegram_emergency_alert(
+                "<b>CRITICAL: Missing LLM API Keys</b>\n\n"
+                "No Groq, OpenRouter, Cerebras, or Gemini API keys found. Pipeline will rely solely on templates and procedural fallbacks.",
+                context="Config Missing LLM Keys",
+                cooldown_minutes=120,
+                db=db,
+            )
 
     # 50. ENABLE_AUTO_SUBMIT=true but DRIP_MAX_DAILY <= 0
     if config.enable_auto_submit and config.drip_max_daily <= 0:
@@ -1106,6 +1104,7 @@ def validate_environment(config: OptionsConfig) -> None:
             f"ENABLE_AUTO_SUBMIT is true, but DRIP_MAX_DAILY is {config.drip_max_daily}. Submission window is permanently blocked.",
             context="Config Drip Cap Zero",
             cooldown_minutes=120,
+            db=db,
         )
 
 
@@ -1131,8 +1130,9 @@ def main():
     # Consolidate strategy / archetype selector
     active_strategy = (args.strategy or args.archetype or os.environ.get("STRATEGY", "") or os.environ.get("ARCHETYPE", "")).strip() or None
 
+    is_utility_run = args.health or args.stats or args.daily_digest or args.test_telegram
     config = OptionsConfig.from_env()
-    validate_environment(config)
+    validate_environment(config, skip_llm=is_utility_run)
 
     if args.drip:
         log.info("Checking 24-hour drip submission window (force_catchup=%s)...", args.force_catchup)
