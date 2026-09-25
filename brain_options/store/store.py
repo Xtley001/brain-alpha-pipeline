@@ -285,9 +285,17 @@ class OptionsStore:
         parent_expression: Optional[str] = None,
         mutation_type: Optional[str] = None,
         status: str = "EVALUATED",
+        reward_breakdown: Optional[Dict[str, Any]] = None,
     ):
         self.db.record_learning_memory(
-            candidate, metrics, reward, optimization_steps, parent_expression, mutation_type, status
+            candidate,
+            metrics,
+            reward,
+            optimization_steps,
+            parent_expression,
+            mutation_type,
+            status,
+            reward_breakdown=reward_breakdown,
         )
 
     def load_archetype_performance_summary(self) -> Dict[str, Dict[str, float]]:

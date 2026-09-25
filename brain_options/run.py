@@ -50,7 +50,13 @@ logging.basicConfig(
 log = logging.getLogger("brain_options")
 
 
-from brain_options.core.optimizer import DiagnosticAlphaOptimizer, calculate_rl_reward
+from brain_options.core.optimizer import (
+    DiagnosticAlphaOptimizer,
+    calculate_rl_reward,
+    _stage0_validity_reward,
+    _stage1_hurdle_reward,
+    _stage2_efficiency_reward,
+)
 
 
 class ClusterLockHeartbeat:
@@ -158,15 +164,23 @@ async def run_candidate(
         deduplicator.add(candidate.expression)
 
     def _record_rl_outcome(is_qual: bool, m: SimMetrics):
+        reward_val = calculate_rl_reward(m, is_qualified=is_qual)
+        breakdown = {
+            "stage0": _stage0_validity_reward(m),
+            "stage1": _stage1_hurdle_reward(m),
+            "stage2": _stage2_efficiency_reward(m),
+            "completion": 10.0 if is_qual else 0.0,
+        }
         try:
             store.record_learning_memory(
                 candidate=candidate,
                 metrics=m,
-                reward=calculate_rl_reward(m, is_qualified=is_qual),
+                reward=reward_val,
                 optimization_steps=0,
                 parent_expression=getattr(candidate, "base_alpha_id", None),
                 mutation_type=getattr(candidate, "operator_name", None),
                 status="QUALIFIED" if is_qual else "REJECTED",
+                reward_breakdown=breakdown,
             )
         except Exception as lm_err:
             log.debug("Failed to record learning memory: %s", lm_err)
@@ -178,7 +192,7 @@ async def run_candidate(
                     operator_name=candidate.operator_name,
                     parameter_name="outcome",
                     parameter_val="qualified" if is_qual else "rejected",
-                    reward=calculate_rl_reward(m, is_qualified=is_qual),
+                    reward=reward_val,
                     success=is_qual,
                 )
             except Exception as e:

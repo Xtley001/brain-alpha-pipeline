@@ -94,3 +94,78 @@ def test_expression_transformation_operators():
     expr_cap = "group_neutralize(rank(X), SECTOR)"
     upgraded_cap = DiagnosticAlphaOptimizer.upgrade_neutralization(expr_cap, "subindustry")
     assert upgraded_cap == "group_neutralize(rank(X), subindustry)"
+
+
+def test_stage_reward_functions():
+    from brain_options.core.optimizer import (
+        _stage0_validity_reward,
+        _stage1_hurdle_reward,
+        _stage2_efficiency_reward,
+        calculate_rl_reward,
+    )
+    m = SimMetrics(
+        "A1",
+        sharpe=1.6,
+        fitness=1.2,
+        turnover=0.10,
+        annualized_return=0.10,
+        max_drawdown=0.04,
+        status="COMPLETE",
+        raw_response={
+            "is": {
+                "checks": [
+                    {"name": "LOW_SUB_UNIVERSE_SHARPE", "result": "FAIL"},
+                ]
+            }
+        },
+    )
+    s0 = _stage0_validity_reward(m)
+    s1 = _stage1_hurdle_reward(m)
+    s2 = _stage2_efficiency_reward(m)
+
+    assert s0 == -8.0
+    # base: 1.6 + 2.5 * min(1.2, 3.0) = 1.6 + 3.0 = 4.6
+    # fitness >= 1.0 (+2.0), sharpe >= 1.25 (+2.0) -> s1 = 8.6
+    assert round(s1, 4) == 8.6
+    # turnover=0.10 in [0.04, 0.18] and sharpe >= 1.0 -> +1.5 -> s2 = 1.5
+    assert round(s2, 4) == 1.5
+
+    assert calculate_rl_reward(m, is_qualified=False) == round(s0 + s1 + s2, 4)
+    assert calculate_rl_reward(m, is_qualified=True) == round(s0 + s1 + s2 + 10.0, 4)
+
+
+def test_record_learning_memory_with_reward_breakdown():
+    from brain_options.specialist.templates import OptionCandidate
+    from brain_options.store.store import OptionsStore
+    from unittest.mock import MagicMock
+
+    mock_db = MagicMock()
+    store = OptionsStore(database_url=None)
+    store.db = mock_db
+
+    candidate = OptionCandidate(
+        expression="group_neutralize(rank(implied_volatility_mean_skew_20), subindustry)",
+        archetype_name="volatility_skew",
+        hypothesis="test",
+        generation_source="test",
+    )
+    metrics = SimMetrics("A1", sharpe=1.5, fitness=1.2, turnover=0.10, status="COMPLETE")
+    breakdown = {"stage0": 0.0, "stage1": 8.5, "stage2": 1.5, "completion": 10.0}
+
+    store.record_learning_memory(
+        candidate=candidate,
+        metrics=metrics,
+        reward=20.0,
+        reward_breakdown=breakdown,
+    )
+    mock_db.record_learning_memory.assert_called_once_with(
+        candidate,
+        metrics,
+        20.0,
+        0,
+        None,
+        None,
+        "EVALUATED",
+        reward_breakdown=breakdown,
+    )
+

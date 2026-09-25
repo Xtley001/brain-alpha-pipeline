@@ -20,15 +20,25 @@ from brain_options.store.store import OptionsStore
 log = logging.getLogger("brain_options.optimizer")
 
 
-def calculate_rl_reward(metrics: SimMetrics, is_qualified: bool = False) -> float:
-    """
-    Scalar Reinforcement Learning reward function:
-    Rewards high Sharpe and Fitness, severely penalizes excessive turnover,
-    and grants a major completion bonus for qualification.
-    """
-    if not metrics.is_valid:
-        return -5.0
+def _stage0_validity_reward(metrics: SimMetrics) -> float:
+    """Checklist-failure penalties (LOW_SUB_UNIVERSE_SHARPE, CONCENTRATED_WEIGHT, other fails)."""
+    r = 0.0
+    if isinstance(metrics.raw_response, dict):
+        is_block = metrics.raw_response.get("is") or {}
+        checks = is_block.get("checks") or metrics.raw_response.get("checks") or []
+        for chk in checks:
+            if chk.get("result") == "FAIL":
+                if chk.get("name") == "LOW_SUB_UNIVERSE_SHARPE":
+                    r -= 8.0
+                elif chk.get("name") == "CONCENTRATED_WEIGHT":
+                    r -= 5.0
+                elif chk.get("name") not in ("LOW_SHARPE", "LOW_FITNESS"):
+                    r -= 2.0
+    return r
 
+
+def _stage1_hurdle_reward(metrics: SimMetrics) -> float:
+    """Base reward components and hurdle bonuses (Sharpe and Fitness)."""
     # Base reward components - heavily weighting fitness to clear the 1.0 threshold
     r = metrics.sharpe + 2.5 * min(metrics.fitness, 3.0)
 
@@ -40,6 +50,12 @@ def calculate_rl_reward(metrics: SimMetrics, is_qualified: bool = False) -> floa
     if metrics.sharpe >= 1.25:
         r += 2.0
 
+    return r
+
+
+def _stage2_efficiency_reward(metrics: SimMetrics) -> float:
+    """Turnover-related terms (penalty tiers, sweet-spot bonus, Leland drag penalty)."""
+    r = 0.0
     # Turnover penalty: BRAIN's fitness divisor is max(turnover, 0.125).
     # Turnover > 0.25 severely drags fitness down.
     if metrics.turnover > 0.25:
@@ -57,24 +73,25 @@ def calculate_rl_reward(metrics: SimMetrics, is_qualified: bool = False) -> floa
     if metrics.turnover > 0.35 and metrics.annualized_return < 0.04:
         r -= 1.5
 
-    # Direct checklist failure penalty (sub-universe or weight concentration)
-    if isinstance(metrics.raw_response, dict):
-        is_block = metrics.raw_response.get("is") or {}
-        checks = is_block.get("checks") or metrics.raw_response.get("checks") or []
-        for chk in checks:
-            if chk.get("result") == "FAIL":
-                if chk.get("name") == "LOW_SUB_UNIVERSE_SHARPE":
-                    r -= 8.0
-                elif chk.get("name") == "CONCENTRATED_WEIGHT":
-                    r -= 5.0
-                elif chk.get("name") not in ("LOW_SHARPE", "LOW_FITNESS"):
-                    r -= 2.0
+    return r
 
-    # Qualification completion bonus
-    if is_qualified:
-        r += 10.0
 
-    return round(r, 4)
+def calculate_rl_reward(metrics: SimMetrics, is_qualified: bool = False) -> float:
+    """
+    Scalar Reinforcement Learning reward function:
+    Rewards high Sharpe and Fitness, severely penalizes excessive turnover,
+    and grants a major completion bonus for qualification.
+    """
+    if not metrics.is_valid:
+        return -5.0
+
+    total = (
+        _stage0_validity_reward(metrics)
+        + _stage1_hurdle_reward(metrics)
+        + _stage2_efficiency_reward(metrics)
+        + (10.0 if is_qualified else 0.0)
+    )
+    return round(total, 4)
 
 
 @dataclass
@@ -318,6 +335,13 @@ class DiagnosticAlphaOptimizer:
             )
         ]
 
+        init_qual = evaluate_alpha_metrics(initial_metrics, self.config)[0]
+        init_breakdown = {
+            "stage0": _stage0_validity_reward(initial_metrics),
+            "stage1": _stage1_hurdle_reward(initial_metrics),
+            "stage2": _stage2_efficiency_reward(initial_metrics),
+            "completion": 10.0 if init_qual else 0.0,
+        }
         # Record initial in learning memory
         self.store.record_learning_memory(
             candidate,
@@ -325,6 +349,7 @@ class DiagnosticAlphaOptimizer:
             reward=best_reward,
             optimization_steps=0,
             status="INITIAL_SCREEN",
+            reward_breakdown=init_breakdown,
         )
 
         current_expr = candidate.expression
@@ -563,6 +588,12 @@ class DiagnosticAlphaOptimizer:
                     status="QUALIFIED" if trial_qualified else "OPTIMIZED",
                     metrics=trial_metrics,
                 )
+                trial_breakdown = {
+                    "stage0": _stage0_validity_reward(trial_metrics),
+                    "stage1": _stage1_hurdle_reward(trial_metrics),
+                    "stage2": _stage2_efficiency_reward(trial_metrics),
+                    "completion": 10.0 if trial_qualified else 0.0,
+                }
                 self.store.record_learning_memory(
                     trial_candidate,
                     trial_metrics,
@@ -571,6 +602,7 @@ class DiagnosticAlphaOptimizer:
                     parent_expression=candidate.expression,
                     mutation_type=action_type,
                     status="QUALIFIED" if trial_qualified else "OPTIMIZED",
+                    reward_breakdown=trial_breakdown,
                 )
 
                 if trial_reward > best_reward or trial_qualified:

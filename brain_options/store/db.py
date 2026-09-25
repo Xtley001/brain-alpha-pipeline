@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS options_learning_memory (
     mutation_type      VARCHAR(64),
     status             VARCHAR(32),
     alpha_id           VARCHAR(64),
+    reward_breakdown   JSONB,
     created_at         TIMESTAMPTZ   DEFAULT CURRENT_TIMESTAMP,
     updated_at         TIMESTAMPTZ   DEFAULT CURRENT_TIMESTAMP
 );
@@ -483,6 +484,9 @@ CREATE TABLE IF NOT EXISTS pipeline_alerts_log (
 CREATE INDEX IF NOT EXISTS idx_alerts_log_context_fired
     ON pipeline_alerts_log(context, fired_at DESC);
 
+-- v2.7: reward_breakdown JSONB for options_learning_memory
+ALTER TABLE options_learning_memory
+    ADD COLUMN IF NOT EXISTS reward_breakdown JSONB;
 """
 
 
@@ -1163,6 +1167,7 @@ class OptionsDatabase:
         parent_expression: Optional[str] = None,
         mutation_type: Optional[str] = None,
         status: str = "EVALUATED",
+        reward_breakdown: Optional[Dict[str, Any]] = None,
     ):
         """
         Upserts a reward-adjusted learning memory entry for the expression.
@@ -1185,12 +1190,13 @@ class OptionsDatabase:
             corr_penalty += 15.0
 
         adjusted_reward = reward - corr_penalty
+        breakdown_json = json.dumps(reward_breakdown) if reward_breakdown is not None else None
 
         sql = """
             INSERT INTO options_learning_memory
             (expression, archetype, hypothesis, source, sharpe, fitness, turnover, returns, drawdown,
-             reward, optimization_steps, parent_expression, mutation_type, status, alpha_id, updated_at)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP)
+             reward, optimization_steps, parent_expression, mutation_type, status, alpha_id, reward_breakdown, updated_at)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP)
             ON CONFLICT (expression) DO UPDATE SET
                 sharpe = EXCLUDED.sharpe,
                 fitness = EXCLUDED.fitness,
@@ -1201,6 +1207,7 @@ class OptionsDatabase:
                 optimization_steps = EXCLUDED.optimization_steps,
                 status = EXCLUDED.status,
                 alpha_id = EXCLUDED.alpha_id,
+                reward_breakdown = COALESCE(EXCLUDED.reward_breakdown, options_learning_memory.reward_breakdown),
                 updated_at = CURRENT_TIMESTAMP;
         """
         try:
@@ -1224,6 +1231,7 @@ class OptionsDatabase:
                             mutation_type,
                             status,
                             metrics.alpha_id,
+                            breakdown_json,
                         ),
                     )
                 conn.commit()
