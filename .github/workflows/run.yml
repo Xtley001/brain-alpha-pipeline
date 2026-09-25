@@ -149,34 +149,34 @@ jobs:
         run: |
           echo "Job cancelled or timed out! Releasing cluster lock and alerting..."
           python -c "
-import os
-from brain_options.config import OptionsConfig
-from brain_options.store.store import OptionsStore
-from brain_options.core.notifier import send_telegram_emergency_alert
-config = OptionsConfig.from_env()
-store = OptionsStore(database_url=config.database_url)
-org_name = os.getenv('GITHUB_REPOSITORY_OWNER', 'local')
-slot_idx = os.getenv('SLOT_IDX', 'unknown')
-try:
-    send_telegram_emergency_alert(
-        f'<b>CRITICAL: Job Timeout / Cancellation</b>\n\n'
-        f'GitHub Actions job timed out or was cancelled for org {org_name} (Slot {slot_idx}). Emergency lock release triggered.',
-        context='Job Timeout Cancellation',
-        cooldown_minutes=30,
-        db=store.db,
-    )
-except Exception as e:
-    print('Failed to send timeout alert:', e)
-if store.db:
-    try:
-        with store.db._get_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute('DELETE FROM cluster_run_lock WHERE org_name = %s;', (org_name,))
-            conn.commit()
-        print('Emergency lock released for org', org_name)
-    except Exception as e:
-        print('Failed to clear cluster lock:', e)
-" || true
+          import os
+          from brain_options.config import OptionsConfig
+          from brain_options.store.store import OptionsStore
+          from brain_options.core.notifier import send_telegram_emergency_alert
+          config = OptionsConfig.from_env()
+          store = OptionsStore(database_url=config.database_url)
+          org_name = os.getenv('GITHUB_REPOSITORY_OWNER', 'local')
+          slot_idx = os.getenv('SLOT_IDX', 'unknown')
+          try:
+              send_telegram_emergency_alert(
+                  f'<b>CRITICAL: Job Timeout / Cancellation</b>\n\n'
+                  f'GitHub Actions job timed out or was cancelled for org {org_name} (Slot {slot_idx}). Emergency lock release triggered.',
+                  context='Job Timeout Cancellation',
+                  cooldown_minutes=30,
+                  db=store.db,
+              )
+          except Exception as e:
+              print('Failed to send timeout alert:', e)
+          if store.db:
+              try:
+                  with store.db._get_connection() as conn:
+                      with conn.cursor() as cur:
+                          cur.execute('DELETE FROM cluster_run_lock WHERE org_name = %s;', (org_name,))
+                      conn.commit()
+                  print('Emergency lock released for org', org_name)
+              except Exception as e:
+                  print('Failed to clear cluster lock:', e)
+          " || true
 
       - name: Chain Auto-Dispatch Next Discovery Run (24/7 Perpetual Execution)
         if: always() && matrix.slot == 0
@@ -188,13 +188,13 @@ if store.db:
           if ! gh workflow run run.yml --ref main; then
             echo "Auto-dispatch chaining failed!"
             python -c "
-from brain_options.config import OptionsConfig
-from brain_options.core.notifier import send_telegram_emergency_alert
-send_telegram_emergency_alert(
-    '<b>CRITICAL: Pipeline Chain Trigger Failed</b>\n\n'
-    'gh workflow run run.yml failed to dispatch next run in chain. Pipeline may stop self-scheduling.',
-    context='Workflow Chain Trigger Failed',
-    cooldown_minutes=60,
-)
-" || true
+            from brain_options.config import OptionsConfig
+            from brain_options.core.notifier import send_telegram_emergency_alert
+            send_telegram_emergency_alert(
+                '<b>CRITICAL: Pipeline Chain Trigger Failed</b>\n\n'
+                'gh workflow run run.yml failed to dispatch next run in chain. Pipeline may stop self-scheduling.',
+                context='Workflow Chain Trigger Failed',
+                cooldown_minutes=60,
+            )
+            " || true
           fi
