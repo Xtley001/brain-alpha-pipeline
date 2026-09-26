@@ -507,6 +507,10 @@ CREATE INDEX IF NOT EXISTS idx_alerts_log_context_fired
 -- v2.7: reward_breakdown JSONB for options_learning_memory
 ALTER TABLE options_learning_memory
     ADD COLUMN IF NOT EXISTS reward_breakdown JSONB;
+
+-- v2.8: widen archetype in org_runs to TEXT
+ALTER TABLE org_runs
+    ALTER COLUMN archetype TYPE TEXT;
 """
 
 
@@ -1746,7 +1750,7 @@ class OptionsDatabase:
         try:
             with self._get_connection() as conn:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (org_name, archetype or "", evals_done, qualified))
+                    cur.execute(sql, (org_name, str(archetype or "")[:500], evals_done, qualified))
                 conn.commit()
             log.info("Org run heartbeat recorded: %s (arch=%s)", org_name, archetype)
         except Exception as e:
