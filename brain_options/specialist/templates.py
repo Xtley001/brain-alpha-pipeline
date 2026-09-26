@@ -70,30 +70,22 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
         has_smoothing = any(op in clean for op in smoothing_ops)
         if not has_smoothing:
             if clean.startswith("group_neutralize(") and clean.endswith(")"):
-                m = re.match(r"^group_neutralize\(\s*rank\((.*)\)\s*,\s*([a-zA-Z0-9_]+)\s*\)$", clean, re.DOTALL)
-                if m:
-                    inner_signal, grp = m.group(1).strip(), m.group(2).strip()
-                    clean = f"group_neutralize(rank(ts_decay_linear({inner_signal}, {default_decay})), {grp})"
+                parsed_gn = _parse_call_args(clean, "group_neutralize")
+                if parsed_gn and len(parsed_gn[2]) == 2:
+                    raw_inner, grp = parsed_gn[2][0], parsed_gn[2][1]
+                    parsed_rk = _parse_call_args(raw_inner, "rank")
+                    inner_sig = parsed_rk[2][0] if (parsed_rk and len(parsed_rk[2]) == 1) else raw_inner
+                    clean = f"group_neutralize(rank(ts_decay_linear(ts_decay_linear({inner_sig}, {default_decay}), 3)), {grp})"
                 else:
-                    m_no_rank = re.match(r"^group_neutralize\((.*),\s*([a-zA-Z0-9_]+)\s*\)$", clean, re.DOTALL)
-                    if m_no_rank:
-                        inner_signal, grp = m_no_rank.group(1).strip(), m_no_rank.group(2).strip()
-                        clean = f"group_neutralize(rank(ts_decay_linear({inner_signal}, {default_decay})), {grp})"
+                    clean = f"group_neutralize(rank(ts_decay_linear(ts_decay_linear({clean}, {default_decay}), 3)), {default_group})"
             elif clean.startswith("rank(") and clean.endswith(")"):
-                m = re.match(r"^rank\((.*)\)$", clean, re.DOTALL)
-                if m:
-                    inner_signal = m.group(1).strip()
-                    clean = f"group_neutralize(rank(ts_decay_linear({inner_signal}, {default_decay})), {default_group})"
-            elif "group_neutralize(" in clean:
-                # Embedded group neutralize
-                m = re.search(r"group_neutralize\(\s*rank\((.*)\)\s*,\s*([a-zA-Z0-9_]+)\s*\)", clean)
-                if m:
-                    inner_sig, grp = m.group(1).strip(), m.group(2).strip()
-                    clean = clean.replace(m.group(0), f"group_neutralize(rank(ts_decay_linear({inner_sig}, {default_decay})), {grp})")
+                parsed_rk = _parse_call_args(clean, "rank")
+                inner_sig = parsed_rk[2][0] if (parsed_rk and len(parsed_rk[2]) == 1) else clean[5:-1].strip()
+                clean = f"group_neutralize(rank(ts_decay_linear(ts_decay_linear({inner_sig}, {default_decay}), 3)), {default_group})"
             else:
-                clean = f"group_neutralize(rank(ts_decay_linear({clean}, {default_decay})), {default_group})"
+                clean = f"group_neutralize(rank(ts_decay_linear(ts_decay_linear({clean}, {default_decay}), 3)), {default_group})"
 
-        # Stage 3 & 4: Ensure group neutralization and trade_when canonical structure
+        # Stage 3 & 4: Ensure group neutralization, double decay smoothing, and conviction trade_when canonical structure
         parsed_tw = _parse_call_args(clean, "trade_when")
         if parsed_tw and parsed_tw[0] == 0 and parsed_tw[1] == len(clean) - 1 and len(parsed_tw[2]) == 3:
             cond, body, exit_val = parsed_tw[2]
@@ -108,6 +100,15 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
                     body = f"group_neutralize(rank({body}), {default_group})"
             else:
                 body = re.sub(r",\s*(sector|industry|market)\)", f", {default_group})", body, flags=re.IGNORECASE)
+
+            # If condition is a plain volume threshold (e.g. volume > adv20 * 0.8), upgrade to high-conviction tail gate
+            if "volume >" in cond and not any(op in cond for op in ("abs(rank", "rank(", "> 0.2", "> 0.3")):
+                parsed_gn = _parse_call_args(body, "group_neutralize")
+                if parsed_gn and len(parsed_gn[2]) >= 1:
+                    raw_inner = parsed_gn[2][0]
+                    parsed_rk = _parse_call_args(raw_inner, "rank")
+                    inner_sig = parsed_rk[2][0] if (parsed_rk and len(parsed_rk[2]) == 1) else raw_inner
+                    cond = f"abs(rank({inner_sig}) - 0.5) > 0.26"
             clean = f"trade_when({cond}, {body}, {exit_val})"
         else:
             if "group_neutralize" not in clean:
@@ -119,7 +120,14 @@ def compile_fitness_invariant(expr: str, default_decay: int = 15, default_group:
                 clean = re.sub(r",\s*(sector|industry|market)\)", f", {default_group})", clean, flags=re.IGNORECASE)
 
             if "trade_when" not in clean:
-                clean = f"trade_when(volume > adv20 * 0.8, {clean}, -1)"
+                parsed_gn = _parse_call_args(clean, "group_neutralize")
+                if parsed_gn and len(parsed_gn[2]) >= 1:
+                    raw_inner = parsed_gn[2][0]
+                    parsed_rk = _parse_call_args(raw_inner, "rank")
+                    inner_sig = parsed_rk[2][0] if (parsed_rk and len(parsed_rk[2]) == 1) else raw_inner
+                    clean = f"trade_when(abs(rank({inner_sig}) - 0.5) > 0.26, {clean}, -1)"
+                else:
+                    clean = f"trade_when(volume > adv20 * 0.8, {clean}, -1)"
 
         return clean
     except Exception as e:

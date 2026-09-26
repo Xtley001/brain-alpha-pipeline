@@ -95,13 +95,13 @@ jobs:
           if [ -n "$INPUT_STRAT" ]; then
             TARGET_STRAT="$INPUT_STRAT"
           elif [ $SLOT_IDX -eq 0 ]; then
-            TARGET_STRAT="term_structure,extreme_tail_risk,jump_variance_moments,iv_lead_lag,macro_fomc_cpi_drift,realized_jump_intensity"
+            TARGET_STRAT="breakeven,forward_basis,skew"
           elif [ $SLOT_IDX -eq 1 ]; then
-            TARGET_STRAT="forward_basis,pcr_flow,peavd_earnings_vol_drift,peavrp_volatility_premia,gamma_pinning_clustering,formulaic_101"
+            TARGET_STRAT="pcr_flow,skew,gamma_pinning_clustering"
           elif [ $SLOT_IDX -eq 2 ]; then
-            TARGET_STRAT="analyst_revisions,accruals_cashflow,institutional_13f_breadth,informed_short_demand,short_interest,order_flow_vpin,capex_asset_growth"
+            TARGET_STRAT="term_structure,forward_basis,peavrp_volatility_premia"
           else
-            TARGET_STRAT="insider_cluster_buying,supply_chain,patent_innovation_efficiency,network_momentum,hybrid_confluence,dynamic_short_squeeze,customer_supplier_cascades,distance_to_default_debt,rd_capitalization_spillovers"
+            TARGET_STRAT="hybrid_confluence,breakeven,peavd_earnings_vol_drift"
           fi
 
           # 2. Resolve 6-Universe Cyclic Shift (TOP3000, TOP2000, TOP1000, TOP500, TOP200, TOPSP500)
