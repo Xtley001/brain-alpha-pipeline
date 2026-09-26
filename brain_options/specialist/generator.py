@@ -41,6 +41,8 @@ CORE_ARCHETYPES = [
     "distance_to_default_debt", "macro_fomc_cpi_drift",
 ]
 
+ENABLE_MANDATORY_TENOR_BLEND: bool = False  # Feature flag: observed alongside pure tenors before making mandatory
+
 
 class OptionsGenerator:
     def __init__(

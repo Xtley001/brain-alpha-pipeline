@@ -620,3 +620,38 @@ def generate_template_candidates() -> list[OptionCandidate]:
 
     return candidates
 
+
+def compile_dual_tenor_hybrid_blend(
+    tenor_long: int = 180,
+    tenor_short: int = 90,
+    weight_long: float = 0.65,
+    moneyness_long: str = "call",
+    moneyness_short: str = "put",
+    factor_short: str = "term_structure",
+    inner_decay1: int = 10,
+    inner_decay2: int = 3,
+    trade_threshold: float = 0.26,
+) -> str:
+    """
+    Constructs an opt-in dual-tenor hybrid rank blend (e.g. 180d anchor + 90d liquidity bridge)
+    to mitigate sub-universe sparsity in illiquid subindustries while maintaining low turnover.
+    """
+    long_leg = (
+        f"(call_breakeven_{tenor_long} - forward_price_{tenor_long}) / close"
+        if moneyness_long == "call"
+        else f"(forward_price_{tenor_long} - put_breakeven_{tenor_long}) / close"
+    )
+    short_leg = (
+        f"(call_breakeven_{tenor_short} - forward_price_{tenor_short}) / close"
+        if moneyness_short == "call"
+        else f"(forward_price_{tenor_short} - put_breakeven_{tenor_short}) / close"
+    )
+    weight_short = round(1.0 - weight_long, 4)
+    long_rank = f"rank(ts_decay_linear(ts_decay_linear({long_leg}, {inner_decay1}), {inner_decay2}))"
+    short_rank = f"rank(ts_decay_linear(ts_decay_linear({short_leg}, {inner_decay1}), {inner_decay2}))"
+    blend = f"({weight_long} * {long_rank} + {weight_short} * {short_rank})"
+    return (
+        f"trade_when(abs(rank({blend}) - 0.5) > {trade_threshold}, "
+        f"group_neutralize(rank({blend}) * (volume / adv20), subindustry), -1)"
+    )
+
