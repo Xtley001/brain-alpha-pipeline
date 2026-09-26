@@ -630,7 +630,8 @@ class OptionsDatabase:
 
         def _run_statements(sql_block: str, label: str):
             """Split a SQL block on semicolons and execute each statement independently."""
-            for stmt in sql_block.split(";"):
+            clean_block = re.sub(r"--.*$", "", sql_block, flags=re.MULTILINE)
+            for stmt in clean_block.split(";"):
                 stmt = stmt.strip()
                 if not stmt:
                     continue

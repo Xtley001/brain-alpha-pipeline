@@ -8,6 +8,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
+import time
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -307,7 +308,8 @@ class DiagnosticAlphaOptimizer:
         candidate: OptionCandidate,
         base_settings: SimSettings,
         initial_metrics: SimMetrics,
-        max_steps: int = 6,
+        max_steps: int = 5,
+        deadline: Optional[float] = None,
     ) -> Tuple[OptionCandidate, SimSettings, SimMetrics, bool, List[DiagnosticStep]]:
         """
         Executes diagnostic repair trajectories on a promising candidate.
@@ -385,6 +387,10 @@ class DiagnosticAlphaOptimizer:
         current_settings = base_settings
 
         for round_idx in range(1, max_steps + 1):
+            if deadline is not None and time.time() >= deadline - 30:
+                log.info("Optimization time budget nearing expiry (%.1fs remaining); cleanly concluding optimization.", deadline - time.time())
+                break
+
             # Check if current best already passes all qualification gates
             passed_filter, reason = evaluate_alpha_metrics(best_metrics, self.config)
             if passed_filter:

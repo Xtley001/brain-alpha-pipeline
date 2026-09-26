@@ -142,6 +142,7 @@ async def run_candidate(
     config: OptionsConfig,
     force_optimize: bool = False,
     deduplicator: Optional[ASTDeduplicator] = None,
+    deadline: Optional[float] = None,
 ) -> bool:
     """Executes the screening, diagnostic optimization, filtering, and alert pipeline for one candidate."""
     log.info("=" * 70)
@@ -238,7 +239,8 @@ async def run_candidate(
         candidate=candidate,
         base_settings=s0_settings,
         initial_metrics=s0_metrics,
-        max_steps=8,
+        max_steps=5,
+        deadline=deadline,
     )
 
     if not passed_filter:
@@ -583,6 +585,7 @@ async def run_batch(
     passed_count = 0
     total_evaluated = 0
     start_time = time.time()
+    deadline = start_time + config.run_time_budget_seconds
     queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
     refill_lock = asyncio.Lock()
 
@@ -593,8 +596,8 @@ async def run_batch(
         nonlocal passed_count, total_evaluated
         while True:
             elapsed = time.time() - start_time
-            if elapsed > config.run_time_budget_seconds:
-                log.warning("Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
+            if time.time() >= deadline - 45:
+                log.warning("Worker %d: Run time budget (%ds) reached (elapsed=%.1fs). Stopping.", worker_id, config.run_time_budget_seconds, elapsed)
                 break
 
             if total_evaluated >= batch_size:
@@ -640,6 +643,7 @@ async def run_batch(
                     store,
                     config,
                     deduplicator=generator.deduplicator,
+                    deadline=deadline,
                 )
                 if passed:
                     passed_count += 1
@@ -780,6 +784,7 @@ async def run_retry_stage0_batch(
     passed_count = 0
     total_evaluated = 0
     start_time = time.time()
+    deadline = start_time + config.run_time_budget_seconds
     queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
     for c in candidates:
         queue.put_nowait(c)
@@ -788,8 +793,8 @@ async def run_retry_stage0_batch(
         nonlocal passed_count, total_evaluated
         while not queue.empty():
             elapsed = time.time() - start_time
-            if elapsed > config.run_time_budget_seconds:
-                log.warning("Retry Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
+            if time.time() >= deadline - 45:
+                log.warning("Retry Worker %d: Run time budget (%ds) reached (elapsed=%.1fs). Stopping.", worker_id, config.run_time_budget_seconds, elapsed)
                 break
             try:
                 c = queue.get_nowait()
@@ -800,7 +805,7 @@ async def run_retry_stage0_batch(
             log.info("\n[Retry Worker %d | Cand %d/%d] Re-optimizing [%s]: %s",
                      worker_id, total_evaluated, len(candidates), c.archetype_name, c.expression[:60])
             try:
-                qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True)
+                qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True, deadline=deadline)
                 if qualified:
                     passed_count += 1
             except Exception as exc:
@@ -939,6 +944,7 @@ async def run_decorrelate_batch(
     passed_count = 0
     total_evaluated = 0
     start_time = time.time()
+    deadline = start_time + config.run_time_budget_seconds
     queue: asyncio.Queue[OptionCandidate] = asyncio.Queue()
     for c in candidates:
         queue.put_nowait(c)
@@ -947,8 +953,8 @@ async def run_decorrelate_batch(
         nonlocal passed_count, total_evaluated
         while not queue.empty():
             elapsed = time.time() - start_time
-            if elapsed > config.run_time_budget_seconds:
-                log.warning("Decorrelator Worker %d: Run time budget (%ds) reached. Stopping.", worker_id, config.run_time_budget_seconds)
+            if time.time() >= deadline - 45:
+                log.warning("Decorrelator Worker %d: Run time budget (%ds) reached (elapsed=%.1fs). Stopping.", worker_id, config.run_time_budget_seconds, elapsed)
                 break
             try:
                 c = queue.get_nowait()
@@ -967,7 +973,7 @@ async def run_decorrelate_batch(
                 c.expression[:60],
             )
             try:
-                qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True)
+                qualified = await run_candidate(c, sweep_engine, client, store, config, force_optimize=True, deadline=deadline)
                 if qualified:
                     passed_count += 1
                     log.info(

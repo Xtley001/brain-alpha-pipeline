@@ -155,6 +155,13 @@ class BrainClient:
                 log.warning("Cached session validation skipped: %s", cache_err)
 
         resp = session.post_authentication()
+        if resp is not None and getattr(resp, "status_code", 200) == 429:
+            retry_after = int(getattr(resp, "headers", {}).get("Retry-After", 15))
+            log.warning("BRAIN authentication hit 429 Too Many Requests; backing off for %ds...", retry_after)
+            import time
+            time.sleep(retry_after + 2)
+            resp = session.post_authentication()
+
         if resp is None or getattr(resp, "status_code", 500) >= 400:
             err_msg = f"WorldQuant BRAIN authentication failed for {self.username}: {resp}"
             log.error(err_msg)

@@ -51,6 +51,12 @@ def orthogonalize_factor(expr: str, colliding_factor: str) -> str:
             t = m.group(1)
             return f"(implied_volatility_call_{t} / (implied_volatility_put_{t} + 0.001))"
         return pattern.sub(_sub, expr)
+    if colliding_factor == "skew":
+        pattern = re.compile(r"implied_volatility_mean_skew_(\d+)")
+        def _sub(m):
+            t = m.group(1)
+            return f"(implied_volatility_call_{t} / (implied_volatility_put_{t} + 0.001))"
+        return pattern.sub(_sub, expr)
     return expr  # unrecognized factor — leave untouched, fall through to old axes
 
 
@@ -399,8 +405,14 @@ class DecorrelationEngine:
         # Axis 10: Factor Orthogonalization (PCR -> IV Term Structure / IV Ratio)
         # -------------------------------------------------------------
         axis_key = "Axis 10 (Factor Orthogonalization)"
-        axis_audit[axis_key] = {"attempted": False, "applied": 0, "reasons": []}
-        factor_target = colliding_factor or ("pcr" if "pcr_vol" in base_expr or "pcr_oi" in base_expr else ("iv_term_structure" if "implied_volatility_mean_" in base_expr else None))
+        factor_target = colliding_factor
+        if not factor_target:
+            if "pcr_vol" in base_expr or "pcr_oi" in base_expr:
+                factor_target = "pcr"
+            elif "implied_volatility_mean_skew_" in base_expr:
+                factor_target = "skew"
+            elif "implied_volatility_mean_" in base_expr and "/" in base_expr:
+                factor_target = "iv_term_structure"
         if factor_target:
             axis_audit[axis_key]["attempted"] = True
             orthogonal = orthogonalize_factor(base_expr, factor_target)

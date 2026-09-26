@@ -75,7 +75,7 @@ class PeerGenomeGraph:
         return cls(genomes)
 
     def find_collision_risk(
-        self, tenor: int, moneyness: str, factor: str, decay: int
+        self, tenor: int, moneyness: str, factor: str, decay: int = 8
     ) -> Optional[AlphaGenome]:
         """
         Returns the first peer genome that shares tenor + moneyness + factor

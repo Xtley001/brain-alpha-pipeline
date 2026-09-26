@@ -139,7 +139,7 @@ jobs:
         run: python -m brain_options.run --retry-stage0 --limit 1 || true
 
       - name: Generate and evaluate specialized candidates
-        timeout-minutes: 15
+        timeout-minutes: 25
         env:
           RUN_TIME_BUDGET_SECONDS: "600"
         run: python -m brain_options.run --single-batch --candidates "$CANDIDATES_COUNT" --strategy "$STRATEGY"

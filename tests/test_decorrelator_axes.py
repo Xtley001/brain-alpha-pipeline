@@ -37,6 +37,14 @@ def test_orthogonalize_factor_iv_term_structure():
     assert "implied_volatility_put_90" in orthogonal
 
 
+def test_orthogonalize_factor_skew():
+    expr = "signal * implied_volatility_mean_skew_60"
+    orthogonal = orthogonalize_factor(expr, "skew")
+    assert "implied_volatility_mean_skew_60" not in orthogonal
+    assert "implied_volatility_call_60" in orthogonal
+    assert "implied_volatility_put_60" in orthogonal
+
+
 def test_auto_correct_for_collision_against_kpnd6ovl():
     # npdm7vWa-style formula: 90d call breakeven with PCR
     npdm7vwa_expr = (
