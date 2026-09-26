@@ -865,6 +865,29 @@ class OptionsDatabase:
             log.warning("Failed to load submitted alpha IDs: %s", e)
             return set()
 
+    def get_all_active_alpha_rows(self) -> List[Dict[str, Any]]:
+        """
+        Returns alpha_id, expression, decay for every alpha currently SUBMITTED or
+        QUALIFIED — the exact reference set the Peer Genome Graph should reason about,
+        mirroring the reference set used by the correlation gate itself.
+        """
+        if not self.database_url:
+            return []
+        sql = """
+            SELECT alpha_id, expression, decay
+            FROM options_alphas
+            WHERE status IN ('SUBMITTED', 'QUALIFIED') AND alpha_id IS NOT NULL;
+        """
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql)
+                    cols = [d[0] for d in cur.description]
+                    return [dict(zip(cols, row)) for row in cur.fetchall()]
+        except Exception as e:
+            log.warning("Failed to load active alpha rows for peer genome: %s", e)
+            return []
+
     def mark_alpha_correlated(
         self,
         alpha_id: str,

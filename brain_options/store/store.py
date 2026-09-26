@@ -308,6 +308,12 @@ class OptionsStore:
         """Returns set of alpha_ids with status=SUBMITTED in options_alphas."""
         return self.db.get_submitted_alpha_ids()
 
+    def get_all_active_alpha_rows(self) -> List[Dict[str, Any]]:
+        """Returns active alpha rows (SUBMITTED + QUALIFIED) for peer genome."""
+        if self.db and self.db.database_url:
+            return self.db.get_all_active_alpha_rows()
+        return []
+
     def get_unsubmitted_pool_alphas(self) -> List[Dict[str, Any]]:
         """Returns qualified but not-yet-submitted alphas from Neon DB (source of truth)."""
         if self.db and self.db.database_url:
