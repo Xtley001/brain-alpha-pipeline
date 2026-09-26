@@ -48,10 +48,12 @@ class OptionsGenerator:
         llm_adapter: LLMAdapter,
         kb: Optional[OptionsKnowledgeBase] = None,
         catalog: Optional[OptionsCatalog] = None,
+        db: Optional[Any] = None,
     ):
         self.llm_adapter = llm_adapter
         self.kb = kb or OptionsKnowledgeBase()
         self.catalog = catalog or OptionsCatalog()
+        self.db = db
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
         # Seed queue with both deterministic templates and all 30 modular strategy systems
@@ -162,6 +164,10 @@ class OptionsGenerator:
         saturated_archetypes: Optional[list[str]] = None,
     ) -> list[OptionCandidate]:
         """Tier 1: Deterministic seed template candidates filtered by AST deduplication and saturation caps."""
+        from brain_options.specialist.peer_genome import PeerGenomeGraph, extract_genome
+        from brain_options.specialist.decorrelator import auto_correct_for_collision
+
+        peer_graph = PeerGenomeGraph.load(self.db) if getattr(self, "db", None) else None
         batch: list[OptionCandidate] = []
         batch_hashes: set[str] = set()
         tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
@@ -186,6 +192,31 @@ class OptionsGenerator:
                     i += 1
                     continue
             cand = self._template_queue.pop(i)
+
+            clean_expr = cand.expression
+            if peer_graph is not None:
+                cand_genome = extract_genome("candidate", clean_expr, decay=8)
+                for tenor in cand_genome.tenors:
+                    for moneyness in cand_genome.moneyness:
+                        for factor in cand_genome.factors:
+                            collision = peer_graph.find_collision_risk(tenor, moneyness, factor, decay=8)
+                            if collision:
+                                corrected = auto_correct_for_collision(clean_expr, collision)
+                                if corrected != clean_expr:
+                                    clean_expr = corrected
+                                    cand = OptionCandidate(
+                                        expression=clean_expr,
+                                        archetype_name=f"{cand.archetype_name} (genome-corrected)",
+                                        hypothesis=f"{cand.hypothesis} [Auto-corrected for collision with {collision.alpha_id}]",
+                                        generation_source=cand.generation_source,
+                                        operator_name="peer_genome_correction",
+                                    )
+                                    log.info(
+                                        "Pre-sim auto-corrected template candidate on occupied cell (%dd, %s, %s) vs peer %s",
+                                        tenor, moneyness, factor, collision.alpha_id,
+                                    )
+                                break
+
             if not self.is_evaluated(cand.expression):
                 ast_h = self.deduplicator.hash(cand.expression)
                 if ast_h not in batch_hashes:
@@ -278,6 +309,10 @@ class OptionsGenerator:
         static templates are exhausted and LLM providers are unavailable.
         """
         import math
+        from brain_options.specialist.peer_genome import PeerGenomeGraph, extract_genome
+        from brain_options.specialist.decorrelator import auto_correct_for_collision
+
+        peer_graph = PeerGenomeGraph.load(self.db) if getattr(self, "db", None) else None
         procedural: list[OptionCandidate] = []
         batch_hashes: set[str] = set()
         tokens = [t.strip().lower() for t in archetype.split(",")] if archetype else []
@@ -295,6 +330,26 @@ class OptionsGenerator:
                 )
                 if not matches:
                     return
+
+            # Genome lookahead collision check and pre-sim auto-correction
+            if peer_graph is not None:
+                cand_genome = extract_genome("candidate", clean_expr, decay=8)
+                for tenor in cand_genome.tenors:
+                    for moneyness in cand_genome.moneyness:
+                        for factor in cand_genome.factors:
+                            collision = peer_graph.find_collision_risk(tenor, moneyness, factor, decay=8)
+                            if collision:
+                                corrected = auto_correct_for_collision(clean_expr, collision)
+                                if corrected != clean_expr:
+                                    clean_expr = corrected
+                                    arch = f"{arch} (genome-corrected)"
+                                    hyp = f"{hyp} [Auto-corrected for collision with {collision.alpha_id}]"
+                                    log.info(
+                                        "Pre-sim auto-corrected procedural candidate on occupied cell (%dd, %s, %s) vs peer %s",
+                                        tenor, moneyness, factor, collision.alpha_id,
+                                    )
+                                break
+
             if not self.is_evaluated(clean_expr) and not any(c.expression == clean_expr for c in procedural):
                 ast_h = self.deduplicator.hash(clean_expr)
                 if ast_h in batch_hashes:

@@ -17,6 +17,54 @@ from brain_options.specialist.templates import OptionCandidate
 log = logging.getLogger("brain_options.decorrelator")
 
 
+def invert_moneyness_axis(expr: str) -> str:
+    """
+    call_breakeven_N - forward_price_N  ->  forward_price_N - put_breakeven_N
+    Swaps upside call-basis exposure for downside put-basis exposure at the same tenor.
+    Use when the colliding peer shares moneyness == 'call'.
+    """
+    pattern = re.compile(r"call_breakeven_(\d+)\s*-\s*forward_price_(\d+)")
+    def _sub(m):
+        t1, t2 = m.group(1), m.group(2)
+        return f"forward_price_{t2} - put_breakeven_{t1}"
+    return pattern.sub(_sub, expr)
+
+
+def orthogonalize_factor(expr: str, colliding_factor: str) -> str:
+    """
+    Swaps a collinear flow/vol factor for a structurally different one at the same tenor.
+    'pcr' peers          -> IV term-structure ratio (iv_mean_T / iv_mean_{T/2 or T/3})
+    'iv_term_structure'  -> call/put IV asymmetry ratio
+    """
+    if colliding_factor == "pcr":
+        pattern = re.compile(r"\(?\s*pcr_vol_(\d+)\s*/\s*\(?\s*pcr_oi_(\d+)\s*\+\s*0\.001\s*\)?\s*\)?")
+        def _sub(m):
+            t = m.group(1)
+            short_t = 90 if int(t) >= 180 else (30 if int(t) > 30 else 10)
+            return f"(implied_volatility_mean_{t} / (implied_volatility_mean_{short_t} + 0.001))"
+        return pattern.sub(_sub, expr)
+    if colliding_factor == "iv_term_structure":
+        pattern = re.compile(
+            r"\(?\s*implied_volatility_mean_(\d+)\s*/\s*\(?\s*implied_volatility_mean_(\d+)\s*\+\s*0\.001\s*\)?\s*\)?"
+        )
+        def _sub(m):
+            t = m.group(1)
+            return f"(implied_volatility_call_{t} / (implied_volatility_put_{t} + 0.001))"
+        return pattern.sub(_sub, expr)
+    return expr  # unrecognized factor — leave untouched, fall through to old axes
+
+
+def auto_correct_for_collision(expr: str, colliding_genome: Any) -> str:
+    corrected = expr
+    if hasattr(colliding_genome, "moneyness") and "call" in colliding_genome.moneyness:
+        corrected = invert_moneyness_axis(corrected)
+    if hasattr(colliding_genome, "factors"):
+        for factor in colliding_genome.factors:
+            if factor != "unknown":
+                corrected = orthogonalize_factor(corrected, factor)
+    return corrected
+
+
 class DecorrelationEngine:
     """
     Transforms co-linear alpha expressions into orthogonal, uncorrelated signals
@@ -35,6 +83,7 @@ class DecorrelationEngine:
         colliding_id: Optional[str] = None,
         corr_partner_id: Optional[str] = None,
         decorrelation_attempts: int = 0,
+        colliding_factor: Optional[str] = None,
     ) -> List[OptionCandidate]:
         """
         Generates 5 to 8 systematic orthogonal variants of a high-Sharpe candidate.
@@ -59,6 +108,8 @@ class DecorrelationEngine:
             "Axis 4 (Volatility Regime Gate)": {"attempted": False, "applied": 0, "reasons": []},
             "Axis 5 (Neutralization Rotation)": {"attempted": False, "applied": 0, "reasons": []},
             "Axis 6 (Order Flow Confluence)": {"attempted": False, "applied": 0, "reasons": []},
+            "Axis 9 (Moneyness Inversion)": {"attempted": False, "applied": 0, "reasons": []},
+            "Axis 10 (Factor Orthogonalization)": {"attempted": False, "applied": 0, "reasons": []},
         }
 
         alpha_ref = colliding_id or (base_expr[:30] + "...")
@@ -325,6 +376,43 @@ class DecorrelationEngine:
                         f"Tenor Shift (30d -> {new_t}d)",
                         f"Rotating options tenor from 30d to {new_t}d shifts expiration term and eliminates 30d anchor correlation.",
                     )
+
+        # -------------------------------------------------------------
+        # Axis 9: Moneyness Axis Inversion (Call Basis -> Put Basis)
+        # -------------------------------------------------------------
+        axis_key = "Axis 9 (Moneyness Inversion)"
+        axis_audit[axis_key] = {"attempted": False, "applied": 0, "reasons": []}
+        if colliding_id or "call_breakeven" in base_expr:
+            axis_audit[axis_key]["attempted"] = True
+            inverted = invert_moneyness_axis(base_expr)
+            if inverted != base_expr:
+                _add(
+                    inverted,
+                    axis_key,
+                    "Moneyness Inversion",
+                    "Inverts call basis to put basis to escape shared-moneyness collision.",
+                )
+            else:
+                axis_audit[axis_key]["reasons"].append("No call_breakeven found for moneyness inversion")
+
+        # -------------------------------------------------------------
+        # Axis 10: Factor Orthogonalization (PCR -> IV Term Structure / IV Ratio)
+        # -------------------------------------------------------------
+        axis_key = "Axis 10 (Factor Orthogonalization)"
+        axis_audit[axis_key] = {"attempted": False, "applied": 0, "reasons": []}
+        factor_target = colliding_factor or ("pcr" if "pcr_vol" in base_expr or "pcr_oi" in base_expr else ("iv_term_structure" if "implied_volatility_mean_" in base_expr else None))
+        if factor_target:
+            axis_audit[axis_key]["attempted"] = True
+            orthogonal = orthogonalize_factor(base_expr, factor_target)
+            if orthogonal != base_expr:
+                _add(
+                    orthogonal,
+                    axis_key,
+                    "Factor Orthogonalization",
+                    f"Swaps collinear factor '{factor_target}' for orthogonal surface pricing ratio.",
+                )
+            else:
+                axis_audit[axis_key]["reasons"].append(f"Factor swap for '{factor_target}' was no-op")
 
         # -------------------------------------------------------------
         # Post-Processing: Embed Multiple-Testing Metadata on Candidates

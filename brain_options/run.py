@@ -535,7 +535,7 @@ async def run_batch(
     archetype_summary = store.load_archetype_performance_summary()
 
     llm_adapter = LLMAdapter(config)
-    generator = OptionsGenerator(llm_adapter)
+    generator = OptionsGenerator(llm_adapter, db=db)
     generator.evaluated_expressions.update(evaluated)
     generator.deduplicator.populate(evaluated)
 
