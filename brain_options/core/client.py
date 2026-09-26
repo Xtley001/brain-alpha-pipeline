@@ -46,6 +46,9 @@ class SimSettings:
         }
 
 
+ACCEPTED_SIM_STATUSES = {"COMPLETE", "WARNING", "PASS", "SUCCESS"}
+
+
 @dataclass(frozen=True)
 class SimMetrics:
     alpha_id: Optional[str] = None
@@ -60,7 +63,10 @@ class SimMetrics:
 
     @property
     def is_valid(self) -> bool:
-        return self.status.upper() in ("COMPLETE", "PASS", "SUCCESS") or (self.sharpe != 0.0 or self.fitness != 0.0)
+        if self.status.upper() in ACCEPTED_SIM_STATUSES:
+            return True
+        # Fallback for providers that omit/mislabel status but returned real metrics
+        return self.sharpe != 0.0 or self.fitness != 0.0
 
 
 def _safe_float(val: Any, default: float = 0.0) -> float:
