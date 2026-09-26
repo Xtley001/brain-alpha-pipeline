@@ -253,6 +253,11 @@ class DripSubmitter:
         and strictly preserves any remaining qualified alphas in reserve for tomorrow.
         Returns (submitted: bool, alpha_id: Optional[str], reason: str).
         """
+        if not getattr(self.config, "enable_auto_submit", False):
+            msg = "Submission/drip is PAUSED (ENABLE_AUTO_SUBMIT=false). Stacking qualified alphas in reserve only."
+            log.info("[DRIP QUEUE] %s", msg)
+            return False, None, msg
+
         now_ny = datetime.datetime.now(NY_TZ)
         today_ny = now_ny.date()
         max_daily = getattr(self.config, "drip_max_daily", 3)

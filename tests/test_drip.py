@@ -25,6 +25,7 @@ def config():
         brain_password="test_password",
         telegram_bot_token="test_bot_token",
         telegram_chat_id="12345678",
+        enable_auto_submit=True,
     )
 
 

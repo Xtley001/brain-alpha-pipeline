@@ -22,7 +22,7 @@ jobs:
       BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      ENABLE_AUTO_SUBMIT: "true"
+      ENABLE_AUTO_SUBMIT: "false"
       DRIP_MAX_DAILY: "3"
       DRIP_MIN_INTERVAL_HOURS: "4.0"
     steps:
