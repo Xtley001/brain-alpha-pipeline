@@ -23,7 +23,7 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       ENABLE_AUTO_SUBMIT: "false"
-      DRIP_MAX_DAILY: "2"
+      DRIP_MAX_DAILY: "1"
       DRIP_MIN_INTERVAL_HOURS: "4.0"
     steps:
       - uses: actions/checkout@v4
