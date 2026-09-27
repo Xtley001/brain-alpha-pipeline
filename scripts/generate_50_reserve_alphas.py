@@ -161,7 +161,12 @@ def send_tg_reserve_alert(
 
 
 # Candidate generation blueprints across 6 tranches + dynamic cross-archetype fallback
-def build_tranche_candidates(tranche_id: int, pass_num: int = 1) -> List[Dict[str, Any]]:
+def build_tranche_candidates(
+    tranche_id: int,
+    pass_num: int = 1,
+    hall_of_fame: Optional[List[Dict[str, Any]]] = None,
+    recent_feedback: Optional[List[Dict[str, Any]]] = None,
+) -> List[Dict[str, Any]]:
     candidates = []
 
     if tranche_id == 1:
@@ -442,17 +447,24 @@ def build_tranche_candidates(tranche_id: int, pass_num: int = 1) -> List[Dict[st
 
     elif tranche_id == 7:
         # Tranche 7: Active Quantitative LLM Reasoning & Scouting Engine
-        # Reasons across market physics and synthesizes novel Bivariate Pre-Decay formulas
+        # Reasons across market physics, learns from live simulation results, and synthesizes novel Bivariate formulas
         candidates = scout_candidates_with_llm(
             config=OptionsConfig.from_env(),
             n_candidates=15,
+            hall_of_fame=hall_of_fame,
+            recent_feedback=recent_feedback,
         )
 
     return candidates
 
 
-def scout_candidates_with_llm(config: OptionsConfig, n_candidates: int = 15) -> List[Dict[str, Any]]:
-    """Active LLM Reasoning & Scouting Tier: Uses Groq/OpenRouter with Hall of Fame context."""
+def scout_candidates_with_llm(
+    config: OptionsConfig,
+    n_candidates: int = 15,
+    hall_of_fame: Optional[List[Dict[str, Any]]] = None,
+    recent_feedback: Optional[List[Dict[str, Any]]] = None,
+) -> List[Dict[str, Any]]:
+    """Active LLM Reasoning & Scouting Tier: Uses Groq/OpenRouter with dynamic Hall of Fame and backtest feedback."""
     try:
         from brain_options.llm.adapter import LLMAdapter, clean_json_array
         adapter = LLMAdapter(config)
@@ -469,11 +481,36 @@ def scout_candidates_with_llm(config: OptionsConfig, n_candidates: int = 15) -> 
             "implied_volatility_call_X, implied_volatility_put_X, implied_volatility_mean_skew_X (10, 20, 30, 60, 90, 120, 150, 180, 270, 360), "
             "pcr_vol_X, pcr_oi_X, historical_volatility_X, parkinson_volatility_X (10..180), close, returns, volume, adv20\n"
         )
+
+        hof_section = ""
+        if hall_of_fame:
+            hof_lines = []
+            for h in hall_of_fame[:8]:
+                hof_lines.append(
+                    f"- {h.get('archetype', 'Alpha')} (ID {h.get('alpha_id')}): Sharpe {h.get('sharpe', 0):.2f}, "
+                    f"Margin {h.get('margin', 0)*10000:.1f} bps, MaxCorr {h.get('max_corr', 0):.4f}"
+                )
+            hof_section = "\nPROVEN QUALIFIED ALPHAS (HALL OF FAME):\n" + "\n".join(hof_lines) + "\n"
+
+        feedback_section = ""
+        if recent_feedback:
+            fb_lines = []
+            for fb in recent_feedback[-8:]:
+                fb_lines.append(f"- [{fb.get('status')}]: {fb.get('archetype')} -> {fb.get('reason')}")
+            feedback_section = "\nRECENT LIVE BACKTEST FEEDBACK (WHAT FAILED & PASSED):\n" + "\n".join(fb_lines) + "\n"
+
         user_prompt = f"""Generate {n_candidates} novel WorldQuant BRAIN options alphas in JSON format.
-Requirements:
-1. Pure options physics: Call Breakeven Breakouts, PCR Velocity, Forward Calendar Basis, Skew Contango.
-2. Avoid pure put-floor tenors (180d, 90d, 360d) as they are already populated.
-3. Must use the exact Bivariate Pre-Decay grammar.
+{hof_section}{feedback_section}
+CRITICAL QUANTITATIVE REASONING RULES:
+1. Saturated Subspaces (DO NOT USE): Put-Floor tenors (180d, 90d, 360d) are already saturated (correlation > 0.70). Do NOT repeat them.
+2. Short Vol Premia Direction: Naive long IV-RV bleeds theta (Sharpe -0.28). Always monetize by going SHORT expensive vol: -((implied_volatility_mean_X - historical_volatility_X) / historical_volatility_X).
+3. Orthogonal Target Subspaces to Explore:
+   - Call Breakeven Breakout Convexity: ((call_breakeven_X - forward_price_X) / close) combined with return momentum.
+   - PCR Velocity & Open Interest Accumulation: ts_delta(pcr_vol_X, 5) or ts_delta(pcr_oi_X, 10) scaled by (volume / adv20).
+   - Term Structure Slope Contango / Backwardation: ((implied_volatility_mean_270 - implied_volatility_mean_30) / historical_volatility_30).
+   - Asymmetric Volatility Skew: ((implied_volatility_put_X - implied_volatility_call_X) * (volume / adv20)).
+   - Forward Calendar Basis: ((forward_price_X - close) / close) across 60d, 90d, 180d, 270d.
+4. MUST use the exact Bivariate Pre-Decay grammar with ts_decay_linear(ts_decay_linear(..., 10), 3).
 
 Respond with ONLY a JSON array of objects:
 [
@@ -564,6 +601,23 @@ async def run_overnight_pipeline():
     # Global lock for thread/coroutine-safe insertion & correlation tracking
     qualification_lock = asyncio.Lock()
 
+    # Dynamic Hall of Fame and simulation feedback memory for in-context LLM reasoning
+    hall_of_fame_list = [
+        {
+            "alpha_id": r[0],
+            "archetype": r[2] if len(r) > 2 else "Qualified_Alpha",
+            "sharpe": float(r[3]) if len(r) > 3 and r[3] else 1.40,
+            "fitness": float(r[4]) if len(r) > 4 and r[4] else 1.10,
+            "margin": float(r[6]) if len(r) > 6 and r[6] else 0.0012,
+            "max_corr": float(r[7]) if len(r) > 7 and r[7] else 0.65,
+        }
+        for r in qualified_rows
+    ]
+    recent_feedback_list: List[Dict[str, Any]] = [
+        {"archetype": "PutFloor_180d_Saturation", "status": "FAIL_CORR", "reason": "Put-Floor space saturated (corr=0.85 >= 0.70); shifted to Calendar Basis"},
+        {"archetype": "Raw_IV_Minus_RV", "status": "FAIL_GATE", "reason": "Sharpe=-0.28; unhedged long vol bleeds theta; monetize short vol instead"},
+    ]
+
     pass_num = 1
     # Continuous outer loop: NEVER stops until current_qualified >= total_target (50)
     while current_qualified < total_target:
@@ -581,7 +635,12 @@ async def run_overnight_pipeline():
             log.info(">>> INITIATING TRANCHE %d [Pass %d] (Tranche Target: %d, Arsenal: %d / %d)", tranche_id, pass_num, tranche_target, current_qualified, total_target)
             log.info("#" * 80)
 
-            candidates = build_tranche_candidates(tranche_id, pass_num=pass_num)
+            candidates = build_tranche_candidates(
+                tranche_id,
+                pass_num=pass_num,
+                hall_of_fame=hall_of_fame_list,
+                recent_feedback=recent_feedback_list,
+            )
             log.info("Generated %d candidate formulations for Tranche %d (Pass %d).", len(candidates), tranche_id, pass_num)
 
             queue = asyncio.Queue()
@@ -655,6 +714,11 @@ async def run_overnight_pipeline():
                         or metrics.margin < 0.0010
                         or metrics.max_drawdown > 0.35
                     ):
+                        recent_feedback_list.append({
+                            "archetype": cand["archetype"],
+                            "status": "FAIL_GATE",
+                            "reason": f"Sharpe={metrics.sharpe:.2f}, Margin={metrics.margin*10000:.1f}bps, TO={metrics.turnover*100:.1f}%",
+                        })
                         queue.task_done()
                         await asyncio.sleep(1.0)
                         continue
@@ -680,6 +744,11 @@ async def run_overnight_pipeline():
 
                         if max_corr_sub >= 0.70:
                             log.info("[-] [W%d] Correlation vs submitted failed: %.4f >= 0.70", worker_id, max_corr_sub)
+                            recent_feedback_list.append({
+                                "archetype": cand["archetype"],
+                                "status": "FAIL_CORR",
+                                "reason": f"Sharpe={metrics.sharpe:.2f} PASS, but Corr={max_corr_sub:.4f} >= 0.70 vs submitted alpha",
+                            })
                             queue.task_done()
                             continue
 
@@ -692,6 +761,11 @@ async def run_overnight_pipeline():
 
                         if max_corr_res >= 0.70:
                             log.info("[-] [W%d] Correlation vs reserve failed: %.4f >= 0.70", worker_id, max_corr_res)
+                            recent_feedback_list.append({
+                                "archetype": cand["archetype"],
+                                "status": "FAIL_CORR",
+                                "reason": f"Sharpe={metrics.sharpe:.2f} PASS, but Corr={max_corr_res:.4f} >= 0.70 vs reserve pool",
+                            })
                             queue.task_done()
                             continue
 
@@ -727,6 +801,20 @@ async def run_overnight_pipeline():
                             decay=d,
                             strategy_name=cand["strategy"],
                         )
+
+                        recent_feedback_list.append({
+                            "archetype": cand["archetype"],
+                            "status": "QUALIFIED",
+                            "reason": f"Sharpe={metrics.sharpe:.2f}, Margin={metrics.margin*10000:.1f}bps, Corr={overall_max_corr:.4f}",
+                        })
+                        hall_of_fame_list.append({
+                            "alpha_id": metrics.alpha_id,
+                            "archetype": cand["archetype"],
+                            "sharpe": metrics.sharpe,
+                            "fitness": metrics.fitness,
+                            "margin": metrics.margin,
+                            "max_corr": overall_max_corr,
+                        })
 
                         reserve_pnls[metrics.alpha_id] = cand_pnl
                         existing_expressions.add(expr.strip())
