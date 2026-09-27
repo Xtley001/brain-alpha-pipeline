@@ -625,8 +625,14 @@ async def run_overnight_pipeline():
         log.info(">>> MULTI-TRANCHE SWEEP PASS %d (Reserve Arsenal: %d / %d Qualified)", pass_num, current_qualified, total_target)
         log.info("=" * 80)
 
-        # Prioritize untouched & LLM-scouted tranches (4, 5, 6, 7, 2, 1, 3)
-        for tranche_id in [4, 5, 6, 7, 2, 1, 3]:
+        # Prioritize proven high-Sharpe & decorrelated tranches:
+        # Tranche 2: Term Structure & Forward Calendar Basis (Sharpes 1.30-1.45, max corr 0.57-0.64)
+        # Tranche 7: Active Quantitative LLM Reasoning Scout (with Hall of Fame memory)
+        # Tranche 1: Put Floor & Skew Asymmetry / Call Breakouts (Sharpes 1.40-1.77)
+        # Tranche 6: Cross-Archetype Confluence (Sharpes ~1.00)
+        # Tranche 3: Inverted Monetized VRP & Smile Curvature
+        # Tranche 5 & 4: Multi-Signal Trios & PCR Flow Velocity
+        for tranche_id in [2, 7, 1, 6, 3, 5, 4]:
             if current_qualified >= total_target:
                 break
 
