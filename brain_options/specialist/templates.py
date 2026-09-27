@@ -617,6 +617,57 @@ def generate_template_candidates() -> list[OptionCandidate]:
                 )
             )
 
+    # 38. Bivariate Pre-Decay Orthogonal Confluence Blends (v2.1 Institutional Standards)
+    bivariate_archetypes = [
+        (
+            # Put Breakeven 180d + Skew Differential 60d
+            "ts_decay_linear(ts_decay_linear(((forward_price_180 - put_breakeven_180) / close * (implied_volatility_mean_skew_180 * sqrt(180/252.0)) * (pcr_vol_180 / (pcr_oi_180 + 0.001))), 10), 3)",
+            "ts_decay_linear(ts_decay_linear(((implied_volatility_call_60 - implied_volatility_put_60) / (implied_volatility_mean_60 + 0.001) * sqrt(60/252.0) * (volume / (adv20 + 1))), 10), 3)",
+            0.65, 0.35, "Bivariate Put180 Skew60 Confluence",
+            "Pre-decayed 180d downside put breakeven floor combined with 60d skew differential.",
+        ),
+        (
+            # Put Breakeven 90d + Skew Differential 30d
+            "ts_decay_linear(ts_decay_linear(((forward_price_90 - put_breakeven_90) / close * (implied_volatility_mean_skew_90 * sqrt(90/252.0)) * (pcr_vol_90 / (pcr_oi_90 + 0.001))), 10), 3)",
+            "ts_decay_linear(ts_decay_linear(((implied_volatility_call_30 - implied_volatility_put_30) / (implied_volatility_mean_30 + 0.001) * sqrt(30/252.0) * (volume / (adv20 + 1))), 10), 3)",
+            0.65, 0.35, "Bivariate Put90 Skew30 Confluence",
+            "Pre-decayed 90d downside put breakeven floor combined with 30d skew differential.",
+        ),
+        (
+            # Term Structure Slope + Forward Calendar Spread
+            "ts_decay_linear(ts_decay_linear(((implied_volatility_mean_180 / (implied_volatility_mean_30 + 0.001)) * (implied_volatility_mean_skew_30 * sqrt(30/252.0))), 10), 3)",
+            "ts_decay_linear(ts_decay_linear(((forward_price_180 - forward_price_30) / close * (implied_volatility_mean_180 / (implied_volatility_mean_30 + 0.001)) * (volume / (adv20 + 1))), 10), 3)",
+            0.60, 0.40, "Bivariate Term180_30 Calendar Confluence",
+            "Pre-decayed 180d/30d term structure ratio blended with forward calendar spread.",
+        ),
+        (
+            # Variance Risk Premia + Volatility Smile Curvature
+            "ts_decay_linear(ts_decay_linear(((implied_volatility_mean_60 - ts_std_dev(returns, 60) * sqrt(252)) / (implied_volatility_mean_60 + 0.001) * (implied_volatility_mean_skew_60 * sqrt(60/252.0))), 10), 3)",
+            "ts_decay_linear(ts_decay_linear(((implied_volatility_call_60 + implied_volatility_put_60 - 2 * implied_volatility_mean_60) / (implied_volatility_mean_60 + 0.001) * (volume / (adv20 + 1))), 10), 3)",
+            0.60, 0.40, "Bivariate VRP60 Smile Curvature Confluence",
+            "Pre-decayed 60d normalized VRP combined with 60d butterfly smile curvature.",
+        ),
+        (
+            # PCR Flow Velocity + Open Interest Imbalance
+            "ts_decay_linear(ts_decay_linear((ts_delta(pcr_vol_60 / (pcr_oi_60 + 0.001), 5) * (implied_volatility_mean_skew_60 * sqrt(60/252.0))), 10), 3)",
+            "ts_decay_linear(ts_decay_linear(((open_interest_call_60 - open_interest_put_60) / (open_interest_call_60 + open_interest_put_60 + 1) * (volume / (adv20 + 1))), 10), 3)",
+            0.60, 0.40, "Bivariate PCR Velocity OI Confluence",
+            "Pre-decayed 60d PCR flow velocity combined with normalized open interest imbalance.",
+        ),
+    ]
+    for s1, s2, w1, w2, arch_name, hyp in bivariate_archetypes:
+        for grp in ["subindustry", "sector"]:
+            combined_sig = f"({w1} * rank({s1}) + {w2} * rank({s2}))"
+            bivariate_expr = f"trade_when(abs(rank({combined_sig}) - 0.5) > 0.26, group_neutralize(rank({combined_sig}) * (volume / adv20), {grp}), -1)"
+            candidates.append(
+                OptionCandidate(
+                    expression=bivariate_expr,
+                    archetype_name=arch_name,
+                    hypothesis=hyp,
+                    generation_source="template",
+                )
+            )
+
     if not candidates:
         logger.error("Template generator produced 0 candidates (empty batch)")
         send_telegram_emergency_alert(

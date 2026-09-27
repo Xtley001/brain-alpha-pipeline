@@ -10,6 +10,7 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
+*.log
 
 # Virtual environments
 venv/

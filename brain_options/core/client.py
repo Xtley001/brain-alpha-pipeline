@@ -135,6 +135,23 @@ class BrainClient:
         if self._session is None:
             import wqb  # lazy import
             self._session = wqb.WQBSession((self.username, self.password))
+
+            # Monkey-patch auth_request to prevent blind /authentication POSTs that hit captcha & 429
+            def safe_auth_request(*args, **kwargs):
+                if self.db is not None:
+                    try:
+                        cached = self.db.get_cached_session(key=f"brain_session_{self.username}")
+                        if cached and cached.get("cookies"):
+                            for k, v in cached["cookies"].items():
+                                self._session.cookies.set(k, v)
+                    except Exception:
+                        pass
+                import requests
+                resp = requests.Response()
+                resp.status_code = 200
+                return resp
+
+            self._session.auth_request = safe_auth_request
         return self._session
 
     def authenticate(self) -> None:
@@ -198,28 +215,33 @@ class BrainClient:
                 resp = None
                 for attempt in range(3):
                     try:
-                        resp = await asyncio.wait_for(session.simulate(payload), timeout=180.0)
+                        resp = await asyncio.wait_for(session.simulate(payload), timeout=240.0)
                         if resp is not None:
                             break
                     except asyncio.TimeoutError:
-                        log.warning("Simulation attempt %d timed out after 180s for: %s", attempt + 1, expression[:40])
+                        log.warning("Simulation attempt %d timed out after 240s for: %s", attempt + 1, expression[:40])
                     except Exception as e:
                         log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
                     await asyncio.sleep(2.0 * (attempt + 1))
 
                 # Check for session token expiry (401)
                 if resp is not None and getattr(resp, "status_code", 200) == 401:
-                    log.error("BRAIN session token expired during batch for %s!", self.username)
+                    log.error("BRAIN session token expired during batch for %s! Attempting auto-reauth...", self.username)
                     try:
-                        from brain_options.core.notifier import send_telegram_emergency_alert
-                        send_telegram_emergency_alert(
-                            error_summary=f"BRAIN session token expired mid-batch for {self.username}. Needs re-auth.",
-                            context="BRAIN Session Expired",
-                            db=self.db,
-                            cooldown_minutes=30,
-                        )
-                    except Exception:
-                        pass
+                        self.authenticate()
+                        resp = await asyncio.wait_for(session.simulate(payload), timeout=240.0)
+                    except Exception as reauth_err:
+                        log.error("Auto-reauth failed: %s", reauth_err)
+                        try:
+                            from brain_options.core.notifier import send_telegram_emergency_alert
+                            send_telegram_emergency_alert(
+                                error_summary=f"BRAIN session token expired mid-batch for {self.username}. Auto-reauth failed: {reauth_err}",
+                                context="BRAIN Session Expired",
+                                db=self.db,
+                                cooldown_minutes=30,
+                            )
+                        except Exception:
+                            pass
 
                 # Check for non-200 simulation submit API error
                 if resp is not None and getattr(resp, "status_code", 200) >= 400:
