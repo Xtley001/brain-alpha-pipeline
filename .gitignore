@@ -32,6 +32,9 @@ alphas.db
 exported_alphas/
 all_generated_alphas.csv
 legacy_alphas_backup.zip
+alphas_master_portfolio.*
+ALPHAS_MASTER_DOSSIER.md
+alphas_export_*
 # Options Pipeline Data — all local data files excluded; source of truth is Neon DB
 data/
 brain_options/data/*.csv

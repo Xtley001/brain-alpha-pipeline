@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 24/7 Autonomous 50-Reserve Alpha Miner
+  reserve_miner:
+    build: .
+    container_name: brain_reserve_miner
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: python -u scripts/generate_50_reserve_alphas.py
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # Daily Submitter: Runs every day at 14:00 UTC (09:00 EST) to submit top 2 IS alphas
+  daily_submitter:
+    build: .
+    container_name: brain_daily_submitter
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: >
+      sh -c "while true; do
+        current_time=$$(date +%H:%M)
+        if [ \"$$current_time\" = \"14:00\" ]; then
+          echo '[SUBMITTER CRON] Executing daily submission of top 2 IS alphas...'
+          python -u scripts/submit_daily_vault.py
+          sleep 70
+        fi
+        sleep 30
+      done"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
