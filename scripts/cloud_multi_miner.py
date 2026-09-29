@@ -165,7 +165,7 @@ def commit_qualified_alpha(
 
 
 async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int):
-    config = OptionsConfig()
+    config = OptionsConfig.from_env()
     store = OptionsStore()
     llm = LLMAdapter(config)
     client = BrainClient(config)
