@@ -1,4 +1,4 @@
-ame: Pipeline Health Monitor (Cloud-Side)
+name: Pipeline Health Monitor (Cloud-Side)
 
 on:
   schedule:
