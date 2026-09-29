@@ -204,12 +204,14 @@ def get_gh_runs(workflow_file: str, limit: int = 5) -> List[Dict]:
 
 def analyse_gh_workflow(workflow_file: str) -> Dict:
     runs = get_gh_runs(workflow_file, limit=5)
-    name = workflow_file.replace(".yml", "").upper()
+    name = workflow_file.replace(".yml", "").replace("mine_", "").upper()
     result: Dict = {
         "workflow": workflow_file,
         "name": name,
         "runs": runs,
         "issues": [],
+        "is_active": False,
+        "active_run_id": None,
         "last_conclusion": "UNKNOWN",
         "consecutive_failures": 0,
         "fast_fails": 0,
@@ -217,9 +219,18 @@ def analyse_gh_workflow(workflow_file: str) -> Dict:
     if not runs:
         result["issues"].append(f"No recent runs found for {workflow_file}")
         return result
-    result["last_conclusion"] = runs[0].get("conclusion", "UNKNOWN")
+
+    if runs[0].get("status") == "in_progress":
+        result["is_active"] = True
+        result["active_run_id"] = runs[0].get("databaseId")
+        result["last_conclusion"] = "RUNNING"
+    else:
+        result["last_conclusion"] = runs[0].get("conclusion", "UNKNOWN")
+
     streak = 0
     for run in runs:
+        if run.get("status") == "in_progress":
+            continue
         conc = run.get("conclusion", "")
         if conc in ("failure", "cancelled", "timed_out"):
             streak += 1
@@ -240,51 +251,6 @@ def analyse_gh_workflow(workflow_file: str) -> Dict:
             f"{name}: {result['fast_fails']} fast-fail runs (<120s) -- DB/import error suspected"
         )
     return result
-
-
-# ---------------------------------------------------------------------------
-# Process Management
-# ---------------------------------------------------------------------------
-
-def is_miner_running() -> bool:
-    try:
-        r = subprocess.run(
-            ["wmic", "process", "where", "name='python.exe'", "get", "CommandLine"],
-            capture_output=True, text=True, timeout=10,
-        )
-        return "autonomous_24h_vault_miner" in r.stdout
-    except Exception:
-        return False
-
-
-def kill_miner() -> None:
-    try:
-        subprocess.run(
-            ["wmic", "process", "where", "CommandLine like '%autonomous_24h_vault_miner%'", "delete"],
-            capture_output=True, timeout=15,
-        )
-        time.sleep(3)
-    except Exception as exc:
-        log.warning("Kill miner failed: %s", exc)
-
-
-def start_miner() -> bool:
-    log.info("Starting local vault miner...")
-    try:
-        log_path = str(LOG_FILE)
-        fh = open(log_path, "a", encoding="utf-8")
-        subprocess.Popen(
-            [sys.executable, str(MINER_SCRIPT)],
-            cwd=str(REPO_ROOT),
-            stdout=fh,
-            stderr=subprocess.STDOUT,
-            creationflags=subprocess.CREATE_NEW_PROCESS_GROUP,
-        )
-        log.info("Vault miner started successfully.")
-        return True
-    except Exception as exc:
-        log.error("Failed to start vault miner: %s", exc)
-        return False
 
 
 # ---------------------------------------------------------------------------
@@ -317,40 +283,37 @@ def git_push(message: str) -> bool:
 # Health Report
 # ---------------------------------------------------------------------------
 
-def build_report(local: Dict, sent: Dict, risk: Dict, actions: List[str]) -> str:
+def build_report(opt: Dict, sent: Dict, risk: Dict, actions: List[str]) -> str:
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    def icon(info_dict: Dict, key: str = "consecutive_failures") -> str:
-        v = info_dict.get(key, 0)
-        if info_dict.get("is_stalled") or info_dict.get("is_zero_qual_streak") or v >= 2:
-            return "[CRITICAL]"
-        if v == 1:
-            return "[WARNING]"
-        return "[OK]"
+    def icon(info_dict: Dict) -> str:
+        if info_dict.get("is_active"):
+            return "🟢 [RUNNING]"
+        conc = info_dict.get("last_conclusion", "UNKNOWN")
+        if conc == "success":
+            return "✅ [IDLE - SUCCESS]"
+        if info_dict.get("consecutive_failures", 0) >= 2:
+            return "🔴 [CRITICAL]"
+        return "⚠️ [WARNING]"
 
-    li = "[CRITICAL]" if (local.get("is_stalled") or local.get("is_zero_qual_streak")) else "[OK]"
+    oi = icon(opt)
     si = icon(sent)
     ri = icon(risk)
 
-    issues = local.get("issues", []) + sent.get("issues", []) + risk.get("issues", [])
+    issues = opt.get("issues", []) + sent.get("issues", []) + risk.get("issues", [])
     lines = [
-        f"<b>Pipeline Health Digest</b> -- {ts}",
+        f"<b>Cloud Pipeline Health Digest</b> -- {ts}",
         "",
-        f"{li} <b>Local Vault Miner</b>",
-        f"  Sims: <b>{local.get('total_sims', 0)}</b> | Qualified: <b>{local.get('qualified_count', 0)}</b>",
-        f"  Fitness-fail streak: {local.get('fitness_fail_streak', 0)} sims",
-        f"  Last sim: {local.get('last_sim_minutes_ago', 'N/A')}m ago",
-        f"  Timeouts: {local.get('timeout_count', 0)} | SSL drops: {local.get('ssl_drop_count', 0)}",
-        "",
-        f"{si} <b>Sentiment Cloud</b>: {sent.get('last_conclusion', 'N/A').upper()} | fails: {sent.get('consecutive_failures', 0)}",
-        f"{ri} <b>Risk Model Cloud</b>: {risk.get('last_conclusion', 'N/A').upper()} | fails: {risk.get('consecutive_failures', 0)}",
+        f"{oi} <b>Options Cloud</b>: {opt.get('last_conclusion', 'N/A').upper()} (Slot 1)",
+        f"{si} <b>Sentiment Cloud</b>: {sent.get('last_conclusion', 'N/A').upper()} (Slot 2)",
+        f"{ri} <b>Risk Model Cloud</b>: {risk.get('last_conclusion', 'N/A').upper()} (Slot 3)",
     ]
     if issues:
         lines += ["", "<b>Issues Detected:</b>"] + [f"  - {i}" for i in issues[:8]]
     if actions:
         lines += ["", "<b>Auto-Actions Taken:</b>"] + [f"  + {a}" for a in actions]
     if not issues and not actions:
-        lines += ["", "All systems nominal. Pipeline running at full capacity."]
+        lines += ["", "All 3 cloud slots nominal and fully saturated."]
     return "\n".join(lines)
 
 
@@ -358,72 +321,47 @@ def build_report(local: Dict, sent: Dict, risk: Dict, actions: List[str]) -> str
 # Main Monitor Cycle
 # ---------------------------------------------------------------------------
 
+CLOUD_WORKFLOWS = [
+    ("mine_options.yml", "Options (option8/9)"),
+    ("mine_sentiment.yml", "Sentiment (sentiment1/2)"),
+    ("mine_risk_model.yml", "Risk Model (model51/52)"),
+]
+
 def run_cycle() -> None:
-    log.info("=" * 55)
-    log.info("PIPELINE MONITOR: Health check starting")
-    log.info("=" * 55)
+    log.info("=" * 60)
+    log.info("PIPELINE MONITOR: Cloud Multi-Miner Health check starting")
+    log.info("=" * 60)
     actions: List[str] = []
 
-    # 1 -- Local miner log
-    local = parse_local_miner_log()
-    for issue in local["issues"]:
-        log.warning("LOCAL ISSUE: %s", issue)
-
-    # 2 -- Process management
-    alive = is_miner_running()
-    if not alive:
-        log.warning("Local vault miner process NOT found -- restarting...")
-        if start_miner():
-            actions.append("Restarted dead local vault miner process")
-            send_tg("<b>Monitor:</b> Local vault miner was dead -- <b>auto-restarted</b>.")
-        else:
-            send_tg(
-                "<b>CRITICAL:</b> Local vault miner is dead and failed to restart. "
-                "Manual intervention required."
-            )
-    elif local["is_stalled"]:
-        log.warning(
-            "Miner is running but STALLED (no sim in %sm) -- killing and restarting...",
-            local["last_sim_minutes_ago"],
-        )
-        kill_miner()
-        if start_miner():
-            actions.append(
-                f"Restarted stalled miner (no sim in {local['last_sim_minutes_ago']}m)"
-            )
-    else:
+    # 1 -- Check each cloud workflow
+    workflow_results = {}
+    for wf_file, wf_desc in CLOUD_WORKFLOWS:
+        info = analyse_gh_workflow(wf_file)
+        workflow_results[wf_file] = info
         log.info(
-            "Local miner OK. Sims: %d | Qualified: %d | Last sim: %sm ago",
-            local["total_sims"],
-            local["qualified_count"],
-            local["last_sim_minutes_ago"],
+            "[%s] active=%s | last=%s | fails=%d",
+            info["name"], info["is_active"], info["last_conclusion"], info["consecutive_failures"]
         )
+        for issue in info["issues"]:
+            log.warning("ISSUE [%s]: %s", info["name"], issue)
 
-    # 3 -- GitHub Actions
-    log.info("Checking GitHub Actions workflow health...")
-    sent = analyse_gh_workflow("mine_sentiment.yml")
-    risk = analyse_gh_workflow("mine_risk_model.yml")
-    for issue in sent["issues"] + risk["issues"]:
-        log.warning("GH ISSUE: %s", issue)
-
-    for wf_file, wf_info in [("mine_sentiment.yml", sent), ("mine_risk_model.yml", risk)]:
-        if wf_info.get("consecutive_failures", 0) >= 3:
-            log.warning(
-                "%s has %d consecutive failures -- triggering manual dispatch...",
-                wf_file, wf_info["consecutive_failures"],
-            )
+        # Auto-heal: If workflow is NOT currently running, start it immediately to ensure continuous 24/7 mining
+        if not info["is_active"]:
+            log.warning("%s is IDLE (last: %s) -- auto-triggering workflow...", wf_desc, info["last_conclusion"])
             try:
                 subprocess.run(
                     ["gh", "workflow", "run", wf_file, "--ref", "main"],
                     cwd=str(REPO_ROOT), check=True, timeout=30,
                 )
-                actions.append(
-                    f"Re-triggered {wf_file} after {wf_info['consecutive_failures']} failures"
-                )
+                actions.append(f"Auto-triggered idle {wf_desc}")
             except Exception as exc:
                 log.error("Failed to trigger %s: %s", wf_file, exc)
 
-    # 4 -- Push uncommitted changes
+    opt = workflow_results.get("mine_options.yml", {})
+    sent = workflow_results.get("mine_sentiment.yml", {})
+    risk = workflow_results.get("mine_risk_model.yml", {})
+
+    # 2 -- Push uncommitted changes if any
     diff_r = subprocess.run(
         ["git", "diff", "--name-only"],
         capture_output=True, text=True, cwd=str(REPO_ROOT), timeout=15,
@@ -433,9 +371,9 @@ def run_cycle() -> None:
         if git_push("chore: auto-push pipeline monitor hotfixes"):
             actions.append(f"Pushed hotfixes: {diff_r.stdout.strip()[:80]}")
 
-    # 5 -- Health digest
+    # 3 -- Health digest
     log.info("Sending Telegram health digest...")
-    report = build_report(local, sent, risk, actions)
+    report = build_report(opt, sent, risk, actions)
     send_tg(report)
     log.info("Cycle complete. %d actions taken.", len(actions))
 
