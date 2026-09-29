@@ -20,7 +20,12 @@ from brain_options.llm.prompts import (
 from brain_options.specialist.catalog import OptionsCatalog
 from brain_options.specialist.dedup import ASTDeduplicator
 from brain_options.specialist.kb import OptionsKnowledgeBase
-from brain_options.specialist.templates import OptionCandidate, compile_fitness_invariant, generate_template_candidates
+from brain_options.specialist.templates import (
+    OptionCandidate,
+    compile_fitness_invariant,
+    generate_high_capacity_candidates,
+    generate_template_candidates,
+)
 from brain_options.specialist.peer_genome import PeerGenomeGraph, extract_genome
 from brain_options.specialist.decorrelator import auto_correct_for_collision
 from brain_options.strategies import generate_modular_candidates
@@ -61,10 +66,10 @@ class OptionsGenerator:
         self.db = db
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
-        # Seed queue with both deterministic templates and all 30 modular strategy systems
+        # Seed queue with high-capacity matrix, deterministic templates, and modular strategy systems
         seen_hashes = set()
         queue: list[OptionCandidate] = []
-        for c in generate_template_candidates() + generate_modular_candidates():
+        for c in generate_high_capacity_candidates() + generate_template_candidates() + generate_modular_candidates():
             h = self.deduplicator.hash(c.expression)
             if h not in seen_hashes:
                 seen_hashes.add(h)
@@ -114,6 +119,51 @@ class OptionsGenerator:
     def is_evaluated(self, expression: str) -> bool:
         cleaned = compile_fitness_invariant(expression.strip())
         return cleaned in self.evaluated_expressions or self.deduplicator.is_duplicate(cleaned)
+
+    def generate_candidate(self) -> OptionCandidate:
+        """Pulls next candidate from high-capacity template queue, LLM reasoning tier, or procedural mutation."""
+        # Tier 1: Deterministic golden templates & high-capacity matrix
+        if self._template_queue:
+            return self._template_queue.pop(0)
+
+        # Tier 2: Quantitative LLM reasoning tier
+        if self.llm_adapter:
+            try:
+                batch = self.get_reasoning_batch(target_count=5)
+                if batch:
+                    cand = batch.pop(0)
+                    self._template_queue.extend(batch)
+                    return cand
+            except Exception as e:
+                log.warning("Options LLM generation failed: %s", e)
+
+        # Tier 3: Procedural mutation fallback
+        batch = self.get_procedural_batch(target_count=5)
+        if batch:
+            cand = batch.pop(0)
+            self._template_queue.extend(batch)
+            return cand
+
+        # Tier 4: Systematic parameter variation fallback
+        t = random.choice([30, 60, 90, 120, 180])
+        d = random.choice([14, 18, 22])
+        g = random.choice(["subindustry", "sector", "industry"])
+        u = random.choice(["TOP3000", "TOP2000"])
+        expr = f"group_neutralize(rank(ts_decay_linear(ts_decay_linear((forward_price_{t} - put_breakeven_{t}) / close, {d}), 3)), {g})"
+        return OptionCandidate(
+            expression=expr,
+            archetype_name=f"T1_PutFloor{t}_d{d}_{u}_{g.upper()}",
+            archetype=f"T1_PutFloor{t}_d{d}_{u}_{g.upper()}",
+            hypothesis=f"Systematic put breakeven exploration ({t}d) with decay {d}.",
+            universe=u,
+            neutralization=g.upper(),
+            decay=d,
+            family=f"Arch1_PutFloor_{t}",
+            generation_source="procedural_fallback",
+        )
+
+    def total_queued(self) -> int:
+        return len(self._template_queue)
 
     def choose_archetype(
         self,
@@ -804,4 +854,36 @@ class OptionsGenerator:
             )
 
         return candidates
+
+    def generate_candidate(self) -> OptionCandidate:
+        """Pulls next deterministic template candidate, or generates fresh candidates if queue is empty."""
+        while self._template_queue:
+            cand = self._template_queue.pop(0)
+            if not self.is_evaluated(cand.expression):
+                return cand
+
+        # Replenish queue if depleted
+        fresh = self.assemble_candidate_batch(target_count=20)
+        for c in fresh:
+            if not self.is_evaluated(c.expression):
+                self._template_queue.append(c)
+
+        if self._template_queue:
+            return self._template_queue.pop(0)
+
+        # Procedural fallback
+        procedural = self.get_procedural_batch(1)
+        if procedural:
+            return procedural[0]
+
+        # Ultimate fallback
+        return OptionCandidate(
+            expression="group_neutralize(ts_decay_linear(trade_when(volume > 100000, opt_implied_volatility_call_30, -1), 18), subindustry)",
+            archetype_name="volatility_surface",
+            archetype="volatility_surface",
+            hypothesis="Baseline implied volatility anomaly with turnover compression",
+            universe="TOP3000",
+            neutralization="SUBINDUSTRY",
+            decay=18,
+        )
 

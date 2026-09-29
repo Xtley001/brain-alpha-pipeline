@@ -249,11 +249,11 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
         else:
             cand_obj = generator.generate_candidate()
             expr = cand_obj.expression
-            arch = cand_obj.archetype
-            hyp = cand_obj.hypothesis
-            universe = cand_obj.universe
-            neut = cand_obj.neutralization
-            decay = cand_obj.decay
+            arch = getattr(cand_obj, "archetype", None) or getattr(cand_obj, "archetype_name", "general")
+            hyp = getattr(cand_obj, "hypothesis", "")
+            universe = getattr(cand_obj, "universe", "TOP3000")
+            neut = getattr(cand_obj, "neutralization", "SUBINDUSTRY")
+            decay = getattr(cand_obj, "decay", 18)
 
         if expr in known_exprs:
             continue
