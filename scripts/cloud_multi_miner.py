@@ -2,13 +2,17 @@
 """
 Dedicated Cloud Multi-Category Alpha Miner for GitHub Actions.
 Supports:
+- category: options   (option8/option9, ValueScore=5-6, Vol Surface & PCR)
 - category: sentiment (sentiment1/2, ValueScore=8.0, PEAD & SUE)
 - category: risk_model (model51/52, ValueScore=7.0, BAB & Factor Divergence)
 - category: apex (tri-category orthogonal synthesis)
 
-Configured for Concurrency = 1 (Single Slot Execution)
-Leaves 1 simulation slot permanently open for Local PC Options mining,
-guaranteeing zero 429 concurrency limit collisions on WorldQuant BRAIN.
+Configured for Concurrency = 1 per job.
+All three verticals run as separate GitHub Actions jobs:
+  mine_options.yml     cron: 0  */6 * * *  (fires at :00)
+  mine_sentiment.yml   cron: 15 */6 * * *  (fires at :15)
+  mine_risk_model.yml  cron: 45 */6 * * *  (fires at :45)
+This fills all 3 BRAIN simulation slots 24/7 with zero local PC dependency.
 """
 from __future__ import annotations
 
@@ -42,6 +46,7 @@ from brain_options.core.correlation import compute_correlation
 from brain_options.llm.adapter import LLMAdapter
 from brain_options.store.store import OptionsStore
 
+from brain_options.specialist.generator import OptionsGenerator
 from brain_sentiment.specialist.generator import SentimentGenerator
 from brain_risk_model.specialist.generator import RiskModelGenerator
 from brain_synthesis.apex_generator import generate_apex_candidates
@@ -207,7 +212,10 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
 
     # 3. Initialize generator based on category
     generator = None
-    if category == "sentiment":
+    if category == "options":
+        generator = OptionsGenerator(db=store.db, llm_adapter=llm)
+        log.info("Options generator loaded. Mining option8/option9 (138 fields, PCR+Vol Surface).")
+    elif category == "sentiment":
         generator = SentimentGenerator(db=store.db, llm_adapter=llm)
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
@@ -281,9 +289,12 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
         )
 
         # Gate 1: Performance Gate
+        # Fitness threshold is 0.70 (not 1.00) for options/double-decay expressions.
+        # Sentiment and risk model use standard single-decay, so 1.00 is correct for them.
+        fitness_threshold = 0.70 if category == "options" else 1.00
         if (
             metrics.sharpe < 1.25
-            or metrics.fitness < 1.00
+            or metrics.fitness < fitness_threshold
             or metrics.turnover < 0.01
             or metrics.turnover > 0.70
             or metrics.margin < 0.0008
@@ -354,7 +365,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
 
 def main():
     parser = argparse.ArgumentParser(description="Dedicated Cloud Multi-Category Alpha Miner")
-    parser.add_argument("--category", choices=["sentiment", "risk_model", "apex"], required=True, help="Category to mine")
+    parser.add_argument("--category", choices=["options", "sentiment", "risk_model", "apex"], required=True, help="Category to mine")
     parser.add_argument("--candidates", type=int, default=25, help="Max candidates to simulate")
     parser.add_argument("--timeout-mins", type=int, default=20, help="Max time in minutes")
     args = parser.parse_args()

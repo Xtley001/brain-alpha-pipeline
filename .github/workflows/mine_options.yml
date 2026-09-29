@@ -1,4 +1,4 @@
-name: Cloud Miner - Sentiment (sentiment1/2)
+name: Cloud Miner - Options (option8/option9)
 
 on:
   workflow_dispatch:
@@ -6,23 +6,25 @@ on:
       candidates:
         description: "Number of candidates to evaluate"
         required: false
-        default: "30"
+        default: "9999"
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "25"
+        default: "345"
   schedule:
-    # Runs every 6 hours — each job mines continuously for 5h45m
-    # Gives 97% utilization (vs. 8.75% on the old 35min/4h schedule)
-    - cron: "15 */6 * * *"
+    # Runs every 6 hours at minute 0 (15min before sentiment, 45min before risk model)
+    # Each job mines continuously for 5h45m — 97% utilization
+    # Together with sentiment (:15) and risk model (:45), all 3 BRAIN slots
+    # are continuously saturated across all verticals 24/7
+    - cron: "0 */6 * * *"
 
 concurrency:
-  group: cloud-miner-sentiment
+  group: cloud-miner-options
   cancel-in-progress: false
 
 jobs:
-  mine-sentiment:
-    name: Mine Sentiment Alphas (1-Slot Cloud)
+  mine-options:
+    name: Mine Options Alphas (1-Slot Cloud)
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -59,9 +61,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Cloud Sentiment Miner
+      - name: Run Cloud Options Miner
         run: |
           python scripts/cloud_multi_miner.py \
-            --category sentiment \
+            --category options \
             --candidates ${{ github.event.inputs.candidates || '9999' }} \
             --timeout-mins ${{ github.event.inputs.timeout_mins || '345' }}

@@ -12,8 +12,9 @@ on:
         required: false
         default: "25"
   schedule:
-    # Runs every 4 hours at minute 45 (interleaved with sentiment)
-    - cron: "45 */4 * * *"
+    # Runs every 6 hours at minute 45 (30min offset from sentiment to stagger starts)
+    # Each job mines continuously for 5h45m — 97% utilization
+    - cron: "45 */6 * * *"
 
 concurrency:
   group: cloud-miner-risk-model
@@ -23,7 +24,7 @@ jobs:
   mine-risk-model:
     name: Mine Risk Model Alphas (1-Slot Cloud)
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 360
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -62,5 +63,5 @@ jobs:
         run: |
           python scripts/cloud_multi_miner.py \
             --category risk_model \
-            --candidates ${{ github.event.inputs.candidates || '30' }} \
-            --timeout-mins ${{ github.event.inputs.timeout_mins || '25' }}
+            --candidates ${{ github.event.inputs.candidates || '9999' }} \
+            --timeout-mins ${{ github.event.inputs.timeout_mins || '345' }}
