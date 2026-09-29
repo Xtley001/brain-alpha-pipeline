@@ -1,0 +1,92 @@
+[
+  {
+    "id": "beta_last_60_days_spy",
+    "description": "Rolling 60-day equity beta relative to SPY benchmark index (Frazzini & Pedersen 2014 BAB).",
+    "dataset": {"id": "model51", "name": "Systematic Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "market-beta", "name": "Market Beta"},
+    "type": "MATRIX",
+    "userCount": 2150,
+    "alphaCount": 4920
+  },
+  {
+    "id": "beta_last_90_days_spy",
+    "description": "Rolling 90-day equity beta relative to SPY benchmark index.",
+    "dataset": {"id": "model51", "name": "Systematic Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "market-beta", "name": "Market Beta"},
+    "type": "MATRIX",
+    "userCount": 1820,
+    "alphaCount": 3810
+  },
+  {
+    "id": "beta_last_30_days_spy",
+    "description": "Short-horizon 30-day equity beta capturing transient beta spikes and borrow constraint shocks.",
+    "dataset": {"id": "model51", "name": "Systematic Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "market-beta", "name": "Market Beta"},
+    "type": "MATRIX",
+    "userCount": 1420,
+    "alphaCount": 2980
+  },
+  {
+    "id": "beta_last_360_days_spy",
+    "description": "Long-horizon 360-day structural fundamental equity beta.",
+    "dataset": {"id": "model51", "name": "Systematic Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "market-beta", "name": "Market Beta"},
+    "type": "MATRIX",
+    "userCount": 1150,
+    "alphaCount": 2140
+  },
+  {
+    "id": "correlation_last_60_days_spy",
+    "description": "Rolling 60-day cross-sectional correlation between individual stock daily returns and SPY.",
+    "dataset": {"id": "model51", "name": "Systematic Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "market-correlation", "name": "Market Correlation"},
+    "type": "MATRIX",
+    "userCount": 1940,
+    "alphaCount": 4210
+  },
+  {
+    "id": "fscore_surface_accel",
+    "description": "Piotroski financial statement quality surface acceleration derivative (Piotroski 2000).",
+    "dataset": {"id": "model52", "name": "Fundamental Quality Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "fundamental-quality", "name": "Fundamental Quality"},
+    "type": "MATRIX",
+    "userCount": 890,
+    "alphaCount": 1840
+  },
+  {
+    "id": "fscore_bfl_quality",
+    "description": "Baseline composite accounting quality score measuring solvency, liquidity, and operational efficiency.",
+    "dataset": {"id": "model52", "name": "Fundamental Quality Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "fundamental-quality", "name": "Fundamental Quality"},
+    "type": "MATRIX",
+    "userCount": 1120,
+    "alphaCount": 2410
+  },
+  {
+    "id": "fscore_bfl_profitability",
+    "description": "Novy-Marx gross profitability composite factor (Novy-Marx 2013).",
+    "dataset": {"id": "model52", "name": "Fundamental Quality Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "profitability", "name": "Profitability"},
+    "type": "MATRIX",
+    "userCount": 980,
+    "alphaCount": 2050
+  },
+  {
+    "id": "earnings_certainty_rank_derivative",
+    "description": "First derivative of earnings predictability certainty rank (Blitz & van Vliet 2007).",
+    "dataset": {"id": "model51", "name": "Systematic Risk Model"},
+    "category": {"id": "model", "name": "Risk Model"},
+    "subcategory": {"id": "volatility-effect", "name": "Volatility Effect"},
+    "type": "MATRIX",
+    "userCount": 750,
+    "alphaCount": 1490
+  }
+]

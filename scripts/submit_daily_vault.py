@@ -86,25 +86,32 @@ def total_submitted(database_url):
             return cur.fetchone()[0]
 
 
-def run_checklist(session, alpha_id):
+def run_checklist(session, alpha_id, max_retries=5, delay=2.0):
     url = "https://api.worldquantbrain.com/alphas/" + alpha_id + "/check"
-    try:
-        resp = session.get(url)
-        if resp.status_code != 200 or not resp.text.strip():
-            log.warning("  Checklist empty/error for %s (HTTP %s) -- SKIPPING.", alpha_id, resp.status_code)
-            return False
-        data = resp.json()
-        # BRAIN nests checks under is.checks; fall back to top-level checks
-        checks = data.get("is", {}).get("checks", []) or data.get("checks", [])
-        failing = [c.get("name") for c in checks if c.get("result") == "FAIL"]
-        if failing:
-            log.warning("  Checklist FAIL for %s: %s -- SKIPPING.", alpha_id, failing)
-            return False
-        log.info("  Checklist PASS for %s (%d checks OK).", alpha_id, len(checks))
-        return True
-    except Exception as e:
-        log.warning("  Checklist error for %s: %s -- SKIPPING.", alpha_id, e)
-        return False
+    import time
+    for attempt in range(1, max_retries + 1):
+        try:
+            resp = session.get(url)
+            if resp.status_code == 200 and resp.text.strip():
+                try:
+                    data = resp.json()
+                except Exception:
+                    data = {}
+                checks = data.get("is", {}).get("checks", []) or data.get("checks", [])
+                if checks:
+                    failing = [c.get("name") for c in checks if c.get("result") == "FAIL"]
+                    if failing:
+                        log.warning("  Checklist FAIL for %s: %s -- SKIPPING.", alpha_id, failing)
+                        return False
+                    log.info("  Checklist PASS for %s (%d checks OK).", alpha_id, len(checks))
+                    return True
+            log.info("  Checklist for %s pending/warming (attempt %d/%d)... waiting %ss", alpha_id, attempt, max_retries, delay)
+            time.sleep(delay)
+        except Exception as e:
+            log.warning("  Checklist request error for %s (attempt %d): %s", alpha_id, attempt, e)
+            time.sleep(delay)
+    log.warning("  Checklist timeout/empty for %s -- SKIPPING.", alpha_id)
+    return False
 
 
 async def main(dry_run=False):

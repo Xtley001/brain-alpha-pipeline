@@ -1,0 +1,122 @@
+[
+  {
+    "id": "snt1_d1_netearningsrevision",
+    "description": "Net percentage of equity analysts raising minus lowering quarterly earnings estimates over the trailing consensus window.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "analyst-revisions", "name": "Analyst Revisions"},
+    "type": "MATRIX",
+    "userCount": 3410,
+    "alphaCount": 8920
+  },
+  {
+    "id": "snt1_d1_earningssurprise",
+    "description": "Standardized Unexpected Earnings (SUE): actual reported EPS minus mean consensus forecast divided by historical dispersion.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "earnings-surprise", "name": "Earnings Surprise"},
+    "type": "MATRIX",
+    "userCount": 2890,
+    "alphaCount": 6510
+  },
+  {
+    "id": "snt1_d1_nettargetpercent",
+    "description": "Net percentage of equity research analysts raising minus lowering 12-month forward price targets.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "target-price", "name": "Price Targets"},
+    "type": "MATRIX",
+    "userCount": 2150,
+    "alphaCount": 5120
+  },
+  {
+    "id": "snt1_d1_dtstsespe",
+    "description": "Standard deviation and cross-analyst dispersion of consensus forward EPS estimates (Diether et al. 2002 anomaly).",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "forecast-dispersion", "name": "Forecast Dispersion"},
+    "type": "MATRIX",
+    "userCount": 1420,
+    "alphaCount": 3810
+  },
+  {
+    "id": "snt1_d1_dynamicfocusrank",
+    "description": "Dynamic analyst coverage attention and revision velocity rank measuring institutional focus intensity.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "analyst-attention", "name": "Analyst Attention"},
+    "type": "MATRIX",
+    "userCount": 980,
+    "alphaCount": 2420
+  },
+  {
+    "id": "daily_equity_mood_indicator",
+    "description": "Aggregated daily equity news media sentiment and lexical mood indicator (Tetlock 2007, Baker & Wurgler 2006).",
+    "dataset": {"id": "sentiment2", "name": "News & Media Sentiment"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "media-mood", "name": "Media Mood"},
+    "type": "MATRIX",
+    "userCount": 1150,
+    "alphaCount": 2980
+  },
+  {
+    "id": "weekly_equity_mood_index",
+    "description": "Multi-day trailing news and headline tone composite measuring cumulative narrative sentiment.",
+    "dataset": {"id": "sentiment2", "name": "News & Media Sentiment"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "media-mood", "name": "Media Mood"},
+    "type": "MATRIX",
+    "userCount": 890,
+    "alphaCount": 1840
+  },
+  {
+    "id": "snt1_cored1_score",
+    "description": "Proprietary composite sell-side score combining target prices, earnings revisions, and recommendations (Scale 1-10).",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "composite-score", "name": "Composite Score"},
+    "type": "MATRIX",
+    "userCount": 1650,
+    "alphaCount": 4210
+  },
+  {
+    "id": "snt1_d1_earningstorpedo",
+    "description": "High-expectation growth stock earnings disappointment vulnerability index.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "torpedo-risk", "name": "Earnings Torpedo"},
+    "type": "MATRIX",
+    "userCount": 730,
+    "alphaCount": 1560
+  },
+  {
+    "id": "snt1_d1_uptargetpercent",
+    "description": "Gross percentage of analysts raising price targets over trailing 30 days.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "target-price", "name": "Price Targets"},
+    "type": "MATRIX",
+    "userCount": 1210,
+    "alphaCount": 3100
+  },
+  {
+    "id": "snt1_d1_downtargetpercent",
+    "description": "Gross percentage of analysts lowering price targets over trailing 30 days.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "target-price", "name": "Price Targets"},
+    "type": "MATRIX",
+    "userCount": 1180,
+    "alphaCount": 3050
+  },
+  {
+    "id": "snt1_d1_netrecpercent",
+    "description": "Net percentage of recommendation upgrades minus downgrades across Wall Street brokerages.",
+    "dataset": {"id": "sentiment1", "name": "Analyst Sentiment & Revisions"},
+    "category": {"id": "sentiment", "name": "Sentiment"},
+    "subcategory": {"id": "recommendations", "name": "Recommendations"},
+    "type": "MATRIX",
+    "userCount": 1940,
+    "alphaCount": 4720
+  }
+]

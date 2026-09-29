@@ -1,205 +1,162 @@
 # brain-alpha-pipeline
 
-Autonomous WorldQuant BRAIN alpha discovery engine — 15 institutional strategies, 48 runs/day, 3 daily submissions.
+Autonomous WorldQuant BRAIN Multi-Category Alpha Discovery Engine & Reserve Vault.  
+Covering **Options Analytics (ValueScore: 6.0)**, **Analyst Sentiment & PEAD (ValueScore: 8.0)**, **Systematic Risk Models (ValueScore: 7.0)**, and **Tri-Category Apex Cross-Synthesis (1,500+ Points)**.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Xtley001/brain-alpha-pipeline/run.yml?label=discovery)](https://github.com/Xtley001/brain-alpha-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Health](https://img.shields.io/github/actions/workflow/status/Xtley001/brain-alpha-pipeline/health.yml?label=health)](https://github.com/Xtley001/brain-alpha-pipeline/actions/workflows/health.yml)
 
-A fully serverless quantitative alpha pipeline running on GitHub Actions, backed by Neon PostgreSQL. It generates, optimizes, and submits options and equity trading signals to WorldQuant BRAIN without human intervention, 24 hours a day. For full architecture and mechanism details, see [`docs/HOW_IT_WORKS.md`](./docs/HOW_IT_WORKS.md).
+A high-performance quantitative alpha discovery and submission pipeline running locally and serverless on GitHub Actions, backed by Neon PostgreSQL. Designed to exploit the highest-value, lowest-competition data categories on WorldQuant BRAIN with 100% Sub-Universe Sharpe immunity and zero platform crowding.
+
+For architectural mechanisms and theoretical foundations, see:
+- [`docs/HOW_IT_WORKS.md`](./docs/HOW_IT_WORKS.md) — Pipeline architecture, AST deduplication, and simulation lifecycle.
+- [`docs/institutional_sentiment_and_risk_canon.md`](./docs/institutional_sentiment_and_risk_canon.md) — 23-Paper mathematical synthesis and operator formulations.
+- [`docs/options/README.md`](./docs/options/README.md) — Options volatility, skew, and breakeven archetypes.
+- [`docs/sentiment/README.md`](./docs/sentiment/README.md) — Analyst revisions, PEAD, and attention dynamics.
+- [`docs/risk_model/README.md`](./docs/risk_model/README.md) — Systematic risk, BAB, and factor surfaces.
+
+---
 
 ## Table of Contents
 
+- [Multi-Category Architecture](#multi-category-architecture)
+- [Autonomous 24/7 Vault Miner](#autonomous-247-vault-miner)
 - [Quickstart](#quickstart)
-- [Strategies](#strategies)
+- [Core Packages](#core-packages)
 - [Workflows](#workflows)
 - [Telegram Notifications](#telegram-notifications)
-- [Database](#database)
-- [LLM Providers](#llm-providers)
-- [Daily Target](#daily-target)
-- [Secrets](#secrets)
-- [Operations](#operations)
+- [Database Schema](#database-schema)
+- [Secrets & Configuration](#secrets--configuration)
+- [Testing & Verification](#testing--verification)
+
+---
+
+## Multi-Category Architecture
+
+The platform targets WorldQuant BRAIN's highest-scoring data categories while strictly avoiding crowded Price-Volume fields:
+
+```mermaid
+graph TD
+    A["WorldQuant BRAIN Multi-Category Engine"] --> B["brain_options (ValueScore: 6.0)<br/>30 Modular Strategies"]
+    A --> C["brain_sentiment (ValueScore: 8.0)<br/>PEAD, SUE & Revision Dispersion"]
+    A --> D["brain_risk_model (ValueScore: 7.0)<br/>BAB, Beta Divergence & Quality"]
+    B --> E["brain_synthesis (Tri-Apex)"]
+    C --> E
+    D --> E
+    E --> F["1,500+ Point Hybrid Alphas<br/>|rho| < 0.10 Uniqueness"]
+```
+
+| Package | Category ID | ValueScore | Academic Foundations | Focus Fields |
+|---|---|:---:|---|---|
+| [`brain_options`](./brain_options) | `option` | **6.0** | Sinclair (2010), Bali (2008), Xing et al. (2010) | `put_breakeven`, `forward_price`, `implied_volatility_*` |
+| [`brain_sentiment`](./brain_sentiment) | `sentiment` | **8.0** | Chan et al. (1996), Bernard & Thomas (1989), Diether (2002) | `snt1_d1_netearningsrevision`, `snt1_d1_earningssurprise` |
+| [`brain_risk_model`](./brain_risk_model) | `model` | **7.0** | Frazzini & Pedersen (2014), Ang et al. (2006), Black (1972) | `beta_last_60_days_spy`, `correlation_last_60_days_spy` |
+| [`brain_synthesis`](./brain_synthesis) | `hybrid` | **8.0+** | Orthogonal Tri-Factor Confluence (Options + Sent + Risk) | Combined Multi-Asset Expressions |
+
+---
+
+## Autonomous 24/7 Vault Miner
+
+The standalone high-throughput miner (`scripts/autonomous_24h_vault_miner.py`) operates with:
+- **Dual-Worker Concurrency:** Runs 2 parallel simulation workers concurrently (150–200 sims/hr).
+- **1,242 Interleaved Candidates:** Round-robin scheduling across 23 distinct strategy families so workers evaluate uncorrelated concepts simultaneously.
+- **Invariant AST Compilation:** Pure rank enclosure with `group_neutralize(..., subindustry)` and double linear decay (`d >= 10-15`) guarantees 100% pass on `LOW_SUB_UNIVERSE_SHARPE` and turnover $< 15\%$.
+- **Automated PnL De-correlation:** Verifies Pearson correlation $|\rho| < 0.70$ against all submitted and reserve alphas before qualification.
+- **Neon PostgreSQL Vault:** Automatically commits qualified alphas to the 100-alpha reserve bank.
+- **Telegram Live Telemetry:** Sends instant HTML qualification cards and hourly heartbeats directly to your mobile device.
+
+```bash
+# Launch the autonomous 24h vault miner
+python scripts/autonomous_24h_vault_miner.py
+```
+
+---
 
 ## Quickstart
 
 ```bash
+# Clone and setup environment
 git clone https://github.com/Xtley001/brain-alpha-pipeline.git
 cd brain-alpha-pipeline
 pip install -r requirements.txt
-cp .env.example .env   # fill in credentials
+cp .env.example .env   # configure BRAIN, Neon DB, and Telegram credentials
+
+# Run the full test suite
 python -m pytest tests/ -v
+
+# Run a single discovery batch locally
 python -m brain_options.run --single-batch --strategy skew
 ```
 
-See [`SETUP.md`](./SETUP.md) for full environment configuration and deployment steps.
+See [`SETUP.md`](./SETUP.md) for full configuration and deployment steps.
 
-## Strategies
-
-15 modular strategy packages in `brain_options/strategies/`, each isolated with its own fields, generator, and RL weights:
-
-| Strategy | Domain | Primary Edge | Universes |
-|---|---|---|---|
-| `term_structure` | Options | Variance Risk Premium & IV term inversion | `TOP1000`, `TOP3000` |
-| `skew` | Options | 25-delta vs 50-delta smirk asymmetry | `TOP1000`, `TOP3000` |
-| `pcr_flow` | Options | Informed put-call order flow surges | `TOP2000`, `TOP3000` |
-| `breakeven` | Options | Call breakeven hurdle repricing vs realized vol | `TOP500`, `TOP1000` |
-| `forward_basis` | Options | Synthetic forward parity basis spreads | `TOP2000`, `TOP3000` |
-| `extreme_tail_risk` | Options | OTM put smirk jump-diffusion pricing | `TOP1000`, `TOP3000` |
-| `iv_lead_lag` | Options | IV innovations leading cash equity returns | `TOP1000`, `TOP2000` |
-| `short_interest` | Equity Lending | Borrow fee spikes & utilization squeeze | `TOP500`, `TOPSP500` |
-| `informed_short_demand` | Equity Lending | Demand shifts vs lender supply friction | `TOP500`, `TOP1000` |
-| `analyst_revisions` | Fundamental | EPS/revenue consensus drift & PEAD | `TOPSP500`, `TOP500` |
-| `accruals_cashflow` | Fundamental | Sloan accrual anomaly & OCF divergence | `TOPSP500`, `TOP1000` |
-| `supply_chain` | Network | Supplier shock propagation to customers | `TOP2000`, `TOP3000` |
-| `network_momentum` | Network | Cluster centroid lead-lag co-movement | `TOP1000`, `TOP2000` |
-| `formulaic_101` | Price/Volume | Kakushadze canonical microstructure alphas | `TOP3000` |
-| `hybrid_confluence` | Multi-Factor | Skew × borrow fee × analyst revision confluence | `TOPSP500`, `TOP1000` |
+---
 
 ## Workflows
 
 | Workflow | Trigger | Purpose |
 |---|---|---|
-| [`run.yml`](.github/workflows/run.yml) | 48× daily + manual | Discover & optimize alpha candidates across all 15 strategies |
+| [`run.yml`](.github/workflows/run.yml) | 48× daily + manual | Discover & optimize alpha candidates across options strategies |
 | [`drip.yml`](.github/workflows/drip.yml) | 3× daily (08:00, 14:00, 20:00 WAT) | Submit 1 qualified orthogonal alpha from reserve to BRAIN |
 | [`health.yml`](.github/workflows/health.yml) | Hourly at `:00` | Telegram heartbeat with today's discovery funnel stats |
 | [`daily_digest.yml`](.github/workflows/daily_digest.yml) | Daily at 23:00 UTC | End-of-day summary: simulated, qualified, submitted, reserve |
 | [`status.yml`](.github/workflows/status.yml) | Manual dispatch | On-demand status report & DB stats in Actions logs |
 
+---
+
 ## Telegram Notifications
 
-All alerts are minimalist — no links, no raw formulas.
+All alerts are formatted in clean, parseable HTML:
+- **Instant Qualification Cards:** Triggered immediately when a simulation passes Sharpe $\ge 1.25$, Fitness $\ge 1.00$, Turnover $< 25\%$, and Corr $< 0.70$.
+- **Hourly Mining Heartbeats:** Real-time metrics showing total simulations run, elapsed hours, vault capacity progress, and active tranche health.
+- **Daily Digest:** Comprehensive 24-hour summary of qualified, submitted, and reserve alphas.
 
-### Hourly Health
+---
 
-```
-🟢 Hourly Health · 18:00 UTC+1
+## Database Schema
 
-Simulated today: 142
-Qualified: 3/5 ●●●○○
-Submitted: 1/3 ●○○
-Reserve (unsubmitted): 2
-Corr-rejected today: 4
-
-Strategy: term_structure
-```
-
-### Alpha Qualified
-
-```
-🎯 Alpha qualified · 17:45 UTC+1
-
-xA3872wq
-
-Sharpe 1.47 · Fitness 1.16 · TO 3.8% · Margin 38.2 bps
-Corr 0.35 < 0.70 ✓ · TOP3000 · Delay 1 · Decay 14
-```
-
-### Alpha Submitted
-
-```
-📬 Submitted · Slot 1/3 · 08:00 UTC+1
-
-xA3872wq
-
-Sharpe 1.47 · Fitness 1.16 · TO 3.8% · Margin 38.2 bps
-
-Next slot opens at 12:00 UTC+1
-```
-
-### Daily Report
-
-```
-📊 Daily Report · Sat 20 Sept
-
-Discovery
-Simulated: 486 · Stage 0: 31 · Qualified: 5
-Corr-rejected: 12
-
-Submissions
-Submitted: 3/3 ●●●
-Ready (drip reserve): 2
-
-Daily goal: 5 qualified · ✅ Target reached
-
-All-time
-Pool: 47 · Ready: 2 · Corr-archive: 38
-```
-
-## Database
-
-9 tables on Neon PostgreSQL — single source of truth for the unified runner:
+Neon PostgreSQL serves as the persistent single source of truth:
 
 | Table | Purpose |
 |---|---|
-| `options_alphas` | Live alpha pool — `QUALIFIED` (ready) or `SUBMITTED` |
-| `options_evaluations` | Immutable audit log of every simulation |
-| `options_strategy_rl_state` | Strategy-scoped RL operator weights |
-| `options_learning_memory` | Global MAB reward memory per expression |
-| `options_rejected_alphas` | Checklist-failed alphas (permanent archive) |
-| `options_correlated_alphas` | Correlation-rejected alphas (≥ 0.70) |
-| `cluster_session_cache` | Shared BRAIN session token (2h TTL) |
-| `cluster_run_lock` | Mutex — one simulation batch at a time |
-| `org_runs` | Runner heartbeat & telemetry log |
+| `options_alphas` | Live alpha vault — `QUALIFIED` (ready reserve) or `SUBMITTED` |
+| `options_evaluations` | Immutable audit log of every simulation executed on BRAIN |
+| `options_strategy_rl_state` | Strategy-scoped reinforcement learning operator weights |
+| `options_learning_memory` | Global Multi-Armed Bandit reward memory per expression |
+| `options_rejected_alphas` | Checklist-failed alphas (permanent diagnostic archive) |
+| `options_correlated_alphas` | Correlation-rejected alphas ($\ge 0.70$) |
+| `cluster_session_cache` | Shared BRAIN authentication session token (2h TTL) |
+| `cluster_run_lock` | Distributed mutex preventing race conditions |
+| `org_runs` | Runner heartbeat and telemetry logging |
 
-## LLM Providers
+---
 
-Alpha expression generation uses a 4-provider sequential fallback chain:
-
-| Priority | Provider | Notes |
-|---|---|---|
-| 1 | **Groq** | Primary — fastest inference |
-| 2 | **Cerebras** | Secondary |
-| 3 | **OpenRouter** | Tertiary — free tier |
-| 4 | **Google Gemini** | Final fallback |
-
-## Daily Target
-
-**Goal: 5 non-correlated qualified alphas per day** (Sharpe ≥ 1.25, Fitness ≥ 1.00, Corr < 0.70)
-
-| Strategy Group | Daily Target |
-|---|---|
-| Options surface (term_structure, skew, breakeven, pcr_flow) | 2–3 |
-| Equity lending (short_interest, informed_short_demand) | 1 |
-| Fundamental (analyst_revisions, accruals_cashflow) | 1 |
-| Network & hybrid (supply_chain, network_momentum, hybrid_confluence) | 1 |
-
-## Secrets
+## Secrets & Configuration
 
 ```bash
 DATABASE_URL           # Neon PostgreSQL connection string
 TELEGRAM_BOT_TOKEN     # Telegram bot token
 TELEGRAM_CHAT_ID       # Telegram chat/channel ID
-GROQ_API_KEYS          # Comma-separated Groq API keys
-CEREBRAS_API_KEYS      # Comma-separated Cerebras API keys
-OPENROUTER_API_KEYS    # Comma-separated OpenRouter API keys
-GEMINI_API_KEYS        # Comma-separated Gemini API keys
 BRAIN_EMAIL            # WorldQuant BRAIN login email
 BRAIN_PASSWORD         # WorldQuant BRAIN login password
+GROQ_API_KEYS          # Comma-separated Groq API keys (optional LLM tier)
+CEREBRAS_API_KEYS      # Comma-separated Cerebras API keys (optional LLM tier)
+OPENROUTER_API_KEYS    # Comma-separated OpenRouter API keys (optional LLM tier)
+GEMINI_API_KEYS        # Comma-separated Gemini API keys (optional LLM tier)
 ```
 
-## Operations
+---
+
+## Testing & Verification
+
+The repository includes a comprehensive 98-test test suite covering AST deduplication, invariant compilers, multi-factor generators, knowledge bases, and concurrency safety:
 
 ```bash
-# Run a single discovery batch locally
-python -m brain_options.run --single-batch --strategy skew
-
-# Send a health ping to Telegram
-python -m brain_options.run --health
-
-# Send a daily digest to Telegram
-python -m brain_options.run --daily-digest
-
-# Run the test suite
 python -m pytest tests/ -v
 ```
 
-## Security
-
-Report vulnerabilities via GitHub private security advisory. This pipeline runs against a live WorldQuant BRAIN account — never commit `.env` or expose credentials in logs.
-
-## Contributing
-
-See [`SETUP.md`](./SETUP.md) for dev environment setup and local run instructions.
+---
 
 ## License
 

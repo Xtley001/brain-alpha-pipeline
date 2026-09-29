@@ -82,7 +82,10 @@ def parse_brain_sim_response(resp: Any) -> SimMetrics:
     if resp is None:
         return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "FAILED", {})
 
-    data = resp.json() if hasattr(resp, "json") else (resp if isinstance(resp, dict) else {})
+    try:
+        data = resp.json() if hasattr(resp, "json") else (resp if isinstance(resp, dict) else {})
+    except Exception:
+        data = {}
     alpha_id = data.get("alpha") or data.get("id") or data.get("alphaId")
     status = data.get("status", "COMPLETE")
 
@@ -257,6 +260,7 @@ class BrainClient:
                         )
                     except Exception:
                         pass
+                    return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, f"HTTP_{status_code}", {})
 
                 if resp is None:
                     log.error("Simulation returned None (timeout/failure across all attempts) for expression: %s", expression)
