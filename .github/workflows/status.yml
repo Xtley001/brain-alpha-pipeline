@@ -35,10 +35,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Show cluster org status
-        env:
-          GH_TOKEN: ${{ secrets.ORG_SYNC_PAT || secrets.GITHUB_TOKEN }}
-        run: python scripts/org_manager.py --status
 
       - name: Show DB pipeline stats
         run: |

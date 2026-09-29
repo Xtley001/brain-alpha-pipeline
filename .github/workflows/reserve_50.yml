@@ -2,9 +2,6 @@ name: BRAIN 50-Alpha Autonomous Reserve Producer
 
 on:
   workflow_dispatch:
-  schedule:
-    # Hourly fallback pulse to ensure pipeline keeps running 24/7 in the cloud
-    - cron: "0 * * * *"
 
 concurrency:
   group: brain-reserve-producer
@@ -50,17 +47,3 @@ jobs:
         timeout-minutes: 160
         run: python -u scripts/generate_50_reserve_alphas.py
 
-      - name: Auto-chain next run if reserve target not reached
-        if: always()
-        env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
-        run: |
-          COUNT=$(python -c "import psycopg, os; conn=psycopg.connect(os.getenv('DATABASE_URL')); cur=conn.cursor(); cur.execute(\"SELECT count(*) FROM options_alphas WHERE status='QUALIFIED'\"); print(cur.fetchone()[0])" || echo "0")
-          echo "Current qualified count: $COUNT / 50"
-          if [ "$COUNT" -lt 50 ]; then
-            echo "Reserve has $COUNT / 50 alphas. Auto-chaining next run in cloud..."
-            sleep 30
-            gh workflow run reserve_50.yml --ref main || true
-          else
-            echo "Reserve complete! 50 alphas achieved."
-          fi

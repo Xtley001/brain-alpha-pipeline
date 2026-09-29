@@ -1,9 +1,6 @@
 name: BRAIN Alpha Discovery (4-Worker Cloud Matrix)
 
 on:
-  schedule:
-    # Periodic fallback trigger every 30 minutes in case of dropped runner chain
-    - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       candidates:
