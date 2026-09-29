@@ -168,7 +168,12 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
     config = OptionsConfig.from_env()
     store = OptionsStore()
     llm = LLMAdapter(config)
-    client = BrainClient(config)
+    client = BrainClient(
+        username=config.brain_username,
+        password=config.brain_password,
+        max_concurrent_sims=1,
+        db=store.db,
+    )
 
     log.info("=" * 70)
     log.info("STARTING CLOUD MULTI-MINER: Category=%s | Batch=%d | Timeout=%dm", category.upper(), max_candidates, timeout_mins)
