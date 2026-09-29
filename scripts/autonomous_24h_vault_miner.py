@@ -154,7 +154,7 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
     candidates = []
 
     tenors = [30, 60, 90, 120, 150, 180, 270, 360]
-    decays = [10, 12, 15]
+    decays = [14, 18, 22]
     groups = ["subindustry", "sector"]
     universes = ["TOP3000", "TOP2000"]
 
@@ -166,12 +166,12 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
         for d in decays:
             for g in groups:
                 for u in universes:
-                    # Formulation A: Trade When Asymmetric Expansion
+                    # Formulation A: Trade When Asymmetric Expansion with double-decay turnover compression
                     expr_a = (
                         f"trade_when(abs(rank(ts_decay_linear(((forward_price_{t} - put_breakeven_{t}) / close * "
-                        f"(implied_volatility_mean_skew_{t} * sqrt({t}/252.0))), {d})) - 0.5) > 0.25, "
-                        f"group_neutralize(rank(ts_decay_linear(((forward_price_{t} - put_breakeven_{t}) / close * "
-                        f"(implied_volatility_mean_skew_{t} * sqrt({t}/252.0))), {d})), {g}), -1)"
+                        f"(implied_volatility_mean_skew_{t} * sqrt({t}/252.0))), {d})) - 0.5) > 0.20, "
+                        f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(((forward_price_{t} - put_breakeven_{t}) / close * "
+                        f"(implied_volatility_mean_skew_{t} * sqrt({t}/252.0))), {d}), 3)), {g}), -1)"
                     )
                     candidates.append({
                         "expression": expr_a,
@@ -184,10 +184,10 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
                         "strategy": "archetype_1_put_floor",
                     })
 
-                    # Formulation B: Pure Monomial Scaled Put Breakeven
+                    # Formulation B: Pure Monomial Scaled Put Breakeven with double-decay turnover compression
                     expr_b = (
-                        f"group_neutralize(rank(- ts_decay_linear((implied_volatility_put_{t} * sqrt({t}/252.0)) / "
-                        f"(implied_volatility_mean_{t} + 0.001), {d})), {g})"
+                        f"group_neutralize(rank(- ts_decay_linear(ts_decay_linear((implied_volatility_put_{t} * sqrt({t}/252.0)) / "
+                        f"(implied_volatility_mean_{t} + 0.001), {d}), 3)), {g})"
                     )
                     candidates.append({
                         "expression": expr_b,
@@ -208,10 +208,10 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
         for d in decays:
             for g in groups:
                 for u in universes:
-                    # Formulation A: Pure Smirk Rank
+                    # Formulation A: Pure Smirk Rank with double-decay turnover compression
                     expr_a = (
-                        f"group_neutralize(rank(- ts_decay_linear((implied_volatility_put_{t} - implied_volatility_call_{t}) / "
-                        f"(implied_volatility_mean_{t} + 0.001) * sqrt({t}/252.0), {d})), {g})"
+                        f"group_neutralize(rank(- ts_decay_linear(ts_decay_linear((implied_volatility_put_{t} - implied_volatility_call_{t}) / "
+                        f"(implied_volatility_mean_{t} + 0.001) * sqrt({t}/252.0), {d}), 3)), {g})"
                     )
                     candidates.append({
                         "expression": expr_a,
@@ -224,11 +224,11 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
                         "strategy": "archetype_2_smirk",
                     })
 
-                    # Formulation B: Liquidity-Modulated Smirk
+                    # Formulation B: Liquidity-Modulated Smirk with double-decay turnover compression
                     expr_b = (
                         f"trade_when(volume > adv20 * 0.8, "
-                        f"group_neutralize(rank(- ts_decay_linear((implied_volatility_put_{t} - implied_volatility_call_{t}) / "
-                        f"(implied_volatility_mean_{t} + 0.001) * sqrt({t}/252.0), {d})), {g}), -1)"
+                        f"group_neutralize(rank(- ts_decay_linear(ts_decay_linear((implied_volatility_put_{t} - implied_volatility_call_{t}) / "
+                        f"(implied_volatility_mean_{t} + 0.001) * sqrt({t}/252.0), {d}), 3)), {g}), -1)"
                     )
                     candidates.append({
                         "expression": expr_b,
@@ -250,9 +250,9 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
         for d in decays:
             for g in groups:
                 for u in universes:
-                    # Formulation A: Pure Calendar IV Slope
+                    # Formulation A: Pure Calendar IV Slope with double-decay turnover compression
                     expr_a = (
-                        f"group_neutralize(rank(ts_decay_linear(implied_volatility_mean_{t1} - implied_volatility_mean_{t2}, {d})), {g})"
+                        f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(implied_volatility_mean_{t1} - implied_volatility_mean_{t2}, {d}), 3)), {g})"
                     )
                     candidates.append({
                         "expression": expr_a,
@@ -265,10 +265,10 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
                         "strategy": "archetype_5_calendar_iv",
                     })
 
-                    # Formulation B: Trade When Extreme Term Inversion
+                    # Formulation B: Trade When Extreme Term Inversion with double-decay turnover compression
                     expr_b = (
-                        f"trade_when(abs(rank(ts_decay_linear(implied_volatility_mean_{t1} - implied_volatility_mean_{t2}, {d})) - 0.5) > 0.25, "
-                        f"group_neutralize(rank(ts_decay_linear(implied_volatility_mean_{t1} - implied_volatility_mean_{t2}, {d})), {g}), -1)"
+                        f"trade_when(abs(rank(ts_decay_linear(implied_volatility_mean_{t1} - implied_volatility_mean_{t2}, {d})) - 0.5) > 0.20, "
+                        f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(implied_volatility_mean_{t1} - implied_volatility_mean_{t2}, {d}), 3)), {g}), -1)"
                     )
                     candidates.append({
                         "expression": expr_b,
@@ -289,9 +289,9 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
         for d in decays:
             for g in groups:
                 for u in universes:
-                    # Formulation A: Pure Call Breakeven Drift
+                    # Formulation A: Pure Call Breakeven Drift with double-decay turnover compression
                     expr_a = (
-                        f"group_neutralize(rank(ts_decay_linear((call_breakeven_{t} - forward_price_{t}) / close, {d})), {g})"
+                        f"group_neutralize(rank(ts_decay_linear(ts_decay_linear((call_breakeven_{t} - forward_price_{t}) / close, {d}), 3)), {g})"
                     )
                     candidates.append({
                         "expression": expr_a,
@@ -304,10 +304,10 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
                         "strategy": "archetype_7_call_pure",
                     })
 
-                    # Formulation B: Volume-Confirmed Call Breakout
+                    # Formulation B: Volume-Confirmed Call Breakout with double-decay turnover compression
                     expr_b = (
                         f"trade_when(volume > adv20 * 0.85, "
-                        f"group_neutralize(rank(ts_decay_linear((call_breakeven_{t} - forward_price_{t}) / close, {d})), {g}), -1)"
+                        f"group_neutralize(rank(ts_decay_linear(ts_decay_linear((call_breakeven_{t} - forward_price_{t}) / close, {d}), 3)), {g}), -1)"
                     )
                     candidates.append({
                         "expression": expr_b,
@@ -329,10 +329,10 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
         for d in decays:
             for g in groups:
                 for u in universes:
-                    # Formulation A: Pure Rank Confluence
+                    # Formulation A: Pure Rank Confluence with double-decay turnover compression
                     expr_a = (
-                        f"group_neutralize(rank(0.60 * rank(ts_decay_linear((forward_price_{t1} - put_breakeven_{t1}) / close, {d})) + "
-                        f"0.40 * rank(ts_decay_linear(ts_std_dev(returns, {t2}) * sqrt(252) - implied_volatility_mean_{t2}, {d}))), {g})"
+                        f"group_neutralize(rank(0.60 * rank(ts_decay_linear(ts_decay_linear((forward_price_{t1} - put_breakeven_{t1}) / close, {d}), 3)) + "
+                        f"0.40 * rank(ts_decay_linear(ts_decay_linear(ts_std_dev(returns, {t2}) * sqrt(252) - implied_volatility_mean_{t2}, {d}), 3))), {g})"
                     )
                     candidates.append({
                         "expression": expr_a,
@@ -345,12 +345,12 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
                         "strategy": "archetype_6_vrp_confluence",
                     })
 
-                    # Formulation B: Selective Trade When Confluence
+                    # Formulation B: Selective Trade When Confluence with double-decay turnover compression
                     expr_b = (
                         f"trade_when(abs(rank(0.60 * rank(ts_decay_linear((forward_price_{t1} - put_breakeven_{t1}) / close, {d})) + "
-                        f"0.40 * rank(ts_decay_linear(ts_std_dev(returns, {t2}) * sqrt(252) - implied_volatility_mean_{t2}, {d}))) - 0.5) > 0.25, "
-                        f"group_neutralize(rank(0.60 * rank(ts_decay_linear((forward_price_{t1} - put_breakeven_{t1}) / close, {d})) + "
-                        f"0.40 * rank(ts_decay_linear(ts_std_dev(returns, {t2}) * sqrt(252) - implied_volatility_mean_{t2}, {d}))), {g}), -1)"
+                        f"0.40 * rank(ts_decay_linear(ts_std_dev(returns, {t2}) * sqrt(252) - implied_volatility_mean_{t2}, {d}))) - 0.5) > 0.20, "
+                        f"group_neutralize(rank(0.60 * rank(ts_decay_linear(ts_decay_linear((forward_price_{t1} - put_breakeven_{t1}) / close, {d}), 3)) + "
+                        f"0.40 * rank(ts_decay_linear(ts_decay_linear(ts_std_dev(returns, {t2}) * sqrt(252) - implied_volatility_mean_{t2}, {d}), 3))), {g}), -1)"
                     )
                     candidates.append({
                         "expression": expr_b,
@@ -641,8 +641,8 @@ async def run_autonomous_vault_miner():
     # Start Heartbeat Task
     heartbeat_task = asyncio.create_task(heartbeat_reporter(config, state))
 
-    # Launch NUM_WORKERS = 1 parallel worker (1 slot for local Options, 1 slot for Cloud)
-    NUM_WORKERS = 1
+    # Launch NUM_WORKERS = 2 parallel workers (2 slots for local Options, 1 slot for Cloud = 3 total max)
+    NUM_WORKERS = 2
     workers = [
         asyncio.create_task(simulation_worker(worker_id=i, queue=queue, client=client, config=config, state=state))
         for i in range(NUM_WORKERS)
