@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import re
 import time
 from typing import Any, Dict, List, Optional, Set
@@ -2166,6 +2167,121 @@ class OptionsDatabase:
             )
         except Exception as e:
             log.warning("Failed to penalise learning memory: %s", e)
+
+    def distill_learning_memory(self, threshold: float = -20.0) -> dict:
+        """
+        Prunes dead-end unpromising exploration trajectories (reward <= threshold and REJECTED)
+        from options_learning_memory to prevent unbounded bloat and accelerate in-memory MAB lookups.
+        Protects all QUALIFIED, OPTIMIZED, and positive-reward candidates.
+        """
+        if not self.database_url:
+            return {"pruned": 0, "status": "no_db"}
+
+        count_sql = "SELECT COUNT(*) FROM options_learning_memory;"
+        delete_sql = "DELETE FROM options_learning_memory WHERE status = 'REJECTED' AND reward <= %s;"
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(count_sql)
+                    total_before = cur.fetchone()[0]
+                    cur.execute(delete_sql, (threshold,))
+                    pruned = cur.rowcount
+                    cur.execute(count_sql)
+                    total_after = cur.fetchone()[0]
+                conn.commit()
+            log.info("Distilled options_learning_memory: pruned %d dead-end entries (total: %d -> %d).", pruned, total_before, total_after)
+            return {
+                "total_before": total_before,
+                "total_after": total_after,
+                "pruned": pruned,
+                "threshold": threshold,
+            }
+        except Exception as e:
+            log.warning("Failed to distill learning memory: %s", e)
+            return {"error": str(e), "pruned": 0}
+
+    def get_empirical_archetype_weights(
+        self,
+        archetypes: List[str],
+        base_priors: Dict[str, float],
+        temperature: float = 8.0,
+    ) -> Dict[str, float]:
+        """
+        Computes dynamic Multi-Armed Bandit (MAB) sampling weights via empirical softmax
+        over options_strategy_rl_state and options_alphas.
+        Operators/archetypes with high reward scores are boosted; saturated archetypes
+        (already qualified in reserve) are automatically damped down by 50% per qualified alpha.
+        """
+        if not self.database_url or not archetypes:
+            return dict(base_priors)
+
+        try:
+            sql_rewards = """
+                SELECT strategy_name, operator_name, SUM(reward_score) / GREATEST(1, SUM(sample_count)) as avg_reward
+                FROM options_strategy_rl_state
+                GROUP BY strategy_name, operator_name;
+            """
+            sql_saturation = """
+                SELECT archetype, COUNT(*)
+                FROM options_alphas
+                WHERE status IN ('QUALIFIED', 'SUBMITTED')
+                GROUP BY archetype;
+            """
+            avg_rewards: Dict[str, float] = {}
+            op_rewards: Dict[str, float] = {}
+            saturation_counts: Dict[str, int] = {}
+
+            with self._get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(sql_rewards)
+                    for r in cur.fetchall():
+                        strat = (r[0] or "").lower()
+                        op = (r[1] or "").lower()
+                        rew = float(r[2] or 0.0)
+                        avg_rewards[strat] = rew
+                        if op:
+                            op_rewards[op] = rew
+
+                    cur.execute(sql_saturation)
+                    for r in cur.fetchall():
+                        arch = (r[0] or "").lower()
+                        saturation_counts[arch] = int(r[1] or 0)
+
+            logits = {}
+            for a in archetypes:
+                a_clean = a.lower()
+                a_tokens = set(re.split(r"[_\s]+", a_clean))
+                prior = base_priors.get(a, 1.0 / len(archetypes))
+                empirical_r = 0.0
+
+                # Match by substring or token overlap
+                for s_name, r_score in avg_rewards.items():
+                    s_clean = s_name.lower()
+                    s_tokens = set(re.split(r"[_\s]+", s_clean))
+                    if a_clean in s_clean or s_clean in a_clean or (len(a_tokens & s_tokens) >= 2):
+                        empirical_r = r_score
+                        break
+
+                logit = math.log(max(1e-4, prior)) + (empirical_r / max(1.0, temperature))
+
+                sat_count = 0
+                for s_arch, s_num in saturation_counts.items():
+                    s_clean = s_arch.lower()
+                    s_tokens = set(re.split(r"[_\s]+", s_clean))
+                    if a_clean in s_clean or s_clean in a_clean or (len(a_tokens & s_tokens) >= 2):
+                        sat_count += s_num
+                if sat_count > 0:
+                    logit -= (0.693 * sat_count)
+
+                logits[a] = logit
+
+            max_l = max(logits.values()) if logits else 0.0
+            exp_vals = {a: math.exp(logits[a] - max_l) for a in archetypes}
+            sum_exp = sum(exp_vals.values()) or 1.0
+            return {a: exp_vals[a] / sum_exp for a in archetypes}
+        except Exception as e:
+            log.warning("Failed to compute empirical archetype weights: %s", e)
+            return dict(base_priors)
 
     # ------------------------------------------------------------------
     # Strategy-Scoped Reinforcement Learning State

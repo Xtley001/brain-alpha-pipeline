@@ -29,10 +29,12 @@ class SentimentGenerator:
         self,
         kb: Optional[SentimentKnowledgeBase] = None,
         catalog: Optional[SentimentCatalog] = None,
+        db: Optional[Any] = None,
     ):
         self.kb = kb or SentimentKnowledgeBase()
         self.catalog = catalog or SentimentCatalog()
         self.deduplicator = SentimentDeduplicator()
+        self.db = db
 
         seen_hashes = set()
         queue: list[SentimentCandidate] = []
@@ -55,14 +57,27 @@ class SentimentGenerator:
             "media_attention_buzz": 0.05,
         }
 
+    def get_current_weights(self) -> dict[str, float]:
+        """Calculates dynamic MAB sampling weights from RL state or returns base priors."""
+        if self.db and hasattr(self.db, "get_empirical_archetype_weights"):
+            try:
+                return self.db.get_empirical_archetype_weights(
+                    list(self.archetype_priors.keys()),
+                    self.archetype_priors,
+                )
+            except Exception as e:
+                log.warning("Failed to fetch empirical weights, falling back to priors: %s", e)
+        return dict(self.archetype_priors)
+
     def generate_candidate(self) -> SentimentCandidate:
         """Pulls next deterministic candidate or mutates an existing archetype."""
         if self._template_queue:
             return self._template_queue.pop(0)
 
         # Tier 3: Systematic parameter & operator mutation
-        archetypes = list(self.archetype_priors.keys())
-        weights = list(self.archetype_priors.values())
+        weights_dict = self.get_current_weights()
+        archetypes = list(weights_dict.keys())
+        weights = list(weights_dict.values())
         chosen_archetype = random.choices(archetypes, weights=weights, k=1)[0]
         card = self.kb.get_card(chosen_archetype)
         base_expr = card.formula_sketch if card else "group_neutralize(rank(ts_decay_linear(snt1_d1_netearningsrevision, 12)), subindustry)"

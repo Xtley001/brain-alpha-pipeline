@@ -62,3 +62,39 @@ def test_apex_cross_category_synthesis():
         assert ac.category == "hybrid_tri_factor"
         assert "group_neutralize(" in ac.expression
         assert "rank(" in ac.expression
+
+
+def test_generator_dynamic_rl_weights():
+    class MockDB:
+        def get_empirical_archetype_weights(self, archetypes, base_priors, temperature=8.0):
+            # Dynamic weights mock favoring the first archetype
+            w = {a: 0.1 for a in archetypes}
+            w[archetypes[0]] = 0.5
+            total = sum(w.values())
+            return {k: v / total for k, v in w.items()}
+
+    mock_db = MockDB()
+    sg = SentimentGenerator(db=mock_db)
+    s_weights = sg.get_current_weights()
+    assert len(s_weights) == len(sg.archetype_priors)
+    assert abs(sum(s_weights.values()) - 1.0) < 1e-4
+    assert s_weights[list(sg.archetype_priors.keys())[0]] > 0.3
+
+    rg = RiskModelGenerator(db=mock_db)
+    r_weights = rg.get_current_weights()
+    assert len(r_weights) == len(rg.archetype_priors)
+    assert abs(sum(r_weights.values()) - 1.0) < 1e-4
+    assert r_weights[list(rg.archetype_priors.keys())[0]] > 0.3
+
+
+def test_options_db_offline_fallback():
+    from brain_options.store.db import OptionsDatabase
+    db = OptionsDatabase(database_url=None)
+    res = db.distill_learning_memory()
+    assert res["status"] == "no_db"
+    assert res["pruned"] == 0
+
+    priors = {"arch_a": 0.6, "arch_b": 0.4}
+    weights = db.get_empirical_archetype_weights(list(priors.keys()), priors)
+    assert weights == priors
+
