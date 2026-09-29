@@ -180,10 +180,11 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
     log.info("Concurrency: 1 (Reserved Single-Slot Mode to prevent collisions with Local PC)")
     log.info("=" * 70)
 
-    # 1. Login to WorldQuant BRAIN
-    login_ok = await client.login()
-    if not login_ok:
-        log.error("Failed to authenticate with WorldQuant BRAIN.")
+    # 1. Authenticate with WorldQuant BRAIN (resumes PostgreSQL cluster session cache)
+    try:
+        await asyncio.to_thread(client.authenticate)
+    except Exception as auth_err:
+        log.error("Failed to authenticate with WorldQuant BRAIN: %s", auth_err)
         return
 
     # 2. Pre-fetch reference PnLs for correlation gate
