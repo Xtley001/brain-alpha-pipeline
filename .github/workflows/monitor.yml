@@ -1,0 +1,41 @@
+ame: Pipeline Health Monitor (Cloud-Side)
+
+on:
+  schedule:
+    - cron: "0,30 * * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: pipeline-monitor
+  cancel-in-progress: true
+
+jobs:
+  monitor:
+    name: Cloud Pipeline Health Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
+      BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Cloud-Side Health Check
+        run: |
+          python scripts/pipeline_monitor.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

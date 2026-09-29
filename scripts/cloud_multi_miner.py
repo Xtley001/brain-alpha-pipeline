@@ -93,7 +93,10 @@ def load_reference_pnls(db_url: str) -> Tuple[List[str], Dict[str, Dict[str, flo
         return ref_alpha_ids, known_exprs
 
     try:
-        with psycopg.connect(db_url) as conn:
+        with psycopg.connect(
+            db_url,
+            keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=5
+        ) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT alpha_id, expression FROM options_alphas WHERE status IN ('SUBMITTED', 'QUALIFIED') AND alpha_id IS NOT NULL;")
                 rows = cur.fetchall()
@@ -102,8 +105,11 @@ def load_reference_pnls(db_url: str) -> Tuple[List[str], Dict[str, Dict[str, flo
                         ref_alpha_ids.append(r[0])
                     if r[1]:
                         known_exprs.add(r[1].strip())
+        log.info("Loaded %d reference alpha IDs and %d known expressions from DB.", len(ref_alpha_ids), len(known_exprs))
     except Exception as e:
-        log.warning("Failed to load reference alphas: %s", e)
+        log.error("CRITICAL: Failed to load reference alphas from DB — correlation gate will run BLIND: %s", e)
+        # Abort rather than run with empty correlation reference (risk of qualifying correlated alphas)
+        raise RuntimeError(f"Cannot start cloud miner without DB reference data: {e}") from e
     return ref_alpha_ids, known_exprs
 
 
@@ -145,7 +151,10 @@ def commit_qualified_alpha(
             max_correlation = EXCLUDED.max_correlation;
     """
     try:
-        with psycopg.connect(db_url, autocommit=True) as conn:
+        with psycopg.connect(
+            db_url, autocommit=True,
+            keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=5
+        ) as conn:
             with conn.cursor() as cur:
                 cur.execute(sql, (
                     alpha_id, expression, archetype, hypothesis, f"cloud_miner_{category}",

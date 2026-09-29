@@ -55,14 +55,15 @@ class SentimentGenerator:
         self._llm_queue: list[SentimentCandidate] = []
         self._archetype_idx = 0
 
-        # Multi-Armed Bandit prior weights across sentiment archetypes
+        # Multi-Armed Bandit prior weights across sentiment archetypes.
+        # Keys MUST match the `category` field in SENTIMENT_ARCHETYPES so that
+        # db.get_empirical_archetype_weights() can aggregate rewards correctly.
         self.archetype_priors: dict[str, float] = {
-            "pead_earnings_drift": 0.30,
-            "sue_earnings_surprise": 0.25,
-            "dual_target_rec_confluence": 0.15,
-            "net_target_price_revisions": 0.15,
-            "analyst_revision_dispersion": 0.10,
-            "media_attention_buzz": 0.05,
+            "pead_revision": 0.30,
+            "sue_shock": 0.25,
+            "target_revisions": 0.20,
+            "forecast_dispersion": 0.15,
+            "dynamic_attention": 0.10,
         }
 
     def get_current_weights(self) -> dict[str, float]:
