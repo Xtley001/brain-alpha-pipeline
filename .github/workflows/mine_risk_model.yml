@@ -6,11 +6,11 @@ on:
       candidates:
         description: "Number of candidates to evaluate"
         required: false
-        default: "30"
+        default: "9999"
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "25"
+        default: "345"
   schedule:
     # Runs every 6 hours at minute 45 (30min offset from sentiment to stagger starts)
     # Each job mines continuously for 5h45m — 97% utilization

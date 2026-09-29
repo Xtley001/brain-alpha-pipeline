@@ -6,11 +6,11 @@ on:
       candidates:
         description: "Number of candidates to evaluate"
         required: false
-        default: "30"
+        default: "9999"
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "25"
+        default: "345"
   schedule:
     # Runs every 6 hours — each job mines continuously for 5h45m
     # Gives 97% utilization (vs. 8.75% on the old 35min/4h schedule)
