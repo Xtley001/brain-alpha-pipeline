@@ -98,3 +98,28 @@ def test_options_db_offline_fallback():
     weights = db.get_empirical_archetype_weights(list(priors.keys()), priors)
     assert weights == priors
 
+
+def test_sentiment_and_risk_llm_reasoning():
+    class MockLLM:
+        def generate(self, prompt, system_prompt, temperature=0.7):
+            return '[{"expression": "group_neutralize(rank(ts_decay_linear(snt1_d1_netearningsrevision, 12)), subindustry)", "archetype": "pead_earnings_drift", "hypothesis": "Mock LLM synthesis"}]'
+
+    sg = SentimentGenerator(llm_adapter=MockLLM())
+    sg._template_queue.clear()
+
+    c = sg.generate_candidate()
+    assert "LLM_Sentiment" in c.family
+    assert "snt1_d1_netearningsrevision" in c.expression
+
+    class MockRiskLLM:
+        def generate(self, prompt, system_prompt, temperature=0.7):
+            return '[{"expression": "group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, 12)), subindustry)", "archetype": "betting_against_beta", "hypothesis": "Mock Risk LLM synthesis"}]'
+
+    rg = RiskModelGenerator(llm_adapter=MockRiskLLM())
+    rg._template_queue.clear()
+
+    rc = rg.generate_candidate()
+    assert "LLM_Risk" in rc.family
+    assert "beta_last_60_days_spy" in rc.expression
+
+

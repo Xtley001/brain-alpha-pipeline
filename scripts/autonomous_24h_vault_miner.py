@@ -363,57 +363,6 @@ def generate_high_capacity_candidate_catalog() -> List[Dict[str, Any]]:
                         "strategy": "archetype_6_vrp_trade",
                     })
 
-    # -------------------------------------------------------------------------
-    # NEW EXPANSION: High-Value Sentiment (8.0), Risk Model (7.0), and Tri-Apex
-    # -------------------------------------------------------------------------
-    try:
-        from brain_sentiment.strategies import generate_modular_candidates as gen_sent_candidates
-        for sc in gen_sent_candidates():
-            candidates.append({
-                "expression": sc.expression,
-                "family": sc.family,
-                "archetype": f"Sent_{sc.archetype}_d{sc.decay}_{sc.universe}_{sc.neutralization}",
-                "hypothesis": sc.hypothesis,
-                "universe": sc.universe,
-                "neutralization": sc.neutralization,
-                "decay": sc.decay,
-                "strategy": f"sentiment_{sc.archetype}",
-            })
-    except Exception as e:
-        logger.warning(f"Could not load sentiment candidates into miner catalog: {e}")
-
-    try:
-        from brain_risk_model.strategies import generate_modular_candidates as gen_risk_candidates
-        for rc in gen_risk_candidates():
-            candidates.append({
-                "expression": rc.expression,
-                "family": rc.family,
-                "archetype": f"Risk_{rc.archetype}_d{rc.decay}_{rc.universe}_{rc.neutralization}",
-                "hypothesis": rc.hypothesis,
-                "universe": rc.universe,
-                "neutralization": rc.neutralization,
-                "decay": rc.decay,
-                "strategy": f"risk_{rc.archetype}",
-            })
-    except Exception as e:
-        logger.warning(f"Could not load risk model candidates into miner catalog: {e}")
-
-    try:
-        from brain_synthesis.apex_generator import generate_apex_candidates
-        for ac in generate_apex_candidates():
-            candidates.append({
-                "expression": ac.expression,
-                "family": "Apex_Tri_Factor_Hybrid",
-                "archetype": ac.name,
-                "hypothesis": ac.hypothesis,
-                "universe": ac.universe,
-                "neutralization": ac.neutralization,
-                "decay": ac.decay,
-                "strategy": "apex_tri_category_hybrid",
-            })
-    except Exception as e:
-        logger.warning(f"Could not load apex candidates into miner catalog: {e}")
-
     # Interleave / Round-Robin across Archetypes so Workers pull orthogonal concepts concurrently!
     by_strategy = defaultdict(list)
     for c in candidates:
@@ -692,8 +641,8 @@ async def run_autonomous_vault_miner():
     # Start Heartbeat Task
     heartbeat_task = asyncio.create_task(heartbeat_reporter(config, state))
 
-    # Launch NUM_WORKERS = 2 parallel workers (BRAIN max capacity)
-    NUM_WORKERS = 2
+    # Launch NUM_WORKERS = 1 parallel worker (1 slot for local Options, 1 slot for Cloud)
+    NUM_WORKERS = 1
     workers = [
         asyncio.create_task(simulation_worker(worker_id=i, queue=queue, client=client, config=config, state=state))
         for i in range(NUM_WORKERS)

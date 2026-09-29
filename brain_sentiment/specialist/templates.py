@@ -88,6 +88,23 @@ def compile_sentiment_invariant(expr: str, default_decay: int = 15, default_grou
             else:
                 clean = f"group_neutralize(rank(ts_decay_linear(ts_decay_linear({clean}, {default_decay}), 3)), {default_group})"
 
+        # Ensure group_neutralize is present at the outer layer (or within trade_when)
+        parsed_tw = _parse_call_args(clean, "trade_when")
+        if parsed_tw and parsed_tw[0] == 0 and parsed_tw[1] == len(clean) - 1 and len(parsed_tw[2]) == 3:
+            cond, body, exit_val = parsed_tw[2]
+            if "group_neutralize" not in body:
+                if body.startswith("rank("):
+                    body = f"group_neutralize({body}, {default_group})"
+                else:
+                    body = f"group_neutralize(rank({body}), {default_group})"
+            clean = f"trade_when({cond}, {body}, {exit_val})"
+        else:
+            if "group_neutralize" not in clean:
+                if clean.startswith("rank("):
+                    clean = f"group_neutralize({clean}, {default_group})"
+                else:
+                    clean = f"group_neutralize(rank({clean}), {default_group})"
+
         return clean
     except Exception as exc:
         logger.warning(f"Error compiling sentiment invariant on '{clean}': {exc}")

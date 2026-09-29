@@ -1,0 +1,66 @@
+name: Cloud Miner - Sentiment (sentiment1/2)
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidates:
+        description: "Number of candidates to evaluate"
+        required: false
+        default: "30"
+      timeout_mins:
+        description: "Timeout budget in minutes"
+        required: false
+        default: "25"
+  schedule:
+    # Runs every 4 hours at minute 15
+    - cron: "15 */4 * * *"
+
+concurrency:
+  group: cloud-miner-sentiment
+  cancel-in-progress: false
+
+jobs:
+  mine-sentiment:
+    name: Mine Sentiment Alphas (1-Slot Cloud)
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
+      BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
+      GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
+      GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+      GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
+      GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
+      CEREBRAS_API_KEY_1: ${{ secrets.CEREBRAS_API_KEY_1 }}
+      CEREBRAS_API_KEY_2: ${{ secrets.CEREBRAS_API_KEY_2 }}
+      CEREBRAS_API_KEY_3: ${{ secrets.CEREBRAS_API_KEY_3 }}
+      CEREBRAS_API_KEY_4: ${{ secrets.CEREBRAS_API_KEY_4 }}
+      OPENROUTER_API_KEY_1: ${{ secrets.OPENROUTER_API_KEY_1 }}
+      OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY_2 }}
+      OPENROUTER_API_KEY_3: ${{ secrets.OPENROUTER_API_KEY_3 }}
+      OPENROUTER_API_KEY_4: ${{ secrets.OPENROUTER_API_KEY_4 }}
+      GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
+      GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      BRAIN_MAX_CONCURRENT_SIMS: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Cloud Sentiment Miner
+        run: |
+          python scripts/cloud_multi_miner.py \
+            --category sentiment \
+            --candidates ${{ github.event.inputs.candidates || '30' }} \
+            --timeout-mins ${{ github.event.inputs.timeout_mins || '25' }}

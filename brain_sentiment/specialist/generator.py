@@ -11,9 +11,14 @@ import logging
 import random
 from typing import Any, List, Optional, Set
 
+from brain_options.llm.adapter import clean_json_array
 from brain_sentiment.specialist.catalog import SentimentCatalog
 from brain_sentiment.specialist.dedup import SentimentDeduplicator
 from brain_sentiment.specialist.kb import SentimentKnowledgeBase
+from brain_sentiment.specialist.prompts import (
+    build_sentiment_reasoning_prompt,
+    build_sentiment_system_prompt,
+)
 from brain_sentiment.specialist.templates import (
     SentimentCandidate,
     compile_sentiment_invariant,
@@ -30,11 +35,13 @@ class SentimentGenerator:
         kb: Optional[SentimentKnowledgeBase] = None,
         catalog: Optional[SentimentCatalog] = None,
         db: Optional[Any] = None,
+        llm_adapter: Optional[Any] = None,
     ):
         self.kb = kb or SentimentKnowledgeBase()
         self.catalog = catalog or SentimentCatalog()
         self.deduplicator = SentimentDeduplicator()
         self.db = db
+        self.llm_adapter = llm_adapter
 
         seen_hashes = set()
         queue: list[SentimentCandidate] = []
@@ -45,6 +52,7 @@ class SentimentGenerator:
                 queue.append(c)
 
         self._template_queue: list[SentimentCandidate] = queue
+        self._llm_queue: list[SentimentCandidate] = []
         self._archetype_idx = 0
 
         # Multi-Armed Bandit prior weights across sentiment archetypes
@@ -69,10 +77,70 @@ class SentimentGenerator:
                 log.warning("Failed to fetch empirical weights, falling back to priors: %s", e)
         return dict(self.archetype_priors)
 
+    def _generate_llm_batch(self, count: int = 4) -> bool:
+        """Invokes multi-provider LLM tier to synthesize novel institutional sentiment expressions."""
+        if not self.llm_adapter:
+            return False
+
+        weights_dict = self.get_current_weights()
+        archetypes = list(weights_dict.keys())
+        weights = list(weights_dict.values())
+        chosen_archetype = random.choices(archetypes, weights=weights, k=1)[0]
+        card = self.kb.get_card(chosen_archetype)
+        cards = [card] if card else []
+
+        system_prompt = build_sentiment_system_prompt()
+        prompt = build_sentiment_reasoning_prompt(chosen_archetype, cards, n=count)
+
+        try:
+            raw_output = self.llm_adapter.generate(
+                prompt=prompt,
+                system_prompt=system_prompt,
+                temperature=0.7,
+            )
+            if not raw_output:
+                return False
+
+            parsed = clean_json_array(raw_output)
+            added = 0
+            for item in parsed:
+                expr = item.get("expression", "").strip()
+                if not expr:
+                    continue
+
+                decay = random.choice([10, 12, 14, 15])
+                group = random.choice(["subindustry", "sector"])
+                valid_expr = compile_sentiment_invariant(expr, default_decay=decay, default_group=group)
+                if not self.deduplicator.is_duplicate(valid_expr):
+                    self._llm_queue.append(
+                        SentimentCandidate(
+                            expression=valid_expr,
+                            archetype=item.get("archetype", chosen_archetype),
+                            family=f"LLM_Sentiment_{chosen_archetype}",
+                            hypothesis=item.get("hypothesis", f"LLM synthesized reasoning for {chosen_archetype}"),
+                            universe=random.choice(["TOP3000", "TOP2000"]),
+                            neutralization=group.upper(),
+                            decay=decay,
+                        )
+                    )
+                    added += 1
+            return added > 0
+        except Exception as e:
+            log.warning("Sentiment LLM generation failed: %s", e)
+            return False
+
     def generate_candidate(self) -> SentimentCandidate:
-        """Pulls next deterministic candidate or mutates an existing archetype."""
+        """Pulls next deterministic candidate, LLM synthesized candidate, or mutates an existing archetype."""
+        # Tier 1: Deterministic golden templates
         if self._template_queue:
             return self._template_queue.pop(0)
+
+        # Tier 2: Knowledge-injected LLM reasoning tier
+        if self.llm_adapter:
+            if not self._llm_queue:
+                self._generate_llm_batch()
+            if self._llm_queue:
+                return self._llm_queue.pop(0)
 
         # Tier 3: Systematic parameter & operator mutation
         weights_dict = self.get_current_weights()
