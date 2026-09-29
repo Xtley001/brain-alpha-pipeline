@@ -129,7 +129,7 @@ class OptionsGenerator:
         # Tier 2: Quantitative LLM reasoning tier
         if self.llm_adapter:
             try:
-                batch = self.get_reasoning_batch(target_count=5)
+                batch = self.get_reasoning_batch(count=5)
                 if batch:
                     cand = batch.pop(0)
                     self._template_queue.extend(batch)
@@ -138,7 +138,7 @@ class OptionsGenerator:
                 log.warning("Options LLM generation failed: %s", e)
 
         # Tier 3: Procedural mutation fallback
-        batch = self.get_procedural_batch(target_count=5)
+        batch = self.get_procedural_batch(count=5)
         if batch:
             cand = batch.pop(0)
             self._template_queue.extend(batch)
@@ -854,36 +854,4 @@ class OptionsGenerator:
             )
 
         return candidates
-
-    def generate_candidate(self) -> OptionCandidate:
-        """Pulls next deterministic template candidate, or generates fresh candidates if queue is empty."""
-        while self._template_queue:
-            cand = self._template_queue.pop(0)
-            if not self.is_evaluated(cand.expression):
-                return cand
-
-        # Replenish queue if depleted
-        fresh = self.assemble_candidate_batch(target_count=20)
-        for c in fresh:
-            if not self.is_evaluated(c.expression):
-                self._template_queue.append(c)
-
-        if self._template_queue:
-            return self._template_queue.pop(0)
-
-        # Procedural fallback
-        procedural = self.get_procedural_batch(1)
-        if procedural:
-            return procedural[0]
-
-        # Ultimate fallback
-        return OptionCandidate(
-            expression="group_neutralize(ts_decay_linear(trade_when(volume > 100000, opt_implied_volatility_call_30, -1), 18), subindustry)",
-            archetype_name="volatility_surface",
-            archetype="volatility_surface",
-            hypothesis="Baseline implied volatility anomaly with turnover compression",
-            universe="TOP3000",
-            neutralization="SUBINDUSTRY",
-            decay=18,
-        )
 
