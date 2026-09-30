@@ -66,10 +66,42 @@ class OptionsGenerator:
         self.db = db
         self.deduplicator = ASTDeduplicator()
         self.evaluated_expressions: Set[str] = set()
-        # Seed queue with high-capacity matrix, deterministic templates, and modular strategy systems
+        # Seed queue: Prioritize virgin uncorrelated strategies at the front of the queue
         seen_hashes = set()
         queue: list[OptionCandidate] = []
-        for c in generate_high_capacity_candidates() + generate_template_candidates() + generate_modular_candidates():
+        virgin_strategies = [
+            "pcr_flow",
+            "order_flow_vpin",
+            "gamma_pinning_clustering",
+            "realized_jump_intensity",
+            "dynamic_short_squeeze",
+            "customer_supplier_cascades",
+            "rd_capitalization_spillovers",
+            "distance_to_default_debt",
+            "macro_fomc_cpi_drift",
+            "peavrp_volatility_premia",
+            "jump_variance_moments",
+            "patent_innovation_efficiency",
+            "capex_asset_growth",
+            "institutional_13f_breadth",
+            "insider_cluster_buying",
+            "analyst_revisions",
+            "accruals_cashflow",
+            "informed_short_demand",
+            "extreme_tail_risk",
+            "iv_lead_lag",
+            "network_momentum",
+            "supply_chain",
+            "formulaic_101",
+            "hybrid_confluence",
+        ]
+        all_candidates = (
+            generate_modular_candidates(virgin_strategies)
+            + generate_modular_candidates()
+            + generate_template_candidates()
+            + generate_high_capacity_candidates()
+        )
+        for c in all_candidates:
             h = self.deduplicator.hash(c.expression)
             if h not in seen_hashes:
                 seen_hashes.add(h)
