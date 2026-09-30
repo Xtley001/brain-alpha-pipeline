@@ -23,7 +23,7 @@ logging.basicConfig(
 )
 log = logging.getLogger("daily_vault_submit")
 
-DAILY_LIMIT = 2
+DAILY_LIMIT = 3
 
 
 def send_tg_alert(config, alpha_id, archetype, sharpe, fitness, margin, corr, rank_order, submitted_count, total_submitted):
