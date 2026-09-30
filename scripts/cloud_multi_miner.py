@@ -434,10 +434,10 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             background_eval_tasks.add(eval_task)
             eval_task.add_done_callback(background_eval_tasks.discard)
 
-        # Convex Surface Near-Miss Sweep: If Sharpe in [1.10, 1.24] and Fitness >= 0.70, generate micro-sweeps
+        # Convex Surface Near-Miss Sweep: If Sharpe in [1.05, 1.24] and Fitness meets threshold, generate micro-sweeps
         elif (
-            1.10 <= metrics.sharpe < 1.25
-            and metrics.fitness >= 0.70
+            1.05 <= metrics.sharpe < 1.25
+            and metrics.fitness >= (0.40 if category == "options" else 0.65)
             and 0.01 <= metrics.turnover <= 0.70
             and len(priority_queue) < 15
         ):

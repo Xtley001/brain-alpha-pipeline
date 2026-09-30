@@ -41,12 +41,11 @@ CORE_ARCHETYPES = [
     "term_structure", "skew", "pcr_flow", "breakeven", "forward_basis",
     "short_interest", "analyst_revisions", "hybrid_confluence", "supply_chain",
     "accruals_cashflow", "informed_short_demand", "extreme_tail_risk", "iv_lead_lag",
-    "network_momentum", "formulaic_101", "institutional_13f_breadth",
-    "insider_cluster_buying", "peavd_earnings_vol_drift", "jump_variance_moments",
-    "patent_innovation_efficiency", "dynamic_short_squeeze", "order_flow_vpin",
-    "gamma_pinning_clustering", "customer_supplier_cascades", "rd_capitalization_spillovers",
-    "capex_asset_growth", "peavrp_volatility_premia", "realized_jump_intensity",
-    "distance_to_default_debt", "macro_fomc_cpi_drift",
+    "network_momentum", "formulaic_101",
+    "peavd_earnings_vol_drift", "jump_variance_moments",
+    "dynamic_short_squeeze", "order_flow_vpin",
+    "gamma_pinning_clustering", "peavrp_volatility_premia", "realized_jump_intensity",
+    "macro_fomc_cpi_drift",
 ]
 
 ENABLE_MANDATORY_TENOR_BLEND: bool = False  # Feature flag: observed alongside pure tenors before making mandatory
@@ -71,32 +70,83 @@ class OptionsGenerator:
         queue: list[OptionCandidate] = []
         virgin_strategies = [
             "pcr_flow",
+            "macro_fomc_cpi_drift",
+            "peavrp_volatility_premia",
+            "jump_variance_moments",
+            "term_structure",
             "order_flow_vpin",
             "gamma_pinning_clustering",
             "realized_jump_intensity",
             "dynamic_short_squeeze",
-            "customer_supplier_cascades",
-            "rd_capitalization_spillovers",
-            "distance_to_default_debt",
-            "macro_fomc_cpi_drift",
-            "peavrp_volatility_premia",
-            "jump_variance_moments",
-            "patent_innovation_efficiency",
-            "capex_asset_growth",
-            "institutional_13f_breadth",
-            "insider_cluster_buying",
+            "forward_basis",
+            "peavd_earnings_vol_drift",
             "analyst_revisions",
             "accruals_cashflow",
-            "informed_short_demand",
             "extreme_tail_risk",
             "iv_lead_lag",
             "network_momentum",
-            "supply_chain",
             "formulaic_101",
             "hybrid_confluence",
         ]
+        goldmine_seeds = [
+            OptionCandidate(
+                expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)), sector)",
+                archetype_name="Put Open Interest Buildup (ZYAPYvqY Base)",
+                hypothesis="Accumulation of 30d put open interest predicts negative options overhang.",
+                generation_source="template",
+                decay=15,
+                neutralization="SECTOR",
+                universe="TOP3000",
+            ),
+            OptionCandidate(
+                expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 8), 5)), sector)",
+                archetype_name="Put Open Interest Buildup (ZYAPYvqY d=8)",
+                hypothesis="Fast delta accumulation of 30d put open interest predicts negative options overhang.",
+                generation_source="template",
+                decay=12,
+                neutralization="SECTOR",
+                universe="TOP3000",
+            ),
+            OptionCandidate(
+                expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 12), 6)), sector)",
+                archetype_name="Put Open Interest Buildup (ZYAPYvqY d=12)",
+                hypothesis="12-day delta accumulation of 30d put open interest predicts structural options overhang.",
+                generation_source="template",
+                decay=14,
+                neutralization="SECTOR",
+                universe="TOP3000",
+            ),
+            OptionCandidate(
+                expression="trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)), sector), -1)",
+                archetype_name="Put Open Interest Buildup (Liquidity Gated)",
+                hypothesis="Accumulation of 30d put open interest gated by underlying liquidity.",
+                generation_source="template",
+                decay=18,
+                neutralization="SECTOR",
+                universe="TOP3000",
+            ),
+            OptionCandidate(
+                expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)), subindustry)",
+                archetype_name="Put Open Interest Buildup (Subindustry)",
+                hypothesis="Accumulation of 30d put open interest neutralized by subindustry.",
+                generation_source="template",
+                decay=16,
+                neutralization="SUBINDUSTRY",
+                universe="TOP3000",
+            ),
+            OptionCandidate(
+                expression="group_neutralize(signed_power(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)) - 0.5, 1.5), sector)",
+                archetype_name="Put Open Interest Buildup (Signed Power)",
+                hypothesis="Signed power transformation on 30d put open interest delta.",
+                generation_source="template",
+                decay=15,
+                neutralization="SECTOR",
+                universe="TOP3000",
+            ),
+        ]
         all_candidates = (
-            generate_modular_candidates(virgin_strategies)
+            goldmine_seeds
+            + generate_modular_candidates(virgin_strategies)
             + generate_modular_candidates()
             + generate_template_candidates()
             + generate_high_capacity_candidates()
@@ -109,28 +159,20 @@ class OptionsGenerator:
         self._template_queue: list[OptionCandidate] = queue
         self._archetype_idx = 0
 
-        # Multi-Armed Bandit prior weights across research domains (Heavy weights on 10 virgin strategies)
+        # Multi-Armed Bandit prior weights across research domains (Heavy weights on proven virgin strategies)
         self.archetype_priors: dict[str, float] = {
-            "dynamic_short_squeeze": 0.12,
-            "customer_supplier_cascades": 0.12,
+            "pcr_flow": 0.16,
+            "macro_fomc_cpi_drift": 0.14,
+            "peavrp_volatility_premia": 0.12,
+            "dynamic_short_squeeze": 0.10,
             "order_flow_vpin": 0.10,
             "gamma_pinning_clustering": 0.10,
-            "rd_capitalization_spillovers": 0.10,
-            "capex_asset_growth": 0.10,
-            "peavrp_volatility_premia": 0.10,
-            "distance_to_default_debt": 0.10,
             "realized_jump_intensity": 0.08,
-            "macro_fomc_cpi_drift": 0.08,
-            "forward_basis": 0.08,
-            "term_structure": 0.08,
-            "pcr_flow": 0.08,
-            "institutional_13f_breadth": 0.06,
-            "insider_cluster_buying": 0.06,
-            "peavd_earnings_vol_drift": 0.06,
-            "jump_variance_moments": 0.05,
-            "patent_innovation_efficiency": 0.05,
+            "jump_variance_moments": 0.08,
+            "forward_basis": 0.06,
+            "term_structure": 0.06,
+            "peavd_earnings_vol_drift": 0.05,
             "analyst_revisions": 0.04,
-            "supply_chain": 0.04,
             "accruals_cashflow": 0.04,
             "extreme_tail_risk": 0.03,
             "informed_short_demand": 0.02,
@@ -139,6 +181,7 @@ class OptionsGenerator:
             "short_interest": 0.02,
             "formulaic_101": 0.01,
             "hybrid_confluence": 0.01,
+            "supply_chain": 0.01,
             "breakeven": 0.00,
             "skew": 0.00,
         }

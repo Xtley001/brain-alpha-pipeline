@@ -86,8 +86,10 @@ def parse_brain_sim_response(resp: Any) -> SimMetrics:
         data = resp.json() if hasattr(resp, "json") else (resp if isinstance(resp, dict) else {})
     except Exception:
         data = {}
-    alpha_id = data.get("alpha") or data.get("id") or data.get("alphaId")
     status = data.get("status", "COMPLETE")
+    alpha_id = data.get("alpha") or data.get("alphaId")
+    if not alpha_id and status not in ("ERROR", "FAILED"):
+        alpha_id = data.get("id")
 
     # Metrics can be under data['is'], data['stats'], or directly at root
     stats = data.get("is") or data.get("stats") or data
@@ -219,6 +221,12 @@ class BrainClient:
                 for attempt in range(3):
                     try:
                         resp = await asyncio.wait_for(session.simulate(payload), timeout=240.0)
+                        if resp is not None and getattr(resp, "status_code", 200) in (500, 502, 503, 504):
+                            log.warning("Simulation attempt %d returned HTTP %s (transient server error), retrying after backoff...",
+                                        attempt + 1, getattr(resp, "status_code", 200))
+                            resp = None
+                            await asyncio.sleep(5.0 * (attempt + 1))
+                            continue
                         if resp is not None:
                             break
                     except asyncio.TimeoutError:
@@ -279,7 +287,7 @@ class BrainClient:
                 metrics = parse_brain_sim_response(resp)
 
                 # If metrics were not in simulation response directly, fetch from /alphas/<alpha_id>
-                if (metrics.sharpe == 0.0 and metrics.fitness == 0.0) and metrics.alpha_id:
+                if (metrics.sharpe == 0.0 and metrics.fitness == 0.0) and metrics.alpha_id and metrics.status not in ("ERROR", "FAILED"):
                     alpha_url = f"https://api.worldquantbrain.com/alphas/{metrics.alpha_id}"
                     try:
                         alpha_resp = await asyncio.wait_for(session.retry("GET", alpha_url, max_tries=15), timeout=45.0)
