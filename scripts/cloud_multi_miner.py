@@ -188,6 +188,96 @@ def commit_qualified_alpha(
         log.error("Failed to commit qualified alpha %s: %s", alpha_id, e)
 
 
+def pre_screen_expression(expr: str) -> Tuple[bool, str]:
+    """Fast local syntactic and structural filter before submitting to BRAIN."""
+    clean = expr.strip()
+    if clean.count("(") != clean.count(")"):
+        return False, "Unbalanced parentheses"
+    if len(clean) < 10:
+        return False, "Expression too short"
+    if ",," in clean or "(," in clean or ",)" in clean:
+        return False, "Malformed comma syntax"
+    if "rank(rank(" in clean:
+        return False, "Redundant nested rank"
+    return True, "OK"
+
+
+async def evaluate_candidate_qualification(
+    client: BrainClient,
+    metrics: SimMetrics,
+    expr: str,
+    arch: str,
+    hyp: str,
+    universe: str,
+    neut: str,
+    decay: int,
+    category: str,
+    config: Any,
+    ref_pnls: Dict[str, Dict[str, float]],
+) -> bool:
+    """Decoupled Gate 2 & Gate 3 verification pipeline executed asynchronously."""
+    try:
+        # Gate 2: Cross-Portfolio Correlation Gate (|rho| < 0.70)
+        cand_pnl = await client.get_alpha_pnl(metrics.alpha_id)
+        if not cand_pnl or len(cand_pnl) < 30:
+            log.warning("[-] Could not retrieve PnL for %s — skipping.", metrics.alpha_id)
+            return False
+
+        max_corr = 0.0
+        if ref_pnls:
+            corrs = [abs(compute_correlation(cand_pnl, p)) for p in list(ref_pnls.values())]
+            max_corr = max(corrs) if corrs else 0.0
+
+        if max_corr >= 0.70:
+            log.info("[-] Correlation failure (%.4f >= 0.70) for %s vs portfolio.", max_corr, metrics.alpha_id)
+            return False
+
+        # Gate 3: Platform Checklist Gate (Sub-Universe Sharpe)
+        log.info("[*] Verifying platform checklist on BRAIN for %s...", metrics.alpha_id)
+        chk_passed, chk_msg = verify_checklist_passes(client._session, metrics.alpha_id)
+        if not chk_passed:
+            log.warning("[-] Checklist check FAILED for %s: %s", metrics.alpha_id, chk_msg)
+            return False
+
+        # Passed all 3 gates!
+        ref_pnls[metrics.alpha_id] = cand_pnl
+        commit_qualified_alpha(
+            db_url=config.database_url,
+            alpha_id=metrics.alpha_id,
+            expression=expr,
+            archetype=arch,
+            hypothesis=hyp,
+            metrics=metrics,
+            max_corr=max_corr,
+            universe=universe,
+            neutralization=neut,
+            decay=decay,
+            category=category,
+        )
+
+        # Telegram Alert
+        send_tg_message(
+            token=config.telegram_bot_token,
+            chat_id=config.telegram_chat_id,
+            html_text=(
+                f"🌟 <b>NEW {category.upper()} ALPHA QUALIFIED ON CLOUD!</b> 🌟\n\n"
+                f"• <b>Alpha ID:</b> <code>{metrics.alpha_id}</code>\n"
+                f"• <b>Category:</b> {category}\n"
+                f"• <b>Archetype:</b> {arch}\n"
+                f"• <b>Sharpe:</b> {metrics.sharpe:.2f} | <b>Fitness:</b> {metrics.fitness:.2f}\n"
+                f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps | <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
+                f"• <b>Max Correlation:</b> {max_corr:.4f} (&lt; 0.70)\n"
+                f"• <b>Sub-Universe Check:</b> 100% PASS\n"
+                f"• <b>Expression:</b>\n<code>{expr}</code>"
+            ),
+        )
+        log.info("[🌟] QUALIFIED & COMMITTED: %s (%s, Sharpe=%.2f, Fit=%.2f)", metrics.alpha_id, arch, metrics.sharpe, metrics.fitness)
+        return True
+    except Exception as exc:
+        log.error("Error in asynchronous qualification pipeline for %s: %s", metrics.alpha_id, exc)
+        return False
+
+
 async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int):
     config = OptionsConfig.from_env()
     store = OptionsStore()
@@ -236,17 +326,27 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
         raise ValueError(f"Unknown category: {category}")
 
     candidates_evaluated = 0
-    qualified_count = 0
     start_time = time.time()
     max_duration_sec = timeout_mins * 60
+    priority_queue: List[Dict[str, Any]] = []
+    background_eval_tasks: set[asyncio.Task] = set()
 
     while candidates_evaluated < max_candidates:
         if time.time() - start_time > max_duration_sec:
             log.info("Time budget (%d mins) reached. Wrapping up cloud batch.", timeout_mins)
             break
 
-        # Pull next candidate
-        if category == "apex":
+        # Pull next candidate (priority near-miss sweep first, then generator)
+        if priority_queue:
+            cand_obj = priority_queue.pop(0)
+            expr = cand_obj["expression"]
+            arch = cand_obj["archetype"]
+            hyp = cand_obj["hypothesis"]
+            universe = cand_obj["universe"]
+            neut = cand_obj["neutralization"]
+            decay = cand_obj["decay"]
+            region = cand_obj.get("region", "USA")
+        elif category == "apex":
             if not apex_candidates:
                 break
             cand_obj = apex_candidates.pop(0)
@@ -256,6 +356,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             universe = cand_obj.universe
             neut = cand_obj.neutralization
             decay = cand_obj.decay
+            region = getattr(cand_obj, "region", "USA")
         else:
             cand_obj = generator.generate_candidate()
             expr = cand_obj.expression
@@ -264,14 +365,21 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             universe = getattr(cand_obj, "universe", "TOP3000")
             neut = getattr(cand_obj, "neutralization", "SUBINDUSTRY")
             decay = getattr(cand_obj, "decay", 18)
+            region = getattr(cand_obj, "region", "USA")
 
         if expr in known_exprs:
             continue
         known_exprs.add(expr)
 
+        # Fast local pre-screening
+        ok, reason = pre_screen_expression(expr)
+        if not ok:
+            log.warning("[-] Pre-screening rejected expression (%s): %s", reason, expr[:60])
+            continue
+
         candidates_evaluated += 1
         settings = SimSettings(
-            region="USA",
+            region=region,
             universe=universe,
             delay=1,
             decay=decay,
@@ -280,7 +388,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             pasteurization=True,
         )
 
-        log.info("[%s Sim #%d/%d] Simulating %s (decay=%d, u=%s)...", category.upper(), candidates_evaluated, max_candidates, arch, decay, universe)
+        log.info("[%s Sim #%d/%d] Simulating %s (decay=%d, u=%s, r=%s)...", category.upper(), candidates_evaluated, max_candidates, arch, decay, universe, region)
         try:
             metrics = await client.simulate_one(expr, settings)
         except Exception as e:
@@ -299,77 +407,69 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
         )
 
         # Gate 1: Performance Gate
-        # Fitness threshold is 0.70 (not 1.00) for options/double-decay expressions.
-        # Sentiment and risk model use standard single-decay, so 1.00 is correct for them.
         fitness_threshold = 0.70 if category == "options" else 1.00
         if (
-            metrics.sharpe < 1.25
-            or metrics.fitness < fitness_threshold
-            or metrics.turnover < 0.01
-            or metrics.turnover > 0.70
-            or metrics.margin < 0.0008
-            or metrics.max_drawdown > 0.35
+            metrics.sharpe >= 1.25
+            and metrics.fitness >= fitness_threshold
+            and 0.01 <= metrics.turnover <= 0.70
+            and metrics.margin >= 0.0008
+            and metrics.max_drawdown <= 0.35
         ):
-            await asyncio.sleep(0.5)
-            continue
+            log.info("[+] Candidate %s passed Gate 1! Spawning async Gate 2 & Gate 3 verification pipeline...", metrics.alpha_id)
+            eval_task = asyncio.create_task(
+                evaluate_candidate_qualification(
+                    client=client,
+                    metrics=metrics,
+                    expr=expr,
+                    arch=arch,
+                    hyp=hyp,
+                    universe=universe,
+                    neut=neut,
+                    decay=decay,
+                    category=category,
+                    config=config,
+                    ref_pnls=ref_pnls,
+                )
+            )
+            background_eval_tasks.add(eval_task)
+            eval_task.add_done_callback(background_eval_tasks.discard)
 
-        # Gate 2: Cross-Portfolio Correlation Gate (|rho| < 0.70)
-        cand_pnl = await client.get_alpha_pnl(metrics.alpha_id)
-        if not cand_pnl or len(cand_pnl) < 30:
-            continue
+        # Convex Surface Near-Miss Sweep: If Sharpe in [1.10, 1.24] and Fitness >= 0.70, generate micro-sweeps
+        elif (
+            1.10 <= metrics.sharpe < 1.25
+            and metrics.fitness >= 0.70
+            and 0.01 <= metrics.turnover <= 0.70
+            and len(priority_queue) < 15
+        ):
+            log.info("[⚡] Near-Miss detected for %s (Sharpe=%.2f, Fit=%.2f). Enqueuing convex surface gradient mutations...", metrics.alpha_id, metrics.sharpe, metrics.fitness)
+            for d_shift in (-3, 3):
+                new_d = max(5, decay + d_shift)
+                priority_queue.append({
+                    "expression": expr,
+                    "archetype": arch,
+                    "hypothesis": f"{hyp} [Convex Sweep d={new_d}]",
+                    "universe": universe,
+                    "neutralization": neut,
+                    "decay": new_d,
+                    "region": region,
+                })
+            alt_neut = "SECTOR" if neut.upper() == "SUBINDUSTRY" else "SUBINDUSTRY"
+            priority_queue.append({
+                "expression": expr,
+                "archetype": arch,
+                "hypothesis": f"{hyp} [Convex Sweep neut={alt_neut}]",
+                "universe": universe,
+                "neutralization": alt_neut,
+                "decay": decay,
+                "region": region,
+            })
 
-        max_corr = 0.0
-        if ref_pnls:
-            corrs = [abs(compute_correlation(cand_pnl, p)) for p in ref_pnls.values()]
-            max_corr = max(corrs) if corrs else 0.0
-
-        if max_corr >= 0.70:
-            log.info("[-] Correlation failure (%.4f >= 0.70) for %s vs portfolio.", max_corr, metrics.alpha_id)
-            continue
-
-        # Gate 3: Platform Checklist Gate (Sub-Universe Sharpe)
-        log.info("[*] Verifying platform checklist on BRAIN for %s...", metrics.alpha_id)
-        chk_passed, chk_msg = verify_checklist_passes(client._session, metrics.alpha_id)
-        if not chk_passed:
-            log.warning("[-] Checklist check FAILED for %s: %s", metrics.alpha_id, chk_msg)
-            continue
-
-        # Passed all 3 gates!
-        qualified_count += 1
-        ref_pnls[metrics.alpha_id] = cand_pnl
-        commit_qualified_alpha(
-            db_url=config.database_url,
-            alpha_id=metrics.alpha_id,
-            expression=expr,
-            archetype=arch,
-            hypothesis=hyp,
-            metrics=metrics,
-            max_corr=max_corr,
-            universe=universe,
-            neutralization=neut,
-            decay=decay,
-            category=category,
-        )
-
-        # Telegram Alert
-        send_tg_message(
-            token=config.telegram_bot_token,
-            chat_id=config.telegram_chat_id,
-            html_text=(
-                f"🌟 <b>NEW {category.upper()} ALPHA QUALIFIED ON CLOUD!</b> 🌟\n\n"
-                f"• <b>Alpha ID:</b> <code>{metrics.alpha_id}</code>\n"
-                f"• <b>Category:</b> {category}\n"
-                f"• <b>Archetype:</b> {arch}\n"
-                f"• <b>Sharpe:</b> {metrics.sharpe:.2f} | <b>Fitness:</b> {metrics.fitness:.2f}\n"
-                f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps | <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
-                f"• <b>Max Correlation:</b> {max_corr:.4f} (&lt; 0.70)\n"
-                f"• <b>Sub-Universe Check:</b> 100% PASS\n"
-                f"• <b>Expression:</b>\n<code>{expr}</code>"
-            ),
-        )
+    if background_eval_tasks:
+        log.info("[*] Waiting for %d in-flight qualification evaluation tasks to complete...", len(background_eval_tasks))
+        await asyncio.gather(*background_eval_tasks, return_exceptions=True)
 
     log.info("=" * 70)
-    log.info("CLOUD MINER COMPLETE: %d evaluated | %d QUALIFIED", candidates_evaluated, qualified_count)
+    log.info("CLOUD MINER COMPLETE: %d evaluated.", candidates_evaluated)
     log.info("=" * 70)
 
 
