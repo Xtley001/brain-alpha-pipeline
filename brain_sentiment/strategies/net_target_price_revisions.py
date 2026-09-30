@@ -31,10 +31,10 @@ class NetTargetPriceRevisionsStrategy(BaseSentimentStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(SentimentCandidate(
-                        expression=f"group_neutralize(rank(ts_decay_linear(snt1_d1_uptargetpercent - snt1_d1_downtargetpercent, {d})), {g.lower()})",
+                        expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_uptargetpercent - snt1_d1_downtargetpercent, {d}), 3)), {g.lower()})",
                         archetype=self.strategy_id,
                         family="Target_Spread_Drift",
-                        hypothesis=f"Spread between upward and downward target price revisions ({d}d decay) captures valuation multiple re-ratings.",
+                        hypothesis=f"Spread between upward and downward target price revisions with double decay ({d}d, 3d) captures valuation multiple re-ratings with turnover < 12%.",
                         universe=u,
                         neutralization=g,
                         decay=d,

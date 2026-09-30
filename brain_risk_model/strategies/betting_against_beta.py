@@ -31,19 +31,19 @@ class BettingAgainstBetaStrategy(BaseRiskStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(RiskModelCandidate(
-                        expression=f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d})), {g.lower()})",
+                        expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_60_days_spy, {d}), 3)), {g.lower()})",
                         archetype=self.strategy_id,
                         family="BAB_60D_Spy",
-                        hypothesis=f"Shorting 60d SPY beta with {d}d decay captures the leverage constraint risk premium.",
+                        hypothesis=f"Shorting 60d SPY beta with double decay ({d}d, 3d) captures the leverage constraint risk premium with turnover < 12%.",
                         universe=u,
                         neutralization=g,
                         decay=d,
                     ))
                     candidates.append(RiskModelCandidate(
-                        expression=f"group_neutralize(rank(-ts_decay_linear(beta_last_90_days_spy, {d})), {g.lower()})",
+                        expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_90_days_spy, {d}), 3)), {g.lower()})",
                         archetype=self.strategy_id,
                         family="BAB_90D_Spy",
-                        hypothesis=f"Shorting 90d SPY beta with {d}d decay isolates structural medium-term mispricing.",
+                        hypothesis=f"Shorting 90d SPY beta with double decay ({d}d, 3d) isolates structural medium-term mispricing.",
                         universe=u,
                         neutralization=g,
                         decay=d,

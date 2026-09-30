@@ -31,10 +31,10 @@ class MediaAttentionBuzzStrategy(BaseSentimentStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(SentimentCandidate(
-                        expression=f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(snt1_d1_dynamicfocusrank, {d})), {g.lower()}), -1)",
+                        expression=f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_dynamicfocusrank, {d}), 3)), {g.lower()}), -1)",
                         archetype=self.strategy_id,
                         family="Dynamic_Analyst_Focus",
-                        hypothesis=f"Volume-gated dynamic analyst focus ({d}d decay) captures persistent informed attention.",
+                        hypothesis=f"Volume-gated dynamic analyst focus with double decay ({d}d, 3d) captures persistent informed attention.",
                         universe=u,
                         neutralization=g,
                         decay=d,

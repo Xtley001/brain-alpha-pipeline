@@ -31,10 +31,10 @@ class DualTargetRecConfluenceStrategy(BaseSentimentStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(SentimentCandidate(
-                        expression=f"group_neutralize(rank(0.55 * rank(ts_decay_linear(snt1_d1_nettargetpercent, {d})) + 0.45 * rank(ts_decay_linear(snt1_d1_netrecpercent, {d}))), {g.lower()})",
+                        expression=f"group_neutralize(rank(0.55 * rank(ts_decay_linear(ts_decay_linear(snt1_d1_nettargetpercent, {d}), 3)) + 0.45 * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netrecpercent, {d}), 3))), {g.lower()})",
                         archetype=self.strategy_id,
                         family="Dual_Target_Rec_Alignment",
-                        hypothesis=f"Confluence of target revisions and recommendation changes ({d}d decay) confirms persistent consensus upgrade.",
+                        hypothesis=f"Confluence of target revisions and recommendation changes with double decay ({d}d, 3d) confirms persistent consensus upgrade.",
                         universe=u,
                         neutralization=g,
                         decay=d,

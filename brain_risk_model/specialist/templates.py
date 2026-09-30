@@ -119,67 +119,67 @@ def generate_template_candidates() -> List[RiskModelCandidate]:
     for u in universes:
         for g in groups:
             for d in decays:
-                # 1. Betting Against Beta (Frazzini & Pedersen 2014)
+                # 1. Betting Against Beta (Frazzini & Pedersen 2014) with double decay
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d})), {g})",
+                    expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_60_days_spy, {d}), 3)), {g})",
                     archetype="betting_against_beta",
                     family="BAB_Frazzini_Pedersen",
-                    hypothesis=f"Shorting rolling 60d SPY beta with {d}d decay captures the leverage constraint premium.",
+                    hypothesis=f"Shorting rolling 60d SPY beta with double decay ({d}d, 3d) captures leverage constraint premium with turnover < 12%.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 2. Beta Horizon Divergence (Black 1972)
+                # 2. Beta Horizon Divergence (Black 1972) with double decay
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(-ts_decay_linear(beta_last_30_days_spy - beta_last_360_days_spy, {d})), {g})",
+                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(beta_last_30_days_spy - beta_last_360_days_spy, {d}), 3)), {g})",
                     archetype="beta_divergence",
                     family="Beta_Horizon_Divergence",
-                    hypothesis=f"Shorting transient short-term beta spikes ({d}d decay) captures mean reversion to the security market line.",
+                    hypothesis=f"Short-long horizon beta divergence ({d}d decay, 3d compression) captures mean reversion to security market line.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 3. Composite Low-Risk Engine (Baker, Bradley, Wurgler 2011)
+                # 3. Composite Low-Risk Engine (Baker, Bradley, Wurgler 2011) with double decay
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(-0.60 * rank(beta_last_60_days_spy) - 0.40 * rank(correlation_last_60_days_spy)), {g})",
+                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(-0.60 * rank(beta_last_60_days_spy) - 0.40 * rank(correlation_last_60_days_spy), {d}), 3)), {g})",
                     archetype="low_risk_engine",
                     family="Low_Risk_Multi_Factor",
-                    hypothesis="Multivariate low-risk factor combining low beta and low market correlation.",
+                    hypothesis=f"Multivariate low-risk factor combining low beta and low market correlation with double decay ({d}d, 3d).",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 4. Piotroski Quality Surface Acceleration (Piotroski 2000)
+                # 4. Piotroski Quality Surface Acceleration (Piotroski 2000) with double decay
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(0.60 * rank(fscore_surface_accel) + 0.40 * rank(fscore_bfl_quality)), {g})",
+                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(0.60 * rank(fscore_surface_accel) + 0.40 * rank(fscore_bfl_quality), {d}), 3)), {g})",
                     archetype="surface_acceleration",
                     family="Quality_Surface_Acceleration",
-                    hypothesis="Acceleration of fundamental accounting quality isolates rapid corporate turnarounds.",
+                    hypothesis=f"Acceleration of fundamental accounting quality with double decay ({d}d, 3d) isolates rapid corporate turnarounds.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 5. Novy-Marx Gross Profitability Premium (Novy-Marx 2013)
+                # 5. Novy-Marx Gross Profitability Premium (Novy-Marx 2013) with double decay
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(0.50 * rank(fscore_bfl_profitability) + 0.50 * rank(earnings_certainty_rank_derivative)), {g})",
+                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(0.60 * rank(fscore_bfl_profitability) - 0.40 * rank(beta_last_60_days_spy), {d}), 3)), {g})",
                     archetype="gross_profitability",
                     family="Novy_Marx_Profitability",
-                    hypothesis="Operating profitability combined with earnings certainty generates orthogonal value alpha.",
+                    hypothesis=f"Operating profitability paired with beta-hedging and double decay ({d}d, 3d) generates orthogonal value alpha.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 6. Blitz Low-Volatility Effect (Blitz & van Vliet 2007)
+                # 6. Blitz Low-Volatility Effect (Blitz & van Vliet 2007) with double decay & correlation gating
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(0.55 * rank(earnings_certainty_rank_derivative) - 0.45 * rank(beta_last_60_days_spy)), {g})",
+                    expression=f"trade_when(correlation_last_60_days_spy < 0.65, group_neutralize(rank(ts_decay_linear(ts_decay_linear(0.55 * rank(earnings_certainty_rank_derivative) - 0.45 * rank(beta_last_60_days_spy), {d}), 3)), {g}), -1)",
                     archetype="blitz_volatility",
                     family="Blitz_Low_Volatility_Effect",
-                    hypothesis="Going long earnings certainty while shorting SPY beta produces superior risk-adjusted Sharpe.",
+                    hypothesis=f"Correlation-gated earnings certainty with SPY beta hedging and double decay ({d}d, 3d) produces superior Sharpe.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,

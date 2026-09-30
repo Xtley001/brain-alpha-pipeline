@@ -30,10 +30,10 @@ class GrossProfitabilityStrategy(BaseRiskStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(RiskModelCandidate(
-                        expression=f"group_neutralize(rank(0.50 * rank(ts_decay_linear(fscore_bfl_profitability, {d})) + 0.50 * rank(ts_decay_linear(earnings_certainty_rank_derivative, {d}))), {g.lower()})",
+                        expression=f"group_neutralize(rank(0.50 * rank(ts_decay_linear(ts_decay_linear(fscore_bfl_profitability, {d}), 3)) + 0.50 * rank(ts_decay_linear(ts_decay_linear(earnings_certainty_rank_derivative, {d}), 3))), {g.lower()})",
                         archetype=self.strategy_id,
                         family="Novy_Marx_Profitability",
-                        hypothesis=f"Operating profitability blended with earnings certainty derivative ({d}d decay) captures robust cash earnings.",
+                        hypothesis=f"Operating profitability blended with earnings certainty derivative with double decay ({d}d, 3d) captures robust cash earnings.",
                         universe=u,
                         neutralization=g,
                         decay=d,

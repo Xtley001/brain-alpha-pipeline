@@ -41,12 +41,12 @@ class PEADEarningsDriftStrategy(BaseSentimentStrategy):
                         neutralization=g,
                         decay=d,
                     ))
-                    # High conviction shock
+                    # High conviction shock with double decay
                     candidates.append(SentimentCandidate(
-                        expression=f"trade_when(abs(snt1_d1_earningssurprise) > 0.05, group_neutralize(rank(ts_decay_linear(snt1_d1_earningssurprise, {d})), {g.lower()}), -1)",
+                        expression=f"trade_when(abs(snt1_d1_earningssurprise) > 0.05, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, {d}), 3)), {g.lower()}), -1)",
                         archetype=self.strategy_id,
                         family="PEAD_SUE_Shock",
-                        hypothesis=f"Material SUE surprise shocks (>5%) held with {d}d decay isolate fundamental drift.",
+                        hypothesis=f"Material SUE surprise shocks (>5%) held with double decay ({d}d, 3d) isolate fundamental drift.",
                         universe=u,
                         neutralization=g,
                         decay=d,

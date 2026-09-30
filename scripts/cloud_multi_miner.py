@@ -67,26 +67,36 @@ def send_tg_message(token: str, chat_id: str, html_text: str):
 
 
 def verify_checklist_passes(session, alpha_id: str) -> Tuple[bool, str]:
-    """Verify all platform checklist checks pass on BRAIN."""
-    for _ in range(8):
+    """Verify all critical platform checklist checks pass on BRAIN."""
+    for attempt in range(18):  # up to 180 seconds total
         try:
             r = session.get(f"https://api.worldquantbrain.com/alphas/{alpha_id}/check", timeout=20)
             if r.status_code == 200 and r.text.strip():
                 data = r.json()
                 checks = data.get("is", {}).get("checks", []) or data.get("checks", [])
                 if checks:
+                    # Check if any asynchronous check is still PENDING
+                    pending = [c.get("name", "") for c in checks if c.get("result") == "PENDING"]
+                    if pending and attempt < 17:
+                        log.info("[*] Checklist for %s has in-flight checks (%s), waiting... (attempt %d/18)", alpha_id, ", ".join(pending), attempt + 1)
+                        time.sleep(10)
+                        continue
+
                     failures = []
                     for c in checks:
                         name = c.get("name", "")
                         result = c.get("result", "")
-                        if result != "PASS":
-                            failures.append(f"{name}:{result}")
+                        # Non-blocking warnings (e.g., UNITS, DATA_PREVIEW) do NOT fail submission on BRAIN
+                        if result in ("PASS", "WARNING"):
+                            continue
+                        failures.append(f"{name}:{result}")
+
                     if failures:
                         return False, ", ".join(failures)
                     return True, "ALL_PASSED"
-        except Exception:
-            pass
-        time.sleep(3)
+        except Exception as e:
+            log.warning("Checklist fetch attempt %d for %s failed: %s", attempt + 1, alpha_id, e)
+        time.sleep(10)
     return False, "Checklist timed out or unavailable"
 
 
@@ -103,7 +113,7 @@ def load_reference_pnls(db_url: str) -> Tuple[List[str], Dict[str, Dict[str, flo
             keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=5
         ) as conn:
             with conn.cursor() as cur:
-                cur.execute("SELECT alpha_id, expression FROM options_alphas WHERE status IN ('SUBMITTED', 'QUALIFIED') AND alpha_id IS NOT NULL;")
+                cur.execute("SELECT alpha_id, expression FROM options_alphas WHERE status IN ('SUBMITTED', 'QUALIFIED') AND status != 'REJECTED_SUBUNIVERSE' AND alpha_id IS NOT NULL;")
                 rows = cur.fetchall()
                 for r in rows:
                     if r[0]:

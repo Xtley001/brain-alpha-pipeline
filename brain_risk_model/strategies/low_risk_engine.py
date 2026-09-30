@@ -31,10 +31,10 @@ class LowRiskEngineStrategy(BaseRiskStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(RiskModelCandidate(
-                        expression=f"group_neutralize(rank(-0.60 * rank(ts_decay_linear(beta_last_60_days_spy, {d})) - 0.40 * rank(ts_decay_linear(correlation_last_60_days_spy, {d}))), {g.lower()})",
+                        expression=f"group_neutralize(rank(-0.60 * rank(ts_decay_linear(ts_decay_linear(beta_last_60_days_spy, {d}), 3)) - 0.40 * rank(ts_decay_linear(ts_decay_linear(correlation_last_60_days_spy, {d}), 3))), {g.lower()})",
                         archetype=self.strategy_id,
                         family="Low_Risk_Multi_Factor",
-                        hypothesis=f"60% low-beta and 40% low-correlation ({d}d decay) eliminates single-factor fragility.",
+                        hypothesis=f"60% low-beta and 40% low-correlation with double decay ({d}d, 3d) eliminates single-factor fragility.",
                         universe=u,
                         neutralization=g,
                         decay=d,

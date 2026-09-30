@@ -31,10 +31,10 @@ class BetaDivergenceStrategy(BaseRiskStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(RiskModelCandidate(
-                        expression=f"group_neutralize(rank(-ts_decay_linear(beta_last_30_days_spy - beta_last_360_days_spy, {d})), {g.lower()})",
+                        expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_30_days_spy - beta_last_360_days_spy, {d}), 3)), {g.lower()})",
                         archetype=self.strategy_id,
                         family="Beta_Horizon_Spread",
-                        hypothesis=f"Transient beta spikes over 360d equilibrium revert systematically with {d}d decay.",
+                        hypothesis=f"Transient beta spikes over 360d equilibrium revert systematically with double decay ({d}d, 3d).",
                         universe=u,
                         neutralization=g,
                         decay=d,

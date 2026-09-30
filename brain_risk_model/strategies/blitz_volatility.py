@@ -30,10 +30,10 @@ class BlitzVolatilityStrategy(BaseRiskStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(RiskModelCandidate(
-                        expression=f"group_neutralize(rank(0.55 * rank(ts_decay_linear(earnings_certainty_rank_derivative, {d})) - 0.45 * rank(ts_decay_linear(beta_last_60_days_spy, {d}))), {g.lower()})",
+                        expression=f"group_neutralize(rank(0.55 * rank(ts_decay_linear(ts_decay_linear(earnings_certainty_rank_derivative, {d}), 3)) - 0.45 * rank(ts_decay_linear(ts_decay_linear(beta_last_60_days_spy, {d}), 3))), {g.lower()})",
                         archetype=self.strategy_id,
                         family="Blitz_Volatility_Certainty",
-                        hypothesis=f"Long earnings certainty and short SPY beta ({d}d decay) maximizes portfolio Sharpe ratio.",
+                        hypothesis=f"Long earnings certainty and short SPY beta with double decay ({d}d, 3d) maximizes portfolio Sharpe ratio.",
                         universe=u,
                         neutralization=g,
                         decay=d,

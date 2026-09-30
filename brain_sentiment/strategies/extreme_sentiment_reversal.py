@@ -31,10 +31,10 @@ class ExtremeSentimentReversalStrategy(BaseSentimentStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(SentimentCandidate(
-                        expression=f"trade_when(abs(daily_equity_mood_indicator - 50) > 25, group_neutralize(rank(-ts_decay_linear(daily_equity_mood_indicator, {d})), {g.lower()}), -1)",
+                        expression=f"trade_when(abs(daily_equity_mood_indicator - 50) > 25, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(daily_equity_mood_indicator, {d}), 3)), {g.lower()}), -1)",
                         archetype=self.strategy_id,
                         family="Mood_Contrarian_Reversion",
-                        hypothesis=f"Extreme mood overreaction (|mood - 50| > 25) mean-reverts with {d}d decay.",
+                        hypothesis=f"Extreme mood overreaction (|mood - 50| > 25) mean-reverts with double decay ({d}d, 3d) to eliminate turnover spikes.",
                         universe=u,
                         neutralization=g,
                         decay=d,
