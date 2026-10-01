@@ -18,7 +18,7 @@ on:
 
 concurrency:
   group: cloud-miner-risk-model
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   mine-risk-model:
