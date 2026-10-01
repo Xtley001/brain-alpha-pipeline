@@ -27,6 +27,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import html
+import re
+
 import psycopg
 import requests
 from dotenv import load_dotenv
@@ -53,15 +56,30 @@ from brain_synthesis.apex_generator import generate_apex_candidates
 
 
 def send_tg_message(token: str, chat_id: str, html_text: str):
-    """Deliver HTML message to Telegram."""
+    """Deliver HTML message to Telegram with robust error recovery and plain text fallback."""
     if not token or not chat_id:
         return
     try:
-        requests.post(
+        r = requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             json={"chat_id": chat_id, "text": html_text, "parse_mode": "HTML"},
             timeout=15,
         )
+        if r.status_code == 200:
+            log.info("Telegram alert delivered successfully.")
+            return
+        log.warning("Telegram HTML send returned status %d: %s. Retrying in plain text...", r.status_code, r.text)
+        # Strip HTML tags for clean plain-text fallback
+        plain_text = re.sub(r"<[^>]+>", "", html_text)
+        r2 = requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": chat_id, "text": plain_text},
+            timeout=15,
+        )
+        if r2.status_code == 200:
+            log.info("Telegram plain-text fallback delivered successfully.")
+        else:
+            log.warning("Telegram plain-text send failed (%d): %s", r2.status_code, r2.text)
     except Exception as e:
         log.warning("Telegram alert failed: %s", e)
 
@@ -188,6 +206,44 @@ def commit_qualified_alpha(
         log.error("Failed to commit qualified alpha %s: %s", alpha_id, e)
 
 
+def log_candidate_evaluation(
+    db_url: str,
+    expr: str,
+    arch: str,
+    src: str,
+    stage: str,
+    status: str,
+    metrics: SimMetrics,
+):
+    """Log individual simulation result to options_evaluations for live pipeline telemetry."""
+    if not db_url:
+        return
+    try:
+        with psycopg.connect(
+            db_url, autocommit=True,
+            keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=5
+        ) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO options_evaluations
+                    (expression, archetype, source, stage, status, sharpe, fitness, turnover, returns, drawdown, alpha_id)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                    """,
+                    (
+                        expr, arch, src, stage, status,
+                        decimal.Decimal(str(round(metrics.sharpe, 4))),
+                        decimal.Decimal(str(round(metrics.fitness, 4))),
+                        decimal.Decimal(str(round(metrics.turnover, 4))),
+                        decimal.Decimal(str(round(metrics.returns, 4))),
+                        decimal.Decimal(str(round(metrics.max_drawdown, 4))),
+                        metrics.alpha_id,
+                    ),
+                )
+    except Exception as e:
+        log.debug("Failed to log candidate evaluation to DB: %s", e)
+
+
 def pre_screen_expression(expr: str) -> Tuple[bool, str]:
     """Fast local syntactic and structural filter before submitting to BRAIN."""
     clean = expr.strip()
@@ -255,20 +311,24 @@ async def evaluate_candidate_qualification(
             category=category,
         )
 
-        # Telegram Alert
+        # Telegram Alert (with robust HTML escaping to prevent parse errors)
+        safe_expr = html.escape(expr)
+        safe_arch = html.escape(arch)
+        safe_cat = html.escape(category.upper())
+        safe_alpha = html.escape(metrics.alpha_id or "unknown")
         send_tg_message(
             token=config.telegram_bot_token,
             chat_id=config.telegram_chat_id,
             html_text=(
-                f"🌟 <b>NEW {category.upper()} ALPHA QUALIFIED ON CLOUD!</b> 🌟\n\n"
-                f"• <b>Alpha ID:</b> <code>{metrics.alpha_id}</code>\n"
+                f"🌟 <b>NEW {safe_cat} ALPHA QUALIFIED ON CLOUD!</b> 🌟\n\n"
+                f"• <b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
                 f"• <b>Category:</b> {category}\n"
-                f"• <b>Archetype:</b> {arch}\n"
+                f"• <b>Archetype:</b> {safe_arch}\n"
                 f"• <b>Sharpe:</b> {metrics.sharpe:.2f} | <b>Fitness:</b> {metrics.fitness:.2f}\n"
                 f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps | <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
                 f"• <b>Max Correlation:</b> {max_corr:.4f} (&lt; 0.70)\n"
                 f"• <b>Sub-Universe Check:</b> 100% PASS\n"
-                f"• <b>Expression:</b>\n<code>{expr}</code>"
+                f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
             ),
         )
         log.info("[🌟] QUALIFIED & COMMITTED: %s (%s, Sharpe=%.2f, Fit=%.2f)", metrics.alpha_id, arch, metrics.sharpe, metrics.fitness)
@@ -408,13 +468,26 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
 
         # Gate 1: Performance Gate
         fitness_threshold = 0.70 if category == "options" else 1.00
-        if (
+        passed_gate1 = (
             metrics.sharpe >= 1.25
             and metrics.fitness >= fitness_threshold
             and 0.01 <= metrics.turnover <= 0.70
             and metrics.margin >= 0.0008
             and metrics.max_drawdown <= 0.35
-        ):
+        )
+
+        # Log to options_evaluations table for live telemetry and health checks
+        log_candidate_evaluation(
+            db_url=config.database_url,
+            expr=expr,
+            arch=arch,
+            src=f"cloud_{category}",
+            stage="STAGE0",
+            status="PASS" if passed_gate1 else "FAIL",
+            metrics=metrics,
+        )
+
+        if passed_gate1:
             log.info("[+] Candidate %s passed Gate 1! Spawning async Gate 2 & Gate 3 verification pipeline...", metrics.alpha_id)
             eval_task = asyncio.create_task(
                 evaluate_candidate_qualification(

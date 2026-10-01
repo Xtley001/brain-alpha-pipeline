@@ -69,11 +69,25 @@ def send_tg(html_text: str) -> None:
         return
     try:
         import requests  # type: ignore
-        requests.post(
+        r = requests.post(
             f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
             json={"chat_id": TELEGRAM_CHAT_ID, "text": html_text, "parse_mode": "HTML"},
             timeout=15,
         )
+        if r.status_code == 200:
+            log.info("Telegram monitor report delivered.")
+            return
+        log.warning("Telegram HTML send returned status %d: %s. Retrying in plain text...", r.status_code, r.text)
+        plain_text = re.sub(r"<[^>]+>", "", html_text)
+        r2 = requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            json={"chat_id": TELEGRAM_CHAT_ID, "text": plain_text},
+            timeout=15,
+        )
+        if r2.status_code == 200:
+            log.info("Telegram plain-text fallback delivered.")
+        else:
+            log.warning("Telegram plain-text send failed (%d): %s", r2.status_code, r2.text)
     except Exception as exc:
         log.warning("Telegram send failed: %s", exc)
 
@@ -220,16 +234,18 @@ def analyse_gh_workflow(workflow_file: str) -> Dict:
         result["issues"].append(f"No recent runs found for {workflow_file}")
         return result
 
-    if runs[0].get("status") == "in_progress":
+    status = runs[0].get("status", "")
+    if status in ("in_progress", "pending", "queued", "waiting", "requested"):
         result["is_active"] = True
         result["active_run_id"] = runs[0].get("databaseId")
-        result["last_conclusion"] = "RUNNING"
+        result["last_conclusion"] = "RUNNING" if status == "in_progress" else status.upper()
     else:
-        result["last_conclusion"] = runs[0].get("conclusion", "UNKNOWN")
+        result["last_conclusion"] = runs[0].get("conclusion") or status.upper() or "UNKNOWN"
 
     streak = 0
     for run in runs:
-        if run.get("status") == "in_progress":
+        run_status = run.get("status", "")
+        if run_status in ("in_progress", "pending", "queued", "waiting", "requested"):
             continue
         conc = run.get("conclusion", "")
         if conc in ("failure", "cancelled", "timed_out"):

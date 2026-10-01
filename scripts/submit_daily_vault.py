@@ -6,6 +6,9 @@ from datetime import date
 
 sys.path.insert(0, r"c:\Users\pc\Desktop\brain-alpha-pipeline")
 
+import html
+import re
+
 import psycopg
 import requests
 from dotenv import load_dotenv
@@ -33,23 +36,34 @@ def send_tg_alert(config, alpha_id, archetype, sharpe, fitness, margin, corr, ra
         return
     is_gain = int(sharpe * fitness * 300)
     score_gain = round(sharpe * fitness * 300 / 15000, 3)
+    safe_alpha = html.escape(alpha_id or "unknown")
+    safe_arch = html.escape(archetype or "general")
     text = (
-        "<b>RESERVE ALPHA SUBMITTED (Vault #" + str(rank_order).zfill(2) + ")</b>\n\n"
-        "<b>Alpha ID:</b> <code>" + alpha_id + "</code>\n"
-        "<b>Archetype:</b> <code>" + archetype + "</code>\n"
-        "<b>Sharpe:</b> <b>" + str(round(sharpe, 2)) + "</b>  |  "
-        "<b>Fitness:</b> <b>" + str(round(fitness, 2)) + "</b>\n"
-        "<b>Margin:</b> " + str(round(margin, 1)) + " bps  |  "
-        "<b>Max Corr:</b> " + str(round(corr, 4)) + "\n\n"
-        "<b>Submitted today:</b> " + str(submitted_count) + "/" + str(DAILY_LIMIT) + "\n"
-        "<b>Total on BRAIN:</b> " + str(total_submitted) + "\n"
-        "IS Score gain: <b>+" + "{:,}".format(is_gain) + " pts</b>\n"
-        "Total Score gain: <b>+" + str(score_gain) + "</b>"
+        f"<b>RESERVE ALPHA SUBMITTED (Vault #{str(rank_order).zfill(2)})</b>\n\n"
+        f"<b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
+        f"<b>Archetype:</b> <code>{safe_arch}</code>\n"
+        f"<b>Sharpe:</b> <b>{sharpe:.2f}</b>  |  "
+        f"<b>Fitness:</b> <b>{fitness:.2f}</b>\n"
+        f"<b>Margin:</b> {margin:.1f} bps  |  "
+        f"<b>Max Corr:</b> {corr:.4f}\n\n"
+        f"<b>Submitted today:</b> {submitted_count}/{DAILY_LIMIT}\n"
+        f"<b>Total on BRAIN:</b> {total_submitted}\n"
+        f"IS Score gain: <b>+{is_gain:,} pts</b>\n"
+        f"Total Score gain: <b>+{score_gain}</b>"
     )
-    url = "https://api.telegram.org/bot" + token + "/sendMessage"
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
     try:
-        requests.post(url, json={"chat_id": chat_id, "text": text, "parse_mode": "HTML"}, timeout=10)
-        log.info("Telegram alert sent for %s.", alpha_id)
+        r = requests.post(url, json={"chat_id": chat_id, "text": text, "parse_mode": "HTML"}, timeout=10)
+        if r.status_code == 200:
+            log.info("Telegram alert sent for %s.", alpha_id)
+            return
+        log.warning("Telegram HTML send failed (%d): %s. Retrying in plain text...", r.status_code, r.text)
+        plain_text = re.sub(r"<[^>]+>", "", text)
+        r2 = requests.post(url, json={"chat_id": chat_id, "text": plain_text}, timeout=10)
+        if r2.status_code == 200:
+            log.info("Telegram plain-text fallback delivered.")
+        else:
+            log.warning("Telegram plain-text failed (%d): %s", r2.status_code, r2.text)
     except Exception as e:
         log.warning("Telegram alert failed: %s", e)
 

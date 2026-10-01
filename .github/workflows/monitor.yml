@@ -14,6 +14,9 @@ jobs:
     name: Cloud Pipeline Health Check
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: write
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}

@@ -32,6 +32,9 @@ logging.basicConfig(
 )
 log = logging.getLogger("vault_miner")
 
+import html
+import re
+
 import psycopg
 import requests
 from brain_options.config import OptionsConfig
@@ -41,15 +44,29 @@ from brain_options.store.store import OptionsStore
 
 
 def send_tg_message(token: str, chat_id: str, html_text: str):
-    """Deliver HTML message to Telegram."""
+    """Deliver HTML message to Telegram with robust error recovery and plain text fallback."""
     if not token or not chat_id:
         return
     try:
-        requests.post(
+        r = requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             json={"chat_id": chat_id, "text": html_text, "parse_mode": "HTML"},
             timeout=15,
         )
+        if r.status_code == 200:
+            log.info("Telegram alert delivered successfully.")
+            return
+        log.warning("Telegram HTML send returned status %d: %s. Retrying in plain text...", r.status_code, r.text)
+        plain_text = re.sub(r"<[^>]+>", "", html_text)
+        r2 = requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": chat_id, "text": plain_text},
+            timeout=15,
+        )
+        if r2.status_code == 200:
+            log.info("Telegram plain-text fallback delivered.")
+        else:
+            log.warning("Telegram plain-text send failed (%d): %s", r2.status_code, r2.text)
     except Exception as e:
         log.warning("Telegram send failed: %s", e)
 
@@ -597,19 +614,22 @@ async def simulation_worker(
             )
 
             # Send Instant Telegram Alert
+            safe_expr = html.escape(expr)
+            safe_alpha = html.escape(metrics.alpha_id or "unknown")
+            safe_arch = html.escape(cand.get("archetype", "general"))
             send_tg_message(
                 token=config.telegram_bot_token,
                 chat_id=config.telegram_chat_id,
                 html_text=(
                     f"🏆 <b>NEW QUALIFIED ALPHA SECURED (#{state.current_qualified}/{state.target_total})</b>\n\n"
-                    f"🆔 <b>Alpha ID:</b> <code>{metrics.alpha_id}</code>\n"
+                    f"🆔 <b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
                     f"📊 <b>Sharpe:</b> <b>{metrics.sharpe:.2f}</b> | <b>Fitness:</b> <b>{metrics.fitness:.2f}</b>\n"
                     f"📈 <b>Turnover:</b> {metrics.turnover*100:.1f}% | <b>Margin:</b> {metrics.margin*10000:.1f} bps\n"
                     f"🛡️ <b>Max Correlation:</b> <b>{overall_max_corr:.4f}</b> (&lt; 0.70)\n"
                     f"✅ <b>Sub-Universe Check:</b> <b>PASS</b>\n"
-                    f"🏷️ <b>Archetype:</b> <code>{cand['archetype']}</code>\n"
+                    f"🏷️ <b>Archetype:</b> <code>{safe_arch}</code>\n"
                     f"🎯 <b>Remaining to 100:</b> {state.target_total - state.current_qualified}\n\n"
-                    f"<code>{expr}</code>"
+                    f"<code>{safe_expr}</code>"
                 ),
             )
 

@@ -18,6 +18,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import html
+import re
+
 import psycopg
 import requests
 from dotenv import load_dotenv
@@ -41,11 +44,25 @@ def send_tg_message(token: str, chat_id: str, html_text: str):
     if not token or not chat_id:
         return
     try:
-        requests.post(
+        r = requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             json={"chat_id": chat_id, "text": html_text, "parse_mode": "HTML"},
             timeout=10,
         )
+        if r.status_code == 200:
+            log.info("Telegram alert delivered successfully.")
+            return
+        log.warning("Telegram HTML send returned %d: %s. Retrying in plain text...", r.status_code, r.text)
+        plain_text = re.sub(r"<[^>]+>", "", html_text)
+        r2 = requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": chat_id, "text": plain_text},
+            timeout=10,
+        )
+        if r2.status_code == 200:
+            log.info("Telegram plain-text fallback delivered.")
+        else:
+            log.warning("Telegram plain-text send failed (%d): %s", r2.status_code, r2.text)
     except Exception as exc:
         log.warning("Telegram dispatch failed: %s", exc)
 
@@ -307,19 +324,22 @@ async def run_proven_qualification():
                 max_corr=max_corr,
             )
 
+            safe_aid = html.escape(alpha_id)
+            safe_arch = html.escape(archetype)
+            safe_expr = html.escape(cand["expression"][:300])
             send_tg_message(
                 token=config.telegram_bot_token,
                 chat_id=config.telegram_chat_id,
                 html_text=(
                     f"🌟 <b>RESERVE ALPHA QUALIFIED (Proven Near-Miss)!</b> 🌟\n\n"
-                    f"• <b>Alpha ID:</b> <code>{alpha_id}</code>\n"
-                    f"• <b>Archetype:</b> {archetype}\n"
+                    f"• <b>Alpha ID:</b> <code>{safe_aid}</code>\n"
+                    f"• <b>Archetype:</b> {safe_arch}\n"
                     f"• <b>Sharpe:</b> <b>{cand['sharpe']:.2f}</b>  |  <b>Fitness:</b> <b>{cand['fitness']:.2f}</b>\n"
                     f"• <b>Turnover:</b> {cand['turnover'] * 100:.1f}%\n"
                     f"• <b>Max Corr:</b> <b>{max_corr:.4f}</b> (&lt; 0.70)\n"
                     f"• <b>Checklist:</b> 100% PASS\n"
                     f"• <b>Total Qualified:</b> {qualified_count}\n"
-                    f"• <b>Expression:</b>\n<code>{cand['expression'][:300]}</code>"
+                    f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
                 ),
             )
             log.info("[🌟] VAULT QUALIFIED #%d: %s (Sharpe=%.2f, MaxCorr=%.4f)", qualified_count, alpha_id, cand['sharpe'], max_corr)

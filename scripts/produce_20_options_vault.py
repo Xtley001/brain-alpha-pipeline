@@ -20,6 +20,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import html
+import re
+
 import psycopg
 import requests
 from dotenv import load_dotenv
@@ -46,11 +49,25 @@ def send_tg_message(token: str, chat_id: str, html_text: str):
     if not token or not chat_id:
         return
     try:
-        requests.post(
+        r = requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             json={"chat_id": chat_id, "text": html_text, "parse_mode": "HTML"},
             timeout=12,
         )
+        if r.status_code == 200:
+            log.info("Telegram alert delivered successfully.")
+            return
+        log.warning("Telegram HTML send returned %d: %s. Retrying in plain text...", r.status_code, r.text)
+        plain_text = re.sub(r"<[^>]+>", "", html_text)
+        r2 = requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": chat_id, "text": plain_text},
+            timeout=12,
+        )
+        if r2.status_code == 200:
+            log.info("Telegram plain-text fallback delivered.")
+        else:
+            log.warning("Telegram plain-text send failed (%d): %s", r2.status_code, r2.text)
     except Exception as exc:
         log.warning("Telegram dispatch error: %s", exc)
 
@@ -529,18 +546,21 @@ async def main():
             strategy_name=strat,
         )
 
+        safe_expr = html.escape(expr)
+        safe_alpha = html.escape(metrics.alpha_id or "unknown")
+        safe_strat = html.escape(strat)
         send_tg_message(
             token=config.telegram_bot_token,
             chat_id=config.telegram_chat_id,
             html_text=(
                 f"🌟 <b>OPTIONS ALPHA QUALIFIED (#{current_qualified}/{target_count})!</b> 🌟\n\n"
-                f"• <b>Alpha ID:</b> <code>{metrics.alpha_id}</code>\n"
+                f"• <b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
                 f"• <b>Sharpe:</b> {metrics.sharpe:.2f} | <b>Fitness:</b> {metrics.fitness:.2f}\n"
                 f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps | <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
                 f"• <b>Max Correlation:</b> {overall_max_corr:.4f} (&lt; 0.70)\n"
                 f"• <b>Platform Checklist:</b> 100% PASS\n"
-                f"• <b>Strategy:</b> {strat}\n"
-                f"• <b>Expression:</b>\n<code>{expr}</code>"
+                f"• <b>Strategy:</b> {safe_strat}\n"
+                f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
             ),
         )
 
