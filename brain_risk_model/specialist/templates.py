@@ -1,7 +1,7 @@
 """
 Deterministic seed template generator for Risk Model Alpha candidates.
 Generates fully valid Fast Expression candidates across 7 institutional systematic risk archetypes,
-strictly enforcing subindustry neutralization and turnover (<15%) invariants.
+strictly enforcing subindustry neutralization, liquidity armor, bivariate interactions, and low turnover (<15%) invariants.
 """
 from __future__ import annotations
 
@@ -62,6 +62,7 @@ def compile_risk_model_invariant(expr: str, default_decay: int = 15, default_gro
       1. Rank/zscore normalization
       2. Double smoothing/decay for low turnover (< 15%)
       3. group_neutralize(..., subindustry) for sub-universe Sharpe immunity
+      4. trade_when conviction gating and liquidity armor
     """
     clean = expr.strip()
     if not clean:
@@ -110,76 +111,68 @@ def compile_risk_model_invariant(expr: str, default_decay: int = 15, default_gro
 
 
 def generate_template_candidates() -> List[RiskModelCandidate]:
-    """Generates deterministic institutional risk model alpha expressions across verified archetypes."""
+    """Generates deterministic institutional systematic risk alpha expressions with Bivariate Interactions and Liquidity Armor."""
     candidates: List[RiskModelCandidate] = []
     universes = ["TOP3000", "TOP2000"]
     groups = ["subindustry", "sector"]
-    decays = [10, 12, 15, 20]
+    decays = [12, 14, 16]
 
     for u in universes:
         for g in groups:
             for d in decays:
-                # 1. Betting Against Beta (Frazzini & Pedersen 2014) with double decay
+                # 1. BIVARIATE: Betting Against Beta x Price Reversal (Frazzini & Pedersen 2014)
+                for b_horizon in [60, 90]:
+                    beta_field = f"beta_last_{b_horizon}_days_spy"
+                    candidates.append(RiskModelCandidate(
+                        expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear({beta_field}, {d}), 3)) * rank(-ts_delta(close, 5)), {g}), -1)",
+                        archetype="betting_against_beta_bivariate",
+                        family=f"Risk_BAB_Bivariate_{b_horizon}",
+                        hypothesis=f"Low-beta stocks ({b_horizon}d) interacting with short-term price reversal amplifies anomaly returns with liquidity armor.",
+                        universe=u,
+                        neutralization=g.upper(),
+                        decay=d,
+                    ))
+
+                    # 2. Multi-factor Low-Risk Engine (Baker, Bradley, Wurgler 2011)
+                    corr_field = f"correlation_last_{b_horizon}_days_spy"
+                    candidates.append(RiskModelCandidate(
+                        expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-0.60 * rank(ts_decay_linear(ts_decay_linear({beta_field}, {d}), 3)) - 0.40 * rank(ts_decay_linear(ts_decay_linear({corr_field}, {d}), 3))), {g}), -1)",
+                        archetype="low_risk_engine",
+                        family=f"Risk_LowRisk_{b_horizon}",
+                        hypothesis=f"Multi-dimensional low-risk factor combining rolling market beta and SPY correlation with double-decay ({d}d, 3d).",
+                        universe=u,
+                        neutralization=g.upper(),
+                        decay=d,
+                    ))
+
+                # 3. BIVARIATE: Market Decoupling & Idiosyncratic Variance x High-Low Intraday Spread (Ang et al. 2006)
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_60_days_spy, {d}), 3)), {g})",
-                    archetype="betting_against_beta",
-                    family="BAB_Frazzini_Pedersen",
-                    hypothesis=f"Shorting rolling 60d SPY beta with double decay ({d}d, 3d) captures leverage constraint premium with turnover < 12%.",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(correlation_last_60_days_spy * (ts_std_dev(returns, 60) * sqrt(252)), {d}), 3)) * rank((high - low) / (vwap + 0.001)), {g}), -1)",
+                    archetype="idiosyncratic_volatility_decoupling",
+                    family="Risk_IdioDecoupling",
+                    hypothesis=f"Idiosyncratic variance interacting with intraday volatility spread isolates unpriced structural risk.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 2. Beta Horizon Divergence (Black 1972) with double decay
+                # 4. BIVARIATE: Multi-Horizon Beta Term Divergence x Mean Reversion (Black 1972)
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(beta_last_30_days_spy - beta_last_360_days_spy, {d}), 3)), {g})",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_30_days_spy - beta_last_360_days_spy, {d}), 3)) * rank(ts_decay_linear(-ts_zscore(close, 10), 5)), {g}), -1)",
                     archetype="beta_divergence",
-                    family="Beta_Horizon_Divergence",
-                    hypothesis=f"Short-long horizon beta divergence ({d}d decay, 3d compression) captures mean reversion to security market line.",
+                    family="Risk_BetaTermDivergence",
+                    hypothesis=f"Transient spikes in short-term beta (30d) vs long-term beta (360d) interacting with price z-score systematically mean-revert.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 3. Composite Low-Risk Engine (Baker, Bradley, Wurgler 2011) with double decay
+                # 5. BIVARIATE: Multiplicative Low-Beta x Low-Correlation Product
                 candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(-0.60 * rank(beta_last_60_days_spy) - 0.40 * rank(correlation_last_60_days_spy), {d}), 3)), {g})",
-                    archetype="low_risk_engine",
-                    family="Low_Risk_Multi_Factor",
-                    hypothesis=f"Multivariate low-risk factor combining low beta and low market correlation with double decay ({d}d, 3d).",
-                    universe=u,
-                    neutralization=g.upper(),
-                    decay=d,
-                ))
-
-                # 4. Piotroski Quality Surface Acceleration (Piotroski 2000) with double decay
-                candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(0.60 * rank(fscore_surface_accel) + 0.40 * rank(fscore_bfl_quality), {d}), 3)), {g})",
-                    archetype="surface_acceleration",
-                    family="Quality_Surface_Acceleration",
-                    hypothesis=f"Acceleration of fundamental accounting quality with double decay ({d}d, 3d) isolates rapid corporate turnarounds.",
-                    universe=u,
-                    neutralization=g.upper(),
-                    decay=d,
-                ))
-
-                # 5. Novy-Marx Gross Profitability Premium (Novy-Marx 2013) with double decay
-                candidates.append(RiskModelCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(0.60 * rank(fscore_bfl_profitability) - 0.40 * rank(beta_last_60_days_spy), {d}), 3)), {g})",
-                    archetype="gross_profitability",
-                    family="Novy_Marx_Profitability",
-                    hypothesis=f"Operating profitability paired with beta-hedging and double decay ({d}d, 3d) generates orthogonal value alpha.",
-                    universe=u,
-                    neutralization=g.upper(),
-                    decay=d,
-                ))
-
-                # 6. Blitz Low-Volatility Effect (Blitz & van Vliet 2007) with double decay & correlation gating
-                candidates.append(RiskModelCandidate(
-                    expression=f"trade_when(correlation_last_60_days_spy < 0.65, group_neutralize(rank(ts_decay_linear(ts_decay_linear(0.55 * rank(earnings_certainty_rank_derivative) - 0.45 * rank(beta_last_60_days_spy), {d}), 3)), {g}), -1)",
-                    archetype="blitz_volatility",
-                    family="Blitz_Low_Volatility_Effect",
-                    hypothesis=f"Correlation-gated earnings certainty with SPY beta hedging and double decay ({d}d, 3d) produces superior Sharpe.",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(beta_last_60_days_spy, {d}), 3)) * rank(-ts_decay_linear(ts_decay_linear(correlation_last_60_days_spy, {d}), 3)), {g}), -1)",
+                    archetype="dual_lowrisk_product",
+                    family="Risk_Dual_LowRisk_Product",
+                    hypothesis=f"Multiplicative cross-sectional ranking of low-beta and low-correlation maximizes market-neutral Sharpe.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,

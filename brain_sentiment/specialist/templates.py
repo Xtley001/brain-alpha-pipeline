@@ -1,7 +1,7 @@
 """
 Deterministic seed template generator for Sentiment Alpha candidates.
 Generates fully valid Fast Expression candidates across 12 institutional sentiment archetypes,
-strictly enforcing the subindustry neutralization and turnover (<15%) invariants.
+strictly enforcing the subindustry neutralization, liquidity armor, bivariate interactions, and low turnover (<15%) invariants.
 """
 from __future__ import annotations
 
@@ -63,7 +63,7 @@ def compile_sentiment_invariant(expr: str, default_decay: int = 15, default_grou
       1. Rank/zscore normalization
       2. Double smoothing/decay for low turnover (< 15%)
       3. group_neutralize(..., subindustry) for sub-universe Sharpe immunity
-      4. trade_when conviction gating
+      4. trade_when conviction gating and liquidity armor
     """
     clean = expr.strip()
     if not clean:
@@ -112,98 +112,76 @@ def compile_sentiment_invariant(expr: str, default_decay: int = 15, default_grou
 
 
 def generate_template_candidates() -> List[SentimentCandidate]:
-    """Generates deterministic institutional sentiment alpha expressions across verified archetypes."""
+    """Generates deterministic institutional sentiment alpha expressions with Bivariate Interactions and Liquidity Armor."""
     candidates: List[SentimentCandidate] = []
     universes = ["TOP3000", "TOP2000"]
     groups = ["subindustry", "sector"]
-    decays = [10, 12, 15, 20]
+    decays = [12, 14, 16]
 
     for u in universes:
         for g in groups:
             for d in decays:
-                # 1. PEAD Sluggish Revision Drift (Chan, Jegadeesh, Lakonishok 1996)
+                # 1. BIVARIATE: PEAD Net Revision x Price Reversal (Chan, Jegadeesh, Lakonishok 1996)
                 candidates.append(SentimentCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)), {g})",
-                    archetype="pead_earnings_drift",
-                    family="PEAD_Sluggish_Revision",
-                    hypothesis=f"Sluggish sell-side earnings revisions with double-decay ({d}d) drive steady drift.",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)) * rank(-ts_delta(close, 5)), {g}), -1)",
+                    archetype="pead_bivariate_reversal",
+                    family="PEAD_Bivariate_Momentum",
+                    hypothesis=f"Analyst earnings revisions combined with 5d price reversal filters out stale consensus revisions with liquidity armor.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 2. SUE Shock Conviction Gating (Bernard & Thomas 1989) with double decay
+                # 2. BIVARIATE: SUE Shock x Volatility Spread (Bernard & Thomas 1989)
                 candidates.append(SentimentCandidate(
-                    expression=f"trade_when(abs(snt1_d1_earningssurprise) > 0.05, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, {d}), 3)), {g}), -1)",
-                    archetype="sue_earnings_surprise",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, {d}), 3)) * rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), {g}), -1)",
+                    archetype="sue_volatility_bivariate",
                     family="SUE_Conviction_Shock",
-                    hypothesis=f"Material earnings surprise shocks (>5% SUE) with double decay ({d}d, 3d) filter noise and isolate post-announcement drift.",
+                    hypothesis=f"Material earnings surprise shocks interacting with volatility-adjusted price changes isolate true re-ratings.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 3. Forecast Dispersion Penalty (Diether, Malloy, Scherbina 2002) with double decay
+                # 3. BIVARIATE: Forecast Dispersion Penalty x Net Revision Momentum
                 candidates.append(SentimentCandidate(
-                    expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d}), 3)), {g})",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d}), 3)) * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)), {g}), -1)",
                     archetype="analyst_revision_dispersion",
                     family="Dispersion_Overvaluation",
-                    hypothesis=f"High analyst forecast dispersion reflects optimistic short-sale constrained pricing; double-decay shorting ({d}d, 3d) captures mean reversion.",
+                    hypothesis=f"Low analyst forecast dispersion coupled with upward revision momentum maximizes information ratio.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 4. Target Price Revision Spread (Brav & Lehavy 2003) with double decay
+                # 4. BIVARIATE: Target Price Revision Spread x Intraday High-Low Spread
                 candidates.append(SentimentCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_uptargetpercent - snt1_d1_downtargetpercent, {d}), 3)), {g})",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_uptargetpercent - snt1_d1_downtargetpercent, {d}), 3)) * rank((high - low) / (close + 0.001)), {g}), -1)",
                     archetype="net_target_price_revisions",
                     family="Target_Spread_Drift",
-                    hypothesis=f"Net target price revision spread with double decay ({d}d, 3d) captures valuation target re-ratings with turnover < 12%.",
+                    hypothesis=f"Net target price revision spread interacting with intraday volatility spread captures institutional conviction.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 5. Dynamic Analyst Attention & Volume Gating (Da et al. 2011) with double decay
+                # 5. BIVARIATE: Dynamic Analyst Attention x Price Z-Score
                 candidates.append(SentimentCandidate(
-                    expression=f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_dynamicfocusrank, {d}), 3)), {g}), -1)",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_dynamicfocusrank, {d}), 3)) * rank(ts_decay_linear(-ts_zscore(close, 10), 5)), {g}), -1)",
                     archetype="media_attention_buzz",
                     family="Dynamic_Analyst_Focus",
-                    hypothesis=f"Volume-confirmed dynamic analyst focus with double decay ({d}d, 3d) leads to sustainable institutional price discovery.",
+                    hypothesis=f"Dynamic institutional analyst focus interacting with mean-reverting price z-score.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
                 ))
 
-                # 6. Contrarian Media Mood Reversal (Baker & Wurgler 2006, Tetlock 2007) with double decay
+                # 6. Dual Recommendation and Target Alignment with Liquidity Armor
                 candidates.append(SentimentCandidate(
-                    expression=f"trade_when(abs(daily_equity_mood_indicator - 50) > 25, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(daily_equity_mood_indicator, {d}), 3)), {g}), -1)",
-                    archetype="extreme_sentiment_reversal",
-                    family="Mood_Contrarian_Reversion",
-                    hypothesis=f"Extreme lexical mood readings indicate emotional overreaction that systematically reverts ({d}d, 3d decay).",
-                    universe=u,
-                    neutralization=g.upper(),
-                    decay=d,
-                ))
-
-                # 7. Dual Recommendation and Target Alignment (Asquith et al. 2005) with double decay
-                candidates.append(SentimentCandidate(
-                    expression=f"group_neutralize(rank(0.55 * rank(ts_decay_linear(ts_decay_linear(snt1_d1_nettargetpercent, {d}), 3)) + 0.45 * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netrecpercent, {d}), 3))), {g})",
+                    expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(0.55 * rank(ts_decay_linear(ts_decay_linear(snt1_d1_nettargetpercent, {d}), 3)) + 0.45 * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netrecpercent, {d}), 3))), {g}), -1)",
                     archetype="dual_target_rec_confluence",
                     family="Dual_Recommendation_Target",
-                    hypothesis=f"Confluence of target price upgrades and recommendation changes with double decay ({d}d, 3d) doubles return predictability.",
-                    universe=u,
-                    neutralization=g.upper(),
-                    decay=d,
-                ))
-
-                # 8. Proprietary Core Score Divergence (Edmans et al. 2007) with double decay
-                candidates.append(SentimentCandidate(
-                    expression=f"group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_cored1_score - 5.0, {d}), 3)), {g})",
-                    archetype="core_composite_score",
-                    family="Core_Analyst_Composite",
-                    hypothesis=f"Deviation from neutral composite score (5.0) smoothed with double decay ({d}d, 3d) tracks persistent sell-side bias.",
+                    hypothesis=f"Confluence of target price upgrades and recommendation changes with double decay ({d}d, 3d) and liquidity armor.",
                     universe=u,
                     neutralization=g.upper(),
                     decay=d,
