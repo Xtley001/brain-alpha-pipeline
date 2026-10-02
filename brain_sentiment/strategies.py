@@ -129,8 +129,8 @@ def generate_sentiment_candidates() -> List[Dict[str, Any]]:
                 # -------------------------------------------------------------
                 expr_s4_bivariate = (
                     f"trade_when(volume > adv20 * 0.8, "
-                    f"group_neutralize(rank(- ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d})) * "
-                    f"rank(ts_decay_linear(snt1_d1_netearningsrevision, {d})), {g}), -1)"
+                    f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d}), 3)) * "
+                    f"rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)), {g.lower()}), -1)"
                 )
                 candidates.append({
                     "expression": expr_s4_bivariate,

@@ -30,10 +30,10 @@ class AnalystRevisionDispersionStrategy(BaseSentimentStrategy):
             for g in self.metadata.preferred_neutralizations:
                 for d in self.metadata.preferred_decays:
                     candidates.append(SentimentCandidate(
-                        expression=f"group_neutralize(rank(-ts_decay_linear(ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d}), 3)), {g.lower()})",
+                        expression=f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d}), 3)) * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)), {g.lower()}), -1)",
                         archetype=self.strategy_id,
                         family="Dispersion_Overvaluation",
-                        hypothesis=f"Shorting high dispersion of EPS estimates scaled by price with double decay ({d}d, 3d) yields alpha with turnover < 12%.",
+                        hypothesis=f"Shorting high dispersion of EPS estimates interacted with upward earnings revision momentum with double decay ({d}d, 3d) yields alpha with turnover < 12%.",
                         universe=u,
                         neutralization=g,
                         decay=d,
