@@ -488,6 +488,21 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             metrics=metrics,
         )
 
+        # Reinforcement Learning MAB Update: Record operator reward
+        if store.db:
+            try:
+                rew = float(metrics.sharpe) if metrics.sharpe is not None else 0.0
+                store.db.record_strategy_operator_reward(
+                    strategy_name=f"cloud_{category}",
+                    operator_name=arch,
+                    parameter_name="decay",
+                    parameter_val=str(decay),
+                    reward=rew,
+                    success=passed_gate1,
+                )
+            except Exception as rl_err:
+                log.debug("Failed to record strategy operator reward: %s", rl_err)
+
         if passed_gate1:
             log.info("[+] Candidate %s passed Gate 1! Spawning async Gate 2 & Gate 3 verification pipeline...", metrics.alpha_id)
             eval_task = asyncio.create_task(
