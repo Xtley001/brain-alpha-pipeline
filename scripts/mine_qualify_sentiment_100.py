@@ -81,30 +81,50 @@ def send_tg_message(token: str, chat_id: str, html_text: str):
         log.warning("Telegram dispatch failed: %s", exc)
 
 
-def load_reference_pnls(db_url: str) -> List[str]:
-    alpha_ids = []
-    try:
-        with psycopg.connect(db_url) as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                    "SELECT alpha_id FROM options_alphas WHERE status IN ('SUBMITTED', 'QUALIFIED') AND alpha_id IS NOT NULL"
-                )
-                for r in cur.fetchall():
-                    if r[0] and r[0] not in alpha_ids:
-                        alpha_ids.append(r[0])
-    except Exception as exc:
-        log.warning("Could not fetch reference alpha IDs from DB: %s", exc)
-
+def load_reference_alphas(db_url: str) -> Tuple[List[str], Dict[str, Dict[str, float]]]:
+    """Loads immutable production alphas and mutable reserve alphas with quality metrics."""
     hardcoded = [
         "rKOa6qa9", "YPboG01w", "XgbOoJjx", "e7bWxz7E", "ZYbNORZx", "mLmQjlzE",
         "P02K7eYK", "Xgbv1A80", "levEYpmx", "YPb81N2v", "E5pNpQlm", "N176Geqp",
         "gJQWL7aK", "Grdg2Njo", "xA3872wq", "3qXLMqg0", "0mX0kG86", "RRbnn8xe",
         "blbZ9Wkp", "KPNd6Ovl", "gJbAP76e"
     ]
-    for h in hardcoded:
-        if h not in alpha_ids:
-            alpha_ids.append(h)
-    return alpha_ids
+    prod_ids = list(hardcoded)
+    reserve_meta: Dict[str, Dict[str, float]] = {}
+    try:
+        with psycopg.connect(db_url) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT alpha_id FROM options_alphas WHERE status = 'SUBMITTED' AND alpha_id IS NOT NULL")
+                for r in cur.fetchall():
+                    if r[0] and r[0] not in prod_ids:
+                        prod_ids.append(r[0])
+                cur.execute("SELECT alpha_id, COALESCE(sharpe, 0.0), COALESCE(fitness, 0.0), COALESCE(margin, 0.0) FROM options_alphas WHERE status = 'QUALIFIED' AND alpha_id IS NOT NULL")
+                for r in cur.fetchall():
+                    aid = r[0]
+                    if aid:
+                        reserve_meta[aid] = {
+                            "sharpe": float(r[1]),
+                            "fitness": float(r[2]),
+                            "margin": float(r[3]),
+                        }
+    except Exception as exc:
+        log.warning("Could not fetch reference alphas from DB: %s", exc)
+
+    return prod_ids, reserve_meta
+
+
+def supersede_reserve_alpha(db_url: str, old_alpha_id: str, new_alpha_id: str):
+    """Marks an inferior reserve alpha as SUPERSEDED when replaced by a higher-quality newcomer."""
+    try:
+        with psycopg.connect(db_url, autocommit=True) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "UPDATE options_alphas SET status = 'SUPERSEDED' WHERE alpha_id = %s",
+                    (old_alpha_id,)
+                )
+        log.info("[~] Reserve alpha %s marked as SUPERSEDED by superior alpha %s.", old_alpha_id, new_alpha_id)
+    except Exception as exc:
+        log.warning("Failed to mark alpha %s as superseded: %s", old_alpha_id, exc)
 
 
 def get_current_qualified_count(db_url: str) -> int:
@@ -219,7 +239,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     p6: List[Dict[str, Any]] = []
     p7: List[Dict[str, Any]] = []
     p8: List[Dict[str, Any]] = []
-    universes = ["TOP2000", "TOP1000", "TOP3000"]
+    universes = ["TOP1000", "TOP2000", "TOP3000"]
     neutralizations = ["SUBINDUSTRY", "SECTOR"]
 
     # -------------------------------------------------------------
@@ -422,11 +442,12 @@ async def run_sentiment_100_miner():
         log.error("Authentication failed: %s", exc)
         return
 
-    # 2. Pre-fetch reference PnLs
-    ref_alpha_ids = load_reference_pnls(config.database_url)
+    # 2. Pre-fetch reference PnLs (Production + Reserve)
+    prod_alpha_ids, reserve_meta = load_reference_alphas(config.database_url)
     ref_pnls: Dict[str, Dict[str, float]] = {}
-    log.info("Pre-fetching PnLs for %d reference production alphas...", len(ref_alpha_ids))
-    for aid in ref_alpha_ids:
+    all_refs = list(prod_alpha_ids) + list(reserve_meta.keys())
+    log.info("Pre-fetching PnLs for %d baseline alphas (%d production, %d reserve)...", len(all_refs), len(prod_alpha_ids), len(reserve_meta))
+    for aid in all_refs:
         pnl = await client.get_alpha_pnl(aid)
         if pnl:
             ref_pnls[aid] = pnl
@@ -570,22 +591,56 @@ async def run_sentiment_100_miner():
                 queue.task_done()
                 continue
 
-            # Gate 2: Elite Correlation Firewall (|rho| < 0.55)
+            # Gate 2: Elite Correlation Firewall (|rho| < 0.55 / Pareto Reserve Replacement)
             cand_pnl = await client.get_alpha_pnl(metrics.alpha_id)
             if not cand_pnl or len(cand_pnl) < 30:
                 queue.task_done()
                 continue
 
-            max_corr = 0.0
-            worst_ref = ""
-            for r_id, r_pnl in ref_pnls.items():
-                c_val = abs(compute_correlation(cand_pnl, r_pnl))
-                if c_val > max_corr:
-                    max_corr = c_val
-                    worst_ref = r_id
+            # Check vs Immutable Production Alphas
+            max_prod_corr = 0.0
+            worst_prod = ""
+            for p_id in prod_alpha_ids:
+                if p_id in ref_pnls:
+                    c = abs(compute_correlation(cand_pnl, ref_pnls[p_id]))
+                    if c > max_prod_corr:
+                        max_prod_corr = c
+                        worst_prod = p_id
 
-            if max_corr >= 0.55:
-                log.info("[-] Gate 2 Correlation FAIL for %s: rho=%.4f vs %s (>= 0.55)", arch, max_corr, worst_ref)
+            if max_prod_corr >= 0.55:
+                log.info("[-] Gate 2 FAIL for %s vs Production Alpha %s: rho=%.4f (>= 0.55)", arch, worst_prod, max_prod_corr)
+                queue.task_done()
+                continue
+
+            # Check vs Mutable Reserve Alphas (Pareto Quality Replacement)
+            reserve_to_replace = None
+            max_res_corr = 0.0
+            worst_res = ""
+            blocked_by_incumbent = False
+
+            for r_id, r_info in list(reserve_meta.items()):
+                if r_id in ref_pnls:
+                    c = abs(compute_correlation(cand_pnl, ref_pnls[r_id]))
+                    if c >= 0.55:
+                        cand_quality = metrics.sharpe * max(0.1, metrics.fitness)
+                        inc_quality = r_info.get("sharpe", 0.0) * max(0.1, r_info.get("fitness", 0.0))
+                        # If newcomer is strictly higher Sharpe and higher composite quality, upgrade the reserve!
+                        if metrics.sharpe > r_info.get("sharpe", 0.0) and cand_quality > inc_quality:
+                            if reserve_to_replace is None:
+                                reserve_to_replace = r_id
+                                max_res_corr = c
+                                worst_res = r_id
+                            else:
+                                blocked_by_incumbent = True
+                                break
+                        else:
+                            blocked_by_incumbent = True
+                            worst_res = r_id
+                            max_res_corr = c
+                            break
+
+            if blocked_by_incumbent:
+                log.info("[-] Gate 2 Correlation FAIL for %s vs Reserve Alpha %s: rho=%.4f (Incumbent quality is equal or higher)", arch, worst_res, max_res_corr)
                 queue.task_done()
                 continue
 
@@ -599,8 +654,23 @@ async def run_sentiment_100_miner():
 
             # ALL 3 GATES PASSED! Commit to Vault
             async with lock:
-                current_qualified += 1
+                is_replacement = (reserve_to_replace is not None)
+                old_aid = reserve_to_replace
+                old_info = reserve_meta.pop(old_aid, {}) if is_replacement else {}
+                if is_replacement and old_aid in ref_pnls:
+                    del ref_pnls[old_aid]
+                    supersede_reserve_alpha(config.database_url, old_aid, metrics.alpha_id)
+
+                if not is_replacement:
+                    current_qualified += 1
+
                 ref_pnls[metrics.alpha_id] = cand_pnl
+                reserve_meta[metrics.alpha_id] = {
+                    "sharpe": metrics.sharpe,
+                    "fitness": metrics.fitness,
+                    "margin": metrics.margin,
+                }
+
                 commit_qualified_alpha(
                     db_url=config.database_url,
                     alpha_id=metrics.alpha_id,
@@ -608,7 +678,7 @@ async def run_sentiment_100_miner():
                     archetype=arch,
                     hypothesis=hyp,
                     metrics=metrics,
-                    max_corr=max_corr,
+                    max_corr=max(max_prod_corr, max_res_corr),
                     universe=universe,
                     neutralization=neut,
                     decay=decay,
@@ -617,22 +687,41 @@ async def run_sentiment_100_miner():
                 safe_expr = html.escape(expr)
                 safe_alpha = html.escape(metrics.alpha_id)
                 safe_arch = html.escape(arch)
-                send_tg_message(
-                    token=config.telegram_bot_token,
-                    chat_id=config.telegram_chat_id,
-                    html_text=(
-                        f"🌟 <b>NEW SENTIMENT ALPHA QUALIFIED!</b> ({current_qualified}/{target_count}) 🌟\n\n"
-                        f"• <b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
-                        f"• <b>Category:</b> SENTIMENT (8 Sub-Pillars)\n"
-                        f"• <b>Archetype:</b> {safe_arch}\n"
-                        f"• <b>Sharpe:</b> <b>{metrics.sharpe:.2f}</b>  |  <b>Fitness:</b> <b>{metrics.fitness:.2f}</b>\n"
-                        f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps  |  <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
-                        f"• <b>Max Correlation:</b> <b>{max_corr:.4f}</b> (&lt; 0.55 Elite Firewall)\n"
-                        f"• <b>Checklist:</b> 100% PASS\n"
-                        f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
-                    ),
-                )
-                log.info("[🌟] QUALIFIED & STORED IN VAULT: %s (%s, Sharpe=%.2f, MaxCorr=%.4f)", metrics.alpha_id, arch, metrics.sharpe, max_corr)
+
+                if is_replacement:
+                    send_tg_message(
+                        token=config.telegram_bot_token,
+                        chat_id=config.telegram_chat_id,
+                        html_text=(
+                            f"🔄 <b>RESERVE QUALITY UPGRADE (PARETO REPLACEMENT)!</b> 🔄\n\n"
+                            f"• <b>New Alpha ID:</b> <code>{safe_alpha}</code>\n"
+                            f"• <b>Replaced Lower-Quality Alpha:</b> <code>{old_aid}</code> (rho={max_res_corr:.2f})\n"
+                            f"• <b>Sharpe:</b> <b>{metrics.sharpe:.2f}</b> (vs old: {old_info.get('sharpe', 0.0):.2f})\n"
+                            f"• <b>Fitness:</b> <b>{metrics.fitness:.2f}</b> (vs old: {old_info.get('fitness', 0.0):.2f})\n"
+                            f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps  |  <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
+                            f"• <b>Vault Count:</b> {current_qualified}/{target_count}\n"
+                            f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
+                        ),
+                    )
+                    log.info("[🔄] RESERVE UPGRADED: %s (Sharpe=%.2f) REPLACED %s (Sharpe=%.2f, rho=%.4f)",
+                             metrics.alpha_id, metrics.sharpe, old_aid, old_info.get('sharpe', 0.0), max_res_corr)
+                else:
+                    send_tg_message(
+                        token=config.telegram_bot_token,
+                        chat_id=config.telegram_chat_id,
+                        html_text=(
+                            f"🌟 <b>NEW SENTIMENT ALPHA QUALIFIED!</b> ({current_qualified}/{target_count}) 🌟\n\n"
+                            f"• <b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
+                            f"• <b>Category:</b> SENTIMENT (8 Sub-Pillars)\n"
+                            f"• <b>Archetype:</b> {safe_arch}\n"
+                            f"• <b>Sharpe:</b> <b>{metrics.sharpe:.2f}</b>  |  <b>Fitness:</b> <b>{metrics.fitness:.2f}</b>\n"
+                            f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps  |  <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
+                            f"• <b>Max Correlation:</b> <b>{max(max_prod_corr, max_res_corr):.4f}</b> (&lt; 0.55 Elite Firewall)\n"
+                            f"• <b>Checklist:</b> 100% PASS\n"
+                            f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
+                        ),
+                    )
+                    log.info("[🌟] QUALIFIED & STORED IN VAULT: %s (%s, Sharpe=%.2f, MaxCorr=%.4f)", metrics.alpha_id, arch, metrics.sharpe, max(max_prod_corr, max_res_corr))
 
             queue.task_done()
 
