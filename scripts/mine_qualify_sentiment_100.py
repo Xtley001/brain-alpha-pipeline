@@ -118,14 +118,32 @@ def get_current_qualified_count(db_url: str) -> int:
         return 0
 
 
-def verify_checklist_passes(session: requests.Session, alpha_id: str) -> Tuple[bool, str]:
+async def verify_checklist_passes(session: Any, alpha_id: str) -> Tuple[bool, str]:
     chk_url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/check"
     try:
-        for _ in range(12):
-            resp = session.get(chk_url, timeout=15)
-            if resp.status_code == 200:
-                data = resp.json()
-                checks = data.get("checks", [])
+        for attempt in range(15):
+            try:
+                if hasattr(session, "retry"):
+                    resp = await asyncio.wait_for(session.retry("GET", chk_url, max_tries=5), timeout=30.0)
+                else:
+                    resp = session.get(chk_url, timeout=15)
+            except Exception as req_err:
+                await asyncio.sleep(2.0)
+                continue
+
+            if resp is not None and resp.status_code == 200:
+                text = resp.text.strip() if hasattr(resp, "text") and resp.text else ""
+                if not text:
+                    await asyncio.sleep(2.0)
+                    continue
+                try:
+                    data = resp.json()
+                except Exception:
+                    await asyncio.sleep(2.0)
+                    continue
+
+                is_data = data.get("is", {}) if isinstance(data.get("is"), dict) else {}
+                checks = is_data.get("checks", []) or data.get("checks", [])
                 if checks:
                     failures = []
                     for c in checks:
@@ -138,7 +156,7 @@ def verify_checklist_passes(session: requests.Session, alpha_id: str) -> Tuple[b
                     if failures:
                         return False, f"Checklist FAIL: {', '.join(failures)}"
                     return True, "Checklist 100% PASS"
-            time.sleep(2.5)
+            await asyncio.sleep(3.0)
         return False, "Checklist timed out"
     except Exception as exc:
         return False, f"Checklist request error: {exc}"
@@ -169,12 +187,7 @@ def commit_qualified_alpha(
             %s, %s, %s, 1, %s,
             0.05, 'ON', 'OFF', 'QUALIFIED',
             NOW(), 'vault_sentiment_100'
-        ) ON CONFLICT (alpha_id) DO UPDATE SET
-            status = 'QUALIFIED',
-            sharpe = EXCLUDED.sharpe,
-            fitness = EXCLUDED.fitness,
-            margin = EXCLUDED.margin,
-            max_correlation = EXCLUDED.max_correlation;
+        ) ON CONFLICT DO NOTHING;
     """
     try:
         ret_val = getattr(metrics, 'annualized_return', getattr(metrics, 'returns', 0.0))
@@ -198,7 +211,14 @@ def commit_qualified_alpha(
 
 def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     """Generates the master matrix of candidates across all 8 institutional sentiment sub-pillars."""
-    candidates = []
+    p1: List[Dict[str, Any]] = []
+    p2: List[Dict[str, Any]] = []
+    p3: List[Dict[str, Any]] = []
+    p4: List[Dict[str, Any]] = []
+    p5: List[Dict[str, Any]] = []
+    p6: List[Dict[str, Any]] = []
+    p7: List[Dict[str, Any]] = []
+    p8: List[Dict[str, Any]] = []
     universes = ["TOP2000", "TOP1000", "TOP3000"]
     neutralizations = ["SUBINDUSTRY", "SECTOR"]
 
@@ -210,7 +230,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
             for d in [12, 14, 16, 18, 20]:
                 for p_win in [3, 5]:
                     for vol_win in [20, 30, 40]:
-                        candidates.append({
+                        p1.append({
                             "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, {d}), 3)) * rank(-ts_delta(close, {p_win}) / (ts_std_dev(close, {vol_win}) + 0.001)), {neut.lower()}), -1)",
                             "archetype": f"P1_SUE_VolDecoupling_d{d}_p{p_win}_v{vol_win}",
                             "hypothesis": f"Pillar 1: SUE surprise interacted with price reversal / vol spread ({u}, decay={d}, {neut}).",
@@ -226,7 +246,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
         for neut in neutralizations:
             for d in [12, 14, 16, 18, 22]:
                 for rev_win in [3, 5, 8]:
-                    candidates.append({
+                    p2.append({
                         "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)) * rank(-ts_delta(close, {rev_win})), {neut.lower()}), -1)",
                         "archetype": f"P2_PEAD_Revision_Reversal_d{d}_r{rev_win}",
                         "hypothesis": f"Pillar 2: PEAD net earnings revision interacted with {rev_win}d price reversal ({u}, decay={d}).",
@@ -236,7 +256,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
                     })
                 # Z-Score formulation
                 for z_win in [5, 10]:
-                    candidates.append({
+                    p2.append({
                         "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)) * rank(ts_decay_linear(-ts_zscore(close, {z_win}), 5)), {neut.lower()}), -1)",
                         "archetype": f"P2_PEAD_ZScore_d{d}_z{z_win}",
                         "hypothesis": f"Pillar 2: PEAD revision momentum interacting with mean-reverting price z-score ({u}, decay={d}).",
@@ -251,7 +271,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     for u in universes:
         for neut in neutralizations:
             for d in [12, 14, 16, 18]:
-                candidates.append({
+                p3.append({
                     "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_uptargetpercent - snt1_d1_downtargetpercent, {d}), 3)) * rank((high - low) / (vwap + 0.001)), {neut.lower()}), -1)",
                     "archetype": f"P3_Target_Spread_Intraday_d{d}",
                     "hypothesis": f"Pillar 3: Target price revision spread interacting with intraday volatility range ({u}, decay={d}).",
@@ -268,7 +288,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
             for d in [12, 14, 16, 20]:
                 for w1 in [0.5, 0.6, 0.7]:
                     w2 = round(1.0 - w1, 2)
-                    candidates.append({
+                    p4.append({
                         "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank({w1} * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netrecpercent, {d}), 3)) + {w2} * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3))), {neut.lower()}), -1)",
                         "archetype": f"P4_Rec_Revision_Confluence_d{d}_w{int(w1*100)}",
                         "hypothesis": f"Pillar 4: Analyst recommendation and revision confluence with double decay ({u}, decay={d}).",
@@ -283,7 +303,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     for u in universes:
         for neut in neutralizations:
             for d in [12, 14, 16, 18]:
-                candidates.append({
+                p5.append({
                     "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(snt1_d1_dtstsespe / (close + 0.001), {d}), 3)) * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)), {neut.lower()}), -1)",
                     "archetype": f"P5_Dispersion_Revision_Product_d{d}",
                     "hypothesis": f"Pillar 5: Low forecast dispersion multiplied by net revision momentum ({u}, decay={d}).",
@@ -298,7 +318,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     for u in universes:
         for neut in neutralizations:
             for d in [12, 14, 16, 18]:
-                candidates.append({
+                p6.append({
                     "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_dynamicfocusrank, {d}), 3)) * rank(ts_decay_linear(-ts_zscore(close, 10), 5)), {neut.lower()}), -1)",
                     "archetype": f"P6_Dynamic_Focus_ZScore_d{d}",
                     "hypothesis": f"Pillar 6: Dynamic institutional analyst focus interacting with price z-score ({u}, decay={d}).",
@@ -313,7 +333,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     for u in universes:
         for neut in neutralizations:
             for d in [12, 14, 16, 18]:
-                candidates.append({
+                p7.append({
                     "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(daily_equity_mood_indicator, {d}), 3)) * rank(-ts_delta(close, 5)), {neut.lower()}), -1)",
                     "archetype": f"P7_Lexical_Mood_Reversal_d{d}",
                     "hypothesis": f"Pillar 7: News mood extreme overreaction contrarian reversal ({u}, decay={d}).",
@@ -328,7 +348,7 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
     for u in universes:
         for neut in neutralizations:
             for d in [12, 14, 16, 18]:
-                candidates.append({
+                p8.append({
                     "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, {d}), 3)) * rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, {d}), 3)) * rank(ts_decay_linear(ts_decay_linear(snt1_d1_nettargetpercent, {d}), 3)), {neut.lower()}), -1)",
                     "archetype": f"P8_Fundamental_Tri_Confluence_d{d}",
                     "hypothesis": f"Pillar 8: Tri-factor fundamental confluence (SUE x Net Revision x Target Spread, decay={d}).",
@@ -337,7 +357,16 @@ def build_100_sentiment_candidate_matrix() -> List[Dict[str, Any]]:
                     "decay": d,
                 })
 
-    return candidates
+    # Collect by pillar and round-robin interleave to ensure maximum diversity from simulation #1
+    pillar_buckets = [p1, p2, p3, p4, p5, p6, p7, p8]
+    interleaved: List[Dict[str, Any]] = []
+    max_len = max(len(b) for b in pillar_buckets)
+    for idx in range(max_len):
+        for b in pillar_buckets:
+            if idx < len(b):
+                interleaved.append(b[idx])
+
+    return interleaved
 
 
 async def hourly_heartbeat_loop(config: OptionsConfig, target_count: int, start_time: float, lock: asyncio.Lock, get_stats_fn):
@@ -562,7 +591,7 @@ async def run_sentiment_100_miner():
 
             # Gate 3: Platform Checklist
             log.info("[*] Checking platform checklist on BRAIN for %s...", metrics.alpha_id)
-            chk_ok, chk_msg = verify_checklist_passes(client._session, metrics.alpha_id)
+            chk_ok, chk_msg = await verify_checklist_passes(client._session, metrics.alpha_id)
             if not chk_ok:
                 log.warning("[-] Gate 3 Checklist FAIL for %s: %s", metrics.alpha_id, chk_msg)
                 queue.task_done()
