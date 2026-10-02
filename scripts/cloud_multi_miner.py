@@ -194,7 +194,7 @@ def commit_qualified_alpha(
                     decimal.Decimal(str(round(metrics.sharpe, 4))),
                     decimal.Decimal(str(round(metrics.fitness, 4))),
                     decimal.Decimal(str(round(metrics.turnover, 4))),
-                    decimal.Decimal(str(round(metrics.returns, 4))),
+                    decimal.Decimal(str(round(getattr(metrics, 'annualized_return', getattr(metrics, 'returns', 0.0)), 4))),
                     decimal.Decimal(str(round(metrics.max_drawdown, 4))),
                     decimal.Decimal(str(round(metrics.margin, 4))),
                     decimal.Decimal(str(round(max_corr, 4))),
@@ -219,6 +219,7 @@ def log_candidate_evaluation(
     if not db_url:
         return
     try:
+        ret_val = getattr(metrics, 'annualized_return', getattr(metrics, 'returns', 0.0))
         with psycopg.connect(
             db_url, autocommit=True,
             keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=5
@@ -235,7 +236,7 @@ def log_candidate_evaluation(
                         decimal.Decimal(str(round(metrics.sharpe, 4))),
                         decimal.Decimal(str(round(metrics.fitness, 4))),
                         decimal.Decimal(str(round(metrics.turnover, 4))),
-                        decimal.Decimal(str(round(metrics.returns, 4))),
+                        decimal.Decimal(str(round(ret_val, 4))),
                         decimal.Decimal(str(round(metrics.max_drawdown, 4))),
                         metrics.alpha_id,
                     ),
