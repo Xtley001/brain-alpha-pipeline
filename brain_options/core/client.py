@@ -117,7 +117,7 @@ def parse_brain_sim_response(resp: Any) -> SimMetrics:
 class BrainClient:
     """Async/sync facade over wqb.WQBSession for WorldQuant BRAIN operations with PostgreSQL session caching."""
 
-    def __init__(self, username: str, password: str, max_concurrent_sims: int = 3, db: Optional[Any] = None):
+    def __init__(self, username: str, password: str, max_concurrent_sims: int = 4, db: Optional[Any] = None):
         self.username = username
         self.password = password
         self.max_concurrent_sims = max_concurrent_sims
@@ -218,21 +218,31 @@ class BrainClient:
                 payload = settings.to_simulation_payload(expression)
 
                 resp = None
-                for attempt in range(3):
+                for attempt in range(5):
                     try:
-                        resp = await asyncio.wait_for(session.simulate(payload), timeout=240.0)
-                        if resp is not None and getattr(resp, "status_code", 200) in (500, 502, 503, 504):
-                            log.warning("Simulation attempt %d returned HTTP %s (transient server error), retrying after backoff...",
-                                        attempt + 1, getattr(resp, "status_code", 200))
+                        resp = await asyncio.wait_for(session.simulate(payload), timeout=420.0)
+                        status_c = getattr(resp, "status_code", 200)
+                        if resp is not None and status_c in (429, 500, 502, 503, 504):
+                            wait_s = 15.0 if status_c == 429 else 5.0 * (attempt + 1)
+                            log.warning("Simulation attempt %d returned HTTP %s (server busy/retry), backing off for %.1fs...",
+                                        attempt + 1, status_c, wait_s)
                             resp = None
-                            await asyncio.sleep(5.0 * (attempt + 1))
+                            await asyncio.sleep(wait_s)
                             continue
                         if resp is not None:
                             break
                     except asyncio.TimeoutError:
-                        log.warning("Simulation attempt %d timed out after 240s for: %s", attempt + 1, expression[:40])
+                        log.warning("Simulation attempt %d timed out after 420s for: %s", attempt + 1, expression[:40])
                     except Exception as e:
                         log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
+                        err_str = str(e).lower()
+                        if "connection" in err_str or "ssl" in err_str or "remotedisconnected" in err_str or "errno 11001" in err_str:
+                            try:
+                                log.info("Recovering broken socket: re-authenticating BRAIN session...")
+                                self.authenticate()
+                                session = self._get_session()
+                            except Exception as rec_err:
+                                log.warning("Socket recovery re-auth failed: %s", rec_err)
                     await asyncio.sleep(2.0 * (attempt + 1))
 
                 # Check for session token expiry (401)
@@ -303,34 +313,32 @@ class BrainClient:
                 self._active_sims -= 1
                 log.info("Released simulation slot (%d/%d in-flight) for: %s", self._active_sims, self.max_concurrent_sims, expression[:50])
 
-    async def get_alpha_pnl(self, alpha_id: str) -> dict[str, float]:
-        """Fetch daily returns for an alpha via /alphas/<id>/recordsets/pnl."""
+    async def get_alpha_pnl(self, alpha_id: str, retries: int = 6, delay: float = 3.0) -> dict[str, float]:
+        """Fetch daily returns for an alpha via /alphas/<id>/recordsets/pnl with non-blocking async backoff."""
         session = self._get_session()
         url = f"https://api.worldquantbrain.com/alphas/{alpha_id}/recordsets/pnl"
-        try:
-            resp = await asyncio.wait_for(session.retry("GET", url, max_tries=15), timeout=45.0)
-        except Exception as e:
-            log.warning("Failed to fetch PnL recordset for alpha %s: %s", alpha_id, e)
-            return {}
-        if resp is None or resp.status_code >= 400:
-            return {}
-
-        data = resp.json() if hasattr(resp, "json") else {}
-        records = data.get("records") or []
-        if not records:
-            return {}
-
-        # Convert cumulative PnL to daily return diff
-        daily_returns: dict[str, float] = {}
-        prev_pnl: Optional[float] = None
-        for row in records:
-            if isinstance(row, list) and len(row) >= 2:
-                dt_str, pnl_val = str(row[0]), _safe_float(row[1])
-                if prev_pnl is not None:
-                    daily_returns[dt_str] = pnl_val - prev_pnl
-                prev_pnl = pnl_val
-
-        return daily_returns
+        for attempt in range(retries):
+            try:
+                resp = await asyncio.to_thread(session.request, "GET", url, expected=lambda r: True, timeout=15.0)
+                if resp is not None and resp.status_code == 200:
+                    data = resp.json() if hasattr(resp, "json") else {}
+                    records = data.get("records") or []
+                    if records:
+                        daily_returns: dict[str, float] = {}
+                        prev_pnl: Optional[float] = None
+                        for row in records:
+                            if isinstance(row, list) and len(row) >= 2:
+                                dt_str, pnl_val = str(row[0]), _safe_float(row[1])
+                                if prev_pnl is not None:
+                                    daily_returns[dt_str] = pnl_val - prev_pnl
+                                prev_pnl = pnl_val
+                        if len(daily_returns) >= 30:
+                            return daily_returns
+            except Exception as e:
+                log.warning("Attempt %d: Failed to fetch PnL recordset for alpha %s: %s", attempt + 1, alpha_id, e)
+            if attempt < retries - 1:
+                await asyncio.sleep(delay)
+        return {}
 
     async def submit_alpha(self, alpha_id: str) -> dict[str, Any]:
         """Submit a qualified alpha to the BRAIN platform."""

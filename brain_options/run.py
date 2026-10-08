@@ -517,7 +517,25 @@ async def run_batch(
 ) -> int:
     store = OptionsStore(database_url=config.database_url)
     db = store.db
-    try:
+    # --- Simulation quota guard ---
+    stats = store.get_options_stats()
+    used = stats.get("today_simulated", 0)
+    remaining = 1802 - used
+    if remaining <= 0:
+        log.error("Daily BRAIN simulation quota (1802) exhausted. Exiting batch.")
+        return 0
+    if remaining < batch_size:
+        log.warning(f"Only {remaining} simulations left today; shrinking batch size from {batch_size} to {remaining}.")
+        batch_size = remaining
+    # --- End guard ---
+log.info(f"[SIM QUOTA] Used {used}/{1802} sims – {remaining} remaining today.")
+if remaining < 100:
+    send_telegram_emergency_alert(
+        f"⚠️ Only {remaining} BRAIN simulations left today – consider pausing new jobs.",
+        config=config,
+        db=store,
+    )
+try:
         evaluated = store.load_evaluated_expressions()
     except Exception as e:
         log.error("Failed to load evaluated expressions in run_batch: %s", e, exc_info=True)

@@ -1,0 +1,36 @@
+name: Parallel Alpha Generation
+on:
+  schedule:
+    - cron: '0 * * * *'   # every hour
+  workflow_dispatch:
+
+jobs:
+  generate:
+    strategy:
+      matrix:
+        runner: [1,2,3,4,5]   # 5 parallel jobs
+    runs-on: self-hosted   # change to ubuntu-latest if you have a hosted runner
+    env:
+      BATCH_SIZE: 300
+      MAX_CONCURRENT_SIMS: 8
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run alpha generation batch
+        env:
+          BRAIN_USERNAME: ${{ secrets.BRAIN_USERNAME }}
+          BRAIN_PASSWORD: ${{ secrets.BRAIN_PASSWORD }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          # add other needed secrets here
+        run: |
+          python -m brain_options.run \
+            --batch-size ${{ env.BATCH_SIZE }} \
+            --dry-run false

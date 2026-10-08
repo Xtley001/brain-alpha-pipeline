@@ -1473,7 +1473,7 @@ class OptionsDatabase:
         sql_alphas = f"""
             SELECT
                 COUNT(*) as all_time_pool,
-                COUNT(*) FILTER (WHERE created_at >= {ny_today}) as today_pool,
+                COUNT(*) FILTER (WHERE created_at >= {ny_today} AND status = 'QUALIFIED') as today_pool,
                 COUNT(*) FILTER (WHERE status = 'SUBMITTED' AND submitted_at >= {ny_today}) as today_submitted,
                 COUNT(*) FILTER (WHERE status = 'QUALIFIED') as reserve_count
             FROM options_alphas;
