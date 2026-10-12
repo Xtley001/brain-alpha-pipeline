@@ -11,10 +11,9 @@ on:
         description: "Timeout budget in minutes"
         required: false
         default: "345"
-  schedule:
-    # Runs every 6 hours at minute 45 (30min offset from sentiment to stagger starts)
-    # Each job mines continuously for 5h45m — 97% utilization
-    - cron: "45 */6 * * *"
+#  schedule:
+#    # Runs every 6 hours at minute 45 (30min offset from sentiment to stagger starts)
+#    - cron: "45 */6 * * *"
 
 concurrency:
   group: cloud-miner-risk-model

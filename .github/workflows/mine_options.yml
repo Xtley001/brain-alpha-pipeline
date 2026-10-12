@@ -11,12 +11,9 @@ on:
         description: "Timeout budget in minutes"
         required: false
         default: "345"
-  schedule:
-    # Runs every 6 hours at minute 0 (15min before sentiment, 45min before risk model)
-    # Each job mines continuously for 5h45m — 97% utilization
-    # Together with sentiment (:15) and risk model (:45), all 3 BRAIN slots
-    # are continuously saturated across all verticals 24/7
-    - cron: "0 */6 * * *"
+#  schedule:
+#    # Runs every 6 hours at minute 0 (15min before sentiment, 45min before risk model)
+#    - cron: "0 */6 * * *"
 
 concurrency:
   group: cloud-miner-options

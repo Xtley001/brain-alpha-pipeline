@@ -1,9 +1,9 @@
 name: BRAIN Hourly Health Check
 
 on:
-  schedule:
-    # Every hour at :04 UTC — off-peak, zero queue delay, on the dot to Telegram
-    - cron: "4 * * * *"
+#  schedule:
+#    # Every hour at :04 UTC — off-peak, zero queue delay, on the dot to Telegram
+#    - cron: "4 * * * *"
   workflow_dispatch: {}
 
 concurrency:

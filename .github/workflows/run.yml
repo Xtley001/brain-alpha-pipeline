@@ -1,7 +1,7 @@
 name: Parallel Alpha Generation
 on:
-  schedule:
-    - cron: '0 * * * *'   # every hour
+#  schedule:
+#    - cron: '0 * * * *'   # every hour
   workflow_dispatch:
 
 jobs:
@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         runner: [1,2,3,4,5]   # 5 parallel jobs
-    runs-on: self-hosted   # change to ubuntu-latest if you have a hosted runner
+    runs-on: ubuntu-latest
     env:
       BATCH_SIZE: 300
       MAX_CONCURRENT_SIMS: 8

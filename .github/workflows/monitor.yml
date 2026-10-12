@@ -1,8 +1,8 @@
 name: Pipeline Health Monitor (Cloud-Side)
 
 on:
-  schedule:
-    - cron: "0,30 * * * *"
+#  schedule:
+#    - cron: "0,30 * * * *"
   workflow_dispatch: {}
 
 concurrency:

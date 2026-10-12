@@ -11,10 +11,9 @@ on:
         description: "Timeout budget in minutes"
         required: false
         default: "345"
-  schedule:
-    # Runs every 6 hours — each job mines continuously for 5h45m
-    # Gives 97% utilization (vs. 8.75% on the old 35min/4h schedule)
-    - cron: "15 */6 * * *"
+#  schedule:
+#    # Runs every 6 hours — each job mines continuously for 5h45m
+#    - cron: "15 */6 * * *"
 
 concurrency:
   group: cloud-miner-sentiment

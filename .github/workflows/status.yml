@@ -1,9 +1,9 @@
 name: BRAIN Cluster Status
 
 on:
-  schedule:
-    # Automatic morning status ping: 05:00 UTC = 06:00 WAT every day
-    - cron: "0 5 * * *"
+#  schedule:
+#    # Automatic morning status ping: 05:00 UTC = 06:00 WAT every day
+#    - cron: "0 5 * * *"
   workflow_dispatch:
     inputs:
       verbose:

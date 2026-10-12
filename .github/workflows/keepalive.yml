@@ -7,8 +7,8 @@ name: Keepalive
 # schedule in run.yml never gets silently switched off.
 
 on:
-  schedule:
-    - cron: "0 0 1 * *"  # 00:00 UTC on the 1st of every month
+#  schedule:
+#    - cron: "0 0 1 * *"  # 00:00 UTC on the 1st of every month
   workflow_dispatch: {}
 
 permissions:
