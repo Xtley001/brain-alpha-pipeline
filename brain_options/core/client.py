@@ -8,6 +8,7 @@ import asyncio
 import logging
 from dataclasses import dataclass, field
 from typing import Any, Optional
+import requests
 
 log = logging.getLogger("brain_options.client")
 
@@ -138,54 +139,38 @@ class BrainClient:
 
     def _get_session(self):
         if self._session is None:
-            import wqb  # lazy import
-            self._session = wqb.WQBSession((self.username, self.password))
-
-            # Monkey-patch auth_request to prevent blind /authentication POSTs that hit captcha & 429
-            def safe_auth_request(*args, **kwargs):
-                if self.db is not None:
-                    try:
-                        cached = self.db.get_cached_session(key=f"brain_session_{self.username}")
-                        if cached and cached.get("cookies"):
-                            for k, v in cached["cookies"].items():
-                                self._session.cookies.set(k, v)
-                    except Exception:
-                        pass
-                import requests
-                resp = requests.Response()
-                resp.status_code = 200
-                return resp
-
-            self._session.auth_request = safe_auth_request
+            self.authenticate()
         return self._session
 
-    def authenticate(self) -> None:
-        session = self._get_session()
+    def authenticate(self, force: bool = False) -> None:
+        import wqb
 
-        # Check PostgreSQL cluster session cache to avoid 429 login rate-limits
-        if self.db is not None:
+        # 1. Try PostgreSQL cluster session cache to avoid login rate limits
+        if not force and self.db is not None:
             try:
                 cached = self.db.get_cached_session(key=f"brain_session_{self.username}")
                 if cached and cached.get("cookies"):
+                    test_sess = requests.Session()
                     for k, v in cached["cookies"].items():
-                        session.cookies.set(k, v)
-                    test_resp = session.get("https://api.worldquantbrain.com/users/self")
+                        test_sess.cookies.set(k, v)
+                    test_resp = test_sess.get("https://api.worldquantbrain.com/users/self", timeout=10)
                     if test_resp.status_code == 200:
+                        self._session = wqb.WQBSession((self.username, self.password))
+                        for k, v in cached["cookies"].items():
+                            self._session.cookies.set(k, v)
                         log.info("Successfully resumed BRAIN session from PostgreSQL cluster cache for %s (Zero 429 risk).", self.username)
                         return
+                    else:
+                        log.info("Cached BRAIN session expired (HTTP %s). Performing fresh login...", test_resp.status_code)
             except Exception as cache_err:
                 log.warning("Cached session validation skipped: %s", cache_err)
 
-        resp = session.post_authentication()
-        if resp is not None and getattr(resp, "status_code", 200) == 429:
-            retry_after = int(getattr(resp, "headers", {}).get("Retry-After", 15))
-            log.warning("BRAIN authentication hit 429 Too Many Requests; backing off for %ds...", retry_after)
-            import time
-            time.sleep(retry_after + 2)
-            resp = session.post_authentication()
-
-        if resp is None or getattr(resp, "status_code", 500) >= 400:
-            err_msg = f"WorldQuant BRAIN authentication failed for {self.username}: {resp}"
+        # 2. Perform genuine authentication
+        log.info("Authenticating fresh session with WorldQuant BRAIN for %s...", self.username)
+        self._session = wqb.WQBSession((self.username, self.password))
+        test_resp = self._session.get("https://api.worldquantbrain.com/users/self", timeout=10)
+        if test_resp.status_code != 200:
+            err_msg = f"WorldQuant BRAIN authentication failed for {self.username}: {test_resp.status_code} {test_resp.text}"
             log.error(err_msg)
             try:
                 from brain_options.core.notifier import send_telegram_emergency_alert
@@ -198,14 +183,14 @@ class BrainClient:
             except Exception:
                 pass
             raise RuntimeError(err_msg)
+
         log.info("Successfully authenticated with WorldQuant BRAIN as %s", self.username)
 
-        # Save session cookies to PostgreSQL cluster cache (TTL 2 hours)
+        # 3. Save fresh session cookies to PostgreSQL cluster cache (TTL 2 hours)
         if self.db is not None:
             try:
-                cookies_dict = session.cookies.get_dict()
-                token = getattr(session, "token", "") or "cookie_session"
-                self.db.save_cached_session(token=token, cookies=cookies_dict, expires_in_seconds=7200, key=f"brain_session_{self.username}")
+                cookies_dict = self._session.cookies.get_dict()
+                self.db.save_cached_session(token="cookie_session", cookies=cookies_dict, expires_in_seconds=7200, key=f"brain_session_{self.username}")
             except Exception as save_err:
                 log.warning("Failed to cache session cookies: %s", save_err)
 
@@ -236,10 +221,10 @@ class BrainClient:
                     except Exception as e:
                         log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
                         err_str = str(e).lower()
-                        if "connection" in err_str or "ssl" in err_str or "remotedisconnected" in err_str or "errno 11001" in err_str:
+                        if any(k in err_str for k in ("connection", "ssl", "remotedisconnected", "errno 11001", "location", "unauthorized", "401", "incorrect authentication")):
                             try:
-                                log.info("Recovering broken socket: re-authenticating BRAIN session...")
-                                self.authenticate()
+                                log.info("Recovering broken socket / expired session: re-authenticating BRAIN session...")
+                                self.authenticate(force=True)
                                 session = self._get_session()
                             except Exception as rec_err:
                                 log.warning("Socket recovery re-auth failed: %s", rec_err)
@@ -249,7 +234,7 @@ class BrainClient:
                 if resp is not None and getattr(resp, "status_code", 200) == 401:
                     log.error("BRAIN session token expired during batch for %s! Attempting auto-reauth...", self.username)
                     try:
-                        self.authenticate()
+                        self.authenticate(force=True)
                         resp = await asyncio.wait_for(session.simulate(payload), timeout=240.0)
                     except Exception as reauth_err:
                         log.error("Auto-reauth failed: %s", reauth_err)

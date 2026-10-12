@@ -8,6 +8,9 @@ __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
+dist/
+build/
+*.whl
 .pytest_cache/
 .mypy_cache/
 *.log
@@ -36,11 +39,12 @@ alphas_master_portfolio.*
 ALPHAS_MASTER_DOSSIER.md
 alphas_export_*
 # Options Pipeline Data — all local data files excluded; source of truth is Neon DB
-data/
+/data/
 brain_options/data/*.csv
 brain_options/data/*.json
 brain_options/data/*.jsonl
 brain_options/data/pnl_series/
+/brain_libraries/brain_store/data/
 
 # Scratch and temporary scripts
 scratch/
@@ -61,3 +65,7 @@ docs/*_plan.md
 *.mobi
 docs/research/*.pdf
 docs/research/
+
+# Articles & Marketing (Draft Medium publications)
+articles/
+docs/articles/
