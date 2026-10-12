@@ -1,0 +1,1685 @@
+
+--- PAGE 1 ---
+TAURIC RESEARCH
+Trading-R1: Financial Trading with LLM Reasoning via
+Reinforcement Learning
+Yijia Xiao 1, Edward Sun 1, Tong Chen 2, Fang Wu 3, Di Luo 1, Wei Wang 1
+1University of California, Los Angeles
+2University of Washington
+3Stanford University
+§Tauric Research*
+Developing professional, structured reasoning on par with human financial analysts and traders
+remains a central challenge in AI for finance, where markets demand interpretability and trust.
+Traditional time-series models lack explainability, while LLMs face challenges in turning natural-
+language analysis into disciplined, executable trades. Although reasoning LLMs have advanced in
+step-by-step planning and verification, their application to risk-sensitive financial decisions is un-
+derexplored. We present TRADING-R1, a financially-aware model that incorporates strategic think-
+ing and planning for comprehensive thesis composition, facts-grounded analysis, and volatility-
+adjusted decision making. TRADING-R1 aligns reasoning with trading principles through super-
+vised fine-tuning and reinforcement learning with a three-stage easy-to-hard curriculum. Training
+uses Tauric-TR1-DB, a 100k-sample corpus spanning 18 months, 14 equities, and five heterogeneous
+financial data sources. Evaluated on six major equities and ETFs, TRADING-R1 demonstrates
+improved risk-adjusted returns and lower drawdowns compared to both open-source and propri-
+etary instruction-following models as well as reasoning models. The system generates structured,
+evidence-based investment theses that support disciplined and interpretable trading decisions.
+TRADING-R1 Terminal will be released at https://github.com/TauricResearch/Trading-R1.
+1.
+Introduction
+Financial exchange predates written history, yet the founding of the Amsterdam Stock Exchange is
+commonly treated as the birth of the modern securities market Petram (2014). Since then, scholars and
+practitioners have proposed a wide range of theories to explain price formation and guide trading,
+spanning sociological and psychological accounts, econometric models, and technical paradigms
+such as Elliott Wave, Dow Theory, and price action Brooks (2009); Dow et al.; Elliott (1938); Lefevre
+and Markman (2010); Schwager (2012). As time passes, the amount of available market data and
+computing power and technology have drastically changed and increased, quantitative methods
+have flourished, and advances in natural language processing have enabled large-scale analysis of
+unstructured sources of various modalities, including news, earnings disclosures, and macroeconomic
+reports, using tools such as sentiment analysis. Yet these signals are seldom integrated into a coherent
+decision framework but individually used as tools for analysts and firms. Instead, bespoke factors are
+typically engineered in isolation and left to human traders to interpret and combine.
+Recent breakthroughs in large language models (LLMs) have transformed automated reasoning
+across domains. NLP has shifted from single-purpose models to promptable intelligence: general
+*Tauric Research Institute: https://tauric.ai
+arXiv:2509.11420v1  [q-fin.TR]  14 Sep 2025
+
+--- PAGE 2 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+purpose systems augmented with chain-of-thought, self-verification, and reinforcement learning,
+that now can tackle complex reasoning tasks with increasing reliability and scope Bai et al. (2023);
+DeepSeek-AI et al. (2025); OpenAI et al. (2024, 2025). Yet their application to finance remains nascent.
+Markets are dynamic, noisy, and multi-factor, demanding adaptive and interpretable reasoning under
+uncertainty, requirements that differ markedly from the math, coding, and science tasks that have
+dominated recent LLM optimizations Hendrycks et al. (2021); Lu et al. (2024). Alternatives exist,
+notably purely quantitative approaches Ericson et al. (2024); Fjellstr¨om (2022), but they are often
+opaque and brittle across regimes; meanwhile, general-purpose reasoning LLMs struggle to ground
+their inferences in financial contexts, provide verifiable logic, and produce traceable decisions Lee
+et al. (2025); Liu et al. (2025b); Tatsat and Shater (2025). Progress is further hampered by sparse,
+fragmented public financial data, which complicates model training; moreover, there is a mismatch
+between open-ended financial QA benchmarks Liu et al. (2025b); Qian et al. (2025) and the structured,
+sequential reasoning that trading demands. Unlike QA, market decisions are inherently uncertain and
+path-dependent: even reasonable choices can yield divergent, unforeseen outcomes.
+To address these gaps, we propose TRADING-R1, a financial trading reasoning foundation model
+tailored for financial and specifically trading-oriented reasoning. We curate a high-quality dataset
+of over 100K publicly sourced financial reasoning samples and train TRADING-R1 via supervised
+fine-tuning followed by a curriculum of reinforcement learning from easy to hard. This design directly
+tackles the core limitations of existing reasoning LLMs in finance, advancing models that are both
+grounded in market complexity and practically usable for trading. Our key contributions are as
+follows:
+• Tauric-TR1-DB: A large-scale, diverse financial reasoning corpus. We curate a comprehensive
+dataset spanning 18 months from January 1, 2024, to May 31, 2025, across 14 major tickers, integrat-
+ing heterogeneous financial data used by real traders, such as technical market data, fundamentals,
+news, insider sentiment, and macroeconomic indicators. The final corpus contains 100k sam-
+ples of filtered, high-quality financial information, paired with supervision via reverse reasoning
+distillation and volatility-aware reward labeling.
+• Supervised fine-tuning with reverse chain-of-thought distillation. Since proprietary LLMs pro-
+vide only final answers without intermediate reasoning, we reconstruct hidden reasoning traces
+from high-performing but opaque API models and use them as supervision for reasoning-oriented
+training. This approach enables our model to generate concise, interpretable, and high-quality
+investment theses distilled from the insights of state-of-the-art reasoning systems.
+• Reinforcement learning for execution-grade decisions. Beyond thesis writing, we refine the model
+for actionable decision making. We cast trade recommendations as an RL problem, labeling assets
+on the standard five-tier investment scale (Strong Buy, Buy, Hold, Sell, Strong Sell). Ratings are
+volatility-adjusted and used as rewards to align model outputs with realistic trading objectives.
+• Trading-R1: A financial reasoning LLM for trading. We propose Trading-R1, a large-scale financial
+reasoning LLM trained across diverse assets and market conditions (bull and bear). The model
+demonstrates strong generalization in trading scenarios, producing both high-quality analyses and
+profitable trade recommendations.
+2
+
+--- PAGE 3 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+2.
+Related Work
+2.1.
+Large Language Models in Finance
+Large Language Models (LLMs) have demonstrated impressive capabilities across many domains,
+including finance. To adapt them for financial tasks, researchers typically rely on three strategies:
+pretraining on domain-specific data, fine-tuning on task-specific datasets, and applying reinforcement
+learning to align model behavior with desired outcomes. Another line of work explores using
+pretrained models directly off the shelf as specialized experts within multi-agent systems. In these
+setups, LLMs are assigned distinct roles, and their coordinated interactions are designed to elicit more
+explicit financial reasoning and enhance the overall reasoning capabilities of the system.
+Pretraining and Fine-tuning LLMs for Finance
+Domain adaptation for LLMs in finance follows two
+main approaches: pretraining from scratch on financial corpora and fine-tuning existing models on
+financial data.
+Models like BloombergGPT (Wu et al., 2023), XuanYuan 2.0 (Zhang et al., 2023b), and Fin-T5 (Lu
+et al., 2023) were trained on combined public and finance-specific datasets. BloombergGPT, leveraging
+proprietary Bloomberg data, outperforms general-purpose counterparts like BLOOM-176B in market
+sentiment classification and summarization tasks, while maintaining competitive general language
+understanding compared to similar-sized open-source models.
+The fine-tuning approach is exemplified by models such as PIXIU (FinMA) (Xie et al., 2023), which
+fine-tuned LLaMA on 136K finance-related instructions; FinGPT (Yang et al., 2023), which used LoRA
+to adapt LLaMA and ChatGLM with approximately 50K finance-specific samples; and Instruct-FinGPT
+(Zhang et al., 2023a), fine-tuned on 10K instruction samples from financial sentiment analysis datasets.
+These models demonstrate stronger performance in finance classification tasks compared to their base
+versions and other open-source LLMs like BLOOM and OPT (Zhang et al., 2022), sometimes even
+surpassing BloombergGPT. However, their performance in generative tasks still lags behind powerful
+general-purpose models like GPT-4, indicating the need for higher-quality, domain-specific datasets.
+Reinforcement Learning for LLMs
+Reinforcement learning from human feedback (Kaufmann et al.,
+2023; Ouyang et al., 2022, RLHF) has emerged as a cornerstone technique for aligning LLMs with
+human preferences (Lambert et al., 2024). This approach ranges from Proximal Policy Optimization
+(Schulman et al., 2017, PPO) to Direct Preference Optimization (Rafailov et al., 2023, DPO) and Simple
+Preference Optimization (Meng et al., 2024, SimPO), which eliminate the need for explicit reward
+modeling and help stabilize training. Recent innovations such as Group Relative Policy Optimization
+(Shao et al., 2024a, GRPO) address computational challenges by optimizing group-wise comparisons
+and implementing batch-normalized rewards. Notable advancements include DeepSeek-R1’s multi-
+stage RL training (DeepSeek-AI et al., 2025) and personalized alignment via variational preference
+learning (Poddar et al., 2024). Despite significant progress, fundamental limitations persist, including
+risks of reward hacking, off-policy instability, and the need for pluralistic alignment to accommodate
+diverse human preferences (Casper et al., 2023; Kaufmann et al., 2024).
+Multi-agent LLMs for Finance
+While training models on financial data can improve performance,
+limited resources and data availability often make off-the-shelf LLMs an attractive alternative. Al-
+though not specialized in finance, large general-purpose models excel at reasoning and instruction
+following, which has fueled the rise of agent systems, frameworks that equip LLMs with memory,
+3
+
+--- PAGE 4 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+tools, and role specialization to achieve complex goals. This paradigm has spread rapidly across
+domains from coding to AI4Science to computer use agents Gottweis et al. (2025); Hong et al. (2024);
+Liu et al. (2025a). In finance, multi-agent systems are often designed to replicate real decision-making
+processes, such as hedge fund structures, by assigning agents distinct roles and tools (e.g., news
+retrieval, indicator calculation). Recent frameworks like TradingAgents explicitly model financial
+institutions, combining structured communication and debate to produce detailed reasoning reports
+segmented by information sources Xiao et al. (2025).
+2.2.
+Large Language Models in Financial Trading
+LLMs are employed in financial trading across four primary application paradigms: information
+processing, reasoning-based decision making, reinforcement learning optimization, and alpha factor
+generation.
+Information-Driven Trading
+Information-driven approaches process news and market data to
+generate trading signals. Studies evaluating both closed-source models (e.g., GPT-4.1, Claude 3.7)
+and open-source LLMs (e.g., Qwen (Bai et al., 2023)) have demonstrated the effectiveness of simple
+long-short strategies based on sentiment scores (Lopez-Lira and Tang, 2023). Fine-tuned LLMs like
+FinGPT show improved performance through domain-specific alignment (Kirtac and Germano, 2024;
+Yang et al., 2023; Zhang et al., 2024a). Advanced methods involve summarizing financial news and
+reasoning about their relationship with stock prices (Fatouros et al., 2024; Wang et al., 2024).
+Reasoning-Enhanced Trading
+Reasoning-enhanced approaches leverage LLMs’ analytical capa-
+bilities through reflection and multi-agent debate. Reflection-based systems, such as FinMem (Yu
+et al., 2023) and FinAgent (Zhang et al., 2024b), employ layered memorization and multimodal data to
+summarize inputs, inform decisions, and incorporate technical indicators, achieving better backtest
+performance while mitigating hallucinations (Ji et al., 2023). Multi-agent frameworks (Xiao et al., 2025;
+Xing, 2024) enhance reasoning and factual validity by employing LLM debates among specialized
+agents. Systems like TradingGPT (Li et al., 2023) demonstrate improved sentiment classification and
+increased robustness in trading decisions through this collaborative approach.
+Reinforcement Learning Optimization
+Reinforcement learning optimized trading systems use
+backtesting performance as rewards to refine decision-making processes. SEP (Koa et al., 2024)
+employs RL with memorization and reflection to refine LLM predictions based on market history.
+Classical RL methods are also integrated in frameworks that combine LLM-generated embeddings
+with stock features, trained via algorithms like Proximal Policy Optimization (PPO) (Ding et al., 2023;
+Schulman et al., 2017). These approaches systematically improve LLM trading capabilities through
+iterative feedback loops.
+Alpha Factor Generation
+Rather than directly making trading decisions, LLMs can generate alpha
+factors—signals that predict stock returns. QuantAgent (Wang et al., 2023) employs a dual-loop
+architecture: an inner loop where a writer agent generates code from trading ideas with feedback
+from a judge agent, and an outer loop where the code is tested in real markets to enhance the judging
+agent. Similarly, AlphaGPT (Wang et al., 2023) proposes a human-in-the-loop framework for alpha
+mining. These approaches leverage LLMs’ capabilities to automate and accelerate trading strategy
+development through systematic generation and refinement of predictive signals.
+4
+
+--- PAGE 5 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+3.
+Trading-R1 Methodology
+3.1.
+Motivations
+Training a reasoning model for financial trading is uniquely challenging compared to other domains.
+Financial decisions are high-stakes, multifaceted, market-dependent, and highly sensitive to noise.
+Simply extending chains of thought through standard reasoning training does not necessarily improve
+model quality; instead, it can amplify hallucinations and degrade the reliability of generated trading
+decisions. Since language models are conditional autoregressive generators, the quality of the final
+action depends on two coupled priors: (i) the external prior, given by the input context that initiates
+generation, and (ii) the internal prior, shaped by the model’s own previously generated tokens during
+roll-out. These dynamics lead to two practical imperatives:
+• Input quality (external prior) If the prompting context is noisy, misaligned, or low signal-to-noise,
+the model’s analysis is anchored to poor evidence, degrading downstream reasoning regardless of
+decoding or prompting.
+• Reasoning scaffolding (internal prior) During generation, poorly structured intermediate thoughts
+accumulate and result in brittle theses and unreliable decisions. Trading requires a disciplined
+investment thesis with clear structure, defensible claims, explicit evidence, and careful attention to
+risk. Providing such scaffolding ensures that the reasoning process remains coherent and that the
+final action is grounded in sound logic.
+These challenges motivate our methodology for Trading-R1. We control both what the model
+conditions on and how it reasons toward the decision. Specifically, we (1) implement a rigorous data
+collection, cleaning, and assembly pipeline to provide high signal-to-noise, finance-grounded context
+at training time, and (2) employ a multi-stage, easy-to-hard curriculum for supervised fine-tuning and
+reinforcement learning that first teaches the model to structure an investment thesis, then to construct
+logical, evidence-based arguments, and finally to make decisions grounded in market dynamics.
+This design enables Trading-R1 to reason like a professional trader, generating substantiated and
+transparent analyses that lead to coherent, actionable decisions rather than merely producing longer
+text.
+3.2.
+Input Data Collection at Scale
+To manage external priors and ensure high-quality training inputs, we implement a rigorous data
+collection process that spans diverse time periods, market conditions, sectors, and analytical modal-
+ities. In financial trading research, the main challenge is not gaining access to data, but selecting
+information that sharpens the signal-to-noise ratio and yields actionable insights. Our dataset is built
+from reliable sources capturing market dynamics, company fundamentals, and public sentiment. We
+define input data broadly, encompassing a holistic view of macroeconomic trends and firm-specific
+conditions—what companies do, how they perform, and how they are perceived. To build general-
+izable market intelligence and provide the model with the strongest possible priors for generating
+high-quality theses, three core objectives guide our collection process:
+Breadth across companies
+We include data from a diverse set of stocks spanning sectors and market
+capitalizations. By focusing on more than a dozen widely followed firms (e.g., NVDA, AAPL, JNJ)
+5
+
+--- PAGE 6 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+over the 18 months period from January 1, 2024, to May 31, 2025, we capture a broad range of market
+conditions and corporate developments.
+Depth of information
+For each day and for each given asset, we aggregate features spanning
+technical data, fundamentals, news, sentiment, and macroeconomic factors. Sources include Finnhub,
+SimFin, Google News scraping, and stockstats, yielding a dense, multi-perspective snapshot of each
+company.
+Robustness to variation
+Real-world data is often incomplete or unbalanced. To enhance resilience,
+we vary input composition during label generation by randomly sampling from market data, news,
+sentiment, fundamentals, and macroeconomic factors. This approach trains the model to reason
+effectively even when information is limited. It also enables the model to detect complex patterns
+across contexts while remaining adaptable to real-world variability, which is essential for success in
+dynamic financial environments. Further methodological details are provided in Appendix S1.
+3.3.
+Trading-R1 Training Overview
+<Market> ... </Market>
+<Competition> ... </Competition>
+<Strategy> ... </Strategy>
+[Insight  1] ...     [Insight 2] ...
+[Evidence 1] ...  [Evidence 2] ...
+[Source 1] ...      [Source 2] ...
+Stage II: CLAIMS
+Stage I: STRUCTURE
+Stage III: DECISION
+Trading-R1
+Reasoning Model
+SFT
+RFT
+SFT
+RFT
+SFT
+Mixture SFT
+RFT
+Distill
+Structured Reward
+Claim Reward
+Enhance Thesis Structure
+& Claim Format
+Examples
+Memories
+Planning sections...
+[ fundamentals ]
+revenue growt h
+profitability & margins
+   ...
+[ sentiment ]
+sell -side opinions
+insider transactions
+   ...
+[ conclusion ]
+   ...
+Examples
+Memories
+Distill 
+Augmentation 
+Self 
+Augmentation 
+Self Augmentation
+Examples
+Memories
+Truth:  
+Strong Buy
+Prediction:
+Buy
+Reward:
++ 0.75
+RFT : Stands for Reinforcement Fine-Tuning
+SFT : Stands for Supervised Fine-Tuning
+Fig. 1: Trading-R1 Training Schema
+Managing the internal priors of an LLM’s generation is critical for trading. Without proper
+structure, intermediate reasoning steps can compound errors, producing brittle theses and unreliable
+final decisions. To address this, we design a multi-stage, easy-to-hard curriculum that interleaves
+supervised fine-tuning (SFT) with reinforcement learning fine-tuning (RFT) as seen in Figure 1. This
+curriculum progressively teaches the model to (i) structure its outputs like a professional investment
+thesis, (ii) construct logical and evidence-backed arguments, and (iii) make decisions grounded in
+real market dynamics. The curriculum unfolds across three stages, each warm-started with SFT
+(Figure 3) to establish structural and stylistic priors, and refined with RFT to align behavior through
+task-specific rewards. This interleaving ensures that the model first acquires the general form of
+professional analysis before being guided toward evidence-grounded reasoning and, ultimately,
+market-aligned decision making. The staged progression stabilizes intermediate reasoning, mitigates
+error compounding, and builds the internal discipline required for coherent and actionable trading
+outputs.
+In the formatting stage, the model is rewarded for following the professional structure of in-
+vestment theses, systematically organizing technical, fundamental, and sentiment-based analyses.
+XML-tagged formatting is reinforced at this stage to promote consistent reasoning patterns and stable
+6
+
+--- PAGE 7 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+Table 1: Three-Stage Financial Trading Model Training Pipeline
+Stage
+Training Phase
+Method Description
+Objective
+Stage I:
+STRUCTURE
+SFT
+Supervised Fine-Tuning on massive Qwen and
+Initial structured thinking and
+OpenAI data (no reject sampling)
+basic data organization
+RFT
+Reinforcement Fine-Tuning on sections
+Enable systematic analysis and
+(introduction/claims/table/conclusion)
+professional data categorization
+Augmentation
+Self-Distill with reject sampling cases
+Reinforce structured reasoning
+with clear structure
+patterns
+Stage II:
+CLAIMS
+SFT
+Supervised Fine-Tuning for evidence-based
+Basic claim structure and
+reasoning foundation
+evidence awareness
+RFT
+Reinforcement Fine-Tuning on opinion +
+Ground claims with quotes and
+quote + source structure
+sources, address hallucination
+Augmentation
+Self-Distill with reject sampling cases
+Reinforce evidence-based
+with professional and faithful claims
+professional reasoning
+Stage III:
+DECISION
+SFT
+Supervised Fine-Tuning for investment
+Basic decision-making structure
+recommendation patterns
+for investments
+RFT
+Reinforcement Fine-Tuning with Equity
+Generate market-aware
+& Volatility & Smooth Adj
+investment recommendations
+Augmentation
+Self-Distill with reject sampling prediction
+Reinforce accurate directional
+(directional) correct cases
+predictions
+structured outputs. In the evidence-grounding stage, rewards encourage the model to support
+claims with direct citations and quotations from the input context, reducing hallucinations and fos-
+tering disciplined, evidence-based reasoning. Finally, in the decision stage, the model is trained
+with outcome-based rewards derived from the volatility-aware labels in Section 3.5, penalizing poor
+predictions and incentivizing decisions that align with verifiable market outcomes, as illustrated in
+Figure 4. Through this progression, Trading-R1 learns first to produce the correct form of professional
+analysis, then to anchor its reasoning in evidence, and ultimately to generate coherent, market-driven
+trading decisions.
+3.4.
+Supervised Investment Reasoning Distillation
+To support the SFT warm-start stages in the interleaved easy-to-hard curriculum of Trading-R1
+(Figure 1), high-quality reasoning traces are required as supervised targets. Yet obtaining such
+labels for large language models (LLMs) is notoriously costly, and the difficulty is magnified in the
+financial domain, where ground truth is often ambiguous, unavailable, or prohibitively expensive to
+produce. To address this, we leverage the volatility-driven labeling method introduced in Section 3.5
+to automatically construct input-to-investment-thesis pairs for SFT. Each investment thesis provides a
+detailed reasoning trace that logically supports a trading decision consistent with the volatility-aware
+label assigned for that day.
+Reverse Reasoning Distillation
+To overcome the difficulty of sourcing such detailed reasoning
+traces, we introduce a novel technique we call reverse reasoning distillation. While commercial LLMs ac-
+cessed via APIs (e.g., OpenAI’s o1, o3) consistently outperform most open-source models in reasoning
+7
+
+--- PAGE 8 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+Categorical Sampled Data
+Randomly select k out of N
+OpenAI-o3/o4 mini
+Qwen 3
+Recommendation
+Rejected Sampling
+Tauric DB
+Trading Proposal
+If Correct
+News
+Profile
+Charts
+Financials
+Macro Econ
+Sell-side Ratings
+Insider
+(a) Investment Thesis Distillation from OpenAI Reasoning Models.
+GPT-4.1 nano
+Categorical Sampled Data
+Decomposition
+GPT-4.1
+Distilled Reasoning
+Factor 1: Competitors ...
+Factor 2: Technical Analysis ...
+Factor 3: Insider Transactions ...
+...
+Recommendation
+Tauric DB
+Reasoning Perspectives
+Reasoning 
+Foundation
+Structured 
+Reasoning
+Reasoning Perspectives are 
+related to "Recommendation"
+Trading Proposal
+Merge
+Reasoning Distillation
+(b) Reverse Reasoning Distillation.
+Fig. 2: Overview of Trading-R1 distillation: (a) investment thesis distillation, (b) reverse reasoning distillation.
+quality, they typically do not expose their full chain-of-thought (CoT) outputs for easy full distillation,
+returning only final conclusions without explanatory steps. To extract high-quality, long-form reason-
+ing without hosting massive models ourselves, we propose a method for synthetically reconstructing
+reasoning paths from these black-box models.
+As illustrated in Figure 2a, we begin by inputting structured financial data for a specific ticker
+on a given date into proprietary reasoning models, such as o3-mini or o4-mini, and retrieve its final
+trading recommendation (i.e., a front-end response). Next, as shown in Figure 2b, we pass this final
+response, along with the original input, into a dedicated planner LLM tasked with inferring the key
+reasoning steps required to arrive at the given conclusion. To simulate the full reasoning process, we
+then use a lightweight LLM (e.g., GPT-4.1-nano) to elaborate how each data modality (e.g., market
+data, news, social media, fundamentals) contributes to the investment decision. These segments
+are then programmatically stitched into a coherent reasoning trace. The end result is a high-quality,
+synthetic dataset of structured financial inputs paired with plausible, step-by-step investment theses,
+suitable for use in SFT pipelines.
+3.5.
+Volatility-Driven Discretization for Label Generation
+Once a broad and diverse input corpus is assembled, the next step is to define a reliable target label.
+This serves as a clear indicator of the optimal trading action at a given point in time and supports
+market-verifiable, reward-driven reinforcement learning. Instead of attempting to predict exact future
+price movements, which are noisy, unstable, and especially difficult for language models to capture, we
+discretize the output space into five intuitive actions: strong sell, sell, hold, buy, and strong buy.
+This design serves two purposes. First, it mirrors real-world trading, where decisions are expressed
+as actions rather than precise price forecasts. Second, it provides a natural mapping from outputs to
+portfolio allocation weights that can be tailored to user-specific risk preferences.
+Labels are generated using a principled, multi-horizon volatility-aware procedure. For each
+training instance, we sample inputs across all modalities (market, news, sentiment, fundamentals,
+8
+
+--- PAGE 9 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+and macroeconomic information) and construct a composite signal from multiple time horizons.
+Specifically, we compute exponential moving average (EMA) prices and calculate forward returns over
+3, 7, and 15-day periods. Each return series is normalized by its rolling 20-period volatility to create
+Sharpe-like signals. These signals are then combined using empirically-determined weights (0.3, 0.5,
+0.2 respectively) to form a composite weighted signal. Finally, labels are assigned based on percentile
+thresholds computed from the distribution of valid weighted signals, using asymmetric quantiles
+(85%, 53%, 15%, 3%) that reflect market dynamics. The full procedure is described in Algorithm S1 and
+Appendix S2. This multi-horizon volatility-aware design provides four advantages. (i) Signals capture
+both short-term momentum and medium-term trends through multiple time horizons. (ii) Volatility
+normalization ensures consistent signal strength across different market regimes. (iii) The weighted
+combination balances immediate price action with broader trend information. (iv) Asymmetric
+quantile cutoffs preserve the market’s long-term upward drift while maintaining class diversity for
+robust training.
+The resulting proxy labels are highly valuable for downstream learning. They supply a natural
+reward signal for reinforcement learning (Section 3.7) and enable the scalable creation of high-quality
+targets for supervised fine-tuning (Section 3.6). This significantly lowers the cost of reasoning-based
+supervision, which would otherwise depend on manual or expert annotation.
+3.6.
+Supervised Fine-Tuning for Structured Analysis
+Categorical Sampled Data
+Thesis
+Trading-R1
+Using LoRA Method
+Distilled Reasoning
+<System Prompt>
+
+      "Financial analyst role with structured reporting 
+requirements..."
+
+</System Prompt>
+<User Input>
+
+      "Stock analysis request 
+with ticker data..."
+
+</User Input>
+<Assistant Output>
+
+      "Tag-based analysis with investment 
+decision (
+/
+)..."
+
+</Assistant Output>
+STRONG BUY SELL
+<Structured Analysis>
+
+      <Competitors> ... </>
+      <Technical Analysis> ... </>
+      <Insider Transactions> ... </>
+      ...
+</Structured Analysis>
+<Transaction> ... </Transaction>
+Tauric DB
+Example Case
+Supervised Finetune
+Structured response:
+Decomposed into key sections (e.g., 
+Fundamentals, Technicals, Macros...)
+Evidence from categorical-sampled 
+data (prices, filings, news, sentiment)
+Pre-trained 
+Weights
+B = 0
+r
+Fig. 3: Supervised finetuning with reverse reasoning distilled data from Tauric-TR1-DB
+SFT Warm-Start for Structured Reasoning
+Using high-quality investment theses generated through
+reverse reasoning distillation, we perform SFT to warm-start each stage of the easy-to-hard curriculum
+(Figure 3). Each training instance pairs structured market data with a detailed investment thesis,
+teaching the model to analyze, synthesize, and decide in ways that mirror expert financial workflows.
+Because the distillation process is controllable, stage-specific SFT targets can be designed to establish
+the correct reasoning priors before RFT refinement.
+Stage-Wise Targets
+In Stage I (Structure), SFT emphasizes the professional organization of theses,
+instilling structured thinking and systematic data organization. In Stage II (Claims), SFT introduces
+evidence-based reasoning, guiding the model to build claims anchored in data. In Stage III (Decision),
+SFT focuses on investment recommendation patterns, preparing the model to structure outputs around
+actionable decisions. This staged warm-start stabilizes intermediate reasoning, reduces compounding
+errors, and ensures that RFT operates on strong structural and evidential priors.
+9
+
+--- PAGE 10 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+Backbone Model and Stability
+We adopt Qwen3-4B as the backbone model, since it is already
+optimized for reasoning tasks. This prior accelerates convergence during both SFT and RFT, while
+improving the model’s ability to generate structured, interpretable outputs. Without this warm-start,
+models tended to overfit to superficial heuristics, forget structures from earlier stages, and produce
+brittle, incoherent theses. Staged SFT initialization instead provides disciplined scaffolding that
+preserves prior knowledge and allows reinforcement learning to refine rather than overwrite the
+model’s analytical capabilities.
+3.7.
+Reinforcement Learning Fine-Tuning for Market-Aligned Decisions
+Transaction Proposals
+Thesis
+Trading-R1
+Reward
+Penalty
+Strong Buy
+Buy
+Hold
+Sell
+Strong Sell
+Tauric DB
+If wrong
+If Correct
+If Well Structured
+Reinforcement Learning
+Categorical Sampled Data
+<news> 
+<3days>…</3days> 
+<10days>…</10days> 
+</news>
+ <sentiment> 
+<rec>…</rec> 
+<insider>…</insider> 
+</sentiment>
+Asymmetric Decision Matrix
+Reward = α(Structure) + β(Claims) + γ(Decision)
+Fig. 4: Reinforcement learning on Thesis Structure, Statement, and Decision
+RFT Fine-Tuning after SFT Warm-Start
+While SFT equips the model with structured and inter-
+pretable reasoning, it often overfits to superficial patterns and falls short of producing decisions that
+are both robust and actionable. Directly transitioning from SFT to outcome-based RL is unstable, as
+the model lacks the discipline to balance structured reasoning with verifiable market performance.
+To address this, our interleaved easy-to-hard curriculum applies RFT after each SFT warm-start,
+reinforcing the stage-specific priors with outcome-based feedback. In this way, RFT refines the model’s
+reasoning so that quality analyses translate into coherent, market-aligned actions. Detailed reward
+specifications for each stage are provided in Appendix S4.
+Action Space and Labeling
+We define a five-class action space—strong sell, sell, hold, buy,
+strong buy—mapped to portfolio weights. This design reflects varying degrees of conviction and
+enables finer-grained position control compared to the traditional buy/hold/sell triad. Labels are
+asset-specific, constructed from the multi-horizon volatility-aware procedure described in Section 3.5.
+To better capture market dynamics, we project returns onto asymmetric quantiles, producing a skewed
+distribution that reflects both the equity market’s long-term upward drift and the growth-oriented
+characteristics of our blue-chip training universe, while maintaining sufficient class diversity for
+robust training:
+Table 2: Target class distribution for trading actions
+Strong Buy
+Buy
+Hold
+Sell
+Strong Sell
+15%
+32%
+38%
+12%
+3%
+This distribution encourages the model to learn realistic, market-consistent policies while preserv-
+ing class diversity for robust training. The asymmetric allocation reflects both empirical equity market
+10
+
+--- PAGE 11 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+behavior and established analyst practices, with a bias toward positive actions that is particularly
+justified by our training universe composition. Our portfolio focuses on large-cap and mega-cap
+blue-chip companies—including technology leaders like NVIDIA, Microsoft, and Apple, established
+financials like Berkshire Hathaway and JPMorgan Chase, healthcare giants like Eli Lilly and Johnson
+& Johnson, and broad market ETFs like SPY and QQQ. These companies collectively represent over
+$11 trillion in market capitalization and are characterized by solid fundamentals, robust cash flows,
+dominant market positions, and strong competitive moats within their respective sectors. Given the
+inherent quality and growth orientation of this blue-chip universe, a structural bullish bias in the
+action distribution aligns with the long-term appreciation potential of these market-leading assets.
+Importantly, because Trading-R1 trades with long–short strategies, a sell or strong sell signal
+implies initiating short positions rather than merely closing longs. While shorting introduces practical
+feasibility challenges, incorporating it during training provides a richer action space and sharper
+signal discrimination for tactical positioning around these fundamentally strong companies.
+Time Horizon
+We target medium-term strategies with holding periods on the order of one week.
+This horizon balances actionability with feasibility: excluding high-frequency trading (limited by LLM
+inference latency) while avoiding long-horizon investing, which requires macroeconomic foresight
+beyond the current capabilities of language models. Medium-term trading provides a natural setting
+where structured reasoning, evidence grounding, and outcome alignment can be most effectively
+combined.
+Policy Optimization
+To optimize the policy during reinforcement learning, we adopt Group Relative
+Policy Optimization (GRPO), a recent variant of Proximal Policy Optimization (PPO) that eliminates the
+need for a separate value model Schulman et al. (2017); Shao et al. (2024b). Whereas PPO estimates
+per-token advantages with a learned value function, GRPO derives the baseline directly from a
+group of sampled trajectories for the same input. This relative scoring stabilizes training and reduces
+memory overhead. Concretely, for each input q, we sample G candidate outputs {oi}G
+i=1 from the old
+policy πθold and assign each output a reward ri from the reward model. The group-relative advantage
+normalizes each candidate by its peers:
+ˆAi = ri −mean(r)
+std(r)
+,
+r(i)
+t (θ) :=
+πθ(oi,t | q, oi,<t)
+πθold(oi,t | q, oi,<t).
+The GRPO objective is then:
+JGRPO(θ) = Eq,{oi}
+"
+1
+G
+G
+∑
+i=1
+1
+|oi|
+|oi|
+∑
+t=1
+min
+
+r(i)
+t (θ) ˆAi,t, clip
+ r(i)
+t (θ), 1 −ϵ, 1 + ϵ
+ ˆAi,t
+#
+−β Eq
+
+DKL
+ πθ(· | q) ∥πref(· | q)
+
+,
+(1)
+where ϵ controls clipping, β scales the KL penalty to the reference SFT model πref, and ˆAi,t is the
+normalized group-relative advantage.
+For Trading-R1 training, the reward ri integrates the structure, evidence, and decision components
+(Section S4). Each sampled output is thus judged not only on the correctness of its trading decision,
+but also on the coherence of its thesis structure and the grounding of its claims. This holistic scoring
+aligns naturally with GRPO’s group-relative framework. Together, GRPO provides stable optimization
+without requiring a critic model, while our three-stage reward system supplies task-specific shaping
+11
+
+--- PAGE 12 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+signals that progressively refine structured reasoning, evidence-backed claims, and market-aligned
+trading decisions. Full reward formulations are deferred to Appendix S4.
+4.
+Experiments
+4.1.
+Training Details
+Training Trading-R1 involved processing multi-dimensional financial inputs (20–30k tokens) and
+generating comprehensive investment theses (6–8k tokens). The supervised fine-tuning stage with
+LoRA Hu et al. (2021) was conducted on one 8×H100 server (96GB), while the reinforcement learning
+stage utilized one 8×H200 server (141GB). This RL stage enhances the model’s ability to transition
+from analytical reasoning to high-confidence trading decisions, completing the full pipeline from
+insight to action.
+Our training portfolio encompasses a strategically selected universe of large-cap equity assets
+representing diverse market sectors and investment vehicles. The portfolio concentrates on mega-cap
+technology leaders including NVIDIA, Microsoft, and Apple, which collectively represent over $11
+trillion in market capitalization and serve as primary drivers of modern equity market dynamics.
+Beyond technology, the selection spans communication services (Meta), consumer discretionary
+(Amazon, Tesla), financials (Berkshire Hathaway, JPMorgan Chase), healthcare (Eli Lilly, Johnson &
+Johnson), and energy (Exxon Mobil, Chevron). Additionally, two major ETFs (SPY and QQQ) provide
+exposure to broader market beta and technology sector concentration, respectively. This curated
+selection ensures Trading-R1 encounters the full spectrum of market regimes, sector dynamics, and
+volatility patterns that characterize modern institutional trading environments. The complete portfolio
+breakdown by sector and market capitalization is detailed in Appendix S3.
+4.2.
+Data, Prompts, and Reward Structure
+Inputs are standardized across models to ensure comparability. Each prompt provides a structured
+snapshot of market data, fundamentals, social sentiment, and recent news headlines for a given asset-
+day. Models are required to generate an investment thesis followed by a trading decision mapped to a
+five-class discrete action space (Strong Sell, Sell, Hold, Buy, Strong Buy).
+Rewards are derived from the volatility-adjusted, percentile-based labeling scheme introduced in
+Section 3.5. Labels are calibrated to each asset’s return distribution, reflecting differences in volatility
+and drift. The resulting asymmetric target distribution (detailed in Table 2) mirrors both empirical
+equity market behavior and established analyst practices. By tailoring label distributions per asset, we
+ensure that both training rewards and evaluation outcomes are realistic, risk-aware, and aligned with
+professional financial analysis.
+4.3.
+Experimental Design and Evaluation Methodology
+We evaluate TRADING-R1 using a comprehensive historical backtesting framework on a curated set
+of high-volume equities, including Apple (AAPL), Google (GOOGL), and Amazon (AMZN), along
+with widely traded ETFs such as SPY. The backtest covers June 1 to August 31, 2024, a held-out
+period excluded from the training data that reflects diverse market conditions and provides a realistic
+benchmark for assessing generalization and robustness.
+12
+
+--- PAGE 13 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+Baseline Models
+We compare Trading-R1 against a broad range of LLM-based analysis tools span-
+ning small, medium, and large model classes. For small language models (SLMs), we evaluate
+QWEN-4B, GPT-4.1-NANO, and GPT-4.1-MINI. For larger LLMs, we include GPT-4.1, LLAMA-3.3,
+LLAMA-SCOUT, and QWEN3-32B. For reinforcement learning–enhanced models (RLMs), we con-
+sider DEEPSEEK, O3-MINI, and O4-MINI. In addition, we conduct an ablation study on Trading-R1
+variants: one initialized with SFT warm-start and another trained with RL only, to better understand
+the contributions of each training stage to overall performance.
+Evaluation Metrics
+We evaluate model performance using standard finance metrics that capture
+both profitability and risk characteristics. Our evaluation framework includes Cumulative Return
+(CR) to measure total returns, Sharpe Ratio (SR) to assess risk-adjusted performance, Hit Rate (HR) to
+evaluate prediction accuracy, and Maximum Drawdown (MDD) to quantify downside risk. These
+metrics provide a comprehensive assessment of trading strategy effectiveness across different market
+conditions. Detailed mathematical definitions and calculation procedures for all metrics are provided
+in Appendix S2.
+Backtesting Simulation
+We adopt a standard backtesting setup based on historical market data,
+collecting multi-dimensional inputs for Trading-R1 such as daily news, price data, and derived
+indicators, like Tauric-TR1-DB. Trades are executed using only information available up to each
+trading day, eliminating look-ahead bias and ensuring strictly causal evaluation in a fully out-of-
+sample setting. This controlled design isolates the effect of model quality on trading performance.
+5.
+Results
+Our experimental results demonstrate a clear hierarchy in trading performance across different model
+categories. Tables 3 and 4 present the performance metrics for TRADING-R1.
+Table 3: Model Performance on NVDA, AAPL, MSFT. Bolded green values indicate Best Performance, under-
+lined green values indicate Second Best Performance
+NVDA
+AAPL
+MSFT
+Category
+Model
+CR(%)
+SR
+HR(%)
+MDD(%)
+CR(%)
+SR
+HR(%)
+MDD(%)
+CR(%)
+SR
+HR(%)
+MDD(%)
+SLM
+Qwen-4B
+-1.59
+-1.62
+52.2
+2.80
+-0.81
+-0.92
+41.7
+3.76
+-1.45
+-1.28
+50.0
+4.38
+GPT-4.1-nano
+0.76
+-0.09
+56.0
+3.82
+0.44
+-0.31
+51.9
+3.52
+-0.01
+-0.95
+39.3
+1.60
+GPT-4.1-mini
+0.29
+-0.53
+58.8
+2.47
+-2.14
+-1.92
+40.0
+3.69
+-2.34
+-1.74
+27.3
+4.00
+LLM
+GPT-4.1
+3.15
+0.85
+65.5
+2.81
+4.02
+1.24
+50.0
+2.89
+2.30
+0.97
+63.9
+1.92
+LLaMA-3.3
+0.65
+-0.16
+62.2
+2.78
+6.73
+1.78
+63.6
+2.40
+1.58
+0.54
+58.1
+1.59
+LLaMA-Scout
+-1.96
+-1.64
+31.8
+2.90
+2.03
+0.58
+59.4
+3.21
+-0.29
+-1.33
+36.8
+1.44
+Qwen3-32B
+1.74
+0.27
+64.5
+2.80
+0.62
+-0.12
+33.3
+3.39
+2.14
+1.29
+65.6
+0.82
+RLM
+DeepSeek
+-0.79
+-0.66
+50.0
+3.66
+0.68
+-0.13
+55.3
+4.78
+-0.38
+-1.01
+33.3
+2.06
+O3-mini
+-2.97
+-1.48
+46.9
+5.33
+-1.89
+-1.13
+50.0
+3.72
+1.19
+0.15
+47.4
+1.19
+O4-mini
+-0.99
+-0.83
+43.2
+3.61
+-3.19
+-1.36
+50.0
+7.88
+-1.72
+-1.77
+48.5
+2.35
+Ours
+Supervise Finetune
+7.42
+2.72
+72.5
+2.01
+-2.37
+-1.27
+45.2
+5.20
+-0.24
+-0.64
+56.1
+3.87
+Reinforcement Learning
+3.27
+1.25
+62.5
+2.73
+4.04
+1.14
+57.1
+3.02
+-0.18
+-0.81
+45.7
+1.66
+TRADING-R1
+8.08
+2.72
+70.0
+3.80
+5.82
+1.80
+63.6
+3.68
+2.38
+0.87
+60.4
+1.90
+Small Language Models (SLMs) perform the weakest, struggling with profitability due to their lim-
+ited parameter capacity and shallow reasoning, which leads to unstable analyses, weak argumentation,
+and poor overall decision quality. Reasoning Language Models (RLMs) achieve modest improvements
+13
+
+--- PAGE 14 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+over SLMs but face significant challenges: their limited instruction-following ability sometimes pre-
+vents them from producing decisions in the required format, and their lengthy reasoning paths often
+drift away from market-relevant data. Large Language Models (LLMs) outperform both categories,
+demonstrating stronger consistency and decision quality even without domain-specific training.
+Interestingly, despite their advanced reasoning capabilities, off-the-shelf RLMs often underperform
+LLMs on trading tasks. This underperformance stems from their unguided reasoning processes, which
+can drift away from financial analysis and result in unfocused outputs. In contrast, the Trading-R1
+series (SFT, RFT, and full Trading-R1) highlights the importance of specialized training: SFT enforces
+professional output formats and consistent decision-making patterns, while RFT progressively aligns
+reasoning with market outcomes.
+Table 4: Model Performance on AMZN, META, SPY. Bolded green values indicate Best Performance, underlined
+green values indicate Second Best Performance
+AMZN
+META
+SPY
+Category
+Model
+CR(%)
+SR
+HR(%)
+MDD(%)
+CR(%)
+SR
+HR(%)
+MDD(%)
+CR(%)
+SR
+HR(%)
+MDD(%)
+SLM
+Qwen-4B
+-2.90
+-1.13
+46.2
+6.05
+1.32
+0.14
+51.7
+3.80
+-1.33
+-3.37
+42.3
+1.71
+GPT-4.1-nano
+-4.88
+-2.34
+40.7
+6.20
+-3.07
+-1.69
+47.8
+5.19
+0.04
+-1.23
+47.6
+1.38
+GPT-4.1-mini
+2.24
+0.81
+50.0
+2.01
+1.21
+0.16
+56.5
+1.70
+-1.03
+-2.47
+43.5
+1.44
+LLM
+GPT-4.1
+3.80
+1.15
+64.3
+2.44
+5.63
+1.59
+68.8
+1.91
+0.35
+-0.74
+43.3
+1.21
+LLaMA-3.3
+-0.89
+-0.61
+58.6
+6.02
+3.21
+1.01
+62.5
+2.55
+1.27
+0.27
+64.7
+1.35
+LLaMA-Scout
+-3.47
+-1.48
+35.7
+5.95
+3.51
+0.92
+53.1
+2.78
+-1.34
+-3.36
+36.0
+1.65
+Qwen3-32B
+5.61
+2.12
+64.3
+1.89
+-1.23
+-0.58
+46.2
+6.61
+2.32
+1.87
+70.4
+0.65
+RLM
+DeepSeek
+-1.15
+-1.14
+50.0
+3.00
+1.26
+0.12
+40.5
+2.80
+-1.15
+-1.82
+36.4
+2.00
+O3-mini
+-3.15
+-1.37
+38.2
+5.50
+2.05
+0.53
+73.1
+2.64
+0.80
+-0.25
+57.6
+0.62
+O4-mini
+-2.48
+-1.28
+51.6
+4.83
+-0.45
+-0.80
+53.6
+2.68
+-0.30
+-1.34
+36.8
+1.72
+Ours
+Supervise Finetune
+1.93
+0.36
+60.6
+4.28
+2.52
+0.54
+55.9
+2.93
+1.78
+0.86
+58.1
+1.15
+Reinforcement Learning
+-0.05
+-0.29
+52.5
+4.84
+-0.18
+-0.36
+44.4
+5.11
+1.85
+1.00
+67.6
+0.69
+TRADING-R1
+5.39
+1.72
+63.0
+3.20
+5.12
+0.86
+50.0
+4.65
+3.34
+1.60
+64.0
+1.52
+We believe this trend reflects differences in training focus. General-purpose LLMs, exposed to
+a massive variety of user instructions during instruction tuning, remain flexible and open-ended in
+how they approach problems. RLMs, by contrast, have recently been optimized for narrow domains
+such as coding, mathematics, and scientific reasoning. This specialization yields strong performance
+in those fields but limits generalization, making them less effective for financial reasoning tasks.
+Although finance overlaps with mathematics and science, financial data differs in key ways: it is noisy,
+ambiguous, and filled with mixed signals, which makes step-by-step, verifiable rewards difficult
+to define. As a result, purely RFT-based approaches are not feasible off the shelf for financial LLM
+training. Our Trading-R1 addresses these challenges by combining the strengths of both paradigms.
+Through SFT, it integrates structured thesis writing and consistent decision-making patterns, while
+RFT progressively reinforces stage-specific behaviors. This design stabilizes reasoning, prevents drift,
+and enables coherent, market-aligned trading decisions.
+Our Trading-R1 approach achieves the strongest overall performance by combining SFT and RFT to
+capture market dynamics effectively. Across all evaluated assets, TRADING-R1 delivers improvements
+over baseline models. It achieves a Sharpe ratio of 1.88 with 8.08% returns on NVDA, and outperforms
+GPT-4.1 on AAPL with a Sharpe of 1.80 versus 1.24, while maintaining lower drawdowns (3.68% vs.
+RLMs’ 7.88%). The model also attains leading hit ratios, including 70.0% on NVDA and 64.0% on
+SPY. By contrast, small LLMs such as Qwen-4B and GPT-4.1-nano often yield negative Sharpe ratios,
+and RLMs like O3-mini and O4-mini incur significant losses due to unguided reasoning processes.
+Overall, the performance hierarchy (SLM < RLM < LLM < Trading-SFT ≈Trading-RFT < Trading-R1)
+underscores the importance of both model scale and specialized reasoning in algorithmic trading, with
+14
+
+--- PAGE 15 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+AAPL
+AMZN
+META
+MSFT
+NVDA
+SPY
+Asset Tickers
+SLM
+LLM
+RLM
+Trading-SFT
+Trading-RFT
+Trading-R1
+Model Categories
+-1.048
+-0.888
+-0.463
+-1.326
+-0.748
+-2.358
+0.871
+0.296
+0.734
+0.368
+-0.170
+-0.488
+-0.873
+-1.262
+-0.047
+-0.873
+-0.988
+-1.134
+-1.266
+0.359
+0.536
+-0.635
+2.725
+0.858
+1.137
+-0.294
+-0.357
+-0.811
+1.252
+0.997
+1.804
+1.716
+0.856
+0.873
+1.881
+1.600
+Sharpe Ratio Heatmap: Model Categories and Asset Tickers
+2
+1
+0
+1
+2
+Sharpe Ratio
+Fig. 5: Sharpe Ratio Heatmap
+our approach achieving the best balance between profitability and risk management. Figure 5 shows
+this performance hierarchy across all evaluated assets, demonstrating the consistent improvements
+achieved by our Trading-R1 series over baseline approaches.
+These results suggest that RFT-enhanced reasoning allows the model to adapt quickly to market
+fluctuations. The planning capabilities enable Trading-R1 to compose structured, professional theses
+that evaluate assets from comprehensive aspects, providing high-quality context for final trading
+recommendations. Trading-R1 not only generates more profitable trading signals but also sustains
+lower maximum drawdowns, demonstrating strong potential for real-world trading applications.
+Observations
+Trading-R1 consistently ranks among the top models across all evaluated assets,
+demonstrating a good balance between performance and reliability. The stability and interpretability of
+its outputs distinguish it from baseline models, many of which either collapse into poor profitability or
+produce erratic, unreadable theses. Beyond competitive metrics, Trading-R1 generates structured, facts-
+grounded investment theses that provide clear analytical reasoning. This combination of consistent
+performance with professional thesis generation makes the model particularly valuable for practical
+applications where both accuracy and interpretability are essential for decision-making support.
+This outcome reflects a deliberate design choice. Our model’s training with both SFT and RFT
+produces more stable reasoning and coherent, professional investment theses. We deliberately priori-
+tize enhanced readability, interpretability, and structured argumentation over marginal performance
+gains. This trade-off aligns with established precedents in the field: recent work on reasoning models
+has similarly documented that optimizing purely for performance metrics can compromise output
+coherence and practical utility. For instance, DeepSeek-R1’s developers found that their reinforce-
+ment learning approach led to language mixing issues, ultimately requiring additional alignment
+mechanisms that reduced raw performance to restore usability. Our design philosophy embraces this
+fundamental trade-off from the outset. In practical applications, investors and practitioners require
+15
+
+--- PAGE 16 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+not only accurate predictions but also clear, well-structured rationales that support decision-making.
+A model that consistently delivers professional, market-aligned analyses provides greater real-world
+value than one that maximizes performance metrics at the expense of interpretability and user trust.
+6.
+Conclusion
+We introduced Trading-R1, a framework for aligning large language models with financial decision-
+making through supervised fine-tuning and reinforcement learning. By integrating volatility-aware
+label generation and reasoning-based supervision, Trading-R1 generates actionable, risk-aware trading
+decisions while maintaining analytical rigor and interpretability.
+Trading-R1 offers key advantages over existing approaches through its transparent, scalable
+pipeline that can be applied to proprietary data and research generation. Unlike general-purpose
+LLMs that rely on zero-shot prompting, our approach produces consistent, structured analytical
+reports and enables local deployment. Evaluation on historical market data shows Trading-R1
+achieves the best balance of risk-adjusted returns and drawdowns compared to instruction-following
+and reasoning models, while generating structured, facts-grounded investment theses that support
+interpretable decision-making.
+Trading-R1 is best suited for research support and structured analysis generation for financial
+professionals. The framework shows promise for institutional applications including data vendors,
+sell-side research generation, and buy-side decision support with customizable policies. We rec-
+ommend its use as a tool to augment human decision-making in high-throughput scenarios where
+structured reasoning and interpretability are valued. Future work will focus on real-time deployment
+capabilities, scalable offline RL variants for improved sample efficiency, and integration of additional
+data modalities to enhance robustness and domain adaptability.
+16
+
+--- PAGE 17 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+Industrial Applications and Future Work
+Here, we outline the strengths and limitations of Trading-R1 and highlight potential applications for
+the financial industry.
+Strengths and Contributions
+Our Trading-R1, trained entirely on publicly available data curated as
+Tauric-TR1-DB, offers a transparent, modular, and easily modifiable pipeline for training, observation,
+and processing. This makes it accessible to researchers who wish to develop their own financial
+trading reasoning models. The current version shows strong potential in thesis drafting and raw data
+processing, producing high-quality analytical reports that support trade decisions with reasonable
+returns and favorable Sharpe ratios. These results indicate that by leveraging open and public
+data, it is possible to train a market-grounded RL-LLM capable of generating professional-quality
+financial analyses. The model provides interpretability, robust backtested returns, and strong potential
+for practical downstream applications. Its key strengths include structured reasoning chains for
+investment analysis, the ability to denoise diverse data sources effectively, and the capacity to mine
+actionable insights from textual information.
+General-purpose LLMs can process large amounts of financial data through prompting, but relying
+solely on zero-shot performance is often inefficient. Outputs from such methods do not consistently
+guarantee fidelity, preferred formatting, or comprehensive coverage of relevant viewpoints. Our
+approach, by contrast, scales effectively with larger volumes of high-quality input data, combining
+open datasets with curated internal thesis reports that maintain stronger analytical standards.
+All of this is packaged into a 4B-parameter form factor that can run on standard commercial
+GPUs without the need for massive or expensive servers. This makes deployment more affordable,
+inference faster on large datasets, and ensures the system can run locally and privately. As a result,
+sensitive information is protected while maintaining customizability and independence from the
+internet, which is essential for secure large-scale processing.
+Limitations and Challenges
+Despite promising results, Trading-R1 faces several important limita-
+tions. Trading decision-making itself remains highly challenging, as financial markets are inherently
+difficult to predict in terms of direction, timing, and portfolio management. Data quality further
+complicates this task: even after filtering and cleaning, noisy and conflicting information persists,
+and higher-quality sources remain costly and difficult to obtain. A significant thesis-to-decision gap
+also exists, since companies with strong fundamentals may still be poor short-term trades, while
+overvalued firms can continue to rise despite weak financials. Moreover, Trading-R1 is best used as a
+research and thesis-generation tool, not as a substitute for independent due diligence, since traders
+with different risk tolerances and strategies can hold opposite yet profitable positions.
+From a technical standpoint, our hybrid reward function can introduce training instability, while
+excessive reinforcement learning may erode the structured reasoning format established during su-
+pervised fine-tuning. Hallucinations also persist, particularly in smaller models handling long and
+noisy contexts, where outputs averaging 32K tokens make token-by-token dependencies fragile. To
+mitigate this, we penalize overly long generations to preserve conciseness and clarity. Another limita-
+tion lies in the training universe, which has been biased toward blue-chip and large-cap companies,
+especially in AI-related sectors during the bullish 2024–2025 cycle. This introduces a structural long
+bias. Customization would require incorporating longer historical data, expanding coverage to small-
+and mid-cap companies, and enabling flexible trading intervals aligned with client needs. Despite
+these constraints, our approach demonstrates how large language models can improve the consistency,
+17
+
+--- PAGE 18 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+quality, and throughput of financial data processing, offering particular value for data vendors and
+analysts who must manage large volumes of market information in standardized formats.
+Recommended Applications
+Given the strengths and limitations of Trading-R1, we recommend its
+use primarily as a tool for data cleaning, data generation, and research support for human analysts and traders.
+The model is particularly effective for producing daily key points, structured research summaries,
+and large-scale data processing that can assist decision-making. Despite encouraging backtesting
+results, Trading-R1 is not suited for high-stakes scenarios, since even advanced LLMs remain prone to
+hallucinations and nondeterministic behavior. Backtesting performance should therefore be viewed
+as evidence of the model’s ability to generate well-grounded reports, rather than as a guarantee of
+trading success. Reward design and citation mechanisms can improve faithfulness and grounding,
+but users must still exercise caution. The most appropriate applications are high-throughput tasks
+where efficiency gains outweigh the need for perfect accuracy. The best users are professionals with
+sufficient domain expertise to recognize and correct potential errors. For instance, we observed one
+data source incorrectly reporting the P/E ratio of the S&P 500 as 38, illustrating the importance of
+pre-filtering input data rather than expecting the model to self-correct without internet access.
+Key advantages of Trading-R1 include faster and effective processing, local and private deploy-
+ment, customization flexibility, and the ability to perform reasoning and thesis generation locally
+without relying on proprietary external models. This makes it particularly valuable for three key
+institutional applications:
+• Data vendors can process large amounts of raw financial data into structured feeds and standardized
+formats more cost-effectively than using proprietary models, while maintaining full control over
+output structure and thesis granularity through in-house deployment.
+• Sell-side institutions can train models that understand their investment thesis frameworks and
+consistently produce research reports in their preferred analytical formats.
+• Buy-side institutions can fine-tune the model’s decision-making policy to align with firm-specific
+investment preferences. For instance, adjusting RFT label ratios to increase long exposure to
+preferred sectors like technology, or modifying hold ratios during training to reduce trading
+frequency and match the firm’s investment horizon.
+This customization capability enables Trading-R1 to adapt to diverse institutional requirements
+while ensuring data privacy and analytical consistency across all deployment scenarios.
+18
+
+--- PAGE 19 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+References
+J. Bai, S. Bai, Y. Chu, Z. Cui, K. Dang, X. Deng, Y. Fan, W. Ge, Y. Han, F. Huang, B. Hui, L. Ji, M. Li,
+J. Lin, R. Lin, D. Liu, G. Liu, C. Lu, K. Lu, J. Ma, R. Men, X. Ren, X. Ren, C. Tan, S. Tan, J. Tu, P. Wang,
+S. Wang, W. Wang, S. Wu, B. Xu, J. Xu, A. Yang, H. Yang, J. Yang, S. Yang, Y. Yao, B. Yu, H. Yuan,
+Z. Yuan, J. Zhang, X. Zhang, Y. Zhang, Z. Zhang, C. Zhou, J. Zhou, X. Zhou, and T. Zhu. Qwen
+technical report, 2023. URL https://arxiv.org/abs/2309.16609.
+A. Brooks. Reading Price Charts Bar by Bar: the Technical Analysis of Price Action for the Serious Trader.
+John Wiley & Sons, Inc., Hoboken, New Jersey, USA, 2009. ISBN 978-0-470-44395-8.
+S. Casper, X. Davies, C. Shi, T. K. Gilbert, J. Scheurer, J. Rando, R. Freedman, T. Korbak, D. Lindner,
+P. Freire, T. Wang, S. Marks, C.-R. Segerie, M. Carroll, A. Peng, P. Christoffersen, M. Damani,
+S. Slocum, U. Anwar, A. Siththaranjan, M. Nadeau, E. J. Michaud, J. Pfau, D. Krasheninnikov,
+X. Chen, L. Langosco, P. Hase, E. Bıyık, A. Dragan, D. Krueger, D. Sadigh, and D. Hadfield-Menell.
+Open problems and fundamental limitations of reinforcement learning from human feedback, 2023.
+URL https://arxiv.org/abs/2307.15217.
+DeepSeek-AI, D. Guo, D. Yang, H. Zhang, J. Song, R. Zhang, R. Xu, Q. Zhu, S. Ma, P. Wang, X. Bi,
+X. Zhang, X. Yu, Y. Wu, Z. F. Wu, Z. Gou, Z. Shao, Z. Li, Z. Gao, A. Liu, B. Xue, B. Wang, B. Wu,
+B. Feng, C. Lu, C. Zhao, C. Deng, C. Zhang, C. Ruan, D. Dai, D. Chen, D. Ji, E. Li, F. Lin, F. Dai,
+F. Luo, G. Hao, G. Chen, G. Li, H. Zhang, H. Bao, H. Xu, H. Wang, H. Ding, H. Xin, H. Gao, H. Qu,
+H. Li, J. Guo, J. Li, J. Wang, J. Chen, J. Yuan, J. Qiu, J. Li, J. L. Cai, J. Ni, J. Liang, J. Chen, K. Dong,
+K. Hu, K. Gao, K. Guan, K. Huang, K. Yu, L. Wang, L. Zhang, L. Zhao, L. Wang, L. Zhang, L. Xu,
+L. Xia, M. Zhang, M. Zhang, M. Tang, M. Li, M. Wang, M. Li, N. Tian, P. Huang, P. Zhang, Q. Wang,
+Q. Chen, Q. Du, R. Ge, R. Zhang, R. Pan, R. Wang, R. J. Chen, R. L. Jin, R. Chen, S. Lu, S. Zhou,
+S. Chen, S. Ye, S. Wang, S. Yu, S. Zhou, S. Pan, S. S. Li, S. Zhou, S. Wu, S. Ye, T. Yun, T. Pei, T. Sun,
+T. Wang, W. Zeng, W. Zhao, W. Liu, W. Liang, W. Gao, W. Yu, W. Zhang, W. L. Xiao, W. An, X. Liu,
+X. Wang, X. Chen, X. Nie, X. Cheng, X. Liu, X. Xie, X. Liu, X. Yang, X. Li, X. Su, X. Lin, X. Q. Li,
+X. Jin, X. Shen, X. Chen, X. Sun, X. Wang, X. Song, X. Zhou, X. Wang, X. Shan, Y. K. Li, Y. Q. Wang,
+Y. X. Wei, Y. Zhang, Y. Xu, Y. Li, Y. Zhao, Y. Sun, Y. Wang, Y. Yu, Y. Zhang, Y. Shi, Y. Xiong, Y. He,
+Y. Piao, Y. Wang, Y. Tan, Y. Ma, Y. Liu, Y. Guo, Y. Ou, Y. Wang, Y. Gong, Y. Zou, Y. He, Y. Xiong,
+Y. Luo, Y. You, Y. Liu, Y. Zhou, Y. X. Zhu, Y. Xu, Y. Huang, Y. Li, Y. Zheng, Y. Zhu, Y. Ma, Y. Tang,
+Y. Zha, Y. Yan, Z. Z. Ren, Z. Ren, Z. Sha, Z. Fu, Z. Xu, Z. Xie, Z. Zhang, Z. Hao, Z. Ma, Z. Yan, Z. Wu,
+Z. Gu, Z. Zhu, Z. Liu, Z. Li, Z. Xie, Z. Song, Z. Pan, Z. Huang, Z. Xu, Z. Zhang, and Z. Zhang.
+Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning, 2025. URL
+https://arxiv.org/abs/2501.12948.
+Y. Ding, S. Jia, T. Ma, B. Mao, X. Zhou, L. Li, and D. Han. Integrating stock features and global
+information via large language models for enhanced stock return prediction, 2023. URL https:
+//arxiv.org/abs/2310.05627.
+C. H. Dow, W. P. Hamilton, R. Rhea, and E. G. Schaefer. The Dow Theory on Stock Price Movement. Based
+on 255 editorials in The Wall Street Journal by Charles H. Dow.
+R. N. Elliott. The Wave Principle. 1938.
+19
+
+--- PAGE 20 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+L. Ericson, X. Zhu, X. Han, R. Fu, S. Li, S. Guo, and P. Hu. Deep generative modeling for financial time
+series with application in var: A comparative review, 2024. URL https://arxiv.org/abs/2401.
+10370.
+G. Fatouros, K. Metaxas, J. Soldatos, and D. Kyriazis. Can large language models beat wall street?
+unveiling the potential of ai in stock selection, 2024. URL https://arxiv.org/abs/2401.03737.
+C. Fjellstr¨om. Long short-term memory neural network for financial time series, 2022. URL https:
+//arxiv.org/abs/2201.08218.
+J. Gottweis, W.-H. Weng, A. Daryin, T. Tu, A. Palepu, P. Sirkovic, A. Myaskovsky, F. Weissenberger,
+K. Rong, R. Tanno, K. Saab, D. Popovici, J. Blum, F. Zhang, K. Chou, A. Hassidim, B. Gokturk,
+A. Vahdat, P. Kohli, Y. Matias, A. Carroll, K. Kulkarni, N. Tomasev, Y. Guan, V. Dhillon, E. D.
+Vaishnav, B. Lee, T. R. D. Costa, J. R. Penad´es, G. Peltz, Y. Xu, A. Pawlosky, A. Karthikesalingam,
+and V. Natarajan. Towards an ai co-scientist, 2025. URL https://arxiv.org/abs/2502.18864.
+D. Hendrycks, C. Burns, S. Basart, A. Zou, M. Mazeika, D. Song, and J. Steinhardt. Measuring massive
+multitask language understanding, 2021. URL https://arxiv.org/abs/2009.03300.
+S. Hong, M. Zhuge, J. Chen, X. Zheng, Y. Cheng, C. Zhang, J. Wang, Z. Wang, S. K. S. Yau, Z. Lin,
+L. Zhou, C. Ran, L. Xiao, C. Wu, and J. Schmidhuber. Metagpt: Meta programming for a multi-agent
+collaborative framework, 2024. URL https://arxiv.org/abs/2308.00352.
+E. J. Hu, Y. Shen, P. Wallis, Z. Allen-Zhu, Y. Li, S. Wang, L. Wang, and W. Chen. Lora: Low-rank
+adaptation of large language models, 2021. URL https://arxiv.org/abs/2106.09685.
+Z. Ji, T. Yu, Y. Xu, N. Lee, E. Ishii, and P. Fung. Towards mitigating hallucination in large language
+models via self-reflection, 2023. URL https://arxiv.org/abs/2310.06271.
+T. Kaufmann, P. Weng, V. Bengs, and E. H¨ullermeier. A survey of reinforcement learning from human
+feedback. arXiv preprint arXiv:2312.14925, 10, 2023.
+T. Kaufmann, P. Weng, V. Bengs, and E. H¨ullermeier. A survey of reinforcement learning from human
+feedback, 2024. URL https://arxiv.org/abs/2312.14925.
+K. Kirtac and G. Germano. Sentiment trading with large language models. Finance Research Letters,
+62:105227, 2024. ISSN 1544-6123. doi: https://doi.org/10.1016/j.frl.2024.105227. URL https:
+//www.sciencedirect.com/science/article/pii/S1544612324002575.
+K. J. Koa, Y. Ma, R. Ng, and T.-S. Chua. Learning to generate explainable stock predictions using self-
+reflective large language models, May 2024. URL http://dx.doi.org/10.1145/3589334.3645611.
+N. Lambert, V. Pyatkin, J. Morrison, L. Miranda, B. Y. Lin, K. Chandu, N. Dziri, S. Kumar, T. Zick,
+Y. Choi, et al. Rewardbench: Evaluating reward models for language modeling. arXiv preprint
+arXiv:2403.13787, 2024.
+J. Lee, N. Stevens, and S. C. Han. Large language models in finance (finllms). Neural Computing and
+Applications, Jan. 2025. ISSN 1433-3058. doi: 10.1007/s00521-024-10495-6. URL http://dx.doi.
+org/10.1007/s00521-024-10495-6.
+20
+
+--- PAGE 21 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+E. Lefevre and J. D. Markman. Reminiscences of a stock operator: With new commentary and insights on the
+life and times of Jesse Livermore. John Wiley & Sons, 2010.
+Y. Li, Y. Yu, H. Li, Z. Chen, and K. Khashanah. Tradinggpt: Multi-agent system with layered memory
+and distinct characters for enhanced financial trading performance. arXiv preprint arXiv:2309.03736,
+2023.
+H. Liu, X. Zhang, H. Xu, Y. Wanyan, J. Wang, M. Yan, J. Zhang, C. Yuan, C. Xu, W. Hu, and F. Huang.
+Pc-agent: A hierarchical multi-agent collaboration framework for complex task automation on pc,
+2025a. URL https://arxiv.org/abs/2502.14282.
+Z. Liu, X. Guo, F. Lou, L. Zeng, J. Niu, Z. Wang, J. Xu, W. Cai, Z. Yang, X. Zhao, C. Li, S. Xu, D. Chen,
+Y. Chen, Z. Bai, and L. Zhang. Fin-r1: A large language model for financial reasoning through
+reinforcement learning, 2025b. URL https://arxiv.org/abs/2503.16252.
+A. Lopez-Lira and Y. Tang. Can chatgpt forecast stock price movements? return predictability and
+large language models, 2023. URL https://arxiv.org/abs/2304.07619.
+D. Lu, H. Wu, J. Liang, Y. Xu, Q. He, Y. Geng, M. Han, Y. Xin, and Y. Xiao. Bbt-fin: Comprehensive
+construction of chinese financial domain pre-trained language model, corpus and benchmark, 2023.
+URL https://arxiv.org/abs/2302.09432.
+P. Lu, H. Bansal, T. Xia, J. Liu, C. Li, H. Hajishirzi, H. Cheng, K.-W. Chang, M. Galley, and J. Gao.
+Mathvista: Evaluating mathematical reasoning of foundation models in visual contexts, 2024. URL
+https://arxiv.org/abs/2310.02255.
+Y. Meng, M. Xia, and D. Chen. Simpo: Simple preference optimization with a reference-free reward.
+Advances in Neural Information Processing Systems, 37:124198–124235, 2024.
+OpenAI, :, A. Jaech, A. Kalai, A. Lerer, A. Richardson, A. El-Kishky, A. Low, A. Helyar, A. Madry,
+A. Beutel, A. Carney, A. Iftimie, A. Karpenko, A. T. Passos, A. Neitz, A. Prokofiev, A. Wei, A. Tam,
+A. Bennett, A. Kumar, A. Saraiva, A. Vallone, A. Duberstein, A. Kondrich, A. Mishchenko, A. Ap-
+plebaum, A. Jiang, A. Nair, B. Zoph, B. Ghorbani, B. Rossen, B. Sokolowsky, B. Barak, B. McGrew,
+B. Minaiev, B. Hao, B. Baker, B. Houghton, B. McKinzie, B. Eastman, C. Lugaresi, C. Bassin, C. Hud-
+son, C. M. Li, C. de Bourcy, C. Voss, C. Shen, C. Zhang, C. Koch, C. Orsinger, C. Hesse, C. Fischer,
+C. Chan, D. Roberts, D. Kappler, D. Levy, D. Selsam, D. Dohan, D. Farhi, D. Mely, D. Robinson,
+D. Tsipras, D. Li, D. Oprica, E. Freeman, E. Zhang, E. Wong, E. Proehl, E. Cheung, E. Mitchell, E. Wal-
+lace, E. Ritter, E. Mays, F. Wang, F. P. Such, F. Raso, F. Leoni, F. Tsimpourlas, F. Song, F. von Lohmann,
+F. Sulit, G. Salmon, G. Parascandolo, G. Chabot, G. Zhao, G. Brockman, G. Leclerc, H. Salman,
+H. Bao, H. Sheng, H. Andrin, H. Bagherinezhad, H. Ren, H. Lightman, H. W. Chung, I. Kivlichan,
+I. O’Connell, I. Osband, I. C. Gilaberte, I. Akkaya, I. Kostrikov, I. Sutskever, I. Kofman, J. Pachocki,
+J. Lennon, J. Wei, J. Harb, J. Twore, J. Feng, J. Yu, J. Weng, J. Tang, J. Yu, J. Q. Candela, J. Palermo,
+J. Parish, J. Heidecke, J. Hallman, J. Rizzo, J. Gordon, J. Uesato, J. Ward, J. Huizinga, J. Wang,
+K. Chen, K. Xiao, K. Singhal, K. Nguyen, K. Cobbe, K. Shi, K. Wood, K. Rimbach, K. Gu-Lemberg,
+K. Liu, K. Lu, K. Stone, K. Yu, L. Ahmad, L. Yang, L. Liu, L. Maksin, L. Ho, L. Fedus, L. Weng, L. Li,
+L. McCallum, L. Held, L. Kuhn, L. Kondraciuk, L. Kaiser, L. Metz, M. Boyd, M. Trebacz, M. Joglekar,
+M. Chen, M. Tintor, M. Meyer, M. Jones, M. Kaufer, M. Schwarzer, M. Shah, M. Yatbaz, M. Y.
+Guan, M. Xu, M. Yan, M. Glaese, M. Chen, M. Lampe, M. Malek, M. Wang, M. Fradin, M. McClay,
+21
+
+--- PAGE 22 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+M. Pavlov, M. Wang, M. Wang, M. Murati, M. Bavarian, M. Rohaninejad, N. McAleese, N. Chowd-
+hury, N. Chowdhury, N. Ryder, N. Tezak, N. Brown, O. Nachum, O. Boiko, O. Murk, O. Watkins,
+P. Chao, P. Ashbourne, P. Izmailov, P. Zhokhov, R. Dias, R. Arora, R. Lin, R. G. Lopes, R. Gaon,
+R. Miyara, R. Leike, R. Hwang, R. Garg, R. Brown, R. James, R. Shu, R. Cheu, R. Greene, S. Jain,
+S. Altman, S. Toizer, S. Toyer, S. Miserendino, S. Agarwal, S. Hernandez, S. Baker, S. McKinney,
+S. Yan, S. Zhao, S. Hu, S. Santurkar, S. R. Chaudhuri, S. Zhang, S. Fu, S. Papay, S. Lin, S. Balaji,
+S. Sanjeev, S. Sidor, T. Broda, A. Clark, T. Wang, T. Gordon, T. Sanders, T. Patwardhan, T. Sottiaux,
+T. Degry, T. Dimson, T. Zheng, T. Garipov, T. Stasi, T. Bansal, T. Creech, T. Peterson, T. Eloundou,
+V. Qi, V. Kosaraju, V. Monaco, V. Pong, V. Fomenko, W. Zheng, W. Zhou, W. McCabe, W. Zaremba,
+Y. Dubois, Y. Lu, Y. Chen, Y. Cha, Y. Bai, Y. He, Y. Zhang, Y. Wang, Z. Shao, and Z. Li. Openai o1
+system card, 2024. URL https://arxiv.org/abs/2412.16720.
+OpenAI, :, S. Agarwal, L. Ahmad, J. Ai, S. Altman, A. Applebaum, E. Arbus, R. K. Arora, Y. Bai, B. Baker,
+H. Bao, B. Barak, A. Bennett, T. Bertao, N. Brett, E. Brevdo, G. Brockman, S. Bubeck, C. Chang,
+K. Chen, M. Chen, E. Cheung, A. Clark, D. Cook, M. Dukhan, C. Dvorak, K. Fives, V. Fomenko,
+T. Garipov, K. Georgiev, M. Glaese, T. Gogineni, A. Goucher, L. Gross, K. G. Guzman, J. Hallman,
+J. Hehir, J. Heidecke, A. Helyar, H. Hu, R. Huet, J. Huh, S. Jain, Z. Johnson, C. Koch, I. Kofman,
+D. Kundel, J. Kwon, V. Kyrylov, E. Y. Le, G. Leclerc, J. P. Lennon, S. Lessans, M. Lezcano-Casado,
+Y. Li, Z. Li, J. Lin, J. Liss, Lily, Liu, J. Liu, K. Lu, C. Lu, Z. Martinovic, L. McCallum, J. McGrath,
+S. McKinney, A. McLaughlin, S. Mei, S. Mostovoy, T. Mu, G. Myles, A. Neitz, A. Nichol, J. Pachocki,
+A. Paino, D. Palmie, A. Pantuliano, G. Parascandolo, J. Park, L. Pathak, C. Paz, L. Peran, D. Pimenov,
+M. Pokrass, E. Proehl, H. Qiu, G. Raila, F. Raso, H. Ren, K. Richardson, D. Robinson, B. Rotsted,
+H. Salman, S. Sanjeev, M. Schwarzer, D. Sculley, H. Sikchi, K. Simon, K. Singhal, Y. Song, D. Stuckey,
+Z. Sun, P. Tillet, S. Toizer, F. Tsimpourlas, N. Vyas, E. Wallace, X. Wang, M. Wang, O. Watkins,
+K. Weil, A. Wendling, K. Whinnery, C. Whitney, H. Wong, L. Yang, Y. Yang, M. Yasunaga, K. Ying,
+W. Zaremba, W. Zhan, C. Zhang, B. Zhang, E. Zhang, and S. Zhao. gpt-oss-120b and gpt-oss-20b
+model card, 2025. URL https://arxiv.org/abs/2508.10925.
+L. Ouyang, J. Wu, X. Jiang, D. Almeida, C. Wainwright, P. Mishkin, C. Zhang, S. Agarwal, K. Slama,
+A. Ray, et al. Training language models to follow instructions with human feedback. Advances in
+neural information processing systems, 35:27730–27744, 2022.
+L. Petram. The world’s first stock exchange. Columbia University Press, 2014.
+S. Poddar, Y. Wan, H. Ivison, A. Gupta, and N. Jaques. Personalizing reinforcement learning from
+human feedback with variational preference learning. In The Thirty-eighth Annual Conference on
+Neural Information Processing Systems, 2024. URL https://openreview.net/forum?id=gRG6SzbW9p.
+L. Qian, W. Zhou, Y. Wang, X. Peng, H. Yi, Y. Zhao, J. Huang, Q. Xie, and J. yun Nie. Fino1: On
+the transferability of reasoning-enhanced llms and reinforcement learning to finance, 2025. URL
+https://arxiv.org/abs/2502.08127.
+R. Rafailov, A. Sharma, E. Mitchell, C. D. Manning, S. Ermon, and C. Finn. Direct preference optimiza-
+tion: Your language model is secretly a reward model. Advances in Neural Information Processing
+Systems, 36:53728–53741, 2023.
+J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov. Proximal policy optimization
+algorithms, 2017. URL https://arxiv.org/abs/1707.06347.
+22
+
+--- PAGE 23 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+J. D. Schwager. Market Wizards: Interviews with Top Traders. Wiley, updated edition, February 2012.
+ISBN 978-1-118-27305-0.
+Z. Shao, P. Wang, Q. Zhu, R. Xu, J. Song, X. Bi, H. Zhang, M. Zhang, Y. Li, Y. Wu, et al. Deepseek-
+math: Pushing the limits of mathematical reasoning in open language models. arXiv preprint
+arXiv:2402.03300, 2024a.
+Z. Shao, P. Wang, Q. Zhu, R. Xu, J. Song, X. Bi, H. Zhang, M. Zhang, Y. K. Li, Y. Wu, and D. Guo.
+Deepseekmath: Pushing the limits of mathematical reasoning in open language models, 2024b. URL
+https://arxiv.org/abs/2402.03300.
+H. Tatsat and A. Shater.
+Beyond the black box: Interpretability of llms in finance, 2025.
+URL
+https://arxiv.org/abs/2505.24650.
+M. Wang, K. Izumi, and H. Sakaji. Llmfactor: Extracting profitable factors through prompts for
+explainable stock movement prediction, 2024. URL https://arxiv.org/abs/2406.10811.
+S. Wang, H. Yuan, L. Zhou, L. M. Ni, H.-Y. Shum, and J. Guo. Alpha-gpt: Human-ai interactive
+alpha mining for quantitative investment. arXiv preprint arXiv:2308.00016, 2023. URL https:
+//arxiv.org/abs/2308.00016.
+S. Wu, O. Irsoy, S. Lu, V. Dabravolski, M. Dredze, S. Gehrmann, P. Kambadur, D. Rosenberg, and
+G. Mann. Bloomberggpt: A large language model for finance, 2023. URL https://arxiv.org/abs/
+2303.17564.
+Y. Xiao, E. Sun, D. Luo, and W. Wang. Tradingagents: Multi-agents llm financial trading framework,
+2025. URL https://arxiv.org/abs/2412.20138.
+Q. Xie, W. Han, X. Zhang, Y. Lai, M. Peng, A. Lopez-Lira, and J. Huang. Pixiu: A large language
+model, instruction data and evaluation benchmark for finance, 2023. URL https://arxiv.org/
+abs/2306.05443.
+F. Xing. Designing heterogeneous llm agents for financial sentiment analysis, 2024. URL https:
+//arxiv.org/abs/2401.05799.
+H. Yang, X.-Y. Liu, and C. D. Wang. Fingpt: Open-source financial large language models, 2023. URL
+https://arxiv.org/abs/2306.06031.
+Y. Yu, H. Li, Z. Chen, Y. Jiang, Y. Li, D. Zhang, R. Liu, J. W. Suchow, and K. Khashanah. Finmem: A
+performance-enhanced llm trading agent with layered memory and character design, 2023. URL
+https://arxiv.org/abs/2311.13743.
+B. Zhang, H. Yang, and X.-Y. Liu. Instruct-fingpt: Financial sentiment analysis by instruction tuning of
+general-purpose large language models, 2023a. URL https://arxiv.org/abs/2306.12659.
+H. Zhang, F. Hua, C. Xu, H. Kong, R. Zuo, and J. Guo. Unveiling the potential of sentiment: Can large
+language models predict chinese stock price movements?, 2024a. URL https://arxiv.org/abs/
+2306.14222.
+23
+
+--- PAGE 24 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+S. Zhang, S. Roller, N. Goyal, M. Artetxe, M. Chen, S. Chen, C. Dewan, M. Diab, X. Li, X. V.
+Lin, T. Mihaylov, M. Ott, S. Shleifer, K. Shuster, D. Simig, P. S. Koura, A. Sridhar, T. Wang,
+and L. Zettlemoyer. Opt: Open pre-trained transformer language models, 2022. URL https:
+//arxiv.org/abs/2205.01068.
+W. Zhang, L. Zhao, H. Xia, S. Sun, J. Sun, M. Qin, X. Li, Y. Zhao, Y. Zhao, X. Cai, L. Zheng, X. Wang,
+and B. An. A multimodal foundation agent for financial trading: Tool-augmented, diversified, and
+generalist, 2024b. URL https://arxiv.org/abs/2402.18485.
+X. Zhang, Q. Yang, and D. Xu. Xuanyuan 2.0: A large chinese financial chat model with hundreds of
+billions parameters, 2023b. URL https://arxiv.org/abs/2305.12002.
+24
+
+--- PAGE 25 ---
+Trading-R1 : Financial Trading with LLM Reasoning via Reinforcement Learning
+S1.
+Data Collection
+Training a financial reasoning model that is both useful and auditable requires data that captures the
+diverse information channels traders and firms rely on in practice. To this end, we assemble a large,
+time-stamped corpus spanning assets, market regimes, and horizons, with multiple modalities and
+data dimensions. Each reasoning artifact (corporate filings, earnings commentary, reputable news,
+and technical signals) is aligned with price series under strict pre/post ordering to prevent lookahead
+bias.
+This diversity and temporal discipline are essential for two reasons. First, the format objectives
+require high-quality exemplars of market analysis so the model can learn reasoning patterns that
+are coherent, verifiable, and well structured. Second, the outcome objectives require clean data of
+heterogeneous inputs from technical indicators, news, and sentiment to discrete trading actions and
+benchmarked excess returns over fixed horizons so that the model can learn meaningful connections
+of the data to trends in the market. This ensures that the learned reward captures directional accuracy,
+signal strength, and trading frictions. In short, the quality of the input data directly determines whether
+the model produces reasoning that is coherent, logical, and grounded in real market conditions.
+The dataset is built in two stages. In the first stage, we collect large-scale raw inputs consisting
+of textual sources and numerical technical indicators. These inputs form the contextual foundation
+provided to the reasoning model. In the second stage, we integrate and structure these raw inputs into
+temporally grounded samples. For each trading day and ticker, we assemble the relevant documents
+and signals into a single input prompt that reflects the information available at that time. Each
+structured sample can then be paired with downstream labels for both supervised fine-tuning (SFT)
+and reinforcement learning (RL).
+To ensure fairness and reproducibility, all data are sourced from publicly available providers with
+documented provenance and are collected through transparent, versioned pipelines.
+S1.1.
+Large-Scale Raw Data Collection
+To ensure the training data captures a broad and meaningful diversity of inputs, we draw from five
+major categories of financial information: news related to the asset, technical indicators for both
+the asset and the broader market, fundamental financial data, sentiment surrounding the company
+or asset, and macroeconomic factors. Together, these categories provide comprehensive coverage
+of sources and data types, allowing the model to identify reliable patterns that reflect both market
+conditions and asset-specific dynamics. The collection process for each category is detailed below.
+S1.1.1.
+News
+Table S1: Temporal segmentation and sampling scheme for news data (Finnhub and Google News).
+Time Horizon
+Date Range (relative to t)
+Max Samples
+Last 3 days
+t −3 days to t
+10
+Last 4–10 days
+t −10 days to t −4 days
+20
+Last 11–30 days
+t −30 days to t −11 days
+20
+To construct a robust news dataset, we implemented two complementary pipelines: structured
+financial APIs and broader web sources. This dual-source design balances timeliness with diversity,
+25
+
+[TRUNCATED at 80000 chars — 58 total pages]

@@ -1,0 +1,1146 @@
+
+--- PAGE 1 ---
+ 
+ 
+1 
+The informativeness of  
+short-term and long-term annual analyst forecasts 
+ 
+Nikolaos Floropoulos 
+Universidad Carlos III de Madrid, Spain 
+ 
+Abstract 
+This study answers two interrelated questions. Why do analysts disclose analyst reports that 
+include forecasts for different amounts of years and how do investors use information from 
+these reports with distinct horizons to make trading decisions. To answer these questions, I 
+study the informativeness of one-year-ahead and longer-term annual forecasts and the 
+frequency of disclosure of three-year-ahead predictions. Results suggest that investors take into 
+account all available information in analyst reports. Main findings also show that when the 
+analysts provide forecasts for at least two annual periods, the market response is similar for 
+comparable information regardless of the amount of forecasts included in the report, indicating 
+that investors extrapolate information for longer-term periods from the estimates provided and 
+that they respond as if these reports included information for all future periods. On the contrary, 
+when reports include only one annual earnings prediction the market response is significantly 
+smaller. Analysts are more likely to disclose forecasts for more periods when the firms’ future 
+performance is not clearly positive or clearly negative to provide more detailed information. 
+My findings expand our knowledge regarding the investors’ use of analyst forecasts as inputs 
+in their empirical stock valuation models and the analysts’ decision process about the horizon 
+of their reports’ predictions. 
+ 
+JEL: G12, G17, G24 
+Keywords: Informativeness, financial analysts, earnings forecasts, reports’ horizon.  
+ 
+ 
+ 
+Acknowledgements: 
+I thank the financial support from Comunidad de Madrid (Programa Excelencia para el 
+Profesorado Universitario, convenio con Universidad Carlos III de Madrid, V Plan Regional de 
+Investigación Científica e Innovación Tecnológica, EPUC3M12). 
+ 
+
+--- PAGE 2 ---
+ 
+ 
+2 
+1. Introduction 
+Sell-side analysts are important intermediaries of information and their research is 
+informative of future stock returns (Brav and Lehavy, 2003; Frankel, Kothari, and 
+Weber, 2006; Green, Jame, Markov, and Subasi, 2014; Brauer and Wiersema, 2018). 
+Analysts disclose their expectations about future firm performance in their reports and 
+investors use this information to make trading decisions (Irvine, 2000; Brown, Call, 
+Clement, and Sharp, 2015). The financial theory defines that the firm’s value is equal 
+to the discounted cash flows that the investors expect to receive in the infinite future, 
+but analyst research does not provide predictions up to infinity.1 Therefore, investors 
+have to estimate firm values in their empirical models based on information provided 
+by the analysts using data for finite future periods, instead of infinite periods’ proceeds 
+as in the theoretical valuation models. 
+Analyst earnings forecasts are an appropriate instrument for firm valuation and 
+investors can better assess firm value by using models incorporating these estimates 
+compared to alternatives, such as discounted dividend or free cash flows models 
+(Frankel and Lee, 1998; Francis, Olsson and Oswald, 2000; Bach and Christensen, 
+2016; Ho, Lee, Lin and Yu, 2017). Furthermore, comparing the two most prominent 
+analyst research products, Bradshaw (2004) provides evidence that investors can gain 
+higher returns by using analyst earnings forecasts in present value models than by 
+relying on analyst recommendations. Despite their extensive use and utility, the amount 
+of future earnings predictions disclosed is not the same in all reports. Analysts always 
+provide one-year-ahead forecasts, but the issuance of forecasts for longer periods than 
+one year (hereafter, long-term forecasts) is entirely optional and varies among reports. 
+The most common option is to provide estimates for two annual fiscal periods. 
+However, the reports that comprise forecasts for only one or three years are also usual, 
+whereas those with predictions for four or more years are rare. Although several studies 
+examine the informativeness of analyst research, it remains unknown how investors 
+ 
+1 Analyst reports can contain a long-term earnings growth forecast, which predicts the firm’s earnings 
+growth up to infinity, but these estimates are rarely disclosed. Therefore, in the majority of cases, 
+analysts provide predictions for a finite future period. Furthermore, the frequency of long-term growth 
+predictions’ disclosure is decreasing (Jung, Keeley and Ronen, 2019), and they are overly optimistic 
+(Dechow, Hutton and Sloan, 2000; Chan, Karceski and Lakonishok, 2003), which makes their use even 
+more unlikely for valuation purposes. 
+
+--- PAGE 3 ---
+ 
+ 
+3 
+assess, compare and use the information in reports with different numbers of earnings 
+forecasts. 
+The primary goal of this paper is to understand how investors use earnings forecasts of 
+different future periods to make trading decisions. To elaborate this investigation, first 
+I examine the association between the reports’ informativeness and the horizon of the 
+longest-term annual forecast included in it (hereafter, the reports’ horizon). In more 
+detail, I study how the disclosure of more periods’ estimates in a report changes 
+informativeness, regardless of the longer-term forecast revision sign and when the sign 
+is the same as the shorter-term predictions’ changes. These tests provide evidence about 
+how useful the disclosure of specific periods’ estimates is for the market. Second, I 
+study the sign and extent of the market response in reports with contrasting revisions, 
+i.e. when some forecasts are revised upwards and others downwards. These tests 
+increase the understanding regarding the relative importance of each period’s 
+predictions in the investors’ empirical model. 
+I posit that investors use empirical stock valuation models with lower weights for 
+longer-term periods compared to the theoretical discounted cash flow model, and higher 
+for shorter-term, for two reasons. First, the unavailability of information for infinity, 
+forces investors to use only earnings expectations’ information for the years that were 
+included in analyst predictions. Therefore, their empirical models can only include a 
+limited number of periods up to the reports’ horizon. Second, longer-term predictions 
+are associated with lower accuracy (Richardson, Teoh and Wysocki, 2004; Bradshaw, 
+Drake, Myers, and Myers, 2012), and higher uncertainty (Yeung, 2009). This reduced 
+accuracy and increased uncertainty may lead investors to use shorter-term estimates to 
+assess longer-term firm performance even when longer-term predictions are available 
+and this decrease in forecast informativeness should be larger for longer horizons. 
+However, long-term estimates should still be useful, even in a smaller degree, until a 
+point in the horizon where inaccuracy and uncertainty become too large, because the 
+announcement of these estimates provides more information and allows investors to 
+better assess the firm’s future performance. Therefore, I expect that long-term forecast 
+disclosure increases informativeness, but the marginal gain is smaller for each year 
+added and it can be as low as zero for some longer-term horizons, which results in a 
+positive, but non-linear relation between the reports’ horizon and informativeness. 
+
+--- PAGE 4 ---
+ 
+ 
+4 
+I find that the reports that include long-term forecasts are more informative than those 
+disclosing only one-year-ahead predictions with the two-year-horizon reports being the 
+most informative. In the full sample, the informativeness of two-year-horizon reports 
+is 0.42% followed by that of reports with more long-term estimates (0.35%-0.36%), 
+while one-year-horizon reports are the least informative (0.30%). These results provide 
+evidence that, consistent with my expectations, the association between the reports’ 
+horizon and informativeness is positive and non-linear, because all analyst reports with 
+long-term predictions are more informative than those with one-year horizons and the 
+gain in informativeness is not stable for all future periods’ estimates. Nevertheless, the 
+decrease in informativeness for reports with three-year or longer horizons, contradicts 
+my predictions of a marginal increase or stability. This suggests that the disclosure of 
+three-year-ahead (hereafter, also forecast year 3 or FY3) forecasts probably serves other 
+purposes than that of two-year-ahead (FY2) estimates, which I investigate with the 
+examination of the informativeness of reports’ subsamples based on various scenarios 
+of upward and downward revisions for forecasts of different future periods’ earnings. 
+Similar to the results for the full sample, when all the forecasts that are included in a 
+report are revised in the same direction, reports with horizons of three or more years 
+are more informative than those comprising only one-year-ahead (FY1) forecasts, but 
+less than two-year-horizon reports. In this case, the abnormal returns of reports with 
+two-year horizons are almost the double than those with predictions for only one years’ 
+earnings. This provides additional evidence suggesting that when reports deliver news 
+with a clear positive or negative message about future firm performance, investors view 
+two-year-horizon reports as having complete information and, for this reason, longer-
+term disclosures do not further increase informativeness. Furthermore, the comparison 
+between reports with upwards and downwards revisions shows that the disclosure of 
+predictions for three or more years is associated with asymmetrical market responses 
+that result in more favorable abnormal returns for the firm. Therefore, FY3 disclosures 
+are more likely to be provided by analysts when these announcements offer positive 
+news for the future firm performance, a finding that suggests the existence of analyst 
+bias and, given that the investors do not discount this bias, also market inefficiency. To 
+increase the understanding of how the earnings forecast revisions of different periods 
+aid investors to assess future firm performance and to examine if there are other cases 
+where analyst estimates are associated with asymmetrical market responses, I examine 
+
+--- PAGE 5 ---
+ 
+ 
+5 
+the abnormal returns of reports with contrasting revisions, in other words, of the reports 
+where some forecasts are revised upwards and others downwards. 
+Examining reports where forecast values are changed in contrasting directions, I find 
+that in all cases where two-year-ahead forecasts are revised in one direction and some 
+estimates of other periods’ earnings in the opposite, the stock return always either 
+follows the sign of the FY2 expectations’ change or is statistically insignificant. The 
+high importance of FY2 revisions shows that investors value more this period’s 
+estimates than those of FY3 or longer predictions and is consistent with my expectations 
+that there is a point in the horizon further than which the decreased accuracy and 
+increased uncertainty reduces the influence of long-term forecasts in investors’ 
+empirical models. In addition, the two-year-ahead revisions are more important for the 
+market than FY1 value changes, which indicates that investors view two-year-ahead 
+predictions as the most characteristic of the future firm performance and explains why 
+reports with two-year horizons are the most informative. Results also show that there 
+are several scenarios of contrasting reports where FY3 and FY4 value changes can 
+increase (mitigate) the market response when these forecasts are revised in the same 
+(opposite) direction as the FY2 estimate. This suggests that when earnings’ news for 
+the following two fiscal periods do not provide a clear message regarding future firm 
+performance, then the disclosure of FY3 and longer-term predictions can offer 
+information that investors find useful for their trading decisions. Furthermore, similar 
+to what I observed with matching revisions, when there are contrasting revisions, it is 
+more likely that reports with horizons of three years or longer will have a positive 
+significant market response than a negative. However, the same asymmetry is observed 
+in two-year-horizon reports when the FY1 and FY2 predictions are revised in opposite 
+directions, indicating that contrasting revisions are associated with favorable news for 
+the firm regardless of the reports’ horizon and providing further evidence of analyst 
+disclosures with positive bias. To sum up, after examining various scenarios of reports 
+with matching and contrasting forecast revisions of different future periods, results 
+suggest that investors mainly base their trading decisions on two-year-ahead news, 
+while reports with three-year or longer horizons can be informative when they clarify 
+future firm performance. When the news is mixed, i.e. without a clearly positive or 
+negative message, analysts are more likely to provide favorable news. 
+
+--- PAGE 6 ---
+ 
+ 
+6 
+The finding that reports with three-year or longer horizons can increase informativeness 
+when more information is needed to clarify the news, indicates that analysts may use 
+three-year-ahead forecasts to provide more information that augments their reports’ 
+informativeness in other occasions, which leads me to the following additional test. 
+Analyst ability is positively associated with informativeness (Park and Stice, 2000; 
+Hilary and Hsu, 2013), thus, analysts with low skill provide reports with lower market 
+response. Ertimur, Mayew and Stubben (2011) find that when low skill analysts issue 
+more detailed earnings information in the form disaggregated earnings, their reports 
+have a higher market impact. Moreover, concurrent papers find that low ability analysts 
+are more likely to announce longer-term forecasts than their higher skill colleagues 
+(Balashov and Pisciotta, 2020; Gibbons, Iliev and Kalodimos, 2021). Therefore, I 
+investigate whether low ability analysts disclose longer-term estimates to provide more 
+information, aiming to increase their market impact. However, given that the disclosure 
+or not of long-term predictions is itself associated with the market response, I do not 
+examine the change in informativeness, but the difference-in-differences, i.e. whether 
+this disclosure can narrow the informativeness gap between low and high ability 
+analysts. Examining reports where all forecasts are revised in the same direction, I 
+provide evidence that the difference in informativeness between low and high ability 
+analysts is the largest for reports with one-year horizons and gradually decreases when 
+more longer-term predictions are included in the report until it becomes insignificant. 
+Once again, I find asymmetric results dependent on the forecast revision direction, with 
+a larger, monotonic decrease for upward revisions. However, this result can be 
+explained by the higher difference between the two analyst categories’ informativeness 
+for upward revisions compared to downward revisions. Thus, when low skill analysts 
+provide reports with more longer-term forecasts, the market responds favorably by 
+reducing or even erasing the informativeness difference between them and high ability 
+colleagues. This happens both for downward, but also for upward revisions where the 
+informativeness deficit is larger. 
+This study contributes to the analyst literature and supplements research about the 
+informativeness of long-term forecasts. This is the first paper, to my knowledge, that 
+examines the association of the reports’ horizon with informativeness and the short-
+
+--- PAGE 7 ---
+ 
+ 
+7 
+term market response to individual analyst long-term forecasts.2 After examining a big 
+array of different analyst report announcement scenarios, I provide evidence on how 
+the market assesses different periods’ forecasts in these announcements and segregates 
+more and less important information. My findings expand the understanding of how 
+investors use the forecast information from analyst reports as input in their empirical 
+stock valuation models. They also discover a positive analyst bias in mixed news’ 
+disclosures that the market fails to identify. 
+2. Past literature and expectations 
+2.1. Stock price valuation models 
+According to finance theory, the price of a stock reflects the future proceeds that 
+investors expect to have from a firm. However, it is not possible for investors to ex-
+ante know all future proceeds and, for this reason, various studies investigate if stock 
+value can be predicted by market expectations for future firm performance. Investors 
+and researchers use theoretical and empirical models of discounted future expectations 
+of payoffs or profits to estimate the firm’s intrinsic value (Feltham and Ohlson, 1995; 
+Frankel and Lee, 1998; Francis et al., 2000; Ohlson and Juettner-Nauroth, 2005; Bach 
+and Christensen, 2016).3 Several empirical studies provide evidence that these models 
+can predict firm value and future stock returns, while literature also shows that the 
+earnings’ estimates are superior predictors of value and returns than other accounting 
+measures, such as dividends and cash flows. Frankel and Lee (1998) provide evidence 
+that the firms’ fundamental values are highly correlated with stock prices and can be 
+predicted by a residual income model using analyst earnings forecasts of two annual 
+periods and a long-term earnings growth figure. Ali, Hwang and Trombley (2003) find 
+that analyst forecasts are related to future returns, because their association with 
+fundamental values reveals market mispricing. Jung et al. (2019) and Sulaeman and 
+ 
+2 Prior literature uses consensus estimates and tests long-term informativeness (Liu and Thomas, 2000; 
+Chan et al., 2003; Copeland, Dolgoff and Moel, 2004). For example, Liu and Thomas (2000) use the 
+consensus values from the IBES summary file that have one-year-ahead, two-year-ahead and long-term 
+growth estimates available, whereas Copeland et al. (2004) use consensus forecasts from Zacks 
+database. However, using consensus forecasts of different periods has a drawback. Predictions for two 
+or more years ahead and long-term earnings growth forecasts are the consensus expectations of a 
+subsample of analysts that might not be qualitatively the same as the full sample of analysts that 
+discloses one-year-ahead estimates, because not all analysts include these forecasts in their reports.  
+3 Lundholm and O´Keefe (2001) argue that although practitioners and researchers use various different 
+empirical models to estimate equity value, all models are based on the underlying assumption that the 
+stock price is the present value of expected future net dividends discounted at the cost of equity capital. 
+
+--- PAGE 8 ---
+ 
+ 
+8 
+Wei (2019) also show that future earnings’ estimates can identify mispriced stocks. 
+Biddle, Bowen, and Wallace (1997) examine the association of four accounting 
+components of firm performance with stock returns. They use cash flows from 
+operations and three earnings-based measures, the firms’ net income before 
+extraordinary items, residual income and the economic value added. They find that all 
+three earnings-based measures are more highly related with stock returns than cash 
+flows. Penman and Sougiannis (1998) and Francis et al. (2000) compare models based 
+on dividends, free cash flows and abnormal earnings. Both studies provide further 
+evidence that earnings-based models are more successful in valuing stocks. Ho et al. 
+(2017) compare the absolute pricing errors of a dividend model, two residual income 
+valuation variants and the abnormal earnings growth model. They provide evidence that 
+the abnormal earnings growth model, which was introduced by Ohlson and Juettner-
+Nauroth (2005), is better than the other three.4  
+2.2. The informativeness of one-period and multi-period analyst earnings forecasts  
+Given the extensive evidence about the ability of empirical models that use earnings’ 
+estimates to predict firm value and future stock returns and the superiority of those 
+models compared to formulas using other accounting measures, the disclosure of 
+analyst reports with earnings forecasts is informative for the market and investors use 
+them to make trading decisions (Lys and Sohn, 1990; Clement, Hales and Xue, 2011; 
+Loh and Stulz, 2018). Although finance theory indicates that stock prices are based on 
+all future earnings up to infinity, analysts can only disclose earnings forecasts for a 
+finite number of future periods and investors can only use available data.5 For annual 
+earnings forecasts, analyst reports comprise different amounts of estimates with some 
+analysts only issuing one-year-ahead expectations, others disclosing figures for up to 
+two years ahead and another part of analysts providing estimates for the following three 
+or more years (Bradshaw et al., 2012; Jung et al., 2019). This means that all reports 
+with earnings forecasts include one-year-ahead estimates, fewer comprise two-year-
+ahead figures and even fewer expectations about longer periods. For quarterly forecasts, 
+ 
+4 Although valuation models that use earnings are found to be superior than alternatives using 
+dividends and cash flows, there are mixed findings on which earnings based model is better. For 
+example, Jorgensen, Lee and Yoo (2011) find that the residual income model is more accurate than the 
+Ohlson and Juettner-Nauroth (2005) model in stock valuation. 
+5 Analysts sometimes disclose a long-term growth forecast that provides an estimate value for infinity, 
+but this prediction is rare.  
+
+--- PAGE 9 ---
+ 
+ 
+9 
+there is a similar issue, because all of the analysts that issue quarterly data disclose their 
+estimates for all the quarters of the current fiscal year, whereas fewer provide their 
+expectations for the quarters of two or three years ahead.6 Therefore, to estimate future 
+returns and make trading decisions, investors should use these data to either create 
+empirical models tailored to available information, instead using a theoretical model’s 
+infinite sum of future discounted proceeds, or extrapolate their own estimates for 
+longer-term periods. So, investors have to choose among different analyst reports with 
+various numbers of future periods’ earnings disclosed and among distinct forecast 
+periods within each report and the weight that each estimate has on their final decision 
+reveal the importance that they assign to it in their empirical models. 
+To assess the importance of different periods’ forecasts for investors, researchers 
+compare the reports’ informativeness. Literature provides evidence that that the use of 
+multiple-period earnings provides a substantial model improvement compared to one-
+period models. Liu and Thomas (2000) provide evidence that using the earnings of 
+multiple periods, instead of only one-year-ahead estimates, increases their models’ 
+explanatory power more than six times, with the R-square improving from a value 
+smaller than 5% to over 30%. Copeland et al. (2004) examine the relation of changes 
+in analyst expectations of one-year-ahead, two-year-ahead earnings and long-term 
+earnings growth with stock returns. They find that all three estimates are positively 
+associated with market-adjusted returns when they are regressed individually. In a 
+multiple regression incorporating the forecasts of all three periods, the long-term 
+earnings are the most important predictor, the two-year-ahead expectations are also 
+significant, whereas the estimates for the current year are not.  
+On the contrary, there is evidence that forecasts with longer horizons are less accurate, 
+more uncertain and have little predictive power. Bradshaw et al. (2012) find that the 
+one-year-ahead estimates are more accurate predictors of earnings for two and three 
+years ahead than the respective periods’ analyst earnings expectations. Richardson et 
+al. (2004) show that predictions are less accurate for longer horizons. Yeung (2009) 
+provides results based on two measures, the analyst forecast dispersion and the square 
+ 
+6 When analysts provide quarterly forecasts, they always issue estimates until the end of the fiscal year, 
+regardless of the number of years included in their predictions. Therefore, for example, when they 
+disclose estimates for the current year only, they include four quarterly estimates in the first fiscal 
+quarter (i.e. for all quarters), three in the second (i.e. for fiscal quarters 2-4), two in the third and only 
+one in the last. 
+
+--- PAGE 10 ---
+ 
+ 
+10
+root of the sum of the squares of individual analysts’ annual forecast error, which 
+indicate that long-horizon earnings are more uncertain than short-horizon earnings. 
+Chan et al. (2003) provide evidence that analyst long-term earnings growth forecasts 
+are related to firm growth in the short-term, but they are overly optimistic and have low 
+additional predictive power over longer horizons. 
+2.3. Expectations for long-term earnings’ disclosure informativeness 
+The conflicting findings of extant literature that multi-period earnings’ models are 
+better in predicting future stock returns than one-period models, but short-term 
+forecasts are more accurate, certain and have higher predictive power than long-term 
+estimates, create the question how does the market assess the analyst earnings 
+expectations disclosed for different periods in the reports to make trading decisions. It 
+is likely that investors do not judge one-year-ahead and long-term predictions 
+independently, but that long-term forecasts complement the predictions for the current 
+fiscal year in the investors’ decision process. For this reason, I posit that it is important 
+to understand how investors perceive the information about different future periods in 
+analyst reports by comparing the informativeness of the reports in distinct scenarios. 
+The disclosure of long-term predictions provides additional information, but the lower 
+accuracy and higher uncertainty for the longer periods’ earnings affects the investors’ 
+decision on whether to trust estimated figures or not. I expect that long-term analyst 
+forecasts will be very informative up to a specific horizon, but that predictions for 
+longer annual periods than this benchmark will provide smaller or insignificant 
+increases in the reports’ informativeness. For this reason, reports with multi-period 
+earnings estimates will be more informative than those providing expectations only for 
+one-period, but the increase in informativeness will be smaller or none for every 
+additional year provided. Furthermore, the market response to analyst research derives 
+from revisions, not levels (Francis and Soffer, 1997), thus various studies find that 
+forecast revisions are informative, predicting stock returns (Gleason and Lee, 2003; 
+Barth and Hutton, 2004; Kecskés, Michaely and Womack, 2017; Loh and Stulz, 2018). 
+However, the market response is asymmetrical to good and bad news (Ivković and 
+Jegadeesh, 2004; Kadan, Madureira, Wang and Zach, 2009; Kothari, Shu, and 
+Wysocki, 2009). For this reason, the study should also examine whether the association 
+
+--- PAGE 11 ---
+ 
+ 
+11
+between informativeness and the reports’ horizon is different for upward and downward 
+forecast revisions. 
+3. Data and empirical models 
+3.1. Data 
+I download all NYSE/NASDAQ/AMEX analyst annual earnings forecasts for the years 
+2004-2018 from I/B/E/S. These predictions include estimates up to the maximum 
+forecast period, which is ten years ahead.7 The data starts from the year 2004 which is 
+the first year after the Global Analyst Research Settlement of April 28, 2003. I exclude 
+the period before 2004, because the Settlement addressed conflicts of interest between 
+analyst research and investment banking, affecting analyst research quality and, thus, 
+creating qualitative differences between the forecasts issued before the regulation and 
+those published after the regulation. 
+To identify the number of annual forecast periods in a report, I use the forecast 
+announcement date. When analysts disclose earnings predictions for several years, 
+I/B/E/S records for each period’s estimate in distinct observations with the analyst’s 
+code, the firm’s identifier, the report’s announcement date and the forecast’s fiscal year 
+end date. The first three categories are common for the all estimates that are in the same 
+report, but the last is distinct for predictions of different fiscal years’ earnings. Thus, I 
+use the opposite procedure to reconstruct the report from the I/B/E/S observations.8 For 
+multivariate tests, I drop FY5 or longer estimates, because these forecasts are very 
+scarce, with less than 4% of reports disclosing a five-year-ahead prediction, keeping 
+the exact values for FY1 to FY4 forecasts. 
+ 
+7 I/B/E/S comprises two more categories of annual earnings’ horizons. The first category is named “fiscal 
+year without an actual” with no observations in the examined period. The second includes analyst 
+predictions for a period which is vaguely defined as “larger than 10 years in the future”. From 7,157 
+observations in this category in my initial dataset, approximately 95% of observations have a fiscal year 
+end between the current year, compared to the forecast announcement, and five years in the future. 
+Thus, their inclusion in this category is a data error. The vast majority of the remaining 5% have a fiscal 
+year end which is prior to the current fiscal year, thus, either the forecast announcement date or the 
+fiscal year end date are wrong. Only 5 observations have a fiscal year end larger than 10 years in the 
+future, with three of them forecasting the 11th year and two of them the 12th. However, given the large 
+amount of errors in this category, there is a high likelihood that these five observations may also have 
+erroneous horizons and, for this reason, I exclude all data from this category. 
+8 In the reconstruction process, I create new variables with each period’s value in the observation of 
+the one-year-ahead forecast and drop all other observations that belong to the same report. In this 
+way, each observation corresponds to one report. 
+
+--- PAGE 12 ---
+ 
+ 
+12
+Following prior literature that examines analyst informativeness, I exclude: i) 
+anonymous analysts, ii) penny stocks and iii) forecasts that are likely to be responding 
+to firm news (Loh and Stulz, 2011, 2018; Green et al., 2014). Data observations from 
+anonymous analysts are likely to correspond to several different analysts and, thus, 
+forecast revisions cannot be calculated. The second criterion is imposed to assure that 
+my results are not driven by small stocks and it excludes all shares that have a closing 
+price of less than one dollar at the last trading day before the forecast announcement. 
+The last criterion is applied in three steps. First, I exclude the forecasts that are 
+announced in the three-day window [-1, +1] around the firm’s quarterly earnings 
+announcements. I obtain the firm announcement dates from the Compustat quarterly 
+fundamentals file. The three-day window is measured in trading days, which are 
+identified with the data from the Center for Research in Security Prices (CRSP). 
+Second, I remove estimates that are disclosed in the three-day window around 
+management guidance dates, using the dates found in the I/B/E/S Guidance file. Third, 
+days where more than one analyst issues a forecast are dropped from the sample. 
+I/B/E/S, Compustat and CRSP provide further data for the empirical models. Analyst 
+and forecast characteristics, such as analyst experience and forecast horizon are found 
+or calculated from I/B/E/S. Compustat is the source for firm characteristics, such as the 
+book-to-market ratio. Firms with negative book value are excluded from the sample. 
+CRSP provides stock prices which are used for market related variables, such as the 
+stock’s momentum. 
+3.2. Measure of returns 
+Following prior literature, I use a two-day Cumulative buy-and-hold Abnormal Return 
+(CAR [0, +1]) over a benchmark portfolio with the same characteristics to assess the 
+market response to the examined forecasts of an analyst report (Loh and Stulz, 2011, 
+2018; Green et al., 2014). The benchmark portfolio is created using the procedure 
+developed by Daniel, Grinblatt, Titman and Wermers (1997), which is based on three 
+characteristics, the firm’s market capitalization, the book-to-market ratio and stock’s 
+prior year return. Firms are ranked based on each characteristic and split in quintiles, 
+creating 125 portfolios (thereafter DGTW portfolios) with firms of similar size, book-
+to-market and momentum. To ensure that the portfolios have a similar number of firms, 
+first the sample is split in 5 market capitalization groups and, then, each group is divided 
+in 5 book-to-market quintiles within the size group, resulting in 25 subgroups. Finally, 
+
+--- PAGE 13 ---
+ 
+ 
+13
+firms within the 25 subgroups are ranked in 5 momentum quintiles, creating the 125 
+DGTW portfolios. The two-day CAR for stock i is defined as: 
+𝐶𝐴𝑅𝑖= ∏(1 + 𝑅𝑖𝑡) −∏(1 + 𝑅𝑖𝑡
+𝐷𝐺𝑇𝑊)                                   (1)
+1
+𝑡=0
+1
+𝑡=0
+ 
+where Rit is the daily stock return of firm i on day t, for t = 0 and 1, and  𝑅𝑖𝑡
+𝐷𝐺𝑇𝑊 is the 
+buy-and-hold return of the benchmark portfolio with similar characteristics. If the 
+analyst report is disclosed before 16:30 on a trading day, then Day 0 is the day of the 
+announcement. If it is issued after that time or during a market holiday, then Day 0 is 
+the first trading day after the announcement day. Day 1 is the first trading day after Day 
+0. 
+3.3. Empirical model for informativeness 
+I use a multivariate model to examine the association between the report’s 
+informativeness and horizon: 
+𝐶𝐴𝑅𝑖= 𝛼+ ∑𝛽𝑗𝑅𝑒𝑝𝑜𝑟𝑡𝑠′ 𝐻𝑜𝑟𝑖𝑧𝑜𝑛 𝑙𝑒𝑣𝑒𝑙𝑘
+3
+𝑗=1
++ ∑𝛽𝑙𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+𝑛
+𝑙=1
++ 𝜀𝑖                      (2) 
+Where 𝐶𝐴𝑅𝑖 is the two-day [0, +1] buy-and-hold abnormal stock return of firm i, 
+𝑅𝑒𝑝𝑜𝑟𝑡𝑠′ 𝐻𝑜𝑟𝑖𝑧𝑜𝑛 𝑙𝑒𝑣𝑒𝑙𝑘 are indicator variables that take the value 1 when the 
+reports’ horizon is equal to k years, where k is 2, 3 and “at least 4”. All reports’ horizon 
+values, but those in the last variable, are examined separately in the model, because, 
+according to the expectations presented above, I expect a non-linear relation between 
+the reports’ informativeness and horizon that can be of any form. However, the last 
+indicator variable includes all reports with a horizon of 4 or more years, because the 
+frequency of these observations is low and I do not expect that the disclosure of reports 
+with 5 or more years will be associated in a different way with informativeness than the 
+4-year-horizon reports. When all Reports’ Horizon levelk indicator variables are zero, 
+then the abnormal return corresponds to the smallest possible horizon value. For this 
+reason, the CAR value shows the abnormal return for reports with one-year horizons in 
+all specification that it is not required that for the FY2 or longer-term forecasts to be 
+revised in a specific direction. For specifications that require FY2 to be revised upwards 
+or downwards, but there is no prerequisite for FY3 or longer-term estimates, the 
+
+--- PAGE 14 ---
+ 
+ 
+14
+abnormal return shows the value of two-year-horizon reports. For longer-term 
+restrictions the CAR shows the return for respective horizon value. 
+The model incorporates a vector of variables controlling for factors that are related to 
+the analyst informativeness, the market response to analyst research and analyst 
+research quality in general. Controls comprise analyst, forecast, broker and firm 
+characteristics. Forecast Horizon controls for analysts’ tendency to issue optimistic 
+FY1 expectations at the start of the fiscal year, with those predictions becoming less 
+optimistic during the 12-month period, until they reach a slightly pessimistic value the 
+last month before the earnings announcement (Richardson et al., 2004; Bradshaw, Lee 
+and Peterson, 2016). It is defined as the natural logarithm of the difference in calendar 
+days between the firm’s annual earnings announcement date and the date of forecast 
+announcement. Relative Accuracy controls for the analyst’s ability (Hong and Kubik, 
+2003; Ertimur et al., 2011). It measures the analyst’s average relative accuracy for the 
+whole portfolio of firms covered in year t-1, with each individual firm accuracy 
+compared to the mean accuracy of all analysts covering the same firm. I include Firm 
+Experience (Total Experience), which is the analyst’s firm specific (total) experience 
+for firm i in quarter q, because analyst experience is associated to forecast quality 
+(Clement, 1999; Ljungqvist, Marston, Starks, Wei and Yan, 2007; Harford, Jiang, 
+Wang and Xie, 2019; Lourie, 2019). It is calculated as the logarithm of the number of 
+quarters that the analyst covers the firm (is present in I/B/E/S) until quarter q. Broker 
+Size is a proxy of analyst resources (Lim, 2001; Hilary and Hsu, 2013; Lourie, 2019; 
+Gibbons et al., 2021) and is the natural logarithm of the brokerage firm size. The 
+brokerage firm size is the number of analysts working for the same employer as analyst 
+y in year t. Companies and Industries are proxies for the analyst workload (Clement 
+and Tse, 2005; Ke and Yu, 2006; Hilary and Hsu, 2013). They are defined as the natural 
+logarithm of the number of firms and industries, respectively, covered by analyst k in 
+year t.9 Analyst Following is a proxy for analyst competition and is the natural logarithm 
+of the number of analysts disclosing at least one earnings forecast for firm k during year 
+t (Frankel et al., 2006; Kirk, Reppenhagen, and Tucker, 2014; Harford et al., 2019). 
+Market Value controls for the size of the firm and is the natural logarithm of the product 
+of the common shares outstanding and the stock price of the firm (Hong and 
+Kacperczyk, 2010; Merkley, Michaely and Pacelli, 2017). Return volatility, momentum 
+ 
+9 Industries are classified based on the first two digits of the SIC code from CRSP database. 
+
+--- PAGE 15 ---
+ 
+ 
+15
+and the book-to-market ratio are associated with informativeness (Green et al, 2014; 
+Merkley et al., 2017). Return Volatility is defined as the standard deviation of the stock 
+return in year t-1. Momentum21 is the buy-and-hold return of the stock during the 
+preceding 21 trading days and shows the stock price momentum for the last month, 
+whereas Momentum21-252 presents the same for the last year, excluding the last month, 
+using trading days [-252, -21] (Green et al, 2014). Book-to-Market is the natural 
+logarithm of the ratio of common equity divided by the product of common shares 
+outstanding multiplied with the firm stock price. The firm’s profitability is another 
+factor that is associated with analyst research (Hong and Kacperczyk, 2010; Kirk et al., 
+2014; Gibbons et al., 2021). To control for profitability, I use ROA (return on assets), 
+which is the ratio of the net income divided by the total assets, and Loss, which is an 
+indicator variable where the value 1 is assigned if the net income is negative and 0 
+otherwise. 
+I winsorize all continuous variables at the 1st and 99th percentiles to reduce outliers that 
+are likely to be created by erroneous data. I also standardize all continuous control 
+variables to have a mean zero and variance one. With this transformation, the intercept 
+value of the empirical model in eq. (2) indicates the buy-and-hold abnormal return for 
+a stock when all characteristics expressed by continuous variables are equal to the mean 
+value and characteristics measured with indicator variables are zero. Therefore, the 
+intercept shows the average market response for these firms. 
+4. Empirical Results 
+4.1. Long-term earnings forecasts’ disclosure frequency 
+Before examining long-term forecast informativeness, I present the reports’ horizon 
+frequency, in other words, how frequently analysts announce reports that include 
+forecasts for one, two, three, etc. years ahead. Table 1 presents the number, the 
+percentage and cumulative percentage of reports for each horizon category in the final 
+sample. Reports with a horizon of six or more years are merged into one category, 
+because they are only 0.30% of the sample. I observe that the vast majority of analyst 
+reports include predictions for up to three years into the future with a total of 93.57% 
+of reports comprising the analyst’s expectations for the following one, two or three 
+fiscal periods. The most common option for analysts is to disclose forecasts for two 
+years, with 48.55%, almost half of the reports, including FY1 and FY2 estimates. 
+
+--- PAGE 16 ---
+ 
+ 
+16
+Another 26.56% of reports provide a prediction for FY3, whereas less than 18.5% of 
+reports include only FY1 estimates. From the remaining 6.43%, reports with a horizon 
+of four and five years are significantly more likely than a those with predictions for 6 
+or more years. Only 0.3% of analyst disclosures provide predictions for periods 
+exceeding the five years, while it is more likely for an analyst that issues FY4 
+expectations to also disclose FY5 predictions (3.48%) than to stop at the four-year-
+ahead figure (2.65%).  
+The frequencies in Table 1 indicate that the usual analyst report comprises two 
+estimates, for one and two years ahead. Nevertheless, there are several cases where the 
+analysts only provide predictions for only one period or, on the contrary, for an 
+additional third year. Disclosing expectations for four or more years is rare. Results 
+indicate that the FY2 forecast is a benchmark and the sharp decrease in frequency for 
+additional disclosures is consistent with prior literature’s findings of decreased 
+accuracy and increased uncertainty in longer horizons. For the following tests I will use 
+four reports’ horizon categories. The three basic categories are reports with horizons of 
+one, two and three years, given that they are the vast majority of the sample, show that 
+these are the basic analyst disclosure decisions and investors normally choose to trade 
+based on those. Thus, it is important to understand how the market reacts to reports with 
+these horizons. On the contrary, the relative scarcity of estimates for four years ahead 
+or more, shows that predictions for such long-term forecasts are avoided by analysts, 
+probably due to the high uncertainty that exists for these very long-term periods. 
+Investors may view these forecasts as less credible and, for this reason, I merge these 
+categories into one for the remainder of the study. 
+4.2. The average market response of reports with different horizons 
+After presenting statistics of the frequency of long-term forecasts, I examine the market 
+response to reports with different horizons. Before proceeding with multivariate model 
+results, I find the average market response for each reports’ horizon and for various 
+scenarios of upward and downward revisions of FY1 and long-term forecasts. 
+Throughout the study, I use the mean two-day Cumulative buy-and-hold Abnormal 
+Return during the analyst report announcement day and the following (CAR [0, +1]) 
+over the DGTW portfolio of firms with similar size, book-to-market ratio and 
+momentum, as explained in the previous section. The Table also presents frequencies 
+
+--- PAGE 17 ---
+ 
+ 
+17
+of upward and downward revisions. Panel A presents results for the full sample and 
+separately for reports where the one-year-ahead forecast (FY1) is revised upwards or 
+downwards. It also shows findings for finer cuts of the data, further dividing subsamples 
+based on the reports’ horizon. Panel B shows the average market response when a 
+revision of an FY1 forecast is matched (contrasted) by a revision of the same (opposite) 
+sign of a long-term forecast. 
+In the first row of Table 2, Panel A, the results for the full sample are presented, 
+regardless of the reports’ horizon, while in the following four rows the sample is divided 
+based this variable. Columns (1), (4) and (5) of the Table present abnormal returns. 
+Column (1) shows the average CAR [0, +1] of all reports that are in the specific row 
+category, whereas in columns (4) and (5) each row category subsample is also split in 
+those reports where the FY1 expectations for the firm are revised upwards and 
+downwards, respectively, compared to the previous forecast from the same analyst. 
+Columns (3) and (4) present the percentage frequency for upward and downward 
+revisions, respectively. Analyst reports with FY1 reiterations, i.e. where the forecast 
+value remains stable, are infrequent, less than 2%, and are not tabulated for brevity. As 
+I observe in the first column of the first row, the mean report has a market impact of -
+0.02%, showing that the mean announcement bears negative news for the company. 
+Nevertheless, the economic impact is very small, because a 100-dollar stock is expected 
+to lose two cents’ value in two trading days. Columns (2) and (3) provide further 
+evidence that the mean report is associated with slightly negative expectations by 
+showing that more than 53% of the reports include FY1 downward revisions of previous 
+predictions and less than 46% of announcements issuing an upward revision of the FY1 
+estimate. This finding is consistent with analyst literature that finds that the mean FY1 
+forecast is optimistic at the start of the fiscal year and it is revised downwards in the 
+duration of the year, a process described as the walk-down of analyst forecasts 
+(Richardson et al., 2004; Ke and Yu, 2006; Bradshaw et al., 2016). Columns (4) and (5) 
+indicate that the mean positive FY1 revision is associated with a stock price increase of 
+0.37%, whereas negative news about the current year’s earnings are related to a return 
+of -0.33%, both being statistically significant in the 1% level. In total, the difference 
+between an upward and a downward revision is 0.70% of the stock price. The next four 
+rows show the results for reports with horizon of one, two, three and four or more years 
+respectively. I observe in column (1) that reports with a maximum forecast horizon of 
+
+--- PAGE 18 ---
+ 
+ 
+18
+up to 2 years have a negative mean market response, but reports with a horizon of 4 
+years or more are received by the market with a positive average stock return. For 
+disclosures equal to 3 years the CAR is negative, but statistically equal to zero. These 
+results provide preliminary evidence that the reports’ horizon is associated with 
+abnormal returns, indicating that reports that the inclusion of forecasts for 3 or more 
+annual periods are associated with better news. Columns (2) and (3) provide further 
+support for the positive relation between the nature of news in a report and the issuance 
+of longer-term analyst predictions by showing that the frequency of positive (negative) 
+FY1 revisions is higher (lower) for reports with maximum forecast horizons of 4 years 
+or more. When the Maxfy is up to three years the likelihood of upward FY1 revisions 
+is less than 46.1% and that of downward revisions is over 53%, but when the report 
+includes analyst expectations for 4 years or more, upward FY1 revisions are more likely 
+(48%) and downward are less probable (51%) compared to the other three categories. 
+In columns (4) and (5), I observe that the market response is similar for reports with 
+only one-year-ahead earnings estimates for positive and negative FY1 revisions. When 
+the maximum forecast horizon is 2 years, the two-day buy-and-hold abnormal return 
+for upward revisions is 0.02% larger in absolute terms than that of downward revisions, 
+for 3 years it becomes 0.03%, but for 4 or more years the difference is 0.10%. This is 
+another piece of evidence that the analyst’s decision to disclose forecasts for longer 
+periods is related to more favorable news about the expected future firm performance. 
+Furthermore, figures in these columns indicate that the market response difference 
+between upward and downward FY1 revisions is 0.58% (=0.30% - (-0.29%) ) in the 
+case of reports including only current year’s earnings estimates, while this increases to 
+0.84% for reports with a maximum forecast horizon of 2 years. This provides evidence 
+that the inclusion of a FY2 forecast is informative for the market. However, when the 
+horizon is 3 years or longer the difference between the two categories is decreased, 
+indicating that including predictions for more annual periods is not increasing the 
+market response. The CAR for upward and downward revisions provides preliminary 
+evidence that two-year-horizon reports are the most informative and show a non-
+linearity for the association between the reports’ informativeness and horizon, but 
+multivariate results will be more useful to make conclusions. 
+Panel B focuses on reports with predictions for at least two future periods and shows 
+the frequency and the two-day CAR when the revisions of long-term forecasts are of 
+
+--- PAGE 19 ---
+ 
+ 
+19
+the same and opposite sign compared to the FY1 estimate revision. Similar to Panel A, 
+in Panel B forecast reiterations of any future period are not presented for brevity. The 
+combinations of FY1 with FY2 revisions are presented in the first row, the ones with 
+FY3 in the second and those with FY4 in the third. Column (1) presents the frequency 
+of long-term predictions’, i.e. FY2, FY3 or FY4, upward revisions and column (2) that 
+of downward revisions when the FY1 estimate is revised upwards. Columns (3) and (4) 
+show the respective upward and downward long-term estimates’ value changes when 
+the FY1 expectations are revised downwards. The same structure is used for CARs in 
+columns (5) – (8). 
+In Panel B, columns (1) – (4), I observe that there is a positive relation between the sign 
+of the FY1 revisions and those of the long-tern forecasts. This co-movement is more 
+likely in the case of FY2 estimates with a value of nearly 81% for upward and over 
+84% for downward revisions. The likelihood is monotonically decreased for longer 
+periods with FY4 predictions being approximately only twice as likely to be revised in 
+the same direction as the FY1 forecast than in the opposite. These results suggest that 
+firm earnings are an autoregressive time series. Columns (5) – (8) show the CAR [0, 
++1] for the twelve cases where the upwards or downwards FY1 forecast revisions are 
+combined with the same or opposite sign changes of one of the FY2, FY3 or FY4 
+estimates. Columns (5) and (8) present the matching revisions, where the FY1 and the 
+long-term predictions are both changed upwards and downwards, respectively. The 
+market response is positive and statistically significant at the 1% for all six cases. More 
+importantly, the CAR ranges between 0.37% and 0.49%, in absolute terms, with all 
+figures being larger than the 0.29% value of the mean positive FY1 revision in the case 
+of reports with a one-year horizon, presented in Panel A. This shows that when the 
+report comprises a second forecast period with a same sign revision, then the market 
+impact is stronger compared to reports that disclose only expectations about the current 
+year’s earnings. Columns (6) and (7) present the results when the FY2-FY4 predictions 
+are revised in the opposite direction than that of FY1. I observe that when the FY2 
+forecast is revised in the opposite direction than that of the FY1 value, then the CAR 
+follows the sign of the FY2 revision. When other long-term forecasts values’ changes 
+are combined with FY1 revisions in the opposite direction, the mean forecast also 
+follows the long-term estimates’ changes sign if they are revised upwards, but it is 
+statistically zero when they are changed downwards. In all cases of columns (6) and 
+
+--- PAGE 20 ---
+ 
+ 
+20
+(7), when the CAR is statistically significant, the market response is smaller in absolute 
+terms than the 0.29% of the reports with only one forecast, with values between 0.05% 
+and 0.13%. Thus, results suggest that the long-term expectation changes are more 
+important for the market than those of the current year and that the effect of FY3 and 
+FY4 value changes is asymmetrical with more positive market responses. 
+To sum up the results of Table 2, the findings in the two Panels indicate that: i) the 
+reports with two-year horizons are the most informative, ii) the disclosure of forecasts 
+for three or more years ahead is associated with more favorable abnormal returns to the 
+report announcement for the firm,  iii) when reports include long-term forecasts that are 
+revised in the same direction as the one-year-ahead estimate, the market response is 
+larger compared to reports that include only one-year-ahead forecasts, in other words, 
+the disclosure of long-term earnings estimates increases informativeness, and iv) when 
+long-term predictions are revised in the opposite direction than the FY1 expectations, 
+the market response is more likely to follow the sign of the long-term revision. 
+Multivariate results will provide more evidence about how the reports’ horizon and 
+each future periods’ estimates are associated with informativeness. 
+4.3. Informativeness and the reports’ horizon 
+Table 3 presents the multivariate results for the association between the report’s 
+informativeness and the reports´ horizon. Column (1) presents results for the full 
+sample, while columns (2) to (9) for subsamples where one or more of the forecasts 
+included in the reports are revised in a specific direction. Column (2) shows the CAR 
+for reports where the FY1 value is revised upwards, whereas columns (3), (4) and (5) 
+gradually increase the inclusion criteria, presenting reports where all forecasts up to 
+FY2, FY3 and FY4, respectively, are revised upwards. Columns (6) – (9) show 
+downward revisions and follow a similar structure, with column (6) presenting results 
+where the FY1 is revised downwards and columns (7), (8) and (9) where the news are 
+unfavorable for the following two, three or four annual fiscal periods, respectively. In 
+all 9 columns the intercept expresses the mean CAR [0, +1] for firms where all 
+continuous variables are equal to the mean value and indicator variables equal to 0, 
+because all continuous variables in the empirical model are standardized to have a mean 
+0 and standard deviation 1. The intercept in each column shows the abnormal return for 
+analyst reports with the smallest possible reports’ horizon. Therefore, in columns (1), 
+
+--- PAGE 21 ---
+ 
+ 
+21
+(2) and (6), the intercept indicates the market response for reports with a one-year 
+horizon, columns (3) and (7) with a two-year horizon, and so on. Given that column (1) 
+includes both upward and downward revisions, consistent with prior research (Green et 
+al., 2014), the CAR [0, +1] values are multiplied by -1 for the observations where the 
+FY1 is revised downwards, whereas no adjustment is made in the other columns, 
+because they examine revisions in one direction. 
+In column (1) of Table 3, I observe that the mean analyst announcement creates a two-
+day abnormal return of 0.30% when the report includes only a forecast of the current 
+year’s earnings, in other words, when the report’s horizon is 1 year. For horizons equal 
+to 2 annual periods, the market response is 0.12% larger, with a value of 0.42% (= 
+0.30% + 0.12%), whereas the differences between those including 3 or more periods’ 
+forecasts and the one-year-horizon reports are also significant and positive, but smaller 
+than that of the reports with predictions for two years. F-tests of equality for the 
+coefficients (not tabulated) indicate that the difference between the coefficients of 
+horizons equal to 2 and 3 is statistically significant at the 1% level and the same result 
+is found when values 2 and at least 4 are compared. On the contrary, the coefficients 
+are statistically equal for values 3 and at least 4. Therefore, results in column (1) show 
+that reports which provide long-term predictions are related to higher informativeness 
+than those with one-year horizons, corroborating my expectations of a positive 
+association between the reports’ informativeness and horizon. Although the finding that 
+the informativeness of the reports that comprise three-year-ahead or longer earnings 
+estimates is smaller than in the case of two-year horizons supports my prediction that 
+this association is not linear, it does not corroborate the expectation about monotonicity. 
+The observed informativeness decrease suggests that when the news is clearly positive 
+or negative for the firm’s future financial performance, the FY1 and FY2 forecasts 
+provide all needed information to investors and the disclosure of three-year-ahead or 
+longer earnings expectations is unnecessary. Therefore, analysts may disclose three-
+year-ahead and longer forecasts when the news provided by first two periods’ estimates 
+is not clear enough and investors need more information to assess firm performance. 
+The examination of different scenarios of upward and downward revisions can provide 
+more evidence about this. 
+In columns (2) to (5), the mean two-day buy-and-hold abnormal returns for upward 
+revisions is presented. All four columns have indicator variables for all possible reports’ 
+
+--- PAGE 22 ---
+ 
+ 
+22
+horizons, except for the smallest possible year. Therefore, the intercept value shows the 
+market response for reports with a horizon equal to the smallest possible period based 
+on the criteria in each column, i.e., when FY1, FY1-FY2, FY1-FY3 and FY1-FY4 are, 
+respectively, revised upwards. For this reason, the intercept in the second column where 
+the FY1 forecasts’ value is positively changed, presents the abnormal return for one-
+year-horizon reports, in the third column where both FY1 and FY2 predictions are 
+revised upwards, for reports with two-year horizons and so on. I observe, in columns 
+(2) and (3), that the market response of one-year-horizon reports is 0.31%, whereas this 
+of reports with a horizon of two years is 0.57%, a value that is 0.26% larger and almost 
+the double. In columns (4) and (5), where the intercept corresponds to the cases where 
+all FY1-FY3 and FY1-FY4 are revised upwards, respectively, the results show that the 
+abnormal return is 0.49% and 0.53%, larger than reports with only one annual 
+prediction, but smaller than that of those with two. Thus, the intercepts in columns (2) 
+– (5) show that the two-year-horizon reports are the most informative, similar to the 
+findings in column (1). Hence, given that they present the market response when all 
+disclosed estimates are revised upwards, these results suggest that when the news is 
+clearly favorable for the firm, the investors have full information with two-year reports. 
+The coefficients of the reports’ horizon levels in columns (2) - (4) show the difference 
+in informativeness if the analyst discloses more forecasts, regardless of the revision 
+sign of these additional estimates, and they paint a similar picture to that of the 
+intercepts in columns (2) - (5). They indicate that the provision of two or more periods’ 
+predictions is informative compared to the one-year-horizon reports, but, on the 
+contrary, when at least two periods’ earnings expectations are positively changed, then 
+the inclusion of more estimates does not change the market response significantly. 
+Findings in columns (2) - (5) provide further evidence, similar to that of column (1), 
+about the positive and non-linear association between the reports’ informativeness and 
+horizon. 
+The market response for downward revisions is presented in the last four columns of 
+Table 3. In columns (6) and (7), I observe that when all disclosed forecasts are revised 
+downwards, the abnormal return for reports with one-year horizons is -0.29%, whereas 
+for those including exactly two annual estimates it is -0.56%, almost the double. In 
+columns (8) and (9), the market response is between the above two figures, with -0.51% 
+for three-year-horizon reports and -0.46% when all predictions up to FY4 are 
+
+--- PAGE 23 ---
+ 
+ 
+23
+downwards revised. This suggests that when the news is unfavorable, the provision of 
+long-term expectations increases informativeness, but the disclosure of three-year-
+ahead or longer predictions does not increase the market response at higher level than 
+that of reports with two-year horizons. These results corroborate prior findings, 
+showing that also for downward revisions, reports with horizons of three or more years 
+are associated with firm news that are not clearly negative. Interestingly, the 
+comparison between abnormal returns for upward and downward revisions, reveals an 
+asymmetry in market responses for some reports’ horizons. Although the coefficient of 
+the two-year-horizon reports in column (6) is -0.13%, similar in size to the 0.14% of 
+column (2), those of the three and four-year-horizon reports in columns (6) and (7) are 
+asymmetrical to the respective coefficients in (2) and (3). When the FY1 forecast is 
+revised downwards, the reports with horizons of three or more years have an equally 
+negative market response to those including only current years’ earnings, whereas for 
+upward revisions the returns are larger for the former. Moreover, when both FY1 and 
+FY2 values are changed downwards, the supply of information for three or more years 
+ahead can mitigate the negative market response, contrary to the insignificant return to 
+the respective disclosures for upward FY1 and FY2 estimates’ changes. These results 
+suggest that the analysts are more likely to announce favorable news for the firm with 
+their three-year-ahead or longer predictions than unfavorable.  
+As a total, Table 3 provides evidence that reports with two-year horizons, in other words 
+those that include predictions exactly for the following two annual fiscal periods, are 
+the most informative and that FY3 or longer estimate disclosures are not increasing the 
+market response when the news is clearly positive or negative. On the contrary, when 
+the news transfers a mixed message regarding firm future performance, forecasts for 
+three or more years ahead can offer valuable information that influences investors’ 
+decisions. Results also suggest that the analysts mainly issue three-year-ahead and 
+longer estimates when the news is favorable, creating an asymmetrical market response 
+for FY3 and longer forecast announcements. This asymmetry indicates that these 
+disclosures are positively biased and that investors fail to identify the bias. Comparing 
+the informativeness of reports where all forecasts are revised in the same direction 
+provides significant information about the investors’ empirical model, but I should also 
+examine the reports where forecasts are revised in opposite directions to obtain a fuller 
+view. 
+
+--- PAGE 24 ---
+ 
+ 
+24
+4.4. Contrasting revisions in reports 
+In Table 4, I present the results of reports that include both forecasts that are revised 
+upwards and downwards. Several scenarios of these reports with contrasting revisions 
+are examined and the results are shown in two Panels. Panel A comprises the cases 
+where the FY2 prediction is revised in the opposite direction than that of FY1, i.e., 
+when the analyst expects that the good or bad news in current year’s earnings will be 
+counterbalanced immediately, at least partly, by the revision in next year´s profits. 
+Panel B shows the cases where at least the FY2 forecast is revised in the same direction 
+as FY1, but there is some other long-term estimates’ value adjustment that contrasts 
+these changes. Hence, this Panel exhibits the market response when the analyst provides 
+news indicating that the expected firm performance will last for at least one more year 
+before being counterbalanced. 
+The first three columns of Panel A present scenarios where upward revisions of FY1 
+forecasts are followed by downward long-term expectations’ changes. In column (1), 
+FY1 is revised upwards and FY2 downwards, column (2) also requires FY3 to be 
+disclosed and revised in the same direction as FY2 and column (3) includes a downward 
+revision of FY4 as a prerequisite. Columns (4) – (6) are similar to the first three, but 
+with the opposite revision signs for all future periods’ estimates. In these six columns, 
+where FY2 and longer-term predictions’ revisions counterbalance those of the FY1 
+estimate, I observe that the market response always either follows the sign of the long-
+term forecast changes or is insignificant. The four significant coefficients show 
+abnormal returns that are between 0.13% and 0.28% in absolute terms. Thus, the market 
+responses in all six cases are smaller than the respective values of Table 3, which is 
+expected given that Table 4 presents analyst report announcement scenarios where the 
+news are not clearly positive or negative. These results show when the firm 
+performance is expected to change in one direction for the current fiscal year, but this 
+variation is counterbalanced by the revision in expectations of the following years’ 
+earnings, investors take into account the current year’s earnings change, but value more 
+the information of the long-term predictions. Moreover, the market responses in all 
+cases, except for column (3), increase when more longer-term predictions corroborate 
+the revision sign of the FY2 estimate. This suggests that when the news for the 
+following two fiscal periods give a mixed message regarding firm future performance, 
+then the FY3 and longer-term forecast disclosures are informative. Finally, there is a 
+
+--- PAGE 25 ---
+ 
+ 
+25
+market response asymmetry observed in the six columns. When long-term forecasts are 
+revised upwards the abnormal returns are always significant and positive, contrary to 
+the cases of downward revisions with only one significant value in column (2) that is 
+also smaller in absolute terms than the respective changes with opposite signs in column 
+(5). These results provide additional evidence supporting the results presented in the 
+previous Table about the association between FY3 and longer-term earnings’ 
+expectations disclosures and favorable market responses, but they show that this 
+asymmetry exists also in two-year-horizon reports when the news are not clearly 
+positive or negative. 
+In Panel B of Table 4, which shows the results for contrasting revisions with a more 
+distant news’ counterbalancing, the structure is similar to that of Panel A. Columns (1) 
+– (3) show upward revisions in the shorter-term combined with decrease in longer-term 
+expectations, whereas the last three columns show the opposite scenarios. The 
+intercepts are statistically significant in two of the six columns. The two significant 
+intercepts indicate that when FY1 and FY2 forecasts are revised upwards, but longer-
+term expectations in the opposite direction, then the market responds positively. 
+Therefore, when the firm performance is expected to change in one direction for at least 
+two fiscal years, but the forecast revisions are counterbalanced by the predictions of 
+more longer-term periods, investors are more likely to avoid trading, but when they do 
+trade, they follow the predictions’ changes of the shorter-term forecasts. This finding 
+does not contradict that of Panel A, but pinpoints the importance of FY2 forecasts for 
+investors, which is found in both Panels, with the 12 columns showing that when the 
+abnormal return is statistically significant, it always follows the sign of the FY2 
+revision. Moreover, in Panel B, the two significant coefficients are both being positive, 
+whereas the respective changes with opposite signs in columns (4) and (5) are 
+insignificant, which shows that the same asymmetric effect exists in more distant news’ 
+counterbalancing, as in preceding results. This provides more evidence that when 
+reports disclose FY3 or longer-term estimates, the market is more likely to respond with 
+a positive CAR. 
+To summarize the results of Table 4, the two Panels provide evidence that investors 
+value the FY2 forecast revisions more than those of any other future periods’ 
+predictions and that when the news does not provide a clear message regarding future 
+firm performance, then the FY3 and longer-term estimates are informative. It also 
+
+--- PAGE 26 ---
+ 
+ 
+26
+shows that when analysts revise their expectations upwards for some periods and 
+downwards for others in the same report, the market is more likely to respond favorably 
+for the firm, not only when FY3 and longer-term predictions are disclosed, but also for 
+reports with two-year horizons. This suggests that contrasting revisions are associated 
+with positive news regardless of the reports’ horizon. These findings complement those 
+of Table 3, providing further evidence for the importance of long-term forecasts when 
+the news is mixed and their differences in the investors’ empirical valuation model. It 
+also corroborates this Table’s conclusions regarding positively biased disclosures, but 
+shows that this bias is also present in two-year-horizon reports with contrasting 
+revisions. 
+4.5. Additional test: Analyst ability and informativeness  
+4.5.1. Expectations 
+The higher informativeness of multi-period models provides an incentive for analysts 
+to disclose estimates for more future periods. Given the difficulty of longer-term 
+predictions due to the increased uncertainty compared to shorter horizons, it would be 
+expected that more skilled analysts would be more likely to provide more long-term 
+estimates. However, concurrent papers find that the probability of long-term earnings 
+disclosure is larger for less skilled analysts (Balashov and Pisciotta, 2020; Gibbons et 
+al., 2021). Furthermore, Ertimur et al. (2011) find that less reputed analysts are more 
+likely to provide more detailed information about the firms’ future earnings than 
+analysts with high reputations, by disclosing information about the firm’s revenues and 
+expenses together with their earnings forecasts. They also find that the supply of this 
+detailed information about the earnings’ disaggregation in the two constituent parts is 
+associated with higher informativeness for lower reputation analysts. 
+I posit that the market may perceive the disclosure of more information, as a signal of 
+higher quality reports, not only in the case of disaggregated earnings in revenues and 
+expenses, but also in that of earnings forecasts for a higher number of future periods. 
+Thus, as analyst ability is positively associated with informativeness (Stickel, 1992; 
+Park and Stice, 2000; Hilary and Hsu, 2013), less skilled analysts may include 
+additional information in their reports, such as estimates for more periods, to indicate 
+higher analyst effort or better knowledge of the specific firm, intending to make their 
+reports appear to be of higher quality and increase their reduced informativeness. In 
+
+--- PAGE 27 ---
+ 
+ 
+27
+fact, several papers show that increased analyst effort is related to both more 
+information and higher informativeness. Harford et al. (2019) find that analysts allocate 
+more effort to firms that are more important to them. Their results indicate that their 
+forecasts and recommendations are more frequent, accurate and informative when they 
+are issued for firms that are of higher importance in the analysts’ individual portfolio 
+of firms covered. Gibbons et al. (2021) show that analysts strategically allocate their 
+effort among the firms they cover and that they use the EDGAR database to acquire 
+more knowledge about them. Those analysts that use the database in a higher extent, 
+provide forecasts for more future periods and financial metrics, with higher accuracy 
+and informativeness. Therefore, if analysts with lower ability are successful in their 
+strategy to increase their reports’ quality, then I expect the informativeness difference 
+between low skill and high skill analysts to be smaller when more long-term forecasts 
+are disclosed.10 
+4.5.2. Results 
+I examine the informativeness differences between analysts of high and low ability, 
+using reports of different horizons that include only matching revisions, in other words, 
+where all forecasts are revised in the same direction. I create indicator variables for low, 
+medium and high ability levels from the continuous variable Relative Accuracy that 
+measures the analysts’ average relative accuracy for all firms covered in fiscal year t-
+1. I present the results in Table 5, but given that Relative Accuracy is a control variable 
+in the empirical model that I use for the results of Table 3 (control variables are not 
+tabulated), I discuss the findings of this Table first. Relative Accuracy is positively 
+associated with informativeness in the full sample and in reports with a horizon of up 
+to two years. For reports with horizons of three years or more, the difference is not 
+statistically significant. These findings are consistent with my expectations that the 
+difference between high and low skill analysts decrease when more long-term 
+information is provided. 
+In all 9 columns of Table 5, the intercept values indicate the market response for the 
+low ability analysts, whereas the differences of the other two categories with the low 
+ability analysts is presented by the Medium Ability and High Ability indicator variables. 
+ 
+10 It should be noted that this rationale does neither suppose or preclude that the actual quality of these 
+reports will be higher, it is constructed only on the basis of the perceived quality by the market. The 
+examination of the actual quality of these reports, is not one of the goals of this study. 
+
+--- PAGE 28 ---
+ 
+ 
+28
+The empirical model remains the same as in the previous Tables, apart from the Relative 
+Accuracy which has been substituted by the new indicator variables. The structure of 
+Table 5 is the same as that of Table 3, with column (1) presenting the results for the full 
+sample, columns (2) – (5) those for upward revisions and columns (6) – (9) for 
+downward revisions. In the first column, I observe that both the medium and high 
+ability analysts provide more informative reports, consistent with prior literature. 
+Columns (2) - (5) corroborate the expectations regarding the decrease in 
+informativeness differential for the case of upward revisions. For revisions in one-year-
+horizon reports, the informativeness difference is 0.16%, for those with a horizon of 
+two years the distance almost halves at 0.10%, while for longer horizons it becomes 
+insignificant. This decrease in informativeness differential is also found for downward 
+revisions, but is not that clear, as it can be seen in columns (6) – (9). For reports with a 
+horizon of one, two and three years the difference is only significant at the 10% level 
+and relatively stable, with values between 0.06% and 0.09%. It becomes insignificant 
+only for reports with four-year horizons or longer. Nevertheless, the asymmetry 
+between upward and downward revisions may also derive from the fact that low ability 
+analysts are in a larger informativeness deficit when the revise their forecasts upwards. 
+The informativeness difference between high and low ability analysts for one-year-
+horizon reports is 0.16% for upward revisions, the double than the value for downward 
+revisions. The results of the three indicator variables for the Reports’ Horizon are 
+similar to those of Table 3, corroborating prior inferences. The interaction terms 
+between the ability levels and different reports’ horizons presented in the following 
+rows of Table 5 are all statistically insignificant showing the absence of any further 
+association between these variables. 
+The results of Table 5 indicate that low quality analysts can successfully mitigate or 
+even eliminate the informativeness difference between them and their high ability peers 
+by disclosing more information in the form of longer-term annual predictions. This 
+strategy can be successful even in the case of favorable news for the company where 
+the informational difference between high and low ability analysts is larger for one-
+year-horizon reports. Thus, results in Table 5 provide evidence supporting the 
+hypothesis that analysts with low ability provide longer-term forecasts to decrease the 
+difference in informativeness between them and high skill analysts. 
+5. Conclusions 
+
+--- PAGE 29 ---
+ 
+ 
+29
+I examine the association of the reports’ horizon with informativeness, to find evidence 
+of how investors use analyst forecasts of different annual periods in their empirical 
+models to estimate firm value and future stock returns, allowing them to make trading 
+decisions. I expect that long-term forecasts, predicting periods of two or more years 
+ahead, will be useful for valuation, but that there is a point in the future where 
+uncertainty makes prediction very uncertain and inaccurate and, thus, the addition of 
+longer-term estimates will provide small or no increase in informativeness. Therefore, 
+I predict a positive and non-linear association between the reports’ horizon and 
+informativeness and test my expectations in the full sample and under various scenarios 
+of upward and/or downward forecast revisions. 
+Results show that reports with a two-year horizon are the most informative. When 
+reports include only forecasts revised in the same direction, those with a two-year 
+horizon have almost double the market response compared to reports with a horizon of 
+only one year, whereas the ones with horizons of three years or more are in between 
+these two. These findings suggest that when reports provide a clearly positive or 
+negative message regarding the future firm performance, the market only requires the 
+forecasts for the following two years to assess the company’s value and longer-term 
+information is redundant. However, when the news is mixed with different periods’ 
+estimates being revised in different directions in the same report, some upwards and 
+others downwards, then three-year-ahead and longer-term predictions are informative. 
+Furthermore, the market response always either follows the sign of the FY2 estimate or 
+is statistically zero regardless of the reports’ horizon. Therefore, the two-year-ahead 
+forecasts are the most important for investors. I also find an asymmetry in the market 
+responses. Results show that there is a higher likelihood of positive than negative 
+abnormal returns when the news is mixed and when forecasts for three or more years 
+ahead are disclosed, suggesting a positive analyst bias to which the market does not 
+respond efficiently.  
+I examine whether analysts with lower ability can use the disclosure of longer-term 
+forecasts to increase their reports’ informativeness. Results show that reports with 
+higher horizons are associated with gradually lower differences in informativeness 
+between analysts with high and low skill until they become statistically insignificant. 
+The difference and its decrease are more pronounced for upward than for downward 
+revisions. Therefore, analysts with lower ability can cover the informativeness gap 
+
+--- PAGE 30 ---
+ 
+ 
+30
+between them and higher skill colleagues when they provide more long-term forecasts 
+both when the news are unfavorable for the firm and in the opposite case where the 
+difference is larger for one-year-horizon reports. 
+This study contributes to the understanding of the investors’ empirical stock valuation 
+models by providing evidence of how investors use analyst research to make trading 
+decisions. It shows that investors weigh the information of two-year-ahead forecasts 
+more than that of other periods’ estimates in their empirical models supporting 
+expectations that long-term forecasts are informative and that predictions for horizons 
+beyond a point are less important due to higher uncertainty and lower accuracy. Results 
+also indicate that investors adjust the weight of the three-year-ahead or longer estimates 
+according to whether analyst forecasts provide a clear picture regarding future firm 
+performance or not. My findings suggest that investors tailor theoretical valuation 
+models to empirical counterparts based on available information and the uncertainty 
+and accuracy that it is expected to have. Information that is assumed to be more 
+uncertain or inaccurate due to longer horizon or lower analyst ability creates smaller 
+market responses, which increase when analysts provide reports that investors view as 
+of higher quality. This paper also contributes in the literature about analyst disclosure 
+practices and market efficiency. Results show favorable market responses when 
+analysts provide mixed news through contrasting revisions and in reports with 
+predictions for three or more years ahead, suggesting positive analyst bias and market 
+inefficiency in these announcements. 
+ 
+ 
+
+[TRUNCATED at 80000 chars — 44 total pages]

@@ -1,0 +1,2161 @@
+
+--- PAGE 1 ---
+Demand-Based Option Pricing∗
+Nicolae Gˆarleanu†
+Lasse Heje Pedersen‡
+Allen M. Poteshman§
+This version: June, 2007
+Abstract
+We model demand-pressure eﬀects on option prices. The model shows that
+demand pressure in one option contract increases its price by an amount propor-
+tional to the variance of the unhedgeable part of the option. Similarly, the de-
+mand pressure increases the price of any other option by an amount proportional
+to the covariance of the unhedgeable parts of the two options. Empirically, we
+identify aggregate positions of dealers and end users using a unique dataset, and
+show that demand-pressure eﬀects make a contribution to well-known option-
+pricing puzzles. Indeed, time-series tests show that demand helps explain the
+overall expensiveness and skew patterns of index options, and cross-sectional
+∗We are grateful for helpful comments from David Bates, Nick Bollen, Oleg Bondarenko, Men-
+achem Brenner, Andrea Buraschi, Josh Coval, Domenico Cuoco, Apoorva Koticha, Sophie Ni, Jun
+Pan, Neil Pearson, Josh White, and especially from Steve Figlewski, as well as from seminar par-
+ticipants at the Caesarea Center Conference, Columbia University, Cornell University, Dartmouth
+University, Harvard University, HEC Lausanne, the 2005 Inquire Europe Conference, London Busi-
+ness School, the 2005 NBER Behavioral Finance Conference, the 2005 NBER Universities Research
+Conference, the NYU-ISE Conference on the Transformation of Option Trading, New York Univer-
+sity, Nomura Securities, Oxford University, Stockholm Institute of Financial Research, Texas A&M
+University, the University of Chicago, University of Illinois at Urbana-Champaign, the University of
+Pennsylvania, University of Vienna, and the 2005 WFA Meetings.
+†Wharton School, University of Pennsylvania, Centre of Economic Policy Research (CEPR), and
+National Bureau of Economic Research (NBER), 3620 Locust Walk, Philadelphia, PA 19104, email:
+garleanu@wharton.upenn.edu, URL: http://ﬁnance.wharton.upenn.edu/∼garleanu/.
+‡New York University, Centre of Economic Policy Research (CEPR), and National Bureau of
+Economic Research (NBER), 44 West Fourth Street, Suite 9-190, New York, NY 10012-1126, email:
+lpederse@stern.nyu.edu, URL: http://pages.stern.nyu.edu/∼lpederse/.
+§University of Illinois at Urbana-Champaign, 340 Wohlers Hall, 1206 South Sixth Street, Cham-
+paign, Illinois 61820, email: poteshma@uiuc.edu, URL: http://www.business.uiuc.edu/poteshma.
+1
+
+--- PAGE 2 ---
+tests show that demand impacts the expensiveness of single-stock options as
+well.
+2
+
+--- PAGE 3 ---
+One of the major achievements of ﬁnancial economics is the no-arbitrage theory
+that determines derivative prices independently of investor demand. Building on the
+seminal contributions of Black and Scholes (1973) and Merton (1973), a large literature
+develops various parametric implementations of the theory. This literature is surveyed
+by Bates (2003) who emphasizes that it cannot fully capture — much less explain —
+the empirical properties of option prices and concludes that there is a need for a new
+approach to pricing derivatives. He writes:
+“To blithely attribute divergences between objective and risk-neutral prob-
+ability measures to the free ‘risk premium’ parameters within an aﬃne
+model is to abdicate one’s responsibilities as a ﬁnancial economist. ... a re-
+newed focus on the explicit ﬁnancial intermediation of the underlying risks
+by option market makers is needed.”
+We take on this challenge. Our model departs fundamentally from the no-arbitrage
+framework by recognizing that option market makers cannot perfectly hedge their
+inventories, and, consequently, option demand impacts option prices. We obtain ex-
+plicit expressions for the eﬀects of demand on option prices, provide empirical evidence
+consistent with the demand-pressure model using a unique dataset, and show that
+demand-pressure eﬀects can play a role in resolving the main option-pricing puzzles.
+The starting point of our analysis is that options are traded because they are useful
+and, therefore, options cannot be redundant for all investors (Hakansson (1979)). We
+denote the agents who have a fundamental need for option exposure as “end users.”
+Intermediaries such as market makers provide liquidity to end users by taking the
+other side of the end-user net demand. If competitive intermediaries can hedge per-
+fectly — as in a Black-Scholes-Merton economy — then option prices are determined
+by no-arbitrage and demand pressure has no eﬀect. In reality, however, even interme-
+diaries cannot hedge options perfectly — that is, even they face incomplete markets
+— because of the impossibility of trading continuously, stochastic volatility, jumps in
+the underlying, and transaction costs (Figlewski (1989)).1 In addition, intermediaries
+are sensitive to risk, e.g., because of capital constraints and agency problems (Shleifer
+and Vishny (1997)).
+In light of these facts, we consider how options are priced by competitive risk-averse
+dealers who cannot hedge perfectly. In our model, dealers trade an arbitrary number of
+option contracts on the same underlying at discrete times. Since the dealers trade many
+option contracts, certain risks net out, while others do not. The dealers can hedge part
+of the remaining risk of their derivative positions by trading the underlying security
+and risk-free bonds. We consider a general class of distributions for the underlying,
+which can accommodate stochastic volatility and jumps. Dealers trade options with
+1Options may also be impossible to replicate due to asymmetric information (Back (1993) and
+Easley, O’Hara, and Srinivas (1998).)
+3
+
+--- PAGE 4 ---
+end users. The model is agnostic about the end users’ reasons for trade, which are
+irrelevant for our results and their empirical implementation.
+We compute equilibrium prices as functions of demand pressure, that is, the prices
+that induce the utility-maximizing dealers to supply precisely the option quantities that
+the end users demand. We show explicitly how demand pressure enters into the pricing
+kernel. Intuitively, a positive demand pressure in an option increases the pricing kernel
+in the states of nature in which an optimally hedged position has a positive payoﬀ.
+This pricing-kernel eﬀect increases the price of the option, which entices the dealers to
+sell it. Speciﬁcally, a marginal change in the demand pressure in an option contract
+increases its price by an amount proportional to the variance of the unhedgeable part
+of the option, where the variance is computed under a certain probability measure
+depending on the demand. Similarly, demand pressure increases the price of any other
+option by an amount proportional to the covariance of their unhedgeable parts. Hence,
+while demand pressure in a particular option raises its price, it also raises the prices of
+other options on the same underlying.
+Our model applies both when the underlying asset and the risk-free bond constitute
+a dynamically complete market and when these two securities leave the market incom-
+plete. In the former case, demand pressure does not impact option prices, because
+the variance of the unhedgeable price change of any option and the covariance of the
+unhedgeable price changes of any two options are zero. Consequently, the interesting
+case is the one in which the underlying asset and the risk-free bond leave the market
+dynamically incomplete.2 Our main theoretical results relating option price eﬀects to
+the variance or covariance of the unhedgeable part of option price changes hold re-
+gardless of the source of market incompleteness. The magnitudes of the variances and
+covariances, and hence of the demand-based option price eﬀects, depend upon the par-
+ticular source of market incompleteness. Empirically, we test the speciﬁc predictions
+of the model under the assumptions that market incompleteness stems from discrete
+trading, stochastic volatility, or jumps.
+We use a unique dataset to identify aggregate daily positions of dealers and end
+users. In particular, we deﬁne dealers as market makers and end users as proprietary
+traders and customers of brokers.3 We are the ﬁrst to document that end users have a
+net long position in S&P500 index options with large net positions in out-of-the-money
+puts.4 Since options are in zero net supply, this implies that dealers are short index
+options.5 We estimate that these large short dealer positions lead to daily delta-hedged
+2It is not important whether options complete the market.
+3The empirical results are robust to classifying proprietary traders as either dealers or end users.
+4These positions are consistent with the end users suﬀering from “crashophobia” as suggested by
+Rubinstein (1994).
+5This fact and its relevance for pricing appear to be recognized by option traders. For instance,
+Vanessa Gray, director of global equity derivatives, Dresdner Kleinwort Benson, states that option
+implied volatility skew “is heavily inﬂuenced by supply and demand factors, ” and Amine Belhadj-
+4
+
+--- PAGE 5 ---
+proﬁts and losses varying between $100 million and -$100 million, and cumulative
+dealer proﬁts of approximately $800 million over our 6 year sample. Hence, consistent
+with our framework, dealers face signiﬁcant unhedgeable risk and are compensated for
+bearing it. Introducing entry of dealers into our model, we show that the total risk-
+bearing market making capacity increases with the demand pressure, and we estimate
+empirically that the market maker’s risk-return proﬁle is consistent with equilibrium
+entry.
+The end-user demand for index options can help to explain the two puzzles that
+index options appear to be expensive, and that low-moneyness options seem to be
+especially expensive (Rubinstein (1994), Longstaﬀ(1995), Bates (2000), Coval and
+Shumway (2001), Bondarenko (2003), Amin, Coval, and Seyhun (2004)). In the time
+series, the model-based impact of demand for index options is positively related to
+their expensiveness, measured by the diﬀerence between their implied volatility and the
+volatility measure of Bates (2006). Indeed, we estimate that on the order of one third
+of index option expensiveness can be accounted for by demand eﬀects.6 In addition,
+the link between demand and prices is stronger following recent dealer losses, as would
+be expected if dealers are more risk averse at such times. Likewise, the steepness of the
+smirk, measured by the diﬀerence between the implied volatilities of low-moneyness
+options and at-the-money options, is positively related to the skew of option demand.
+Jackwerth (2000) ﬁnds that a representative investor’s option-implied utility func-
+tion is inconsistent with standard assumptions in economic theory.7 Since options are
+in zero net supply, a representative investor holds no options. We reconcile this ﬁnding
+for dealers who have signiﬁcant short index option positions. Intuitively, a dealer will
+short index options, but only a ﬁnite number of options. Hence, while a standard-utility
+investor may not be marginal on options given a zero position, he is marginal given a
+certain negative position. We do not address why end users buy these options; their
+motives might be related to portfolio insurance and agency problems (e.g., between
+investors and fund managers) that are not well captured by standard utility theory.8
+Another option-pricing puzzle is the signiﬁcant diﬀerence between index-option
+prices and the prices of single-stock options, despite the relative similarity of the under-
+lying distributions (e.g., Bakshi, Kapadia, and Madan (2003) and Bollen and Whaley
+(2004)). In particular, single-stock options appear cheaper and their smile is ﬂatter.
+Consistently, we ﬁnd that the demand pattern for single-stock options is very diﬀerent
+from that of index options. For instance, end users are net short single-stock options
+Soulami, head of equity derivatives trading for Europe, Paribas, remarks that the “number of players
+in the skew market is limited. [...] there’s a huge imbalance between what clients want and what
+professionals can provide.”
+6Premia for stochastic volatility or jump risk as well as premia for other risk factors in all likelihood
+are also contributing to option expensiveness.
+7See also Driessen and Maenhout (2003).
+8Leland (1980) characterizes circumstances in which a given investor may wish to buy index options.
+5
+
+--- PAGE 6 ---
+— not long, as in the case of index options.9
+Demand patterns further help to explain the cross-sectional pricing of single-stock
+options. Indeed, individual stock options are relatively cheaper for stocks with more
+negative demand for options.
+The paper is related to several strands of literature. First, the literature on option
+pricing in the context of trading frictions and incomplete markets derives bounds on
+option prices. Arbitrage bounds are trivial with any transaction costs; for instance,
+the price of a call option can be as high as the price of the underlying stock (Soner,
+Shreve, and Cvitanic (1995)). This serious limitation of no-arbitrage pricing has led
+Bernardo and Ledoit (2000) and Cochrane and Saa-Requejo (2000) to derive tighter
+option-pricing bounds by restricting the Sharpe ratio or gain/loss ratio to be below an
+arbitrary level, and stochastic dominance bounds for small option positions are derived
+by Constantinides and Perrakis (2002) and extended and implemented empirically
+by Constantinides, Jackwerth, and Perrakis (2005).
+Rather than deriving bounds,
+we compute explicit prices based on the demand pressure by end users. We further
+complement this literature by taking portfolio considerations into account, that is, the
+eﬀect of demand for one option on the prices of other options.
+Second, the literature on utility-based option pricing (“indiﬀerence pricing”) de-
+rives the option price that would make an agent (e.g., the representative agent) indif-
+ferent between buying the option and not buying it. See Rubinstein (1976), Brennan
+(1979), Stapleton and Subrahmanyam (1984), Hugonnier, Kramkov, and Schacher-
+mayer (2005), and references therein. While this literature computes the price of the
+ﬁrst “marginal” option demanded, we show how option prices change when demand is
+non-trivial.
+Third, Stein (1989) and Poteshman (2001) provide evidence that option investors
+misproject changes in the instantaneous volatility of underlying assets by examining
+the price changes of shorter and longer maturity options. Our paper shows how cog-
+nitive biases of option end users can translate (via their option demands) into option
+prices even if market makers are not subject to any behavioral biases. By contrast,
+under standard models like Black-Scholes-Merton, market makers who can hedge their
+positions perfectly will correct the mistakes of other option market participants before
+they aﬀect option prices.
+Fourth, the general idea of demand pressure eﬀects goes back, at least, to Keynes
+(1923) and Hicks (1939) who considered futures markets. Our model is the ﬁrst to apply
+this idea to option pricing and to incorporate the important features of option markets,
+9Lakonishok, Lee, Pearson, and Poteshman (2007) document that for both individual equity puts
+and calls end users are more short than long. They show that for customers of a major discount
+brokerage house most individual equity written calls are part of covered call positions. They suggest
+that the predominance of end-user put and call selling results from the brokerage industry marketing
+these positions as win-win propositions — in the case of call sales as part of covered call positions and
+in the case of put sales as naked option positions on underlying value stocks.
+6
+
+--- PAGE 7 ---
+namely dynamic trading of many assets, hedging using the underlying and bonds,
+stochastic volatility, and jumps. The generality of our model also makes it applicable
+to other markets. Consistent with our model’s predictions, Wurgler and Zhuravskaya
+(2002) extend Shleifer (1986) and ﬁnd that stocks that are hard to hedge experience
+larger price jumps when included into the S&P 500 index. Greenwood (2005) considers
+a major redeﬁnition of the Nikkei 225 index in Japan and ﬁnds that stocks that are
+not aﬀected by demand shocks, but that are correlated with securities facing demand
+shocks, experience price changes. Similarly in the ﬁxed income market, Newman and
+Rierson (2004) ﬁnd that non-informative issues of telecom bonds depress the price
+of the issued bond as well as correlated telecom bonds, and Gabaix, Krishnamurthy,
+and Vigneron (2004) ﬁnd related evidence for mortgage-backed securities. Further,
+de Roon, Nijman, and Veld (2000) ﬁnd futures-market evidence consistent with our
+model’s predictions.
+The most closely related paper is Bollen and Whaley (2004), which demonstrates
+that changes in implied volatility are correlated with signed option volume. These
+empirical results set the stage for our analysis by showing that changes in option
+demand lead to changes in option prices while leaving open the question of whether
+the level of option demand impacts the overall level (i.e., expensiveness) of option prices
+or the overall shape of implied-volatility curves.10 We complement Bollen and Whaley
+(2004) by providing a theoretical model, by investigating empirically the relationship
+between the level of end user demand for options and the level and overall shape of
+implied volatility curves, and by testing precise quantitative implications of our model.
+In particular, we document that end users tend to have a net long SPX option position
+and a short equity-option position, thus helping to explain the relative expensiveness of
+index options. We also show that there is a strong downward skew in the net demand of
+index but not equity options which helps to explain the diﬀerence in the shapes of their
+overall implied volatility curves. In addition, we demonstrate that option prices are
+better explained by model-based rather than simple non-model based use of demand.
+1
+A Model of Demand Pressure
+We consider a discrete-time inﬁnite-horizon economy. There exists a risk-free asset
+paying interest at the rate of Rf −1 per period, and a risky security that we refer to as
+the “underlying” security. At time t, the underlying has an exogenous strictly positive
+price11 of St, dividend Dt, and an excess return of Re
+t = (St + Dt)/St−1 −Rf. The
+10Indeed, Bollen and Whaley (2004) ﬁnd that a nontrivial part of the option price impact from day
+t signed option volume dissipates by day t + 1.
+11All random variables are deﬁned on a probability space (Ω, F, Pr) with an associated ﬁltration
+{Ft : t ≥0} of sub-σ-algebras representing the resolution over time of information commonly available
+to agents.
+7
+
+--- PAGE 8 ---
+distribution of future prices and returns is characterized by a Markov state variable
+Xt, which includes the current underlying price level, X1
+t = St, and may also include
+the current level of volatility, the current jump intensity, etc. We assume that that
+(Re
+t, Xt) satisﬁes a Feller-type condition (made precise in the appendix) and that Xt is
+bounded for every t.
+The economy further has a number of “derivative” securities, whose prices are to
+be determined endogenously. A derivative security is characterized by its index i ∈I,
+where i collects the information that identiﬁes the derivative and its payoﬀs. For a
+European option, for instance, the strike price, maturity date, and whether the option
+is a “call” or “put” suﬃce. The set of derivatives traded at time t is denoted by It,
+and the vector of prices of traded securities is pt = (pi
+t)i∈It.
+The payoﬀs of the derivatives depend on Xt. We note that the theory is completely
+general and does not require that the “derivatives” have payoﬀs that depend on the un-
+derlying price. In principle, the derivatives could be any securities — in particular, any
+securities whose prices are aﬀected by demand pressure. Further, it is straightforward
+to extend our results to a model with any number of exogenously-priced securities.12
+While we use the model to study options in particular, we think that the generality
+helps to illuminate the driving forces behind the results and, further, it allows future
+applications of the theory in other markets.
+The economy is populated by two kinds of agents: “dealers” and “end users.” Deal-
+ers are competitive and there exists a representative dealer who has constant absolute
+risk aversion, that is, his utility for remaining life-time consumption is
+U(Ct, Ct+1, . . .) = Et
+" ∞
+X
+v=t
+ρv−tu(Cv)
+#
+,
+(1)
+where u(c) = −1
+γe−γc and ρ < 1 is a discount factor.
+At any time t, the dealer
+must choose the consumption Ct, the dollar investment in the underlying θt, and the
+number of derivatives held qt = (qi
+t)i∈It, so as to maximize its utility while satisfying
+the transversality condition limt→∞E
+
+ρ−te−kWt
+= 0. The dealer’s wealth evolves as
+Wt+1 = (Wt −Ct)Rf + qt(pt+1 −Rfpt) + θtRe
+t+1.
+(2)
+In the real world, end users trade options for a variety of reasons such as portfolio
+insurance, agency reasons, behavioral reasons, institutional reasons, etc. Rather than
+trying to capture these various trading motives endogenously, we assume that end users
+have an exogenous aggregate demand for derivatives of dt = (di
+t)i∈It at time t. The
+12Speciﬁcally, subject to treating Re and θ as vectors — and therefore the variances Vard
+t (Re
+t+1)
+and covariances Covd
+t (pj
+t+1, Re
+t+1), deﬁned below, as matrices — all formal results continue to hold,
+with the exception of part (ii) of Proposition 3 and Proposition 4.
+8
+
+--- PAGE 9 ---
+distribution of future demand is characterized by Xt. We also assume, for technical
+reasons, that demand pressure is zero after some time T, that is, dt = 0 for t > T.
+Derivative prices are set through the interaction between dealers and end users in
+a competitive equilibrium.
+Deﬁnition 1 A price process pt = pt(dt, Xt) is a (competitive Markov) equilibrium if,
+given p, the representative dealer optimally chooses a derivative holding q such that
+derivative markets clear, i.e., q + d = 0.
+We note that the assumption of inelastic end-user demand is made for notational
+simplicity only, and is unimportant for the results we derive below. The key to our
+asset-pricing approach is the insight that, by observing the aggregate quantities held
+by dealers, one can determine the derivative prices consistent with the dealers’ utility
+maximization, that is, “invert prices from quantities.” Our goal is to determine how
+derivative prices depend on the demand pressure d coming from end users. All that
+matters is that end users have demand curves that result in dealers choosing to hold,
+at the market prices, a position of q = −d that we observe in the data.
+To determine the representative dealer’s optimal behavior, we consider his value
+function J(W; t, X), which depends on his wealth W, the state of nature X, and time
+t. Then, the dealer solves the following maximization problem:
+max
+Ct,qt,θt
+−1
+γ e−γCt + ρEt[J(Wt+1; t + 1, Xt+1)]
+(3)
+s.t.
+Wt+1 = (Wt −Ct)Rf + qt(pt+1 −Rfpt) + θtRe
+t+1.
+(4)
+The value function is characterized in the following proposition.
+Lemma 1 If pt = pt(dt, Xt) is the equilibrium price process and k = γ(Rf−1)
+Rf
+, then the
+dealer’s value function and optimal consumption are given by
+J(Wt; t, Xt)
+=
+−1
+ke−k(Wt+Gt(dt,Xt))
+(5)
+Ct
+=
+Rf −1
+Rf
+(Wt + Gt(dt, Xt))
+(6)
+and the stock and derivative holdings are characterized by the ﬁrst-order conditions
+0
+=
+Et
+h
+e−k(θtRe
+t+1+qt(pt+1−Rfpt)+Gt+1(dt+1,Xt+1))Re
+t+1
+i
+(7)
+0
+=
+Et
+h
+e−k(θtRe
+t+1+qt(pt+1−Rfpt)+Gt+1(dt+1,Xt+1)) (pt+1 −Rfpt)
+i
+,
+(8)
+where, for t ≤T, Gt(dt, Xt) is derived recursively using (7), (8), and
+e−kRfGt(dt,Xt)
+=
+RfρEt
+h
+e−k(qt(pt+1−Rfpt)+θtRe
+t+1+Gt+1(dt+1,Xt+1))i
+(9)
+9
+
+--- PAGE 10 ---
+and for t > T, the function Gt(dt, Xt) = ¯G(Xt) where ( ¯G(Xt), ¯θ(Xt)) solves
+e−kRf ¯G(Xt)
+=
+RfρEt
+h
+e−k(¯θtRe
+t+1+ ¯G(Xt+1))i
+(10)
+0
+=
+Et
+h
+e−k(¯θtRe
+t+1+ ¯G(Xt+1))Re
+t+1
+i
+.
+(11)
+The optimal consumption is unique. The optimal security holdings are unique, provided
+that their payoﬀs are linearly independent.
+While dealers compute optimal positions given prices, we are interested in inverting
+this mapping and compute the prices that make a given position optimal. The following
+proposition ensures that this inversion is possible.
+Proposition 1 Given any demand pressure process d for end users, there exists a
+unique equilibrium p.
+Before considering explicitly the eﬀect of demand pressure, we make a couple of sim-
+ple “parity” observations that show how to treat derivatives that are linearly dependent
+such as European puts and calls with the same strike and maturity. For simplicity,
+we do this only in the case of a non-dividend paying underlying, but the results can
+easily be extended. We consider two derivatives, i and j such that a non-trivial linear
+combination of their payoﬀs lies in the span of exogenously-priced securities, i.e., the
+underlying and the bond. In other words, suppose that at the common maturity date
+T,
+pi
+T = pj
+T + α + βST
+(12)
+for some constants α and β. Then it is easily seen that, if positions
+ qi
+t, qj
+t, bt, θt
+
+in
+the two derivatives, the bond,13 and the underlying, respectively, are optimal given the
+prices, then so are positions
+
+qj
+t + a, qj
+t −a, bt −aαR−(T−t)
+f
+, θt −aβS−1
+t
+
+. This has the
+following implications for equilibrium prices:
+Proposition 2 Suppose that Dt = 0 and pi
+T = pj
+T + α + βST. Then:
+(i) For any demand pressure, d, the equilibrium prices of the two derivatives are related
+by
+pi
+t = pj
+t + αR−(T−t)
+f
++ βSt.
+(13)
+(ii) Changing the end user demand from
+ di
+t, dj
+t
+
+to
+ di
+t + a, dj
+t −a
+
+, for any a ∈R, has
+no eﬀect on equilibrium prices.
+The ﬁrst part of the proposition is a general version of the well-known put-call parity.
+It shows that if payoﬀs are linearly dependent then so are prices.
+13This is a dollar amount; equivalently, we may assume that the price of the bond is always 1.
+10
+
+--- PAGE 11 ---
+The second part of the proposition shows that linearly dependent derivatives have
+the same demand-pressure eﬀects on prices. Hence, in our empirical exercise, we can
+aggregate the demand of calls and puts with the same strike and maturity. That is, a
+demand pressure of di calls and dj puts is the same as a demand pressure of di + dj
+calls and 0 puts (or vice versa).
+2
+Price Eﬀects of Demand Pressure
+To see where we are going with the theory (and why we need it!), consider the empirical
+problem that we ultimately face: On any given day, around 120 SPX option contracts
+of various maturities and strike prices are traded. The demands for all these diﬀerent
+options potentially aﬀect the price of, say, the 1-month at-the-money SPX option
+because all of these options expose the market makers to unhedgeable risk. What is
+the aggregate eﬀect of all these demands?
+The model answers this question by showing how to compute the impact of demand
+dj
+t for any one derivative on the price pi
+t of the 1-month at-the-money option. The
+aggregate eﬀect is then the sum of all of the individual demand eﬀects, that is, the sum
+of all the demands weighted by their model-implied price impacts ∂pi
+t/∂dj
+t.
+We ﬁrst characterize ∂pi
+t/∂dj
+t in complete generality, as well as other general demand
+eﬀects on prices (Section 2.1). We then show how to compute ∂pi
+t/∂dj
+t speciﬁcally
+when unhedgeable risk arises from, respectively, discrete-time hedging, jumps in the
+underlying asset price, and stochastic volatility risk (Section 2.2).
+2.1
+General Results
+We think of the price p, the hedge position θt in the underlying, and the consumption
+function G as functions of dj
+t and Xt. Alternatively, we can think of the dependent
+variables as functions of the dealer holding qj
+t and Xt, keeping in mind the equilibrium
+relation that q = −d. For now we use this latter notation.
+At maturity date T, an option has a known price pT. At any prior date t, the price
+pt can be found recursively by “inverting” (8) to get
+pt
+=
+Et
+h
+e−k(θtRe
+t+1+qtpt+1+Gt+1)pt+1
+i
+RfEt
+h
+e−k(θtRe
+t+1+qtpt+1+Gt+1)i ,
+(14)
+where the hedge position in the underlying, θt, solves
+0
+=
+Et
+h
+e−k(θtRe
+t+1+qtpt+1+Gt+1)Re
+t+1
+i
+(15)
+and where G is computed recursively as described in Lemma 1. Equations (14) and
+11
+
+--- PAGE 12 ---
+(15) can be written in terms of a demand-based pricing kernel:
+Theorem 1 Prices p and the hedge position θ satisfy
+pt
+=
+Et(md
+t+1pt+1) = 1
+Rf
+Ed
+t(pt+1)
+(16)
+0
+=
+Et(md
+t+1Re
+t+1) = 1
+Rf
+Ed
+t(Re
+t+1)
+(17)
+where the pricing kernel md is a function of demand pressure d:
+md
+t+1
+=
+e−k(θtRe
+t+1+qtpt+1+Gt+1)
+RfEt
+h
+e−k(θtRe
+t+1+qtpt+1+Gt+1)i
+(18)
+=
+e−k(θtRe
+t+1−dtpt+1+Gt+1)
+RfEt
+h
+e−k(θtRe
+t+1−dtpt+1+Gt+1)i,
+(19)
+and Ed
+t is expected value with respect to the corresponding risk-neutral measure, i.e.
+the measure with a Radon-Nikodym derivative of Rfmd
+t+1.
+To understand this pricing kernel, suppose for instance that end users want to sell
+derivative i such that di
+t < 0, and that this is the only demand pressure. In equilibrium,
+dealers take the other side of the trade, buying qi
+t = −di
+t > 0 units of this derivative,
+while hedging their derivative holding using a position θt in the underlying. The pricing
+kernel is small whenever the “unhedgeable” part qtpt+1 + θtRe
+t+1 is large. Hence, the
+pricing kernel assigns a low value to states of nature in which a hedged position in the
+derivative pays oﬀproﬁtably, and it assigns a high value to states in which a hedged
+position in the derivative has a negative payoﬀ. This pricing kernel-eﬀect decreases the
+price of this derivative, which is what entices the dealers to buy it.
+It is interesting to consider the ﬁrst-order eﬀect of demand pressure on prices.
+Hence, we calculate explicitly the sensitivity of the prices of a derivative pi
+t with respect
+to the demand pressure of another derivative dj
+t. We can initially diﬀerentiate with
+respect to q rather than d since qi = −di
+t.
+For this, we ﬁrst diﬀerentiate the pricing kernel14
+∂md
+t+1
+∂qj
+t
+=
+−kmd
+t+1
+
+pj
+t+1 −Rfpj
+t + ∂θt
+∂qj
+t
+Re
+t+1
+
+(20)
+using the facts that ∂G(t+1,Xt+1;q)
+∂qj
+t
+= 0 and ∂pt+1
+∂qj
+t
+= 0. With this result, it is straightfor-
+14We suppress the arguments of functions. We note that pt, θt, and Gt are functions of (dt, Xt, t),
+and md
+t+1 is a function of (dt, Xt, dt+1, Xt+1, yt+1, Re
+t+1, t).
+12
+
+--- PAGE 13 ---
+ward to diﬀerentiate (17) to get
+0
+=
+Et
+
+md
+t+1
+
+pj
+t+1 −Rfpj
+t + ∂θt
+∂qj
+t
+Re
+t+1
+
+Re
+t+1
+
+,
+(21)
+which implies that the marginal hedge position is
+∂θt
+∂qj
+t
+=
+−Et
+ md
+t+1
+ pj
+t+1 −Rfpj
+t
+
+Re
+t+1
+
+Et
+ md
+t+1(Re
+t+1)2
+= −Covd
+t(pj
+t+1, Re
+t+1)
+Vard
+t(Re
+t+1)
+.
+(22)
+Similarly, we derive the price sensitivity by diﬀerentiating (16)
+∂pi
+t
+∂qj
+t
+=
+−kEt
+
+md
+t+1
+
+pj
+t+1 −Rfpj
+t + ∂θt
+∂qj
+t
+Re
+t+1
+
+pi
+t+1
+
+=
+−k
+Rf
+Ed
+t
+" 
+pj
+t+1 −Rfpj
+t −Covd
+t(pj
+t+1, Re
+t+1)
+Vard
+t(Re
+t+1)
+Re
+t+1
+!
+pi
+t+1
+#
+=
+−γ(Rf −1)Ed
+t
+
+¯pj
+t+1¯pi
+t+1
+
+=
+−γ(Rf −1)Covd
+t
+
+¯pj
+t+1, ¯pi
+t+1
+
+(23)
+where ¯pi
+t+1 and ¯pj
+t+1 are the unhedgeable parts of the price changes as deﬁned in:
+Deﬁnition 2 The unhedgeable price change ¯pk
+t+1 of any security k is deﬁned as its
+excess return pk
+t+1 −Rfpk
+t optimally hedged with the stock position
+Covd
+t (pk
+t+1,Re
+t+1)
+Vard
+t (Re
+t+1)
+:
+¯pk
+t+1
+=
+R−1
+f
+ 
+pk
+t+1 −Rfpk
+t −Covd
+t (pk
+t+1, Re
+t+1)
+Vard
+t(Re
+t+1)
+Re
+t+1
+!
+.
+(24)
+Equation (23) can also be written in terms of the demand pressure, d, by using the
+equilibrium relation d = −q:
+Theorem 2 The sensitivity of the price of security i to demand pressure in security j
+is proportional to the covariance of their unhedgeable risks:
+∂pi
+t
+∂dj
+t
+=
+γ(Rf −1)Ed
+t
+ ¯pi
+t+1¯pj
+t+1
+
+= γ(Rf −1)Covd
+t
+ ¯pi
+t+1, ¯pj
+t+1
+
+.
+(25)
+This result is intuitive: it says that the demand pressure in an option j increases
+the option’s own price by an amount proportional to the variance of the unhedgeable
+part of the option and the aggregate risk aversion of dealers. We note that since a
+variance is always positive, the demand-pressure eﬀect on the security itself is naturally
+always positive. Further, this demand pressure aﬀects another option i by an amount
+13
+
+--- PAGE 14 ---
+proportional to the covariance of their unhedgeable parts. Under the condition stated
+below, we can show that this covariance is positive, and therefore that demand pressure
+in one option also increases the price of other options on the same underlying.
+Proposition 3 Demand pressure in any security j:
+(i) increases its own price, that is, ∂pj
+t
+∂dj
+t ≥0;
+(ii) increases the price of another security i, that is, ∂pi
+t
+∂dj
+t ≥0, provided that Ed
+t
+
+pi
+t+1| St+1
+
+and Ed
+t
+
+pj
+t+1| St+1
+
+are convex functions of St+1 and Covd
+t
+ pi
+t+1, pj
+t+1| St+1
+
+≥0.
+The conditions imposed in part (ii) are natural. First, we require that prices inherit
+the convexity property of the option payoﬀs in the underlying price. Convexity lies
+at the heart of this result, which, informally speaking, states that higher demand for
+convexity (or gamma, in option-trader lingo) increases its price, and therefore those of
+all options. Second, we require that Covd
+t
+ pi
+t+1, pj
+t+1| St+1
+
+≥0, that is, changes in the
+other variables have a similar impact on both option prices — for instance, both prices
+are increasing in the volatility or demand level. Note that both conditions hold if both
+options mature after one period. The second condition also holds if option prices are
+homogenous (of degree 1) in (S, K), where K is the strike, and St is independent of
+X−1
+t
+≡(X2
+t , . . . , Xn
+t ).
+It is interesting to consider the total price that end users pay for their demand dt
+at time t. Vectorizing the derivatives from Theorem 2, we can ﬁrst-order approximate
+the price around zero demand as
+pt
+≈
+pt(dt = 0) + γ(Rf −1)Ed
+t
+ ¯pt+1¯p′
+t+1
+
+dt.
+(26)
+Hence, the total price paid for the dt derivatives is
+d′
+tpt
+=
+d′
+tpt(dt = 0) + γ(Rf −1)d′
+tEd
+t
+ ¯pt+1¯p′
+t+1
+
+dt
+(27)
+=
+d′
+tpt(dt = 0) + γ(Rf −1)Vard
+t (d′
+t¯pt+1) .
+(28)
+The ﬁrst term d′
+tpt(dt = 0) is the price that end users would pay if their demand
+pressure did not aﬀect prices. The second term is total variance of the unhedgeable
+part of all of the end users’ positions.
+While Proposition 3 shows that demand for an option increases the prices of all
+options, the size of the price eﬀect is, of course, not the same for all options. Nor is
+the eﬀect on implied volatilities the same. Under certain conditions, demand pressure
+in low-strike options has a larger impact on the implied volatility of low-strike options,
+and conversely for high strike options. The following proposition makes this intuitively
+appealing result precise. For simplicity, the proposition relies on unnecessarily restric-
+tive assumptions. We let p(p, K, d), respectively p(c, K, d), denote the price of a put,
+respectively a call, with strike price K and one period to maturity, where d is the
+14
+
+--- PAGE 15 ---
+demand pressure. It is natural to compare low-strike and high-strike options that are
+“equally far out of the money.” We do this be considering an out-of-the-money put
+with the same price as an out-of-the-money call.
+Proposition 4 Assume that the one-period risk-neutral distribution of the underlying
+return is symmetric and consider demand pressure d > 0 in an option with strike
+K < RfSt that matures after one trading period. Then there exists a value ¯K such that,
+for all K′ ≤¯K and K′′ such that p(p, K′, 0) = p(c, K′′, 0), it holds that p(p, K′, d) >
+p(c, K′′, d). That is, the price of the out-of-the-money put p(p, K′, · ) is more aﬀected
+by the demand pressure than the price of out-of-the-money call p(c, K′′, · ). The reverse
+conclusion applies if there is demand for a high-strike option.
+Future demand pressure in a derivative j also aﬀects the current price of derivative
+i. As above, we consider the ﬁrst-order price eﬀect. This is slightly more complicated,
+however, since we cannot diﬀerentiate with respect to the unknown future demand
+pressure. Instead, we “scale” the future demand pressure, that is, we consider future
+demand pressures ˜dj
+s = ǫdj
+s for ﬁxed d (equivalently, ˜qj
+s = ǫqj
+s) for some ǫ ∈R, ∀s > t,
+and ∀j.
+Theorem 3 Let pt(0) denote the equilibrium derivative prices with 0 demand pressure.
+Fixing a process d with dt = 0 for all t > T and a given T, the equilibrium prices p
+with a demand pressure of ǫd is
+pt = pt(0) + γ(Rf −1)
+"
+E0
+t
+ ¯pt+1¯p′
+t+1
+
+dt +
+X
+s>t
+R−(s−t)
+f
+E0
+t
+ ¯ps+1¯p′
+s+1ds
+
+#
+ǫ + O(ǫ2). (29)
+This theorem shows that the impact of current demand pressure dt on the price of a
+derivative i is given by the amount of hedging risk that a marginal position in security
+i would add to the dealer’s portfolio, that is, it is the sum of the covariances of its
+unhedgeable part with the unhedgeable part of all the other securities, multiplied by
+their respective demand pressures. Further, the impact of future demand pressures ds
+is given by the expected future hedging risks. Of course, the impact increases with the
+dealers’ risk aversion.
+Next, we specialize the setup to several diﬀerent sources of unhedgeable risk to
+show how to compute these covariances, and therefore the price impacts, explicitly.
+2.2
+Implementation: Speciﬁc Cases
+We consider now three examples of unhedgeable risk for the dealers, arising from (i) the
+inability to hedge continuously, (ii) jumps in the underlying price, and (iii) stochastic
+volatility risk, respectively.
+We focus on small hedging periods ∆t and derive the
+results informally while relegating a more rigorous treatment to the appendix. The
+15
+
+--- PAGE 16 ---
+continuously compounded risk-free interest rate is denoted by r, i.e., the risk-free return
+over one ∆t time period is Rf = er∆t.
+We are interested in the price pi
+t = pi
+t(dt, Xt) of option i as a function of demand
+pressure dt and the state variable Xt. (Remember that St = X1
+t ). We denote the
+option price without demand pressure by f, that is, f i(t, Xt) := pi
+t(dt = 0, Xt) and
+assume throughout that f is smooth for t < T. We use the notation f i = f i(t, Xt),
+f i
+t = ∂
+∂tf i(t, Xt), f i
+S =
+∂
+∂Sf i(t, Xt), f i
+SS =
+∂2
+∂S2f i(t, Xt), ∆S = St+1 −St, and so on.
+Case 1: Discrete-time trading. To focus on the speciﬁc risk due to discrete-time
+trading (rather than continuous trading), we consider a stock price that is a diﬀusion
+process driven by a Brownian motion with no other state variables (i.e. X = S). In
+this case, markets would be complete with continuous trading, and, hence, the dealer’s
+hedging risk arises solely from his trading only at discrete times, spaced ∆t time units
+apart.
+The change in the option price evolves approximately according to
+pi
+t+1 ∼= f i + f i
+S∆S + 1
+2f i
+SS(∆S)2 + f i
+t∆t,
+(30)
+while the unhedgeable option price change is
+er∆t ¯pi
+t+1
+=
+pi
+t+1 −er∆tpi
+t −f i
+S(St+1 −er∆tSt)
+(31)
+∼=
+−r∆tf i + f i
+t∆t + r∆tf i
+SSt + 1
+2f i
+SS(∆S)2.
+(32)
+The covariance of the unhedgeable parts of two options i and j is
+Covt(er∆t ¯pi
+t+1 , er∆t ¯pj
+t+1) ∼= 1
+4f i
+SSf j
+SSV art((∆S)2),
+(33)
+so that, by Theorem 2, we conclude that the eﬀect on the price of demand at d = 0 is
+∂pi
+t
+∂dj
+t
+= γrV art((∆S)2)
+4
+f i
+SSf j
+SS + o(∆2
+t)
+(34)
+and the eﬀect on the Black-Scholes implied volatility ˆσi
+t is
+∂ˆσi
+t
+∂dj
+t
+= γrV art((∆S)2)
+4
+f i
+SS
+νi f j
+SS + o(∆2
+t),
+(35)
+where νi is the Black-Scholes vega.15
+Interestingly, the ratio of the Black-Scholes
+15Even though the volatility is constant within the Black-Scholes model, we follow the standard
+convention that deﬁnes the Black-Scholes implied volatility as the volatilty that, when fed into the
+16
+
+--- PAGE 17 ---
+gamma to the Black-Scholes vega, f i
+SS/νi, does not depend on moneyness, so the ﬁrst-
+order eﬀect of demand with discrete trading risk is to change the level, but not the
+slope, of the implied-volatility curves.
+Intuitively, the impact of the demand for options of type j depends on the gamma
+of these options, f j
+SS, since the dealers cannot hedge the non-linearity of the payoﬀ.
+The calculations above show that the eﬀect of discrete-time trading is small if hedg-
+ing is frequent. More precisely, the eﬀect is of the order of V art((∆S)2), namely ∆2
+t.
+Hence, if we add up T/∆t terms of this magnitude — corresponding to demand in
+each period between time 0 and maturity T — then the total eﬀect is order ∆t, which
+approaches zero as the ∆t approaches zero. This is consistent with the Black-Scholes-
+Merton result of perfect hedging in continuous time. As the next examples show, the
+risks of jumps and stochastic volatility do not vanish for small ∆t (speciﬁcally, they
+are of order ∆t).
+Case 2: Jumps in the underlying. Suppose now that S is a jump diﬀusion with
+i.i.d. bounded jump size and jump intensity π (i.e. jump probability over a period of
+approximately π∆t).
+The unhedgeable price change is
+er∆t ¯pi
+t+1 ∼= −r∆tf i + f i
+t∆t + r∆tf i
+SSt + (f i
+SSt −θi)∆S1(no jump) + κi1(jump)
+(36)
+where
+κi
+=
+f i(St + ∆S) −f i −θi∆S.
+(37)
+is the unhedgeable risk in case of a jump of size ∆S.
+It then follows that the eﬀect on the price of demand at d = 0 is
+∂pi
+t
+∂dj
+t
+= γr
+
+(f i
+SSt −θi)(f j
+SSt −θj)Vart(∆S) + π∆tEt
+ κiκj
++ o(∆t)
+(38)
+and the eﬀect on the Black-Scholes implied volatility ˆσi
+t is
+∂ˆσi
+t
+∂dj
+t
+= γr
+
+(f i
+SSt −θi)(f j
+SSt −θj)Vart(∆S) + π∆tEt (κiκj)
+
+νi
++ o(∆t).
+(39)
+The terms of the form f i
+SSt −θi arise because the optimal hedge θ diﬀers from the
+Black-Scholes model, makes the model price equal to the option price, and the Black-Scholes vega
+as the partial derivative measuring the change in the option price when the volatility fed into the
+Black-Scholes model changes.
+17
+
+--- PAGE 18 ---
+optimal hedge without jumps, f i
+SSt, which means that some of the local noise is being
+hedged imperfectly. If the jump probability is small, however, then this eﬀect is small
+(i.e., it is second order in π). In this case, the main eﬀect comes from the jump risk κ
+(“kappa”). We note that, while conventional wisdom holds that Black-Scholes gamma
+is a measure of “jump risk,” this is true only for the small local jumps considered in
+Case 1. Large jumps have qualitatively diﬀerent implications captured by kappa. For
+instance, a far-out-of-the-money put may have little gamma risk, but, if a large jump
+can bring the option in the money, the option may have kappa risk. It can be shown
+that this jump-risk eﬀect (39) means that demand can aﬀect the slope of the implied-
+volatility curve to the ﬁrst order and generate a smile.16
+Another important source of unhedgeability, itself an important statistical property
+of underlying prices and therefore playing a signiﬁcant role in modern option-pricing
+models, is stochastic volatility. We illustrate below how to calculate price impact of
+demand in its presence.
+Case 3: Stochastic-volatility risk. We now let the the state variable be Xt =
+(St, σt), where the stock price S is a diﬀusion with volatility σt, which is also a diﬀusion,
+driven by an independent Brownian motion. The option price pi
+t = f i(t, St, σt) has
+unhedgeable risk given by
+er∆t ¯pi
+t+1
+=
+pi
+t+1 −er∆tpi
+t −θiRe
+t+1
+(40)
+∼=
+−r∆tf i + f i
+t∆t + f i
+SStr∆t + f i
+σ∆σt+1,
+(41)
+so that the eﬀect on the price of demand at d = 0 is
+∂pi
+t
+∂dj
+t
+= γrVar(∆σ)f i
+σf j
+σ + o(∆t)
+(42)
+and the eﬀect on the Black-Scholes implied volatility ˆσi
+t is
+∂ˆσi
+t
+∂dj
+t
+= γrVar(∆σ)f i
+σ
+νi f j
+σ + o(∆t).
+(43)
+Intuitively, volatility risk is captured to the ﬁrst order by fσ. This derivative is
+not exactly the same as Black-Scholes vega, since vega is the price sensitivity to a
+permanent volatility change whereas fσ measures the price sensitivity to a volatility
+change that mean reverts at the rate of φ. For an option with maturity at time t + T,
+16Of course, the jump risk also generates smiles without demand-pressure eﬀects; the result is that
+demand can exacerbate these.
+18
+
+--- PAGE 19 ---
+we have
+f i
+σ
+∼=
+νi ∂
+∂σt
+E
+ R t+T
+t
+σsds
+T
+ σ0
+!
+∼= νi1 −e−φT
+φT
+.
+(44)
+Hence, combining (44) with (43) shows that stochastic volatility risk aﬀects the level,
+but not the slope, of the implied volatility curves to the ﬁrst order.
+We make use of each of these three explicitly modeled sources of unhedgeable risk
+in our empirical work, where we base the model-implied empirical measures of de-
+mand impact on the formulae (35), (39), and (43), respectively. Our results could
+be generalized by introducing a time-varying jump intensity, jumps in the volatility
+(mathematically, this would be similar to our analysis of jumps in the underlying), or
+a more complicated correlation structure for the state variables. While such general-
+izations would add realism, we want to test the eﬀect of the demand in the presence
+of the most basic sources of unhedgeable risk considered here.
+2.3
+Equilibrium Number of Dealers
+The number of dealers and their aggregate risk-bearing capacity are determined in
+equilibrium by dealers’ tradeoﬀbetween the costs and beneﬁts of making markets.
+This section shows that the aggregate dealer risk aversion γ can be determined as the
+outcome of equilibrium dealer entry and, further, provides some natural properties of
+γ.
+We consider an inﬁnitesimal agent with risk aversion γ′, who could become a dealer
+at time t = 0 at a cost of M dollars. There are a continuum of available dealers indexed
+by i ∈[0, ∞) with risk aversion γ′(i) increasing in i. The distribution of i has no atoms,
+and is denoted by µ. We assume that
+R ∞
+0 γ′(i)−1dµ(i) = ∞.
+Paying the cost M allows the dealer to trade derivatives at all times. This cost
+could correspond to the cost of a seat on the CBOE, the salaries of traders, the cost of
+running a back oﬃce, etc. In Section 3.3 below, we estimate the costs and beneﬁts of
+being a market maker to be of the same magnitude, consistent with this equilibrium
+condition.
+In the appendix we show that there exists an equilibrium to the dealer entry game
+and that, naturally, the least risk averse dealers i ∈[0,¯i] for some ¯i ∈R enter the
+market to proﬁt from price responses to end-user demand.
+Further, the aggregate
+dealer demand is the same as that of a representative dealer with risk aversion γ given
+by γ−1 =
+R ¯i
+0 γ′(i)−1dµ(i).
+Proposition 5 Equilibrium entry of dealers at time 0 implies the following:
+1. Suppose that the end-user demand is dt = ǫ ¯dt for some demand process ¯d.
+19
+
+--- PAGE 20 ---
+(a) More expected end-user demand leads to more entry of dealers. Speciﬁcally,
+the equilibrium number of dealers increases in ǫ and the equilibrium dealer
+risk aversion γ decreases in ǫ.
+(b) If potential dealers have diﬀerent risk aversions, i.e., γ′ is strictly increasing,
+then there exists ¯ǫ > 0 such that the absolute price deviation from its zero-
+demand value of any option that is not completely hedgeable increases strictly
+in ǫ on [0, ¯ǫ].
+(c) If all potential dealers have the same risk aversion, then derivative prices
+are independent of ǫ. Nevertheless, derivative prices vary with demand in
+the time series.
+2. The equilibrium number of dealers decreases with the cost M of being a dealer.
+Hence, the aggregate dealer risk aversion γ increases with the (opportunity) cost
+M.
+Part 1(b) of the proposition states the natural results that increased demand leads
+to larger price deviations. Indeed, while larger demand leads to entry of dealers, these
+dealers are increasingly risk averse, leading to the increased demand eﬀect.
+Part 1(c) gives the surprising result that the overall level of demand does not aﬀect
+option prices when all dealers have the same risk aversion because of the entry of
+dealers. Note, however, that — even in this case — demand aﬀects prices in the time
+series, that is, at times with more demand, prices are more aﬀected. This time series
+eﬀect would be reduced if dealers could enter at any time. The time 0 entry captures
+that the decision to set up a trading capability is made only rarely due to signiﬁcant
+ﬁxed costs, although, of course, entry and exit does happen over time in the real world.
+3
+Empirical Results
+The main focus of this paper is the impact of net end-user option demand on option
+prices. We explore this impact empirically both for S&P 500 index options and for
+equity (i.e., individual stock) options. We ﬁrst describe our data.
+3.1
+Data
+We acquire the data from three diﬀerent sources.
+Data for computing net option
+demand were obtained directly from the Chicago Board Options Exchange (CBOE).
+These data consist of a daily record of closing short and long open interest on all
+SPX and equity options for public customers and ﬁrm proprietary traders from the
+beginning of 1996 to the end of 2001. We compute the net demand of each of these
+groups of agents as the long open interest minus the short open interest.
+20
+
+--- PAGE 21 ---
+We focus most of our analysis on non-market-maker net demand deﬁned as the
+sum of the net demand of public customers and proprietary traders, which is equal to
+the negative of the market-maker net demand (since options are in zero net supply).
+Hence, we assume that both public customers and ﬁrm proprietary traders — that is,
+all non-market makers — are “end users.” We actually believe that proprietary traders
+are more similar to market makers, and, indeed, their positions are more correlated
+with market-maker positions (the time-series correlation is 0.44). Consistent with this
+fact, our results are indeed stronger when we reclassify proprietary traders as market
+makers (i.e., assume that end users are the public customers) as shown in our robustness
+analysis. However, to be very conservative and avoid any sample selection in favor of
+our predictions, we focus on the slightly weaker results. We note that, since proprietary
+traders constitute a relatively small group in our data, none of the main features of
+the descriptive statistics presented in this section or the results presented in the next
+section changes under this alternative assumption.
+The SPX options trade only at the CBOE while the equity options sometimes are
+cross-listed at other option markets. Our open interest data, however, include activity
+from all markets at which CBOE listed options trade. The entire option market is
+comprised of public customers, ﬁrm proprietary traders, and market makers so our data
+are comprehensive. For the equity options, we restrict attention to those underlying
+stocks with strictly positive option volume on at least 80% of the trade days over the
+1996 to 2001 period. This restriction yields 303 underlying stocks.
+The other main source of data for this paper is the Ivy DB data set from Op-
+tionMetrics LLC. The OptionMetrics data include end-of-day volatilities implied from
+option prices, and we use the volatilities implied from SPX and CBOE-listed equity op-
+tions from the beginning of 1996 through the end of 2001. SPX options have European-
+style exercise, and OptionMetrics computes implied volatilities by inverting the Black-
+Scholes formula. When performing this inversion, the option price is set to the midpoint
+of the best closing bid and oﬀer prices, the interest rate is interpolated from available
+LIBOR rates so that its maturity is equal to the expiration of the option, and the index
+dividend yield is determined from put-call parity. The equity options have American-
+style exercise, and OptionMetrics computes their implied volatilities using binomial
+trees that account for the early exercise feature and the timing and amount of the
+dividends expected to be paid by the underlying stock over the life of the options.
+Finally, we obtain daily returns on the underlying index or stocks from the Center
+for Research in Security Prices (CRSP).
+Deﬁnitions of Variables
+We refer to the diﬀerence between implied volatility and a reference volatility es-
+timated from the underlying security as excess implied volatility. This measures the
+option’s “expensiveness,” that is, its risk premium.
+The reference volatility that we use for SPX options is the ﬁltered volatility from the
+21
+
+--- PAGE 22 ---
+state-of-the-art model by Bates (2006), which accounts for jumps, stochastic volatility,
+and the risk premium implied by the equity market, but does not add extra risk premia
+to (over-)ﬁt option prices.17 By subtracting the volatility from the Bates (2006) model,
+we account for the direct eﬀects of jumps, stochastic volatility, and the risk premium
+implied by the equity market. Hence, excess implied volatility is the part of the option
+price unexplained by this model, which, according to our model, is due to demand
+pressure (and estimation error).
+The reference volatility that we use for equity options is the predicted volatility over
+their lives from a GARCH(1,1) model estimated from ﬁve years of daily underlying
+stock returns leading up to the day of option observation.18
+(Alternative measures
+using historical or realized volatility lead to similar results.)
+We conduct several tests on the time series ExcessImplVolATM of approximately
+at-the-money (ATM) options with approximately 1 month to expiration. Speciﬁcally,
+for SPX, ExcessImplVolATM is the average excess implied volatility of options that
+have at least 25 contracts of trading volume, between 15 and 45 calendar days to
+expiration,19 and moneyness between 0.99 and 1.01. (We compute the excess implied
+volatility variable only from reasonably liquid options in order to make it less noisy in
+light of the fact that it is computed using only one trade date.)
+For equity options, ExcessImplVolATM is the average excess implied volatility of
+options with moneyness between 0.95 and 1.05, maturity between 15 and 45 calen-
+dar days, at least 5 contracts of trading volume, and implied volatilities available on
+OptionMetrics.
+For the SPX, we also consider the excess implied volatility skew ExcessImplVolSkew,
+deﬁned as the implied volatility skew over and above the skew predicted by the jumps
+and stochastic volatility of the underlying index. Speciﬁcally, the implied volatility
+skew is deﬁned as the average implied volatility of options with moneyness between
+0.93 and 0.95 that trade at least 25 contracts on the trade date and have more than
+15 and fewer than 45 calendar days to expiration, minus the average implied volatility
+of options with moneyness between 0.99 and 1.01 that meet the same volume and
+maturity criteria. In order to eliminate the skew that is due to jumps and stochastic
+volatility of the underlying, we consider the implied volatility skew net of the similarly
+deﬁned volatility skew implied by the objective distribution of Broadie, Chernov, and
+17We are grateful to David Bates for providing this measure.
+18In particular, we use the GARCH(1,1) parameter estimates for the trade day (estimated on
+a rolling basis from the past ﬁve years of daily data) to compute the minimum mean square error
+volatility forecast for the number of trade days left in the life of the option. We annualize the volatility
+forecast (which is for the number of trade days left until the option matures) by multiplying by the
+square root of 252 and dividing by the square root of the number of trade days remaining in the life
+of the option.
+19On any give trade day, these are the options with maturity closest to one month. Alternatively,
+for each month we could include in our test only the day that is precisely one month before expiration.
+This approach yields similar results.
+22
+
+--- PAGE 23 ---
+Johannes (2007), where the underlying volatility is that ﬁltered from the Bates (2006)
+model.20
+We consider four diﬀerent demand variables for SPX options based on the aggregate
+net non-market-maker demand for options with 10–180 calendar days to expiration and
+moneyness between 0.8 and 1.20. First, NetDemand is simply the sum of all net de-
+mands, which provides a simple atheoretical variable. The other three independent
+variables correspond to “weighting” the net demands using the models based on the
+market maker risks associated with, respectively, discrete trading, jumps in the un-
+derlying, and stochastic volatility (Section 2.2). Speciﬁcally, DiscTrade weights the
+net demands by the Black-Scholes gamma as in the discrete-hedging model, JumpRisk
+weights by kappa computed using equally likely up and down moves of relative sizes
+0.05 and 0.2 as in the jump model, and StochVol weights by maturity-adjusted Black-
+Scholes vega as in the stochastic volatility model. The appendix provides more details
+on the computation of the model-based weighting factors. For equity options, we use
+just the NetDemand variable in the empirical work.
+As a measure of skew in SPX-option demand, we use JumpRiskSkew, the excess
+implied-volatility skew from the demand model with underlying jumps described in
+Section 2.2.
+(We do not consider the models with discrete trading and stochastic
+volatility, since they do not have ﬁrst-order skew implications, as explained in Sec-
+tion 2.2. We obtain similar, albeit weaker, results using an atheoretical measure based
+on raw demand.)
+Furthermore, to test the robustness of our results, we also consider several control
+variables. For the case of the SPX options, we consider three such variables. The
+ﬁrst is the interaction between dealer proﬁts (P&L) over the previous calendar month,
+calculated using dealer positions and assuming daily delta hedging — as detailed in
+Section 3.3 — and the measure of demand pressure. The other two variables are the
+current S&P 500 volatility as ﬁltered by Bates (2006) and the S&P 500 returns over
+the month leading up to the observation date.
+For the case of equity options, the ﬁrst control variable is the interaction between
+the number of option contracts traded on the underlying stock over the past six months
+OptVolume and the measure of demand pressure. The other variables are the current
+volatility of the underlying stock measured from the past 60 trade days of underlying
+returns, the return on the underlying stock over the past month, as well as OptVolume
+on its own.
+20The model-implied skew is evaluated for one-month options with moneyness of, respectively, 0.94
+and 1. We thank Mikhail Chernov for providing this time series.
+23
+
+--- PAGE 24 ---
+3.2
+Descriptive Statistics on End-User Demand
+Even though the SPX and individual equity option markets have been the subject of
+extensive empirical research, there is no systematic information on end-user demand
+in these markets. Panel A of Table 1 reports the average daily non-market-maker net
+demand for SPX options broken down by option maturity and moneyness (deﬁned as
+the strike price divided by the underlying index level.) Since our theoretical results
+indicate that the demand from a put or a call with the same strike price and maturity
+should have identical price impact, this table is constructed from the demands for puts
+and calls of all moneyness and maturity.
+For instance, the moneyness range 0.95-
+1 consists of put options that are up to 5% in-the-money and call options that are
+up to 5% out-of-the-money.
+Panel A indicates that 39 percent of the net demand
+comes from contracts with fewer than 30 calendar days to expiration.
+Consistent
+with conventional wisdom, the good majority of this net demand is concentrated at
+moneyness where puts are out-of-the-money (OTM) (i.e., moneyness < 1.) Panel B
+of Table 1 reports the average option net demand per underlying stock for individual
+equity options from non-market makers. With the exception of some long maturity
+option categories (i.e, those with more than one year to expiration and in one case
+with more than six months to expiration), the non-market-maker net demand for all
+of the moneyness/maturity categories is negative. That is, non-market makers are net
+suppliers of options in all of these categories. This stands in stark contrast to the index
+option market in Panel A where non-market makers are net demanders of options in
+almost every moneyness/maturity category.
+Figure 1 illustrates the SPX option net demands across moneyness categories and
+compares these demands to the expensiveness of the corresponding options. The line in
+the ﬁgure plots the average SPX excess implied volatility for eight moneyness intervals
+over the 1996-2001 period. In particular, on each trade date the average excess implied
+volatility is computed for all puts and calls in a moneyness interval. The line depicts
+the means of these daily averages. The excess implied volatility inherits the familiar
+downward sloping smirk in SPX option implied volatilities.
+The bars in Figure 1
+represent the average daily net demand from non-market maker for SPX options in the
+moneyness categories, where the top part of the leftmost (rightmost) bar shows the net
+demand for all options with moneyness less than 0.8 (greater than 1.2).
+The ﬁrst main feature of Figure 1 is that index options are expensive (i.e. have a
+large risk premium), consistent with what is found in the literature, and that end users
+are net buyers of index options. This is consistent with our main hypothesis: end users
+buy index options and market makers require a premium to deliver them.
+The second main feature of Figure 1 is that the net demand for low-strike options
+is greater than the demand for high-strike options. This could help explain the fact
+that low-strike options are more expensive than high-strike options (Proposition 4).
+The shape of the demand across moneyness is clearly diﬀerent from the shape of the
+24
+
+--- PAGE 25 ---
+Table 1: Average non-market-maker net demand for put and call option contracts for
+SPX and individual equity options by moneyness and maturity, 1996-2001. Equity-
+option demand is per underlying stock.
+Moneyness Range (K/S)
+0–0.85
+0.85–0.90
+0.90–0.95
+0.95–1.00
+1.00–1.05
+1.05–1.10
+1.10–1.15
+1.15–2.00
+All
+Mat. Range
+(Cal. Days)
+Panel A: SPX Option Non-Market Maker Net Demand
+1–9
+6,014
+1,780
+1,841
+2,357
+2,255
+1,638
+524
+367
+16,776
+10–29
+7,953
+1,300
+1,115
+6,427
+2,883
+2,055
+946
+676
+23,356
+30–59
+5,792
+745
+2,679
+7,296
+1,619
+-136
+1,038
+1,092
+20,127
+60–89
+2,536
+1,108
+2,287
+2,420
+1,569
+-56
+118
+464
+10,447
+90–179
+7,011
+2,813
+2,689
+2,083
+201
+1,015
+4
+2,406
+18,223
+180–364
+2,630
+3,096
+2,335
+-1,393
+386
+1,125
+-117
+437
+8,501
+365–999
+583
+942
+1,673
+1,340
+1,074
+816
+560
+-1,158
+5,831
+All
+32,519
+11,785
+14,621
+20,530
+9,987
+6,457
+3,074
+4,286
+103,260
+Panel B: Equity Option Non-Market Maker Net Demand
+1-9
+-51
+-25
+-40
+-45
+-47
+-31
+-23
+-34
+-295
+10-29
+-64
+-35
+-57
+-79
+-102
+-80
+-55
+-103
+-576
+30-59
+-55
+-31
+-39
+-55
+-88
+-90
+-72
+-144
+-574
+60-89
+-47
+-29
+-37
+-47
+-60
+-60
+-55
+-133
+-469
+90-179
+-85
+-60
+-73
+-84
+-105
+-111
+-101
+-321
+-941
+180-364
+53
+-19
+-23
+-24
+-36
+-35
+-33
+-109
+-225
+365-999
+319
+33
+25
+14
+12
+7
+9
+-56
+363
+All
+70
+-168
+-244
+-320
+-426
+-400
+-331
+-899
+-2717
+expensiveness curve. This is expected for two reasons. First, our theory implies that
+demand pressure in one moneyness category impacts the implied volatility of options in
+other categories, thus “smoothing” the implied volatility curve and changing its shape.
+Second, our theory implies that demands (weighted by the variance of the unhedgeable
+risks) aﬀect prices, and the price eﬀect must then be translated into volatility terms. It
+follows that a left-skewed hump-shaped price eﬀect typically translates into a downward
+sloping volatility eﬀect, consistent with the data. In fact, the observed average demands
+can give rise to a pattern of expensiveness similar to the one observed empirically when
+using a version of the model with jump risk. It is helpful to link these demands more
+directly to the predictions of our theory. Our model shows that every option contract
+demanded leads to an increase in its price — in dollar terms — proportional to the
+variance of its unhedgeable part (and an increase in any other option prices proportional
+to the covariance of the unhedgeable parts of the two options). Hence, the relationship
+between raw demands (that is, demands not weighted according to the model) and
+expensiveness is more directly visible when expensiveness is measured in dollar terms,
+rather than in terms of implied volatility. This fact is conﬁrmed by Figure 2. Indeed,
+the price expensiveness has a similar shape to the demand pattern. Because of the
+cross-option eﬀects and the absence of the weighting factor (the variance terms), we
+25
+
+--- PAGE 26 ---
+0.8
+0.85
+0.9
+0.95
+1
+1.05
+1.1
+1.15
+0
+0.7
+1.4
+2.1
+2.8
+3.5 x 10
+4
+Moneyness (K/S)
+Non−Market Maker Net Demand (Contracts)
+Implied Vol. Minus Bates ISDHat.
+SPX Option Net Demand and Excess Implied Volatility (1996−2001)
+ 
+ 
+0.02
+0.052
+0.084
+0.116
+0.148
+0.18
+Excess Implied Vol.
+Figure 1: The bars show the average daily net demand for puts and calls from non-
+market makers for SPX options in the diﬀerent moneyness categories (left axis). The
+top part of the leftmost (rightmost) bar shows the net demand for all options with
+moneyness less than 0.8 (greater than 1.2). The line is the average SPX excess implied
+volatility, that is, implied volatility minus the volatility from the underlying security
+ﬁltered using Bates (2005), for each moneyness category (right axis). The data cover
+1996-2001.
+do not expect the shapes to be identical.21
+Figure 3 illustrates equity option net demands across moneyness categories and
+compares to their expensiveness. The line in the ﬁgure plots the average equity option
+excess implied volatility (with respect to the GARCH(1,1) volatility forecast) per un-
+derlying stock for eight moneyness intervals over the 1996-2001 period. In particular, on
+each trade date for each underlying stock the average excess implied volatility is com-
+puted for all puts and calls in a moneyness interval. These excess implied volatilities
+21Even if the model-implied relationship involving dollar expensiveness is more direct, we follow
+the literature and concentrate on expensiveness expressed in terms of implied volatility. This can be
+thought of as a normalization that eliminates the need for explicit controls for the price level of the
+underlying asset.
+26
+
+--- PAGE 27 ---
+0.8
+0.85
+0.9
+0.95
+1
+1.05
+1.1
+1.15
+0
+0.7
+1.4
+2.1
+2.8
+3.5
+x 10
+4
+Moneyness (K/S)
+Non−Market Maker Net Demand (Contracts)
+Dollar Expensiveness.
+SPX Option Net Demand and Dollar Expensiveness (1996−2001)
+ 
+ 
+3
+4.4
+5.8
+7.2
+8.6
+10
+Dollar Expensiveness.
+Figure 2: The bars show the average daily net demand for puts and calls from non-
+market makers for SPX options in the diﬀerent moneyness categories (left axis). The
+top part of the leftmost (rightmost) bar shows the net demand for all options with
+moneyness less than 0.8 (greater than 1.2). The line is the average SPX price ex-
+pensiveness, that is, the option price minus the “fair price” implied by Bates (2005)
+using ﬁltered volatility from the underlying security and equity risk premia, for each
+moneyness category (right axis). The data cover 1996-2001.
+are averaged across underlying stocks on each trade day for each moneyness interval.
+The line depicts the means of these daily averages. The excess implied volatility line
+is downward sloping but only varies by about 5% across the moneyness categories. By
+contrast, for the SPX options the excess implied volatility line varies by 15% across
+the corresponding moneyness categories. The bars in the ﬁgure represent the average
+daily net demand per underlying stock from non-market makers for equity options in
+the moneyness categories. The ﬁgure shows that non-market makers are net sellers
+of equity options on average, consistent with these options being cheap. Further, the
+ﬁgure shows that non-market makers sell mostly high-strike options, consistent with
+these options being especially cheap.
+27
+
+--- PAGE 28 ---
+0.8
+0.85
+0.9
+0.95
+1
+1.05
+1.1
+1.15
+−900
+−700
+−500
+−300
+−100
+100
+Moneyness (K/S)
+Non−Market Maker Net Demand (Contracts)
+Equity Option Net Demand and Excess Implied Volatility (1996−2001)
+Implied Vol. Minus GARCH(1,1) Forecast
+ 
+ 
+−0.03
+−0.018
+−0.006
+0.006
+0.018
+0.03
+Excess Implied Vol.
+Figure 3: The bars show the average daily net demand per underlying stock from
+non-market makers for equity options in the diﬀerent moneyness categories (left axis).
+The top part of the leftmost (rightmost) bar shows the net demand for all options
+with moneyness less than 0.8 (greater than 1.2). The line is the average equity option
+excess implied volatility, that is, implied volatility minus the GARCH(1,1) expected
+volatility, for each moneyness category (right axis). The data cover 1996-2001.
+3.3
+Market-Maker Proﬁts and Losses
+To illustrate the magnitude of the net demands, we compute approximate daily proﬁts
+and losses (P&Ls) for the S&P500 market makers’ hedged positions assuming daily
+delta-hedging. The daily and cumulative P&Ls are illustrated in Figure 4, which shows
+that the group of market makers faces substantial risk that cannot be delta-hedged,
+with daily P&L varying between ca. $100M and $-100M. Further, the market makers
+make cumulative proﬁts of ca. $800M over the 6-year period on their position taking.22
+With just over a hundred SPX market makers on the CBOE, this corresponds to a
+proﬁt of approximately $1M per year per market maker.
+22This number does not take into account the costs of market making or the proﬁts from the bid-ask
+spread on round-trip trades. A substantial part of market makers’ proﬁt may come from the latter.
+28
+
+--- PAGE 29 ---
+01/04/96
+12/18/97
+12/08/99
+12/31/01
+−150
+−100
+−50
+0
+50
+100
+150
+P/L ($1,000,000s)
+Daily Market Maker Profit/Loss 
+01/04/96
+12/18/97
+12/08/99
+12/31/01
+−200
+0
+200
+400
+600
+800
+1000
+Cumulative Market Maker Profit/Loss 
+P/L ($1,000,000s)
+Date
+Figure 4: The top panel shows the market makers’ daily proﬁts and losses (P&L)
+assuming they delta-hedge their option positions once per day.
+The bottom panel
+shows the corresponding cumulative P&Ls.
+Hence, consistent with the premise of our model, market makers face substantial
+risk and are compensated on average for the risk that they take. Further, consistent
+with the equilibrium entry of market makers of Section 2.3, the market makers’ proﬁts
+of about $1m per year per market maker appear to be of the same order of magnitude
+as their cost of capital tied up in the trade, trader salaries, and back oﬃce expenses. In
+fact, the proﬁt number appears low, but one must remember that market makers likely
+make substantial proﬁts from the bid-ask spread, an eﬀect that we do not include in
+our proﬁt calculations.
+Another measure of the market makers’ compensation for accommodating SPX
+option demand pressures is the annualized Sharpe ratio of their proﬁts or losses. This
+measure is 0.41 when computed from the daily P&L, an unimpressive risk/reward trade
+oﬀcomparable to a passive investment in the overall (stock) market. Since the daily
+P&L is negatively autocorrelated, the annualized Sharpe ratio increases to 0.85 when
+computed from monthly P&L (and hardly increases if we aggregate over longer time
+horizons). This Sharpe ratio reﬂects compensation for the risk that market makers
+29
+
+--- PAGE 30 ---
+Table 2: The relationship between the SPX Excess Implied Volatility (i.e. observed
+implied volatility minus volatility from the Bates (2005) model) and the SPX non-
+market-maker demand pressure weighted using either: (i) equal weights, (ii) weights
+based on discrete-time trading risk, (iii) weights based on jump risk, or (iv) weights
+based on stochastic-volatility risk.
+T-statistics computed using Newey-West are in
+parentheses.
+Before Structural Changes
+After Structural Changes
+1996/01–1996/10
+1997/10–2001/12
+Constant
+0.0001
+0.0065
+0.005
+0.020
+0.04
+0.033
+0.032
+0.038
+(0.004)
+(0.30)
+(0.17)
+(0.93)
+(7.28)
+(4.67)
+(7.7)
+(7.4)
+NetDemand
+2.1E-7
+3.8E-7
+(0.87)
+(1.55)
+DiscTrade
+6.9E-10
+2.8E-9
+(0.91)
+(3.85)
+JumpRisk
+6.4E-6
+3.2E-5
+(0.79)
+(3.68)
+StochVol
+8.7E-7
+1.1E-5
+(0.27)
+(2.74)
+Adj. R2 (%)
+9.6
+6.1
+8.1
+0.5
+7.0
+18.5
+25.9
+15.7
+N
+10
+10
+10
+10
+50
+50
+50
+50
+bear, as well as the committed capital that has alternative productive use and the
+dealers’ eﬀort and skill. This Sharpe ratio is comparable with what market makers
+and hedge funds can hope to realize (before costs), and, hence, is consistent with
+equilibrium entry of market makers as modeled in Section 2.3.
+3.4
+Net Demand and Expensiveness: SPX Index Options
+Theorem 2 relates the demand for any option to a price impact on any option. Since
+our data contain both option demands and prices, we can test these theoretical re-
+sults directly. Doing so requires that we choose a reason for the underlying asset and
+risk-free bond to form a dynamically incomplete market, and, hence, for the weighting
+factors Covt
+ ¯pi
+t+1, ¯pj
+t+1
+
+to be non-zero. As sources of market incompleteness, we con-
+sider discrete-time trading, jumps, and stochastic volatility using the results derived
+in Section 2.2.
+30
+
+--- PAGE 31 ---
+We test the model’s ability to help reconcile the two main puzzles in the option
+literature, namely the drivers of the the overall level of implied volatility and its skew
+across option moneyness. The ﬁrst set of tests investigates whether the overall excess
+implied volatility is higher on trade dates where the demand for options — aggregated
+according to the model — is higher.
+The second set of tests investigates whether
+the excess implied volatility skew is steeper on trade dates where the model-implied
+demand-based skew is steeper.
+Level:
+We investigate ﬁrst the time-series evidence for Theorem 2 by regressing a measure
+of excess implied volatility on one of various demand-based explanatory variables:
+ExcessImplVolATM t
+=
+a + b “Demand Variable”t + εt.
+(45)
+We run the regression on a monthly basis by averaging demand and expensiveness over
+each month. We do this to avoid day-of-the-month eﬀects. (Our results are similar in
+an unreported daily regression.)
+The results are shown in Table 2. We report the results over two subsamples because
+there are reasons to suspect a structural change in 1997. The change, apparent also in
+the time series of open interest and market-maker and public-customer positions (not
+shown here), stems from several events that altered the market for index options in
+the period from late 1996 to October 1997, such as the introduction of S&P500 e-mini
+futures and futures options on the competing Chicago Mercantile Exchange (CME), the
+introduction of Dow Jones options on the CBOE, and changes in margin requirements.
+Our results are robust to the choice of these sample periods.23
+We see that the estimate of the demand eﬀect b is positive but insigniﬁcant over
+the ﬁrst subsample, and positive and statistically signiﬁcant over the second, longer,
+subsample for all three model-based explanatory variables.24
+The expensiveness and the ﬁtted values from the jump model are plotted in Figure 5,
+which clearly shows their comovement over the later sample. The fact that the b coef-
+ﬁcient is positive indicates that, on average, when SPX net demand is higher (lower),
+SPX excess implied volatilities are also higher (lower). For the most successful model,
+the one based on jumps, changing the dependent variable from its lowest to its highest
+values over the late sub-sample would change the excess implied volatility by about 5.6
+percentage points. A one-standard-deviation change in the jump-based demand vari-
+able results in a one-half standard deviation change in excess implied volatility (the
+23We repeated the analysis with the sample periods lengthened or shortened by 2 or 4 months. This
+does not change our results qualitatively.
+24The model-based explanatory variables work better than just adding all contracts (NetDemand),
+because they give greater weight to near-the-money options. If we just count contracts using a more
+narrow band of moneyness, then the NetDemand variable also becomes signiﬁcant.
+31
+
+--- PAGE 32 ---
+0
+10
+20
+30
+40
+50
+60
+70
+80
+−0.02
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+Expensiveness
+Month Number
+Expensiveness
+Fitted values, early sample
+Fitted values, late sample
+Figure 5: The solid line shows the expensiveness of SPX options, that is, implied
+volatility of 1-month at-the-money options minus the volatility measure of Bates (2005)
+which takes into account jumps, stochastic volatility, and the risk premium from the
+equity market. The dashed lines are, respectively, the ﬁtted values of demand-based
+expensiveness using a model with underlying jumps, before and after certain structural
+changes (1996/01–1996/10 and 1997/10–2001/12).
+corresponding R2 is 26%). The model is also successful in explaining a signiﬁcant pro-
+portion of the level of the excess implied volatility. Over the late subsample, demand
+explains on average 1.7 percentage points excess implied volatility given the average
+demand and the regression coeﬃcient, more than a third of the estimated average level
+of excess implied volatility.
+We note that, in addition to the CBOE demand pressure observed in our data,
+there is over-the-counter demand for index options, for instance, via such products for
+individual investors as index-linked bonds. These securities give end users essentially
+a riskfree security in combination with a call option on the index (or the index plus a
+put option), which leaves Wall Street short index options. Of course, this demand also
+contributes to the excess implied volatility. Hence, our estimate that demand pressure
+explains on average 1.7 percentage points (and 26% of the variation) of the excess
+32
+
+--- PAGE 33 ---
+Table 3: The relationships between SPX excess implied volatility and demand in the
+presence of control variables. The analysis is performed when demand is measured
+either as demand from public customers only, or as demand from all non-marketmakers.
+The controls are (i) the product between lagged monthly market-maker proﬁt and
+demand, (ii) current S&P 500 volatility, and (iii) contemporaneous monthly S&P 500
+return. T-statistics computed using Newey-West are in parentheses.
+Non-MM Demand
+Public-Customer Demand
+Constant
+0.032
+0.034
+0.028
+0.029
+0.030
+0.033
+(7.66)
+(7.42)
+(3.91)
+(8.99)
+(9.40)
+(4.36)
+Demand
+3.19E-05
+2.86E-05
+3.12E-05
+2.32E-05
+2.22E-05
+2.70E-05
+(3.68)
+(3.30)
+(4.73)
+(9.10)
+(8.78)
+(5.22)
+P&L × Demand
+-1.40E-13
+-1.44E-13
+-3.27E-14
+-3.39E-14
+(-2.28)
+(-2.72)
+(-1.36)
+(-1.60)
+Volatility
+1.51E-08
+1.50E-07
+(0.18)
+(1.19)
+S&P Return
+6.92E-02
+6.67E-03
+(1.44)
+(0.12)
+Adj. R2 (%)
+25.9
+29.6
+38.0
+42.7
+43.4
+49.0
+implied volatility can be viewed as a conservative lower bound.
+Further support for the hypothesis that the supply for options is upward sloping
+comes from the comparison between the estimated supply-curve slopes following market
+maker losses and, respectively, gains. If market maker risk aversion plays an important
+role in pricing options, then one would expect prices to be less sensitive to demand when
+market makers are well funded following proﬁtable periods. This is exactly what we
+ﬁnd. Breaking the daily sample25 in two subsamples depending on whether the hedged
+market maker proﬁts over the previous 20 trading days is positive or negative,26 we
+estimate the regression (47) for each subsample and ﬁnd that, following losses, the
+b coeﬃcient is approximately twice as large as the coeﬃcient obtained in the other
+subsample. For instance, in the jump model, the regression coeﬃcient following losses
+is 2.6E-05 with a t-statistic of 3.7 (330 observations), compared to a value of 1.1E-5
+with t-statistic of 6.1 in the complementary subsample (646 observations).
+This eﬀect of recent proﬁts and losses (P&L) can also be studied in a time-series
+regression with the recent P&L on the right-hand side interacted with the magnitude
+25Because of the structural changes discussed above, we restrict our attention to the period starting
+on October 1, 1997.
+26Similar results obtain if the breaking point is the mean or median daily proﬁt.
+33
+
+--- PAGE 34 ---
+0
+10
+20
+30
+40
+50
+60
+70
+80
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+0.08
+Skew
+Month Number
+IV Skew
+Fitted values, early sample
+Fitted values, late sample
+Figure 6: The solid line shows the implied-volatility skew for SPX options. The dashed
+lines are, respectively, the ﬁtted values from the skew in demand before and after certain
+structural changes (1996/01–1996/10 and 1997/10–2001/12).
+of demand. Table 3 reports the result of including this and other control variables,
+namely the volatility of the underlying on the past return on the S&P. To illustrate the
+robustness to the classiﬁcation of proprietary traders as well, we present the results
+both when proprietary traders are treated as dealers and when they are treated as
+customers.
+In order to save space, the only method of weighting demand that we
+present is the one given by the jump model and we restrict attention to the longer
+subsample.
+First, the table makes it clear that, regardless of the additional controls used,
+demand pressure has a signiﬁcant positive eﬀect on the level of the implied-volatility
+curve. Further, there is a negative coeﬃcient on the interaction between market-maker
+proﬁts and demand pressure. This means that the eﬀect of demand is larger following
+market maker losses (i.e. negative proﬁts) and smaller following positive proﬁts. As
+explained above, this is consistent with the idea that following losses, market makers are
+more risk averse and therefore the option prices are more sensitive to demand. Hence,
+the negative coeﬃcient oﬀers further support for our demand-based option pricing.
+34
+
+[TRUNCATED at 80000 chars — 56 total pages]

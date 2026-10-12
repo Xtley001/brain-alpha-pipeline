@@ -1,0 +1,1125 @@
+
+--- PAGE 1 ---
+NBER WORKING PAPER SERIES
+THE CROSS-SECTION OF VOLATILITY AND EXPECTED RETURNS
+Andrew Ang
+Robert J. Hodrick
+Yuhang Xing
+Xiaoyan Zhang
+Working Paper 10852
+http://www.nber.org/papers/w10852
+NATIONAL BUREAU OF ECONOMIC RESEARCH
+1050 Massachusetts Avenue
+Cambridge, MA 02138
+October 2004
+We thank Joe Chen, Mike Chernov, Miguel Ferreira, Jeff Fleming, Chris Lamoureux, Jun Liu, Laurie
+Hodrick, Paul Hribar, Jun Pan, Matt Rhodes-Kropf, Steve Ross, David Weinbaum, and Lu Zhang for helpful
+discussions. We also received valuable comments from seminar participants at an NBER Asset Pricing
+meeting, Campbell and Company, Columbia University, Cornell University, Hong Kong University, Rice
+University, UCLA, and the University of Rochester. We thank Tim Bollerslev, Joe Chen, Miguel Ferreira,
+Kenneth French, Anna Scherbina, and Tyler Shumway for kindly providing data. We especially thank an
+anonymous referee and Rob Stambaugh, the editor, for helpful suggestions that greatly improved the article.
+Andrew Ang and Bob Hodrick both acknowledge support from the NSF. The views expressed herein are
+those of the author(s) and not necessarily those of the National Bureau of Economic Research. 
+©2004 by Andrew Ang, Robert J. Hodrick, Yuhang Xing, and Xiaoyan Zhang.   All rights reserved. Short
+sections of text, not to exceed two paragraphs, may be quoted without explicit permission provided that full
+credit, including © notice, is given to the source.
+
+--- PAGE 2 ---
+The Cross-Section of Volatility and Expected Returns
+Andrew Ang, Robert J. Hodrick, Yuhang Xing, and Xiaoyan Zhang
+NBER Working Paper No. 10852
+October 2004
+JEL No. G12, G13
+ABSTRACT
+We examine the pricing of aggregate volatility risk in the cross-section of stock returns. Consistent
+with theory, we find that stocks with high sensitivities to innovations in aggregate volatility have low
+average returns. In addition, we find that stocks with high idiosyncratic volatility relative to the Fama
+and French (1993) model have abysmally low average returns. This phenomenon cannot be
+explained by exposure to aggregate volatility risk. Size, book-to-market, momentum, and liquidity
+effects cannot account for either the low average returns earned by stocks with high exposure to
+systematic volatility risk or for the low average returns of stocks with high idiosyncratic volatility.
+Andrew Ang
+Marshall School of Business, USC
+Department of Finance
+701 Exposition Blvd, Room 701
+Los Angeles CA 90089-1427
+and NBER
+aa610@columbia.edu
+Robert J. Hodrick
+Graduate School of Business
+Columbia University
+3022 Broadway
+New York, NY 10027
+and NBER
+rh169@columbia.edu
+Yuhang Xing
+Rice University
+yxing@rice.edu
+Xiaoyan Zhang
+Cornell University
+xz@cornell.edu
+
+--- PAGE 3 ---
+It is well known that the volatility of stock returns varies over time. While considerable
+research has examined the time-series relation between the volatility of the market and the ex-
+pected return on the market (see, among others, Campbell and Hentschel (1992), and Glosten,
+Jagannathan and Runkle (1993)), the question of how aggregate volatility affects the cross-
+section of expected stock returns has received less attention. Time-varying market volatility
+induces changes in the investment opportunity set by changing the expectation of future mar-
+ket returns, or by changing the risk-return trade-off. If the volatility of the market return is a
+systematic risk factor, an APT or factor model predicts that aggregate volatility should also be
+priced in the cross-section of stocks. Hence, stocks with different sensitivities to innovations in
+aggregate volatility should have different expected returns.
+The ﬁrst goal of this paper is to provide a systematic investigation of how the stochastic
+volatility of the market is priced in the cross-section of expected stock returns. We want to de-
+termine if the volatility of the market is a priced risk factor and estimate the price of aggregate
+volatility risk. Many option studies have estimated a negative price of risk for market volatility
+using options on an aggregate market index or options on individual stocks.1 Using the cross-
+section of stock returns, rather than options on the market, allows us to create portfolios of
+stocks that have different sensitivities to innovations in market volatility. If the price of aggre-
+gate volatility risk is negative, stocks with large, positive sensitivities to volatility risk should
+have low average returns. Using the cross-section of stock returns also allows us to easily con-
+trol for a battery of cross-sectional effects, like the size and value factors of Fama and French
+(1993), the momentum effect of Jegadeesh and Titman (1993), and the effect of liquidity risk
+documented by P´astor and Stambaugh (2003). Option pricing studies do not control for these
+cross-sectional risk factors.
+We ﬁnd that innovations in aggregate volatility carry a statistically signiﬁcant negative price
+of risk of approximately -1% per annum. Economic theory provides several reasons why the
+price of risk of innovations in market volatility should be negative. For example, Campbell
+(1993 and 1996) and Chen (2002) show that investors want to hedge against changes in mar-
+ket volatility, because increasing volatility represents a deterioration in investment opportuni-
+ties. Risk averse agents demand stocks that hedge against this risk. Periods of high volatility
+also tend to coincide with downward market movements (see French, Schwert and Stambaugh
+(1987), and Campbell and Hentschel (1992)). As Bakshi and Kapadia (2003) comment, assets
+with high sensitivities to market volatility risk provide hedges against market downside risk.
+The higher demand for assets with high systematic volatility loadings increases their price and
+1
+
+--- PAGE 4 ---
+lowers their average return. Finally, stocks that do badly when volatility increases tend to have
+negatively skewed returns over intermediate horizons, while stocks that do well when volatil-
+ity rises tend to have positively skewed returns. If investors have preferences over coskewness
+(see Harvey and Siddique (2000)), stocks that have high sensitivities to innovations in market
+volatility are attractive and have low returns.2
+The second goal of the paper is to examine the cross-sectional relationship between id-
+iosyncratic volatility and expected returns, where idiosyncratic volatility is deﬁned relative to
+the standard Fama and French (1993) model.3 If the Fama-French model is correct, forming
+portfolios by sorting on idiosyncratic volatility will obviously provide no difference in average
+returns. Nevertheless, if the Fama-French model is false, sorting in this way potentially provides
+a set of assets that may have different exposures to aggregate volatility and hence different aver-
+age returns. Our logic is the following. If aggregate volatility is a risk factor that is orthogonal
+to existing risk factors, the sensitivity of stocks to aggregate volatility times the movement in
+aggregate volatility will show up in the residuals of the Fama-French model. Firms with greater
+sensitivities to aggregate volatility should therefore have larger idiosyncratic volatilities relative
+to the Fama-French model, everything else being equal. Differences in the volatilities of ﬁrms’
+true idiosyncratic errors, which are not priced, will make this relation noisy. We should be able
+to average out this noise by constructing portfolios of stocks to reveal that larger idiosyncratic
+volatilities relative to the Fama-French model correspond to greater sensitivities to movements
+in aggregate volatility and thus different average returns, if aggregate volatility risk is priced.
+While high exposure to aggregate volatility risk tends to produce low expected returns, some
+economic theories suggest that idiosyncratic volatility should be positively related to expected
+returns. If investors demand compensation for not being able to diversify risk (see Malkiel
+and Xu (2002), and Jones and Rhodes-Kropf (2003)), then agents will demand a premium for
+holding stocks with high idiosyncratic volatility. Merton (1987) suggests that in an information-
+segmented market, ﬁrms with larger ﬁrm-speciﬁc variances require higher average returns to
+compensate investors for holding imperfectly diversiﬁed portfolios. Some behavioral models,
+like Barberis and Huang (2001), also predict that higher idiosyncratic volatility stocks should
+earn higher expected returns. Our results are directly opposite to these theories. We ﬁnd that
+stocks with high idiosyncratic volatility have low average returns. There is a strongly signiﬁcant
+difference of -1.06% per month between the average returns of the quintile portfolio with the
+highest idiosyncratic volatility stocks and the quintile portfolio with the lowest idiosyncratic
+volatility stocks.
+2
+
+--- PAGE 5 ---
+In contrast to our results, earlier researchers either found a signiﬁcantly positive relation
+between idiosyncratic volatility and average returns, or they failed to ﬁnd any statistically sig-
+niﬁcant relation between idiosyncratic volatility and average returns. For example, Lintner
+(1965) shows that idiosyncratic volatility carries a positive coefﬁcient in cross-sectional regres-
+sions. Lehmann (1990) also ﬁnds a statistically signiﬁcant, positive coefﬁcient on idiosyncratic
+volatility over his full sample period. Similarly, Tinic and West (1986) and Malkiel and Xu
+(2002) unambiguously ﬁnd that portfolios with higher idiosyncratic volatility have higher av-
+erage returns, but they do not report any signiﬁcance levels for their idiosyncratic volatility
+premiums. On the other hand, Longstaff (1989) ﬁnds that a cross-sectional regression coefﬁ-
+cient on total variance for size-sorted portfolios carries an insigniﬁcant negative sign.
+The difference between our results and the results of past studies is that the past literature
+either does not examine idiosyncratic volatility at the ﬁrm level or does not directly sort stocks
+into portfolios ranked on this measure of interest. For example, Tinic and West (1986) work
+only with 20 portfolios sorted on market beta, while Malkiel and Xu (2002) work only with
+100 portfolios sorted on market beta and size. Malkiel and Xu (2002) only use the idiosyncratic
+volatility of one of the 100 beta/size portfolios to which a stock belongs to proxy for that stock’s
+idiosyncratic risk and, thus, do not examine ﬁrm-level idiosyncratic volatility. Hence, by not di-
+rectly computing differences in average returns between stocks with low and high idiosyncratic
+volatilities, previous studies miss the strong negative relation between idiosyncratic volatility
+and average returns that we ﬁnd.
+The low average returns to stocks with high idiosyncratic volatilities could arise because
+stocks with high idiosyncratic volatilities may have high exposure to aggregate volatility risk,
+which lowers their average returns. We investigate this issue and ﬁnd that this is not a complete
+explanation. Our idiosyncratic volatility results are also robust to controlling for value, size,
+liquidity, volume, dispersion of analysts’ forecasts, and momentum effects. We ﬁnd the effect
+robust to different formation periods for computing idiosyncratic volatility and for different
+holding periods. The effect also persists in both bull and bear markets, recessions and expan-
+sions, and volatile and stable periods. Hence, our results on idiosyncratic volatility represent a
+substantive puzzle.
+The rest of this paper is organized as follows. In Section I, we examine how aggregate
+volatility is priced in the cross-section of stock returns. Section II documents that ﬁrms with
+high idiosyncratic volatility have very low average returns. Finally, Section III concludes.
+3
+
+--- PAGE 6 ---
+I. Pricing Systematic Volatility in the Cross-Section
+A. Theoretical Motivation
+When investment opportunities vary over time, the multi-factor models of Merton (1973) and
+Ross (1976) show that risk premia are associated with the conditional covariances between as-
+set returns and innovations in state variables that describe the time-variation of the investment
+opportunities. Campbell’s (1993 and 1996) version of the Intertemporal CAPM (I-CAPM)
+shows that investors care about risks from the market return and from changes in forecasts of
+future market returns. When the representative agent is more risk averse than log utility, assets
+that covary positively with good news about future expected returns on the market have higher
+average returns. These assets command a risk premium because they reduce a consumer’s abil-
+ity to hedge against a deterioration in investment opportunities. The intuition from Campbell’s
+model is that risk-averse investors want to hedge against changes in aggregate volatility because
+volatility positively affects future expected market returns, as in Merton (1973).
+However, in Campbell’s set-up, there is no direct role for ﬂuctuations in market volatility to
+affect the expected returns of assets because Campbell’s model is premised on homoskedastic-
+ity. Chen (2002) extends Campbell’s model to a heteroskedastic environment which allows for
+both time-varying covariances and stochastic market volatility. Chen shows that risk-averse in-
+vestors also want to directly hedge against changes in future market volatility. In Chen’s model,
+an asset’s expected return depends on risk from the market return, changes in forecasts of future
+market returns, and changes in forecasts of future market volatilities. For an investor more risk
+averse than log utility, Chen shows that an asset that has a positive covariance between its return
+and a variable that positively forecasts future market volatilities causes that asset to have a lower
+expected return. This effect arises because risk-averse investors reduce current consumption to
+increase precautionary savings in the presence of increased uncertainty about market returns.
+Motivated by these multi-factor models, we study how exposure to market volatility risk is
+priced in the cross-section of stock returns. A true conditional multi-factor representation of
+expected returns in the cross-section would take the following form:
+ri
+t+1 = ai
+t + βi
+m,t(rm
+t+1 −γm,t) + βi
+v,t(vt+1 −γv,t) +
+K
+X
+k=1
+βi
+k,t(fk,t+1 −γk,t),
+(1)
+where ri
+t+1 is the excess return on stock i, βi
+m,t is the loading on the excess market return, βi
+v,t
+is the asset’s sensitivity to volatility risk, and the βi
+k,t coefﬁcients for k = 1 . . . K represent
+4
+
+--- PAGE 7 ---
+loadings on other risk factors. In the full conditional setting in equation (1), factor loadings,
+conditional means of factors, and factor premiums potentially vary over time. The model in
+equation (1) is written in terms of factor innovations, so rm
+t+1 −γm,t represents the innovation in
+the market return, vt+1−γv,t represents the innovation in the factor reﬂecting aggregate volatility
+risk, and innovations to the other factors are represented by fk,t+1 −γk,t. The conditional
+mean of the market and aggregate volatility are denoted by γm,t and γv,t, respectively, while the
+conditional mean of the other factors are denoted by γk,t. In equilibrium, the conditional mean
+of stock i is given by:
+ai
+t = Et(ri
+t+1) = βi
+m,tλm,t + βi
+v,tλv,t +
+K
+X
+k=1
+βi
+k,tλk,t,
+(2)
+where λm,t is the price of risk of the market factor, λv,t is the price of aggregate volatility risk,
+and the λk,t are prices of risk of the other factors. Note that only if a factor is traded is the
+conditional mean of a factor equal to its conditional price of risk.
+The main prediction from the factor model setting of equation (1) that we examine is that
+stocks with different loadings on aggregate volatility risk have different average returns.4 How-
+ever, the true model in equation (1) is infeasible to examine because the true set of factors is
+unknown and the true conditional factor loadings are unobservable. Hence, we do not attempt to
+directly use equation (1) in our empirical work. Instead, we simplify the full model in equation
+(1), which we now detail.
+B. The Empirical Framework
+To investigate how aggregate volatility risk is priced in the cross-section of equity returns we
+make the following simplifying assumptions to the full speciﬁcation in equation (1). First, we
+use observable proxies for the market factor and the factor representing aggregate volatility risk.
+We use the CRSP value-weighted market index to proxy for the market factor. To proxy innova-
+tions in aggregate volatility, (vt+1 −γv,t), we use changes in the V IX index from the Chicago
+Board Options Exchange (CBOE).5 Second, we reduce the number of factors in equation (1)
+to just the market factor and the proxy for aggregate volatility risk. Finally, to capture the con-
+ditional nature of the true model, we use short intervals, one month of daily data, to take into
+account possible time-variation of the factor loadings. We discuss each of these simpliﬁcations
+in turn.
+5
+
+--- PAGE 8 ---
+B.1. Innovations in the V IX Index
+The V IX index is constructed so that it represents the implied volatility of a synthetic at-the-
+money option contract on the S&P100 index that has a maturity of one month. It is constructed
+from eight S&P100 index puts and calls and takes into account the American features of the
+option contracts, discrete cash dividends and microstructure frictions such as bid-ask spreads
+(see Whaley (2000) for further details).6 Figure 1 plots the V IX index from January 1986 to
+December 2000. The mean level of the daily V IX series is 20.5%, and its standard deviation
+is 7.85%.
+[FIGURE 1 ABOUT HERE]
+Because the V IX index is highly serially correlated with a ﬁrst-order autocorrelation of
+0.94, we measure daily innovations in aggregate volatility by using daily changes in V IX,
+which we denote as ∆V IX. Daily ﬁrst differences in V IX have an effective mean of zero (less
+than 0.0001), a standard deviation of 2.65%, and also have negligible serial correlation (the
+ﬁrst-order autocorrelation of ∆V IX is -0.0001). As part of our robustness checks in Section
+C, we also measure innovations in V IX by specifying a stationary time-series model for the
+conditional mean of V IX and ﬁnd our results to be similar to using simple ﬁrst differences.
+While ∆V IX seems an ideal proxy for innovations in volatility risk because the V IX index is
+representative of traded option securities whose prices directly reﬂect volatility risk, there are
+two main caveats with using V IX to represent observable market volatility.
+The ﬁrst concern is that the V IX index is the implied volatility from the Black-Scholes
+(1973) model, and we know that the Black-Scholes model is an approximation. If the true
+stochastic environment is characterized by stochastic volatility and jumps, ∆V IX will reﬂect
+total quadratic variation in both diffusion and jump components (see, for example, Pan (2002)).
+Although Bates (2000) argues that implied volatilities computed taking into account jump risk
+are very close to original Black-Scholes implied volatilities, jump risk may be priced differ-
+ently from volatility risk. Our analysis does not separate jump risk from diffusion risk, so our
+aggregate volatility risk may include jump risk components.
+A more serious reservation about the V IX index is that V IX combines both stochastic
+volatility and the stochastic volatility risk premium. Only if the risk premium is zero or constant
+would ∆V IX be a pure proxy for the innovation in aggregate volatility. Decomposing ∆V IX
+into the true innovation in volatility and the volatility risk premium can only be done by writing
+6
+
+--- PAGE 9 ---
+down a formal model. The form of the risk premium depends on the parameterization of the
+price of volatility risk, the number of factors and the evolution of those factors. Each different
+model speciﬁcation implies a different risk premium. For example, many stochastic volatility
+option pricing models assume that the volatility risk premium can be parameterized as a linear
+function of volatility (see, for example, Chernov and Ghysels (2000), Benzoni (2002), and
+Jones (2003)). This may or may not be a good approximation to the true price of risk. Rather
+than imposing a structural form, we use an unadulterated ∆V IX series. An advantage of this
+approach is that our analysis is simple to replicate.
+B.2. The Pre-Formation Regression
+Our goal is to test if stocks with different sensitivities to aggregate volatility innovations (prox-
+ied by ∆V IX) have different average returns. To measure the sensitivity to aggregate volatility
+innovations, we reduce the number of factors in the full speciﬁcation in equation (1) to two, the
+market factor and ∆V IX. A two-factor pricing kernel with the market return and stochastic
+volatility as factors is also the standard set-up commonly assumed by many stochastic option
+pricing studies (see, for example, Heston, 1993). Hence, the empirical model that we examine
+is:
+ri
+t = β0 + βi
+MKT · MKTt + βi
+∆V IX · ∆V IXt + εi
+t,
+(3)
+where MKT is the market excess return, ∆V IX is the instrument we use for innovations in
+the aggregate volatility factor, and βi
+MKT and βi
+∆V IX are loadings on market risk and aggregate
+volatility risk, respectively.
+Previous empirical studies suggest that there are other cross-sectional factors that have ex-
+planatory power for the cross-section of returns, such as the size and value factors of the Fama
+and French (1993) three-factor model (hereafter FF-3). We do not directly model these effects
+in equation (3), because controlling for other factors in constructing portfolios based on equa-
+tion (3) may add a lot of noise. Although we keep the number of regressors in our pre-formation
+portfolio regressions to a minimum, we are careful to ensure that we control for the FF-3 factors
+and other cross-sectional factors in assessing how volatility risk is priced using post-formation
+regression tests.
+We construct a set of assets that are sufﬁciently disperse in exposure to aggregate volatility
+innovations by sorting ﬁrms on ∆V IX loadings over the past month using the regression (3)
+with daily data. We run the regression for all stocks on AMEX, NASDAQ and the NYSE, with
+more than 17 daily observations. In a setting where coefﬁcients potentially vary over time, a
+7
+
+--- PAGE 10 ---
+1-month window with daily data is a natural compromise between estimating coefﬁcients with
+a reasonable degree of precision and pinning down conditional coefﬁcients in an environment
+with time-varying factor loadings. P´astor and Stambaugh (2003), among others, also use daily
+data with a 1-month window in similar settings. At the end of each month, we sort stocks into
+quintiles, based on the value of the realized β∆V IX coefﬁcients over the past month. Firms in
+quintile 1 have the lowest coefﬁcients, while ﬁrms in quintile 5 have the highest β∆V IX loadings.
+Within each quintile portfolio, we value-weight the stocks. We link the returns across time to
+form one series of post-ranking returns for each quintile portfolio.
+Table I reports various summary statistics for quintile portfolios sorted by past β∆V IX over
+the previous month using equation (3). The ﬁrst two columns report the mean and standard
+deviation of monthly total, not excess, simple returns. In the ﬁrst column under the heading
+‘Factor Loadings,’ we report the pre-formation β∆V IX coefﬁcients, which are computed at the
+beginning of each month for each portfolio and are value-weighted. The column reports the
+time-series average of the pre-formation β∆V IX loadings across the whole sample. By con-
+struction, since the portfolios are formed by ranking on past β∆V IX, the pre-formation β∆V IX
+loadings monotonically increase from -2.09 for portfolio 1 to 2.18 for portfolio 5.
+[TABLE I ABOUT HERE]
+The columns labelled ‘CAPM Alpha’ and ‘FF-3 Alpha’ report the time-series alphas of
+these portfolios relative to the CAPM and to the FF-3 model, respectfully. Consistent with the
+negative price of systematic volatility risk found by the option pricing studies, we see lower
+average raw returns, CAPM alphas, and FF-3 alphas with higher past loadings of β∆V IX. All
+the differences between quintile portfolios 5 and 1 are signiﬁcant at the 1% level, and a joint test
+for the alphas equal to zero rejects at the 5% level for both the CAPM and the FF-3 model. In
+particular, the 5-1 spread in average returns between the quintile portfolios with the highest and
+lowest β∆V IX coefﬁcients is -1.04% per month. Controlling for the MKT factor exacerbates
+the 5-1 spread to -1.15% per month, while controlling for the FF-3 model decreases the 5-1
+spread to -0.83% per month.
+B.3. Requirements for a Factor Risk Explanation
+While the differences in average returns and alphas corresponding to different β∆V IX loadings
+are very impressive, we cannot yet claim that these differences are due to systematic volatility
+8
+
+--- PAGE 11 ---
+risk. We will examine the premium for aggregate volatility within the framework of an uncon-
+ditional factor model. There are two requirements that must hold in order to make a case for a
+factor risk-based explanation. First, a factor model implies that there should be contemporane-
+ous patterns between factor loadings and average returns. For example, in a standard CAPM,
+stocks that covary strongly with the market factor should, on average, earn high returns over the
+same period. To test a factor model, Black, Jensen and Scholes (1972), Fama and French (1992
+and 1993), Jagannathan and Wang (1996), and P´astor and Stambaugh (2003), among others, all
+form portfolios using various pre-formation criteria, but examine post-ranking factor loadings
+that are computed over the full sample period. While the β∆V IX loadings show very strong
+patterns of future returns, they represent past covariation with innovations in market volatility.
+We must show that the portfolios in Table I also exhibit high loadings with volatility risk over
+the same period used to compute the alphas.
+To construct our portfolios, we took ∆V IX to proxy for the innovation in aggregate volatil-
+ity at a daily frequency. However, at the standard monthly frequency, which is the frequency
+of the ex-post returns for the alphas reported in Table I, using the change in V IX is a poor
+approximation for innovations in aggregate volatility. This is because at lower frequencies, the
+effect of the conditional mean of V IX plays an important role in determining the unanticipated
+change in V IX. In contrast, the high persistence of the V IX series at a daily frequency means
+that the ﬁrst difference of V IX is a suitable proxy for the innovation in aggregate volatility.
+Hence, we should not measure ex-post exposure to aggregate volatility risk by looking at how
+the portfolios in Table I correlate ex-post with monthly changes in V IX.
+To measure ex-post exposure to aggregate volatility risk at a monthly frequency, we follow
+Breeden, Gibbons and Litzenberger (1989) and construct an ex-post factor that mimics aggre-
+gate volatility risk. We term this mimicking factor FV IX. We construct the tracking portfolio
+so that it is the portfolio of asset returns maximally correlated with realized innovations in
+volatility using a set of basis assets. This allows us to examine the contemporaneous relation-
+ship between factor loadings and average returns. The major advantage of using FV IX to
+measure aggregate volatility risk is that we can construct a good approximation for innovations
+in market volatility at any frequency. In particular, the factor mimicking aggregate volatility
+innovations allows us to proxy aggregate volatility risk at the monthly frequency by simply
+cumulating daily returns over the month on the underlying base assets used to construct the
+mimicking factor. This is a much simpler method for measuring aggregate volatility innova-
+tions at different frequencies, rather than specifying different, and unknown, conditional means
+9
+
+--- PAGE 12 ---
+for V IX that depend on different sampling frequencies. After constructing the mimicking ag-
+gregate volatility factor, we will conﬁrm that it is high exposure to aggregate volatility risk that
+is behind the low average returns to past β∆V IX loadings.
+However, just showing that there is a relation between ex-post aggregate volatility risk expo-
+sure and average returns does not rule out the explanation that the volatility risk exposure is due
+to known determinants of expected returns in the cross-section. Hence, our second condition for
+a risk-based explanation is that the aggregate volatility risk exposure is robust to controlling for
+various stock characteristics and other factor loadings. Several of these cross-sectional effects
+may be at play in the results of Table I. For example, quintile portfolios 1 and 5 have smaller
+stocks, and stocks with higher book-to-market ratios, and these are the portfolios with the most
+extreme returns. Periods of very high volatility also tend to coincide with periods of market
+illiquidity (see, among others, Jones (2003) and P´astor and Stambaugh (2003)). In Section C,
+we control for size, book-to-market, and momentum effects, and also speciﬁcally disentangle
+the exposure to liquidity risk from the exposure to systematic volatility risk.
+B.4. A Factor Mimicking Aggregate Volatility Risk
+Following Breeden, Gibbons and Litzenberger (1989) and Lamont (2001), we create the mim-
+icking factor FV IX to track innovations in V IX by estimating the coefﬁcient b in the following
+regression:
+∆V IXt = c + b′Xt + ut,
+(4)
+where Xt represents the returns on the base assets. Since the base assets are excess returns,
+the coefﬁcient b has the interpretation of weights in a zero-cost portfolio. The return on the
+portfolio, b′Xt, is the factor FV IX that mimics innovations in market volatility. We use the
+quintile portfolios sorted on past β∆V IX in Table I as the base assets Xt. These base assets are,
+by construction, a set of assets that have different sensitivities to past daily innovations in V IX.7
+We run the regression in equation (4) at a daily frequency every month and use the estimates of
+b to construct the mimicking factor for aggregate volatility risk over the same month.
+An alternative way to construct a factor that mimics volatility risk is to directly construct a
+traded asset that reﬂects only volatility risk. One way to do this is to consider option returns.
+Coval and Shumway (2001) construct market-neutral straddle positions using options on the
+aggregate market (S&P 100 options). This strategy provides exposure to aggregate volatility
+risk. Coval and Shumway approximate daily at-the-money straddle returns by taking a weighted
+average of zero-beta straddle positions, with strikes immediately above and below each day’s
+10
+
+--- PAGE 13 ---
+opening level of the S&P 100. They cumulate these daily returns each month to form a monthly
+return, which we denote as STR.8 In Section D, we investigate the robustness of our results to
+using STR in place of FV IX when we estimate the cross-sectional aggregate volatility price
+of risk.
+Once we construct FV IX, then the multi-factor model (3) holds, except we can substitute
+the (unobserved) innovation in volatility with the tracking portfolio that proxies for market
+volatility risk (see Breeden (1979)). Hence, we can write the model in equation (3) as the
+following cross-sectional regression:
+ri
+t = αi + βi
+MKT · MKTt + βi
+FV IX · FV IXt + εi
+t
+(5)
+where MKT is the market excess return, FV IX is the mimicking aggregate volatility factor,
+and βi
+MKT and βi
+FV IX are factor loadings on market risk and aggregate volatility risk, respec-
+tively.
+To test a factor risk model like equation (5), we must show contemporaneous patterns be-
+tween factor loadings and average returns. That is, if the price of risk of aggregate volatility is
+negative, then stocks with high covariation with FV IX should have low returns, on average,
+over the same period used to compute the βFV IX factor loadings and the average returns. By
+construction, FV IX allows us to examine the contemporaneous relationship between factor
+loadings and average returns and it is the factor that is ex-post most highly correlated with in-
+novations in aggregate volatility. However, while FV IX is the right factor to test a risk story,
+FV IX itself is not an investable portfolio because it is formed with future information. Nev-
+ertheless, FV IX can be used as guidance for tradeable strategies that would hedge market
+volatility risk using the cross-section of stocks.
+In the second column under the heading ‘Factor Loadings’ of Table I, we report the pre-
+formation βFV IX loadings that correspond to each of the portfolios sorted on past β∆V IX load-
+ings. The pre-formation βFV IX loadings are computed by running the regression (5) over daily
+returns over the past month. The pre-formation FV IX loadings are very similar to the pre-
+formation ∆V IX loadings for the portfolios sorted on past β∆V IX loadings. For example, the
+pre-formation βFV IX (β∆V IX) loading for quintile 1 is -2.00 (-2.09), while the pre-formation
+βFV IX (β∆V IX) loading for quintile 5 is 2.31 (2.18).
+11
+
+--- PAGE 14 ---
+B.5. Post-Formation Factor Loadings
+In the next to last column of Table I, we report post-formation β∆V IX loadings over the next
+month, which we compute as follows. After the quintile portfolios are formed at time t, we
+calculate daily returns of each of the quintile portfolios over the next month, from t to t+1. For
+each portfolio, we compute the ex-post β∆V IX loadings by running the same regression (3) that
+is used to form the portfolios using daily data over the next month (t to t+1). We report the next
+month β∆V IX loadings averaged across time. The next month post-formation β∆V IX loadings
+range from -0.033 for portfolio 1 to 0.018 for portfolio 5. Hence, although the ex-postβ∆V IX
+loadings over the next month are monotonically increasing, the spread is disappointingly very
+small.
+Finding large spreads in the next month post-formation β∆V IX loadings is a very stringent
+requirement and one that would be done in direct tests of a conditional factor model like equa-
+tion (1). Our goal is more modest. We examine the premium for aggregate volatility using
+an unconditional factor model approach, which requires that average returns are related to the
+unconditional covariation between returns and aggregate volatility risk. As Hansen and Richard
+(1987) note, an unconditional factor model implies the existence of a conditional factor model.
+However, to form precise estimates of the conditional factor loadings in a full conditional set-
+ting like equation (1) requires knowledge of the instruments driving the time-variation in the
+betas, as well as specifying the complete set of factors.
+The ex-post β∆V IX loadings over the next month are computed using, on average, only 22
+daily observations each month. In contrast, the CAPM and FF-3 alphas are computed using
+regressions measuring unconditional factor exposure over the full sample (180 monthly obser-
+vations) of post-ranking returns. To demonstrate that exposure to volatility innovations may
+explain some of the large CAPM and FF-3 alphas, we must show that the quintile portfolios
+exhibit different post-ranking spreads in aggregate volatility risk sensitivities over the entire
+sample at the same monthly frequency for which the post-ranking returns are constructed. Av-
+eraging a series of ex-post conditional one month covariances does not provide an estimate of
+the unconditional covariation between the portfolio returns and aggregate volatility risk.
+To examine ex-post factor exposure to aggregate volatility risk consistent with a factor
+model approach, we compute post-ranking FV IX betas over the full sample.9 In particular,
+since the FF-3 alpha controls for market, size, and value factors, we compute ex-post FV IX
+12
+
+--- PAGE 15 ---
+factor loadings also controlling for these factors in a 4-factor post-formation regression:
+ri
+t = αi + βi
+MKT · MKTt + +βi
+SMB · SMBt + βi
+HML · HMLt + βi
+FV IX · FV IXt + εi
+t, (6)
+where the ﬁrst three factors MKT, SMB and HML constitute the FF-3 model’s market, size
+and value factors. To compute the ex-post βFV IX loadings, we run equation (6) using monthly
+frequency data over the whole sample, where the portfolios on the LHS of equation (6) are the
+quintile portfolios in Table I that are sorted on past loadings of β∆V IX using equation (3).
+The last column of Table I shows that the portfolios sorted on past β∆V IX exhibit strong
+patterns of post-formation factor loadings on the volatility risk factor FV IX. The ex-post
+βFV IX factor loadings monotonically increase from -5.06 for portfolio 1 to 8.07 for portfolio
+5. We strongly reject the hypothesis that the ex-post βFV IX loadings are equal to zero, with a
+p-value less than 0.001. Thus, sorting stocks on past β∆V IX provides strong, signiﬁcant spreads
+in ex-post aggregate volatility risk sensitivities.10
+B.6. Characterizing the Behavior of FV IX
+Table II reports correlations between the FV IX factor, ∆V IX, and STR, as well as correla-
+tions of these variables with other cross-sectional factors. We denote the daily ﬁrst difference
+in V IX as ∆V IX, and use ∆mV IX to represent the monthly ﬁrst difference in the V IX in-
+dex. The mimicking volatility factor is highly contemporaneously correlated with changes in
+volatility at a daily frequency, with a correlation of 0.91. At the monthly frequency, the cor-
+relation between FV IX and ∆mV IX is lower, at 0.70. The factors FV IX and STR have a
+high correlation of 0.83, which indicates that FV IX, formed from stock returns, behaves like
+the STR factor constructed from option returns. Hence, FV IX captures option-like behavior
+in the cross-section of stocks. The factor FV IX is negatively contemporaneously correlated
+with the market return (-0.66), reﬂecting the fact that when volatility increases, market returns
+are low. The correlations of FV IX with SMB and HML are -0.14 and 0.26, respectively.
+The correlation between FV IX and UMD, a factor capturing momentum returns, is also low
+at -0.25.
+[TABLE II ABOUT HERE]
+In contrast, there is a strong negative correlation between FV IX and the P´astor and Stam-
+baugh (2003) liquidity factor, LIQ, at -0.40. The LIQ factor decreases in times of low liquidity,
+13
+
+--- PAGE 16 ---
+which tend to also be periods of high volatility. One example of a period of low liquidity with
+high volatility is the 1987 crash (see, among others, Jones (2003) and P´astor and Stambaugh
+(2003)). However, the correlation between FV IX and LIQ is far from -1, indicating that
+volatility risk and liquidity risk may be separate effects, and may be separately priced. In the
+next section, we conduct a series of robustness checks designed to disentangle the effects of
+aggregate volatility risk from other factors, including liquidity risk.
+C. Robustness
+In this section, we conduct a series of robustness checks in which we specify different mod-
+els for the conditional mean of V IX, use windows of different estimation periods to form
+the β∆V IX portfolios, and control for potential cross-sectional pricing effects due to book-to-
+market, size, liquidity, volume, and momentum factor loadings or characteristics.
+C.1. Robustness to Different Conditional Means of V IX
+We ﬁrst investigate the robustness of our results to the method measuring innovations in V IX.
+We used the change in V IX at a daily frequency to measure the innovation in volatility because
+V IX is a highly serially correlated series. But, V IX appears to be a stationary series, and using
+∆V IX as the innovation in V IX may slightly over-difference. Our ﬁnding of low average
+returns on stocks with high βFV IX is robust to measuring volatility innovations by specifying
+various models for the conditional mean of V IX. If we ﬁt an AR(1) model to V IX and
+measure innovations relative to the AR(1) speciﬁcation, we ﬁnd that the results of Table I are
+almost unchanged. Speciﬁcally, the mean return of the difference between the ﬁrst and ﬁfth
+β∆V IX portfolios is -1.08% per month, and the FF-3 alpha of the 5-1 difference is -0.90%, both
+highly statistically signiﬁcant. Using an optimal BIC choice for the number of AR lags, which
+is 11, produces a similar result. In this case, the mean of the 5-1 difference is -0.81% and the
+5-1 FF-3 alpha is -0.66%, and both differences are signiﬁcant at the 5% level.11
+C.2. Robustness to the Portfolio Formation Window
+In this subsection, we investigate the robustness of our results to the amount of data used to
+estimate the pre-formation factor loadings β∆V IX. In Table I, we use a formation period of one
+month, and we emphasize that this window was chosen a priori without pretests. The results
+in Table I become weaker if we extend the formation period of the portfolios. Although the
+14
+
+--- PAGE 17 ---
+point estimates of the β∆V IX portfolios have the same qualitative patterns as Table I, statistical
+signiﬁcance drops. For example, if we use the past 3-months of daily data on ∆V IX to compute
+volatility betas, the mean return of the 5th quintile portfolio with the highest past β∆V IX stocks
+is 0.79%, compared with 0.60% with a 1-month formation period. Using a 3-month formation
+period, the FF-3 alpha on the 5th quintile portfolio decreases in magnitude to -0.37%, with
+a robust t-statistic of -1.62, compared to -0.53%, with a t-statistic of -2.88, with a 1-month
+formation period from Table I. If we use the past 12-months of V IX innovations, the 5th
+quintile portfolio mean increases to 0.97%, while the FF-3 alpha decreases in magnitude to
+-0.24%, with a t-statistic of -1.04.
+The weakening of the β∆V IX effect as the formation periods increases is due to the time-
+variation of the sensitivities to aggregate market innovations. The turnover in the monthly
+β∆V IX portfolios is high (above 70%) and using longer formation periods causes less turnover,
+but using more data provides less precise conditional estimates. The longer the formation win-
+dow, the less these conditional estimates are relevant at time t, and the lower the spread in the
+pre-formation β∆V IX loadings. By using only information over the past month, we obtain an
+estimate of the conditional factor loading much closer to time t.
+C.3. Robustness to Book-to-Market and Size Characteristics
+Small growth ﬁrms are typically ﬁrms with option value that would be expected to do well
+when aggregate volatility increases. The portfolio of small growth ﬁrms is also one of the
+Fama-French (1993) 25 portfolios sorted on size and book-to-market that is hardest to price by
+standard factor models (see, for example, Hodrick and Zhang (2001)). Could the portfolio of
+stocks with high aggregate volatility exposure have a disproportionately large number of small
+growth stocks?
+Investigating this conjecture produces mixed results. If we exclude only the portfolio among
+the 25 Fama-French portfolios with the smallest growth ﬁrms and repeat the quintile portfolio
+sorts in Table I, we ﬁnd that the 5-1 mean difference in returns is reduced in magnitude from
+-1.04% for all ﬁrms to -0.63% per month, with a t-statistic of -3.30. Excluding small growth
+ﬁrms produces a FF-3 alpha of -0.44% per month for the zero-cost portfolio that goes long
+portfolio 5 and short portfolio 1, which is no longer signiﬁcant at the 5% level (t-statistic is
+-1.79), compared to the value of -0.83% per month with all ﬁrms. These results suggest that
+small growth stocks may play a role in the β∆V IX quintile sorts of Table I.
+However, a more thorough characteristic-matching procedure suggests that size or value
+15
+
+--- PAGE 18 ---
+characteristics do not completely drive the results. Table III reports mean returns of the β∆V IX
+portfolios characteristic-matched by size and book-to-market ratios, following the method pro-
+posed by Daniel, Grinblatt, Titman, and Wermers (1997). Every month, each stock is matched
+with one of the Fama-French 25 size and book-to-market portfolios according to its size and
+book-to-market characteristics. The table reports value-weighted simple returns in excess of
+the characteristic-matched returns. Table III shows that characteristic controls for size and
+book-to-market decrease the magnitude of the raw 5-1 mean return difference of -1.04% in Ta-
+ble I to -0.90%. If we exclude ﬁrms that are members of the smallest growth portfolio of the
+Fama-French 25 size-value portfolios, the magnitude of the mean 5-1 difference decreases to -
+0.64% per month. However, the characteristic-controlled differences are still highly signiﬁcant.
+Hence, the low returns to high past β∆V IX stocks are not completely driven by a disproportion-
+ate concentration among small growth stocks.
+[TABLE III ABOUT HERE]
+C.4. Robustness to Liquidity Effects
+P´astor and Stambaugh (2003) demonstrate that stocks with high liquidity betas have high aver-
+age returns. In order for liquidity to be an explanation behind the spreads in average returns of
+the β∆V IX portfolios, high β∆V IX stocks must have low liquidity betas. To check that the spread
+in average returns on the β∆V IX portfolios is not due to liquidity effects, we ﬁrst sort stocks
+into ﬁve quintiles based on their historical P´astor-Stambaugh liquidity betas. Then, within each
+quintile, we sort stocks into ﬁve quintiles based on their past β∆V IX coefﬁcient loadings. These
+portfolios are rebalanced monthly and are value-weighted. After forming the 5 × 5 liquidity
+beta and β∆V IX portfolios, we average the returns of each β∆V IX quintile over the ﬁve liquidity
+beta portfolios. Thus, these quintile β∆V IX portfolios control for differences in liquidity.
+We report the results of the P´astor-Stambaugh liquidity control in Panel A of Table IV,
+which shows that controlling for liquidity reduces the magnitude of the 5-1 difference in average
+returns from -1.04% per month in Table I to -0.68% per month. However, after controlling for
+liquidity, we still observe the monotonically decreasing pattern of average returns of the β∆V IX
+quintile portfolios. We also ﬁnd that controlling for liquidity, the FF-3 alpha for the 5-1 portfolio
+remains signiﬁcantly negative at -0.55% per month. Hence, liquidity effects cannot account for
+the spread in returns resulting from sensitivity to aggregate volatility risk.
+16
+
+--- PAGE 19 ---
+[TABLE IV ABOUT HERE]
+Table IV also reports post-formation βFV IX loadings. Similar to the post-formation βFV IX
+loadings in Table I, we compute the post-formation βFV IX coefﬁcients using a monthly fre-
+quency regression with the 4-factor model in equation (6) to be comparable to the FF-3 alphas
+over the same sample period. Both the pre-formation β∆V IX and post-formation βFV IX load-
+ings increase from negative to positive from portfolio 1 to 5, consistent with a risk story. In
+particular, the post-formation βFV IX loadings increase from -1.87 for portfolio 1 to 5.38 to
+portfolio 5. We reject the hypothesis that the ex-post βFV IX loadings are jointly equal to zero
+with a p-value less than 0.001.
+C.5. Robustness to Volume Effects
+Panel B of Table IV reports an analogous exercise to that in Panel A except we control for
+volume rather than liquidity. Gervais, Kaniel and Mingelgrin (2001) ﬁnd that stocks with high
+past trading volume earn higher average returns than stocks with low past trading volume. It
+could be that the low average returns (and alphas) we ﬁnd for stocks with high βFV IX loadings
+are just stocks with low volume. Panel B shows that this is not the case. In Panel B, we control
+for volume by ﬁrst sorting stocks into quintiles based on their trading volume over the past
+month. We then sort stocks into quintiles based on their βFV IX loading and average across the
+volume quintiles. After controlling for volume, the FF-3 alpha of the 5-1 long-short portfolio
+remains signiﬁcant at the 5% level at -0.58% per month. The post-formation βFV IX loadings
+also monotonically increase from portfolio 1 to 5.
+C.6. Robustness to Momentum Effects
+Our last robustness check controls for the Jegadeesh and Titman (1993) momentum effect in
+Panel C. Since Jegadeesh and Titman report that stocks with low past returns, or past loser
+stocks, continue to have low future returns, stocks with high past β∆V IX loadings may tend
+to also be loser stocks. Controlling for past 12-month returns reduces the magnitude of the
+raw -1.04% per month difference between stocks with low and high βFV IX loadings to -0.89%,
+but the 5-1 difference remains highly signiﬁcant. The CAPM and FF-3 alphas of the portfo-
+lios constructed to control for momentum are also signiﬁcant at the 1% level. Once again, the
+post-formation βFV IX loadings are monotonically increasing from portfolio 1 to 5. Hence, mo-
+17
+
+--- PAGE 20 ---
+mentum cannot account for the low average returns to stocks with high sensitivities to aggregate
+volatility risk.
+D. The Price of Aggregate Volatility Risk
+Tables III and IV demonstrate that the low average returns to stocks with high past sensitivities
+to aggregate volatility risk cannot be explained by size, book-to-market, liquidity, volume, and
+momentum effects. Moreover, Tables III and IV also show strong ex-post spreads in the FV IX
+factor. Since this evidence supports the case that aggregate volatility is a priced risk factor in the
+cross-section of stock returns, the next step is to estimate the cross-sectional price of volatility
+risk.
+To estimate the factor premium λFV IX on the mimicking volatility factor FV IX, we ﬁrst
+construct a set of test assets whose factor loadings on market volatility risk are sufﬁciently dis-
+perse so that the cross-sectional regressions have reasonable power. We construct 25 investible
+portfolios sorted by βMKT and β∆V IX as follows. At the end of each month, we sort stocks
+based on βMKT, computed by a univariate regression of excess stock returns on excess market
+returns over the past month using daily data. We compute the β∆V IX loadings using the bivari-
+ate regression (3) also using daily data over the past month. Stocks are ranked ﬁrst into quintiles
+based on βMKT and then within each βMKT quintile into β∆V IX quintiles.
+Jagannathan and Wang (1996) show that a conditional factor model like equation (1) has the
+form of a multi-factor unconditional model, where the original factors enter as well as additional
+factors associated with the time-varying information set. In estimating an unconditional cross-
+sectional price of risk for the aggregate volatility factor FV IX, we recognize that additional
+factors may also affect the unconditional expected return of a stock. Hence, in our full spec-
+iﬁcation, we estimate the following cross-sectional regression that includes FF-3, momentum
+(UMD), and liquidity (LIQ) factors:
+ri
+t = c + βi
+MKT · λMKT + βi
+FV IX · λFV IX + βi
+SMB · λSMB
++ βi
+HML · λHML + βi
+UMD · λUMD + βi
+LIQ · λLIQ + εi
+t
+(7)
+where the λs represent unconditional prices of risk of the various factors. To check robustness,
+we also estimate the cross-sectional price of aggregate volatility risk by using the Coval and
+Shumway (2001) STR factor in place of FV IX in equation (7).
+We use the 25 βMKT × β∆V IX base assets to estimate factor premiums in equation (7) fol-
+18
+
+--- PAGE 21 ---
+lowing the two-step procedure of Fama-MacBeth (1973). In the ﬁrst stage, betas are estimated
+using the full sample. In the second stage, we use cross-sectional regressions to estimate the
+factor premia. We are especially interested in ex-post factor loadings on the FV IX aggregate
+volatility factor, and the price of risk of FV IX. Panel A of Table V reports the results. In
+addition to the standard Fama and French (1993) factors MKT, SMB and HML, we include
+the momentum factor UMD, and P´astor and Stambaugh’s (2003) non-traded liquidity factor,
+LIQ. We estimate the cross-sectional risk premium for FV IX together with the Fama-French
+model in regressions I. In regression II, we check robustness of our results by using Coval
+and Shumway’s (2001) STR option factor. Regressions III and IV also include the additional
+regressors UMD and LIQ.
+[TABLE V ABOUT HERE]
+In general, Panel A shows that the premiums of the standard factors (MKT, SMB, HML)
+are estimated imprecisely with this set of base assets. The premium on SMB is consistently
+estimated to be negative because the size strategy performed poorly from the 1980’s onwards.
+The value effect also performs poorly during the late 1990’s, which accounts for the negative
+coefﬁcient on HML.
+In contrast, the price of volatility risk in regression I is -0.08% per month, which is statisti-
+cally signiﬁcant at the 1% level. Using the Coval and Shumway (2001) STR factor in regression
+II, we estimate the cross-sectional price of volatility risk to be -0.19% per month, which is also
+statistically signiﬁcant at the 1% level. These results are consistent with the hypothesis that
+the cross-section of stock returns reﬂects exposure to aggregate volatility risk, and the price of
+market volatility risk is signiﬁcantly negative.
+When we add the UMD and LIQ factors in regressions III and IV, the estimates of the
+FV IX coefﬁcient are essentially unchanged. When UMD is added, its coefﬁcient is insignif-
+icant, while the coefﬁcient on FV IX barely moves from the -0.080 estimate in regression I
+to -0.082. The small effect of adding a momentum control on the FV IX coefﬁcient is con-
+sistent with the low correlation between FV IX and UMD in Table II and with the results in
+Table IV showing that controlling for past returns does not remove the low average returns on
+stocks with high βFV IX loadings. In the full speciﬁcation regression IV, the FV IX coefﬁcient
+becomes slightly smaller in magnitude at -0.071, but the coefﬁcient remains signiﬁcant at the
+19
+
+--- PAGE 22 ---
+5% level with a robust t-statistic of -2.02. Moreover, FV IX is the only factor to carry a rel-
+atively large absolute t-statistic in the regression, which estimates seven coefﬁcients with only
+25 portfolios and 180 time-series observations.
+Panel B of Table V reports the ﬁrst-pass factor loadings on FV IX for each of the 25 base
+assets from Regression I in Panel A. Panel B conﬁrms that the portfolios formed on past β∆V IX
+loadings reﬂect exposure to volatility risk measured by FV IX over the full sample. Except for
+two portfolios (the two lowest βMKT portfolios corresponding to the lowest β∆V IX quintile),
+all the FV IX factor loadings increase monotonically from low to high. Examination of the
+realized FV IX factor loadings demonstrates that the set of base assets, sorted on past β∆V IX
+and past βMKT, provides disperse ex-post FV IX loadings.
+From the estimated price of volatility risk of -0.08% per month in Table V, we revisit Table
+I to measure how much exposure to aggregate volatility risk accounts for the large spread in
+the ex-post raw returns of -1.04% per month between the quintile portfolios with the lowest
+and highest past β∆V IX coefﬁcients. In Table I, the ex-post spread in FV IX betas between
+portfolios 5 and 1 is 8.07 −(−5.06) = 13.13. The estimate of the price of volatility risk is
+−0.08% per month. Hence, the ex-post 13.13 spread in the FV IX factor loadings accounts for
+13.13 × −0.080 = −1.05% of the difference in average returns, which is almost exactly the
+same as the ex-post -1.04% per month number for the raw average return difference between
+quintile 5 and quintile 1. Hence, virtually all of the large difference in average raw returns in
+the β∆V IX portfolios can be attributed to exposure to aggregate volatility risk.
+E. A Potential Peso Story?
+Despite being statistically signiﬁcant, the estimates of the price of aggregate volatility risk from
+Table V are small in magnitude (-0.08% per month, or approximately -1% per annum). Given
+these small estimates, an alternative explanation behind the low returns to high β∆V IX stocks is
+a Peso problem. By construction, FV IX does well when the V IX index jumps upward. The
+small negative mean of FV IX of -0.08% per month may be due to having observed a smaller
+number of volatility spikes than the market expected ex-ante.
+Figure 1 shows that there are two episodes of large volatility spikes in our sample coinciding
+with large negative moves of the market: October 1987 and August 1998. In 1987, V IX
+volatility jumped from 22% at the beginning of October to 61% at the end of October. At the
+end of August 1998, the level of V IX reached 48%. The mimicking factor FV IX returned
+134% during October 1987, and 33.6% during August 1998. Since the cross-sectional price of
+20
+
+--- PAGE 23 ---
+risk of CV IX is -0.08% per month, from Table V, the cumulative return over the 180 months
+in our sample period is -14.4%. A few more large values could easily change our inference.
+For example, only one more crash, with an FV IX return of the same order of magnitude as
+the August 1998 episode, would be enough to generate a positive return on the FV IX factor.
+Using a power law distribution for extreme events, following Gabaix, Gopikrishnan, Plerou
+and Stanley (2003), we would expect to see approximately three large market crashes below
+three standard deviations during this period. Hence, the ex-ante probability of having observed
+another large spike in volatility during our sample is quite likely.
+Hence, given our short sample, we cannot rule out a potential Peso story and, thus, we are
+not extremely conﬁdent about the long-run price of risk of aggregate volatility. Nevertheless,
+if volatility is a systematic factor as asset pricing theory implies, market volatility risk should
+be reﬂected in the cross-section of stock returns. The cross-sectional Fama-MacBeth (1973)
+estimates of the negative price of risk of FV IX are consistent with a risk-based story, and our
+estimates are highly statistically signiﬁcant with conventional asymptotic distribution theory
+that is designed to be robust to conditional heteroskedasticity. However, since we cannot con-
+vincingly rule out a Peso problem explanation, our -1% per annum cross-sectional estimate of
+the price of risk of aggregate volatility must be interpreted with caution.
+II. Pricing Idiosyncratic Volatility in the Cross-Section
+The previous section examines how systematic volatility risk affects cross-sectional average re-
+turns by focusing on portfolios of stocks sorted by their sensitivities to innovations in aggregate
+volatility. In this section, we investigate a second set of assets sorted by idiosyncratic volatility
+deﬁned relative to the FF-3 model. If market volatility risk is a missing component of systematic
+risk, standard models of systematic risk, such as the CAPM or the FF-3 model, should mis-price
+portfolios sorted by idiosyncratic volatility because these models do not include factor loadings
+measuring exposure to market volatility risk.
+A. Estimating Idiosyncratic Volatility
+A.1. Deﬁnition of Idiosyncratic Volatility
+Given the failure of the CAPM to explain cross-sectional returns and the ubiquity of the FF-3
+model in empirical ﬁnancial applications, we concentrate on idiosyncratic volatility measured
+21
+
+--- PAGE 24 ---
+relative to the FF-3 model:
+ri
+t = αi + βi
+MKTMKTt + βi
+SMBSMBt + βi
+HMLHMLt + εi
+t.
+(8)
+We deﬁne idiosyncratic risk as
+p
+var(εi
+t) in equation (8). When we refer to idiosyncratic volatil-
+ity, we mean idiosyncratic volatility relative to the FF-3 model. We also consider sorting port-
+folios on total volatility, without using any control for systematic risk.
+A.2. A Trading Strategy
+To examine trading strategies based on idiosyncratic volatility, we describe portfolio formation
+strategies based on an estimation period of L months, a waiting period of M months, and a
+holding period of N months. We describe an L/M/N strategy as follows. At month t, we
+compute idiosyncratic volatilities from the regression (8) on daily data over an L month period
+from month t−L−M to month t−M. At time t, we construct value-weighted portfolios based
+on these idiosyncratic volatilities and hold these portfolios for N months. We concentrate most
+of our analysis on the 1/0/1 strategy, in which we simply sort stocks into quintile portfolios
+based on their level of idiosyncratic volatility computed using daily returns over the past month,
+and we hold these value-weighted portfolios for 1 month. The portfolios are rebalanced each
+month. We also examine the robustness of our results to various choices of L, M and N.
+The construction of the L/M/N portfolios for L > 1 and N > 1 follows Jegadeesh and
+Titman (1993), except our portfolios are value-weighted. For example, to construct the 12/1/12
+quintile portfolios, each month we construct a value-weighted portfolio based on idiosyncratic
+volatility computed from daily data over the 12 months of returns ending one month prior to the
+formation date. Similarly, we form a value-weighted portfolio based on 12 months of returns
+ending two months prior, three months prior, and so on up to 12 months prior. Each of these
+portfolios is value-weighted. We then take the simple average of these twelve portfolios. Hence,
+each quintile portfolio changes 1/12th of its composition each month, where each 1/12th part of
+the portfolio consists of a value-weighted portfolio. The ﬁrst (ﬁfth) quintile portfolio consists of
+1/12th of the lowest value-weighted (highest) idiosyncratic stocks from one month ago, 1/12th
+of the value-weighted lowest (highest) idiosyncratic stocks two months ago, etc.
+22
+
+--- PAGE 25 ---
+B. Patterns in Average Returns for Idiosyncratic Volatility
+Table VI reports average returns of portfolios sorted on total volatility, with no controls for
+systematic risk, in Panel A and of portfolios sorted on idiosyncratic volatility in Panel B.12 We
+use a 1/0/1 strategy in both cases. Panel A shows that average returns increase from 1.06%
+per month going from quintile 1 (low total volatility stocks) to 1.22% per month for quintile
+3. Then, average returns drop precipitously. Quintile 5, which contains stocks with the highest
+total volatility, has an average total return of only 0.09% per month. The FF-3 alpha, reported
+in the last column, for quintile 5 is -1.16% per month, which is highly statistically signiﬁcant.
+The difference in the FF-3 alphas between portfolio 5 and portfolio 1 is -1.19% per month, with
+a robust t-statistic of -5.92.
+[TABLE VI ABOUT HERE]
+We obtain similar patterns in Panel B, where the portfolios are sorted on idiosyncratic
+volatility. The difference in raw average returns between quintile portfolios 5 and 1 is -1.06%
+per month. The FF-3 model is clearly unable to price these portfolios since the difference in the
+FF-3 alphas between portfolio 5 and portfolio 1 is -1.31% per month, with a t-statistic of -7.00.
+The size and book-to-market ratios of the quintile portfolios sorted by idiosyncratic volatility
+also display distinct patterns. Stocks with low (high) idiosyncratic volatility are generally large
+(small) stocks with low (high) book-to-market ratios. The risk adjustment of the FF-3 model
+predicts that quintile 5 stocks should have high, not low, average returns.
+The ﬁndings in Table VI are provocative, but there are several concerns raised by the anoma-
+lously low returns of quintile 5. For example, although quintile 5 contains 20% of the stocks
+sorted by idiosyncratic volatility, quintile 5 is only a small proportion of the value of the mar-
+ket (only 1.9% on average). Are these patterns repeated if we only consider large stocks, or
+only stocks traded on the NYSE? The next section examines these questions. We also examine
+whether the phenomena persist if we control for a large number of cross-sectional effects that
+the literature has identiﬁed either as potential risk factors or anomalies. In particular, we con-
+trol for size, book-to-market, leverage, liquidity, volume, turnover, bid-ask spreads, coskewness,
+dispersion in analysts’ forecasts, and momentum effects.
+23
+
+--- PAGE 26 ---
+C. Controlling for Various Cross-Sectional Effects
+Table VII examines the robustness of our results with the 1/0/1 idiosyncratic volatility port-
+folio formation strategy to various cross-sectional risk factors. The table reports FF-3 alphas,
+the difference in FF-3 alphas between the quintile portfolios with the highest and lowest id-
+iosyncratic volatilities, together with t-statistics to test their statistical signiﬁcance.13 All the
+portfolios formed on idiosyncratic volatility remain value-weighted.
+[TABLE VII ABOUT HERE]
+C.1. Using Only NYSE Stocks
+We examine the interaction of the idiosyncratic volatility effect with ﬁrm size in two ways.
+First, we rank stocks based on idiosyncratic volatility using only NYSE stocks. Excluding
+NASDAQ and AMEX has little effect on our results. The highest quintile of idiosyncratic
+volatility stocks has a FF-3 alpha of -0.60% per month. The 5-1 difference in FF-3 alphas is
+still large in magnitude, at -0.66% per month, with a t-statistic of -4.85. While restricting the
+universe of stocks to only the NYSE mitigates the concern that the idiosyncratic volatility effect
+is concentrated among small stocks, it does not completely remove this concern because the
+NYSE universe still contains small stocks.
+C.2. Controlling for Size
+Our second examination of the interaction of idiosyncratic volatility and size uses all ﬁrms. We
+control for size by ﬁrst forming quintile portfolios ranked on market capitalization. Then, within
+each size quintile, we sort stocks into quintile portfolios ranked on idiosyncratic volatility. Thus,
+within each size quintile, quintile 5 contains the stocks with the highest idiosyncratic volatility.
+The second panel of Table VII shows that in each size quintile, the highest idiosyncratic
+volatility quintile has a dramatically lower FF-3 alpha than the other quintiles. The effect is
+not most pronounced among the smallest stocks. Rather, quintiles 2-4 have the largest 5-1
+differences in FF-3 alphas, at -1.91%, -1.61% and -0.86% per month, respectively. The average
+market capitalization of quintiles 2-4 is, on average, 21% of the market. The t-statistics of these
+alphas are all above 4.5 in absolute magnitude. In contrast, the 5-1 alphas for the smallest and
+largest quintiles are actually statistically insigniﬁcant at the 5% level. Hence, it is not small
+stocks that are driving these results.
+24
+
+--- PAGE 27 ---
+The row labelled ‘Controlling for Size’ averages across the ﬁve size quintiles to produce
+quintile portfolios with dispersion in idiosyncratic volatility, but which contain all sizes of ﬁrms.
+After controlling for size, the 5-1 difference in FF-3 alphas is still -1.04% per month. Thus,
+market capitalization does not explain the low returns to high idiosyncratic volatility stocks.
+In the remainder of Table VII, we repeat the explicit double-sort characteristic controls,
+replacing size with other stock characteristics. We ﬁrst form portfolios based on a particular
+characteristic, then we sort on idiosyncratic volatility, and ﬁnally we average across the charac-
+teristic portfolios to create portfolios that have dispersion in idiosyncratic volatility but contain
+all aspects of the characteristic.
+C.3. Controlling for Book-to-Market Ratios
+It is generally thought that high book-to-market ﬁrms have high average returns. Thus, in order
+for the book-to-market effect to be an explanation of the idiosyncratic volatility effect, the high
+idiosyncratic volatility portfolios must be primarily composed of growth stocks that have lower
+average returns than value stocks. The row labelled ‘Controlling for Book-to-Market’ shows
+that this is not the case. When we control for book-to-market ratios, stocks with the lowest
+idiosyncratic volatility have high FF-3 alphas, and the 5-1 difference in FF-3 alphas is -0.80%
+per month, with a t-statistic of -2.90.
+C.4. Controlling for Leverage
+Leverage increases expected equity returns, holding asset volatility and asset expected returns
+constant. Asset volatility also prevents ﬁrms from increasing leverage. Hence, ﬁrms with high
+idiosyncratic volatility could have high asset volatility but relatively low equity returns because
+of low leverage. The next line of Table VII shows that leverage cannot be an explanation of the
+idiosyncratic volatility effect. We measure leverage as the ratio of total book value of assets to
+book value of equity. After controlling for leverage, the difference between the 5-1 alphas is
+-1.23% per month, with a t-statistic of -7.61.
+C.5. Controlling for Liquidity Risk
+P´astor and Stambaugh (2003) argue that liquidity is a systematic risk. If liquidity is to ex-
+plain the idiosyncratic volatility effect, high idiosyncratic volatility stocks must have low liq-
+uidity betas, giving them low returns. We check this explanation by using the historical P´astor-
+Stambaugh liquidity betas to measure exposure to liquidity risk. Controlling for liquidity does
+25
+
+--- PAGE 28 ---
+not remove the low average returns of high idiosyncratic volatility stocks. The 5-1 difference in
+FF-3 alphas remains large at -1.08% per month, with a t-statistic of -7.98.
+C.6. Controlling for Volume
+Gervais, Kaniel and Mingelgrin (2001) ﬁnd that stocks with higher volume have higher returns.
+Perhaps stocks with high idiosyncratic volatility are merely stocks with low trading volume?
+When we control for trading volume over the past month, the 5-1 difference in alphas is -1.22%
+per month, with a t-statistic of -8.04. Hence, the low returns on high idiosyncratic volatility
+stocks are robust to controlling for volume effects.
+C.7. Controlling for Turnover
+Our next control is turnover, measured as trading volume divided by the total number of shares
+outstanding over the previous month. Turnover is a noisy proxy for liquidity. Table VII shows
+that the low alphas on high idiosyncratic volatility stocks are robust to controlling for turnover.
+The 5-1 difference in FF-3 alphas is -1.19% per month, and it is highly signiﬁcant with a t-
+statistic of -8.04. Examination of the individual turnover quintiles (not reported) indicates that
+the 5-1 differences in alphas are most pronounced in the quintile portfolio with the highest, not
+the lowest, turnover.
+C.8. Controlling for Bid-Ask Spreads
+An alternative liquidity control is the bid-ask spread, which we measure as the average daily
+bid-ask spread over the previous month for each stock. In order for bid-ask spreads to be an
+explanation, high idiosyncratic volatility stocks must have low bid-ask spreads, and correspond-
+ing low returns. Controlling for bid-ask spreads does little to remove the effect. The FF-3 alpha
+of the highest idiosyncratic volatility portfolio is -1.26%, while the 5-1 difference in alphas is
+-1.19% and remains highly statistically signiﬁcant with a t-statistic of -6.95.
+C.9. Controlling for Coskewness Risk
+Harvey and Siddique (2000) ﬁnd that stocks with more negative coskewness have higher re-
+turns. Stocks with high idiosyncratic volatility may have positive coskewness, giving them low
+returns. Computing coskewness following Harvey and Siddique (2000), we ﬁnd that exposure
+26
+
+--- PAGE 29 ---
+to coskewness risk is not an explanation. The FF-3 alpha for the 5-1 portfolio is -1.38% per
+month, with a t-statistic of -5.02.
+C.10. Controlling for Dispersion in Analysts’ Forecasts
+Diether, Malloy and Scherbina (2002) provide evidence that stocks with higher dispersion in
+analysts’ earnings forecasts have lower average returns than stocks with low dispersion of ana-
+lysts’ forecasts. They argue that dispersion in analysts’ forecasts measures differences of opin-
+ion among investors. Miller (1977) shows that if there are large differences in stock valuations
+and short sale constraints, equity prices tend to reﬂect the view of the more optimistic agents,
+which leads to low future returns for stocks with large dispersion in analysts’ forecasts.
+If stocks with high dispersion in analysts’ forecasts tend to be more volatile stocks, then
+we may be ﬁnding a similar anomaly to Diether, Malloy and Scherbina (2002). Over Diether,
+Malloy and Scherbina’s sample period, 1983-2000, we test this hypothesis by performing a
+characteristic control for the dispersion of analysts’ forecasts. We take the quintile portfolios of
+stocks sorted on increasing dispersion of analysts’ forecasts (Table VI of Diether, Malloy and
+Scherbina (2002, p2128)) and within each quintile sort stocks on idiosyncratic volatility. Note
+that this universe of stocks contains mostly large ﬁrms, where the idiosyncratic volatility effect
+is weaker, because multiple analysts usually do not make forecasts for small ﬁrms.
+The last two lines of Table VII present the results for averaging the idiosyncratic volatility
+portfolios across the forecast dispersion quintiles. The 5-1 difference in alphas is still -0.39%
+per month, with a robust t-statistic of -2.09. While the shorter sample period may reduce power,
+the dispersion of analysts’ forecasts reduces the non-controlled 5-1 alpha considerably. How-
+ever, dispersion in analysts’ forecasts cannot account for all of the low returns to stocks with
+high idiosyncratic volatility.14
+D. A Detailed Look at Momentum
+Hong, Lim and Stein (2000) argue that the momentum effect documented by Jegadeesh and
+Titman (1993) is asymmetric and has a stronger negative effect on declining stocks than a pos-
+itive effect on rising stocks. A potential explanation behind the idiosyncratic volatility results
+is that stocks with very low returns have very high volatility. Of course, stocks that are past
+winners also have very high volatility, but loser stocks could be over-represented in the high
+idiosyncratic volatility quintile.
+27
+
+--- PAGE 30 ---
+In Table VIII, we perform a series of robustness tests of the idiosyncratic volatility effect to
+this possible momentum explanation. In Panel A, we perform 5×5 characteristic sorts ﬁrst over
+past returns, and then over idiosyncratic volatility. We average over the momentum quintiles to
+produce quintile portfolios sorted by idiosyncratic risk that control for past returns. We control
+for momentum over the previous one month, 6 months, and 12 months. Table VIII shows that
+momentum is not driving the results. Controlling for returns over the past month does not
+remove the very low FF-3 alpha of quintile 5 (-0.59% per month), and the 5-1 difference in
+alphas is still -0.66% per month, which is statistically signiﬁcant at the 1% level. When we
+control for past 6-month returns, the FF-3 alpha of the 5-1 portfolio increases in magnitude
+to -1.10% per month. For past 12-month returns, the 5-1 alpha is even larger in magnitude at
+-1.22% per month. All these differences are highly statistically signiﬁcant.
+[TABLE VIII ABOUT HERE]
+In Panel B, we closely examine the individual 5 × 5 FF-3 alphas of the quintile portfolios
+sorted on past 12-month returns and idiosyncratic volatility. Note that if we average these
+portfolios across the past 12-month quintile portfolios, and then compute alphas, we obtain the
+alphas in the row labelled ‘Past 12-months’ in Panel A of Table VIII. This more detailed view of
+the interaction between momentum and idiosyncratic volatility reveals several interesting facts.
+First, the low returns to high idiosyncratic volatility are most pronounced for loser stocks.
+The 5-1 differences in alphas range from -2.25% per month for the loser stocks, to -0.48% per
+month for the winner stocks. Second, the tendency for the momentum effect to be concentrated
+more among loser, rather than winner, stocks cannot account for all of the low returns to high
+idiosyncratic volatility stocks. The idiosyncratic volatility effect appears signiﬁcantly in every
+past return quintile. Hence, stocks with high idiosyncratic volatility earn low average returns,
+no matter if these stocks are losers or winners.
+Finally, the momentum effect itself is also asymmetric across the idiosyncratic volatility
+quintiles. In the ﬁrst two idiosyncratic volatility quintiles, the alphas of losers (winners) are
+roughly symmetrical. For example, for stocks with the lowest idiosyncratic volatilities, the
+loser (winner) alpha is -0.41% (0.45%). In the second idiosyncratic volatility quintile, the loser
+(winner) alpha is -0.83% (0.85%). However, as idiosyncratic volatility becomes very high, the
+momentum effect becomes highly skewed towards extremely low returns on stocks with high
+idiosyncratic volatility. Hence, one way to improve the returns to a momentum strategy is to
+short past losers with high idiosyncratic volatility.
+28
+
+--- PAGE 31 ---
+E. Is it Exposure to Aggregate Volatility Risk?
+A possible explanation for the large negative returns of high idiosyncratic volatility stocks is
+that stocks with large idiosyncratic volatilities have large exposure to movements in aggregate
+volatility. We examine this possibility in Table IX. The ﬁrst row of Panel A reports the results
+of quintile sorts on idiosyncratic volatility, controlling for β∆V IX. This is done by ﬁrst sorting
+on β∆V IX and then on idiosyncratic volatility, and then averaging across the β∆V IX quintiles.
+We motivate using past β∆V IX as a control for aggregate volatility risk because we have shown
+that stocks with past high β∆V IX loadings have high future exposure to the FV IX mimicking
+volatility factor.
+[TABLE IX ABOUT HERE]
+Panel A of Table IX shows that after controlling for aggregate volatility exposure, the 5-1
+alpha is -1.19% per month, almost unchanged from the 5-1 quintile idiosyncratic volatility FF-3
+alpha of -1.31% in Table VI with no control for systematic volatility exposure. Hence, it seems
+that β∆V IX accounts for very little of the low average returns of high idiosyncratic volatility
+stocks. Panel B of Table IX reports ex-post FV IX factor loadings of the 5 × 5 β∆V IX and
+idiosyncratic volatility portfolios, where we compute the post-formation FV IX factor loadings
+using equation (6). We cannot interpret the alphas from this regression, because FV IX is not a
+tradeable factor, but the FV IX factor loadings give us a picture of how exposure to aggregate
+volatility risk may account for the spreads in average returns on the idiosyncratic volatility
+sorted portfolios.
+Panel B shows that in the ﬁrst three β∆V IX quintiles, we obtain almost monotonically in-
+creasing FV IX factor loadings that start with large negative ex-post βFV IX loadings for low
+idiosyncratic volatility portfolios and end with large positive ex-post βFV IX loadings. How-
+ever, for the two highest past β∆V IX quintiles, the FV IX factor loadings have absolutely no
+explanatory power. In summary, exposure to aggregate volatility partially explains the puzzling
+low returns to high idiosyncratic volatility stocks, but only for stocks with very negative and
+low past loadings to aggregate volatility innovations.
+F. Robustness to Different Formation and Holding Periods
+If risk cannot explain the low returns to high idiosyncratic volatility stocks, are there other ex-
+planations? To help disentangle various stories, Table X reports FF-3 alphas of other L/M/N
+29
+
+--- PAGE 32 ---
+strategies described in Section A. First, we examine possible contemporaneous measurement
+errors in the 1/0/1 strategy by setting M = 1. Allowing for a 1-month lag between the mea-
+surement of volatility and the formation of the portfolio ensures that the portfolios are formed
+only with information deﬁnitely available at time t. The top row of Table X shows that the 5-1
+FF-3 alpha on the 1/1/1 strategy is -0.82% per month, with a t-statistic of -4.63.
+[TABLE X ABOUT HERE]
+A possible behavioral explanation for our results is that higher idiosyncratic volatility does
+earn higher returns over longer horizons than one month, but short-term over-reaction forces
+returns to be low in the ﬁrst month. If we hold high idiosyncratic volatility stocks for a long
+horizon (N = 12 months), we might see a positive relation between past idiosyncratic volatility
+and future average returns. The second row of Table X shows that this is not the case. For the
+1/1/12 strategy, we still see very low FF-3 alphas for quintile 5, and the 5-1 difference in alphas
+is still -0.67% per month, which is highly signiﬁcant.
+By restricting the formation period to L = 1 month, our previous results may just be captur-
+ing various short-term events that affect idiosyncratic volatility. For example, the portfolio of
+stocks with high idiosyncratic volatility may be largely composed of stocks that have just made,
+or are just about to make, earnings announcements. To ensure that we are not capturing speciﬁc
+short-term corporate events, we extend our formation period to L = 12 months. The third row
+of Table X reports FF-3 alphas for a 12/1/1 strategy. Using one entire year of daily data to
+compute idiosyncratic volatility does not remove the anomalous high idiosyncratic volatility-
+low average return pattern: the 5-1 difference in alphas is -1.12% per month. Similarly, the
+patterns are robust for the 12/1/12 strategy, which has a 5-1 alpha of -0.77% per month.
+G. Subsample Analysis
+Table XI investigates the robustness of the low returns to stocks with high idiosyncratic volatility
+over different subsamples. First, the effect is observed in every decade from the 1960’s to the
+1990’s. The largest difference in alphas between portfolio 5 and portfolio 1 occurs during the
+1980’s, with a FF-3 alpha of -2.23% per month, and we observe the lowest magnitude of the
+FF-3 alpha of the 5-1 portfolio during the 1970’s, where the FF-3 alpha is -0.77% per month.
+In every decade, the effect is highly statistically signiﬁcant.
+30
+
+[TRUNCATED at 80000 chars — 57 total pages]

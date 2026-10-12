@@ -1,0 +1,1696 @@
+
+--- PAGE 1 ---
+How are shorts informed? 
+Short sellers, news, and information processing* 
+ 
+ 
+ 
+Joseph E. Engelberga, Adam V. Reedb†, Matthew C. Ringgenbergc 
+ 
+a Rady School of Management, University of California, San Diego, San Diego, CA 92093, USA 
+b Kenan-Flagler Business School, University of North Carolina, Chapel Hill, NC 27599, USA 
+c Olin Business School, Washington University in Saint Louis, St. Louis, MO 63130, USA 
+ 
+ 
+ 
+September 26, 2011 
+ 
+ 
+Abstract 
+We find that a substantial portion of short sellers’ trading advantage comes from their ability 
+to analyze publicly available information.  Using a database of short sales combined with a 
+database of news releases, we show that the well-documented negative relation between short 
+sales and future returns is twice as large on news days and four times as large on days with 
+negative news.  Further, we find that the most informed short sales are not from market makers 
+but rather from clients, and we find only weak evidence that short sellers anticipate news events.  
+Overall, the evidence suggests that public news provides valuable trading opportunities for short 
+sellers who are skilled information processors. 
+ 
+JEL classification: G12, G14 
+ 
+Keywords: asymmetric information, manipulation, news media, short sales
+                                                          
+* The authors thank Dow Jones for providing access to their news archive and Paul Tetlock for assistance with the 
+Dow Jones archive.  We have benefited from comments from Greg Brown, Jennifer Conrad, Wayne Ferson, Charles 
+Jones, Günter Strobl, and Robert Whitelaw.  We also thank seminar participants at the University of North Carolina, 
+the 2010 Utah Winter Finance Conference, the University of Southern California, and the IESE Business School – 
+IX Madrid Finance Workshop.  This paper was previously titled, “Buy on the Rumor, [Short] Sell on the News: 
+Short Sellers, News and Information Processing.” 
+† Corresponding author.  Email address: adam_reed@unc.edu (Adam Reed). 
+
+--- PAGE 2 ---
+ 
+ 
+1 
+ 
+There is now overwhelming evidence that short sellers are informed traders.  When short 
+interest or short volume are high, future returns are predictably low (see, e.g., Senchack and 
+Starks, 1993; Asquith, Pathak and Ritter, 2005; Boehmer, Jones, and Zhang, 2008).  Return 
+predictability, however, suggests only that short-sellers have an information advantage over 
+other traders.  In this paper, we ask how short-sellers obtain that advantage.   
+To address this question, we combine a large archive of all corporate news events with a large 
+panel of daily short-selling.  This unique combination allows us to comprehensively examine the 
+relation between short selling and news events.  We find that a substantial portion of short 
+sellers’ trading advantage comes from their ability to analyze publicly available information.  In 
+fact, while news events occur on only 22% of the days in our sample, these trading days account 
+for over 45% of the total profitability from short-selling. 
+Although our evidence suggests that short sellers obtain an information advantage via 
+superior information processing, some commentators have suggested other ways that short 
+sellers achieve an advantage.  The Securities and Exchange Commission suggested that short 
+sellers spread “false rumors” in an effort to manipulate firms “uniquely vulnerable to panic.”1  If 
+this type of manipulation were taking place, then it suggests that short sellers might initiate a 
+trade and then spread rumors (see, e.g., van Bommel, 2003).  In other words, we might expect to 
+see short sellers trade before news events, even though the news events could turn out to contain 
+false information. 
+We find little evidence to support the claim that short sellers’ advantage comes from trading 
+before information is released, even though short sellers have been shown to trade before the 
+                                                          
+1 Cox, C., 2008. What the SEC really did on short selling. The Wall Street Journal, 24 July. 
+
+--- PAGE 3 ---
+ 
+ 
+2 
+release of certain types of public information.  For example, Karpoff and Lou (2010) show that 
+short selling increases before the initial public revelation of firms’ financial misrepresentation.  
+Similarly, Christophe, Ferri, and Angel (2004) find evidence of informed short selling in the five 
+days before earnings announcements. 
+In contrast, when we look at all corporate news events in the Dow Jones archive, we find that 
+the trades of short sellers are similar to the trades of other market participants in the days leading 
+up to a news release.  Unconditionally, the ratio of short volume to total volume is 0.196 and this 
+ratio falls by .019 on negative news days and rises by .022 on positive news days.  However, 
+during the days leading up to the news event, the ratio is the same or slightly smaller than the 
+unconditional mean, irrespective of the news type.  Moreover, during the days after a news 
+event, the ratio is the same or slightly larger than the unconditional mean.  The result suggests 
+that, on average, short sellers trade on or after new release dates and they do not anticipate public 
+news announcements.  
+Given that short sellers tend to trade on or after news events, we next ask whether these news 
+events present profitable trading opportunities for short sellers.  Interestingly, the extant 
+theoretical literature provides mixed predictions on the role of news releases.  On the one hand, a 
+number of papers argue that news reduces information asymmetry (see, e.g., Korajczyk, Lucas, 
+and McDonald, 1991; Diamond and Verrecchia, 1987).  For example, if a firm announces a 
+merger, investors who knew that the merger was likely no longer have an information advantage 
+over those who did not.  The news announcement therefore reduces the information asymmetry 
+between informed and uninformed investors.  Under this view, the trades of informed traders 
+(short sellers) should be less profitable when they are initiated immediately following a news 
+announcement.   
+
+--- PAGE 4 ---
+ 
+ 
+3 
+On the other hand, several papers suggest that public news events can lead to differential 
+interpretations by traders based on variation in the traders’ skill (see, e.g., Kandel and Pearson, 
+1995).  Rubenstein (1993) puts it succinctly: “In real life, differences in consumer behavior are 
+often attributed to varying intelligence and ability to process information.  Agents reading the 
+same morning newspapers with the same stock price lists will interpret the information 
+differently.”  Under this view, public news events present profitable trading opportunities for 
+skilled information processors, which can explain not only high volume around news events 
+(Kandel and Pearson, 1995) but also evidence of return predictability from “soft” information in 
+news announcements (see, e.g., Engelberg, 2008; Demers and Vega, 2008).  This suggests that 
+news announcements should make the trades of informed traders (short sellers) more profitable 
+on news days.   
+When we take both of these theories to the data, we find evidence in support of the second 
+view.  Several papers find that abnormal short selling unconditionally predicts lower future 
+returns (see, e.g., Senchack and Starks, 1993; Asquith, Pathak and Ritter, 2005; Boehmer, Jones, 
+and Zhang, 2008).  We also find that abnormal short selling leads to lower future returns, but we 
+find that this effect is concentrated around news events.  In particular, the predictability for 
+future returns more than doubles on news days and quadruples on days with negative news.  
+While a long-short trading strategy based on the level of short-selling would have earned a return 
+of 40% over our 2.5 year sample period, a long-short strategy that conditioned on short-selling 
+and news events would have earned 60%.  Moreover, a strategy based on short-selling and 
+negative news would have earned an astonishing 180% during our 2.5 year sample period. 
+An alternative explanation for this result could be that some buyers make systematic mistakes 
+around news events (Antweiler and Frank, 2006), and that these buyers’ mistakes are reflected in 
+
+--- PAGE 5 ---
+ 
+ 
+4 
+market makers’ offsetting short sales.  To determine whether short sellers’ trades are due to 
+superior information processing or to offsetting positions, we exploit a unique feature of the 
+short selling data, namely, exempt versus non-exempt trade marking, which allows us to 
+distinguish market makers from non-market makers (clients).  We find that clients’ trades are 
+particularly well informed, and that these trades are much more profitable in the presence of 
+news events.  In contrast, market makers’ trades are not particularly well informed, and there is 
+no differential impact in the presence of news.  Thus, there appears to be little support for the 
+claim that return predictability from shorts is greater on news days because of market makers 
+offsetting short sales.   
+Another alternative explanation for our main result is that short sales are profitable on news 
+days because news days provide short sellers with increased liquidity.  This explanation, 
+however, requires that the costs of short selling are lower around news announcements.  
+However, we find little evidence that market liquidity improves on news days.  For example, we 
+find that bid-ask spreads actually increase by nearly 5% around news announcements, which is 
+consistent with existing models of market maker behavior in the presence of informed traders 
+(see, e.g., Glosten and Milgrom, 1985; Kyle, 1985).  When coupled with our finding that the 
+trades of short sellers are more than twice as profitable in the presence of news, the evidence is 
+consistent with the idea that public news events present profitable trading opportunities for 
+skilled information processors and short sellers are, on average, skilled at processing public 
+news. 
+The remainder of this paper proceeds as follows.  Section 1 discusses related literature.  
+Section 2 describes the databases used in this study and presents our main hypotheses.  Section 3 
+presents our analyses and findings.  Finally, Section 4 concludes. 
+
+--- PAGE 6 ---
+ 
+ 
+5 
+ 
+1. Related literature 
+The ideas in this paper relate to three distinct branches of the existing literature.  First, this 
+paper relates to an extensive literature on the behavior of short sellers relative to other traders.  
+Second, our paper contributes to a growing literature on how market participants respond to 
+public news.  Finally, this paper sheds light on an emerging debate on whether news increases or 
+decreases information asymmetry.  In this section, we first discuss prior papers that connect news 
+to short selling.  We then provide an overview of the relevant literature in each of these three 
+branches.     
+In a contemporaneous working paper, Fox, Glosten, and Tetlock (2009) use news and short-
+selling data to examine the role of short-sellers from a regulator's perspective.  Motivated by the 
+intense scrutiny that short-sellers receive from the press and lawmakers, they investigate whether 
+short-selling appears to be socially beneficial or harmful (and worthy of regulation).  In addition, 
+several extant papers look at short selling behavior in the context of a specific type of corporate 
+news event.  As such, these studies shed light on a subset of this paper’s sample of news events.  
+Karpoff and Lou (2010), for example, examine short sellers’ positions in firms that are 
+investigated for financial misconduct and find that short sellers generally anticipate public 
+announcements of investigations.  Christophe, Ferri, and Angel (2004) and Christophe, Ferri, and 
+Hsieh (2010) focus on short sellers’ trades around earnings announcements and analyst 
+downgrades, respectively, and find evidence that short sellers are informed traders who can 
+profit from these events.  Similarly, Daske, Richardson, and Tuna (2005) and Boehmer, Jones, 
+and Zhang (2010) look at short selling around management forecast announcements and earnings 
+
+--- PAGE 7 ---
+ 
+ 
+6 
+announcements.  While Daske, Richardson, and Tuna (2005) find no evidence that short sale 
+transactions concentrate prior to bad news events, Boehmer, Jones, and Zhang (2010) find some 
+evidence of anticipation, and they show that a significant fraction of short sellers’ information 
+advantage comes from trading around these events.  Finally, Nagel (2005) looks at the cash flow 
+news implied by a vector auto regression and finds an asymmetric effect on returns, indicating 
+that short sellers help incorporate news into prices when short selling is not constrained. 
+While the above papers identify patterns in short selling around a handful of specific 
+corporate news events, the current paper aims to uncover patterns in short sellers’ trades around 
+all types of corporate news events.  Doing so allows us to speak more generally about short 
+sellers’ behavior around new releases of public information.  In particular, using a list of all 
+corporate news events, we can sort the universe of trading days into those with and without news 
+and examine the differential performance of short sellers surrounding news events.   
+ 
+1.1. Short sellers’ trading patterns 
+Several papers compare the trades of short sellers to the trades of other market participants.  
+There are multiple dimensions over which trades can be compared.  Much of the recent literature 
+focuses on the profitability of trades, which, roughly speaking, can be measured using the 
+performance of a stock’s price after the initiation of a short sale.  In one of the earliest articles to 
+empirically examine short sales, Seneca (1967) finds a negative relation between short interest 
+and returns and concludes that short positions are indicative of bearish opinions.  Similarly, 
+Boehme, Danielson, and Sorescu (2006) show that when short selling is constrained and there 
+are relatively diverse opinions, abnormally high short interest can precede negative future 
+
+--- PAGE 8 ---
+ 
+ 
+7 
+returns.  Using transaction data at a higher frequency, Boehmer, Jones, and Zhang (2008) find 
+that heavily shorted stocks significantly underperform lightly shorted stocks, especially stocks 
+heavily shorted by non-program institutional traders, and Diether, Lee, and Werner (2008) show 
+that not only do prices follow short selling, but short selling also follows prices; that is, short 
+sellers tend to short after price run-ups.  These results further indicate that short sellers could 
+have an information advantage.2  In sum, the above work establishes that the performance of 
+short sellers’ trades indicates that short sellers are informed traders.  Our paper contributes to this 
+literature by asking how short sellers come to enjoy an information advantage in the first place. 
+ 
+1.2. Public news 
+While a large literature examines volume and return phenomena around specific news events 
+(e.g., earnings announcements, mergers, and dividend initiations and omissions), a more recent 
+literature considers such phenomena around any corporate news event.  Categorizing all Wall 
+Street Journal stories between 1973 and 2001, Antweiler and Frank (2006) find that return 
+responses vary widely across news categories, although they find evidence of overreaction 
+(return reversal) on average.  Also using a database of all news events, Tetlock (2011) finds 
+evidence of even stronger return reversal following repeated news events, consistent with the 
+idea that investors overreact to “stale” news stories.  Several studies using comprehensive news 
+                                                          
+2 A closely related dimension of research is whether short sellers’ trades reveal information to other market 
+participants.  In other words, are short sellers’ trades newsworthy in and of themselves?  Senchack and Starks (1993) 
+show that abnormally large short interest announcements have small but significant negative returns.  Similarly, 
+Aitken et al. (1998) show that short sales are followed by price declines within 15 minutes on the Australian Stock 
+Exchange. 
+
+--- PAGE 9 ---
+ 
+ 
+8 
+databases examine whether well-known asset pricing anomalies are related to news.  Chan 
+(2003) considers the momentum anomaly among stocks with and without recent news and finds 
+evidence of price momentum only among news stocks.  Similarly, Vega (2006) finds more 
+earnings momentum among stocks with high differences of opinion on news days. 
+ 
+More recently, researchers have asked whether the content of news stories contains value-
+relevant information.  Tetlock, Saar-Tsechansky, and Macskassy (2008) and Engelberg (2008) 
+show that, indeed, the qualitative content of the information contained in news stories can predict 
+both earnings surprises and short-term returns.  These findings support the idea that there is 
+value-relevant or “soft” information in news stories that is not immediately impounded into 
+prices. 
+ 
+To summarize, this literature highlights the importance of looking at more than one news 
+category when assessing the behavior of short sellers.  Moreover, it shows that the information 
+content of news leaves room for traders with different information processing abilities to arrive 
+at different conclusions about the value relevance of the news event.  Our work builds on these 
+findings by analyzing the universe of corporate news events in the U.S. over our sample period, 
+and by asking whether, in our sample, information processing ability plays a role in the 
+performance of short sellers’ trades. 
+ 
+1.3. Public news and informed trading 
+There are two views regarding the relation between the trading patterns of skilled investors 
+and the release of public news items such as the articles contained in the Dow Jones archive.  
+Under the first view, public information does not provide traders with an information advantage; 
+
+--- PAGE 10 ---
+ 
+ 
+9 
+that is, managers who rely on public information (rather than generate private information) are 
+low-skilled.  Consistent with this view, Kacperczyk and Seru (2007) estimate managers’ reliance 
+on public information (RPI) as the R-squared of a regression of percentage changes in fund 
+managers’ portfolio holdings on changes in analysts’ past recommendations and find that fund 
+managers with low RPIs (low reliance on public information) perform better than fund managers 
+with high RPIs (high reliance on public information). 
+Under the alternative view, the public release of information presents trading opportunities for 
+skilled processors of information; that is, when news is released, traders with superior 
+information processing skills can convert this news into valuable information for trading (Kandel 
+and Pearson, 1995).  Earnings announcements, for example, are often accompanied by lengthy 
+documents and conference calls that are scrutinized by information processors.  Those traders 
+who show exceptional skill in converting such data into value-relevant information are rewarded 
+with superior returns on event-driven trades.  Evidence consistent with this view comes from 
+studies that attempt to look at the textual content of news and firm announcements.  Specifically, 
+Tetlock et al. (2008), Engelberg (2008), Demers and Vega (2008), and Feldman, Govindaraj, 
+Livnat, and Segal (2009) all show that the content of corporate news predicts returns, which is 
+consistent with the view that information processing skills can generate superior returns.   
+Our paper sheds light on the above debate by finding additional evidence in support of the 
+second view by showing that trades occurring after the release of news stories can be more 
+profitable than trades in non-news periods.  
+ 
+2. Hypotheses and methodology 
+
+--- PAGE 11 ---
+ 
+ 
+10 
+2.1. Hypothesis development 
+ 
+In this section, we formalize many of the ideas introduced in the beginning of the paper.  Our 
+first set of hypotheses concerns the timing of trades, while the second set concerns the 
+profitability of trades.  Finally, we have two sets of hypotheses that aim to explore the source of 
+short sellers’ profitability. 
+ 
+The timing of trades is one of the areas in which short sellers can differ from other traders.  
+Prior research finds some evidence that short sellers trade before public information is released 
+(see, e.g., Karpoff and Lou, 2010; Christophe, Ferri, and Angel, 2004).  Similarly, the Securities 
+and Exchange Commission has suggested that short sellers spread “false rumors” in an effort to 
+manipulate firms.  Furthermore, in the popular press, there have been allegations of insider 
+trading by well-known hedge funds such as SAC and Galleon.3,4  Although there are many 
+possible channels through which short sellers’ trades could be profitable, our first set of 
+hypotheses seeks to empirically test whether the timing of short sales is different than that of 
+other trades.  We refer to this as the Anticipation hypothesis.  Formally: 
+H1: In the presence of news events, short sellers trade before other traders.  
+This hypothesis is an alternative to the null hypothesis that there is no difference in timing. 
+We next turn to the profitability of short sellers’ trades around news events.  The literature is 
+split as to whether news events increase or decrease asymmetric information, thereby increasing 
+                                                          
+3 E.g., Rothfeld, Michael, Susan Pulliam, and Chad Bray, 2011.  Fund Titan Found Guilty --- Rajaratnam Convicted 
+of Insider Trading; Jurors Cite Tapes: 'Just a Lot of Evidence'.  The Wall Street Journal, 12 May. 
+4 Our approach is not designed to detect specific instances of insider trading, but rather, it is designed to examine the 
+average trading patterns of short sellers. 
+
+--- PAGE 12 ---
+ 
+ 
+11 
+or decreasing the profitability of informed trades.  On the one hand, many papers model news 
+events as points in time associated with reduced information asymmetry (see, e.g., Korajczyk, 
+Lucas, and McDonald, 1991; Diamond and Verrecchia, 1987).  If news events do indeed reduce 
+asymmetric information, the trades of informed traders (e.g., short sales) should be less 
+profitable on news days.  On the other hand, other papers suggest that public news events are 
+subject to differential interpretations by traders (see, e.g., Rubenstein, 1993; Kandel and Pearson, 
+1995).  Under this view, public information events present profitable trading opportunities for 
+skilled information processors, and thus the trades of informed traders (e.g., short sellers) should 
+be more profitable after news days.  This discussion leads to the following set of hypotheses, 
+which we call the Profitability hypotheses: 
+H2a: Short sales are less profitable after news announcements. 
+H2b: Short sales are more profitable after news announcements. 
+These hypotheses rest against the backdrop of the null hypothesis, which states that short sales 
+are as profitable after news events as they are at other times. 
+Since our empirical work finds that short sales are more profitable after news events, we also 
+explore why profitability increases.  While the literature finds that news events create trading 
+opportunities for informed traders (see, e.g., Engelberg, 2008; Demers and Vega, 2008), other 
+potential explanations exist.  The first alternative explanation posits that some buyers make 
+systematic mistakes around news events (see, e.g., Antweiler and Frank, 2006), and that these 
+mistakes are reflected in market makers’ offsetting short sales.  We formalize this idea in our 
+third set of hypotheses, which we call the Uninformed Counterparty hypotheses: 
+H3: The profitability of short sales comes from market makers’ offsetting trades. 
+
+--- PAGE 13 ---
+ 
+ 
+12 
+This hypothesis rests against the null hypothesis that the profitability of short sales comes 
+equally from market maker and non-market maker trades. 
+Another alternative explanation relates to liquidity.  Given the increase in volume around 
+news events, news events could provide a trading opportunity for those traders for whom 
+liquidity is an important factor in a trade’s profitability.  As a result, the perceived profitability of 
+short sales around news events could have nothing to do with information; rather, short sellers 
+could simply be trading around news events because news events create liquidity, which allows 
+them to execute profitable trades.  This relation between news events and liquidity is the basis 
+for our fourth and final set of hypotheses, which we call the Liquidity hypotheses:  
+H4: The profitability of short sales around news events is due to the increased liquidity that 
+news events provide. 
+The null hypothesis is that the profitability of short sales around news events is not a result of the 
+liquidity that news events provide. 
+ 
+ 
+2.2. Data 
+ 
+To test the hypotheses developed above, we employ two main databases.  The first database 
+contains information on short sales, while the second contains news articles from the Dow Jones 
+archive. 
+ 
+2.2.1. Short sales 
+
+--- PAGE 14 ---
+ 
+ 
+13 
+Information on short sales comes from the NYSE Trade and Quote (TAQ) Regulation SHO 
+database.  Regulation SHO was adopted by the SEC in June of 2004 to establish new rules 
+governing short sales in equity transactions and to evaluate the effectiveness of price test 
+restrictions on short sales.  As one consequence of Regulation SHO, transaction-level short sales 
+data were publicly disclosed.  The Regulation SHO database covers the period January 3, 2005 
+through July 6, 2007 and contains data for all short sales that were reported to the NYSE for 
+NYSE-listed and traded securities during this period.5  The database contains the stock ticker, the 
+date and time of the transaction, the number of shares traded, and the execution price.  While the 
+data allow us to observe the opening of short positions, they do not contain information on the 
+covering of these short positions.  Thus, like other papers, we are constrained by the lack of 
+information on short-covering transactions.  In addition, the data also include an indicator that 
+denotes whether a transaction was exempt from price test rules.  One of the reasons a short sale 
+transaction could be classified as exempt is that it was made by market makers engaged in bona 
+fide market making activity.  The exempt indicator has thus been used to separate trading by 
+market makers from trading by non-market makers (see, e.g., Evans, Geczy, Musto, and Reed, 
+2009; Christophe, Ferri, and Angel, 2004; Boehmer, Jones, and Zhang, 2008; Chakrabarty and 
+Shkilko, 2011).6  However, when Regulation SHO was implemented, a group of randomly 
+selected stocks was selected to be part of a pilot study for which the exempt/non-exempt 
+                                                          
+5 The vast majority of trades in the database are for NYSE-listed securities.  Occasionally, securities that are not 
+listed on the NYSE do trade on the NYSE, and these trades also appear in the Regulation SHO database. 
+6 For example, NASD NTM 06-53 notes that “Rule 5100(c)(1) provides an exception to the bid test for short sales 
+by a market maker registered in the security in connection with bona fide market making activity.” 
+
+--- PAGE 15 ---
+ 
+ 
+14 
+classification was no longer required.  We exclude these pilot firms when using the exempt 
+indicator variable in our analyses (i.e., Tables 6 and 7).7 
+For the purposes of our analysis, we aggregate the transaction data to the daily level, and we 
+use the TAQ master files to add CUSIPs to the database.  We then use the Center for Research in 
+Security Prices (CRSP) Daily Stock Event file to add PERMNOs to the database.  Finally, we 
+add returns, closing bid price, closing ask price, total volume, and shares outstanding from 
+CRSP.  Using these data, we calculate the Amihud (2002) Illiquidity measure defined as 107 * 
+|retit| / volumeit, where volumeit is the dollar volume, and we calculate the daily bid-ask spread as 
+a percentage of the closing mid-price. 
+In addition, we add information on the daily volume weighted rebate rate for equity loans in 
+each stock over the sample period.  The rebate rate for an equity loan is the rate at which interest 
+on collateral is rebated back to the borrower.  Thus, the rate is inversely related to the cost of 
+shorting a stock.  Our data on rebate rates come from a proprietary database on equity loan 
+transactions as described in Kolasinski, Reed, and Ringgenberg (2011).  The data are compiled 
+by a third-party provider that is both a market maker in the equity loan market and a data 
+aggregator for major equity lenders. 
+ 
+2.2.2. Dow Jones archive 
+                                                          
+7 Details regarding the Regulation SHO pilot study, including a list of firms involved, are available on the SEC 
+website: http://www.sec.gov/rules/other/34-50104.htm.  Our results are robust to the inclusion of the Regulation 
+SHO pilot firms. 
+
+--- PAGE 16 ---
+ 
+ 
+15 
+To compile our sample of news events, we use the Dow Jones archive as in Tetlock (2010).  
+This archive contains all Dow Jones News Service stories and Wall Street Journal stories over 
+our 2005 to 2007 sample period.  Each observation in the news database is a news item; each 
+news item includes at least one subject code and Dow Jones’s designation of the corporations 
+that are mentioned in an article and are the subject of the story.  Table 1 displays an example 
+article and the associated entry in the Dow Jones archive.  The database contains subject codes 
+that identify the information content of each news article; for example, in Table 1 the subject 
+code RND indicates that the article contains information about research and development.   
+We adopt Dow Jones’s subject categorizations, which give us 71 different news categories.  
+However, many of these subject codes are general codes that do not provide valuable 
+information about the content of a news article.  For example, nearly every article in the database 
+has the code CNW, indicating that the article contains company news, in addition to a more 
+specific news code.  We remove these general codes from our analysis to obtain a final list of 
+subject codes that contains 39 different news categories.8  Finally, if news is released before the 
+market closes at 4:00 PM, we assign the current trading day to the news story; if news occurs 
+after 4:00 PM, we assign the next trading day.  
+The resulting news database contains the date and time an article was released, a unique firm 
+identifier, subject codes, and a dummy variable that takes the value of one if a story was released 
+in multiple pieces over the news day.  The data also contain two dictionary-based sentiment 
+score variables that indicate whether a story contains negative words in the headline and body of 
+                                                          
+8 Specifically, after computing the correlations between subject codes, we exclude subject codes if their correlation 
+with a more specific news category exceeds 80%.  We also drop news categories that are associated with fewer than 
+1,000 news events over the entire sample (see Table 2 for the frequency of each news event in our sample). 
+
+--- PAGE 17 ---
+ 
+ 
+16 
+the text.  The first sentiment variable is constructed using the Harvard-IV-4 dictionary as in 
+Tetlock (2007) and Engelberg (2008), while the second sentiment measure uses the negative 
+word list developed by Loughran and McDonald (2011).  In both cases, the sentiment score is 
+constructed as the sum of the number of negative words in an article’s headline and body divided 
+by the sum of the total number of words in the headline and body.  
+We also use the announcement day return on the day of news events as another sentiment 
+variable in the analyses.  While the negative word measures discussed above do provide some 
+indication of the content of an article, they do not contain information on the market’s prior 
+expectations.  In other words, while a news article could contain a large number of negative 
+words, if the market was expecting even worse news, then the negative article could be 
+associated with a positive market response.  Accordingly, when examining the timing of short 
+sellers’ trades we use the announcement day return to sign the content of news.  Our results are 
+qualitatively unchanged if we use the negative word measures. 
+We use the unique firm identifier to match the news data to the short sales database.  The 
+resulting database has 1,888,868 observations over the period January 3, 2005 to July 6, 2007.  
+The database contains 3,167 unique firm identifiers and we include ordinary common shares in 
+U.S. firms, American Depositary Receipts (ADRs), Real Estate Investment Trusts (REITs), and 
+closed-end funds.  Fig. 1 provides an example of the time-series evolution of short sales, news, 
+and returns for an example firm, Williams-Sonoma, from January 1, 2007 through February 28, 
+2007.  Over this time period, Williams-Sonoma experienced three positive news events and one 
+negative news event and short sales (as a percentage of total volume) ranged from a low of 
+17.4% on February 28 to a high of 43.6% on  February 6, one day after the negative news event 
+occurred.   
+
+--- PAGE 18 ---
+ 
+ 
+17 
+Table 2 contains summary statistics for the combined database.  The mean number of articles 
+per firm-day is 1.26.  However, there is substantial cross-sectional variation in this number, and 
+larger firms typically have more news articles on a given day.  Certain news categories also 
+appear much more often than others.  For example, the category High Yield Issuers appears 
+168,803 times in the database, while the category 10K appears only 1,183 times.  To address the 
+potential issue of news clustering and to avoid problems with multicollinearity, we remove 
+stories that are within 30 days of a previous story when we conduct panel data analyses in Tables 
+3, 8, and 9 and Figures 2 and 4.  Specifically, if an article is in the same category as an article 
+that occurred within the last 30 days for that same firm, we remove the second article from the 
+database. 
+ 
+3. Analyses and results 
+In this section we explore how short sellers differ from other traders.  We begin by asking 
+whether short sellers respond to news before other market participants.  We find that short sellers 
+tend to trade at the same time as other traders, and when they do not, they tend to trade more 
+after news events occur.  These results suggest that short sellers do not anticipate most news 
+events.  Next, we ask whether short sellers’ trades are more profitable than other trades, 
+consistent with a superior ability to process news, and we find evidence in favor of this view.  
+Finally, we analyze which types of information are associated with short sellers’ profitability.   
+ 
+3.1. Do short sellers anticipate news? 
+
+--- PAGE 19 ---
+ 
+ 
+18 
+One way in which short sellers can differ from other traders is in the timing of their trades.  
+There is some evidence that short sellers anticipate bad news announcements (see, e.g., 
+Christophe, Ferri, and Angel, 2004; Karpoff and Lou, 2010).  However, these findings 
+correspond to specific types of corporate events.  Here, we seek to shed light on short sellers’ 
+timing behavior around all types of news events in our sample period.      
+To determine the extent of short sales timing around news events, in Panel A of Fig. 2 we plot 
+daily short sales volume (solid line), total volume (dashed line), and the ratio between the two 
+(dotted line) in event time around our universe of news events.  The basic result is readily 
+apparent: short sellers typically trade when other traders do.  In other words, the figure provides 
+visual evidence in support of the null hypothesis, and against the alternative, the Anticipation 
+hypothesis (H1).  Clearly, all traders respond to news, as there is a significant increase in volume 
+on the news event day and on surrounding days.  However, the ratio of short sales to total 
+volume is nearly constant over the news period, with no significant change in the ratio around 
+news events.  The result suggests that, on average, short sellers do not uncover and trade on 
+information before it becomes publicly available. 
+Of course, in line with the prior research discussed above, it could be the case that short 
+sellers respond more to certain types of news, particularly bad news.  Thus, in Panels B and C of 
+Fig. 2, we examine volume around negative and positive news events, respectively, where 
+negative news events are defined as events with an announcement day return in the bottom 
+quintile of all returns and positive news events are defined as events with announcement returns 
+in the top quintile of all returns that day.  Interestingly, the results are largely unchanged, 
+indicating that the timing of short sellers’ response to news does not depend on whether the news 
+is bad or good. 
+
+--- PAGE 20 ---
+ 
+ 
+19 
+Next, we formally examine the timing of short sellers’ trades around news events.  We begin 
+by regressing the ratio of short sales volume to total volume (hereafter, the short volume ratio) 
+on an indicator variable that takes the value one if any news event occurs, and zero otherwise.  
+To control for the well-documented response of short sellers to past returns (see, e.g., Diether, 
+Lee, and Werner, 2008), we include two lags of daily returns.  To understand the timing of short 
+sales transactions around news events, we run six different specifications in which we vary the 
+timing of the dependent variable relative to the news event.  Specifically, we run six panel 
+regressions of the form:  
+𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒 𝑅𝑎𝑡𝑖𝑜𝑖𝑡 = β1(𝑟𝑒𝑡𝑖,𝑡−1) + β2(𝑟𝑒𝑡𝑖,𝑡−2) + β3(𝑁𝑒𝑤𝑠 𝐸𝑣𝑒𝑛𝑡𝑖𝑡) + FE + ε 
+(1) 
+       
+The results, shown in Table 3, are largely consistent with the results in Fig. 2 and suggest that 
+around news days, short sellers tend to trade when other investors trade.  In Panel A, the results 
+suggest that short sellers actually trade slightly less than other investors in the days leading up to 
+a news event.  When we consider negative news separately in Panel B, we find more short-
+selling right before (t-1) and right after (t+1, t+2) negative news events.  The fact that short 
+selling increases the day before negative news is consistent with the Anticipation hypothesis; 
+however, the fact that short selling also increases after the news event coupled with the fact that 
+there is no significant decrease in our measure of the difference, After Minus Before, provides 
+mixed evidence on the timing of short sellers trades.  Moreover, consistent with the results in 
+Fig. 2, the magnitude of the coefficient estimates suggests that the increase in the short volume 
+ratio on the days before news events is relatively small.  The coefficient of 0.003 at t-1 indicates 
+that the day preceding negative news events experiences an increase of 0.30% in the short 
+volume ratio, which amounts to a 1.5% increase in the short volume ratio relative to its 
+unconditional mean of 0.196; for the average stock, this amounts to an increase of approximately 
+
+--- PAGE 21 ---
+ 
+ 
+20 
+2,300 shares sold short.9  This effect seems relatively small when compared to the unconditional 
+standard deviation of the short volume ratio, which is approximately 0.272.  Thus, the regression 
+results provide weak evidence that some short sellers anticipate negative news events.  When we 
+consider positive news separately in Panel C, we find evidence that the ratio of short sales to 
+other trades is small in the days leading up to a news event.  However, again, the magnitude of 
+the coefficient estimates is relatively small and the results suggests that, for the most part, short 
+sellers’ trades are similar to the trades of other investors in the days before a positive news event. 
+Overall, the evidence suggests that short sellers generally trade at the same time as other 
+traders, and in those instances in which they show different timing, short sellers tend to trade 
+after other traders, not before.  The results suggest that, on average, the previously documented 
+information advantage of short sellers (see, e.g., Boehmer, Jones, and Zhang, 2008; Asquith, 
+Pathak, and Ritter, 2005) does not stem from an ability to anticipate news.   
+ 
+3.2. Do short sellers have superior information processing ability? 
+Given our finding above, in this subsection we ask whether short sellers’ information 
+advantage derives from an alternative source, namely, a superior ability to process the 
+information contained in publicly available news. 
+                                                          
+9 This calculation is an approximation based on the unconditional mean number of shares shorted which equals 
+153,324 shares.  Thus, 2,300 shares = 1.5% * (153,324), where 1.5% = 0.003 / 0.196. 
+
+--- PAGE 22 ---
+ 
+ 
+21 
+To answer this question as directly as possible, we begin by replicating Table IV of Boehmer, 
+Jones, and Zhang (2008), shown in our Table 4, below (column 1).10  Specifically, we run Fama-
+MacBeth (1973) regressions of the form:  
+𝑅𝑒𝑡𝑖;𝑡+1,𝑡+20 = α + 𝛽1(𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒 𝑅𝑎𝑡𝑖𝑜𝑖𝑡) + ε 
+(2) 
+where the dependent variable is 20-day rolling returns (i.e., t+1 to t+20) from January 3, 2005 
+through July 6, 2007 and the independent variable is Short Volume Ratio on day t, which is 
+defined as daily short volume divided by total volume.  We calculate standard errors using the 
+standard deviation of the time-series of coefficient estimates and we use the Newey-West (1987) 
+standard error correction with 20 lags as in Boehmer, Jones, and Zhang (2008).  We use two 
+different measures of returns as the dependent variable: models 1 through 3 use raw returns, 
+while models 4 through 6 use returns adjusted using 25 size and momentum portfolios, where 
+momentum is measured using monthly returns over the last 12 months.  In both cases, the 
+Boehmer, Jones, and Zhang (2008) result comes through strongly.  In each of the specifications, 
+Short Volume Ratio is negative and statistically significant, indicating that high levels of short 
+selling predict future prices decreases; the results confirm the existing finding that short sellers 
+are informed traders.  
+Given our previous results, we next ask whether this information advantage is concentrated on 
+news days.  To test for this effect, we add a News Event indicator and a Short Volume Ratio * 
+                                                          
+10 We replicate the Boehmer, Jones, and Zhang (2008) methodology, however we use a different sample; Boehmer, 
+Jones, and Zhang’s (2008) sample covers January 2000 to April 2004 while our sample covers January 2005 through 
+July 2007. 
+
+--- PAGE 23 ---
+ 
+ 
+22 
+News Event interaction term in columns 2 and 5.  Specifically, we run Fama-MacBeth (1973) 
+regressions of the form:  
+𝑅𝑒𝑡𝑖;𝑡+1,𝑡+20 = α + 𝛽1(𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒 𝑅𝑎𝑡𝑖𝑜𝑖𝑡) + 𝛽2(𝑁𝑒𝑤𝑠 𝐸𝑣𝑒𝑛𝑡𝑖𝑡) + 
+𝛽3(𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒 𝑅𝑎𝑡𝑖𝑜𝑖𝑡∗𝑁𝑒𝑤𝑠 𝐸𝑣𝑒𝑛𝑡𝑖𝑡) + ε 
+(3) 
+While the coefficient on the News Event indicator is small and insignificant, the coefficient on 
+Short Volume Ratio * News Event is -0.479 and highly significant.  Comparing this to the 
+coefficient on Short Volume Ratio of -0.453, the main result is clear: the predictive power of 
+Short Volume Ratio more than doubles on news days.   
+Of course, news events can contain negative or positive sentiment and the sentiment of a news 
+event might impact the ability of short sellers to profit from it.  To see whether the increased 
+predictability of Short Volume Ratio depends on the content of news events, we decompose the 
+News Event variable into three indicator variables: Negative News Event, Neutral News Event, 
+and Positive News Event.  As before, a Negative News Event occurs when there is news and a 
+firm’s announcement day return is in the bottom quintile of all returns on a given day, a Positive 
+News Event occurs when there is news and a firm’s return is in the upper quintile of all returns 
+on a given day, and a Neutral News Event occurs when there is news and a firm’s return is in 
+neither the top nor the bottom quintile.  Our Fama-MacBeth (1973) regressions thus include 
+three news event indicators and three interactions terms as shown in Eq. 4, below:  
+𝑅𝑒𝑡𝑖;𝑡+1,𝑡+20 = α + 𝛽1(𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒 𝑅𝑎𝑡𝑖𝑜𝑖𝑡) + ∑
+(𝛽𝑛+1𝑁𝑒𝑤𝑠 𝐸𝑣𝑒𝑛𝑡𝑛,𝑖,𝑡
+3
+𝑛=1
+) + 
+∑
+(𝛽𝑛+4𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒 𝑅𝑎𝑡𝑖𝑜𝑖𝑡∗𝑁𝑒𝑤𝑠 𝐸𝑣𝑒𝑛𝑡𝑛,𝑖,𝑡
+3
+𝑛=1
+)+ controls + ε 
+(4) 
+The results are shown in the final columns (3 and 6) and include additional controls for size 
+and lagged returns following Diether, Lee, and Werner (2008).  The result suggests that our main 
+
+--- PAGE 24 ---
+ 
+ 
+23 
+effect is stronger for negative news events (-1.805, t-statistic of -4.26) than for positive news 
+events (-1.113, t-statistic of -2.40).11  The magnitude of the coefficients also suggests that the 
+size of the predictability for future returns nearly quadruples on negative news days and triples 
+on positive news days.  We also find that on neutral news event days, when the potential 
+advantage from processing information is likely minimal, the effect is smaller in column 3 and 
+insignificant in column 6.  Overall, while news events occur on only 22% of the days in our 
+sample, our results suggest that these days account for over 45% of the total predictability 
+associated with short sales.12 
+Fig. 3 illustrates the main results using a trading strategy approach in which we form 
+long/short portfolios based on Short Volume Ratio and/or the presence of news events; Table 5 
+reports the associated summary statistics on the monthly performance of these portfolios.  Panel 
+A of Fig. 3 displays the cumulative returns from a portfolio that goes short stocks in the highest 
+quintile of Short Volume Ratio and long stocks in the lowest quintile of Short Volume Ratio.  
+This equal-weighted portfolio is initiated the day after Short Volume Ratio is observed and it is 
+                                                          
+11 One possible explanation for  the finding that returns are lower when short sellers increase trading in the presence 
+of positive news is that short sellers can identify overreactions to positive news. 
+12 Similar to the calculation in Boehmer, Jones, and Zhang (2010), we calculate the total underperformance 
+associated with a one-standard deviation increase in short sales as: (percentage of days with news * the 
+underperformance with news) + (percentage of days without news * the underperformance without news).  Using 
+the estimates in Table 4, the total underperformance = −0.724% = [4.83% * (−0.509 − 1.805)] + [5.09% * (−0.509 – 
+1.113)] + [12.00% * (−0.509 – 0.597)] + [(1 − 4.83% − 5.09% − 12.00%) * −0.509], where the first three terms 
+represent the portion attributable to negative, positive, and neutral news days, respectively, and the last term 
+represents the portion attributable to non-news days.  News days account for 45% of this total underperformance. 
+
+--- PAGE 25 ---
+ 
+ 
+24 
+held for the next 20 days.13  The portfolio formation process is repeated each day so that 1/20 of 
+the portfolio is effectively rebalanced each day as in Boehmer, Jones, and Zhang (2008).  
+Conditioning on short-selling alone, as shown in Panel A, leads to a cumulative return of 
+approximately 40% over our sample period, which corresponds to a mean monthly portfolio 
+return of approximately 1.4%.   
+In Panel B, firms with negative news are assigned to the short portfolio and firms with 
+positive news are assigned to the long portfolio.  Conditioning on news alone leads to a mean 
+monthly return of approximately 0.7%, which leads to a total cumulative return of only 20%.  
+However, conditioning on short-selling and news together, as shown in Panel C, leads to a 
+cumulative return of approximately 60% over our sample period and a mean monthly return of 
+2%.  In fact, when we further condition on the sign of the news in Panel D, it leads to a mean 
+monthly return of almost 6% and a total cumulative return of approximately 180% over the 
+sample period. 
+Taken together, the results in this section suggest that among stocks with high short volume, 
+those with news have significantly lower future returns than those without news, a finding that 
+directly supports the Profitability hypothesis (H2b).  Our results thus provide new insight into the 
+source of short sellers’ information advantage.  In particular, we find that the previously 
+documented relation between short volume and future returns is much stronger for stocks that 
+                                                          
+13 The cumulative portfolio returns we show do not account for transaction costs.  Furthermore, over our sample 
+period, short volume was not publicly observable without a delay, and thus these cumulative portfolio returns do not 
+represent a trading strategy that could be implemented.  Instead, these portfolio returns are indicative of the 
+compensation earned by short sellers for processing publicly available information.  While information processing is 
+not costless, these results suggest that short sellers can earn substantial compensation. 
+
+--- PAGE 26 ---
+ 
+ 
+25 
+have a public news event.14  The results suggest that short-sellers are good at processing the 
+information contained in news events, especially when the news is negative.15 
+ 
+3.2.1. Alternative interpretations 
+We interpret our evidence that the profitability of short sales is higher on news days as 
+evidence that short sellers process news events well.  However, there are several possible 
+alternatives that could also explain the evidence: (1) short sales could be more profitable on news 
+days because these days provide liquidity to traders who make systematic mistakes around news 
+events (i.e., the Uninformed Counterparty hypothesis (H3)) and (2) short sales could be more 
+profitable on news days because the cost of shorting is lower on news days (i.e., the Liquidity 
+hypothesis (H4)).  The following results suggest that neither alternative is supported by the 
+evidence. 
+                                                          
+14 The Boehmer, Jones, and Zhang (2008) result can be thought of as a high-frequency analog of the results in 
+Asquith, Pathak, and Ritter (2005).  These papers measure short trading with short interest instead of short volume, 
+and they use future returns that are measured over longer periods.  Although we would like to examine the relation 
+between news and short sellers’ advantage in the context of these short interest-based findings, there is an 
+econometric challenge in making a direct comparison.  Specifically, news in our database is marked with daily time 
+stamps, so we would either have to aggregate news to match the monthly frequency of short interest or we would 
+have to throw out much of our news data.  It is not clear how a reduction in the frequency of the news variable 
+would change expectations about the short positions. 
+15 The fact that short-sellers also profit from positive news events is consistent with the third prediction in Hong, 
+Kubik, and Fishman (2011), which implies that short sales initiated after positive news will be profitable, since good 
+news can initially lead to the covering of short positions that were open prior to the event, leading to an 
+overreaction.  
+
+--- PAGE 27 ---
+ 
+ 
+26 
+One drawback to using total short sales volume as a measure of short selling is that some 
+short sales are generated as a result of market making – to the extent that some buyers make 
+systematic mistakes, the corresponding short sales are simply offsetting positions, not informed 
+trades.  Thus, with the total measure of short sales volume used in Table 4, we cannot distinguish 
+the effect of short sales that arise in response to counterparty purchases from the effect of shorts 
+that arise for the purpose of gaining a negative exposure.  This raises the question of whether our 
+results in Table 4 can be attributed to informed trading.  To address this concern, we take 
+advantage of a unique feature of the data, namely, the exempt versus non-exempt classification 
+of trades.  This classification allows us to separate shorts into market making and non-market 
+making (i.e., client) trades.16   
+Tables 6 and 7 report the results for non-exempt and exempt trades, respectively.  In Table 6 
+the statistically significant coefficient estimate of −0.976 on Short Volume Ratio in column 6 
+indicates that high short volume is a significant predictor of low future returns.  Moreover, the 
+magnitude on short volume is almost double the corresponding coefficient for total short sales 
+volume in Table 4, which suggests that the ability of short sales to predict future returns is 
+particularly strong for non-market-making trades.  We also see that the short-news interactions 
+are large and negative, indicating that non-market makers’ shorts are more profitable in the 
+presence of news events than at other times.  As before, the effect is stronger for negative news 
+events (-2.445, t-statistic of -3.95) than for positive news events (-1.408, t-statistic of -3.16) and 
+                                                          
+16 Anecdotal evidence suggests that the exemption is sometimes abused, but only in one direction: trades can be 
+inappropriately marked as exempt when they are not.  Since the exemption removes potential restrictions, it is 
+unlikely that exempt trades would ever be inappropriately marked as non-exempt.  In other words, exempt trades can 
+include client trades, but non-exempt trades are unlikely to include market maker trades. 
+
+--- PAGE 28 ---
+ 
+ 
+27 
+the effect is not statistically significant on neutral news event days, when the potential advantage 
+from processing information is likely minimal. 
+In contrast, the results in Table 7 indicate that market makers’ trades are not particularly well 
+informed: the short-news interactions are largely insignificant and when they are statistically 
+significant, the coefficient is positive, indicating that the short sales of market makers are 
+actually associated with positive future returns on news days.  Overall, the evidence suggests that 
+the most informed short sales are those made for the purpose of gaining a negative exposure, and 
+that these trades are particularly well informed in the presence of news events.  In other words, 
+we find evidence rejecting the Uninformed Counterparty hypothesis.  
+Another potential explanation is that short sales are profitable on news days because news 
+days provide short sellers an opportunity to trade at a lower cost.  Under this view, short sellers 
+have an information advantage well before a news announcement.  However, they cannot 
+execute their trades if transaction costs are high or liquidity is low.  Since news days tend to have 
+higher than normal volume, it could be that these days are low cost and/or high liquidity days on 
+which short sellers can execute their trades.  As a result, if news events provide opportunities to 
+transact at lower costs, then short sellers could appear to have more profitable trades around 
+news announcements, even if the news events themselves are not the source of an information 
+advantage. 
+This story, however, requires that the costs of short selling are lower around news 
+announcements.  Fig. 4, which presents a plot of rebate rates, the Amihud (2002) Illiquidity 
+measure, and bid-ask spreads around news events, suggests that this is not the case.  Both rebate 
+rates and the Amihud measure show no significant improvement on news days; moreover, bid-
+
+--- PAGE 29 ---
+ 
+ 
+28 
+ask spreads actually sharply increase on news days.  More specifically, Table 8 tabulates the 
+mean values of these variables around news announcements and confirms that rebate rates and 
+the Amihud measure show no significant improvement on news days, while bid-ask spreads 
+actually rise on news days.  Moreover, the increase in bid-ask spreads, which results in higher 
+transaction costs on news days, is consistent with existing models of market maker behavior in 
+the presence of informed traders (see, e.g., Glosten and Milgrom, 1985; Kyle, 1985).17  The 
+results suggest that transaction costs do not decrease on news days and the evidence suggests that 
+the Liquidity hypothesis (H4) should be rejected in favor of the null.  In other words, the 
+evidence suggests that the significant relation between short sales, news, and returns is not a 
+result of the liquidity that news events provide. 
+ 
+Finally, while we interpret our findings as evidence that short sellers process news events 
+well, it is possible that our results are the product of either reverse causality or an omitted 
+variable.  For example, a news article can come in response to a price decline, rather than the 
+other way around.  However, for many of our analyses, we stress that news and short-volume 
+today predict future returns (e.g., Tables 4, 6, and 7), so the timing of our tests suggests that 
+reverse causality is less of a concern.  Nevertheless, it could be that some omitted variable causes 
+both news and high short-volume today as well as low returns in the future.  Although we cannot 
+rule out such an explanation, it is worth noting that the timing tests and the cross-sectional test in 
+the paper are consistent with an information processing story.   
+                                                          
+17 The fact that bid-ask spreads increase on news days is consistent with Meulbroek (1992), who finds that the 
+market is significantly more sensitive to abnormal volume on days with insider trading and this information is 
+impounded into prices.  In other words, the results here and the results in Meulbroek (1992) are both consistent with 
+the idea of market participants responding to the suspected presence of informed traders.  
+
+--- PAGE 30 ---
+ 
+ 
+29 
+ 
+3.3. Robustness 
+Our results demonstrate that a significant portion of short sellers’ trading advantage comes 
+from their ability to analyze publicly available information; when we look at short sellers’ trades 
+around all types of corporate news events we find that the negative relation between short sales 
+and future returns more than doubles.  As a robustness check, in this section we use the subject 
+categorizations provided in the Dow Jones archive to examine the relation between short sales, 
+returns, and specific types of news events.  While several extant papers examine a subset of this 
+paper’s sample of news events, our analysis extends the sample to include a broader range of 
+news events in order to better understand the sources of informed trading. 
+ 
+3.3.1. Price responses by news category 
+In an extension to the profitability analysis discussed above, in this section we ask whether 
+short sellers’ information processing ability is uniformly strong across news categories.  To get 
+at this question, we examine the relation between short sales, news, and returns separately for 
+each of the 39 news categories in our database.  In each regression, the dependent variable is the 
+compound market-adjusted return from the first to the twentieth trading day after the news event, 
+where the market-adjusted return is calculated net of the value-weighted market return from 
+CRSP.  The main independent variable of interest is short vol / total vol, which is the amount of 
+short selling relative to total volume on the day of the news event.  Specifically, we estimate the 
+following panel regression separately for each news category and only when a news event 
+occurs:  
+
+--- PAGE 31 ---
+ 
+ 
+30 
+Reti;t+1,t+20 = α + β1 ቀ
+𝑠ℎ𝑜𝑟𝑡 𝑣𝑜𝑙𝑡=0
+𝑡𝑜𝑡𝑎𝑙  𝑣𝑜𝑙𝑡=0ቁ +β2Sizet-1 +β3rett-1 + β4rett-2 + FEi + ε 
+ 
+(5) 
+As in Table 4, we include controls for firm size and the previous two days of returns and we 
+include firm fixed effects to control for possible unobserved heterogeneity in the panel.  The 
+results, shown in Table 9, indicate that short sellers have some ability to identify trades that are 
+likely to be profitable around certain news events.  Specifically, we find that the coefficient 
+estimates on short vol / total vol are significantly negative for 13 of the 39 news categories; of 
+these, five are statistically significant at the 1% level (Earnings, Earnings Projections, High 
+Yield Issuers, New Products & Services, and Stock Ownership), and four more are significant at 
+the 5% level (Analyst Comments and Ratings, Bond Ratings and Comments, Divestitures or 
+Asset Sales, and Lawsuits).  Moreover, these categories are consistent with the findings of 
+Christophe, Ferri, and Angel (2004), Christophe, Ferri, and Hsieh (2010), and Boehmer, Jones, 
+and Zhang (2010), who find that short sellers are informed traders who can profit from earnings 
+announcements and analyst downgrades. 
+Overall, the 13 categories that are significantly negative represent approximately 68% of the 
+news categories by frequency count (see Table 2).  While the remaining categories account for 
+approximately 32% of news events, many of these events occur relatively infrequently; as a 
+result, our category specific regressions may not be powerful enough to pick-up a relation 
+between short sales around these events and future returns.  As a further test of statistical 
+significance, we conduct a Fisher test of combined probability to determine whether the cross-
+sectional distribution of the p-values from each regression differs significantly from a uniform 
+zero-one distribution.  The Fisher test rejects this null at the 1% level of significance across all 
+
+--- PAGE 32 ---
+ 
+ 
+31 
+news categories, suggesting that the coefficient on short volume is statistically different from 
+zero for the cross-section. 
+Taken together, our results indicate that when short selling predicts future returns, short 
+sellers appear to be making profitable trades.  This evidence lends further support to the idea that 
+short sellers’ information advantage stems from their superior ability to process publicly 
+available information.  In other words, the results show that the inverse relation between short 
+volume and future returns is strongest around news events, whereas during non-news events this 
+relation could be insignificant or even go in the other direction.  These results lend additional 
+support to our main finding that the previously documented information advantage of short 
+sellers is driven in large part by short sellers’ superior ability to process information contained in 
+publicly available news. 
+ 
+4. Conclusion 
+Previous research shows that short sellers are informed traders (see, e.g., Boehmer, Jones, and 
+Zhang, 2008; Asquith, Pathak, and Ritter, 2005).  Yet we know little about the source of short 
+sellers’ information advantage.  This paper seeks to fill this gap by asking how short-sellers 
+become informed.  To do this, we combine a database of all public news events in the U.S. with 
+a database of short sales. 
+We find little evidence that short-sellers can anticipate news events.  In fact, the ratio of short 
+sales to total volume is nearly constant over news periods, with no significant change in the ratio 
+around news events.  However, we do find some differences between the timing of short sellers’ 
+trades and the overall market: there is a significant increase in short selling after news events.  
+
+--- PAGE 33 ---
+ 
+ 
+32 
+This finding is consistent with short sellers trading on publicly available information.  In other 
+words, the evidence suggests that their information advantage is, on average, not due to an ability 
+to create news stories or anticipate information before it becomes public.  Accordingly, we reject 
+the Anticipation hypothesis. 
+Given the finding that short sellers’ advantage is not due to anticipation, we next ask whether 
+short sellers’ information advantage derives from an alternative source, namely, a superior ability 
+to process the information contained in publicly available news.  We find supportive evidence.  
+In particular, we find that across all types of news, short selling’s predicative effect on future 
+returns is twice as strong on news days.  
+We find that this result is not a reflection of persistent mistakes by buyers, as the most 
+informed short sales are not from market makers but rather from clients, and these client shorts 
+are particularly well informed in the presence of news.  Moreover, we find no evidence that short 
+selling around news events is more profitable because of the liquidity that news events provide, 
+as the bid-ask spread is actually found to increase by approximately 5% on news days.  Taken 
+together, the evidence suggests that short-sellers gain an information advantage from superior 
+processing of public news. 
+More broadly, our results shed light on the evolution of informed traders in financial markets.  
+Although many models of financial markets assume the existence of informed traders who have 
+superior information about asset values, these models often beg the question: where do these 
+informed traders come from?  Because short-sellers are well known to be informed traders, we 
+can think of the environment in our study as a laboratory for informed trading in general.  From 
+
+--- PAGE 34 ---
+ 
+ 
+33 
+this perspective our paper addresses a more fundamental question: how do informed traders 
+become informed? 
+The answer in our study is perhaps surprising.  Instead of leveling the information playing 
+field between informed and uninformed traders, news events appear to be precisely the moment 
+when informed traders in our setting gain an information advantage over others.  Thus, the 
+evidence herein paints informed traders as skilled information processors with news as fodder for 
+their processing.   
+
+--- PAGE 35 ---
+ 
+ 
+34 
+5. References 
+Aitken, M., Frino, A., McCorry, M., Swan, P., 1998. Short sales are almost instantaneously bad 
+news: evidence from the Australian Stock Exchange. Journal of Finance 53, 2205-2223. 
+Amihud, Y., 2002. Illiquidity and stock returns: cross-section and time-series effects. Journal of 
+Financial Markets 5, 31-56. 
+Antweiler, W., Frank, M., 2006. Do U.S. stock markets typically overreact to corporate news 
+stories? Unpublished working paper. University of British Columbia. 
+Asquith, P., Pathak, P., Ritter, J., 2005. Short interest, institutional ownership, and stock returns. 
+Journal of Financial Economics 78, 243-276. 
+Boehme, R., Danielsen, B., Sorescu, S., 2006. Short-sale constraints, differences of opinion, and 
+overvaluation. The Journal of Financial and Quantitative Analysis, 41, 455-487. 
+Boehmer, E., Jones, C., Zhang, X., 2008. Which shorts are informed? Journal of Finance 63, 
+491-527. 
+Boehmer, E., Jones, C., Zhang, X., 2010. What do short sellers know? Unpublished working 
+paper. 
+Chakrabarty, B., Shkilko, A., 2011. Information leakages in financial markets: evidence from 
+shorting around insider sales. Unpublished working paper. 
+Chan, W., 2003. Stock price reaction to news and no-news: drift and reversal after headlines.  
+Journal of Financial Economics 70, 223-260. 
+
+--- PAGE 36 ---
+ 
+ 
+35 
+Christophe, S., Ferri, M., Angel, J., 2004. Short-selling prior to earnings announcements. Journal 
+of Finance 59, 1845-1875. 
+Christophe, S., Ferri, M., Hsieh, J., 2010. Informed trading before analyst downgrades: evidence 
+from short sellers. Journal of Financial Economics 95, 85-106. 
+Daske, H., Richardson, S., Tuna, A., 2005. Do short sale transactions precede bad news events? 
+Unpublished working paper. 
+Demers, E., Vega, C., 2008. Soft information in earnings announcements: news or noise? 
+International Finance Discussion Papers 951. Board of Governors of the Federal Reserve 
+System. 
+Diamond, D., Verrecchia, R., 1987. Constraints on short-selling and asset price adjustment to 
+private information. Journal of Financial Economics, 18, 277–311. 
+Diether, K., Lee, K., and Werner, I., 2008. Short-sale strategies and return predictability. Review 
+of Financial Studies 22, 575-607. 
+Engelberg, J., 2008. Costly information processing: evidence from earnings announcements. 
+Unpublished working paper. 
+Evans, R., Geczy, C., Musto, D., Reed, A., 200. Failure is an option: impediments to short-
+selling and options prices. Review of Financial Studies 22 (5), 1955-1980. 
+Fama, E., MacBeth, J., 1973. Risk, return, and equilibrium: empirical tests. Journal of Political 
+Economy 81, 607-636. 
+
+--- PAGE 37 ---
+ 
+ 
+36 
+Feldman, R., Govindaraj, S., Livnat, J., Segal, B., 2009. The incremental information content of 
+tone change in management discussion and analysis. Working paper, INSEAD.  
+Fox, M., Glosten, L., Tetlock, P., 2009. Short selling and the news: a preliminary report on an 
+empirical study, Unpublished working paper. 
+Glosten, L., Milgrom, P., 1985. Bid, ask and transactions prices in a specialist model with 
+heterogeneously informed traders. Journal of Financial Economics 14, 71-100. 
+Hong, H., Kubik, J., Tal, F., 2011. Do arbitrageurs amplify economic shocks?, Unpublished 
+working paper, Princeton University.  
+Kacperczyk, M., Seru, A., 2007. Fund manager use of public information: new evidence on 
+managerial skills. Journal of Finance 62, 485-528. 
+Kandel, E., Pearson, N., 1995. Differential interpretation of public signals and trade in 
+speculative markets. Journal of Political Economy 103, 831-872. 
+Karpoff, J., Lou, X., 2010. Short sellers and financial misconduct. Journal of Finance 65, 1879-
+1913. 
+Kolasinski, A., Reed, A., Ringgenberg, M., 2011. A multiple lender approach to understanding 
+supply and search in the equity lending market. Unpublished working paper. 
+Korajczyk, R., Lucas, D., McDonald, R., 1991. The effect of information releases on the pricing 
+and timing of equity issues. Review of Financial Studies 4(4), 685-708.  
+Kyle, A., 1985. Continuous auctions and insider trading, Econometrica 53, 1315-1336. 
+
+--- PAGE 38 ---
+ 
+ 
+37 
+Loughran, T., McDonald, B., 2011. When is a liability not a liability? Textual analysis, 
+dictionaries, and 10-Ks. Journal of Finance 66, 35-65. 
+Meulbroek, L., 1992. An empirical analysis of illegal insider trading. Journal of Finance 47, 
+1661-1700. 
+Nagel, S., 2005. Short sales, institutional investors and the cross-section of stock returns. Journal 
+of Financial Economics 78, 277-309. 
+Newey, W., West, K., 1987. A simple, positive semi-definite, heteroskedasticity and 
+autocorrelation consistent covariance matrix. Econometrica 55, 703-708. 
+Rubinstein, A., 1993. On price recognition and computational complexity in a monopolistic 
+model, Journal of Political Economy 101, 473-84. 
+Senchack, A., Starks, L., 1993. Short-sale restrictions and market reaction to short-interest 
+announcements. Journal of Financial and Quantitative Analysis 28, 177-194. 
+Seneca, J., 1967. Short interest: bearish or bullish? Journal of Finance 22, 67-70. 
+Tetlock, P., 2007. Giving content to investor sentiment: the role of media in the stock market. 
+Journal of Finance 62, 1139-1168. 
+Tetlock, P., 2010. Does public financial news resolve asymmetric information? Review of 
+Financial Studies 23, 3520-3557. 
+Tetlock, P., 2011. All the news that’s fit to reprint: do investors react to stale information?, 
+Review of Financial Studies, forthcoming. 
+
+--- PAGE 39 ---
+ 
+ 
+38 
+Tetlock, P., Saar-Tsechansky, M., Macskassy, S., 2008. More than words: quantifying language 
+to measure firms' fundamentals, Journal of Finance 63, 1437-1467. 
+Van Bommel, J., 2003. Rumors. Journal of Finance 58, 1499-1519. 
+Vega, C., 2006. Stock price reaction to public and private information. Journal of Financial 
+Economics 82, 103-133. 
+ 
+ 
+
+--- PAGE 40 ---
+ 
+ 
+39 
+ 
+ 
+Fig. 1.  Example time series of short sales, news, and 20-day portfolio returns 
+  The figure displays portfolio returns (right axis) and the short volume ratio (left axis) each day for one 
+example firm, Williams-Sonoma, from January 1, 2007 through February 28, 2007.  Portfolio returns are 
+the buy and hold (compound) return percent over the subsequent 20 trading days and are calculated using 
+size and momentum-adjusted returns.  Short Volume Ratio is daily short volume / total volume.  Negative 
+(positive) news days are defined as days on which a news article about Williams-Sonoma is released and 
+the firm’s announcement day return is in the bottom (top) quintile of all returns that day, respectively.   
+ 
+ 
+ 
+-25
+-20
+-15
+-10
+-5
+0
+5
+10
+15
+20
+25
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+20 Day DGTW Adjusted Return
+(in %)
+Short Volume Ratio
+(in %)
+Negative News Day
+Positive News Day
+Return
+Short Volume Ratio
+
+--- PAGE 41 ---
+ 
+ 
+40 
+Panel A: All News Events 
+ 
+Panel B: Negative News Events 
+ 
+Panel C: Positive News Events 
+ 
+─── Short Volume    - - -Total Volume    ••••••Short Vol / Total Vol 
+ 
+ 
+Fig. 2.  Daily Volume around news events 
+  The figure displays daily short volume, total volume, and the ratio of short volume to total volume for 
+the ten days before and after news events.  Short volume and total volume are scaled by their mean values 
+over the period t-16 to t-30.  Panel A displays volume around all news events (n = 152,595), while panels 
+B and C display volume for negative (n = 34,780) and positive (n = 37,742) news events, respectively.  
+Negative (positive) news events are defined as events with an announcement day return in the bottom 
+(top) quintile of returns on a given day. 
+ 
+0.0
+0.5
+1.0
+1.5
+2.0
+-10
+-9
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+Relative Volume
+Event Time
+0.0
+0.5
+1.0
+1.5
+2.0
+-10
+-9
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+Relative Volume
+Event Time
+0.0
+0.5
+1.0
+1.5
+2.0
+-10
+-9
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+Relative Volume
+Event Time
+
+--- PAGE 42 ---
+ 
+ 
+41 
+Panel A: Conditioning only on Short Sales 
+Panel B: Conditioning only on News 
+ 
+ 
+Panel C: Conditioning on Short Sales and News 
+Panel D:Conditioning on Short Sales and Positive/Negative News 
+Fig. 3.  Cumulative portfolio returns 
+  The figure displays cumulative returns from long/short portfolios formed by conditioning on short sales and/or news events over the period 
+January 3, 2005 to July 6, 2007.  Each day, portfolios are formed by conditioning on the previous day’s level of short sales and/or by conditioning 
+on the occurrence of news events the previous day.  These equal-weighted portfolios are then held for 20 days and the portfolio formation process 
+is repeated each day so that 1/20 of the portfolio is effectively rebalanced each day, as in Boehmer, Jones, and Zhang (2008).  The total daily 
+portfolio return is thus the mean return calculated across the 20 separate positions that are open at each point in time.  In Panel A, firms with short 
+sales in the lowest (highest) quintile are assigned to the long (short) portfolio.  In Panel B, firms with positive (negative) news are assigned to the 
+long (short) portfolio.  In Panel C, firms that experienced news and had short sales in the lowest (highest) quintile are assigned to the long (short) 
+portfolio.  In Panel D, firms with positive (negative) news and short sales in the lowest (highest) quintile are assigned to the long (short) portfolio.
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+200
+Cumulative Portfolio Returns 
+(in Percent)
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+200
+Cumulative Portfolio Returns 
+(in Percent)
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+200
+Cumulative Portfolio Returns 
+(in Percent)
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+200
+Cumulative Portfolio Returns 
+(in Percent)
+
+--- PAGE 43 ---
+ 
+ 
+42 
+Panel A: Rebate Rates around News Events 
+ 
+Panel B: Amihud Illiquidity Measure around News Events 
+ 
+Panel C: Bid-Ask Spread around News Events 
+ 
+Fig. 4.  Market quality around news events 
+  The figure displays Rebate Rates, Amihud Illiquidity, and Bid-Ask Spread measures for the ten days 
+before and after news events.  Panel A contains the Rebate Rate, which is the rate at which interest on 
+collateral is rebated back to the borrower in an equity loan transaction.  Panel B contains the daily Amihud 
+(2002) Illiquidity measure defined as 107 * |retit| / volumeit where volumeit is the dollar volume.  Panel C 
+contains the Bid-Ask Spread measured as a percentage of the closing mid-price on each day. 
+3.650
+3.700
+3.750
+3.800
+3.850
+3.900
+-10
+-9
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+Rebate Rate
+(Percentage Points)
+Event Time
+0.070
+0.075
+0.080
+0.085
+0.090
+0.095
+0.100
+-10
+-9
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+Amihud
+(Fraction of Volume)
+Event Time
+0.174
+0.176
+0.178
+0.180
+0.182
+0.184
+0.186
+0.188
+0.190
+-10
+-9
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+Bid-Ask Spread
+(% of Closing Mid-Price)
+Event Time
+
+--- PAGE 44 ---
+ 
+ 
+43 
+Table 1 
+Dow Jones archive 
+  The table provides an example of the information contained in the Dow Jones archive.  Panel A displays 
+the text of an example article, while Panel B contains the associated entry in the Dow Jones archive.  The 
+archive entry contains the date and time the article was released as well as the stocks symbols of firms 
+mentioned in the article and a series of subject codes that identify the content areas of the article.  For 
+example, the code RND indicates that the article pertained to research and development.  Articles can 
+have more than one time stamp, indicating that the article was updated following its initial release. 
+ 
+Panel A: Example News Article 
+ 
+GlaxoSmithKline And EPIX Pharmaceuticals  
+Enter Drug Discovery And Development Alliance 
+DOW JONES NEWSWIRES  
+Epix Pharmaceuticals Inc. (EPIX) said it entered into a drug discovery and development pact with 
+GlaxoSmithKline (GSK).  As part of deal, Epix will receive an upfront payment of $35 million, which 
+includes $17.5 million from the sale of 3 million shares of its common stock.  
+Epix will also be eligible for up to $1.2 billion for the achievement of certain milestones, and royalties 
+on product sales.  Epix shares closed Monday unchanged at $5.52 and Glaxo shares fell 9 cents to $52.43.  
+Epix said it expects to end 2006 with more than $100 million in cash and marketable securities.  The 
+company expects that its existing cash and marketable securities together with the expected revenue from 
+the GlaxoSmithKline collaboration and other partnerships will be sufficient to fund operations through 
+2008. 
+ 
+Panel B: Dow Jones Archive Values for the Example Article 
+ 
+Story code = 20061212003980 
+Date = 12/12/2006 
+Time = 06:12:00:29, 06:12:02:36, 06:12:16:34, 06:12:24:59 
+Stock Symbols = EPIX, GSK 
+Subject Codes = CNW, DJEN, DJGP, DJGS, DJGV, DJI, DJIN, DJIV, FCTV, SPOT, WEI, 
+RND, HDL 
+ 
+ 
+ 
+ 
+
+--- PAGE 45 ---
+ 
+ 
+44 
+Table 2 
+Summary statistics 
+  The database has 1,888,868 daily observations over the period January 3, 2005 through July 6, 2007.  
+The database contains 3,167 entities including ordinary common shares in U.S. firms, ADRs, REITs, and 
+Closed-End Funds.  Panel A provides summary statistics at the firm level.  News articles could be 
+reissued throughout the day as more information becomes available; in such situations we consider all of 
+the related article updates to be one unique news event and we keep track of the number of articles that 
+are rolled-into this unique news event.  News Articles per Firm-Day is a count of all news articles 
+including reissued (updated) articles, while Unique News Events per Firm-Day is a count of the unique 
+stories, excluding subsequent updates to an article.  Short Vol. / Total Vol. is short volume from the 
+NYSE TAQ Regulation SHO database as a fraction of total volume; Exempt and Non-Exempt denote 
+market maker short sales (exempt) from non-market maker short sales (non-exempt); see Section 2.2.1 for 
+details.  Market Capitalization is from CRSP.  Panel B contains summary statistics on the frequency of 
+each news category in the database; news articles can be classified into more than one category at the 
+same time. 
+ 
+Panel A – Firm Level Statistics 
+Mean 
+Median 
+1st 
+Percentile 
+ 
+99th 
+Percentile 
+Standard 
+Deviation 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+News Articles per Firm-Day 
+1.264 
+0.000 
+0.000 
+ 
+20.000 
+4.331 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Unique News Events per Firm-Day 
+0.927 
+0.000 
+0.000 
+ 
+13.000 
+2.934 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Short Vol. / Total Vol. 
+0.196 
+0.175 
+0.005 
+ 
+0.624 
+0.272 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Short Vol. / Total Vol. – Exempt 
+0.036 
+0.014 
+<0.001 
+ 
+0.323 
+.081 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Short Vol. / Total Vol. – Non-exempt 
+0.176 
+0.157 
+0.004 
+ 
+0.553 
+0.268 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Market Capitalization ($ mm) 
+$5,857 
+$1,228 
+$33 
+ 
+$80,368 
+$19,331 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Panel B – News Categories 
+N 
+ 
+News Categories 
+N 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+10K 
+1,183 
+ 
+Initial Public Offerings 
+9,166 
+8K 
+10,202 
+ 
+Insider Stock Buys 
+20,215 
+Acquisitions, Mergers, Takeovers 
+55,994 
+ 
+Insider Stock Sells 
+51,199 
+Analysts’ Comments & Ratings 
+48,743 
+ 
+Joint Ventures 
+9,071 
+Annual Meetings 
+3,871 
+ 
+Labor Issues 
+12,302 
+Antitrust News 
+5,091 
+ 
+Lawsuits 
+14,784 
+Bankruptcy-Related Filings 
+5,979 
+ 
+Leveraged Buyouts 
+2,171 
+Bond Ratings & Comments 
+14,925 
+ 
+Management Issues 
+13,321 
+Buybacks 
+5,971 
+ 
+Market News 
+14,259 
+Contracts, Defense 
+4,406 
+ 
+Money Market News 
+1,209 
+Contracts, Government (not defense) 
+3,294 
+ 
+New Products & Services 
+24,434 
+Contracts, Nongovernment 
+19,050 
+ 
+Personnel Appointments 
+29,602 
+Corporate Governance 
+4,725 
+ 
+Point of View 
+15,487 
+Corporate Restructurings 
+5,519 
+ 
+Product Distribution 
+2,456 
+Divestitures or Asset Sales 
+11,265 
+ 
+Research & Development 
+5,541 
+Dividend News 
+23,653 
+ 
+Spinoffs 
+1,734 
+Earnings 
+41,556 
+ 
+Stock Options 
+5,777 
+Earnings Projections 
+36,774 
+ 
+Stock Ownership 
+25,462 
+Financing Agreements 
+6,816 
+ 
+Stock Splits 
+1,895 
+High-Yield Issuers 
+168,803 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+[TRUNCATED at 80000 chars — 53 total pages]

@@ -1,0 +1,2087 @@
+
+--- PAGE 1 ---
+VOLATILITY
+Trading Volatility, Correlation, 
+Term Structure and Skew
+TRADING
+Colin Bennett 
+
+--- PAGE 2 ---
+Colin Bennett is a Managing Director and 
+Head of Quantitative and Derivative Strategy 
+at Banco Santander. Previously he was Head 
+of Delta 1 Research at Barclays Capital, and 
+Head of Convertible and Derivative Research 
+at Dresdner Kleinwort.
+Colin started his career in Convertible Bond 
+Research at Merrill Lynch, after studying 
+Mathematics and Electrical Engineering at 
+Cambridge University. In the 1993 National 
+Mathematics Contest Colin came 16th in the 
+UK. He has also worked in Equity Derivative 
+Sales, and as a Desk Analyst for the equity 
+derivative trading desk. 
+Colin is a regular speaker at CBOE, Eurex, 
+Marcus Evans, Futures and Option World, Risk 
+Magazine and Bloomberg conferences.
+ABOUT 
+THE 
+AUTHOR
+“A master piece to learn in a nutshell 
+all the essentials about volatility with 
+a practical and lively approach. 
+A must read!”
+Carole Bernard, Equity Derivatives 
+Specialist at Bloomberg
+“This book could be seen as the 
+‘volatility bible’!”
+Markus-Alexander Flesch, Head of 
+Sales & Marketing at Eurex
+“I highly recommend this book both 
+for those new to the equity derivatives 
+business, and for more advanced 
+readers. The balance between theory 
+and practice is struck At-The-Money”
+Paul Stephens, Head of Institutional 
+Marketing at CBOE
+“One of the best resources out there 
+for the volatility community”
+Paul Britton, CEO and Founder of 
+Capstone Investment Advisors
+“Colin has managed to convey 
+often complex derivative and 
+volatility concepts with an admirable 
+simplicity, a welcome change from 
+the all-too-dense tomes one usually 
+finds on the subject”
+Edmund Shing PhD, former Proprietary 
+Trader at BNP Paribas
+“In a crowded space, Colin has 
+supplied a useful and concise guide”
+Gary Delany, Director Europe at the 
+Options Industry Council
+Any questions regarding the content of this book can be emailed to author@colin-bennett.com.
+www.trading-volatility.com 
+
+--- PAGE 3 ---
+   
+ 
+ 
+TRADING VOLATILITY 
+ 
+Trading Volatility, Correlation,   
+Term Structure and Skew 
+ 
+Colin Bennett
+
+--- PAGE 4 ---
+ 
+ 
+Copyright © 2014 Colin Bennett 
+ 
+All rights reserved. No part of this publication may be reproduced, stored in a retrieval 
+system, or transmitted in any form or by any means – electronic, mechanical, photocopying, 
+recording or otherwise without written permission of the publisher or author. 
+ 
+Trading Volatility: Trading Volatility, Correlation, Term Structure and Skew 
+ 
+ISBN-13: 978-1499206074 
+ 
+Cover Design by Gareth Allen 
+ 
+
+--- PAGE 5 ---
+ 
+ 
+ACKNOWLEDGEMENTS 
+ 
+ 
+I would like to thank James Peattie for persuading me to work at Merrill Lynch, and starting 
+my career within research which I still enjoy to this very day. 
+ 
+Iain Clamp aka “The Guru” deserves special recognition, for explaining the intricacies of 
+volatility trading. 
+ 
+I will always be grateful to Tom Dauterman and Irene Ferrero for their many months of 
+effort proofing this publication. I would also like to thank Mariano Colmenar, without 
+whose support this book would never have been published. 
+ 
+And finally, and most importantly, I would like to thank my wife Claire for her endless 
+patience and understanding with me while I researched and wrote this book over the past 5 
+years. 
+ 
+
+--- PAGE 6 ---
+ 
+ 
+ 
+ 
+
+--- PAGE 7 ---
+ 
+ 
+ 
+NOTE ON CONTENTS 
+ 
+ 
+While there are many different aspects to volatility trading, not all of them are suitable for all 
+investors. In order to allow easy navigation, the sections are combined into seven chapters 
+that are likely to appeal to different parts of the equity derivatives client base. The earlier 
+chapters are most suited to equity investors, while later chapters are aimed at hedge funds 
+and proprietary trading desks. The Appendix contains reference material and mathematical 
+detail that has been removed from earlier chapters to enhance readability. 
+ 
+ 
+ 
+
+--- PAGE 8 ---
+ 
+CONTENTS 
+ 
+ 
+PREFACE ........................................................................................................... i 
+ 
+CHAPTER 1 
+OPTIONS ................................................................................................................. 1 
+1.1: Option basics ........................................................................................................................ 2 
+1.2: Option trading in practice .................................................................................................... 4 
+1.3: Maintenance of option positions ..................................................................................... 11 
+1.4: Call overwriting ................................................................................................................... 15 
+1.5: Protection strategies using options .................................................................................. 23 
+1.6: Option structures trading .................................................................................................. 31 
+ 
+CHAPTER 2 
+VOLATILITY TRADING ..................................................................................... 35 
+2.1: Volatility trading using options ........................................................................................ 36 
+2.2: Variance is the key, not volatility ..................................................................................... 49 
+2.3: Volatility, variance and gamma swaps ............................................................................. 52 
+2.4: Options on variance ........................................................................................................... 68 
+ 
+CHAPTER 3 
+    WHY EVERYTHING YOU THINK YOU KNOW ABOUT VOLATILITY 
+IS WRONG ............................................................................................................. 73 
+3.1: Implied volatility should be above realized volatility .................................................... 74 
+3.2: Long volatility is a poor hedge ......................................................................................... 77 
+3.3: Variable annuity hedging lifts long-term vol .................................................................... 81 
+3.4: Structured products vicious circle .................................................................................... 83 
+3.5: Stretching black-scholes assumptions ............................................................................. 89 
+ 
+CHAPTER 4 
+FORWARD STARTING PRODUCTS AND VOLATILITY INDICES .............. 99 
+4.1: Forward starting products ............................................................................................... 100 
+4.2: Volatility indices ................................................................................................................ 109 
+4.3: Futures on volatility indices ............................................................................................ 115 
+4.4: Volatility future ETN/ETF ............................................................................................ 122 
+4.5: Options on volatility futures ........................................................................................ 129 
+ 
+ 
+ 
+ 
+
+--- PAGE 9 ---
+ 
+CHAPTER 5 
+LIGHT EXOTICS ................................................................................................. 133 
+5.1: Barrier options .................................................................................................................. 134 
+5.2: Worst-of/best-of options................................................................................................ 140 
+5.3: Outperformance options ................................................................................................. 143 
+5.4: Look-back options ........................................................................................................... 146 
+5.5: Contingent premium options ......................................................................................... 148 
+5.6: Composite and quanto options ...................................................................................... 149 
+ 
+CHAPTER 6 
+RELATIVE VALUE AND CORRELATION TRADING ................................... 153 
+6.1: Relative value trading ....................................................................................................... 154 
+6.2: Relative value volatility trading ....................................................................................... 158 
+6.3: Correlation trading ........................................................................................................... 161 
+6.4: Trading earnings announcements/jumps ..................................................................... 178 
+ 
+CHAPTER 7 
+SKEW AND TERM STRUCTURE TRADING ................................................... 183 
+7.1: Skew and term structure are linked ............................................................................... 184 
+7.2: Square root of time rule can compare term structures and skews............................ 193 
+7.3: Term structure trading ..................................................................................................... 198 
+7.4: How to measure skew and smile .................................................................................... 201 
+7.5: Skew trading ...................................................................................................................... 210 
+ 
+APPENDIX 
+A.1: Local volatility .................................................................................................................. 230 
+A.2: Measuring historical volatility ........................................................................................ 232 
+A.3: Proof implied jump formula .......................................................................................... 245 
+A.4: Proof var swaps can be hedged by log contract (=1/k2) .......................................... 248 
+A.5: Proof variance swap notional = vega/2σ ................................................................ 250 
+A.6: Modelling volatility surfaces........................................................................................... 251 
+A.7: Black-scholes formula ..................................................................................................... 255 
+A.8: Greeks and their meaning .............................................................................................. 257 
+A.9: Advanced (practical or shadow) greeks ......................................................................... 262 
+A.10: Shorting stock by borrowing shares ........................................................................... 266 
+A.11: Sortino ratio .................................................................................................................... 269 
+A.12: Capital structure arbitrage ............................................................................................ 270 
+INDEX .................................................................................................................... 286 
+ 
+ 
+ 
+ 
+
+--- PAGE 10 ---
+
+--- PAGE 11 ---
+ 
+PREFACE 
+ 
+ 
+One of the main reasons I decided to write this book, was due to the lack of other 
+publications that deal with the practical issues of using derivatives. This publication aims to 
+fill the void between books providing an introduction to derivatives, and advanced books 
+whose target audience are members of quantitative modelling community.  
+ 
+In order to appeal to the widest audience, this publication tries to assume the least amount 
+of prior knowledge. The content quickly moves onto more advanced subjects in order to 
+concentrate on more practical and advanced topics. 
+ 
+ 
+
+--- PAGE 12 ---
+
+--- PAGE 13 ---
+ 
+CHAPTER 1 
+ 
+OPTIONS 
+ 
+ 
+ 
+ 
+This chapter is focused on real life uses of options for directional investors, for example 
+using options to replace a long position in the underlying, to enhance the yield of a 
+position through call overwriting, or to provide protection from declines. In addition to 
+explaining these strategies, a methodology to choose an appropriate strike and expiry 
+is shown. Answers to the most common questions are given, such as when an investor 
+should convert an option before maturity, and the difference between delta and the 
+probability that an option expires in the money. 
+ 
+ 
+
+--- PAGE 14 ---
+2 
+CHAPTER 1: OPTIONS 
+1.1: OPTION BASICS 
+This section introduces options and the history of options trading. The definition of 
+call and put options, and how they can be used to gain long or short equity exposure, 
+is explained. Key definitions and terminology are given, including strike, expiry, 
+intrinsic value, time value, ATM, OTM and ITM. 
+HISTORY OF VOLATILITY TRADING 
+While standardised exchange traded options only started trading in 1973 when the CBOE 
+(Chicago Board Options Exchange) opened, options were first traded in London from 1690. 
+Pricing was made easier by the Black-Scholes-Merton formula (usually shortened to Black-
+Scholes), which was invented in 1970 by Fischer Black, Myron Scholes and Robert Merton.  
+Option trading exploded in the 1990s 
+The derivatives explosion in the 1990s was partly due to the increasing popularity of hedge 
+funds, which led to volatility becoming an asset class in its own right. New volatility 
+products such as volatility swaps and variance swaps were created, and a decade later futures 
+on volatility indices gave investors listed instruments to trade volatility. In this chapter we 
+shall concentrate on option trading. 
+CALL OPTIONS GIVE RIGHT TO BUY, PUTS RIGHT TO SELL 
+A European call is a contract that gives the investor the right (but not the obligation) to buy 
+a security at a certain strike price on a certain expiry date (American options can be exercised 
+before expiry). A put is identical except it is the right to sell the security.  
+Call option gives long exposure, put options give short exposure 
+A call option profits when markets rise (as exercising the call means the investor can buy the 
+underlying security cheaper than it is trading, and then sell it at a profit). A put option profits 
+when markets fall (as you can buy the underlying security for less, exercise the put and sell 
+the security for a profit). Options therefore allow investors to put on long (profit when 
+prices rise) or short (profit when prices fall) strategies. 
+
+--- PAGE 15 ---
+1.1: Option Basics  
+3 
+SELLING OPTIONS GIVES OPPOSITE EXPOSURE 
+As a call option gives long exposure to the underlying security, selling a call option results in 
+short exposure to the underlying security. Similarly while a put option is a bearish (profits 
+from decline in the underlying) strategy, selling a put option is a bullish strategy (profits from 
+a rise in the underlying). While the direction of the underlying is the primary driver of profits 
+and losses from buying or selling options, the volatility of the underlying is also a driver. 
+OPTIONS TRADING GIVES VOLATILITY EXPOSURE 
+If the volatility of an underlying is zero, then the price will not move and an option’s payout. 
+is equal to the intrinsic value. Intrinsic value is the greater of zero and the ‘spot – strike price’ 
+for a call and is the greater of zero and ‘strike price – spot’ for a put. Assuming that stock 
+prices can move, the value of a call and put will be greater than intrinsic due to the time 
+value (price of option = intrinsic value + time value). If an option strike is equal to spot (or 
+is the nearest listed strike to spot) it is called at-the-money (ATM).  
+As volatility increases so does the price of call and put options 
+If volatility is zero, an ATM option has a price of zero (as intrinsic is zero). However, if we 
+assume a stock is €50 and has a 50% chance of falling to €40 and 50% chance of rising to 
+€60, it has a volatility above zero. In this example, an ATM call option with strike €50 has a 
+50% chance of making €10 (if the price rises to €60 the call can be exercised to buy the stock 
+at €50, which can be sold for €10 profit). The fair value of the ATM option is therefore €5 
+(50% × €10); hence, as volatility rises the value of a call rises (a similar argument can be used 
+for puts).  
+Options have greatest time value when strike is similar to spot (i.e. ATM) 
+An ATM option has the greatest time value (the amount the option price is above the 
+intrinsic value). This can be seen in the same example by looking at an out-the-money 
+(OTM) call option of strike €60 (an OTM option has strike far away from spot and zero 
+intrinsic value). This OTM €60 call option would be worth zero, as the stock in this example 
+cannot rise above €60. 
+ITM options trade less than OTM options as they are more expensive 
+An in-the-money (ITM) option is one which has a strike far away from spot and positive 
+intrinsic value. Due to the positive intrinsic value ITM options are relatively expensive, 
+hence tend to trade less than their cheaper OTM counterparts. 
+ 
+ 
+
+--- PAGE 16 ---
+4 
+CHAPTER 1: OPTIONS 
+1.2: OPTION TRADING IN PRACTICE 
+Using options to invest has many advantages over investing in cash equity. Options 
+provide leverage and an ability to take a view on volatility as well as equity direction. 
+However, investing in options is more complicated than investing in equity, as a strike 
+and expiry need to be chosen. This section explains hidden risks, (e.g. dividends) and 
+other practical aspects of option trading such as how to choose the strike, and the 
+difference between delta and the probability an option ends up ITM. 
+CHOOSING EXPIRY IS THE MOST DIFFICULT DECISION 
+The biggest difference between using options and cash equities (or delta 1 products) to gain 
+equity exposure is the fact a suitable expiry has to be chosen. Determining if an equity is cheap 
+or expensive is often easier than determining the driver and timing of the likely increase / 
+decrease.  
+Choosing a far dated expiry gives most opportunity for the expected correction, however far 
+dated options are very expensive. Conversely if a cheaper near dated expiry is chosen, there is 
+little time for the anticipated movement to occur. Usually key dates such as quarterly reporting 
+or elections help determine a suitable expiry.  
+Expiry choice enforces investor discipline 
+Having to choose an expiry can be seen as a disadvantage of option trading, but some 
+investors see it as an advantage as it enforces investor discipline. The process of choosing an 
+expiry focuses attention on the likely dates a stock will converge with a forecast target price.  
+If the stock performs as expected the process of expiration forces the profits on the option 
+position to be taken, and ensures a position is not held longer than it should be. Additionally if 
+the anticipated return has not occurred by the expected date, the position expires worthless 
+and forces the investor to make a decision if another position should be initiated. Using 
+options to gain equity exposure therefore prevents “inertia” in a portfolio.  
+Both an equity and volatility view is needed to trade options 
+Option trading allows a view on equity. and volatility markets to be taken. If implied volatility 
+is seen to be expensive then a short volatility strategy is best (short put for a bullish strategy, 
+short call for a bearish strategy). However if implied volatility is seen to be cheap then a long 
+volatility strategy is best (long call for a bullish strategy, long put for a bearish strategy). The 
+appropriate strategy for a one leg option trade is shown in Figure 1 below. For multiple leg 
+strategies see the section 1.6 Option Structures Trading. 
+ 
+
+--- PAGE 17 ---
+1.2: Option Trading in Practice  
+5 
+Figure 1. Option Strategy for Different Market and Volatility Views 
+ 
+MARKET VIEW 
+VOLATILITY 
+VIEW 
+Bearish 
+Bullish 
+Volatility high 
+Short call 
+ 
+ 
+    Short put 
+ 
+Volatility low 
+Long put 
+ 
+    Long call 
+ 
+ 
+Long vol strategies should have expiry just after key date 
+Typically if a key date is likely to be volatile then a long volatility strategy (long call or long 
+put) should have an expiry just after this date. Conversely a short volatility strategy (short call 
+or short put) should have an expiry just before the key date. For investors who wish to trade 
+the implied jump of a key date, details of how to trade this implied jump is dealt with in the 
+section 6.4: Trading Earnings Announcements/Jumps. 
+CHOOSING STRIKE OF STRATEGY IS NOT TRIVIAL 
+While choosing the strike of a strategy is not as difficult as choosing the expiry, it is not 
+trivial. Investors could choose ATM to benefit from greatest liquidity. Alternatively, they 
+could look at the highest expected return (option payout less the premium paid, as a 
+percentage of the premium paid).  
+-5
+0
+5
+90
+100
+110
+-5
+0
+5
+90
+100
+110
+-5
+0
+5
+90
+100
+110
+-5
+0
+5
+90
+100
+110
+ 
+
+--- PAGE 18 ---
+6 
+CHAPTER 1: OPTIONS 
+Figure 2. Profit of 12 Month Options if Markets Rise 10% by Expiry 
+ 
+ 
+ITM options have highest return for “normal” market moves 
+While choosing a cheap OTM option might be thought of as giving the highest return, the 
+Figure below shows that, in fact, the highest returns come from in-the-money (ITM) options 
+(ITM options have a strike far away from spot and have intrinsic value). This is because an 
+ITM option has a high delta (sensitivity to equity price); hence, if an investor is relatively 
+confident of a specific return, an ITM option has the highest return for relatively “normal” 
+market moves (as trading an ITM option is similar to trading a forward). 
+Forwards are better than options for pure directional plays 
+A forward is a contract that obliges the investor to buy a security on a certain expiry date at a 
+certain strike price. A forward has a delta of 100%. An ITM call option has many similarities 
+with being long a forward, as it has a relatively small time value (compared to ATM) and a 
+delta close to 100%. While the intrinsic value does make the option more expensive, this 
+intrinsic value is returned at expiry. However, for an ATM option, the time value purchased 
+is deducted from the returns. For pure directional plays, forwards (or futures, their listed 
+equivalent) are more profitable than options. The advantage of options is in offering 
+convexity: if markets move against the investor the only loss is the premium paid, whereas a 
+forward has a virtually unlimited loss. 
+0%
+10%
+20%
+30%
+40%
+50%
+60%
+60%
+64%
+68%
+72%
+76%
+80%
+84%
+88%
+92%
+96%
+100%
+104%
+108%
+112%
+116%
+Strike
+Return
+OTM options have low 
+profit due to low delta
+ITM options have highest profit
+ 
+
+--- PAGE 19 ---
+1.2: Option Trading in Practice  
+7 
+OTM options have highest return for “abnormal” moves 
+Only if the expected return is relatively high (or abnormal) do ATM or OTM options have 
+the highest return. This is because for exceptional returns their low cost and high leverage 
+more than compensates for their lower delta.  
+LIQUIDITY CAN BE A FACTOR IN CHOOSING STRIKE  
+If an underlying is relatively illiquid, or if the size of the trade is large, an investor should take 
+into account the liquidity of the maturity and strike of the option. Typically, OTM options 
+are more liquid than ITM options as ITM options tie up a lot of capital. This means that for 
+strikes less than spot, puts are more liquid than calls and vice versa.  
+Low strike puts are usually more liquid than high strike calls 
+We note that as low-strike puts have a higher implied than high-strike calls, their value is 
+greater and, hence, traders are more willing to use them. Low strike put options are therefore 
+usually more liquid than high-strike call options. In addition, demand for protection lifts 
+liquidity for low strikes compared with high strikes. 
+Single stock liquidity is limited for maturities up to two years 
+For single stock options, liquidity starts to fade after one year and options rarely trade over 
+two years. For indices, longer maturities are liquid, partly due to the demand for long-dated 
+hedges and their use in structured products. While structured products can have a maturity 
+of five to ten years, investors typically lose interest after a few years and sell the product 
+back. The hedging of a structured product, therefore, tends to be focused on more liquid 
+maturities of around three years.  
+Hedge funds and structured product flow can overlap 
+Hedge funds tend to focus around the one-year maturity, with two to three years being the 
+longest maturity they will consider. The two-to-three year maturity is where there is greatest 
+overlap between hedge funds and structured desks. 
+DELTA MEASURES DIVIDEND RISK AND EQUITY RISK 
+The delta of the option is the amount of equity market exposure an option has. As a stock 
+price falls by the dividend amount on its ex-date, delta is equal to the exposure to dividends 
+that go ex before expiry. The dividend risk is equal to the negative of the delta. For example, 
+if you have a call of positive delta, if (expected or actual) dividends rise, the call is worth less 
+(as the stock falls by the dividend amount). 
+If a dividend is substantial, it could be in an investor’s interest to exercise early. For more 
+details, see the section 1.3 Maintenance of Option Positions. 
+ 
+
+--- PAGE 20 ---
+8 
+CHAPTER 1: OPTIONS 
+DELTA IS NOT THE  PROBABILITY OPTION EXPIRES ITM 
+A digital call option is an option that pays 100% if spot expires above the strike price (a 
+digital put pays 100% if spot is below the strike price). The probability of such an option 
+expiring ITM is equal to its delta, as the payoff only depends on it being ITM or not (the size 
+of the payment does not change with how much ITM spot is). For a vanilla option this is not 
+the case; hence, there is a difference between the delta and the probability of being ITM. 
+This difference is typically small unless the maturity of the option is very long. 
+Delta takes into account the amount an option can be ITM 
+While a call can have an infinite payoff, a put’s maximum value is the strike (as spot cannot 
+go below zero). The delta hedge for the option has to take this into account, so a call delta 
+must be greater than the probability of being ITM. Similarly, the absolute value (as put deltas 
+are negative) of the put delta must be less than the probability of expiring ITM. A more 
+mathematical explanation (for European options) is given below: 
+Call delta  
+>  
+Probability call ends up ITM 
+Abs (Put delta <  
+Probability put ends up ITM 
+Mathematical proof option delta is different from probability of being ITM at 
+expiry 
+Call delta  
+ 
+ 
+= N(d1)  
+Put delta   
+ 
+ 
+= N(d1) - 1 
+Call probability ITM  
+= N(d2)  
+Put probability ITM  
+= 1 - N(d2) 
+where: 
+Definition of d1 is the standard Black-Scholes formula for d1. For more details, see the 
+section A.7 Black-Scholes Formula. 
+d2 
+= d1 - σ
+T 
+σ 
+= implied volatility 
+T 
+= time to expiry 
+N(z) = cumulative normal distribution 
+ 
+
+--- PAGE 21 ---
+1.2: Option Trading in Practice  
+9 
+As d2 is less than d1 (see above) and N(z) is a monotonically increasing function, this means 
+that N(d2) is less than N(d1). Hence, the probability of a call being in the money = N(d2) is 
+less than the delta = N(d1). As the delta of a put = delta of call – 1, and the sum of call and 
+put being ITM = 1, the above results for a put must be true as well. 
+The difference between delta and probability being ITM at expiry is greatest for long-dated 
+options with high volatility (as the difference between d1 and d2 is greatest for them). 
+STOCK REPLACING WITH LONG CALL OR SHORT PUT 
+As a stock has a delta of 100%, the identical exposure to the equity market can be obtained 
+by purchasing calls (or selling puts) whose total delta is 100%. For example, one stock could 
+be replaced by two 50% delta calls, or by going short two -50% delta puts. Such a strategy 
+can benefit from buying (or selling) expensive implied volatility. There can also be benefits 
+from a tax perspective and, potentially, from any embedded borrow cost in the price of 
+options (price of positive delta option strategies is improved by borrow cost). As the 
+proceeds from selling the stock are typically greater than the cost of the calls (or margin 
+requirement of the short put), the difference can be invested to earn interest.  
+Figure 3. Stock Replacing with Calls  
+ 
+Stock Replacing with Puts 
+ 
+ 
+ 
+Stock replacing via calls benefits from convexity 
+As a call option is convex, this means that the delta increases as spot increases and vice 
+versa. If a long position in the underlying is sold and replaced with calls of equal delta, then 
+if markets rise the delta increases and the calls make more money than the long position 
+would have. Similarly, if markets fall the delta decreases and the losses are reduced. This can 
+be seen in Figure 3 above as the portfolio of cash (proceeds from sale of the underlying) and 
+call options is always above the long underlying profile. The downside of using calls is that 
+the position will give a worse profile than the original long position if the underlying does 
+not move much (as call options will fall each day by the theta if spot remains unchanged). 
+Using call options is best when implied volatility is cheap and the investor expects the stock 
+to move by more than currently implied. 
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+60%
+70%
+80%
+90%
+100% 110% 120% 130% 140%
+Return
+Strike
+Equity
+Long 2 calls + cash
+Replace stock 
+with calls when 
+volatility is low
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+60%
+70%
+80%
+90%
+100% 110% 120% 130% 140%
+Return
+Strike
+Equity
+Short 2 puts + cash
+Replace stock 
+with puts when 
+volatility is high
+ 
+
+--- PAGE 22 ---
+10 
+CHAPTER 1: OPTIONS 
+Put underwriting benefits from selling expensive implied  
+Typically the implied volatility of options trades slightly above the expected realised volatility 
+of the underlying over the life of the option (due to a mismatch between supply and 
+demand). Stock replacement via put selling therefore benefits from selling (on average) 
+expensive volatility. Selling a naked put is known as put underwriting, as the investor has 
+effectively underwritten the stock (in the same way investment banks underwrite a rights 
+issue).  
+Put underwriting pays investors for work that otherwise might be wasted 
+The strike of put underwriting should be chosen at the highest level at which the investor 
+would wish to purchase the stock, which allows an investor to earn a premium from taking 
+this view (whereas normally the work done to establish an attractive entry point would be 
+wasted if the stock did not fall to that level).  
+Asset allocators use put underwriting to rebalance portfolios 
+This strategy has been used significantly recently by asset allocators who are underweight 
+equities and are waiting for a better entry point to re-enter the equity market (earning the 
+premium provides a buffer should equities rally). If an investor does not wish to own the 
+stock and only wants to earn the premium, then an OTM strike should be chosen at a 
+support level that is likely to remain firm. 
+Put underwriting benefits from selling skew 
+Put underwriting gives a similar profile to a long stock, short call profile, otherwise known as 
+call overwriting. One difference between call overwriting and put underwriting is that if 
+OTM options are used, then put underwriting benefits from selling skew (which is normally 
+overpriced). For more details on the benefits of selling volatility, see the section 1.4 Call 
+Overwriting. 
+STOCK REPLACEMENT ALTERS DIVIDEND EXPOSURE 
+It is important to note that the dividend exposure is not the same, as only the owner of a 
+stock receives dividends. While the option owner does not benefit directly, the expected 
+dividend will be used to price the option fairly (hence investors only suffer/benefit if 
+dividends are different from expectations). 
+ 
+ 
+
+--- PAGE 23 ---
+1.3: Maintenance of Option Positions 
+11  
+1.3: MAINTENANCE OF OPTION POSITIONS 
+During the life of an American option many events can occur in which it might be 
+preferable to own the underlying shares (rather than the option) and exercise early. 
+In addition to dividends, an investor might want the voting rights, or alternatively 
+might want to sell the option to purchase another option (rolling the option). We 
+investigate these life cycle events and explain when it is in an investor’s interest to 
+exercise, or roll, an option before expiry. 
+CONVERTING OPTIONS EARLY IS RARE 
+Options on indices are usually European, which means they can only be exercised at 
+maturity. The inclusion of automatic exercise, and the fact it is impossible to exercise before 
+maturity, means European options require only minimal maintenance. Single stock options, 
+however, are typically American (apart from emerging market underlyings). While American 
+options are rarely exercised early, there are circumstances when it is in an investor’s interest 
+to exercise an ITM option early. For both calls and puts the correct decision for early 
+exercise depends on the net benefit of doing so (ie, the difference between earning the 
+interest on the strike and net present value of dividends) versus the time value of the option. 
+ Calls should be exercised just before the ex-date of a large unadjusted dividend. 
+In order to exercise a call, the strike price needs to be paid. The interest on this strike 
+price normally makes it unattractive to exercise early. However, if there is a large 
+unadjusted dividend that goes ex before expiry, it might be in an investor’s interest to 
+exercise an ITM option early (see Figure 4 above). In this case, the time value should be 
+less than the dividend NPV (net present value) less total interest r (=erfr×T-1) earned on 
+the strike price K. In order to maximise ‘dividend NPV– Kr’, it is best to exercise just 
+before an ex-date (as this maximises ‘dividend NPV’ and minimises the total interest r). 
+ Puts should be exercised early (preferably just after ex-date) if interest rates are 
+high. If interest rates are high, then the interest r from putting the stock back at a high 
+strike price K (less dividend NPV) might be greater than the time value. In this case, a 
+put should be exercised early. In order to maximise ‘Kr – dividend NPV’, a put should 
+preferably be exercised just after an ex-date. 
+
+--- PAGE 24 ---
+12 
+CHAPTER 1: OPTIONS 
+Figure 4. Price of ITM and ATM Call Option with Stock Price over Div Ex-Date 
+ 
+ 
+Calls should be exercised early if there is a large dividend 
+The payout profile of a long call is similar to the payout of a long stock + long put of the same strike . 
+As only ITM options should be exercised and as the strike of an ITM call means the put of the same 
+strike is OTM, we shall use this relationship to calculate when an option should be exercised early. 
+An American call should only be exercised if it is in an investor’s interest to exercise the 
+option and buy a European put of the same strike (a European put of same strike will have 
+the same time value as a European call if intrinsic value is assumed to be the forward). 
+ Choice A: Do not exercise. In this case there is no benefit or cost. 
+ Choice B: Borrow strike K at interest r (=erfr×T-1) in order to exercise the American 
+call. The called stock will earn the dividend NPV and the position has to be hedged with 
+the purchase of a European put (of cost equal to the time value of a European call). 
+An investor will only exercise early if choice B > choice A. 
+ -Kr + dividend NPV – time value > 0 
+  dividend NPV - Kr > time value for American call to be exercised 
+ 
+ 
+0
+2
+4
+6
+8
+10
+12
+14
+16
+0
+5
+10
+15
+20
+25
+30
+Days
+Option price
+36
+38
+40
+42
+44
+46
+48
+50
+52
+Stock price
+ITM €40 strike
+ATM €50 strike
+Stock price (RHS)
+ITM call option should 
+be exercised early
+Dividend ex-date
+ 
+
+--- PAGE 25 ---
+1.3: Maintenance of Option Positions 
+13 
+Puts should only be exercised if interest earned (less dividends) exceeds time 
+value 
+For puts, it is simplest to assume an investor is long stock and long an American put. This 
+payout is similar to a long call of the same strike. An American put should only be exercised 
+against the long stock in the same portfolio if it is in an investor’s interest to exercise the 
+option and buy a European call of the same strike. 
+ Choice A: Do not exercise. In this case the portfolio of long stock and long put benefits 
+from the dividend NPV. 
+ Choice B: Exercise put against long stock, receiving strike K, which can earn interest r 
+(=erfr×T-1). The position has to be hedged with the purchase of a European call (of cost 
+equal to the time value of a European put). 
+An investor will only exercise early if choice B > choice A 
+ Kr – time value > dividend NPV 
+ Kr – dividend NPV > time value for American put to be exercised 
+Selling ITM options that should be exercised early can be profitable 
+There have been occasions when traders deliberately sell ITM options that should be 
+exercised early, hoping that some investors will forget. Even if the original counterparty is 
+aware of this fact, exchanges randomly assign the counterparty to exercised options. As it is 
+unlikely that 100% of investors will realise in time, such a strategy can be profitable. 
+ITM OPTIONS USUALLY EXERCISED AUTOMATICALLY 
+In order to prevent situations where an investor might suffer a loss if they do not give notice 
+to exercise an ITM option in time, most exchanges have some form of automatic exercise. If 
+an investor (for whatever reason) does not want the option to be automatically exercised, he 
+must give instructions to that effect. The hurdle for automatic exercise is usually above ATM 
+in order to account for any trading fees that might be incurred in selling the underlying post 
+exercise. 
+Eurex automatic exercise has a higher hurdle than CBOE 
+For the CBOE, options are automatically exercised if they are US$0.01 or more ITM 
+(reduced in June 2008 from US$0.05 or more), which is in line with Euronext-Liffe rules of a 
+€0.01 or GBP0.01 minimum ITM hurdle. Eurex has a higher automatic hurdle, as a contract 
+price has to be ITM by 99.99 or more (eg, for a euro-denominated stock with a contract size 
+of 100 shares this means it needs to be at €0.9999 or more). Eurex does allow an investor to 
+specify an automatic exercise level lower than the automatic hurdle, or a percentage of 
+exercise price up to 9.99%. 
+ 
+
+--- PAGE 26 ---
+14 
+CHAPTER 1: OPTIONS 
+CORPORATE ACTIONS CAN ADJUST STRIKE 
+While options do not adjust for ordinary dividends1, they do adjust for special dividends. 
+Different exchanges have different definitions of what is a special dividend, but typically it is 
+considered special if it is declared as a special dividend, or is larger than a certain threshold 
+(eg, 10% of the stock price). In addition, options are adjusted in the event of a corporate 
+action, for example, a stock split or rights issue.  
+Equities and indices can treat bonus share issues differently 
+Options on equities and indices can treat bonus share issues differently. A stock dividend in 
+lieu of an ordinary dividend is considered an ordinary dividend for options on an equity 
+(hence is not adjusted) but is normally adjusted by the index provider.  
+Adjustment negates impact of dividend or corporate action 
+For both special dividends and corporate actions, the adjustment negates the impact of the 
+event (principal of unchanged contract values), so the theoretical price of the options should 
+be able to ignore the event. As the strike post adjustment will be non-standard, typically 
+exchanges create a new set of options with the normal strikes. While older options can still 
+trade, liquidity generally passes to the new standard strike options (particularly for longer 
+maturities which do not have much open interest). 
+M&A AND SPINOFFS CAN CAUSE PROBLEMS 
+If a company spins off a subsidiary and gives shareholders shares in the new company, the 
+underlying for the option turns into a basket of the original equity and the spun-off 
+company. New options going into the original company are usually created, and the liquidity 
+of the options into the basket is likely to fade. For a company that is taken over, the existing 
+options in that company will convert into whatever shareholders were offered. If the 
+acquisition was for stock, then the options convert into shares, but if the offer is partly in 
+cash, then options can lose a lot of value as the volatility of cash is zero. 
+OPTIONS OFTEN ROLLED BEFORE EXPIRY 
+The time value of an option decays quicker for short-dated options than for far-dated 
+options. To reduce the effect of time decay, investors often roll before expiry. For example, 
+an investor could buy a one-year option and roll it after six months to a new one-year 
+option. 
+1 Some option markets adjust for all dividends. 
+ 
+                                                     
+
+--- PAGE 27 ---
+1.4: Call Overwriting  
+ 15  
+1.4: CALL OVERWRITING 
+For a directional investor who owns a stock (or index), call overwriting by selling an 
+OTM call is one of the most popular methods of yield enhancement. Historically, 
+call overwriting (otherwise known as buy-write, as the stock is bought but a call is 
+written against it) has been a profitable strategy due to implied volatility usually 
+being overpriced. However, call overwriting does underperform in volatile, strongly 
+rising equity markets. Overwriting with the shortest maturity is best, and the strike 
+should be slightly OTM for optimum returns. 
+IMPLIED VOLATILITY IS USUALLY OVERPRICED 
+The implied volatility of options is on average 1-2pts above the volatility realised over the 
+life of the option. This ‘implied volatility premium’ is usually greater for indices than for 
+single stocks. As we can see no reason why these imbalances will fade, we expect call 
+overwriting to continue to outperform on average. The key imbalances are:  
+ Option buying for protection. In the same way that no one buys car insurance because 
+they think it is a good investment, investors are happy buying expensive protection to 
+protect against downside risks. 
+ Unwillingness to sell low premium options causes market makers to raise their 
+prices (selling low premium options, like selling lottery tickets, has to be done on a large 
+scale to be attractive). 
+ High gamma of near-dated options has a gap risk premium (risk of stock jumping, 
+either intraday or between closing and opening prices). 
+ Index implieds lifted by structured products. Structured products are often based on 
+an index, and can offer downside protection. This lifts index implied relative to single 
+stock implied. Also protection is usually bought on an index to protect against macros 
+risks. It is rare to protect a single stock position (if an investor is worried about 
+downside in a stock they usually do not buy it to begin with). 
+BUY-WRITE BENEFITS FROM SELLING EXPENSIVE VOL 
+Short-dated implied volatility has historically been overpriced2 due to the above supply and 
+demand imbalances. In order to profit from this characteristic, a long investor can sell a call 
+against a long position in the underlying of the option. Should the underlying perform well 
+and the call be exercised, the underlying can be used to satisfy the exercise of the call. As 
+equities should be assumed to have, on average, a positive return, it is best to overwrite with 
+a slightly OTM option to reduce the probability of the option sold expiring ITM. 
+2 We note that implied volatility is not necessarily as overpriced as would first appear. For more detail, 
+see the section 3.1 Implied Volatility Should Be Above Realized Volatility. 
+                                                     
+
+--- PAGE 28 ---
+16 
+CHAPTER 1: OPTIONS 
+Figure 5. Short Call 
+ 
+ 
+ 
+ 
+ 
+Call Overwriting (or Buy Write) 
+ 
+ 
+ 
+Call overwriting is a useful way to gain yield in flat markets 
+If markets are range trading, or are approaching a technical resistance level, then selling a call 
+at the top of the range (or resistance level) is a useful way of gaining yield. Such a strategy 
+can be a useful tactical way of earning income on a core strategic portfolio, or potentially 
+could be used as part of an exit strategy for a given target price. 
+Selling at target price enforces disciplined investing 
+If a stock reaches the desired target price, there is the temptation to continue to own the 
+strong performer. Over time a portfolio can run the risk of being a collection of stocks that 
+had previously been undervalued, but are now at fair value. To prevent this inertia diluting 
+the performance of a fund, some fund managers prefer to call overwrite at their target price 
+to enforce disciplined investing, (as the stock will be called away when it reaches the target). 
+As there are typically more Buy recommendations than Sell recommendations, call 
+overwriting can ensure a better balance between the purchase and (called away) sale of 
+stocks. 
+-40%
+-30%
+-20%
+-10%
+0%
+10%
+20%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+Return
+Strike
+Short call
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+Return
+Strike
+Equity
+Equity + short call
+Call overwriting profit is capped 
+at the strike of short call
+ 
+
+--- PAGE 29 ---
+1.4: Call Overwriting 
+17 
+PUT UNDERWRITING HAS SIMILAR PROFILE 
+Figure 5 above shows the profiles of a short call and of a long equity with an overwritten 
+call. The resulting profile of call overwriting is similar to that of a short put (Figure 6 below); 
+hence, call overwriting could be considered similar to stock replacement with a short put (or 
+put underwriting). Both call overwriting and put underwriting attempt to profit from the fact 
+that implied volatility, on average, tends to be overpriced. While selling a naked put is seen as 
+risky, due to the near infinite losses should stock prices fall, selling a call against a long equity 
+position is seen as less risky (as the equity can be delivered against the exercise of the call). 
+Figure 6. Put Underwriting 
+ 
+ 
+1×2 call spreads are useful when a bounce-back is expected 
+If a near zero cost 1×2 call spread (long 1×ATM call, short 2×OTM calls) is overlaid on a 
+long stock position, the resulting position offers the investor twice the return for equity 
+increases up to the short upper strike. For very high returns the payout is capped, in a similar 
+way as for call overwriting. Such positioning is useful when there has been a sharp drop in 
+the markets and a limited bounce back to earlier levels is anticipated. The level of the bounce 
+back should be in line with or below the short upper strike. Typically, short maturities are 
+best (less than three months) as the profile of a 1×2 call spread is similar to a short call for 
+longer maturities. 
+-40%
+-30%
+-20%
+-10%
+0%
+10%
+20%
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+Strike
+Return
+Short put
+ 
+
+--- PAGE 30 ---
+18 
+CHAPTER 1: OPTIONS 
+Figure 7. Booster (1×2 Call Spread)  
+ 
+Call Overwriting with Booster 
+ 
+ 
+ 
+CALL OVERWRITING IS BEST DONE ON AN INDEX 
+Many investors call overwrite on single stocks. However, single-stock implied volatility 
+trades more in line with realised volatility than index implieds. The reason why index 
+implieds are more overpriced than single-stock implieds is due to the demand from hedgers 
+and structured product sellers. Call overwriting at the index level also reduces trading costs 
+(due to the narrower bid-offer spread). 
+The CBOE has created a one-month call overwriting index on the S&P500 (BXM index), 
+which is the longest call overwriting time series available. It is important to note that the 
+BXM is a total return index; hence, it needs to be compared to the S&P500 total return 
+index (SPXT Bloomberg code) not the S&P500 price return (SPX Bloomberg code). As can 
+be seen in Figure 8 below, comparing the BXM index to the S&P500 price return index 
+artificially flatters the performance of call overwriting. 
+Figure 8. S&P500 and S&P500 1M ATM Call Overwriting Index (BXM) 
+ 
+-20%
+-10%
+0%
+10%
+20%
+30%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+Return
+Strike
+Booster (1x2 call spread)
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+50%
+70%
+90%
+110%
+130%
+150%
+Return
+Strike
+Equity
+Equity + booster
+Call overwriting with booster profit is 
+capped at the strike of the two short calls
+0
+100
+200
+300
+400
+500
+600
+700
+800
+900
+1000
+1100
+1988
+1990
+1992
+1994
+1996
+1998
+2000
+2002
+2004
+2006
+2008
+2010
+2012
+Price (rebased)
+BXM (1m 100% Buy Write)
+S&P500
+S&P500 total return
+BXM is a total return index, so needs to be compared 
+to S&P500 total return index for a fair comparison
+ 
+
+--- PAGE 31 ---
+1.4: Call Overwriting 
+19 
+Call overwriting performance varies according to conditions 
+On average, ATM index call overwriting has been a profitable strategy. However, there have 
+been periods of time when it is has been unprofitable. The best way to examine the returns 
+under different market conditions is to divide the BXM index by the total return S&P500 
+index (as the BXM is a total return index). 
+Figure 9. S&P500 1M ATM Call Overwriting Divided by S&P500 Total Return  
+ 
+ 
+Overwriting underperforms in bull markets with low volatility 
+Since the BXM index was created, there have been seven distinct periods (see Figure 9 
+above), each with different equity and volatility market conditions. Of the seven periods, the 
+two in which returns for call overwriting are negative are the bull markets of the mid-1990s 
+and middle of the last decade. These were markets with very low volatility, causing the short 
+call option sold to earn insufficient premium to compensate for the option being ITM.  
+It is important to note that call overwriting can outperform in slowly rising markets, as the 
+premium earned is in excess of the amount the option ends up ITM. This was the case for 
+the BXM between 1986 and the mid-1990s. It is difficult to identify these periods in advance 
+as there is a very low correlation between BXM outperformance and the earlier historical 
+volatility. 
+LOWER EXPOSURE TO EQUITY RISK PREMIUM 
+We note that while profits should be earned from selling an expensive call, the delta (or 
+equity sensitivity) of the long underlying short call portfolio is significantly less than 100% 
+(even if the premium from the short call is reinvested into the strategy). Assuming that 
+equities are expected to earn more than the risk free rate (ie, have a positive equity risk 
+premium), this lower delta can mean more money is lost by having a less equity-sensitive 
+portfolio than is gained by selling expensive volatility. On average, call overwriting appears 
+70
+80
+90
+100
+110
+120
+130
+140
+1988
+1990
+1992
+1994
+1996
+1998
+2000
+2002
+2004
+2006
+2008
+2010
+2012
+Relative performance 
+(rebased)
+BXM (1m 100%) / S&P500 total return
+Outperform                                               Significantly                  Breakeven                    Significantly                            Underperform               Significantly                  Significantly
+Underperform                   
+Outperform                                                                  Outperform      
+Underperform
+Start of late 90's 
+bull market
+Asian
+crisis
+TMT
+peak
+2003
+trough
+Credit
+crunch
+2009
+trough
+Call overwriting performance depends on market environment
+Call overwriting 
+outperforms
+Call overwriting
+underperforms
+ 
+
+--- PAGE 32 ---
+20 
+CHAPTER 1: OPTIONS 
+to be a successful strategy, and its success has meant that it is one of the most popular uses 
+of trading options. 
+OVERWRITING WITH NEAR-DATED OPTIONS IS BEST  
+Near-dated options have the highest theta, so an investor earns the greatest carry from call 
+overwriting with short-dated options. It is possible to overwrite with 12 one-month options 
+in a year, as opposed to four three-month options or one 12-month option. While 
+overwriting with the shortest maturity possible has the highest returns on average, the 
+strategy does have potentially higher risk. If a market rises one month, then retreats back to 
+its original value by the end of the quarter, a one-month call overwriting strategy will have 
+suffered a loss on the first call sold but a three-month overwriting strategy will not have had 
+a call expire ITM. However, overwriting with far-dated expiries is more likely to eliminate 
+the equity risk premium the investor is trying to earn (as any outperformance above a certain 
+level will be called away). 
+Figure 10. Call Overwriting SX5E with One-Month Calls of Different Strikes  
+ 
+ 
+BEST RETURNS WITH SLIGHTLY OTM OPTIONS 
+While overwriting with near-dated expiries is clearly superior to overwriting with far-dated 
+expiries, the optimal choice of strike to overwrite with depends on the market environment. 
+As equities are expected, on average, to post a positive return, overwriting should be done 
+with slightly OTM options. However, if a period of time where equities had a negative return 
+is chosen for a back-test, then a strike below 100% could show the highest return. Looking 
+0.0%
+0.5%
+1.0%
+1.5%
+2.0%
+2.5%
+3.0%
+-8%
+-7%
+-6%
+-5%
+-4%
+-3%
+-2%
+-1%
+0%
+Call overw riting volatility - index volatility
+Call overwriting return - index return
+Exact peak strike for overwriting 
+depends on period of backtest
+Index
+100%
+101%
+102%
+103%
+104%
+105%
+106%
+108%
+110%
+ 
+
+--- PAGE 33 ---
+1.4: Call Overwriting 
+21 
+at a period of time where the SX5E had a positive return shows that for one-month options 
+a strike between 103%-104% is best (see Figure 10 above).  
+Typically call overwriting with c25% delta call options is best  
+For three-month options, the optimal strike is a higher 107%-108%, but the outperformance 
+is approximately half as good as for one-month options. These optimal strikes for 
+overwriting could be seen to be arguably high, as recently there have been instances of 
+severe declines (TMT bubble bursting, Lehman bankruptcy), which were followed by 
+significant price rises afterwards. For single-stock call overwriting, these strikes could seem 
+to be low, as single stocks are more volatile. For this reason, many investors use the current 
+level of volatility to determine the strike or choose a fixed delta option (eg, 25%). 
+OVERWRITING REDUCES VOLATILITY  
+While selling an option could be considered risky, the volatility of returns from overwriting a 
+long equity position is reduced by overwriting. This is because the payout profile is capped 
+for equity prices above the strike. An alternative way of looking at this is that the delta of the 
+portfolio is reduced from 100% (solely invested in equity) to 100% less the delta of the call 
+(c50% depending on strike). The reduced delta suppresses the volatility of the portfolio.  
+Risk reduction less impressive if Sortino ratios are used  
+We note that the low call overwriting volatility is due to the lack of volatility to the upside, as 
+call overwriting has the same downside risk as a long position. For this reason, using the 
+Sortino ratio (for more details, see the section A11 Sortino Ratio in the Appendix) is likely to be 
+a fairer measure of call overwriting risk than standard deviation, as standard deviation is not 
+a good measure of risk for skewed distributions. Sortino ratios show that the call overwriting 
+downside risk is identical to a long position; hence, call overwriting should primarily be done 
+to enhance returns and is not a viable strategy for risk reduction. 
+Optimal strike is similar for single stocks and indices 
+While this analysis is focused on the SX5E, the analysis can be used to guide single-stock call 
+overwriting (although the strike could be adjusted higher by the single-stock implied divided 
+by SX5E implied). 
+ 
+ 
+ 
+
+--- PAGE 34 ---
+22 
+CHAPTER 1: OPTIONS 
+ENHANCED CALL OVERWRITING IS DIFFICULT 
+Enhanced call overwriting is the term given when call overwriting is only done 
+opportunistically or the parameters (strike or expiry) are varied according to market 
+conditions. On the index level, the returns from call overwriting are so high that enhanced 
+call overwriting is difficult, as the opportunity cost from not always overwriting is too high. 
+For single stocks, the returns for call overwriting are less impressive; hence, enhanced call 
+overwriting could be more successful. An example of single-stock enhanced call overwriting 
+is to only overwrite when an implied is high compared to peers in the same sector. We note 
+that even with enhanced single-stock call overwriting, the wider bid-offer cost and smaller 
+implied volatility premium to realised means returns can be lower than call overwriting at the 
+index level. 
+Enhanced call overwriting returns likely to be arbitraged away 
+Should a systematic way to enhance call overwriting be viable, this method could be applied 
+to volatility trading without needing an existing long position in the underlying. Given the 
+presence of statistical arbitrage funds and high frequency traders, we believe it is unlikely that 
+a simple automated enhanced call overwriting strategy on equity or volatility markets is likely 
+to outperform vanilla call overwriting on an ongoing basis. 
+ 
+ 
+
+--- PAGE 35 ---
+1.5: Protection Strategies Using Options 
+23  
+1.5: PROTECTION STRATEGIES USING OPTIONS 
+For both economic and regulatory reasons, one of the most popular uses of options is 
+to provide protection against a long position in the underlying. The cost of buying 
+protection through a put is lowest in calm, low-volatility markets, but in more 
+turbulent markets the cost can be too high. In order to reduce the cost of buying 
+protection in volatile markets (which is often when protection is in most demand), 
+many investors sell an OTM put and/or an OTM call to lower the cost of the long 
+put protection bought. 
+CHEAPEN PROTECTION BY SELLING OTM PUT & CALL 
+Buying a put against a long position gives complete and total protection for underlying 
+moves below the strike (as the investor can simply put the long position back for the strike 
+price following severe declines). The disadvantage of a put is the relatively high cost, as an 
+investor is typically unwilling to pay more than 1%-2% for protection (as the cost of 
+protection usually has to be made up through alpha to avoid underperforming if markets do 
+not decline). The cost of the long put protection can be cheapened by selling an OTM put 
+(turning the long put into a long put spread), by selling an OTM call (turning put protection 
+into a collar), or both (resulting in a put spread vs call, or put spread collar). The strikes of 
+the OTM puts and calls sold can be chosen to be in line with technical supports or resistance 
+levels. 
+Figure 11. Put 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Put spread  
+ 
+ 
+ 
+ 
+ 
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+Return
+Strike
+Put
+Puts give downside 
+exposure and the maximum 
+loss is the premium paid
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+Return
+Strike
+Put spread
+Call spreads are  cheaper 
+than calls, but only give 
+partial upside exposure
+
+--- PAGE 36 ---
+24 
+CHAPTER 1: OPTIONS 
+ 
+ Puts give complete protection without capping performance. As puts give such 
+good protection, their cost is usually prohibitive unless the strike is low. For this reason, 
+put protection is normally bought for strikes around 90%. Given that this protection will 
+not kick in until there is a decline of 10% or more, puts offer the most cost-effective 
+protection only during a severe crash (or if very short-term protection is required). 
+ Put spreads only give partial protection but are cost effective. While puts give 
+complete protection, often only partial protection is necessary, in which case selling an 
+OTM put against the long put (a put spread) can be an attractive protection strategy. 
+The value of the put sold can be used to either cheapen the protection or lift the strike 
+of the long put.  
+ Collars can be zero cost as they give up some upside. While investors appreciate the 
+need for protection, the cost needs to be funded through reduced performance (or less 
+alpha) or by giving up some upside. Selling an OTM call to fund a put (a collar) results 
+in a cap on performance. However, if the strike of the call is set at a reasonable level, the 
+capped return could still be attractive. The strike of the OTM call is often chosen to give 
+the collar a zero cost. Collars can be a visually attractive low (or zero) cost method of 
+protection as returns can be floored at the largest tolerable loss and capped at the target 
+return. A collar is unique among protection strategies in not having significant volatility 
+exposure, as its profile is similar to a short position in the underlying. Collars are, 
+however, exposed to skew. 
+ Put spread collars best when volatility is high, as two OTM options are 
+sold. Selling both an OTM put and OTM call against a long put (a put spread collar) is 
+typically attractive when volatility is high, as this lifts the value of the two OTM options 
+sold more than the long put bought. If equity markets are range bound, a put spread 
+collar can also be an attractive form of protection. Put spread collars are normally 
+structured to be near zero cost (just like a collar). 
+Figure 12. Collar  
+ 
+ 
+ 
+ 
+ 
+ Put spread collar  
+ 
+ 
+ 
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+Return
+Strike
+Collar
+Collars (sometimes known as risk reversals)
+give downside exposure, but are also suffer 
+losses to the upside 
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+Return
+Strike
+Put spread collar
+Call spread vs put is often attractive in 
+high volatility environments, as two OTM 
+options are sold for every option bought
+ 
+
+--- PAGE 37 ---
+1.5: Protection Strategies Using Options 
+25 
+Portfolio protection is usually done via indices to lower cost 
+While an equity investor will typically purchase individual stocks, if protection is bought then 
+this is usually done at the index level. This is because the risk the investor wishes to hedge 
+against is the general equity or macroeconomic risk. If a stock is seen as having excessive 
+downside risk, it is usually sold rather than a put bought against it. An additional reason why 
+index protection is more common than single stock protection is the fact that bid-offer 
+spreads for single stocks are wider than for an index. 
+Figure 13. Option Strategy for Different Market and Volatility Views 
+ 
+PROTECTION REQUIRED 
+UPSIDE 
+Full 
+Partial 
+Uncapped 
+Put (usually expensive)
+ 
+   Put spread (cheaper) 
+Capped upside 
+Collar (zero cost) 
+   Put spread collar(zero cost) 
+ 
+Partial protection can give attractive risk reward profile  
+For six-month maturity options, the cost of a 90% put is typically in line with a 95%-85% 
+put spread (except during periods of high volatility, when the cost of a put is usually more 
+expensive). Put spreads often have an attractive risk-reward profile for protection of the 
+same cost, as the strike of the long put can be higher than the long put of a put spread. 
+Additionally, if an investor is concerned with outperforming peers, then a c10% 
+outperformance given by a 95%-85% put spread should be sufficient to attract investors 
+(there is little incremental competitive advantage in a greater outperformance). 
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+60%
+70%
+80%
+90%
+100% 110% 120% 130%
+Return
+Strik
+Equity
+Equity + put
+Put protection floors returns at strike 
+and keeps upside participation
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+60%
+70%
+80%
+90%
+100% 110% 120% 130%
+Return
+Strike
+Equity
+Equity + put spread
+Put spread gives partial protection 
+at lower cost than put
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+60%
+70%
+80%
+90%
+100% 110% 120% 130%
+Return
+Strik
+Equity
+Equity + collar
+A collar floor returns like a put, 
+but also caps returns
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+60%
+70%
+80%
+90%
+100% 110% 120% 130%
+Return
+Strike
+Equity
+Put spread collar gives partial protection, 
+and caps returns
+ 
+
+--- PAGE 38 ---
+26 
+CHAPTER 1: OPTIONS 
+Implied volatility is far more important than skew for put-spread pricing 
+A rule of thumb is that the value of the OTM put sold should be approximately one-third 
+the value of the long put (if it were significantly less, the cost saving in moving from a put to 
+a put spread would not compensate for giving up complete protection). While selling an 
+OTM put against a near-ATM put does benefit from selling skew (as the implied volatility of 
+the OTM put sold is higher than the volatility of the near ATM long put bought), the effect 
+of skew on put spread pricing is not normally that significant (far more significant is the level 
+of implied volatility). 
+Collars are more sensitive to skew than implied volatility 
+Selling a call against a long put suffers from buying skew. The effect of skew is greater for a 
+collar than for a put spread, as skew affects both legs of the structure the same way (whereas 
+the effect of skew on the long and short put of a put spread partly cancels). If skew was flat, 
+the cost of a collar typically reduces by 1% of spot. The level of volatility for near-zero cost 
+collars is not normally significant, as the long volatility of the put cancels the short volatility 
+of the call.  
+Capping performance should only be used when a long rally is unlikely 
+A collar or put spread collar caps the performance of the portfolio at the strike of the OTM 
+call sold. They should only therefore be used when the likelihood of a strong, long-lasting 
+rally (or significant bounce) is perceived to be relatively small. 
+Bullish investors could sell two puts against long put 
+If an investor is bullish on the equity market, then a protection strategy that caps 
+performance is unsuitable. Additionally, as the likelihood of substantial declines is seen to be 
+small, the cost of protection via a put or put spread is too high. In this scenario, a zero cost 
+1×2 put spread could be used as a pseudo-protection strategy. The long put is normally 
+ATM, which means the portfolio is 100% protected against falls up to the lower strike, and 
+gives partial protection below that until the breakeven. A loss is only suffered if the equity 
+market falls below the breakeven. 
+1×2 put spreads only give pseudo-protection 
+We do not consider 1x2 put spreads to offer true protection, as during severe declines it will 
+suffer a loss when the underlying portfolio is also heavily loss making. The payout of 1×2 
+put spreads for maturities of around three months or more is initially similar to a short put, 
+so we consider it to be a bullish strategy. However, for the SX5E a roughly six-month zero-
+cost 1×2 put spread, whose upper strike is 95%, has historically had a breakeven below 80% 
+and declines of more than 20% in six months are very rare. As 1×2 put spreads do not 
+provide protection when you need it most, they could be seen as a separate long position 
+rather than a protection strategy.  
+ 
+
+--- PAGE 39 ---
+1.5: Protection Strategies Using Options 
+27 
+Figure 14. 1×2 Put Spread  
+ 
+ 
+ 
+1×2 Put Spread Pseudo-Protection 
+ 
+ 
+ 
+PROTECTION MUST BE PAID FOR: QUESTION IS HOW? 
+If an investor seeks protection, the most important decision that has to be made is how to 
+pay for it. The cost of protection can be paid for in one of three ways. Figure 15 below shows 
+when this cost is suffered by the investor, and when the structure starts to provide 
+protection against declines. 
+Premium. The simplest method of paying for protection is through premium. In this case, a 
+put or put spread should be bought. 
+Loss of upside. If the likelihood of extremely high returns is small, or if a premium cannot 
+be paid, then giving up upside via collars or put spread collars is the best way to pay for 
+protection. 
+Potential losses on extreme downside. If an investor is willing to tolerate additional losses 
+during extreme declines, then a 1×2 put spread can offer a zero cost way of buying 
+protection against limited declines in the market. 
+Figure 15. Protection Strategy Comparison 
+Equity Performance 
+Put 
+Put Spread 
+Collar 
+Put Spread Collar 
+1×2 Put Spread 
+Bull markets  
+(+10% or more) 
+Loss of premium 
+Loss of premium 
+Loss of upside 
+Loss of upside 
+– 
+Flat markets  
+(±5%) 
+Loss of premium 
+Loss of premium 
+– 
+– 
+– 
+Moderate dip  
+(c-10%) 
+Loss of premium 
+Protected 
+– 
+Protected 
+Protected 
+Correction  
+(c-15%) 
+Protected 
+Protected 
+Protected 
+Protected 
+Protected 
+Bear market  
+(c-20% or worse) 
+Protected 
+Partially protected 
+Protected 
+Partially protected 
+Severe loss 
+-20%
+-10%
+0%
+10%
+20%
+30%
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+Return
+Strike
+1x2 put spread
+1x2 put spread is usually long an ATM option 
+and lower strike chosen to be zero cost
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+Return
+Strike
+Equity
+Equity + 1x2 put spread
+1x2 put spread offers pseudo-protection 
+as the structure is loss making for very 
+low values of spot
+ 
+
+--- PAGE 40 ---
+28 
+CHAPTER 1: OPTIONS 
+BEST STRATEGY DETERMINED BY VOLATILITY LEVEL 
+The level of volatility can determine the most suitable protection strategy an investor needs 
+to decide how bullish and bearish they are on the equity and volatility markets. If volatility is 
+low, then puts should be affordable enough to buy without offsetting the cost by selling an 
+OTM option. For low to moderate levels of volatility, a put spread is likely to give the best 
+protection that can be easily afforded. As a collar is similar to a short position with limited 
+volatility exposure, it is most appropriate for a bearish investor during average periods of 
+volatility (or if an investor does not have a strong view on volatility). Put spreads collars (or 
+1×2 put spreads) are most appropriate during high levels of volatility (as two options are 
+sold for every option bought). 
+MATURITY DRIVEN BY DURATION OF LIKELY DECLINE 
+The choice of protection strategy is typically driven by an investor’s view on equity and 
+volatility markets. Similarly the choice of strikes is usually restricted by the premium an 
+investor can afford. Maturity is potentially the area where there is most choice, and the final 
+decision will be driven by an investor’s belief in the severity and duration of any decline. If 
+he wants protection against a sudden crash, a short-dated put is the most appropriate 
+strategy. However, for a long drawn out bear market, a longer maturity is most appropriate. 
+Figure 16. Types of DAX Declines (of 10% or more) since 1960 
+Type 
+Average Decline 
+Decline Range 
+Average Duration 
+Duration Range 
+Crash 
+31% 
+19% to 39% 
+1 month 
+0 to 3 months 
+Correction 
+14% 
+10% to 22% 
+3 months 
+0 to 1 year 
+Bear market 
+44% 
+23% to 73% 
+2.5 years 
+1 to 5 years 
+ 
+Median maturity of protection bought is c4 months 
+The average choice of protection is c6 months, but this is skewed by a few long-dated 
+hedges. The median maturity is c4 months. Protection can be bought for maturities of one 
+week to over a year. Even if an investor has decided how long he needs protection, he can 
+implement it via one far-dated option or multiple near-dated options. For example, one-year 
+protection could be via a one-year put or via the purchase of a three-month put every three 
+months (four puts over the course of a year). The typical cost of ATM puts for different 
+maturities is given below. 
+Figure 17. Cost of ATM Put on SX5E  
+Cost 
+1 Month 
+2 Months 
+3 Months 
+6 Months 
+1 Year 
+Individual premium 
+2.3% 
+3.3% 
+4.0% 
+5.7% 
+8.0% 
+Rolling protection cost per year  
+27.7% 
+19.6% 
+16.0% 
+11.3% 
+8.0% 
+ 
+
+--- PAGE 41 ---
+1.5: Protection Strategies Using Options 
+29 
+Short-dated puts offer greatest protection but highest cost 
+If equity markets fall 20% in the first three months of the year and recover to the earlier 
+level by the end of the year, then a rolling three-month put strategy will have a positive 
+payout in the first quarter but a one-year put will be worth nothing at expiry. While rolling 
+near-dated puts will give greater protection than a long-dated put, the cost is higher 
+(see Figure 17 above). 
+SHORT VOL AGAINST LONG PUT PERFORMS WELL 
+All protection strategies that combine a long and a short aim to offset the overpriced cost of 
+protection by selling the same overpriced implied volatility for a different maturity and 
+strike. Hence such strategies tend to back-test well as the overall exposure to expensive 
+implied volatility is near zero. As the net cost of such strategies is near zero, while at the 
+same time (usually) decreasing the volatility of the portfolio, their risk adjusted performance 
+can be impressive. Their performance can often be further improved by selling near dated 
+volatility against the long far dated protection. 
+MULTIPLE EXPIRY PROTECTION STRATEGIES 
+Typically, a protection strategy involving multiple options has the same maturity for all of 
+the options. However, some investors choose a nearer maturity for the options they are 
+short, as more premium can be earned selling a near-dated option multiple times (as near-
+dated options have higher theta). These strategies are most successful when term structure is 
+inverted, as the volatility for the near-dated option sold is higher. Having a nearer maturity 
+for the long put option and longer maturity for the short options makes less sense, as this 
+increases the cost (assuming the nearer-dated put is rolled at expiry). 
+Calendar collar effectively overlays call overwriting on a long put position 
+If the maturity of the short call of a collar is closer than the maturity of the long put, then 
+this is effectively the combination of a long put and call overwriting. For example, the cost 
+of a three-month put can be recovered by selling one-month calls. This strategy outperforms 
+in a downturn and also has a lower volatility (see Figure 18 below). 
+ 
+
+--- PAGE 42 ---
+30 
+CHAPTER 1: OPTIONS 
+Figure 18. Performance of 3M Put vs 1M Call Overwriting 
+ 
+  
+Selling a put against calendar collar creates either a calendar put spread 
+collar, or a put vs strangle/straddle 
+If a put is sold against the position of a calendar collar, then the final position depends on 
+the maturity of the short put. The short put can either have the maturity of the long put 
+(creating a calendar put spread collar), or the maturity of the short call (creating a put vs 
+strangle/straddle). 
+ Calendar put spread collar. If the maturity of the short put is identical to the long (far-
+dated) put, then the final position is a calendar put spread collar (i.e. far dated put spread 
+funded by sale of short dated calls). The performance of a calendar put spread collar is 
+similar to the calendar collar above. 
+ Put vs strangle/straddle. If the maturity of the short put is the same as the maturity of 
+the short near-dated call, then this position funds the long far-dated put by selling near-
+dated volatility via a near dated strangle (or straddle if the strikes of the short put and 
+short call are identical).  
+Short near dated variance swaps is an alternative to selling near dated 
+strangle/straddle 
+For an investor who is able to trade OTC, a similar strategy involves long put and short 
+near-dated variance swaps. 
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+2000
+2002
+2004
+2006
+2008
+2010
+2012
+2014
+SX5E
+Call overwriting 1m ATM
+Call overwriting + 3m put
+ 
+
+--- PAGE 43 ---
+1.6: Option Structures Trading 
+31  
+1.6: OPTION STRUCTURES TRADING 
+While a simple view on both volatility and equity market direction can be 
+implemented via a long or short position in a call or put, a far wider set of payoffs is 
+possible if two or three different options are used. We investigate strategies using 
+option structures (or option combos) that can be used to meet different investor 
+needs. 
+BULLISH COMBOS ARE REVERSE OF BEARISH 
+Using option structures to implement a bearish strategy has already been discussed in the 
+section 1.5 Protection Strategies Using Options. In the same way a long put protection can be 
+cheapened by selling an OTM put against the put protection (to create a put spread giving 
+only partial protection), a call can be cheapened by selling an OTM call (to create a call 
+spread offering only partial upside). Similarly, the upside exposure of the call (or call spread) 
+can be funded by put underwriting (just as put or put spread protection can be funded by 
+call overwriting). The four option structures for bullish strategies are given below. 
+ Calls give complete upside exposure and floored downside. Calls are the ideal 
+instrument for bullish investors as they offer full upside exposure and the maximum loss 
+is only the premium paid. Unless the call is short dated or is purchased in a period of 
+low volatility, the cost is likely to be high. 
+ Call spreads give partial upside but are cheaper. If an underlying is seen as unlikely 
+to rise significantly, or if a call is too expensive, then selling an OTM call against the 
+long call (to create a call spread) could be the best bullish strategy. The strike of the call 
+sold could be chosen to be in line with a target price or technical resistance level. While 
+the upside is limited to the difference between the two strikes, the cost of the strategy is 
+normally one-third cheaper than the cost of the call. 
+ Risk reversals (short put, long call of different strikes) benefit from selling skew. 
+If a long call position is funded by selling a put (to create a risk reversal), the volatility of 
+the put sold is normally higher than the volatility of the call bought. The higher skew is, 
+the larger this difference and the more attractive this strategy is. Similarly, if interest rates 
+are low, then the lower the forward (which lifts the value of the put and decreases the 
+value of the call) and the more attractive the strategy is. The profile of this risk reversal 
+is similar to being long the underlying. 
+ Call spread vs put is most attractive when volatility is high. A long call can be 
+funded by selling an OTM call and OTM put. This strategy is best when implied 
+volatility is high, as two options are sold. 
+
+--- PAGE 44 ---
+32 
+CHAPTER 1: OPTIONS 
+Figure 19. Upside Participation Strategies 
+ 
+UPSIDE POTENTIAL 
+DOWNSIDE 
+Full 
+Partial 
+Floored 
+Call (usually expensive) 
+ 
+      Call spread (cheaper) 
+ 
+Unlimited 
+Risk reversal (zero cost) 
+      Call spread vs put 
+ 
+ 
+LADDERS HAVE A SIMILAR PROFILE TO 1×2 SPREADS 
+With a 1×2 call or put spread, two OTM options of the same strike are sold against one 
+(usually near ATM) long option of a different strike. A ladder has exactly the same structure, 
+except the two short OTM options have a different strike.The different strikes of the two 
+OTM options means that the maximum payout of a ladder is lower than for a 1x2, however 
+this maximum payout is earned for a range of values, not a single value at expiry. 
+Additionally the breakeven of a ladder is further away from spot, giving the comfort that 
+markets have to move further for losses to be suffered when compared to a 1x2 call or put 
+spread.  
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+70%
+80%
+90%
+100% 110% 120% 130% 140%
+Return
+Strike
+Call
+Calls give upside exposure and the 
+maximum loss is the premium paid
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+70%
+80%
+90%
+100% 110% 120% 130% 140%
+Return
+Strike
+Call spread
+Call spreads are cheaper than calls, 
+but only give partial upside exposure
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+70%
+80%
+90%
+100% 110% 120% 130% 140%
+Return
+Strike
+Risk reversal
+Risk reversals give upside exposure, 
+but are also exposed to the downside
+-30%
+-20%
+-10%
+0%
+10%
+20%
+30%
+70%
+80%
+90%
+100% 110% 120% 130% 140%
+Return
+Strike
+Call spread vs put
+Call spread vs put is often attractive 
+in high volatility environments, as 
+two OTM options are sold for every 
+option bought
+ 
+
+--- PAGE 45 ---
+1.6: Option Structures Trading 
+33 
+Figure 20. Put Ladders and 1×2  
+ 
+ 
+Call Ladders and 1×2  
+ 
+ 
+ 
+STRADDLES AND STRANGLES ARE VERY SIMILAR 
+Using option structures allows a straddle (long call and put of same strike) or strangle (long 
+call and put of different strikes) to be traded. These structures are long (or short) volatility, 
+but do not have any exposure to the direction of the equity market.  
+STRUCTURES ALLOW WIDER RANGE OF PAYOUTS 
+Figure 21 below shows the most common structures that can be traded with up to three 
+different options in relation to a view on equity and volatility markets. For simplicity, 
+strangles and ladders are not shown, but they can be considered to be similar to straddles 
+and 1×2 ratio spreads, respectively. 
+Figure 21. Option Structures 
+ 
+-20%
+-15%
+-10%
+-5%
+0%
+5%
+10%
+15%
+20%
+50%
+60%
+70%
+80%
+90%
+100%
+110%
+120%
+Return
+Strike
+Put ladder
+1x2 put spread
+Put ladders and 1x2 put spreads both sell 
+two OTM puts to fund cost of a (typically) 
+near ATM put. These structures can be 
+used for pseudo protection
+-20%
+-15%
+-10%
+-5%
+0%
+5%
+10%
+15%
+20%
+80%
+90%
+100%
+110%
+120%
+130%
+140%
+150%
+Return
+Strike
+Call ladder
+1x2 call spread
+Call ladders and 1x2 call spreads can be used 
+instead of a short call for call overwriting
+Market View
+Market View
+Volatility View
+Bullish
+Bearish
+Implied expensive
+Implied cheap
+Market View
+Market View
+Volatility View
+Bullish
+Bearish
+Implied expensive
+Implied cheap
+ 
+
+[TRUNCATED at 80000 chars — 317 total pages]

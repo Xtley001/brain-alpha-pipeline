@@ -1,0 +1,1386 @@
+
+--- PAGE 1 ---
+ 
+1 
+Insider Trading Against the Corporation 
+ 
+ABSTRACT. Corporate officers and directors learn bad news about their companies before the public. They 
+can avoid losses if they quickly sell, but such sales face problems. Potential buyers may be reluctant to buy 
+what insiders are frantic to sell. They may also sue or alert law enforcement. Insiders would prefer 
+counterparties who are slow to ask questions or complain. One such counterparty may be the corporation 
+itself, because the insiders (by definition) control it.  
+In this empirical project, we examine a large sample of insider sales to their corporation. We find strong 
+evidence that such sales tend to precede a large drop in company value. When an insider sells stock back to 
+their company, it is indeed consistent with them shifting losses to the company and its public investors.  
+Despite our finding, the SEC has tended to assume that insider transactions with the corporation are especially 
+trustworthy and granted them partial exemptions from prophylactic law. The insider trading literature likewise 
+overlooks this strategy. Our project corrects the course for regulators and scholars and asks what it means that 
+both groups underestimated this possibility for so long. 
+ 
+AUTHORS. S. Burcu Avci, H. Nejat Seyhun & Andrew Verstein. 
+16 HARVARD BUSINESS LAW REVIEW ___ (forthcoming 2026) 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 2 ---
+ 
+2 
+INSIDER TRADING AGAINST THE CORPORATION 
+3 
+I. 
+INSIDER TRADING LAW 
+6 
+II. 
+INSIDER TRADING AGAINST THE CORPORATION LAW 
+14 
+III. 
+DATA AND EMPIRICAL STRATEGY 
+21 
+A. 
+THE DATA 
+22 
+B. 
+SAMPLE CHARACTERISTICS 
+23 
+C. 
+MEASUREMENT OF ABNORMAL RETURNS 
+26 
+IV. 
+EMPIRICAL FINDINGS 
+27 
+A. 
+CORE FINDINGS 
+27 
+B. 
+THE POST-TRADE JUMP 
+31 
+C. 
+REPORTING DELAYS 
+31 
+D. 
+TRADE SIZE, FIRM SIZE 
+32 
+E. 
+INSIDER ROLE 
+34 
+F. 
+RESULTS ACROSS TIME 
+37 
+G. 
+IS IT BACKDATING? 
+39 
+H. 
+WHO ARE THE WORST OFFENDERS? 
+41 
+V. 
+THEORIZING INSIDER TRADING AGAINST THE CORPORATION 
+42 
+A. 
+FIXING THE PROBLEM 
+43 
+1. 
+DISTRUSTING D-CODED TRANSACTIONS 
+43 
+2. 
+SHAREHOLDERS VERSUS OTHER INSIDERS 
+45 
+B. 
+UNDERSTANDING THE PROBLEM 
+48 
+1. 
+PRIOR SCHOLARLY ATTENTION 
+48 
+2. 
+WHY DOES THIS PRACTICE PERSIST? 
+52 
+CONCLUSION 
+53 
+  
+ 
+ 
+ 
+ 
+
+--- PAGE 3 ---
+ 
+3 
+Insider Trading Against the Corporation 
+ 
+In August of 2016, Greek billionaire Dimitris Melissanidis sold approximately $100 million 
+of stock to a single buyer.1 One might have expected the buyer to be cautious. After all, 
+Melissanidis was the founder and controlling shareholder of the company, Aegean Marine 
+Petroleum Network Inc.2 He also had a checkered past. Known in Greece as “The Tiger,”3 he had 
+been repeatedly sued or prosecuted for criminal and civil violations, including various forms of 
+fraud.4 If such an insider offered you their shares, you might balk, suspecting inside knowledge of 
+bad news to come. 
+And bad news did come. Aegean soon revealed a $500 million accounting hole, which plunged 
+it into bankruptcy.5 Yet Melissanidis’s buyer remained placid and guileless throughout. Before the 
+deal, it issued press statements in connection with the purchase about how confident it was in the 
+future of the company.6 After the deal, it did not sue Melissandis. To the contrary, once Aegean 
+ 
+1 Kerin Hope, Auditors Probe Potential $200m Fraud at Aegean Marine, FIN. TIMES (Nov. 1, 
+2018), 
+https://www.ft.com/content/ffc4e71a-dd30-11e8-9f04-38d397e6661c 
+[https://archive.ph/GAieH]. 
+2 In re Aegean Marine Petroleum Network, Inc. Securities Litigation, 529 F. Supp. 3d 111, 124–25 
+(S.D.N.Y. 2021).  Melissanidis also served as President, CEO, director, Chairman of the Board, 
+and Head of Corporate Development at various times prior to his stock sale, and served as a 
+consultant to Aegean after the stock sale.  Id. 
+3 Id.  
+4 Aegean Marine Petroleum Network Inc., Registration Statement (Form F-1) 98–100 (Nov. 7, 
+2007), http://edgar.secdatabase.com/1622/104746907008527/filing-main.htm.  Prosecutions 
+included allegations of false certifications, forgery, trafficking in contraband, tax evasion, evasion 
+of customs duties, operating a warehouse in violation of governmental order, embezzlement, 
+complicity in bribery in the conduct of Melissanidis’s driving school business, and bribery of 
+amateur soccer players.  Id.  Melissanidis has also been accused of threatening a journalist who 
+wrote an article covering Melissanidis’s alleged tax evasion.  Elektra Kotsoni, A Greek Oil Baron 
+Wants 
+to 
+Blow 
+Me 
+Up 
+in 
+My 
+Sleep, 
+VICE 
+(Feb. 
+6, 
+2013), 
+https://www.vice.com/en/article/unfollow-magazine-oil-smuggling-aegean-oil.  
+5 Aegean Marine Petroleum Network Inc. Announces Results of Audit Committee Investigation and 
+Findings of Substantial Misappropriation of Company Assets, BUSINESSWIRE (Nov. 2, 2018, 9:18 
+AM), 
+https://www.businesswire.com/news/home/20181102005313/en/Aegean-Marine-
+Petroleum-Network-Inc.-Announces-Results-of-Audit-Committee-Investigation-and-Findings-
+of-Substantial-Misappropriation-of-Company-Assets. Aegean’s Audit Committee found that up to 
+$300 million in assets was misappropriated, and approximately $200 million in accounts 
+receivable arose from commercial transactions that “lacked economic substance.”  Id. Costas Paris 
+& David Benoit, Aegean Marine Files for Chapter 11, Targets Potential Sale, WALL ST. J. (Nov. 
+6, 2018), https://www.wsj.com/articles/aegean-marine-files-for-chapter-11-targets-potential-sale-
+1541501287. 
+6 Aegean Marine Petroleum Network Inc. to Repurchase 11,303,031 Shares Owned by Dimitris 
+Melissanidis, 
+PR 
+NEWSWIRE 
+(Aug. 
+17, 
+2016), 
+https://www.prnewswire.com/news-
+releases/aegean-marine-petroleum-network-inc-to-repurchase-11303031-shares-owned-by-
+dimitris-melissanidis-300314680.html.  E. Nikolas Tavlarios, then Aegean’s president, said, “We 
+ 
+
+--- PAGE 4 ---
+ 
+4 
+was in bankruptcy and legally obliged to recover as much money as possible to pay back its own 
+creditors, the buyer worked aggressively to secure a full indemnification for Melissanidis.7 
+There is a reason the buyer was so blasé about Melissanidis’ possible insider trading in Aegean 
+stock. It is because the buyer was Aegean itself.8 The company’s most important insider had foisted 
+his shares back onto the company shortly before its problems became public. A company is 
+controlled by its insiders, so of course the company was slow to avoid or complain about insider 
+trades.   
+Melissanidis’ August 2016 sale to Aegean was not unique. Other Aegean insiders sold smaller 
+sums.9 And insiders at other firms have done similar things. Indeed, more than $1 billion in insider 
+sales to Enron proved central to that scandal.10 As the Aegean Petroleum example demonstrates, 
+insiders have good reasons to trade against their corporation. Their influence over the company 
+may let insiders get away with more.  
+Conventional wisdom, however, regards insider-issuer trades as safer than open-market 
+sales.11 For one thing, companies usually pay stock to executives as part of their compensation,12 
+so it is suspicious if the insiders start selling it back. For another thing, unlike the public, the 
+corporation is led by directors who know the exact same secrets as the insider, and who could 
+therefore protect the company from a bad trade. Moreover, company executives are accountable 
+to the board (and the board to the shareholders).13 If insiders deal unfairly with the company, they 
+ 
+believe this sizeable repurchase of the Company's shares underscores the Board's confidence in 
+Aegean's prospects, and will provide meaningful and immediate earnings accretion for all Aegean 
+shareholders . . . .  We are fortunate to have a solid balance sheet and strong free cash flow, which 
+provide us the opportunity to repurchase shares while continuing to invest in our business to drive 
+continued growth and shareholder value.”  Id. 
+7  Joint Plan of Reorganization of Aegean Marine Petroleum Network Inc. and Its Debtor Affiliates 
+Pursuant to Chapter 11 of the Bankruptcy Code at ¶87, In re Aegean Marine Petroleum Network 
+Inc., 599 B.R. 717 (Bkrtcy. S.D.N.Y. 2019), 2019 WL 13398922 (defining “Litigation Claims” 
+for purposes of the reorganization).    
+8 Aegean Marine Petroleum Network Inc. to Repurchase 11,303,031 Shares Owned by Dimitris 
+Melissanidis, supra note 6. 
+9 In re Aegean Marine Petroleum Network, Inc. Sec. Litig., 529 F. Supp. 3d 111, 130 (S.D.N.Y. 
+2021). 
+10 Leslie Wayne, Before Debacle, Enron Insiders Cashed In $1.1 Billion in Shares, N.Y. TIMES 
+(Jan. 13, 2002), https://www.nytimes.com/2002/01/13/business/enron-s-collapse-before-debacle-
+enron-insiders-cashed-in-1.1-billion-in-shares.html. 
+11 Sureyya Burcu Avci et al., Insider Trading by Other Means, 15 HARV. BUS. L. REV. 217, 254 
+(2024) 
+12 See, e.g., Tornetta v. Musk, 310 A.3d 430 (Del. Ch. 2024) (recognizing “equity-based 
+compensation continues to be a powerful way to reduce agency costs and align the interests of 
+management with those of the stockholders”). 
+13 See, e.g., In re Caremark Int’l Inc. Derivative Litig., 698 A.2d 959, 971 (Del. Ch. 1996) 
+(shareholders can hold the board of directors accountable for violations of the duty of care); In re 
+McDonald’s Corp. S’holder Derivative Litig., 289 A.3d 343, 366–67 (Del. Ch. 2023) (by similar 
+reasoning to Caremark, the board can hold officers accountable for violations of their duty of care). 
+
+--- PAGE 5 ---
+ 
+5 
+risk their jobs and may be sued for breach of the fiduciary duty of loyalty.14 Federal insider trading 
+law therefore exempts these transactions from the most stringent insider trading restrictions. 
+Should we be worried that insiders often push their losses onto their corporations? Given the 
+competing considerations, the extent of this problem is an empirical question. It is this question 
+we take up in this Article. Specifically, we examine essentially every instance in which an officer 
+or director sold their shares to the company, pursuant to board approval, since 1996. We check 
+whether these insiders systematically avoided losses, shifting those losses to the company they 
+traded against. We find they do, avoiding 9-12% declines in the value of the stock. These losses 
+are much greater than the losses predicted when insiders merely sell their stock on the open market. 
+Insider trading against the corporation appear to be a preferred channel for opportunistic, informed 
+trading.  
+Several interrelated questions naturally arise. First, what should we do about the pervasiveness 
+of insider trading against the corporation? Obviously, the regulatory response should be to increase 
+the intensity of legal scrutiny of such trading. Curiously, this policy proposal cuts against the 
+longstanding regulatory response. The SEC has long declared that insider trades against the 
+corporation are not worrisome.15 It has accordingly been especially lenient in the regulation of 
+insider trading against the corporation.16 We urge a repeal and reversal of that course.  
+The SEC is not alone in thinking that very little insider trading is against the corporation. 
+Scholars and the public imagination do not focus on this issue either.17 Why? Part of our 
+contribution is to think about the folklore of legal offenses and how legal conceptualizations can 
+have a real impact on law and scholarship. Even though our Article is clearly part of an emerging 
+body of empirical Law & Finance projects, it also underscores the importance of traditional legal 
+scholarship. Careful conceptual framing helps to set the boundaries of investigation – for scholars 
+and prosecutors alike. 
+Our Article proceeds as follows. In Part I we familiarize readers with insider trading law and 
+policy. Securities experts can safely pass it over. Part II explains how those rules differ when 
+insiders sell to their own corporation. Part III describes our data and empirical strategy. Part IV 
+discusses the results. Part V then theorizes the implications of these findings for law reform and 
+future research. We then conclude. 
+ 
+14 ROBERT R. KEATINGE & ANN E. CONAWAY, CHOICE OF BUSINESS ENTITY § 9:10, Westlaw 
+(database updated Nov. 2024). 
+15 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 70 Fed. 
+Reg. 46080, 46083 (Aug. 9, 2005) (“As we explained in 1996, ‘[transactions between an issuer 
+and its officers and directors] do not appear to present the same opportunities for insider profit on 
+the basis of non-public information as do market transactions by officers and directors. Typically, 
+where the issuer, rather than the trading markets, is on the other side of an officer or director’s 
+transaction in the issuer’s equity securities, any profit obtained is not at the expense of uninformed 
+shareholders and other market participants of the type contemplated by the statute.’”). 
+16 HAROLD S. BLOOMENTHAL & SAMUEL WOLFF, SECURITIES & FEDERAL CORPORATE LAW § 
+21.66.71, Westlaw (database updated Dec. 2024). 
+17 See infra Part V.B.1. 
+
+--- PAGE 6 ---
+ 
+6 
+I. 
+Insider Trading Law 
+ 
+Numerous bodies of law intersect to govern insider trading, resulting in a complex web of 
+rules and loopholes.18 Nevertheless, it is possible to condense the law into three clusters of 
+functional regulation. First, various bodies of law prohibit some trades.19 Second, almost all trades 
+must nevertheless be disclosed.20 Third, for a subset of those disclosed trades, the law requires the 
+traders to surrender their trading profits.21 Those familiar with insider trading law may safely pass 
+over this Part, proceeding instead to some of the surprising exceptions of the law for issuer-insider 
+transactions in Part II or the empirical method in Part III.   
+A. Trading 
+Insider trading law seeks to vindicate several of policy goals. It seeks to cultivate loyal and 
+productive managers.22 It seeks to protect ordinary investors, from whom insiders’ profits are 
+ 
+18 Donald C. Langevoort, “Fine Distinctions” in the Contemporary Law of Insider Trading, 2013 
+COLUM. BUS. L. REV. 429, 435 (2013). 
+19 Id. at 429-30. (“[W]e now have a stable framework of three distinct legal theories--the classical 
+theory, the misappropriation theory, and Rule 14e-3--each of which is well understood as to its 
+basic elements.”). 
+20  Securities Exchange Act of 1934 § 16, 15 U.S.C. § 78p. 
+21 Id. [15 U.S.C. § 78p(b)] 
+22 If insiders can trade, they may be distracted from their duties as they focus their attention on 
+trading and acquiring information. James D. Cox, Insider Trading and Contracting: A Critical 
+Response to the “Chicago School,” 1986 DUKE L.J. 628, 659 (1986) (“The prohibition against 
+insider trading . . . stems from the shareholders’ expectation that a manager is paid to look after 
+the shareholders’ welfare, not his own.”). They may mismanage the firm in order to generate 
+trading opportunities. Insiders can sabotage the firm in order to profit from a short position. Saul 
+Levmore, Securities and Secrets: Insider Trading and the Law of Contracts, 68 VA. L. REV. 117, 
+149 (1982) (“[T]he temptation of profit might actually encourage an insider to act against the 
+corporation’s interest.”). But see Dennis W. Carlton & Daniel R. Fischel, The Regulation of Insider 
+Trading, 35 STAN. L REV. 857, 875 (1983) (“[I]t seems likely that the critics of insider trading have 
+exaggerated the magnitude of the perverse incentives associated with short selling.”). Even without 
+sabotage, insiders can increase risk taking, knowing that they will know before the public which 
+risks have paid off and which flopped. Frank H. Easterbrook, Insider Trading, Secret Agents, 
+Evidentiary Privileges, and the Production of Information, 1981 SUP. CT. REV. 309, 332 (1982) 
+(“[Insider traders] may select riskier projects than the shareholders would prefer, because if the 
+risk pays off they can capture a portion of the gains in insider trading and, if the project flops, the 
+shareholders bear the loss.”). They may sometimes delay public disclosure in order to preserve 
+their informational advantages. Victor Brudney, Insider, Outsiders, and Informational Advantages 
+Under the Federal Securities Laws, 93 HARV. L. REV. 322, 335 n.53 (1979) (“If the insider is 
+allowed to use such information for his personal gain, he will be tempted to . . . [decide] to delay 
+. . . the release of the information so as to serve his trading or borrowing needs . . . .”). Other times, 
+their trades may intentionally or unintentionally spill the beans on information that the corporation 
+had a legitimate need to keep secret. See James D. Cox, Seeking an Objective for Regulating 
+Insider Trading Through Texas Gulf Sulphur, 71 SMU L. REV. 697, 707 (2018). For example, 
+when mining executives buy their company’s shares en masse, it may hint to other prospectors 
+ 
+
+--- PAGE 7 ---
+ 
+7 
+unfairly23 derived.24 It seeks to protect the market as a whole from the exploitation and 
+demoralization, which insider trading might otherwise spread.25 However, trading by insiders has 
+some redeeming features. Harsh trading restrictions may discourage stock-based compensation.26 
+Insider trading can also improve stock price efficiency.27  
+Federal law seeks to vindicate these policy objectives. It does so by proscribing insider trading 
+that conforms to several theories of liability arising out of the Securities Exchange Act of 1934 
+and accompanying rules.28 Theories of liability are required because the relevant portions of the 
+ 
+where they should dig to find valuable minerals. Andrew Verstein, Insider Trading in 
+Commodities, 107 VA. L. REV. 447, 490–91 (2016). 
+23 See Alan Strudler & Eric W. Orts, Moral Principle in the Law of Insider Trading, 78 TEX. L. 
+REV. 375 (1999) (arguing that “insider trading is wrong because it is a kind of fraud”). Of course, 
+fairness is a deeply contested context.  
+24 Manne argued that no trader was victimized. HENRY G. MANNE, INSIDER TRADING AND THE 
+STOCK MARKET 93–104 (1966). Wang showed this not true. See William K. S. Wang, Trading on 
+Material Non-Public Information on Impersonal Stock Markets: Who is Harmed, and Who Can 
+Sure Whom Under SEC Rule 10b-5?, 54 S. CAL. L. REV. 1217, 1234–40 (1981); William K. S. 
+Wang, Stock Market Insider Trading: Victims, Violators and Remedies, Including an Analogy to 
+Fraud in the Sale of a Used Car with a Generic Defect, 45 VILL. L. REV. 27 (2000). A more 
+sophisticated account in Fox et al shows that non-insiders may not be harmed on an ex-ante basis, 
+since they can discount the price of stock by their expected future trading losses. Merritt B. Fox, 
+Lawrence R. Glosten & Gabriel V. Rauterberg, Informed Trading and Its Regulation, 43 J. CORP. 
+L. 817, 850–51 (2018). Accordingly, unsophisticated investors may pass their trading losses onto 
+initial issuers of stock and the entrepreneurs before them. 
+25 The conventional explanation is that capital formation requires retail investor confidence, and 
+that insider trading impedes this confidence. The empirical basis for this claim has been 
+questioned. But there is little question that insider trading decreases stock market liquidity, as 
+market makers seek to offset their trading costs. See Merritt B. Fox, Lawrence R. Glosten & 
+Gabriel V. Rauterberg, The New Stock Market: Sense and Nonsense, 65 DUKE L.J. 191, 218–19 
+(2015). Either way, a vibrant market requires some boundary to informed trading. 
+26 That is because stock-based compensation is only valuable insofar as insiders can practically 
+sell it. If insiders are in legal jeopardy whenever they sell, or if they can only safely sell on a few 
+designated days of the year, they will resist stock-based compensation. Yet stock-based 
+compensation can be otherwise efficient: it lets cash-strapped startups hire and it aligns the 
+incentives of managers with the shareholders they serve. 
+27 When insiders know that their company is concealing problems, they are tempted to sell the 
+stock short, in order to profit from the eventual revelation. If their sales can be observed (directly 
+or indirectly) other market participants will infer bad news about the stock – leading to a decline 
+in stock price and possible further investigations.   Here, we focus on trading by insiders such as 
+managers. The goal of improving price accuracy is also vindicated by substantially legalizing 
+trading for non-insiders. Outsiders, such as hedge funds, may improve price accuracy by 
+researching and combining information in service of their trading strategy. Zohar Goshen & 
+Gideon Parchomovsky, The Essential Role of Securities Regulation, 55 DUKE L.J. 711, 723 (2006).  
+28 Insider trading can also be pursued federal mail and wire fraud statutes. See William K.S. Wang, 
+Application of the Federal Mail and Wire Fraud Statutes to Criminal Liability for Stock Market 
+Insider Trading and Tipping, 70 U. MIAMI L. REV. 220 (2015).  
+
+--- PAGE 8 ---
+ 
+8 
+Act are broad anti-fraud rules,29 which do not directly mention insider trading.30 A “theory” is a 
+doctrinal account of why silent, anonymous trading can constitute fraud. 31 At common law, it is 
+no fraud to remain silent about one’s knowledge unless under a duty to speak.32 
+The Classical Theory  bars insider trading as an abuse of some special relationship that may exist 
+between two traders, which would entitle one to full disclosure by the other before consummating 
+a trade.33 Most crucially, the Supreme Court has held that “a relationship of trust and confidence 
+[exists] between the shareholders of a corporation and those insiders who have obtained 
+confidential information by reason of their position with that corporation.”34 Hence, certain 
+officers and directors commit fraud in insider trading because they remain silent while transacting 
+ 
+29 Rule 10b-5 provides: 
+It shall be unlawful . . . (a) To employ any device, scheme, or artifice to defraud, 
+(b) To make any untrue statement of a material fact or to omit to state a material 
+fact necessary in order to make the statements made, in the light of the 
+circumstances under which they were made, not misleading, or (c) To engage in 
+any act, practice, or course of business which operates or would operate as a fraud 
+or deceit upon any person, in connection with the purchase or sale of any security. 
+17 C.F.R. § 240.10b-5 (2025). 
+30 The Insider Trading Act of 1988 mentions but does not define insider trading. See Insider Trading 
+and Securities Fraud Enforcement Act of 1988, Pub. L. No. 100-704, 102 Stat. 4677 (codified in 
+scattered sections of 15 U.S.C. § 78). Rule 14e-3 prohibits trading on tender offer information 
+simply by stipulating that such trading is fraudulent.17 C.F.R. § 240.14e-3. 
+31 Chiarella v. United States, 445 U.S. 222, 234–-35 (1980) (“Section 10(b) is aptly described as a 
+catchall provision, but what it catches must be fraud. When an allegation of fraud is based upon 
+nondisclosure, there can be no fraud absent a duty to speak.”). At common law, it is no fraud to 
+remain silent about one’s knowledge unless under a duty to speak. Id. at 227–28. 
+32 Id. at 227-28. 
+33 See id. at 230. The status of such a duty prior to Chiarella is contested. Some state courts had 
+found such a duty as a matter of corporate law. See, e.g., Strong v. Repide, 213 U.S. 419, 431 
+(1909) (referencing Steward v. Garris, 77 P. 277, 279–80 (Kan. 1904)). And some federal courts 
+had found such a duty as a matter of the law of fraud. See, e.g., Kardon v. Nat’l Gypsum Co., 73 
+F. Supp. 798 (E.D. Pa. 1947); Speed v. Transamerica Corp., 99 F. Supp. 808, 812, 848 (D. Del. 
+1951); Royal Air Properties, Inc. v. Smith, 312 F.2d 210, 212 (9th Cir. 1962); Myzel v. Fields, 
+386 F.2d 718, 742 (8th Cir. 1967); Corder v. Laws, 148 Colo. 310, 366 P.2d 369 (1961). However, 
+such outcomes were not universal, and generally operated only when the transaction was face-to-
+face or otherwise personal.  Stephen M. Bainbridge, Incorporating State Law Fiduciary Duties 
+Into the Federal Insider Trading Prohibition, 52 WASH. & LEE L. REV. 1189, 1220 (1995). Courts 
+have sometimes accepted that impersonal insider trading is a breach of the duty of loyalty for the 
+purposes of state corporate law. See, e.g., Brophy v. Cities Serv. Co., 70 A.2d 5 (Del. Ch. 1949). 
+Accord Kahn v. Kolberg Kravis Roberts & Co., L.P., 23 A.3d 831 (Del. 2011); In re Primedia, Inc. 
+Shareholders Litig., 67 A.3d 455 (Del. Ch. 2013). 
+34 Chiarella, 445 U.S. at 228. For discussion of the classical theory, see WILLIAM K.S. WANG & 
+MARC I. STEINBERG, INSIDER TRADING §§ 5.2, 5.3 (3d ed. 2010). 
+
+--- PAGE 9 ---
+ 
+9 
+with individuals (existing and would-be shareholders), to whom they owe candor as a result of 
+their principal-agent relationship that gave rise to the information in the first.35  
+The Misappropriation Theory “holds that a person commits fraud ‘in connection with’ a 
+securities transaction, and thereby violates § 10(b) and Rule 10b-5, when he misappropriates 
+confidential information for securities trading purposes in breach of a duty owed to the source of 
+the information.”36 The Supreme Court recognized the misappropriation theory in O’Hagan, in 
+which a lawyer bought shares in a company because he knew that the company would soon be 
+acquired (by one of the law firm’s clients).37 O’Hagan would not have been barred on the classical 
+theory from trading; he was no fiduciary of the shareholders of the target company. However, he 
+must have misrepresented his intentions, feigning loyalty, in order to gain his firm’s trust in order 
+to get this information. In Justice O’Connor words, “a fiduciary’s undisclosed, self-serving use of a 
+principal’s information to purchase and sell securities, in breach of a duty of loyalty and 
+confidentiality, defrauds the principal of the exclusive use of that information.”38  
+Those who reward an insider for smuggling them corporate information are liable as “tippees,” 
+since they have become part of a scheme to defraud the investors.39 As are those who trade based 
+on information about a tender offer, acquired from someone they know really ought to keep the 
+sensitive information secret.40 All of these federal theories can be prosecuted civilly or 
+criminally.41 
+ 
+35 Another status giving rise to duties is certain categories of government official. It appears that 
+members of congress and their staff have done extremely well in the stock market. news]. But see 
+Dona Nagy, Insider Trading, Congressional Officials, and Duties of Entrustment, 91 B.U. L. REV. 
+1105, 1111 (2011) (arguing that governmental insider trading was always illegal, at least to 
+whatever degree non-governmental insider trading is illegal.). An outcry followed news reports 
+that their trading was not barred by insider trading laws. The result was the 2012 STOCK Act, 
+which prohibited many kinds of insider trading by Congressmen and their staffs. Other 
+governmental (and pseudo-governmental) actors have been subject to explicit restrictions for a 
+longer time. See, e.g., 7 U.S.C. § 13(c) (2012) (barring insider trading by members of the CFTC 
+and their staff). 
+36 United States v. O’Hagan, 521 U.S. 642, 652 (1997). For discussion of the misappropriation 
+theory, see WANG & STEINBERG,  supra note 34, § 5.4. 
+37 O’Hagan, 521 U.S. at 650. 
+38 Id. at 652. The SEC has further promulgated a list of relationships that can establish a duty of 
+trust and confidence. 17 C.F.R. § 240.10b5-2 (2025). Importantly, a duty is present if “the person 
+communicating the material nonpublic information and the person to whom it is communicated 
+have a history, pattern, or practice of sharing confidences.” Id. § 240.10b5-2(b)(1)–(2). For 
+example, a disclosure one trader was sanctioned for trading on a secret he learned at an Alcoholics 
+Anonymous meeting. SEC v. McGee, 895 F. Supp. 2d 669, 682 (E.D. Pa. 2012), aff’d United 
+States v. McGee, 763 F.3d 304, 314 (3d Cir. 2014). 
+39 O’Hagan, 521 U.S. at 675. 
+40 17 C.F.R. § 240.14e-3 (2025). 
+41 Criminal violation is possible for willful violation of the Securities Exchange Act of 1934 and 
+also for the related offense of wire fraud. See Wang, supra note 28, at XX. [Application of the 
+Federal Mail] 
+
+--- PAGE 10 ---
+ 
+10 
+State corporate law restricts trading, without the need to posit fraud, when the trading 
+constitutes a breach of an insider’s duty of loyalty.42 Loyalty-based suits are known as “Brophy” 
+actions in reference to Delaware’s leading case.43 The core of such claims is that “it is inequitable 
+to permit the fiduciary to profit from using confidential corporate information.”44 
+B. Disclosure 
+Section 16(a) of the Securities Exchange Act of 1934 (the “Exchange Act”)45 contains 
+reporting requirements for persons considered “insiders” of public companies.46 Such insiders 
+include the individuals and entities which are the issuer’s directors, officers, or beneficial owners 
+of more than ten percent of the shares (each, a “reporting person”).47 If these individuals acquire 
+or dispose of the company’s securities, they are required to provide timely public notice of that 
+transaction.48 Those reports are generally submitted on SEC Forms 3, 4 and 5. An example 
+submission of Form 4 follows this paragraph.49  
+ 
+42 Kahn v. Kolberg Kravis Roberts & Co., 23 A.3d 831, 838 (Del. 2011). In common law insider 
+trading claims, stockholders are likely to be treated as constructive insiders. See, e.g., J. Travis 
+Laster & John Mark Zeberkiewicz, The Rights and Duties of Blockholder Directors, 70 BUS. LAW. 
+33, 56 (2014) (“Given the affiliation between the blockholder director and the stockholder and the 
+understanding that information will flow from the blockholder director to the stockholder, the 
+stockholder will be treated as a constructive insider for the purpose of the common law limitations 
+on insider trading.”); Kahn, 23 A.3d at 837–38 (“[A]ctual harm to the corporation is not required 
+for a plaintiff to state a claim under Brophy. . . . As the court recognized in Brophy, it is inequitable 
+to permit the fiduciary to profit from using confidential corporate information. Even if the 
+corporation did not suffer actual harm, equity requires disgorgement of that profit.”). 
+43Brophy v. Cities Serv. Co., 70 A.2d 5, 7–8 (Del. Ch. 1949). Other states embraced similar 
+precedents. See, e.g., Diamond v. Oreamuno, 248 N.E.2d 910, 913 (N.Y. 1969). 
+44 Brophy, 70 A.2d at 8; Kahn, 23 A.3d at 838. 
+45 Securities Exchange Act of 1934 § 16, 15 U.S.C. § 78p. 
+46 17 C.F.R. § 240.16a-2 (2025) (requiring such disclosures for companies that have registered a 
+class of equity securities under Section 12 of the Exchange Act). 
+47 Id. Officers include the executive officers identified pursuant to Item 401(b) of Regulation S-K 
+and any other officer or person who performs a policy-making function for the issuer. Id. § 
+240.16a-1(f). A person is a beneficial owner subject to Section 16 reporting requirements if that 
+person has or shares, directly or indirectly, voting power or investment power of greater than ten 
+percent of all classes of shares of the issuer. Id. § 240.16a-1(a)(1). Beneficial ownership means 
+having a pecuniary interest, whether direct or indirect, to profit or share in the profits from a 
+transaction in the securities. Id. § 240.16a-1(a)(2). Control over the security also amounts to 
+beneficial ownership. Id. § 240.13d-3(b). Passive investors owning more than 5% of a class of 
+shares must file Form 13G with the SEC.  
+48 See SEC, STATEMENT OF CHANGES OF BENEFICIAL OWNERSHIP OF SECURITIES (FORM 4) 
+GENERAL INSTRUCTIONS (n.d.), https://www.sec.gov/about/forms/form4data.pdf. 
+49 
+https://www.sec.gov/Archives/edgar/data/1915451/000095017024061146/xslF345X05/ownershi
+p.xml 
+
+--- PAGE 11 ---
+ 
+11 
+ 
+As this figure indicates, Form 4 has separate tables for disclosing transactions in non-
+derivative securities (such as ordinary common stock) and derivative securities (such as call 
+options).50 Insiders must disclose their name and address, the name and ticker or trading symbol 
+of the issuing company, the date of the earliest transaction, the relationship of the reporting person 
+to the issuer, and an indicator of whether the form is being filed individually or jointly.51 For each 
+transaction, the reporting person must provide information about the number and price of the 
+shares. The reporting person must mark column 4 in Table 1 “A” if the transaction was an 
+acquisition (increasing the investor’s ownership) or “D” for a disposition (reducing ownership).52  
+Most central to our purposes, the reporting person must also mark an identifying code for 
+each transaction, from the options below.53 
+ 
+ 
+50 SEC, STATEMENT OF CHANGES OF BENEFICIAL OWNERSHIP OF SECURITIES (FORM 4) (n.d.), 
+https://www.sec.gov/files/form4.pdf. 
+51 Id. 
+52 Id at 2. This is in section 4, the central column for table I. 
+53 SEC, supra note 48. This table below includes verbatim quotations of the transaction codes, but 
+headings have been omitted and codes reordered. [General Instructions] 
+
+--- PAGE 12 ---
+ 
+12 
+General Transaction Codes 
+P 
+Open market or private purchase of non-derivative or derivative security 
+S 
+Open market or private sale of non-derivative or derivative security 
+V 
+Transaction voluntarily reported earlier than required 
+Rule 16b-3 Transaction Codes 
+A 
+Grant, award or other acquisition pursuant to Rule 16b-3(d) 
+D 
+Disposition to the issuer of issuer equity securities pursuant to Rule 16b-3(e) 
+F 
+Payment of exercise price or tax liability by delivering or withholding securities incident 
+to the receipt, exercise or vesting of a security issued in accordance with Rule 16b-3 
+I 
+Discretionary transaction in accordance with Rule 16b-3(f) resulting in acquisition or 
+disposition of issuer securities 
+M 
+Exercise or conversion of derivative security exempted pursuant to Rule 16b-3 
+Derivative Securities Codes (Except for transactions exempted pursuant to Rule 16b3) 
+C 
+Conversion of derivative security 
+E 
+Expiration of short derivative position 
+H 
+Expiration (or cancellation) of long derivative position with value received 
+O 
+Exercise of out-of-the-money derivative security 
+X 
+Exercise of in-the-money or at-the-money derivative security 
+Other Section 16(b) Exempt Transaction and Small Acquisition Codes (except for Rule 16b-
+3 codes above) 
+G 
+Bona fide gift 
+L 
+Small acquisition under Rule 16a-6 
+W 
+Acquisition or disposition by will or the laws of descent and distribution 
+Z 
+Deposit into or withdrawal from voting trust 
+Other Transaction Codes 
+J 
+Other acquisition or disposition (describe transaction) 
+K 
+Transaction in equity swap or instrument with similar characteristics 
+U 
+Disposition pursuant to a tender of shares in a change of control transaction 
+ 
+The most familiar transaction codes are “P,” indicating a open market stock purchase, and “S,” 
+an open market stock sale. But other codes are widely used. Code D will warrant attention for its 
+role in our empirical investigation. Code-D is appropriate when an insider sells stock to the 
+corporation, pursuant to board or shareholder approval.  
+Reporting law contains several anti-evasion principles, intended to close “unforeseen 
+‘loopholes’ that seek to use form to evade substance or to comply with technicalities while 
+violating the ‘spirit’ or intent of regulatory provisions.” 54 
+Trade reporting law serves a number of important policies. First, it discourages insiders from 
+trading on the basis of inside information.55 Some insiders may be embarrassed to have their well-
+ 
+54 CSX Corp. v. Children’s Inv. Fund Mgmt. (UK) LLP, 654 F.3d 276, 302–03 (2d Cir. 2011) 
+(Winter, J., concurring). 
+55 Steve Thel, The Genius of Section 16: Regulating the Management of Publicly Held Companies, 
+42 HASTINGS L.J. 391, 419-420, 419 n.77 (1991). 
+
+--- PAGE 13 ---
+ 
+13 
+timed trades publicized.56 More importantly, reporting increases the riskiness of illegal trades. 
+Investigators can use reports to spot suspicious trades, in order to sue or prosecute the traders.57  
+Shareholders who observe insider trading patterns may take account of these trades as they 
+evaluate the merits of the company and its executives. Executives who trade a great deal may 
+appear disloyal, distracted, opportunistic, or just overpaid.58 Shareholders who observe insider 
+trades can opt to sell their shares or vote for new management.59 
+ 
+Second, and relatedly, reporting may discourage other misbehavior apart from insider 
+trading, such as market manipulation.60  
+ 
+Third, reporting may encourage officers and directors to hold large amounts of their 
+company’s stock.61 It will do this by alerting shareholders to officers and directors who sell their 
+stock, and rendering credible any managerial assertion of continuous ownership. Shareholders tend 
+to benefit from manager ownership, since it aligns their interests and leads to more efficient pursuit 
+of corporate objectives.62  
+Fourth, disclosure sends signals about company quality.63 When insiders sell their shares 
+– even if legally – it may hint at pessimism among those with the most knowledge. Stock prices 
+are more efficient if the public can observe these informative trades.64  
+ 
+C. Proﬁts 
+Statutory insiders (officers, directors, and owners of greater than 10% of shares) are subject to 
+the “short-swing profits” rule.65  Under this rule any profits insiders make from trading their 
+company’s stock in any given six-month window are redeemable back to the corporation. Thus, a 
+trader who sells her company’s stock on April 1 and buys it back on May 1 for a profit must 
+ 
+56 Id. at 419–20. 
+57 See Wang v. Cloopen Grp. Holding Ltd., 661 F. Supp. 3d 208, 223 (S.D.N.Y. 2023) (“When 
+presented with a motion to dismiss a complaint, . . . [t]he Court can take judicial notice of public 
+disclosures that must be filed with the SEC . . . .”); Fresno Cnty. Emps’ Ret. Ass’n v. comScore, 
+Inc., 268 F. Supp. 3d 526 (S.D.N.Y. 2017). 
+58 Carlton & Fischel, supra note 22, at 891 (determining compensation).  
+59 But see Thel, supra note 55, at 420–21 nn.81–82 and accompanying text (arguing that 
+shareholders will tend not to act against insider trading).  
+60 See Andrew Verstein, Benchmark Manipulation, 56 B.C. L. REV. 215, 256 (2015) (describing 
+how selective disclosure of trades can enable an actor to manipulate price benchmarks and, thereby, 
+the market). 
+61 Thel, supra note 55, at 422–24. 
+62 Nitzan Shilon, Replacing Executive Equity Compensation: The Case for Long-Term 
+Performance, 43 DEL. J. CORP. L. 1, 10 (2018) (“[B]y tying pay directly to the change in a firm’s 
+stock price, it is expected to align the interests of managers with those of shareholders . . . .”). 
+63 Carlton & Fischel, supra note 22, at 892. 
+64 Stephen Bainbridge,  The Insider Trading Prohibition: A Legal and Economic Enigma, 38 U. 
+FLA. L. REV. 35, 42 (1986). 
+ 
+65 15 U.S.C. § 78p(b). 
+
+--- PAGE 14 ---
+ 
+14 
+disgorge the profit back to the corporation. This is true even if the insider traded “innocently,” 
+without any special information at all.66  
+Section 16(b) “operates mechanically, and makes no moral distinctions, penalizing technical 
+violators of pure heart, and bypassing corrupt insiders who skirt the letter of the prohibition.”67 
+This disgorgement rule exists in part as a rough proxy, intended to discourage opportunistic or 
+fraudulent trading based on corporate information. It also operates to reduce the risk of market 
+manipulation. 68 
+II. 
+Insider Trading Against the Corporation Law 
+ 
+Insider trade, disclosure, and profit regulations are subject to numerous exceptions.69 This 
+Part discusses an important category of exception: transactions between an insider and the 
+corporation. When an insider acquires securities from (or disposes them to) the corporate issuer, 
+they may do so at comparatively greater liberty, given that they are exempt from some 
+regulations.70 The requirements explained in Part I apply differently – or not at all.   
+ 
+While the exemptions differ in their operation and justification, all three are motivated by 
+the sense that. insider trading law is not as necessary for insider-issuer transactions. The SEC put 
+this sentiment plainly: “transactions between an issuer and its officers and directors . . . . do not 
+appear to present the same opportunities for insider profit on the basis of non-public information 
+as do market transactions by officers and directors.”71  
+Some of these transactions are thought to be inherently resistant to abuse. For example, 
+transactions triggered by the insider’s death are unlikely to tempt opportunistic behavior.72 Other 
+transactions are exempt, despite recognition of substantial risk of abuse, because some other bodies 
+of law or institutions are thought to suffice. For example, some transactions are structured to 
+comply with complex Internal Revenue Code (IRC) rules.73 It may be that these tax rules mitigate 
+the risk of opportunistic behavior, such that insider trading regulation would be superfluous or 
+excessive.  
+ 
+66 Id. (“irrespective of any intention on the part of such beneficial owner, director, or officer in 
+entering into such transaction”). 
+67 Magma Power Co. v. Dow Chem. Co., 136 F.3d 316 (2d Cir. 1998). 
+68 See generally Thel, supra note 55.  
+69 Securities Exchange Act of 1934 § 16(d)-(e), 15 U.S.C. § 78p. 
+70 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 70 Fed. 
+Reg. 46080-84 (Aug. 9, 2005). 
+71 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 61 Fed. 
+Reg. 30,376, 30,377 (June 14, 1996). 
+72 A case in counterpoint is that Kenneth Lay’s death in 2006 eviscerated the government’s attempt 
+to reclaim Lay’s ‘ill-gotten gains,” thereby enabling his heirs to claim his entire estate. Simon 
+Romero, Lay's Death Complicates Efforts to Seize Assets, N.Y. TIMES (July 5, 2006) 
+https://www.nytimes.com/2006/07/06/business/06legal.html?smid=url-share. 
+ 
+73 Extent of recognition of gain or loss on distribution, 26 U.S.C.A. § 731(c) (1997). 
+
+--- PAGE 15 ---
+ 
+15 
+Most important for our purposes, the SEC presumes that transactions should be assumed 
+to be innocuous when they are directly approved by the board of directors of the corporation. 74 
+The board has a fiduciary duty to protect the corporation from extractive transactions.75 If state 
+corporate law motivates boards to protect the corporation, perhaps federal law can rest easy.  
+The presumption that a transaction is benign, whether by its nature or due to some 
+compensating regulatory mechanism, is ultimately empirical. These exemptions rest on regulators’ 
+sense that extensive regulation is not necessary. That sense of safety can be accurate or inaccurate. 
+In Part III, we test the assumption of safety and find it unjustified: insider-trades-against-the-issuer 
+pose great risk of abuse.   
+For now, this Part merely describes the various exemptions and – where feasible – the 
+rationale underlying them, without any judgment about their appropriateness or plausibility.  
+A. Trading 
+When insiders sell shares to their own corporation, they may face a lower risk of legal 
+sanction. This is for reasons of presumed information symmetry and standing.76 
+ The most important bases for insider trading liability arise under theories of fraud.77 
+Quintessential fraud requires the fraudster to know more than their victim about the facts of the 
+fraudulent transaction. Fraud is essentially about taking advantage of information asymmetry. 
+Such asymmetry exists in open market insider trading cases – the insider knows material, non-
+public information that the rest of the market (and their counterparty doesn’t know).  
+Such asymmetry may be absent when an insider trades against the corporation. After all, 
+the corporation is the source of most information about itself, and the source from which the insider 
+likely learned the corporate information. If a Microsoft executive obtained Microsoft earnings 
+information in her executive capacity and then trades against Microsoft, how can Microsoft argue 
+that it was defrauded? Microsoft surely knew precisely what the insider knew, and much more at 
+that.78 Microsoft also likely knew that the executive knew. Microsoft’s knowledge is imputed to it 
+based on the knowledge of its officers and directors.79 Those individuals will often personally 
+know the sensitive information (so it is imputed to the corporation) and that the executive knows 
+key information (if only because one of them is the executive in question), so the buyer knows 
+both the underlying facts and facts about the transactional context. So where’s the fraud?  
+ 
+74 On abuses of this safe harbor, see David Leonhardt, Executives Beyond Enron Took Months to 
+Report 
+Sales, 
+N.Y. 
+TIMES 
+(Feb. 
+11, 
+2002),  
+https://www.nytimes.com/2002/02/11/business/executives-beyond-enron-took-months-to-report-
+sales.html 
+75 ROGER J. MAGNUSON ET AL., SHAREHOLDER LITIGATION § 10:6, Westlaw (database updated Oct. 
+2024). 
+76 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 70 Fed. 
+Reg. 46080, 46083 (Aug. 9, 2005) (Typically, where the issuer, rather than the trading markets, is 
+on the other side of an officer or director’s transaction in the issuer’s equity securities, any profit 
+obtained is not at the expense of uninformed shareholders and other market participants of the type 
+contemplated by the statute). 
+77 Chiarella v. United States, 445 U.S. 222, 234–35 (1980) (“Section 10(b) is . . . a catchall 
+provision, but what it catches must be fraud.”). 
+78 Apart from the awkwardness of anthropomorphizing knowledge to an entity. 
+79 In re Am. Int’l Gp., Inc. Consol. Deriv. Litig., 976 A.2d 872, 883 n.25 (Del. Ch. 2009) (“Under 
+basic agency principles, [a corporation] is charged with the knowledge of its agents.”).  
+
+--- PAGE 16 ---
+ 
+16 
+To be sure, fiduciary law has long denied unfaithful fiduciaries the defense that their 
+knowledge constitutes the principal’s knowledge (and, thus, defeats any claim requiring the 
+principal to be ignorant).80 Where the only insiders with access to corporate information are the 
+ones trading, or where the majority of the board does not know the information traded upon, courts 
+will likely still allow that the victim lacked the relevant information.81   
+Moreover, there are other arguable frauds here. Pursuant to the misappropriation theory, 
+the insider may be fraudulently feigning loyalty in order to gain access to the information.82 But 
+reliance on the misappropriation theory lowers the risk for insiders, who may be able to establish 
+permission or brazenness.83 There is a reason the classical theory is favored when prosecuting core 
+insiders such as directors and executives – the pliability of the misappropriation theory makes it a 
+weaker tool within the corporate family. 84 
+So there is solid basis for imposing liability on insiders who trade against their corporation. 
+Still, as a doctrinal matter, insiders face somewhat lower risk when trading with the corporation, 
+because the corporation has not been fooled in quite the same way as would a member of the 
+public.85 At a minimum, the plaintiff or prosecutor must do more to thread the needle on these 
+doctrinal puzzles. 
+ 
+A related issue concerns standing to sue. Insiders face reduced risk of liability if those most 
+likely to sue or prosecute them lack standing. That is true when insiders trade with the corporation. 
+In most insider trading contexts, the buyer of an insider’s stock is in some sense the victim of the 
+insider trading, with a strong incentive to notice and prosecute a claim against the insider. Where 
+the corporation is the victim, the corporation will only notice and prosecute a claim the corporate 
+leadership deems this a valuable use of corporate resources. Even though the shareholders are the 
+ultimate victims of any harm to the corporation, they generally do not have standing to sue on their 
+own or the corporation’s behalf.86 The management of a corporation decides whether to sue. 
+The management may sympathize with the opportunistic insider who is, after all, one of them. 
+Perhaps the governing leadership is implicit in the wrongdoing, or hopes for reciprocal protections 
+should they ever engage in their own schemes. Or more benignly, the management may think that 
+ 
+80 Deborah A. DeMott, When Is a Principal Charged with an Agent’s Knowledge?, 13 DUKE J. 
+COMPAR. & INT’L L. 291, 308–15 (2003) (describing the “adverse interest” exemption to 
+imputation of an agent’s knowledge to a principal); but see SEC v. Ballesteros Franco, 253 F. Supp. 
+2d 720, 728–29 (S.D.N.Y. 2003) (noting that an individual’s knowledge may be imputed to a 
+corporation which that individual controls).  
+81 DeMott, supra note 80, at 318. 
+82 See U.S. v. O’Hagan, 521 U.S. 642, 652–53 (1997). 
+83 A.C. Pritchard, United States v. O’Hagan: Agency Law and Justice Powell’s Legacy for the Law 
+of Insider Trading, 78 B.U. L. REV. 13, 17 n.19 (1998) (“[T]he misappropriation theory is subject 
+to contractual waiver by the owner of the information, while the classical theory is not.”). 
+84 Thomas Hare, Misappropriation Theory: How the World's Two Largest Economies Regulate 
+Insider Trading, 18 DARTMOUTH L.J. 6, 22-24 (2020). 
+85 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 70 Fed. 
+Reg. 46080, 83 (Aug. 9, 2005). 
+86 Shareholders have standing to sue derivatively only when they overcome difficult procedural 
+burdens and show that the board cannot fairly consider the decision to sue. United Food and 
+Commercial Workers Union and Participating Food Industry Employers Tri-State Pension Fund v. 
+Zuckerberg, 262 A.3d 1034 (Del. 2021).  
+
+--- PAGE 17 ---
+ 
+17 
+the corporation’s reputation will be harmed by a public allegation that the insider behaved badly. 
+The insider has some chance to relationally manage their liability when the victim is the 
+corporation, in a way that public victims will not allow.  
+Admittedly, the Insider Trading Sanctions Act of 1984 permits members of the public to sue 
+an insider even when they cannot show that they were the direct counterparty.87 Likewise, the SEC 
+and Department of Justice can bring suit without having traded themselves.88 That means the 
+insider may expect a suit even when the corporate counterparty is content to forget about the 
+matter. However, the possibility of non-counterparty suits only does so much to deter insider 
+trading against the corporation. For one thing, the corporation may be held liable for the trading 
+of its executives.89 Accordingly, while ITSA and government enforcement are channels around 
+corporate complicity, they also encourage it. The corporate victim and the insider gain a common 
+reason to conceal wrongdoing and undermine outsider suits. 
+Interestingly, courts have also addressed a second limitation on ITSA liability. Where most of 
+the day’s trading was between the insider and its corporation, it may be hard for contemporaneous 
+traders to show a large volume of transactions in which they were victimized. Melissanidis made 
+such an argument with respect to his sale to Aegean. Shareholders of Aegean brought suit on the 
+basis of having bought 3,717 shares on the day that Melissanidis sold more than 11 million shares 
+to Aegean.90 He argued that none of the shareholders could possibly have been harmed by his 
+trade, given that all of his shares were accounted for.91 The court rejected this tracing argument, 
+but the subtext remains that the plaintiffs would be bringing suit for themselves and the shares they 
+traded, not the shares of the corporation.92 This may be why Melissanidis received $200 million 
+for stock that would soon prove worthless – but his settlement was only $10 million. The plaintiffs 
+with standing only had limited standing. If Melissanidis had traded against the public, rather than 
+his corporation, he’d have faced much greater liability – perhaps as much as $600 million.93 
+Plainly, he enjoyed better doctrinal protection because of the choice to sell to the corporation. 
+B. Disclosure 
+ 
+Section 16(a) requires timely disclosure of transactions by statutory insiders.94 However, 
+different rules apply when the insider transacts with the corporate issuer. In some cases, these 
+transactions require no disclosure at all. In other cases, the transaction must be disclosed, but 
+substantial delay is permitted.  
+1. Initial remarks 
+ 
+87 Insider Trading and Securities Fraud Enforcement Act of 1988 §20(A), 15 U.S.C. §78t-1. 
+88 Exchange Act § 21(A), 15 U.S.C § 78U-1. 
+89 A “control person” may be liable for the wrongdoing of the person they control. See Brian A. 
+Melhus, Control Person Liability: A Repudiation of Culpable Participation, 37 J. CORP. L. 929, 
+932–33 (2012). Also, principals may be vicariously liable for the securities wrongdoing of their 
+employees. Jennifer Arlen & William J. Carney, Vicarious Liability for Fraud on 
+Securities Markets: Theory and Evidence, 1992 U. ILL. L.REV. 691 (1992).  
+90 In re Aegean Marine Petroleum Network, Inc. Securities Litigation, 529 F. Supp. 3d 111, 177 
+(S.D.N.Y. 2021).   
+91 Id.    
+92 Id. 
+93 Treble damages of the full $200 million loss. 
+94 Supra Part II.B.  
+
+--- PAGE 18 ---
+ 
+18 
+ 
+Two caveats are warranted here. First, the exemptions have changed frequently over the 
+last 90 years. Some changes have increased the stringency of disclosure. For example, the 
+Sarbanes-Oxley Act of 2002 obliged insiders to timely disclose each transactions with the issuer, 
+tightening up the previous rule that permitted insiders to delay for months.95 
+Other changes have gone the other way, giving insiders greater capacity to obscure their 
+transactions. For example, a major 1996 change widened a narrow compensation-related 
+exemption to cover all insider-issuer transactions.96 Because of this bidirectional variation, it is 
+challenging to compare periods overall or even clearly state the law. In this Part, we focus only on 
+the legal regime as of summer 2024. In the next Part, our empirical investigation takes a wider 
+window, extending back to 1996. But the law in this period is mostly stable in the important 
+respects – and where important changes occur (such as in 2002), we center them as the objects of 
+study. 
+ 
+Second, although the focus of this Section is on the disclosure exemptions available to 
+insiders who trade with the issuer, there is one respect in which insider-issuer transactions are 
+subject to additional disclosure: the issuer itself must disclose its own transactions.97 Therefore, 
+insider-issuer transactions are subject to disclosure twice – by the insider and the issuer. By 
+contrast, many transactions on the open market will generate only an insider filing.98 Their trading 
+partner need not file unless they are themselves an insider.  
+ 
+In practice, however, issuer trade filing does not meaningfully increase disclosure of 
+insider-issuer trades. Issuer disclosure comes months after the trade, and it is aggregated to net 
+changes in position. A corporation that buys 100 shares from an insider and sells 100 to the open 
+market a few days later would report no net transactions. The uselessness of these filings has led 
+to scholarly criticism99 and reform efforts,100 but it remains the law.101 
+2. No Obligation to Report 
+Some insider-issuer transactions are exempt from any form of public filing. The vesting of 
+shares and stock options, which is a kind of precondition to a sale, does not require separate 
+disclosures. 102 Nor do insiders need to report shares acquired or disposed of from the issuer 
+ 
+95 Sarbanes-Oxley Act of 2002, 15 U.S.C. § 7201.  
+96 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 61 Fed. 
+Reg. 30,376, 30,377-78 (June 14, 1996). 
+97 Securities Exchange Act of 1934 § 16(a)(4)(c), 15 U.S.C. § 78p. 
+98 Id. § 16(a), 15 U.S.C. § 78p. 
+99 E.g., Jesse M. Fried, Insider Trading via the Corporation, 162 U. PENN. L. REV. 801 (2014).  
+100 Share Repurchase Disclosure Modernization, 88 Fed. Reg. 36,002, 2023 WL 3737651 (June 1, 
+2023) (to be codified at 17 C.F.R. pts. 229, 232, 240, 249, 274).  
+101 Chamber of Com, of U.S. v. SEC, 85 F.4th 760, 781 (5th Cir. 2023) (ruling that the SEC’s Share 
+Repurchase Disclosure Modernization Rule, as drafted, was arbitrary and capricious).  
+102  Both vesting schedule and vesting conditions are disclosed at the time of grant.  Hence, 
+shareholders can determine on their own if and when vesting takes place.   
+ 17 C.F.R. § 240.16b-3(c) (2025) (listing Qualified Plans, Excess Benefit Plans, and Stock 
+Purchase Plan transactions); id. § 240.16a-3(f)(1)(i)(B) (exempting 240.16b-3(c) transactions from 
+disclosure filing). Id. § 240.16b-3(b)(4) (Defining a qualified plan as one satisfying Section 410 
+and 401(a)(26) of the IRS).  
+
+--- PAGE 19 ---
+ 
+19 
+through a stock dividend, stock split, or reverse stock split.103 The reasoning here is that such 
+transactions are non-discretionary and thus unlikely to facilitate abuse,104 and also that data 
+concerning these transactions are available through other channels.105 Insiders who acquire stock 
+as part of a dividend reinvestment plan need never report the transactions.106 This exemption 
+recognizes that insiders who regularly reinvestment their dividends would otherwise be subject to 
+constant short-swing profits liability.107 Withdrawals of securities from an issuer-controlled 
+retirement account (without subsequent sale of the underlying securities) need not be reported,108 
+as this is essentially a mere change in form of ownership.109  
+3. Modiﬁed Obligation to Report 
+Most trade disclosure has a potentially powerful verification mechanism: the disclosures of 
+one’s counterparty. If an executive sells their shares to a large investor, both the executive and the 
+investor must file a Form 4.110 That reduces the ability of one party to obscure, delay, or 
+mischaracterize the transaction. However, when the counterparty is the corporation, the 
+verification mechanism breaks down. Corporations need not file timely Form 4s to disclose their 
+trades. Instead, they must only file monthly aggregated trade reports, summarizing the average 
+ 
+103 17 C.F.R § 240. 16a-10 (2025). See also SEC, Exchange Act Section 16 and Related Rules and 
+Forms, Question 117.03 (Aug. 14, 2009), https://www.sec.gov/rules-regulations/staff-
+guidance/compliance-disclosure-interpretations/exchange-act-section-16-related-rules-forms 
+(addressing a reverse stock split applicable to all stockholders and the stockholder has no choice 
+between cash and a fractional share). 
+104 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 37,260 § V.C., 62 SEC Docket 138, 1996 WL 290234, at *23 (May 31, 
+1996); Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 34,514 § IV.B., 57 SEC Docket 880, 1994 WL 419547, at *15–16 (Aug. 
+10, 1994); Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 28,869 § V.A., 48 SEC Docket 216, 1991 WL 292000, at *26–27 (Feb. 
+21, 1991). 
+105 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 28,869 § V.A., 48 SEC Docket 216, 1991 WL 292000, at *26–27 (Feb. 
+21, 1991). 
+106 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 37,260 § V.A. n.157, 62 SEC Docket 138, 1996 WL 290234, at *22 
+(May 31, 1996).  
+107 Exemption from Section 16 of the Securities Exchange Act of 1934 for the Acquisition of 
+Equity Securities Pursuant to Dividend Reinvestment Plans, Exchange Act Release No. 16,806, 20 
+SEC Docket 11, 1980 WL 26857 (May 14, 1980). These discuss older versions of the rule.    
+108 17 C.F.R. § 240. 16a-13 (2025). 
+109 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 37,260 § II.C. n.54, 62 SEC Docket 138, 1996 WL 290234, at *7 (May 
+31, 1996); Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 34,514 § II.H., 57 SEC Docket 880, 1994 WL 419547, at *8–9 (Aug. 
+10, 1994). 
+110 Securities Exchange Act of 1934 §16(a), 23(a), 15 U.S.C. § 78p.  
+
+--- PAGE 20 ---
+ 
+20 
+price and net quantity traded in a given month.111 They need not disclose the precise days, prices, 
+quantities, and transactional details. Nor need they do so in a timely manner. Corporate trade 
+disclosures are due until the end of next quarter. So a trader whose counterparty is the corporation 
+can expect that no timely and granular forms will be filed against which their disclosures may be 
+measured. 
+C. Proﬁts 
+ 
+Among the transactions altogether exempted from reporting above, most are also exempt from 
+short-swing profits disgorgement.112 However, some transactions require reporting but are 
+nevertheless exempt from profit limitations: you can make profits on your trades, you just need to 
+disclose them.113  
+The most important category includes many transactions between the insider and their entity. 
+Most central to our discussion, sales from an officer or director to the entity are immune to short-
+swing profits recoupment if the transaction is approved by the issuer’s board or shareholders.114 
+The primary channel for this exemption seems to be approval by the board. Disgorgement does 
+still apply without exemption to transactions where the selling insider is a shareholder but not an 
+officer or director.115 
+ 
+The reasoning here is that a “transaction originating with the issuer and the fiduciary duties 
+placed on corporate directors that provide the necessary safeguards against abuse of insider 
+information. . . .”116 Officers and executives are duty-bound to deal fairly with the entity, so 
+additional federal limits may be unnecessary. The SEC presumption credits state fiduciary rules as 
+a “potent deterrents to insider self-dealing” and “potential liability considerations under Rule 10b-
+5.”117 
+ 
+111 Purchases of Certain Equity Securities by the Issuer and Others, 68 Fed. Reg. 64,952, 64,961 
+(Nov. 17, 2003) (amending 17 C.F.R. pts. 228, 229, 240, 249, 270 & 274) (codified at 17 C.F.R. § 
+240.10b-18 (2025)). See generally Fried, supra note 99. 
+112 Thus, the vesting of an outstanding stock option, restricted stock or other similar award is not 
+subject to disgorgement (thought the exercise or sale could be, depending on the length of time 
+between the grant date and date of sale). Likewise, no disgorgement is required for investments in 
+a company stock fund under the company’s 401(k) plan. 17 C.F.R. § 240.16b-3(c) (2025).  
+113 See, e.g., id. § 240. 16b-3(b) (protecting acquisitions pursuant to an employee benefits plan); 
+id. § 240.16b-3(d) (protecting purchases that are subsequently held for six months, even if the 
+purchase was at a lower price than a recent sale).  
+114 Id. § 240.16b-3(e) (exempting transactions that satisfy 16b-3(d)(1)); id. § 240.16b-3(d)(1) 
+(requiring board approval).   
+115 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 61 Fed. 
+Reg. 30376-01 (June 14, 1996). Ten percent owners are exempt from short-swing profits if they 
+are also officers or directors. Roth ex rel. Beacon Power Corp. v. Perseus L.L.C., 522 F.3d 242 (2d 
+Cir. 2008).   
+116 Roth ex rel. Beacon Power Corp. v. Perseus, L.L.C., 2006 WL 2129331, at *10 (S.D.N.Y. July 
+31, 2006), aff’d 522 F.3d 242 (2d Cir. 2008).  
+117 Ownership Reports and Trading by Officers, Directors and Principal Security Holders, 
+Exchange Act Release No. 37,260, 61 Fed. Reg. 30,376, 30,379 n.17 (June 14, 1996), 62 SEC 
+Docket 138, 1996 WL 290234, at *3 (May 31, 1996). 
+
+--- PAGE 21 ---
+ 
+21 
+Likewise, the board is duty-bound to scrutinize the insider’s transaction, such that a 
+mechanical prohibition on suspicious transactions is not necessary. The board is qualified to 
+perform this oversight, the theory goes, because it knows plenty about the operations of its own 
+company. “[T]he SEC's rationale for Rule 16b–3 (d)'s exemption primarily rests on the safety 
+provided by the issuer's knowledge of its own affairs . . .”118 
+III. Data and Empirical Strategy 
+ 
+We have seen that there are several legal and practical reasons that insider transactions with 
+the corporation might be ripe for abuse. Conversely, this lenience exists in a context where abuse 
+may less worrisome, because a knowledgeable board is duty-bound to police abuse by other 
+fiduciaries. The overall impact of these forces is ultimately an empirical question. It is that 
+empirical question we now seek to answer. To what degree do insiders strategically dispose of 
+their shares back to the corporation to exploit non-public information? This Part explains the data 
+and method we will use to uncover evidence consistent with insiders frequently exploiting their 
+insider information dispose of their shares to the corporation while aware those shares will soon 
+decline in value. 
+While we explain at length below, the basic method is quite intuitive. We look at all trades and 
+stock prices. We look also at sales from an insider to their corporation. We ask whether a strategy 
+of selling when these insiders sell would outperform the strategies of selling on other days or just 
+holding the market as a whole. If insiders outperform the market (meaning their corporation’s 
+stock price drops more than it can be justified by the market movements), it suggests they knew 
+non-public information and used it to avoid losses.119 This method is completely conventional in 
+financial economics studies of insider trading.     
+In this case, we examine transactions filed under transaction Code D. 120 The official use for 
+this code is “Disposition to the issuer of issuer equity securities pursuant to Rule 16b-3(e).” As 
+discussed above, Rule 16b-3(e) applies when the board of a corporation approves the transaction. 
+An insider uses this coding when they sell stock to the corporation pursuant to board approval. 
+We examine Code D transactions as an underinclusive proxy for insider transactions against 
+their corporation. All Code D transactions are between an insider and the corporation, but not all 
+such transactions are coded “D.” Our selection is conservative in that it does not endeavor to detect 
+all suspicious trading between an insider and their corporation. If we find a given volume of 
+suspicious trading, that would provide a floor not a ceiling on the phenomenon we seek to study.  
+Our design is also conservative in that we are selecting an area widely thought to have a lower 
+propensity to insider exploitation. These transactions are all ones where the corporation’s board of 
+directors has evaluated and approved the transaction. Insiders may be less aggressive in 
+ 
+118 Roth ex rel. Beacon Power Corp. v. Perseus L.L.C., 522 F.3d 242, 247 (2d Cir. 2008). 
+119 In some cases, abnormal returns can be explained not by informed trading but instead by 
+backdating. An insider can order subordinates to process a sale back to the corporation at a high 
+price that took place sometime in the past, using the benefit of hindsight.  Backdating plainly 
+explains some insider profits in other contexts. We test and partially reject that hypothesis in Part 
+III.G.  
+120 SEC, supra note 48. This table below includes verbatim quotations of the transaction codes, but 
+headings have been omitted and codes reordered. [General Instructions] 
+
+--- PAGE 22 ---
+ 
+22 
+opportunistically trading when they must ask the approval of the board of directors. Insiders may 
+trade less extractive if they fear a vigilant board will not approve – or perhaps the insider must 
+expend more resources to trick or corrupt the board. We might expect insiders to trade more 
+aggressively when no board approval is required. This really ought to be the least suspicious pocket 
+of trades between insiders and the corporation.121  
+ 
+A. The Data 
+The insider trading data come from the Thomson Reuters Insider Filing Data Feed (1996 to 
+2024). Our sample includes U.S. common stocks. The time-period is from August 1996 to 
+December 2024. The final dataset has over 7,000 unique Committee on Uniform Securities 
+Identification Procedures (“CUSIP”) numbers and over 136,000 observations.122 Stock price, 
+outstanding shares, and stock return information were obtained from the Center for Research in 
+Security Prices (“CRSP”).123 CUSIP numbers, unique to each firm and issue, were used to match 
+insider trading data from the Thomson Reuters dataset to price and return information from the 
+CRSP dataset, matching both the firm and share class. 
+The Insider Filing Database includes all trades reported to the SEC Ownership Reporting 
+System. The data contain all D-coded dispositions by officers, directors, and beneficial owners 
+(direct or indirect owners of more than 10 percent of any equity class of securities) of publicly 
+traded firms.124 We include all insiders in our study.  
+We focus our study on dispositions.  In fact, Thomson database does not contain any D-coded 
+acquisitions.  Focusing exclusively on dispositions/ sales (regardless of their code) makes our 
+study more conservative. Numerous articles have found that open market sales are less likely to 
+exhibit information than purchases.125 Some studies have also excluded insider sales altogether in 
+order to focus on information trading and used only insider purchases.126   
+ 
+121 True, 16b-3(e) offers some benefits to insiders. Most notably, it exempts the trader from the 
+short-swing profits rule. 17 C.F.R. § 240.16b-3(e) (2025). One might expect that insider trades 
+encumbered  by short-swing profits tend to be better informed than other trades with the issuer, 
+but the short-swing profits rule operates without any serious effort to track “real” or abnormal 
+profits or the presence of inside information. 
+122 CUSIP is an eight-digit alphanumeric security identifier assigned to each U.S.-traded stock and 
+issue.  The first six digits identify the firm and the last two digits identify the issue.  There is also 
+a ninth digit, which is a checksum, which is created automatically for auditing purposes.  We ignore 
+the ninth digit. 
+123 The CRSP database is a subscription-only database that comes with a subscription to the 
+Wharton Research Database. See Wharton Research Data Services, WHARTON SCH. UNIV. of PA., 
+https://wrds-www.wharton.upenn.edu 
+(last 
+visited 
+Jan. 
+19, 
+2025), 
+https://wrds-
+www.wharton.upenn.edu [https://perma.cc/E85T-TNDX]. CRSP is a historical stock-price 
+database maintained by the University of Chicago.  
+124 It is possible that some large shareholders also held lower level officer or director positions and 
+engaged in about 500 dispositions using code D. 
+125 See, e.g., H. Nejat Seyhun, Insiders’ Profits, Costs of Trading, and Market Efficiency, 16 J. FIN. 
+ECON. 189, 189 (1986); Josef Lakonishok & Inmoo Lee, Are Insider Trades Informative?, 14 REV. 
+FIN. STUD. 79, 79 (2001).  
+126 E.g., A. Can Inci, M.P. Narayanan & H. Nejat Seyhun, Gender Differences in Executives’ Access 
+to Information, 52 J. FIN. & QUANT ANAL. 991 (2017). 
+
+--- PAGE 23 ---
+ 
+23 
+ 
+We start with cleansed data from Thomson Reuters to deal with potential misreports and 
+incorrect outliers.127  We require that the underlying asset be common stock. Applying these 
+restrictions gave us a sample of 152,318. We then required that sufficient price and return data be 
+available on CRSP to be able to measure abnormal returns, cutting our sample size 136,910.   
+The database also provides three dates associated with an insider transaction. The transaction 
+date is the date of disposition, when an insider ceases to own the shares. The report date is the date 
+when a transaction is made public by the SEC. The signature date is when the reporting form is 
+signed by the insider.128 We mostly focus our analysis to the disposition dates, although we also 
+examine abnormal returns around reporting dates as well. 
+B. Sample Characteristics 
+Table 1, Panel A shows the sample characteristics of the dataset. The first four columns 
+represent different portions of the D-coded transaction sample, organized by firm size. The final 
+column is for comparison – it shows the characteristics of “open market” sales (under Transaction 
+code S) during the same period. Open market sales are the “normal” way that insiders sell stock, 
+so a comparison may prove instructive. .  
+The final sample is large, comprehensive, and covers August 1996 through December 2024 
+inclusive. We start in August 1996 since the definition of D-coded private transactions changed in 
+August 1, 1996.  Our overall sample includes all D-coded dispositions of their firms’ shares by all 
+insiders in all publicly listed firms available on CRSP. As shown in Table 1, Panel A, the overall 
+sample contains dispositions by insiders in 7,131 unique firms that have existed during this period. 
+The total number of dispositions is 136,910.   Given the comprehensive cross-sectional and time-
+series nature of the dataset, this Article’s conclusions apply to all D-coded dispositions by insiders 
+and are not sample-specific. 
+Table 1, Panel A also shows that the average disposition is about 236,000 shares. Disposition 
+size increases with the size of the firms. In small firms, the average disposition size is about 
+189,000 shares, and in large firms, about 263,000 shares. The total number of shares disposed is 
+also large, equaling about 32.4 billion shares.  
+Compared to any other transactions’ codes, the number of shares underlying D-coded 
+disposition is unusually high. For instance, for insiders’ open market sales, the average shares 
+traded during the same sample period equals only 39,000 shares, which is 1/6th of the average D-
+coded share volume.  In other words, when insiders sell to the corporation, they sell six times as 
+much as when they sell to the open market. We can see similar things with dollar values.  
+Since D-coded transactions do not always report a stock price, we used the closing stock price 
+for the month just prior to when D-coded disposition took place to compute dollar amount traded. 
+Using this method, the mean value of a sale to the corporation is $5.97 million, while open market 
+sales are worth only $840,000. This finding suggests that D-trades are very different from the S-
+trades.  Given the huge difference in trading volume, it is quite likely that insiders choose D-trades 
+because attempting to sell such huge volumes on the open market is either not possible or 
+advisable. 
+There are fewer of D-coded transactions than open market transactions, but because they are 
+so large, they amount to an economically meaningful, large-volume sample. The total dollar value 
+is about $817.3 billion sold back to the corporation under D, compared to $3.2 trillion of insiders 
+selling on the open market. That means for any given dollar an insider makes from sale of stock, 
+ 
+127 Thomson Reuters uses various checks to ensure data quality and assigns codes based on its 
+filters. We use only cleansing codes H “High Quality” and R “Passes all Reasonableness checks.” 
+128 Not all three of these dates are recorded for every D-coded transaction. 
+
+--- PAGE 24 ---
+ 
+24 
+about 20 cents comes from a board-approved sale back to the company. Among the one-third of 
+firms that bought back stock from their insiders, they bought back an average $114.6 million – a 
+large number, given that firms average only $180 million in open market sales in this period. 
+We also report a smaller (but more impactful) sub-sample. In Panel B of Table 1, we focus on 
+late-reported dispositions by insiders.129  The number of unique firms involving D-coded 
+transactions is now 3,632.   The total number of late-reported D-coded dispositions is 27,337.  
+Hence, focusing only on the late-reported transactions eliminated about 80% of the sample. 
+ 
+129 We designate all transactions with reporting dates greater than two days as late.  Between 1996 
+and 2002 (pre-Sarbanes-Oxley) insiders could legally report D-coded transactions until 45 days 
+after the end of the fiscal year.  Other articles have identified the tendency of insiders to delay 
+reporting of their more suspicious trades. See, e.g., Robert Jackson et al., Late Filings and Insider 
+Trading: Broken Windows or Opportunism? (May 2022) (unpublished manuscript), 
+https://www.hbs.edu/faculty/Shared%20Documents/conferences/2023-IMO/Session8-
+late_filings.pdf. 
+
+--- PAGE 25 ---
+ 
+25 
+Table 1: Sample characteristics of Insiders' D-coded Dispositions, 1996-2024 
+ 
+ 
+Panel A:  Full Sample 
+ 
+  
+Small firms Mid firms 
+Large firms 
+All Firms 
+Open Market 
+(S) 
+Number of firms 
+4,794 
+1,983 
+354 
+7,131 
+17,522 
+Number of dispositions 
+70,161 
+53,023 
+13,726 
+ 
+136,910 
+ 
+3,741,169 
+ 
+189.1 
+292.9 
+263.0 
+236.7 
+Average disposition 
+size 
+ 
+38.7 
+(Number of shares, 
+thousands) 
+  
+13,674.4 
+15,530.4 
+3,610.0 
+32,407.8 
+Total dispositions 
+144,779.5 
+ 
+(in million shares) 
+  
+33.6 
+213.2 
+233.3 
+114.6 
+Average dollar Amount 
+180.0 
+ 
+(Per firm, in million $) 
+  
+161,081.90 
+422,872.50 
+233,297.90 
+817,252.3
+0 
+Total dollar Amount 
+3,153,960.00 
+(in million $) 
+ 
+ 
+ 
+  
+  
+  
+ 
+Panel B:  Late-Reported Sample Only (Reported after 3 days or greater) 
+ 
+  
+Small firms Mid firms 
+Large firms 
+All Firms 
+Open Market 
+(S) 
+Number of firms 
+2,503 
+933 
+196 
+3,632 
+15,569 
+  
+  
+  
+  
+  
+ 
+Number of dispositions 
+16,603 
+8,569 
+2,165 
+27,337 
+1,000,367 
+  
+190.2 
+197.3 
+296.1 
+200.8 
+ 
+Average disposition 
+size 
+ 
+44.2 
+(Number of shares, 
+thousands) 
+ 
+  
+3,157.9 
+1,690.7 
+641.1 
+5,489.6 
+ 
+Total dispositions 
+44,709.91 
+(in million shares) 
+ 
+  
+19.2 
+68.6 
+128.0 
+37.8 
+ 
+Average dollar Amount 
+48.1 
+(Per firm, in million $) 
+ 
+ 
+48,040.4 
+64,046.9 
+25,084.0 
+137,171.3 
+ 
+749,616.2 
+Total dollar Amount 
+(in million $) 
+ 
+ 
+  
+  
+  
+  
+ 
+
+--- PAGE 26 ---
+ 
+26 
+ 
+Table 1, Panel B also shows that the average disposition is about 200,000 shares. Disposition 
+size again increases with the size of the firms. In small-cap firms (market capitalization is less than 
+$1B), the average disposition size is about 190,000 shares, and in large-cap firms (market 
+capitalization is over $10 billion), about 296,400 shares. The total number of late-reported shares 
+disposed is also large, equaling about 5.5 billion shares. The average dollar value of dispositions 
+per firm is about $114.6 million, while the total dollar value of the dispositions is about $137.3 
+billion. Per trade amount sold is slightly smaller, $5.01 million, but still very high relative to late 
+open market trades ($743,000). Once again, this is a large subsample of high value trades.  If we 
+find evidence of informed trade in either our overall sample or our late-reported sample, small 
+effects will be large in economic magnitude. In our empirical tests, we examine both the overall 
+sample as well the late-reported sample. 
+ 
+  
+C. Measurement of Abnormal Returns 
+Next, we turn our attention to the information content of D-coded transactions.  We compute 
+abnormal returns by subtracting the return to the equally weighted index of New York Stock 
+Exchange (“NYSE”), American Stock Exchange (“AMEX”), and NASDAQ stocks from the 
+returns for the stocks disposed by insiders.130 This approach controls for market movements and 
+implicitly assumes that average beta or risk exposure is one. Given that the sample contains over 
+7,000 firms, this assumption is satisfied. Hence, abnormal return ARi,t for stock i and day t is 
+computed as 𝐴𝑅!" = (𝑅!" −𝑅#") for each firm i and day t. 𝑅!" is the simple daily (with-dividend) 
+return on the stock i disposed by insiders on day t. 𝑅#" is the daily return to the equally weighted 
+index of NYSE, AMEX, and NASDAQ stocks, on day t. For each event date t, these returns are 
+first averaged across all disposed firms i to compute average abnormal returns:  
+𝐴𝐴𝑅" = 1
+𝑛"
+* 𝐴𝑅!"
+$!
+!%&
+ 
+ 
+The average abnormal returns are then cumulated across the event dates as  
+𝐶𝐴𝑅' = * 𝐴𝐴𝑅"
+'
+"%&
+ 
+ 
+Hence, positive values of CAR show the amounts insiders lost by selling before the price increases 
+following the disposition date. Similarly, negative values of CAR show the amounts insiders 
+profited by selling before the price declines.  These CARs (cumulative abnormal returns) are then 
+graphed to examine the behavior of abnormal returns around D-coded disposition dates. 
+As additional tests, we also compute dollar-weighted average abnormal returns as follows: 
+ 
+130 Our approach here is the same as in S. Burcu Avci, Cindy A. Schipani & H. Nejat Seyhun, 
+Manipulative Games of Gifts by Corporate Executives, 18 U. PENN. J. BUS. L. 1131, 1152–53 
+(2016). Using as the benchmark the total return to the value-weighted market portfolio instead of 
+the total return to the equally weighted market portfolio gives similar results. We prefer the equally 
+weighted returns because few (about 9.6 percent) of the firms in our sample are large. and the 
+equally weighted index of NYSE, AMEX and NASDAQ firms is a better match for small and mid-
+cap firms.  Lakonishok and Lee also use the equal-weighted market index as the measure of market 
+portfolio firms. Lakonishok & Lee, supra note 125, at 79. 
+
+[TRUNCATED at 80000 chars — 55 total pages]

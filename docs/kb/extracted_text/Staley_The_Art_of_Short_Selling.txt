@@ -1,0 +1,1468 @@
+
+--- PAGE 1 ---
+
+--- PAGE 2 ---
+
+--- PAGE 3 ---
+
+--- PAGE 4 ---
+
+--- PAGE 5 ---
+
+--- PAGE 6 ---
+
+--- PAGE 7 ---
+Kathryn F. Staley
+
+--- PAGE 8 ---
+
+--- PAGE 9 ---
+ears can make money only if the bulls push up stocks to where they
+are overpriced and unsound.
+Bulls always have been more popular than bears in this country
+because optimism is so strong a part of our heritage. Still, overoptimism
+is capable of doing more damage than pessimism since caution tends to
+be thrown aside.
+To enjoy the advantages of a free market, one must have both buyers
+and sellers, both bulls and bears. A market without bears would be like
+a nation without a free press. There would be no one to criticize and
+restrain the false optimism that always leads to disaster.
+BERNARD BARUCH
+
+--- PAGE 10 ---
+n the 1980s, short selling was a discipline practiced by a cadre of
+smart investors who made returns in excess of the market in good years
+and bad. The analytical methods of those investors were characterized
+by prodigious analysis attentive to the quality of earnings, quality of
+assets, and quality of management. They believed that the market,
+inefficient in the short run, would eventually recognize a bad business
+run by incompetent managers and that inflated stock prices would settle
+to levels consistent with the earnings power of the bad businesses they
+had uncovered.
+The years 1991 to 1993 decimated the population of short sellers and
+the net worth of anyone that persisted in believing that the truth of
+financial statements would win out. Those years saw the ascendancy of
+mutual funds, of momentum investing, and of the short squeeze as an
+accepted investment philosophy. What happened was that companies
+with questionable financial statements had a heyday of stock-price
+appreciation. What also happened was that short sellers got killed.
+In 1994, the problem companies, one by one, began to give up the
+ghost, and short selling worked again for a year. Snapple, Cott,
+Scoreboard, Bell Sports-reading their financials mattered, and the flaws
+within the company structure again affected the price.
+
+--- PAGE 11 ---
+By 1996, the concept of shorting for profit was thought by the smart
+circles of Wall Street to be extinct or the province of fools. Nobody would
+admit publicly that they did it.
+Then came the setback of the summer, and short sellers once again
+got respect-and made money.
+In recent months, the massacre of the most visible short targets
+(Iomega, Diana Corp., Presstek) suggests that perhaps we can get
+back to reading financial statements and doing analytical work and
+forget about on-line stock touts, short squeezes, and thundering mutual
+fund purchases.
+Those bull-market years taught all of us who continued to practice the
+arcane art of short selling to beware of manias, and they taught us fear.
+But, even in the worst of times, the curiosity and pleasure of detecting
+the truth kept some of us idly punching our calculators, watching
+inventories and cash flow, reading an occasional prospectus.
+"What's the point?" we were asked, particularly by the money
+managers who had sworn off shorting. The point is that the toughest call
+for investors-even in a bull market-is when to sell. The best managers
+either sell stocks soon with a small loss, realizing a mistake, or sell
+stocks later, noting a change in prospect after gains, when prices begin
+to drop. Short-selling skills teach us the discipline of anxiety, of when to
+be scared. The analytical wisdom shows us when the numbers start to
+turn bad in a sacred-cow holding or which stocks not to buy at all. The
+simplest techniques work year in and year out. Rising inventories
+predicted the decline of U.S. Surgical and Royal Appliance and
+Scoreboard and Snapple and Bell Sports, even in our dumb years.
+Selling shareholders alerted us to Autotote and Michaels Stores.
+I have used classic examples to illustrate the analytical methodology
+of short sellers, examples of how to find the rotten apples before they
+drop. Accompanying these examples are tables showing short interest,
+balance sheets, income statements, and so on. There are also figures
+showing short interest and graphs of stock prices. Chapter 3 starts with
+the simplest short sale: the bubble companies complete with new issue
+prospectus and products that might not exist at all. Chapter 4 talks
+about fads and franchises and shows how to uncover nonrecurring
+
+--- PAGE 12 ---
+revenues, how to track insider transactions, and how to evaluate
+business plans. Chapter 5 follows several full-blown growth companies
+and suggests ways to determine when they stop growing. Chapter 6
+attempts to detail more complicated accounting tricks that companies
+use to obscure the truth about the health of their business. Chapter 7 is
+about tracking cash flow and financing needs in companies that suck
+money from the financial markets without paying stockholders in
+earnings. Chapter 8 tells the stories of companies that resort to selling
+out when access to money fails (via earnings or financing streams).
+Chapter 9 is about leveraged companies and cyclical business
+downturns.
+As the company complexity increases, so do the analytical skills: A
+no-product company is easier to analyze than a one-product company,
+one store easier than a franchise system. Each case should show you
+the detecting exercise for at least one of the quality problems. Chapter
+10 brings them all together-quality of earnings, quality of assets, and
+quality of management-in a classic short story.
+When I first started selling short, only one book, written in 1932,
+detailed the practice. The veritable demise of short selling during the
+great bull market has silenced the few talkative short sellers who remain.
+These collected case studies should remind all of us how to sell stocks
+or how to sell them short-particularly when the market turns flat or down
+and investors are not as forgiving of bad business plans and bungled
+earnings efforts. Short selling or merely selling might be fun or profitable
+again as it has been off and on for centuries. And for a certain group of
+cynics with a penchant for quality, the sound of a stock crashing nicely
+will evoke a knowing and whimsical smile.
+KATHRYN F. STALEY
+
+--- PAGE 13 ---
+
+--- PAGE 14 ---
+y particular thanks to the short sellers whose ideas and analytical
+methods appear in this book, as well as to the money managers who
+shared their thoughts on short selling.
+In collecting data on case studies, I was assisted by Jim Chanos,
+Scott Bessent, Charles Hobbs, Andrea Lerner, Bill McGarr, Caroline
+Ford, Sue Hardiman, Deborah Lamb, Amanda Macklowe, and Jeff
+Perry. The stock price charts and short-interest data following many of
+the case studies were compiled from public information.
+K. F. S.
+
+--- PAGE 15 ---
+Part One Facts and Practitioners
+1 Overview: Wealth with Risk 3
+Who Sells Short? 4
+Why Opportunities for Short Selling Exist 5
+Analytical Techniques: How to Detect the First Tremors of the
+Quake 7
+Who Can Benefit from the Wisdom of Short Sellers? 12
+Mechanics and Risks 13
+Current Market Statistics and Growth Prospects 16
+Caveats 19
+Notes 20
+2 Short Sellers 23
+Hedge Funds and Investment Advisors 23
+Short Sellers-The Alter Ego of Wall Street 25
+Notes 39
+Part Two Categories and Examples
+
+--- PAGE 16 ---
+3 Bubble Stocks 43
+Dirty Carpets: ZZZZ Best 43
+Harrier: It Just Didn't Add Up 44
+Second Derivation: Medstone 53
+More on Prospectuses 58
+Notes 62
+4 High-Multiple Growth Stocks, Part 1: High Risk, Low Return 63
+Computers and Cabbage Patch Dolls: Coleco 64
+Keeping Score with Baseball 67
+Marble and Brass in a Grocery Store: J. Bildner & Sons 73
+Lending to Franchisees: Jiffy Lube 81
+Notes 91
+5 High-Multiple Growth Stocks, Part 2: High Returns, Faltering Growth
+93
+Beverages 93
+Cott Corporation 94
+Snapple Beverage Corporation 100
+High Tech: Media Vision 105
+Notes 112
+6 If You Can't Read It, Short It 113
+National Education 114
+
+--- PAGE 17 ---
+Autotote 120
+The Weasel: Western Savings and Loan 125
+Insurance Companies: Who's on First? 136
+Notes 143
+7 Money Suckers: Coining Money to Live 147
+The Nine Lives of Integrated Resources, Inc. 147
+Summit Technology, Inc. 162
+Notes 167
+8 If You Can't Fix It, Sell It 169
+Harcourt Brace Jovanovich Escapes Maxwell's Money 170
+Texas Air: Flying with Frank 175
+Kay Jewelers Sells Out (or Tries to) at the Annual Sale 179
+Morrison Knudsen 182
+Notes 187
+9 Industry Obsolescence: Theme Stocks 189
+The Arizona Land Race 190
+American Continental: What's All the Ruckus About? 191
+Sun State Savings Acquired on Margin 198
+Valley National: Uncharacteristic Wall Street Battle 201
+Notes 207
+10 All of the Above: Crazy Eddie 209
+
+--- PAGE 18 ---
+An Identifiable Story Stock 209
+A Private Family Bank or an Electronics Chain? 210
+Does a Medical School Count as Vertical Integration? 211
+Wall Street Hysteria and Home Shopping 212
+The Plot Develops 214
+The Big Break 217
+Notes 220
+Part Three History and General Lessons
+11 Shortcomings 223
+Three Short Sins • 223
+And a Multitude of Small Follies 227
+And Last of All 233
+Notes 234
+12 History and Controversy 235
+History 235
+Witch Hunts and Regulation 247
+Notes 252
+13 Six Pillars of Fundamental Short Selling 255
+The Short Seller's Random Walk for Ideas 255
+1. The Pessimist's Guide to Financial Statements 257
+2. In Search of Greed and Sleaze 264
+
+--- PAGE 19 ---
+3. The Bigger Puzzle 271
+4. Who Owns It? 273
+5. Check the Water Temperature 273
+6. Pay Attention 274
+Concept Recap 275
+Conclusion 275
+Appendix: Margin Accounts and Short Selling 277
+Index 279
+
+--- PAGE 20 ---
+
+--- PAGE 21 ---
+
+--- PAGE 22 ---
+hen Media Vision finally went belly up, when Scoreboard matched
+its spectacular ascent with an equally spectacular descent, when Bank
+of New England took major bites from its equity capital with real estate
+write-offs, a small group of people on Wall Street benefited. This is a
+book about the people who profit from collapse and who specialize in
+detecting disaster and about the methods those people use to track the
+demise of companies, like equity seismographers watching for the first
+tremors of an earthquake.
+Short sellers unearth facts from financial statements and from
+observation to ascertain that a stock is overpriced. They act with
+conventional wisdom-they buy low and sell high, but they sell before they
+buy. When the stock of Crazy Eddie, a retail electronics chain,
+expanded like a balloon gone berserk, short sellers studied the company
+and saw that inventories were growing faster than sales, that
+management made more money than the stockholders, and that
+competition was brutal in retail electronics in New York City. Wall Street
+continued to puff up the Crazy Eddie balloon in a frenzy of enthusiasm,
+so the short sellers sold at a high price-$40 a share-stock they did not
+own. When the stock collapsed and Crazy Eddie Antar himself (founder
+and ex-corporate chief) disappeared, the short sellers bought the stock
+for $2 a share to close the trade and to make a profit of $38 a share in
+less than a year.
+
+--- PAGE 23 ---
+Q Who Sells Short?
+Selling short is selling a security that the seller does not own but
+promises to deliver by borrowing it from someone else, in order to
+profit from the subsequent price drop. Selling long, the opposite, is
+selling a security that the seller does own and that is, thus, long in
+the account of the seller. Like sellers of stock who own it before
+selling it, short sellers expect the price appreciation to be limited.
+They also bet that the price will go down after the stock is sold.
+Specialists on the exchanges, market makers, and block traders
+all sell short to provide market liquidity. When a large order causes
+temporary trading imbalances that would result in volatile prices,
+trading professionals create supply by selling short.
+Arbitrageurs also buy one security and sell another one short to
+realize profits on temporary price disparities in markets or like
+securities.
+Institutions, money managers, and individuals sell short to
+speculate on price declines. Short sellers who sell in anticipation of
+price declines are generally information-based traders-traders
+whose valuation studies show that a security is overpriced and who
+trade on that information. Their bets contribute to pricing
+efficiencies in the market.
+Portfolio managers also sell short to hedge another holding. If the
+outlook for the airline industry is mixed, the managers might sell
+one airline stock and buy another to hedge the outlook on the
+industry while profiting from individual security characteristics.
+Bernard Baruch, Joseph Kennedy, and many other financial
+titans of the first decades of the twentieth century were adept at
+selling short; in fact, they used the technique as casually as buying
+and selling stocks and bonds. Before 1983, no solely short funds
+existed, and short selling was primarily the venue of hedge-fund
+managers and sophisticated individuals. Short selling-fundamental,
+information-based, 
+non-computer-motivated 
+short 
+selling-is
+practiced as a full-time profession by only 10 or 15 people in the
+United States. From 1988 to 1992, additional short sellers
+
+--- PAGE 24 ---
+expanded the ranks after the 1990 market correction. The ensuing
+bull-market years have served to reduce the number of full-time
+short sellers to a handful. The mystery that sur rounds the group is
+increased by an occasional ground swell from executives who
+malign both the practice and its cabal of disciples as unpatriotic,
+destructive, and self-serving.
+Short selling is perceived by professionals, as well as by casual
+investors, as risky and speculative. A frequent criticism of short
+selling as an investment alternative states that stocks can go only to
+zero on the way down, but to infinity on the way up. Short sellers
+respond that they have seen a lot more stocks at zero than at
+infinity. Because they take greater risks than other investors, short
+sellers must be confident that their conclusions are correct, and
+they must have strong evidence to support cases for price declines.
+Because reverses are terrifying and sudden, the burden of
+evidence rests on a solid, careful analysis completed before the
+stock is shorted.
+Short sellers are usually hard-working, creative people who enjoy
+going against the grain and competing with the mind of Wall Street
+(represented by the prices of stocks). They enjoy solving puzzles
+that other people find frustrating, confusing, or unsolvable.
+O Why Opportunities for Short Selling Exist
+Money managers and individuals alike find that it is tough to make
+consistent profits in the financial markets. Why, then, do short
+sellers always find broad gaps in stock valuation that can lead to
+dramatic price drops?
+Clearly, short selling is a niche, and a small one relative to the
+stock market as a whole, and that situation creates inefficiencies in
+stock pricing. Several studies in security-price behavior suggest
+that there is theoretical justification for short selling. Brokerage
+houses add to pricing discrepancies with buy-side vigor and with
+reliance on computer analytical models.
+Edward M. Miller, professor of financial economics at the University
+of New Orleans, proposed an amendment to the efficient market theory
+
+--- PAGE 25 ---
+when he suggested that "prices are bounded by limits set by the buying
+and short-selling of informed investors."' The upper limits of securities
+prices are set by short sellers who will stop the ascent of the price if the
+potential return is great enough to augment the costs of being short. The
+short seller's ability to sell becomes the critical variable in the upper-
+price boundary. Because, Miller argued, there are many restrictions on
+short selling (institutional prohibitions, transaction costs, borrowable
+shares), stocks trade not at one efficient price but within a band of
+prices. The dynamics of Miller's theory of the bounded efficient market
+suggest that portfolio managers are well advised to look for mispriced
+stocks to sell because more overpriced than undervalued stocks can be
+identified.
+Paul Asquith and Lisa Meulbroek went several steps further in "An
+Empirical Investigation of Short Interest." In a study that tracked stock
+prices on high short-interest stocks from 1976 to 1990, they found that
+there was a strong negative correlation between stock price and high
+short interest and that abnormal excess returns of 120 percent (or 5.5
+percent a year) could have been earned by shorting stocks with high
+short interest (defined as "short interest greater than 5 percent of shares
+outstanding") from 1976 to 1990. They commented that this study
+"provides a foundation for the view that stock prices reflect positive
+information more efficiently than negative information."2 Large short-
+interest ratios, therefore, appear to be more bearish than the common
+wisdom predicts.
+Research studies by Henry Latane, Charles Jones, and Richard
+Rendleman, Jr., provide evidence that negative-earnings surprises
+affect stock prices to a greater degree than positive-earnings surprises
+and that the effect persists over time.3 The common wisdom that there
+is no such thing as one bad quarter has a statistical basis. Robert Hagin
+coined the phrase "torpedo stocks" to describe the effect on a port-folio
+of a negative earnings surprise. "Stocks become torpedos when very
+high earnings expectations give way to earnings disappointments.... The
+higher one's expectation for earnings growth, the deeper the
+disappointment if the expectation is not realized."'
+Academic research on speculative bubbles shows what short sellers
+have known for centuries: Evidence exists that bubbles form and then
+collapse. Cohn Camerer reviewed the research, both theoretical and
+
+--- PAGE 26 ---
+experimental, on bubbles in an article for the Journal of Economic
+Surveys.5 Economists are attempting to discover why prices vary from
+intrinsic value. One theory suggests that fads linger in the security
+market because institutional investors are too averse to risk and too
+aware of short-term relative performance to bet against the fad and sell.
+A bias against selling that exists in the market allows pricing
+disparities to remain; brokerage houses add to that bias. Most
+brokerage stock recommendations range from buy to hold, with few
+analysts willing to rank stocks as sells. Analysts are constrained by
+corporate finance relationships or by their need to maintain
+communication channels with company executives.
+Donald Trump's March 1990 attack on analyst Marvin Roffman
+and Roffman's subsequent firing by Janney Montgomery Scott,
+Inc., gave credence to an analyst's fear of honesty. Company
+executives have gotten more aggressive in defending their stocks
+against adverse sentiment, and lawsuits have proliferated in
+response to the occasional Wall Street analyst's frank statement of
+negative opinion. Sy Jacobs at Mabon, Nugent & Company was
+placed in "investor relations Siberia" because of his sale
+recommendation on Household International, Inc.' Charles Peabody
+at Kidder, Peabody & Co., Inc., was cut off by Valley National Bank
+and NCNB after offering negative opinions. David Korus at Kidder
+Peabody raised the ire of executives at Dell Computer with his sale
+recommendation. Some executives apparently feel an open market
+should not provide a forum for discussion or dissent, so the quality
+of analysis and information declines with the restrictions on speech.
+Brokerage-house estimates also tend to be over optimistic,
+thereby providing potential for negative surprises with greater
+regularity than positive surprises. The concentration on optimism
+makes for more inefficiency in short-term stock prices and gives
+prices a positive bias.
+Q Analytical Techniques: How to Detect the First Tremors of the Quake
+Terminal short sellers (as they are called to distinguish them from
+technical or computer-model short sellers) spend their days identify ing
+publicly traded companies with flaws that might cause bankruptcy or
+
+--- PAGE 27 ---
+major income reversals, companies that are overvalued relative to the
+present value of their potential stream of income. Securities sold short in
+their portfolios are sometimes not bought back for yearsuntil the prices
+in the market reflect the perceived condition of the company or the flaw
+becomes apparent to Wall Street.
+How do short sellers work? What signs do they look for so they can
+capture the price anomalies? How do they then analyze the securities
+and where do they find the data?
+Short-sale candidates cluster in three broad categories:
+1. Companies in which management lies to investors and obscures
+events that will affect earnings.
+2. Companies that have tremendously inflated stock pricesprices
+that suggest a speculative bubble in company valuation.
+3. Companies that will be affected in a significant way by changing
+external events.
+Short sellers are always alert to publicly traded corporations that fall
+into these three categories. No computer screen or set of screens and
+no consistent mechanical method can capture this universe. And that is
+what makes short selling lucrative: It takes too much work for most
+people to fool with it.
+So how do short sellers find the stocks? They read hundreds of
+financial statements. They talk to everybody about everything: to baby-
+sitters about tennis shoe trends, to children about toy purchases, to
+doctors about new equipment or drugs. They talk to brokers, money
+managers, and company executives about competitors and suppliers.
+They read newspapers, business journals, and trade papers like the
+Poultry Times and Gaming and Wagering Business. They listen for
+stocks about which people are excited and pay attention to trends in
+regional real estate and retail purchases.
+When they find an industry that appears to be overvalued, they begin
+to look for more specific company evidence. Clues that some thing is
+
+--- PAGE 28 ---
+amiss in a corporation are the starting point of a short seller's quest.
+These trail signs are grouped around several characteristics:
+• Accounting gimmickry: clues that the financial statements do not
+reflect the true state of corporate health.
+• Insider sleaze: signs that insiders consider the company a
+personal bank or think the stock should be sold.
+• Fad or bubble stock pricing: usually marked by a stellar price rise
+over a short period.
+• A gluttonous corporate appetite for cash.
+• Overvalued assets or an ugly balance sheet.
+If one or more of those characteristics is apparent in a company, short
+sellers proceed in the quest for comprehensive information. To piece
+together the story of a corporation, short sellers do labor-intensive work.
+A framework for stock analysis follows this rough outline:
+1. Short sale analysis is dependent on financial analysis-cashflow
+pro formas, balance-sheet strength, and the quality of earnings.
+Start with at least two years of company financials and analyze the
+numbers by using the fundamentals of financial analysis: balance-
+sheet and rate-of-return ratios, incomestatement analysis, cash-
+flow breakouts. Overlay traditional analysis with an especially tough
+look at quality of assets and earnings. Work from the IOQs and
+IOKs because these versions of the quarterly and annual reports
+that are filed with the Securities and Exchange Commission (SEC)
+have more data and less puff.
+2. Use the proxy and the SEC insider filings to track management's
+salary, stock activity, and attitude toward the company and its
+stockholders.
+3. Check in the marketplace to see what the execution of the
+business strategy looks like-look at the products, the competitors,
+the suppliers of production inputs.
+
+--- PAGE 29 ---
+4. Follow the trading patterns, the short interest, and the ownership
+by watching price and volume, 13D filings (investor filings with the
+SEC when the investor attains a 5 percent or greater position), and
+institutional ownership.
+5. Read anything in the media-magazines, newspapers-and the
+Wall Street research pool to determine consensus.
+6. Watch everything about the company over time to see what
+happens, how earnings and price progress, what changes.
+The main precept of short-selling analysis is bulk. Short sellers
+accumulate volumes of disparate facts and observations, then they
+make an intuitive leap based on the information at hand. Frequently, the
+signs point to large problems that will not be revealed in total until after
+the collapse. Crazy Eddie had slowing inventory turnover. Short sellers
+did not find out until after the stock collapsed that the building inventory
+was bogus. So short sellers have to be able to make a logical leap
+without complete information. They have to trust their experience and
+judgment. They have to know where to look for signs and what the
+impact of those signs might be.
+Where does the material come from? The financial documents and
+proxy can come from the company, from a service that microfiches SEC
+documents, or from a library that subscribes to a microfiche service.
+Insider transactions and 13Ds are also reported to the SEC. Barron's
+and the Wall Street Journal print the largest of them. Several
+newsletters, such as Vickers and the Insider Chronicle, copy all of them
+from the SEC and have on-line computer subscriptions as well as
+weekly or monthly hard-copy subscriptions.
+Short interest is disclosed in the Wall Street journal and Barron's
+around the 20th of the month for the New York Stock Exchange (NYSE)
+and the American Stock Exchange (AMEX) and around the 25th for the
+National Association of Securities Dealers Automated Quotation System
+(NASDAQ). The exchanges report this information as of stock-
+transaction settlement day, the 15th. These lists do not include all short
+positions-just positions over a certain arbitrary cutoff point, currently
+greater than 250,000 shares short. Standard and Poor's Daily Stock
+
+--- PAGE 30 ---
+Price Record and the Quarterly History Tape also provide shortinterest
+data.
+Brokerage reports, the least useful information on the list, can be
+obtained from the brokerage houses (sometimes) or from the company.
+Some business-library databases also include brokerage reports on-
+line.
+Any major public library has tremendous research resources,
+including computerized searching by company name for article citations
+and summaries, industry information, and price history. Dow Jones and
+Dialog on-line computer services also can search for articles and price
+histories through a large pool of business publications.
+The accounting-based analysis is not difficult to do, but it takes time,
+patience, and a suspension of belief. A Wall Street pundit recently
+commented that this level of fine-toothed work is too costly for brokerage
+analysts or institutional managers to perform because of the time and
+skill required. The lack of attention by other professional investors to
+these financial details provides the inefficiency in information
+dissemination that is so central to the short seller's art.
+Insider information is never a problem with short sellers because
+management rarely talks to known vociferous critics. Typically, short
+sellers have an adversarial relationship with corporate insiders. One of
+the maxims of short analysis is that public information should provide all
+an analyst needs to know: Careful reading of SEC-filed documents and
+observation of the execution of the corporate business plan in the
+marketplace should tell the story of the company.
+There is a certain measure of the moralist in short sellers. As
+detectives on Wall Street, they enjoy revealing the emperor without his
+clothes and relish the collapse of an overvalued empire. Some short-
+seller targets in recent years have been highly touted corporate giants
+with well-developed personal-selling skills, secure in their ability to
+finance shaky businesses with public funds. Charles Keating, Jr., of
+American Continental (see Chapter 9), the Zises brothers of Integrated
+Resources (see Chapter 7), Morley Thompson of Baldwin United (see
+Chapter 2), Fred Carr of First Executive (see Chapter 7), Gene Phillips
+
+--- PAGE 31 ---
+of Southmark (see Chapter 13), and Frank Lorenzo of Texas Air (see
+Chapter 8) were all the gratifying quarry of short sellers.
+Short sellers normally disagree with Wall Street and enjoy
+beating highly paid, highly visible Wall Street analysts. The conflict
+of interest inherent in the job description of a Wall Street analyst
+strikes short sellers as a consistent reason for flawed information.
+Analysts are paid to follow stocks, yet many rarely read financial
+documents with care. Short sellers are contemptuous of analytical
+skills that primarily regurgitate the management line.
+Who Can Benefit from the Wisdom of Short Sellers?
+Any student of the markets should find the analytical techniques of
+short sellers interesting, particularly during a period when
+fundamental analysis is supplanted by computers and technicians
+and when research departments are understaffed and overrun by
+investment bankers.
+Anyone who buys stocks, loans money to corporations, or runs a
+company can benefit from the collective wisdom of short sellers.
+Identifying the tragic flaw in a business long before the company's
+demise is a timely skill in any economy and an irreplaceable one in
+a recession.
+Institutional managers should find the discipline enticing on
+several levels: as an analytical methodology, as a means of
+enhancing returns through avoidance of torpedoes, and as a
+hedging technique. As a methodology, short-sale analysis is not
+significantly different from classic fundamental work. It places
+heavier emphasis on cash-flow dissection and on the reality
+underlying reported earnings. It attempts to identify the long death
+rattle of a company in decline. In security analysis, managers are
+rarely trained by using examples of poorly run companies. Yet it is
+easier to identify trouble spots if education includes examples of
+corporate mistakes. Short selling is, therefore, another tool in a
+tradesman's bag.
+In his essay, "The Loser's Game," Charles Ellis wrote, "Almost all
+of the really big trouble that you're going to experience in the next
+
+--- PAGE 32 ---
+year is in your portfolio right now; if you could reduce some of those
+really big problems, you might come out the winner in the Loser's
+Game."' As an equity research skill, short selling gives analysts the
+ability to avert disaster in good times as well as in bad. And it gives
+them the ability to enjoy the joke when a sham is discovered
+because the fun might not be at their expense. The art of short
+selling trains analysts to avoid torpedo stocks or to profit from them.
+Short sales should be considered by portfolio managers who
+want to hedge or to decrease the volatility of total returns by setting
+the market sensitivity of their portfolios with more precision.
+Because short positions have a negative correlation with a stock
+portfolio, a balanced portfolio of shorts and longs can even out the
+market effect, reduce risk, and afford returns based purely on stock
+selection.
+Individuals can employ the analytical techniques of short selling
+to avoid owning stocks that will explode otherwise well-conceived
+portfolios and to escape the new-issue frenzy of rabid retail
+brokers. Knowledge of professional methods of short selling saves
+money in the long run.
+The main weakness of professional short sellers-an inability to
+judge the timing of collapses-is a strong argument for attention to
+short selling by any entity that owns stocks. Short sellers are
+consistently years too early when they sell stocks. Stockholders are
+always slow to sell even when the evidence is irrefutable and the
+future for profit bleak. The years of irrational price behavior in a
+deteriorating company provide stock owners with years to sell a
+problem stock. Portfolio managers or individuals who attempt to
+educate themselves about the reasons for escalating short interest
+in stock holdings can radically improve the returns by avoiding
+torpedo hits-they can use the weakness of the discipline as a
+strength.
+Q Mechanics and Risks
+Short sellers of common stocks borrow stock from a brokerage house
+to sell in the organized markets. They must put up 50 percent of the
+short-sale price to satisfy the current Federal Reserve requirement. The
+
+--- PAGE 33 ---
+broker, in turn, gets the to-be-borrowed stock from customer margin
+accounts or from another broker dealer.
+If the short sale is made on the NYSE, the AMEX, or NASDAQ, the
+trade can be executed only on an uptick or on a zero-plus tick-the stock
+price must move up before a short sale can be made.
+After the short sale is made, the brokerage house uses the closing
+security prices to compute a daily or weekly gain or loss on the
+positions. If the price has moved down, the seller has use of the funds
+for security purchases, short sales, or money market purchases. If the
+price moves up, the seller must put up more collateral (see Table 1.1).
+Although most brokerage houses do not pay interest on the shortsale
+proceeds, a few do pay interest at a negotiated percentage of the broker
+call rate. Most managed short funds or hedge funds receive 60 to 90
+percent of the broker call rate on short credit balances. The borrower is
+also charged by the broker for all cash and stock dividend payments on
+the short positions.
+To close a position, the seller must buy the stock and deliver the
+shares to the broker, who then returns them to the original owner. (The
+Appendix has a detailed explanation of the brokerage and margin
+requirements.)
+The short seller of common stocks runs two risks:
+1. The price moves up after the stock is sold, thereby requiring
+more cash infusions into the account.
+2. Or the lender demands the return of the stock.
+The brokerage house can ask for the return of the stock if the client
+who owns the stock sells it or wants physical delivery or if the lending
+broker requires it for similar reasons. At that time, if the broker cannot
+find another position to loan to the short seller, the customer will be
+forced to buy it at the current market price (a buy-in).
+Short sellers fear most a sustained rally in a stock followed by a
+forced buy-in of their position, resulting in a loss out of their control. For
+
+--- PAGE 34 ---
+that reason, short sellers tend to be secretive about positions in stocks
+with small floats (shares available for purchase, or outstand ing shares
+minus insider and 5-percent positions), particularly in companies with
+floats below 10 million shares. Despite popular fears that short sellers
+band together to pound small companies into the ground, the reality is
+that a good idea is closely held by its originator. Any action that forces
+owners to sell can create a shortage of stock to borrow if the new owner
+takes delivery of the position. When short sellers go public with a stock-
+sale idea by communicating the story to the press and the stock has
+fewer than 10 million shares outstanding, they are betting on an
+immediate collapse to give them the opportunity to cover the borrowed
+shares at lower prices. Generally, however, publicity accompanied by
+only a slight downturn in price can create more problems for short
+sellers than it solves because the limelight might trigger buy-ins.
+
+--- PAGE 35 ---
+To avoid the risk of buy-ins, some short sellers short only large
+cap stocks (stocks whose market price times the number of shares
+outstanding is greater than $500 million), and some never discuss
+positions or talk to reporters. The published short-interest columns
+are the only public sources of information about short sellers'
+activities.
+O Current Market Statistics and Growth Prospects
+
+--- PAGE 36 ---
+Figure 1.1 New York Stock Exchange Short Interest
+Short selling is a small percentage of the overall market. Short interest
+(defined as "the total of all shares sold short and not covered as of a
+given date") as a percentage of NYSE shares outstanding for December
+1995 was 1.30 percent, up from 0.07 percent in December 1960. Figure
+1.1 shows short interest as a percentage of outstanding shares on the
+NYSE. In December 1960, the NYSE had an aggregate of 6.15 billion
+shares listed, versus 4.4 million short. In 1995, those figures were 154.8
+billion, versus 2.05 billion short.
+The AMEX short interest went from 0.06 percent in 1960 to 1.07
+percent in December 1995 (see Figure 1.2), with 10.49 billion shares
+outstanding and 112.4 million short in December 1995.
+
+--- PAGE 37 ---
+Short-interest statistics were not available for NASDAQ until
+December 1986: Short interest was 0.6 percent in December 1986 and
+1.46 percent in December 1995, when short interest was 921.23 million,
+versus total shares of 62.95 billion.
+Figure 1.2 American Stock Exchange Short Interest
+Analysts have said that a high short-interest number is bullish
+because short sellers must cover and prices rise as the short sellers
+rush to cover shares. The short indicator as a market predictor has been
+under attack in recent years, however, because of the use of short sales
+in arbitrage positions and by institutions to hedge portfolio risk, as well
+as by brokerage houses to hedge put trans-actions by insiders locking in
+stock profits. Some analysts feel that this new dimension has skewed
+the historical relationships. Short interest is also higher in December as
+a result of year-end tax strategies.
+Managed funds dedicated to short selling totaled roughly $1 billion at
+the end of 1989. After a spike upward in 1991 to as high as $2 billion,
+
+--- PAGE 38 ---
+the total had dropped well below the $1 billion mark by 1996 due to
+disastrous performance years in 1991, 1992, and 1995. Most of the
+growth in short interest has come from sources other than dedicated
+short management. Stock funds managed for mutual funds alone were
+$1.37 trillion in February 1996, so short selling continues to be a tiny
+niche in the investment world.
+The size of short positions is expected to grow for three reasons: (1)
+the protracted bull market, (2) the interest of institutions in hedging or
+capturing market inefficiencies in portfolio returns, and (3) the growth of
+the fund of funds concept (diversified use of limited partnership funds
+with different investment styles).
+A private-letter ruling allowing a pension fund to participate in short
+sales was handed down in 1988. A private-letter ruling applies only to
+the entity that asks for it, but it does establish a precedent. Two issues
+previously kept pension funds out of the short market: unrelated debt
+financed income and unrelated business taxable income.
+The "unrelated debt financed income" question meant that tax-exempt
+funds could not borrow money without jeopardizing their tax-free status.
+If borrowing stocks was construed as "acquisition indebtedness,"
+pension funds could not short. But the Internal Revenue Service (IRS)
+ruled that the short sale in an arbitrage transaction did not give rise to
+acquisition indebtedness if the trade was collateralized by cash or
+Treasury securities excluding the credit balance from the sale. If the
+manager did not short an amount in excess of the cash in the account,
+the short sale would not be considered a form of leverage.
+The "unrelated business taxable income" issue questioned whether
+any income arising from short sales could be considered unrelated
+business taxable income. Interest on credit balances is generally thought
+to be excluded from this category. The recent rulings seem to put both
+issues to rest, therefore allowing pension funds access to another asset
+class.
+The IRS issued Rev. Rul. 95-8 on December 30, 1994, which
+further clarified the issue. It said that a tax-exempt organization
+would not be subject to tax on unrelated business taxable income
+on shortsale gains, even when leverage is involved, or on the
+
+--- PAGE 39 ---
+rebate fee. It failed to specify, however, whether short sales
+collateralized with stock or Treasuries would give rise to the tax.
+The protracted bull market of the 1980s and 1990s, together with
+the increasing volatility of price swings, turned the interest of
+portfolio managers toward short sales. The advent of computer
+screens also made short selling easier as managers discovered
+that the firm's normal earnings momentum or value screens could
+be inverted for short sales.
+The institutional quest for inefficient sectors of the market
+supports the growing curiosity toward short portfolios. Computer
+models that once generated equity portfolios are now spitting out
+short and long portfolios with zero betas and maximum alphas,
+portfolios that attempt to capture incremental company return
+without market risk. The growth of the futures and index options
+market, no doubt, has changed conservative investment thinking.
+For example, exposure to portfolio insurance and to hedging
+programs has increased manager and client comfort levels with
+more diverse asset classes and quantitatively driven strategies. It is
+part of this trend that short sales are no longer considered radical.
+The growth in computer-driven short management for institutional
+investors is expected to exceed the growth in fundamental short
+management by a fair percentage. Some observers estimate
+current funds under management at close to $1 billion already. The
+implication for fundamental short sellers is that, although stocks
+might become harder to borrow, these programs also readily lend
+long positions for rebates.
+Q Caveats
+Short selling is not for the faint of heart or for the inexperienced
+investor. If a stock moves against the position holder, the effect on a
+portfolio and net worth can be devastating. Short selling for the
+amateur can be as hazardous as selling uncovered puts or calls.
+Investors need to understand both the impact on their accounts and
+the consequences of getting bought-in before they indulge in short
+selling.
+
+--- PAGE 40 ---
+Simple selling, however, is a discipline for even the faint of heart,
+and the skills are the same. How to make money by shorting and
+how not to lose money by selling are different sides of the same
+coin.
+There is a certain sense of power, of being in control, of being,
+somehow, smarter or more independent that comes with successful
+short selling. The discipline gives the truly addicted stock
+gamesperson the ability to play and to win in any economic
+environment: Muddled corporate strategic plans are always evident,
+bubbles of hope exist even when the market is undervalued, and
+villains are always somewhere nearby. Short selling is a game of
+wits, with the odds in favor of the analysts who do hard work and
+think for themselves, who turn jaundiced eyes on what passes for
+Wall Street wisdom.
+Q Notes
+1. Edward M. Miller, "Bounded Efficient Markets: A New Wrinkle to
+the EMH," Journal of Portfolio Management 13 (Summer 1987):4.
+2. Paul Asquith and Lisa Meulbroek, "An Empirical Investigation of
+Short Interest," MIT paper in progress.
+3. Charles P. Jones, Richard J. Rendleman, Jr., and Henry A.
+Latane, "Stock Returns and SUEs during the 1970s," Journal of
+Portfolio Management 10 (Winter 1984):18.
+4. Robert L. Hagin, "The Subtle Risk of High Expected Growth:
+How to Avoid Torpedo Stocks," Kidder, Peabody & Co., research,
+30 March 1984, 1.
+5. Colin Camerer, "Bubbles and Fads in Asset Prices," Journal of
+Economic Surveys 3 (1989): 3.
+6. Sy Jacobs quoted in Eric Berg, "Risks for the Analysts Who Dare to
+Say Sell," New York Times, 15 May 1990, C1.
+7. Charles D. Ellis, "The Loser's Game," in Classics: An Investor's
+Anthology, ed. Charles D. Ellis (Homewood, IL: Dow Jones-Irwin,
+
+--- PAGE 41 ---
+1989), 535.
+
+--- PAGE 42 ---
+
+--- PAGE 43 ---
+istorically, significant money has been made selling short, but
+nobody talks about it much. In the past 20 years, hedge funds
+(limited partnerships composed of accredited investors that have
+few restrictions on strategy or investment instruments) have
+consistently used short sales to augment returns. Robert Wilson,
+whom John Train profiles in The Money Masters, is the
+acknowledged 
+grandfather 
+of 
+the 
+short-selling 
+hedge-fund
+managers. Other great fund managers-George Soros, Michael
+Steinhardt, and Julian Robertson-are as comfortable with either
+side of the market as an ambidextrous person.
+O Hedge Funds and Investment Advisors
+Julian Robertson of Tiger Funds'
+
+--- PAGE 44 ---
+Detailed company analysis is practiced by most of the top-performing
+hedge funds. Julian Robertson of Tiger Funds has been shorting stocks
+for over 30 years. He uses the same fundamental approach to the short
+side as to the long-prodigious research, a bottom-up analytical
+methodology, and a long-term time horizon. The generic drug stocks are
+an example of his thought process. The public perceived that the stocks
+were enormous growth vehicles and moved the prices up to earnings
+multiples of 30 or 40 times and 10 times sales and book value. In re
+ality, the companies had no franchise and no sales force and produced
+commodity products. The product pricing and concomitant gross
+margins could not support the stock valuations with the built-in euphoria
+for earnings increases.
+Robertson feels valuation bets on price alone make bad short sales:
+There must be either a fundamental change in the outlook for the
+company or a major misconception by the stock-buying public. He is
+known for his ability to match a long position in a good company with a
+short position in a deteriorating one-short Texas Air, long American
+Airlines, for example. He is equally adept at unhedged industry stock
+selection bets-long United, short Zenith Labs. Because Robertson
+declines to predict the market, his funds have always been short, with
+no specific weighting and no maximum percentage allocation.
+Alex Porter of Porter, Felleman2
+Alex Porter at Porter, Felleman, is another hedge-fund manager who
+has been shorting stocks for several decades. He shorts to reduce the
+risk in the overall portfolio, as an insurance policy against a protracted
+decline. The trick, he says, is to be short the stocks you can stay short
+without pain or expense, particularly the stocks where financial
+legerdemain denotes something is seriously wrong. His analytical work
+is company-based; therefore, his shorts are predominantly companies
+where management does not own much stock, where management is
+not realistic and forthright about their business, and where the company
+itself is leveraged or has a fatal balance-sheet flaw. Porter also feels that
+the long side of the market is more aggressive and persistent about
+hyping stocks than the short side and that the lemminglike agreement on
+Wall Street is greater on the rise than on the fall of a stock price.
+Joe DiMenna of Zweig Funds3
+
+--- PAGE 45 ---
+Joe DiMenna, general partner and portfolio manager of the Zweig Group
+of Funds, is another experienced fundamental player on both the short
+and the long side. Total short exposure at Zweig is dictated by two
+variables: the number of attractive short-sale candidates their research
+uncovers and the net exposure to the market that their battery of
+indicators suggests (monetary policy, supply and demand of stocks, and
+so on). Fundamental analysis accounts for at least 75 percent of the
+decision.
+DiMenna shorts five types of situations: frauds, earnings
+disappointments, hyped stocks where he can shoot holes in Wall
+Street's 
+consensus 
+expectations, 
+industry 
+themes 
+where
+macroforces are negative, and deteriorating balance sheets. He
+reassesses short positions continually and, before he shorts, tries
+to determine the catalyst that will cause a stock to fall. He generally
+will not short stocks with strong relative strength and earnings
+momentum solely on the basis of overvaluation. Typically, he waits
+for these stocks to break before getting involved. He avoids short
+candidates in a crowded field unless the company is terminal.
+O Short Sellers-The Alter Ego of Wall Street
+From 1983 to 1989, a number of funds were founded that
+specialized in short selling. The Feshbach Brothers of California
+and one shy curmudgeon called McBear were the first two
+managers dedicated to short selling in 1981 and 1983. Jim Chanos
+came on the scene in 1985, followed by a covey of others in late
+1988 and 1989. The dedicated short sellers were different in two
+respects: First, their performance belied common wisdom-they
+were up in up markets, as well as up in down markets (see Table
+2.1); second, they did thorough fundamental analytical work, not the
+mainline Wall Street-style earnings-projection model.
+Short sellers are odd people. Most of them are ambitious, driven,
+antisocial, and singleminded. As individuals, they are not very likely to
+own a Rolex watch or a Presidential springer spaniel or any other
+symbolic trapping of success; they are likely to have a wry, slightly
+twisted sense of humor. As a group, short sellers like to disagree, and
+they like to win against big odds. Typically, they have an axe to grind, a
+chip on the shoulder. As in the general population, some of them are
+
+--- PAGE 46 ---
+cretins and some are not, but they are all smarter (most of them, in fact,
+are intellectual snobs) and more independent than most people.
+Contrary to popular wisdom, they do not form a cabal and bash stocks
+senseless. They normally are secretive and slightly paranoid. And they
+are frequently irreverent in their regard for business leaders and icons of
+Wall Street. Dana L. Thomas summed up the breed in this statement:
+The Feshbachs: Stock Patrol on NASDAQ4
+The most famous short sellers in recent years were the Feshbach
+Brothers-Kurt, twins Joe and Matt, and non-Feshbach Tom Barton.
+Feshbach Brothers, founded in 1982, was the first group formed to
+concentrate on short selling. At the height of their funds, they managed
+more money by a significant factor than any competitor$600 million in
+1990, individual, institutional, and pension fund money. They made their
+
+--- PAGE 47 ---
+mark early as small cap, stock police with a specialty in investigative
+frauds. In more recent years, the portfolios under their management
+have been more traditionally balanced with long-equity holdings as well
+as some shorts.
+The Feshbachs looked for terminal shorts with these four
+characteristics:
+1. Stock prices overvalued by at least two times Feshbach-per-
+ceived valuation.
+2. A fundamental problem at the company.
+3. A weak financial condition-working-capital problems or high long-
+term debt, for example.
+4. Weak or crooked management.
+The Brothers perceived themselves as hype detectors serving an
+important watchdog function for the public. They enjoyed the chase and
+the challenge of short selling and the camaraderie of being four against
+the world. Conversely, they also consistently reap the wrath of bear
+baiters like the OTC Review's editor, Bob Flaherty.
+Their first short was Universal Energy, a stock the Feshbachs thought
+was manipulated by an insider/owner, a stock that crashed quickly and
+created a model for subsequent ideas. The Feshbachs' keystone is
+intense work and, sometimes, informational overkill. They start with
+fundamental methods of analysis and overlay that process with
+information gathering from a wide range of sources.
+The Feshbachs do not short a stock unless they expect it to decline in
+price by 50 percent, because they believe that the risk of short selling is
+too great for marginal plays. "We short stocks where the negatives so
+overwhelm the positives that, over time, the market can't just shrug off
+the bad news-eventually the stock price will reflect it," Joe says.
+"Everybody has the same balance sheet and income statement that
+we do. The only thing we're looking for in an income statement or
+balance sheet is a story that appears to defy basic economic lawsa
+
+--- PAGE 48 ---
+company that is spending more than it's making, for example. Those
+kinds of things are obvious, not subtle points at all," Feshbach
+continued. Kirschner Medical is an example of this principle. Any analyst
+could figure out that the company had over 400 days of inventory, but
+the Feshbachs developed sources that said Kirschner had over $10
+million in obsolete inventory. Overkill, perhaps, but the Feshbachs feel
+that detailed masses of information are part of their success. "The
+reason we put so much emphasis on phone calls to competitors,
+suppliers, and customers is that's where we get our edge-in discovering
+what drives the numbers. Everybody knows what the numbers are on a
+historical basis. If they don't, they're either illiterate or just lazy.
+Sometimes, they misinterpret them."
+ZZZZ Best (Chapter 3) was their most publicized short, but Circle K is
+representative of the way their research proceeds. When a broker from
+Boston called the Feshbachs with the convenience store chain Circle K,
+they hired an industry consultant to tell them how much the chain was
+worth per store. The consultant came back with a number that
+precluded a short sale. Later, the consultant called to lower his
+evaluation because he had found that the sale/leasebacks of stores
+meant that Circle K did not really have much to sell. He also discovered
+that many top people were leaving. The stock was still around $14 a
+share, so the Feshbachs went to work.
+What they found was a highly leveraged company with ugly operating
+fundamentals, a rising off-balance-sheet liability, and a declining
+industry. The balance sheet had $1 billion in debt-half in junk bonds,
+half in bank debt. All the assets had been sold to the company's largest
+shareholder, Carl Lindner. Same-store sales were declining, and
+operating income was no longer covering interest.
+They also found that Circle K had understated the liability for gas-tank
+remediation. Ex-employees told them that Circle K bought locations sight
+unseen with no testing. So not only were the locations old and expensive
+to fix, but the transferred title meant that the new lender assumed the
+liability.
+The Feshbachs developed a network of ex-employees, competi tors,
+and suppliers who confirmed that operationally the company was failing.
+First, they found that CEO Karl Eller had developed a relationship with
+
+--- PAGE 49 ---
+the Steve's Ice Cream owner, Richard Smith; he used Smith as an
+unpaid consultant to run the company's day-to-day operations. Smith
+made a crucial mistake: He thought customers were insensitive to price,
+so he raised prices across the board and attempted to negotiate
+suppliers' contracts lower in an effort to raise margins to 40 percent. The
+customers walked, and the suppliers told them to buy elsewhere. Same-
+store sales dropped, margins dropped, and customers were
+permanently alienated.
+One other factor made the stock a great short. The industry trends
+were changing radically. When existing gas stations rebuilt convenience
+stores and could sell gas for less than Circle K could buy it, Circle K was
+in serious trouble. It was a national trend. Simultaneously, grocery
+stores started staying open 24 hours a day.
+So, the company's internal environment and the industry external
+factors led the Feshbachs to short 1.4 million shares above $10. Then
+they shorted the convertible when it continued to trade at $70 (because
+of a 1991 put provision) after the stock crashed to $5. Circle K was
+institutionally owned and Wall Street covered. They bought in positions
+for around $1.
+Because the Feshbachs have specific target prices, turnover is low.
+When they take a position, they typically add to it as more data come in,
+and they only cover because they made a mistake or because the stock
+hits the target price-not with a 20-percent decline for a quick profit.
+The Feshbachs do not find company visits or Wall Street analysts
+productive ways to gather information. Talks with management are not
+fruitful: "The company didn't get to be a good short without
+management's help." Wall Street is no help: "That's the place to get the
+bull story, not the bear story. The bias negates their usefulness to us in a
+lot of incidents."
+Some segments have been more lucrative than others. Banks and
+savings and loans have been money makers for years, not just six
+months: American Continental, Commonwealth Savings of Houston,
+Sunrise Savings and Loan, Sun State Savings and Loan, and Bank of
+New England are companies that the Feshbachs have made good
+money shorting.
+
+--- PAGE 50 ---
+The buyout frenzy of the 1980s provided massive opportunities for the
+Feshbachs. Their stock analysis is similar to what investment bankers
+use to determine private market value, so their methodology kept them
+out of trouble. The Sony acquisition of Guber Peters caught them short,
+but Joe Feshbach likens that to a natural disaster-there was no way to
+anticipate the buyout at those ludicrous prices.
+The most difficult part of short selling is timing, and the Feshbachs do
+not presume to have an answer to what determines the optimal trigger
+point. Joe uses the example of CopyTele: What is an appropriate
+indicator that the stock is finally ready to give up the ghost? (CopyTele
+has no earnings or revenues and only the promise of a product.) They
+believe that to sell short you have to be certain that you see an important
+factor that other people do not see. "But," Feshbach continues, "it's not
+enough to see it if it doesn't make a difference in the way the company is
+ultimately valued. You have to see those mechanics begin to impact the
+income statement and the balance sheet." You have to visualize how the
+change evolves through the health of the company. The Feshbachs feel
+that talking to competitors and suppliers reveals the climate and how
+long it might continue and gives insight into possible triggers. Joe
+Feshbach says, "You look for something that is obviously misperceived,
+obviously important, and obviously detrimental. At that point, if you're
+comfortable that it's already started to happen, that it's not discounted in
+the price, and that it is substantial enough to get you to the price target,
+then you ought to get started." He cautions that the first position is not
+necessarily the biggest because stocks go up and you want to be able
+to average up. But the time you really want to add to the position is when
+those factors become overwhelmingly apparent and the stock is still up.
+As the often-accused pundit of the supposed group of stockbashing
+bears, Joe Feshbach says that all investors share information and
+develop research relationships. He is not aware of a single incident
+where short sellers got together and "agreed to pummel a stock. We like
+to hear new ideas, but we don't view it as any different from a portfolio
+managers' dinner in New York where six guys get together and throw
+out their best ideas. If that's illegal, there won't be room in the jails for
+any criminals."
+The Feshbachs feel the most important characteristic in a short seller
+or an investor is the ability to remain analytical when other people panic.
+
+--- PAGE 51 ---
+They credit Dianetics for contributing that characteristic or set of
+responses to their management style. Joe Feshbach comments,
+We don't flip out when a stock goes up. The whole purpose of
+Dianetics is to eliminate reactive patterns whereby a person
+operates on a stimulus response basis and isn't being analytical.
+That's the starting point. Money managers make the same mistake
+over and over-that's part of whole reactive pattern. We try to get to
+the bottom of errors we make. We've developed a check list of
+good short criteria and a training manual based on successful and
+unsuccessful actions. We have learned by doing, and not
+everybody, just by doing it, learns it. We attribute that to Dianetics.
+The Oldest Living Short-Fund Manager 5
+"McBear" launched his fund in mid-1983 at age 40. After earning a
+Stanford M.B.A., he worked as a special-situations analyst and as a
+director of research and managed money for wealthy individuals. As the
+oldest short-fund manager, McBear jokes that his age gives him greater
+experience with the credit cycle. Consequently, his signature short ideas
+are based on extensive credit work. His formative short was Caterpillar
+Tractor (Cat) in 1984. The financials read like a disaster. Cat's main
+customers were the Saudis, oil drillers, national mining companies, and
+the notorious South American countries-once flush, they all were now
+broke or cash short. In spite of the dismal reality, Wall Street analysts
+were estimating $4 in earnings per share. Caterpillar's stock was widely
+owned and frequently featured by strategic thinkers as a portfolio
+necessity. The Street missed by $9 a share that year-Cat lost $5.
+McBear identified kindred plays, and he then shorted drillers, mining
+companies, machine tools, and all the bets connected to the sinking Cat.
+The Street was predicting a cyclical turnaround. "Understanding Cat
+gave me the insight into understanding the structural problems at that
+time in the economy. Inflation-driven industries had huge capacity, and
+the Street felt the problems were cyclical, not structural, and expected a
+turn in late 1983 or 1984. But the economy missed a cycle."
+In what he believed to be a turn in the credit cycle, McBear was
+particularly adept with the real estate, bank, and leveraged buyout
+(LBO) phenomena. He was first to short the New England banks, and, if
+a company levered up and made a large acquisition, he looked at it. The
+
+--- PAGE 52 ---
+stub stocks Harcourt Brace Jovanovich; U.S. Gypsum; and Carter,
+Hawley, Hale-deals that did not work from day one, he says-were large
+portfolio shorts for his fund.
+Ames is a good example of the work of McBear and his associate.
+They first got interested in Ames when the company bought Zayre in
+October 1988 and added substantial debt to the balance sheet.
+Because the purchase was made below book and Zayre had ugly
+margins, Wall Street simply added the revenues together, applied peak
+margins from Ames to the result, subtracted the new interest, and came
+up with $1.40 to $1.45 in earnings. When Ames bought Zayre, sales
+were $2.1 billion with operating margins of 2.2 percent in fiscal 1987.
+The balance sheet was clean. Zayre's sales were $2.9 billion, and the
+purchase price was $778 million. The discount retail environment was
+under pressure with Walmart's aggressive pricing and expansion plans,
+so McBear felt the margin history was the key to the company's health.
+"You get a window on a stock before the facts are announced when
+analysts can say anything they want-and they do. The institutions like to
+listen and believe because they've been in a bull market so long. An
+Ames analyst could say Zayre will work out, but sooner or later came the
+time of reckoning." So McBear and his associate started tracking the
+margins through time, quarter by quarter, from 1985-the peak year at
+4.8 percent. Wall Street was using 3 percent and implying that number
+was conservative. "It was unbridled optimism that peaked on the
+convertible deal in October 1989 with the stock at $18," says McBear's
+associate.
+The 1989 quarters supported the thesis that the debt was not
+serviceable with the company's margin history. The company lost money
+every quarter and showed negative comps at Zayre. The Street, with the
+exception of the Goldman, Sachs analyst, continued cheerful about the
+operating and financial leverage. Furthermore, Ames immediately had
+heavy cash drain from refurbishing seedy Zayre stores, closing overlap
+stores, and cleaning up inventories. All the depreciation and
+amortization appeared to be going to necessary capital expenditures,
+throwing off Street analysts' cash-flow projections. Also, Zayre
+customers were accustomed to heavy promotions, and Ames's policy
+was consistent low prices; so Zayre's regular revenue base
+disappeared. Murphy's Law worked in the bears' favor. The expected
+
+--- PAGE 53 ---
+Christmas 1989 sales never materialized, vendors were not paid after
+Christmas, and the company filed for bankruptcy in April 1989, a victim
+of acquisition mania.
+McBear understood the effect of the acquisition of Zayre and the
+potential impact on the equity of Ames, together with the dynamics of
+the problem and how the problem develops. "A problem takes more than
+three months to solve that took five years to evolve."
+McBear keeps a low profile relative to his peers because he gathers
+important information by visiting companies. He feels Wall Street
+analysts are a poor conduit for company insights because they screen
+out relevant facts. A good listener asking thoughtful questions can learn
+critical facts about business trends. He uses the example of Cross and
+Trecker: The company was leading analysts to a $1.20 earnings
+estimate at one point, while the Street still estimated $4.00.
+McBear is scorching in his contempt for Wall Street investment
+bankers who have shepherded their clients into breakneck acquisitions.
+He feels that part of the satisfaction of short selling is going against Wall
+Street. Corporate management is rarely the target, unless there is fraud.
+It is generally Wall Street that has engineered the ascent of the stock.
+"Many corporate managers are odd lotters," he comments. "They are
+under relentless pressure from investment bankers, and they are herded
+into mistakes. They do things when everybody else does them, like
+institutional money managers. If it's in vogue to buy oil companies or to
+make acquisitions, they all do it." He thinks Wall Street research has
+always been bad, but it is worse now because investment bankers are
+controlling the process. He implies that investment bankers have about
+the same value to society as drug dealers. In the sum mer of 1989, he
+thought it was clear when the credit cycle peaked because investment
+bankers could say anything and the analysts would complacently repeat
+it. Back in 1983, concept stocks-high-multiple, high-growth stocks-were
+hot; and you could, to some degree, understand the rationale of stock
+valuation even if you did not agree with it. "But the summer of '89 wasn't
+a concept market-the numbers just didn't add up. Investment bankers
+said one plus one equals three, and the prospectus put it in writing. It
+was the end of a cycle with extreme exaggeration, a truly speculative
+market."
+
+--- PAGE 54 ---
+The environment of Wall Street creates enough slippage for short
+sellers to make money. "The market is inefficient," he says, "because
+there is a bias to buy. There are six professional short sellers and twelve
+thousand investment advisors, a hundred buy reports for every sell, and,
+therefore, a natural upward bias to stocks. It's particularly true in a bull
+market. It's always somebody else's money. Like Texas Air, investors
+lost a lot. So what! It was a bunch of commissions. It creates pain for
+short sellers in the short run but a lot of opportunity."
+Jim Chanos: Financial Puzzle Artist 6
+James S. Chanos of Kynikos Associates, Ltd., made an early showing
+when he called the Baldwin-United bankruptcy at age 24 when he was
+an analyst fresh out of Yale at Gilford Securities. He is doomed, as a
+result, even as he ages to the sobriquet of youth. He moved on to
+Deutsche Bank Capital Corporation in 1983 to specialize in sale
+recommendations and overpriced securities. When he left their
+employment in 1985, he started his own short fund and now manages
+around $200 million.
+Chanos's specialty is solving complex financial puzzles. He shorts
+large-capitalization financial companies with a high probability of
+bankruptcy. His average holding period is nine months, but his longest
+holding was Integrated Resources at over five years. The median equity
+market cap of the stocks in his portfolio is $900 million. He does not
+short frauds with small floats because of size constraints. In contrast to
+some of his competitors, he has not had a problem with buy ins because
+of his use of large-cap stocks. Chanos maintains a concentrated
+portfolio of about 30 stocks, with 10 positions accounting for more than
+50 percent of his portfolio.
+Typically, he likes to short stocks with secular problems where he can
+make a "reasonably strong argument, based on the valuation of the
+business (much like the private market players look for discount to
+value), that the equity value of the enterprise is $0. When the stock
+trades to its warrant value, our analysis shifts to the valuation of the
+warrant. If there's a lot of debt, the warrant value may be nothing, or we
+may cover at $2 or $3."
+
+--- PAGE 55 ---
+Chanos does not visit companies and seems to use Wall Street as a
+corporate emissary or interpreter. He comments that,
+In a one-time corporate visit, they're not going to tell you anything
+they're not already telling the street. And if they do, you probably
+shouldn't be hearing it anyway because it's probably non-public.
+You can get a very good sense of what the company story is by
+using First Call and analyzing five years of data. We also attend
+some corporate presentations when management comes to town,
+one of the advantages of being based in New York. We tend to
+focus on the numbers. We're not big on hiring detective agencies or
+talking to ex-employees. We think a lot of traditional money
+managers tend to get sloppy. It's easy to do. One common
+shortcoming is to rely on management or Wall Street analysts.
+When they both get blindsided, you're left holding the bag. So to
+that extent we'd rather not rely.
+Analytically, Chanos says he does not do anything that is very
+different from other managers, but his use of return on invested capital
+as a key financial indicator is unique. "'Using this, we've been able to
+find companies that are not what they appeared to be." His calculation
+is: earnings before interest and taxes divided by average total capital
+(which is defined as total liabilities plus equity minus current liabilities
+plus short-term debt or, to say it another way, the return on all interest-
+bearing liabilities plus equity plus deferred taxes and shortterm debt).
+"That ratio will reveal a lot of wormy companies and poor businesses.
+It's a tough number to screw around with."
+Financial companies have been particularly lucrative for Chanos
+because of the potential for rampant earnings manipulation, which, he
+says, attracts its fair share of scoundrels. Chanos notes that the
+"leverage inherent in some of these companies is incredible. When the
+accounting gets murky, people tend to shy away from rigorous analysis
+and rely on management and just take earnings per share at face value.
+Therein lies the opportunity."
+Chanos's analysis of Baldwin-United illustrates his persistence with
+puzzles and his ability to persevere in the face of marked hostility, both
+from the company and from peers. Baldwin was a high flyer with a large
+Wall Street following in the summer of 1982. Prudential Bache, Prescott
+
+--- PAGE 56 ---
+Ball, Merrill Lynch, and Smith Barney all had Baldwin-United stock rated
+"a buy," with a euphoric perception of earnings momentum. Chanos took
+the time to read the annual convention statements, understand the tax
+accounting, and follow a complex trail of affiliated company financial
+transactions, all of which convinced him that the stock was next to
+worthless. The stock went from $20 to $50 with his sell recommendation
+in place-and then into bankruptcy, for the largest insurance-company
+scandal of the decade. The Street analysts at the time were
+concentrating on earnings momentum, Morley Thompson's publicity
+releases, and the perceived hot market for single-premium deferred
+annuities. Chanos did painstaking spread sheets on cash flow, never an
+easy task with subsidiaries moving assets.
+The arguments on Baldwin revolved around Wall Street's belief that
+Thompson's superior strategies could create earnings from his
+convoluted financial stratagem. He convinced the analysts that his
+investment plan was newfangled corporate arbitrage-very sophisticated,
+very complex. The docile crowd of analysts regurgitated the information
+in buy recommendations and long reports. Everybody loved a winner,
+shuffling his companies like cards.
+In the summer of 1982, part of the Street elation was the MGIC
+Investment Corporation acquisition. Merrill analyst Carol Neves was
+cheered by the "continuous source of taxable income" from MGIC, "so
+that BDW [Baldwin-United] can fully utilize the substantial tax credits
+being generated by its most successful product, SPDAs [singlepremium
+deferred annuities]."7 Robert Back at Prescott Ball & Turben had the
+stock "rated a very strong long-term purchase ... at $62 per share, only
+4.8 times our conservative 1983 estimate."8
+Chanos wrote his first report in late August 1982. It was a sell
+recommendation based on the leverage, the cash flow, the quality of
+earnings, and the potential decline in revenues from rate declines and
+possible tax legislation. He stated the heretical opinion that Baldwin was
+losing money on its annuity business and that assets purchased by
+affiliates from MGIC were a serious liquidity problem for insurance
+portfolios, as well as a rate-of-return problem, because real assets were
+sold to purchase money-losing real estate-cash flow was the real issue,
+not reported earnings.
+
+--- PAGE 57 ---
+A brouhaha ensued. Chanos was excoriated publicly, threatened
+privately, and repudiated by management. Paul Mackay at Bache said
+to buy because short interest was over one million shares, "creating a
+unique trading opportunity. `9 And Baldwin believed that insurance
+assets could easily cover all SPDAs from current liquid investments.
+Chanos persisted with another report in December 1982 after the
+stock had doubled. He pointed to declining fundamentals at MGIC,
+which would weaken cash flow and use of tax benefits. Then he went
+over cash flow again, in detail.
+In March 1983, Baldwin announced it could not pay $900 million in
+short-term debt and subsequently filed for Chapter 11.
+Chanos has continued to mine financial companies and complex
+financial statements for ideas and has made money from the stock
+collapses of the Zises of Integrated Resources, Gary Driggs of Western
+Savings and Loan, Charles Keating of American Continental, Fred Carr
+of First Executive, Frank Lorenzo of Texas Air, David Maniatis of Sun
+State Savings and Loan, as well as from Prime Motor Inns, Harcourt
+Brace Jovanovich, and Valley National.
+Commenting on a variety of short-selling issues, Chanos laughs about
+frequent small-company criticism that a cabal of sellers exists. Any
+interchange with other sellers is no different from talking to friends about
+good ideas. He feels the Securities and Exchange Commission (SEC) is
+vigilant about stock-price manipulation and that it would certainly be
+aggressive about investigating collusion among the short community to
+drive share prices down. He notes that, because of the uptick rule, it is
+impossible for short selling to cause a stock to decline in price. Both the
+National Association of Securities Dealers (NASD) and the SEC view
+short sellers as another good source of information.
+He feels the potential pension-fund entry into short selling is a looming
+issue, one that should shake up the business and make it tougher.
+Personally, Chanos prefers dealing with private clients who want to
+preserve capital, are farsighted, and add to the investment process.
+Chanos uses his partners' business experience and their contacts as
+part of the research process. "These people are interested in building
+wealth versus making a few extra basis points," he surmises.
+
+--- PAGE 58 ---
+Chanos thinks that he has a good relationship with the Street and that
+he talks to them more than any other short seller for two reasons: First,
+he shorts stocks that are covered by the Street, and, second, he runs
+money for the Street-principals at brokerage firms, as well as brokerage
+firms. He sees international short selling as the biggest new opportunity
+and made good money off Eurotunnel in 1994 and 1995. Although
+financial disclosures are semiannual, valuation more than makes up for
+the lack of quarterly disclosure because the stocks are conceptually, not
+analytically, priced. The proliferation of short funds managed by
+newsletter writers and traditional money managers does not bother
+Chanos over the long run. "Very few people have the stomach to take a
+fundamental short position. If a short position goes against most people,
+their first reaction is to cover, rather than sell more stock."
+A Contracting List of Short Sellers
+Dedicated short funds continued to spring up in the investment world
+well into 1991. The protracted bull market of 1991 to 1993 knocked
+most of the virgins back out of the business as fund-of-fund managers
+dropped short exposure and pension-fund participation failed to
+materialize. A new crop has sprung up to replace converted cynics, but
+dedicated short managers are a scarce breed again, even after a
+successful year in 1994 (funds under management are under a billion).
+The wizened veterans do not seem too concerned about competition or
+its demise. They apply their contrarian company attitudes to the
+business itself-less interest means more profit; the crowd is usually
+wrong.
+6 Notes
+1. Interview with Julian Robertson on 2 May 1990.
+2. Interview with Alex Porter on 24 April 1990.
+3. Interview with Joseph DiMenna on 6 June 1990.
+4. Interviews with Joseph Feshbach on 1 and 14 June 1990.
+5. Interview with "McBear" on 2 May 1990.
+
+--- PAGE 59 ---
+6. Interview with James S. Chanos on 2 May 1990.
+7. Carol P. Neves, "Baldwin United," Merrill Lynch Pierce Fenner &
+Smith Securities, research division, 16 April 1982, 1.
+8. Robert W. Back, "Baldwin-United Corporation," Prescott Ball &
+Turben, 11 June 1982, 4.
+9. Paul A. Mackey, "Baldwin-United Corporation," Bache Halsey
+Stuart Shields Incorporated, institutional research, 25 August 1982,
+2.
+
+--- PAGE 60 ---
+
+--- PAGE 61 ---
+
+--- PAGE 62 ---
+perfect short-sale candidate is a stock with a large float to
+allow ease of borrowing and no buy-ins, a high stock price for
+maximum return, and no business or assets to keep the risk
+nominal and the investment horizon short-term. Veterans of the bull
+market of the 1980s and 1990s will remember that a perfect short
+can cause terrible loss. Even a company with no revenues and no
+assets can produce the hope of future earnings. Many of these are
+technology or medical products companies with a purported new
+hot product in the pipeline. Shams are created by stockholders,
+brokerage houses, or corporate executives who relentlessly push
+the valuation higher without regard for the underlying financials,
+inflating 
+the 
+prices 
+beyond 
+expectation 
+of 
+future 
+value.
+Management, in some cases, might believe in their ephemeral
+product and the public's bubble evaluation of it, or, as in the case of
+ZZZZ Best, they might be conning the public and the Securities and
+Exchange Commission (SEC).
+
+--- PAGE 63 ---
+• Dirty Carpets: ZZZZ Best
+The Feshbach Brothers were masters of the bubble company, as
+evidenced by their detective work on ZZZZ Best-the carpet
+cleaning company with no revenues. ZZZZ Best, whiz kid Barry
+Minkow's hotgrowth company, had a market value of $200 million
+in the spring of 1987. Business was great for the company, and
+they announced a contract to clean two large buildings in
+Sacramento for $8 million. Carpetcleaning competitors told
+Feshbach analysts that the two largest cleaning contracts to date
+(the MGM Grand and the Las Vegas Hilton) capped at a price of
+$3.5 million, so the Feshbachs smelled a skunk, started looking,
+and shorted aggressively. The stock price rallied despite rumors of
+false billing in late May of 1987. By July, ZZZZ Best was bankrupt.
+In March 1989, the amazing Minkow was sentenced to 25 years for
+fraud: no contracts, no revenues, and a money-laundering scheme.
+The Feshbachs, meanwhile, went home happy and richer.
+Some professional short sellers feel this segment of the market is
+the natural preserve of individual investors. Because the stocks are
+frequently hard to borrow in sizes large enough to make a
+meaningful addition to portfolio returns, the stocks take more work
+in fighting for reliable information than they provide in returns.
+Individual investors, however, can show dramatic returns because
+they can borrow enough stock to impact a diversified short portfolio.
+The stocks are often inefficiently, even absurdly, overpriced.
+6 Harrier: It just Didn't Add Up
+Harrier, Inc., a new medical-products company, is a good
+illustration of how short analysis logically proceeds and of what
+short sellers look for in their framework of inverted value analysis.
+At first look in July 1988, Harrier, headquartered in Utah, appeared
+to be pure pufferyno assets, no sales, no products, and a $30
+(presplit) stock price. With 2,808,000 shares outstanding, that
+represented a market capitalization (or public value) of $84 million.
+The March 31, 1988, 10Q provided the balance sheet (Table 3.1),
+income statement (Table 3.2), and "unaudited condensed statements of
+changes in financial position," as it was called (Table 3.3). The top of the
+
+--- PAGE 64 ---
+balance sheet provided some insight into the company-the date was
+wrong: Instead of 1988, the top of the column read 1987. Apparently,
+the document filed with the Securities and Exchange Commission (SEC)
+was produced so haphazardly that the dates were not proofread. The
+next point of note, again from the balance sheet, was that Harrier had
+assets of about $2.5 million on March 31, 1988, up from $307,892 in
+June 1987, and stockholders' equity of $1,672,457. In other words, the
+market valued $1.7 million of book value at $84 million. The opportunity
+existed, therefore, to sell $1.7 million worth of goods for a market cap or
+public value of $84 million.
+
+[TRUNCATED at 80000 chars — 347 total pages]

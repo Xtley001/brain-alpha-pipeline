@@ -1,0 +1,583 @@
+
+--- PAGE 1 ---
+ 
+ 
+Capital Market Equilibrium with Restricted Borrowing
+Author(s): Fischer Black
+Source: The Journal of Business, Vol. 45, No. 3 (Jul., 1972), pp. 444-455
+Published by: The University of Chicago Press
+Stable URL: http://www.jstor.org/stable/2351499
+Accessed: 11-04-2018 16:37 UTC
+ 
+REFERENCES 
+Linked references are available on JSTOR for this article:
+http://www.jstor.org/stable/2351499?seq=1&cid=pdf-reference#references_tab_contents 
+You may need to log in to JSTOR to access the linked references.
+ 
+JSTOR is a not-for-profit service that helps scholars, researchers, and students discover, use, and build upon a wide
+range of content in a trusted digital archive. We use information technology and tools to increase productivity and
+facilitate new forms of scholarship. For more information about JSTOR, please contact support@jstor.org.
+ 
+Your use of the JSTOR archive indicates your acceptance of the Terms & Conditions of Use, available at
+http://about.jstor.org/terms
+The University of Chicago Press is collaborating with JSTOR to digitize, preserve and
+extend access to The Journal of Business
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 2 ---
+ Fischer Black*
+ Capital Market Equilibrium with Restricted Borrowingt
+ I N T R O D U C T I O N
+ Several authors have contributed to the development of a model describ-
+ ing the pricing of capital assets under conditions of market equilibrium.1
+ The model states that under certain assumptions the expected return on
+ any capital asset for a single period will satisfy
+ E(AJ = Rf + /3JE(Rm) -Rf].
+ The symbols in equation (1) are defined as follows: Ai is the return on
+ asset i for the period and is equal to the change in the price of the asset,
+ plus any dividends, interest, or other distributions, divided by the price
+ of the asset at the start of the period; Rm is the return on the market
+ portfolio of all assets taken together; Rf is the return on a riskless asset
+ for the period; fli is the "market sensitivity" of asset i and is equal to
+ the slope of the regression line relating Rk and Rm. The market sensitivity
+ /3i of asset i is defined algebraically by
+ A - cov(Ai, Am)/var(Rm). (2)
+ The assumptions that are generally used in deriving equation (1)
+ are as follows: (a) All investors have the same opinions about the possi-
+ bilities of various end-of-period values for all assets. They have a com-
+ mon joint probability distribution for the returns on the available assets.
+ (b) The common probability distribution describing the possible returns
+ on the available assets is joint normal (or joint stable with a single char-
+ acteristic exponent). (c) Investors choose portfolios that maximize their
+ expected end-of-period utility of wealth, and all investors are risk
+ averse. (Every investor's utility function on end-of-period wealth in-
+ creases at a decreasing rate as his wealth increases.) (d) An investor
+ may take a long or short position of any size in any asset, including the
+ riskless asset. Any investor may borrow or lend any amount he wants
+ at the riskless rate of interest.
+ The length of the period for which the model applies is not specified.
+ The assumptions of the model make sense, however, only if the period
+ is taken to be infinitesimal. For any finite period, the distribution of pos-
+ sible returns on an asset is likely to be closer to lognormal than normal;
+ * Graduate School of Business, University of Chicago.
+ t Some of the basic ideas in this paper, and many helpful comments, were
+ provided by Eugene Fama, Michael Jensen, John Lintner, John Long, Robert
+ Merton, Myron Scholes, William Sharpe, Jack Treynor, and Oldrich Vasicek. This
+ work was supported in part by Wells Fargo Bank and the Ford Foundation.
+ 1. A summary of the development of the model may be found in William
+ F. Sharpe, Portfolio Theory and Capital Markets (New York: McGraw-Hill Book
+ Co., 1970).
+ 444
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 3 ---
+ 445 Capital Market Equilibrium
+ in particular, if the distribution of returns is normal, then there will be
+ a finite probability that the asset will have a negative value at the end
+ of the period.
+ Of these assumptions, the one that has been felt to be the most re-
+ strictive is (d). Lintner has shown that removing assumption (a) does
+ not change the structure of capital asset prices in any significant way,2
+ and assumptions (b) and (c) are generally regarded as acceptable ap-
+ proximations to reality. Assumption (d), however, is not a very good
+ approximation for many investors, and one feels that the model would be
+ changed substantially if this assumption were dropped.
+ In addition, several recent studies have suggested that the returns
+ on securities do not behave as the simple capital asset pricing model
+ described above predicts they should. Pratt analyzes the relation between
+ risk and return in common stocks in the 1926-60 period and concludes
+ that high-risk stocks do not give the extra returns that the theory predicts
+ they should give. Friend and Blume use a cross-sectional regression be-
+ tween risk-adjusted performance and risk for the 1960-68 period and
+ observe that high-risk portfolios seem to have poor performance, while
+ low-risk portfolios have good performance.4 They note that there is some
+ bias in their test, but claim alternately that the bias is so small that it
+ can be ignored, and that it explains half of the effect they observe.5 In
+ fact, the bias is serious. Miller and Scholes do an extensive analysis of
+ the nature of the bias and make corrections for it.6 Even after their cor-
+ rections, however, there is a negative relation between risk and per-
+ formance.
+ Black, Jensen, and Scholes analyze the returns on portfolios of
+ stocks at different levels of flb in the 1926-66 period.7 They find that the
+ average returns on these portfolios are not consistent with equation (1),
+ especially in the postwar period 1946-66. Their estimates of the expected
+ returns on portfolios of stocks at low levels of /3i are consistently higher
+ than predicted by equation (1), and their estimates of the expected re-
+ turns on portfolios of stocks at high levels of /3i are consistently lower
+ than predicted by equation (1).
+ 2. John Lintner, "The Aggregation of Investors' Diverse Judgments and
+ Preferences in Perfectly Competitive Security Markets," Journal of Financial and
+ Quantitative Analysis 4 (December 1969): 347-400.
+ 3. Shannon P. Pratt, "Relationship between Viability of Past Returns and
+ Levels of Future Returns for Common Stocks, 1926-1960," memorandum (April
+ 1967).
+ 4. Irwin Friend and Marshall Blume, "Measurement of Portfolio Per-
+ formance under Uncertainty," American Economic Review 60 (September 1970):
+ 561-75.
+ 5. Ibid., p. 568. Compare the text with n. 15.
+ 6. Merton H. Miller and Myron Scholes, "Rates of Return in Relation to
+ Risk: A Re-Examination of Some Recent Findings," in Studies in the Theory of
+ Capital Markets, ed. Michael C. Jensen (New York: Praeger Publishing Co., in
+ press).
+ 7. Fischer Black, Michael C. Jensen, and Myron Scholes, "The Capital
+ Asset Pricing Model: Some Empirical Tests," in Studies in the Theory of Capital
+ Markets, ed. Michael C. Jensen (New York: Praeger Publishing Co., in press).
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 4 ---
+ 446 The Journal of Business
+ Black, Jensen, and Scholes also find that the behavior of well-
+ diversified portfolios at different levels of f83 is explained to a much
+ greater extent by a "two-factor model" than by a single-factor "market
+ model."8 They show that a model of the following form provides a good
+ fit for the behavior of these portfolios:
+ Ri = + bRm + (1 -bi)Rz + e4 (3)
+ In equation (3), R. is the return on a "second facto
+ of the market (its jli is zero), and Ei, i - 1, 2,
+ mately mutually independent residuals.
+ This model suggests that in periods when R. is positive, the low f83
+ portfolios all do better than predicted by equation (1), and the high j3i
+ portfolios all do worse than predicted by equation ( 1 ). In periods when
+ R. is negative, the reverse is true: low 8i portfolios do worse than ex-
+ pected, and high jli portfolios do better than expected. In the postwar
+ period, the estimates obtained by Black, Jensen, and Scholes for the
+ mean of R. were significantly greater than zero.
+ One possible explanation for these empirical results is that assump-
+ tion (d) of the capital asset pricing model does not hold. What we will
+ show below is that the relaxation of assumption (d) can give models
+ that are consistent with the empirical results obtained by Pratt, Friend
+ and Blume, Miller and Scholes, and Black, Jensen and Scholes.
+ EQUILIBRIUM WITH NO RISKLESS
+ A S S E T
+ Let us start by assuming that investors may take long or short positions
+ of any size in any risky asset, but that there is no riskless asset and that
+ no borrowing or lending at the riskless rate of interest is allowed. This
+ assumption is not realistic, since restrictions on short selling are at least
+ as stringent as restrictions on borrowing. But restrictions on short selling
+ may simply add to the effects that we will show are caused by restric-
+ tions on borrowing. Under these assumptions, Sharpe shows that the effi-
+ cient set of portfolios may be written as a weighted combination of two
+ basic portfolios, with different weights being used to generate the differ-
+ ent portfolios in the efficient set.9 In his notation, the proportion Xi of
+ asset i in the efficient portfolio corresponding to the parameter X satisfies
+ (4), where Ki and ki are constants:
+ Xi =Ki + ki i =1, 2,. .N. (4)
+ Thus the weights on the stocks in the two basic portfolios are Ki, i - 1,
+ 2, . . ., N, and ki, i - 1, 2, . . . , N. The weights satisfy (5), so the
+ sum of the weights Xi is always equal to 1.
+ 8. One form of market model is defined in Eugene F. Fama, "Risk, Return,
+ and Equilibrium," Journal of Political Economy 79 (January/February 1971): 34.
+ 9. Sharpe, pp. 59-69.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 5 ---
+ 447 Capital Market Equilibrium
+ N N
+ Z Ki =1; ki (5)
+ Sharpe also shows that the variance o
+ a quadratic function of its expected return.
+ Similarly, Lintner shows that a number of relations can be derived
+ when there is no riskless asset.'0 His equation (16c) can be interpreted,
+ in the case where all investors agree on the joint distribution of end-of-
+ period values for all assets, as saying that even when there is no riskless
+ asset, every investor holds a linear combination of two basic portfolios.
+ And his equation (18) can be interpreted as saying that the prices of
+ assets in equilibrium are related in a relatively simple way even without
+ a riskless asset.
+ Cass and Stiglitz show that if the returns on securities are not as-
+ sumed to be joint normal, but are allowed to be arbitrary, then the set
+ of efficient portfolios can be written as a weighted combination of two
+ basic portfolios only for a very special class of utility functions."
+ Using a notation similar to that used by Fama, we can show that
+ every efficient portfolio consists of a weighted combination of two basic
+ portfolios as follows. An efficient portfolio is one that has maximum ex-
+ pected return for given variance, or minimum variance for given expected
+ return. Thus the efficient portfolio held by individual k is obtained by
+ choosing proportions Xki, i = 1, 2, . . , N, invested in the shares of
+ each of the N available assets, in order to
+ N N
+ Minimize: var(Rk) - XkXkj cov(Ri, Rj); (6)
+ i=l j=l
+ N
+ Subject to: E(Rk) xkjE(Rj); (7)
+ j=1
+ N
+ Z Xkji1. (8)
+ j=l1
+ Using Lagrange multipliers Sk and Tk, this can be expressed as
+ N N
+ Minimize: XkiXkj cov(Ri, Rj)
+ i=1 j_-1
+ (9)
+ NV N
+ - 2SkLZ xkjE(Rj) - E(Rk) - 2Tk Z xkj 1].
+ j=1 j=1
+ 10. Lintner, pp. 373-84.
+ 11. David Cass and Joseph E. Stiglitz, "The Structure of Investor Pref-
+ erences and Asset Returns, and Separability in Portfolio Allocation: A Contribu-
+ tion to the Pure Theory of Mutual Funds," Journal of Economic Theory 2 (June
+ 1970): 122-60.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 6 ---
+ 448 The Journal of Business
+ Taking the derivative of this expression with respect 
+ N
+ Z Xkj CoV(Ri, Rj) - SkE(Ri) - Tk (10)
+ j~l
+ This set of equations, for i - 1, 2, , N, determines the
+ values of Xki. If we write Dij for the inverse of the covariance matrix
+ cov(Ri, Rj), then the solution to this set of equations may be written
+ N N
+ XW- Sk DE(Rj) + Tk Di. (11)
+ j=:l j=:l
+ Note that the sub
+ the right-hand si
+ every investor holds a linear combination of two basic portfolios, and
+ every efficient portfolio is a linear combination of these two basic port-
+ folios. In equation (11), there is no guarantee that the weights on the
+ individual assets in the two portfolios sum to one. If we normalize these
+ weights, then equation (11) may be written
+ Xki WkpXpi + WkqXqi. (12)
+ In equation (12), the symbols are defined as follows:
+ N N
+ Wkp Sk DjE(Rj);
+ i~_i j=:l
+ N N
+ Wkq Tk E D-j
+ i==1 j=1 (13)
+ N N N
+ XPi DjjE(R)/ DijE(Rj);
+ j==1 i==l j=1
+ N N N
+ Xqi Dtjj 1 Dip.
+ j==1 i==1 j=1
+ Thus we have
+ N
+ - pi1;
+ (14)
+ N
+ Xqj =1;
+ i= 1
+ Wkp + Wkq 1 k- 1 2, ..., L.
+ The last equation in (14) follows from the fact that the X
+ sum to one.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 7 ---
+ 449 Capital Market Equilibrium
+ Equation (12), then, shows that the efficient portfolio held by in-
+ vestor k consists of a weighted combination of the basic portfolios p and
+ q. Note, however, that the two basic portfolios are not unique. Suppose
+ that we transform the basic portfolios p and q into two different port-
+ folios u and v, using weights wu,, Wuq, wa, and Wvq. Then we have
+ XUi- WUVXi + WuqXqi;
+ (15)
+ Xvi WV- X i + WvqXqi.
+ Normally, we will be able to solve equations (15) for xiA and Xqj. Let
+ us write the resulting coefficients wvu, wpv, Wqu, and Wqv. Then we will
+ have
+ x-i WVUX1i + wpVXvi;
+ (16)
+ Xqi WquXui + WqvXvi.
+ Substituting equations ( 16) into equation ( 12), we see that we can write
+ the efficient portfolio k as a linear combination of the new basic port-
+ folios u and v as follows:
+ Xki =WkuXui + WkvXvi. (17)
+ In equation (17), the weights Wku and Wkv sum to one.
+ Thus the basic portfolios u and v can be any pair of different port-
+ folios that can be formed as weighted combinations of the original pair
+ of basic portfolios p and q. Every efficient portfolio can be expressed as
+ a weighted combination of portfolios u and v, but they need not be
+ efficient themselves.
+ Portfolios p and q must have different /3's, if it is to be possible to
+ generate every efficient portfolio as a weighted combination of these
+ two portfolios. But if they have different /3's, then it will be possible to
+ generate new basic portfolios u and v with arbitrary /3's, by choosing ap-
+ propriate weights. In particular, let us choose weights such that
+ Flu= 1; ,l]V =0. (18)
+ Multiplying equation (12) by the fraction Xmk of total wealth held by
+ investor k, and summing over all investors (k - 1, 2, . . . , L), we
+ obtain the weights xmi of each asset in the market portfolio:
+ L L
+ Xri (ZE XmkWkp) Xi + (Z XmnkWkq )Xqi. (19)
+ k=1 k=1
+ Since the market portfolio is a weighted combination of portfolios p and
+ q, and since Pm is one, portfolio u must be the market portfolio. Thus
+ we can rename the portfolios u and v specified by (18) portfolios m and
+ z, for the market portfolio and the zero-,8 basic portfolio. When we write
+ the return on an efficient portfolio k as a weighted combination of the
+ returns on portfolios m and z, the coefficient of the return on portfolio
+ m must be /k. Thus we can write
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 8 ---
+ 450 The Journal of Business
+ Rk PkRm + (1 -/k)Rz. (20)
+ Taking expected values of both sides of equation (20), and rewriting
+ slightly, we have
+ E(Rk) =E(Rz) +I/8k[E(Rm) -E(Rz)]. (21)
+ Equation (21) says that the expected return on an efficient portfolio k
+ is a linear function of its /3k. From (1), we see that the corresponding
+ relationship when there is a riskless asset and riskless borrowing and
+ lending are allowed is
+ E(Rk) Rf + 1k3[E(Rm) - Rf]. (22)
+ Thus the relation between the expected return on an efficient portfolio
+ k and its /3k is the same whether or not there is a riskless asset. If there
+ is, then the intercept of the relationship is Rf. If there is not, then the
+ intercept is E(R~z).
+ We can now show that equation (21) applies to individual securi-
+ ties as well as to efficient portfolios. Subtracting equation (10) from
+ itself after permuting the indexes, we get
+ cov(Ri, Rk) - cov(Rj, R) = Sk[E(Ri) - E(Rj)]. (23)
+ Since the market is an efficient portfolio, we can put m for k, and since
+ i and j can be taken to be portfolios as well as assets, we can put z for j.
+ Then equation (23) becomes
+ cov(Ai, Am) Sm[E(Ri) - E(Rz)]. (24)
+ Equation (24) may be rewritten as
+ E(Ri) = E(Rz) + [var(Rm)/Sm]/3i. (25)
+ Putting m for i in equation (25), we find
+ var(Rm)/SIn = E(Rm) - E(Rz). (26)
+ So equation (25) becomes
+ E(ftj =E(Rz) + /3i[E(Rm) - E(Rz)]. (27)
+ Thus the expected return on every asset, even when there is no riskless
+ asset and riskless borrowing is not allowed, is a linear function of its /3.
+ Comparing equation (27) with equation (1), we see that the introduc-
+ tion of a riskless asset simply replaces E(RZ) with Rf.
+ Now we can derive another property of portfolio z. Equation (27)
+ holds for any? asset and thus for any portfolio. Setting /i3 0, we see
+ that every portfolio with /8 equal to zero must have the same expected
+ return as portfolio z. Since the return on portfolio z is independent of
+ the return on portfolio m, and since weighted combinations of portfolios
+ m and z must be efficient, portfolio z must be the minimum-variance
+ zero-/3 portfolio.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 9 ---
+ 451 Capital Market Equilibrium
+ Fama comes close to deriving equation (27). His equation (27)
+ says that the expected return on an asset is a linear function of its risk,
+ measured relative to an efficient portfolio containing the asset. Lintner
+ also derives a linear relationship (eq. [18]) between the expected re-
+ turn on an asset and its risk. It is possible to derive equation (27) from
+ either Fama's or Lintner's equations in a relatively small number of
+ steps.
+ Fama, however, goes on to introduce the concept of a new kind
+ of financial intermediary that he calls a "portfolio sharing company."
+ In the absence of riskless borrowing or lending opportunities, he says
+ that this fund can purchase units of the market portfolio, and sell shares
+ in its return to different investors. He says that an investor can specify
+ the proportion of the return on this fund that he will receive per unit of
+ his own funds invested. Writing /k for this proportion, Fama claims that
+ Rkf 8kRm. (28)
+ But this is not consistent with
+ is positive, shares in this fund will be less attractive than direct holdings
+ of efficient portfolios with /3k less than one, as given by equation (20).
+ If E(R,) is negative, shares in this fund will be less attractive than
+ direct holdings of efficient portfolios with /3k greater than one. So there
+ is no way that the fund can sell all of its shares, except, of course, that
+ it can determine a number Rf such that when the return on the holdings
+ of investor k is defined by equation (29), all of the fund's shares can
+ be sold:
+ Rk Rf + 3k(Rm - Rf). (29)
+ But this is just an implicit way of creating borrowing and lending op-
+ portunities. So the concept of portfolio sharing does not cast any light
+ on market equilibrium in the absence of riskless borrowing and lending
+ opportunities.
+ Starting with equation (23), we can now show one final property
+ of portfolio z. Let p and q be two efficient portfolios and let wz, and
+ Wzq be the weights that give portfolio z when applied to portfolios p and
+ q. Putting m for j and p for k to give one equation, and putting m for I
+ and q for k to give another, we have
+ covCR, A1) - cov-Rm, Ap) Sp[E(Ri) E(Rm)];
+ (30)
+ cov(&, Aq) cOv(Am, Aq) = Sq[E(Ri) - E(Rm)].
+ Multiplying the equations by wz, and Wzq, respectively, and adding them
+ -noting that cov(Rm, Rz) is zero-we have
+ cov(Ri, Rz) (wzpSV + WzqSq)[E(Ri) - E(Rm)] (31)
+ Substituting for E (Ri) from equation (27), we obtain
+ cov(Ri, Rz) (1 -ji) (WzpSp + WzqSq)[E(Rz) E(Rm)]. (32)
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 10 ---
+ 452 The Journal of Business
+ Thus we see that the covariance of the return on any asset i with the
+ return on portfolio z is proportional to 1 - /i.
+ In sum, we have shown that when there is no riskless asset, and no
+ riskless borrowing or lending, every efficient portfolio may be written as
+ a weighted combination of the market portfolio m and the minimum-
+ variance zero-,8 portfolio z. The covariance of the return on any asset i
+ with the return on portfolio z is proportional to 1 - Pi. The expected
+ return on any asset or portfolio i depends only on /Pi, and is a linear
+ function of Pis.
+ Prohibition of borrowing and lending, then, shifts the intercept of
+ the line relating E(RD) and pi from Rf to E(RA). Since this is the effect
+ that complete prohibition would have, it seems likely that partial restric-
+ tions on borrowing and lending, such as margin requirements, would also
+ shift the intercept of the line, but less so. Thus it is possible that restric-
+ tions on borrowing and lending would lead to a market equilibrium con-
+ sistent with the empirical model expressed in equation (3) and developed
+ by Black, Jensen, and Scholes.
+ EQUILIBRIUM WITH NO RISKLESS
+ BORROWING
+ Let us turn now to the case in which there is a riskless asset available,
+ such as a short-term government security, but in which investors are
+ not allowed to take short positions in the riskless asset. We will continue
+ to assume that investors may take short positions in risky assets.
+ Vasicek has shown that in this case the principal features of the
+ equilibrium with no riskless borrowing or lending are preserved.'2 The
+ expected return on any asset i continues to be a function only of its /3.
+ The function is still linear. The efficient set of portfolios now has two
+ parts, however. One part consists of weighted combinations of port-
+ folios m and z, and the other part consists of weighted combinations of
+ the riskless asset with a single portfolio of risky assets that we can call
+ portfolio t.
+ We can show this, in our notation, as follows. Since the restriction
+ on borrowing applies only to the riskless asset, there will be only two
+ kinds of efficient portfolios, those that contain the riskless asset and
+ those that do not. Let us call the riskless asset number N + 1.
+ For those efficient portfolios that do not contain the riskless asset,
+ equations (6)-(18) of the previous section apply. Each such effi-
+ cient portfolio can be expressed as a weighted combination of portfolios
+ u and v, where Pl is one and f, is zero.
+ For those efficient portfolios that do contain the riskless asset, we
+ can extend equation (10) to N + 1 assets. The covariance term for
+ j = N + 1 vanishes, so we have
+ 12. Oldrich A. Vasicek, "Capital Market Equilibrium with No Riskless
+ Borrowing," memorandum (March 1971); available from the Wells Fargo Bank.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 11 ---
+ 453 Capital Market Equilibrium
+ N
+ Xkj cov(Ri, Rj) - SkE(Rj) - Tk 0 . (33)
+ j=1
+ For i - 1 2, . . . , N, this set of equations determines values f
+ i - 1 2, . . ., N, as before. Thus we see that the risky portions of
+ these investors' portfolios are weighted combinations of portfolios u
+ and v. For i - N + 1, equation (33) becomes
+ -SkRf Tk- =? k =1, 29...,L (34)
+ This means that every investor places the same relative weights Sk and
+ Tk on portfolios u and v. Let us write t for the portfolio of risky assets
+ containing relative weights Sk and Tk of portfolios u and v. Then every
+ investor who holds the riskless asset holds a weighted combination of
+ the riskless asset and portfolio t.
+ Since the risky part of every investor's portfolio, whether he holds
+ the riskless asset or not, consists of a weighted combination of port-
+ folios u and v, the sum of all investors' risky holdings, which is the mar-
+ ket portfolio, must be a weighted combination of portfolios u and v.
+ Using arguments parallel to those used in the last section, we can show
+ that portfolio u must be the market portfolio, and portfolio v must be
+ the minimum-variance zero-fl portfolio of risky assets.
+ Equation (33) is the same as equation (10), so we can see that it
+ holds for all risky assets i, i - 1, 2, . . . , N, and all efficient portfolios k.
+ Equations (23)-(27) go through as before, and we see that equation
+ (27) applies to all risky assets even when there are riskless lending
+ opportunities.
+ Now we can derive some additional properties of portfolios z and t.
+ Let us write Wkm, Wk,, and Wkf for the weights on portfolios m, z, and the
+ riskless asset in efficient portfolio k. Since the return on portfolio z is
+ independent of the return on portfolio m, the expected return and vari-
+ ance of portfolio k will be
+ E(Rk) - WkmE(Rrn) + wkZE(RZ) + wkfRf; (35)
+ var(Rk) wk.2var(Am) + wk.var(Rz). (36)
+ The weights must also satisfy constraints (37) and (38):
+ Wkm+Wkz+Wkf - ; (37)
+ Wkf > 0. (38)
+ We can see immediately that E(Rz) must satisfy
+ Rf < E(R-z) < E(R-m). (39)
+ If E(Rz) is less than or equal to Rf, then we can increase Wk
+ crease wkz by the same amount, and we will reduce the variance of port-
+ folio k and increase or leave unchanged its expected return. But if this
+ is possible, it means that portfolio k is not efficient.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 12 ---
+ 454 The Journal of Business
+ When portfolio k is the market portfolio, Wkm mu
+ must be zero. If E(R,) is greater than or equal to E
+ decrease wk,, by a very small amount and increase Wkz by the same
+ amount, and we will reduce the variance of portfolio k and increase or
+ leave unchanged its expected return. But if this is possible, it means that
+ the market portfolio is not efficient. Thus the inequality (39) must hold.
+ When Wkf is greater than zero, portfolio k is a mixture of portfolio t
+ and the riskless asset. We can incorporate equation (37) in equation
+ (35) as follows:
+ E(Rk R,) wm[E(Rm Ri)] + wkz[E(z - Rf)] (40)
+ Equation (36) may be written equivalently as
+ var(Rk -Rf) = Wkm2 var(km - Rf) + Wkz var(Rz -1). (41)
+ Since equations (40) and (41) hold for any portfolio containing the
+ riskless asset, they must hold also for portfolio t. Since portfolio t is effi-
+ cient, it must maximize (40) subject to (41). But the solution to that
+ problem is the same as the solution to
+ Maximize: E(Rk -Rt)/-(Rk - Rt). (42)
+ But when the efficient portfolios are plotted o
+ on the y-axis, and a-(Rk - Rf)-which is t
+ x-axis, the value of k that satisfies (42) is the value of k that maximizes
+ the slope of a line drawn from the origin to point k. So portfolio t is the
+ "tangent portfolio" to the efficient set.
+ In sum, the introduction of riskless lending opportunities changes
+ the nature of the market equilibrium in just one way. There are now
+ two kinds of efficient portfolios. The less risky efficient portfolios are
+ mixtures of portfolio t and the riskless asset. The more risky efficient
+ portfolios continue to be mixtures of portfolios m and z. Portfolio t it-
+ self is a mixture of portfolios m and z. The expected return on portfolio
+ z must now be greater than the return on the riskless asset. The expected
+ return on a security continues to be a linear function of its /8.
+ Thus the empirical results reported by Black, Jensen, and Scholes
+ are consistent with a market equilibrium in which there are riskless lend-
+ ing opportunities, as well as with an equilibrium in which there are no
+ riskless borrowing or lending opportunities. The general approach used
+ in this section can be used to obtain similar results when every individual
+ has a limit on the amount he can borrow that may be greater than zero.
+ Thus we can say that the empirical results are consistent with an equilib-
+ rium in which borrowing at the riskless interest rate is either fully or
+ partially restricted.
+ CONCLUSIONS
+ We have explored the nature of capital market equilibrium under two
+ assumptions that are more restrictive than the usual assumptions used in
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms
+
+--- PAGE 13 ---
+ 455 Capital Market Equilibrium
+ deriving the capital asset pricing model. First, we have assumed that
+ there is no riskless asset and that no riskless borrowing or lending is
+ allowed. Then we have assumed that there is a riskless asset and that
+ long positions in the riskless asset are allowed but that short positions
+ in the riskless asset (borrowing) are not allowed. In both cases, we have
+ assumed that an investor can take unlimited long or short positions in the
+ risky assets.
+ In both cases, we find that the expected return on any risky asset
+ is a linear function of its ,8, just as it is without any restrictions or bor-
+ rowing. If there is a riskless asset, then the slope of the line relating the
+ expected return on a risky asset to its ,8 must be smaller than it is when
+ there are no restrictions on borrowing. Thus a model in which borrowing
+ is restricted is consistent with the empirical findings reported by Black,
+ Jensen, and Scholes.
+ In both cases, the risky portion of every portfolio is a weighted
+ combination of portfolios m and z, where portfolio m is the market port-
+ folio, and portfolio z is the minimum-variance zero-,X portfolio. Portfolio
+ z has a covariance with risky asset i proportional to 1 - P3. If there is
+ a riskless asset, then the efficient portfolios that contain the riskless asset
+ are all weighted combinations of the riskless asset and a single risky
+ portfolio t. Portfolio t is the efficient portfolio of risky assets with the
+ highest ratio of the expected difference between the return on the port-
+ folio and the return on the riskless asset to the standard deviation of the
+ return on the portfolio. The line relating the expected return on an effi-
+ cient portfolio to its ,8 is composed of two straight line segments, where
+ the segment for the lower-risk portfolios has a greater slope than the
+ segment for the higher-risk portfolios.
+This content downloaded from 131.179.29.132 on Wed, 11 Apr 2018 16:37:39 UTC
+All use subject to http://about.jstor.org/terms

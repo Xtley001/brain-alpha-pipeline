@@ -1,0 +1,1512 @@
+
+--- PAGE 1 ---
+LEAD-LAG DETECTION AND NETWORK CLUSTERING FOR
+MULTIVARIATE TIME SERIES WITH AN APPLICATION TO THE
+US EQUITY MARKET
+A PREPRINT
+Stefanos Bennett∗
+Department of Statistics
+University of Oxford &
+The Alan Turing Institute, London, UK
+stefanos.bennett@stats.ox.ac.uk
+Mihai Cucuringu
+Department of Statistics & Mathematical Institute
+University of Oxford &
+The Alan Turing Institute, London, UK
+mihai.cucuringu@stats.ox.ac.uk
+Gesine Reinert
+Department of Statistics
+University of Oxford &
+The Alan Turing Institute, London, UK
+reinert@stats.ox.ac.uk
+January 21, 2022
+ABSTRACT
+In multivariate time series systems, it has been observed that certain groups of variables partially
+lead the evolution of the system, while other variables follow this evolution with a time delay; the
+result is a lead-lag structure amongst the time series variables. In this paper, we propose a method
+for the detection of lead-lag clusters of time series in multivariate systems. We demonstrate that the
+web of pairwise lead-lag relationships between time series can be helpfully construed as a directed
+network, for which there exist suitable algorithms for the detection of pairs of lead-lag clusters with
+high pairwise imbalance. Within our framework, we consider a number of choices for the pairwise
+lead-lag metric and directed network clustering components. Our framework is validated on both
+a synthetic generative model for multivariate lead-lag time series systems and daily real-world US
+equity prices data. We showcase that our method is able to detect statistically signiﬁcant lead-lag
+clusters in the US equity market. We study the nature of these clusters in the context of the empirical
+ﬁnance literature on lead-lag relations and demonstrate how these can be used for the construction of
+predictive ﬁnancial signals.
+Keywords: High-dimensional time series, unsupervised learning, lead-lag, clustering, ﬁnancial markets, directed
+networks.
+1
+Introduction
+Multivariate time series are ubiquitous in a wide range of domains, such as the physical sciences, medicine, and
+economics. Often, multivariate systems describing multiple processes or quantities are thought to exhibit lead-lag
+relationships [Podobnik et al., 2010]. In this work, time series A is said to lead time series B if A’s past values are
+more strongly associated with B’s future values than A’s future values are with B’s past values. The study of lead-lag
+relationships in multivariate time series systems is of interest in ﬁelds such as earth science [Harzallah and Sadourny,
+1997], biology [Runge et al., 2019] and economics [Wang et al., 2017a, Sornette and Zhou, 2005]. For example,
+Harzallah and Sadourny [1997] study the lead-lag relationship between the Indian summer monsoon and a number of
+climate variables such as snow cover, sea surface temperature and geopotential height across a grid of locations on
+∗corresponding author
+arXiv:2201.08283v1  [stat.ML]  20 Jan 2022
+
+--- PAGE 2 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+the Earth’s surface. Wang et al. [2017a] examine the lead-lag dependence between the spot and futures markets for a
+Chinese stock market index.
+In this paper, we examine systems of lead-lag relationships in time series data through the lens of directed network
+analysis. By constructing a network based on pairwise lead-lag metrics between variables, we are able to study overall
+properties of the web of lead-lag relationships via the tools of network analysis. Our speciﬁc interest lies in discovering
+clusters of different variables that exhibit strong lead-lag behaviour. To this end, we employ unsupervised directed
+network clustering and leverage recently developed algorithms [Cucuringu et al., 2020] that identify clusters with high
+imbalance in the ﬂow of weighted edges between pairs of clusters.
+While we expect our unsupervised learning method to be applicable to a number of multivariate time series domains,
+the particular application domain of interest in this study is the analysis of lead-lag clusters in ﬁnancial time series data.
+Large ﬁnancial markets, such as the US equity market, exhibit complex non-linear behaviour, often with a low signal-to-
+noise ratio [Cont, 2001]. By using pairwise lead-lag detection and network analysis tools, we aim to extract clusters
+that capture the latent lead-lag relationships which may be present in such complex systems. Furthermore, persistent
+historical clusterings can be utilised for the challenging task of returns forecasting. As a result, our unsupervised
+learning method may prove to be a valuable component in certain ﬁnancial forecasting pipelines. Beyond ﬁnancial
+markets, this approach may lead to insights into the nature of lead-lag relationships in climate [Harzallah and Sadourny,
+1997], social [Lin et al., 2013], biological [Runge et al., 2019] or economic systems [Iyetomi et al., 2020, Camilleri
+et al., 2019].
+Problem description
+In the context of multivariate time series systems, the problem of lead-lag detection consists
+in identifying random variables that lead or lag other random variables. Here, a variable α is said to lead another
+variable β if α’s past values are more strongly associated with β’s future values than α’s future values are with β’s past
+values. In this situation, we also say that β lags α. There are a number of ways to mathematically deﬁne and extract the
+pairwise relationship between time series. Different lead-lag deﬁnitions are compared using a-priori considerations in
+Section 3.1 and synthetic experiments in Section 4.
+Once we have chosen a metric to capture lead-lag relations, we can represent the uncovered relations using a directed
+weighted network. The nodes of our network correspond to different time series variables. A directed edge α →β
+exists between nodes α and β if α leads β. The weight of this edge is given by the magnitude of the pairwise lead-lag
+metric, thus encoding the strength of the relation. We are thus able to study the properties of lead-lag relationships
+using the tools of network analysis.
+A key question in network analysis concerns community detection [Newman, 2018]. Does there exist a clustering of
+nodes such that node similarity is, on average, stronger within clusters than between clusters? In the context of a directed
+network encoding lead-lag relations, the question of community detection can be framed in terms of identifying clusters
+that exhibit high pairwise cut imbalance, as follows. We regard the ﬂow along a directed weighted edge α →β as a
+measure of the extent to which α leads β. In a directed graph with adjacency matrix A, the cut associated to two subsets
+of nodes A and B, is given by Cut(A, B) = P
+i∈A,j∈B Aij, and we refer to the difference Cut(A, B) −Cut(B, A) as
+the cut imbalance. A high cut imbalance between communities A and B indicates that variables in A are, on average,
+leaders of variables in B. Therefore, by identifying pairs of clusters with high imbalance, we segment our multivariate
+system into communities that, taken in pairs, are mostly composed of either leaders or laggers. In Section 3, we describe
+a Hermitian-based directed network clustering algorithm that is suited for this task following [Cucuringu et al., 2020].
+The application domain studied in this paper is that of ﬁnancial time series. In this domain, each time series corresponds
+to the return time series for a particular ﬁnancial instrument. We investigate the lead-lag cluster structure of the US equity
+market. In particular, we are interested in four questions. Does there exist a statistically signiﬁcant cluster structure in
+the US equity market? What is the nature of the data-driven clustering? How does the data-driven cluster structure relate
+to previously discovered lead-lag mechanisms? Can we leverage our clustering for downstream forecasting purposes?
+Key contributions
+Our primary contribution is the introduction of a principled method, which, to the best of our
+knowledge, is the ﬁrst to address the problem of unsupervised clustering of leading and lagging variables in multivariate
+time series systems. We validate different components of our method on synthetic and real data sets. Our secondary
+contribution consists of an evaluation of novel pairwise lead-lag metrics using a new benchmark data generating process
+for multivariate time series systems with clustered lead-lag structure. Thirdly, the application of our method to US
+equity data provides insights into the structure of the US equity market. To the best of our knowledge, our work
+presents the ﬁrst data-driven clustering of lead-lag networks in a ﬁnancial market context. Finally, we construct a novel
+statistically signiﬁcant trading signal for the US equity market – thus demonstrating how our method can be employed
+to extract valuable signals in the high-dimensional, low signal-to-noise data setting.
+Paper outline
+We discuss existing literature related to our work in Section 2. Section 3 describes our approach to
+solving the lead-lag extraction and clustering problems. In Section 4, we validate our method on synthetic data sets. We
+2
+
+--- PAGE 3 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+present the results of applying our algorithm to a universe of US equities in Section 5. In Section 6, we illustrate the use
+of our methodology in a ﬁnancial forecasting application. Finally, we summarise our main ﬁndings in Section 7.
+2
+Related work
+There exists substantial evidence of lead-lag relations at the scale of monthly, weekly and daily ﬁnancial returns [Lo
+and MacKinlay, 1990, Badrinath et al., 1995, Brennan et al., 1993, Chordia and Swaminathan, 2000, Menzly and
+Ozbas, 2010, Cohen and Frazzini, 2008], as well as at higher frequencies [Huth, 2012, Wang et al., 2017a, Curme
+et al., 2015b,a]. In addition, a number of studies have considered lead-lag relations from the point of view of networks
+[Curme et al., 2015a, Fiedor, 2014, Výrost et al., 2015, Liao et al., 2014, Sandoval, 2014, Billio et al., 2012, Wang et al.,
+2017b, Wu et al., 2010]. Commonly studied questions in this ﬁnancial lead-lag network literature concern the cluster
+structure of the lead-lag network [Sandoval, 2014, Billio et al., 2012, Liao et al., 2014, Wang et al., 2017b, Xia et al.,
+2018, Biely and Thurner, 2008]. A number of papers consider the relative inﬂuence of different industry sectors within
+the lead-lag network [Biely and Thurner, 2008, Liao et al., 2014, Xia et al., 2018]. The inﬂuence of various sub-sectors
+within the lead-lag network of ﬁnancial institutions is also a particular question of concern [Billio et al., 2012, Wang
+et al., 2017b, Sandoval, 2014]. For example, Billio et al. [2012] relate the lead-lag network to the systemic exposure of
+ﬁnancial ﬁrms and sub-sectors, in order to understand their respective ﬁnancial drawdowns during crisis periods. In
+addition, the effect of geography-based clusters has also been investigated [Sandoval, 2014].
+A second commonly studied problem in the ﬁnancial lead-lag literature is that of ranking. A number of lead-lag network
+papers focus on how network tools may be used to identify ﬁnancial instruments that exhibit stronger tendencies to
+lead other instruments [Liao et al., 2014, Billio et al., 2012, Wu et al., 2010, Basnarkov et al., 2019, Stavroglou et al.,
+2017]. For example, Wu et al. [2010] and Basnarkov et al. [2019], apply the PageRank algorithm [Google, 2012] to
+the lead-lag network in order to extract an ordering of equities in terms of their inﬂuence on the future values of other
+equities.
+In addition to the literature on ﬁnancial lead-lag correlation networks, there is also substantial literature on synchronous
+correlation networks [Tumminello et al., 2010, Namaki et al., 2011, Sandoval and Franca, 2012, Marti et al., 2019].
+The reader is referred to Marti et al. [2019] for an extensive review of clustering on (mostly) synchronous ﬁnancial
+correlation networks.
+Our empirical analysis is novel within the ﬁnancial lead-lag literature since it is the ﬁrst work to extract a data-driven
+clustering of the lead-lag network. In contrast, previous studies [Sandoval, 2014, Billio et al., 2012, Liao et al., 2014,
+Sandoval, 2014, Wang et al., 2017b, Xia et al., 2018, Biely and Thurner, 2008] are only able to capture the inﬂuence
+of predeﬁned groups, which are given, for instance, by industry sector [Biely and Thurner, 2008, Liao et al., 2014,
+Xia et al., 2018] or geography [Sandoval, 2014], within the ﬁnancial lead-lag network. We believe that the academic
+interest in our data-driven clustering approach is underscored by the plurality of papers [Marti et al., 2019] that apply
+data-driven clustering to synchronous correlation networks, as well as the number of papers that apply data-driven
+ranking methods to lead-lag networks [Liao et al., 2014, Billio et al., 2012, Wu et al., 2010, Basnarkov et al., 2019,
+Stavroglou et al., 2017]. Furthermore, our work is the ﬁrst to show that clustered lead-lag network structure can be
+successfully used for downstream out-of-sample prediction tasks.
+3
+Method
+Our method is a pipeline consisting of three steps. First, we apply a pairwise lead-lag metric to capture the lead-lag
+relationship between each pair of time series; this results in a network of lead-lag relationships. Second, we apply
+a directed network clustering method to extract a partition of the multivariate system such that there is a large ﬂow
+imbalance (net sum of weights of inter-cluster edges [Cucuringu et al., 2020]) between cluster pairs. The third step
+quantiﬁes the leadingness of each cluster.
+There are a number of choices for each of these components in our pipeline. In this section, we describe metrics that can
+be used to quantify lead-lag relations between pairs of time series, and available directed network clustering methods.
+To introduce notation, let Xi
+t denote the random value of the time series variable i ∈{1, ..., p} at time t = 0, . . . , T.
+Further, deﬁne the ﬁrst differences Y i
+t = Xi
+t −Xi
+t−1 for i ∈{1, ..., p}, t = 0, . . . , T.
+In our application domain of US equities, Xi
+t denotes the logarithm of the closing price for stock i ∈{0, 1, ..., p} on
+day t = 0, . . . , T. Hence Y i
+t provides the corresponding log-return for equity i from day t −1 to t. It is suitable to use
+log-returns for analysis as they exhibit closer to stationary properties, and log-returns are more mathematically tractable
+than linear or percentage returns in the computation of multi-horizon returns [Campbell et al., 1997].
+3
+
+--- PAGE 4 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+3.1
+Pairwise metrics of lead-lag relationship
+In a complex, non-linear system such as the US stock market, determining a suitable way to deﬁne a metric to capture
+lead-lag relationships is challenging. Here we present some options.
+3.1.1
+Lead-lag metrics based on a functional of the cross-correlation
+A commonly used approach to deﬁning a lead-lag metric is to use a functional of a sample cross correlation function
+(ccf) between two time series. A sample cross-correlation function between time series i and j evaluated at lag l ∈Z is
+given by
+ccfij(l) = corr
+
+{Y i
+t−l}, {Y j
+t }
+
+,
+(1)
+where corr denotes a choice of sample correlation function. The corresponding lead-lag metric, a measure of the extent
+to which i leads j, is then obtained by
+Sij = F(ccfij),
+(2)
+where F is a suitable functional.
+In this paper, we consider four choices for the sample correlation function corr, namely Pearson linear correlation,
+Kendall rank correlation [Kendall, 1938], distance correlation [Székely et al., 2007], and mutual Information based
+on discretised time series values [Fiedor, 2014]. The four different sample correlation functions are able to detect
+different dependencies. Pearson correlation is able to detect linear dependencies, Kendall rank correlation is able to
+detect monotonic non-linear dependencies, while distance correlation and mutual Information are able to detect general
+non-linear dependencies. The drawback of non-linear sample correlation functions is that they have lower power in the
+case of a true linear relationship.
+Further, we consider two choices for the functional F, as follows
+1. ccf-lag1: computes the difference of the cross-correlation function at lag ∈{−1, 1}
+Sij = ccfij(1) −ccfij(−1),
+2. ccf-auc: computes the signed normalised area under the curve (auc) of the cross-correlation function
+Sij = sign(I(i, j) −I(j, i)) · max(I(i, j), I(j, i))
+I(i, j) + I(j, i)
+,
+where I(i, j) = PL
+l=1
+corr
+
+{Y i
+t−l}, {Y j
+t }
+ for a user-speciﬁed maximum lag L.
+The ccf-lag1 method used with Pearson correlation is a crude lead-lag indicator [Campbell et al., 1997]. This lead-lag
+indicator is only designed to take into account positive cross-correlation. Indeed, like the signatures-based method
+described further below in Subsection 3.1.2, it is only able to correctly determine the direction of the lead-lag relationship
+under a positive cross-correlation association between time series. Thus, this lead-lag indicator should be restricted to
+domains such as US equity returns, where cross-correlations between time series variables are predominantly positive
+[Campbell et al., 1997].
+The ccf-auc method accounts for both positive and negative associations across multiple lags l ∈{−L, . . . , L}. The
+maximum lag L can be chosen a-priori as the maximum time lag expected in the multivariate system, or by using
+cross-validation on some downstream validation criterion. The averaging approach ccf-auc presented here is similar to
+the lag aggregation methodology of Wu et al. [2010]2.
+Overall, we consider eight possible choices for lead-lag metrics based on functionals of the cross-correlation. This
+stems from four possible choices for correlation (Pearson, Kendall, distance correlation and mutual information) and
+two possible choices for the functional form (ccf-lag1 and ccf-auc).
+The functional cross-correlation approach is ﬂexible and computationally simple. The ﬂexibility of the framework
+permits the use of robust and non-linear correlation metrics. The use of such non-linear correlation metrics is particularly
+useful for the extraction of lead-lag relationships in the ﬁnancial time series domain, where linear cross-correlations
+between returns are expected to be low. High information efﬁciency in US equity markets [Malkiel and Fama, 1970]
+implies that linear return cross-correlations are too low to be used to construct trading systems that have expected
+returns in excess of market equilibrium expected returns. On the other hand, a stylised feature of ﬁnancial returns is
+volatility clustering [Cont, 2001]; the size of the cross-correlation between the volatility of returns is expected to be
+2We have also considered using a maximum aggregation approach, and have found similar qualitative results to the averaging-
+based approach presented in this paper; however, the maximum aggregation approach tends to perform slightly worse than the
+averaging-based approach.
+4
+
+--- PAGE 5 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+larger than the cross-correlation between the raw returns themselves. A linear cross-correlation approach is unable to
+capture the relationship between the volatility of two instruments across time. Empirical studies have also found that
+stronger lead-lag relationships can be detected when taking into account volatility [Billio et al., 2012]. Thus, when
+comparing the time-dependence in returns between two assets, we should allow for non-linear effects [Fiedor, 2014]. In
+addition, the functional cross-correlation approach easily permits the use of correlation metrics that are robust to outliers.
+Since ﬁnancial times series exhibit heavy tails [Cont, 2001], robustness constitutes an important feature for a lead-lag
+extraction method. In general, the functional cross-correlation component and, consequently, the entire pipeline will be
+robust to outliers if the choice of correlation metric is robust to outliers. For example, ordinal association correlation
+metrics such as Kendall correlation guarantee robustness to outliers.
+The linear Granger causality approach that is often considered in ﬁnancial lead-lag studies [Shojaie and Fox, 2021] can
+be viewed as an extension of a functional linear cross-correlation-based approach that takes into account auto-correlation
+and also ﬁlters for statistical signiﬁcance. General Granger causality methods may also use non-linear functional forms
+to capture the association between time series. These more general methods can be used as the lead-lag extraction
+component of our method. For the purposes of demonstrating our method and using robust and non-linear lead-lag
+extraction, simpler functional cross-correlation approaches will sufﬁce. Since the combination of data auto-correlation
+and co-movement can produce lead-lag associations between time series variables using our method, one must be
+careful not to interpret resulting lead-lag associations as apparent causal inﬂuence estimates.
+We contrast our approach, which is based on correlation networks, with causality-based approaches that attempt the
+more difﬁcult problems of recovering the casual network underlying a multivariate time series system [Runge et al.,
+2019] and quantifying its causal inﬂuences [Janzing et al., 2013]. For example, whereas Runge et al. [2019] attempt to
+estimate the causal network underlying the time-lagged dependency structure in a given multivariate time series system,
+our aim is estimating and clustering the association-network for the multivariate time series system. Association-based
+approaches are more common in the ﬁnancial network lead-lag literature [Marti et al., 2019], since ﬁnancial time
+series have very noisy returns and exhibit weak lead-lag effect sizes due to the informational efﬁciency of the market
+[Malkiel and Fama, 1970]. These characteristics of ﬁnancial returns make the problem of accurately estimating a
+lead-lag correlation network (let alone the causality network) challenging in itself.
+3.1.2
+Lead-lag metric based on signatures
+The approach of using a functional of the cross-correlation function relies on the user to specify the choice of functional;
+this choice is not obvious in many cases. In particular, it is difﬁcult to gauge the number of lags to incorporate into
+our lead-lag metric a-priori. An alternative approach draws on the idea of signatures from rough path theory [Levin
+et al., 2016], in order to construct a pairwise lead-lag metric. The signature of a continuous path with ﬁnite 1-variation
+[Levin et al., 2016] X : [a, b] →Rd, denoted by S(X)a,b, is the collection of all the iterated integrals of X, namely
+S(X)a,b = (1, S(X)1
+a,b, . . . , S(X)d
+a,b, S(X)1,1
+a,b, S(X)1,2
+a,b, . . .), where the iterated integrals are given by
+S(X)i1,...,ik
+a,t
+=
+Z
+a<tk<t
+· · ·
+Z
+a<t1<t2
+dXi1
+t1 . . . dXik
+tk .
+Based on the proposal in Levin et al. [2016], the signatures-based pairwise measure of the lead-lag relation between
+two stocks i and j over the time period [t −m, t] is given by
+Sij(t −m, t) =
+ZZ
+t−m<u<v<t
+(dXi(u)dXj(v) −dXj(u)dXi(v)).
+(3)
+This is the difference in the cross-terms of the second level of the time series signature of the log-prices. Theoretical
+results in rough path theory [Levin et al., 2016] have established that a signature is essentially unique to the path it
+describes, and that the truncated signature (i.e. the lower order terms) can efﬁciently describe the path. Chevyrev
+and Kormilitzin [2016] provide an interpretation of the signature lead-lag metric (3). The signature lead-lag metric is
+positive and grows larger whenever increases (resp. decreases) in Xi are followed by increases (resp. decreases) in Xj.
+If the relative moves of Xi and Xj are in the opposite directions, then the signature lead-lag measure is negative. Note
+that a downside of this method is that it is not able to tell the difference between
+1. i →j with negative association,
+2. i ←j with positive association.
+As a result, we do not expect the method to perform well when there is signiﬁcant negative association in the lead-lag
+data generating process.
+When analysing price data observed at discrete time points, we transform the data stream into a piecewise linear
+continuous path and calculate the second order signatures [Reizenstein and Graham, 2018]. From this, we may calculate
+5
+
+--- PAGE 6 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+the lead-lag relation using the difference in second order signature cross-terms (3). We refer the reader to Gyurkó et al.
+[2014] for additional details on signatures and their application in a ﬁnancial context, along with an interpretation in
+terms of second order areas and interplay with lead-lag relationships. In practice, when comparing the signature lead-lag
+metrics across different pairs of time series, we recommend the normalisation of the price data prior to computation of
+the lead-lag metric, since the absolute value of the metric is increasing in the volatility of the underlying price series.
+3.1.3
+Alternative lead-lag metrics
+The lead-lag extraction approaches mentioned in this section are by no means exhaustive. Indeed, alternative methods
+can be found within the ﬁnancial time series lead-lag literature [Wang et al., 2017a]. Furthermore, the functional
+cross-correlation framework presented in this paper is agnostic to the choice of the correlation metric used within it. As
+such, it is able to draw on a wide array of non-linear correlation metrics such as target/forget dependence coefﬁcient
+[Marti et al., 2016], maximal information coefﬁcient [Reshef et al., 2011] or maximum mean discrepancy [Gretton
+et al., 2012].
+3.2
+Algorithms for clustering directed networks
+Let Sij denote the user-deﬁned lead-lag metric that quantiﬁes how much time series variable i leads j. The value Sij
+can be positive or negative, and satisﬁes Sij = −Sji. The lead relationships between all pairs of time series is encoded
+by the asymmetric matrix Aij = max(Sij, 0). We apply directed network clustering algorithms to the weighted and
+directed network G, where each node corresponds to a time series variable and the adjacency matrix is A. In this
+section, we present different relevant clustering methods for such directed networks.
+Note that as a pre-processing step for any of the clustering methods described below, it is possible to ﬁlter the pairwise
+measurements Sij when constructing the network A. For example, Curme et al. [2015a] apply signiﬁcance thresholding,
+whereby an edge exists between two nodes only if the corresponding lead-lag metric is sufﬁciently large in magnitude.
+3.2.1
+Naive symmetrisation clustering
+Popular undirected network clustering methods, such as spectral clustering [Shi and Malik, 2000], cannot be immediately
+applied to directed networks, since directed networks with asymmetric adjacency matrices have complex spectra.
+Traditional approaches for directed network clustering have applied spectral analysis to a symmetrised version of the
+directed network adjacency matrix [Sussman et al., 2012, Pentney and Meila, 2005]. We consider a commonly used
+naive symmetrisation-based directed clustering method as a baseline [Satuluri and Parthasarathy, 2011]. This naive
+method applies a standard spectral clustering algorithm [Shi and Malik, 2000] to the undirected network with adjacency
+matrix ˜A = A + AT . In this paper, the spectral clustering algorithm applied to the derived undirected networks uses
+k-means clustering on a projection onto the ﬁrst k non-trivial eigenvectors of the random-walk normalised graph
+Laplacian (we drop the ﬁrst eigenvector since for connected networks it is always the unit vector). The value of k,
+corresponding to the desired number of clusters, is a hyperparameter of the algorithm.
+3.2.2
+Bibliometric symmetrisation clustering
+Naive symmetrisation methods produce a clustering that only takes into account edge density and not edge direction.
+As a result, they are unable to target clusterings with high pairwise ﬂow imbalance between clusters. Satuluri and
+Parthasarathy [2011] propose the degree-discounted bibliometric symmetrisation that is able to take into account
+edge direction information. In the degree-discounted bibliometric symmetrisation, spectral clustering is applied to the
+adjacency matrix
+˜A = D−1/2
+o
+AD−1/2
+i
+AT D−1/2
+o
++ D−1/2
+i
+AT D−1/2
+o
+AD−1/2
+i
+,
+where Di is the diagonal matrix of weighted in-degrees and Do is the diagonal matrix of weighted out-degrees. The
+degree-discounted bibliometric symmetrisation applies degree-discounting to a symmetrisation that sums the number of
+common in- and out- links between two pairs of nodes. Therefore, clusters produced by this method are expected to
+group together nodes that have a relatively large number of parent (sender) and children (receiver) nodes in common
+[Satuluri and Parthasarathy, 2011]. Degree-discounting is a technique that has been found to work well in tasks on
+graphs with highly skewed degree distributions.
+3.2.3
+DI-SIM co-clustering
+Rohe et al. [2016] propose a co-clustering algorithm for directed networks. The co-clustering algorithm ﬁrst computes
+a regularised graph Laplacian using A; this initial step is performed so that the algorithm may deal with heterogeneous
+and sparse data. Then, co-clustering is performed by applying k-means on the k-largest of each of the left and right
+normalised singular vectors of the Laplacian. This co-clustering identiﬁes two partitions of nodes: one partition
+groups together vertices with similar sending behaviour, while the other partition groups together vertices with similar
+receiving behaviour. In this paper, we denote the clustering obtained using the left singular vectors as DI-SIM-L and
+the clustering obtained using the right singular vectors as DI-SIM-R. We consider both choices of clustering in our
+experiments.
+6
+
+--- PAGE 7 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+3.2.4
+Hermitian clustering
+The Hermitian clustering procedure [Cucuringu et al., 2020] for clustering directed networks considers the spectrum of
+the complex matrix ˜A ∈Cp×p, which is derived from the directed network adjacency matrix as ˜A = i(A −AT ). Since
+˜A is Hermitian, it has p real-valued eigenvalues which we order by magnitude |λ1| ≥. . . ≥|λp|. The eigenvector
+associated with λj is denoted by gj ∈Cp where, in Euclidean norm, ∥gj ∥= 1 for 1 ≤j ≤p.
+Algorithm 1 describes the procedure for clustering the directed network G. In our implementation, we set the number
+of top eigenvectors used to l = k.
+Algorithm 1: Hermitian clustering algorithm.
+Input: A directed graph G = (V, E) with Hermitian adjacency matrix ˜A; number of clusters k ≥2; ϵ > 0
+1. Compute all the eigenvalue/eigenvector pairs of ˜A
+{(λ1, g1), (λ2, g2), . . . , (λl, gl)} satisfying ∥gj ∥= 1 and |λj| > ϵ , ∀j ∈{1, . . . , l}
+2. P ←Pl
+j=1 gjgT
+j
+3. Apply a k-means algorithm with input rows of P
+4. Return a partition of V corresponding to the output of k-means
+Note that in practice, for scalability purposes, one can bypass the computation of the entire n × n matrix P in order to
+directly cluster using the embedding given by the top l eigenvectors.
+Cucuringu et al. [2020] study the performance of the algorithm theoretically and experimentally under data generated
+from a directed version of a stochastic block model that embeds latent structure in terms of ﬂow imbalance between
+clusters. They show that the algorithm is able to discover cluster structures based on directed edge imbalance. This
+contrasts with previous spectral clustering methods that detect clusters based purely on the edge-density of symmetrised
+networks. The Hermitian clustering algorithm is particularly suited to our setting of clustering lead-lag networks, since
+we aim to extract pairs of clusters with high ﬂow imbalance. In addition, as a pre-processing step for this algorithm,
+we apply random-walk normalisation to the adjacency matrix ˜A, so that the method is robust to heterogeneous degree
+distributions [Cucuringu et al., 2020]; we refer to the resulting algorithm as the Hermitian RW algorithm.
+3.3
+Alternative clustering algorithms
+State-of-the-art modularity clustering algorithms such as the Leiden algorithm [Traag et al., 2019] may be used on
+directed graphs using a directed modularity metric [Dugué and Perez, 2015]. Dugué and Perez [2015] optimise a
+modularity metric that compares the number of edges within clusters to the expected number of edges under a null
+model. However, such modularity-based algorithms, which return clusters based on edge density, are not suited to our
+goal of uncovering clusters of leading and lagging variables based on ﬂow imbalance between clusters.
+An adaptation of the Hermitian clustering method has been proposed in Laenen and Sun [2020]. The method presented
+in Laenen and Sun [2020] aims to discover a clustering that maximises a normalised ﬂow metric between communities
+using the spectrum of a normalised Hermitian Laplacian matrix. As such, it could be used as an alternative to the
+Hermitian RW clustering algorithm considered in this paper. Also recently, Underwood et al. [2020] proposed an
+algorithm for clustering weighted directed networks that employs motif-based spectral clustering to uncover ﬂow
+imbalance relationships between pairs of clusters.
+Lastly, we draw attention to a recent approach introduced in He et al. [2021] that extends the Hermitian-based clustering
+algorithm [Cucuringu et al., 2020]. This recent method departs from standard approaches in the literature, and treats
+edge directionality not as a nuisance but rather as the main latent signal. It does so by introducing a graph neural
+network framework for obtaining node embeddings for directed networks in a self-supervised manner, while accounting
+for node-level covariates.
+3.4
+The leadingness metric
+We introduce the concept of a meta-ﬂow graph in order to capture the aggregate weighted ﬂow between pairs of clusters.
+The total ﬂow between any two clusters is given by the net of the normalised weights between all edges directed from
+one cluster to another. The skew-symmetric matrix that encodes this information is dubbed the meta-ﬂow matrix, which
+we denote by F. Mathematically
+Fij =
+1
+|Ci| |Cj|
+X
+l∈Ci,m∈Cj
+[Alm −Aml] ,
+7
+
+--- PAGE 8 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+where Ca denotes the set of all nodes in cluster a ∈{1, . . . , k}, and i, j ∈{1, . . . , k}, i̸ = j. The diagonal of F
+consists of zeros: Fii = 0, ∀i ∈1, . . . , k. We also deﬁne a metric for the leadingness of each cluster i ∈{1, . . . , k},
+L(i) := 1
+|Ci|
+X
+l∈Ci,m∈{1,...,p}
+[Alm −Aml] .
+(4)
+Thus, L(i) averages the row-sums of the skew-symmetric matrix A −AT for nodes within the cluster i; the row-sums
+of the lead-lag matrix provide a measure of the total tendency of the equity corresponding to the row to be a leader
+[Huber, 1962]. From this metric, we obtain a ranking of the clusters from the most leading cluster (largest row-sum
+value), which we will label 0, to the most lagging cluster (smallest row-sum value), which has the largest numeric label
+k −1. In this paper, all data-driven clustering results will be presented using this labelling. The ROWSUM RANKING
+[Huber, 1962, Gleich and Lim, 2011] algorithm is an instance of a ranking method that recovers a latent ordering of
+variables given variable pairwise comparisons. There exists a rich literature on ranking from pairwise comparisons.
+The goal in this literature is to infer the strength ℓi, i = 1, . . . , p or ranking of p items given a (potentially incomplete)
+set of pairwise comparisons which encode a noise proxy for ℓi −ℓj. Alternative ranking algorithms that could be
+employed for deﬁning the leadingness of a cluster include [Fogel et al., 2016, Cucuringu, 2016, De Bacco et al., 2018,
+d’Aspremont et al., 2021, Bradley and Terry, 1952, Page et al., 1998], as well as Chau et al. [2020] for rankings that
+incorporate any available node level covariates.
+3.5
+Algorithmic complexity of the method
+Let us denote by ψ the cost of the pairwise lead-lag metric of choice. The cost of the lead-lag network construction
+step amounts to O(p2ψ), where p is the number of time series. For example, for the linear Pearson correlation
+O(ψ) = O(TL), where L is the number of lags, and T is the sample size. The cost of a spectral clustering algorithm for
+k clusters, such as Hermitian clustering [Cucuringu et al., 2020], is O(kp2) < O(p3). Therefore, the overall complexity
+amounts to O(p2TL + kp2).
+In the large p setting, the above pipeline can become computationally prohibitive. One approach to alleviate this amounts
+to subsampling m pairs of time series out of the
+ p
+2
+
+choices. This will lead to a comparison lead-lag matrix with only
+m nonzero entries; for example, the choice of sampling each edge with probability log p
+p
+renders m = O(p log p). Since
+computing the leading eigenvectors of a sparse matrix via an iterative power method-based approach can be performed
+in a running time that is linear in the number of nonzero entries in the matrix, this step takes O(p log p) time. Thus,
+the approximate method is almost linear in the number of edges in the comparison graph. If the underlying pairwise
+comparison graph is weakly connected, which in practice will be the case because correlations will not be zero, then a
+choice of sampling probability of O( log p
+p ) results in a pairwise comparison graph that is weakly connected with high
+probability. In such a situation we would expect the clustering in the sampled network to be a reasonable reﬂection of
+the clustering in the true network. We refer the reader to Batson et al. [2013] for spectral algorithms and theoretical
+considerations of the closely related graph sparsiﬁcation literature, and to Hu and Lau [2013] for a survey and taxonomy
+of graph sampling techniques.
+4
+Synthetic data experiments
+The purpose of this section is to validate our method on synthetic experiments in which the ground truth lead-lag
+relationships and clusters are known. This approach will also give an indication of the relative performance of each of
+our lead-lag metrics and clustering components, under different data generating settings.
+4.1
+Synthetic data generating process
+We introduce ﬁve different lagged latent variable synthetic generating processes to test our method. The general form of
+these synthetic generating processes is a latent variable model whereby the lagged dependence on the latent variable z
+induces the clustering amongst the different times series {yi
+t}. Mathematically, the synthetic data generating processes
+take the form
+zt
+i.i.d.
+∼Fz ∀t ∈{1, . . . , T},
+zt := 0 ∀t ≤0,
+yi
+t = gli(zt−li) + ϵi
+t,
+ϵi
+t
+i.i.d.
+∼N(0, σ2
+ϵ ) ∀t ∈{1, . . . , T}, i ∈{1, . . . , p},
+(5)
+where the lag corresponding to time series variable i is li ∈L and L is the set of lag values. The choice of the shared
+latent variable distribution Fz and the functional dependencies gl, l ∈L on the latent variable z determines the data
+generating process. The factor-based form of the synthetic data generation is motivated by our application to US equities
+[Fama and French, 1993, Jegadeesh and Titman, 1995]. For instance, early work by Jegadeesh and Titman [1995]
+studies a lagged factor model in the context of lead-lag effects. See also Section 5 for a discussion of hypothesised
+8
+
+--- PAGE 9 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+clustered lead-lag return structures in the US equity market. The synthetic data generating process considered in this
+section is a toy model that is designed to test whether our method can correctly detect and cluster time series in a
+factor-driven scenario.
+The ﬁve particular forms of (5) that we will consider are as follows.
+1. Linear
+Fz = N(0, 1) and yi
+t = zt−li + ϵi
+t.
+(6)
+2. Cosine
+Fz = U(−π, π) and yi
+t =
+1
+√π cos(li · zt−li) + ϵi
+t.
+(7)
+3. Legendre
+Fz = U(−1, 1) and yi
+t = P L
+li+1(zt−li) + ϵi
+t.
+(8)
+4. Hermite
+Fz = N(0, 1) and yi
+t =
+1
+√li!P H
+li+1(zt−li) + ϵi
+t.
+(9)
+5. Heterogeneous
+z ∈RK, Fz = NK×K(0, IK×K) and yi
+t = zfi
+t−li + ϵi
+t.
+(10)
+Here, P L
+l and P H
+l
+are respectively the Legendre polynomial of degree l and the Hermite polynomial of degree l. In the
+heterogeneous case, the superscript fi ∈{1, . . . , K} indicates on which component of the multivariate factor z the
+time series i depends.
+In these ﬁve data generating process scenarios, by design, the cross-covariance at lag k ∈N between any two time
+series i, j ∈{1, . . . , p} is
+E
+h
+(yi
+t−k −E[yi
+t−k])(yj
+t −E[yj
+t ])
+i
+= 0
+whenever k̸ = lj −li due to the independence of zt across time. In the linear data generating case, setting (1), when
+k = lj −li, then we have that E
+h
+(yi
+t−k −E[yi
+t−k])(yj
+t −E[yj
+t ])
+i
+= E[(zt−lj)2] ≥0. This induces a linear dependence
+between time series i and time series j through the single non-zero value in the cross-covariance function between
+these two time series. Considering the whole network of lead-lag relations, we ﬁnd that i →j (i is a leader of j) if
+and only if li < lj. Since multiple time series share the same lag, this network is clustered: time series i and j share
+the same cluster if and only if li = lj. Our synthetic experiments test our method’s ability to correctly detect lead-lag
+relationships and recover the underlying ground-truth clustering structure of the lead-lag network.
+The non-linear data generating settings (2) - (4) engender additional challenges for our lead-lag extraction method.
+Due to the respective orthogonality of the cosine functions {cos(mx)}m∈N, Legendre polynomials {P L
+m(x)}m∈N and
+Hermite polynomials {P L
+m(x)}m∈N, the linear cross-covariance evaluated at lag k between two time series i and j is
+zero even when k = lj −li. Thus we expect metrics based on linear or cross-covariance methods to perform poorly in
+these settings. Non-linear lead-lag metrics are required in order to detect a non-linear dependence of time series j on
+time series i at lag k = lj −li.
+The heterogeneous data generating process setting adds a further independence condition on the relationship between
+two time series. In this case, the cross-covariance at lag k is nonzero if and only if both k = lj −li and fi = fj are
+satisﬁed. The additional factor component equality condition implies that time series i and time series j share the same
+cluster if and only if li = lj and fi = fj.
+In our simulation studies, we consider the performance of different conﬁgurations of our method as the noise level σ of
+our idiosyncratic error increases. The following experiment parameter choices are considered:
+• Number of data points per time series: T = 250
+• Number of time series: p = 100
+• The standard deviation of the idiosyncratic noise: σ ∈{0, 0.2, 0.4, 0.6, 0.8, 1, 2, 3, 4}
+9
+
+--- PAGE 10 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+• Latent variable lag dependence for each time series by experiment setting:
+– Linear: li = ⌊i−1
+10 ⌋for i = 1, . . . , 100
+– Cosine: li = ⌊i−1
+10 ⌋+ 1 for i = 1, . . . , 100
+– Legendre and Hermite: li = ⌊i−1
+10 ⌋+ 2 for i = 1, . . . , 100
+– Heterogeneous: fi = ⌊i−1
+50 ⌋for i = 1, . . . , 100 while li = ⌊i−1
+5 ⌋for i = 1, . . . , 50 and li = ⌊i−51
+5 ⌋for
+i = 51, . . . , 100.
+The lag and factor structure implies that there are 10 clusters in the Linear, Cosine, Legendre and Hermite settings,
+while in the Heterogeneous setting there are 20 clusters. In each conﬁguration of our method, we set the clustering
+algorithm hyperparameter corresponding to the number of clusters to be equal to the ground truth number of clusters.
+The remaining hyperparameter choices for the different method conﬁguration components are:
+• ccf-auc: the maximum cross-covariance lag: L = 5
+• DI-SIM co-clustering: the regularisation parameter is set equal to the average row sum of the adjacency
+matrix [Rohe et al., 2016] and the number of singular vectors used in the co-clustering is set equal to the
+ground truth number of clusters in each synthetic data generating setting.
+• Naive, Bibliometric and Hermitian RW clustering: the number of eigenvectors used in the respective
+spectral clustering projections is set equal to the ground truth number of clusters.
+4.2
+Performance metrics
+We employ different performance criteria to evaluate both components – the lead-lag detection component and the
+clustering component – of our method. In order to evaluate the lead-lag detection component, we calculate the
+proportion of correctly classiﬁed edges in the true underlying lead-lag network (i.e. the accuracy of correctly classifying
+the direction of the lead-lag relationship between two time series). In order to evaluate the clustering component, we
+calculate the Adjusted Rand Index (ARI) between the ground-truth clustering and the clustering recovered by our
+method.
+4.3
+Results
+4.3.1
+Marginal results over lead-lag extraction and clustering
+We present the results for the lead-lag metric and clustering stages separately. In this section, we present results for the
+linear and cosine synthetic data generating settings; results for the other synthetic data generating settings can be found
+in Appendix sections A.1 and A.2. For each experimental setting, we have generated 48 samples from the synthetic
+data generating process and applied our method to each one.
+We display the average value and conﬁdence interval for the lead-lag component detection accuracy over the 48 samples
+in the linear setting in Figure 1 and the cosine setting in Figure 2. The conﬁdence interval is a 95% Gaussian for the
+accuracy computed on a sample from the data-generating process.
+0
+1
+2
+3
+4
+noise level (sigma)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+accuracy
+ccf-lag1
+0
+1
+2
+3
+4
+noise level (sigma)
+accuracy
+ccf-auc
+0
+1
+2
+3
+4
+noise level (sigma)
+accuracy
+signature
+Distance
+Kendall
+Mutual information
+Pearson
+Figure 1: Average and conﬁdence interval for accuracy by lead-lag detection method in the linear setting.
+Figure 1 shows that the proposed lead-lag detection components are able to detect linear lead-lag associations and
+that their performance decreases to random chance performance as the level of noise in the synthetic data experiment
+10
+
+--- PAGE 11 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+noise level (sigma)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+accuracy
+ccf-lag1
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+noise level (sigma)
+accuracy
+ccf-auc
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+noise level (sigma)
+accuracy
+signature
+Pearson
+Kendall
+Distance
+Mutual information
+Figure 2: Average and conﬁdence interval for accuracy by lead-lag detection method in the cosine setting.
+increases. The ccf-auc and signature methods work best in this setting. Within the ccf-auc method, the non-linear
+Kendall and distance correlation metrics are able to maintain similar performance to the linear metric. The outperfor-
+mance of the ccf-auc method over the ccf-lag1 method shows the advantage of considering a larger number of lags in
+the cross-correlation function when pairs of time series depend on each other through large lag values.
+The performance of the methods decreases in the cosine setting: the noise level at which the performance of all methods
+drops to that of random chance is about is around σ = 0.5 (compared with σ = 4 in the linear setting). In particular,
+the ccf-lag1 and signature methods perform poorly; this is not a surprise since this method cannot deal with negative
+associations. The ccf-auc method using mutual information or distance correlation is able to achieve the highest
+accuracy; this illustrates the use of methods that are able to take into account negative and non-linear associations.
+In order to compare the performance of different clustering methods, we compute, for each clustering method and
+experimental repetition, the marginal of ARI over the different lead-lag detection metrics. The mean and conﬁdence
+interval for the ARI values over the experimental repetitions are shown in Figure 3 and Figure 4.
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+noise level (sigma)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+ARI
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+Figure 3: Average and conﬁdence interval for the ARI by clustering method in the linear setting.
+We observe that the (non-naive) implementations of our method are able to recover almost perfectly (ARI of 1) the
+clustering in both settings (1) and (2) when σ is low. As expected, the performance of our methods decrease as σ
+increases; the performance in the cosine setting decreases faster than in the linear setting. The Hermitian RW and the
+DI-SIM clustering methods perform best in the settings considered. The Hermitian RW method targets clusters with
+high imbalance [Cucuringu et al., 2020] and is therefore particularly suited to the task of clustering time series according
+to directed imbalances in their lead-lag relations. The importance of edge direction is illustrated by the relatively poor
+performance of the naive method, which relies solely on the magnitude and not the direction of the edges.
+11
+
+--- PAGE 12 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+noise level (sigma)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+ARI
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+Figure 4: Average and conﬁdence interval for the ARI by clustering method in the cosine setting.
+Note that even as the number of lags considered in the cross-correlation function by the ccf-lag1 and ccf-auc component
+method (1 and 5 lags, respectively) is lower than the largest lag dependence between any two pairs of time series
+(e.g. l100 −l1 = 9 in the linear setting), our overall two-stage pipeline using these component methods is still able to
+leverage enough similarities in the dependence structure between the time series to correctly recover the ground-truth
+clustering. We are able to successfully cluster in this case since maxi∈{1,...,p}minj∈{1,...,p}|li −lj| = 1, which is less
+than or equal to the number of lags considered by the cross-correlation function methods.
+Our experimental observations are robust to the other synthetic data generating processes reported in Appendix A.
+Similar results are also observed when performing simulation studies for a smaller number of time series and smaller
+sample sizes.
+4.3.2
+Interaction of lead-lag and clustering components
+In this section, we investigate the joint dependence of the pipeline on the lead-lag and clustering components. The
+performance of the pipeline, measured by ARI averaged over the different Monte Carlo repetitions, is shown for linear
+and cosine synthetic data settings in ﬁgures 5 and 6; the other synthetic data settings are presented in Appendix A.3. For
+each synthetic data setting, we select a range of noise levels σ that are representative of the different levels of overall
+ARI signiﬁcance. In these ﬁgures, for the pipelines using ccf-lag1 and ccf-auc components, we show the ARI averaged
+across the 4 different choices of sample correlation function described in section 3.1.1.
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+ccf-auc
+ccf-lag1
+signature
+sigma=0
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+sigma=1
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+sigma=2
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+sigma=3
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Figure 5: Average ARI by lead-lag and clustering method in the linear setting.
+We observe that the pipelines that use ccf-lag1 or ccf-auc lead-lag extraction components with DI-SIM or
+Hermitian RW as the clustering component tend to perform best. For small values of σ, the performance of each of
+these pipelines tends to be quite similar. For larger σ values, the relative performance difference between the different
+lead-lag extraction components tends to increase, with the performance of the DI-SIM and Hermitian RW components
+12
+
+--- PAGE 13 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+ccf-auc
+ccf-lag1
+signature
+sigma=0
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+sigma=0.2
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+sigma=0.4
+Bibliometric
+DI-SIM left
+DI-SIM right
+Hermitian RW
+Naive
+sigma=1
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Figure 6: Average ARI by lead-lag extraction and clustering method in the cosine setting.
+within a pipeline using ccf-lag1 or ccf-auc appearing to be quite correlated. Eventually, the performance of every
+pipeline drops to 0 as σ increases.
+4.3.3
+Ablation study: varying hyperparameter corresponding to the number of clusters
+We perform an ablation study to examine the sensitivity of the pipeline to the hyperparameter controlling the number of
+clusters returned by the clustering algorithm. In Figure 7, we present the results for the typical linear synthetic data
+generating setting using a pipeline of ccf-auc with distance correlation and Hermitian RW clustering. Results for the
+cosine, Legendre and Hermite data settings are shown in the Appendix A.4.
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+noise level (sigma)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+ARI
+5
+9
+10
+11
+15
+Figure 7: Average and conﬁdence interval for the ARI by different levels of the hyperparameter corresponding to the
+number of clusters in the linear setting.
+The true underlying number of clusters in the linear data setting is 10 (see Section 4). In Figure 7, we see that the
+performance of the pipeline is robust to small variations in the hyperparameter corresponding to the number of clusters
+around the true underlying number of clusters. Further, we ﬁnd that using a large hyperparameter value for the number
+of clusters results in a large decay in the ARI of the pipeline.
+4.3.4
+Summary of synthetic data experiment results
+To summarise this section, we have validated our pipeline on ﬁve synthetic data generating processes. While the choice
+of particular correlation components should be driven by the application in mind, the ccf-auc method using distance
+correlation achieves relatively strong performance both in the linear and in the cosine synthetic data generating settings.
+The clustering component methods that were found to perform best were the DI-SIM and Hermitian RW methods.
+13
+
+--- PAGE 14 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+5
+US equity data experiment
+It is well known that US equity returns exhibit a cross-sectional factor structure [Fama and French, 1993]. Some of
+the prominent factors, for example the factors representing industry membership, can exhibit cluster membership.
+This induces a clustering structure in the synchronous cross-sectional equity returns [Farrell, 1974]. In addition to
+this synchronous clustering structure, we conjecture that there exists a clustering structure in US equities due to inter-
+temporal relations in equity returns. In this section, our method is applied to construct and cluster a lead-lag network
+on a US equity universe, and investigate the resulting data-driven clustering. On the basis of a-priori considerations
+and performance under the synthetic data experiments, a lead-lag metric that computes distance correlation [Székely
+et al., 2007] between the shifted time series and a directed clustering method that uses the spectrum of a Hermitian
+adjacency matrix are suitable components for the application of our method to US equity returns. We will use ccf-auc
+with lags l ∈{−5, . . . , 5} with the distance correlation as our lead-lag metric, and Hermitian RW clustering as our
+clustering step. This method has the potential to capture non-linear lead-lag relations between returns on the scale of up
+to a week. We set the number of clusters, a hyperparameter of our algorithm, to 10 in order to facilitate comparison
+with the industry-sector clustering of equities.
+5.1
+Data description
+We consider the universe of 5325 NYSE equities spanning from 04-01-2000 to 31-12-2019 from Wharton’s CRSP
+database [Service, 2020] – restricting our attention to equities trading on the same exchange to avoid spurious lead-lag
+effects due to non-synchronous trading [Campbell et al., 1997]. The data consists of daily closing prices from which
+we compute daily log-returns. We also compute the average daily dollar volume that is traded for each equity. We
+subset to the equities that have the largest average volume (largest 500 equities in average volume) and the least number
+of missing values (at least 2.5 years’ worth of non-missing data). This results in a data set of 434 equities. Filtering
+to the most traded equities with the least number of missing prices reduces the risk of spurious lead-lag effects due
+to non-synchronous trading [Campbell et al., 1997]. Any remaining missing prices are forward-ﬁlled prior to the
+calculation of log-returns.
+5.2
+Data analysis
+5.2.1
+Illustration of US equity lead-lag matrix
+Figure 8 shows a sorted skew-symmetric lead-lag matrix encoding the measurement between each pair of stocks.
+Positive entries in the matrix correspond to a leading relationship between the stock depicted on the vertical axis with
+respect to the stock depicted on the horizontal axis. Similarly, negative values indicate that the horizontal axis stock
+leads the vertical axis one. The skew-symmetric matrix A−AT depicted in Figure 8 is double-sorted by the leadingness
+metric (4) for each cluster and then, within each cluster, by the rowsum Pp
+j=1 [Aij −Aji] of each equity i that is a
+member of the cluster. A block structure is apparent, with the last block being a highly lagging cluster.
+0.4
+0.2
+0.0
+0.2
+0.4
+Figure 8: Heatmap of the double-sorted lead-lag p × p matrix A −AT . The rows and columns of the matrix index
+the p = 434 equities, and are categorised by cluster membership (labelled by the leadingness metric (4)). Within each
+cluster, we sort the equities by their respective row-sum in A −AT , a proxy for their individual leadingness.
+14
+
+--- PAGE 15 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+5.2.2
+Statistical signiﬁcance testing for lead-lag clusters
+We test whether there is a statistically signiﬁcant time dependence in daily US equity returns using a permutation test
+on the spectrum of the Hermitian adjancency matrix ˜A = i(A −AT ). Under the null hypothesis that there is no time
+dependence, the ordering of the rows of the daily returns matrix Y ∈RT ×p is drawn uniformly at random from the set
+of all permutations on {1, . . . , T}, σ ∈ST . Therefore, under the hypothesis of no time dependence, the spectrum of the
+observed lead-lag matrix should be consistent with the distribution over the spectra of matrices { ˜Aσ}σ∈ST computed
+using row-permuted returns matrices Yσ(t),j, t = 1, . . . , T, j = 1, . . . , p. Since lead-lag cluster structure is associated
+with the largest eigenvalues of the Hermitian matrix ˜A [Cucuringu et al., 2020], our permutation test statistic is set to be
+the largest eigenvalue of ˜A. We use 200 Monte Carlo samples from the null distribution. Under the null hypothesis, the
+Monte Carlo probability that the largest eigenvalue is greater than or equal to the observed largest eigenvalue is 1/201.
+We thus reject the null hypothesis with p-value p < 0.005, and conclude that there is signiﬁcant temporal structure in
+US equity markets.
+Note that a rejection of the null implies either
+1. Signiﬁcant auto-correlation
+2. Signiﬁcant cross-correlation
+3. Some combination of 1. and 2.
+It is not possible to resolve the identiﬁcation issue between these three cases using our method. However, since our test
+statistic is a summary statistic of the lead-lag matrix spectrum, which encodes cross-correlations between time series
+and relates to the clustering structure [Cucuringu et al., 2020], a rejection of the null suggests that there is signiﬁcant
+cluster structure in the lead-lag matrix. Our statistically signiﬁcant results when using our method for downstream
+prediction tasks (which relies solely on cross-equity prediction and not auto-correlation) in Section 6 provide further
+evidence for signiﬁcant clustered lead-lag structure in the US equities.
+5.2.3
+Comparing data-driven clustering with known lead-lag mechanisms
+We investigate whether our data-driven lead-lag extraction and clustering results can be explained by three potential
+mechanisms in the empirical ﬁnance lead-lag literature.
+1. Sector membership induces clustered lead-lag effects. Biely and Thurner [2008] ﬁnd associations between
+sector membership and lead-lag structure on the high-frequency scale of returns.
+2. Equities with higher trading volume are hypothesised to lead lower volume equities. The disparities in trading
+volume across equities can lead to non-synchronous trading lead-lag effects [Chordia and Swaminathan, 2000,
+Campbell et al., 1997]. Clustering structure may be induced by ordering equities based on quantiles of average
+trading volume.
+3. Larger capitalisation equities are hypothesised to lead lower capitalisation equities [Lo and MacKinlay, 1990].
+This market capitalisation mechanism can produce lead-lag effects partly via non-trading effects and partly via
+other channels [Campbell et al., 1997]. Conrad et al. [1991] also ﬁnd that large stocks may lead small stocks
+via volatility spillovers. Clustering structure may be induced by ordering equities based on quantiles of market
+capitalisation.
+Comparison of data-driven clustering with industry membership clustering
+We compute the Jaccard similarity
+coefﬁcient between the data-driven Hermitian RW clustering and the clustering due to industry membership. We use
+the ﬁrst level of the Standard Industrial Classiﬁcation (SIC) [Service, 2020] code for the ﬁrm corresponding to each
+equity in order to assign the equity to an industry. Table 1 counts the number of equities that are a member of each SIC
+sector. Most sectors have a relatively large number of equities, with Agriculture, Forestry and Fisheries and Services
+being quite small.
+For comparison, the number of equities in each of the Hermitian RW clusters is shown in Table 2. The Hermitian RW
+algorithm leads to clusters of approximately equal size.
+Figure 9 displays the Jaccard similarity between each pair of Hermitian RW and industry clusters. Overall, given the
+low values of the Jaccard similarity coefﬁcients, the clustering seems to recover a structure that goes beyond simple
+industry sectors.
+However, there does appear to be some association between certain SIC sectors and Hermitian RW clusters. We observe
+that the Mining sector seems to be strongly associated with cluster 1 (the second most leading cluster). The Finance,
+Insurance and Real Estate sector is also associated with a relatively leading cluster (cluster 2). These observations are
+consistent with the ﬁndings of Biely and Thurner [2008] that the ﬁnance and energy sectors have strong participation in
+15
+
+--- PAGE 16 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+Retail
+90
+Manufacturing
+67
+Construction
+66
+Mining
+58
+Trans., Util. & other
+54
+Fin., Ins. & RE
+46
+Wholesale
+43
+Services
+9
+Agri., Forest. & Fish.
+1
+Table 1: Number of equities in each SIC industry sector.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+37
+49
+57
+58
+35
+35
+42
+34
+32
+55
+Table 2: Number of equities in each Hermitian RW cluster. Cluster ID is shown in the top row.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+cluster
+Agri., Forest. & Fish.
+Construction
+Fin., Ins. & RE
+Manufacturing
+Mining
+Retail
+Services
+Trans., Util. & other
+Wholesale
+sector
+0.00
+0.08
+0.16
+0.24
+0.32
+0.40
+Figure 9: The Jaccard similarity coefﬁcient between the Hermitian RW clusters and industry clusters (SIC).
+the signiﬁcant eigenvalues of the lead-lag matrix3. Xia et al. [2018] also ﬁnd that the Financial and Real Estate sectors
+are associated with leading equities in the Chinese equity market. These associations between SIC code and Hermitian
+RW membership provide a partial interpretation for the links of the meta-ﬂow network corresponding to the Hermitian
+RW clustering. The meta-ﬂow network is depicted in Figure 10. For example, we see that one of the strongest ﬂows is
+from cluster 4 to 9 – which are associated with Manufacturing and Construction respectively.
+Figure 11 displays a histogram of the edge weights of two meta-ﬂow networks: one corresponding to Hermitian RW
+clustering and the other corresponding to SIC clustering. The data-driven Hermitian RW clustering results in larger ﬂow
+between pairs of clusters than an industry-based clustering. This demonstrates the efﬁcacy of our method in retrieving
+pairs of clusters with high ﬂow imbalance.
+Comparing data-driven clustering with market capitalisation and volume-based explanations
+Figures 12 and
+13 display the average daily dollar volume and market capitalisation averaged across all stocks in a given cluster. We
+observe that the leading clusters (clusters labelled 0 −3) do not appear to have larger average daily dollar volume or
+market capitalisation.
+In order to examine the association between the tendency for an equity to lead and its daily dollar volume or market
+capitalisation at a sub-cluster level, we compute the Spearman correlation between the row-sums of the lead-lag matrix
+– which provides a metric for the tendency of each cluster to lead – and these equity characteristics (trading volume
+and market capitalisation). This results in a Spearman correlation of 0.01 and -0.15 between the lead-lag row-sums
+3While Biely and Thurner [2008] use GICS sector classiﬁcation in their analysis, the GICS Energy sector has substantial overlap
+with the Mining SIC sector.
+16
+
+--- PAGE 17 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+0
+1
+2
+4
+5
+6
+7
+8
+9
+3
+Figure 10: Meta-ﬂow network for Hermitian RW clusters;
+clusters are represented by nodes and larger edge weights
+are depicted by bolder colours and thicker lines.
+0.0
+0.1
+0.2
+0.3
+0.4
+Net flow between pairs of clusters
+0
+2
+4
+6
+8
+10
+Hermitian RW
+SIC
+Figure 11: Histogram of Hermitian RW and SIC cluster-
+ing meta-ﬂow network edge weights. The edge colours
+are layered in a semi-transparent fashion.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Ordered clusters
+0
+1
+2
+3
+4
+5
+6
+Average daily volume
+1e8
+Figure 12: Average daily dollar volume by Hermitian
+RW cluster.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Ordered clusters
+0
+1
+2
+3
+4
+Market capitalisation
+1e10
+Figure 13: Average market capitalisation by Hermi-
+tian RW cluster.
+and the equity trading volume and market capitalisation, respectively. These results are not consistent with a positive
+association between a cluster’s tendency to lead and the trading volume or market capitalisation of its constituents.
+Therefore, the results obtained by our data-driven clustering method cannot be explained by the three previously
+hypothesised mechanisms outlined in Section 5.2.3. Our proposed method may prove to be useful in the exploration of
+novel lead-lag mechanisms in the empirical ﬁnance community.
+5.3
+Time-variation in clusters
+To investigate the time-variation in the clustering obtained from our method, we recompute the clustering year-by-year
+using only data from the retrospective year to do so. In order to compare the similarity in clusterings across time,
+we calculate the Adjusted Rand Index (ARI) between each pair of yearly clusterings. The results are illustrated in
+Figure 14.
+The relatively low ARI values between pairs of clusters indicates some – albeit low – persistence in year-to-year lead-lag
+structure. Biely and Thurner [2008] ﬁnd that there is signiﬁcant persistence in lead-lag structures across time. Xia
+et al. [2018] agree with our observations and ﬁnd that the lead-lag phenomenon between two stocks is not constant but
+emerges during certain periods. They ﬁnd that, on average, individual lead-lag relationships tend to last for around a
+year.
+Further, we see that higher ARI values occur in earlier years: this suggests that there is a decrease in persistence between
+clusterings as time increases. Nevertheless, in Section 6, we show that there is sufﬁcient persistence in the lead-lag
+cluster relationships in order for a dynamically updated clustering to be useful for forecasting purposes on a daily scale.
+17
+
+--- PAGE 18 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+2001
+2002
+2003
+2004
+2005
+2006
+2007
+2008
+2009
+2010
+2011
+2012
+2013
+2014
+2015
+2016
+2017
+2018
+2019
+2001
+2002
+2003
+2004
+2005
+2006
+2007
+2008
+2009
+2010
+2011
+2012
+2013
+2014
+2015
+2016
+2017
+2018
+2019
+0.2
+0.4
+0.6
+0.8
+1.0
+Figure 14: Adjusted Rand index between clusters computed on yearly snapshots of data.
+5.4
+Limitations and implications of the empirical analysis
+Our novel lead-lag extraction and clustering method yields clusters that cannot be explained by three previously
+considered mechanisms for lead-lag structure in US equity markets. Below, we discuss the limitations of our empirical
+analysis and its implications for understanding lead-lag structure in US equity markets.
+First, a caveat of our empirical analysis is the instability of the lead-lag structure across time. In Section 5.3, we
+observe that the lead-lag structure does not exhibit high overall persistence. Since the lead-lag structure is not stable
+year-to-year, it is possible that the lead-lag results can be partially explained by the three mechanisms on a subset of
+the data. However, we have repeated our empirical clustering analysis on the relatively stable range4 2000-2006 and
+have found that the industry-based clustering is unable to fully explain the resulting data-driven clustering on this
+subset of the data. Furthermore, we have repeated the Spearman correlation analysis that was described in Section 5.2.3
+using yearly snapshots of data. Appendix Figures 27 and 28 display the Spearman correlation between an equity’s
+tendency to be a leader (which is given by its lead-lag matrix row-sum) and its market capitalisation or trading volume.
+As these ﬁgures suggest, the association between an equity’s tendency to be a leader and its market capitalisation or
+trading volume is not stable throughout time. There appear to be some periods when the sign of the association is
+consistent with the positive association predicted by the trading volume and market capitalisation lead-lag mechanisms.
+Nevertheless, the general sign and transience of the association across time does not support trading volume and market
+capitalisation as mechanisms which can explain the observed lead-lag structure.
+A second caveat for the interpretation of our results concerns the relevancy of the market capitalisation mechanism.
+As explained in Section 5.1, we have restricted our attention to large capitalisation equities in order to avoid non-
+synchronous trading effects. Therefore, any interpretation of our empirical results must be conditioned by the large
+capitalisation of our equity universe. In particular, the market capitalisation mechanism may not be relevant under the
+condition that we restrict attention to the largest equities. In addition, previous papers that have found that smaller cap
+equities are able to lead larger cap equities if these smaller cap equities receive more news coverage [Scherbina and
+Schlusche, 2015]. Thus, the hypothesised market capitalisation mechanism can be modulated by other information
+diffusion channels. This implies that the market capitalisation mechanism does not necessarily manifest itself in a
+positive association between market capitalisation and the tendency of an equity to be a leader.
+Thirdly, the lead-lag literature contains other mechanisms that could potentially explain our results [Badrinath et al.,
+1995, Brennan et al., 1993, Menzly and Ozbas, 2010, Cohen and Frazzini, 2008]. For example, cross-ﬁrm information
+ﬂows through supplier networks have been hypothesised as lead-lag mechanisms [Menzly and Ozbas, 2010, Cohen and
+Frazzini, 2008]. Testing these and other hypothesised mechanisms as sources for our observed lead-lag results remains
+further work.
+4Cf relatively large values of ARI displayed during 2000-2006 in Figure 14.
+18
+
+--- PAGE 19 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+Finally, given the novelty of our method and the fact that the resulting lead-lag structure cannot be explained through
+the three hypotheses that we have tested, our method may prove to be useful in the exploration of new mechanisms.
+The use of non-linear lead-lag metrics and effective algorithms for clustering directed networks (such as the distance
+correlation lead-lag metric and Hermitian RW algorithm) may illuminate lead-lag structures in US equity markets that
+cannot be explained by existing lead-lag mechanisms in the empirical ﬁnance literature.
+6
+Financial forecasting application
+Our method of identifying and clustering lead-lag correlation networks can be used for variable selection and feature
+extraction to facilitate downstream predictive modelling tasks in high-dimensional time series systems. One of the main
+difﬁculties in the predictive modelling of high-dimensional systems is variable selection. On the one hand, the selection
+of too few conditioning variables can result in poor predictive power due to not capturing temporal dependence between
+the response variable and relevant omitted variables. On the other hand, conditioning on too many variables can lead to
+the inclusion of many irrelevant variables; this dilutes the predictive power of the model [Runge et al., 2019].
+In general, our unsupervised learning method can be used as a variable selection or feature extraction step to inform
+the choice of potential target and feature variables in a predictive model. This is achieved by using clusters with large
+net inﬂows (lagging clusters) to guide the selection of target variables, and clusters with large net outﬂows (leading
+clusters) guide the selection of feature variables. For example, in the latent variable synthetic data generating model
+presented in Section 4, the method identiﬁes clusters of variables sharing the same lagged dependence on the latent
+variable z. By averaging the time series variables within each cluster,
+1
+|Ci|
+P
+j∈Ci yj
+t , ∀i ∈{1, . . . , k}, the leading
+latent function g1(zt) at time t (the average of time series values in the most leading cluster) and the lagged latent
+functions gl(zt−l), l = 2, . . . , k (the average of time series values in lagging clusters) can be recovered for each
+t = 1, . . . , T thanks to the reduction in observation noise resulting from the averaging procedure. By ﬁtting models that
+capture the relations between the average value of the lagging clusters (target variable) and the average value of the
+leading cluster (feature variable), the latent variable dynamics can be captured, allowing the user to make predictions on
+the subsequent values of the lagging clusters.
+When a downstream model is built to capture the relationships between such target and feature variables, it is likely
+to exhibit stronger predictive power since our method has screened potential explanatory variables. Our method
+identiﬁes predictable response variables and diminishes the risk of conditioning on irrelevant variables when used in
+downstream predictive modelling in high-dimensional time series systems. This variable selection approach is useful
+for the application of returns forecasting in the US equity universe, since this is a highly noisy multivariate time series
+system where statistical lead-lag effect sizes are weak5.
+We assess the predictive power of our lead-lag extraction and spectral clustering approach by evaluating the out-of-
+sample performance of a trading signal that was constructed using our method. The risk-adjusted returns of our trading
+signal will be evaluated using the Sharpe Ratio. In order to test whether the signal’s Sharpe Ratio is signiﬁcantly
+different to 0, we use a hypothesis test [Opdyke, 2007] that holds asymptotically under the general conditions of
+stationary and ergodic signal returns.
+Our approach to quantifying the predictive performance of our method by studying the risk-adjusted performance of
+a portfolio constructed using our method is common in the quantitative ﬁnance literature [Asness et al., 2013]. The
+task of constructing a statistically signiﬁcant trading signal using only publicly available price data in a highly liquid
+market such as the US equity market is a challenging task due to the informational efﬁciency of such markets [Malkiel
+and Fama, 1970]. The weak-form of the Efﬁcient Markets Hypothesis states [Malkiel and Fama, 1970] that markets
+fully reﬂect all historical price data; this implies that it is not possible to make economic proﬁts in excess of market
+equilibrium proﬁts by trading on the basis of such historical price data. The number of empirical studies [Malkiel
+and Fama, 1970] in strong support of the weak-form of the Efﬁcient Markets Hypothesis underlines the informational
+efﬁciency of US equity markets and hence the challenge of constructing a statistically signiﬁcantly proﬁtable trading
+signal.
+Similarly, Curme et al. [2015b] argue for the use of lead-lag networks to guide variable selection for downstream
+ﬁnancial forecasting tasks. However, our results are stronger as we test the performance of our lead-lag network method
+for variable subset selection in a rolling out-of-sample evaluation.
+6.1
+Signal construction
+We keep the trading signal relatively simple in order to effectively assess the predictive performance of the underlying
+signal derived from our lead-lag extraction and clustering methodology. Our trading signal forecasts lagging cluster
+returns using smoothed leading cluster returns. In order to evaluate the out-of-sample performance of our method,
+5due to the Efﬁcient Markets Hypothesis [Malkiel and Fama, 1970].
+19
+
+--- PAGE 20 ---
+Lead-lag detection and network clustering for multivariate time series with an application to the
+US equity market
+A PREPRINT
+we compute the clustering C1, . . . , Ck and ﬂow graph F on a rolling basis using a 2-month update period and yearly
+look-back window. Further, using the same update frequency and yearly look-back window, we ﬁt a separate linear
+model for each pair of clusters. In particular, for each ordered pair of clusters i, j ∈{1, . . . , k}, we ﬁt a linear model to
+forecast the mean daily return for lagging cluster j
+y(j)
+t
+=
+1
+|Cj|
+X
+n∈Cj
+y(n)
+t
+,
+using an exponentially weighted moving average of the mean returns for cluster i as the covariate (input variable to the
+linear regression)
+x(i)
+t
+=
+1
+|Ci|
+X
+n∈Ci
+t
+X
+l=1
+(1 −α)l−1 y(n)
+t−l.
+The choice of exponential parameter α = 0.4 assigns 92% of the total weight of the exponential sum P∞
+l=1 (1 −α)l−1
+to the ﬁrst 5 lags l = 1, . . . , 5. Thus, the exponential moving average mainly captures lead-lag effects on the scale of
+approximately up to 1 week, while emphasising higher-frequency daily lead-lag effects. The coefﬁcient θij of the linear
+model y(j) = θijxi
+t is ﬁtted using ordinary least squares6.
+For every day t = 1, . . . , T, we compute the predictive signal from cluster i to j for each ordered pair i, j ∈{1, . . . , k}
+of clusters
+ˆy(j)
+t
+= θijx(i)
+t .
+These predictive signals are aggregated using a thresholded ﬂow graph ˜F where ˜Fij = 1 {Fij > c} where c is the
+90% quantile of the edge weights of the ﬂow graph F. Thus, the ﬂow graph ensures that only the cluster-to-cluster
+relationships that have shown the greatest historical ﬂow are included in the construction of the signal. Mathematically,
+the predictive signal St for cluster j ∈{1, . . . , k} is given by
+St(j) = sign
+ k
+X
+n=1
+˜Fij ˆy(j)
+t
+!
+.
+The signal for a speciﬁc equity m ∈{1, . . . , p} on day t is set to be the signal for its cluster Cm i.e. St(Cm).
+Finally, the signals for each equity are normalised by a 21-day historical rolling estimator of the overall signal’s volatility.
+This rolling normalisation ensures that the overall position size is dynamically adjusted to target a constant 10% annual
+volatility. Assuming that the Sharpe Ratio of our signal is constant throughout time, this procedure can be seen as
+targeting an optimal Kelly criterion [Thorp, 2011] for the signal on a rolling basis. Further, volatility normalisation
+tends to bring our daily trading returns closer to stationarity while decreasing their absolute skew and kurtosis; this
+makes the analysis of our trading returns more reliable.
+6.2
+Results
+The cumulative proﬁt of the signal is displayed in Figure 15. The trading signal results in an annualised Sharpe Ratio of
+0.62 with a corresponding signiﬁcant one-sided p-value of p < 0.004 [Opdyke, 2007]. We compare this with the Sharpe
+Ratio of 0.40 for the S&P500 market return on the same period. Further, the trading signal exhibits a low correlation
+(0.04) with the market return. This suggests that the trading signal cannot be explained by market equilibrium returns.
+The mean daily return of the trading signal is 2.4 basis points7.
+We observe in Figure 15 that there is a decay in the performance of the signal after 2012; this can be compared with the
+reduction in clustering persistence observed after 2012 in Figure 14, and with the observation in the work of Curme
+et al. [2015a] that the informational efﬁciency of the market appears to increase in 2012 relative to earlier years.
+Ablation study
+We conduct an ablation study in order to test the importance of the lead-lag clustering structure
+on the observed performance of the trading signal. Speciﬁcally, under the null hypothesis that there is no lead-lag
+cluster structure in US equity returns, the clustering for the US equities is drawn uniformly at random from the set
+of permutations on cluster labels. Therefore, under the hypothesis of lead-lag cluster structure, the Sharpe Ratio of
+the trading signal described in Section 6.1 should be consistent with the distribution over the Sharpe Ratios of trading
+signals that are computed with permuted cluster labels. We use 200 Monte Carlo samples from the null distribution that
+computes the Sharpe Ratio of the same trading signal pipeline described in Section 6.1 but with any clustering in this
+6Note that unbiasedness and consistency do not hold in general for this ordinary least squares estimation due to network effects
+within the residual error structure.
+7Cf a mean daily market return of 3.0 basis points.
+20
+
+[TRUNCATED at 80000 chars — 29 total pages]

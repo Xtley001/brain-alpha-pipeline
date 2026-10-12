@@ -1,0 +1,1759 @@
+
+--- PAGE 1 ---
+Electronic copy available at: http://ssrn.com/abstract=948309
+Expected Stock Returns and
+Variance Risk Premia∗
+Tim Bollerslev†, George Tauchen‡and Hao Zhou§
+First Draft: September 2006
+This Version: July 2008
+Abstract
+Motivated by the implications from a stylized self-contained general equilibrium
+model incorporating the eﬀects of time-varying economic uncertainty, we show that
+the diﬀerence between implied and realized variation, or the variance risk premium, is
+able to explain a non-trivial fraction of the time series variation in post 1990 aggregate
+stock market returns, with high (low) premia predicting high (low) future returns. Our
+empirical results depend crucially on the use of “model-free,” as opposed to Black-
+Scholes, options implied volatilities, along with accurate realized variation measures
+constructed from high-frequency intraday, as opposed to daily, data. The magnitude
+of the predictability is particularly strong at the intermediate quarterly return horizon,
+where it dominates that aﬀorded by other popular predictor variables, like the P/E
+ratio, the default spread, and the consumption-wealth ratio (CAY).
+JEL classiﬁcation: C22, C51, C52, G12, G13, G14.
+Keywords: Equilibrium asset pricing; stochastic volatility; risk neutral expectation; return
+predictability; option implied volatility; realized volatility; variance risk premium.
+∗Bollerslev’s work was supported by a grant from the NSF to the NBER and CREATES funded by the
+Danish National Research Foundation. The paper combines results in an earlier paper with the same title
+by the ﬁrst and the third author, and a paper by the second author titled ”Stochastic Volatility in General
+Equilibrium.” Excellent research assistance was provide by Natalia Sizova. We would also like to thank an
+anonymous referee, John Ammer, Torben Andersen, Federico Bandi, Ravi Bansal, Oleg Bondarenko, Craig
+Burnside, Robert Hodrick, Pete Kyle, David Lando, Benoit Perron, Monika Piazzesi, Raman Uppal, Tuomo
+Vuolteenaho, Jonathan Wright, Amir Yaron, Motohiro Yogo, Alex Ziegler, and seminar participants at the
+Federal Reserve Board, the 2007 conference on ”Return Predictability” at Copenhagen Business School, the
+2007 SITE conference at Stanford, the 2007 NBER Summer Institute, the 2007 conference on ”Measuring
+Dependence in Finance” at Cass Business School, and the 2008 Winter Meetings of the American Finance
+Association for helpful discussions. The views presented here are solely those of the authors and do not
+necessarily represent those of the Federal Reserve Board or its staﬀ.
+†Department of Economics, Duke University, Durham NC 27708, USA, and NBER and CREATES, Email
+boller@econ.duke.edu, Phone 919-660-1846, Fax 919-684-8974.
+‡Department of Economics, Duke University, Durham NC 27708, USA, Email george.tauchen@duke.edu,
+Phone 919-660-1812, Fax 919-684-8974.
+§Division of Research and Statistics, Federal Reserve Board, Mail Stop 91, Washington DC 20551 USA,
+E-mail hao.zhou@frb.gov, Phone 202-452-3360, Fax 202-728-5887.
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 2 ---
+Electronic copy available at: http://ssrn.com/abstract=948309
+Expected Stock Returns and
+Variance Risk Premia
+Abstract
+Motivated by the implications from a stylized self-contained general equilibrium model
+incorporating the eﬀects of time-varying economic uncertainty, we show that the diﬀerence
+between implied and realized variation, or the variance risk premium, is able to explain a
+non-trivial fraction of the time series variation in post 1990 aggregate stock market returns,
+with high (low) premia predicting high (low) future returns. Our empirical results depend
+crucially on the use of “model-free,” as opposed to Black-Scholes, options implied volatilities,
+along with accurate realized variation measures constructed from high-frequency intraday,
+as opposed to daily, data. The magnitude of the predictability is particularly strong at the
+intermediate quarterly return horizon, where it dominates that aﬀorded by other popular
+predictor variables, like the P/E ratio, the default spread, and the consumption-wealth ratio
+(CAY).
+JEL Classiﬁcation Numbers: C22, C51, C52, G12, G13, G14.
+Keywords: Equilibrium asset pricing; stochastic volatility; risk neutral expectation; return
+predictability; option implied volatility; realized volatility; variance risk premium.
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 3 ---
+Electronic copy available at: http://ssrn.com/abstract=948309
+1
+Introduction
+Is the return on the stock market predictable?
+This age-old question still ranks among
+the most studied and contentious in all of economics. To the extent that a consensus has
+emerged it seems to be that the predictability is the strongest over long multi-year horizons.
+There is also evidence that the degree of predictability have diminished somewhat over
+the past two decades.1 In lieu of this, we show that the diﬀerence between “model-free”
+implied and realized variances, which we term the variance risk premium, explains a non-
+trivial fraction of the variation in post 1990 aggregate stock market returns, with high (low)
+values of the premium associated with subsequent high (low) returns. The magnitude of the
+predictability is particularly strong at the quarterly return horizon, where it dominates that
+aﬀorded by other popular predictor variables, like the P/E ratio, the default spread, and the
+consumption-wealth ratio (CAY).
+Our empirical investigations are directly motivated by the implications from a stylized
+self-contained general equilibrium model. The model may be seen as an extension of the
+long-run risk model pioneered by Bansal and Yaron (2004), who emphasized the importance
+of long-run risk in consumption growth for explaining the equity premium and the dynamic
+dependencies in returns over long multi-year horizons. In contrast, we explicitly exclude pre-
+dictability in consumption growth, focusing instead on the implications of allowing for richer
+and empirically more realistic volatility dynamics. Our model generates a two-factor struc-
+ture for the endogenously determined equity risk premium, in which the factors are directly
+related to the underlying volatility dynamics of consumption growth. Diﬀerent volatility
+concepts deﬁned within the model load diﬀerently on these fundamental risk factors. In par-
+ticular, the diﬀerence between the risk-neutralized expected return variation and the realized
+return variation eﬀectively isolates the factor associated with the volatility of consumption
+growth volatility. Consequently, the variance risk premium should serve as an especially
+useful predictor for the returns over horizons for which that risk factor is relatively more
+important. In a reasonably calibrated version of the model this translates into population
+1For recent discussions in support of return predictability, see, e.g., Lewellen (2004) and Cochrane (2008).
+1
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 4 ---
+return predictability regressions that show the most explanatory power over intermediate
+“quarterly” return horizons.
+The dual variance concepts underlying our empirical investigations of these theoretical
+relations are both fairly new. On the one hand, several recent studies have argued for the use
+of so-called “model-free” realized variances computed by the summation of high-frequency
+intraday squared returns. These types of measures generally aﬀord much more accurate ex-
+post observations on the actual return variation than the more traditional sample variances
+based on daily or coarser frequency return observations (see, e.g., Andersen, Bollerslev,
+Diebold, and Ebens, 2001a; Barndorﬀ-Nielsen and Shephard, 2002; Meddahi, 2002).2 On
+the other hand, the recently developed so-called “model-free” implied variances provide
+ex-ante risk-neutral expectations of the future return variation. In contrast to the standard
+option-implied variances based on the Black-Scholes pricing formula, or some variant thereof,
+the “model-free” implied variances are computed from a collection of option prices without
+the use of a speciﬁc pricing model (see, e.g., Carr and Madan, 1998; Britten-Jones and
+Neuberger, 2000; Jiang and Tian, 2005).
+Our main empirical ﬁnding that the diﬀerence between the “model-free” implied and
+realized variances is able to explain a non-trivial fraction of the variation in quarterly stock
+market returns over the 1990 to 2007 sample period is new, and easily dominates that aﬀorded
+by other more commonly employed predictor variables.3 Moreover, combining the variance
+risk premium with some of these other predictor variables, most notably the P/E ratio,
+results in even greater return predictability and joint signiﬁcance of the predictor variables.
+This in turn suggests that volatility and consumption risk both play important roles in
+determining the returns, with their relative contributions varying across return horizons.
+The plan for the rest of the paper is as follows. Section 2 outlines the basic theoretical
+model and corresponding predictability regressions that motivate our empirical investiga-
+2Earlier empirical studies exploring similar ideas include Schwert (1990) and Hsieh (1991).
+3Related empirical links between stock market returns and various notions of variance risk have been
+informally explored by ﬁnance professionals. For example, Beckers and Bouten (2005) report that a market
+timing strategy based on the ratio of implied to historical volatilities doubles the Sharpe ratio relative to
+that of a constant S&P 500 exposure. Many equity-oriented hedge funds also actively trade variance risk in
+the highly liquid OTC variance swap market; see, e.g., Bondarenko (2004).
+2
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 5 ---
+tions. Section 3 discusses the “model-free” implied and realized variances that we use in
+empirically quantifying the variance risk premium, along with practical data considerations.
+Section 4 presents our main empirical ﬁndings and robustness checks. Section 5 concludes.
+2
+Volatility in Equilibrium
+The classical intertemporal CAPM model of Merton (1973) is often used to motivate the
+existence of a traditional risk-return tradeoﬀin aggregate market returns. Despite an ex-
+tensive empirical literature devoted to the estimation of such a premium, the search for
+a signiﬁcant time-invariant expected return-volatility tradeoﬀtype relationship has largely
+proven elusive.4 In this section we present a stylized general equilibrium model designed
+to illuminate new and more complex theoretical linkages between ﬁnancial market volatility
+and expected returns.
+The model involves a standard endowment economy with Epstein-Zin-Weil recursive
+preferences.5 The basic setup builds on and extends the discrete-time long-run risk model
+pioneered by Bansal and Yaron (2004), by allowing for richer volatility dynamics in the
+form of stochastically time-varying volatility-of-volatility.6 This in turn results in an em-
+pirically more realistic two-factor structure for the aggregate stock market volatility, and
+importantly suggests new and interesting channels through which the endogenously gener-
+ated time-varying risk premia on consumption and volatility risk might manifest themselves
+empirically. To simplify the analysis and focus on the role of time-varying volatility, we
+explicitly exclude the long-run risk factor in consumption growth highlighted in the original
+Bansal and Yaron (2004) model.
+4A signiﬁcant equilibrium relationship, explicitly allowing for temporal variation in the price of risk, has
+recently been estimated by Bekaert et al. (2008). Also, Ang et al. (2006) ﬁnd that innovations in aggregate
+volatility carry a statistically signiﬁcant (negative) risk premium and that cross-sectionally idiosyncratic
+volatility is negatively related with average stock returns.
+5The Epstein and Zin (1991) and Weil (1989) preferences are rooted in the dynamic choice theory of
+Kreps and Porteus (1978).
+6Empirical evidence in support of time-varying consumption growth volatility has recently been presented
+by Bansal et al. (2005), Bekaert and Liu (2004), Bekaert et al. (2008), Lettau et al. (2008), among others.
+3
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 6 ---
+2.1
+Model Setup and Assumptions
+To begin, suppose that the geometric growth rate of consumption in the economy, gt+1 =
+log(Ct+1/Ct), is unpredictable,
+gt+1 = µg + σg,tzg,t+1,
+(1)
+where µg denotes the constant mean growth rate, σg,t refers to the conditional variance of
+the growth rate, and {zg,t} is an i.i.d. N(0, 1) innovation process.7 Further, assume that the
+volatility dynamics are governed by the following discrete-time versions of continuous-time
+square root type processes,
+σ2
+g,t+1 = aσ + ρσσ2
+g,t + √qtzσ,t+1,
+(2)
+qt+1 = aq + ρqqt + ϕq
+√qtzq,t+1,
+(3)
+where the parameters satisfy aσ > 0, aq > 0, |ρσ| < 1, |ρq| < 1, ϕq > 0, and {zσ,t} and {zq,t}
+are independent i.i.d. N(0, 1) processes jointly independent of {zg,t}. The stochastic volatility
+process σ2
+g,t+1 represents time-varying economic uncertainty in consumption growth, with the
+volatility-of-volatility process qt in eﬀect inducing an additional source of temporal variation
+in that same process.
+Both processes play a crucial role in generating the time varying
+volatility risk premia discussed below. The assumption of independent innovations across all
+three equations explicitly rules out any return-volatility correlations that might otherwise
+arise via purely statistical channels.8
+7The growth rate of consumption is identically equal to the dividend growth rate in this Lucas-tree
+economy.
+8Direct estimation of the stylized model deﬁned by equations (1) to (3) would require the use latent
+variable techniques. Instead, as a way to gauge the speciﬁcation, we calculated a robust estimate for σ2
+g,t
+by exponentially smoothing the squared (de-meaned) growth rate in U.S. real expenditures on non-durable
+goods and services (gt−ˆµg)2 over the 1947Q2 to 2007Q4 sample period, using a smoothing parameter of 0.06.
+Consistent with the basic model structure in equation (2), the serial dependencies in the resulting ˆσ2
+g,t series
+appear to be well described by an AR(1) model with ρσ close to unity. Consistent with the Great Moderation,
+the variances are generally also much lower over the latter part of the sample. Moreover, on estimating an
+AR(1)-GARCH(1,1) model for ˆσ2
+g,t, the estimates for the two GARCH parameters equal 0.238 and 0.655,
+respectively, and the Wald test for their joint signiﬁcance and the absence of any ARCH eﬀects (129.9)
+has a p-value of virtually zero, thus strongly supporting the notion of time-varying volatility-of-volatility in
+consumption growth, or Var(qt) > 0.
+4
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 7 ---
+We assume that the representative agent in the economy is equipped with Epstein-Zin-
+Weil recursive preferences. Consequently, the logarithm of the intertemporal marginal rate
+of substitution, mt+1 ≡log(Mt+1), may be expressed as,
+mt+1 = θ log δ −θψ−1gt+1 + (θ −1)rt+1,
+(4)
+where
+θ ≡(1 −γ)(1 −ψ−1)−1,
+(5)
+δ denotes the subjective discount factor, ψ equals the inter-temporal elasticity of substitution,
+γ refers to the coeﬃcient of risk aversion, and rt+1 is the time t to t + 1 return on the
+consumption asset. We will maintain the assumptions that γ > 1 and ψ > 1, which in turn
+implies that θ < 0.9 These restrictions ensure, among other things, that volatility carries
+a positive risk premium, and that asset prices fall on news of positive volatility shocks,
+consistent with the so-called leverage eﬀect. Importantly, these eﬀects are not the result of
+any direct statistical linkages between return and volatility, but instead arise endogenously
+within the model.
+2.2
+Model Solution and Equity Premium
+Let wt denote the logarithm of the price-dividend ratio, or equivalently the price-consumption
+or wealth-consumption ratio, of the asset that pays the consumption endowment, {Ct+i}∞
+i=1.
+The standard solution method for ﬁnding the equilibrium in a model like the one deﬁned
+above then consists in conjecturing a solution for wt as an aﬃne function of the state variables,
+σ2
+g,t and qt,
+wt = A0 + Aσσ2
+g,t + Aqqt,
+(6)
+solving for the coeﬃcients A0, Aσ and Aq, using the standard Campbell-Shiller approxi-
+mation rt+1 = κ0 + κ1wt+1 −wt + gt+1. The resulting equilibrium solutions for the three
+9The assumption that γ > 1 is generally agreed upon, but the assumption that ψ > 1 is a matter of some
+debate; see, e.g., the discussion in Bansal and Yaron (2004).
+5
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 8 ---
+coeﬃcients may be expressed as,
+A0
+=
+log δ + (1 −ψ−1)µg + κ0 + κ1 [Aσaσ + Aqaq]
+(1 −κ1)
+,
+(7)
+Aσ
+=
+(1 −γ)2
+2θ(1 −κ1ρσ),
+(8)
+Aq
+=
+1 −κ1ρq −
+q
+(1 −κ1ρq)2 −θ2κ4
+1ϕ2
+qA2
+σ
+θκ2
+1ϕ2
+q
+.
+(9)
+The aforementioned restrictions that γ > 1 and ψ > 1, readily imply that the impact
+coeﬃcient associated with both of the volatility state variables are negative; i.e., Aσ < 0 and
+Aq < 0.10
+From the solution for the A’s it is now relatively straightforward to deduce the reduced
+form expressions for other variables of interest. In particular, the time t to t+1 return must
+satisfy the following relation,
+rt+1 =
+−log δ + ψ−1µg −(1 −γ)2
+2θ
+σ2
+g,t + (κ1ρq −1)Aqqt +
+σg,tzg,t+1 + κ1
+√qt [Aσzσ,t+1 + Aqϕqzq,t+1] .
+(10)
+As is evident, increases in endowment volatility, σ2
+g,t, and the volatility-of-volatility, qt, both
+increase the return, reﬂecting the compensation for bearing volatility risk. On the other
+hand, innovations in future volatility, zσ,t+1 and zq,t+1, both impact the return negatively,
+consistent with a leverage type eﬀect.
+To further appreciate the implications of richer time-varying volatility dynamics, it is
+instructive to consider the model-implied equity premium, πr,t ≡−Covt(mt+1, rt+1),
+πr,t = γσ2
+g,t + (1 −θ)κ2
+1(A2
+qϕ2
+q + A2
+σ)qt.
+(11)
+The premium is composed of two separate terms. The ﬁrst term, γσ2
+g,t, motivated the classic
+risk-return tradeoﬀrelationship, which has undergone extensive, yet empirically elusive,
+investigations. The term doesn’t really represent a volatility risk premium per se, however.
+Instead, it arises within the model as the presence of time-varying volatility in eﬀect induces
+shifts in the price of consumption risk. The second term, (1−θ)κ2
+1(A2
+qϕ2
+q +A2
+σ)qt, represents a
+10The solution for Aq in equation (9) represents one of a pair of roots to a quadratic equation, but it is
+the economically meaningful root for reasons discussed below.
+6
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 9 ---
+true premium for volatility risk.11 It is a confounding of a risk premium on shocks to volatility,
+zσ,t+1, and shocks to the volatility-of-volatility, zq,t+1. As such it represents a fundamentally
+diﬀerent source of risk from that of the traditional consumption risk term. The existence of
+the volatility risk premium depends crucially on the dual assumptions of recursive utility,
+or θ̸ = 1, as volatility would otherwise not be a priced factor, and time varying volatility-
+of-volatility, in the form of the qt process. This additional source of uncertainty is absent in
+the model of Bansal and Yaron (2004). The restrictions that γ > 1 and ψ > 1 implies that
+the volatility risk premium is positive.
+2.3
+Volatility Risk and Return Predictability
+The expression for the equity premium in equation (11) provides a direct relationship between
+the expected excess equilibrium return and the two volatility factors, σ2
+g,t and qt.
+Both
+of these factors are inherently latent. Importantly, however, each of the factors manifest
+themselves diﬀerently in diﬀerent volatility concepts that are naturally deﬁned within the
+model. In particular, the diﬀerence between the actual and the risk-neutral expected variance
+eﬀectively isolates the qt factor, which as explained above constitutes the source of the true
+volatility risk premium.
+To formally establish this result, denote the conditional variance of the time t to t + 1
+return as σ2
+r,t ≡Vart(rt+1). It follows from equation (10) that
+σ2
+r,t = σ2
+g,t + κ2
+1
+ A2
+σ + A2
+qϕ2
+q
+
+qt,
+(12)
+which is directly inﬂuenced by each of the two stochastic factors, the underlying economic
+volatility, σ2
+g,t, and the volatility of that volatility, qt. This conditional variance is, of course,
+known at time t. Consider instead the one-period ahead conditional variance,
+σ2
+r,t+1 = σ2
+g,t+1 + κ2
+1
+ A2
+σ + A2
+qϕ2
+q
+
+qt+1,
+(13)
+which is unknown, or stochastic, at time t. The diﬀerence between the objective and risk-
+neutral expectations of σ2
+r,t+1 as of time t will depend upon the way in which volatility risk
+11The speciﬁc root in equation (9) implies that A2
+qϕ2
+q →0 for ϕq →0, which guarantees that the premium
+disappears when qt is constant, as would be required by the lack of arbitrage.
+7
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 10 ---
+is priced.
+It follows readily that the time t objective conditional expectation equals,
+Et(σ2
+r,t+1) = aσ + κ2
+1
+ A2
+σ + A2
+qϕ2
+q
+
+aq + ρσσ2
+g,t + κ2
+1
+ A2
+σ + A2
+qϕ2
+q
+
+ρqqt.
+(14)
+The corresponding model-implied risk-neutral conditional expectation
+EQ
+t (σ2
+r,t+1) ≡Et(σ2
+r,t+1Mt+1)Et(Mt+1)−1 cannot easily be computed in closed form. However,
+it is possible to calculate the following close log-linear approximation,
+EQ
+t (σ2
+r,t+1) ≈log
+h
+e−rf,tEt
+
+emt+1+σ2
+r,t+1
+i
+−1
+2Vart
+ σ2
+r,t+1
+
+= Et(σ2
+r,t+1) + (θ −1)κ1
+
+Aσ + Aqκ2
+1
+ A2
+σ + A2
+qϕ2
+q
+
+ϕ2
+q
+
+qt,
+(15)
+where rf,t denotes the one-period risk free rate implied by the model. A number of inter-
+esting implications arise from comparing these two diﬀerent expectations of the same future
+variance.
+In particular, any temporal variation in the endogenously generated variance risk pre-
+mium,
+EQ
+t (σ2
+r,t+1) −Et(σ2
+r,t+1) = (θ −1)κ1
+
+Aσ + Aqκ2
+1
+ A2
+σ + A2
+qϕ2
+q
+
+ϕ2
+q
+
+qt,
+(16)
+is due solely to the volatility-of-volatility, or qt. Moreover, provided that θ < 0, Aσ < 0, and
+Aq < 0, as would be implied by γ > 1 and ψ > 1, this diﬀerence between the risk-neutral
+and objective expected variation is guaranteed to be positive. If ϕq = 0, and therefore qt = q
+is constant, the variance premium reduces to,
+EQ
+t (σ2
+r,t+1) −Et(σ2
+r,t+1) = (θ −1)κ1Aσq,
+which, of course, would also be constant. Comparing the expression in equation (16) to
+the expression for the equity premium in equation (11), suggests that the variance risk
+premium should serve as useful predictor for the actual realized returns over horizons for
+which the volatility-of-volatility, or qt, constitutes the dominant source of the variation in
+the equity premium. For highly persistent volatility dynamics, or ρσ ≈1, the objective
+expected future volatility will obviously be close to the value of the current volatility, so that
+8
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 11 ---
+the same qualitative implications holds true for the variance diﬀerence obtained by replacing
+Et(σ2
+r,t+1) in equation (16) with the current variance.
+There is also an implicit positive volatility risk-return tradeoﬀembedded in the solution
+of our stylized equilibrium model. Speciﬁcally, the reduced form equation (11) for the risk
+premium, πt, and equation (12) for the conditional variance, σ2
+r,t, implicitly entails a positive
+association between return volatility and the risk premium.12 This association corresponds
+very closely to that of the ﬁrst-order term in Corollary 3.5 of Ang and Liu (2007), who note
+that a positive volatility risk-return relationship can arise in models with ﬁrst-order risk
+aversion parameterized by the Epstein-Zin-Weil recursive preferences.13
+As is well known, however, empirical eﬀorts aimed at documenting a signiﬁcant positive
+association between the risk premium and stock price volatility have met with mixed success
+at best. The relationship is often statistically insigniﬁcant or even estimated to be nega-
+tive. These conﬂicting ﬁndings have been obtained with many diﬀerent data sets, estimation
+techniques, and control variables, with no single robust empirical consensus emerging; Ang
+and Liu (2007) contains a recent thorough discussion of the most important studies. In
+the empirical results reported on below, we also ﬁnd that expected excess returns are in-
+signiﬁcantly related to current volatility. Apparently, in the actual data, factor loadings of
+equations like (11) and (12) along with higher order nonlinearities and measurement prob-
+lems serve to mask the expected positive association between the risk premium and stock
+price volatility.14
+At the same time, the preceding theoretical analysis motivates our new approach based on
+information from derivatives markets (or Q-measure information) for better estimating the
+so-far elusive risk-return tradeoﬀ. From equation (16) the variance diﬀerence EQ
+t (σ2
+r,t+1) −
+Et(σ2
+r,t+1) is directly related to the volatility-of-volatility factor, qt, which appears in the
+12Keep in mind that we always assume ψ > 1 and γ > 1, implying θ < 0. The risk return relationship
+could be negative under other parameter values.
+13It is not exactly same, as Ang and Liu (2007) examine a model with pre-speciﬁed dynamics for a
+conditional standard deviation, while our model pre-speciﬁes the dynamics of the conditional variance.
+Nonetheless, the economic intuition behind the eﬀects of the recursive preferences are essentially the same.
+14Our log-linear approximation used to solve the model excludes the higher order eﬀects described in Ang
+and Liu (2007) that they show can cloud the volatility risk-return tradeoﬀ.
+9
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 12 ---
+expression (11) for the risk premium. As discussed further below, the use of derivatives
+market data allows us to directly measure EQ
+t (σ2
+r,t+1). Thus, using the derivatives data to
+get EQ
+t (σ2
+r,t+1) along with empirical proxies for the actual volatility, we can potentially get a
+“cleaner” measure of the factor that drives the volatility risk premium, in turn allowing for
+more precise empirical estimation of a risk-return tradeoﬀrelationship.
+The equilibrium model underlying these return-volatility relations is somewhat stylized
+and not rich enough to be estimated directly with actual data. Nonetheless, it is still useful
+to consider the implications from a calibrated version of the theoretical model to help guide
+and interpret our subsequent empirical reduced form predictability regressions.
+2.4
+Calibrated Return Regressions
+The diﬀerence between the risk neutral expected and actual variances underlying our key
+empirical ﬁndings, naturally corresponds to EQ
+t (σ2
+r,t+1) −σ2
+r,t−1 within the discrete-time the-
+oretical model. In the regressions discussed below both of our directly observable variance
+measures span one month, and we correspondingly refer to the unit time interval in the cali-
+brated equilibrium model as a “month.” In addition to the basic “monthly” return horizon,
+we also consider longer (scaled by the horizon) multi-period return regressions of the form,
+1
+h
+h
+X
+j=1
+rt+j = b0(h) + b1(h)
+
+EQ
+t (σ2
+r,t+1) −σ2
+r,t−1
+
++ ut+h,t.
+(17)
+The slope coeﬃcient,
+b1(h) =
+Cov
+
+1
+h
+Ph
+j=1 rt+j , EQ
+t (σ2
+r,t+1) −σ2
+r,t−1
+
+Var
+
+EQ
+t (σ2
+r,t+1) −σ2
+r,t−1
+
+,
+(18)
+and the explanatory power, as measured by the coeﬃcient of determination,
+R2(h) =
+Cov
+
+1
+h
+Ph
+j=1 rt+j , EQ
+t (σ2
+r,t+1) −σ2
+r,t−1
+2
+Var
+
+1
+h
+Ph
+j=1 rt+j
+
+Var
+
+EQ
+t (σ2
+r,t+1) −σ2
+r,t−1
+,
+(19)
+from this regression are both directly related to the latent qt process and how the persistence
+and magnitude of that process compare to that of the other risk factors. The actual numerical
+values of the two variances and the covariance, and in turn the model-implied b1(h) and
+10
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 13 ---
+R2(h), obviously depend upon the speciﬁc values of the parameters in equations (1) to (6).
+The variance of the multi-period returns and the covariance of those returns with the variance
+premium furthermore depend non-trivially on the return horizon, h.15
+To more directly gauge how the predictability vary with the model parameters and h, we
+plot in Figure 1 the population b1(h)’s and R2(h)’s for four diﬀerent parameter conﬁgurations
+and return horizons ranging from “one month” (h = 1) to “two years” (h = 24). The values
+for δ = 0.997, γ = 10.0, ψ = 1.5, µg = 0.0015, and E(σg) = 0.0078 in the baseline model
+(Model A) are all adapted directly from Bansal and Yaron (2004). Additionally, we ﬁx the
+persistence of the variance at ρσ = 0.978, the persistence of the volatility-of-volatility at
+ρq = 0.8, the expected volatility-of-volatility at aq(1 −ρq)−1 = 1.0−6, and the volatility of
+that process at φq = 1.0−3. The mean annualized risk-free rate and equity premium implied
+by these particular model parameters equal 0.48 and 8.21 percent, respectively.
+The model-implied slope coeﬃcients depicted in the top panel in the ﬁgure all decline
+monotonically with the return horizon. For the baseline model (Model A) b1(h) starts out at
+0.26 declining to 0.10 at the annual horizon. Decreasing (increasing) the persistence in the
+qt process from ρq = 0.8 to 0.6 (0.95) keeping all of the other model parameters the same as
+in Model B (Model C), results in systematically lower (higher) population slope coeﬃcients.
+Increasing the value of the inter-temporal elasticity of substitution from ψ = 1.5 to 2.5
+(Model D) magniﬁes the relation between the returns and the variance risk premium and
+results in systematically higher b1(h)’s across all return horizons.
+15Tedious calculations yield,
+R2(h) =
+ 
+1 −θ
+θ
+Aq(1 −κ1ρq)κ1
+
+(1 −γ)2
+2(1 −κ1ρσ) + 2A2
+qϕ2
+q(1 −κ1ρq)
+
+Varq 1 −ρh
+q
+1 −ρq
+!2
+·
+"θ −1
+θ
+κ1
+2 
+(1 −γ)2
+2(1 −κ1ρσ) + 2A2
+qϕ2
+q(1 −κ1ρq)
+2
+Varq + (1 −ρ2
+q)Varq + (1 −ρ2
+σ)Varσ2
+g
+#−1
+·
+ haq
+1 −ρσ
++
+(1 −κ1)2
+(1 −ρσ)2
+ h(1 −ρ2
+σ) + 4ρh+1
+σ
+−2ρh
+σ −2ρ2
+σ
+
++ (1 −2ρh
+σκ1 + κ2
+1)
+
+Varσ2
+g
++
+(1 −κ1)2
+(1 −ρq)2
+ h(1 −ρ2
+q) + 4ρh+1
+q
+−2ρh
+q −2ρ2
+q
+
++ (1 −2ρh
+q κ1 + κ2
+1)
+
+Varq
+−1
+,
+where Varσ2
+g = aq(1 −ρq)−1(1 −ρ2
+σ)−1 and Varq = φ2
+qaq(1 −ρ2
+q)−1(1 −ρ2
+σ)−1. The corresponding formula
+for the slope coeﬃcient b1(h) follows readily from this expression.
+11
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 14 ---
+Turning to the model-implied R2(h)’s depicted in the bottom panel in the ﬁgure, the de-
+gree of predictability for the baseline model (Model A) starts out fairly low at the “monthly”
+horizon, rising to its maximum around a “quarter,” gradually tapering oﬀthereafter for
+longer return horizons. In line with the results for the slope coeﬃcients, lowering the degree
+of persistence in the qt process to ρq = 0.6 (Model B) results in substantially lower overall
+predictability, and also shifts the peak in the R2(h)’s from a “quarter” to “two-months.”
+Conversely, increasing the persistence to ρq = 0.95 (Model C) increases the relative impor-
+tance of stochastically varying volatility-of-volatility and further prolongs the inherent return
+predictability. Lastly, changing the value of the inter-temporal elasticity of substitution from
+ψ = 1.5 to 2.5 (Model D) enhances the importance of time-varying volatility-of-volatility and
+increases the R2(h)’s relative to those for the baseline model (Model A), with the maximum
+again occurring around the “quarterly” return horizon.
+As these calibrations make clear, the simple stylized general equilibrium model can give
+rise to quite sizeable regression coeﬃcients and return predictability. Importantly, the cal-
+ibrations also reveal a general hump shape in the implied R2’s as function of the return
+horizon, with the location of the peak directly related to the value of ρq. At an intuitive
+level, the variance risk premium or the “variance swap” on the right-hand-side of the regres-
+sion, EQ
+t (σ2
+r,t+1)−σ2
+r,t−1, may be seen as a pure volatility bet where everything else gets “risk
+neutralized” out. Since volatility is explicitly priced under the Epstein-Zin-Weil recursive
+preference structure, this variance diﬀerence earns exactly that volatility risk premium and
+nothing else. The price of this risk changes if the variance of the priced factor changes. But
+this corresponds excatly to the volatility-of-volatility, or the qt process within the theoretical
+model.
+We next turn to a discussion of the procedures and data that we actually use in empirically
+quantifying the EQ
+t (σ2
+r,t+1) and σ2
+r,t variance measures.
+12
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 15 ---
+3
+Empirical Measurements
+The theoretical model outlined in the previous section suggests that the diﬀerence between
+current return variation and the market’s risk-neutral expectation of future return variation
+may serve as a useful predictor for the future returns by eﬀectively isolating the system-
+atic risk associated with the volatility-of-volatility. To measure the variance risk premium
+and investigate this conjecture, we rely on two relatively new non-parametric “model-free”
+variation concepts.
+3.1
+Model-Free Variation Measures
+To formally deﬁne the procedure that we use in quantifying the market’s expected return
+variation, let Ct(T, K) denote the price of a European call option maturing at time T with
+strike price K, and B(t, T) denote the price of a time t zero-coupon bond maturing at time
+T. As shown by Carr and Madan (1998), Demeterﬁ, Derman, Kamal, and Zou (1999) and
+Britten-Jones and Neuberger (2000), the market’s risk-neutral expectation of the total return
+variation between time t and t+1 conditional on time t information, or the implied variance
+IVt, may then be expressed in a “model-free” fashion as the following portfolio of European
+calls,
+IVt ≡
+m
+X
+i=1
+
+
+Ct
+
+t + 1,
+Ki
+B(t,t+1)
+
+−Ct
+
+t,
+Ki
+B(t,t)
+
+K2
+i
+−
+Ct
+
+t + 1,
+Ki−1
+B(t,t+1)
+
+−Ct
+
+t, Ki−1
+B(t,t)
+
+K2
+i−1
+
+∆K
+−→2
+Z Km
+K0
+Ct
+
+t + 1,
+K
+B(t,t+1)
+
+−Ct
+
+t,
+K
+B(t,t)
+
+K2
+dK,
+(20)
+−→EQ
+t [Return Variation(t, t + 1)],
+where ∆K = (Km −K0)/m, Ki = K0 + i∆K, and m →∞for the second equation to
+hold, while Km →∞and K0 →0 for the third equation to hold; i.e., an ever increasing
+number of calls with strikes spanning zero to inﬁnity.16 This “model-free” measure therefore
+provides a natural empirical analog to EQ
+t (σ2
+r,t+1) in the discrete-time model discussed in
+16The expression in equation (20) is a special case of the “model-free” forward implied variance from T1
+to T2 conditional on time t information for general jump-diﬀusion processes (Bondarenko, 2004; Jiang and
+13
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 16 ---
+the previous section. In practice, of course, IVt must be constructed on the basis of a ﬁnite
+number of strikes (m). Fortunately, even with relatively few diﬀerent options this tend to
+provide a fairly accurate approximation to the true (unobserved) risk-neutral expectation
+of the future return variation, and, in particular, a much better approximation than the
+one based on inversion of the standard Black-Scholes formula with close to at-the-money
+option(s) (see, e.g., Jiang and Tian, 2005; Bollerslev, Gibson, and Zhou, 2006).
+In order to deﬁne the measure that we use in quantifying the actual return variation, let
+pt denote the logarithmic price of the asset. The realized variation over the discrete t −1 to
+t time interval may then be measured in a “model-free” fashion by
+RVt ≡
+n
+X
+j=1
+h
+pt−1+ j
+n −pt−1+ j−1
+n (∆)
+i2
+−→Return Variation(t −1, t),
+(21)
+where the convergence relies on n →∞; i.e., an increasing number of within period price
+observations. As demonstrated in the literature (see, e.g., Andersen, Bollerslev, Diebold,
+and Ebens, 2001a; Andersen, Bollerslev, Diebold, and Labys, 2001b; Barndorﬀ-Nielsen and
+Shephard, 2002; Meddahi, 2002), this “model-free” realized variance measure based on high-
+frequency intraday data aﬀords much more accurate ex-post observations of the true (un-
+observed) return variation than do the more traditional sample variances based on daily or
+coarser frequency returns. It also provides a non-parametric empirical analog to σ2
+r,t in the
+discrete-time model in the previous section. In practice, of course, as discussed further be-
+low, various market microstructure frictions invariably limit the highest sampling frequency
+that may be used in reliably estimating RVt.
+The variance risk premium, or diﬀerence, underlying our key empirical ﬁndings is deﬁned
+by the diﬀerence between this ex-ante risk neutral expectation of the future return variation
+over the [t, t + 1] time interval and the ex-post realized return variation over the [t −1, t]
+Tian, 2005; Carr and Wu, 2008),
+IVt ≡2
+Z ∞
+0
+Ct
+
+T2,
+K
+B(t,T2)
+
+−Ct
+
+T1,
+K
+B(t,T1)
+
+K2
+dK = EQ
+t [Return Variation (T1, T2)].
+Letting T1 = t and T2 = t + 1, results in the one-period implied variance deﬁned in the text.
+14
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 17 ---
+time interval,
+V RPt ≡IVt −RVt,
+(22)
+aﬀording a “model-free” empirical equivalent to the variance diﬀerence on the right-hand-
+side in the regression equation (17). Compared to the the variance premium in equation
+(16), the variance diﬀerence has the advantage that IVt and RVt, and therefore V RPt, are
+directly observable at time t. This is obviously important from a forecasting perspective.
+However, below we also brieﬂy discuss complimentary empirical results in which we regress
+the returns on an estimate for the expected premium, EV RPt ≡IVt −Et(RVt+1), in which
+we approximate Et(RVt+1) by the one-step-ahead forecasts from a simple reduced form time
+series model for RVt. Of course, the two premia trivially coincide under the assumption that
+RVt is a martingale diﬀerence sequence, or Et(RVt+1) = RVt, corresponding to ρσ = 1 in the
+stylized discrete-time theoretical model developed in the previous section.
+Closely related measures of variance risk premia have recently been investigated from
+diﬀerent empirical perspectives in other studies. In particular, Bollerslev, Gibson, and Zhou
+(2006) ﬁnd that the temporal variation in a measure of EV RPt for the aggregate market
+portfolio, as implied by a standard Heston (1993) one-factor stochastic volatility model,
+may in part be explained by a set of macro-ﬁnance variables, including some of the more
+traditional predictor variables considered below. Similarly, Todorov (2007) has explored the
+joint dynamics of IVt and Et(RVt+1) within the context of a very general continuous time
+speciﬁcation allowing for separate jump and diﬀusive risk premiums. The diﬀerence between
+implied and realized variance measures has also previously been associated empirically with
+notions of aggregate market risk aversion by Rosenberg and Engle (2002), while Bakshi and
+Madan (2006) have formally shown that the volatility spread may be expressed as a nonlinear
+function of the aggregate degree of risk aversion in a simple representative agent setting.
+3.2
+Data Description
+Our empirical analysis is based on the aggregate S&P500 composite index as a proxy for the
+aggregate market portfolio. Due to the dual requirements of reliable high-frequency data and
+15
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 18 ---
+options implied volatilities, our sample “only” spans the period from January 1990 through
+December 2007.
+We rely on monthly data for the “new” VIX index for quantifying IVt. The VIX index
+is based on the highly liquid S&P500 index options along with the “model-free” approach
+discussed above explicitly tailored to replicate the risk-neutral variance of a ﬁxed 30-day ma-
+turity. The data is obtained directly from the Chicago Board of Options Exchange (CBOE).17
+The VIX index is invariably subject to some approximation error (see, e.g., the discussion
+in Jiang and Tian, 2007), but the CBOE procedure for calculating the VIX has arguably
+emerged as the industry standard. Thus, in order to facilitate replication and comparison
+with other studies, we purposely rely on the readily available squared VIX index as our
+measure for the risk-neutral expected variance.
+The intraday data for the S&P500 composite index that we use in the construction of
+our “model-free” RVt measure is provided by the Institute of Financial Markets. The theory
+behind the realized variation measures dictates that the sampling frequency, or n in the
+expression for RVt above, goes to inﬁnity. However, a host of practical market microstructure
+features, including price discreteness, bid-ask spreads, and non-synchronous trading eﬀects,
+imply that the underlying semi-martingale assumption for the returns is violated at the
+very highest sampling frequencies. In practice it therefore becomes necessary to strike a
+balance between the desire to use very ﬁnely sampled data to minimize the estimation error
+on the one hand and not be overwhelmed by “noise” in the high-frequency prices on the
+other. A number of studies, using the volatility signature plot ﬁrst proposed by Andersen
+et al. (2000), suggest that for highly liquid assets, such as the S&P 500 index analyzed here,
+a ﬁve-minute sampling frequency provides a reasonable choice (see, e.g., the discussion in
+Hansen and Lunde, 2006). Following this recommendation, we base our monthly realized
+variance measure for the S&P500 on the summation of the 78 within day ﬁve-minute squared
+returns covering the normal trading hours from 9:30am to 4:00pm along with the close-to-
+17The CBOE replaced the “old” VIX index, based on S&P100 options and Black-Scholes implied volatili-
+ties, with the “new” VIX index, based on S&P500 options and “model-free” implied volatilities, in September
+2003. Historical data on both indexes are available from the oﬃcial CBOE website. A more detailed descrip-
+tion of the procedure actually used in approximating the integral in the calculation of the VIX is provided
+in the white paper on the CBOE website.
+16
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 19 ---
+open overnight return.18 For a typical month with 22 trading days, this leaves us with a
+total of n = 22 × 78 = 1, 716 “ﬁve-minute” returns.
+To illustrate the data, Figure 2 plots the monthly time series of implied variances, realized
+variances, and their diﬀerences. Both of the variance measures are somewhat higher during
+the 1997 to 2002 part of the sample. The more distinct spikes in the measures generally also
+coincide. Consistent with the theoretical model developed in the previous section, and the
+earlier empirical evidence cited above, the spread between the implied and realized variances
+is almost always positive.
+In addition to the variance risk premium, we also consider a set of other more traditional
+predictor variables (see, e.g., Lamont, 1998; Lettau and Ludvigson, 2001; Ang and Bekaert,
+2007). Speciﬁcally, we obtain monthly P/E ratios and dividend yields for the S&P500 directly
+from Standard & Poor’s. Data on the 3-month T-bill, the default spread (between Moody’s
+BAA and AAA corporate bond spreads), the term spread (between the 10-year T-bond and
+the 3-month T-bill yields), and the stochastically de-trended risk-free rate (the 1-month T-
+bill rate minus its backward 12-month moving averages) are taken from the public website
+of the Federal Reserve Bank of St. Louis. The consumption-wealth ratio (CAY), as deﬁned
+in Lettau and Ludvigson (2001), is downloaded from Lettau and Ludvigson’s website.19
+Basic summary statistics for the monthly returns and predictor variables are given in Ta-
+ble 1. The mean excess return on the S&P500 over the sample equals 6.44 percent annually.
+The sample means for the implied and realized variances are 33.23 and 14.93, respectively,
+corresponding to a variance risk premium of 18.30 (in percentages squared). The numbers
+for the traditional forecasting variables are all directly in line with those reported in previous
+studies. In particular, all of the variables are highly persistent with ﬁrst order autocorrela-
+tions ranging from 0.94 to 0.99. In contrast, the serial correlation in the implied and realized
+variances equal 0.79 and 0.70, respectively, and the ﬁrst order autocorrelation for their dif-
+ference only equals 0.49. As such, this alleviates one of the common concerns related to
+18Recent studies, e.g., Zhang et al. (2005) and Barndorﬀ-Nielsen et al. (2008), have proposed more eﬃcient
+and complicated ways in which to accommodate the market microstructure eﬀects that allow for ﬁner sam-
+pling. However, the simple-to-implement RVt estimator based on the summation of (not too-ﬁnely sampled)
+high-frequency squared returns that we rely on here remains the dominant method in practical applications.
+19We deﬁne a monthly CAY series from the most recent quarterly observation.
+17
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 20 ---
+the use of highly persistent predictor variables and the possibility of spurious or unbalanced
+regressions.20 Anticipating some of the results discussed next, the traditional predictor vari-
+ables all correlate fairly weakly with the contemporaneous monthly excess returns, while the
+sample correlations between the monthly returns and the diﬀerent variance measures are
+much higher (in an absolute sense) ranging from -0.34 to -0.23.
+4
+Forecasting Stock Market Returns
+All of our forecasts are based on simple linear regressions of the S&P500 excess returns
+on diﬀerent sets of lagged predictor variables.
+We always rely on monthly observations.
+All of the reported t-statistics are based on heteroskedasticity and serial correlation consis-
+tent standard errors that explicitly take account of the overlap in the regressions following
+Hodrick (1992).21 We focus our discussion on the estimated slope coeﬃcients and their sta-
+tistical signiﬁcance as determined by the robust t-statistics. We also report the forecasts
+accuracy of the regressions as measured by the corresponding adjusted R2’s. However, as
+previously noted, for the more traditional highly persistent predictor variables the R2’s for
+the overlapping multi-period return regressions need to be interpreted with great caution.22
+4.1
+Main Empirical Findings
+We begin by reporting in Table 2 the results for our empirical equivalent to the key return
+regression deﬁned in equation (17). The degree of predictability starts out fairly low at the
+monthly horizon with an R2 of just above one percent. The robust t-statistic for testing
+the estimated slope coeﬃcient associated with the variance diﬀerence IV −RV greater than
+20Inference issues related to the use of highly persistent predictor variables have been studied extensively
+in the literature, see, e.g., Stambaugh (1999), Ferson, Sarkissian, and Simin (2003), Lewellen (2004), and
+Campbell and Yogo (2006) and the references therein. Some authors have gone as far as to attribute the
+apparent predictability to the use of strongly serially correlated predictor variables, e.g., Boudoukh et al.
+(2008) and Goyal and Welch (2003, 2008).
+21Ang and Bekaert (2007) have forcefully shown that in the context of predictive regressions with over-
+lapping observations, the standard errors obtained by summing the regressors in the past, as advocated by
+Hodrick (1992), are generally more reliable than the more traditional standard errors based on the summation
+of the residuals into the future, as in, e.g., Newey and West (1987).
+22Boudoukh et al. (2008) have recently shown that even in the absence of any increase in the true pre-
+dictability, the values of the R2’s with highly persistent predictor variables and overlapping returns will by
+construction increase roughly proportional with the return horizon and the length of the overlap.
+18
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 21 ---
+zero still exceeds the one-sided ﬁve-percent signiﬁcance level. The quarterly return regression
+results in a much more impressive t-statistic of 2.86 and a corresponding R2 of 6.82 percent.
+The t-statistic remains signiﬁcant at the 6-month horizon, but the numerical values and
+signiﬁcance then gradually tapers oﬀfor longer return horizons.
+Taken as a whole, the results in Table 2 reveal a clear pattern in the degree of pre-
+dictability aﬀorded by the variance risk premium, with the largest t-statistic and maximum
+R2 occurring at the quarterly horizon. These ﬁndings are directly in line with the qualitative
+implications from the theoretical model developed in Section 2, in which the variance risk
+premium eﬀectively isolates the systematic risk factor associated with time-varying volatility
+of consumption growth volatility. More speciﬁcally, comparing the empirical estimates for all
+of the monthly horizons ranging from one month (h = 1) to two years (h = 24) reported in
+Figure 3 to the theoretical population counterparts for the four benchmark models depicted
+in Figure 1, the similarities in the general shapes of the estimated and implied slope coeﬃ-
+cients and R2’s as a function of the return horizon are quite striking. Of course, the values of
+the R2’s at the intermediate 3-6 month horizon for the actual return regressions are slightly
+larger than the R2’s for any of the calibrated models, suggesting that additional systematic
+risk factors, temporal variation in the degree of risk aversion, and/or the inﬂuence of period
+speciﬁc idiosyncratic events are needed to fully explain the empirical results.
+To better appreciate the ﬁndings in a wider empirical context, Tables 3 to 5 report
+the results from comparable monthly, quarterly and annual return regressions, respectively,
+involving the more traditional predictor variables in Table 1.23 Not surprisingly, the degree
+of predictability at the monthly horizon is systematically very low, although the individual
+regressions for both the P/E ratio and CAY does result in t-statistics slightly above two
+(numerically).24 Combining the variance diﬀerence with the P/E ratio results in a monthly
+23For comparability with the other slope coeﬃcients, the P/E, P/D and DFSP variables have been scaled
+by a factor of 12. Many other predictor variables have, of course, been proposed in the literature. While it
+is literally impossible to investigate all of these suggestions, we also experimented with the bond factor of
+Cochrane and Piazzesi (2005), but found that it oﬀered little predictability over the 1990-2007 sample period.
+Similarly, return regressions based on the corporate payout ratio (D/E) resulted in a negative adjusted R2
+over the present sample.
+24By estimating the cointegrating relationship in-sample, the traditional CAY variable suﬀers from a
+“look-ahead” bias. Brennan and Xia (2005) argue that this “explains” most of the predictability aﬀorded by
+19
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 22 ---
+R2 of 3.77 percent, in excess of the sum of the two R2’s from the individual regressions. Both
+of the coeﬃcients also remain statistically signiﬁcant in the joint regression. Adding the term
+spread (TMSP) and the relative risk-free rate (RREL) to the multiple regression actually
+reduces the (adjusted) R2, but the variance premium remains statistically signiﬁcant.
+The quarterly regressions reported in Table 4 further underscore the signiﬁcance of the
+reulst in Table 2. None of the t-statistics for any of the other predictor variables come close
+to the aforementioned t-statistic for the variance premium (2.86), and with the possible
+exception of P/E (-1.97) and CAY (1.78), all are insigniﬁcant at conventional levels. Of
+course, the R2’s for some of the other predictor variables, most notably the P/E and P/D
+ratios and CAY, are fairly close to the R2 for the variance premium. However, whereas
+the monthly variance premium exhibit relatively weak serial correlation, all of these other
+predictor variables are close to unit root type processes, which as previously noted renders
+the R2’s based on overlapping regressions diﬃcult to interpret.
+Turning to the multiple regressions reported in the right panel of the table, we ﬁnd
+that combining the variance premium with the P/E ratio results in even more impressive
+t-statistics of 3.43 and -2.42, respectively. Intuitively, the variance risk premium and the
+P/E ratio may jointly capture important short- and long-run risks embedded in the market
+returns. This would also be consistent with the qualitative implications from a more elabo-
+rate equilibrium model combining the model in Section 2 above with the long-run risk model
+of Bansal and Yaron (2004), allowing for time-varying volatility and volatility-of-volatility
+as well as predictability in the mean of consumption growth. A similar empirical pattern,
+albeit to a lessor extend, obtains when including the CAY variable along with the variance
+premium, resulting in t-statistics of 3.02 and 1.99, respectively. On the other hand, combin-
+ing the P/E ratio and CAY in the same quarterly return regressions results in insigniﬁcant
+t-statistics for both. Even though the term spread and the relative short rate are insigniﬁ-
+cant by themselves, both variables contribute marginally to a joint predictive regression with
+CAY. Also, on implementing the aforemention adjustment in Stambaugh (1986, 1999) to take account of the
+ﬁnite-sample bias in the estimated coeﬃcients due to the serial correlation in the regressors, the adjustment
+term for IVt −RVt equals 0.02, compared to 0.52 and 0.51 for P/E and CAY, respectively. These latter large
+adjustments are directly in line with the numbers reported in the extant literature.
+20
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 23 ---
+the variance premium and the P/E ratio, resulting in the highest overall adjusted R2 in the
+table. Lastly, it is worth noting that regardless of the other variables included in the forecast
+regressions, the estimated coeﬃcients for the variance risk premium remain quite stable and
+statistically signiﬁcant at the 0.001 level or better.
+Many of the empirical studies cited above have, of course, argued that the degree of
+predictability aﬀorded by the diﬀerent valuation ratios and predictor variables included in
+Table 1 tend to be the strongest over longer multi-year horizons. Our limited post 1990
+sample prevents us from eﬀectively studying issues having to do with longer return horizons
+spanning multiple years. However, we do report in Table 5 the regression results for annual
+returns based on monthly overlapping observations, but again caution that with such a short
+calendar time span and large overlap, the estimation results, and especially the R2’s, must
+be carefully interpreted. Indeed, in spite of the large R2’s, the t-statistics for P/E, P/D and
+CAY are all just barely signiﬁcant. As before, including the variance premium with either of
+these other variables results in larger (in an absolute sense) t-statistics for both. In parallel
+to Tables 3 and 4, the overall largest t-statistic (2.96) is again associated with the variance
+premium in the multiple regression reported in the last column in the table.
+The simple regressions involving RV or IV reported in Tables 3 to 5 always result in
+insigniﬁcant t-statistics and low R2’s. This is, of course, to be expected from the extant
+risk-return literature, which has largely searched in vain for such a tradeoﬀrelationship. To
+further explore this issue and the interplay between the two volatility measures, we report
+in Table 6 the results obtained by including RV and V RP = IV −RV in the same return
+regressions. Looking at the quarterly return horizon in the middle part of the table, it is
+noteworthy that while V RP is highly signiﬁcant, RV remains insigniﬁcant in the joint regres-
+sion. As such, this implicitly attributes the same numerical but opposite signed eﬀects to IV
+and RV . Following the discussion in Section 2, it appears that the variance diﬀerence V RP
+eﬀectively isolates the factor that drives the volatility risk premium, thereby allowing for
+the estimation of a meaningful and signiﬁcant risk-return tradeoﬀrelationship. Meanwhile,
+previous studies in the risk-return literature (e.g., Scruggs, 1998; Guo and Whitelaw, 2006)
+have argued that additional control factors, including interest rates, are needed in order to
+21
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 24 ---
+reliably estimate the relationship between expected return and volatility.25 To investigate
+this, we include the P/E ratio, the term spread and the short rate in the return regressions.
+This only reinforces the superior predictability aﬀorded by the variance premium. Whereas
+many of the t-statistics for the variance premium (all at the quarterly horizon) are highly
+signiﬁcant, none of the t-statistics associated with RV and the more traditional risk-return
+tradeoﬀestimated in the literature are signiﬁcant.
+4.2
+Other Variation Measures
+The regressions results discussed above were directly motivated by the stylized equilibrium
+model in Section 2, in which the dynamics were cast in variance form, and in which the dif-
+ferent variation measures were approximated empirically by their “model-free” counterparts.
+We next discuss a series of additional return regressions and sensitivity checks based on other
+variation measures and volatility transforms designed to address the robustness and validity
+of our ﬁndings in a wider sense. To conserve space, we will focus our summary discussion
+on the quarterly return horizon that produced the most signiﬁcant results. Also, we do not
+include any additional tables, but more detailed tabular information related to these results
+is available upon request.
+4.2.1
+“Old” Variance Measures
+The “model-free” implied and realized variances underlying our empirical results are both
+relatively new. As a ﬁrst robustness check, we replace the “model-free” variance measures
+with the standard at-the-money Black-Scholes implied variance IV ∗, and the realized vari-
+ance based on low-frequency daily returns RV ∗. Interestingly, the regressions based on these
+“old” variance measures generally do not give rise to the same strong conclusions.
+The
+variance risk premium deﬁned by the diﬀerence between the Black-Scholes implied variance
+and the daily return based realized variance still dominates each of the variance measures in
+isolation with t-statistics of 1.72 versus 0.97 and 0.31, respectively. However, the R2 for the
+“model-free” variance premium in Table 4 (6.82 percent) is much larger than the 2.16 percent
+25With higher interest rates generally associated with more turbulent ﬁnancial markets, this may also be
+seen as proxying for the qt process in the stylized equilibrium model.
+22
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 25 ---
+obtained with the diﬀerence between the “old” variance measures. Replacing the realized
+variance based on daily data with the corresponding high-frequency based measure results
+in a marginally signiﬁcant t-statistic of 1.85 and increases the R2 to 3.30 percent. Similarly,
+replacing the Black-Scholes implied variance with the “model-free” implied variance results
+in a t-statistic of 2.34 and increases the R2 to 4.45 percent.26
+All-in-all, these results clearly show that our use of the new “model-free” variance mea-
+sures is crucial in eﬀectively uncovering the variance risk premium. Estimation of the same
+predictive regressions based on the traditional Black-Scholes implied variances and/or re-
+alized variances constructed from lower frequency daily data do not give rise to nearly as
+signiﬁcant results.
+4.2.2
+Volatility Risk Premia
+The regressions discussed so far have all been cast in variance form.27 This, of course, directly
+mirrors the expressions for the variance premia and predictability regressions derived within
+the context of the theoretical model in Section 2. However, the volatility, or other nonlinear
+monotone transforms of the variance, is often used as an alternative and empirically more
+robust measure of risk (e.g., Merton, 1980). Replacing the “model-free” variance measures
+with their volatility, or standard deviation, counterparts, yields a t-statistic of 2.75 and an
+R2 of 6.51 percent for the volatility diﬀerence
+√
+IV −
+√
+RV , compared to 2.86 and 6.82
+percent for the variance diﬀerence IV −RV . Again, including
+√
+IV and
+√
+RV individually
+results in insigniﬁcant t-statistics of 1.01 and -0.12, respectively. The results for the multiple
+regressions obtained by including the P/E ratio, CAY, and the term structure variables
+together with the volatility diﬀerence are comparable to the ones for the variance premium,
+but all of the t-statistics and R2’s fall short of those reported in Table 4.
+26This indirectly suggests that much of the useful information about the temporal variation in the risk-
+neutralized variance resides in options away from the money.
+27This corresponds to the common use of variance denominated contracts in the over-the-counter swap
+market (see, e.g., Demeterﬁ, Derman, Kamal, and Zou, 1999; Mixon, 2007). The CBOE futures on the VIX
+are also stated in variance form.
+23
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 26 ---
+4.2.3
+Expected Variation Premium
+The empirical variance risk premium deﬁned in equation (22) is based on the diﬀerence
+between the market’s (risk-neutral) expected variation and the current realized variation.
+Both of these measures, and in turn the premium, are directly observable at time t in a
+completely “model-free” fashion. The resulting regressions with V RP on the right-hand-
+side also directly mirror the population regressions analyzed within the stylized equilibrium
+model in Section 2. More generally, however, our empirical ﬁndings that higher (lower) values
+of the variance premium are associated with higher (lower) future returns, may in part be
+attributed to the eﬀect that when the market anticipates high (low) volatility going forward,
+there is a discount (premium) built into prices, in turn resulting in high (low) future returns.
+To more clearly separate this eﬀect from temporal variation in the volatility risk premium
+per se, it is useful to consider a regression of the returns on an estimate of the previously
+deﬁned forward looking,28 or expected, variance premium, EV RPt ≡IVt −Et(RVt+1).
+In contrast, to all of the other predictor variables and “model-free” empirical measures
+considered so far, this necessitates an explicit forecasting model for RVt. Numerous paramet-
+ric and nonparametric volatility forecasting procedures have been proposed in the literature
+(see, e.g., Andersen, Bollerslev, Christoﬀersen, and Diebold, 2006). We here rely on the
+simple-to-implement, yet empirically highly accurate, reduced form HAR-RV model advo-
+cated by Corsi (2004) and Andersen et al. (2007) among others, in which the forecast for
+the one-month-ahead volatility is a linear function of the current daily, weekly and monthly
+realized volatilities. Regressing the quarterly overlapping returns on a constant and this
+expected variance premium results in a t-statistic of 2.27 and an R2 of 4.27.29 Although
+this t-statistic for EVRP is somewhat lower than the one for VRP (2.86), it is still higher
+than the t-statistics for any of the other predictor variables in Table 4. Of course, given the
+high degree of volatility persistence inherent in the S&P500 returns, it is hardly surprising
+that the expected variance diﬀerence and the directly observable variance diﬀerence perform
+28Related to this, Ang et al. (2008) rely on forward looking volatility estimates constructed by instrumental
+variables procedures in their analysis of cross-sectional pricing of idiosyncratic volatility.
+29Since our estimation of the HAR-RV model for RVt is based on the full sample, the results are subject
+to a standard “look-ahead” bias and additional parameter estimation error uncertainty.
+24
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 27 ---
+fairly similar from a forecasting perspective.30
+5
+Conclusion
+We provide empirical evidence that stock market returns are predictable by the diﬀerence be-
+tween “model-free” implied and realized variances, or the variance risk premium. The results
+appear remarkably robust across diﬀerent speciﬁcations and/or the inclusion of alternative
+predictor variables. The degree of predictability is the largest at intermediate quarterly hori-
+zons, but the premium still help explain the observed return variation at shorter monthly
+and longer annual horizons. Our empirical ﬁndings are broadly consistent with the implica-
+tions from a simple representative agent economy with recursive preferences that explicitly
+incorporates the equilibrium eﬀects of economic uncertainty and time-varying volatility-of-
+volatility, although the magnitudes of the estimated eﬀects appear too large to be fully
+explained by the new stylized theoretical model.
+The wedge between the “model-free” risk-neutral expected and actual variance underlying
+our empirical results may alternatively be seen as a proxy for the aggregate degree of risk
+aversion in the market.31 Although it might be diﬃcult to contemplate systematic changes
+in the level of risk aversion at the frequencies emphasized in our empirical work, time-
+varying volatility risk and time-varying risk-aversion likely both play an important role in
+explaining temporal variation in expected returns (e.g., Bekaert, Engstrom, and Grenadier,
+2005; Bekaert, Engstrom, and Xing, 2008). Recent work directly motivated by the empirical
+results ﬁrst reported here based on more elaborate equilibrium models (Drechsler and Yaron,
+2008) and cross-sectional pricing relations (Nyberg and Wilhelmsson, 2007) should prove an
+important next step in sorting out these issues and further clarify the economic mechanisms
+behind the predictability aﬀorded by the variance risk premium.
+30The sample correlation between EVRP and VRP equals 0.85, which far exceeds that for any other pair
+of predictor variables in Table 1.
+31More complicated model-speciﬁc measures of risk aversion based on the information in options prices have
+previously been explored empirically by a number of studies (see, e.g., A¨ıt-Sahalia and Lo, 2000; Rosenberg
+and Engle, 2002; Brandt and Wang, 2003; Gordon and St-Amour, 2004; Wu, 2005; Garcia, Lewis, Pastorello,
+and Renault, 2006; Ziegler, 2007).
+25
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 28 ---
+References
+A¨ıt-Sahalia, Yacine and Andrew W. Lo (2000), “Nonparametric Risk Management and Im-
+plied Risk Aversion,” Journal of Econometrics, vol. 94, 9–51.
+Andersen, Torben G., Tim Bollerslev, Peter F. Christoﬀersen, and Francis X. Diebold (2006),
+“Volatility and Correlation Forecasting,” in Handbook of Economic Forecasting, chap.15,
+777-878, Graham Elliott, Clive W.J. Granger and Allan Timmermann (eds.). Amsterdam:
+Elsevier Science B.V.
+Andersen, Torben G., Tim Bollerslev, and Francis X. Diebold (2007), “Roughing It Up:
+Including Jump Components in the Measurement, Modeling, and Forecasting of Return
+Volatility,” Review of Economics and Statistics, vol. 89, 701–720.
+Andersen, Torben G., Tim Bollerslev, Francis X. Diebold, and Heiko Ebens (2001a), “The
+Distribution of Realized Stock Return Volatility,” Journal of Financial Economics, vol. 61,
+43–76.
+Andersen, Torben G., Tim Bollerslev, Francis X. Diebold, and Paul Labys (2000), “Great
+Realizations,” Risk, vol. 13, 105–108.
+Andersen, Torben G., Tim Bollerslev, Francis X. Diebold, and Paul Labys (2001b), “The
+Distribution of Realized Exchange Rate Volatility,” Journal of the American Statistical
+Association, vol. 96, 42–55.
+Ang, Andrew and Geert Bekaert (2007), “Stock Return Predictability: Is it There?” Review
+of Financial Studies, vol. 20, 651–707.
+Ang, Andrew, Robert Hodrick, Yuhang Xing, and Xiaoyan Zhang (2006), “The Cross-Section
+of Volatility and Expected Returns,” Journal of Finance, vol. 61, 259–299.
+Ang, Andrew, Robert Hodrick, Yuhang Xing, and Xiaoyan Zhang (2008), “High Idiosyn-
+cratic Volatility and Low Returns: International and Further U.S. Evidence,” Journal of
+Financial Economics, Forthcoming.
+Ang, Andrew and Jun Liu (2007), “Risk, Return, and Dividends,” Journal of Financial
+Economics, vol. 85, 138.
+Bakshi, Gurdip and Dilip Madan (2006), “A Theory of Volatility Spread,” Management
+Science, vol. 52, 1945–1956.
+Bansal, Ravi, Varoujan Khatchatrian, and Amir Yaron (2005), “Interpretable Asset Mar-
+kets?” European Economic Review, vol. 49, 531–560.
+26
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 29 ---
+Bansal, Ravi and Amir Yaron (2004), “Risks for the Long Run: A Potential Resolution of
+Asset Pricing Puzzles,” Journal of Finance, vol. 59, 1481–1509.
+Barndorﬀ-Nielsen, Ole and Neil Shephard (2002), “Econometric Analysis of Realised Volatil-
+ity and Its Use in Estimating Stochastic Volatility Models,” Journal of Royal Statistical
+Society, Series B, vol. 64, 253–280.
+Barndorﬀ-Nielsen, Ole E., Peter R. Hansen, Asger Lunde, and Neil Shephard (2008), “De-
+signing Realised Kernels to Measure the Ex-post Variation of Equity Prices in the Presence
+of Noise,” Econometrica, Forthcoming.
+Beckers, Stan and Tom Bouten (2005), “Implied Volatility and Market Timing,” Finance
+Letters, vol. 3, 12–16.
+Bekaert, Geert, Eric Engstrom, and Steven R. Grenadier (2005), “Stock and Bond Returns
+with Moody Investors,” Working Paper, Columbia University.
+Bekaert, Geert, Eric Engstrom, and Yuhang Xing (2008), “Risk, Uncertainty and Asset
+Prices,” Journal of Financial Economics, Forthcoming.
+Bekaert, Geert and Jun Liu (2004), “Conditioning Information and Variance Bounds on
+Pricing Kernels,” Review of Financial Studies, vol. 17, 339–378.
+Bollerslev, Tim, Mike Gibson, and Hao Zhou (2006), “Dynamic Estimation of Volatility
+Risk Premia and Investor Risk Aversion from Option-Implied and Realized Volatilities,”
+Working Paper, Federal Reserve Board.
+Bondarenko, Oleg (2004), “Market Price of Variance Risk and Performance of Hedge Funds,”
+Working Paper, University of Illinois.
+Boudoukh, Jacob, Matthew Richardson, and Robert F. Whitelaw (2008), “The Myth of
+Long-Horizon Predictability,” Review of Financial Studies, Forthcoming.
+Brandt, Michael W. and Kevin Q. Wang (2003), “Time-varying Risk Aversion and Expected
+Inﬂation,” Journal of Monetary Economics, vol. 50, 1457–1498.
+Brennan, Michael J. and Yihong Xia (2005), “TAY’s as Good as CAY,” Finance Research
+Letters, vol. 2, 1–14.
+Britten-Jones, Mark and Anthony Neuberger (2000), “Option Prices, Implied Price Pro-
+cesses, and Stochastic Volatility,” Journal of Finance, vol. 55, 839–866.
+Campbell, John Y. and Motohiro Yogo (2006), “Eﬃcient Tests of Stock Return Predictabil-
+ity,” Journal of Financial Economics, vol. 81, 27–60.
+27
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 30 ---
+Carr, Peter and Dilip Madan (1998), “Towards a Theory of Volatility Trading,” in Volatil-
+ity: New Estimation Techniques for Pricing Derivatives, chap.29, 417-427, Robert Jarrow
+(ed.). London: Risk Books.
+Carr, Peter and Liuren Wu (2008), “Variance Risk Premia,” Review of Financial Studies,
+Forthcoming.
+Cochrane, John H. (2008), “The Dog That Did Not Bark: A Defense of Return Predictabil-
+ity,” Review of Financial Studies, Forthcoming.
+Cochrane, John H. and Monika Piazzesi (2005), “Bond Risk Premia,” American Economic
+Review, vol. 95, 138–160.
+Corsi, Fulvio (2004), “A Simple Long Memory Model of Realized Volatility,” Working Paper,
+University of Southern Switzerland.
+Demeterﬁ, Kresimir, Emanuel Derman, Michael Kamal, and Joseph Zou (1999), “A Guide
+to Volatility and Variance Swaps,” Journal of Derivatives, vol. 6, 9–32.
+Drechsler, Itamar and Amir Yaron (2008), “What’s Vol Got to Do With It,” Working Paper,
+University of Pennsylvania.
+Epstein, Larry G. and Stanley E. Zin (1991), “Substitution, Risk Aversion, and the Temporal
+Behavior of Consumption and Asset Returns: An Empirical Analysis,” Journal of Political
+Economy, vol. 99, 263–286.
+Ferson, Wayne E., Sergei Sarkissian, and Timothy T. Simin (2003), “Spurious Regressions
+in Financial Economics?” Journal of Finance, vol. 58, 1393–1414.
+Garcia, Ren´e, Marc-Andr´e Lewis, Sergio Pastorello, and ´Eric Renault (2006), “Estimation
+of Objective and Risk-Neutral Distributions Based on Moments of Integrated Volatility,”
+Working Paper, CRDE, Universit´e de Montr´eal.
+Gordon, Stephen and Pascal St-Amour (2004), “Asset Returns and State-Dependent Risk
+Preferences,” Journal of Business and Economic Statistics, vol. 22, 241–252.
+Goyal, Amit and Ivo Welch (2003), “Predicting the Equity Premium with Dividend Ratios,”
+Management Science, vol. 49, 639–654.
+Goyal, Amit and Ivo Welch (2008), “A Comprehensive Look at the Empirical Performance
+of Equity Premium Prediction,” Review of Financial Studies, Forthcoming.
+Guo, Hui and Robert F. Whitelaw (2006), “Uncovering the Risk-Return Relation in the
+Stock Market,” Journal of Finance, vol. 61, 1433–1463.
+28
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 31 ---
+Hansen, Peter R. and Asger Lunde (2006), “Realized Variance and Market Microstructure
+Noise,” Journal of Business and Economic Statistics, vol. 24, 127–161.
+Heston, Steven (1993), “A Closed-Form Solution for Options with Stochastic Volatility with
+Applications to Bond and Currency Options,” Review of Financial Studies, vol. 6, 327–
+343.
+Hodrick, Robert J. (1992), “Dividend Yields and Expected Stock Returns: Alternative Pro-
+cedures for Inference and Measurement,” Review of Financial Studies, vol. 5, 357–386.
+Hsieh, David A. (1991), “Chaos and Nonlinear Dynamics: Application to Financial Markets,”
+Journal of Finance, vol. 46, 1839–1877.
+Jiang, George and Yisong Tian (2005), “Model-Free Implied Volatility and Its Information
+Content,” Review of Financial Studies, vol. 18, 1305–1342.
+Jiang, George J. and Yisong S. Tian (2007), “Extracting Model-Free Volatility from Option
+Prices: An Examination of the VIX Index,” Journal of Derivatives, vol. 14, 1–26.
+Kreps, David M. and Evan L. Porteus (1978), “Temporal Resolution of Uncertainty and
+Dynamic Choice Theory,” Econometrica, vol. 46, 185–200.
+Lamont, Owen (1998), “Earnings and Expected Returns,” Journal of Finance, vol. 53, 1563–
+1587.
+Lettau, Martin and Sydney Ludvigson (2001), “Consumption, Aggregate Wealth, and Ex-
+pected Stock Returns,” Journal of Finance, vol. 56, 815–849.
+Lettau, Martin, Sydney Ludvigson, and Jessica Wachter (2008), “The Declining Equity
+Premium: What Role does Macroeconomic Risk PLay?” Review of Financial Studies,
+Forthcoming.
+Lewellen, Jonathan (2004), “Predicting Returns with Financial Ratios,” Journal of Financial
+Economics, vol. 74, 209–235.
+Meddahi, Nour (2002), “Theoretical Comparison Between Integrated and Realized Volatil-
+ity,” Journal of Applied Econometrics, vol. 17, 479–508.
+Merton, Robert C. (1973), “An Intertemporal Capital Asset Pricing Model,” Econometrica,
+vol. 41, 867–887.
+Merton, Robert C. (1980), “On Estimating the Expected Return on the Market,” Journal
+of Financial Economics, vol. 8, 323–361.
+29
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 32 ---
+Mixon, Scott (2007), “The Implied Volatility Term Structure of Stock Index Options,” Jour-
+nal of Empirical Finance, vol. 14, 333–354.
+Newey, Whitney K. and Kenneth D. West (1987), “A Simple Positive Semi-Deﬁnite,
+Heteroskedasticity and Autocorrelation Consistent Covariance Matrix,” Econometrica,
+vol. 55, 703–708.
+Nyberg, Peter and Anders Wilhelmsson (2007), “Volatility Risk Premium, Risk Aversion
+and the Cross-Section of Stock Returns,” Working Paper, Swedish School of Economics
+and Business Administration.
+Rosenberg, Joshua V. and Robert F. Engle (2002), “Empirical Pricing Kernels,” Journal of
+Financial Economics, vol. 64, 341–372.
+Schwert, G. William (1990), “Stock Volatility and the Crash of ’87,” Review of Financial
+Studies, vol. 3, 77–102.
+Scruggs, John T. (1998), “Resolving the Puzzling Intertemporal Relation between the Market
+Riks Premium and Conditional Market Variance: A Two-Factor Approach,” Journal of
+Finance, vol. 53, 575–603.
+Stambaugh, Robert F. (1986), “Bias in Regressions with Lagged Stochastic Regressors,”
+Working Paper, Graduate School of Business, University of Chicago.
+Stambaugh, Robert F. (1999), “Predictive Regressions,” Journal of Financial Economics,
+vol. 54, 375–421.
+Todorov, Viktor (2007), “Variance Risk Premium Dynamics,” Working Paper, Northwestern
+University.
+Weil, Philippe (1989), “The Equity Premium Puzzle and the Risk Free Rate Puzzle,” Journal
+of Monetary Economics, vol. 24, 401–421.
+Wu, Liuren (2005), “Variance Dynamics: Joint Evidence from Options and High-Frequency
+Returns,” Working Paper, Baruch College at CUNY.
+Zhang, Lan, Per A. Mykland, and Yacine A¨ıt-Sahalia (2005), “A Tale of Two Time Scales:
+Determining Integrated Volatility with Noisy High-Frequency Data,” Journal of the Amer-
+ican Statistical Association, vol. 100, 1394–1411.
+Ziegler, Alexandre (2007), “Why Does Implied Risk Aversion Smile?” Review of Financial
+Studies, vol. 20, 859–904.
+30
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 33 ---
+Table 1 Summary Statistics
+The sample period extends from January 1990 to December 2007. All variables are reported in annualized percentage form whenever
+appropriate. Rmt −Rft denotes the logarithmic return on the S&P500 in excess of the 3-month T-bill rate. IVt denotes the “model-free”
+implied variance, or VIX index. RVt refers to the “model-free” realized variance constructed from high-frequency 5-minute returns. The
+predictor variables include the price-earning ratio log(Pt/Et), the price-dividend ratio log(Pt/Dt), the default spread DFSPt deﬁned as
+the diﬀerence between Moody’s BAA and AAA bond yield indices, the term spread TMSPt deﬁned as the diﬀerence between the 10-year
+and 3-month Treasury yields, and the stochastically de-trended risk free rate RRELt deﬁned as the 1-month T-bill rate minus its trailing
+twelve month moving averages. Monthly observations on the consumption-wealth ratio CAYt are deﬁned by the most recently available
+quarterly observations.
+Rmt −Rft
+IVt −RVt
+IVt
+RVt
+log(Pt/Et)
+log(Pt/Dt)
+DFSPt
+TMSPt
+RRELt
+CAYt
+Summary Statistics
+Mean
+6.44
+18.30
+33.23
+14.93
+3.13
+3.92
+0.84
+1.69
+-0.11
+0.33
+Std Dev
+47.19
+15.13
+23.73
+15.25
+0.26
+0.34
+0.20
+1.19
+0.78
+1.80
+Skewness
+-0.65
+2.14
+2.02
+2.72
+0.42
+-0.19
+0.90
+0.09
+-0.35
+-0.09
+Kurtosis
+4.38
+12.06
+9.11
+12.98
+2.44
+1.98
+3.28
+1.79
+2.75
+1.94
+AR(1)
+-0.03
+0.49
+0.79
+0.70
+0.97
+0.99
+0.94
+0.98
+0.94
+0.96
+Correlation Matrix
+Rmt −Rft
+1.00
+-0.30
+-0.34
+-0.23
+-0.08
+-0.07
+-0.05
+-0.02
+0.00
+-0.05
+IVt −RVt
+1.00
+0.78
+0.22
+0.19
+0.11
+0.10
+-0.08
+-0.27
+-0.04
+IVt
+1.00
+0.78
+0.41
+0.35
+0.26
+-0.14
+-0.31
+-0.21
+RVt
+1.00
+0.45
+0.44
+0.31
+-0.14
+-0.21
+-0.30
+log(Pt/Et)
+1.00
+0.65
+0.25
+0.29
+-0.24
+-0.59
+log(Pt/Dt)
+1.00
+-0.03
+-0.36
+0.09
+-0.87
+DFSPt
+1.00
+0.21
+-0.43
+-0.03
+TMSPt
+1.00
+-0.36
+0.35
+RRELt
+1.00
+-0.18
+CAYt
+1.00
+31
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 34 ---
+Table 2 Variance Premium Return Regressions
+The sample period extends from January 1990 to December 2007. All of the regressions are based on monthly observations. Robust
+t-statistics accounting for the overlap following Hodrick (1992) are reported in parentheses. All variable deﬁnitions are identical to Table
+1.
+Monthly Return Horizon
+1
+3
+6
+9
+12
+15
+18
+24
+Constant
+-0.55
+-2.08
+1.12
+3.63
+4.62
+4.84
+5.61
+6.48
+(-0.13)
+(-0.56)
+(0.33)
+(1.15)
+(1.50)
+(1.59)
+(1.81)
+(2.07)
+IVt −RVt
+0.39
+0.47
+0.30
+0.17
+0.12
+0.11
+0.06
+0.01
+(1.76)
+(2.86)
+(2.15)
+(1.36)
+(1.00)
+(0.94)
+(0.56)
+(0.11)
+Adj. R2 (%)
+1.07
+6.82
+5.42
+2.30
+1.23
+1.00
+0.05
+-0.50
+32
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+--- PAGE 35 ---
+Table 3 Monthly Return Regressions
+The sample period extends from January 1990 to December 2007. Robust t-statistics following Hodrick (1992) are reported in parentheses.
+All variable deﬁnitions are identical to Table 1, except for P/E, P/D and DFSP which have been scaled by a factor of 12.
+Simple
+Multiple
+Constant
+-0.55
+-0.19
+4.88
+92.72
+75.51
+14.23
+7.73
+6.67
+5.45
+101.13
+-2.52
+78.02
+91.20
+101.86
+(-0.13)
+(-0.04)
+(1.20)
+(2.22)
+(1.87)
+(0.91)
+(1.32)
+(2.12)
+(1.53)
+(2.42)
+(-0.55)
+(1.49)
+(1.74)
+(2.28)
+IVt −RVt
+0.39
+0.49
+0.42
+0.50
+0.57
+(1.76)
+(2.16)
+(1.87)
+(2.10)
+(2.34)
+IVt
+0.20
+(1.30)
+RVt
+0.11
+(0.41)
+log(Pt/Et)
+-2.30
+-2.76
+-1.90
+-2.49
+-2.93
+(-2.02)
+(-2.40)
+(-1.36)
+(-1.76)
+(-2.31)
+log(Pt/Dt)
+-1.47
+(-1.68)
+DFSPt
+-0.77
+(-0.50)
+TMSPt
+-0.72
+2.87
+(-0.28)
+(0.96)
+RRELt
+1.63
+3.29
+(0.43)
+(0.76)
+CAYt
+3.71
+3.94
+1.78
+1.46
+(2.04)
+(2.20)
+(0.87)
+(0.72)
+Adj. R2 (%)
+1.07
+0.57
+-0.34
+1.80
+1.11
+-0.31
+-0.43
+-0.40
+1.44
+3.77
+2.78
+1.89
+3.86
+3.34
+33
+Electronic copy available at: https://ssrn.com/abstract=948309
+
+[TRUNCATED at 80000 chars — 41 total pages]

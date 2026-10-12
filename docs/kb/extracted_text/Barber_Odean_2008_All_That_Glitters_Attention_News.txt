@@ -1,0 +1,2212 @@
+
+--- PAGE 1 ---
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+All that Glitters: The Effect of Attention and News on the Buying 
+Behavior of Individual and Institutional Investors 
+ 
+ 
+ 
+ 
+ 
+Brad M. Barber 
+Terrance Odean* 
+ 
+November 2006 
+                                                 
+* Barber is at the Graduate School of Management, University of California, Davis. Odean is 
+at the Haas School of Business, University of California, Berkeley. We appreciate the 
+comments of Jonathan Berk, David Blake, Ken French, Simon Gervais, John Griffin, 
+Andrew Karolyi, Sendhil Mullainathan, Mark Rubinstein, and Brett Trueman. We also 
+appreciate the comments of seminar participants at Arizona State University; the Behavioral 
+Decision Research in Management Conference; the University of California, Berkeley; the 
+University of California, Irvine; the Copenhagen Business School; Cornell University; 
+Emory; HEC; Norwegian School of Economics and Business Administration; Ohio State 
+University; Osaka University; the Q Group; the Stanford Institute for Theoretical Economics; 
+the Stockholm School of Economics; the University of Tilburg; Vanderbilt; the Wharton 
+School; the CEPR/JFI symposium at INSEAD; Mellon Capital Management; the National 
+Bureau of Economic Research; the Risk Perceptions and Capital Markets Conference at 
+Northwestern University; and the European Finance Association Meeting. We are grateful to 
+the Plexus Group, to BARRA, to Barclays Global Investors—for the Best Conference Paper 
+Award at the 2005 European Finance Association Meeting, to the retail broker and discount 
+brokers who provided us with the data for this study, and to the Institute for Quantitative 
+Research and the National Science Foundation (grant #SES-0111470) for financial support. 
+Shane Shepherd, Michael Foster, and Michael Bowers provided valuable research assistance. 
+All errors are our own. Corresponding author: Terrance Odean, Haas School of Business, 
+University of California, Berkeley, 94720-1900, 510-642-6767, odean@berkeley.edu. 
+ 
+ 
+
+--- PAGE 2 ---
+ 
+ 
+ 
+Abstract 
+ 
+We test and confirm the hypothesis that individual investors are net buyers of attention-
+grabbing stocks, e.g., stocks in the news, stocks experiencing high abnormal trading volume, 
+and stocks with extreme one day returns. Attention-driven buying results from the difficulty 
+that investors have searching the thousands of stocks they can potentially buy. Individual 
+investors don’t face the same search problem when selling because they tend to sell only 
+stocks they already own. We hypothesize that many investors only consider purchasing 
+stocks that have first caught their attention. Thus, preferences determine choices after 
+attention has determined the choice set.  
+
+--- PAGE 3 ---
+ 
+1 
+ 
+You have time to read only a limited number of research papers. How did you choose 
+to read this paper? Investors have time to weigh the merits of only a limited number of stocks. 
+Why do they consider some stocks and not others?  
+ 
+In making a decision, we first select which options to consider and then decide which 
+of those options to choose. Attention is a scarce resource. When there are many alternatives, 
+options that attract attention are more likely to be considered, hence more likely to be chosen, 
+while options that do not attract attention are often ignored. If the salient attributes of an option 
+are critical to our utility, attention may serve us well. If not, attention may lead to sub-optimal 
+choices. In this paper, we test the proposition that individual investors are more likely to buy 
+rather than sell those stocks that catch their attention. We posit that this is so because attention 
+affects buying—where investors search across thousands of stocks, more than selling—where 
+investors generally choose only from the few stocks that they own. While each investor does 
+not buy every single stock that grabs his attention, individual investors are more likely to buy 
+attention-grabbing stocks than to sell them. We provide strong evidence that this is the case.  
+ 
+In contrast to our findings, many theoretical models of financial markets treat buying 
+and selling as two sides of the same coin. Informed investors observe the same signal whether 
+they are deciding to buy or to sell. They are equally likely to sell securities with negative 
+signals as they are to buy those with positive signals. Uninformed noise traders are equally 
+likely to make random purchases or random sales. In formal models, the decisions to buy and 
+to sell often differ only by a minus sign.1  For actual investors, the decisions to buy and to sell 
+are fundamentally different.  
+ 
+ 
+When buying a stock, investors are faced with a formidable search problem. There are 
+thousands of common stocks from which to choose. Human beings have bounded rationality. 
+There are cognitive—and temporal—limits to how much information we can process. We are 
+generally not able to rank hundreds, much less thousands, of alternatives. Doing so is even 
+more difficult when the alternatives differ on multiple dimensions. One way to make the 
+                                                 
+1 For example, see the well-cited models of Grossman and Stiglitz (1980) and Kyle (1985). 
+
+--- PAGE 4 ---
+ 
+2 
+ 
+search for stocks to purchase more manageable is to limit the choice set. It is far easier, for 
+example, to choose among 10 alternatives than 100.  
+ 
+Odean (1999) proposes that investors manage the problem of choosing among 
+thousands of possible stock purchases by limiting their search to stocks that have recently 
+caught their attention. Investors do not buy all stocks that catch their attention; however, for 
+the most part, they only buy stocks that do so. Which attention-grabbing stocks investors buy 
+will depend upon their personal preferences. Contrarian investors, for example, will tend to 
+buy out–of-favor stocks that catch their eye, while momentum investors will chase recent 
+performers.  
+ 
+ 
+While, in theory, investors face the same search problem when selling as when buying, 
+in practice, two factors mitigate the search problem for individual investors when they want to 
+sell. First, most individual investors hold relatively few common stocks in their portfolio.2 
+Second, most individual investors only sell stocks that they already own; that is, they don’t sell 
+short.3 Thus, investors can, one by one, consider the merits—both economic and emotional—
+of selling each stock they own. Rational investors are likely to sell their past losers, thereby 
+postponing taxes; behaviorally motivated investors are likely to sell past winners, thereby 
+postponing the regret associated with realizing a loss (see Statman and Shefrin, 1985); thus, to 
+a large extent, while individual investors are concerned about the future returns of the stocks 
+they buy, they focus on the past returns of the stocks they sell. 
+ 
+Our argument that attention is a major factor determining the stocks individual 
+investors buy, but not those they sell, does not apply with equal force to institutional investors. 
+There are two reasons for this: 1) Unlike individual investors, institutions often face a 
+significant search problem when selling. Institutional investors, such as hedge funds, routinely 
+sell short.  For these investors, the search set for purchases and sales is identical. And even 
+institutions that do not sell short face far more choices when selling than do most individuals, 
+                                                 
+2 During our sample period, the mean household in our large discount brokerage dataset held a monthly average 
+of 4.3 stocks worth $47,334; the median household held a monthly average of 2.61 stocks worth $16,210. 
+3 0.29 percent of positions are short positions for the investors in the large discount brokerage dataset that we 
+describe in Section II. When the positions are weighted by their value, 0.78 percent are short. 
+
+--- PAGE 5 ---
+ 
+3 
+ 
+simply because they own many more stocks than do most individuals. 2) Attention is not as 
+scarce a resource for institutional investors as it is for individuals. Institutional investors 
+devote more time to searching for stocks to buy and sell than do most individuals. Institutions 
+use computers to narrow their search. They may limit their search to stocks in a particular 
+sector (e.g., biotech) or meeting specific criteria (e.g., low price-to-earnings ratio), thus 
+reducing attention demands. While individuals, too, can use computers or pre-selection 
+criteria, on average, they are less likely to do so.  
+ 
+ 
+In this paper, we test the hypotheses that (1) the buying behavior of individual 
+investors is more heavily influenced by attention than is their selling behavior and that (2) the 
+buying behavior of individual investors is more heavily influenced by attention than is the 
+buying behavior of professional investors.  
+ 
+ 
+How can we measure the extent to which a stock grabs investors’ attention? A direct 
+measure would be to go back in time and, each day, question the hundreds of thousands of 
+investors in our datasets as to which stocks they thought about that day. Since we cannot 
+measure the daily attention paid to stocks directly, we do so indirectly. We focus on three 
+observable measures that are likely to be associated with attention-grabbing events: news, 
+unusual trading volume, and extreme returns. While none of these measures is a perfect proxy 
+for attention, all three are useful.  
+ 
+An attention-grabbing event is likely to be reported in the news. Investors’ attention 
+could be attracted through other means, such as chat rooms or word of mouth, but an event that 
+attracts the attention of many investors is usually newsworthy. However, news stories are not 
+all created equal. Major network reporting of the indictment of a Fortune 500 CEO will attract 
+the attention of millions of investors. while a routine company press release may be noticed by 
+few. Our historical news data—from the Dow Jones News Service—do not tell us how many 
+investors read each story, nor do they rank each story’s importance. We infer the reach and 
+impact of events by observing their effects on trading volume and returns.  
+ 
+
+--- PAGE 6 ---
+ 
+4 
+ 
+ 
+Trading volume in the firm’s stock is likely to be greater than usual when news about a 
+firm reaches many investors. Of course, this won’t necessarily be the case. Possibly investors 
+will recognize this news to be irrelevant to the firm’s future earnings and not trade, or 
+investors will all interpret the news similarly and not trade. But significant news will often 
+affect investors’ beliefs and portfolio goals heterogeneously, resulting in more investors 
+trading than is usual. If an unusual number of investors trade a stock, it is nearly tautological 
+that an unusual number are paying attention to that stock. But high abnormal trading volume 
+could also be driven by the liquidity or information based trades of a few large investors. Our 
+results are as strong, or stronger, for large capitalization stocks. Unusual trading volume for 
+these stocks is unlikely to be driven by only a few investors. Therefore, large trades by a few 
+investors may add noise to our calculations but are unlikely to be driving the results. 
+ 
+ 
+Important news about a firm often results in significant positive or negative returns. 
+Some news may be difficult to interpret and result in unusually active trading without much 
+price change. But when there is a big price move, it is likely that whatever caused the move 
+also caught investors’ attention. And even when price is responding to private, not public, 
+information, significant returns will often, in and of themselves, attract attention. 
+ 
+ 
+Our three proxies for whether investors were paying attention to a firm are: 1) a stock’s 
+abnormal daily trading volume, 2) the stock’s (previous) one day return4, and 3) whether the 
+firm appeared in that day’s news.  We examine the buying and selling behavior associated with 
+attention for four samples of investors:  
+• investors with accounts at a large discount brokerage,  
+• investors at a smaller discount brokerage firm that advertises its trade execution 
+quality,  
+• investors with accounts at a large retail brokerage, and  
+• professional money managers.  
+Our prediction is that individual investors will actively buy stocks on high attention days. We 
+are not predicting that they will actively trade on high attention days—that would hardly be 
+
+--- PAGE 7 ---
+ 
+5 
+ 
+surprising when we use abnormal trading volume as a proxy for attention—but, rather, that 
+they will be net buyers.  
+ 
+ 
+For every buyer. there must be a seller. Therefore, on days when attention-driven 
+investors are buying, some investors, whose purchases are less dependent on attention, must be 
+selling. We anticipate therefore that professional investors as a whole (inclusive of 
+marketmakers) will exhibit a lower tendency to buy, rather than sell, on high attention days 
+and a reverse tendency on low attention days. (Exceptions will arise when the event driving 
+attention coincides with the purchase criteria that a particular professional investor is 
+pursuing.)  
+ 
+As predicted, individual investors tend to be net buyers on high attention days. For 
+example, investors at the large discount brokerage make nearly twice as many purchases as 
+sales of stocks experiencing unusually high trading volume (e.g, the highest five percent)5 and 
+nearly twice as many purchases as sales of stocks with an extremely poor return (lowest five 
+percent) the previous day. The buying behavior of the professionals is least influenced by 
+attention.  
+ 
+The plan of the paper is as follows. We discuss related research in Section I. We 
+describe the four datasets in Section II and our sorting methodology in Section III.  We present 
+evidence of attention-driven buying in Section IV and discuss an alternative hypothesis in 
+section V. We conclude in section VI and present a formal model of attention-driven buying 
+the Appendix. 
+I. 
+Related Research 
+A number of recent studies examine investor trading decisions. Odean (1998a) finds 
+that, as predicted by Shefrin and Statman (1985), individual investors exhibit a disposition 
+effect—investors tend to sell their winning stocks and hold on to their losers. Both individual 
+                                                                                                                                                         
+4 We use previous-day return, rather than same-day return, because of potential endogeneity problems. While we 
+argue that extreme price moves will attract buyers, clearly buyers could also cause price moves. Our results are 
+qualitatively similar when we use same-day returns as a proxy for attention. 
+
+--- PAGE 8 ---
+ 
+6 
+ 
+and professional investors have been found to behave similarly with several types of assets 
+including real estate (Genesove and Mayer, 2001), company stock options (Heath, Huddart, 
+and Lang, 1999), and futures (Heisler, 1994; Locke and Mann, 1999) (also see Shapira and 
+Venezia, 1998).  
+ 
+It is well documented that volume increases on days with information releases or large 
+price moves (Bamber, Barron, and Stober (1997); Karpoff (1987)). For example, when Maria 
+Bartiromo mentions a stock during the Midday Call on CNBC, volume in the stock increases 
+nearly fivefold (on average) in the minutes following the mention (Busse and Green (2002)). 
+Yet, for every buyer, there is a seller. In general, these studies do not investigate who is buying 
+and who is selling, which is the focus of our analysis. One exception is Lee (1992). He 
+examines trading activity around earnings announcements for 230 stocks over a one-year 
+period. He finds that small traders—those who place market orders of less than $10,000—are 
+net buyers subsequent to both positive and negative earnings surprises. Hirshleifer, Myers, 
+Myers, and Teoh (2003) document that individual investors are net buyers following both 
+positive and negative earnings surprises. Lee (1992) conjectures that news may attract 
+investors’ attention or, alternatively, that retail brokers—who tend to make more buy than sell 
+recommendations—may routinely contact their clients around the time of earnings 
+announcements.  In a recent paper, Huo, Peng, and Xiong (2006) argue that high individual 
+investor attention can exacerbate price overreactions in up markets while attenuating 
+underreactions to events such as earnings reports.   
+ 
+ 
+ 
+Odean (1999) examines trading records of investors at a large discount brokerage firm. 
+He finds that, on average, the stocks these investors buy underperform those they sell, even 
+before considering transactions costs. He observes that these investors buy stocks that have 
+experienced greater absolute price changes over the previous two years than the stocks they 
+sell. He points out the search problem individual investors face when choosing from among 
+thousands of stocks and the disparity between buying and selling decisions for individual 
+                                                                                                                                                          
+5 Looking at all common stock transactions, investors at this brokerage make slightly more purchases (1,082,107) 
+than sales (887,594). 
+
+--- PAGE 9 ---
+ 
+7 
+ 
+investors. He suggests that many investors limit their search to stocks that have recently 
+captured their attention, with contrarians buying previous losers and trend chasers buying 
+previous winners.  
+ 
+Of course, fully rational investors will recognize the limitations of buying 
+predominantly stocks that catch their attention. They will realize that the information 
+associated with an attention-grabbing event may already be impounded into price (since the 
+event has undoubtedly been noticed by others), that the attention-grabbing event may not be 
+relevant to future performance, and that non-attention-grabbing stocks may present better 
+purchase opportunities. Odean (1998b) argues that many investors trade too much because 
+they are overconfident about the quality of their information. Such investors may overvalue the 
+importance of events that catch their attention, thus leading them to trade sub-optimally. 
+Odean (1999) and Barber and Odean (2000, 2001, 2002) find that, on average, self-directed 
+individual investors do trade sub-optimally, lowering their expected returns through excessive 
+trading.  
+ 
+In recent work, Seasholes and Wu (2004) test our theory in a unique out-of-sample 
+setting. They observe that on the Shanghai Stock Exchange individual investors are net buyers 
+the day after a stock hits an upper price limit. Furthermore, they document that a higher 
+percentage of purchases is made by first time buyers on price limit days than on other days. 
+Seasholes and Wu’s interpretation of this behavior is that the attention of individual investors, 
+especially first time buyers, is attracted by the event of hitting a price limit and, consistent with 
+our theory, individuals become net buyers of stocks that catch their attention. Also consistent 
+with our theory, Seasholes and Wu document a transitory impact on prices with reversion to 
+pre-event levels within ten trading days. Finally, they identify a small group of professional 
+investors who profit—at the expense of individual investors—by anticipating this temporary 
+surge in price and demand.   
+ 
+Our analysis focuses on investor trading patterns over one-day periods. With our 
+proxies for attention, we try to identify days on which an unusual event appears to have 
+attracted investors’ attention to a particular firm’s stock. Like unusual events, advertising may 
+
+--- PAGE 10 ---
+ 
+8 
+ 
+also increase investors’ awareness of a firm.  Grullon, Kanatas, and Weston (2004) document 
+that firms that spend more on advertising have a larger number of individual and institutional 
+investors. They argue that a firm’s advertising increases investors’ familiarity with the firm 
+and that investors are more likely to own familiar firms. Their paper differs from ours in many 
+respects. They look at annual advertising budgets; we identify daily attention-grabbing events. 
+They focus on dispersion of ownership; we, on daily trading patterns. Both papers are 
+consistent with a common story in which investors are more likely to buy—and therefore 
+own—stocks that have attracted their attention, whether through unusual events or extensive 
+advertising. 
+ 
+Gervais, Kaniel, and Mingelgrin (2001) find that stocks experiencing unusually high  
+trading volume over a day or a week tend to appreciate over the following month. Citing 
+Miller (1977) and Mayshar (1983), they argue that the holders of a stock will tend to be those 
+who are most optimistic about its prospects and that, given institutional constraints on short-
+selling, any increase in the set of potential owners (potential buyers) should result in a price 
+increase. The increased visibility of a stock associated with high-trading volume increases the 
+set of potential owners (buyers). but not potential sellers, resulting in a price increase.  
+ 
+Alternatively, Merton (1987) notes that individual investors tend to hold only a few 
+different common stocks in their portfolios. He points out that gathering information on stocks 
+requires resources and suggests that investors conserve these resources by actively following 
+only a few stocks. If investors behave this way, they will buy and sell only those stocks that 
+they actively follow. They will not impulsively buy stocks that they do not follow simply 
+because those stocks happen to catch their attention. Thus their purchases will not be biased 
+toward attention-grabbing stocks. 
+ 
+While Grullon, Kanatas, and Weston (2004) focus on the number of individuals and 
+institutions that own a stock and Gervais et. al. focus on returns subsequent to high (or low) 
+volume periods, our principal empirical focus is on the effect of attention on the imbalance in 
+the number of purchases and sales of a stock by individual investors. Our empirical finding 
+that individual investors are net buyers of attention-grabbing stocks is largely consistent with 
+
+--- PAGE 11 ---
+ 
+9 
+ 
+the empirical results in Grullon, Kanatas, and Weston (2004). This finding is also consistent 
+with the story of Gervais et. al. (2001) that increased visibility of a stock may attract new 
+investors. In addition to the effects of attention driven by short-sale constraints and described 
+by Miller (1977) and Mayshar (1983), we argue that, for individual investors, the search 
+problem when buying a stock is much greater than when selling. Thus, attention even affects 
+the buy-sell imbalances of  investors who already own a stock.  
+II. 
+Data 
+In this study, we analyze investor trading data drawn from four sources: a large 
+discount brokerage, a small discount brokerage, a large full-service brokerage, and the Plexus 
+Group—a consulting firm that tracks the trading of professional money managers for 
+institutional clients.  
+ 
+The first dataset for this research was provided by a large discount brokerage firm. It 
+includes trading and position records for the investments of 78,000 households from January 
+1991 through December 1996.6  The data include all accounts opened by each household at 
+this discount brokerage firm.  Sampled households were required to have an open account with 
+the discount brokerage firm during 1991. Roughly half of the accounts in our analysis were 
+opened prior to 1987, while half were opened between 1987 and 1991. 
+ 
+ 
+In this research, we focus on investors’ common stock purchases and sales. We exclude 
+from the current analysis investments in mutual funds (both open- and closed-end), American 
+depository receipts (ADRs), warrants, and options. Of the 78,000 households sampled from 
+the large discount brokerage, 66,465 had positions in common stocks during at least one 
+month; the remaining accounts held either cash or investments in other than individual 
+common stocks. Roughly 60 percent of the market value in these households’ accounts was 
+held in common stocks. There were over 3 million trades in all securities; common stocks 
+accounted for slightly more than 60 percent of all trades.  In December 1996, these households 
+held more than $4.5 billion in common stock. There were slightly more purchases (1,082,107) 
+                                                 
+6 Position records are through December 1996; trading records are through November 1996. See Barber and 
+Odean (2000) for a more compete description of these data. 
+
+--- PAGE 12 ---
+ 
+10 
+ 
+than sales (887,594) during our sample period, though the average value of stocks sold 
+($13,707) was slightly higher than the value of stocks purchased ($11,205).  As a result, the 
+aggregate values of purchases and sales were roughly equal ($12.1 and $12.2 billion, 
+respectively).  The average trade was transacted at a price of $31 per share.  The value of 
+trades and the transaction price of trades are positively skewed; the medians for both purchases 
+and sales are substantially less than the mean values. 
+ 
+Our second data set contains information from a smaller discount brokerage firm. This 
+firm emphasizes high-quality trade execution in its marketing and is likely to appeal to more 
+sophisticated, more active, investors. The data include daily trading records from January 1996 
+through June 15, 1999. Accounts classified by the brokerage firm as professionals are 
+excluded from our analysis.7  The data include 14,667 accounts for individual investors who 
+make 214,273 purchases with a mean value of $55,077 and 198,541 sales with a mean value of 
+$55,999. 
+ 
+The third data set contains information from a large retail brokerage firm on the 
+investments of households for the 30 months ending in June 1999. These data include daily 
+trading records. Using client ownership codes supplied by the brokerage firm, we limit our 
+analysis to the 665,533 investors with non-discretionary accounts (i.e., accounts classified as 
+individual, joint tenants with rights of survival, or custodian for minor) with at least one 
+common stock trade during our sample period. During this period these accounts executed 
+over 10 million trades. We restrict our analysis to their common stock trades: 3,974,998 
+purchases with a mean value of $15,209 and 3,219,299 sales with a mean value of $21,169. 8  
+ 
+                                                 
+7 We analyze the accounts of professional investors separately. There are, however, only 159 professional traders 
+in these data, and we do not observe clear patterns in their buy-sell imbalances. 
+8 Barber, Odean, and Zhu (2006) analyze the correlation of the first and third broker datasets with trades in the 
+TAQ/ISSM database.  Specifically, in the TAQ/ISSM data, they  identify small trades (less than $5,000 in 1991 
+dollars) that are buyer-initiated and seller-initiated.  They then calculate monthly buy-sell imbalance for each 
+stock/month using these trades.  In each month with overlapping data, they calculate the cross-sectional 
+correlation between the buy-sell imbalance of small trades on the TAQ database and the buy-sell imbalance of the 
+broker data.  For the large discount broker the mean correlation is 55%.  For the large retail broker the mean 
+correlation is 43%.  
+
+--- PAGE 13 ---
+ 
+11 
+ 
+Our individual investor data include tens of thousands of investors at both discount and 
+retail brokerages. These data are likely to be fairly representative of U.S. individual investors.9 
+Our institutional data, however, are more illustrative than representative of institutional 
+investors. The data were compiled by the Plexus Group as part of their advisory services for 
+their institutional clients. The data include daily trading records for 43 institutional money 
+managers and span the period January 1993 through March 1996. Not all managers are in the 
+sample for the entire period. In addition to documenting completed purchases and sales, the 
+data also report the date and time at which the manager decided to make a purchase or sale.  In 
+the data, these money managers are classified as “momentum,” “value,” and “diversified.”10 
+During our sample period, the eighteen momentum managers make 789,779 purchases with a 
+mean value of $886,346 and 617,915 sales with a mean value of $896,165; the eleven value 
+managers make 409,532 purchases with a mean value of $500,949 and 350,200 sales with a 
+mean value of $564,692; the fourteen diversified managers make 312,457 purchases with a 
+mean value of $450,474 and 202,147 sales with a mean value of $537,947. 
+III. 
+Sort Methodology 
+A. 
+Volume Sorts 
+On the days when a stock experiences abnormally heavy volume, it is likely that 
+investors are paying more attention to it than usual. We wish to test the extent to which the 
+tendency to buy stocks increases on days of unusually high trading volume for each of our four 
+investor groups (large discount, retail, small discount, and professional). First we must sort 
+stocks on the basis of abnormal trading volume. We do so by calculating for each stock on 
+each trading day the ratio of the stock’s trading volume that day to its average trading volume 
+over the previous one year (i.e., 252 trading days). Thus, we define abnormal trading volume 
+for stock i on day t,
+it
+AV to be 
+                                                 
+9 Wolff (2004) reports that over one-third of stock ownership—including direct ownership of shares and indirect 
+ownership through mutual funds, trusts, and retirement accounts—of U.S. households is concentrated in the 
+wealthiest one percent of households. The portfolios of extremely wealthy families are unlikely to appear in our 
+sample and constitute a third class of investors in addition to ordinary individuals and institutional investors. The 
+portfolios of wealthy families are usually professionally managed and, as such, we would expect them to be 
+traded more like institutional portfolios than like the portfolios of ordinary individual investors.  
+10 Keim and Madhavan (1995, 1997, and 1998) analyze earlier data from the Plexus Group. They classify 
+managers as “technical,” “value,” and “index.” Based on conversations with the Plexus Group, we believe that 
+these classification correspond to our “momentum,” “value,” and “diversified” classifications. 
+
+--- PAGE 14 ---
+ 
+12 
+ 
+                      
+ 
+  
+it
+it
+it
+V
+AV
+V
+=
+  
+ 
+ 
+ 
+ 
+   (1) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+where 
+it
+V is the dollar volume for stock i traded on day t as reported in the Center for Research 
+in Security Prices (CRSP) daily stock return files for New York Stock Exchange (NYSE), 
+American Stock Exchange (ASE), and NASDAQ stocks and 
+                                                 
+1
+252 252
+t
+d
+t
+id
+it
+V
+V
+−
+= −
+= ∑
+. 
+(2) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Each day we sort stocks into deciles on the basis of that day’s abnormal trading 
+volume.11 We further subdivide the decile of stocks with the greatest abnormal trading volume 
+into two vingtiles (i.e., five percent partitions). Then, for each of our investor types, we sum 
+the buys (B) and sells (S) of stocks in each volume partition on day t and calculate buy-sell 
+imbalance for purchases and sales executed that day as: 
+ 
+1
+1
+1
+1
+pt
+pt
+pt
+pt
+n
+n
+it
+it
+i
+i
+pt
+n
+n
+it
+it
+i
+i
+NB
+NS
+BSI
+NB
+NS
+=
+=
+=
+=
+−
+=
++
+∑
+∑
+∑
+∑
+ 
+(3) 
+where npt is the number of stocks in partition p on day t, 
+it
+NB is the number of purchases of 
+stock i on day t, and 
+it
+NS is the number of sales of stock i on day t.  We calculate the time 
+series mean of the daily buy-sell imbalance (BSIpt) for the days that we have trading data for 
+each investor type. Note that throughout the paper our measure of buy-sell imbalance 
+considers only executed trades; limit orders are counted if and when they execute.  If there are 
+fewer than five trades in a partition on a particular day, that day is excluded from the time 
+series average for that partition. We also calculate buy-sell imbalances based on the value 
+rather than number of trades by substituting in the value of the stock i bought (or sold) on day t 
+for NBit (or NSit) in Equation 3. Note that as trading volume increases, aggregate buying and 
+                                                 
+11 In auxiliary analyses, we calculate volume partitions that use (1) the measure of abnormal volume employed by 
+Gervais, Kaniel, and Mingelgrin (2001) and (2) a standardized measure of abnormal volume:
+σ
+/)
+(
+V
+V −
+, where V 
+is volume on day t, V is mean volume over the prior 252 trading days, and σ is the standard deviation of volume 
+over the prior 252 trading days. We also analyzed abnormal volume measures as the ratio of volume on day t to 
+mean volume over the prior 50 days. All alternative measures of abnormal volume generate buy-sell imbalance 
+patterns that are very similar to those using our simple measure of buy-sell imbalance: (
+/
+)
+V V . These results are 
+available from the authors at http://faculty.haas.berkeley.edu/odean/attention.html.  
+
+--- PAGE 15 ---
+ 
+13 
+ 
+selling will increase equally. Thus, the aggregate value-weighted (executed) buy-sell 
+imbalance of all investors remains zero as abnormal volume increases, but  how the buy-sell 
+imbalance of a particular investor group changes with volume is an empirical question.  
+ 
+ 
+In summary, for each partition and investor group combination, we construct a time-
+series of daily buy-sell imbalance. Our inferences are based on the mean and standard 
+deviation of the time series. We calculate the standard deviation of the time series using a 
+Newey-West correction for serial dependence. 
+B. 
+Return Sorts 
+Investors are likely to notice when stocks have extreme one-day returns. Such returns, 
+whether positive or negative, often will be associated with news about the firm. The news 
+driving the extreme performance will catch the attention of some investors, while the extreme 
+return itself will catch the attention of others. Even in the absence of other information, 
+extreme returns can become news themselves. The Wall Street Journal and other media 
+routinely report the previous day’s big gainers and losers (subject to certain price criteria). If 
+big price changes catch investors’ attention, then we expect that those investors whose buying 
+behavior is most influenced by attention will tend to purchase in response to price changes—
+both positive and negative. To test the extent to which each of our four investor groups are net 
+purchasers of stocks in response to large price moves, we sort stocks based on one-day returns 
+and then calculate average buy-sell imbalances for the following day. We calculate imbalances 
+for the day following the extreme returns, rather than the same day as extreme returns, for two 
+reasons. First, many investors may learn of—or react to—the extreme return only after the 
+market closes; their first opportunity to respond will be the next trading day. Second, buy-sell 
+imbalances could cause contemporaneous price changes. Thus, examining buy-sell imbalances 
+subsequent to returns removes a potential endogeneity problem.12 Our results are qualitatively 
+similar when we sort on same-day returns.    
+                                                 
+12 Endogeneity does not pose the same problem for news and abnormal volume sorts. It is unlikely that the 
+percentage of individual investors’ (or institutional investors’) trades that consists of purchases causes 
+contemporaneous news stories. Nor is it likely that the percentage of individual investors’ (or institutional 
+investors’) trades that consists of purchases causes abnormal trading volume. As a robustness check on the latter 
+point, we replicate our results by calculating abnormal volume on day t and analyzing buy-sell imbalance on day 
+t+1.  Our results are qualitatively similar to those reported in the paper and are available from the authors at 
+http://faculty.haas.berkeley.edu/odean/attention.html.  
+
+--- PAGE 16 ---
+ 
+14 
+ 
+ 
+ 
+For each day (t-1), we sort all stocks for which returns are reported in the CRSP 
+NYSE/AMEX/NASDAQ daily returns file into ten deciles based on the one day return. We 
+further split decile one (lowest returns) and decile ten (highest returns) into two vingtiles. We 
+then calculate the time series mean of the daily buy-sell imbalance for each partition on the 
+day following the return sort. This calculation is analogous to that for our sorts based on 
+abnormal volume.13  
+C. 
+News Sorts 
+Firms that are in the news are more likely to catch investors’ attention than those that 
+are not. Our news dataset is the daily news feed from Dow Jones News Service for the period 
+1994 to 1999. The Dow Jones news feed includes the ticker symbols for each firm mentioned 
+in each article. We partition stocks into those for which there is a news story that day and those 
+with no news. On an average day, our dataset records no news for 91% of the firms in the 
+CRSP database. Due to how the data were collected and stored, some days are missing from 
+the data. We calculate buy-sell imbalances for each firm’s stock as described in Section IIIa. 
+News is a primary mechanism for catching investors’ attention. Nonetheless, our empirical 
+tests based on news coverage lack the power of our volume and return sorts because we are 
+unable to accurately measure the intensity or salience of news coverage, and we are missing 
+news coverage data for much of our sample period.  
+ 
+                                                                                                                                                         
+  
+13 Typically a significant number of stocks have a return equal to zero on day t-1. These stocks may span more 
+than one partition. Therefore, before calculating the buy-sell imbalance for each partition, we first calculate the 
+average number (and value) of purchases and sales of stocks with returns of zero on day t-1; in subsequent 
+calculations, we use this average number (and value) of purchases and sales for zero-return stocks. The average 
+number of purchases on day t of a stock with a return of zero on day t-1 is  
+ 
+0
+1
+0
+S
+st
+s
+NB
+S
+=∑
+, 
+where 
+st
+NB is the number of times stock s was purchased by investors in the dataset on day t and 
+0S is the 
+number of stocks with a return of zero on day t-1. Similar calculations are done to determine the average number 
+of sales and the average value of purchases and sales for stocks with a return of zero on day t-1. We also have 
+replicated our results using standardized returns. Specifically, on each day, we calculate 
+σ
+/)
+(R
+, the daily return 
+on day t divided by the standard deviation of the firm’s daily return from t-252 to t-1. Results using the 
+standardized measure of returns are similar to those reported in the paper and are available from the authors at 
+http://faculty.haas.berkeley.edu/odean/attention.html. 
+
+--- PAGE 17 ---
+ 
+15 
+ 
+It is worth noting that none of our proxies for attention is perfect. Some stocks appear 
+in our news database because of news stories about significant attention-grabbing events; 
+others appear simply because of routine company press releases. Similarly, abnormally high 
+trading volume may be associated with active trading and attention of individual investors, or 
+it may occur because institutional investors transact large trades with each other on days when 
+individuals are not particularly attending to a stock. And large one-day price moves may be 
+driven by attention-grabbing events, but they may also result from temporary liquidity 
+shortages caused by an institutional investor selling or purchasing a large position. If our 
+proxies identify attention-grabbing events much, or most, of the time, then in aggregate we 
+expect individual investors to be on the buy side of the market on high attention days as 
+identified by our proxies.  
+IV. 
+Results 
+A. 
+Volume Sorts 
+Trading volume is one indicator of the attention a stock is receiving. Table I presents 
+buy-sell imbalances for stocks sorted on the current day’s abnormal trading volume. Buy-sell 
+imbalance is reported for investors at a large discount brokerage, a large retail brokerage, and a 
+small discount brokerage and for institutional money managers following momentum, value, 
+and diversified strategies. Buy-sell imbalance are calculated using both the number of trades 
+and the value of trades. Our principal objective is to understand how attention affects the 
+purchase decisions of all investors. Calculating buy-sell imbalance by the value of trades has 
+the advantage of offering a better gauge of the economic importance of our observations, but 
+the disadvantage of overweighting the decisions of wealthier investors. In trying to understand 
+investors’ decision processes, calculating buy-sell imbalance by number of trades may be most 
+appropriate.  
+ 
+Investors at the large discount brokerage display the greatest amount of attention-
+driven buying. When imbalance is calculated by number of trades (column two), buy-sell 
+imbalance is negative 18.15 percent for stocks in the lowest volume decile. For stocks in the 
+highest volume vingtile, buy-sell imbalance is positive 29.5 percent more. Buy-sell imbalance 
+for these investors rises monotonically with trading volume. When imbalance is calculated by 
+
+--- PAGE 18 ---
+ 
+16 
+ 
+value of trades (column three), buy-sell imbalance is negative 16.28 percent for stocks in the 
+lowest volume decile. For stocks in the highest volume vingtile, buy-sell imbalance is positive 
+17.67 percent. Again, buy-sell imbalance increases nearly monotonically with trading volume. 
+Looking at the fourth through seventh columns of Table 1, we see that the net buying behavior 
+of investors at the large retail broker and the small discount brokerage behaves similarly to that 
+of investors at the large discount brokerage.  
+ 
+In the Appendix, we present a theoretical model as in Kyle (1985). The model provides 
+a rigorous framework in which to examine the implications of attention-driven buying. It 
+enables us to simulate the trading of investors who are influenced by attention. The model also 
+generates one testable asset pricing theorem. The focus of this paper is to introduce and test a 
+novel theory of investor behavior, not to test the asset pricing impact of this behavior. In 
+auxiliary analysis, we find evidence that investors do not benefit from attention-based buying 
+and that attention-based buying may influence asset prices.14  Figure 1a plots average buy-sell 
+imbalance conditional on trading volume for 100,000 simulations based on our theoretical 
+model. (See Appendix for simulation details.) Figure 2a plots the buy-sell imbalance based on 
+number of trades for investors at the large discount brokerage, the large retail brokerage, and 
+the small discount brokerage. Note that the simulated and the empirical plots are both upward 
+sloping. The simulation serves to illustrate that our empirical results are consistent with what 
+we find in a simple model in which investors are assumed to engage in attention-driven 
+buying. 
+ 
+ 
+The last six columns of Table 1 present the buy-sell imbalances of institutional money 
+managers for stocks sorted on the current day’s abnormal trading volume. Overall, these 
+institutional investors exhibit the opposite tendency of the individual investors: Their buy-sell 
+imbalance is greater on low volume days than high volume days. This is particularly true for 
+value managers who are aggressive net buyers on days of low abnormal trading volume. 
+                                                 
+14 These analyses are available from the authors at: http://faculty/haas/berkeley.edu/odean/attention.html. 
+
+--- PAGE 19 ---
+ 
+17 
+ 
+B. 
+Returns Sorts 
+Investors are likely to take notice when stocks exhibit extreme price moves. Such 
+returns, whether positive or negative, will often be associated with new information about the 
+firm. Table II presents buy-sell imbalances for stocks sorted on the previous day’s return. Buy-
+sell imbalance is reported for investors at a large discount brokerage, a large retail brokerage, a 
+small discount brokerage, and for institutional money managers following momentum, value, 
+and diversified strategies.  
+ 
+Investors at the large discount brokerage display the greatest amount of attention-
+driven buying for these returns sorts. When calculated by number of trades, the buy-sell 
+imbalance of investors at the large discount brokerage is 29.4 percent for the vingtile of stocks 
+with the worst return performance on the previous day. Imbalance drops to 1.8 percent in the 
+eighth return decile and rises back to 24 percent for stocks with the best return performance on 
+the previous day.  
+ 
+As was the case for abnormal volume, the relation between buy-sell imbalance and 
+returns is quite consistent with the theoretical model (see Appendix). Figure 1b plots average 
+buy-sell imbalance conditional on returns for 100,000 simulations based on our theoretical 
+model. Figure 2b plots the buy-sell imbalance based on number of trades for investors at the 
+large discount brokerage, the large retail brokerage, and the small discount brokerage. Note 
+that the simulated and the empirical plots are both U-shaped.15  
+ 
+The U-shaped pattern is most pronounced for investors at the large discount brokerage; 
+these investors buy attention-grabbing stocks. When imbalance is calculated by value of 
+trades, the buy-sell imbalance of these investors is 29.1 percent for the vingtile of stocks with 
+the worst return performance on the previous day. Imbalance drops to negative 8.6 percent in 
+the eighth return decile and rises back to 11.1 percent for stocks with the best return 
+performance on the previous day.   
+ 
+                                                 
+15 Empirical buy-sell imbalances are very similar when we partition stocks on same-day return rather than on the 
+previous-day return. 
+
+--- PAGE 20 ---
+ 
+18 
+ 
+In Figure 2b, we see that investors at the large retail brokerage also display a U-shaped 
+imbalance curve when stocks are sorted on the previous day’s return. However, their tendency 
+to be net buyers of yesterday’s big winners is more subdued and does not show up when 
+imbalance is calculated by value. Investors at the small discount brokerage are net buyers of 
+yesterday’s big losers, but not the big winners.  
+ 
+As seen in the last six columns of Table II, the three categories of institutional money 
+managers react quite differently to the previous day’s return performance. Momentum 
+managers dump the previous day’s losers and buy winners. Value managers buy the previous 
+day’s losers and dump winners. Diversified managers do this as well, though not to the same 
+extent. While one might interpret purchases of yesterday’s winners by momentum managers 
+and the purchases of yesterday’s losers by the value managers as attention motivated, it seems 
+more likely that the events leading to extreme positive and negative stock returns coincided 
+with changes relative to the selection criteria that these two groups of money managers follow. 
+Unlike the individual investors, these money managers were not net buyers on high abnormal 
+volume days, nor is any one group of them net buyers following both extreme positive and 
+negative returns.  
+C. 
+News Sorts 
+Table III reports average daily buy-sell imbalance for stocks sorted into those with and 
+without news. Investors are much more likely to be net buyers of stocks that are in the news 
+than those that are not.16 When calculated by number for the large discount brokerage, buy-sell 
+imbalance is 2.70 percent for stocks out of the news and 9.35 percent for those stocks in the 
+news. At the large retail brokerage, buy-sell imbalance is –1.84 percent for stocks out of the 
+news and 16.17 percent for those in the news.  
+ 
+Table III also reports news partition buy-sell imbalances separately for days on which 
+individual stocks had a positive, negative, or zero return. Conditional on the sign of the return, 
+average imbalances for individual investors are always greater on news days than no news 
+                                                 
+16 Choe, Kho, and Stulz (2000) find that individual investors in Korea buy on the day’s preceding large one-day 
+price increases and sell preceding large one-day losses. Large one-day price moves are likely to be accompanied 
+
+--- PAGE 21 ---
+ 
+19 
+ 
+days. For both news and no news days, average imbalances are greater for negative return days 
+than for positive return days. One possible explanation for this is that when stock prices drop 
+investors are less likely to sell due to the disposition effect, i.e., the preference for selling 
+winners and holding losers. Alternatively, the differences in imbalances on positive and 
+negative return days may result from the execution of limit orders. Many individual investors 
+will not monitor their limit orders throughout the day. On a day when the market rises, more 
+sell limit orders will execute than buy limit orders. On days when the market falls, more buy 
+limit orders will execute. Unfortunately, our datasets do not distinguish between executed limit 
+and market orders.   
+D. 
+Volume, Return, and News Sorts 
+We examine the possibility of interaction effects in our measures of attention by 
+analyzing buy-sell imbalance for stocks partitioned on abnormal trading volume, previous 
+day’s return, and whether or not a stock had news coverage. Abnormal volume and previous 
+day’s returns are independently sorted into three bins—bottom 30%, middle 40%, and top 
+30%. The three-by-three partition on volume and returns is further conditioned on whether a 
+stock was in the news. Order imbalances are calculated based on number of trades. The results 
+of this analysis are presented in Figure 3. Consistent with the univariate sorts, buy-sell 
+imbalance increases with abnormal volume for each return partition.  At the large discount 
+brokerage, for each volume partition, buy-sell imbalance is the greatest for the low and high 
+return bins. At the large retail brokerage, for each volume partition, buy-sell imbalance is 
+consistently greater for low return bins, and for high return bins with no news or low volume. 
+At the small discount brokerage, for each volume partition, buy-sell imbalance is consistently 
+greater for low return bins, but there is no consistent effect for high return bins.  Finally, buy-
+sell imbalance tends to be greater for the news partition, for high and low volume stocks at the 
+large discount brokerage, for high and medium stocks at the large retail brokerage, and for 
+high volume stocks at the small discount brokerage. It appears from this analysis and from our 
+univariate tests that abnormal trading volume is our single best indicator of attention. Returns 
+come in second. Our simple news metric—whether a stock was or was not mentioned in that 
+day’s news—is our least informative indicator of attention. It is hardly surprising that 
+                                                                                                                                                         
+by news. Choe, Kho, and Stulz point out that the savvy trading of Korean individual investors could result from 
+
+--- PAGE 22 ---
+ 
+20 
+ 
+abnormal volume best measures attention since greater trading volume is often driven by 
+greater numbers of traders, and it is nearly tautological that when more people are trading a 
+stock, more people are paying attention to it. 
+E. 
+Size Partitions 
+To test whether our results are driven primarily by small capitalization stocks, we 
+calculate buy-sell imbalances separately for small, medium, and large capitalization stocks. 
+We first sort and partition all stocks as described above on the basis of same-day abnormal 
+trading volume, the previous-day return, and same-day news. We then calculate imbalances 
+separately for small, medium, and large capitalization stocks using the same break points to 
+form abnormal volume and return deciles for all three size groups. We use monthly New York 
+Stock Exchange market equity breakpoints to form our size groups.17 Each month we classify 
+all stocks (both NYSE listed and non-listed stocks) with market capitalization less than or 
+equal to the 30th percentile break point as small stocks, stocks with market capitalization 
+greater than the 30th percentile and less than or equal to the 70th percentile as medium stocks, 
+and stocks with market capitalization greater than the 70th percentile as large stocks. Table IV, 
+reports buy-sell imbalances by size group for abnormal volume, return, and news sorts.18 
+ 
+By and large, investors are more likely to buy rather than sell attention-grabbing 
+stocks regardless of size. This is true for all three of our attention-grabbing measures: 
+abnormal trading volume, returns, and news. Many documented return anomalies, such as 
+momentum and post earning announcement drift, are greater for small capitalization stocks 
+than for large stocks. Some researchers have suggested that these phenomena may be caused 
+by the psychologically motivated trading behavior of individual investors. We find, however, 
+that attention-driven buying by individuals is as strong for large capitalization stocks as for 
+                                                                                                                                                         
+insider trading. 
+17 We thank Ken French for supplying market equity breakpoints. These breakpoints are available and further 
+described in Ken French’s online data library.  
+18 To save space, results are reported only for the investors most likely to display attention-driven buying—those 
+at the large discount brokerage. Results for the large retail and small discount brokerages are qualitatively similar. 
+The only significant exception to this pattern is that buy-sell imbalances at the large retail brokerage for large 
+capitalization stocks are no greater for deciles of high previous-day returns than for the middle return deciles. For 
+small cap and medium cap stocks, these retail investors do demonstrate a greater propensity to buy yesterday’s 
+winners than yesterday’s average performers.  
+
+--- PAGE 23 ---
+ 
+21 
+ 
+small stocks. It may be that while, the impact of individual investor trading differs for large 
+and small stocks, the psychological biases motivating trading are the same.19   
+F. 
+Earnings and Dividend Announcements 
+To test the robustness of our results, we calculate buy-sell imbalances for abnormal 
+volume partitions, return partitions, and news and no-news for earnings announcement days, 
+dividend announcement days, and other days. Earnings announcement days span day t-1 to 
+t+2, where day t is the earnings announcement day (per Compustat). Dividend announcement 
+days span day t-1 to t+2, where day t is the dividend announcement day (per CRSP). We 
+include all dividend announcements regardless of type. As seen in Figure 4, for volume, 
+return, and news sorts, the buy-sell imbalance results are qualitatively similar across the three 
+partitions.20 
+V. 
+Short-sale Constraints 
+We argue that, because individual investors hold small portfolios and don’t sell short, 
+attention is more important when choosing stocks to buy—from a huge set of choices—than 
+when choosing stocks to sell—from a small set. Short-sale constraints could contribute to our 
+empirical findings through a somewhat different mechanism. An attention-grabbing event may 
+increase heterogeneity of investor beliefs about a firm. Individual investors who become 
+bullish are able to buy the stock, but those who become bearish can sell it only if they already 
+own it or are willing to sell short. Institutional investors can both buy and sell. Thus, on 
+average, bullish individuals and institutions buy attention-grabbing stocks while bearish 
+institutions, but not individuals, sell. Attention-grabbing events are therefore associated with 
+net buying by individuals, not because individuals are buying what catches their attention, but 
+because they can’t sell what catches their attention; attention-grabbing events increase 
+heterogeneity of beliefs, while limited portfolios and short sale constraints restrict would-be 
+sellers.  
+ 
+                                                 
+19 Institutional buy-sell imbalance for our volume and return sorts is also qualitatively similar across small, 
+medium, and large firms. 
+20 To save space, results are reported only for the investors most likely to display attention-driven buying—those 
+at the large discount brokerage. Results for the large retail and small discount brokerages are qualitatively similar 
+and available from the authors. 
+
+--- PAGE 24 ---
+ 
+22 
+ 
+We believe that increased heterogeneity of beliefs combined with selling constraints 
+may contribute to net buying by individuals around attention-grabbing events. However, even 
+when individuals have both the option to buy or to sell a stock—i.e., when they already own 
+the stock—attention will matter more for buying. If short-sale constraints alone mattered and 
+attention did not otherwise differentially affect buying and selling, we would expect attention-
+grabbing events to exert a similar influence on both the sales and the purchases of stocks that 
+investors already own. The attention hypothesis makes a different prediction. The attention 
+hypothesis states that attention is important when investors face a search problem. Each 
+potential purchase—even of a stock already in the portfolio—is competing with thousands of 
+other stocks for attention. Thus attention affects the rate at which stocks are purchased, even 
+stocks that are already owned. Of course investors are, overall, more likely to sell than buy 
+stocks they already own. Under the attention hypothesis, however, the buy-sell imbalance of 
+stocks that investors already own should be greater on days in which those stocks are 
+attention-grabbing.   
+ 
+In Table V, we report buy-sell imbalances for individual investors for abnormal 
+volume, return, and news sorts for stocks. In calculating imbalances for this table, we consider 
+only purchases and sales by each investor of stocks he or she already owns. Since investors 
+mostly sell stocks that they already own, but often buy stocks that they do not own, a far 
+greater proportion of these trades are sales. Therefore, nearly all of the imbalances are 
+negative. The relative patterns of imbalances are, however, similar to those reported for 
+individual investors in Tables I, II, and III. The ratio of purchases to sales is higher on high 
+attention days. This is particularly true for the abnormal volume sort (Panel A) and the news 
+sort (Panel C). When stocks are sorted on the previous day’s return (Panel B), investors are 
+relatively more likely to purchase stocks they already own on days following large negative 
+returns than on other days. However, following large positive returns, buy-sell imbalances do 
+not increase for stocks already owned. This is consistent with previous research (Odean, 1998) 
+that finds that individual investors are more likely to sell stocks trading above, rather than 
+below, the original purchase price and more likely to buy additional shares of stocks trading 
+below, rather than above, the original purchase price.  
+ 
+
+--- PAGE 25 ---
+ 
+23 
+ 
+Short-sale constraints are relaxed in the presence of exchange traded options. Thus, if 
+short-sale constraints alone drive our results, we would expected much different results for 
+stocks with exchange traded options. In auxiliary analyses, we partition stocks into two 
+groups—those with and those without exchange-traded options.21 For each group, we sort 
+stocks into deciles on the basis of abnormal trading volume and previous day’s return and 
+calculate buy-sell imbalances for each decile (as described in Section III). The patterns of 
+imbalances are very similar for stocks with and without exchange-traded options—another 
+indication that the results we document are not driven by short-sale constraints. 
+ 
+Thus short-selling constraints (and heterogeneity of beliefs) do not fully explain our 
+findings. For individual investors who can sell a stock without selling short, a higher 
+percentage of their trades consists of purchases, rather than sales, on high attention days.  
+VI. 
+Conclusion 
+We propose an alternative model of decision making in which agents faced with many 
+alternatives consider primarily those alternatives that have attention attracting qualities. 
+Preferences come into play only after attention has limited the choice set. When alternatives 
+are many and search costs high, attention may affect choice more profoundly than preferences 
+do. If the attention-grabbing characteristics of an alternative coincide with the characteristics 
+that increase utility, agents may benefit from the role of attention in reducing search costs. 
+However, if attention and utility are orthogonal or negatively correlated, expected utility may 
+be diminished. Under some circumstances, the utility of an alternative is affected by how many 
+agents choose that alternative. Thus, the attention-attracting qualities of an alternative may 
+indirectly detract from its utility. For example, a well-circulated article about a deserted 
+vacation spot could attract the attention and the travel plans of many vacationers, each of 
+whom would be disappointed by the crowds of like-minded tourists. Similarly, attention based 
+purchases by many investors could temporarily inflate a stock’s price, leading to disappointing 
+subsequent returns.   
+ 
+                                                 
+21 With thank Charles Cao for providing us with a list of stocks with exchange-traded options. 
+
+--- PAGE 26 ---
+ 
+24 
+ 
+Attention based decision making has implications for a wide variety of economic 
+situations (for example, hiring decisions or consumer purchases). In this paper, we test this 
+model of decision making in the context of common stock purchases. Choosing which 
+common stock to buy presents investors with a huge search problem. There are thousands of 
+possibilities. When selling, most investors consider only stocks they already own, which are 
+typically few in number and can be considered one by one. When buying, however, it is 
+impossible—without the aid of a computer—for most investors to evaluate the merits of every 
+available common stock. 
+ 
+ 
+We argue that many investors solve this search problem by considering for purchase 
+only those stocks that have recently caught their attention. While they don’t buy every stock 
+that catches their attention, they buy far fewer that don’t. Within the subset of stocks that do 
+attract their attention, investors are likely to have personal preferences—contrarians, for 
+example, may select stocks that are out of favor with others. But whether a contrarian or a 
+trend follower, an investor is less likely to purchase a stock that is out of the limelight.  
+  
+ 
+Professional investors are less prone to indulge in attention-driven purchases. With 
+more time and resources, professionals are able to continuously monitor a wider range of 
+stocks. They are unlikely to consider only attention-grabbing stocks. Professionals are likely to 
+employ explicit purchase criteria—perhaps implemented with computer algorithms—that 
+circumvent attention-driven buying. Furthermore, many professionals may solve the problem 
+of searching through too many stocks by concentrating on a particular sector or on stocks that 
+have passed an initial screen.  
+ 
+ 
+We test for attention-driven buying by sorting stocks on events that are likely to 
+coincide with catching investors’ attention. We sort on abnormal trading volume, since heavily 
+traded stocks must be attracting investors’ attention. We sort on extreme one-day returns 
+since—whether good or bad—these are likely to coincide with attention-grabbing events.  And 
+we sort on whether or not a firm is in the news.  
+ 
+
+--- PAGE 27 ---
+ 
+25 
+ 
+ 
+Consistent with our predictions, we find that individual investors display attention-
+driven buying behavior. They are net buyers on high volume days, following both extremely 
+negative and extremely positive one-day returns, and when stocks are in the news. Attention-
+driven buying is similar for large capitalization stocks and for small stocks.  The institutional 
+investors in our sample—especially the value strategy investors—do not display attention-
+driven buying.  
+ 
+ 
+Previous work has shown that most investors do not benefit from active trading. On 
+average, the stocks they buy subsequently underperform those they sell (Odean, 1999), and the 
+most active traders underperform those who trade less (Barber and Odean, 2000). The 
+attention-driven buying patterns we document here do not generate superior returns. We 
+believe that most investors will benefit from a strategy of buying and holding a well-
+diversified portfolio. Investors who insist on hunting for the next brilliant stock would be well 
+advised to remember what California prospectors discovered ages ago: All that glitters is not 
+gold. 
+
+--- PAGE 28 ---
+ 
+26 
+ 
+Appendix: The Model 
+Attention-driven noise traders and a risk-neutral, privately informed insider submit market 
+orders to a risk-neutral marketmaker as in Kyle (1985). There are four periods with two rounds of 
+trading. The economy has two assets, a riskless asset and one risky asset. The riskless interest rate is 
+assumed to be 0. The distributions of all market parameters are known to the insider and to the 
+marketmaker. The terminal value of the risky asset is
+1
+2
+v
+y
+y
+=
++
+
+
+ , 
+(
+)
+2
+~
+0,
+ty
+N
+φ
+
+ for t = 1, 2. 
+1y and
+2y are independent and can be thought of as the firm’s period 1 and 2 earnings. Prior to trading 
+at times t = 1, 2, the risk-neutral insider observes
+ty . After observing
+ty , the insider demands (submits 
+a market order for) 
+tx units of the risky asset; 
+0
+tx <
+is interpreted to be a sell order. 
+ty is publicly 
+revealed to the noise traders and to the marketmaker at time t+1, that is, one period after it is observed 
+by the insider. Thus, at t=2, 
+1y is common knowledge. The revelation of 
+1
+y proxies for news in the 
+model. We assume that, at t=2, the level of attention paid to the risky asset by attention-driven noise 
+traders is proportional to
+2
+1y
+.  
+Without regard to price or value, noise traders submit market orders to buy 
+( )
+(
+)
+2
+~ N
+,
+t
+t
+bt
+b
+E b
+σ
+
+
+ units and to sell 
+( )
+(
+)
+2
+~ N
+,
+t
+t
+st
+s
+E s
+σ
+
+
+ units of the risky asset. In period two, 
+noise trader buying depends upon the attention generated by news,
+1
+y . But, just as in actual markets, 
+not all noise trader activity depends on attention. We set (
+)
+(
+)
+2
+2
+1
+1
+|
+E b
+y
+m A
+y
+=
++
+
+
+
+, where 
+0
+m >
+ is a 
+measure of the intensity of noise trading,  
+2
+1
+my is the expected level of attention-driven buying, and 
+0
+mA >
+ is the expected level of non-attention driven noise trader buying. Setting attention-driven 
+buying in period 2 as proportional to
+2
+1y
+ captures our assumption that attention based traders will be 
+net buyers on good news (i.e., 
+1
+0
+y >
+
+) or bad news (i.e., 
+1
+0
+y <
+
+) and is consistent with the observation 
+that news tends to focus more intensely on extreme events and consistent with the empirical results 
+reported in Section IV.b. Our contention is that attention has a greater effect on buying than on selling. 
+So we set 
+(
+)
+(
+)
+(
+)
+2
+2
+2
+1
+1
+|
+1
+E s
+y
+m A
+y
+κ
+κ φ
+=
++
++
+−
+
+
+
+, where , 0
+1,
+κ
+κ
+≤
+<
+ determines how much attention 
+affects selling compared to buying. Note that the unconditional expectations of 
+2b and 
+2s are equal, 
+i.e., ( )
+(
+)
+(
+)
+2
+2
+2
+E b
+E s
+m A φ
+=
+=
++
+
+
+; therefore, unconditional net buying (buys minus sells) equals zero. 
+For consistency we also set ( )
+( )
+(
+)
+2
+1
+1
+E b
+E s
+m A φ
+=
+=
++
+
+
+. Finally, the variances of noise trader buying 
+
+--- PAGE 29 ---
+ 
+27 
+ 
+and selling are assumed to be proportional to the means, that is, 
+( )
+2
+2
+1
+1
+b
+E b
+σ
+ψ
+=
+
+, 
+( )
+2
+2
+1
+1
+s
+E s
+σ
+ψ
+=
+
+, 
+(
+)
+2
+2
+2
+2
+2
+1
+|
+b
+E b
+y
+σ
+ψ
+=
+
+
+, and 
+(
+)
+2
+2
+2
+2
+2
+1
+|
+s
+E s
+y
+σ
+ψ
+=
+
+
+, where 
+0
+ψ >
+ is a scaling factor.22 
+0P , the period 0 
+price of the risky asset, is assumed to equal its unconditional expected terminal value, 
+0
+v =
+, and
+3P , 
+the period 3 price, is set equal to the realized terminal value of the risky asset, which is public 
+knowledge in period 3, that is,
+3
+1
+2
+P
+v
+y
+y
+=
+=
++
+
+
+ . We are primarily interested in trading at t = 2, when 
+the trading activity of noise traders is influenced by the attention associated with the public revelation 
+of the insider’s first period signal,
+1y . 
+The insider conjectures that the marketmaker’s price-setting function is a linear function of 
+total demand 
+t
+t
+t
+t
+d
+x
+b
+s
+=
++
+−
+
+ , 
+ 
+t
+t
+P
+d
+μ
+λ
+=
++
+ 
+(4) 
+He chooses 
+tx to maximize his expected trading profits, 
+(
+)
+t
+t
+x v
+P
+−
+
+, conditional on his signal,
+ty , and 
+the conjectured price function.23 We assume, as in Kyle (1985), that, due to perfect competition, the 
+marketmaker earns zero expected profits. The marketmaker conjectures that the insider’s demand 
+function is a linear function of
+ty ,  
+ 
+t
+t
+x
+y
+α
+β
+=
++
+ . 
+(5) 
+She sets price to be the expected value of v conditional on total demand,
+td , given the conjectured 
+demand function.  
+ 
+Lemma 1: An equilibrium exists in which the insider’s linear price conjecture, equation 6, and the 
+marketmaker’s linear demand conjecture, equation 7, are fulfilled. In equilibrium the coefficients of 
+equations 6 and 7 for period t = 2 are: 
+ 
+0
+α =
+ 
+(6) 
+ 
+(
+)
+(
+)
+(
+)
+2
+2
+1
+1
+2
+1
+1
+m
+A
+y
+β
+ψφ
+κ
+κ φ
+=
++
++
++
+−
+
+ 
+(7) 
+                                                 
+22 In unreported analyses, we confirm that for all three of our attention sort criteria and for investors at all three 
+brokerages, the variance of purchases tends to be greater on days that stocks are sorted in high attention partitions.  
+23 Because 
+1y is publicly revealed at t = 2, the risk-neutral insider does not need to consider period two trading 
+when determining his period one demand. 
+
+--- PAGE 30 ---
+ 
+28 
+ 
+ 
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+2
+2
+2
+1
+2
+1
+1
+2
+2
+1
+|
+|
+2
+1
+1
+2
+y
+s
+y
+y
+m
+A
+y
+E b
+E
+ψφ
+μ
+κ
+κ φ
+=
++
++
++
+−
+−
+−
+
+
+
+
+
+
+ 
+(8) 
+ 
+(
+)
+(
+)
+(
+)
+2
+2
+1
+2
+1
+1
+2 m
+A
+y
+ψφ
+λ
+κ
+κ φ
+=
++
++
++
+−
+
+ 
+(9) 
+Proof: The solutions and proof are for period t = 2. The derivation of equilibrium soluions for period t 
+= 1 is analogous. The insider submits a demand,
+2x , that he believes will maximize his expected profit. 
+To do this he solves: 
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+2
+2
+2
+2
+1,
+2
+2
+2
+2
+2
+1,
+2
+max
+|
+max
+|
+x
+x
+E x
+v
+P
+y y
+E x
+v
+x
+b
+s
+y y
+μ
+λ
+−
+=
+−
++
++
+−
+
+
+ 
+
+
+ 
+,
+ 
+(10) 
+where equation 6 has been substituted for 
+2P . Taking first-order conditions and solving for
+2x , we have 
+ 
+(
+)
+(
+)
+(
+)
+1,
+2
+2
+2
+1
+2
+2
+2
+2
+ˆ
+ˆ
+ˆ
+ˆ
+|
+2
+2
+E v y y
+s
+b
+y
+y
+s
+b
+x
+μ
+λ
+μ
+λ
+λ
+λ
+−
++
+−
++
+−
++
+−
+=
+=
+  
+
+
+. 
+(11) 
+And so, if the linear conjectures hold, 
+ 
+(
+)
+1
+2
+2
+ˆ
+ˆ
+1
+ and 
+2
+2
+y
+s
+b
+μ
+λ
+α
+β
+λ
+λ
+−
++
+−
+=
+=
+
+. 
+(12) 
+The marketmaker sets price equal to the expected value of v given the order flow she observes. We can 
+calculate 
+ 
+(
+)
+(
+)
+2
+1
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+1
+2
+2
+|
+,
+ˆ
+ˆ
+b
+b
+s
+s
+P
+E v y d
+d
+y
+b
+s
+βφ
+βφ
+β φ
+σ
+σ
+β φ
+σ
+σ
+α
+=
+=
++
++
++
++
++
+−
+−
++
+
+
+
+. 
+(13) 
+So, if the conjectures hold, 
+ 
+(
+)
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+1
+2
+2
+and 
+ .   
+ˆ
+ˆ
+b
+b
+s
+s
+y
+b
+s
+βφ
+βφ
+μ
+λ
+β φ
+σ
+σ
+β φ
+σ
+σ
+α
+=
+=
++
++
++
++
++
+−
+−
+
+ 
+(14) 
+The four equations in 1.9 and 1.11 have four unknowns and are solved by equations 1.3 through 1.6. 
+Thus, the conjectures are fulfilled and an equilibrium exists. 
+ 
+Clearly, from the construction of the model, expected noise trader buying activity is increasing 
+in contemporaneous trading volume and in the square of the previous day’s price change. We illustrate 
+this 
+by 
+simulating 
+100,000 
+realizations 
+of 
+our 
+model 
+under 
+the 
+assumption 
+that 
+
+--- PAGE 31 ---
+ 
+29 
+ 
+ = 2, 
+φ
+A = 2, m = 2,
+ = 2
+ψ
+, and 
+0.5.
+κ =
+24 As in our empirical analysis, we first sort the 
+simulation realizations into deciles based on period 2 trading volume and period 1 price change and 
+subdivide the largest and smallest return deciles and the largest volume decile into vingtiles. We then 
+calculate period 2 noise trader buy-sell imbalance for each partition using the methodology described 
+above in Section III.  
+Our first, and only, proposition is that expected noise trader losses from period 2 to period 3 
+are greater when the attention level,
+2
+1y
+, is greater. When the level of attention trading is greater, so too 
+is the volatility of noise trader demand. This makes it more difficult for the marketmaker to detect 
+insider trading. Insider expected profits increase and so do noise trader losses. Proposition 1 gives us 
+the testable predictions that stocks more heavily bought by attention-driven investors will underperform 
+those sold for stocks that have attracted more attention. We test this prediction in Section VI. Since 
+expected noise trader losses are equivalent to expected insider profits and
+2
+1y is our measure of the 
+attention level, Proposition 1 can be expressed as: 
+Proposition 1:   
+ 
+(
+)
+(
+)
+2
+2
+1
+2
+1
+|
+0
+E x
+v
+P
+y
+y
+δ
+δ
+−
+>
+
+
+
+                    
+                  (15) 
+Proof:  Substituting from equations 6 and 7 and for 
+2
+2
+b
+σ
+and
+2
+2
+s
+σ
+, we can write noise trader expected 
+losses as: 
+ 
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+2
+2
+1
+2
+2
+1
+2
+2
+2
+2
+2
+1
+|
+2
+1
+1
+2
+E x
+v
+P
+y
+E
+y
+y
+y
+y
+m
+A
+y
+α
+β
+μ
+λ α
+β
+β
+λβ
+φ
+φ
+κ
+κ φ
+ψ
+−
+=
++
++
+−
+−
++
+=
+−
+=
++
++
++
+−
+
+
+
+
+
+
+
+ 
+(16) 
+The derivative of which, with respect to
+2
+1y , is positive, which is what we wished to show. 
+ 
+ 
+                                                 
+24 Because 
+tb and 
+ts are distributed normally, negative realizations are possible. The likelihood of these depends 
+upon the parameter values. There were no negative realizations of 
+tb or 
+ts in this simulation. 
+
+--- PAGE 32 ---
+ 
+30 
+ 
+References 
+Bamber, Linda Smith, Orie E. Barron, and Thomas L. Stober, 1997, Trading volume and 
+different aspects of disagreement coincident with earnings announcements, 
+Accounting Review, 72, 575-597. 
+ 
+Barber, Brad M., and Terrance Odean, 1999, The courage of misguided convictions: The 
+trading behavior of individual investors, Financial Analysts Journal, 55, 41-55. 
+ 
+Barber, Brad M., and Terrance Odean, 2000, Trading is hazardous to your wealth: The 
+common stock investment performance of individual investors, Journal of Finance, 
+55, 773-806. 
+ 
+Barber, Brad M., and Terrance Odean, 2001, Boys will be boys: Gender, overconfidence, and 
+common stock investment, Quarterly Journal of Economics, 116, 261-292. 
+ 
+Barber, Brad M., and Terrance Odean, 2002, Online investors: Do the slow die first?, Review 
+of Financial Studies, 15, 455-489. 
+ 
+Barber, Brad M., and Terrance Odean, 2004, Are individual investors tax savvy? Evidence 
+from retail and discount brokerage accounts, Journal of Public Economics, 88, 419-
+442. 
+ 
+Barber, Brad M., Terrance Odean, and Ning Zhu, 2006, Do noise traders move markets?, 
+SSRN working paper, http://ssrn.com/abstract=869827. 
+ 
+Berk, Jonathan, 1995, A critique of size related anomalies, Review of Financial Studies, 8, 
+275-286.  
+ 
+Busse, Jeff, and Clifton Green, 2002, Market Efficiency in Real Time, forthcoming, Journal 
+of Financial Economics. 
+ 
+Chan, Wesley S., 2003, Stock Price Reaction to News and to No-News: Drift and Reversal 
+After Headlines, Journal of Financial Economics, 70, 223-260. 
+ 
+Conrad, Jennifer, Allaudeen Hameed, and Cathy Niden, 1994, Volume and autocovariances 
+in short-horizon individual security returns, Journal of Finance, 49, 1305-1329.  
+ 
+Fama, Eugene F., and Kenneth R. French, 1993, Common risk factors in returns on stocks 
+and bonds, Journal of Financial Economics, 33, 3-56. 
+ 
+Gadarowski, Christopher, 2001, Financial press coverage and expected stock returns, SSRN 
+working paper, http://ssrn.com/abstract=267311. 
+ 
+Genesove, David, and Chris Mayer, 2001, Nominal loss aversion and seller behavior: 
+Evidence from the housing market, forthcoming, Quarterly Journal of Economics. 
+ 
+
+--- PAGE 33 ---
+ 
+31 
+ 
+Gervais, Simon, Ron Kaniel, and Dan H. Mingelgrin, 2001, The high-volume return 
+premium, Journal of Finance, 56, 877-919. 
+ 
+Grossman, Sanford J., and Joseph E. Stiglitz, 1980, On the impossibility of informationally 
+efficient markets, American Economic Review 70, 393-408. 
+ 
+Grullon, Gustavo, George Kanatas, and James P. Weston, 2004, Advertising, Breath of 
+Ownership, and Liquidity, Review of Financial Studies, 17, 439-461. 
+ 
+Heath, Chip, Steven Huddart, and Mark Lang, 1999, Psychological factors and stock option 
+exercise, Quarterly Journal of Economics, 114, 601-627. 
+ 
+Hirshleifer, David, James N. Myers, Linda A Myers, and Siew Hong Teoh, 2003, Do 
+individual investors drive post-earnings announcement drift? Direct evidence from 
+personal trades, SSRN working paper, http://ssrn.com/abstract=299260. 
+ 
+Heisler, Jeffrey, 1994, Loss Aversion in a Futures Market: An Empirical Test, Review of 
+Futures Markets, 13, 793-822. 
+ 
+Hou, Kewei, Lin Peng, and Wei Xiong, 2006, A tail of two anomalies: The implications of 
+investor attention for price and earnings momentum, working paper, Ohio State 
+University. 
+ 
+Kahneman, Daniel, and Amos Tversky, 1979, Prospect theory: An analysis of decision under 
+risk, Econometrica, 46, 171-185. 
+ 
+Karpoff, Jonathan M., 1987, The Relation Between Price Changes and Trading Volume: A 
+Survey,  Journal of Financial & Quantitative Analysis, 22, 109-126. 
+ 
+Keim, Donald B., and  Ananth Madhavan, 1995, Anatomy of the trading process: Empirical 
+evidence on the behavior of institutional traders, Journal of Financial Economics, 37, 
+371-398. 
+ 
+Keim, Donald B., and Ananth Madhavan, 1998, The cost of institutional equity trades 
+Financial Analysts Journal, 54, 50-69. 
+ 
+Keim, Donald B., and Ananth Madhavan, 1997, Transactions costs and investment style: an 
+inter-exchange analysis of institutional equity trades, Journal of Financial 
+Economics, 46, 265-292. 
+ 
+Kyle, Albert S., 1985, Continuous auctions and insider trading, Econometrica, 53, 1315-
+1335. 
+ 
+Lee, Charles M. C., 1992, Earnings news and small traders, Journal of Accounting and 
+Economics, 15, 265-302. 
+ 
+
+--- PAGE 34 ---
+ 
+32 
+ 
+Lakonishok, Josef, Andrei Shleifer, and Robert W. Vishny, 1994, Contrarian investment, 
+extrapolation, and risk, Journal of Finance, 49, 1541-1578 
+ 
+Locke, Peter, and Steven Mann, 2001, Do professional traders exhibit loss realization 
+aversion?, SSRN working paper, http://ssrn.com/abstract=251942. 
+ 
+Mayshar, Joram, 1983, On divergence of opinion and imperfections in capital markets, 
+American Economic Review, 73, 114-128. 
+ 
+Miller, Edward M., 1977, Risk, undertainty, and divergence of opinion, Journal of Finance, 
+32, 1151-1168. 
+ 
+Merton, Robert, 1987, A simple model of capital market equilibrium with incomplete 
+information, Journal of Finance, 42, 483-510. 
+ 
+Odean, Terrance, 1998a, Are investors reluctant to realize their losses?, Journal of Finance, 
+53, 1775-179. 
+ 
+Odean, Terrance, 1998b, Volume, volatility, price and profit when all trades are above 
+average, Journal of Finance, 53, 1887-1934. 
+ 
+Odean, Terrance, 1999, Do investors trade too much? American Economic Review, 1279-
+1298. 
+ 
+Seasholes, Mark, and Guojun Wu, 2004, Profiting from predictability: Smart traders, daily 
+price 
+limits, 
+and 
+investor 
+attention, 
+SSRN 
+working 
+paper, 
+http://ssrn.com/abstract=527182. 
+ 
+Shapira, Zur, and ItzhakVenezia, 2001. “Patterns of behavior of professionally managed and 
+independent investors.”  Journal of Banking and Finance, 25, 1573-1587. 
+ 
+Shefrin, Hersh, and Meir Statman, 1985, The disposition to sell winners too early and ride 
+losers too long: Theory and evidence, Journal of Finance, 40, 777-790. 
+ 
+Weber, Martin and Heiko Zuchel, 2002, The disposition effect and momentum, SFB 504 
+discussion paper 01-26. 
+ 
+Wolff, Edward N., 2004, Changes in household wealth in the 1980s and 1990s in the U.S., 
+working paper no. 407, The Levy Economics Institute of Bard College.
+
+--- PAGE 35 ---
+ 33
+TABLE I: Buy-sell imbalance by Investor Type for Stocks Sorted on the Current Day’s Abnormal Trading Volume 
+Stocks are sorted daily into deciles on the basis on the current day’s abnormal volume. The decile of highest abnormal volume is split 
+into two vingtiles (10a and 10b). Abnormal volume is calculated as the ratio of the current day’s volume (as reported in the CRSP 
+daily stock return files for NYSE, ASE, and NASDAQ stocks) divided by the average volume over the previous 252 trading days. 
+Buy-sell imbalances are reported for the trades of six groups of investors, investors at large discount brokerage (January 1991 through 
+November 1996), investors at a large retail brokerage (January 1997 through June 1999), investors at a small discount brokerage 
+(January 1996 through June 15, 1999), and institutional money managers (January 1993 through March 1996) classified by the Plexus 
+Group as following momentum, value, and diversified strategies. For each day/partition/investor group, we calculate number 
+imbalance as number of purchases minus number of sales divided by total number of trades.  Value imbalance is calculated as the 
+value of purchases minus the value of sales divided by the total value of trades. The table reports the mean for each time-series of 
+daily imbalances for a particular investor group and partition. Standard errors, calculated using a Newey-West correction for serial 
+dependence, appear in parentheses. 
+ 
+
+[TRUNCATED at 80000 chars — 51 total pages]

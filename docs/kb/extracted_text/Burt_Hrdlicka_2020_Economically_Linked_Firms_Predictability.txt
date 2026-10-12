@@ -1,0 +1,2422 @@
+
+--- PAGE 1 ---
+Online Appendix to
+Where Does the Predictability from Sorting on Returns
+of Economically Linked Firms Come From?
+Aaron Burt and Christopher Hrdlicka∗
+July 5, 2020
+ABSTRACT
+This Online Appendix contains a number of additional details and results that are referenced
+in the body of the paper.
+∗Aaron Burt is at the Michael F. Price College of Business, University of Oklahoma, Adams Hall 259,
+Norman, Oklahoma, 73026, USA, email: aaronburt@ou.edu.
+Christopher Hrdlicka is at the Michael G.
+Foster School of Business, University of Washington, PACCAR Hall, Box 353226, Seattle, WA 98195-3226,
+USA, email: hrdlicka@uw.edu
+
+--- PAGE 2 ---
+Contents
+O.I Link formation summary
+1
+A Data overview: Cohen and Frazzini (2008) . . . . . . . . . . . . . . . . . . . . .
+1
+B Data overview: Cohen and Lou (2012) . . . . . . . . . . . . . . . . . . . . . . .
+1
+C Data overview: Cao, Chordia, and Lin (2016) . . . . . . . . . . . . . . . . . . .
+2
+O.II Econometrics of lead lag sorts
+3
+A Deﬁnitions and assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+B Decomposing alphas from return sorts . . . . . . . . . . . . . . . . . . . . . . .
+5
+C Sorting on idiosyncratic returns measures information diﬀusion
+. . . . . . . . .
+8
+D Sorting on other return components isolates those components . . . . . . . . . .
+10
+E Sorting on estimated idiosyncratic returns . . . . . . . . . . . . . . . . . . . . .
+10
+O.III Proofs and additional details
+12
+O.IV Correction ratio for estimation error bias
+17
+A Special case: single idiosyncratic variance . . . . . . . . . . . . . . . . . . . . .
+18
+B General case: arbitrary distribution of idiosyncratic variances . . . . . . . . . .
+20
+C Expectation across estimation windows
+. . . . . . . . . . . . . . . . . . . . . .
+21
+O.V Closed form solutions
+24
+A Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+B Sorting on returns . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+C Sorting on idiosyncratic returns . . . . . . . . . . . . . . . . . . . . . . . . . . .
+29
+D Sorting on estimated idiosyncratic returns . . . . . . . . . . . . . . . . . . . . .
+30
+E Sorting on alphas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33
+F Sorting on estimated alphas . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+34
+O.VI Implementing sorts on estimated idiosyncratic returns: details
+36
+A Estimation window that produces uncorrelated noise . . . . . . . . . . . . . . .
+36
+B Testing for predictability from “old news” in estimation window . . . . . . . . .
+37
+O.VII Simulation: predictability from “old news” is inconsistent with data
+42
+O.VIII Attenuation ratio correction for daily estimation with monthly sorts 46
+O.IX Relation to Lo and MacKinlay (1990)
+47
+A Proﬁts are composed of three components . . . . . . . . . . . . . . . . . . . . .
+51
+i
+
+--- PAGE 3 ---
+B How sorts diﬀer from continuous weights . . . . . . . . . . . . . . . . . . . . . .
+55
+O.X Supplier returns do not catch up to customer returns
+56
+O.XI Old news has no predictive ability
+59
+ii
+
+--- PAGE 4 ---
+O.I.
+Link formation summary
+This section contains a summary of the formation of the economic links used in the main
+text. Further details can be found in the original papers.
+A.
+Data overview: Cohen and Frazzini (2008)
+Cohen and Frazzini (2008) use the economic link between customers and suppliers to
+measure slow information diﬀusion. They obtain data on these links from regulation SFAS
+No. 131, which requires each ﬁrm to report any customer whose sales represent more than
+10% of the ﬁrm’s total sales. The authors argue that shocks to a supplier’s customers (as
+measured by a portfolio of the supplier’s customer returns) will propagate through to the
+supplier itself.
+Following their method, we successfully replicate the key results of Cohen and Frazzini
+(2008). Using the U.S. Customer Supplier Links data made available by the authors on
+Andrea Frazzini’s website, we calculate the equal-weighted excess return for a portfolio of
+customers of each supplier in each month.1
+We then rank customer portfolio returns in
+month t in ascending order. We use the customer portfolio return rankings at t to assign
+linked supplier ﬁrms at t into quintile portfolios. We calculate the value and equal-weighted
+t + 1 portfolio excess returns of all suppliers in each quintile to generate a monthly time
+series of portfolio returns, which we use throughout our analysis.
+B.
+Data overview: Cohen and Lou (2012)
+Cohen and Lou (2012) demonstrate return predictability of complex conglomerate ﬁrms
+based on a portfolio of simple ﬁrms’ returns. These simple ﬁrms are single-industry ﬁrms
+in the industries in which the conglomerate has operating segments. Assuming information
+processing constraints, the authors argue that conglomerate ﬁrms are more diﬃcult to an-
+1See http://www.econ.yale.edu/~af227/data_library.htm
+1
+
+--- PAGE 5 ---
+alyze than single-industry ﬁrms. As this diﬃculty leads to delayed information diﬀusion, a
+portfolio of single-industry ﬁrms should predict the returns of conglomerate ﬁrms.
+Following Cohen and Lou (2012), we use data on operating and business segments from
+the Compustat segment ﬁles to identify ﬁrms as single-industry ﬁrms or as conglomerates.
+We use 2 digit SIC codes to identify the segment. Using the single-industry ﬁrms only, we
+calculate the industry portfolio returns of these ﬁrms in each 2 digit SIC code.
+For each conglomerate ﬁrm, we identify its principal operating and business segments that
+represent more than 10% of the ﬁrm’s sales. We use operating segments of each conglomerate
+ﬁrm along with each segment’s industry return (calculated from single-industry ﬁrms) to
+form a value-weighted portfolio return, which, following the original paper, we refer to as the
+pseudo-conglomerate returns. At each time t, we rank the pseudo-conglomerate returns in
+ascending order into deciles. Using these rankings, we assign the corresponding conglomerate
+ﬁrms at t to the (value or equal-weighted) decile portfolios (returns at t + 1).
+C.
+Data overview: Cao et al. (2016)
+Cao et al. (2016) measure slow information diﬀusion among ﬁrms in a strategic alliance.
+The authors provide evidence that investor inattention, as measured by news intensity on
+alliance announcement days, causes information shocks to one ﬁrm to be impounded into
+the price of another alliance-linked ﬁrm with a delay. The data on alliances comes from
+the Securities Data Company (SDC) platinum database. SDC collects the data from news
+announcements, SEC ﬁlings and industry publications. For the sample of ﬁrms in an alliance
+between 1985 and 2012, the paper documents that a ﬁrm’s return is predicted by the portfolio
+of ﬁrms linked through a strategic alliance.
+We successfully replicate the study’s main result by constructing the sample of alliance-
+linked ﬁrms as documented in Cao et al. (2016). Each month, for each ﬁrm in an alliance,
+we form a portfolio of all other ﬁrms in the alliance. We rank the time t portfolio returns
+in ascending order. Using these rankings, we assign the alliance-linked ﬁrm at t (returns
+2
+
+--- PAGE 6 ---
+at t + 1) to one of ﬁve portfolios. We then calculate the equal- and value-weighted returns
+for each portfolio. We form a time series of long-short portfolio returns by subtracting the
+lowest quintile portfolio return from the highest portfolio return in each month.
+O.II.
+Econometrics of lead lag sorts
+In this section, we show how that the proﬁts from trading in lagging economic ﬁrms
+based on sorting them into portfolios based on information about economically linked leader
+ﬁrms decomposes in a way similar to that from using the continous weights analogous to
+the framework pioneered by Lo and MacKinlay (1990) as described in Section O.IX. We
+show an important diﬀerence in that sorting on estimated idiosyncratic returns introduces a
+downward bias from estimation noise and how to correct for this bias.
+Like in the main text we present the case of one-to-one economic links.
+This setup
+equivalently describes the links between two individual ﬁrms or a portfolio and a single ﬁrm,
+e.g., one supplier linked to one customer or to one portfolio of customers. We also focus on
+the case of static parameters (e.g., alphas and betas) for notational simplicity, while changing
+the timing convention of the correlation in parameters between the leaders and laggers to
+allow for a more general relationship between them that captures not only mommentum but
+also seasonal variation in expected returns.
+A.
+Deﬁnitions and assumptions
+Asset pricing model and factors:
+Given the linear asset pricing model against which
+the long-short alphas are measured, we have the canonical decomposition of returns of ﬁrm i
+into the alpha, modeled risks and idiosyncratic returns (all returns are excess returns unless
+otherwise noted):
+ri,t = αi +⃗β′
+i⃗ft + ϵi,t.
+(O-1)
+3
+
+--- PAGE 7 ---
+Where the factors f are normal with mean⃗µf and variance-covariance matrix Σf.
+The
+idiosyncratic returns are mean zero by construction.
+Economic links and correlated risks:
+Let there be two sets of ﬁrms A and B (i.e.,
+leaders and laggards). Let the set of links L be the set of ordered pairs of ﬁrms {i, j} where
+i ∈A and j ∈B. We model this cross-sectional correlation between economically linked
+ﬁrms as
+αj = ρααi + ηα,i,j,
+{i, j} ∈L
+(O-2)⃗
+βj = ρβ⃗βi +⃗ηβ,i,j,
+{i, j} ∈L
+(O-3)
+where ρα > 0, ηα,i,j and ηα,i,j are mean 0, and ρβ is a matrix. All these terms are independent
+and normally distributed. Furthermore, they are independent of the ﬁrms’ idiosyncratic re-
+turns and the distribution of the idiosyncratic returns. The idiosyncratic returns, themselves,
+are mean zero and normally distributed with variances that are a random variable.
+Information delay:
+A link between ﬁrms means that, on average, news aﬀects linked
+ﬁrms in the same direction (as measured by returns). Furthermore, the news sometimes
+aﬀects ﬁrms in set A before aﬀecting ﬁrms in set B. This (delayed) link between ﬁrm i in
+set A and ﬁrm j in set B can be written as
+ϵj,t+1 = ρϵ,i,jϵi,t + ψi,j,t+1,
+{i, j} ∈L
+(O-4)
+where ψi,j,t+1 is a normal shock independent of both ϵi,t and the model-predicted value for
+the B ﬁrm, i.e., αj +⃗β′
+jft+1. The assumption that news aﬀects linked ﬁrms in the same
+direction means that a positive cross-autocorrelation exists between linked ﬁrms’ returns.
+That is, ρϵ,i,j ≥0 for all {i, j} ∈L.
+4
+
+--- PAGE 8 ---
+Trading strategy from sorting on returns:
+To learn about the predictability among
+these economically linked ﬁrms, the econometrician sorts the ﬁrms in set A by their excess
+returns at time t into N quantiles (e.g., quintiles, deciles, etc.). This sorting is used to
+assign the linked B ﬁrms to portfolios in the following period (their returns at t + 1). These
+portfolios are either equal- or value-weighted and are rebalanced each period by repeating
+this procedure. This procedure produces a time-series of N portfolio returns formed from
+stocks in set B. Let B(P) be the Pth such portfolio, where P ranges from 1, the lowest
+quantile, to N, the highest quantile.
+The alphas of these portfolios are computed using a linear regression with constant betas
+over the sample window. The long-short alpha formed by going long portfolio N and short
+portfolio 1 is the statistic that the literature has used to measure the predictability present
+in economically linked ﬁrms.
+B.
+Decomposing alphas from return sorts
+PROPOSITION O-1: For economically linked ﬁrms in set A and B, linked via the preceding
+assumptions but otherwise independent, if the factors are iid and there exists cross-sectional
+dispersion in A ﬁrms’ alphas, then the expected alpha of the portfolio B(P) can be decomposed
+into two pieces:
+E
+
+αB(P)
+
+= ϱα,P + ϱϵ,P.
+(O-5)
+The ﬁrst component, ϱα,P, is due to correlated alphas and the second component, ϱϵ,P, is due
+to slow information diﬀusion. ϱα,P and ϱϵ,P are increasing in P and can be expressed as
+ϱα,P = ραE[αA(P,R)]
+and
+(O-6)
+ϱϵ,P = ¯ρϵE[ϵA(P,R)]
+(O-7)
+where ¯ρϵ is the average correlation of the idiosyncratic shocks across economically linked
+ﬁrms and the subscript A(P, R) denotes the value conditional on being in portfolio P when
+5
+
+--- PAGE 9 ---
+sorted by returns, R.
+The proof of Proposition O-1 and of all other propositions unless otherwise noted are in
+Appendix O.III. Closed-form expressions for the conditional expectations in Equations (O-6)
+and (O-7) are in Online Appendix O.V.
+The B ﬁrm portfolio alpha has two components because the chances of an A ﬁrm falling
+in any quantile portfolio depends upon both on the A ﬁrm’s alpha and its idiosyncratic shock.
+Higher alphas or higher idiosyncratic returns increase the chance a ﬁrm falls into a higher
+portfolio. Because the A ﬁrms’ alphas and idiosyncratic returns are correlated with those
+of the B ﬁrms through the economic link, the B ﬁrms with higher alphas or idiosyncratic
+returns are, therefore, more likely to be assigned to higher quantile portfolios.
+Though the betas of the A and B ﬁrms are also correlated, no term for the betas appears
+in the portfolio alpha because the factors are iid. When the factors are iid, however, the
+linear regression captures the unconditional beta of the B portfolio even though the betas
+of the B ﬁrm portfolio vary each period.
+As such, this time variation in beta does not
+contribute to an unconditional alpha. The variation in the B portfolio returns from this
+time-varying alpha shows up as additional idiosyncratic volatility in the regression residuals.
+See Lewellen and Nagel (2006) for further details of the conditional and unconditional alphas
+in the presence of time-varying betas.
+i.
+Returns are predictable even in eﬃcient markets
+COROLLARY O-1: The expected alpha of the long-short portfolio B(LS) formed from B(N)
+and B(1) is
+E[αB(LS)] = (ϱα,N −ϱα,1) + (ϱϵ,N −ϱϵ,1).
+(O-8)
+An immediate consequence of the ϱα,P increasing in P is that returns are predictable–
+i.e., one ﬁnds a positive long-short alpha from sorting on returns–even when the market
+is eﬃcient (i.e., ρϵ,i,j = 0 for all pairs of economically linked ﬁrms). More generally, the
+6
+
+--- PAGE 10 ---
+return predictability extends beyond the horizon of slow information diﬀusion. This occurs
+because the alphas of the A and B ﬁrms along with their correlation are persistent, making
+(ϱα,N −ϱα,1) positive beyond a single period. This persistence produces increasing cumulative
+long-short alphas.
+The one-period and cumulative long-short alphas increase in (1) the
+strength of the correlation in the alphas, ρα, and (2) in the amount of cross-sectional variation
+in the alphas of the A ﬁrms.
+ii.
+Non-iid factors add a third component to portfolio alphas
+If we slacken the assumption that the factors are iid, then the correlation in the modeled
+risk components can contribute a term to the B portfolios formed by sorting on the returns
+of the A ﬁrms.
+PROPOSITION O-2: With the assumptions of Proposition O-1 except now the factors may
+be non-iid, if there is also cross-sectional dispersion in the A ﬁrms’ betas, then the expected
+alpha of the long-short portfolio B(LS) can be decomposed into three pieces:
+E
+
+αB(LS)
+
+= ϱα,LS + ϱβ′f,LS + ϱϵ,LS
+(O-9)
+The ﬁrst component, ϱα,P, is due to correlated alphas and is positive. The second component,
+ϱβ′f, is due to correlation in the modeled risk components. The third component, ϱϵ,LS, is
+due to slow information diﬀusion and is positive when ¯ρϵ > 0.
+The term ϱβ′f,LS appears, because the constant beta regression cannot fully capture the
+expected return of the B ﬁrms. The correlation of the risk exposures, i.e., betas, of the
+economically linked ﬁrms does not directly determine this additional term. The component
+is determined by the interaction of the time-varying beta induced in the B ﬁrm portfolios
+and the time-series properties of the factors which are characterized by Lewellen and Nagel
+(2006). This additional term may contribute positively or negatively to the long-short alpha
+in expectation.
+7
+
+--- PAGE 11 ---
+iii.
+Alphas and betas in returns act as noise in the sorting
+COROLLARY O-2: Under the assumptions of Proposition O-1 or O-2, the component of
+the long-short portfolio from idiosyncratic returns, ϱϵ,LS, is decreasing in the cross-sectional
+variance of the alpha and the model-predicted returns,⃗β′
+i⃗ft, and increasing in the cross-
+sectional variances of the idiosyncratic returns of the A ﬁrms.
+This decrease occurs because the non-idiosyncratic components of the returns act as noise
+relative to the idiosyncratic return signal: ﬁrms are assigned to portfolios based on all three
+dimensions rather than idiosyncratic returns only.
+C.
+Sorting on idiosyncratic returns measures information diﬀusion
+Sorting directly on the idiosyncratic return of the leading economically linked ﬁrms pro-
+vides two beneﬁts. First, it isolates the component of predictability from delayed information
+diﬀusion. Second, it provides the largest possible alpha from this eﬀect, making it the most
+likely way to detect any delays in information diﬀusion. Proposition O-3 and its corollaries
+state this more precisely.
+PROPOSITION O-3: Let the portfolios of linked ﬁrms in set B formed using sorts on id-
+iosyncratic returns as B′(P). If given the assumptions of Proposition O-2, then the expected
+alpha of the portfolio B′(P) can be decomposed into two pieces:
+E[αB′(P)] = ¯αB + ϱ′
+ϵ,P.
+(O-10)
+The ﬁrst component, ¯αB, is the average misspeciﬁcation of stocks in set B and is the same for
+all the quantile portfolios. The second component, ϱ′
+ϵ,P, is due to slow information diﬀusion,
+is increasing in P and can be expressed as
+ϱ′
+ϵ,P = ¯ρϵE[ϵA(P,ϵ)],
+(O-11)
+8
+
+--- PAGE 12 ---
+where the subscript A(P, ϵ) denotes the value conditional on being in portfolio P when sorted
+on idiosyncratic returns. Furthermore, the long-short portfolio of the extreme portfolios has
+expected alpha:
+E[αB′(LS)] = ϱ′
+ϵ,N −ϱ′
+ϵ,1.
+(O-12)
+The key diﬀerence compared to sorting on returns (Propositions O-1 and O-2) is that the
+ﬁrst term in Equation O-10 is constant across all sorted portfolios.2 Sorting on idiosyncratic
+returns also eliminates the variation in the B ﬁrm betas due to the sorting. Thus, the linear
+regression with the constant beta is able to capture the expected return component from the
+modeled risks of the B ﬁrms.
+The long-short portfolio, denoted B′(LS), as a (ﬁrst) diﬀerence, eliminates the ﬁrst terms
+in Equation (O-10), making the long-short portfolio solely a measure of slow information
+diﬀusion. Because this long-short alpha is determined solely from the idiosyncratic returns,
+sorts on idiosyncratic returns are the most eﬃcient sort to detect delays in information
+diﬀusion:
+COROLLARY O-3: Under the assumptions of Proposition O-3, the slow information diﬀu-
+sion component of Equation (O-12) is greater than or equal to that of Equation (O-8):
+ϱ′
+ϵ,N −ϱ′
+ϵ,1 ≥ϱϵ,N −ϱϵ,1
+(O-13)
+The inequality is strict whenever there is a cross-sectional spread in the model misspeciﬁcation
+or model-predicted returns.
+2Proposition O-3 can be generalized to allow for arbitrary correlation of the magnitude of alphas with the
+variance of idiosyncratic returns (e.g., in the case of the idiosyncratic volatility puzzle). Such a generalization
+means the ﬁrst term is no longer the unconditional alpha of the B ﬁrms but this term remains constant
+across all portfolios and is removed by the ﬁrst diﬀerencing that occurs when forming a long-short portfolio.
+9
+
+--- PAGE 13 ---
+D.
+Sorting on other return components isolates those components
+We focus on the properties of sorting on idiosyncratic returns as the long-short alphas
+from these sorts allow us to measure delays in information diﬀusion. Similar results, however,
+go through when one sorts instead on the alphas of economically linked stocks or on their
+modeled risks, i.e.,⃗β′⃗f. For example, the long-short portfolio obtained from sorting on those
+alphas isolates the component due to correlated alphas.
+Just as was the case with sorts based on idiosyncratic returns, e.g., Corollary O-3, the
+long-short alpha from sorting on alphas will be larger than the contribution of the alpha
+component in the long-short alpha from sorting on returns. Nevertheless, the magnitudes
+of the long-short alphas produced from these alternative sorts give an indication of the
+importance of the diﬀerent components’ contributions to the overall long-short alpha from
+return sorts. We, therefore, provide values of these long-short alphas in the empirical section
+of the paper as well as those from the idiosyncratic return sorts.
+E.
+Sorting on estimated idiosyncratic returns
+When the model parameters are unknown, we cannot observe the true idiosyncratic
+returns. Instead, they must be estimated with a regressio. This section shows how these
+estimated idiosyncratic returns can be used to measure the delay in information diﬀusion as
+well as if we knew the true idiosyncratic returns.
+PROPOSITION O-4: Let B′′(P) denote the portfolios of linked ﬁrms in set B formed using
+estimated idiosyncratic returns of the A ﬁrms ˆϵi,t. With the assumptions of Proposition O-3,
+if the estimation error in estimated idiosyncratic returns of the linked A ﬁrm, (ˆϵi,t −ϵi,t),
+is independent of the predicted idiosyncratic returns of the B ﬁrms, ϵj,t+τ, for all τ ≥1,
+and the estimation error is unbiased, then the expected alpha of the portfolio B′′(P) can be
+decomposed into two pieces:
+E[αB′′(LS)] = ϱ′′
+ϵ,N −ϱ′′
+ϵ,1
+(O-14)
+10
+
+--- PAGE 14 ---
+where ϱ′′
+ϵ,P is due to slow information diﬀusion and is increasing in P when ¯ρϵ > 0.
+Thus, the long-short alpha from sorting on estimated idiosyncratic returns solely reﬂects
+delays in information diﬀusion. The conditions of Proposition O-4 are easily met. Standard
+linear regressions give unbiased parameter estimates. The estimation error will be uncor-
+related whenever the estimation window is outside the period of time for which there is a
+delay in information diﬀusion, e.g., skipping one period between estimating and predicting
+when information is delayed one period.3
+Though the long-short alpha obtained from sorting on estimated idiosyncratic returns
+reﬂects only delays in information diﬀusion, estimation noise makes this alpha smaller than
+that from sorting on known idiosyncratic returns. This attenuation is characterized com-
+pletely in terms of the length of the estimation window and number of factors in the model:
+PROPOSITION O-5: Following the assumptions of Proposition O-4, if the factor returns
+are iid, then the ratio of the expected long-short alpha from sorting on estimated idiosyn-
+cratic returns (Equation (O-14)) to the expected long-short alpha from sorting on known
+idiosyncratic returns (Equation (O-12)) is
+ϱ′′
+ϵ,N −ϱ′′
+ϵ,1
+ϱ′
+ϵ,N −ϱ′
+ϵ,1
+=
+
+1 + 1
+n
+−1
+2 B
+n−m+1
+2
+, m
+2
+
+B
+n−m
+2 , m
+2
+
+(O-15)
+where B is the Euler beta function, n is the number of periods in the estimation window and
+m is the number of factors in the model.
+The proof of this proposition is in Appendix O.IV.4 This ratio can be used to to eliminate
+the attenuation. Applying this correction to the long-short alphas obtained from sorting on
+estimated idiosyncratic returns yields an unbiased estimate of the expected long-short alpha
+that would be obtained if we knew and sorted on the actual idiosyncratic returns.5
+3See Online Appendix O.VI for a further discussion of this issue.
+4We thank Andy Siegel and Raymond Kan for their help in the proof of this proposition.
+5When estimating the model with daily data but sorting at the lower monthly frequency, the ratio is
+slightly diﬀerent because of the correlation in estimation error induced from using the same model estimate
+throughout the entire sorting month. The ratio for this case is presented in Online Appendix O.VIII.
+11
+
+--- PAGE 15 ---
+This correction is multiplicative and a constant given the estimation window length
+and number of factors. Therefore, it also applies to the standard errors of the long-short
+alphas obtained from sorting on estimated idiosyncratic returns. Thus the t-statistics of the
+estimates of the alphas obtainable from sorting on known idiosyncratic returns are the same
+as the t-statistics of the estimates of the long-short alpha obtained from sorting on estimated
+idiosyncratic returns.
+O.III.
+Proofs and additional details
+Proof of Proposition O-1. Portfolio B(P) is formed of ﬁrms in set B linked to ﬁrms in set
+A that, at time t, fall into the Pth highest quantile of returns. Let ιj,t,P be an indicator
+function of whether ﬁrm j is included in portfolio P at time t. In the case of inclusion, it
+has value 1. It has value 0 otherwise.
+Let the portfolio weights each period be denoted wj,t,P. Which, in the case of equal
+weighting,
+wj,t,P =
+ιj,t,P
+P
+k∈B ιk,t,P
+.
+(O-16)
+And, in the case of value weighting,
+wj,t,P =
+ιj,t,PPj,t
+P
+k∈B ιk,t,PPk,t
+,
+(O-17)
+where Pk,t is the market value of ﬁrm k at time t.
+Let the sample window of sorted B ﬁrm portfolios run from t = 1 to T. Then the beta
+estimate for portfolio B(P) is ˆ⃗βB(P). Notice by the independence of the factors over time
+that this value is the time series average of the weighted average of the stocks in portfolio
+B(P). That is
+ˆ⃗βB(P) = 1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pβj.
+(O-18)
+Notice that the weights are shifted back by one period because the sorting done at t −1
+12
+
+--- PAGE 16 ---
+determines the weights for returns realized at t.
+When we take the expected value of the beta estimate we can eliminate the summation
+across time because the weights are iid across time from the fact that the factors are iid and
+the idiosyncratic returns of the A ﬁrms are iid across time. Notice however the weights are
+not independent of the betas because of the correlation of betas across economically linked
+ﬁrms. This gives
+E[ˆ⃗βB(P)] =
+X
+j∈B
+βjE[wj,τ−1,P].
+(O-19)
+Now we turn to calculating the expected value of the alpha of a portfolio B(P).
+E[αB(P)] ≡E
+"
+1
+T
+T
+X
+τ=1
+rB(P),τ −ˆ⃗β′
+B(P)
+1
+T
+T
+X
+τ=1⃗
+fτ
+#
+(O-20)
+We now decompose the portfolio return into its constituent securities and then its alpha,
+beta and idiosyncratic return components.
+= E
+"
+1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Prj,τ −ˆ⃗β′
+B(P)
+1
+T
+T
+X
+τ=1⃗
+fτ
+#
+(O-21)
+= E
+"
+1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pαj + 1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pϵj,τ
++ 1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pβ′
+j⃗fτ −ˆ⃗β′
+B(P)
+1
+T
+T
+X
+τ=1⃗
+fτ
+#
+(O-22)
+By the factors and idiosyncratic returns of the A ﬁrms being iid the third term becomes
+E
+"
+1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pβ′
+j⃗fτ
+#
+=
+X
+j∈B
+βjE[wj,τ−1,P]E[fτ].
+(O-23)
+Similarly by the factors being iid and the ﬁndings in Equation (O-19) the fourth term
+becomes
+E
+"
+ˆ⃗β′
+B(P)
+T
+X
+τ=1⃗
+fτ
+#
+=
+X
+j∈B
+βjE[wj,τ−1,P]E[fτ].
+(O-24)
+13
+
+--- PAGE 17 ---
+Thus the last two terms cancel leaving the expected alpha only dependent upon the alpha
+and idiosyncratic components of the returns. We can now use the correlations of the alphas
+and epsilons across economically linked ﬁrms to replace these values with the values of the
+linked A ﬁrms.
+Exploiting the economic link in alphas the ﬁrst term of Equation (O-22) becomes
+E
+"
+1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pαj
+#
+= E
+"
+1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,P(ρααi + ηα,i,j)
+#
+(O-25)
+We abuse notation slightly throughout the appendix by not making the i subscript a function
+of j since which of the alphas of the A ﬁrms denoted with i subscripts to sum over are
+determined by their linkage to the B ﬁrms indexed by j. Taking advantage of the iid nature
+of the factors and the idiosyncratic returns of the A ﬁrms, we can move the expectation
+inside the time summation and remove the time summation. Additionally, the independence
+of the weights from the η shock makes the expectation of that term zero.
+= ρα
+X
+j∈B
+E[wj,τ−1,P αi]
+(O-26)
+This is the term ϱα,P in Equation (O-9) and the decomposition speciﬁed in Equation (O-6).
+To see that this term is increasing in P notice that we can rewrite the summation over j
+in terms of the cross-sectional expected value, denoted with subscript CS and where the
+number of linked ﬁrms in set B is NL.
+= ραECS
+
+E[wj,τ−1,Pαi]
+
+(O-27)
+= ραNL
+
+ECS
+
+E[wj,τ−1,P]
+
+ECS[αi] + covCS
+
+E[wj,τ−1,P], αi
+
+.
+(O-28)
+14
+
+--- PAGE 18 ---
+Noticing that NLECS
+
+E[wj,t,P]
+
+= 1 gives
+= ραECS[αi] + ραNL covCS
+
+E[wj,t,P], αi
+
+.
+(O-29)
+Because a higher alpha of an A ﬁrm increases the chances that ﬁrm falls in a higher portfolio
+ranking, this last covariance term is increasing in portfolio P giving the desired result.
+Noticing the second term of Equation (O-22) depends entirely on the slow diﬀusion of
+information, we can make a similar argument for that used for the alpha term to obtain
+E
+"
+1
+T
+T
+X
+τ=1
+X
+j∈B
+wj,τ−1,Pϵj,τ
+#
+= ¯ρϵ
+X
+j∈B
+E[wj,τ−1,Pϵi,τ−1] = ϱϵ,P
+(O-30)
+where ¯ρϵ is the weighted average of the ρϵ,i,j.
+ϱϵ,P is increasing in P because a larger idiosyncratic return of an A ﬁrm increases the
+chances a ﬁrm is sorted into a higher portfolio, creating a positive covariance between the
+portfolio weights and the idiosyncratic returns.
+The proof of Corollary 1 is immediate.
+Proof of Proposition O-2. The proof is the same as that of Proposition O-1 except that we
+can no longer move the expectation inside the time series sum because the factors need not
+be iid, thus the weights need not be iid. Nevertheless we are able to make the same decompo-
+sitions of the ﬁrst and second terms of Equation (O-22) into the correlation coeﬃcients and
+their respective conditional expected values. Furthermore we are able to label these ϱα and
+ϱϵ which are both increasing in P because the ability to reexpress these expected values in
+terms of cross-sectional expected values where we notice the covariance between the alphas
+and idiosyncratic returns of the A ﬁrms and the portfolio weights increases in P.
+The other diﬀerence from the proof of Proposition O-1 is that the estimated beta, ˆ⃗βB(P),
+is not necessarily the time series average of the weighted average of betas of the securities
+that make up the B portfolios. This is because the factors no longer need be iid. Without
+15
+
+--- PAGE 19 ---
+this result, the third and forth terms of Equation (O-22) need not be equal. This gives the
+desired third term to the expected long short alpha which we label ϱβ′f.
+Proof of Proposition O-3. Portfolio B′(P) is formed of ﬁrms in set B linked to ﬁrms in set
+A that in the previous period fell into the Pth highest quantile of news shocks ϵi,t. Let ι′
+j,t,p
+be an indicator function of whether ﬁrm j is included in portfolio P at time t. In the case
+of inclusion, it has value 1. It has value 0 otherwise. Deﬁne the weights w′
+j,τ,P similarly to
+those in the proof of Proposition O-1 except using the new indicator function. Substituting
+these weights in we can follow that proof until the decomposition in Equation (O-22).
+Now the ﬁrst term of that decomposition which includes the alphas of the B ﬁrms is
+equal to the unconditional average of the B ﬁrm alphas because the weights are independent
+of the alphas.
+The second term which involves the idiosyncratic returns continues to have similar prop-
+erties as in the previous two proofs because using the idiosyncratic returns of the A ﬁrms
+continues to induce a covariance between the portfolio weights and the idiosyncratic returns
+of the A ﬁrms that is increasing in P. We label this term
+ϱ′
+ϵ,P = ¯ρϵE[ϵA(P,ϵ)]
+(O-31)
+which has the decomposition into the correlation coeﬃcient and the conditional expected
+value as desired.
+Though the factors are not necessarily iid over time, the portfolio weights are indepen-
+dents of the betas of the B ﬁrms because the sorts occur on the idiosyncratic returns of the
+A ﬁrms which are independent of the B ﬁrm betas. This independence of the weights and
+the betas makes the betas independent of the factors which together makes the third and
+forth terms of Equation (O-22) equal to
+¯⃗β′
+BE
+"
+1
+T
+T
+X
+τ=1
+fτ
+#
+(O-32)
+16
+
+--- PAGE 20 ---
+where ¯⃗β′
+B is the unconditional average of the B ﬁrm betas. Since these two terms have equal
+value they cancel, giving the desired result.
+Proof of Corollary O-3. Recall that ϱϵ,N −ϱϵ,1 is increasing in the cross-section variance of
+the alpha and model predicted returns. Then notice that ϱ′
+ϵ,N −ϱ′
+ϵ,1 is the same as the
+degenerate case where these cross-sectional variances go to zero.
+Additional details on ϱϵ,N −ϱϵ,1 and ϱ′
+ϵ,N −ϱ′
+ϵ,1 under the assumption of iid factors can
+be found in Online Appendix Equations (O-64) and (O-67).
+Proof of Proposition O-4. The proof follows that of Proposition O-3. The unbiasedness of
+the estimates continues to generate the independence of the weights from the the alphas
+and betas of the B ﬁrms in the sorted portfolios The uncorrelated measurement error of the
+alphas and betas gives that the idiosyncratic returns of the B ﬁrms in the sorted portfolios
+depend only on the idiosyncratic return of the A ﬁrms at the sort date.
+O.IV.
+Correction ratio for estimation error bias
+In this section, we provide a proof of Proposition O-5. For the case of parameter estima-
+tion at a higher frequency than the sort frequency, the correction is slightly diﬀerent. See
+Section O.VIII for details on that correction.
+Without loss of generality, the factors are demeaned throughout this appendix. Other-
+wise we continue with the assumptions from Proposition O-5. Standard deviations of the
+idiosyncratic returns cannot be negative, so we use a generic distribution for these values
+where all possible values are positive. The set of all possible standard deviations for stocks
+in set A is S. The probability of any σϵ,i ∈S is Pr(σϵ,i). There may be inﬁnitely many of
+these possibilities, but for simplicity we assume a ﬁnite number of these. Unless otherwise
+noted φx and Φx are the PDF and CDF of the normal random variable x.
+17
+
+--- PAGE 21 ---
+We now calculate the ratio of the long-short alpha obtained from sorting on idiosyncratic
+news returns (Equation (O-14) and expanded in the Online Appendix to Equation (O-74)) to
+that obtained from sorting on actual idiosyncratic returns (Equation (O-12) and expanded
+in the Online Appendix to Equation (O-67)):
+ϱ′′
+ϵ,N −ϱ′′
+ϵ,1
+ϱ′
+ϵ,N −ϱ′
+ϵ,1
+=
+¯ρϵ
+h
+E[ϵA(N,ˆϵ)] −E[ϵA(1,ˆϵ)]
+i
+¯ρϵ
+
+E[ϵA(N,ϵ)] −E[ϵA(1,ϵ)]
+
+(O-33)
+Notice that the the ¯ρϵ cancels, meaning we only need to calculate the expected idiosyn-
+cratic returns in the A ﬁrms.
+Closed-form solutions for the conditional expectations in
+Equation (O-33) are in Online Appendix O.V.
+We begin with the special case of a single idiosyncratic variance in the cross-section,
+conditional on a given estimation sample. We then generalize this to an arbitrary distribution
+of cross-sectional idiosyncratic variances, obtaining the same ratio as in the special case.
+Finally, we show how to take the expectation across all estimation samples.
+A.
+Special case: single idiosyncratic variance
+Consider the case of a single idiosyncratic return variance, σi, in the cross-section and
+a single history of factor draws of length n used to estimate the asset pricing model for all
+stocks. This history of factor draws can be put in the matrix X.
+The estimated idiosyncratic returns are
+ˆϵi = ϵi + ϵ∗
+i
+(O-34)
+where ϵ∗
+i is the estimation noise.
+As we discuss further in Online Appendix Section O.V.D, the estimated idiosyncratic
+18
+
+--- PAGE 22 ---
+returns used for sorting have mean zero and variance
+σ2(ˆϵi) = σ2
+i
+
+
+
+
+
+
+
+
+1 +
+
+
+1⃗
+ft
+
+
+′
+(X′X)−1
+
+
+1⃗
+ft
+
+
+|
+{z
+}
+contribution from ϵ∗
+i
+
+
+
+
+
+
+
+
+(O-35)
+Equation (O-35) accounts for variance from the true idiosyncratic returns. It also accounts
+for the contribution from the error in the measured alpha and the error in the measured
+beta scaled by the factor draw at t used for the estimation. (See Equation (O-69) for the
+distribution of these measurement errors.)
+Thus we see the variance from the measurement error, ϵ∗
+i , scales with the variance of the
+idiosyncratic return. This scaling is invariant to the variance of the idiosyncratic returns.
+It is also independent of the distribution of the alphas, betas or correlation of the alphas or
+idiosyncratic returns across linked stocks.
+Deﬁne this scaling factor as
+s(⃗f, X′X) ≡
+
+
+1⃗
+ft
+
+
+′
+(X′X)−1
+
+
+1⃗
+ft
+
+.
+(O-36)
+Another critical feature to notice is that the breakpoints for the top (or bottom quantile)
+of a normal distribution can be written in the form ¯bNσ where σ is the standard deviation
+of the normal distribution and ¯bN is a function of the quantile size.6 Thus the breakpoints
+for the sorts on actual versus estimated idiosyncratic returns only diﬀer by the scale factor
+described.
+We can now write the bias ratio (the special case of Equation (O-33)) explicitly in terms of
+the integrals representing the expectations. The numerator and denominator are simpliﬁed
+version of Equations (O-74) and (O-67). We denote the special case of single idiosyncratic
+6These properties extend to the breakpoints of intermediate quantiles as well.
+19
+
+--- PAGE 23 ---
+returns and speciﬁc estimation windows, etc., with additional subscripts. Explicit notation
+of the dependence of σ(ϵ∗
+i ) on⃗f and X is suppressed for clarity.
+E[ϵA(N,ˆϵ,σi,X,⃗f)] −E[ϵA(1,ˆϵ,σi,X,⃗f)]
+E[ϵA(N,ϵ,σi,X,⃗f)] −E[ϵA(1,ϵ,σi,X,⃗f)]
+=
+R ∞
+−∞
+hR ∞
+¯b σ(ˆϵi)−ϵ∗
+i ϵiφϵi(ϵi) dϵi
+i
+φϵ∗
+i (ϵ∗
+i ) dϵ∗
+i −
+R ∞
+−∞
+hR b σ(ˆϵi)−ϵ∗
+i
+−∞
+ϵiφϵi(ϵi) dϵi
+i
+φϵ∗
+i (ϵ∗
+i ) dϵ∗
+i
+R ∞
+¯b σ(ϵi) ϵiφϵi(ϵi) dϵi −
+R b σ(ϵi)
+−∞
+ϵiφϵi(ϵi) dϵi
+(O-37)
+This simpliﬁes to
+=
+1
+q
+1 + s(⃗f, X′X)
+.
+(O-38)
+Moreover, this ratio is the same for any individual quantile.
+B.
+General case: arbitrary distribution of idiosyncratic variances
+To extend this ratio to a cross-section of stocks with an arbitrary distribution of idiosyn-
+cratic variances, ﬁrst note that the breakpoints obtained from equations (O-66) and (O-70)
+scale up and down with the variance, as described in the last subsection, simply with a
+diﬀerent constant ¯b∗.
+We now calculate the ratio for the top quantile (again suppressing the dependence of the
+noise variance on⃗f and X)
+E[ϵA(N,ˆϵ,X,⃗f)]
+E[ϵA(N,ϵ,X,⃗f)] =
+P
+S
+R ∞
+−∞
+hR ∞
+¯b∗σ(ˆϵi)−ϵ∗
+i ϵiφϵi(ϵi) dϵi
+i
+φϵ∗
+i (ϵ∗
+i ) dϵ∗
+i Pr(σϵ,i)
+P
+S
+R ∞
+¯b∗σ(ϵi) ϵiφϵi(ϵi) dϵi Pr(σϵ,i)
+(O-39)
+20
+
+--- PAGE 24 ---
+We re-write each term in the numerator’s sum as a product of the equivalent term in the
+denominator and the ratio from the last subsection
+=
+P
+S
+R ∞
+¯b∗σ(ϵi) ϵiφϵi(ϵi) dϵi
+
+1
+√
+1+s(⃗f,X′X)
+
+Pr(σϵ,i)
+P
+S
+R ∞
+¯b∗σ(ϵi) ϵiφϵi(ϵi) dϵi Pr(σϵ,i)
+.
+(O-40)
+This ratio is constant across all terms allowing simpliﬁcation to
+=
+1
+q
+1 + s(⃗f, X′X)
+.
+(O-41)
+The ratio is the same for all quantiles and hence the long-short portfolio as well.
+For the generalization to the value-weighted case, one merely puts the market weights
+of the B ﬁrms in the appropriate places in the breakpoint calculations, etc. In the value-
+weighted case we obtain the same ratio.
+C.
+Expectation across estimation windows
+The last subsection shows the expected bias conditional on a current factor draw⃗f and
+the series of n factor draws (embodied in X) that are used to estimate the model. We now
+take the expectation across the current and past factor draws to obtain the unconditional
+bias ratio:
+E[ϵA(N,ˆϵ)] −E[ϵA(1,ˆϵ)]
+E[ϵA(N,ϵ)] −E[ϵA(1,ϵ)] = ϱ′′
+ϵ,N −ϱ′′
+ϵ,1
+ϱ′
+ϵ,N −ϱ′
+ϵ,1
+= E
+
+
+1
+q
+1 + s(⃗f, X′X)
+
+.
+(O-42)
+Recall we demeaned f to give it the distribution⃗
+f ∼N(0, Σf).
+(O-43)
+21
+
+--- PAGE 25 ---
+X′X is of the following form
+X′X =
+
+
+n
+n ¯f ′
+n ¯f
+n V + n ¯f ¯f ′
+
+
+(O-44)
+where V and ¯f are independent random variables and nV is Wishart with n −1 degrees of
+freedom and uses the variance covariance matrix of the factors Σf and
+¯f ∼N
+
+0, Σf
+n
+
+(O-45)
+It can be trivially shown by decomposing ΣF via the Cholesky decomposition and substitut-
+ing out to replace it with the identity matrix of the same size that the expectation depends
+only on the number of factors in the asset pricing model and the estimation window length.
+We thank Andy Siegel for his insights on characterizing the distribution of X′X.
+ϱ′′
+ϵ,N −ϱ′′
+ϵ,1
+ϱ′
+ϵ,N −ϱ′
+ϵ,1
+= E
+"
+1
+p
+1 + s(⃗z, Z′Z)
+#
+(O-46)
+where
+s(⃗z, Z′Z) =
+
+
+1⃗
+z
+
+
+′
+(Z′Z)−1
+
+
+1⃗
+z
+
+
+(O-47)
+and Z′Z is of form
+Z′Z =
+
+
+n
+n ¯z′
+n ¯z
+W + n¯z¯z′
+
+
+(O-48)
+The random variables are⃗
+z ∼N(0m, I(m)),
+(O-49)
+where I(x) is the identity matrix of size x, m is the number of factors in the linear factor
+model, and n is the size of the estimation window. W,⃗z and ¯z are independent random
+variables and W is Wishart with n −1 degrees of freedom and uses the variance-covariance
+22
+
+--- PAGE 26 ---
+matrix I(m) and
+¯z ∼N
+
+0, I(m)
+n
+
+.
+(O-50)
+This expectation can further be simpliﬁed for direct calculation in terms of the Euler beta
+function as follows, for which we thank Raymond Kan. Using the partitioned matrix inverse
+formula we obtain
+1 + s(⃗z, Z′Z) = 1 + 1
+n + (¯z −⃗z)′W −1(¯z −⃗z).
+(O-51)
+Noting that
+y ≡¯z −⃗z ∼N
+
+0m,
+
+1 + 1
+n
+
+Im
+
+(O-52)
+which is independent of W; deﬁning
+u ≡
+y′y
+1 + 1
+n
+∼χ2
+m;
+(O-53)
+and the fact that (Muirhead (1982), Theorem 3.2.12)
+v ≡
+y′y
+y′W −1y ∼χ2
+n−m
+(O-54)
+which itself is independent of y (and hence u) we can write
+1 + s(⃗z, Z′Z) =
+
+1 + 1
+n
+ 
+1 + u
+v
+
+.
+(O-55)
+Therefore,
+1
+p
+1 + s(⃗z, Z′Z)
+=
+
+1 + 1
+n
+−1
+2
+b−1
+2,
+(O-56)
+where
+b =
+v
+v + u ∼Beta
+n −m
+2
+, m
+2
+
+.
+(O-57)
+23
+
+--- PAGE 27 ---
+It is straightforward to show that
+E
+h
+b−1
+2
+i
+= B
+  n−m+1
+2
+, m
+2
+
+B
+  n−m
+2 , m
+2
+ .
+(O-58)
+Together this gives the Equation (O-15) in Proposition O-5
+O.V.
+Closed form solutions
+A.
+Overview
+This section details the closed form solutions for various components of the long-short
+portfolio alpha of stocks (j ∈B) sorted into N-quantiles based on returns, idiosyncratic
+returns, estimated idiosyncratic returns or estimated alphas of economically linked stocks
+(i ∈A). These components are used in the derivation of the estimation error bias ratio
+correction presented in Appendix O.IV.
+We speciﬁcally consider the case of a one-to-one link between stocks in sets A and B.
+This is without loss of generality equivalent to the stock in set A being a portfolio of stocks.
+Also for simplicity of notation we consider only the equal weighted case of the B stocks.
+This trivially extends to any arbitrary weighting of the B stocks.
+We provide expanded notation for distributions, etc., consistent with the assumption
+within the main text.
+Distributional assumptions:
+Unless otherwise noted, independence denotes both within
+a given stock and across stocks within and across sets A and B. The alphas and betas are
+independent with set A. We allow for correlation among the beta exposures within a given
+stock. The idiosyncratic returns realizations and their standard deviations are independent
+of the alphas and betas of stocks in set A.7
+7These independence assumptions can be slackened without changing the results.
+In particular, the
+alphas and beta may be jointly normal and the variance of the idiosyncratic returns can be correlated with
+the alphas and betas, such as in the case of the idiosyncratic volatility puzzle. We retain these independence
+24
+
+--- PAGE 28 ---
+The cross-sectional distribution of the alphas and betas in set A are
+αi ∼N(µα, σ2
+α) and
+(O-59)⃗
+βi ∼N(⃗µβ, Σβ).
+(O-60)
+Standard deviations of the idiosyncratic returns cannot be negative, so we use a generic
+distribution for these values where all possible values are positive. The set of all possible
+standard deviations for stocks in set A is S. The probability of any σϵ,i ∈S is Pr(σϵ,i). There
+may be inﬁnitely many of these possibilities, but for simplicity we assume a ﬁnite number
+of these.
+As is standard, the factor realizations are independent of the alphas, betas, idiosyncratic
+returns and standard deviations of the idiosyncratic returns. The factor and idiosyncratic
+returns are independent across time. The time series distributions of the factor and idiosyn-
+cratic draws for stocks in set A are⃗
+ft ∼N(⃗µf, Σf) and
+(O-61)
+ϵi,t ∼N(0, σ2
+ϵ,i).
+(O-62)
+Unless otherwise noted φx and Φx are the PDF and CDF of the normal random variable x.
+Asset pricing model estimation:
+Estimated values of the factor model of stock i nec-
+essary for extracting its date t estimated idiosyncratic returns occur via a linear regression.
+The regression uses data over the period (t −n, t −1). This idiosyncratic return to stocks
+in A is for the sort occurring at time t and is used to predicted time t + 1 returns of the
+economically linked B stocks.
+assumptions for simplicity of notation.
+25
+
+--- PAGE 29 ---
+i.
+Key statistics
+We calculate the B ﬁrms’ expected long-short portfolio alphas for sorts based on the A
+stocks’ (1) returns, (2) idiosyncratic returns, (3) estimated idiosyncratic returns, (4) alphas
+and (5) estimated alphas.
+We decompose these long-short portfolios into the components due to the correlation in
+alphas across stocks in sets A and B (Equation (O-2)) and the delayed information incor-
+poration (Equation (O-4)). This decomposition uses the expected alpha and idiosyncratic
+returns of stocks included in the top and bottom quantiles of the A stocks.
+These are
+symmetric so we only explicitly show the top quantile calculations.
+ii.
+Intuition
+The expected values of the alpha and idiosyncratic returns depend upon the probability
+that stocks with diﬀerent alphas or idiosyncratic returns fall in the top quantile. The prob-
+ability of falling in the top quantile at any date depends on a stock’s own alpha, beta and
+idiosyncratic return. The cross-sectional distribution of all stocks at that date matters as
+well, because it determines the break points for the sorts.
+For sorts based on returns or estimated idiosyncratic returns, the cross-sectional distri-
+bution changes each date with the factor realizations. The factor realization increases or
+decreases the spread in the cross-sectional distribution, because these factor realizations are
+included in the sorting variable through multiplication with either beta or estimation error
+in beta.
+There exists more than one idiosyncratic return variance in the cross-section. Multiple
+idiosyncratic variances makes the cross-sectional distribution a mixture of normal distribu-
+tions: one for each idiosyncratic return variance. The mixing weights for these distribution
+is the prevalence (or probability) of each idiosyncratic return variance.
+These two facts require that we ﬁrst calculate conditional on factor draws and stock
+speciﬁc idiosyncratic return draws. Then we integrate the against the entire cross-section
+26
+
+--- PAGE 30 ---
+and time series distributions to compute the unconditional expected values of interest.
+B.
+Sorting on returns
+In this subsection, we calculate the t+1 expected long-short alpha of the B stocks formed
+by sorting on A stocks’ time t returns.
+i.
+Break points
+The break point for the top quantile N of returns conditional on the factor draw⃗f is the
+value ¯c(R,⃗f) that yields enough stocks in the tops of each of the component normal distri-
+butions, weighted by the size of each distribution (the probability of the given idiosyncratic
+return standard deviation), to add up to the desired quantile size. That is ¯c(R,⃗f) satisﬁes
+1 −1
+N =
+X
+σϵ,i∈S
+ΦR,⃗f,σϵ,i
+
+¯c(R,⃗f)
+
+Pr(σϵ,i)
+(O-63)
+where
+ΦR,⃗f,σϵ,i
+is
+the
+CDF
+of
+normal
+distribution
+with
+mean
+µα +⃗µ′
+β⃗f
+and
+variance σ2
+α +⃗f ′Σβ⃗f + σ2
+ϵ,i.
+ii.
+Expected idiosyncratic return
+To calculate the expected idiosyncratic return of a stock included in the top quantile, we
+ﬁrst integrate the idiosyncratic return, for a given variance, between inﬁnity and the break
+point adjusted for a given alpha, beta and factor factor realization. Then we integrate over
+the alphas, betas, and factor realizations and sum across the idiosyncratic return variance
+realizations. Finally, we divide by the total weight in the portfolio which is
+1
+N :
+27
+
+--- PAGE 31 ---
+E[ϵA(N,R)] = 1
+N
+Z
+F
+X
+S
+h Z
+A
+Z
+B
+Z ∞
+¯c(R,⃗f)−α−⃗β′⃗f
+ϵiφσϵ,i(ϵi) dϵi
+
+(O-64)
+∗φ⃗β(⃗β)φα(α) d⃗β dα Pr(σϵ,i)
+i
+φ⃗f(⃗f) d⃗f
+where F, A and B are the domains of all possible⃗f, α and⃗β and where the subscript A(N, R)
+denotes that this is the alpha of A stocks in quantile N when sorting on returns R.
+From Equation (O-64) we see how higher idiosyncratic return values make landing in the
+top portfolio larger. Thus the expected value of the idiosyncratic return in the Nth quantile
+is larger than that in the 1st quantile.
+iii.
+Expected alpha
+To calculate the expected alpha of stock included in the top quantile, we ﬁrst integrate
+the alpha, for a given variance, between inﬁnity and the break point adjusted for a given
+idiosyncratic return, beta and factor factor realization. Then we integrate against the id-
+iosyncratic returns, betas, and factor realizations and sum against the idiosyncratic return
+variance realizations. Finally, we divide by the total weight in the portfolio which is
+1
+N :
+E[αA(N,R)] = 1
+N
+X
+S
+Z
+F
+Z
+Ei
+Z
+B
+h Z ∞
+¯c(R,⃗f)−⃗β′⃗f−ϵi
+α φα(α) dα
+i
+(O-65)
+∗φ⃗β(⃗β)φϵi(ϵi)φ⃗f(⃗f) d⃗β dϵi d⃗f P(σϵ,i)
+where F, Ei, and B are the domains of all possible⃗f, ϵi, and⃗β.
+From Equation (O-65) we see how a higher alpha raises the probability that a stock falls
+in the top portfolio. Therefore, the expected alpha in the Nth quantile is larger than that
+in the 1st quantile.
+28
+
+--- PAGE 32 ---
+C.
+Sorting on idiosyncratic returns
+When we sort on the idiosyncratic returns as opposed to returns, the break points for
+the expectations simplify. The factor realizations and the alpha and beta distributions have
+no inﬂuence on the portfolios to which stocks are assigned. Stocks are assigned purely on
+their idiosyncratic returns. We show that the break points are thus narrower, and expected
+idiosyncratic returns in the extreme portfolios are larger. Most importantly, we show that
+there is no expected alpha variation across the A stocks assigned to the extreme quantiles.
+i.
+Break points
+The break point for the top quantile N of idiosyncratic returns, is the value ¯c(ϵ) that
+yields enough stocks in the tops of each of the constituent distributions, weighted by the sizes
+of these distributions (the probability of the given idiosyncratic return standard deviation),
+to add up to the desired quantile size. That is, ¯c(ϵ) satisﬁes this equation
+1 −1
+N =
+X
+σi∈S
+Φϵi (¯c(ϵ)) Pr(σϵ,i)
+(O-66)
+where Φϵi is the CDF of the idiosyncratic return distribution with mean 0 and variance σ2
+ϵ,i.
+Notice that ¯c(ϵ) is no longer a function of the factor realization.
+ii.
+Expected idiosyncratic return
+To calculate the expected idiosyncratic return of a stock included in the top quantile,
+we ﬁrst integrate the idiosyncratic return, for given variance, between inﬁnity and the break
+point. Then we sum against the idiosyncratic return variance realizations. Finally, we divide
+by the total weight in the portfolio which is
+1
+N :
+E[ϵA(N,ϵ)] = 1
+N
+X
+S
+h Z ∞
+¯c(ϵ)
+ϵiφ(ϵi) dϵi
+i
+Pr(σϵ,i)
+(O-67)
+29
+
+--- PAGE 33 ---
+where the subscript A(N, ϵ) denotes that this idiosyncratic return is for the A stocks in
+quantile N when sorted on idiosyncratic returns.
+Equation (O-67) shows how higher idiosyncratic returns lead to a higher likelihood of
+inclusion in the the top quantile. Therefore the expected idiosyncratic return in the Nth
+quantile is higher than that in the 1st quantile.
+iii.
+Expected alpha
+Independence of the alpha distribution from the idiosyncratic returns implies a stock’s
+alpha is unrelated to its inclusion in the top (or bottom quantiles).8 Thus the expected alpha
+in all quantiles, q, is just the unconditional expected alpha:
+E[αA(q,ϵ)] = µα.
+(O-68)
+D.
+Sorting on estimated idiosyncratic returns
+Sorting on estimated idiosyncratic returns rather than known idiosyncratic returns, the
+alphas and betas are replaced with measurement error that is mean zero. Because this mea-
+surement error is uncorrelated with the true alphas of the A stocks, it is also uncorrelated
+with the alphas of the B stocks. Also per Proposition O-4 this measurement error is uncor-
+related with the idiosyncratic returns of the B ﬁrms. Thus, the measurement error has no
+eﬀect on the expected alphas of the B stocks included in the quantile portfolios.
+This measurement error, however, does aﬀect the size of the idiosyncratic returns required
+for an A stock to be included in a quantile portfolio. Thus it aﬀects the expected idiosyncratic
+return in the portfolios.
+To calculate these eﬀects of the measurement error, the conditional distribution of the
+alpha and beta measurement error replaces the unconditional distributions of alpha and
+8This independence assumption can be slackened to allow correlation between the magnitude of alpha
+and the variance of idiosyncratic returns. Such correlation would result in a level shift of the expected alphas
+in both the long and short portfolios that would diﬀerence out in the long-short portfolio.
+30
+
+--- PAGE 34 ---
+betas. The measurement error is denoted with stars and has the following joint normal
+distribution:
+
+
+α∗
+β∗
+
+∼N
+
+0, σ2
+ϵ,i (X′X)−1
+(O-69)
+conditional on the idiosyncratic return variance σ2
+ϵ,i and X, which is the matrix of the past
+n factor draws augmented by a constant.
+This measurement noise induces spread in the break points relative to the sorting on
+known idiosyncratic returns. This spread varies depending upon the draws of the factor over
+the past n periods when the model is estimated. Thus we must calculate the break points
+and the expected values conditional not only on the current factor return but also on the
+past n draws of the factors. For simplicity of notation, we will just keep track of these with
+the X matrix.9
+Relative to sorting on known idiosyncratic returns, the expected idiosyncratic returns in
+the extreme portfolios are lower, because stocks are assigned to these portfolios based on the
+sum of their idiosyncratic return and measurement error.
+i.
+Break points
+The break point for the top quantile N of estimated idiosyncratic returns conditional on
+the current factor draw⃗f and the past n factor draws embodied in X is the value ¯c(ˆϵ,⃗f, X)
+that yields enough stocks in the tops of each of the component distributions, weighted by the
+size each distributions (the probability of the given idiosyncratic return standard deviation),
+to add up to the desired quantile size. That is ¯c(ˆϵ,⃗f, X) satisﬁes
+1 −1
+N =
+X
+σϵ,i∈S
+Φˆϵ,⃗f,X,σϵ,i
+
+¯c(ˆϵ,⃗f, X)
+
+Pr(σϵ,i).
+(O-70)
+9We discuss the distribution of X, and X′X in Appendix O.IV.
+31
+
+--- PAGE 35 ---
+Φˆϵ,⃗f,X,σϵ,i is the CDF of normal distribution with mean 0 and variance
+σ2
+ϵ,i
+
+
+1 + [1,⃗f ′](X′X)−1
+
+
+1⃗
+f
+
+
+
+
+.
+(O-71)
+To see where this variance comes from recall that
+ˆϵ = ϵ + α∗+ β∗′f
+(O-72)
+= ϵ + [α∗, β∗′]
+
+
+1
+f
+
+.
+(O-73)
+Taking the variance of Equation (O-73) gives equation (O-71).
+ii.
+Expected idiosyncratic return
+To calculate the expected idiosyncratic return of a stock included in the top quantile,
+we ﬁrst integrate the idiosyncratic return, for given variance, between inﬁnity and the break
+point adjusted for a given alpha and beta measurement error draw, (their distributions
+are conditioned on the past n factor draws and idiosyncratic variance draw) and the current
+factor realization. Then we integrate against these measure error draws, current factor draw,
+past n factor draws and sum against the idiosyncratic return variance realizations. Finally,
+we divide by the total weight in the portfolio which is
+1
+N . This gives
+E[ϵA(N,ˆϵ)] = 1
+N
+X
+S
+Z
+F
+Z
+X
+Z
+[A∗,B∗′]′
+h Z ∞
+¯c(ˆϵ,⃗f,X)−α∗−⃗β∗′⃗f
+ϵiφ(ϵi) dϵi
+i
+(O-74)
+∗φ[α∗,⃗β∗′]
+′
+
+
+
+
+
+α∗⃗
+β∗
+
+
+
+
+φ⃗f(⃗f)φX(X) d
+
+
+α∗⃗
+β∗
+
+d⃗fdX Pr(σϵ,i)
+where F, X, A, and B are the domains of all possible⃗f, X, α∗, and⃗β∗and where the subscript
+A(N, ˆϵ) denotes that this is the alpha of A stocks in quantile N when sorting on the estimated
+32
+
+--- PAGE 36 ---
+idiosyncratic returns.
+iii.
+Expected alpha
+The measurement noise is unbiased and mean zero. Thus, although the measurement
+noise aﬀects the probability of inclusion of a stock in a portfolio, the actual alphas are
+uncorrelated with this measurement noise.10 Therefore the expected alpha in quantile q is
+the unconditional expected alpha:
+E[αA(q,ˆϵ)] = µα.
+(O-75)
+E.
+Sorting on alphas
+Looking at the expected long-short alphas from sorting on alphas is particularly useful
+because if stocks were only sorted on the alphas of the A stocks, the expected alpha in the
+top portfolio comes from a truncated normal distribution with break point
+¯c(α) = Φ−1
+α
+
+1 −1
+N
+
+.
+(O-76)
+Using this break point, the expected alpha is
+E[αA(N,α)] = φα (¯c(α)) σα
+1 −Φα (¯c(α)) + µα
+(O-77)
+where the subscript A(N, α) denotes that this idiosyncratic return is for the A stocks in
+quantile N when sorted on alphas. A similar calculation gives the expected alpha in the
+bottom portfolio. From this equation and the cross-sectional correlation in alphas between
+leading and lagging ﬁrms, we can calculate the expected long-short alpha from sorting on
+leaders alphas.
+10Allowing the alphas to be correlated with the variance of the idiosyncratic returns would then create a
+correlation between between the measurement noise and alphas. The results go through with this slackened
+assumption, but we maintain the stronger assumption for simplicity of notation.
+33
+
+--- PAGE 37 ---
+F.
+Sorting on estimated alphas
+Sorting on estimated alphas rather than actual alphas requires conditioning on the history
+of factor draws that are used to estimate the model.
+The cross-section is a mixture of
+normal distributions where each distribution is determined by the variance of a stock’s
+idiosyncratic return.
+Conditional on a past history of factor draws embodied in X and
+a stock’s idiosyncratic return variance, the estimated alpha distribution is
+ˆα ∼N
+ µα, σ2
+α + σ2
+ϵ,i(X′X)−1
+.
+(O-78)
+Because the measurement error in alpha is uncorrelated with the true alphas of the A
+stocks, it is also uncorrelated with the alphas of the B stocks and the realized idiosyncratic
+return of the A stocks in the sorting period.11 Also per Proposition O-4 the measurement
+error in the alphas is independent of the idiosyncratic returns of the B ﬁrms. The mea-
+surement error, therefore, has no eﬀect on the expected alphas of the B stocks included in
+the quantile portfolios. It also does not have an eﬀect on the idiosyncratic returns of stocks
+included in the portfolios.
+This measurement error, however, aﬀects the size of the alphas required for an A stock
+to be included in a quantile portfolio. This measurement noise induces a spread in the break
+points relative to the sorting on known alphas. Relative to sorting on known alphas, the
+expected alphas in the extreme portfolios are lower, because stocks are assigned to these
+portfolios based on the sum of their alpha and measurement error.
+i.
+Break points
+The break point for the top quantile N of returns conditional on the the past n factor
+draws embodied in X is the value ¯c(ˆα, X) that yields enough stocks in the tops of each of
+the component distributions, weighted by the size of each distribution (the probability of the
+11This result also generalizes the case of correlation between the alphas and the variance of the idiosyn-
+cratic returns.
+34
+
+--- PAGE 38 ---
+given idiosyncratic return standard deviation), to add up to the desired quantile size. That
+is ¯c(ˆα, X) satisﬁes
+1 −1
+N =
+X
+σϵ,i∈S
+Φˆα,X,σϵ,i (¯c(ˆα, X)) Pr(σϵ,i).
+(O-79)
+Φˆα,X,σϵ,i is the CDF of normal distribution with mean µα and variance
+σ2
+α + σ2
+ϵ,i(X′X)−1.
+(O-80)
+ii.
+Expected idiosyncratic return
+The measurement noise is unbiased and mean zero. Although the measurement noise
+aﬀects the probability of inclusion of a stock in a portfolio, the expected idiosyncratic return
+in all quantiles, q, is the unconditional expected idiosyncratic return:
+E[ϵA(q,α)] = 0.
+(O-81)
+iii.
+Expected alpha
+To calculate the expected alpha of a stock included in the top quantile, we ﬁrst integrate
+the alpha, between inﬁnity and the break point adjusted for a given alpha measurement error
+draw (their distributions are conditioned on the past n factor draws and an idiosyncratic
+variance). We then integrate over these measurement error draws, the past n factor draws
+and sum across the idiosyncratic return variance realizations. Finally, we divide by the total
+weight in the portfolio which is
+1
+N :
+E[ϵA(N,ˆα)] = 1
+N
+X
+S
+Z
+X
+Z
+A∗
+Z ∞
+¯c(ˆα,X)−α∗αφ(α) dα
+
+φα∗(α∗) φX(X) dα∗dX Pr(σϵ,i)
+(O-82)
+where X and A∗are the domains of all possible X and α∗, and where the subscript A(N, ˆα)
+denotes the alpha of A stocks in quantile N when sorting on the estimated alphas.
+35
+
+--- PAGE 39 ---
+O.VI.
+Implementing sorts on estimated idiosyncratic
+returns: details
+In this section, we show how to choose the estimation window, given a hypothesized delay
+in information diﬀusion, that will yield uncorrelated estimation error necessary to implement
+the attenuation correction presented in the main text. We also show that the absence of long
+horizon cumulative alphas from sorting on estimated idiosyncratic returns provides evidence
+that the measurement error is uncorrelated with the B ﬁrm’s idiosyncratic returns. Thus,
+one can use the absence of cumulative long-short alphas beyond the skipped window from
+the sorts on idiosyncratic returns to verify that enough periods have been skipped between
+the model estimation and the prediction date to generate uncorrelated measurement error.
+We continue with the assumptions of the main text and the notation of the previous
+Online Appendix section unless otherwise noted.
+A.
+Estimation window that produces uncorrelated noise
+The alphas estimated to measure the idiosyncratic returns are approximately the alpha
+in the estimation window plus the average of the idiosyncratic returns during the estimation
+window. The diﬀerence between the actual estimate and this approximation is due to random
+correlations of the idiosyncratic returns with the factor realizations during the estimation
+window. For this and the following subsection to simplify notation and exposition, we ignore
+those random correlations and suppress the beta terms as they have no meaningful eﬀect.
+We use this fact about the form of the estimated alphas to inform us as to the optimal model
+estimation window to generate uncorrelated measurement error in the idiosyncratic returns.
+PROPOSITION O-6: With the assumptions of Proposition O-3, if the idiosyncratic returns
+of the linked A ﬁrm in the estimation window are uncorrelated with the idiosyncratic re-
+turns of the linked B ﬁrms to be predicted, then the measurement error in the estimated
+idiosyncratic returns used for sorting is uncorrelated with the predicted idiosyncratic returns.
+36
+
+--- PAGE 40 ---
+The proof of Proposition O-6 is immediate from the fact that the estimated idiosyncratic
+return is the realized return minus the estimated alpha. The implications of this proposition
+is that model estimation window must be before the period in which one hypothesizes there
+to be delays in information diﬀusion. For example if information diﬀusion is delayed one
+period, one must skip one period between the estimation window and the prediction date.
+This is exactly what we do in the empirical section, because the evidence supports delays in
+information diﬀusion of one month or less.
+B.
+Testing for predictability from “old news” in estimation window
+To verify a suﬃcient gap has been used to ensure the measurement error in the idiosyn-
+cratic returns is uncorrelated with the predicted idiosyncratic returns of the lagging ﬁrms one
+can look at the long run cumulative alpha from the sorts on estimated idiosyncratic returns.
+For example absence of cumulative alpha after the initial period indicates that information
+diﬀusion has completed within one period, and that skipping one period is suﬃcient to as-
+sure independence of the estimation error. We formalize this for the case with an estimation
+window that skips one period before the predictive period. This easily generalizes to cases
+with longer information delay.
+To understand why the cumulative alpha provides this information, recall that to measure
+the estimated idiosyncratic shocks at t, we run a regression of the asset returns over the
+window t −T to t −1. Estimated values from this regression have subscript t −1. The
+estimated alpha from this regression, setting aside variation from the factor realization in
+the estimation window, is
+ˆαi,t−1 = αi + 1
+T
+T
+X
+τ=1
+ϵi,t−τ.
+(O-83)
+We use these parameter estimates and the contemporaneous factor returns to extract the
+37
+
+--- PAGE 41 ---
+estimated idiosyncratic return at t.
+ˆϵi,t = ri,t −ˆαi,t−1 −ˆ⃗β′
+i,t−1⃗ft
+(O-84)
+Expanding the original return and collecting terms gives
+= ϵi,t + (αi −ˆαi,t−1) +
+⃗
+βi −ˆ⃗βi,t−1
+′⃗
+ft
+(O-85)
+We now suppress the beta terms since they don’t matter for the analysis. We also substitute
+in Equation (O-83).
+= ϵi,t −1
+T
+T
+X
+τ=1
+ϵi,t−τ
+(O-86)
+The estimated idiosyncratic shock is lowered by the average of the idiosyncratic shocks over
+the estimation window. This is a standard result.
+The way this measurement error aﬀects our corrected measure of slow information dif-
+fusion depends upon two things. The ﬁrst is the expected value of these old idiosyncratic
+shocks conditional on a ﬁrm being sorted into the long or short portfolio. The second is the
+persistence (magnitude) of the delay in information diﬀusion.
+The conditional expected value of the actual idiosyncratic return of the leading ﬁrms (A
+ﬁrms) in portfolio P when ﬁrms are sorted on the estimated idiosyncratic returns is found
+in Appendix Equation (D-19) of the manuscript. To measure the potential bias from the
+measurement error, we need to know the conditional expected value of the actual lagged
+idiosyncratic returns–for all lags in the estimation window–of the leading ﬁrms in portfolio
+P based on the same sort.
+It can be shown that
+¯ϵP,0 = −T¯ϵP,−τ
+∀τ ∈{1, 2, . . . , T}
+(O-87)
+38
+
+--- PAGE 42 ---
+The t subscripts are dropped and only the lag notation is kept, because we have averaged
+across all dates.12
+To see how this measurement error from old idiosyncratic shocks aﬀects the expected
+idiosyncratic shock of the B ﬁrms (which is what matters for the long-short portfolio alpha),
+let us extend Equation (O-4) of the manuscript to account for persistent delays in information
+diﬀusion
+ϵj,t+1 =
+H
+X
+τ=0
+ρi,j,τ+1ϵi,t−τ + φi,j,t+1,
+{i, j} ∈L
+(O-88)
+where L is the set of links, ρi,j,τ is the diﬀusion delay parameter and φ is a mean zero
+normally distributed shock. Let H be the horizon at which information diﬀusion completes,
+i.e., ρh = 0 for all h > H.13
+We obtain the conditional expected idiosyncratic shocks at t + 1 of the lagging ﬁrms, B
+ﬁrms, by applying Equation (O-88) to the conditional expected value idiosyncratic shocks
+at t of the leading ﬁrms (A ﬁrms) in portfolio P. Per the derivation in the manuscript, this
+is the expected alpha of that portfolio of B ﬁrms.
+¯ϵB,p = ρ1¯ϵP,0 +
+T
+X
+τ=1
+ρτ+1¯ϵP,−τ
+(O-89)
+where ρτ with the i, j subscript suppressed is the unconditional average information delay
+12The intuition for this relation is that a ﬁrm can be sorted into the long portfolio either because of a
+large contemporaneous idiosyncratic return or because of a large negative average idiosyncratic shock over
+the estimation window. Because the idiosyncratic returns are iid, the distribution of the average is the same
+as that of the individual idiosyncratic return. Therefore, conditional average of the contemporaneous shock
+must equal that of the negative of the average of the idiosyncratic shocks:
+E [ϵi,t|i in portfolio P] = −E
+"
+1
+T
+T
+X
+τ=1
+ϵi,t−τ|i in portfolio P
+#
+.
+These shocks are not independent as they are conditional on the ﬁrm being sorted into portfolio P, therefore,
+they cannot be separated. However, since each shock individually has the same distribution, the shocks must
+contribute equally to the conditional average. QED.
+13This extended equation is compatible with Equation (O-4) by choosing the correct distribution of the
+shock φ. Exactly which distribution chosen depends upon the calibration assumption one wishes to make.
+These are not important for this analysis.
+39
+
+--- PAGE 43 ---
+at lag τ (justiﬁed by the independence assumption).
+Using the relation of the conditional expected values of the contemporaneous and lagged
+shocks in Equation (O-87) gives the expected long-short alpha of the lagging ﬁrms when
+sorted on the estimated idiosyncratic shocks of the leading ﬁrms, i.e., Proposition O-7.
+PROPOSITION O-7: With the assumptions of Proposition O-3, if information diﬀusion
+is delayed per Equation (O-88) and the estimation window used to calculate parameters
+necessary to estimate the idiosyncratic returns is from t −T to t −1, then the expected long
+short alpha from sorting on estimated idiosyncratic returns is
+E
+
+αB′′(LS)
+
+= c
+
+
+
+
+ρ1 −1
+T
+T
+X
+τ=1
+ρτ+1
+|
+{z
+}
+bias term
+
+
+
+
+
+(O-90)
+where
+c ≡¯ϵL,0 −¯ϵS,0.
+(O-91)
+and ¯ϵP,0 is the conditional expected value of the actual idiosyncratic return of the leading
+ﬁrms (A ﬁrms) in portfolio P when ﬁrms are sorted on the estimated idiosyncratic returns.
+Thus, we see the potential downward bias is that of the average delay in information
+diﬀusion over the estimation window. If information is delayed only one period there is no
+bias.
+As we predict further out in time, the idiosyncratic returns being iid gives that the
+conditional expected idiosyncratic shocks of the A ﬁrms at any date past the sorting date
+t are 0. The other eﬀect of increasing h is that the delay coeﬃcients move further in time
+from the sort. This movement, combined with the zero expected value of future shocks,
+means we shift the subscripts in Equation (O-90). This gives Corollary O-5 which extends
+Equation (O-90) to longer horizons predictions.
+COROLLARY O-4: Following the assumption of Proposition O-7 the expected long short
+40
+
+--- PAGE 44 ---
+alpha at prediction horizon h from sorting on estimated idiosyncratic returns is
+¯ϵB,L,h −¯ϵB,S,h = c
+ 
+ρh −1
+T
+T
+X
+τ=1
+ρτ+h
+!
+(O-92)
+Therefore unless the delay in information diﬀusion is constant across the estimation win-
+dow, any delay in information diﬀusion beyond one period will generate positive cumulative
+alphas beyond the ﬁrst prediction period. To see this, deﬁne decay in the delay in information
+diﬀusion as
+0 ≤ρτ+1 ≤ρτ
+∀τ
+(O-93)
+with at least one inequality between the ρτ strict over the estimation window (i.e., τ ∈
+{0, 1, . . . , T}.
+Comparing the terms we immediately see the following corollary.
+COROLLARY O-5: Following the assumptions of Proposition O-7, if there is delayed infor-
+mation diﬀusion beyond one period, i.e., ρτ > 0 for some τ > 1 and if there is decay in the
+rate of delay in information diﬀusion then there exists an h > 1 such that
+ρh > 1
+T
+T
+X
+τ=1
+ρτ+h,
+(O-94)
+meaning the cumulative alpha increment ( Equation O-92 ) is positive.
+Therefore if there is no cumulative alpha either, then either there is no decay in rate
+of delay in information diﬀusion which is implausible or there is no delay in information
+diﬀusion beyond one period.
+41
+
+--- PAGE 45 ---
+O.VII.
+Simulation: predictability from “old news” is
+inconsistent with data
+In this section, we present results of a simulation that conﬁrms the results of sec-
+tion O.VI.B that long delays in information diﬀusion would result in long horizon cumulative
+alphas from the estimated idiosyncratic returns sorts. The simulation conﬁrms such a delay
+would manifest as upward slopes as seen in Figure O-1 below. We do not see such an upward
+slope in Figure 2 in the main text. Table III of the main text conﬁrms the cumulative alphas
+are economically and statistically insigniﬁcant.
+For the simulation we draw a panel of ﬁrms the same dimension as that of the A ﬁrms for
+each set of economic links. We draw the alpha and beta parameters for the A ﬁrms to match
+the data per the calibration discussion later in this section. We bootstrap the variances of
+the A ﬁrms’ idiosyncratic returns from the variances of the idiosyncratic returns in the data.
+We calibrate the data to that from portfolios of linked economic ﬁrms rather than calibrate
+at the ﬁrm level. In particular the portfolio level data gives more reliable measures of the
+idiosyncratic return variances.
+With the panel we either perform sorts on the A ﬁrm returns, on the estimated idiosyn-
+cratic returns, or the known idiosyncratic returns. The value of the simulation is that we
+can know these idiosyncratic returns since we generated the data. With these various sorts
+we are able to calculate the corresponding long short alphas of the B ﬁrms. We repeat this
+procedure 10,000 times and report the results.
+We calibrate the main parameters of interest to give the beneﬁt of the doubt to the return
+sorting speciﬁcation. Speciﬁcally we chose ρϵ for each paper as the maximum of the value
+in the data or the value needed for the simulation to produce alphas from the known and
+estimated idiosyncratic return sorts equal to that found in the data under the assumption
+that information diﬀusion is only delayed one period.
+The value of ρα is used directly from the data. The cross-sectional variation in alphas,
+42
+
+--- PAGE 46 ---
+Table O-1 Simulation Parameters Panel A of this table shows the parameters used in
+the simulation used to produce Figure O-1. See the appendix text for a description of the
+calibration procedure. Case 1 matches the data assuming the delay in information diﬀusion
+lasts only one month. Cases 2 and 3 are counterfactual cases that assume information delay
+for months 2 through 12 is 10% and 20% that of the one-month delay. Panel B shows the
+bias in the long-short alpha from sorting on estimated idiosyncratic returns corrected for
+uncorrelated measurement error relative to the long-short alpha from sorting on the known
+idiosyncratic returns.
+Customer-
+Standalone-
+Alliance-
+Panel A: Parameters
+Supplier
+Conglomerates
+Linked Firms
+¯ρϵ
+0.023
+0.057
+0.013
+¯ρα
+0.131
+0.198
+0.112
+σCS(α)
+3.74
+1.61
+4.36
+Panel B: One Month Bias (%)
+Case 1: No Persistent Delay
+0
+0
+0
+Case 2: 10% Persistent Delay
+-10
+-10
+-10
+Case 3: 20% Persistent Delay
+-18
+-18
+-18
+σCS(α) is the minimum of the value found in the data or that required for the return sorts to
+match the values found in the data. This calibration results in lower cross-sectional alpha
+variance than directly calculated from the data because the value directly calculated from
+the data is inﬂated due to measurement error in the alphas. These calibration values are
+shown in Table O-1.
+For the simulation we consider three cases to illustrate the eﬀect of persistent delays in
+information diﬀusion. In Case 1 we assume that there is no delay in information diﬀusion
+beyond one month (consistent with the data). In Case 2 and 3 we consider the counter
+factual cases where information diﬀusion extends beyond month one with the delay from
+months 2 to 12 being 10% or 20% that of the delay over the one month horizon.
+43
+
+--- PAGE 47 ---
+In Panel B we see that the downward bias at the one month horizon is roughly identical
+to the amount of additional delay over months 2 to 12. However such additional delay results
+in a counter factual cumulative alpha over those month in the sorts based on the estimated
+idiosyncratic returns. Figure O-1 shows this, with the large upward slope for the blue lines.
+44
+
+--- PAGE 48 ---
+Figure O-1. Simulation: Cumulative Alphas Sorting on Known and Estimated
+Idiosyncratic Returns This ﬁgure shows the cumulative alphas to long-short portfolios for diﬀer-
+ent sets of economically linked ﬁrms under the simulation calibrated per Table O-1. At each date t + h,
+we calculate the Fama and French (1993) 3-factor model monthly alpha under sorts at t that use either
+known or estimated idiosyncratic returns. The cumulative alpha is the sum of alphas for each of the periods
+through horizon h. Long-short alphas from sorting on estimated idiosyncratic returns are corrected to elim-
+inate attenuation from estimating the leaders’ idiosyncratic returns. This correction assumes uncorrelated
+measurement error of the idiosyncratic returns. We consider three cases of delay in information diﬀusion.
+Case 1 is consistent with the data with one month of information delay. Cases 2 and 3 consider additional
+information delay between months 2 and 12 that is 10% or 20% that of the initial one month delay. Alpha is
+in percent per month. Panel A uses customers (leaders) to assign suppliers (laggards) into quintile portfolios.
+Panel B uses standalone ﬁrms (leaders) to assign conglomerates (laggards) into decile portfolios. Panel C
+uses alliance-linked ﬁrms (leaders) to assign another ﬁrm in the alliance (laggards) into quantile portfolios.
+Panel A: Customer-Supplier Links
+Case 1
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Case 2
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Case 3
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Panel B: Standalone-Conglomerate Links
+Case 1
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Case 2
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Case 3
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Panel C: Alliance-linked Firms
+Case 1
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Case 2
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+Case 3
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+Months After Sort
+Cummulative α
+Estimated ϵ Sorts
+Known ϵ Sorts
+45
+
+--- PAGE 49 ---
+O.VIII.
+Attenuation ratio correction for daily
+estimation with monthly sorts
+The bias ratio calculated in Appendix O.IV assumes the same data frequency (e.g.,
+monthly) used to estimate the asset pricing model for calculating the idiosyncratic returns
+as that data frequency for the sorting into portfolios. The ratio changes, however, when
+estimating the asset pricing model at a higher data frequency (e.g., daily) than the portfolio
+sorting (e.g., monthly). Although the attenuation from noise decreases due to the higher
+frequency estimation, the same estimate of the model is used for each day of the month
+of the sorting period reducing the eﬀect of this gain. This overlap in parameter estimates
+used throughout the lower frequency sorting period (e.g., all days of the month) must be
+accounted for.
+We continue with the assumptions from Appendix O.IV in the main text. Recall, in
+particular, that the factors have been demeaned.
+Under the standard assumption of i.i.d. factor returns, the variance of the factors scale
+linearly with frequency. Let T be the number of days in a month and let d subscripts denote
+daily objects.
+The variance of the measurement error of the monthly idiosyncratic return estimated
+with daily data is
+σ2(σ∗
+T,i) = σ2
+d(ϵi)
+
+
+T
+PT
+τ=1⃗fd,τ
+
+
+′
+(X′
+dXd)−1
+
+
+T
+PT
+τ=1⃗fd,τ
+
+
+(O-95)
+Thus, the scaling factor for the monthly idiosyncratic variance in this case is
+sd,m(⃗f, X′
+dXd) = T
+
+
+1⃗
+f
+T
+
+
+′
+(X′
+dXd)−1
+
+
+1⃗
+f
+T
+
+
+(O-96)
+46
+
+--- PAGE 50 ---
+where
+f ∼N(0, Σf),
+(O-97)
+X′
+dXd =
+
+
+nT
+nT ¯f
+nT ¯f
+W + nT ¯f ¯f ′
+
+,
+(O-98)
+W is Wishart with nT −1 degrees of freedom and uses the variance-covariance matrix of the
+factors divided by T:
+Σf
+T and
+¯f ∼N
+
+0, Σf
+nT
+
+(O-99)
+The bias ratio is the unconditional expectation of this scaling factor with these distribu-
+tions:
+E
+
+
+1
+q
+1 + sd,m(⃗f, X′
+dXd)
+
+
+(O-100)
+Similar to the case of monthly estimation, we can replace the variance-covariance matrix
+Σf with the identity matrix of the same size. Thus, only the number of factors in the asset
+pricing model, the length of the sample window and the diﬀerence in scale between the
+frequencies matter.
+O.IX.
+Relation to Lo and MacKinlay (1990)
+We can gain further intuition for the prior decomposition and related it to an earlier
+literature using a theoretical framework similar to that of Lo and MacKinlay (1990). The Lo
+and MacKinlay (1990) framework simpliﬁes the econometrics of sorts by using continuous
+weights rather than discrete portfolio cutoﬀs. The continuous weights analogous to those in
+Lo and MacKinlay (1990) are based on the relative performance of the leader ﬁrms in the
+47
+
+--- PAGE 51 ---
+sorting period.14
+The ﬁrst component—the common trend—is analogous to the Lo and MacKinlay (1990)
+own-ﬁrm predictability components “O” and σ(µ).
+The “O” component captures ﬁrms’
+temporary deviations from their long-term means (i.e., time-varying alphas and betas, a.k.a.
+seasonalities or momentum). The σ(µ) term captures the permanent unconditional diﬀer-
+ences in mean returns across leaders due to both alpha and beta components. This own-ﬁrm
+predictability shows up in the cross-ﬁrm predictability because of the common trend in eco-
+nomically linked ﬁrms and the tendency of these ﬁrms to contemporaenously comove. This
+own-ﬁrm component of the long-short portfolio alphas obtained from sorting laggards by
+leaders’ returns is the portion of the alpha that can be attained simply by sorting leaders on
+their own past returns. In essence, this component is a (noisy) repackaging of the leader’s
+own-ﬁrm momentum (or seasonalities). The alphas from this own-ﬁrm predictability, there-
+fore, do not represent delayed information diﬀusion as traditionally understood.
+We are agnostic as to the source of this (predictable) common trend or momentum.
+We only argue it is distinct from the second component of cross-ﬁrm predictability, which
+is analogous to the Lo and MacKinlay (1990) cross-ﬁrm predictability component, “C”.
+The “C” component is due to new (unpredictable) information in the leaders’ returns that
+the laggards respond to with a delay. By tracking the response of laggards to new and
+unpredictable information, this component gives a measure of the direct delay in information
+diﬀusion between leaders and laggards.
+Trading strategy deﬁnition
+Consider the leader ﬁrm i and laggard ﬁrm j with the set
+of all linked ﬁrms being described by the set L of ordered pairs {i, j}. Let there be N such
+links. Without loss of generality, for exposition we consider links between single ﬁrms (rather
+than portfolios and ﬁrms) and unique matching between the leaders and laggards. Within
+the set of linked ﬁrms, call the set of all leader ﬁrms A and the set of all such laggard ﬁrms
+14Lo and MacKinlay (1990) examined the proﬁts to contrarian strategies, so their weights are based on
+prior period returns of the ﬁrm itself.
+48
+
+[TRUNCATED at 80000 chars — 66 total pages]

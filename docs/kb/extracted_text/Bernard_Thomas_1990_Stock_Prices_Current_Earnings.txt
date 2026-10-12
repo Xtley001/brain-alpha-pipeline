@@ -1,0 +1,2915 @@
+
+--- PAGE 1 ---
+Journal of Accounting and Economics 13 (1990) 305-340. North-Holland 
+EVIDENCE THAT STOCK PRICES DO NOT FULLY REFLECT 
+THE IMPLICATIONS 
+OF CURRENT EARNINGS 
+FOR FUTURE EARNINGS* 
+Victor L. BERNARD 
+Harvard Business School, Boston, MA 02163, USA 
+Unicersity of Michigan, Ann Arbor, MI 48109, USA 
+Jacob K. THOMAS 
+Columbia University, New York, NY 10027, USA 
+Received May 1990, final version received December 1990 
+Evidence presented 
+here is consistent 
+with a failure of stock prices to reflect fully the 
+implications of current earnings for future earnings. Specifically, the three-day price reactions to 
+announcements 
+of earnings for quarters t + 1 through I + 4 are predictable, based on earnings 
+of quarter r. Even more surprisingly, the signs and magnitudes of the three-day reactions are 
+related to the autocorrelation 
+structure of earnings, as if stock prices fail to reflect the extent to 
+which each firm’s earnings series differs from a seasonal random walk. 
+1. Introduction 
+Several studies have documented 
+that estimated 
+abnormal returns are 
+predictable, 
+based on previously-announced 
+earnings [e.g., Ball and Brown 
+. (19681, Joy, Litzenberger, 
+and McEnally (19771, Watts (19781, Rendleman, 
+Jones, and Latane (19821, and Foster, Olsen, and Shevlin (198411. Repeated 
+attempts to explain this ‘post-earnings-announcement 
+drift’ as a product of 
+research design flaws, including failure to adjust abnormal returns fully for 
+*We would like to acknowledge Thomas Lys, the referee, whose suggestions led to substantive 
+improvements 
+in the paper. We are grateful to Jim Wahlen for his research assistance and 
+suggestions, 
+and to Harry DeAngelo, 
+Charles Jones, and members of Prudential 
+Bathe’s 
+Quantitative Research department, who helped plant the seeds that led to this research. We also 
+appreciate comments received from Ray Ball, Robert Bowen, Michael Brennan, Larry Brown, 
+Susan Chaplinsky, Gene Fama, Mark Grinblatt, Gautam Kaul, Han Kim, S.P. Kothari, Gene 
+Imhoff, Maurice Joy, Robert Freeman, 
+Robert Lipe, Jim McKeown, Pat O’Brien, Gordon 
+Richardson. Jay Ritter, Michael Salineer. Nejat Seyhun. Doug Skinner. Ross Watts (the editor), 
+and other participants 
+in workshops-ate Barttch College, Columbia University, Florida State 
+University, Harvard Business School, M.I.T., Notre Dame, Penn State University, and the 
+Universities of Colorado, Illinois, Kansas, Michigan, Rochester, Southern California, and South 
+Carolina. Victor Bernard is grateful for the support of the Price Waterhouse Foundation. 
+0165-4101/90/f3.50 
+Q 1990, Elsevier Science Publishers B.V. (North-Holland) 
+
+--- PAGE 2 ---
+306 
+Y L. Bernard and J.K. Thomas /Stock prices and earnings implications 
+risk, have failed to resolve the anomaly.’ 
+Bernard 
+and Thomas 
+(1989) 
+describe an implementable 
+strategy, based upon the anomaly, that produces 
+an estimated annualized abnormal return of IS percent (before transactions 
+costs) during the first quarter 
+subsequent 
+to the earnings announcement. 
+Smaller abnormal 
+returns 
+appear 
+to persist for at least two additional 
+quarters. 
+It is difficult to understand why stock prices would appear not to respond 
+completely and immediately to information 
+as visible and freely available as 
+publicly announced 
+earnings. Although they do not purport to identify the 
+reason 
+for post-announcement 
+drift, 
+Bernard 
+and Thomas 
+(1959) and 
+Freeman and Tse (1989) do provide one clue that could aid in the pursuit for 
+an explanation. Specifically, they find that a disproportionately 
+large fraction 
+of the -post-announcement 
+drift is ‘delayed’ until the subsequent 
+quarter’s 
+earnings anncuncement. 
+In other words, given that a firm announces positive 
+(negative) unexpected 
+earnings for quarter 
+t, the market tends to be posi- 
+tively (negatively) surprised in the days surrounding 
+the announcement 
+for 
+quarter t + 1. As Bernard and Thomas note, the evidence is consistent with a 
+market that ‘fails to adequately 
+revise its expectations 
+for quarter 
+t + 1 
+earnings upon receipt of the news for quarter t’ (p. 27). 
+This paper investigates the possibility that stock prices fail to reflect fully 
+the implications 
+of current 
+earnings for future 
+earnings. Specifically, we 
+entertain 
+the hypothesis that prices fail to reflect the extent to which the 
+time-series behavior of earnings deviates from a naive expectation: a seasonal 
+random walk, where expected earnings are simply earnings for the corre- 
+sponding quarter 
+from the previous year.’ It is well known that earnings 
+‘A battery 
+of tests 
+in Bernard 
+and Thomas 
+(1989. 
+p. 34) produces 
+evidence 
+that 
+‘cannot 
+plausibly 
+be reconciled 
+with arguments 
+built on risk mismeasurement’. 
+Specifically, 
+Bernard 
+and 
+Thomas 
+show that (1) contrary 
+to the prediction 
+of Ball, Kothari, 
+and Watts (1988) shifts in beta 
+are far too small to explain 
+the drift; (2) five other 
+measures 
+of risk identified 
+in the arbitrage 
+pricing 
+literature 
+fail to explain the drift; (3) there is no evidence 
+of any other (unidentified) 
+risk 
+surfacing 
+in the form 
+of a loss - that 
+is, returns 
+to a zero-investment 
+trading 
+strategy 
+are 
+consistently 
+positive 
+over 
+time; 
+and (4) in violation 
+of plausible 
+predictions 
+of capital 
+asset 
+pricing 
+theory 
+as they would 
+apply 
+to a broad 
+cross-section 
+of stocks, 
+the mean 
+raw (total) 
+post-announcement 
+returns 
+on ‘bad news’ stocks are significantly 
+less than Treasuq 
+bill rates. 
+Both Bernard 
+and Thomas 
+(1989) and Foster, 
+Olsen, 
+and Shevlin (1984) also cast doubt 
+on the 
+viability of other 
+explanations 
+based on potential 
+research 
+design flaws, such as various 
+forms of 
+hindsight 
+bias, survivorship 
+bias, and biases 
+in return 
+calculations. 
+*We are not the first to consider 
+this possibility. 
+That credit 
+goes to Rendleman, 
+Jones, and 
+Latane 
+(1987), who showed 
+that when one controls 
+for quarter 
+I + 1 earnings, 
+much of the drift 
+associated 
+with quarter 
+r earnings 
+is eliminated. 
+They conclude 
+that post-announcement 
+drift 
+can be explained 
+in part as a predictable 
+response 
+to the subsequent 
+earnings 
+announcement. 
+However, 
+since 
+that 
+study 
+focuses 
+on abnormal 
+returns 
+measured 
+over 
+long windows, 
+it is 
+difficult 
+to rule out alternative 
+explanations 
+for the results 
+(e.g., certain 
+risk-based 
+arguments). 
+Freeman 
+and Tse (1989) document 
+(1) the predictability 
+of the short-window 
+response 
+to quarter 
+r + 1 earnings 
+that is also documented 
+in Bernard 
+and Thomas 
+(1989) and (2) that when one 
+controls 
+for the effect of quarter 
+r + 1 earnings 
+at least half of the drift associated 
+with quarter 
+r 
+earnings 
+is eliminated. 
+On that basis, they conclude 
+that ‘the time-series 
+behavior 
+of earnings 
+
+--- PAGE 3 ---
+V. L. Bernard and J.K. Thomas /Stock prices und earnings implications 
+307 
+forecast errors based on such a naive model are correlated through time [see, 
+for example, Freeman and Tse (1989)]. In contrast, in a market that fully 
+impounds 
+all prior earnings 
+information, 
+forecast 
+errors 
+should not be 
+autocorrelated 
+(by definition). 
+What we study here is the possibility that 
+market prices can be modeled partially as reflections of naive expectations, 
+and that as a result, the reactions of prices to future earnings are predictable, 
+just as the forecast errors of a naive expectation model are predictable. 
+Our results are surprisingly consistent with this depiction of stock-price 
+behavior. By assuming that stock prices are at least partially influenced by the 
+above naive earnings expectation, 
+we are able to predict with a significant 
+degree of accuracy the three-day reaction to fu;ure earnings announcements 
+(up to four quarters 
+ahead), given only currenr earnings and information 
+about the (historical) 
+time-series behavior of earnings. Moreover, 
+we can 
+relate not only the signs but the relative magnitudes of the future reactions to 
+the autocorrelation 
+structure of forecast errors based on the naive seasonal 
+random-walk earnings expectation. 
+One of the most surprising 
+aspects of our evidence 
+pertains 
+to our 
+predictions 
+of market reactions 
+four quarters 
+ahead. In contrast 
+to the 
+well-documented 
+positice relation between unexpected earnings for quarter t 
+and post-announcement 
+drift for quarter 
+t + 1, we find a negutice relation 
+between unexpected earnings of quarter 
+t and the abnormal returns around 
+the announcement 
+of earnings for quarter 
+t + 4. This finding would not be 
+predicted by any existing explanations for post-announcement 
+drift based on 
+concerns about potential research design flaws. However, this pattern in the 
+data is precisely what would be expected if the prices failed to reflect fully 
+that, while seasonally-differenced 
+earnings are positirefy correlated 
+for adja- 
+cent quarters, they are negatiL*ely correlated 
+four quarters apart. That is, the 
+data behave as if the market is consistently surprised that a portion of an 
+earnings change tends to be reversed four quarters later. 
+A stock market in which prices are influenced by traders who anchor on a 
+comparison 
+of year-to-year 
+changes in quarterly 
+earnings, much like the 
+financial press does in its coverage of earnings announcements 
+(e.g., the Wall 
+Street Journal’s Digest of Earnings Reports), represents a disturbing depar- 
+ture from what would be predicted by existing models of efficient markets. 
+For zero-investment 
+portfolios 
+constructed 
+on the basis of the historical 
+time-series behavior of earnings, the indicated abnormal returns from the day 
+after the earnings announcement 
+through the subsequent earnings announce- 
+ment are approximately 8 to 9 percent, or 35 percent on an annualized basis, 
+before transactions 
+costs. Even higher abnormal returns per unit time (67 
+provides 
+a partial 
+explanation 
+of the drift phenomenon’. 
+However, 
+that possibility 
+was not the 
+main 
+focus 
+of the Freeman 
+and Tse paper, 
+and 
+thus 
+they did not draw 
+the links between 
+post-announcement 
+drift and the time-series 
+properties 
+of earnings 
+that are documented 
+here. 
+
+--- PAGE 4 ---
+308 
+KL. Bernard and J.R Thomas /Stock 
+prices and earnings implications 
+percent on an annualized basis) are available for portfolios constructed 
+15 
+days prior to the expected date for the upcoming announcement 
+and held 
+through the announcement. 
+The evidence 
+in this paper offers two main contributions 
+beyond the 
+previous literature 
+on post-announcement 
+drift. First, the paper relates the 
+signs and magnitudes of reactions to subsequent earnings announcements 
+to 
+the historical autocorrelation 
+structure 
+of earnings; this linkage may help 
+identify the cause of post-announcement 
+drift. Second, the evidence as a 
+whole creates several added obstacles to contentions 
+that the drift might 
+ultimately 
+be explained 
+by errors 
+in the methodology 
+used to estimate 
+expected returns. For example, an explanation based on failure to control for 
+risk would now have to argue that ‘good-news’ firms experience 
+‘delayed’ 
+increases in risk over three-day intervals that coincide with each of the next 
+three earnings announcements, 
+and then a decrease in risk over the three-day 
+interval coinciding with the fourth subsequent announcement. 
+The converse 
+would have to hold for ‘bad-news’ firms. At a minimum, any rationale for 
+such behavior must have a more complex structure 
+than explanations 
+sug- 
+gested to date. 
+The nature of the evidence in this paper is also distinct in an important 
+way from that in the growing body of other studies that question semi-strong 
+or weak-form market efficiency [e.g., Ou and Penman (1989a, b), Poterba and 
+Summers (1988)l. While such studies conclude that discrepancies 
+appear to 
+exist between 
+stock prices and underlying 
+fundamentals, 
+they make only 
+vague predictions 
+about 
+wlren the discrepancies 
+will be eliminated 
+and 
+associated 
+abnormal 
+returns 
+realized. 
+In contrast, 
+our assumption 
+about 
+earnings expectations allows us to successfully predict within days the timing 
+of subsequent abnormal returns. By linking what appears to be the elimina- 
+tion of a discrepancy 
+between 
+prices and fundamentals 
+to prespecified 
+information 
+events, the study presents perhaps the most direct evidence to 
+date that a market-efficiency 
+anomaly is rooted in a failure of information to 
+flow completely 
+into price. The evidence also emphasizes 
+that even in a 
+market where prices fail to reflect all available information, 
+one can still 
+observe unusual stock-price activity concentrated 
+around news releases. The 
+puzzling question is, if a portion of the ‘news’ became predictable 
+months 
+earlier, why did the associated price movements not occur then? 
+The rest of the paper is organized as follows. In section 2, we review the 
+time-series 
+behavior of earnings and develop hypotheses 
+about how stock 
+prices would behave if the earnings expectations 
+embedded 
+in such prices 
+failed to reflect fully those time-series properties. 
+Section 3 includes tests of 
+those hypotheses. Questions raised by the evidence and potential alternative 
+explanations 
+for the results are discussed in section 4. We discuss the links 
+between this and other research in section 5, and offer concluding remarks in 
+section 6. 
+
+--- PAGE 5 ---
+KL. Bernard and J.K. Thomas /Stock prices and earnings implications 
+309 
+2. Hypothesis development 
+2.1. Time-series properties of quarterly earnings 
+Several studies have documented 
+the time-series 
+behavior of quarterly 
+earnings [e.g., Watts (1975), Foster (1977), Griffin (19771, Brown and Rozeff 
+(19791, Bathke and Lorek (1984), Brown, Hagerman, Griffin, and Zmijewski 
+(198711. The cumulative evidence indicates that seasonal differences in quar- 
+terly earnings are correlated, 
+and that the pattern of correlations 
+can be 
+viewed as including two components. 
+First, there is a positive correlation 
+between seasonal differences that is strongest for adjacent quarters, but that 
+remains positive over the first three lags. Thus, a change in earnings of 
+quarter 
+t (relative to the comparable 
+quarter of the prior year) tends to be 
+followed by progressively smaller changes of the same sign in quarters t + 1, 
+t + 2, and t + 3. Second, there is a negative correlation 
+between seasonal 
+differences that are four quarters apart. That is, a portion of the change for 
+quarter 
+t is ‘reversed’ in quarter 
+t + 4. 
+To offer a more specific description of the time-series behavior of earnings, 
+table 1 presents summary statistics for the sample to be studied here, which is 
+based on the sample used in Bernard 
+and Thomas (1989).3 The earnings 
+number used is net income before extraordinary 
+items and discontinued 
+items (item 8 from the quarterly Compustat tape). Panel A confirms that, 
+consistent with prior research, the autocorrelations 
+at the first three lags are 
+positive but declining; the sample means of autocorrelations 
+estimated sepa- 
+rately for each firm are 0.34, 0.19, and 0.06 for lags 1, 2, and 3, respectively. 
+Also consistent with prior research, there is a negative autocorrelation 
+at the 
+fourth lag (mean = -0.24). Beyond the fourth lag, the mean autocorrelations 
+remain negative, but much smaller: -0.08, 
+- 0.07, -0.07, 
+-0.06 for lags 5 
+through 8, respectively. 
+To obtain an intuitive sense for the implications of these autocorrelations, 
+consider the following example. A firm reports quarterly earnings in year 0 of 
+$10, $10, $10, and $20. Actual earnings for the first quarter of year 1 rise $1, 
+to $11. Assuming no linear trend in earnings and that the autocorrelation 
+structure of the firm’s earnings is as depicted for the mean firm in table 1, the 
+3The sample is obtained from firms listed on the 1987 edition of the daily CRSP file and also 
+listed on any edition of the Compustat quarterly files from 1982 to 1987. Based on earnings data 
+beginning in 1970, we obtained estimates of unexpected earnings for 96,087 announcements over 
+the period 1974-1986 for 2,649 firms. Abnormal returns data were available for up to 85,753 
+announcements, 
+depending upon the return interval used. The number of observations reported 
+in the tables varies across tests, depending 
+upon factors such as the availability of measures of 
+unexpected 
+earnings at the specified lags and the interval over which abnormal returns are 
+cumulated. 
+
+--- PAGE 6 ---
+310 
+KL. Bernard and J.K. Thomas /Stock prices and earnings implications 
+Table 1 
+Time-series behavior of quarterly earnings. 2.626 firms, 1974-1986. 
+Panel A: Autocorrelations 
+in seasonally differenced quarterly earnings 
+Lag 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+Distribution of ftrm-specific autocorrelations in seasonally-differenced earnings 
+Mean 
+0.34 
+0.19 
+0.06 
+-0.24 
+-0.08 
+-0.07 
+-0.07 
+25th percentile 
+0.14 
+0.05 
+-0.10 
+-0.46 
+-0.26 
+-0.24 
+-0.24 
+Median 
+0.36 
+0.18 
+Cr.06 - 0.29 
+- 0.09 
+- 0.08 
+- 0.06 
+75th percentile 
+0.57 
+0.35 
+0.21 
+- 0.07 
+0.08 
+0.08 
+0.09 
+Distribution of mean autocorrelations for 37 industriesa 
+Number of positive mean 
+autocorrelations (out of 37) 
+37 
+37 
+35 
+0 
+- 
+8 
+6 
+25th percentile (of 37 means) 
+0.29 
+0.14 
+0.00 
+-0.29 
+-i.l3 
+-0.12 
+-0.12 
+Median (of 37 means) 
+0.35 
+0.19 
+0.07 
+-0.24 
+- 0.09 
+- 0.08 
+- 0.08 
+75th percentile (of 37 means) 
+0.38 
+0.22 
+0.09 
+-0.18 
+-0.04 
+-0.01 
+-0.04 
+Mean firm-specific autocorrelations within size categoriesb 
+Small (bottom 4 deciles) 
+0.28 
+0.14 
+0.03 
+-0.29 
+-0.09 
+-0.08 
+-0.08 
+Medium 
+0.31 
+0.19 
+0.07 
+-0.23 
+-0.07 
+-0.08 
+-0.06 
+Large (top 3 deciles) 
+0.36 
+0.20 
+0.06 
+-0.20 
+-0.09 
+-0.05 
+-0.06 
+- 0.06 
+- 0.25 
+- 0.06 
+0.11 
+7 
+-0.10 
+- 0.08 
+- 0.03 
+- 0.08 
+- 0.04 
+- 0.06 
+Panel B: Autocorrelations 
+in seasonally-differenced 
+earnings and standardized 
+unexpected earnings (SUE)’ 
+Lag 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+Mean of firm-specific autocorrelations 
+Seasonally differenced 
+earnings (as in panel A) 
+0.34 
+0.19 
+0.06 
+-0.24 
+- 0.08 
+- 0.07 
+- 0.07 
+- 0.06 
+SUES 
+0.40 
+0.22 
+0.06 
+-0.21 
+-0.10 
+-0.09 
+-0.09 
+-0.08 
+SUE deciles 
+0.41 
+0.23 
+0.07 
+-0.18 
+-0.09 
+-0.09 
+-0.09 
+-0.08 
+‘Mean of firm-specific autocorrelations 
+is calculated for each industry to obtain distribution of 
+37 autocorrelations 
+at each lag. Only the 37 two-digit SIC industries that contain at least 20 
+members are represented 
+here. 
+bSmall, medium, and large firms are in size deciles 1 to 4, 5 to 7, and 8 to 10, respectively, 
+based on January 1 market values of equity for NYSE-AMEX 
+firms. 
+‘SUES are forecast errors from a seasonal random walk with trend, scaled by their standard 
+deviation within the trend estimation period (up to 36 observations). SUE deciles are based on 
+rankings within calender quarters. 
+expected earnings for the next four quarters would be as indicated in italics 
+below. 
+Quarter I 
+Quarter II 
+Quarter III 
+Quarter IV 
+Year 0 
+Year 1 
+Year 2 
+$10.00 
+$11.00 
+$10.76 
+10.00 
+10.34 
+10.00 
+10.19 
+20.00 
+20.06 
+
+--- PAGE 7 ---
+V.L. Bernard and J.K. Thomas /Stock prices and earnings implications 
+311 
+For the next three quarters, one would expect additional increases over the 
+prior year level, but the amounts of the expected increases decline over the 
+three quarters. Looking four quarters ahead to the first quarter of year 2, we 
+expect earnings will decline relative to this year; that is, a portion of the 
+initial earnings change is not expected to persist. 
+Panel A also shows that this kind of autocorrelation 
+pattern 
+is quite 
+consistent 
+across firms. First, the pattern persists generally across the 37 
+two-digit SIC industries for which our sample includes 20 or more firms. For 
+example, the signs of the within-industry 
+means of the firm-specific autocor- 
+relations calculated are in agreement for all 37 industries at lags 1. 2, and 4, 
+and for 35 of 37 industries at lag 3. Second, the pattern of mean autocorrela- 
+tions calculated within size categories is similar across small, medium, and 
+large firms (those in the bottom four, middle three, and top three deciles of 
+the NYSE/AMEX 
+population). However, the autocorrelations 
+over the first 
+four lags tend to be somewhat more positive for large firms. 
+Panel B compares the autocorrelations 
+in seasonally differenced earnings 
+with those for standardized 
+unexpected 
+earnings (SUE), 
+which will be a key 
+variable in our empirical tests. The numerator 
+of SUE is equal to actual 
+earnings minus an expectation based on a seasonal random walk with trend 
+(where the trend is estimated using up to 36 quarters of history, if available); 
+that is, it is simply the detrended 
+seasonal 
+difference 
+in earnings. The 
+denominator 
+is equal to the standard deviation of this measure of unexpected 
+earnings over the trend estimation 
+period. To reduce 
+the influence 
+of 
+outliers, SUE values greater (less) than 5 ( - 5) are winsorized to 5 ( - 5). The 
+autocorrelations 
+in SUE are calculated for each firm in the sample, and a 
+mean across firms is obtained for the autocorrelation 
+at each lag. 
+The first two rows of panel B confirm that the pattern of autocorrelations 
+in the SUES 
+is similar to the pattern 
+already 
+discussed for seasonally 
+differenced earnings (although the magnitudes are slightly higher when SUE 
+is the unit of analysis). The similarity indicates that the process of scaling the 
+seasonal 
+differences 
+does not have a large influence 
+on the degree 
+of 
+autocorrelation. 
+The last row of panel B presents autocorrelations 
+in the decile assignments 
+of SUES (based on the distribution of all SUES for a given calendar quarter), 
+as opposed to SUES per se. These statistics are of interest because much of 
+our subsequent 
+analysis is based on SUE deciles. As expected, the results 
+indicate that SUE deciles have time-series properties 
+very similar to those of 
+the SUES. 
+2.2. Hypothesis 
+decelopment 
+We now consider the behavior of stock prices in a market where earnings 
+expectations fail to reflect the autocorrelation 
+pattern described above. That 
+
+--- PAGE 8 ---
+312 
+K L. Bernard and J. EC Thomas /Stock prices and earnings implications 
+is, we entertain 
+the possibility that the earnings expectations 
+reflected 
+in 
+stock prices follow a seasonal random walk with trend.’ Even though market 
+prices may reflect less naive expectations, 
+our goal is to develop predictions 
+for this extreme case and then test the extent to which such predictions are 
+supported by the data. That is, we assume that the expectation 
+of earnings 
+for quarter 
+t that is embedded in the market price, denoted by E”(Q,), 
+is as 
+follows: 
+E”[Q,l = 6 + Qr-4. 
+(1) 
+When earnings Q, are announced, 
+the market perceives the unexpected 
+component 
+of earnings to be Q, - E”IQ,l. 
+Given an ‘earnings response 
+coefficient’ A, the resulting abnormal return is 
+(2) 
+Note that the abnormal return reflects a component 
+equal to the current 
+detrended 
+seasonal difference in earnings. Thus, the abnormal return should 
+be correlated 
+with past detrended 
+seasonal differences 
+in earnings, in the 
+same way that the current detrended 
+seasonal difference is correlated 
+with 
+past detrended 
+seasonal differences. Specifically, we hypothesize the follow- 
+ing: 
+Hypothesis I. 
+If prices reflect an earnings expectation described by a seasonal 
+random walk with trend, there should be positice but declining associations 
+between the abnormal return at the announcement of quarter t earnings and the 
+detrended seasonal differences in earnings for quarters t - 1, t - 2, and t - 3. 
+There should be a negative association between the abnormal return at the 
+announcement 
+of quarter t earnings and the detrended seasonal difference in 
+earnings for quarter t - 4. 
+A useful feature 
+of Hypothesis 
+1 is that it links the relation 
+between 
+abnormal 
+returns 
+and prior-period 
+earnings 
+data to the autocorrelation 
+patterns presented 
+in prior research and in table 1, and does so without the 
+need to specify explicitly a particular model of the actual earnings process. 
+However, the hypothesis represents 
+a statement 
+about the simple relation 
+between abnormal returns and earnings changes of each prior period taken 
+individually. If we are more precise about the actual time-series process of 
+earnings, we can conveniently relate abnormal returns to earnings data from 
+41f we assume instead that the expectation is a seasonal random walk with no trend, then 
+Hypothesis 
+1 below would be stated in terms of seasonal differences, 
+before detrending. 
+Empirical tests based on this alternative approach yield results similar to those reported here. 
+
+--- PAGE 9 ---
+V. L. Bernard and J.K, Thomas /Stock prices and earnings implications 
+313 
+multiple prior periods simultaneously. 
+This, in turn, will prove useful in 
+assessing the economic 
+importance 
+of the predictable 
+component 
+of the 
+abnormal returns. 
+Based on prior research, we assume that the most accurate 
+univariate 
+description of the time-series process of earnings is provided by the Brown 
+and Rozeff (1979) model, modified to include a trend term? 
+where E, is the white-noise 
+earnings shock of period 
+r, C#J 
+> 0, and 8 is 
+sufficiently negative to ensure that the fourth-order 
+autocorrelation 
+in sea- 
+sonally-differenced 
+earnings is negative. 
+The 
+Brown-Rozeff 
+model 
+includes 
+a first-order 
+autoregressive 
+term 
+[+(Q,_ r - Q,_& 
+which is designed to account for the positive but decaying 
+autocorrelations 
+in seasonally differenced 
+earnings at lags 1 through 3. The 
+model also includes a seasonal moving-average 
+term (13&,_,) to account for 
+the negative autocorrelation 
+noted at the fourth lag. The earnings expecta- 
+tion implied by the Brown-Rozeff 
+model is 
+E[Q,] = 6 + Q,_4 
++ 4CQt.v, - Q,-,> + ‘k-4. 
+(4) 
+Several studies [e.g., Brown and Rozeff (1979) and Bathke and Lorek 
+(1984)l have documented 
+that the Brown-Rozeff 
+model fits earnings data 
+well and generates 
+more accurate 
+out-of-sample 
+earnings forecasts 
+than 
+other time-series models. However, the margin of superiority 
+is not ‘large’; 
+Bathke and Lorek (1984) find a 9 percent 
+reduction 
+in mean absolute 
+percentage 
+forecast errors when moving from a seasonal random walk with 
+trend to the Brown-Rozeff 
+model. Thus, even if market expectations 
+are 
+characterized 
+by a seasonal random walk with trend, the resulting predictable 
+errors in those expectations 
+might not be substantial. Any ability to predict 
+stock-price reactions to future earnings announcements 
+based on past earn- 
+ings and the autocorrelation 
+structure 
+of earnings therefore 
+becomes that 
+much more surprising. 
+‘Allowing for a trend in earnings was less of a concern for Brown and Rozeff, who dealt with 
+per-share data. We assume that the trend term equals that embedded in stock prices [eq. (01. 
+This assumption simplifies the development of Hypothesis 2, without altering the thrust of our 
+conclusions. If a difference between the trend terms does exist and it varies across firms, then 
+the observed association (in pooled cross-section) 
+between abnormal returns and each past 
+seasonal difference would be more positive; the negative association at the fourth lag would arise 
+only if 0 is sufficiently negative to overcome this effect. It turns out, however, that the observed 
+association at the fourth lag is not only negative, but consistent in terms of magnitude with 
+predictions based on the development of Hypothesis 2. Thus the benefits of a more complex 
+treatment of the trend term appear minimal. 
+
+--- PAGE 10 ---
+311 
+K L. Bernard and J. K. Thomas /Stock prices and earnings implications 
+If the time-series process of earnings is best described by a Brown-Rozeff 
+model, but earnings expectations embedded in prices are nevertheless 
+based 
+on a seasonal random walk with trend, then the abnormal return around 
+earnings announcements 
+presented 
+in eq. (2) can be rewritten 
+as shown 
+below. We begin by decomposing 
+the abnormal return in eq. (2) into an 
+unpredictable 
+component, 
+Q, - E[Q,l, and its complement, E[Q,l - E”IQ,l, 
+that is predictable 
+based on knowledge about the time-series 
+behavior of 
+earnings? 
+AR, = “(Q, - E”‘[Q,l) 
+= A(Q, - E[Q,]) + A(E[Q,I 
+- E”[Q& 
+(5) 
+Relying on the Brown-Rozeff 
+model, we can replace <Q, - E[Q,l) with the 
+difference between eqs. (3) and (41, and replace (E[Q,l - E”IQ,l) with the 
+difference between eqs. (3) and (1): 
+AR, = hE, 
++ 
+Ad( 
+Q,-, - Q,_,) + AeE,-,. 
+(6) 
+Since (Q,_, - Qr_5) can be written in terms of prior period shocks, eq. (6) 
+can also be written as 
+AR, 
+= AE* + A&,-r 
++ Q*q-2 
++ 
+W3&t-, 
++A(0 + c#+_, + Av, 
+(7) 
+where v is a linear combination 
+of earnings shocks from periods prior to 
+t - 4, that are uncorrelated 
+with the shocks of periods t through t - 4, and 
+which have coefficients of order OC#J 
+or smaller. 
+Eqs. (6) and (7) provide the basis for our second hypothesis: 
+Hypothesis 2. If prices reflect an earnings expectation described by a seasonal 
+random walk with trend, nrhile the univariate times-series process of earnings is 
+best described by the Brown-Rozeff 
+(1979) model as written in eq. (3), then the 
+abnormal return at the announcement 
+of quarter t earnings should hate a 
+positice partial correlation with the seasonal difference in earnings for quarter 
+t - 1, and a negative partial correlation with the earnings shock of period t - 4, 
+6The earnings response coefficient, A, is assumed constant across the two components of the 
+earnings change, because the market would have no way of distinguishing between the two 
+components given that its expectations are based on a seasonal random walk with trend. The 
+empirical tests, however, do not rely on this assumption as we estimate unrestricted coefficients 
+for the regression models derived from eq. (5). 
+
+--- PAGE 11 ---
+If. L. Bernard 
+and 1.K Thomas /Stock 
+prices and earnings implications 
+315 
+as specified in eq. (6). Alternatively, the abnormal return at the announcement 
+of quarter t earnings should hare positice but declining partial correlations with 
+the earnings shocks of quarters t - 1, t - 2, and t - 3, and a negati1.e partial 
+correlation with the earnings shock of period t - 4 as specified in eq. (7). 
+Note that Hypothesis 
+1 and Hypothesis 
+2 lead to tests of the same 
+fundamental 
+notion that prices are based on an earnings expectation 
+that 
+fails to reflect fully the extent to which the earnings series departs from a 
+seasonal random walk. Hypothesis 2 is distinct from Hypothesis 1 only in that 
+it makes a more specific assumption about the actual time-series properties 
+of earnings. This additional assumption can potentially increase the power of 
+our tests, as well as facilitate the construction of portfolios based on multiple 
+prior-period 
+earnings signals. 
+3. Empirical tests 
+3.1. Portfolio tests of Hypothesis 1 
+Tests of Hypothesis 
+1 are conducted 
+by forming ten portfolios for each 
+calendar quarter, based on the SUE deciles of firms announcing 
+earnings 
+within that quarter. We then observe the relation between the SUE assign- 
+ments and three-day market reactions to earnings announcements 
+for subse- 
+quent quarters. (The three-day window includes the two days prior to and the 
+disclosure date as reported on Compustat - from the Wall Street Journal or 
+Dow Jones News Service.) If Hypothesis 1 is correct, then we should observe 
+a positive relation for each of the next three announcements 
+(but with the 
+magnitude 
+of the association 
+declining 
+over the three 
+quarters) 
+and a 
+negative relation for the fourth subsequent announcement. 
+The measure of abnormal returns used is the same size-adjusted 
+return 
+described in Bernard and Thomas (1989). Daily abnormal returns for a given 
+firm are obtained 
+by subtracting 
+from the total return 
+the return on a 
+portfolio 
+of the NYSE/AMEX 
+firms in the same size decile, based on 
+January 1 market value of equity. Daily size-adjusted 
+returns are summed 
+across firms and cumulated over time to obtain portfolio cumulative abnor- 
+mal returns. 
+Prior to reviewing the results, we offer one final comment on an economet- 
+ric issue. Even though the primary tests focus on short (three-day) 
+return 
+intervals, there is some overlapping of event windows in calendar time. Thus, 
+standard 
+t-tests applied to mean abnormal 
+returns would potentially 
+be 
+subject to bias due to cross-correlation 
+in the data [see Bernard (198711. 
+Therefore, 
+for each of the major t-tests presented 
+here, we also present an 
+‘alternative t-test’ designed by Jaffe (1974) and Fama and MacBeth (1973) to 
+
+--- PAGE 12 ---
+Table 2 
+Predictions of market reactions to future earnings announcements based on current earnings information, 2,463 firms, 1974-3986 (72,076 to 85,482 
+observations).” 
+Panel A: Three-day percentage abnormal return in quarter I + k, for portfolios based 
+on earnings information from quarter t (r-statistics in parentheses) 
+Portfolio held (based 
+Holding period (relative 
+on SUE decile of 
+to announcement for 
+quarter t) 
+quarter r + k) 
+t+1 
+r+2 
+r+3 
+t+4 
+H-5 
+I+6 
+r+7 
+f+8 
+10 (good news) 
+Three-day [ - 2, O] 
+1 (bad news) 
+Three-day [ - 2,OI 
+Long in IO/short in I 
+Three-day [ - 2, O] 
+Alternative t-testb 
+0.76 
+0.44 
+0.13 
+(13.21) 
+(8.05) 
+(2.21) 
+- 0.56 
+- 0.26 
+0.09 
+f - 8.04) 
+f-4.16) 
+(0.13) 
+1.32 
+0.70 
+0.04 
+(14.63) 
+(8.46) 
+(0.45) 
+(7.40) 
+(5.56) 
+(1.63) 
+-0.22 
+- 0.05 
+- 0.04 
+0.01 
+- 0.04 
+-4.11) 
+t - 0.85) 
+t - 0.76) 
+(0.21) 
+t - 0.66) 
+0.43 
+0.26 
+0.19 
+0.16 
+0.34 
+(6.82) 
+(4.10) 
+(2.99) 
+(2.43) 
+(5.22) 
+- 0.66 
+-0.31 
+- 0.23 
+-0.15 
+- 0.38 
+- 7.86) 
+f - 3.68) 
+( - 2.73) 
+(- 1.70) 
+f - 4.44) 
+- 3.38) 
+f - 2.53) 
+f-2.01) 
+( - 0.89) 
+f-1.73) 
+Panel B: Comparison of three-day percentage abnormal returns with percentage abnormal 
+returns since quarter r announcement 
+Portfolio held 
+Long in lo/short in 1 
+(reversed after 
+quarter I + 3) 
+Long in IO/short in I 
+f reversed after 
+quarter I + 3) 
+Holding period 
+r+1 
+I+2 
+r+3 
+Sum of three-day 
+abnormal returns 
+for quarters 
+r+l.....r+k 
+1.32 
+2.02 
+2.06 
+From day after 
+announcement 
+for quarter f 
+through announcement 
+for quarter f + k 
+5.69 
+7.48 
+8.10 
+r+4 
+t+5 
+r+6 
+r+7 
+r+8 
+2.72 
+3.02 
+3.25 
+3.40 
+3.78 
+8.61 
+8.72 
+8.39 
+8.03 
+8.63 
+
+--- PAGE 13 ---
+Ratio of three-day sum 
+through t + k to CAR since 
+quarter t announcement, 
+long in IO/short in 1 
+(reversed afrer quarter t + 3) 
+0.23 
+0.21 
+0.25 
+0.31 
+0.35 
+0.39 
+0.42 
+0.44 
+Panel C: Correlation between SUE for quarter r and three-day [ - 2,0] percentage abnormal 
+returns around subsequent earnings announcements’ 
+Correlation between 
+Type 
+r+1 
+r+2 
+r+3 
+1+4 
+r+5 
+r+6 
+r+7 
+r+8 
+SUE deciles and 
+abnormal return 
+(for decile portfolio) 
+SUE deciles and 
+abnormal return 
+(for firm-quarters) 
+‘Standardized unexpected earnings (SUE) represent forecast errors from a seasonal random walk with drift, scaled by their estimation-period 
+standard deviation. Earnings announcements are grouped into deciles, based on the distribution of SUE each calendar quarter, to generate the SUE 
+deciles used to form portfolios. Abnormal returns are the difference between daily returns for individual firms in the portfolio and returns for 
+NYSE-AMEX 
+firms of the same size decile. 
+Spearman 
+l.OOd 
+0.95d 
+0.36 
+- 0.99* 
+- 0.76d 
+- 0.68d 
+-0.64d 
+- 0.47 
+Pearson 
+0.97” 
+0.94” 
+0.32 
+- 0.96d 
+- 0.79d 
+- 0.77d 
+-0.65” 
+- 0.45 
+Spearman 
+0.09d 
+0.05d 
+O.Old 
+- 0.04d 
+- 0.02d 
+- 0.02d 
+- O.Old 
+-0.00 
+Pearson 
+0.07d 
+0.03d 
+-0.00 
+- 0.04d 
+- 0.02d 
+- 0.02d 
+- O.Old 
+-0.Old 
+bAlternative r-test is conducted by calculating mean abnormal returns for each of 13 years, and dividing by the time-series standard error of that 
+mean. 
+‘In the top half of panel C, correlations are computed between the mean abnormal returns over the three-day holding periods for each SLIE 
+decile and the decile numbers (1 = lowest SUE, 10 = highest SUE). In the bottom half, the correlations are computed between the three-day 
+abnormal returns and SUE deciles for individual announcements. 
+dStatistically significant at 0.05 level, two-tailed test. 
+
+--- PAGE 14 ---
+318 
+V. L. Bernard and 1. K Thomas /Stock prices and earnings implications 
+eliminate bias from cross-sectional dependence. 
+Specifically, we calculate the 
+value of any given portfolio return (or in the regression tests of Hypothesis 2, 
+any given coefficient) 
+for each of the 13 years in the database. 
+We then 
+compare the mean of the resulting 13 values to its time-series standard error 
+to construct the alternative 
+r-test. In most cases, this alternative calculation 
+generates a smaller f-statistic, probably reflecting both a loss of power and an 
+elimination of some bias. (The loss of power arises because equal weight is 
+placed on data from each year, which is generally suboptimal.) 
+The first test of Hypothesis 
+1 is presented 
+in table 2, panel A. We form 
+portfolios that are long in extreme ‘good-news’ (SUE = 10) firms and short in 
+‘bad-news’ (SUE = 1) firms based on quarter 
+t earnings information, 
+and 
+then measure the mean abnormal returns for these portfolios around subse- 
+quent quarters’ earnings announcements. 
+We focus here on extreme deciles 
+to enhance the power of our tests and provide results directly comparable to 
+prior research. However, we later examine the behavior of all deciles. 
+The evidence shows that the three-day abnormal returns around earnings 
+announcements 
+are predictable, at least four quarters in advance. Moreover, 
+the signs and magnitudes 
+of the abnormal 
+returns reflect the pattern 
+of 
+autocorrelations 
+hypothesized 
+in the previous section. The zero-investment 
+portfolio created on the basis of quarter 
+t earnings information generates a 
+significant positive mean abnormal return (1.32 percent) upon the announce- 
+ment of quarter 
+t + 1 earnings, as if market prices fail to reflect fully that a 
+given SUE in quarter t tends to be followed by an SUE of the same sign in 
+quarter 
+t + 1. As predicted, 
+we also observe positive but smaller mean 
+abnormal returns around the announcement 
+of earnings for quarters 
+t + 2 
+and t + 3. Finally, again consistent with our predictions, we observe signifi- 
+cant negative mean abnormal returns around the announcement 
+of earnings 
+for quarter t + 4, as if prices fail to reflect fully that a given earnings change 
+in quarter t is likely to be partially reversed in quarter t + 4. 
+We did not offer predictions 
+about the behavior of market reactions 
+around earnings announcements 
+beyond quarter 
+t + 4. However, based on 
+the autocorrelations 
+observed in table 1, we would expect small but negative 
+market reactions to the announcements 
+of quarters 
+t + 5 through t + 8, for 
+long (short) positions in quarter r’s good-news (bad-news) firms. In fact, that 
+is what we observe: the abnormal returns are -0.31 percent, 
+-0.23 percent, 
+-0.15 
+percent, and -0.38 
+percent for quarter 
+t + 5 through 
+t + 8, respec- 
+tively. (The statistical significance of the last two amounts depends on the 
+t-test used.) We hesitate 
+to emphasize 
+these particular 
+results, however, 
+because unlike the signs of the autocorrelations 
+at the first four lags, the 
+signs for lags 5 through 8 have not been robust across samples and time 
+periods examined in prior studies [compare Foster (1977) with our evidence], 
+and therefore 
+might not have been predictable 
+at the beginning of the test 
+period. 
+-< 
+
+--- PAGE 15 ---
+KL. Bernard and J.K_ Thomas /Stock prices and earnings implications 
+319 
+Table 3 
+Correspondence 
+between 
+relative 
+magnitude 
+of autocorrelations in earnings 
+data 
+and relative 
+magnitude 
+of abnormal returns predicted 
+on the basis of the past earnings. 
+f-ag 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+Magnitudes 
+of autocorrelations in 
+SUE deciles at lag k, relative 
+to 
+autocorrelation 
+at lag 1” 
+1.00 
+0.56 
+0.17 
+-0.44 
+-0.22 
+-0.22 
+-0.22 
+-0.20 
+Magnitudes 
+of predictable 
+abnormal 
+returns at announcement 
+for 
+quarter 
+t + k, relative 
+to predictable 
+abnorma! 
+return 
+at announcement 
+for quarter 
+t + lb 
+1.00 
+0.53 
+0.03 
+-0.50 
+-0.23 
+-0.17 
+-0.11 
+-0.28 
+aAutocorrelations 
+are 
+taken 
+from 
+table 
+1, panel 
+B, which 
+reports 
+means 
+of firm-specific 
+autocorrelations 
+in SUE deciles. Thus, the amount 
+0.56 shown above for lag 2 is the ratio of the 
+mean autocorrelation 
+in SUE deciles at lag 2 (0.23), divided by the mean autocorrelation 
+in SUE 
+deciles 
+at lag 1 (0.41). 
+SUES are forecast 
+errors 
+from a seasonal 
+random 
+walk with trend, 
+scaled 
+by their standard 
+deviation 
+within 
+the trend-estimation 
+period 
+(up to 36 observations). 
+SUE deciles 
+are based on 
+rankings 
+within calendar 
+quarters. 
+bAbnormal 
+returns 
+are taken from table 2, panel A, third section, 
+which reports 
+the return 
+for 
+the three-day 
+window 
+surrounding 
+the announcement 
+of earnings 
+for quarter 
+t + k, for a long 
+position 
+in firms with quarter 
+t SUE in decile 
+10, combined 
+with a short position 
+in firms with 
+quarter 
+I SUE in decile 
+1. Thus, 
+the amount 
+0.53 shown 
+above 
+for lag 2 is the ratio of the 
+abnormal 
+return 
+around 
+the announcement 
+of earnings 
+for quarter 
+t + 2 (0.70 percent). 
+divided 
+by the corresponding 
+amount 
+for quarter 
+t + 1 (1.32 percent). 
+Hypothesis 
+1 is borne out in the data not only in terms of the signs of 
+future abnormal returns, but also in terms of magnitudes. That is, the relative 
+magnitudes of the abnormal returns around subsequent earnings announce- 
+ments are in general accordance with the relative magnitudes of the autocor- 
+relations in SUES documented 
+earlier. The mean autocorrelations 
+in SUE 
+deciles at lag k (from the last row of table 1, panel B), relative to the 
+autocorrelation 
+at lag 1, are shown in the first row of table 3. They are 
+compared with the mean abnormal returns around announcements 
+for quar- 
+ter t + k (from the third section of table 2, panel A) relative to that for 
+quarter 
+t + 1. The strength of the correspondence 
+between the two series is 
+striking. 
+Returning 
+to table 2, panel A, we note that the predictably 
+positive 
+abnormal returns around the first three subsequent 
+announcements 
+could 
+simply reflect evidence already documented 
+in prior research based on longer 
+return intervals, if the three-day abnormal returns represented 
+a proportion- 
+ate allocation of the post-announcement 
+drift already shown to exist over six 
+to nine months [e.g., Watts (1978), Bernard and Thomas (198911. To check 
+that possibility, table 2, panel B compares the three-day 
+abnormal returns 
+around subsequent earnings announcements 
+to the abnormal return cumu- 
+lated over periods from the day after the announcement 
+for quarter 
+t, 
+
+--- PAGE 16 ---
+320 
+V.L. Bernard and J.K. Thomas /Stock 
+prices and earnings implications 
+through the announcements 
+for subsequent 
+quarters.’ 
+We assume a long 
+(short) position 
+in the good-news (bad-news) 
+firms over the first three 
+quarters after the earnings announcement, 
+and then reverse that position at 
+the beginning of the fourth subsequent 
+quarter. The cumulative abnormal 
+return is 5.7 percent through the announcement 
+for quarter 
+I + 1 and 8.6 
+percent through the announcement 
+for quarter r + 4. The last row of panel B 
+shows that the three-day abnormal returns (summed over announcements 
+to 
+date) account for 23 to 31 percent of the cumulative post-announcement 
+drift 
+through 
+quarter 
+t + 4. Given that the three-day 
+announcement 
+periods 
+account for only about 5 percent of the total trading days, the announcement 
+period reactions clearly represent a disproportionate 
+share of the drift. This 
+constitutes an extension of similar evidence provided by Bernard and Thomas 
+(1989) and Freeman and Tse (1989) for the first subsequent announcement. 
+The evidence 
+in table 2, panel B suggests that some portion 
+of the 
+post-announcement 
+adjustment to earnings is rapid even though it is delayed. 
+The rapid adjustments 
+went undetected 
+in research prior to Bernard and 
+Thomas (1989), because subsequent earnings-announcement 
+dates were scat- 
+tered in event time. By not realigning the data at each subsequent announce- 
+ment date, researchers 
+smoothed the sharp adjustments that occur at those 
+dates. 
+Table 2, panel C shows that the phenomenon 
+documented 
+above is not 
+driven by extreme deciles; it persists throughout the sample. Panel C presents 
+the simple correlations 
+between 
+SUES of quarter 
+t and the three-day 
+abnormal 
+return 
+surrounding 
+each of the eight subsequent 
+earnings an- 
+nouncements, 
+at both the level of SUE decile portfolios and individual firm 
+quarters. The Spearman and Pearson correlations 
+indicate that the relation 
+between SUE deciles for quarter t and the ten corresponding 
+mean abnor- 
+mal returns around the next four earnings announcements 
+is not only close to 
+monotonic, but is almost perfectly linear. The sole exception is the relation 
+for quarter 
+t + 3, which was not expected 
+to be strong. Movement 
+from 
+analysis at the portfolio level to the level of individual firm-quarters 
+causes 
+the correlations 
+to decline considerably, 
+as expected, 
+but the predicted 
+pattern remains. 
+‘While 
+the firm’s SUE is known on the day prior to the commencement 
+of this return 
+interval, 
+the firm’s SUE decile assignment 
+is not known 
+until all firms have announced 
+earnings 
+for the 
+quarter. 
+Assuming 
+the ability to calculate 
+decile assignments 
+prior to that time introduces 
+a form 
+of hindsiaht 
+bias studied 
+by Holthausen 
+(1983). To overcome 
+this potential 
+bias, Foster, 
+Olsen, 
+and Sheviin (1984) and Beinard 
+and Thomas 
+(1989) assign 
+SUES to deciles 
+by comparing 
+them 
+to the distribution 
+of SUES for the prior 
+quarter. 
+However, 
+in this sample, 
+the magnitude 
+of 
+post-announcement 
+drift is insensitive 
+to this adjustment. 
+Note that this form of hindsight 
+bias is not an issue in the primary 
+tests based 
+on three-day 
+return 
+intervals, 
+because 
+by the time of the subsequent 
+earnings 
+announcement, 
+the firm’s SUE 
+decile assignment 
+would be known. 
+
+--- PAGE 17 ---
+V. L. Bernard and J. K. Thomas /Stock prices and earnings implications 
+321 
+A final note on table 2 concerns an apparent asymmetry in the returns for 
+‘good-news’ and ‘bad-news’ firms in panel A. If one simply adds announce- 
+ment-period 
+abnormal returns across the two groups, rather than offsetting 
+long and short positions, the result is a positive abnormal return of approxi- 
+mately 0.20 percent, 
+regardless of the subsequent 
+quarter examined. That 
+announcement-period 
+abnormal 
+returns are on average positive has been 
+documented 
+previously by Chari et al. (1988) and Ball and Kothari (1990). 
+Why this occurs is unclear. However, note that this effect would tend to 
+‘work against’ our prediction for bad-news firms for the first three lags and 
+good-news firms for the fourth lag, and should cancel out in our combined 
+long and short positions. Thus, while the effect is evident in our data, it 
+cannot explain the results of our tests. 
+Table 4 presents evidence like that in table 2 for firms classified as small, 
+medium, and large (those in size deciles 1 to 4, 5 to 7, and 8 to 10, 
+respectively, based on January 1 market value of equity for all NYSE and 
+AMEX firms). Fig. 1 summarizes the information from table 4 in the form of 
+a CAR plot.’ We are motivated to partition the data by firm size because it 
+may be more plausible that published earnings information would fail to be 
+impounded 
+fully in the prices of small firms relative to large firms. For 
+example, Foster, 
+Olsen, and Shevlin (1984) suggest that the market for 
+information 
+might be less well developed 
+for small firms, thus motivating 
+their examination of post-announcement 
+drift as a function of firm size. 
+The patterns noted above are present for each size group - in every case, 
+positive but declining abnormal returns around the announcement 
+of eam- 
+ings for quarter t + 1, t + 2, and t + 3, and negative abnormal returns around 
+the announcement 
+of earnings for quarter 
+t + 4. However, the effects are 
+more pronounced 
+for small firms. Note that this cannot be attributed 
+to 
+differences in the time-series behavior of earnings, since there is less autocor- 
+relation in earnings changes for small firms (table 11 and SUES actually vary 
+less for small firms than large firms. Thus, the data are consistent with stock 
+prices failing to reflect fully the implications of current earnings for future 
+earnings for all firms, but the failure is more apparent 
+for small stocks. 
+Interestingly, 
+however, the fraction of post-announcement 
+drift that is de- 
+layed until subsequent 
+earnings announcements 
+is similar across the three 
+size groups. 
+In addition to partitioning 
+the data by firm size, we also checked the 
+robustness of the results across fiscal quarters by partitioning 
+on both the 
+quarter 
+of portfolio 
+formation 
+and the quarter 
+to which the subsequent 
+announcements 
+pertain. The results (not reported here) are consistent across 
+sWhile Freeman and Tse (1989) present a similar plot for their overall sample (fig. 2). they 
+offer no discussion of the reactions to announcements 
+beyond quarter t + 1. 
+
+--- PAGE 18 ---
+V. L. Bernard and J.K. Thomas /Stock prices and earnings implicafions 
+Table 4 
+Predictions 
+of market 
+reactions 
+to future 
+earnings 
+announcements 
+for portfolios 
+based on current 
+quarter’s 
+SUE; results 
+by firm-size 
+group. 
+Subsequent 
+quarter 
+for which 
+earnings 
+are announced 
+t+l 
+l-t2 
+r+3 
+t+4 
+Smulljrms 
+(28.877 
+to 30.904 
+observations) 
+Abnormal 
+return 
+three days [ -2.01 
+around 
+announcement. 
+long (short) 
+in quarter 
+t SUE 
+decile 
+10 (1) 
+I.92 
+0.X? 
+f-statistif 
+(8.26) 
+(4.09) 
+Alternative 
+f-test h 
+(4.76) 
+(2.80) 
+Sum of above returns 
+(position 
+reversed 
+in quarter 
+I + 4) 
+I.92 
+Ratio 
+of sum of three-day 
+abnormal 
+returns 
+through 
+r + k to C,4R 
+since quarter 
+r announcement 
+(with 
+reversal 
+of long and short 
+0.24 
+positions 
+in quarter 
+I + 4) 
+.__~~~ 
+_~ 
+~_ 
+2.74 
+0.28 
+Medium firms (23.541 
+to 30.YO-i observations) 
+Abnormal 
+return 
+three days [ - 2.01 
+around 
+announcement. 
+long (short) 
+in quarter 
+I SUE 
+decile 
+10 (1) 
+I .46 
+0.98 
+f-statistic 
+f 10.43) 
+(7.01) 
+Alternative 
+r-test 
+(4.86) 
+(4.26) 
+Sum of above returns 
+(position 
+reversed 
+in quarter 
+I + 4) 
+1.46 
+Ratio 
+of sum of three-day 
+abnormal 
+returns 
+through 
+f + k to CAR 
+since quarter 
+t announcement 
+(with 
+reversal 
+of long and short 
+0.22 
+positions 
+in quarter 
+f + 4) 
+-_____... 
+2.44 
+0.27 
+Lwgefirms (27.342 
+to 29.088 
+observations) 
+Abnormal 
+return 
+three days [ - 2.01 
+around 
+announcement, 
+long (short) 
+in quarter 
+r SUE 
+decile 
+10 f I) 
+0.84 
+0.48 
+r-statistic 
+Alternative 
+r-test 
+0.10 
+(0.481 
+to.971 
+- I.15 
+(-5.51) 
+( - 2.45) 
+2.84 
+3.YY 
+0.27 
+0.35 
+0.21 
+(1.46) 
+(1.83) 
+2.65 
+0.27 
+Sum of above returns 
+(position 
+reversed 
+in quarter 
+f + 4) 
+Ratio 
+of sum of three-day 
+abnormal 
+returns 
+through 
+r + k to CAR 
+since quarter 
+I announcement 
+(with 
+reversal 
+of long and short 
+positions 
+in quarter 
+t + 4) 
+0.84 
+1.32 
+1.36 
+0.26 
+0.3 I 
+0.32 
+- 0.44 
+( - 3.05) 
+t - 1.62) 
+3.09 
+0.3 I 
+- 0.3 I 
+( - 3.241 
+f - 1.74) 
+I .h7 
+0.34 
+‘Abnormal 
+returns 
+are 
+the sum of daily 
+returns 
+for 
+individual 
+firms 
+in the 
+portfolio. 
+less 
+returns 
+for NYSE-AMEX 
+firms of the same size decile. 
+based on January 1 market 
+values of 
+equity. 
+Small, 
+medium. 
+and large firms are in size deciles 
+I to 4. 5 to 7, and 8 to IO. respectively. 
+CAR is the sum of abnormal 
+returns 
+over all days since the announcement 
+for quarter 
+r. 
+SC/E 
+represents 
+the 
+forecast 
+error 
+from 
+a seasonal 
+random-walk 
+(with 
+trend) 
+earnings- 
+expectation 
+model, 
+scaled by its estimation-period 
+standard 
+deviation. 
+SUE 
+decile 
+portfolios 
+are 
+based 
+on 
+ranking 
+of 
+SUES 
+within 
+the 
+calendar 
+quarter 
+of the 
+announcement 
+of quarter 
+I 
+earnings. 
+hAlternative 
+t-test 
+is conducted 
+by calculating 
+mean abnormal 
+return 
+for each of 13 years. and 
+dividing 
+by the time-series 
+standard 
+error 
+of that mean. 
+
+--- PAGE 19 ---
+V. L. Bernard and J.K Thomas /Stock prices and earnings implications 
+323 
+12 
+0 
+portfolio 
+large 
+t 
+t+1 
+1+2 
+t+3 
+t+4 
+Announcement date of subsequent quarter, relative to announcement of quatier t 
+Fig. 1. Percentage cumulative abnormal returns for SUE portfolios: Returns aligned by subse- 
+quent earnings announcements. 
+Portfolio CAR is the percentage cumulative abnormal return over holding periods beginning 
+after the earnings-announcement 
+day for quarter t, for a portfolio invested long (short) in the 
+highest (lowest) decile of standardized unexpected earnings (SUE) at quarter t. SUE represents 
+forecast error from the seasonal random-walk (with trend) earnings-expectation 
+model scaled by 
+its estimation-period 
+standard deviation. Abnormal returns are the differences between daily 
+returns for individual firms in an SUE decile portfolio and returns for NYSE-AMEX 
+firms of 
+the same size decile, based on January 1 market values of equity. Small, medium, and large firms 
+are in size deciles 1 to 4, 5 to 7, and 8 to 10, respectively. Holding periods are obtained by 
+splitting the period between 
+adjacent 
+earnings-announcement 
+dates into a three-day 
+pre- 
+announcement 
+window (day -2 to day 0) and an inter-announcement 
+window. While the actual 
+inter-announcement 
+windows vary in length, the mean value of 60 days is used to illustrate the 
+differential price responses occurring in the two windows. 
+
+--- PAGE 20 ---
+324 
+V.L. Bernard and 3.K Thomas /Stock prices and earnings implications 
+the quarters, with the following exception. When either the first or second 
+subsequent announcements 
+pertain to the first quarter of the fiscal year, the 
+three-day abnormal returns are only about half as large as reported in table 
+2. Although 
+this result may be partially 
+due to the lower-than-average 
+first-order 
+autocorrelations 
+between 
+fourth-quarter 
+and subsequent 
+first- 
+quarter SUES, we are otherwise unable to explain this feature of the data. 
+3.2. Regression tests of Hypothesis 2 
+We now turn to tests of Hypothesis 2. These tests can be used to assess the 
+economic importance 
+of abnormal returns that are predicted 
+using several 
+prior 
+earnings signals simultaneously. 
+However, 
+the tests require 
+direct 
+reliance on a specific model of earnings (the Brown-Rozeff 
+model). Whether 
+such reliance strengthens or weakens our tests depends on the validity of that 
+model as a description of the actual univariate process of earnings. 
+Based on eqs. (6) and (7), we estimate regression models of the following 
+form: 
+ARj,=b,+b,(Qj,,-,-Qj,r-s> 
+fb,ej,,-4+Ujry 
+AR, = 6, + b,ej,,_l 
++ bzej,,-z 
++ bJej,,-3 
++bdej.,--d + ci19 
+where ej,r_k is an estimate of the earnings shock E~,,_~ from eqs. (6) and (7) 
+as discussed below, ujr and L;, are residual errors, and other variables are as 
+previously defined. 
+The earnings shocks called for on the right-hand side of eqs. (8) and (9) are 
+the forecast errors from a Brown-Rozeff 
+model. However, in time series as 
+short as that used here, the iterative techniques 
+necessary to estimate the 
+Brown-Rozeff 
+model are often unreliable. 
+To deal with this problem, we 
+produced two sets of estimates of (8) and (9). One is based on a subset (36 
+percent) of the sample for which 36 historical observations 
+are available to 
+estimate the Brown-Rozeff 
+earnings forecasts; forecast errors for this sample 
+are available only beginning in 1980. The second approach 
+uses the full 
+sample, extending from 1974 through 1986, but substitutes 
+forecast errors 
+from an alternative 
+model developed 
+by Foster (1977).9 Such errors are 
+highly correlated with Brown-Rozeff 
+forecast errors, even though the Foster 
+model differs by excluding the fourth-order 
+moving-average 
+term.” 
+While 
+‘The Foster model was estimated from the most recent 36 quarters of earnings data (after 
+seasonal differencing), 
+where available. Where fewer than 16 quarterly observations 
+were 
+available, we relied on a seasonal random walk to generate earnings expectations. 
+This was 
+necessary in about 6 percent of the cases. 
+“The 
+correlation 
+between the two forecast errors is 0.86, when each is converted to a 
+winsorized SUE as was done previously with the seasonal differences; the correlation is 0.80, 
+when each is converted to SUE deciles. 
+
+--- PAGE 21 ---
+K L. Bernard and 1. K Thomas /Stock prices and earnings implications 
+325 
+the substitution 
+of Foster forecast errors weakens our tests by introducing 
+some measurement 
+error in the regressors, the impact should be small.” In 
+fact, for the subsample where both Brown-Rozeff 
+and Foster forecast errors 
+are available, the results are essentially the same; those results are, in turn, 
+similar to those based on the full sample and Foster model forecasts errors. 
+Given that the alternative 
+approaches 
+yield similar results, we choose to 
+report only one in detail. The approach 
+selected is that based on the full 
+sample (using the Foster model), because the results of that approach are 
+readily comparable to those in the previous tables. Moreover, by emphasizing 
+that the predicted results hold when Foster model forecast errors are.used, 
+we can remove any doubt that the implied abnormal returns could only have 
+been obtained through application of the computer-intensive 
+statistical esti- 
+mation required by the Brown-Rozeff 
+model. The Foster model, in contrast, 
+could easily have been estimated 
+throughout 
+our sample period, using a 
+simple regression. 
+Another measurement 
+issue concerns scaling of the regressors. Both the 
+seasonal difference 
+Q,_, - Q,_, and the earnings shocks e,_, through er_4 
+are scaled by their historical standard deviations (using up to 36 observations, 
+where available), just as the SUES were in the previous section. [Thus, the 
+regressors could themselves be viewed as SUES based on forecasts from a 
+seasonal random walk (for Q, _ , - Q, _s) and a Foster model (for e,_ , 
+through 
+et_,).] The resulting scaled variables are then placed in deciles 
+within quarters (to guard against the potential for difficulties with outliers) 
+and the decile rankings (1 to 10) are reduced by one and then divided by nine 
+so as to range between 0 and 1. 
+Given the way we have constructed 
+the regressions, the coefficients can be 
+interpreted 
+as abnormal returns on portfolios with certain useful properties. 
+[See Fama and MacBeth (1973) and Bernard (1984) for similar interpreta- 
+tions.] First, denoting 
+the dependent 
+variable 
+as R and the matrix of 
+regressors as X, note that the ordinary-least-squares 
+(OLS) regression coef- 
+ficients [written as (X’X)-‘X’R] 
+represent 
+abnormal returns on portfolios, 
+where the portfolio weights are given by the rows of the matrix (X’X)-‘X’. 
+Second, note that since the regression includes an intercept, 
+the portfolio 
+weights for the slope coefficients 
+must sum to zero, and thus the slope 
+coefficients can be viewed as abnormal returns to zero-incesrment 
+portfolios. 
+Third, to help interpret the economic meaning of the coefficient, note that a 
+coefficient from a regression of abnormal returns can always be interpreted 
+“If the Brown-Rozeff 
+and Foster model parameters 
+could be estimated 
+precisely, then 
+movement from the former to the latter to estimate eq. (8) should introduce a bias toward zero 
+in bt that is trivial and in b4 that is on the order of 6 percent. (Details are available upon 
+request.) For the subsample where both Brown-Rozeff 
+and Foster forecast errors are available, 
+the coefficient estimates based on the Foster model are indeed closer to zero, in the amount of 
+1 percent and 2 percent, respectively. 
+
+--- PAGE 22 ---
+326 
+VL. Brrnard and J.K Thomas /Stock prices and earnings mplications 
+as the abnormal return on a portfolio with a value of 1 for the associated 
+regressor, and a value of 0 for the remaining regressors. Thus, the amount 
+b, - 6, in eq. (8) represents 
+the abnormal 
+return 
+on a zero-investment 
+portfolio with a value of 1 for Q,_, - Q,_, and - 1 for e,_,; the amount 
+6, + b, + b, -b, 
+in eq. (9) represents 
+the abnormal return on a zero-invest- 
+ment portfolio with value of 1 for e,_ ,, e,__?, and e,_s and - 1 for e,_,. (Of 
+course, regressors for individual observations range from 0 to 1, spanning the 
+ten deciles of the distribution, 
+but the observations 
+are weighted so that 
+these statements hold for the portfolio.) 
+The above interpretations 
+imply that, given how the regressors are scaled 
+[with a value of 1 (0) representing 
+the highest (lowest) decile of a regressor 
+distribution], 
+the portfolio underlying 
+b, - b, in eq. (8) is comparable 
+to a 
+zero-investment 
+portfolio 
+with long (short) positions 
+in firms within the 
+highest (lowest) decile of Q,_ , - Q,_, 
+and short (long) positions in firms 
+within the highest (lowest) decile of e,_,. Specifically, the two portfolios are 
+comparable in the sense that both have values of 1 for Q,_, - Q,_s and - 1 
+for e,_4.‘2 Similarly, the portfolio 
+underlying 
+6, + 6, + b, - 6, in (9) is 
+comparable to a zero-investment 
+portfolio with long (short) positions in firms 
+within the highest (lowest) deciles of e, _ ,, et_:, and e,_3 and short (long) 
+positions in firms within the highest (lowest) decile of e,_,. 
+The essential point is that the linear combination of coefficients in regres- 
+sion (8) or (9) can be interpreted 
+as abnormal returns on zero-investments 
+portfolios that, unlike the portfolios in table 2 and prior research, are based 
+on information 
+about multiple earnings signals. Nevertheless, 
+the portfolios 
+implicit in the regression 
+are scaled so as to permit comparisons 
+with 
+portfolios based on single earnings signals. In addition, the weights underly- 
+ing them are determinable 
+on the basis of information 
+(the regressors) 
+available prior to the beginning of the return interval. 
+Estimates of eqs. (8) and (9) are presented in table 5, panel A. The primary 
+estimates based on three-day return intervals appear at the top of that panel. 
+The abnormal 
+returns implied by using the combination 
+of prior period 
+earnings signals [that is, b, - b4 for eq. (8) and 6, + b, + b, - b4 for eq. (9)l 
+appear in the rightmost column of panel A. 
+Coefficient estimates for both eqs. (8) and (9) at the top of panel A all have 
+the predicted signs (b,, b,, and b, are all positive and 6, is negative) and are 
+always statistically significant. The relative magnitudes of the coefficients are 
+also in accord with our expectations; 
+that is, b, > b, > 6, > 0 > b,. The 
+adjusted R* is low in regressions (8) and (9) - less than 1 percent - indicat- 
+ing that only a small fraction of the variance in stock returns is predictable 
+‘*The portfolio 
+underlying 
+b, - b4 differs from the other 
+portfolio 
+in that, under 
+the assump- 
+tions of OLS, 
+the former 
+is minimum 
+variance. 
+However, 
+since the assumptions 
+of OLS are 
+unlikely 
+to hold perfectly, 
+the portfolio 
+will not literally 
+be minimum 
+variance, 
+thus weakening 
+our tests. 
+
+--- PAGE 23 ---
+C: L. Bernard and J..K Thomas /Stock prices and earnings implications 
+Table 5 
+327 
+Regression tests of relation between market reactions to quarterly earnings announcements 
+and 
+earnings information. 
+Panel A: Predicting market reaction using lagged earnings information” 
+(8) 
+AR,,=b,+b,(Q,,,-,-Q,.,-,)+b,e,,,-,+uj, 
+(9) 
+AR,,=b,+blej,r-,+bze,,,-z+b3e,,,_,+b4e,,,-j+L.,, 
+Regression 
+Holding period for 
+b, 
+4 
+b, 
+h 
+Adj. 
+Implied portfolio 
+model 
+abnormal returns 
+(r-statistic and alternative r-test) 
+R’ 
+abnormal return 
+Equation 8 
+(N = 75,653) 
+Equation 9 
+(N = 75,045) 
+Equation 8 
+(N = 75,443) 
+Equation 9 
+(N = 74,837) 
+Three-day [ - 2,Ol 
+1.30 
+-0.84 
+0.7% 
+2.14% 
+announcement 
+(20.59) 
+(- 13.29) 
+period for quarter t 
+(12.221 
+(- 6.06) 
+Three-day [ - 2,0] 
+0.98 
+0.62 
+0.28 
+-0.71 
+0.7% 
+2.59% 
+announcement 
+(15.66) 
+(9.89) (4.44, (- 11.41) 
+period for quarter I 
+(9.141 (14.431 (2.831 
+(- 9.041 
+From day after prior 
+6.24 
+-2.44 
+1.6% 
+8.68% 
+announcement, 
+(34.401 
+(- 13.41) 
+to quarter f 
+(9.41) 
+(- 9.64) 
+announcement 
+(avg. 63 days) 
+From day after prior 
+5.38 
+1.46 
+0.53 
+- 1.56 
+1.4% 
+5.93% 
+announcement, 
+(29.99) 
+(8.10) (2.94) 
+( - 8.681 
+to quarter r 
+(6.56) 
+(3.22) (0.181 
+(-5.32) 
+announcement 
+(avg. 63 days) 
+Panel B: Contemporaneous 
+association: market reaction and earnings information” 
+(A) 
+AR,, = b, + b,ej, + tv,, 
+(B) 
+AR,, = bo + h(Q,., - Q,.,-4) + I,, 
+Regression 
+Holding period for 
+Regression coefficient, b, 
+Adj. 
+Implied portfolio 
+model 
+abnormal returns 
+(r-statistic and alternative t-test) 
+R’ 
+abnormal return 
+Equation A 
+Three-day [ - 2, O] 
+4.18 
+5.8% 
+1.18% 
+(N = 82,734) announcement 
+(71.611 
+period for quarter t 
+(26.34) 
+Equation B 
+Three-day [ - 2,0] 
+4.43 
+6.4% 
+1.43% 
+(N = 85,493) announcement 
+(76.271 
+period for quarter t 
+(19.271 
+aAbnormal returns, 
+ARj,, 
+represent 
+the sum over the indicated 
+holding periods of the 
+differences between daily returns for firm j and returns for NYSE-AMEX 
+firms of the same 
+size decile, based on January 1 market values of equity. Q, - Q,_4 is seasonally differenced 
+quarterly earnings and e, is the forecast error from the Foster (1977) first-order autoregressive 
+earnings-expectation 
+model (in seasonal differences); both are scaled by their historical standard 
+deviation. All regressors are assigned to deciles, based on the current quarter distribution, and 
+then scaled so that they range from 0 (for the lowest decile) to 1 (for the highest decile). Implied 
+portfolio abnormal returns are equal to (b, -b,) 
+and (b, + b, + b, - b,) in panel A, and b, in 
+panel B. Alternative 
+r-test is conducted by estimating regressions for each of 13 years, and 
+comparing each coefficient’s mean to its time-series standard error. 
+
+--- PAGE 24 ---
+328 
+V. L. Bernard and 1. K Thomas /Stock prices and earnings implications 
+based on previously announced earnings information. However, we will show 
+later (table 7) that the remaining variance is largely diversifiable 
+within 
+annual cross-sections, 
+yielding abnormal 
+returns with the predicted 
+signs 
+consistently from year to year. 
+Turning to the implied portfolio abnormal return on the right-hand side of 
+panel A, we see that a combination of prior period earnings signals improves 
+our ability to predict future reactions to earnings announcements. 
+Note that 
+the implied abnormal 
+returns are larger than any of the coefficients 
+on 
+individual regressors, and larger than any of the portfolio returns in table 2, 
+each of which is based on a single earnings signal. Results based on eqs. (8) 
+and (9) imply that, on average, historical earnings information 
+could have 
+been used to construct a portfolio with an abnormal return of 2.1 percent and 
+2.6 percent, respectively, over the three-day announcement-period 
+interval. 
+Table 5 also provides two ways to assess the economic importance of the 
+predictions. 
+The first moves away from emphasis on three-day 
+intervals 
+surrounding 
+subsequent 
+earnings announcements, 
+and focuses instead on 
+portfolios formed immediately after the current announcement.‘-’ The portfo- 
+lios are held until the next announcement 
+(a period of approximately 
+63 
+trading days, on average). If an investor believes that post-announcement 
+drift represents a delayed price response, there would be no good reason to 
+wait until just prior to subsequent announcements 
+to take a position. More- 
+over, the timing of the subsequent 
+announcement 
+cannot be predicted 
+perfectly in advance. Thus, transacting just after the current announcement 
+may represent 
+a better depiction of the strategy an investor might pursue. 
+However, the movement 
+to longer windows increases the concerns 
+about 
+measurement 
+error in abnormal returns. 
+Regressions using the longer return intervals are presented at the bottom 
+of table 5, panel A. The implied abnormal return over one quarter for the 
+portfolio constructed using information about two earnings signals - (Q, _ , - 
+Q,_.J and e,_4 - is 8.7 percent. When signals about each of the prior four 
+earnings announcements 
+are used - et_,, e,_*, el_s, and e,_, - the implied 
+abnormal return is 8.9 percent. The magnitudes of these abnormal returns, 
+corresponding 
+to implied annualized 
+abnormal returns on the order of 35 
+percent, are significant in economic as well as statistical terms. 
+There is a second approach to evaluating the economic importance of the 
+effects documented 
+here, that has more direct implications for methodology. 
+We compare the implied three-day abnormal return from panel A, which is 
+predicted 
+solely on the basis of historical 
+information, 
+to the three-day 
+abnormal 
+return 
+that could be generated 
+if earnings were known with 
+“The values of two regressors, the decile assignments of (Q,_, - Q,_s) and e,_ ,, depend on 
+a firm’s earnings relative to other firms, and thus cannot be calculated until all firms have 
+announced 
+earnings. However, as explained in footnote 7, the potential hindsight bias this 
+introduces appears trivial in this sample. 
+
+--- PAGE 25 ---
+V.L. Bernard and J.K. Thomas /Stock prices and earnings implications 
+329 
+certainty three days before the announcement. 
+The latter abnormal return is 
+presented 
+in panel B, where we regress abnormal returns around the an- 
+nouncement 
+of earnings for quarter t against measures of unexpected earn- 
+ings (either 
+Q, - Qr_4 or e,) for that same quarter. (Consistent 
+with our 
+approach 
+in panel A, the regressor ranges from 0 to 1, depending on the 
+decile to which estimated 
+unexpected 
+earnings belongs.) The regression 
+indicates that the zero-investment 
+portfolio comparable to one with a long 
+(short) position in stocks in the highest (lowest) decile of current unexpected 
+earnings generates an abnormal return of 4.2 or 4.4 percent, depending on 
+how unexpected earnings is defined. These amounts can then be compared to 
+the three-day abnormal returns of 2.1 or 2.6 percent in panel A. 
+The above comparison indicates that, using only historical, publicly avail- 
+able earnings data, we are able to generate an abnormal return about half as 
+large as that based on perfect foresight of earnings. Thus, the abnormal return 
+that can be predicted in adcance is appro.rimately half as large as the stock-price 
+reaction to what is labeled ‘unexpected earnings’ in many accounting research 
+studies. This result calls into question 
+the reliability of studies that rely 
+heavily on the assumption that prices reflect all publicly available earnings 
+information 
+quickly. Of some consolation, 
+however, is the observation that 
+the fraction of variance in announcement-period 
+abnormal returns explained 
+by prior-period 
+earnings information 
+is small (0.7 percent), in both absolute 
+terms and relative to the R-squared based on current earnings, which is 5.8 
+percent. 
+Eq. (8) is re-estimated within firm-size categories in table 6, panel A. Using 
+the combination of indicators from prior earnings numbers, the mean three- 
+day abnormal return on the implied zero-investment 
+portfolio is 3.4 percent, 
+2.2 percent, and 1.2 percent for small, medium, and large firms, respectively. 
+The regression results in panel B indicate that if one could forecast the SUE 
+perfectly, the resulting mean three-day abnormal return would be 6.8 per- 
+cent, 3.7 percent, 
+and 2.3 percent, 
+for small, medium, and large firms, 
+respectively. In each case, the return based solely on historical information is 
+about half as large as that based on perfect foresight. 
+A final note concerns the potential for further improvement 
+in the ability 
+to predict abnormal returns around future earnings announcements 
+by con- 
+sidering cross-sectional 
+differences 
+in the parameters 
+of individual firms’ 
+time-series processes. We examined this issue in two ways. First, in regres- 
+sions not reported here, we used historical estimates of 4 and 8 in eq. (81, as 
+called for by eq. (6). Predictive 
+ability was not improved; 
+the implied 
+abnormal 
+returns were similar to those reported 
+in table 5. Second, we 
+stratified the sample into four quartiles, first based on historical estimates of 
+4 and then (separately) based on historical estimates of 8, and repeated the 
+portfolio tests of table 2 within each group. As expected, the abnormal return 
+at the announcement 
+of quarter t + 1 earnings was most (least) positive for 
+
+--- PAGE 26 ---
+330 
+V. L. Bernard and J. K Thomas /Stock prices and earnings implicarions 
+Table 6 
+Regression tests of relation between market reactions to quarterly earnings announcements 
+and 
+earnings information; results by firm-size group. 
+Panel A: Predicting market reaction using lagged earnings informationa 
+(8) 
+AR,,=bo+b,(Qj,,_,-Q,,,_j)+b,e,,,_,+~,, 
+Firm-size 
+b, 
+b, 
+Adj. 
+Implied portfolio 
+category 
+(r-statistic and alternative t-test) 
+R2 
+abnormal return 
+Small firms 
+(N= 26,841) 
+Medium firms 
+(N = 22,204) 
+Large firms 
+(N = 26,438) 
+1.98 
+(13.37) 
+(9.88) 
+1.49 
+(14.76) 
+(5.40) 
+0.80 
+(11.69) 
+(1.88) 
+- 1.37 
+0.8% 
+3.355 
+(-9.32) 
+( - 7.30) 
+-0.71 
+1.0% 
+2.2OcC 
+(- 7.00) 
+( - 4.66) 
+- 0.43 
+0.6% 
+1.22ci 
+(- 6.52) 
+(- 1.30) 
+Panel B: Contemporaneous 
+association: market reaction and earnings information” 
+AR,, = b, + b,e,, + w,, 
+Firm-size 
+Regression coefficient, b, 
+Adj. 
+Implied portfolio 
+category 
+(t-statistic and alternative t-test) 
+R2 
+abnormal return 
+Small firms 
+(N = 29,694) 
+Medium firms 
+(N = 24,163) 
+Large firms 
+(N = 28,482) 
+6.77 
+7.9% 
+6.77% 
+(50.58) 
+(19.97) 
+3.74 
+6.3% 
+3.71% 
+(40.32) 
+(24.57) 
+2.28 
+4.5% 
+2.283 
+(36.45) 
+(15.92) 
+aAbnormal returns, 
+ARj,, 
+represent 
+the sum over the three-day 
+[ -2,Ol 
+holding period 
+(relative to the announcement 
+date for quarter 1) of the differences between daily returns for 
+firm j and returns for NYSE-AMEX 
+firms of the same size decile, based on January 1 market 
+values of equity. Small, medium, and large firms are in size deciles 1 to 4, 5 to 7, and 8 to 10, 
+respectively. Q, - Q,_., is seasonally differenced quarterly earnings and e, is the forecast error 
+from the Foster (1977) first-order autoregressive earnings-expectation 
+model (in seasonal differ- 
+ences); both are scaled by their historical standard deviation. All regressors are assigned to 
+deciles, based on the current-quarter 
+distribution, and then scaled so that they range from 0 (for 
+the lowest decile) to 1 (for the highest decile). Implied portfolio abnormal returns are equal to 
+(b, - b4) in panel A and b, in panel B. Alternative I-test is conducted by estimating regressions 
+for each of 13 years, and comparing each coefficient’s mean to its time-series standard error. 
+
+--- PAGE 27 ---
+V. L. Bernard and J.K Thomas /Stock prices and earnings implications 
+331 
+the portfolio with the largest (smallest) historical value for C#J (1.54 percent 
+versus 1.21 percent), 
+and the abnormal 
+return at quarter 
+t + 4 was most 
+(least) negative for the portfolio with the largest (smallest) historical value for 
+8 (- 1.09 percent versus -0.74 percent). However, the differences were not 
+statistically significant. One possible explanation 
+is that cross-sectional 
+dif- 
+ferences in time-series parameters 
+are too small to provide much predictive 
+power. (Recall the similarity in time-series behavior across industries in table 
+1.) Another possibility is that while cross-sectional differences exist, they are 
+unstable 
+or estimated 
+with considerable 
+error. 
+Much of the time-series 
+literature 
+[e.g., Albrecht, 
+Lookabill, and McKeown (1977), Foster (1977), 
+Watts and Leftwich (1977)] is consistent with such cross-sectional differences 
+not being predictable out of sample. 
+4. Alternative 
+explanations 
+and additional 
+evidence 
+It is difficult to understand 
+how stock prices could fail to reflect the 
+implications of current earnings for future earnings in such a systematic way. 
+The evidence naturally raises several questions, which we discuss below. 
+(1) 
+Can this ecidence be explained in terms of rational incestors’ desire to 
+await ‘confirmation’ that a precious earnings change is not transitory? 
+An immediate problem with this explanation is that, at best, it fits only the 
+patterns observed around the announcements 
+of earnings for quarters 
+t + 1, 
+t + 2, and t + 3; the reactions for quarter t + 4 are consistent with investors 
+treating previous earnings as if they were more permanent 
+than they turned 
+out to be. 
+There is a more fundamental 
+problem with this explanation, however. No 
+matter how much uncertainty surrounds the implications of earnings already 
+announced 
+for quarter 
+t, prices in an efficient market would immediately 
+reflect an unbiased 
+expectation 
+of future earnings, and future abnormal 
+returns would be uncorrelated 
+with past earnings changes. Even if increased 
+uncertainty 
+caused by extreme earnings changes is relevant for pricing, it 
+could not explain the evidence. While it is true in that case that a post- 
+announcement 
+drift (actually, a risk premium) would be observed, it would be 
+positive for both extreme-bad-news and extreme-good-news firms. [See Brown, 
+Harlow, and Tinic (1988X] Both the existing literature on post-announcement 
+drift and this study (see table 2) document 
+a negative drift for bad-news 
+filllls. 
+(2) 
+Does the evidence reflect autocorrelations in earnings that were observable 
+ex post, but not predictable ex ante? 
+Two pieces of evidence contradict this explanation. First, the autocorrelation 
+patterns we observed in our sample period were also observed by Foster for 
+
+--- PAGE 28 ---
+332 
+KL. Bernard and J.K Thomas /Stock prices and earnings implications 
+Table 7 
+Consistency (over time) of relation between market reactions to future earnings announcements 
+and current-quarter 
+earnings information. 
+Mean abnormal 
+return 
+during three-day 
+I-2,0] 
+window around 
+earnings announcement 
+for quarter t + k, for portfolio including long 
+(short) position in firms in highest (lowest) decile of SUE in quarter ta 
+(predicted sign of abnormal return in parentheses) 
+Year 
+t+l 
+t+t 
+t-+3 
+t+4 
+(+I 
+(+I 
+(+I 
+f-J 
+1974 
+3.74= 
+1975 
+2.28’ 
+1976 
+1.30c 
+1977 
+1.69’ 
+1978 
+1.06= 
+1979 
+1.08’ 
+1980 
+1.48c 
+1981 
+l.lOC 
+1982 
+1.08c 
+1983 
+l.llC 
+1984 
+o.70c 
+1985 
+1.12c 
+1986 
+0.84’ 
+3.05c 
+0.89 
+0.80C 
+- 0.43 
+0.41 
+-0.15 
+o.87c 
+-0.01 
+0.78C 
+0.69’ 
+0.76c 
+-0.10 
+0.87c 
+0.21 
+0.78’ 
+0.20 
+0.26 
+-0.19 
+0.73c 
+0.12 
+o.50c 
+0.27 
+0.19 
+- 0.70 
+0.81’ 
+0.54 
+NAb 
+- 1.32c 
+- 0.9gc 
+-0.41 
+-0.15 
+- 0.39 
+- 0.9ac 
+- 0.57c 
+- 1.05c 
+- o.75c 
+- 0.06 
+- 0.91= 
+-0.19 
+‘SUE represents forecast error from the seasonal random-walk (with trend) earnings-expecta- 
+tion model, scaled by its estimation-period 
+standard 
+deviation. Abnormal 
+returns are the 
+differences between daily returns for individual firms in the SUE decile portfolio and returns for 
+NYSE-AMEX 
+firms of the same size decile, based on January 1 market values of equity. 
+bSince SUES are calculated beginning in the first quarter of 1974, four-quarter-ahead 
+predic- 
+tions are not possible for any quarter in that year. 
+?Statistically significant at 0.05 level, one-tailed test. 
+1946-1974. In fact, the positive autocorrelations 
+in earnings changes at lags 
+1, 2, and 3 are weaker during our sample period than in Foster’s earlier 
+period, making it difficult to argue that the market was justified in being 
+surprised 
+at the degree 
+of autocorrelation 
+in earnings observed 
+in our 
+sample. [Our own expectations were based largely on the evidence in Foster 
+(19771, and the evidence in tables 2 through 5 was generated 
+before we 
+produced the autocorrelations 
+reported in table 1.1 
+The second piece of evidence is presented 
+in table 7. Although the market 
+might err in its expectations about the degree of autocorrelation 
+in earnings, 
+it is difficult to explain how it could justifiably err in the same direction year 
+after year. Table 7 shows that the mean three-day abnormal returns around 
+the announcement 
+for quarter t + 1 and t + 2 (for portfolios formed based 
+on earnings of quarter 
+t, as they were for table 2) is positive for 13 
+consecutiue years. The mean abnormal return around the announcement 
+of 
+quarter t + 4 earnings is negative for each of the 12 years for which we have 
+data. (Results for quarter 
+t + 3 are weak, but that is not unexpected, given 
+the weak third-order 
+autocorrelation 
+in seasonally differenced earnings.) Of 
+
+[TRUNCATED at 80000 chars — 36 total pages]

@@ -1,0 +1,2099 @@
+
+--- PAGE 1 ---
+ 
+ 
+ 
+ 
+ 
+ 
+The Rodney L. White Center for Financial Research 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+How Much do Investors Care about Macroeconomic Risk? 
+Evidence from Scheduled Economic Announcements 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Pavel Savor 
+Mungo Wilson 
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+18-10 
+ 
+ 
+ 
+ 
+
+--- PAGE 2 ---
+How Much Do Investors Care About Macroeconomic Risk?
+Evidence From Scheduled Economic Announcements
+Pavel Savor
+Mungo Wilsony
+This version: February 2010
+Abstract
+Stock market returns are signi…cantly higher on days when important macroeco-
+nomic news, such as that about in‡ation, unemployment, or interest rates, is scheduled
+for announcement. The average announcement day excess return from 1958 to 2008
+is 10.6 basis points versus 1.0 basis points for all the other days, suggesting that over
+60% of the cumulative annual equity risk premium is earned on announcement days.
+In contrast, the risk-free rate is detectably lower on announcement days, consistent
+with a precautionary saving motive. Our results demonstrate the required trade-o¤ be-
+tween macroeconomic risk and asset returns, and provide an estimate of the premium
+investors demand to bear this risk.
+JEL Classi…cation: G12
+Keywords: Asset Pricing, Macroeconomic Risk, Macroeconomic News
+psavor@wharton.upenn.edu. (215) 898-7543. The Wharton School, University of Pennsylvania.
+yMungo.Wilson@sbs.ox.ac.uk. Said Business School, Oxford University.
+A previous version of the paper was distributed under the title “Asset Returns and Scheduled Macroeco-
+nomic News Announcements”. We thank Michael Brennan, John Campbell, Pierre Collin-Dufresne, Charles
+Jones, Michael Lemmon, Jose Martinez, Michael Roberts, Costis Skiadas, Amir Yaron, and seminar partic-
+ipants at Exeter University, Hong Kong University of Science and Technology, Imperial College, INSEAD,
+London School of Economics, Oxford University, the University of Pennsylvania, Warwick Business School,
+2008 Adam Smith Asset Pricing Conference, and 2010 Utah Winter Finance Conference for their valuable
+comments.
+1
+
+--- PAGE 3 ---
+Introduction
+The link between macroeconomic risk and security returns is central to …nancial economics.
+While a lot of relevant information about the economy arrives randomly over time, certain
+important macroeconomic news is released in the form of prescheduled announcements, whose
+dates are known months in advance. Investors don’t know what the news will be, but they
+do know that there will be news. If asset prices respond to this news, the risk associated with
+holding securities will be higher around announcements. Risk-averse investors who know that
+they will be exposed to higher risk should then demand, and in equilibrium receive, a higher
+expected excess return during those times.
+Consistent with this general idea, we …nd that average U.S. stock market returns are sig-
+ni…cantly higher on days when important macroeconomic news is scheduled to be announced.
+On days when the Consumer Price Index (CPI), Producer Price Index (PPI), employment
+…gures or Federal Open Market Committee (FOMC) decisions are released, excess market
+returns average 10.6 basis points (bps) versus only 1.0 bps for all the other days. These
+…gures imply that compensation for bearing macroeconomic announcement risk accounts for
+a large portion of the equity risk premium, as more than 60% of the cumulative annual excess
+return is earned on just 13% of the trading days, whose timing is known to investors well in
+advance. Conversely, the risk premium for holding stocks at other times is very low, with
+the average excess return on those days not being statistically distinguishable from zero.
+Higher risk on announcement days can also a¤ect the risk-free rate. For example, increased
+risk can raise desired saving by risk-averse investors to insure against adverse states of the
+world. In equilibrium, increased precautionary saving demand should reduce returns on the
+risk-free asset, and we …nd strong support for this prediction. The holding period return
+on 30-day U.S. Treasury bills (our proxy for the daily risk-free rate) is 0.2 bps lower on
+announcement days with a t-statistic of 4.43. For longer-term Treasury securities, which
+are not riskless assets on a daily horizon, the di¤erence between announcement and non-
+announcement day returns increases monotonically with a bond’s maturity, as we would
+2
+
+--- PAGE 4 ---
+predict if investors expect higher returns on riskier assets on announcement days.
+Our results hold over the full 1958-2008 sample (1961-2008 for Treasuries), are almost
+unchanged in various subsamples, are robust to exclusion of outliers, and hold separately
+for each type of announcement. They are also not explained by the day-of-the-week e¤ect
+documented by French (1980) and Gibbons and Hess (1981).
+Our …ndings suggest that macroeconomic risks are important priced factors for stock and
+bond returns and for risk-free rates. An extensive prior literature, which we discuss below,
+presents evidence consistent with a higher conditional risk of holding risky …nancial assets
+ahead of macroeconomic announcements. In a rational-expectations equilibrium, such higher
+risk should also be re‡ected in higher risk premia and, possibly, lower risk-free rates. If
+so, anticipated macroeconomic events should be periods of high average returns for risky
+assets and low risk-free rates. For example, if risk-averse investors prefer to avoid in‡ation
+risk, then times of in‡ation announcements must be times of higher average excess returns
+over a su¢ ciently long time period (one in which the average surprise equals zero). The
+contribution of this paper is to show that stock, bond, and risk-free asset returns behave in a
+manner consistent with announcement risk being priced. The extra return investors demand
+for bearing this risk is economically large, with our estimates suggesting it accounts for over
+60% of the equity risk premium.
+A number of papers investigate the sensitivity of realized returns to the news component
+of scheduled macroeconomic announcements. For instance, a positive in‡ation shock (an
+announcement of an in‡ation number higher than the consensus forecast) may induce a
+negative contemporaneous stock market return. In the language of factor models, these papers
+investigate factor betas as opposed to factor risk premia. Formally, given an announcement
+day surprise zt+1, de…ned as the di¤erence between the announced number and its forecast,
+a test asset return rt+1 is decomposed into its conditional expectation and its residual:
+rt+1 = Et[rt+1] + zt+1 + "t+1:
+(1)
+3
+
+--- PAGE 5 ---
+Starting with Schwert (1981), Pearce and Roley (1983), Pearce and Roley (1985), Hardou-
+velis (1987), Cutler, Poterba, and Summers (1989), Orphanides (1992), McQueen and Roley
+(1993), Krueger (1996), and Fleming and Remolona (1997) study the responsiveness  of
+stock or bond returns to various macroeconomic surprises zt+1. More recently, Boyd, Hu, and
+Jagannathan (2005) explore the sensitivity of security returns to unemployment surprises
+and …nd a positive stock market response to news of rising unemployment during economic
+expansions (a positive ) and a negative response during contractions (a negative ). An-
+dersen, Bollerslev, Diebold, and Vega (2007) use a high-frequency futures data set and get
+a similar result that the stock market response to macroeconomic news depends on general
+economic conditions. Bernanke and Kuttner (2005) analyze the impact of FOMC interest
+rate announcement surprises on stock market returns.
+Flannery and Protopapadakis (2002) estimate a direct announcement e¤ect on contem-
+poraneous returns through the sensitivity to announcement news  together with an indirect
+e¤ect through higher conditional volatility of shocks "t+1 (even if  equals zero) on announce-
+ment days. They employ a GARCH model to identify which macroeconomic surprises (out of
+17 candidates) in‡uence realized equity returns or their conditional volatility. They come up
+with three variables (CPI, PPI, and the monetary aggregate) for which there exists a relation
+between surprises and returns, and only one of those (the monetary aggregate) a¤ects returns
+both directly and indirectly.12
+By contrast, this study focuses on the e¤ect of prescheduled announcements on expected
+returns Et[rt+1].
+Expected returns are di¤erent economic quantities from betas, and we
+need an equilibrium theory to relate them to each other.
+We identify the magnitude of
+the di¤erence between expected returns on announcement days versus expected returns on
+1The …nding that unexpected in‡ation and money growth negatively a¤ect stock prices is not new. See
+Bodie (1976), Nelson (1976), Fama and Schwert (1977), Ja¤e and Mandelker (1979), Fama (1987), Schwert
+(1981), Geske and Roll (1983), Pearce and Roley (1983), and Pearce and Roley (1985) for previous studies
+establishing this relation.
+2Brenner, Pasquariello, and Subrahmanyam (2009) estimate a similar GARCH framework for stock,
+Treasury, and corporate bond markets that allows for an announcement day e¤ect on the mean through a
+variance-in-mean channel, but …nd no evidence of a positive statistically signi…cant e¤ect on average excess
+returns.
+4
+
+--- PAGE 6 ---
+other days for the stock market, long-term bonds, T-bills, and book-to-market-sorted stock
+portfolios. As a consequence, we are not directly interested in the announcement surprise zt+1
+but rather in the average realized return over a long sample. This means we do not need to
+make assumptions about market expectations for a given variable or even about what exactly
+constitutes good or bad news at any particular point in time.3 We also do not need to know
+the size or sign of , as long as we accept the results of the earlier studies that …nd that  is
+di¤erent from zero, and therefore announcement days are periods of higher systematic risk.
+Jones, Lamont, and Lumsdaine (1998) adopt a methodology similar to ours and …nd that
+both the mean excess returns for long-term Treasury bonds and their volatilities are higher
+on PPI and employment announcement days.4
+Our results could be related to the well-known phenomenon of high average stock returns
+for …rms announcing earnings. This earnings announcement premium was …rst discovered
+by Beaver (1968) and was subsequently con…rmed by Chari, Jagannathan, and Ofer (1988),
+Ball and Kothari (1991), Cohen, Dey, Lys, and Sunder (2007), and Lamont and Frazzini
+(2007), who all …nd that the above-average returns around earnings announcement days do
+not appear to be explained by increases in risk. Kalay and Loewenstein (1985) obtain the
+same …nding for …rms announcing dividends. While potentially similar, our results are easier
+to interpret in the framework of a rational choice equilibrium, since we do not need to dis-
+tinguish between the idiosyncratic component of announcement day risk and the systematic
+component. It is not immediately clear to what extent …rm-level announcement risk can
+be diversi…ed, but macroeconomic announcement risk surely cannot be diversi…ed to any
+signi…cant extent.
+Despite our evidence of a signi…cant announcement day risk premium, we …nd that realized
+stock market return volatility is only moderately higher (about 5-8%) on announcement days.
+3It is not always obvious how the market will interpret a particular macroeconomic shock. For example,
+if the stock market response to news of rising unemployment depends on current economic conditions, a
+lower than anticipated number would represent bad news. Similarly, lower than expected in‡ation in Japan
+in recent years was not necessarily good news for investors.
+4We document a similar result in our sample.
+5
+
+--- PAGE 7 ---
+The e¤ect on implied volatility is larger than for realized volatility, but the magnitudes are
+still much lower than those for the di¤erence in returns. We therefore propose an explanation
+for our results that emphasizes the positive dependence of stock market and long-term bond
+returns on state variables such as expected long-run economic growth and expected in‡ation.
+Intuitively, stocks tend to do particularly badly when news about the state of the economy
+is very negative, making them much riskier than just their volatility would suggest. A novel
+prediction here is that long-term bond and stock market returns should move together more
+on announcement days, which we show to be the case. Our explanation can reconcile the
+large announcement e¤ect on risk premia with the small e¤ect on observed volatility of stock
+market returns.
+The rest of the paper is organized as follows: Section 1 lists our main predictions and
+reports our principal results; Section 2 presents additional supporting evidence; and Section
+3 concludes. Our model of announcement day risk in an equilibrium endowment economy is
+given and its predictions are derived in the Appendix.
+1.
+Evidence on Announcement Day Returns
+Our intuition is that times around scheduled macroeconomic news announcements are periods
+of foreseeably higher systematic risk, and that consequently expected excess returns on risky
+assets should be higher during those periods. In equilibrium, this intuition can also imply
+that risk-free rates should be lower during the same periods.
+In the Appendix, we analyze this idea in a formal model of scheduled announcements in
+an endowment economy with a single Lucas tree and a single representative investor with
+recursive preferences, in which in‡ation and real interest rates are stochastic. The central idea
+of our model is that investors learn more about the state of the economy on announcement
+days than on other days. Thus, in the spirit of the Intertemporal Capital Asset Pricing
+Model of Merton (1973), investors receive a reward not just for bearing market risk but also
+intertemporal risk, which is correspondingly higher on announcement days.
+6
+
+--- PAGE 8 ---
+Risky assets whose returns have high covariance with the state variable therefore earn
+much higher risk premia around announcements, even if the volatility of their returns is not
+very di¤erent. Such assets include the overall stock market, long-term nominal bonds, and
+growth stocks (relative to value stocks). Since these assets’returns have a larger common
+component on announcement days, they should comove more around announcements.
+The model in the Appendix shows how this idea can be made consistent with equilibrium
+by equating Merton’s state variable with long-term expected consumption growth in an
+endowment economy, in the spirit of Bansal and Yaron (2004). Readers who are not concerned
+with the theoretical issues of how expected returns can vary in equilibrium in general and
+between announcement and non-announcement days in particular can skip the model and
+focus on the intuition and results.
+1.1.
+Pre-scheduled Macroeconomic Announcements
+We obtain dates of pre-scheduled monthly macroeconomic news announcements from the
+Bureau of Labor Statistics from 1958 to 2008 and from the Federal Reserve from 1978 to
+2008. We have 157 pre-scheduled CPI announcements from January 1958 to January 1971
+and 454 for the PPI from February 1971 to December 2008. We drop the CPI after PPI
+announcements become available in February 1971, since PPI numbers for a given month are
+always released a few days earlier, thereby diminishing the news content of CPI numbers.5
+We have 609 employment announcements from January 1958 to December 2008. FOMC
+interest rate announcements start in January 1978 and end in December 2008. We exclude
+any unscheduled announcements, leaving us with 269 FOMC observations. 51 of the an-
+nouncement days in our sample had more than one announcement, while a further 23 were
+non-trading days. The remaining sample contains 1,415 announcement days versus 11,424
+non-announcement days. Interestingly, only 29 of the pre-scheduled announcements in our
+sample were made on a Monday, representing about 2% of overall announcements. In the
+second half of our sample, there is only one Monday announcement.
+5Our results are robust to the inclusion of CPI announcements after January 1971.
+7
+
+--- PAGE 9 ---
+Our choice of announcement types is primarily dictated by the availability of data. Em-
+ployment is the …rst macroeconomic variable whose date is systematically tracked by the
+Bureau of Labor Statistics (according to data available on its website), followed …ve years
+later by the CPI. We need a long sample for our analysis to ensure the average surprise is
+close to zero, so that announcement day returns do not re‡ect a period of particularly good
+or bad news.6 Moreover, both employment and in‡ation clearly constitute important macro-
+economic news, as do FOMC announcements. See Jones, Lamont, and Lumsdaine (1998),
+Bernanke and Kuttner (2005), and Boyd, Hu, and Jagannathan (2005) for further evidence
+of the variables’relevance.
+Our measure of stock market return is the daily return on the Center for Research in
+Security Prices (CRSP) value-weighted NYSE/Nasdaq/Amex all share index, including div-
+idends. To calculate excess returns, we infer a daily risk-free rate from the monthly risk-free
+rate (obtained from Kenneth French’s website), assuming it to be constant over the month.
+This biases downwards our estimate of the di¤erence in average excess returns between an-
+nouncement and non-announcement days, since we also …nd evidence consistent with a lower
+daily risk-free rate on announcement days.
+We obtain daily Treasury bill (T-bill) returns from the CRSP daily Treasuries …le starting
+in June 1961 (the …rst date available) and ending in December 2008. Our proxy for the
+overnight risk-free rate is the daily return on the T-bill in the CRSP …le with maturity
+closest to 30 days.7 Our results do not depend on the exact choice of the number of days
+until maturity. Between Friday and Monday there is a weekend e¤ect for T-bills, since three
+days pass between the Friday T-bill price observation and the Monday observation, whereas
+only one day passes between all other consecutive price observations (excluding holidays).
+Consequently, the observed log returns should on average be three times higher on Mondays
+than on any other trading day, as they re‡ect three days of earned interest rather than just
+6A long sample should also address potential critiques based on the peso problem hypothesis.
+7The CRSP …le contains very few observations for bonds with initial maturities of less than 6 months.
+As a result, hardly any of the bills in our sample are on-the-run 30-day T-bills.
+8
+
+--- PAGE 10 ---
+one.
+We therefore raise the gross Monday return to the power of one third to compare
+Monday returns with those of other days. (This adjustment is not necessary in the case of
+stock market returns, as the random component dominates the deterministic component due
+to the passing of time in the case of stocks.) Since Monday is almost never an announcement
+day, our procedure must distinguish between an announcement day e¤ect on daily T-bill
+returns and a mere weekend e¤ect.8
+For Treasury securities with longer maturities, we use returns provided by CRSP’s Daily
+Treasury Fixed Term Indexes File. These returns are meant to re‡ect the performance of a
+hypothetical Treasury bond with …xed maturity, and are calculated using a procedure similar
+to the one we employ for calculating our daily risk-free rate.
+We obtain constant-maturity 30-day implied volatility from the CBOE S&P 100 Vix
+index, available daily beginning in 1986. These volatilities are then squared to convert them
+into variances, and the daily di¤erence from market close to market close is calculated.
+Estimates of the change in stock market risk based on prices at a point in time such as
+implied volatilities could be more accurate than estimates based on realized volatility. It is
+quite likely that the window of high risk around an announcement is considerably shorter
+than one whole day. Even so, our estimates of the di¤erence in risk based on daily data
+(either implied or realized volatilities) are consistent and unbiased, provided that intraday
+stock market price increments are independent.
+1.2.
+Stock Market Excess Returns
+Table 1 presents our main result: the average excess return on the stock market is 10.6 bps
+on announcement days versus 1.0 bps on other days. The di¤erence between the returns on
+the two kinds of days averages 9.6 bps and a t-test for a di¤erence in means (allowing for
+di¤erent variances) gives a t-statistic of 3.53. The non-announcement day returns are not only
+8Unsurpisingly, our …ndings are even stronger if we make no corrections to account for the weekend e¤ect
+in observed daily T-bill returns. This happens because Monday returns are then higher, and Mondays are
+also very rarely announcement days. Our results are also stronger if we assume a payment lag of one day in
+the T-bill market, and consequently adjust the Friday return instead of the Monday return.
+9
+
+--- PAGE 11 ---
+much lower but are actually not even statistically signi…cant (t-statistic=1.18). Excluding
+outliers (observations outside the 1st and 99th percentiles of each sample), the average excess
+returns are 10.9 and 1.2 bps, respectively, with a t-statistic for di¤erent means of 4.31, and
+the non-announcement day returns are still not signi…cant (t-statistic=1.74). This evidence
+suggests that macroeconomic risks represent important priced factors for stock returns, as
+the observed equity risk premium is much higher on announcement days.
+[TABLE 1 ABOUT HERE]
+Our hypothesis is that announcement days are fundamentally riskier than other days.
+The standard deviation of announcement day returns is 96.9 bps versus 92.2 bps for other
+days (79.5 versus 73.7 excluding outliers), and we can reject the hypothesis of equal variances
+at the 1% signi…cance level. However, the dispersion of announcement day returns is only
+5-8% higher. Furthermore, announcement day returns exhibit about equal skewness as those
+on other days, and the distribution of announcement day returns has a thinner left tail than
+the non-announcement day distribution (even excluding the October 1987 market crash, al-
+though there is obviously no good reason to exclude such events when evaluating tail risk).
+It appears that announcement days are not fundamentally riskier simply because the distri-
+bution of announcement day returns is less attractive to a myopic investor. Consequently, if
+announcement day risk premia are higher because of higher fundamental risk, this must be
+because of higher exposure to intertemporal risk on announcement days.9
+Table 2 shows evidence from regressions of returns on an announcement day dummy
+together with controls. The regression coe¢ cients are estimated using ordinary least squares
+(OLS), and t-statistics are computed using Newey-West standard errors (with 5 lags, but
+our results do not change with di¤erent speci…cations).10 Panel A is for the full sample of
+12,839 days and panel B excludes outliers using the same cut-o¤s as above. The …rst column
+of each panel reproduces the di¤erence-in-means result of Table 1: the announcement day
+9For a formal example of this idea, see the Appendix, equation (22).
+10Our …ndings remain unaltered if we instead jointly estimate announcement day e¤ects on both the
+mean and conditional volatility (using a GARCH(1,1) model similar to the one used in Jones, Lamont, and
+Lumsdaine (1998)). These results are available on request.
+10
+
+--- PAGE 12 ---
+dummy has a signi…cantly positive coe¢ cient. We then control for market return lagged
+one day and squared lagged market return. The coe¢ cient on the lagged market return is
+positive and signi…cant. Finally, we include day of the week dummies for Monday through
+Thursday. The presence of these dummies should absorb any impact on returns by di¤erent
+days of the week, which may stem from payment lags, higher or lower trading activity on
+particular days, or behavioral biases. We con…rm that returns are signi…cantly lower on
+Mondays (even excluding outliers) and otherwise …nd no signi…cant day-of-the-week e¤ects.
+The announcement day e¤ect remains positive and highly signi…cant in all speci…cations,
+although slightly lower once day-of-the-week e¤ects are included.
+[TABLE 2 ABOUT HERE]
+1.3.
+Risk-free Rate
+Table 3 presents …ndings on the distributions of announcement day and non-announcement
+day returns on 30-day T-bills. Our sample starts slightly later (1961, rather than 1958), but
+is otherwise identical to the stock market sample of announcements.
+[TABLE 3 ABOUT HERE]
+Panel A shows that the average announcement day return for 30-day T-bills is 1.5 bps
+versus 1.7 bps for non-announcement days. The di¤erence of 0.2 bps is statistically signi…cant
+with a t-statistic of 4.43. The respective standard deviations are 1.5 and 1.8 bps. 30-day
+T-bill returns are actually less volatile on announcement days, but the main point is that
+both of these volatilities are extremely small. The distribution of announcement day returns
+on 30-day T-bills lies everywhere below that of non-announcement day returns.
+The statistical signi…cance of the result that 30-day T-bill returns are lower on announce-
+ment days is stronger if outliers are excluded, with the t-statistic for the di¤erence increasing
+to 6.79.
+The exclusion of outliers is more important in this case because of the greater
+possibility of data error, since bond prices are not reported to an exchange.
+Table 4 gives our regression results.
+As before, column 1 of Panel A reproduces the
+11
+
+--- PAGE 13 ---
+di¤erence-in-means result. Column 2 controls for lagged return and lagged squared return.
+Not surprisingly, T-bill returns are highly autocorrelated, but the announcement day e¤ect
+is still highly signi…cant.
+Column 3 controls for day-of-the-week e¤ects.
+Returns on T-
+bills appear to depend on the day of the week, but, even with the inclusion of dummies
+for di¤erent days, the announcement day e¤ect is still very signi…cant (although somewhat
+smaller). We conclude that the evidence is consistent with increased announcement day risk
+reducing the risk-free rate. The model in the Appendix shows how this is predicted through
+a precautionary saving channel when the coe¢ cient of relative risk aversion is greater than
+one.
+[TABLE 4 ABOUT HERE]
+1.4.
+Treasury Bond Excess Returns
+In contrast to T-bills, government securities with longer maturities represent risky assets on
+a daily horizon. If held to maturity, long-term Treasury bonds will provide a guaranteed
+(nominal) rate of return, but in the meantime their daily price changes will not be fully
+predictable and will re‡ect factors such as changes in interest rates. The possibility of such
+changes can result in longer-term bonds displaying greater di¤erences between announcement
+and non-announcement day returns.11 Our model predicts that at long maturities government
+bonds should have higher excess returns on announcement days and that the di¤erence should
+be increasing with maturity, provided that in‡ation risk premia are positive and shocks to
+expected in‡ation are more persistent than shocks to expected economic growth. At the short
+end of the term structure, it is possible for real interest rate risk premia to dominate in‡ation
+risk premia, and thus short-tem bond average excess returns can be lower on announcement
+days.12
+This hypothesis is con…rmed by the data.
+Fig.
+1 shows how the di¤erence between
+announcement and non-announcement day excess returns varies with a bond’s maturity. As
+11E.g., simple up or down shifts in the yield curve will have the greatest impact on the Treasury bonds
+with the longest maturities.
+12See the Appendix, equation (32).
+12
+
+--- PAGE 14 ---
+predicted, the performance di¤erential uniformly increases as we increase a bond’s time-to-
+maturity. For a 1-year bond, the average announcement day excess return is actually 0.5
+bps lower than the average on other days, with a t-statistic of 2.08. This suggests 1-year
+bonds are relatively riskless assets (on a daily horizon). However, as we increase a bond’s
+maturity, its announcement day returns become higher than non-announcement day returns.
+For 5-year bonds, the return di¤erential is 3.0 bps (t-statistic=2.94), and it then grows to
+3.9 bps (t-statistic=2.56), 4.9 bps (t-statistic=2.52), and 5.7 bps (t-statistic=2.63) for 10-,
+20-, and 30-year bonds respectively. These …ndings for longer-dated Treasury securities are
+similar to those reported in Jones, Lamont, and Lumsdaine (1998) for the 1979-1995 period,
+and are consistent with the hypothesis that investors expect higher returns on riskier assets
+on days when macroeconomic news is scheduled to be released.
+[FIG. 1 ABOUT HERE]
+1.5.
+Subsamples and Other Robustness Tests
+Our main results for stock market excess returns and T-bill returns hold in both halves of
+the sample. Table 5 shows that from 1958 to 1983, average stock market excess returns
+on announcement days were 9.8 bps versus 1.0 bps for non-announcement days, with a t-
+statistic for the di¤erence of 2.86. From 1984 to 2008, the corresponding …gures were 11.3
+bps and 1.0 bps, with a t-statistic of 2.40 for the di¤erence. Both announcement day and
+non-announcement day returns are remarkably similar across the two subsamples, further
+strengthening the case that the announcement day premium is not a temporary phenomenon
+or a chance occurrence.
+[TABLE 5 ABOUT HERE]
+Table 6 examines announcement day and non-announcement day risk-free rates in two
+sub-periods. From 1961 to 1984, the daily T-bill return was 1.8 bps on announcement days
+and 2.0 bps on non-announcement days, and the t-statistic for the di¤erence was 2.71. Since
+1985, the corresponding estimates are 1.3, 1.5, and 2.67. In both sub-periods, the return
+13
+
+--- PAGE 15 ---
+volatilities are very low and lower on announcement days. As with stock market returns, the
+di¤erence between announcement and non-announcement days is almost unchanged across
+the two subsamples.
+[TABLE 6 ABOUT HERE]
+Our …ndings also hold separately for each type of announcement. When we divide the
+sample into 5-year periods, the stock market excess return is higher on announcement days in
+9 out of 10 periods, and the T-bill returns are lower in 8 out of 10 periods. The announcement
+day returns are higher for all 10 Fama-French industry portfolios, with the di¤erence being
+statistically signi…cant for every industry except for Durables and Telephone and Television
+Transmission. Finally, neither the turn-of-the-month e¤ect (high equity returns over a four-
+day interval beginning with the last trading day of the month ), …rst discovered by Ariel
+(1987) and Lakonishok and Smidt (1988), nor the January e¤ect explain any of our results.13
+2.
+Additional Tests and Other Supporting Evidence
+In this section we present additional results on announcement day e¤ects.14 We present evi-
+dence that stock market implied variance is higher immediately before announcements; that
+average excess returns of growth stocks, normally much lower than those of value stocks, are
+actually higher on announcement days; that the stock market betas of government bonds
+are much higher on announcement days and the di¤erence in betas is increasing with ma-
+turity; and that the daily average correlation between individual stock returns is higher on
+announcement days.
+2.1.
+Implied Variance
+Our model predicts a drop in Vix, or other Black-Scholes implied volatility measures, from
+before to after announcements.15 Intuitively, one can think of 30-day ahead Vix as a ‘portfolio’
+of 1-day conditional volatilities. When a high-volatility day, such as an announcement day,
+13All these results are available on request.
+14All of these results are consistent with our model, but we do not formally derive every prediction.
+15We show exactly how in the Appendix.
+14
+
+--- PAGE 16 ---
+drops out and is replaced by a low-volatility one, the ‘portfolio’volatility drops. We present
+results on squared implied volatility (implied variance) as these are slightly easier to interpret.
+Panel A of Table 7 gives summary statistics for the percentage change in implied variance
+from previous day market close to following day market close, and compares the changes on
+announcement days to those on non-announcement days. The average announcement day
+change is -1.4% whereas for other days the average change is an increase of 1.4%. Both esti-
+mates are statistically signi…cant and the di¤erence is large and highly statistically signi…cant
+(t-statistic=4.13). The median change in implied variance around non-announcement days is
+precisely zero. The median change around announcement days is -2.8%, and the distribution
+of announcement day changes lies almost everywhere below the distribution of announcement
+day changes. When we exclude outliers in Panel B, our …ndings remain the same and become
+even more signi…cant.
+[TABLE 7 ABOUT HERE]
+The regression analysis in panel A of Table 8 controls for lagged changes in implied
+variance and the square of such lagged changes. Neither coe¢ cient is signi…cant nor a¤ects
+the announcement day e¤ect. Including day of the week dummies also does not impact the
+signi…cance of the announcement day dummy, which becomes even higher when we exclude
+outliers in Panel B. In sum, our evidence strongly suggests that the implied variance falls
+after macroeconomic news is released. Ederington and Lee (1996) obtain a similar result for
+interest rate options.16
+[TABLE 8 ABOUT HERE]
+2.2.
+Value versus Growth
+Our model can be used to price zero-coupon equity or dividend strips (claims on a single future
+aggregate dividend): the risk premia on such claims will increase (decrease) with maturity
+16Dubinsky and Johannes (2005) document a decline in implied volatility for individual stock options
+after earnings announcements.
+Beber and Brandt (2009) use prices of economic derivatives to measure
+macroeconomic uncertainty, and show that implied volatilities of stock and bond options decline more after
+news releases when uncertainty is high.
+15
+
+--- PAGE 17 ---
+provided the elasticity of intertemporal substitution is greater than (less than) unity. Longer-
+term strips will also be more sensitive to news about expected economic growth. Growth
+stocks, the bulk of whose present value is attributed to cash ‡ows far in the future, can
+be conceived of as portfolios of dividend strips with high weights on long-term strips and
+therefore high durations. Value stocks, conversely, have high weights on short-term strips
+and have more exposure to shocks to realized economic growth. Duration-based explanations
+of the value premium have been proposed by Brennan, Wang, and Xia (2004), Campbell and
+Vuolteenaho (2004), and Lettau and Wachter (2007).
+Applying similar logic as we did for Treasury bonds of di¤erent maturities, we then expect
+that growth stocks will outperform value stocks on announcement days. We explore the rela-
+tive performance of value and growth stocks by studying the returns of the Fama-French book-
+to-market factor (HML), which is the return of a portfolio of high book-to-market stocks
+minus the return of a portfolio of low book-to-market stocks (Fama and French (1993)).17 On
+non-announcement days, the mean HML return equals 2.5 bps (t-statistic=5.30), con…rming
+the well-known result that value stocks outperform growth stocks. However, on announce-
+ment days, the mean HML return is actually negative and equals -1.5 bps (t-statistic=-1.22).
+The di¤erence between HML performance on announcement and non-announcement days
+is economically (10% on an annualized basis) and statistically (t-statistic=2.98) signi…cant.
+2.3.
+Bond Betas
+Table 9 shows betas of government bonds with the stock market return. We regress the
+excess return of Treasury bonds with di¤erent maturities on the stock market excess re-
+turn, the announcement day dummy, and the interaction term between the two. The coef-
+…cient on the announcement day dummy corresponds to the chart in Fig.1: it is negative
+for the shortest horizon (t-statistic=-2.51) and then becomes positive for a 5-year horizon
+(t-statistic=2.83) and continues increasing monotonically with bond maturity. While 1-year
+bonds underperform on announcement days, those with longer maturities outperform, and
+17The HML portfolio returns become available in July 1963.
+16
+
+--- PAGE 18 ---
+this outperformance increases as maturity goes up.
+We observe a similar pattern for bond betas.
+The interaction term, which measures
+the di¤erence between bond betas on announcement and non-announcement days, is always
+positive and signi…cant, and it increases with the maturity of the bond. The di¤erence is 0.010
+(t-statistic=4.27) for 1-year bonds, and it then monotonically rises to 0.116 (t-statistic=5.99)
+for 30-year bonds. Bond betas are always at least twice as high on announcement days.
+[TABLE 9 ABOUT HERE]
+This evidence is consistent with the existence of a priced common factor to stock and
+bond returns on announcement days that is less present at other times. It is also predicted
+by our model if the announcement day increase in the variance of news about expected future
+consumption growth is greater than the announcement day increase in the variance of news
+about current growth. In other words, provided the information that arrives speci…cally on
+announcement days is more relevant to state variables such as expected economic growth or
+expected in‡ation, as opposed to realized economic growth or realized in‡ation, bonds and
+stocks should comove more around announcements.
+This point is perhaps most easily understood by considering an extreme but empirically
+plausible case.
+Suppose: (1) the only sources of time-variation in expected returns are
+expected economic growth and expected in‡ation; (2) investors learn nothing about current
+growth through announcements and nothing about expected future growth or in‡ation (and,
+by implication, interest rates) other than through announcements; (3) shocks to expected
+in‡ation are negatively correlated with shocks to expected economic growth; and (4) shocks
+to realized in‡ation and economic growth are independent of everything else. Since bond
+returns depend only on news about nominal interest rates, bond returns will be deterministic
+on non-announcement days and their market betas will be zero. On announcement days both
+the market return and bond returns will respond negatively to news that future in‡ation will
+be higher than anticipated, so bond betas will be positive and increasing with maturity.
+17
+
+--- PAGE 19 ---
+2.4.
+Correlation
+If the Roll critique is important, the variance of stock market returns may not represent
+a good proxy for aggregate risk, as is evidenced by the anaemic ability of stock market
+variance, which is itself highly predictable, to forecast future stock market excess returns.18
+Pollet and Wilson (2008) show that, when the stock market is a poor proxy for the portfolio of
+aggregate wealth, changes in the average correlation between stock returns can nevertheless
+reveal changes in aggregate risk. Consistent with this idea, they …nd that estimates of the
+average correlation between daily returns have strong ability to forecast future stock market
+returns at horizons of one month to three years.
+At daily frequencies, the same idea can be used to calculate the daily average correlation
+between 5-minute returns on the 500 largest (by market cap) stocks in the U.S. market.19
+Comparing such estimates of daily average correlation based on intraday returns starting in
+1995, we …nd that the mean announcement day correlation equals 0.245 versus 0.216 on other
+days (with a t-statistic for the di¤erence of 3.78). Although correlation and aggregate risk
+are only approximately linearly related, and then only under restrictive assumptions, this
+result suggests, as do our …ndings on realized and implied volatility, that aggregate risk is
+higher on announcement days, but that the increase is not of the same order of magnitude
+as the increase in risk premia.
+3.
+Conclusion
+We show that average excess returns on the U.S. stock market are much higher on days when
+important macroeconomic news is scheduled to be announced. We also …nd that returns on
+30-day T-bills, our measure of the risk-free rate, are lower on these days. For longer-term
+Treasury securities, which are not riskless assets on a daily horizon, we …nd that the di¤erence
+between announcement and non-announcement day returns uniformly increases with a bond’s
+18See Lettau and Ludvigson (2007) for a comprehensive recent survey of the literature on forecasting
+returns with variance estimates.
+19We thank Fabian Garavito and Runquen Chen for the use of their daily correlation estimates.
+18
+
+--- PAGE 20 ---
+maturity and is positive for bonds with maturities of …ve years or more. Bonds comove much
+more with the stock market on announcement days, and this tendency also monotonically
+increases with maturity. Our results demonstrate a clear link between macroeconomic risk
+and …nancial asset returns. Investors seem to require higher expected returns on risky assets
+as a compensation for bearing risks associated with macroeconomic news. In addition, the
+risk premium on non-announcement days appears to be very low, with our numbers implying
+that over 60% of the cumulative annual excess return for the stock market is earned on
+announcement days.
+Our …ndings on risk-free rates are consistent with precautionary saving. If aggregate risk
+is higher on announcement days, then investors who care about daily changes in their wealth
+will seek to save more out of current wealth on those days relative to other days. Although
+the e¤ect might appear economically small (a 0.2 basis point reduction in the daily return
+on the 30-day T-bill), it is highly statistically signi…cant. To our knowledge, this is some of
+the …rst evidence of precautionary saving a¤ecting U.S. asset prices.
+These results are consistent with a simple equilibrium model of economy-wide risk that
+varies deterministically over time because of prescheduled announcements. This model can
+reconcile the large increase in stock market risk premia with the relatively small increase in
+stock market variance that we estimate. Because investors learn more about future economic
+conditions around announcements, they should be less willing to hold assets, such as stocks,
+that covary positively with these news, even if the variance of stock returns is itself not
+much higher. If such shocks are persistent, even a small increase in their volatility (the news
+arrival rate) around announcements can result in large increases in the market risk premium.
+A reasonable calibration of our model produces risk premia and volatilities that match our
+empirical results.
+The above explanation for the documented announcement day premia focuses on a risk-
+return trade-o¤ that compensates investors for higher announcement day risk. An interesting
+alternative possibility is that some investors e¤ectively become more risk-averse ahead of
+19
+
+--- PAGE 21 ---
+announcements, resulting in a higher price of announcement day risk (i.e.
+a higher risk
+premium for the same exposure).
+Why should pre-scheduled announcements make investors more risk-averse? One possibil-
+ity is that investors are averse to uncertainty in the sense proposed by Knight (1921). With
+an announcement approaching, their utility functions become more concave as the worse pos-
+sible distributions of outcomes receive higher weights. Recent research has proposed a rich
+set of preferences for ambiguity-averse investors, building on the early work of Gilboa and
+Schmeidler (1989). However, Skiadas (2008) shows that for small risks (a large probability
+of a small change or a small probability of a large change) many of the preferences in the
+current literature are, to a …rst-order approximation, equivalent to expected utility or Kreps-
+Porteous recursive preferences, so that ambiguity aversion need have no …rst-order e¤ects
+on asset prices when risks are small (of the same order as the time horizon under consider-
+ation). Pre-scheduled announcements, however, are the quintessential large risk: they are
+events involving the near certainty of a non-negligible change (even if zero-mean). Thus, even
+standard ambiguity aversion can deliver higher risk prices ahead of announcements. Other
+potential explanations include the changing composition of investors participating in stocks
+and T-bills ahead of announcements, which would alter the risk aversion of the representative
+investor, or an irrationally excessive investor aversion to announcement risk.
+20
+
+--- PAGE 22 ---
+Appendix
+We use recursive Epstein-Zin utility, rather than the simpler power utility, because in our
+equilibrium model power utility has some empirically unattractive properties (when risk
+aversion is greater than one). Speci…cally, as noted by Bansal and Yaron (2004), increases in
+aggregate risk induce an increase in desired precautionary saving, which in equilibrium re-
+duces expected returns on all assets (the wealth e¤ect) and reduces desired portfolio weights
+on riskier assets (the substitution e¤ect). Assuming investors have power utility preferences
+requires the wealth e¤ect to dominate the substitution e¤ect, implying that valuations of even
+risky assets should be increasing in aggregate risk (holding expected cash ‡ows constant).
+Furthermore, under power utility, changes in expected consumption growth do not a¤ect
+risk premia. The more general Epstein-Zin framework avoids these unappealing implica-
+tions. (See Bansal, Khatacharian, and Yaron (2005) for evidence that both higher aggregate
+uncertainty and lower expected consumption growth decrease risky asset valuations.)
+A.1.
+Real Economy
+We assume that log real aggregate dividends (which equal the endowment) dt = ln Dt
+follow
+dt+1 = t + d;t+1
+(2)
+The expected growth of the endowment (the drift), t, varies randomly over time, follow-
+ing an AR(1) process:
+t+1 = (1   ) + t + ;t+1
+(3)
+The conditional variances of both news terms are assumed to be higher on announcement
+days:
+V art[x;t+1] = 2
+x;L + (2
+x;H   2
+x;L)At+1;
+(4)
+for x = d; , where At+1 is a deterministic indicator variable that equals one if there is a
+pre-scheduled announcement between dates t and t + 1 and zero otherwise, and x;H > x;L.
+The exposition is considerably simpli…ed if we assume that news about current and expected
+21
+
+--- PAGE 23 ---
+future endowment growth are uncorrelated.
+This model is essentially that of Bansal and Yaron (2004) with the addition of determinis-
+tic changes in variances due to announcement e¤ects, and we use a similar approximation to
+solve the model in closed form. Note that the announcement e¤ects on variances are assumed
+and the model is used to derive the resulting announcement e¤ects on prices and expected
+returns.
+A.2.
+Preferences
+A representative investor chooses an optimal consumption path and invests in a claim to
+the aggregate endowment and a risk-free asset. The investor is assumed to have recursive
+Epstein-Zin preferences
+Ut =
+
+(1   )C
+1  1
+ 
+t
++ (Et[U 1 
+t+1 ])
+1  1
+ 
+1 
+
+1
+1  1
+ ;
+(5)
+where  is the time discount rate,  is the coe¢ cient of relative risk aversion, and is
+the elasticity of intertemporal substitution (EIS). When  = 1= , these preferences nest the
+special case of power utility. See the discussion at the beginning of this Appendix of why
+we choose to work with Epstein-Zin rather than power utility preferences. Market clearing
+requires Ct = Dt.
+A.3.
+Real Risk-free Rate
+In equilibrium, the investor consumes the aggregate endowment Dt each period, and the
+risk-free asset is in zero net supply. The equilibrium log risk-free rate is then given by
+rft+1
+=
+  ln  + 1
+ 
+
+t + 1
+2V art [dt+1]
+
+  
+
+1 + 1
+ 
+ 1
+2V art[dt+1]
+(6)
+ 
+   1
+ 
+ 
+1   1
+ 
+
+V art
+
+
+1   t+1
+
+The log risk-free rate consists of four terms. The …rst term depends on the rate of time
+preference. The second depends on the log expected growth rate of consumption, which in
+22
+
+--- PAGE 24 ---
+equilibrium equals the log expected growth rate of the aggregate endowment. This term is
+independent of risk aversion , but not of risk V art[dt+1] because of Jensen’s inequality:
+for risk-neutral investors, an increase in the variance of log dividend growth increases the log
+risk-free rate because log expected dividend growth increases, reducing desired saving. As 
+becomes large, this term goes to zero since investors become increasingly willing to postpone
+consumption in exchange for a higher rate of interest today.
+The third term is a precautionary saving term that is zero for risk-neutral investors.
+For risk-averse investors, an increase in aggregate risk raises desired precautionary saving,
+reducing the market-clearing risk-free rate. The precautionary saving e¤ect of increased risk
+dominates the e¤ect through the second term if and only if investors are su¢ ciently willing to
+substitute consumption across time (increasing in ) relative to their willingness to substitute
+across states (decreasing in ). A necessary and su¢ cient condition for the risk-free rate to be
+decreasing in aggregate risk is that 
+
+1
+   1
+
+. Since is weakly positive, this condition
+is always ful…lled for investors with greater than unit risk aversion. Thus, for empirically
+plausible values of  (see for example Campbell and Viceira (2002), chapter 2), we expect
+the risk-free rate to be lower on announcement days.
+This precautionary saving e¤ect in daily returns is likely to be small. rft+1 is the marginal
+rate of transformation of consumption foregone at date t into consumption the immediately
+following day. Eq. (6) says that when date t + 1 is an announcement day, the same investor
+will desire to save more at date t for consumption at date t + 1 than he or she will when
+date t + 1 is not an announcement day. Since investors are long-lived, this additional desired
+saving cannot be very large, but even long-lived investors put some weight on smoothing
+consumption from day to day.
+The fourth term is an additional precautionary saving term proportional to the variance
+of the permanent component of shocks to expected endowment growth. This term is zero
+for both investors with unit elasticities of intertemporal substitution and for investors with
+power utility. For the case of  and greater than one, this term reduces the risk-free rate
+23
+
+--- PAGE 25 ---
+on announcement days. Risk-averse investors who are highly willing to substitute future for
+current consumption (those with high ) are most prone to changing their desired consump-
+tion plans in response to permanent changes in consumption growth. Such investors will wish
+to save more as the variance of such news increases (holding the risk-free rate constant).
+A.4.
+Stock Market Returns
+The log return on the risky claim to the aggregate endowment is
+rMKT;t+1
+=
+  ln  + (   1)(1   1
+ )1
+2V art
+
+d;t+1 +
+
+1   ;t+1
+
++ 1
+ t
+(7)
++d;t+1 + (1   1
+ )
+
+1   ;t+1
+Expected market returns are higher on announcement days provided (   1)(1   1
+ ) >
+0. For the leading empirical case of  > 1, this condition requires that the elasticity of
+intertemporal substitution is greater than one. Recent work by Bansal and Yaron (2004),
+Bansal, Tallarini, and Yaron (2008), Vissing-Jorgenson (2002), and others presents evidence
+and arguments in favor of > 1.
+A.5. Proof of Equations (6) and (7)
+For a representative investor with Epstein-Zin preferences, the stochastic discount factor
+is given by
+mt+1 = ln Mt+1 =  ln    
+ dt+1   (1   )rMKT;t+1;
+(8)
+where rMKT is the log return on the market portfolio, de…ned as the claim to aggregate
+dividends in perpetuity, and  = (1   )=(1   1
+ ).
+Since everything is log-normal, the log return on any asset rj;t+1 is then given by
+Et[mt+1 + rj;t+1] + 1
+2V art[mt+1 + rj;t+1] = 0
+(9)
+In order to solve the model ,we use the Campbell-Shiller approximation for the log return
+24
+
+--- PAGE 26 ---
+on the market portfolio
+rMKT;t+1  k + dt+1 + (pt+1   dt+1)   (pt   dt);
+(10)
+where k is an unimportant constant and  = (1 + exp(d   p)) 1 is another constant that
+is slightly less than one. We assume that announcements are not spaced through our sample
+in such a way that the mean log dividend-price ratio is badly de…ned. A su¢ cient condition
+is that announcements are regularly spaced, so that in any long period, such as one year,
+there is a …xed number.
+Next we assume that the log aggregate price-dividend ratio is linear in the drift term t
+and its intercept is a deterministic function of time:
+pt   dt = a0;t + a1t
+(11)
+As in Bansal and Yaron (2004), a1 is positive and the price-dividend ratio is increasing
+in expected dividend growth if and only if > 1, so that the direct e¤ect on wealth through
+increased growth more than o¤sets the indirect e¤ect through a higher discount rate due to
+higher expected growth.
+The solution implies that the stochastic discount factor is given by
+mt+1 =  t+1   1
+ t   vd;t+1   (   1
+ )
+
+1   v;t+1;
+(12)
+where
+t+1 =   ln    (1   )(   1
+ )1
+2V art
+
+d;t+1 +
+
+1   v;t+1
+
+(13)
+Iterating (11) forward one period gives
+pt+1   dt+1 = a0;t+1 + a1t+1
+(14)
+25
+
+--- PAGE 27 ---
+Plugging these into the approximation (10) for the log market portfolio return, then
+plugging the derived expression into the pricing equation (9), given the equation for the
+stochastic discount factor (8), and equating coe¢ cients gives:
+a1 =
+1   1
+ 
+1   
+(15)
+and
+a0;t = b0 + b1At+1 + a0;t+1
+(16)
+con…rming our conjecture. Here
+b0 = ln  + k + a1(1   )   1
+2(   1)(1   1
+ )
+ 
+2
+d;L +
+
+
+1   
+2
+2
+;L
+!
+(17)
+and
+b1 =  1
+2(   1)(1   1
+ )
+ 
+ 2
+d;H   2
+d;L
+
++
+
+
+1   
+2  2
+;H   2
+;L
+
+!
+(18)
+Assuming no rational bubbles implies
+lim
+s!1 sEt[pt+s   dt+s] = 0
+(19)
+hence
+lim
+s!1 sa0;t+s + lim
+s!1 sa1Et[t+s]
+=
+lim
+s!1 sa0;t+s + a1 lim
+s!1 s
+(20)
+=
+lim
+s!1 sa0;t+s = 0
+hence
+a0;t =
+b0
+1    + b1
+1
+X
+j=1
+jAt+1+j
+(21)
+Plugging back into the approximation (10) gives equation (7). Equation (6) follows from
+26
+
+--- PAGE 28 ---
+substituting (7) into (8).
+A.6.
+Stock Market Risk Premium
+Subtracting equation (6) from equation (7) shows that the conditional market risk pre-
+mium is
+ln Et
+1 + RMKT;t+1
+1 + Rf;t+1
+
+=
+Et[rMKT;t+1]   rf;t+1 + V art[rMKT;t+1]
+2
+(22)
+=
+ Covt[mt+1; rMKT;t+1]
+=
+V art[dt+1] + (   1
+ )(1   1
+ )V art
+
+
+1   t+1
+
+=
+V art[rMKT;t+1] +    1
+ 
+Covt
+
+rMKT;t+1;
+
+1   t+1
+
+It will be higher on announcement days provided is not too low. For the special cases of
+power utility or unit intertemporal elasticity of substitution, the variance of the permanent
+component of shocks to economic growth does not a¤ect consumption. When both  and 
+are greater than one, the market risk premium is increasing in the variance of this permanent
+component. An increase in the drift t raises both expected future consumption growth,
+through a cash-‡ow e¤ect, and discount rates, through its increase in desired borrowing and
+the risk-free rate. The cash-‡ow e¤ect dominates if and only if > 1. Thus, market risk
+premia can be considerably higher on announcement days if investors expect to receive more
+news about future economic growth on such days.
+In this model, the market risk premium is not necessarily proportional to its conditional
+return variance. If the stock market return has a positive covariance with permanent shocks
+to expected economic growth, conservative investors (those with  > 1) will demand higher
+risk premia on announcement days even if there are only small increases in stock market
+variance. Such investors require compensation for the tendency of the market to perform
+poorly when news about future economic growth is bad.
+A.7. Nominal Bonds and In‡ation
+We now introduce in‡ation shocks. The log dollar price of an N-period nominal discount
+27
+
+--- PAGE 29 ---
+bond is p$
+n;t and its real holding period return is
+rn;t+1 = p$
+n 1;t+1   p$
+n;t   t+1;
+(23)
+where  is the log rate of in‡ation. We assume
+t+1 = zt + ;t+1
+(24)
+and
+zt+1 = (1   ) + zt + z;t+1
+(25)
+Once again, the conditional variances of realized in‡ation and expected in‡ation shocks
+are assumed to be higher on announcement days. The structural source of in‡ation and its
+relation to real variables is beyond the scope of this paper. However, we assume that neither
+shocks to realized or expected in‡ation are correlated with shocks to realized endowment
+growth d;t+1. The signs of the correlations between expected in‡ation and expected real
+endowment growth and between realized in‡ation and expected endowment growth are dis-
+cussed below. Following Campbell and Viceira (2002), chapter 3, it is helpful to write out
+the dependencies of the in‡ation shocks on each other and on shocks to the drift:
+z;t+1 = zv;t+1 + "z;t+1
+(26)
+and
+;t+1 = v;t+1 + z"z;t+1 + ";t+1
+(27)
+The shocks v;t+1, "z;t+1, and ";t+1 are orthogonal but have higher variances on announce-
+ment days. The loadings (z, , and z) are assumed to be the same on all days for
+simplicity. In order to generate a positive in‡ation risk premium, we require that z be
+negative, so that shocks to expected in‡ation are negatively related to shocks to expected
+28
+
+--- PAGE 30 ---
+economic growth.
+A.8. Nominal Bond Risk Premia
+The price of a nominal bond is derived by conjecturing that
+p$
+n;t = cn
+0;t + cn
+1t + cn
+2zt;
+(28)
+where cn
+0;t is a deterministic function of time and maturity and the other coe¢ cients
+depend only on maturity. Since the log price of $1 is zero, all coe¢ cients equal zero at n = 0.
+Since the bond’s real return is p$
+n 1;t+1 p$
+n;t t+1, iterating forward, plugging the conjecture
+into equation (9) and equating coe¢ cients con…rms the conjecture and in particular gives
+cn
+1 =   1
+ 
+1   n
+1   
+(29)
+cn
+2 =  1   n
+1   
+(30)
+In real terms, consistent with the rest of the Appendix, risk premia on nominal bonds are
+then given by
+Et[rn;t+1]   rf;t+1 + 1
+2V art[rn;t+1] = Covt[ mt+1; p$n 1
+t+1   p$n
+t   t+1]
+(31)
+=
+
+   1
+ 
+
+
+1   V art
+
+t+1
+ 
+  1
+ 
+1   n 1
+1   
+  1   n 1
+1    z   
+
+The risk premia are proportional to the sum of three terms. The …rst term is the risk
+premium on an N-period real bond. When either  and are both greater or both less than
+one, this implies that risk premia are lower on announcement days by an amount increasing
+in magnitude with bond maturity. Intuitively, since the short-term real interest rate depends
+positively on expected endowment growth, and real long-term bond holding period returns
+are negatively correlated with the short-term real rate, long-term real bonds o¤er desirable
+hedges against the risk of a decline in expected economic growth. Since this risk is higher on
+29
+
+--- PAGE 31 ---
+announcement days, longer-term real bonds should underperform by more on such days.
+The second term depends negatively on the covariance between shocks to expected in‡a-
+tion and shocks to expected real endowment growth. In order to generate a positive in‡ation
+risk premium, this covariance must be negative. Although there is evidence that the in‡ation
+risk premium may have declined over time, most studies agree that it has always been pos-
+itive (see, for example, Buraschi and Jiltsov (2007) and Campbell, Sunderam, and Viceira
+(2009)).
+Finally, the third term depends negatively on the covariance between shocks to realized
+in‡ation and to expected economic growth. The sign of this covariance is a matter of debate
+and must also depend on the in‡ation policy of the central bank, which we do not discuss,
+but it is likely to be small in magnitude. As emphasized by many authors (see Ang, Dong,
+and Piazzesi (2007), Ang, Boivin, and Dong (2008) or Gallmeyer, Holli…eld, Palomino, and
+Zin (2007)), there is no particular reason why this covariance should have a constant sign or
+magnitude. However, this third term is the same for all maturities.
+The risk premium on two nominal bonds with maturities n + 1 and n is increasing in
+maturity, and higher on announcement days, provided
+ z > 1
+ 
+
+
+n 1
+(32)
+This is guaranteed for su¢ ciently long-term bonds provided that (as we assume) shocks
+to expected in‡ation are negatively related to long-term economic growth (z < 0) and that
+shocks to expected in‡ation are more persistent than shocks to economic growth ( < ).
+For su¢ ciently short-term bonds the risk premium can decline with maturity and will be
+lower on announcement days. The model therefore predicts that for short-term bonds the
+average excess returns on announcement days can be lower than on non-announcement days,
+but should always be higher for longer-term bonds.
+A.9. Stock Market Implied Volatility
+Our model has implications for Black-Scholes implied volatilities, such as the CBOE’s
+30
+
+--- PAGE 32 ---
+(old) Vix index. Under the assumptions of the Black-Scholes model, the square of the implied
+volatility of a -day option (assuming no dividends are paid between dates t and t+) is the
+conditional variance of the log -day ahead price pt+:
+2
+;BS = V art[ln Pt+] = V art [pt+]
+(33)
+Since
+pt+ = (pt+   dt+) + dt+
+(34)
+the Black-Scholes implied variance is approximately
+2
+;BS 
+ 
+1   1
+ 
+1   
+!2
+V art
+" 
+X
+j=1
+ j;t+j
+#
++ V art
+" 
+X
+j=1
+d;t+j
+#
+(35)
+The model-implied change in the square of constant-maturity Black-Scholes implied volatil-
+ity from the day prior to an announcement to the end of the following day is therefore
+2
+BS;t+1 =
+ 2
+d;H   2
+d;L
+
+(At+1+   At+1)+
+ 2
+;H   2
+;L
+
+ 
+1   1
+ 
+1   
+!2
+
+X
+j=1
+  j2 (At+1+j At);
+(36)
+where  is the number of days until expiration of the options from whose prices the implied
+volatility is derived. In the case of Vix,  is standardized to 30 days and is quoted on an
+annualized basis, so will change by 365
+30 2
+BS;t+1 from the end of date t to the end of date
+t + 1.
+This change consists of two terms. First, if date t + 1 is an announcement day and date
+t + 31 is not, then squared implied volatility will decline by an amount equal to the increase
+in variance of dividend growth around announcement days. Intuitively, one can think of Vix
+as a "portfolio" of 30 individual daily implied volatilities, so when a high volatility day is
+replaced by a low volatility one, this term of Vix should drop by 2
+d;H   2
+d;L.
+The second term is more complex, since it depends not only on the day added and the
+31
+
+--- PAGE 33 ---
+day subtracted, but also on the intervening days. Since the persistence of shocks to expected
+growth is less than one, the impact of announcements today on the conditional variance
+of t+ will be smaller than the impact of an announcement later in the next 30 days. In
+particular, if At+31 is also an announcement day, this second term in Vix could actually
+increase by a small amount at date t + 1. However, At+31 = 1 and At+j = 0 for j = 2:::30
+maximizes the increase in this second term for any value of . Furthermore, the second highest
+value, if At+31 is zero, is negative for any value of . Thus, provided we assume At+31 = 0
+for all dates t, the model predicts a drop in Vix from before to after announcements. This
+assumption, if false, biases against our …nding the results we report in the paper.
+32
+
+--- PAGE 34 ---
+References
+Andersen, Torben G., Tim Bollerslev, Francis X. Diebold, and Clara Vega, 2007, Real-time
+price discovery in stock, bond and foreign exchange markets, Journal of International
+Economics 73, 251–277.
+Ang, Andrew, Jean Boivin, and Sen Dong, 2008, Monetary policy shifts and the term struc-
+ture, working paper.
+Ang, Andrew, Sen Dong, and Monika Piazzesi, 2007, No-arbitrage taylor rules, working
+paper.
+Ariel, Robert A., 1987, A monthly e¤ect in stock returns, Journal of Financial Economics
+19, 161–174.
+Ball, Ray, and S. P. Kothari, 1991, Security returns around earnings announcements, Ac-
+counting Review, 66, 718–738.
+Bansal, Ravi, Varoujan Khatacharian, and Amir Yaron, 2005, Interpretable asset markets?,
+European Economic Review 49, 531–560.
+Bansal, Ravi, Thomas Tallarini, and Amir Yaron, 2008, The return to wealth, asset pricing,
+and the intertemporal elasticity of substitution, working paper.
+Bansal, Ravi, and Amir Yaron, 2004, Risks for the long run: A potential resolution of asset
+pricing puzzles, Journal of Finance 59, 1481–1509.
+Beaver, William H., 1968, The information content of annual earnings announcements, Jour-
+nal of Accounting Research 6, 67–92.
+Beber, Alessandro, and Michael W. Brandt, 2009, Resolving macroeconomic uncertainty in
+stock and bond markets, Review of Finance 13, 1–45.
+Bernanke, Ben S., and Kenneth N. Kuttner, 2005, What explains the stock market’s reaction
+to federal reserve policy?, Journal of Finance 60, 1221–1257.
+33
+
+--- PAGE 35 ---
+Bodie, Zvi, 1976, Common stocks as a hedge against in‡ation, Journal of Finance 31, 459–
+470.
+Boyd, John H., Jian Hu, and Ravi Jagannathan, 2005, The stock market’s reaction to unem-
+ployment news: Why bad news is usually good for stocks, Journal of Finance 60, 649–672.
+Brennan, Michael J., Ashley W. Wang, and Yihong Xia, 2004, Estimation and test of a
+simple model of intertemporal capital asset pricing, Journal of Finance 59, 1743–1775.
+Brenner, Menachem, Paolo Pasquariello, and Marti Subrahmanyam, 2009, On the volatility
+and comovement of u.s. …nancial markets around macroeconomic news announcements,
+Journal of Financial and Quantitative Analysis forthcoming.
+Buraschi, Andrea, and Alexei Jiltsov, 2007, Habit formation and the term structure of interest
+rates, Journal of Finance 62, 3009–3063.
+Campbell, John Y., Adi Sunderam, and Luis M. Viceira, 2009, In‡ation bets or de‡ation
+hedges? the changing risks of nominal bonds, Harvard University unpublished working
+paper.
+Campbell, John Y., and Luis Viceira, 2002, Strategic Asset Allocation (Oxford University
+Press).
+Campbell, John Y., and Tuomo Vuolteenaho, 2004, Bad beta, good beta, American Economic
+Review 94, 1249–1275.
+Chari, V. V., Ravi Jagannathan, and Aharon R. Ofer, 1988, Seasonalities in security returns:
+The case of earnings announcements, Journal of Financial Economics 21, 101–121.
+Cohen, Daniel A., Aiyesha Dey, Thomas Z. Lys, and Shyam V. Sunder, 2007, Earnings
+announcement premia and the limits to arbitrage, Journal of Accounting and Economics
+43, 153–180.
+34
+
+--- PAGE 36 ---
+Cutler, David M., James M. Poterba, and Lawrence H. Summers, 1989, What moves stock
+prices?, Journal of Portfolio Management 15, 4–12.
+Dubinsky, Andrew, and Michael Johannes, 2005, Earnings announcements and equity op-
+tions, Columbia University working paper.
+Ederington, Louis H., and Jae Ha Lee, 1996, The creation and resolution of market uncer-
+tainty: The impact of information releases on implied volatility, Journal of Financial and
+Quantitative Analysis 31, 513–539.
+Fama, Eugene F., 1987, Stock returns, real activity, in‡ation, and money, American Economic
+Review 71, 545–565.
+, and Kenneth R. French, 1993, Common risk factors in the returns on stocks and
+bonds, Journal of Financial Economics 33, 3–56.
+Fama, Eugene F., and G. William Schwert, 1977, Asset returns and in‡ation, Journal of
+Financial Economics 4, 115–146.
+Flannery, Mark J., and Aris A. Protopapadakis, 2002, Macroeconomic factors do in‡uence
+aggregate stock returns, Review of Financial Studies 15, 751–782.
+Fleming, Michael J., and Eli M. Remolona, 1997, What moves the bond market?, Federal
+Reserve Bank of New York Economic Policy Review 3, 31–50.
+French, Kenneth, 1980, Stock returns and the weekend e¤ect, Journal of Financial Economics
+8, 55–70.
+Gallmeyer, Michael F., Burton Holli…eld, Francisco Palomino, and Stanley E. Zin, 2007,
+Arbitrage-free bond pricing with dynamic macroeconomic models, Texas AM University
+working paper.
+Geske, Robert, and Richard Roll, 1983, The …scal and monetary linkage between stock returns
+and in‡ation, Journal of Finance 38, 1–33.
+35
+
+--- PAGE 37 ---
+Gibbons, Michael R., and Patrick Hess, 1981, Day of the week e¤ects and asset returns,
+Journal of Business 54, 579–596.
+Gilboa, Itzhak, and David Schmeidler, 1989, Maxmin expected utility with non-unique prior,
+Journal of Mathematical Economics 18, 141–153.
+Hardouvelis, Gikas A., 1987, Macroeconomic information and stock prices, Journal of Eco-
+nomics and Business 39, 131–140.
+Ja¤e, Je¤rey F., and Gershon Mandelker, 1979, In‡ation and the holding period returns on
+bonds, Journal of Financial and Quantitative Analysis 14, 959–979.
+Jones, Charles M., Owen Lamont, and Robin L. Lumsdaine, 1998, Macroeconomic news and
+bond market volatility, Journal of Financial Economics 47, 315–337.
+Kalay, Avner, and Uri Loewenstein, 1985, Predictable events and excess returns: the case of
+dividend announcements, Journal of Financial Economics 14, 423–449.
+Knight, Frank H., 1921, Risk, uncertainty and pro…t (Houghton Mi- in Co).
+Krueger, Anne B., 1996, Do markets respond more to reliable labor market data? a test of
+market rationality, NBER working paper 5769.
+Lakonishok, Josef, and Seymour Smidt, 1988, Are seasonal anomalies real? a ninety-year
+perspective, Review of Financial Studies 1, 403–425.
+Lamont, Owen, and Andrea Frazzini, 2007, The earnings announcement premium and trading
+volume, NBER Working Paper 13090.
+Lettau, Martin, and Sydney C. Ludvigson, 2007, Measuring and Modelling Variation in the
+Risk-Return Tradeo¤ . in Yacine Ait-Sahalia and Lars Peter Hansen, ed.: Handbook of
+Financial Econometrics (North-Holland, Holland).
+36
+
+--- PAGE 38 ---
+Lettau, Martin, and Jessica A. Wachter, 2007, Why is long-horizon equity less risky?
+a
+duration-based explanation of the value premium, Journal of Finance 67, 55–92.
+McQueen, Grant, and V. Vance Roley, 1993, Stock prices, news, and business conditions,
+Review of Financial Studies 6, 683–707.
+Merton, Robert C., 1973, An intertemporal capital asset pricing model, Econometrica 41,
+867–887.
+Nelson, Charles R., 1976, In‡ation and rates of return on common stocks, Journal of Finance
+31, 471–483.
+Orphanides, Athanasios, 1992, When good news is bad news: Macroeconomic news and the
+stock market, Board of Governors of the Federal Reserve System.
+Pearce, Douglas K., and V. Vance Roley, 1983, The reaction of stock prices to unanticipated
+changes in money: A note, Journal of Finance 38, 1323–1333.
+Pearce, D. K., and V. Vance Roley, 1985, Stock prices and economic news, Journal of Business
+58, 49–67.
+Pollet, Joshua M., and Mungo Wilson, 2008, Average correlation and stock market returns,
+Journal of Financial Economics forthcoming.
+Schwert, G. William, 1981, The adjustment of stock prices to information about in‡ation,
+Journal of Finance 36, 15–29.
+Skiadas, Costis, 2008, Smooth ambiguity aversion toward small risks and continuous-time
+recursive utility, Working paper, Northwestern University.
+Vissing-Jorgenson, Annette, 2002, Limited asset market participation and the elasticity of
+intertemporal substitution, Journal of Political Economy 110, 825–853.
+37
+
+--- PAGE 39 ---
+Figure 1. The Di¤erence between Announcement Day and Non-announcement
+Day Treasury Bond Excess Returns. The chart plots the di¤erence between the mean
+announcement day excess return and the mean excess return on other days for Treasury
+bonds of di¤erent maturities. Treasury bond returns are obtained from the CRSP Fixed
+Term Indices File. The di¤erence is expressed in basis points (bps). * and ** indicate sta-
+tistical signi…cance at the 5% and 1% levels respectively.
+38
+
+--- PAGE 40 ---
+Table 1
+Summary Statistics for Daily Stock Market Excess Returns
+This table shows the distribution of stock market excess returns on announcement days and non-announcement days. Announcement
+days are those trading days when CPI/PPI (CPI before January 1971 and PPI afterwards) numbers, employment numbers, and FOMC
+interest rate decisions are scheduled for release. The sample covers the 1958-2008 period. Market excess returns are computed as the
+di¤erence between the CRSP value-weighted market return and the risk-free rate. The daily risk-free rate is derived from the 1-month
+risk-free rate provided by CRSP. All numbers are expressed in basis points.
+Panel A: All observations
+Panel B: Excluding outliers (1% and 99%)
+Non-
+Non-
+Announcement
+Announcement
+Di¤erence
+Announcement
+Announcement
+Di¤erence
+Mean
+10.6
+1.0
+9.6
+10.9
+1.2
+9.7
+t-stat
+[4.12]
+[1.18]
+[3.53]
+[5.10]
+[1.74]
+[4.31]
+1% percentile
+-256.2
+-244.7
+-11.4
+-203.3
+-197.6
+-5.7
+25% percentile
+-34.5
+-40.4
+5.9
+-33.1
+-39.0
+5.9
+Median
+13.1
+4.2
+8.8
+13.1
+4.2
+8.8
+75% percentile
+58.0
+44.6
+13.4
+57.1
+43.8
+13.3
+99% percentile
+288.9
+235.4
+53.5
+220.5
+185.1
+35.4
+Std. Dev.
+96.9
+92.2
+79.5
+73.7
+Skewness
+-0.6
+-0.6
+-0.1
+-0.2
+Kurtosis
+9.2
+21.4
+N
+1,415
+11,424
+1,385
+11,194
+39
+
+--- PAGE 41 ---
+Table 2
+Regression Analysis - Daily Stock Market Excess Returns
+This table presents the results of OLS regressions of daily stock market excess returns on an announcement day dummy variable and
+various other controls. Ann. day is a dummy variable equaling 1 if day t is an announcement day and equaling 0 otherwise. Market excess
+returns (Mktrf) are computed as the di¤erence between the CRSP value-weighted market return and the risk-free rate (expressed in basis
+points). Monday-Thursday are dummy variables for the corresponding days of the week. T-statistics are calculated using Newey-West
+standard errors (with 5 lags) and are given in brackets.
+Panel A: All observations
+Panel B: Ex. outliers (1% and 99%)
+(1)
+(2)
+(3)
+(1)
+(2)
+(3)
+Intercept
+1.016
+-0.026
+3.938
+1.215
+0.678
+5.184
+[1.13]
+[-0.03]
+[2.30]
+[1.58]
+[0.88]
+[3.45]
+Ann. day
+9.588
+9.753
+6.996
+9.694
+9.976
+7.541
+[3.52]
+[3.56]
+[2.53]
+[4.27]
+[4.38]
+[3.27]
+Mktrft 1
+0.095
+0.096
+0.103
+0.104
+[5.63]
+[5.67]
+[9.73]
+[9.74]
+(Mktrft 1)2
+0.0001
+0.0001
+0.0000
+0.0000
+[1.59]
+[1.57]
+[0.56]
+[0.54]
+Monday
+-14.213
+-11.778
+[-5.58]
+[-5.72]
+Tuesday
+-2.658
+-5.601
+[-1.07]
+[-2.66]
+Wednesday
+1.493
+0.473
+[0.62]
+[0.24]
+Thursday
+-3.398
+-4.660
+[-1.45]
+[-2.34]
+N
+12,839
+12,838
+12,838
+12,579
+12,578
+12,578
+R2(%)
+0.01
+1.1
+1.4
+0.2
+1.6
+2.0
+40
+
+--- PAGE 42 ---
+Table 3
+Summary Statistics for Daily 30-day T-bill Returns
+This table shows the distribution of daily 30-day T-bill returns on announcement days and non-announcement days. Announcement
+days are those trading days when CPI/PPI (CPI before January 1971 and PPI afterwards) numbers, employment numbers, and FOMC
+interest rate decisions are scheduled for release. The sample covers the 1961-2008 period. 30-day T-bill returns are de…ned as the return
+of the T-bill issue whose length of maturity is closest to 30 days (daily T-bill quotes are obtained from CRSP starting in June 1961). All
+numbers are expressed in basis points.
+Panel A: All observations
+Panel B: Excluding outliers (1% and 99%)
+Non-
+Non-
+Announcement
+Announcement
+Di¤erence
+Announcement
+Announcement
+Di¤erence
+Mean
+1.5
+1.7
+-0.2
+1.5
+1.7
+-0.2
+t-stat
+[35.92]
+[98.8]
+[-4.43]
+[55.52]
+[139.77]
+[-6.79]
+1% percentile
+-0.9
+-0.7
+-0.3
+-0.3
+-0.1
+-0.2
+25% percentile
+0.9
+0.9
+-0.1
+0.9
+0.9
+-0.1
+Median
+1.3
+1.4
+-0.1
+1.3
+1.4
+-0.1
+75% percentile
+1.9
+2.1
+-0.2
+1.9
+2.0
+-0.2
+99% percentile
+6.5
+8.2
+-1.8
+5.0
+6.3
+-1.3
+Std. Dev.
+1.5
+1.8
+0.9
+1.2
+Skewness
+9.9
+3.7
+1.3
+1.9
+Kurtosis
+213.8
+75.9
+N
+1,334
+10,496
+1,306
+10,286
+41
+
+--- PAGE 43 ---
+Table 4
+Regression Analysis - Daily 30-day T-bill Returns
+This table presents the results of OLS regressions of daily 30-day T-bill returns on an announcement day dummy variable and various
+other controls. Ann. day is a dummy variable equaling 1 if day t is an announcement day and equaling 0 otherwise. 30-day T-bill
+returns (Tbill) are de…ned as the return of the T-bill issue whose length of maturity is closest to 30 days (expressed in basis points).
+Monday-Thursday are dummy variables for the corresponding days of the week. T-statistics are calculated using Newey-West standard
+errors (with 5 lags) and are given in brackets.
+Panel A: All observations
+Panel B: Ex. outliers (1% and 99%)
+(1)
+(2)
+(3)
+(1)
+(2)
+(3)
+Intercept
+1.702
+1.158
+0.921
+1.652
+1.140
+0.959
+[69.19]
+[13.96]
+[9.88]
+[82.03]
+[18.84]
+[14.59]
+Ann. day
+-0.200
+-0.177
+-0.112
+-0.195
+-0.168
+-0.117
+[-4.70]
+[-4.21]
+[-2.61]
+[-7.07]
+[-6.49]
+[-4.35]
+Tbillt 1
+0.331
+0.332
+0.311
+0.312
+[6.44]
+[6.43]
+[7.21]
+[7.19]
+(Tbillt 1)2
+-0.0093
+-0.0093
+-0.0048
+-0.0047
+[-4.41]
+[-4.36]
+[-1.53]
+[-1.52]
+Monday
+0.086
+0.078
+[1.61]
+[2.84]
+Tuesday
+0.454
+0.325
+[8.14]
+[9.96]
+Wednesday
+0.268
+0.202
+[5.07]
+[7.29]
+Thursday
+0.318
+0.259
+[5.84]
+[9.17]
+N
+11,830
+11,693
+11,693
+11,592
+11,485
+11,485
+R2 (%)
+0.1
+8.0
+9.0
+0.3
+16.0
+17.1
+42
+
+--- PAGE 44 ---
+Table 5
+Summary Statistics for Daily Stock Market Excess Returns - Subsamples
+This table shows the distribution of stock market excess returns on announcement days and non-announcement days over the …rst and
+second halves of our sample. Announcement days are those trading days when CPI/PPI (CPI before January 1971 and PPI afterwards)
+numbers, employment numbers, and FOMC interest rate decisions are scheduled for release. The sample covers the 1958-2008 period.
+Market excess returns are computed as the di¤erence between the CRSP value-weighted market return and the risk-free rate. The daily
+risk-free rate is derived from the 1-month risk-free rate provided by CRSP. All numbers are expressed in basis points.
+Panel A: 1958 - 1983
+Panel B: 1984-2008
+Non-
+Non-
+Announcement
+Announcement
+Di¤erence
+Announcement
+Announcement
+Di¤erence
+Mean
+9.8
+1.0
+8.8
+11.3
+1.0
+10.3
+t-stat
+[3.38]
+[1.05]
+[2.86]
+[2.80]
+[0.69]
+[2.40]
+1% percentile
+-174.9
+-204.5
+29.7
+-286.1
+-288.2
+2.0
+25% percentile
+-32.1
+-37.3
+5.2
+-37.2
+-44.0
+6.8
+Median
+12.8
+3.0
+9.7
+13.6
+5.4
+8.2
+75% percentile
+51.7
+41.8
+9.9
+65.3
+48.9
+16.4
+99% percentile
+220.5
+201.6
+18.9
+343.8
+271.1
+72.6
+Std. Dev.
+72.9
+75.7
+112.6
+107.0
+Skewness
+0.3
+0.0
+-0.8
+-0.8
+Kurtosis
+2.8
+4.2
+8.3
+22.8
+N
+631
+5,901
+784
+5,523
+43
+
+--- PAGE 45 ---
+Table 6
+Summary Statistics for Daily 30-day T-bill Returns - Subsamples
+This table shows the distribution of daily 30-day T-bill returns on announcement days and non-announcement days over the …rst and
+second halves of our sample. Announcement days are those trading days when CPI/PPI (CPI before January 1971 and PPI afterwards)
+numbers, employment numbers, and FOMC interest rate decisions are scheduled for release. The sample covers the 1961-2008 period.
+30-day T-bill returns are de…ned as the return of the T-bill issue whose length of maturity is closest to 30 days (daily T-bill quotes are
+obtained from CRSP starting in June 1961). All numbers are expressed in basis points.
+Panel A: 1961 - 1984
+Panel B: 1985-2008
+Non-
+Non-
+Announcement
+Announcement
+Di¤erence
+Announcement
+Announcement
+Di¤erence
+Mean
+1.8
+2.0
+-0.2
+1.3
+1.5
+-0.2
+t-stat
+[31.56]
+[81.08]
+[-2.71]
+[21.87]
+[60.08]
+[-2.67]
+1% percentile
+-1.3
+-0.4
+-1.0
+-0.7
+-0.9
+0.1
+25% percentile
+1.1
+1.1
+0.0
+0.6
+0.7
+-0.1
+Median
+1.5
+1.5
+0.0
+1.2
+1.3
+-0.1
+75% percentile
+2.3
+2.3
+0.0
+1.6
+1.9
+-0.2
+99% percentile
+7.1
+9.2
+-2.1
+4.5
+6.6
+-2.0
+Std. Dev.
+1.4
+1.7
+1.6
+1.8
+Skewness
+1.3
+2.6
+14.5
+5.1
+Kurtosis
+8.3
+22.7
+312.6
+136.1
+N
+582
+5,256
+752
+5,240
+44
+
+--- PAGE 46 ---
+Table 7
+Summary Statistics for Implied Variance
+This table shows the distribution of daily changes in implied variance on announcement days and non-announcement days. Announcement
+days are those trading days when CPI/PPI (CPI before January 1971 and PPI afterwards) numbers, employment numbers, and FOMC
+interest rate decisions are scheduled for release. Implied variance is calculated from the CBOE S&P 100 Volatility Index, which is a
+constant-maturity 30-day measure of the expected volatility for the S&P 100 Index (available starting in 1986). All numbers are expressed
+in percentage points.
+Panel A: All Observations
+Panel B: Excluding outliers (1% and 99%)
+Non-
+Non-
+Announcement
+Announcement
+Di¤erence
+Announcement
+Announcement
+Di¤erence
+Mean
+-1.4
+1.4
+-2.8
+-2.2
+0.8
+-3.0
+t-stat
+[-2.47]
+[3.85]
+[-4.13]
+[-5.28]
+[5.57]
+[-6.88]
+1% percentile
+-28.3
+-26.0
+-2.3
+-25.8
+-21.7
+-4.1
+25% percentile
+-9.3
+-6.1
+-3.2
+-9.1
+-6.0
+-3.1
+Median
+-2.8
+0.0
+-2.8
+-2.8
+0.0
+-2.8
+75% percentile
+3.2
+6.6
+-3.4
+3.1
+6.4
+-3.3
+99% percentile
+53.1
+40.8
+12.3
+31.9
+33.3
+-1.4
+Std. Dev.
+15.6
+25.9
+10.8
+10.6
+Skewness
+4.1
+46.9
+0.8
+0.6
+Kurtosis
+36.1
+2884.4
+N
+721
+5,070
+705
+4,968
+45
+
+--- PAGE 47 ---
+Table 8
+Regression Analysis - Implied Variance
+This table presents the results of OLS regressions of daily changes in implied variance on an announcement day dummy variable and
+various other controls. Ann. day is a dummy variable equaling 1 if day t is an announcement day and equaling 0 otherwise. Daily change
+in implied variance (ImpVar) is calculated from the CBOE S&P 100 Volatility Index, which is a constant-maturity 30-day measure of
+the expected volatility for the S&P 100 Index (available starting in 1986). Monday-Thursday are dummy variables for the corresponding
+days of the week. T-statistics are calculated using Newey-West standard errors (with 5 lags) and are given in brackets.
+Panel A: All Observations
+Panel B: Ex. outliers (1% and 99%)
+(1)
+(2)
+(3)
+(1)
+(2)
+(3)
+Intercept
+1.401
+1.408
+0.270
+0.840
+0.855
+-0.325
+[3.96]
+[4.44]
+[0.57]
+[6.21]
+[6.08]
+[-0.89]
+Ann. day
+-2.834
+-2.873
+-2.264
+-2.996
+-2.897
+-2.430
+[-4.33]
+[-3.76]
+[-3.72]
+[-6.82]
+[-6.66]
+[-5.32]
+ImpVart 1
+-0.004
+-0.002
+-0.070
+-0.071
+[-0.03]
+[-0.02]
+[-5.63]
+[-5.68]
+(ImpVart 1)2
+0.0000
+0.0000
+0.0000
+0.0000
+[-0.05]
+[-0.06]
+[4.92]
+[4.96]
+Monday
+1.551
+0.381
+[0.86]
+[0.79]
+Tuesday
+1.011
+1.309
+[1.69]
+[2.81]
+Wednesday
+0.835
+1.669
+[1.54]
+[3.64]
+Thursday
+1.935
+2.188
+[3.26]
+[4.51]
+N
+5,791
+5,781
+5,781
+5,673
+5,663
+5,663
+R2 (%)
+0.1
+0.2
+0.2
+0.1
+0.2
+0.2
+46
+
+[TRUNCATED at 80000 chars — 49 total pages]

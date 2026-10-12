@@ -1,0 +1,3906 @@
+
+--- PAGE 1 ---
+Stock Return Characteristics, Skew Laws,
+and the Differential Pricing of Individual
+Equity Options
+Gurdip Bakshi
+University of Maryland
+Nikunj Kapadia
+University of Massachusetts-Amherst
+Dilip Madan
+University of Maryland
+This article provides several new insights into the economic sources of skewness. First,
+we document the differential pricing of individual equity options versus the market index
+and relate it to variations in return skewness. Second, we show how risk aversion intro-
+duces skewness in the risk-neutral density. Third, we derive laws that decompose indi-
+vidual return skewness into a systematic component and an idiosyncratic component.
+Empirical analysis of OEX options and 30 stocks demonstrates that individual risk-
+neutral distributions differ from that of the market index by being far less negatively
+skewed. This article explains the presence and evolution of risk-neutral skewness over
+time and in the cross section of individual stocks.
+Skewness continues to occupy a prominent role in equity markets. In the
+traditional asset pricing literature, stocks with negative coskewness com-
+mand a higher equilibrium risk compensation [see Rubinstein (1973), and
+the empirical applications in Kraus and Litzenberger (1976) and Harvey and
+Siddique (2000)]. Realizing the inherent importance of skewness, Merton
+(1976), Rubinstein (1994), Bakshi, Cao, and Chen (1997), Ait-Sahalia and
+Lo (1998), Madan, Carr, and Chang (1998), Pan (1999), Bates (2000), and
+We acknowledge discussions on this topic with Yacine Ait-Sahalia, Torben Anderson, Meghana Ayyagari,
+Warren Bailey, Ravi Bansal, David Bates, Nick Bollen, Peter Carr, Charles Cao, Henry Cao, Zhiwu Chen,
+George Chacko, Amy Chan, Dave Chapman, Alex David, Darrell Dufﬁe, Rob Engle, Rene Garcia, Eric
+Ghysels, John Guo, Levent Guntay, Hua He, Mike Hemler, Harrison Hong, Ming Huang, Jon Ingersoll, Bob
+Jarrow, Nengjiu Ju, Hossein Kazemi, Inanc Kirgiz, Haitao Li, Nour Meddahi, Maureen O’Hara, Jun Pan,
+Gurupdesh Pande, Nagpurnanand Prabhala, Chandrasekhar Reddy Gokhul, Eric Renault, Lemma Senbet, Paul
+Schultz, Ken Singleton, Tie Su, Michael Stutzer, Bhaskar Swaminathan, George Tauchen, Alex Triantis, Haluk
+Unal, Bob Whaley, and Frank Zhang. We also thank workshop participants at CIRANO, Cornell, Maryland,
+Massachusetts-Amherst, Notre Dame, Stanford, and Yale. Participants at EFA (London), WFA 2000 (Sun
+Valley), and the Duke conference on risk-neutral and objective probability measures provided many useful
+suggestions. A special thanks goes to Cam Harvey (the editor) and an anonymous referee, whose suggestions
+have helped us improve this article substantially. Kristaps Licis provided expert research assistance. Any errors
+are our own. An earlier version of this paper was circulated under the title “Why are Implied Volatility Curves
+Embedded in Individual Equity Options So Flat?” Address correspondence to Gurdip Bakshi, Department of
+Finance, Robert H. Smith School of Business, University of Maryland, College Park, MD 20742, or e-mail:
+gbakshi@rhsmith.umd.edu.
+The Review of Financial Studies Spring 2003 Vol. 16, No. 1, pp. 101–143
+© 2003 The Society for Financial Studies
+
+--- PAGE 2 ---
+The Review of Financial Studies / v 16 n 1 2003
+Dufﬁe, Pan, and Singleton (2000) have devised option models to character-
+ize asymmetries in the underlying risk-neutral pricing distributions. Despite
+these advances in empirical and theoretical modeling of skewness, extant
+work has not yet formalized restrictions on the physical return density and
+the pricing kernel process that could shift the risk-neutral distributions to the
+left. What are the sources of risk-neutral skewness? What are its implications
+for individual equity options? Our present goal is to ﬁll speciﬁc gaps from
+theoretical and empirical standpoints. First, our innovations provide a theo-
+retical characterization that links risk-neutral skews to risk aversion, and to
+the higher-order moments of the physical distribution. Second, we develop a
+relationship between individual skews, market index skews, and idiosyncratic
+skews, which we call the skew laws. Third, we establish the differential pric-
+ing of individual equity options versus the market index. Critical to this thrust
+is the link, to ﬁrst order, between skew laws and the differential pricing of
+individual equity options that makes our empirical study tractable.
+To make it easy to draw comparisons across option strikes and in the cross
+section of equity options, the structure of option prices—how option prices
+differ across strikes—is often represented through the slope of the implied
+volatility curve [Rubinstein (1985, 1994)]. Given their equivalence, we will
+use the slope of the implied volatility curve (or, the smile) and the structure of
+option prices to exemplify the same primitive object throughout. Granted, a
+one-to-one correspondence also exists between the smile and the risk-neutral
+density, modeling the smile as a stochastic process is now a central feature
+of some option models. While it is widely acknowledged that the smile is
+somehow due to the existence of negatively skewed and heavy-tailed risk-
+neutral return distributions, a formal test of this simple idea has proven hard
+to implement. For example, is it skewness or kurtosis that is of ﬁrst-order
+importance in explaining the observed variation in the structure of option
+prices? When the return distribution is skewed to the left, will a higher level
+of kurtosis induce a ﬂatter smile?
+The hurdles in quantifying the basic link across a wide spectrum of options
+stem from three sources. First, to infer the smile from the initial higher
+moments requires the identiﬁcation of the underlying risk-neutral return den-
+sity, and there is no natural way to reconstruct the density from just its higher
+moments. Second, even when option models are well-enough speciﬁed across
+the strike price range, it is not clear that any derived relation between option
+prices and risk-neutral moments is a generic property, as opposed to being a
+reﬂection of the particular modeling choice (i.e., parameterization can force
+an artiﬁcial interdependence between skewness and kurtosis). Thus it appears
+important that skews be recovered in a model-free fashion. Third, most stock
+options are American and therefore their risk-neutral densities cannot be so
+easily characterized using existing methods. Consequently much research in
+the estimation of risk-neutral distributions, and its moments, has concentrated
+102
+
+--- PAGE 3 ---
+Individual Equity Options
+on index, as opposed to individual equity, options. From a general asset pric-
+ing perspective, it is unsettling that we do not yet understand the properties
+of individual equity risk-neutral return distributions or the structure of their
+option prices.
+Our study makes several theoretical contributions. One, we build the con-
+nection, in a model-free manner, between the differential pricing of indi-
+vidual stock options and the moments of the risk-neutral distribution. Here
+we rely on the basic result from Bakshi and Madan (2000): any payoff can
+be spanned and priced using an explicit positioning across option strikes.
+Speciﬁcally we show that the cubic contract can quantify return asymmetry
+by a speciﬁc position that simultaneously involves a long position in out of
+the money calls and a short position in out of the money puts. When the
+risk-neutral distribution is left-skewed, the combined cost of the positioning
+in puts is larger than that of the combined positioning in calls. We refer to
+the cost of reproducing the risk-neutral skewness and kurtosis as the price of
+skewness and kurtosis even though the respective payoffs are not actually dis-
+counted.1 The contingent claims theory that we use here is applicable to both
+European and American options, and the derived measures of tail asymmetry
+and tail size are readily comparable across equities and over time.
+Next, we develop the relation between the individual and index risk-neutral
+return distributions, and analyze what may cause a wedge between the skew-
+ness of these distributions. We posit a market model in which individual
+stock return can be decomposed into a systematic component and an idiosyn-
+cratic component, and derive the relation between the individual, index and
+idiosyncratic skews. Provided the idiosyncratic risk component is symmetric
+(or positively skewed) and the index distribution is negatively skewed, we can
+restrict the risk-neutral individual skew to be less negative than the market.
+In one particular example we show that the leverage argument for skews has
+the implication that some individual equity returns are risk-neutrally more
+left-skewed than the index, which is inconsistent with the data.
+Our characterizations impart the crucial insight that negatively skewed
+risk-neutral index distributions are possible even when the physical return
+distribution is symmetric. Curiously this outcome is achieved when the return
+process is in the family of fat-tailed physical distributions and the representa-
+tive agent is risk averse. This result holds for a wide class of utility functions
+and thereby provides the foundation for negative risk-neutral skewness.
+We use our skewness paradigms to test the following hypotheses: (1) Index
+volatility smiles are more negatively sloped than individual smiles. (2) In the
+1 According to standard economic theory, the physical return density assesses the likelihood of different return
+outcomes, while the corresponding risk-neutral density is concerned with the market price of contracts paying
+a dollar contingent on various return outcomes. It is generally recognized that the physical and the risk-neutral
+densities can be substantially different: large movements commanding a higher price and a lower probability,
+while the reverse is true for smaller moves. Due to risk aversion, we typically observe higher prices for
+downward market movements versus comparable upward movements.
+103
+
+--- PAGE 4 ---
+The Review of Financial Studies / v 16 n 1 2003
+stock cross section, or in the time series, the more negatively skewed the risk-
+neutral return distribution, the steeper the volatility smiles. (3) Individual risk-
+neutral distributions are less skewed to the left than the index distributions.
+Our empirical study is based on nearly 350,000 option quotes written on
+the S&P 100 index (hereafter OEX) and its 30 largest individual equity com-
+ponents over the period January 1991 through December 1995. Our principal
+conclusions are as follows. First, the slopes of the individual equity smiles
+are persistently negative, but are much less negative than the index. The doc-
+umented differences in the slope of index and individual smiles produces a
+substantial difference in the relative price of options: for the OEX (a repre-
+sentative stock), the implied volatility of a deep out of the money (hereafter
+OTM) put is about 22% (29%), as compared to at the money (hereafter ATM)
+implied of 14% (26%). Therefore we make the important observation that the
+pricing structure of individual equity options is ﬂatter compared with that of
+the market index. Our primary explanation for this phenomenon is based on
+risk aversion.
+Second, we conclude that variations in the risk-neutral skew are instru-
+mental in explaining the differential pricing of individual equity options. We
+ﬁnd that the more negatively skewed the return distribution, the steeper is
+its volatility smile. Yet when risk-neutral distributions evolve to be more
+fat-tailed, the smile gets less downward sloping. Speciﬁcally, a higher risk-
+neutral kurtosis ﬂattens the smile in the presence of left-tails. The cross-
+sectional regressions conﬁrm that, on average, less negatively skewed stocks
+have ﬂatter smiles.
+Third, our inquiry consolidates a number of core properties mirrored by
+all individual risk-neutral (pricing) distributions:
+• Individual stocks are mildly left-skewed (or even positively skewed),
+while index return distributions are heavily left-skewed. By way of con-
+trast, there is no consistent pattern for the price of the fourth moment
+in the cross section.
+• Although individual skews are negative much of the time, their mag-
+nitudes are seldom more negative relative to the index. Our sample
+suggests that the index skews are never positive, even periodically.
+Finally, we empirically relate the risk-neutral index skews to the higher
+moments of the physical distribution. Our results indicate that the substantial
+differences in the magnitudes of risk-neutral and physical skews are primar-
+ily a consequence of risk aversion and long-tailed physical distributions. A
+variety of extended diagnostics support our main empirical ﬁndings.
+This article is divided into several parts. Section 1 is devoted to formulat-
+ing the key elements of the problem. In Section 2, we relate the structure of
+option prices to higher-order risk-neutral return moments. Section 3 reviews
+the equity options data. The differential pricing of individual equity options
+104
+
+--- PAGE 5 ---
+Individual Equity Options
+versus the market index is demonstrated in Section 4. We empirically exam-
+ine the role of skews. Conclusions are offered in Section 5. All proofs are
+collected in the appendix.
+1. Understanding and Recovering Risk-Neutral Skews
+This section accomplishes three tasks. At the outset, we propose a method-
+ology to span and price skewness and kurtosis. This step is rendered feasible
+using only OTM calls and puts and without imposing any structure on the
+underlying forcing process. Next, we establish when risk aversion causes the
+aggregate index to have negative skews under the risk-neutral measure. We
+then decompose the price of individual return skewness into market-induced
+skewness and idiosyncratic skewness. Each conceptualization is critical for
+the later empirical exercises.
+1.1 Generic spanning and pricing characterizations
+in Bakshi and Madan (2000)
+Since our intent is to frugally represent the risk-neutral distribution (or some
+feature thereof) in terms of traded option prices, it is only convenient to adopt
+the setting outlined in Bakshi and Madan (2000). That is, to ﬁx notation,
+denote the time t price of the stock n by Snt (for n = 1   N) and the
+market index by Smt. Without any loss of generality, let the interest rate
+be a constant r, and St > 0 with probability 1 for all t (suppressing the
+subscript n).
+To ease equation presentation, write the t +  period price of the stock,
+St+, as S. Let the risk-neutral (pricing) density qtS, or simply qS,
+embody all remaining uncertainty about S. The physical density, pS, and
+the associated Radon–Nikodym derivative that delivers qS, for a given pric-
+ing kernel, will be formalized in Section 1.3. For any claim payoff HS that
+is integrable with respect to risk-neutral density (i.e.,
+ 
+0  HS  qSdS <
+), the symbol ∗
+t 	
+ will represent the expectation operator under risk-
+neutral density. That is, in what follows,
+∗
+t 	HS =
+ 
+0 HSqSdS
+(1)
+With this understanding we can express the price of the European call and put
+written on the stock with strike price K and expiring in  periods from time
+t as CtK =
+ 
+0 e−rS −K+qSdS, and PtK =
+ 
+0 e−rK −
+S+qSdS, where S −K+ ≡max0S −K.
+As articulated in Bakshi and Madan (2000), any payoff function with
+bounded expectation can be spanned by a continuum of OTM European calls
+and puts. In particular, a special case of their Theorem 1 is that the entire
+105
+
+--- PAGE 6 ---
+The Review of Financial Studies / v 16 n 1 2003
+collection of twice-continuously differentiable payoff functions, HS ∈2,
+can be spanned algebraically [see also Carr and Madan (2001)], as in
+HS = HS+S −SHSS+
+ 
+S HSSKS −K+dK
++
+ S
+0 HSSKK −S+dK
+(2)
+where HSS (HSSK) represents the ﬁrst-order (second-order) derivative of
+the payoff with respect to S evaluated at some S (the strike price). Intu-
+itively the position in options enables one to buy the curvature of the payoff
+function.
+Applying risk-neutral valuation to both sides of Equation (2), we have the
+arbitrage-free price of the hypothetical claim as
+∗
+t 	e−rHS = HS−S HSSe−r +HSSSt
++
+ 
+S HSSKCtKdK
++
+ S
+0 HSSKPtKdK
+(3)
+which merely formalizes how HS can be synthesized from (i) a zero-
+coupon bond with positioning: HS −S HSS, (ii) the stock with posi-
+tioning: HSS, and (iii) a linear combination of calls and puts (indexed by
+K) with positioning: HSSK. By observing the relevant market prices and
+appealing to Equation (3), we can statically construct the intrinsic values of
+most contingent claims.
+1.2 Mimicking risk-neutral skewness and kurtosis
+To streamline the discussion of stock return characteristics and the structure
+of option prices, let the -period return be given by the log price relative:
+Rt ≡lnSt+−lnSt. Deﬁne the volatility contract, the cubic con-
+tract, and the quartic contracts to have the payoffs
+HS =
+
+
+
+Rt2
+volatility contract
+Rt3
+cubic contract
+Rt4
+quartic contract.
+(4)
+Let V t ≡∗
+t
+
+e−r Rt2
+, Wt ≡∗
+t
+
+e−r Rt3
+, and Xt ≡
+∗
+t
+
+e−r Rt4
+represent the fair value of the respective payoff. The fol-
+lowing theorem is a consequence of Equations (2) and (3).
+106
+
+--- PAGE 7 ---
+Individual Equity Options
+Theorem 1.
+Under all martingale pricing measures, the following contract
+prices can be recovered from the market prices of OTM European calls and
+puts:
+1. The -period risk-neutral return skewness, SKEWt, is given by
+SKEWt ≡
+∗
+t 	Rt−∗
+t Rt3
+	∗
+t Rt−∗
+t Rt23/2
+= erWt−3terV t+2t3
+erV t−t23/2
+
+(5)
+2. The risk-neutral kurtosis, denoted KURTt, is
+KURTt ≡∗
+t
+
+Rt−∗
+t Rt4
+
+∗
+t Rt−∗
+t Rt22
+= erXt−4terWt+6ert2 V t−3t4
+erV t−t22
+
+(6)
+with t displayed in Equation (39) of the appendix. The price of the
+volatility contract,
+V t =
+ 
+St
+2
+
+1−ln
+	 K
+St
+
+
+K2
+CtKdK
++
+ St
+0
+2
+
+1+ln
+	 St
+K
+
+
+K2
+PtKdK
+(7)
+and the price of the cubic and the quartic contracts,
+Wt =
+ 
+St
+6 ln
+	 K
+St
+
+−3
+
+ln
+	 K
+St
+
+2
+K2
+CtKdK
+−
+ St
+0
+6 ln
+	 St
+K
+
++3
+
+ln
+	 St
+K
+
+2
+K2
+PtKdK
+(8)
+Xt =
+ 
+St
+12
+
+ln
+	 K
+St
+
+2 −4
+
+ln
+	 K
+St
+
+3
+K2
+CtKdK
++
+ St
+0
+12
+
+ln
+	 St
+K
+
+2 +4
+
+ln
+	 St
+K
+
+3
+K2
+PtKdK
+(9)
+can each be formulated through a portfolio of options indexed by their
+strikes.
+The theorem formalizes a mechanism to extract the volatility, the skewness,
+and the kurtosis of the risk-neutral return density from a collection of OTM
+calls and puts. Notably one must always pay to go long the volatility and the
+107
+
+--- PAGE 8 ---
+The Review of Financial Studies / v 16 n 1 2003
+quartic/kurtosis contracts. Speciﬁcally, to unwind the price of volatility, all
+OTM calls and puts are to be weighted by the strike price-dependent amount:
+2−2lnK/St
+K2
+. In the quartic contract, the positioning is cubic in moneyness,
+however. Heuristically, a more pronounced fourth moment can only give rise
+to heavy-tailed distributions, a feature that will bid up the prices of both deep
+OTM and in the money (hereafter ITM) calls and puts. When ﬁtting implied
+volatility curves, this effect sometimes surfaces as a parabola in the space of
+moneyness and implied volatility. Therefore the weighting structure assigning
+far higher weight to OTM [versus near the money (hereafter NTM)] options
+does have intuitive justiﬁcation.
+The cubic contract displayed in Equation (8) permits a play on the skew.
+With return distributions that are left-shifted, all OTM put options will be
+priced at a premium relative to OTM calls. In this environment, the cost of the
+short position in the linear combination of OTM puts will generally exceed
+the call option counterpart. Equation (5) thus blends qualitative as well as
+quantitative dimensions of asymmetry. More exactly, when the cubic contract
+is normalized by V t, it quantiﬁes asymmetry both across time and in the
+stock cross section. As we shall see, the option portfolio [Equation (5)] is
+instrumental in quantifying ﬂuctuations in the smile and in reconciling the
+relative structure of individual option prices.
+Although it is possible to parameterize skews via a speciﬁc jump model,
+for reasons already discussed, the model-free determination of skews is desir-
+able on theoretical and empirical grounds. In our context, moment discovery
+can be contemplated as summing a coarsely available grid of OTM calls
+and puts; it also generalizes to American options. The latter assertion can
+be supported in two ways. First, OTM options have negligible early exer-
+cise premiums. Second, even when early exercise premiums are not modest
+[i.e., OTM options in the neighborhood of at the money (hereafter ATM)],
+the portfolio weighting in these options is small by construction. In the con-
+verse, larger weighting applies to deep OTM options but their market prices
+are declining rapidly with strikes. In reality, a ﬁnite positioning in options
+should effectively span the payoffs of interest. We address issues of accuracy
+in our implementations.
+Equation (5) may be useful to researchers interested in measuring risk
+compensation for individual/index skews [see Harvey and Siddique (2000)].
+Suppose an individual holds the claim
+Rnt−n3
+erVnt−nt2
+3/2 , with no idiosyn-
+cratic exposure. The market price of this exposure is precisely given by
+Equation (5). For any admissible stochastic discount factor, , and covari-
+ance operator, covt
+
+, the reward for bearing skewness risk, S, is then
+S −r = −covt
+t +t
+t
+ SKEWt +t
+SKEWt
+
+
+(10)
+which is, in principle, computable once the stochastic discount factor has
+been identiﬁed. The identiﬁcation of  can be rather involved and requires the
+108
+
+--- PAGE 9 ---
+Individual Equity Options
+joint estimation and formulation of the physical and risk-neutral processes.
+For details on this procedure we refer the reader to Pan (1999), Chernov and
+Ghysels (2000), and Harvey and Siddique (2000).
+1.3 Sources of risk-neutral index skews
+For our synthesis involving the relationship between risk-neutral and physical
+densities, let pRm denote the physical density of the -period index return,
+Rm. Similarly denote the joint physical density of the stock collection by
+pR1   RNRm. Under certain conditions, we must have, by the Radon–
+Nikodym theorem, the identities (see the appendix)
+qRm =
+e− Rm ×pRm
+
+e− Rm ×pRmdRm
+
+and
+(11)
+qR1   RNRm =
+e− Rm ×pR1   RNRm
+
+e− Rm ×pR1   RNRmdR1 ···dRN dRm
+
+(12)
+where e− Rm is the pricing kernel in power utility economies, with coefﬁcient
+of relative risk aversion . Here the risk-neutral index density is obtained by
+exponentially tilting the physical density. Note that the normalization factor in
+the denominator of Equation (11) ensures qRm is a proper density function
+that integrates to unity. We now prove the main result of this subsection.
+Theorem 2.
+Up to a ﬁrst-order of , the risk-neutral skewness of index
+returns is analytically attached to its physical counterparts via
+SKEWmt ≈SKEWmt−
+
+KURTmt−3
+
+STDmt
+(13)
+where STDt, SKEWt, and KURTt represent return standard
+deviation, skewness, and kurtosis, under the physical probability measure,
+respectively. Thus exponential tilting of the physical density will produce
+negative skew in the risk-neutral index distribution, provided the physical
+distribution is fat-tailed (with nonzero ).
+Because our characterization of individual equity skews hinge on negative
+skewness in the risk-neutral index distribution, the result [Equation (13)] is
+of special relevance. At a theoretical level, Theorem 2 provides sound eco-
+nomic reasons for the presence of risk-neutral skews, even when the physical
+process is symmetric. Essentially it states that there are three sources of neg-
+ative skew in the risk-neutral index distribution. First, a negative skew in
+the physical distribution causes the risk-neutral index distribution to be left-
+skewed, even under  = 0 restriction. Second, risk-neutral index skews and
+the kurtosis of the physical measure appear to be inversely related: for a
+given volatility level and risk aversion, raising the level of kurtosis beyond
+3 generates a more pronounced left tail. In a likewise manner, higher stock
+109
+
+--- PAGE 10 ---
+The Review of Financial Studies / v 16 n 1 2003
+market volatility will not guarantee left skew unless the parent distribution is
+fat-tailed.
+At the least, these features match the observations in Bates (1991) and
+Rubinstein (1994) that the index distributions have become (risk-neutrally)
+more negatively skewed after the crash of 1987. Finally, risk aversion makes
+the risk-neutral density inherit negative skew, provided the kurtosis of the
+physical distribution is in excess of 3. Since physical distributions esti-
+mated in practice are often symmetric [Jackwerth (2000)], according to Equa-
+tion (13), heavy-tailed index distributions and risk aversion are the most
+likely root of the risk-neutral index skew.
+To see the working behind this counterintuitive ﬁnding that exponential
+tilting of the physical index distribution produces no skew when kurtosis is
+equal to 3, let us take a parametric example in which index returns are dis-
+tributed normal with mean m and variance 2
+m. With the aid of Equation (11)
+and Gaussian pRm, we have (for some constants A0 > 0 and A1 > 0)
+qRm = A0 exp−Rm×exp
+
+−Rm −¯m2
+2 ¯2
+m
+
+= A1 exp
+
+−Rm − ¯m − ¯2
+m2
+2 ¯2
+m
+
+(14)
+which is again a mean-shifted Gaussian variate with zero skewness. This
+is consistent with our ﬁrst-order analysis that indicates a need for excess
+kurtosis to generate a change in skew. The excess kurtosis is well-known to
+be prevalent statistically in index returns. So long as the physical distribution
+is fat-tailed, the end-result is similar in stochastic volatility and pure-jump
+models as well. In Equations (49)–(51) of the appendix, it is explicitly shown
+how exponential tilting of the physical density alters the (ﬁrst) three moments
+of the risk-neutral distribution (whether the physical density is generated via
+a partial equilibrium or a general equilibrium Lucas economy).
+Can Theorem 2 be generalized to a broader family of utility functions? Is
+the power utility assumption crucial for generating the negative skew phe-
+nomena? To resolve this issue, consider the wider class of marginal utility
+functions, U ′Rm, given by
+U ′Rm =
+ 
+0 e−zRm dz
+(15)
+for a measure  on ℜ+. This includes as candidates for marginal utility, all
+bounded Borel functions vanishing at inﬁnity [Revuz and Yor (1991)]. For
+example, the choice of the gamma density for the measure 
+ results in
+HARA marginal utility. In particular, we can also accommodate, as a special
+case, the bounded versions of the loss aversion utility functions considered by
+Kahneman and Tversky (1979). With positive 
+, all completely monotone
+utility functions (i.e., U ′Rm > 0, U ′′Rm < 0, U ′′′Rm > 0, and so on)
+110
+
+--- PAGE 11 ---
+Individual Equity Options
+are also nested within Equation (15). Clearly the coefﬁcient of relative risk
+aversion, Rm ≡−Rm U ′′Rm
+U ′Rm , can vary stochastically with Rm.
+For all such stochastic discount factors, deﬁne a  approximation by
+U ′Rm =
+ 
+0 e−zRm dz, which is just a functional arc approximation
+in the space of marginal utilities. Hence
+qRm =
+pRm×
+ 
+0 e−zRm dz
+ 
+0 e−zRm dzpRmdRm
+
+(16)
+It then follows that SKEWm ≈SKEWm −	
+ 
+0 zdz KURTm −3STDm
+(see the appendix for intermediate steps). Even though risk aversion may no
+longer be time invariant, the skew dynamics are still being determined by
+higher-order moments of the physical distribution. In particular, as we have
+shown, the even moments are being weighted by a constant proportional to
+risk aversion. This is the outcome, as the risk aversion dependence on the
+market is getting integrated out. In the more general case of state-dependent
+preferences, the skew dynamics can depend on conditional moves in risk
+aversion.
+Depending on the nature of return autocorrelation, the risk-neutral skews
+may not aggregate linearly across the time spectrum. To develop this argu-
+ment in some detail, suppose the one-period (say, weekly) rate of return fol-
+lows an AR-1 process under the physical measure Rmt = Rmt−1+ut.
+As usual, let the white noise, ut, have zero mean with  < 1. Keep the
+higher moments STDut, SKEWut, and KURTut, unspeciﬁed for now.
+Deﬁne the term structure of risk-neutral skews, SKEWmt, as a function
+of . Using a standard logic,
+STDmt = STDut×
+
+ −La
+1−22
+
+(17)
+SKEWmt = SKEWut×
+ −Lb
+ −La3/2 
+and
+(18)
+KURTmt−3 =  KURTut−3×
+ −Lc
+ −La2 
+(19)
+where La ≡21−
+1−
+−21−2
+1−2
+, Lb ≡31−
+1−
+−321−2
+1−2
++ 31−3
+1−3
+,
+and Lc ≡41−
+1−
+−621−2
+1−2
++ 431−3
+1−3
+−41−4
+1−4
+. By combining Equa-
+tions (17)–(19) with Theorem 2, several observations are apparent:
+• When =0, La =Lb =Lc =0. Therefore SKEWmt=
+1
+√ SKEWut−
+
+√  KURTut −3STDut. As a result, absolute skews are declining
+in the square root of maturity.
+• With moderate levels of positive autocorrelation, the skew term struc-
+tures display a U-shaped tendency: getting more negative with  initially
+111
+
+--- PAGE 12 ---
+The Review of Financial Studies / v 16 n 1 2003
+and then gradually shrinking to zero with large . With  < 0, the term
+structure of skews bears the trait that short skews are always more neg-
+ative than long skews. In either case, the presence of autocorrelation
+slows down the rate at which the central limit theorem holds.
+• If u is symmetric with kurtosis 3, the term structure of risk-neutral
+index skews is ﬂat regardless of the nature of return dependency and
+risk-taking behavior.
+In summary, the preceding analysis integrates two insights about the term
+structure of skews. First, the part of skew that relies on risk aversion and fat-
+tailed distribution is more consistent with the daily/weekly frequency. Sec-
+ond, as the observation frequency is altered from weekly to monthly, the term
+structure of absolute skews can get upward-sloping even when KURTmt
+approaches 3. Although not pursued here, higher-order autoregressive pro-
+cesses would lead to more ﬂexible forms for absolute skew term structures.
+One can take advantage of Equation (13) to reverse engineer an estimate
+of the presumed constant risk aversion coefﬁcient, and it requires only simple
+inputs. To make the point precise, the risk-neutral index skew is recoverable
+from option positioning Equation (5), and higher moments of the physical
+distribution can be computed, with some sacriﬁce of quality, from the time
+series of index returns. Informal as it may be, the reasonableness of the
+estimates can serve as an additional metric to assess conformance with theory.
+One such estimation strategy is discussed in the empirical section.
+1.4 Skew laws for individual stocks
+To formalize the next aspect of the problem, assume that the individual stock
+return, Rnt, conforms with a generating process of the single-index type
+Rnt = ant+bntRmt+nt
+n = 1   N
+(20)
+where ant and bnt are scalers. Provided drift-induced restrictions
+are placed on the parameters ant and bnt, the return process [Equa-
+tion (20)] is also well-deﬁned under the risk-neutral measure. Presume that
+the unsystematic risk component nt has zero mean (whether risk neutral
+or physical) and is independent of Rmt for all t. Due to this property,
+the coskews, E	ntRmt −mt2 and E	2
+ntRmt −
+mt, are zero. We can now state:
+Theorem 3.
+If stock returns follow the one-factor linear model displayed
+in Equation (20), then
+(a)
+The price of the skewness contract deﬁned in Equation (5), denoted
+SKEWnt, is linked to the price of market skewness, SKEWmt,
+as stated below ( for n = 1   N):
+SKEWnt=ntSKEWmt+ntSKEWt (21)
+112
+
+--- PAGE 13 ---
+Individual Equity Options
+where SKEWt represents the skewness of ; and
+nt ≡
+
+1+
+Vt
+b2
+ntVmt−e−r2
+mt
+−3/2
+(22)
+nt ≡
+
+1+ b2
+ntVmt−e−r2
+mt
+Vt
+−3/2
+(23)
+with 0 ≤nt ≤1 and 0 ≤nt ≤1.
+(b)
+The individual skew will be less negative than the skew of the market
+SKEWnt > SKEWmt
+n = 1   N
+(24)
+under the following conditions: (i) nt belongs to a member of
+distributions that are symmetric around zero (i.e., ∗
+t 	3
+nt = 0).
+In this case, the variation in the price of individual skewness can
+be bounded to be no more than that of the stock market index: 0 ≤
+SKEWnt
+SKEWmt ≤1; or, (ii) the distribution of nt is positively skewed.
+In Equation (24), the risk-neutral index distribution is regarded as being
+left skewed. The risk-neutral individual and index skews can be recovered
+from the option tracking portfolio [Equation (5)].
+Since the idiosyncratic return component requires no measure-change con-
+versions, the skewness laws postulated in Equation (21) will be obeyed under
+both the physical and risk-neutral measures (with appropriate adjustments to
+t and t). Either way, this statement of the theorem should not
+be interpreted to mean that individual return skewness will move in lockstep
+with market skewness. From Equation (12), one can understand why total
+volatility matters for pricing derivatives even though the stochastic discount
+factor only prices systematic risk. This feature is reﬂected in the price of
+skewness, as the latter is merely a portfolio of options.
+Two polar cases can shed light on the precise role of idiosyncratic skew-
+ness. Case A: Rnt = ant+bntRmt, accommodates a gener-
+ating structure in which individual return is perfectly correlated with the stock
+market. When this is so, the risk-neutral skewness of the individual stock
+coincides with that of the market. Case B: Rnt = ant + nt.
+In this setting, the sole source of individual skewness is the idiosyncratic
+skewness. In reality, the individual skewness will be partly inﬂuenced by
+market skewness and partly by idiosyncratic skewness. In a later empirical
+exercise, we study the skew law implication that 0 ≤nt ≤1. We can
+also note that if Equations (21)–(24) hold simultaneously and the market is
+heavily skewed to the left, then the idiosyncratic skews are bounded below
+and cannot be highly negative.
+Even though not stressed in the theorem, more can be said about the
+character of individual risk-neutral distributions. Relying on the properties of
+113
+
+--- PAGE 14 ---
+The Review of Financial Studies / v 16 n 1 2003
+variance operators and Equation (20), ﬁrst observe that Vnt = b2
+nt
+Vmt + Vt. Thus, provided the variance of the unsystematic factor
+is sufﬁciently well behaved, the individual risk-neutral distributions will be
+inherently more volatile than the index. Next, as even moments are correlated
+in general, we may expect individual stocks to display more leptokurtosis
+than the market.
+Due to the aforementioned, the differential pricing of index and individual
+equity options is likely. First, as expected, the less negative individual equity
+skew tempers the way all individual OTM puts are priced vis-à-vis all OTM
+calls. In particular, the skewness premium should get alleviated for individual
+stock options. Second, as individual stocks are more inclined to extreme
+moves than the market, the valuation of deep OTM calls/puts versus NTM
+calls/puts can be expected to diverge as well. These departures between the
+index and individual risk-neutral distributions will modify the structure of
+option prices (i.e, the smiles).
+To get a ﬂavor of the skew laws outside of the single-factor model, con-
+sider Rnt = ant+bntRmt+cntF t+nt, which
+incorporates a systematic factor, F , besides the market index. Assume the
+independence of Rmt, F t, and nt. It can be shown that
+SKEWnt = ntSKEWmt+ 
+ntSKEWF t
++ntSKEWt
+(25)
+where n > 0, 
+n > 0, and n > 0 are given in Equations (56)–(58) of the
+appendix. Two parametric cases are of special appeal. Suppose SKEWF t
+ < 0. Then, as in the single-factor characterization, n cannot be relatively
+far left skewed with negative index skews. Next, when SKEWF t > 0,
+then SKEWnt > SKEWmt with symmetry of n. Under the auxiliary
+assumption that each systematic factor contributes equally to the variance of
+Rn, we can see that SKEWnt > SKEWmt + SKEWF t/2, for
+all n and all .
+Our framework is sufﬁciently versatile to recover coskews between individ-
+ual stocks and the market. The risk-neutral coskew is [Harvey and Siddique
+(2000)]
+COSKEWnt
+≡
+∗
+t 	Rnt−∗
+t Rnt×Rmt−∗
+t Rmt2
+	∗
+t Rnt−∗
+t Rnt2×∗
+t Rmt−∗
+t Rmt21/2
+(26)
+=bnSKEWmt erVmt−2
+mt
+
+erVnt−2
+nt
+n=1   N
+(27)
+from the single-factor assumption of Equation (20). As before, V t and
+t are known from option positioning Equations (7) and (39). However,
+114
+
+--- PAGE 15 ---
+Individual Equity Options
+recognize that bnt is a risk-neutralized parameter and can be estimated
+from individual equity option prices. We leave this application on coskews
+to a future empirical examination.
+Before closing this section we need to bridge one remaining gap: Can the
+leverage effect reproduce risk-neutral skewness patterns, where the aggre-
+gate index is more negatively skewed than any individual stock. For this
+purpose we parameterize, in the appendix, a model in which stock returns
+and volatility correlate negatively at the individual stock level. In this setting
+we demonstrate that the leverage effect does impart a negative skew to the
+individual stock and to the aggregate index. But its predictions for the skew
+magnitudes are sharply at odds with those asserted in Theorem 3. Specif-
+ically, leverage suggests that index skews will be less negative than some
+individual stocks. The model’s implications for the joint behavior of risk-
+neutral and physical distributions are unknown, and outside our scope. For
+a different strand of the leverage argument, readers are referred to Toft and
+Prucyk (1997).
+2. The Structure of Option Prices and Skewness/Kurtosis
+We can now merge theoretical elements of the risk-neutral distributions of
+the market and the individual stocks on one hand, and the mapping that exists
+between the structure of option prices and the risk-neutral moments on the
+other. As such, this formalizes the empirical framework for exploring the
+observed structure of option prices–individual equities or the stock market
+index.
+To ﬁx ideas, deﬁne the implied volatility as the volatility that equates the
+market price of the option to the Black–Scholes value. Accordingly, for risk-
+neutral density, qS, the implied volatility, , is obtained by inverting the
+Black–Scholes formula
+
+ e−rK −S+qSdS = Ke−r1− d2−St1− d1
+(28)
+where d1y = −lnye−r
+√
++ 1
+2√, d2y = d1y−√ and moneyness y ≡
+K
+S . Clearly, to know the implied volatility, one must know the form of qS
+or the structure of option prices.
+We will refer to the implied volatility curves as measuring the relation
+among put option implied volatilities that differ only by their moneyness,
+going from deep OTM puts to deep ITM puts. For a ﬁxed , write yt
+to reﬂect its dependence on y, and deﬁne the slope of the implied volatility
+curve as some notion of change in put-implied volatility with change in
+moneyness. Intuitively a ﬂatter implied volatility curve implies that option
+prices of adjacent strikes are spaced closer rather than far apart. The market
+perception of the price of jump risk is embedded in the evolution of the
+implied volatility curve [Rubinstein (1994)].
+115
+
+--- PAGE 16 ---
+The Review of Financial Studies / v 16 n 1 2003
+The following result—which relates the implied volatility function to the
+risk-neutral moments—is borrowed with some modiﬁcation from Backus
+et al. (1997). As in Longstaff (1995), it hinges on an approximate repre-
+sentation of any risk-neutral density in terms of the Gaussian.
+Theorem 4.
+Let yt denote Black–Scholes implied volatility [as recov-
+ered by solving Equation (28)]. Then, for a given moneyness, the implied
+volatility is afﬁne in the risk-neutral moments that surrogate tail asymmetry
+and tail size:
+nyt ≈ny+nySKEWnt+nyKURTnt
+n = 1   N
+(29)
+for functions y, y and y that can be obtained in closed form. For
+a given (average) moneyness, the slope of the smile is afﬁne in the same
+determinants.
+The virtue of Theorem 4 is that it justiﬁes the use of simple econometric
+speciﬁcations to analyze the relationship between the risk-neutral moments
+and the structure of option prices.2 Theorem 4 is essentially a ﬁrst-order
+approximation of individual implied volatility, at a given moneyness and
+maturity, in terms of higher-order risk-neutral moments of the individual
+risk-neutral density. As such, Equation (29) is robust to a wide variety of
+speciﬁcations for the physical process of equity returns and the market price
+of risk. Hence there is little economic content in the validity of Equation (29);
+it just relates different statistics of the underlying risk-neutral density. Unlike
+Equation (13) and (21), Equation (29) is not a model of risk-neutral skews.
+The basic intuition for the coefﬁcients y and y is that ﬁrms with
+higher negative skew have greater implied volatility at low levels of mon-
+eyness, while ﬁrms with greater kurtosis have higher implied volatilities for
+both OTM and ITM puts. With regard to the effect of higher-order moments
+on the shape of the implied volatility curve (at a ﬁxed maturity), we note that
+skewness is a ﬁrst-order effect relative to kurtosis, and a higher negative skew
+steepens the implied volatility curve. In contrast, kurtosis is a second-order
+effect that symmetrically affects OTM call and put option prices, and this
+2 There are cases where one cannot uniquely identify the density from the knowledge of all the moments,
+including those for all powers above 4 (i.e., lognormal). Hence Equation (29) may not be true in general. We
+can, at best, deduce that the correct option price equals the Black–Scholes price plus other terms surrogating
+the price of higher risk-neutral moments. To get implied volatility, one has to pass through the inverse of the
+Black–Scholes formula, which does not apply additively. In fact, we will get an abstract mapping of the type
+yt = yV SKEW KURT. We may then take a ﬁrst-order approximation and attain Equation (29).
+To emphasize reliance on one higher odd moment and one higher even moment, we have suppressed the
+dependence of , , and  on return volatility. As an empirical matter, we did not ﬁnd smiles (its slope)
+to be strongly inﬂuenced by risk-neutral volatility; its effect was already impounded in the denominators of
+skewness and kurtosis.
+116
+
+--- PAGE 17 ---
+Individual Equity Options
+should ﬂatten the slope of the implied volatility curve controlling for skew-
+ness. If the skew variable is omitted, one would expect kurtosis to proxy for
+the ﬁrst-order effect and therefore steepen the implied volatility curve.
+The discussion of the previous section along with Theorem 4 suggests the
+following hypotheses that can be empirically investigated:
+Hypothesis 1.
+The implied volatility curves are less negatively sloped for
+individual stock options than for stock index options.
+Hypothesis 2.
+The more negative the risk-neutral skewness, the steeper are
+the implied volatility slopes. The more fat-tailed the risk-neutral distribution,
+the ﬂatter are the smiles in the presence of skews.
+Hypothesis 3.
+Individual stock return (risk-neutral) distributions are, on
+average, less negatively skewed than that of the market. Granted, the physical
+distribution of the index is fat-tailed, the risk-neutral distribution of the index
+is generally left skewed.
+Hypothesis 1 lays the foundation of the investigation—is it true, as com-
+monly asserted, that the structure of individual option prices is ﬂatter? Hypoth-
+esis 2 associates the slope of the smile to the moments, dynamically in the
+time series, as well as in the cross section. Finally, Hypothesis 3 directly
+follows from Theorem 3. The restriction it imposes on the price of indi-
+vidual skew relative to the price of market skew warrants an idiosyncratic
+return component that is not heavily left skewed. These hypotheses are inter-
+related. For instance, individual slopes are ﬂatter than the market because
+individual stocks are less negatively skewed. This implicitly requires index
+risk-neutral distributions to be left-displaced versions of the physical coun-
+terparts. Having consolidated the big picture in theory, we now pursue our
+empirical objectives in sufﬁcient detail.
+3. Description of Stock Options and Choices
+The primary data used in this study are a triple panel (in the three dimensions
+of strike, maturity, and underlying ticker) of bid-ask option quotes written on
+31 stocks and one index, obtained from the Berkeley Options Database. The
+sample contains options on the S&P 100 index (the ticker OEX) and options
+on the 30 largest stocks in the S&P 100 index. These options are American
+and traded on the Chicago Board Options Exchange. For each day in the
+sample period of January 1, 1991, through December 31, 1995, only the last
+quote prior to 3:00 pm (CST) is retained.
+For three reasons, we employ daily data to construct weekly estimates of
+our variables. First, the use of daily data minimizes the impact of outliers by
+allowing moments to be computed daily and then averaged over the calendar
+week. Second, the estimation of the slope of the weekly smile for individual
+equity options requires daily data over the week so that there are sufﬁcient
+117
+
+--- PAGE 18 ---
+The Review of Financial Studies / v 16 n 1 2003
+observations to estimate the smile. Third, the daily risk-neutral index skews
+exhibit a Monday seasonality [Harvey and Siddique (1999)]. The exact pro-
+cedure to build the time series of the smile and its slope will be outlined
+shortly.
+The requirement to sample options daily virtually limits the analysis to the
+largest 30 stocks by market capitalization. Even with the existing choice, the
+raw data contains more than 1.4 million price quotes, and additional stocks
+would have made the empirical examination less manageable. The tickers and
+names of the individual stock options are displayed in the ﬁrst two columns
+of Table 1. The set includes, among others, such actively traded and familiar
+stock options as IBM, General Electric, Ford, and General Motors.
+Table 1
+Description of OTM calls and puts
+Number of
+Midpoint of
+option quotes
+option quote
+OEX
+Short
+Medium
+Short
+Medium
+Ticker
+Stock
+Weight
+Call
+Put
+Call
+Put
+Call
+Put
+Call
+Put
+1. AIG
+American Int’l
+2.32
+3414
+3884
+1779
+2471
+1.26
+0.99
+2.34
+1.47
+2. AIT
+Ameritech
+1.24
+1902
+2199
+1260
+1570
+0.62
+0.58
+0.96
+0.89
+3. AN
+Amoco
+1.09
+2112
+1942
+1491
+1435
+0.49
+0.48
+0.79
+0.76
+4. AXP
+American Express
+1.27
+2325
+2367
+1458
+1696
+0.41
+0.40
+0.66
+0.60
+5. BA
+Boeing Company
+1.27
+2848
+2624
+1927
+1896
+0.56
+0.48
+0.93
+0.71
+6. BAC
+BankAmerica Corp.
+1.53
+2640
+3023
+1576
+2007
+0.62
+0.53
+0.99
+0.77
+7. BEL
+Bell Atlantic
+1.90
+2242
+2335
+1409
+1600
+0.47
+0.47
+0.71
+0.74
+8. BMY
+Bristol-Myers
+2.85
+3040
+3311
+1927
+2335
+0.63
+0.57
+1.04
+0.84
+9. CCI
+Citicorp
+1.82
+2545
+2983
+1512
+2007
+0.47
+0.41
+0.79
+0.57
+10. DD
+Du Pont
+2.33
+2492
+2639
+1472
+1731
+0.57
+0.53
+0.98
+0.79
+11. DIS
+Walt Disney Co.
+2.04
+4020
+4677
+2297
+2905
+1.06
+0.87
+2.00
+1.40
+12. F
+Ford Motor
+1.66
+2924
+3068
+2062
+2264
+0.56
+0.51
+0.90
+0.80
+13. GE
+General Electric
+7.29
+3323
+4019
+1857
+2801
+0.67
+0.59
+1.28
+0.93
+14. GM
+General Motors
+1.36
+3021
+3134
+2107
+2208
+0.58
+0.53
+0.98
+0.78
+15. HWP
+Hewlett-Packard
+1.73
+3973
+5305
+2168
+3978
+1.29
+0.92
+2.57
+1.38
+16. IBM
+Int. Bus. Mach.
+3.05
+5605
+4806
+3514
+2755
+0.89
+0.84
+1.41
+1.31
+17. JNJ
+Johnson & Johnson
+2.48
+2999
+3256
+1646
+2148
+0.81
+0.70
+1.40
+1.00
+18. KO
+Coca Cola Co.
+5.18
+2438
+3305
+1450
+2589
+0.62
+0.50
+1.09
+0.69
+19. MCD
+McDonald’s Corp.
+1.21
+2321
+2285
+1443
+1814
+0.51
+0.40
+0.89
+0.60
+20. MCQ
+MCI Comm.
+0.99
+2437
+2311
+1503
+1508
+0.46
+0.44
+0.74
+0.65
+21. MMM
+Minn Mining
+1.01
+3532
+3730
+1946
+2175
+0.80
+0.75
+1.32
+1.21
+22. MOB
+Mobil Corp.
+1.63
+2573
+2618
+1795
+2232
+0.71
+0.67
+1.15
+1.00
+23. MRK
+Merck & Co.
+3.75
+3283
+4163
+1865
+2639
+0.98
+0.83
+1.69
+1.31
+24. NT
+Northern Telecom
+0.89
+1916
+1788
+1213
+1176
+0.60
+0.53
+0.94
+0.72
+25. PEP
+PepsiCo Inc.
+1.65
+2091
+2459
+1285
+1695
+0.40
+0.36
+0.65
+0.51
+26. SLB
+Schlumberger Ltd
+1.04
+2965
+2678
+1670
+1699
+0.77
+0.71
+1.34
+1.06
+27. T
+AT&T Corp.
+2.64
+2423
+2607
+1498
+1783
+0.45
+0.36
+0.73
+0.50
+28. WMT
+Wal-Mart Stores
+3.31
+2539
+2959
+1868
+2036
+0.49
+0.42
+0.80
+0.63
+29. XON
+Exxon Corp.
+4.64
+2364
+2502
+1375
+1556
+0.46
+0.44
+0.73
+0.66
+30. XRX
+Xerox Corp.
+0.89
+3665
+4615
+1927
+2921
+1.23
+0.94
+2.13
+1.43
+31. OEX
+S&P 100 Index
+12793
+22755
+10981
+16828
+2.15
+1.86
+4.98
+4.47
+The table reports the number of observations and the midpoint price as the average of the bid-ask quotes for short-term and
+medium-term OTM calls and puts for 30 stocks and the S&P 100. The ticker, name, and recent weight of the stock in the index
+(as of May 1998) are also reported. The call (put) is OTM if K/S > 1 (K/S < 1), where S denotes the contemporaneous stock
+price and K is the strike. Short-term options have remaining days to expiration of between 9 and 60 days and medium term
+between 61 and 120 days. Only the last daily quote prior to 3:00 p.m. CST of each option contract is used in our calculations.
+The sample period extends from January 1, 1991, through December 31, 1995 for a total of 358,851 option quotes (162,046
+calls and 196,805 puts).
+118
+
+--- PAGE 19 ---
+Individual Equity Options
+To be consistent with the existing literature, the data were screened to
+eliminate (i) bid-ask option pairs with missing quotes, or zero bids, and
+(ii) option prices violating arbitrage restrictions that CtK < St or
+CtK > St −PVDD −PVDK, for present value function PVD
+
+and dividends D. As longer- (and very short-) maturity stock option quotes
+may not be active, options with less than 9 days and more than 120 days to
+expiration were also discarded. Finally, as indicated by Theorem 1, we only
+keep OTM calls and puts. As a result, puts have moneyness corresponding to
+	 K
+St 
+K
+St < 1, and calls have moneyness corresponding to 	 K
+St 
+K
+St > 1.
+Although each series for skewness and kurtosis pertain to a constant ,
+in practice, it is not possible to strictly observe these, as options are seldom
+issued daily with a constant maturity. Therefore, in our empirical exercises, if
+an OTM option has remaining days to expiration of 9 to 60 days, it is grouped
+in the short-term option category; if the remaining days to expiration is 61
+to 120 days, the option is grouped in the medium-term category. Thus only
+two classiﬁcations of smiles and option portfolios are investigated.
+Table 1 reports the option price as the average of the bid and ask quotes,
+and the number of quotes, for both short-term and medium-term OTM calls
+and puts. The table also reports the weight of each stock in the OEX. As
+would be expected, the index has considerably more strikes quoted than
+individual stock options, with puts more active than calls. In the combined
+option sample, there are 358,851 OTM calls and puts.
+Because each option under scrutiny has the potential for early exercise, the
+treatment of the smile is arguably controversial. To probe this issue we also
+calculate the volatility that equates the observed option price to the American
+price. For estimating the price of the American option, we follow Broadie
+and Detemple (1996). We construct a binomial tree where the Black–Scholes
+price is substituted in the penultimate step. The American option price is esti-
+mated by extrapolating off the prices estimated from 50- and 100-step trees,
+using Richardson extrapolation, and accounts for lumpy dividends. We then
+estimate two separate implied volatilities: the volatility that equates the option
+price to the American and the Black–Scholes price. In the latter calculations,
+discounted dividends are subtracted from the spot stock price.
+Table 2 compares the European and American implied volatilities. While
+presenting this comparison, three decisions are made for conciseness. First,
+options are divided into two moneyness intervals: [−10%−5%) and [−5%,
+0), for calls and puts. Next, only the implied volatilities for a sample of
+10 stocks and the OEX are shown. Finally, we focus on the 1995 sample
+period, as averaging over the full ﬁve-year sample narrows the differences
+even further. For the most part, the implied volatility curves tend to taper
+downward from deep OTM put options to ATM, and then moves slightly
+upward as the call becomes progressively OTM. Although the American
+option implied volatility (denoted AM) is smaller than the Black–Scholes
+(denoted BS) counterpart, this difference is negligible and within the bid-ask
+119
+
+--- PAGE 20 ---
+The Review of Financial Studies / v 16 n 1 2003
+Table 2
+Black–Scholes implied volatilities versus American option implied volatilities
+Short-term options
+Medium-term options
+OTM puts
+OTM calls
+OTM puts
+OTM calls
+−10% to −5%
+−5% to 0%
+0% to −5%
+−5% to −10%
+−10% to −5%
+−5% to 0%
+0% to −5%
+−5% to −10%
+Ticker
+BS
+AM
+BS
+AM
+BS
+AM
+BS
+AM
+BS
+AM
+BS
+AM
+BS
+AM
+BS
+AM
+AIG
+21.59
+21.51
+19.98
+19.79
+18.86
+18.86
+19.13
+19.13
+19.88
+19.67
+19.84
+19.38
+18.41
+18.41
+18.46
+18.46
+BA
+26.73
+26.64
+23.61
+23.41
+21.78
+21.77
+22.87
+22.87
+24.50
+24.28
+23.39
+23.02
+21.93
+21.90
+20.89
+20.88
+DIS
+26.40
+26.31
+23.97
+23.76
+22.79
+22.79
+24.04
+24.05
+25.54
+25.33
+24.33
+23.93
+22.68
+22.68
+22.32
+22.32
+GE
+22.78
+22.70
+20.04
+19.85
+17.79
+17.79
+18.48
+18.48
+20.53
+20.33
+20.11
+19.75
+17.10
+17.09
+16.50
+16.49
+GM
+27.20
+27.10
+25.38
+25.17
+25.46
+25.16
+26.24
+26.07
+26.23
+25.95
+25.83
+25.35
+25.49
+25.46
+25.33
+25.33
+HWP
+34.26
+34.16
+33.11
+32.89
+31.64
+31.64
+33.23
+33.23
+33.42
+33.12
+33.31
+32.82
+32.09
+32.09
+33.19
+33.19
+IBM
+28.76
+28.67
+27.24
+27.03
+25.88
+25.88
+26.71
+26.71
+26.59
+26.33
+26.42
+25.94
+24.95
+24.95
+24.80
+24.80
+JNJ
+22.45
+22.37
+20.22
+20.03
+18.64
+18.60
+19.72
+19.70
+20.74
+20.52
+20.13
+19.67
+17.78
+17.78
+17.64
+17.64
+MMM
+21.35
+21.26
+20.19
+20.00
+18.53
+18.25
+19.81
+19.74
+19.27
+19.03
+18.65
+18.19
+16.71
+16.71
+17.62
+17.62
+XRX
+26.32
+26.24
+24.78
+24.58
+23.09
+23.09
+22.97
+22.98
+24.69
+24.43
+24.68
+24.20
+22.18
+22.18
+21.72
+21.72
+OEX
+18.52
+18.49
+13.45
+13.36
+10.72
+10.72
+10.76
+10.76
+16.01
+15.93
+13.31
+13.10
+10.73
+10.73
+10.08
+10.08
+For a sample of 10 stocks and the OEX, the table reports the Black–Scholes (denoted BS) and the American (denoted AM) option implied volatilities obtained by inverting the Black–Scholes and the American
+option price, respectively. The American option price is estimated by Richardson extrapolation of 50- and 100-step binomial trees, accounting for lumpy dividends [see Broadie and Detemple (1996)]. The implied
+volatilities of individual options are then averaged within each moneyness-maturity category and across days. Two categories of OTM options are used corresponding to the intervals [−10%, −5%) and [−5%, 0).
+Short-term options have remaining days to expiration of between 9 and 60 days, and medium term between 61 and 120 days. All numbers correspond to the period of January 1, 1995, through December 31, 1995.
+As OTM call options have the same implieds as ITM puts at a given moneyness level, the four columns representing the implieds of OTM puts and calls may be also viewed as the entire smile ranging from OTM
+puts to ITM puts. In all computations, discrete dividends for each stock are collected from CRSP and are assumed known over the life of the option. For the S&P 100, the daily dividends are drawn from Standard
+& Poor’s and converted to a dividend yield for each date maturity combination. Following a common practice, when the Eurodollar interest rate matching the option maturity (datasource: Datastream) is unavailable,
+it is linearly interpolated.
+120
+
+--- PAGE 21 ---
+Individual Equity Options
+spread. With the assurance that the bias from adopting BS implied volatility
+is small enough to be ignored, we adhere to convention and use only Black–
+Scholes smiles to surrogate the pricing structure of options.
+4. Skewness and the Structure of Option Prices: Empirical Tests
+This section establishes the differential pricing of individual stock options
+versus the market index and empirically relates it to the asymmetry and the
+heaviness of the risk-neutral distributions. We also present a framework to
+study the empirical determinants of risk-neutral index skews.
+4.1 Quantifying the structure of option prices
+To quantify the structure of option prices we use options of maturity  to
+estimate the model,
+lnyj = 0 +lnyj+j
+j = 1   J
+(30)
+across our sample of 30 stocks and the OEX, where, recall, y = K/S is
+option moneyness (and deterministic). An advantage of the speciﬁcation in
+Equation (30) is its potential consistency with empirical implied volatility
+curves that are both decreasing and convex in moneyness. This suggests a
+ less than 0. We interpret  as a measure of the ﬂatness of the implied
+volatility curve and designate it as the sensitivity of the implied volatility
+curve to moneyness. In economic terms, a ﬂatter implied volatility curve
+simply states that prices of put options of nearby strikes are closer, while
+those options that constitute a steeper curve have prices farther apart.
+The model of Equation (30) is estimated weekly, and the estimated coefﬁ-
+cients are pooled over all the weeks in the sample. Brieﬂy the procedure is as
+follows. Over each calendar day in the week we index the available options
+by j and estimate the said model by least squares. Thus, for each stock, we
+estimate Equation (30) for each of the 260 weeks for which sufﬁcient data
+exist. Next, as in Fama and McBeth (1973), we time average the regression
+coefﬁcients (say,
+1
+T
+T
+t=1 t). Each reported t-statistic is computed under
+a ﬁrst-order serial correlation assumption for the coefﬁcient. The model is
+estimated using OTM puts and calls. As in the money puts (K/S > 1) can be
+proxied by OTM calls, this is tantamount to using all the strikes in the cross
+section of puts.
+Table 3 reports the average slope of the implied volatility curve for each
+of the 30 stocks and the OEX. We also report the estimated ATM implied
+volatility as exp0. Consider ﬁrst, the results for short-term smiles. The
+average ATM implied volatility for the OEX is 14%, while the average ATM
+implied volatility over the 30 stocks is about 26%. With reference to the
+estimate of , we can make three observations. First, on average,  is nega-
+tive for all the individual stocks and the OEX. The slopes are all statistically
+121
+
+--- PAGE 22 ---
+The Review of Financial Studies / v 16 n 1 2003
+Table 3
+Quantifying the structure of option prices
+Short-term options
+Medium-term options
+Slope of
+Slope of
+the smile,
+the smile,
+exp0
+
+R2
+<0
+exp0
+
+R2
+<0
+Ticker
+Avg.
+t
+Avg.
+t
+Avg.
+%
+Avg.
+t
+Avg.
+t
+Avg.
+%
+1. AIG
+0
+22
+32
+12 −1
+09 −13
+01
+43
+57
+97
+0
+22
+119
+84 −0
+62
+−7
+61
+38
+2
+76
+2. AIT
+0
+19
+38
+45 −1
+96 −14
+34
+55
+41
+96
+0
+19
+108
+39 −1
+59 −15
+22
+31
+9
+57
+3. AN
+0
+19
+25
+61 −0
+96
+−8
+25
+36
+08
+80
+0
+19
+80
+11 −0
+97
+−6
+60
+41
+4
+83
+4. AXP
+0
+31
+17
+09 −0
+26
+−3
+87
+27
+62
+74
+0
+31
+66
+60 −0
+32
+−6
+52
+56
+9
+97
+5. BA
+0
+27
+24
+78 −0
+69
+−7
+39
+33
+29
+80
+0
+25
+96
+42 −0
+57
+−4
+09
+73
+2
+97
+6. BAC
+0
+30
+18
+27 −1
+16 −13
+03
+56
+81
+95
+0
+29
+93
+15 −0
+84
+−8
+30
+74
+7
+98
+7. BEL
+0
+21
+23
+70 −1
+54 −10
+14
+48
+12
+86
+0
+20
+89
+94 −1
+23
+−7
+98
+59
+0
+95
+8. BMY
+0
+21
+22
+70 −1
+38
+−7
+78
+46
+55
+89
+0
+20
+93
+39 −1
+07
+−5
+02
+71
+5
+98
+9. CCI
+0
+35
+12
+87 −0
+83 −10
+20
+42
+32
+90
+0
+35
+58
+59 −0
+63
+−6
+79
+75
+8
+97
+10. DD
+0
+24
+30
+96 −0
+86 −15
+39
+42
+01
+95
+0
+23
+129
+37 −0
+76 −14
+08
+48
+8
+90
+11. DIS
+0
+28
+31
+94 −0
+91 −13
+67
+48
+29
+95
+0
+28
+146
+50 −0
+69 −12
+79
+71
+7
+99
+12. F
+0
+31
+38
+78 −0
+62
+−8
+86
+37
+77
+88
+0
+30
+137
+45 −0
+50
+−7
+32
+57
+6
+96
+13. GE
+0
+21
+31
+67 −1
+85 −19
+55
+61
+02
+99
+0
+20
+117
+81 −1
+55 −22
+11
+81
+1
+98
+14. GM
+0
+31
+26
+48 −0
+52
+−8
+27
+34
+86
+83
+0
+30
+138
+09 −0
+40
+−5
+22
+76
+7
+99
+15. HWP
+0
+33
+29
+96 −0
+83 −11
+86
+50
+95
+96
+0
+32
+147
+65 −0
+50 −10
+44
+56
+8
+96
+16. IBM
+0
+29
+18
+79 −0
+36
+−3
+09
+29
+85
+71
+0
+27
+103
+52 −0
+28
+−2
+03
+65
+5
+97
+17. JNJ
+0
+24
+19
+64 −1
+00 −10
+79
+41
+70
+93
+0
+24
+96
+00 −0
+88
+−5
+57
+69
+7
+99
+18. KO
+0
+24
+28
+06 −1
+62 −20
+64
+62
+87
+99
+0
+22
+113
+41 −1
+22 −10
+15
+77
+6
+100
+19. MCD
+0
+25
+30
+49 −1
+16 −11
+84
+46
+17
+93
+0
+24
+90
+25 −0
+99 −12
+77
+73
+1
+96
+20. MCQ
+0
+34
+31
+15 −0
+53
+−7
+22
+26
+34
+74
+0
+33
+81
+57 −0
+32
+−3
+63
+49
+6
+68
+21. MMM
+0
+21
+60
+43 −1
+21
+−6
+19
+42
+65
+90
+0
+19
+151
+90 −1
+21 −11
+52
+67
+5
+96
+22. MOB
+0
+19
+30
+92 −1
+34 −14
+75
+44
+17
+94
+0
+18
+124
+79 −1
+18 −13
+29
+44
+9
+80
+23. MRK
+0
+27
+17
+46 −0
+62
+−3
+51
+38
+67
+72
+0
+26
+98
+47 −0
+55
+−3
+49
+76
+1
+98
+24. NT
+0
+31
+17
+38 −0
+31
+−3
+05
+28
+40
+72
+0
+29
+69
+44 −0
+25
+−3
+77
+34
+6
+72
+25. PEP
+0
+26
+19
+31 −1
+13 −11
+85
+45
+50
+91
+0
+25
+84
+13 −0
+92
+−6
+99
+80
+3
+100
+26. SLB
+0
+25
+30
+00 −0
+54
+−5
+49
+30
+84
+76
+0
+24
+129
+84 −0
+55
+−5
+19
+30
+0
+67
+27. T
+0
+21
+31
+21 −1
+44 −11
+51
+48
+59
+95
+0
+21
+104
+26 −1
+11 −10
+53
+85
+5
+100
+28. WMT
+0
+29
+23
+53 −0
+95
+−8
+65
+44
+85
+88
+0
+28
+93
+92 −0
+50
+−3
+53
+67
+7
+92
+29. XON
+0
+17
+32
+56 −1
+47 −14
+51
+41
+97
+91
+0
+16
+107
+16 −1
+43
+−9
+12
+75
+5
+99
+30. XRX
+0
+26
+36
+39 −1
+31 −17
+38
+55
+73
+98
+0
+25
+162
+13 −0
+87 −18
+17
+49
+8
+88
+31. OEX
+0
+14
+24
+80 −4
+42 −22
+32
+86
+08
+100
+0
+14
+84
+31 −3
+47 −20
+31
+93
+8
+100
+For 30 stocks and the S&P 100, the table displays the average coefﬁcients for the speciﬁcation
+lnj = 0 +lnyj+j
+j = 1   J
+Here,  is the Black–Scholes implied volatility of option with moneyness y ≡K
+S . The regression is estimated via OLS for each
+of the 260 weeks in the period January 1, 1991, to December 31, 1995 in which there are a minimum of eight observations,
+using OTM puts ( K
+S < 1) and OTM calls ( K
+S > 1). The table reports the estimated (i) ATM implied volatility corresponding
+to K/S = 1 as exp0, (ii) the slope of the smile, , and (iii) the coefﬁcient of determination, R2 (in %), as the time-series
+average over all the weekly regressions [Fama and McBeth (1973)]. The reported t-statistic is the time-series average divided by
+the standard deviation of the mean. We have computed the standard deviation of the mean under a ﬁrst-order serial correlation
+assumption for the coefﬁcient, and used this assumption to adjust the reported t-statistics. The table also displays (in percentage)
+the fraction of the weekly estimates of the slope that satisfy  < 0.
+signiﬁcant, and the R2 of the regression range from 26% (for MCQ) to 86%
+(for the OEX). Second, the slope for the OEX is much steeper than that
+for individual stocks. Compared to the short-term OEX slope of −4
+42, the
+average slope over the 30 stocks is −1
+02 (the difference between OEX and
+a representative individual implied volatility slope is almost seven standard
+deviations away).
+The difference between the slopes translates into a substantial difference in
+pricing. For the OEX, the slope of −4
+42 indicates that the implied volatility
+122
+
+--- PAGE 23 ---
+Individual Equity Options
+of a 10% OTM put (y = 0
+9) will be 22% as compared with the ATM implied
+of 14%. In contrast, for the individual equity, the 10% OTM put will be priced
+at 29% as compared with the ATM implied of 26%. Finally, the table reports
+the statistic  < 0, a counting indicator for the number of weeks in which
+the slope of the implied volatility curve is negative. This statistic ranges from
+71% in the case of IBM to 100% for the OEX. Although over this sample
+period the slope is always downward sloping for the index, it is not always
+so for individual equities. We also examined the slope of the smile in the
+yearly subsamples and still found index smiles to be much steeper than any
+individual equity smile. Table 3 also shows that the regression ﬁndings from
+medium-term smiles are comparable.
+As may be observed from Table 1, OTM puts are far more active than OTM
+calls for the OEX. To investigate the pricing differential between individual
+stocks and the OEX for OTM puts alone, we also estimated Equation (30) by
+trimming the option data to include only OTM puts. The average (short-term)
+slope coefﬁcient for the OEX is −5
+00, as compared to an average of −2
+04
+over the 30 stocks. The conclusion from the one-sided smile is essentially
+the same—that OTM puts are relatively more expensive than ATM puts for
+OEX than in the individual option markets.
+In summary, two conclusions emerge. First, the slope of the OEX smile is
+persistently more negative than individual equity slopes. Second, unlike the
+OEX, the slopes of individual smiles are not always negative. Thus OTM
+puts are consistently and substantially more expensive than OTM calls for
+the index. In contrast, the difference between OTM puts and OTM calls is
+smaller for the individual equity, and may, in fact, change signs. But why
+are index smiles always downward sloping? What causes the slope of the
+individual smiles to reverse its sign? The differential pricing in the cross
+section of strikes and in the cross section of stocks is puzzling.3
+4.2 Explaining the behavior of options in the stock cross section
+Although, as in the previous subsection, it is possible to establish that the
+implied volatility curve is ﬂatter for the individual equity than for the OEX,
+it is difﬁcult to provide an economic rationale for the differential pricing
+of individual equity options. In this subsection and the next, we investigate
+3 To verify the results, we also model the implied volatility curve as quadratic in moneyness: j = 0 +
+1Kj/S −1 + 2Kj/S −12 + jj = 1   J [see Heynen (1994) and Dumas, Fleming, and Whaley
+(1998)]. Empirically we ﬁnd that the 1 of the index (slope of the smile at
+K
+S = 1) is consistently more
+negative than the individual counterparts. In addition, the convexity parameter, 2, is persistently positive in
+the cross section of stocks. Consequently the quadratic speciﬁcation has in common with its log predecessor
+the feature that the ﬁrst-order (second-order) derivative of the implied volatility function with respect to
+moneyness is negative (positive). Toft and Prucyk (1997) and Dennis and Mayhew (1999) adopt an alternative
+measure where the slope is standardized to impute the distance between the implied volatilities of 10% ITM
+and OTM options. This measure of the implied volatility slope is particular to just two option strikes that
+are themselves almost two standard deviations OTM for short-term options, and hence constitutes a crude
+measure of volatility skews.
+123
+
+--- PAGE 24 ---
+The Review of Financial Studies / v 16 n 1 2003
+whether we can parsimoniously relate the structure of option prices to the
+respective risk-neutral moments, and, if so, what judgments can be drawn
+from the analysis.
+Unlike the implied volatility curve, the risk-neutral moments are intrinsi-
+cally unobservable. Here we make use of our model-free characterizations in
+Theorem 1 to estimate each moment. Consider, as an example, the estimation
+of the skew. This requires ﬁrst replicating the cubic contract in Equation (8),
+and we do this by constructing positions in both OTM calls and puts that
+approximate the corresponding integral. The long position in the calls is dis-
+cretized as
+lim
+K→
+K−St
+K
+
+j=1
+wSt+jKCtSt+jKK
+(31)
+where wK ≡
+6ln K
+St−3ln K
+St
+2
+K2
+, and the short position in the puts as
+St−K
+K
+
+j=1
+wjKPtjKK
+(32)
+where now wK ≡
+6ln
+St
+K +3ln
+St
+K 
+2
+K2
+. We similarly discretize and estimate
+the volatility contract and the quartic contract, and next, using the formulas
+in Equations (5) and (6), we estimate the risk-neutral skewness and kurtosis.
+The moments are estimated daily, separately for both short-term and medium-
+term options.
+Motivated by Theorem 4, we investigate whether a stock with a greater
+absolute skew has a steeper smile. To this end we estimate an ordinary least
+squares regression
+SLOPEnt=+SKEWnt+KURTnt+n
+n=1   N
+(33)
+where the series for the slope of the smile are the weekly estimates of the
+coefﬁcient  obtained from regressing log implied volatility on log money-
+ness. As we have compiled weekly estimates of slopes and the corresponding
+moments for each of the 30 stocks, we estimate the cross-sectional regression
+weekly for each of the 260 weeks (January 1991 to December 1995). In so
+doing, we follow the standard procedure of averaging the estimated regres-
+sion coefﬁcients and their R2. As before, the t-statistic is computed under
+a ﬁrst-order serial correlation assumption for the regression coefﬁcient. We
+report, in Table 4, results for both the multivariate regression, as well as the
+univariate regressions.
+Irrespective of the sample period, and regardless of the maturity structure
+of the options, the coefﬁcient for skewness, , is positive and statistically
+124
+
+--- PAGE 25 ---
+Individual Equity Options
+Table 4
+Structure of option prices and moments in the stock cross section
+Restricted  ≡0
+Restricted  ≡0
+Unrestricted regression
+(skewness alone)
+(kurtosis alone)
+
+
+
+R2
+
+
+R2
+
+
+R2
+Year
+Avg.
+t
+Avg.
+t
+Avg.
+t
+Avg.
+Avg.
+t
+Avg.
+t
+Avg.
+Avg.
+t
+Avg.
+t
+Avg.
+Short-Full
+−1
+56
+−23
+04
+1.45
+40.93
+0
+46
+12
+86
+51.3
+−0
+75
+−50
+59
+1.26
+35.44
+46.5
+−0
+79
+−25
+30
+−0
+08
+−10
+07
+5.6
+Short-1991
+−1
+56
+−9
+95
+1.29
+21.89
+0
+48
+6
+21
+49.7
+−0
+77
+−20
+72
+1.11
+13.08
+43.2
+−0
+98
+−10
+44
+−0
+02
+−1
+19
+3.7
+Short-1993
+−1
+83
+−12
+07
+1.62
+20.90
+0
+63
+7
+64
+52.8
+−0
+72
+−27
+73
+1.40
+19.66
+48.0
+−0
+81
+−14
+31
+−0
+08
+−5
+31
+3.2
+Short-1995
+−1
+12
+−8
+65
+1.37
+22.05
+0
+21
+3
+18
+47.3
+−0
+74
+−19
+76
+1.24
+14.49
+44.7
+−0
+61
+−9
+01
+−0
+14
+−7
+96
+9.2
+Medium-Full
+−1
+56
+−13
+52
+1.04
+32.27
+0
+55
+8
+45
+56.2
+−0
+57
+−39
+50
+1.01
+27.88
+48.1
+−1
+13
+−16
+88
+0
+07
+2
+74
+9.2
+Medium-1991
+−1
+87
+−11
+27
+0.88
+40.94
+0
+74
+7
+84
+60.4
+−0
+57
+−37
+54
+0.81
+19.78
+47.0
+−1
+18
+−10
+29
+0
+10
+2
+77
+7.5
+Medium-1993
+−1
+41
+−8
+78
+1.10
+19.79
+0
+47
+5
+24
+54.3
+−0
+53
+−23
+28
+1.10
+17.14
+50.1
+−1
+25
+−8
+44
+0
+10
+2
+41
+5.4
+Medium-1995
+−0
+78
+−4
+28
+1.03
+12.46
+0
+12
+1
+03
+48.3
+−0
+60
+−10
+26
+0.96
+12.06
+45.0
+−0
+72
+−9
+74
+−0
+10
+−6
+65
+9.3
+For short-term and medium-term options on 30 stocks and the S&P 100, the table reports the average coefﬁcients of weekly cross-sectional regression,
+SLOPEn = +SKEWn + KURTn +n
+n = 1   Nt
+where, corresponding to stock n, SLOPEn is the slope of the smile, n, as described in Table 3, and SKEWn and KURTn are the risk-neutral skews and kurtosis, respectively. For each day in the week, the
+risk-neutral skewness and kurtosis are estimated from the cross section of OTM calls and puts (as in Theorem 1). The weekly estimate is then derived as the time average of the daily estimates. The regression is
+estimated by OLS for each week in the sample period. The table reports the coefﬁcients and the coefﬁcient of determination (R2, in percent), as the time-series average over all the weekly regressions [as in Fama
+and McBeth (1973)] for both restricted and unrestricted regressions. The reported t-statistics are computed under the assumption of ﬁrst-order serial correlation for the regression coefﬁcients. Nt is the number of
+stocks in the cross section in week t. Each row of the table shows the results for a speciﬁc maturity (short or medium) and time period. “Full” refers to the entire period from January 1, 1991, through December
+31, 1995.
+125
+
+--- PAGE 26 ---
+The Review of Financial Studies / v 16 n 1 2003
+signiﬁcant. Thus, as premised, each week, a more negatively skewed stock
+displays a steeper smile. Over the entire sample, the average coefﬁcient for
+skewness is 1.45 (t-statistic of 55.88), while that of kurtosis is 0.46 (t-statistic
+of 16.54), for short-term smiles. Subperiod results for each year are consistent
+with those of the overall sample period: the estimate of  is in the range of
+1.29 to 1.62, and  in the range of 0.21 to 0.63. The results are stable across
+both option maturities, and the ﬁt of the regression has an average R2 of
+51.37% for short-term options and 56.29% for medium-term options.
+To determine the individual explanatory powers of skewness and kurtosis,
+we performed two separate univariate regressions where we constrain  ≡0
+and  ≡0, respectively. These restricted regressions support two additional
+ﬁndings. First, the cross-sectional behavior of equity options is primarily
+driven by the degree of asymmetry in the risk-neutral distributions; the aver-
+age R2 in the short-term univariate regression is 46.54% with skewness alone,
+as compared to 5.6% with kurtosis alone. Therefore the model performance
+worsens substantially when a role for skews is omitted. We infer from this
+reduction in performance that the ﬁrst-order effect on the implied volatil-
+ity slopes is driven by risk-neutral skews. The second point to note is that
+although the sign on  remains unaltered between the restricted and the
+unrestricted regressions, the coefﬁcient on kurtosis reverses sign and turns
+negative. Thus, consistent with our hypotheses, in the presence (absence) of
+negative skewness, the kurtosis makes the smile ﬂatter (steeper).
+A possible explanation of the estimation results for  is that a fatter tail
+is accompanied by a greater negative skew and a steeper smile, but that
+the marginal effect of kurtosis is to ﬂatten the smile. Indeed, for our sam-
+ple of individual stocks and the index, the average time-series correlation
+between (risk-neutral) skew and kurtosis is −0
+48. Thus the negative covari-
+ation between skew and kurtosis will downward bias  when skewness is
+left uncontrolled in the estimation of Equation (33). To examine the role of
+kurtosis separate from its covariation with the skew, we linearly project kur-
+tosis onto skewness, KURTt = a0 + a1SKEWt +
+
+KURTt, and
+extracted the orthogonalized component of kurtosis,
+
+KURTt. Repeating
+the cross-sectional regression of Equation (33), we get the following results
+for short-term options (all coefﬁcients are signiﬁcant):
+SLOPEn =−0
+81+1
+29SKEWn+0
+10 
+KURTn+n
+R2 =49
+98%
+and
+SLOPEn =−1
+11+0
+12 
+KURTn+n
+R2 =5
+91%
+As our evidence veriﬁes, the orthogonal component of kurtosis also ﬂattens
+the smile. This is also true across each of the annual subsamples. To sum up,
+skewness does not completely subsume the effect of kurtosis, and individual
+skew variation is responsible for explaining the bulk of the variation in the
+cross section of individual equity option prices. We will provide an economic
+explanation for these results shortly.
+126
+
+--- PAGE 27 ---
+Individual Equity Options
+4.3 Explaining dynamic variations in individual option prices
+We next research the link between the risk-neutral moments and the individ-
+ual option prices in the time series (suppressing dependence on  in each
+entity):
+SLOPEt = +SKEWt+ KURTt+SLOPEt −1+t (34)
+which involves a time-series regression of the slope of the smile on individ-
+ual name risk-neutral skew and kurtosis. The SLOPEt −1 is included to
+accommodate the possibility of serial correlation in the dependent variable,
+SLOPE. Equation (34) is estimated by ordinary least squares (OLS), and the
+standard errors are computed using the Newey–West procedure (with a lag
+length of 8).
+Panel A of Table 5 presents the unrestricted regression results for short-
+term options. For all stocks and the OEX,  is positive and statistically
+signiﬁcant. Thus, as anticipated, the smile steepens when the risk-neutral
+skew becomes more negative from one week to another. The sensitivity of
+the slope to risk-neutral skewness is by far the highest for the OEX which has
+Table 5
+Variation in individual equity option prices across time
+Panel A: Unrestricted regressions
+LR test
+Ticker
+
+t
+
+t
+
+t
+R2
+ 21
+p value
+1. AIG
+0.75
+7
+80
+0
+03
+0
+83
+0.44
+7
+18
+46.0
+0
+68
+.41
+2. AIT
+1.42
+6
+70
+0
+24
+4
+52
+0.21
+2
+20
+46.1
+23
+12
+.00
+3. AN
+0.73
+6
+05
+−0
+06
+−2
+23
+0.21
+3
+81
+44.6
+23
+12
+.00
+4. AXP
+0.35
+3
+59
+0
+01
+0
+95
+0.33
+3
+13
+43.7
+2
+00
+.16
+5. BA
+0.95
+10
+21
+0
+03
+1
+99
+0.26
+4
+14
+66.6
+6
+56
+.01
+6. BAC
+0.68
+10
+42
+0
+04
+2
+95
+0.39
+7
+73
+68.1
+8
+53
+.00
+7. BEL
+1.24
+12
+11
+0
+13
+4
+51
+0.28
+4
+22
+64.3
+31
+83
+.00
+8. BMY
+1.05
+10
+06
+0
+05
+2
+15
+0.37
+7
+69
+71.1
+8
+00
+.00
+9. CCI
+0.58
+9
+50
+−0
+01
+−1
+25
+0.42
+8
+78
+63.3
+1
+22
+.27
+10. DD
+0.57
+9
+26
+0
+04
+3
+04
+0.30
+4
+60
+43.8
+11
+27
+.00
+11. DIS
+0.52
+6
+58
+0
+04
+2
+47
+0.52
+10
+18
+55.8
+6
+13
+.01
+12. F
+0.41
+5
+97
+0
+02
+2
+31
+0.45
+8
+25
+57.6
+7
+25
+.01
+13. GE
+1.07
+11
+76
+0
+10
+5
+62
+0.46
+9
+51
+62.3
+30
+01
+.00
+14. GM
+0.49
+6
+90
+−0
+01
+−0
+79
+0.46
+9
+22
+58.9
+0
+97
+.33
+15. HWP
+0.47
+8
+10
+0
+06
+2
+57
+0.52
+8
+54
+61.5
+10
+02
+.00
+16. IBM
+0.80
+6
+47
+−0
+03
+−1
+12
+0.53
+8
+77
+74.8
+2
+57
+.11
+17. JNJ
+0.49
+4
+13
+0
+01
+0
+90
+0.43
+6
+74
+49.5
+1
+60
+.21
+18. KO
+0.86
+10
+30
+0
+08
+4
+57
+0.27
+4
+55
+58.6
+37
+00
+.00
+19. MCD
+0.87
+11
+10
+0
+09
+4
+62
+0.29
+3
+81
+57.5
+36
+67
+.00
+20. MCQ
+0.81
+7
+63
+0
+03
+1
+56
+0.18
+3
+10
+47.0
+3
+61
+.06
+21. MMM
+0.87
+5
+14
+0
+08
+1
+96
+0.63
+8
+17
+47.2
+3
+45
+.06
+22. MOB
+0.95
+8
+96
+0
+05
+2
+02
+0.31
+6
+31
+54.2
+6
+43
+.01
+23. MRK
+0.77
+7
+67
+0
+07
+5
+34
+0.45
+5
+77
+74.6
+32
+59
+.00
+24. NT
+0.58
+5
+74
+0
+04
+1
+53
+0.27
+6
+04
+48.6
+5
+10
+.02
+25. PEP
+0.78
+9
+65
+0
+04
+3
+43
+0.28
+6
+02
+58.6
+13
+61
+.00
+26. SLB
+0.95
+10
+43
+0
+10
+4
+25
+0.27
+7
+64
+60.7
+22
+21
+.00
+27. T
+1.00
+10
+03
+0
+08
+4
+85
+0.27
+5
+09
+71.3
+33
+58
+.00
+28. WMT
+0.59
+13
+24
+0
+04
+2
+88
+0.43
+6
+65
+66.3
+11
+09
+.00
+29. XON
+1.11
+9
+17
+0
+08
+4
+13
+0.15
+3
+40
+54.4
+22
+14
+.00
+30. XRX
+0.57
+4
+50
+0
+08
+2
+71
+0.51
+10
+62
+43.0
+9
+79
+.00
+31. OEX
+1.83
+5
+65
+0
+21
+5
+02
+0.58
+7
+68
+74.8
+28
+43
+.00
+127
+
+--- PAGE 28 ---
+The Review of Financial Studies / v 16 n 1 2003
+Table 5
+(continued)
+Panel B: Restricted regressions
+Restricted  ≡0
+Restricted  ≡0
+(skewness alone)
+(kurtosis alone)
+Ticker
+
+t
+
+t
+R2
+
+t
+
+t
+R2
+1. AIG
+0.71
+7
+22
+0.44
+7
+12
+45.9
+−0
+12
+−3
+03
+0.53
+8
+69
+32.5
+2. AIT
+0.77
+4
+19
+0.29
+3
+28
+34.2
+−0
+04
+−1
+39
+0.37
+4
+19
+15.1
+3. AN
+0.60
+2
+87
+0.24
+4
+32
+38.9
+0
+00
+0
+09
+0.33
+4
+90
+10.9
+4. AXP
+0.32
+3
+85
+0.34
+3
+92
+43.2
+−0
+02
+−2
+39
+0.50
+5
+34
+25.9
+5. BA
+0.88
+9
+16
+0.27
+4
+28
+65.7
+−0
+05
+−2
+36
+0.54
+7
+39
+33.5
+6. BAC
+0.58
+10
+32
+0.39
+8
+23
+67.0
+−0
+07
+−4
+93
+0.57
+11
+05
+46.6
+7. BEL
+0.84
+10
+70
+0.29
+4
+38
+59.4
+−0
+11
+−5
+32
+0.44
+5
+99
+36.5
+8. BMY
+0.91
+7
+17
+0.37
+7
+56
+70.2
+−0
+09
+−3
+29
+0.61
+10
+58
+53.2
+9. CCI
+0.59
+10
+85
+0.43
+8
+76
+63.2
+−0
+07
+−5
+31
+0.57
+10
+16
+45.5
+10. DD
+0.47
+7
+71
+0.31
+4
+58
+41.2
+−0
+01
+−1
+80
+0.44
+6
+08
+20.9
+11. DIS
+0.49
+6
+48
+0.52
+10
+67
+54.8
+0
+12
+0
+94
+0.64
+14
+92
+42.4
+12. F
+0.36
+4
+78
+0.47
+8
+45
+56.4
+−0
+01
+−1
+09
+0.63
+14
+54
+40.2
+13. GE
+0.74
+7
+87
+0.49
+9
+83
+57.7
+−0
+06
+−3
+30
+0.58
+11
+82
+38.7
+14. GM
+0.49
+7
+02
+0.45
+9
+01
+58.7
+−0
+03
+−2
+81
+0.63
+13
+39
+41.2
+15. HWP
+0.41
+7
+14
+0.54
+9
+30
+59.9
+0
+00
+0
+09
+0.69
+12
+67
+48.8
+16. IBM
+0.78
+7
+40
+0.54
+9
+16
+74.6
+0
+00
+0
+18
+0.77
+19
+31
+63.7
+17. JNJ
+0.45
+4
+58
+0.44
+6
+99
+49.2
+−0
+04
+−2
+74
+0.58
+10
+88
+37.5
+18. KO
+0.63
+10
+01
+0.25
+4
+00
+52.2
+−0
+02
+−0
+88
+0.51
+7
+83
+29.5
+19. MCD
+0.61
+5
+97
+0.32
+4
+67
+50.8
+−0
+04
+−3
+05
+0.47
+6
+67
+25.8
+20. MCQ
+0.77
+7
+33
+0.19
+3
+15
+46.2
+−0
+03
+−1
+32
+0.35
+4
+32
+13.2
+21. MMM
+0.70
+5
+78
+0.65
+8
+73
+46.5
+−0
+03
+−1
+22
+0.66
+9
+11
+42.2
+22. MOB
+0.87
+8
+83
+0.32
+6
+38
+53.2
+−0
+05
+−2
+53
+0.48
+7
+80
+24.3
+23. MRK
+0.53
+8
+35
+0.58
+11
+36
+71.1
+−0
+03
+−1
+80
+0.77
+13
+77
+58.1
+24. NT
+0.47
+8
+56
+0.28
+6
+61
+47.4
+−0
+07
+−5
+89
+0.39
+6
+84
+28.8
+25. PEP
+0.66
+8
+58
+0.28
+5
+18
+56.3
+−0
+04
+−3
+88
+0.45
+6
+01
+27.8
+26. SLB
+0.77
+6
+60
+0.31
+8
+79
+57.2
+−0
+07
+−2
+15
+0.52
+12
+71
+29.9
+27. T
+0.65
+10
+53
+0.32
+6
+43
+67.3
+−0
+07
+−5
+84
+0.53
+8
+60
+49.3
+28. WMT
+0.51
+11
+68
+0.47
+8
+25
+64.8
+−0
+03
+−1
+33
+0.68
+14
+83
+47.1
+29. XON
+0.85
+7
+33
+0.17
+3
+65
+50.4
+−0
+06
+−4
+24
+0.35
+6
+95
+21.3
+30. XRX
+0.42
+3
+70
+0.51
+10
+18
+40.9
+−0
+01
+−0
+59
+0.57
+12
+13
+33.3
+31. OEX
+0.69
+5
+38
+0.64
+9
+97
+71.9
+−0
+06
+−3
+82
+0.76
+14
+57
+68.7
+For each of the 30 stocks and the S&P 100, the table reports the results of a time-series regression: SLOPEt = +SKEWt+
+KURTt+SLOPEt −1+t, where SLOPE(t) is the (weekly) slope of the smile (i.e., the previously computed t in
+Table 3). SKEW(t) and KURT(t) are the risk-neutral skew and kurtosis for each of the 260 weeks in the sample period, January
+1, 1991, to December 31, 1995. We include SLOPE(t −1) to correct for the autocorrelation of the dependent variable. The
+method of estimation is OLS. The t-statistics are computed using the Newey–West (with a lag length of 8 weeks) methodology
+that corrects for heteroscedasticity and serial correlation. Standard errors with lag length up to 20 are virtually similar. R2 is the
+coefﬁcient of determination (in %). The reported 21 is the likelihood ratio test statistic for the null hypothesis that  = 0.
+The corresponding p value is presented under the column “p value.” Only the results using short-term smiles are shown here.
+a  of 2.44, in contrast to a range of 0.35 to 1.42 for the individual stocks.
+The kurtosis coefﬁcient, , is typically small and positive, with 21 signiﬁcant
+t-statistics. As in the case of the cross-sectional regressions, an increase in
+risk-neutral kurtosis ﬂattens the smile in the time series as well. Overall, all
+regressions appear to have a reasonable ﬁt. The serial correlation coefﬁcient,
+, is positive and statistically signiﬁcant (all names and the OEX).
+Two additional tests are performed to better appreciate the role of risk-
+neutral skew and kurtosis. First, we perform the restricted regressions and
+examine the ﬁt of each model (see panel B of Table 5). For the vast majority
+of the stocks, risk-neutral skewness tracks the dynamic movements in the
+slope of the smile fairly well (on average, the R2 is 55.40%). When kurtosis
+128
+
+[TRUNCATED at 80000 chars — 43 total pages]

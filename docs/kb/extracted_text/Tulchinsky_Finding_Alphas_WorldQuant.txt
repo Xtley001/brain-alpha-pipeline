@@ -1,0 +1,1779 @@
+
+--- PAGE 1 ---
+
+--- PAGE 2 ---
+Finding Alphas
+
+--- PAGE 3 ---
+
+--- PAGE 4 ---
+FINDING ALPHAS
+A Quantitative Approach to  
+Building Trading Strategies
+SECOND EDITION
+Edited by
+Igor Tulchinsky et al.
+WorldQuant Virtual Research Center
+
+--- PAGE 5 ---
+This edition first published 2015
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center
+Registered office
+John Wiley & Sons Ltd, The Atrium, Southern Gate, Chichester, West Sussex, PO19 8SQ,  
+United Kingdom
+For details of our global editorial offices, for customer services and for information about how to 
+apply for permission to reuse the copyright material in this book please see our website at www.
+wiley.com.
+All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, 
+or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording or 
+otherwise, except as permitted by the UK Copyright, Designs and Patents Act 1988, without the 
+prior permission of the publisher.
+Wiley publishes in a variety of print and electronic formats and by print-on-demand. Some 
+material included with standard print versions of this book may not be included in e-books or in 
+print-on-demand. If this book refers to media such as a CD or DVD that is not included in the 
+version you purchased, you may download this material at http://booksupport.wiley.com. For 
+more information about Wiley products, visit www.wiley.com.
+Designations used by companies to distinguish their products are often claimed as trademarks. 
+All brand names and product names used in this book are trade names, service marks, trademarks 
+or registered trademarks of their respective owners. The publisher is not associated with any 
+product or vendor mentioned in this book.
+Limit of Liability/Disclaimer of Warranty: While the publisher and author have used their best 
+efforts in preparing this book, they make no representations or warranties with respect to the 
+accuracy or completeness of the contents of this book and specifically disclaim any implied 
+warranties of merchantability or fitness for a particular purpose. It is sold on the understanding 
+that the publisher is not engaged in rendering professional services and neither the publisher nor 
+the author shall be liable for damages arising herefrom. If professional advice or other expert 
+assistance is required, the services of a competent professional should be sought.
+Library of Congress Cataloging-in-Publication Data
+Names: Tulchinsky, Igor, 1966- editor.
+Title: Finding alphas : a quantitative approach to building trading
+    strategies / edited by, Igor Tulchinsky et al., WorldQuant Virtual
+    Research Center.  
+Description: Second edition. | Chichester, West Sussex : Wiley, 2020. | 
+    Previous edition entered under: Igor Tulchinsky | Includes 
+    bibliographical references and index. 
+Identifiers: LCCN 2019021400 (print) | LCCN 2019981056 (ebook) | ISBN 
+    9781119571216 (hardback) | ISBN 9781119571261 (epub) | ISBN 
+    9781119571254 (epdf) 
+Subjects: LCSH: Finance—Mathematical models. | Finance—Decision making. 
+Classification: LCC HG4515.5 .T85 2020  (print) | LCC HG4515.5  (ebook) | 
+    DDC 332.6401/51—dc23 
+LC record available at https://lccn.loc.gov/2019021400
+LC ebook record available at https://lccn.loc.gov/2019981056
+Cover Design: Wiley 
+Cover Image: © agsandrew/Shutterstock
+Set in 11/13 TimesLTStd by SPi Global, Chennai, India
+Printed in Great Britain by TJ International Ltd, Padstow, Cornwall, UK
+10  9  8  7  6  5  4  3  2  1
+
+--- PAGE 6 ---
+Dedicated to All at WorldQuant —
+The Future of Trading
+
+--- PAGE 7 ---
+
+--- PAGE 8 ---
+Contents
+Preface	
+xi
+Preface (to the Original Edition)
+xiii
+Acknowledgments
+xv
+About the WebSim Website
+xvii
+PART I  INTRODUCTION
+1
+1	 Introduction to Alpha Design
+3
+By Igor Tulchinsky
+2	 Perspectives on Alpha Research
+7
+By Geoffrey Lauprete
+3	 Cutting Losses	
+17
+By Igor Tulchinsky
+PART II  DESIGN AND EVALUATION	
+23
+4	 Alpha Design	
+25
+By Scott Bender and Yongfeng He
+5	 How to Develop an Alpha: A Case Study	
+31
+By Pankaj Bakliwal and Hongzhi Chen
+6	 Data and Alpha Design	
+43
+By Weijia Li
+7	 Turnover	
+49
+By Pratik Patel
+8	 Alpha Correlation	
+61
+By Chinh Dang and Crispin Bui
+
+--- PAGE 9 ---
+9	 Backtest – Signal or Overfitting?	
+69
+By Zhuangxi Fang and Peng Yan
+10	 Controlling Biases	
+77
+By Anand Iyer and Aditya Prakash
+11	 The Triple-Axis Plan	
+83
+By Nitish Maini
+12	 Techniques for Improving the Robustness of Alphas	
+89
+By Michael Kozlov
+13	 Alpha and Risk Factors	
+95
+By Peng Wan
+14	 Risk and Drawdowns
+101
+By Hammad Khan and Rebecca Lehman
+15	 Alphas from Automated Search
+111
+By Yu Huang and Varat Intaraprasonk
+16	 Machine Learning in Alpha Research
+121
+By Michael Kozlov
+17	 Thinking in Algorithms
+127
+By Sunny Mahajan
+PART III  EXTENDED TOPICS
+133
+18	 Equity Price and Volume
+135
+By Cong Li and Huaiyu Zhou
+19	 Financial Statement Analysis
+141
+By Paul A. Griffin and Sunny Mahajan
+20	 Fundamental Analysis and Alpha Research
+149
+By Xinye Tang and Kailin Qi
+21	 Introduction to Momentum Alphas
+155
+By Zhiyu Ma, Arpit Agarwal, and Laszlo Borda
+22	 The Impact of News and Social Media on Stock Returns
+159
+By Wancheng Zhang
+23	 Stock Returns Information from the Stock Options Market
+169
+By Swastik Tiwari and Hardik Agarwal
+24	 Institutional Research 101: Analyst Reports
+179
+By Benjamin Ee, Hardik Agarwal, Shubham Goyal, Abhishek 
+Panigrahy, and Anant Pushkar
+viii
+Contents
+
+--- PAGE 10 ---
+Contents
+ix
+25	 Event-Driven Investing
+195
+By Prateek Srivastava
+26	 Intraday Data in Alpha Research
+207
+By Dusan Timotity
+27	 Intraday Trading
+217
+By Rohit Kumar Jha
+28	 Finding an Index Alpha
+223
+By Glenn DeSouza
+29	 ETFs and Alpha Research
+231
+By Mark YikChun Chan
+30	 Finding Alphas on Futures and Forwards
+241
+By Rohit Agarwal, Rebecca Lehman, and Richard Williams
+PART IV  NEW HORIZON – WEBSIM
+251
+31	 Introduction to WebSim
+253
+By Jeffrey Scott
+PART V  A FINAL WORD
+263
+32	 The Seven Habits of Highly Successful Quants
+265
+By Richard Hu and Chalee Asavathiratham
+References	
+273
+Index	
+291
+ 
+
+--- PAGE 11 ---
+
+--- PAGE 12 ---
+Preface
+Much has changed since we published the first edition of Finding 
+Alphas, in 2015. The premise of that edition – that we considered these 
+techniques “the future of trading” – is more true today than it ever was. 
+In the intervening four years, we at WorldQuant have seen remarkable 
+growth in our development of predictive algorithms for quantitative 
+trading – we call them “alphas” – powered by an ever-rising volume and 
+variety of available data, an explosion in computer hardware and soft-
+ware, and increasingly sophisticated techniques that allow us to create 
+and deploy a higher volume and quality of alphas. Today, at WorldQuant, 
+we have produced over 20 million alphas, a number that continues to 
+grow exponentially as we hunt for ever-weaker predictive signals.
+Since 2015, we have steadily expanded our outreach to new, diverse 
+talent, adding to the full-time researchers, portfolio managers, and tech-
+nologists at our 28 offices around the world, as well as to our growing 
+group of research consultants – now more than 2,000 strong. We found 
+many of WorldQuant’s research consultants through our Virtual Research 
+Center (VRC) and its global quantitative finance competitions, such as 
+the WorldQuant Challenge, Women Who Quant, and the International 
+Quant Championship.
+Participants who enter our competitions seek to create high-quality 
+alphas using our online portal, WebSim, which provides educational, 
+research, and backtesting tools, including some of the same datasets that 
+WorldQuant researchers use. More broadly, the VRC enables individ-
+uals to conduct research and seek to build high-quality algorithms that 
+may be used in WorldQuant’s systematic financial strategies. Research 
+consultants have flexibility in their hours and work location, are com-
+pensated based on their activity and productivity, are eligible for addi-
+tional compensation based on their algorithms’ performance, and may 
+ultimately be considered for full-time positions.
+
+--- PAGE 13 ---
+xii
+Preface
+This book, with contributions from 47 current and former WorldQuant 
+staffers, summarizes much of what we have learned about the art and sci-
+ence of alpha development. This edition is not just a new cover slapped 
+on old content. Individual chapters have been extensively rethought and 
+revised. This edition has nine chapters that didn’t exist in 2015 – on 
+exchange-traded funds, index alphas, intraday data, and event-driven 
+investing, among other subjects – and extensive additions in most of the 
+rest. Topics like machine learning and automated search have become 
+much more important. But while we’ve gone deep, we’ve worked hard 
+to make the material more accessible and useful.
+Yet we’re only beginning to plumb the possibilities of alphas – and 
+to explore the universe of predictive signals. The years ahead will be 
+full of new challenges, new data, and new techniques. This exponen-
+tial world forces us to accept that what’s here today won’t necessarily 
+be here tomorrow. In The UnRules: Man, Machines and the Quest to 
+Master Markets, a book I published in 2018, I wrote that I have become 
+convinced that the Age of Prediction is upon us. The more alphas you 
+have, the better you can describe reality and the more predictive you can 
+be. But change is a constant, and the task is never done.
+Igor Tulchinsky
+June 2019
+
+--- PAGE 14 ---
+Preface (to the Original 
+Edition)
+This book is a study of the process of finding alphas. The material is 
+presented as a collection of essays, providing diverse viewpoints from 
+successful quants on the front lines of quantitative trading.
+A wide variety of topics is covered, ranging from theories about the 
+existence of alphas, to the more concrete and technical aspects of alpha 
+creation.
+Part I presents a general introduction to alpha creation and is fol-
+lowed by a brief account of the alpha life cycle and insights on cutting 
+losses.
+Part II focuses more on the technical side of alpha design, such as 
+the dos and don’ts of information research, key steps to developing an 
+alpha, and the evaluation and improvement of quality alphas. The key 
+technical aspects discussed in this section are turnover, backtesting, 
+fundamental analysis, equity price volume, statistical arbitrage, overfit-
+ting, and alpha diversity.
+Part III explores ad hoc topics in alpha design, including alpha design 
+for various asset classes like futures and currencies, the development of 
+momentum alphas, and the effect of news and social media on stock 
+returns.
+In Part IV, we introduce you to WebSim, a web-based alpha devel-
+opment tool. We invite all quant enthusiasts to utilize this free tool to 
+learn about alpha backtesting (also known as alpha simulation) and ulti-
+mately to create their own alphas.
+Finally, in Part V, we present an inspirational essay for all quants 
+who are ready to explore the world of quantitative trading.
+
+--- PAGE 15 ---
+
+--- PAGE 16 ---
+Acknowledgments
+In these pages, we present a collection of chapters on the algorithmic-­
+based process of developing alphas. The authors of these chapters are 
+WorldQuant’s founder, directors, managers, portfolio managers, and 
+quantitative researchers. This book has two key objectives: to present as 
+many state-of-the-art viewpoints as possible on defining an alpha, and 
+the techniques involved in finding and testing alphas. At WorldQuant, 
+we believe that no viewpoint is the best and only answer, and that a 
+variety of approaches is always superior to a single one.
+This edition of Finding Alphas began to take shape in 2017, after 
+Michael Peltz joined WorldQuant as global head of content. That year, 
+he and then-regional research director Rebecca Lehman met with Igor 
+Tulchinsky – WorldQuant’s founder, chairman, and CEO – in his Con-
+necticut office to outline their plan to overhaul the book. Finding Alphas 
+had originally been written in 2014; Lehman and Peltz wanted to revise 
+(and in some cases merge) existing chapters and add new ones. The two 
+were instrumental in driving a reconceptualization of the first edition and 
+managing a complex editorial process. We particularly want to thank the 
+authors of the new chapters – Crispin Bui, Mark YikChun Chan, Chinh 
+Dang, Glenn DeSouza, Anand Iyer, Rohit Kumar Jha, Michael Kozlov, 
+Nitish Maini, Aditya Prakash, Prateek Srivastava, Dusan Timotity – as 
+well as the authors of the chapters that were updated. Together they 
+have created a book that should be tremendously useful to anyone inter-
+ested in quantitative investing and developing alphas.
+Every one of these chapters was copy edited by sharp-eyed Ruth 
+Hamel, who juggled the myriad questions and challenges every chap-
+ter presented. Then each chapter was carefully vetted by WorldQuant’s 
+legal team under Jeffrey Blomberg, whose patience and always sen-
+sible suggestions made a major contribution. And, once again, we thank 
+
+--- PAGE 17 ---
+xvi
+Acknowledgments
+Wendy Goldman Rohm, our literary agent, who played a major role in 
+getting the first edition of Finding Alphas off the ground.
+Last, we need to acknowledge with gratitude the support and faith of 
+every colleague at WorldQuant. It takes a team. Thank you all.
+DISCLAIMER
+The contents of this book are intended for informational and educa-
+tional purposes only and, as such, are not intended to be nor should be 
+construed in any manner to be investment advice. The views expressed 
+are those of the various contributors and do not necessarily reflect the 
+view or opinion of WorldQuant or the WorldQuant Virtual Research 
+Center.
+
+--- PAGE 18 ---
+About the WebSim Website
+At the time of writing, the WebSim information contained in this book 
+is consistent with the WebSim website. Because the website is subject 
+to change, in cases where there are inconsistencies between this book 
+and the website the terms of the WebSim website will govern the most 
+updated and current processes of WebSim. For the most up-to-date 
+version of WebSim and the terms applicable to its use, please go to 
+https://worldquantvrc.com or its successor site.
+Registration at WebSim’s official website is required to obtain the 
+full functionality of the platform and to have access to the WebSim 
+support team. Successful alphas submitted by research consultants may, 
+in certain cases, be considered for inclusion in actual quant trading 
+investment strategies managed by WorldQuant.
+WEBSIM RESEARCH CONSULTANTS
+WorldQuant has established a Research Consultant program for quali-
+fied individuals to work with our web-based simulation platform, Web-
+Sim. This program gives consultants the flexibility to create alphas in 
+their own physical and intellectual environment. This is a particularly 
+ideal pursuit for individuals who are undertaking a college education, as 
+well as those who are ambitious and highly interested in breaking into 
+the financial industry.
+Qualified candidates are those highly quantitative individuals who 
+typically come from science, technology, engineering, or mathemat-
+ics (STEM) programs. However, majors and expertise vary and may 
+include statistics, financial engineering, math, computer science, 
+finance, physics, or other STEM programs.
+
+--- PAGE 19 ---
+xviii
+About the WebSim Website
+You can find more details on WebSim in Part IV of this book. More 
+information on the Research Consultant program is available at Web-
+Sim’s official website.
+
+--- PAGE 20 ---
+PART I
+Introduction
+ 
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 21 ---
+
+--- PAGE 22 ---
+1
+Introduction to Alpha Design
+By Igor Tulchinsky
+What is an alpha? Throughout this book, you’ll read different descrip-
+tions or definitions of an alpha. Alpha, of course, is the first letter of the 
+Greek alphabet – as in “the alpha and the omega,” the beginning and 
+the end – and it lurks inside the word “alphabet.” Over the centuries, 
+it has attached itself to a variety of scientific terms. The financial use 
+of the word “alpha” goes back to 1968, when Michael Jensen, then a 
+young PhD economics candidate at the University of Chicago, coined 
+the phrase “Jensen’s alpha” in a paper he published in The Journal of 
+Finance. Jensen’s alpha measured the risk-adjusted returns of a port-
+folio and determined whether it was performing better or worse than 
+the expected market. Eventually, Jensen’s alpha evolved into a meas-
+ure of investment performance known simply as alpha, and it is most 
+commonly used to describe returns that exceed the market or a bench-
+mark index.
+Since then, the term “alpha” has been widely adopted throughout 
+the investing world, particularly by hedge funds, to refer to the unique 
+“edge” that they claim can generate returns that beat the market. At 
+WorldQuant, however, we use the term a little differently. We design 
+and develop “alphas” – individual trading signals that seek to add value 
+to a portfolio.
+Fundamentally, an alpha is an idea about how the market works. 
+There are an infinite number of ideas or hypotheses or rules that can 
+be extrapolated, and the number of possibilities is constantly growing 
+with the rapid increase in new data and market knowledge. Each of 
+these ideas could be an alpha, but many are not. An alpha is an auto-
+mated predictive model that describes, or decodes, some market rela-
+tion. We design alphas as algorithms, a combination of mathematical 
+expressions, computer source code, and configuration parameters. An 
+alpha contains rules for converting input data to positions or trades to 
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 23 ---
+4
+Finding Alphas
+be executed in the financial securities markets. We develop, test, and 
+trade alphas in large numbers because even if markets are operating 
+efficiently, something has to drive prices toward equilibrium, and that 
+means opportunity should always exist. To use a common metaphor, an 
+alpha is an attempt to capture a signal in an always noisy market.
+DESIGNING ALPHAS BASED ON DATA
+We design alphas based on data, which we are constantly seeking to 
+augment and diversify. Securities prices generally change in response to 
+some event; that event should be reflected in the data. If the data never 
+changes, then there is no alpha. Changes in the data convey informa-
+tion. A change in information should in turn produce a change in the 
+alpha. These changes may be expressed in a variety of alpha expres-
+sions. Table 1.1 shows a few simple examples.
+Alpha design is really just the intelligent search for price information 
+conveyed by possible changes in the data, whether you think of them 
+as patterns, signals, or a code. The mathematical expression of an alpha 
+should embody a hypothesis or a prediction. Again, just a few examples 
+are shown in Table 1.2.
+Table 1.1  Expressions of changes
+A simple difference, A – B
+Example: today’s_price – yesterday’s_price
+A ratio, A/B
+Example: today’s_price/yesterday’s_price
+An expression
+Example: 1/today’s price. Increase position when 
+price is low
+Table 1.2  Expressions and their hypotheses
+Expression
+Hypothesis
+1/price
+Invest more if price is low
+Price-delay (price,3)
+Price moves in the direction of 3-day change
+Price
+High-priced stocks go higher
+Correlation (price,delay(price,1))
+Stocks that trend, outperform
+(price/delay(price,3)) * 
+rank(volume)
+Trending stocks with increasing volume 
+outperform
+
+--- PAGE 24 ---
+Introduction to Alpha Design
+5
+DEFINING QUALITY IN ALPHAS
+Alphas produce returns, which vary over time; like individual stocks, an 
+alpha’s aggregate returns rise and fall. The ratio of an alpha’s daily return 
+to daily volatility is called the information ratio. This ratio measures the 
+strength and steadiness of the signal, and shows if a strategy is working – 
+whether the signal is robust or weak, whether it is likely to be a true 
+­signal or largely noise. We have developed a number of criteria to define 
+the quality of an alpha, though until an alpha is extensively tested, put 
+into production, and observed out of sample, it’s difficult to know how 
+good it really is. Nonetheless, here are some traits of quality alphas:
+•• The idea and expression are simple.
+•• The expression/code is elegant.
+•• It has a good in-sample Sharpe ratio.
+•• It is not sensitive to small changes in data or parameters.
+•• It works in multiple universes.
+•• It works in different regions.
+ALPHA CONSTRUCTION, STEP BY STEP
+We can broadly define the steps required to construct alphas. Although 
+the devil is in the details, developers need only repeat the following 
+five steps:
+•• Analyze the variables in the data.
+•• Get an idea of the price response to the change you want to model.
+•• Come up with a mathematical expression that translates this change 
+into stock positions.
+•• Test the expression.
+•• If the result is favorable, submit the alpha.
+CONCLUSION
+The chapters that follow delve into many of these topics in much greater 
+detail. These chapters have been written by WorldQuant researchers, 
+portfolio managers, and technologists, who spend their days, and often 
+their nights, in search of alphas. The topics range widely, from the 
+
+--- PAGE 25 ---
+6
+Finding Alphas
+nuts-­and-­bolts development of alphas, to their extensive ­backtesting, 
+and related subjects like momentum alphas, the use of futures in trad-
+ing, institutional research in alpha development, and the impact of news 
+and social media on stock returns. There’s also a chapter focused on 
+various aspects of WorldQuant’s WebSim platform, our proprietary, 
+internet-­enabled simulation platform. WebSim’s simulation software 
+engine lets anyone backtest alphas, using a large and expanding array 
+of datasets. Last, in this edition of Finding Alphas, we’ve added new 
+material on topics such as machine learning, alpha correlation, intraday 
+trading, and exchange-traded funds.
+What is an alpha and how do we find them? Turn the page.
+
+--- PAGE 26 ---
+2
+Perspectives on Alpha 
+Research
+By Geoffrey Lauprete
+In the field of finance, an alpha is the measure of the excess return of an 
+investment over a suitable benchmark, such as a market or an industry 
+index. Within the quantitative investment management industry, and in 
+this book, the term “alpha” refers to a model used to try to forecast 
+the prices, or returns, of financial instruments relative to a benchmark. 
+More precisely, an alpha is a function that takes, as input, data that is 
+expected to be relevant to the prediction of future prices and outputs 
+values corresponding to the forecasted prices of each instrument in its 
+prediction universe, relative to a benchmark. An alpha can be expressed 
+as an algorithm and implemented in a computer language such as C++, 
+Python, or any number of alternative modern or classical programming 
+languages.
+Attempts to forecast markets predate the digital era and the arrival of 
+computers on Wall Street. For example, in his 1688 treatise on economic 
+philosophy, Confusion of Confusions, stock operator and writer Josseph 
+Penso de la Vega described valuation principles for complex derivatives 
+and techniques for speculating on the Amsterdam Stock Exchange. Two 
+hundred years later, in a series of articles, Charles Dow (co-founder of 
+Dow Jones & Co., which publishes The Wall Street Journal) codified 
+some of the basic tenets of charting and technical analysis. His writings 
+provide one of the first recorded instances of a systematic market fore-
+casting technique, but investors had to wait until the 1980s for afford-
+able computing power to arrive on the Wall Street scene and change the 
+modeling paradigm: instead of pencil and paper, the main design tools 
+and their hardware were set to become computers and digital data.
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 27 ---
+8
+Finding Alphas
+PHDS ON THE STREET
+Until the 1960s, all or almost all back-office processes, and stock set-
+tlement in particular, were done manually. It took the unprecedented 
+increase in stock trading volumes experienced in the late 1960s 
+(between 1965 and 1968, the daily share volume of the New York Stock 
+Exchange increased from 5 million to 12 million), and the accompa-
+nying “traffic jams” in trade processing due to the reliance on pen-
+and-paper recordkeeping, for the adoption of computers to become a 
+business imperative. By the 1970s, Wall Street had digitized its back 
+offices. Within a few years, computers and programmable devices 
+were ubiquitous on the Street, playing a role in every corner of the 
+financial industry.
+The arrival of computing machines on the trading floor of large Wall 
+Street firms allowed previously intractable problems in valuation – the 
+pricing of options and other derivatives, and price forecasting based on 
+databases of digital data – to become practically solvable. But formu-
+lating the problems in such a way that the new machines could solve 
+them required a new type of market operator, who historically had not 
+been part of the sales and trading ecosystem: PhDs and other analyti-
+cally minded individuals, not traditionally Wall Street material, became 
+sought-after contributors to this new and modernized version of the 
+trading floor.
+A NEW INDUSTRY
+One of the early adopters of computer-based investment methods to 
+exploit systematic alphas was James Simons, an award-winning math-
+ematician and former chair of the mathematics department at Stony 
+Brook University. In 1982, Simons founded Renaissance Technolo-
+gies, an East Setauket, New York-based firm that became known for 
+the successful deployment of systematic market-neutral strategies. Six 
+years later, former Columbia University computer science professor, 
+David Shaw, launched D.E. Shaw & Co. in New York City. Shaw had 
+spent two years at Morgan Stanley, part of a group whose mandate was 
+to develop stock forecasting algorithms using historical price records. 
+Others followed, either inside banks and brokerages as part of proprie-
+tary trading groups or at hedge funds managing pooled investor money. 
+
+--- PAGE 28 ---
+Perspectives on Alpha Research
+9
+Over time, quantitative market-neutral investing became known as a 
+scalable and dependable investment strategy, which fared particularly 
+well during the dot-com market crash of the early 2000s.
+As the hedge fund industry grew, so did the allocation of investor 
+capital to quantitative investment strategies. As of January 2018, it 
+was estimated that as much as one third of the hedge fund industry’s 
+total assets was managed using systematic investment methods, either 
+by firms dedicated to quantitative investing, such as WorldQuant, or 
+by multistrategy hedge funds that invest a portion of their assets in 
+quantitative approaches, according to The Financial Times. The hesi-
+tation that investors exhibited in the 1990s and early 2000s toward 
+what were often referred to disparagingly as “black box” strategies 
+waned gradually as the strategies’ track records held up relative to 
+those of other investment approaches. It’s possible that quantitative 
+investment strategies, which emphasize leveraging technology – via 
+algorithms, artificial intelligence, and machine learning – are benefit-
+ing from society’s growing comfort with automation and the replace-
+ment of human intermediaries by machines with increasing levels of 
+free rein. Investing via modeling and smart data processing doesn’t 
+seem like much of a stretch 40 years after the launch of the first sys-
+tematic hedge funds.
+Still, the path toward quantitative investing becoming an established 
+strategy was not a straight line. The quant meltdown of 2007 dealt 
+a particular blow to investor and participant confidence in the ability 
+of quantitative investing to produce credible long-term risk-adjusted 
+returns: in August of that year, a market panic prompted a large num-
+ber of quant funds to liquidate their positions in a short period of time, 
+creating an unprecedented drawdown and causing some participants 
+and investors to head for the exits in what amounted to a stampede. 
+That period was followed the next year by the global financial crisis, 
+which again saw significant investment return volatility. The 2000s 
+were accompanied by a range of structural market changes, from deci-
+malization to the rise of exchange-traded funds. The period also dem-
+onstrated the flexibility and resilience of the quantitative investment 
+approach, and showed that the quantitative operators developing alpha 
+forecasts were able to adapt to new market environments, innovate, 
+and ultimately stay relevant.
+In the next section, we will take a closer look at the alphas driving the 
+quantitative strategies described above.
+
+--- PAGE 29 ---
+10
+Finding Alphas
+STATISTICAL ARBITRAGE
+The term “statistical arbitrage” (stat arb) is sometimes used to describe 
+a trading strategy based on the monetization of systematic price fore-
+casts, or alphas. Unlike pure arbitrage, when a risk-free profit can be 
+locked in by simultaneously purchasing and selling a basket of assets, a 
+stat arb strategy aims to exploit relationships among asset prices that are 
+estimated using historical data. Because estimation methods are imper-
+fect, and because the exact relationships among assets are unknown and 
+infinitely complex, the stat arb strategy’s profit is uncertain. It is subject 
+to estimation error, overfitting, incomplete information, and shifts in 
+market dynamics that can cause previous relationships to vanish. None-
+theless, the practitioner’s goal is to discover, through data analysis and 
+statistical hypothesis testing, which relationships are valid and deserve 
+an allocation of capital and which are bogus and likely to lead to the 
+poorhouse.
+In the search for legitimate relationships between asset prices, the 
+academic literature has been and continues to be an important source 
+of ideas. For example, the work of financial economists on the capital 
+asset pricing model (the CAPM, which aims to decompose a stock’s 
+return into its market component and an idiosyncratic component) and 
+its derivatives has spawned an enormous, multidecade-long search to 
+prove and/or disprove its validity, and to enhance its explanatory power 
+with additional factors. The initial research on the CAPM was pub-
+lished in the 1960s (e.g. William Sharpe’s 1964 article, “Capital Asset 
+Prices: A Theory of Market Equilibrium under Conditions of Risk”), 
+and the debate continued into the 1990s (e.g. Eugene Fama and Kenneth 
+French, “The Cross-Section of Expected Stock Returns”). A 2018 scan 
+of The Journal of Finance found at least one entry on the subject of 
+factor pricing (“Interpreting Factor Models,” by Serhiy Kozak, Stefan 
+Nagel, and Shrihari Santosh).
+But models from academia, even when they provide a foundation for 
+applied research, are often incomplete or based on assumptions that are 
+inconsistent with the real markets in which traders operate. As a result, 
+such models can be difficult or impossible to employ successfully. This 
+observation applies not only to models from financial economics but 
+also to models from the fields of econometrics, applied ­statistics – such 
+as time-series analysis and machine learning or ­regression – and opera-
+tions research and optimization. As an example, many regression models 
+
+--- PAGE 30 ---
+Perspectives on Alpha Research
+11
+tend to be estimated based on the minimization of mean-squared errors 
+for computational convenience. But mean-squared error is not necessar-
+ily the objective that traders have in mind for­ their stat arb ­strategies – 
+they may be more interested in generating a steady cash flow and 
+­managing the downside risk of that cash flow. The simplicity of the 
+mean-squared error objective is a trade-off against the objective’s use-
+fulness. Alternatives are possible but fall into the realm of trade secrets, 
+which quantitative investment firms develop in-house and keep to them-
+selves, never to be published but instead handed down from quant to 
+quant, forming the basis of a deep institutional pool of knowledge that 
+it is in the firm’s interest to protect.
+EXISTENCE OF ALPHAS
+We could debate whether alphas and stat arb strategies ought to exist 
+at all. In fact, the academic literature in financial economics has tack-
+led this problem exhaustively, qualifying the markets and the nature of 
+information and how it affects prices, and deriving conclusions based 
+on various assumptions about the markets, about market participants 
+and their level of rationality, and how the participants interact and pro-
+cess information. The term “efficient market hypothesis” (EMH) is 
+sometimes used to describe the theory that says market prices reflect 
+all available information. The EMH gained prominence in the 1960s, 
+and empirical studies of prices and of asset manager performance since 
+then have lent credence to the idea that the market is efficient enough 
+to make it impossible to determine whether top asset managers’ perfor-
+mance is due to anything but luck. The theory also implies that looking 
+for exploitable patterns in prices, and in other forms of publicly avail-
+able data, will not lead to strategies in which investors can have confi-
+dence, from a statistical perspective.
+An implication of the EMH is that prices will evolve in a process 
+indistinguishable from a random walk. However, another branch of 
+financial economics has sought to disprove the EMH. Behavioral eco-
+nomics studies market imperfections resulting from investor psycho-
+logical traits or cognitive biases. Imperfections in the financial markets 
+may be due to overconfidence, overreaction, or other defects in how 
+humans process information. Empirical studies may have had mixed 
+results in aiming to disprove the EMH, but if no investors made any 
+
+--- PAGE 31 ---
+12
+Finding Alphas
+effort to acquire and analyze information, then prices would not reflect 
+all available information and the market would not be efficient. But that 
+in turn would attract profit-motivated investors to tackle the problem 
+of analyzing the information and trading based on it. Thus, over time, 
+some investors must profit from analyzing information.
+Even if we can make an argument in favor of the existence of alphas 
+under various stylized assumptions, the details of prediction in the real 
+world are complex. A prediction with low accuracy or a prediction that 
+estimates a weak price change may not be interesting from a practition-
+er’s perspective. The markets are an aggregate of people’s intentions, 
+affected by changing technology, macroeconomic reality, regulations, 
+and wealth – and this makes the business of prediction more challeng-
+ing than meets the eye. Therefore, to model the markets, investors need 
+a strong understanding of the exogenous variables that affect the prices 
+of financial instruments. That is the challenge that market forecasters 
+and algorithmic traders face, motivated by the expectation that they will 
+be rewarded for their efforts and for their mastery of complexity.
+IMPLEMENTATION
+Alphas are typically implemented in a programming language like C++, 
+Python, or another flexible and modern language. When implemented 
+in a programming language, an alpha is a function that takes data and 
+outputs a forecast of the price of each instrument in the universe being 
+tested. The simplest forms of data are concurrent and historical prices. 
+Other commonly used data include volumes and other market records, 
+accounting variables in a company’s income or cash flow statements, 
+news headlines, and social media-related entries. Data quality is a sig-
+nificant issue in the alpha research process. Bias in the historical data 
+can make the calibration of accurate models impossible. Ongoing data 
+issues, such as technical problems, human error, unexpected data for-
+mat changes, and more, can sap a model’s forecasting power.
+Predicting the future price of a financial instrument is a difficult prob-
+lem. For example, in order to predict the price of an NYSE-listed stock 
+over the next month, a researcher needs to understand not only (1) the 
+idiosyncratic features of that stock, but also (2) what drives the industry 
+that the stock belongs to, and ultimately (3) what drives the market for 
+listed stocks as a whole – that is, the world economy. The complex-
+ity of the problem can be reduced dramatically by focusing on relative 
+
+--- PAGE 32 ---
+Perspectives on Alpha Research
+13
+prices; for example, instead of trying to predict the absolute price of 
+stock XYZ, you can try to predict the price of stock XYZ relative to 
+other stocks in XYZ’s industry. By reducing the problem’s scope, (2) 
+and (3) can be ignored. In practice, investors can try to monetize such 
+relative value predictions via market-neutral investment strategies.
+EVALUATION
+What is a good alpha? There is no single metric that will answer that 
+question. The answer depends in part on how the alpha is going to be 
+used. Certain investment strategies require very strong predictors; oth-
+ers benefit, marginally, from weak ones. Here are some pointers for 
+alpha evaluation:
+•• Good in-sample performance doesn’t guarantee good out-of-sample 
+performance.
+•• Outliers can ruin a model and lead to erroneous predictions.
+•• Multiple-hypothesis testing principles imply that the more effort 
+spent sifting through evidence and the more alternatives considered, 
+the lower the likelihood of choosing an optimal model.
+•• An out-of-sample period is necessary to validate a model’s predic-
+tive ability. The longer the out-of-sample period, the higher the con-
+fidence in the model but the less in-sample data available to calibrate 
+the model. The optimal ratio of in-sample to out-of-sample data in 
+model building depends on the model’s complexity.
+LOOKING BACK
+Backtesting involves looking back in time to evaluate how a forecast 
+or trading strategy would have performed historically. Although back-
+testing is invaluable (providing a window into both the markets and 
+how the alpha would have performed), there are two important points 
+to remember:
+•• History does not repeat itself exactly. So while an alpha idea may 
+look great in a backtest, there’s no guarantee (only a level of confi-
+dence) it will continue to work in the future. This is because of the 
+perverse power of computation and the ability of creative modelers 
+
+--- PAGE 33 ---
+14
+Finding Alphas
+to miss the forest for the trees. With computational resources, you 
+can evaluate a very large number of ideas and permutations of those 
+ideas. But without the discipline of keeping track of what ideas were 
+tried, and without taking that into account when evaluating the likeli-
+hood that a model is a true model and not a mere statistical artifact 
+(multiple-hypothesis testing principles), you may end up mistaking 
+lumps of coal for gold.
+•• New algorithmic modelers look back at history and estimate that the 
+market was much easier to trade than it was in reality. This is due to 
+several effects. First, hindsight is 20/20. Second, data scrubbed to pol-
+ish rough edges can lead to overinflated historical alpha performance. 
+Last, computational power and technology evolve, and today’s tools 
+were not available historically. For example, ideas that seemed simple 
+enough to program in a Lotus spreadsheet in the 1980s were actually 
+not so simple to discover and implement back then. Every period has 
+its own market and its own unique market opportunities. Each genera-
+tion of algorithmic modelers has an opportunity set that includes the 
+possibility of discovering powerful market forecasts that will gener-
+ate significant profit.
+THE OPPORTUNITY
+Exploitable price patterns and tradable forecasting models exist because 
+market participants differ in their investment objectives, their prefer-
+ences (such as risk tolerance), and their ability to process information. 
+Participants work with a finite set of resources and aim to optimize their 
+investment strategies subject to the limits imposed by those resources. 
+They leave to others the chance to take advantage of whatever trad-
+ing opportunities they haven’t had the bandwidth or ability to focus 
+on. Market participants with long-term investment horizons tend not 
+to pay the same attention to short-term price variations as participants 
+with short-term investment horizons. Conversely, traders with a short-­
+term investment horizon can operate efficiently and effectively without 
+having an understanding of the fundamental valuation principles that 
+are used by institutional investors concerned with scalability, tax effi-
+ciency, and longer-term performance (or, in some cases, performance 
+relative to an index). Traders who use leverage cannot tolerate volatil-
+ity and drawdowns to the same extent that a nonleveraged trader can. 
+Firms with larger technology budgets can beat the competition in areas 
+
+--- PAGE 34 ---
+Perspectives on Alpha Research
+15
+like the monetization of short-term alphas via a low-latency infrastruc-
+ture, the exploitation of large-scale data processing, or the application 
+of computationally intensive machine learning or artificial intelligence 
+forecasting techniques.
+The goal of an alpha researcher is to discover forecastable prices 
+or price relationships that investors may profit from. The fact that the 
+market is continuously evolving and responding to new information and 
+new information sources ensures that the opportunity to find alphas will 
+continue to exist indefinitely. That is good news for the next generation 
+of alpha researchers, but it also implies that models designed for market 
+conditions that no longer exist will cease to function, their forecasting 
+power decreasing inexorably with time. An alpha researcher’s job is 
+never finished.
+
+--- PAGE 35 ---
+
+--- PAGE 36 ---
+3
+Cutting Losses
+By Igor Tulchinsky
+Man is a creature that became successful because he was able to make 
+sense of his environment and develop rules more effectively than his 
+natural competitors could. In hunting, agriculture, and, later, mathemat-
+ics and physics, rules proliferated. Today, rules abound in every area of 
+life, from finance to science, from relationships to self-improvement 
+regimens. Man survives because of rules.
+An infinite number of possible rules describe reality, and we are 
+always struggling to discover and refine them. Yet, paradoxically, there 
+is only one rule that governs them all. That rule is: no rule ever works 
+perfectly. I call it the UnRule.
+It’s an accepted scientific principle that no rule can really be proved – 
+it can only be disproved. Karl Popper, the great Austrian philosopher of 
+science, pointed this out in 1934. He argued that although it is impos-
+sible to verify a universal truth, a single counterinstance can disprove it. 
+Popper stressed that because pure facts don’t exist, all observations and 
+rules are subjective and theoretical.
+There are good reasons for this uncertainty. Reality is complicated. 
+People and their ideas are imperfect. Ideas are expressed as abstrac-
+tions, in words or symbols. Rules are just metaphorical attempts to 
+bring order to this complex reality. Thus, every rule is flawed and no 
+rule works all the time. No single dogma fully describes the world, but 
+every rule describes some aspect of the world. And every rule works 
+sometimes.
+We are like artists slowly painting images on canvases. Every stroke 
+may bring an image closer to reality, but the painting will never become 
+a perfect interpretation of reality. There are many examples of this. New-
+ton’s laws, which for centuries seemed to describe motion perfectly, 
+turned out to be flawed, giving way to Einstein’s theory of relativity. 
+Man’s attempts to explain his place in the universe have continually 
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 37 ---
+18
+Finding Alphas
+evolved, from the belief that the earth was at the center of the cosmos 
+to the realization that we are tiny, fragile beings adrift in a vast universe 
+that eludes our full comprehension. Likewise, various rules have been 
+asserted that purport to describe, even predict, financial markets, from 
+the belief in strongly efficient markets to the development of option-­
+pricing models. All of these have proved flawed, usually after market 
+meltdowns.
+So you see the paradox: the only rule that works is the one that 
+says no rule always works. Rules are specks of dust, fragments of a 
+larger reality.
+This is the reason it’s so important to be able to cut your losses 
+when riding the often turbulent seas of the markets, where the UnRule 
+prevails. How can this turbulence and change be weathered? What is 
+the best way to deal with myriad shifting rules, all of them imperfect, 
+many of them conflicting, based on different sets of circumstances and 
+assumptions?
+Trading is a microcosm of reality, a dynamic environment of pro-
+found complexity in which millions of participants act and react based 
+on rules and beliefs that in turn feed back into and affect the larger envi-
+ronment. The challenge in trading is to derive rules that describe and 
+predict markets, then to use them successfully to earn profits, without 
+changing those markets in ways that might result in the destruction of 
+the rule itself.
+We represent trading rules as alphas, algorithms that seek to pre-
+dict the future of securities returns. Managing millions of alphas, each 
+reflecting some hypothesis about the markets, is a complicated mat-
+ter and a subject unto itself. In dealing with millions of alphas, certain 
+regularities become apparent. The best, most universal way of dealing 
+with this complexity (and the fact that all rules eventually break down) 
+is knowing when to cut your losses.
+The concept of cutting trading losses has been around for a long 
+time. It originated in what may be the oldest type of trading, so-called 
+trend following, in which a trader bets that a rising (or falling) security 
+will continue to rise (or fall). In such a scenario, trades typically are 
+entered when a new high is reached and exited when the accumulated 
+profits exceed some preset limits.
+In today’s trading world, alphas and strategies are seldom as simple 
+as that. Instead of following a particular security, we apply trend follow-
+ing to the accumulated profit and loss of a strategy as a whole, which 
+may consist of many individual alphas on many securities.
+
+--- PAGE 38 ---
+Cutting Losses
+19
+To put it plainly: cutting losses means abandoning rules that no 
+longer work.
+Although the logic of cutting losses is easy to see in trading, the 
+principle also holds true in other parts of life, including business, entre-
+preneurship, and even relationships. Sometimes you just have to admit 
+that whatever you’re doing is not working out and move on.
+Cutting losses requires discipline and the subjugation of your ego. 
+Typically, emotion plays a big role in any kind of thinking and deci-
+sion making. Neuroscientists have studied patients suffering from 
+damage to the areas of the brain involved in processing emotions, who 
+are unable to make simple decisions like choosing which shirt to put 
+on in the morning. In our work developing and deploying alphas, we 
+often are driven by emotional confidence. When we are devising a 
+strategy, the process starts with: “I understand how the world works. 
+I believe in my rule. Here is my rule.” Because ego and pride are inter-
+twined with this confidence, it may be difficult to let go of the rule 
+that you’ve come up with, even in the face of evidence that the rule no 
+longer works.
+Perhaps the practice of cutting losses is not followed more widely 
+for ego reasons. Or it may be that people lack knowledge of alternative 
+rules that might work. The often high cost of changing a strategy can 
+contribute to resistance to letting go of rules that no longer work.
+It’s wise to refrain from believing exclusively in any particular theory 
+or rule. You can believe them all, but don’t embrace any of them com-
+pletely. Sometimes they work; sometimes they don’t. The best indica-
+tor of whether a rule is good is how well it’s working at that moment. 
+The rest is speculation. If a rule works, we invest in it; if it doesn’t, 
+we don’t.
+We collect all ideas and let time and performance show what works 
+and what doesn’t – and when it works and when it doesn’t. When we 
+postulate a new idea, rule, or alpha based on historical data and thor-
+ough statistical analysis (sometimes with a touch of fundamental wis-
+dom), it then goes into our knowledge base. From this universe of ideas, 
+we seek to construct the closest thing possible to a depiction of financial 
+reality. But to do what we do, we have to be comfortable with the fact 
+that we will never know everything there is to know.
+The old saying is that in the land of the blind, the one-eyed man 
+is king. We live in the land of the blind. Particularly in trading and 
+financial markets, accepting that blindness and effectively using that 
+one good eye is a big advantage.
+
+--- PAGE 39 ---
+20
+Finding Alphas
+HOW TO APPLY THE PRINCIPLE OF THE UNRULE TO 
+CUTTING LOSSES
+We acknowledge that the number of imperfect ideas is unbounded and 
+that reality is unknown and unknowable. But each imperfect idea does 
+describe reality a bit, so the more alphas we possess, the better we can 
+describe an aspect of reality, and the closer we can come to having “one 
+eye” with which we can seek to increase profits.
+Because no rule is perfect, a combination of all rules may come as 
+close to perfection as possible.
+Applying all rules in tandem is a key to success. For example, to 
+cross the street, you might have the following three rules in mind:
+1.	Look left, look right, look left again, then it is safe to cross.
+2.	If you hear a loud noise, turn in the direction of the noise.
+3.	If you see a car headed toward you, run!
+You may start crossing the street believing in and comforted by 
+Rule 1, then hear a horn honking, which triggers Rule 2. Rule 1 should 
+be abandoned immediately because the safety conclusion has been 
+challenged by the noise. Then you apply Rule 3.
+This has the following implications:
+•• It is necessary to come up with as many good rules as possible.
+•• No single rule can ever be relied upon completely.
+•• It is necessary to develop a strategy for using rules simultaneously.
+How do you know when an investment strategy isn’t working? 
+When the strategy performs outside its expected returns. This usually is 
+accompanied by the following signals:
+•• A drawdown exceeds the typical drawdowns observed previously.
+•• The strategy’s Sharpe ratio falls significantly.
+•• Rules that were initially observed in historical simulation are no 
+longer valid in live trading.
+It is important to pursue different strategies simultaneously and to 
+shift your efforts into those that are working. Suppose you have a theory 
+describing when gold prices will rise. The theory works 50% of the 
+
+--- PAGE 40 ---
+Cutting Losses
+21
+time. Suppose you have 10 other equally solid theories. A combination 
+of theories should describe reality better than any one of them. And the 
+best way to manage which one of them is most accurate is by observing 
+which ones are working at the moment.
+Then comes the discipline of cutting losses.
+When a strategy stops working, determine the belief that initially 
+motivated the activity. If the belief was obviously false, you are playing 
+with dice. Best to terminate the activity and engage in more produc-
+tive efforts.
+Say you hire someone to renovate your house. They promise to do 
+the job for $50,000, but less than halfway through the project they’ve 
+already spent $45,000. At this point, you should cut that builder loose if 
+switching to a new one can be done cheaply enough.
+Suppose we are engaged in an activity – let’s call it X – that starts to 
+lose money. The activity can be anything, perhaps a trading strategy or 
+a business. We need to ask the following questions:
+•• Am I losing money in activity X?
+•• What is the maximum acceptable loss? (Call the maximum accept-
+able loss Y.)
+•• What is the observed loss amount? (Call the observed loss Z.)
+Before starting activity X, we should identify the maximum accept-
+able loss, Y. If the observed loss, Z, exceeds the maximum acceptable 
+loss, Y, and the exit cost is not too high, cut the loss.
+SUMMARY
+Examine each potential action before embarking on it. Determine:
+•• What’s the objective?
+•• What are the normal, expected difficulties?
+Plan in advance how to get out of the strategy cheaply.
+Pursue multiple strategies simultaneously.
+Cut all strategies that fall outside expectations.
+
+--- PAGE 41 ---
+
+--- PAGE 42 ---
+PART II
+Design and Evaluation
+ 
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 43 ---
+
+--- PAGE 44 ---
+4
+Alpha Design
+By Scott Bender and Yongfeng He
+This chapter will lay out the process of designing an alpha, starting with 
+raw data. We will discuss some of the important design decisions you 
+need to make when creating an alpha, as well as how to properly evalu-
+ate an alpha. At the end of this chapter, we will highlight some issues 
+that can arise after alphas have been developed and put into production.
+DATA INPUTS TO AN ALPHA
+Alphas are fueled by data. The edge sought for an alpha may come from 
+identifying high-quality pieces of publicly available data, superior pro-
+cessing of the data – or both. Some typical data sources are:
+•• Prices and volumes. Technical analysis or regression models may be 
+built based on this data.
+•• Fundamentals. By automating the analysis of key metrics for each 
+company, you can build alphas that typically have very low turnover.
+•• Macroeconomic data, such as GDP numbers and employment rates, 
+that have market-wide effects upon their release.
+•• Text, such as Federal Open Market Committee minutes, company fil-
+ings, papers, journals, news, or social media.
+•• Multimedia, notably relevant videos or audio. There are mature tech-
+niques to process such data – for example, converting audio into text 
+that can be used to build models.
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 45 ---
+26
+Finding Alphas
+Sometimes data sources aren’t used to generate a directional signal 
+but to attempt to reduce noise in predictions and refine other alpha sig-
+nals. Examples are:
+•• Risk factor models. By controlling risk exposure or eliminating 
+exposure to some risk factors, one can seek to improve the alpha’s 
+performance.
+•• Relationship models, such as instruments that typically are correlated 
+with each other to some extent. Some may lead or lag others, thus 
+generating potential opportunities for arbitrage.
+Today, with information growing explosively, extracting signals from 
+an expanding ocean of data is more and more challenging. The solution 
+space is nonconvex, discontinuous, and dynamic; good signals often 
+arise where they are least expected. How can we extract such signals? 
+By limiting the search space and using methods previously employed 
+by treasure hunters:
+•• Searching in the vicinity of previous discoveries.
+•• Conserving resources to avoid digging too deeply.
+•• Using validated cues to improve the probability of a find.
+•• Allocating at least some resources (computational power) to test 
+wild theories.
+ALPHA UNIVERSE
+An important step in designing an alpha is choosing the target set of 
+assets to be traded; this set of assets is called the universe of the alpha. 
+The universe may be restricted along one or more dimensions, such as:
+•• Asset class (stocks, exchange-traded funds, futures, currencies, 
+options, bonds, etc.)
+•• Region or country
+•• Sector or industry
+•• Individual instruments
+The universe choice typically is driven by the coverage of the input 
+data or the alpha idea, but alphas can be designed and tuned specifically 
+for a certain universe even if the data has wider coverage.
+
+--- PAGE 46 ---
+Alpha Design
+27
+ALPHA PREDICTION FREQUENCY
+Another important design decision when creating an alpha is the predic-
+tion frequency. This defines the times at which the alpha will generate 
+new predictions.
+Some typical frequencies:
+•• Tick. New predictions are triggered by events such as a trade in 
+the market.
+•• Intraday. Predictions are generated multiple times at predetermined 
+points during the day.
+•• Daily. One prediction per day, of which there are several typi-
+cal subtypes:
+■
+■Delay 1. Only data available before the current trading day may be 
+used to make a prediction.
+■
+■Delay 0 snapshot. Data before a specific time may be used to make 
+a prediction.
+■
+■MOO/MOC. Predictions are tied to the opening or closing auction.
+•• Weekly or monthly.
+As with the choice of universe, this decision often is guided by the 
+frequency of the input data.
+VALUE OF AN ALPHA
+The ultimate test of alpha value is how much risk-adjusted profit the 
+alpha adds to the strategy in which it is trading. In practice, this is dif-
+ficult to precisely measure because:
+•• There is no canonical strategy in which an alpha may be used, and the 
+exact strategy in which the alpha will be used may not be known at 
+the time of its design.
+•• There are often nonlinear effects in the combination that make it dif-
+ficult to precisely attribute profit to individual alphas.
+All that said, we can still make useful predictions about whether an 
+alpha will add value in strategies, and we can provide a reasonable esti-
+mate of how much an alpha contributed to the strategy’s performance.
+
+--- PAGE 47 ---
+28
+Finding Alphas
+PRACTICAL ALPHA EVALUATION
+Because the target trading strategy may not be known when the alpha 
+is being designed, when considering an alpha on its own, how can we 
+know if it will be useful? Alternatively, when an alpha is changed, is it 
+really improved? To answer these questions, good quantitative meas-
+urements are required.
+A typical method for collecting measurements about trading strate-
+gies is to run a simulation (that is, backtest) and measure characteristics 
+of the result, such as the information ratio. One way to make analo-
+gous measurements for an alpha is to do a mapping of its predictions 
+to a trading strategy and then run such a simulation. There are different 
+ways to do this mapping, but the simplest is to assume the prediction 
+strength of an alpha is the dollar position taken by the trading strategy. 
+One issue with this mapping method is that alphas often will not map 
+to good strategies on their own because they are designed to predict 
+returns, not to make profitable trades net of costs. One way to address 
+this issue is by charging reduced transaction costs in the simulation.
+Once the simulation has been constructed, some useful measure-
+ments that can be taken are:
+•• Information ratio. The mean of the alpha’s returns divided by the 
+standard deviation of the returns, this measures how consistently the 
+alpha makes good predictions. Combining the information ratio with 
+the length of the observation period can help us determine our level 
+of confidence that the alpha is better than random noise. A reason-
+able annualized information ratio for a unique alpha with little fitting, 
+observed over a five-year period, would be 1.0. In practice, alphas 
+have some fitting and some correlation to existing alphas, so the 
+information ratio is typically a bit higher than this.
+•• Margin is the amount of profit the alpha made in the simulation 
+divided by the amount of trading that was done. This is an indicator 
+of how sensitive the alpha is to transaction costs. A higher margin 
+means the alpha is not much affected by trading costs. Alphas with 
+low margins won’t add value unless they are very different from the 
+other alphas in the strategy. For an average daily alpha, a margin of 5 
+basis points typically is acceptable.
+•• Correlation measures the uniqueness of an alpha and often is meas-
+ured against the most correlated alpha that exists in the alpha pool. 
+
+--- PAGE 48 ---
+Alpha Design
+29
+Lower correlation indicates that the alpha is more unique and there-
+fore more desirable. For an alpha whose characteristics are otherwise 
+average, the following interpretation of the maximum correlation is 
+reasonable:
+■
+■More than 0.7: Too high unless the alpha is significantly better than 
+the existing alpha.
+■
+■0.5 to 0.7: Borderline. The alpha should be exceptional in some 
+other metric.
+■
+■0.3 to 0.5: Generally acceptable.
+■
+■Less than 0.3: Good.
+The measurements above can be made more complex. For example, 
+it can be useful to test whether the alpha has good information ratios on 
+both liquid stocks (stocks with high trading volume) and illiquid stocks. 
+If the alpha is only predictive on illiquid stocks, it may have limited 
+usefulness in a strategy that intends to trade very large sizes.
+FUTURE PERFORMANCE
+All of the measurements in the preceding section are intended to 
+evaluate an alpha when there is no information other than the actual 
+predictions. However, additional information, such as how the alpha 
+was constructed, can be useful in determining whether the alpha will 
+make good predictions going forward. Ultimately, what is important 
+is whether the alpha makes usable future predictions, not historical 
+predictions.
+Consider an alpha that has a high information ratio but was built by 
+optimizing parameters that have no economic explanation to historical 
+data. For example, suppose the alpha had 12 parameters, one for each 
+month (x1. . .x12), and suppose the alpha rule is simply to buy x1 dol-
+lars of all stocks in January, x2 dollars of all stocks in February, and so 
+forth. If x1–x12 was optimized over the past year, the alpha would make 
+good predictions for the past year, but there is no reason to think they 
+would work going into the next year.
+In general, each optimization or improvement made to an alpha after 
+observing historical data will improve the alpha’s historical perfor-
+mance by some amount and its future performance by some different, 
+usually smaller, amount. The alpha designer should take special care to 
+
+--- PAGE 49 ---
+30
+Finding Alphas
+ensure that changes are expected to improve the alpha going forward, 
+not just historically.
+When changes to the alpha yield very small (or even negative) 
+improvements to the future predictions compared with large improve-
+ments of historical predictions, the alpha is being overfit to the historical 
+data. Alpha designers can measure the effect of this overfitting by look-
+ing at the performance of their alphas on data that was not used in alpha 
+construction (out-of-sample data) and comparing it with the data used 
+to improve the alpha (in-sample data). The comparison of in-sample 
+to out-of-sample performance is useful not only on the alpha level but 
+also in aggregate across all alphas from a given designer or on groups 
+of alphas from a given designer. These comparisons on groups of alphas 
+can measure the tendency of a designer’s methodology to overfit.
+CONCLUSION
+This chapter discussed the major elements of alpha design, including 
+practical approaches to evaluate alphas. Some potential issues that arise 
+after alphas are developed also were addressed. By harnessing the expo-
+nential growth of computing power and data sources, combined with 
+a solid alpha design framework, we can generate alphas and trading 
+strategies that evolve with the market.
+
+--- PAGE 50 ---
+5
+How to Develop an Alpha: 
+A Case Study
+By Pankaj Bakliwal and Hongzhi Chen
+In this chapter, we explain how to design an alpha, the logic behind 
+an alpha, how to convert an alpha idea into a mathematical predictive 
+formula by using appropriate information, and how to improve the idea. 
+We will also introduce some important concepts on evaluating the per-
+formance of an alpha.
+Before we talk more about alpha development and design, let’s 
+study a simple example to get a better understanding of what an alpha 
+looks like.
+Let’s say we have $1 million in capital and want to invest continu-
+ously in a portfolio consisting of two stocks: Alphabet (GOOG) and 
+Apple (AAPL). We need to know how to allocate our capital between 
+these two stocks. If we do a daily rebalancing of our portfolio, we need 
+to predict the next few days’ return of each stock. How do we do this?
+There are a lot of things that can affect the stocks’ prices, such as 
+trader behavior, price trends, news, fundamental corporate change, and 
+a change in holdings by big institutions or corporate insiders – ­officers, 
+directors, or shareholders with more than 10% of a class of the com-
+pany’s registered equity securities. To make things simple, we can 
+deconstruct the prediction process into two steps: first, we predict the 
+stock returns of each instrument, using a single factor like news or price 
+trends; second, we aggregate all the different predictions.
+Let’s try to develop an alpha using recent price trends, employing 
+available data in the form of the daily historical prices of these two 
+stocks. The next step is to come up with a sensible idea. Let’s say that, 
+based on the historical prices, we observe that the two stocks have 
+trended upward during the past week. Logic says that in the absence 
+of any additional information, when stock prices rise, investors tend 
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 51 ---
+32
+Finding Alphas
+to book profits and close their long positions, which in turn pushes the 
+stock prices downward. At the same time, when stock prices fall, inves-
+tors see an opportunity to buy shares at a cheaper rate, which in turn 
+pushes the stock prices upward.
+Converting an idea into a mathematical expression is not always straight-
+forward. In the above case, though, it can be done simply as follows:
+	
+Alpha
+week returns
+1
+	
+The negative sign indicates that a short position is taken when the 
+trend is upward and a long position when the trend is downward. The 
+dollar amount of the long–short position in a particular financial instru-
+ment is determined by the magnitude of the value given by the formula. 
+This means that the stronger the price trend, the greater the likelihood 
+the price will revert. Suppose our algorithm produces the following val-
+ues for two stocks, respectively:
+	
+Alpha GOOG
+2 	
+	
+Alpha AAPL
+1	
+The values above have a ratio of 2 to 1. This means we want to hold 
+twice as much of GOOG as we do of AAPL; the positive number means 
+we want to hold a long position, while the negative number means we 
+want to hold a short position. Thus, using $1 million of capital as an 
+example, we want to be long $1 million of GOOG and short $500,000 
+of AAPL at the end of today’s trading. This example, of course, assumes 
+zero transaction costs.
+So the alpha model is actually an algorithm that transforms input 
+data (price-volume, news, fundamental, etc.) into a vector, which is pro-
+portional to the money we want to hold in each instrument.
+	
+Alpha input data
+alpha value vector	
+Now that we understand what an alpha is, let’s write our first alpha.1 
+We will introduce more concepts along the way. Above all, we need 
+1  The sample alphas and returns described in this chapter are included for 
+illustrative purposes only and are not intended to be indicative of any strategy 
+utilized by WorldQuant or its affiliates.
+
+--- PAGE 52 ---
+How to Develop an Alpha: A Case Study
+33
+to define a universe – that is, the set of financial instruments on which 
+we want to build the alpha model. Let’s focus on the US equity mar-
+ket. There are different ways to select equity instruments, such as using 
+components of the S&P 500 index. Suppose we use the most liquid 
+3,000 stocks in the US as our research universe (call it TOP3000).
+Next we need an idea to predict the stock price. We can use the same 
+mean-reversion idea mentioned above and express it in terms of a math-
+ematical expression as follows:
+	Alpha1
+close today
+close
+days
+close
+days
+5
+5
+_
+_
+/
+_
+_
+ago
+ago 	
+To find out if this idea works, we need a simulator to do backtesting. 
+We can use WebSim for this purpose.
+Using WebSim, we get the sample results for this alpha, as shown in 
+Figure 5.1.
+Table  5.1 shows several performance metrics used to evaluate an 
+alpha. We focus on the most important metrics.
+The backtesting is done from 2010 through 2015, so each row of the 
+output lists the annual performance of that year. The total simulation 
+book size is always fixed at $20 million; the PnL is the annual PnL.
+Cumulative proﬁt
+$15MM
+$10MM
+$5MM
+$0
+01/10
+07/10
+10/10
+01/11
+04/11
+07/11
+10/11
+01/12
+04/12
+07/12
+10/12
+01/13
+04/13
+07/13
+10/13
+01/14
+04/14
+07/14
+10/14
+01/15
+Figure 5.1  Sample simulation result of Alpha1 by WebSim
+
+--- PAGE 53 ---
+
+--- PAGE 54 ---
+How to Develop an Alpha: A Case Study
+35
+Annual return is defined as:
+	
+Ann
+ann pnl
+_
+_
+/
+/
+return
+booksize 2 	
+The annual return measures the profitability of the alpha.
+The information ratio is the single most important metric we will 
+look at. It is defined as:
+	
+Information ratio
+average daily return
+daily volatility
+_
+/
+*sqrt 256
+	
+The information ratio measures the information contained in the 
+alpha, which roughly means the stability of the alpha’s profitability: 
+higher is better.
+Max drawdown measures the highest peak-to-trough loss from a 
+local maximum of the PnL to a subsequent local minimum as a percent-
+age of book size divided by two (the long or short side of the book).
+Percent profitable days measures the percentage of positive days in 
+each year.
+Daily turnover measures how fast you rebalance your portfolio and 
+is defined as:
+	
+Daily turnover
+average dollars traded each
+booksize
+_
+/
+day
+	
+Profit per dollar traded measures how much you made for each dol-
+lar you traded and is defined as:
+	
+Profit
+traded
+total traded dollar
+_
+_$_
+/
+_
+_
+per
+pnl
+	
+For this alpha, the total information ratio is about 1, with a high return of 
+about 31.2% but with a very high max drawdown of 39.22%. This means 
+the risk is very high, so the PnL is not very stable. To reduce the simulated 
+max drawdown, we need to remove some potential risks. We can achieve 
+this by using some risk neutralization techniques. Industry risk and market 
+risk are the biggest risks for the equity market. We can partially remove them 
+by requiring our portfolios to be long–short balanced within each industry.
+We neutralize our alpha by requiring:
+	
+Sum Alpha2 value within same industry
+0	
+By doing this, we get a new sample result, as seen in Figure 5.2.
+
+--- PAGE 55 ---
+36
+Finding Alphas
+As Table 5.2 shows, the information ratio is increased to 1.37 and 
+the return is decreased to 10.22%, but the max drawdown is decreased 
+significantly, to less than 9%. This is a big improvement.
+The magnitude of our alpha is five days’ return, which is not very 
+accurate as a predictor; the relative size may be more accurate. To 
+improve the alpha, we introduce the concept of cross-sectional rank, 
+which means using the relative rank of the alpha values as the new 
+alpha values.
+	
+Alpha3
+rank Alpha1 	
+	
+Sum Alpha3 value within same industry
+0	
+The results are reflected in Figure 5.3.
+As can be seen from Table 5.3, we get another significant improve-
+ment. Now the performance looks much better, but the turnover is still 
+a little high. We can try to decrease it by using decay. Decay means 
+averaging your alpha signal over some time window.
+Basically, it means:
+	
+New
+new
+old
+_
+_
+_
+_
+alpha
+alpha
+weighted
+alpha	
+When we try three days’ decay in WebSim, we get the results shown 
+in Figure 5.4.
+Cumulative proﬁt
+$6MM
+$5MM
+$4MM
+$3MM
+$2MM
+$1MM
+$0
+01/10
+07/10
+10/10
+01/11
+04/11
+07/11
+10/11
+01/12
+04/12
+07/12
+10/12
+01/13
+04/13
+07/13
+10/13
+01/14
+04/14
+07/14
+10/14
+01/15
+Figure 5.2  Sample simulation result of Alpha2 by WebSim
+
+--- PAGE 56 ---
+
+--- PAGE 57 ---
+38
+Finding Alphas
+Cumulative proﬁt
+$5MM
+$4MM
+$3MM
+$2MM
+$1MM
+$0
+04/10
+07/10
+10/10
+01/11
+04/11
+07/11
+10/11
+01/12
+04/12
+07/12
+10/12
+01/13
+04/13
+07/13
+10/13
+01/14
+04/14
+07/14
+10/14
+01/15
+Figure 5.3  Sample simulation result of Alpha3 by WebSim
+Cumulative proﬁt
+$6MM
+$5MM
+$4MM
+$3MM
+$2MM
+$1MM
+$0
+04/10
+07/10
+10/10
+01/11
+04/11
+07/11
+10/11
+01/12
+04/12
+07/12
+10/12
+01/13
+04/13
+07/13
+10/13
+01/14
+04/14
+07/14
+10/14
+01/15
+Figure 5.4  Sample simulation result of New_alpha by WebSim
+
+--- PAGE 58 ---
+
+--- PAGE 59 ---
+
+--- PAGE 60 ---
+How to Develop an Alpha: A Case Study
+41
+Table 5.4 looks great. Not only is the turnover decreased, but the 
+information ratio, return, and drawdown are also improved. Note that 
+at each point, after evaluating the performance of the alpha, you can go 
+back to the raw idea and make meaningful changes to further improve 
+the alpha.
+CONCLUSION
+In this chapter, we have explained the logic behind an alpha, provided 
+some examples of ideas, and discussed how to convert those ideas into 
+mathematical expressions and translate them into instrument positions. 
+We have also explained how to analyze and improve an alpha’s perfor-
+mance. The entire alpha logic is nicely summarized by the flow chart 
+in Figure 5.5.
+You can think of more ways to improve an alpha – just be creative.
+The next step is to explore other ideas and datasets, hunting for 
+something really unique. A unique idea is good because you can trade it 
+before others do, potentially leading to more profit.
+Good luck!
+1. Idea
+2. Raw alpha
+3. Position
+4. PnL
+5. Performance
+(IR, tvr, ret...)
+Operations
+Expression
+Analyze
+R
+e
+v
+i
+s
+e
+Stats
+ALPHA LOGIC
+Figure 5.5  Five steps to creating alphas
+
+--- PAGE 61 ---
+
+--- PAGE 62 ---
+6
+Data and Alpha Design
+By Weijia Li
+Data plays a central role in alpha design. First, basic data, such as the 
+price and volume of a security, is necessary to run a backtesting simula-
+tion. No matter what kind of alpha idea one wants to backtest, this basic 
+information is required to calculate performance statistics like return, 
+Sharpe ratio, and turnover. Without these statistics, we will never know 
+whether an alpha idea is good. Second, data itself can inspire alpha 
+ideas – every alpha idea is associated with some sort of data. By observ-
+ing the price–volume plots of some stocks, for example, we may find 
+repeating patterns in the history that can be used to make predictions for 
+the future. If we also have access to company earnings data, one idea 
+would be to trade stocks based on fluctuations in earnings.
+In this chapter, we will discuss the effective use of data in alpha 
+design. Usually, finding data is the first step in alpha research. After the 
+data is obtained, some sanity checks should be made to verify the data’s 
+usability. Then we may start alpha research.
+HOW WE FIND DATA FOR ALPHAS
+Finding new data is a critical skill for an alpha researcher. We prefer 
+alphas with good performance and low correlation; a new dataset can 
+serve both purposes. Sometimes we can get signals from one set of data, 
+but they may not be strong enough even after we have tried our best to 
+improve them. If we can get another set of data and look at companies 
+from a different angle, we may improve on the original signals. We 
+always want to create uncorrelated alphas to diversify the alpha pool. 
+However, even when the alpha ideas are different, signals from the same 
+dataset may still be highly correlated. There can be an intrinsic correla-
+tion between the signals because the same data has been used. If we 
+Finding Alphas: A Quantitative Approach to Building Trading Strategies, Second Edition. Edited by Igor Tulchinsky et al. an
+WorldQuant Virtual Research Center.
+© 2020 Tulchinsky et al., WorldQuant Virtual Research Center. Published 2020 by John Wiley & Sons, Ltd.
+
+--- PAGE 63 ---
+44
+Finding Alphas
+have a new dataset, it will inspire new ideas and new ways of using the 
+dataset. Ideally, the alpha signals found in the new dataset will have a 
+low correlation to signals that are based on different types of data. By 
+using new data, we may achieve both performance improvement and 
+diversification.
+Data from Literature
+It is nice to have new data to make new alphas, but how do we get 
+new data? There are many possible sources. The most common is aca-
+demic literature. If we search for “stock returns” on the internet, we can 
+find thousands of papers that are trying to establish ways of capturing 
+“abnormal returns” (i.e. alphas). In those papers, we learn about the 
+data used in their studies: price–volume, fundamentals, earnings, and 
+so forth. Once we get that data, we can try the same methods used in 
+the paper to develop an alpha. It is also possible to find information by 
+scanning for publicly available content on the internet. Bear in mind 
+that the less well known the data, the more valuable it can be. If the data 
+is well known, many people may have similar alpha models, which can 
+gradually arbitrage away the alpha. However, there is a possibility that 
+even if the data is popular, no one has applied it the way we will, so it 
+may still be useful.
+Data from Vendors
+Data is valuable, and providing it is a business. There are many vendors 
+that specialize in collecting, parsing, processing, and delivering data. 
+If the data is simple, vendors may provide only the raw data they have 
+collected, such as price and volume. Sometimes vendors do parsing and 
+processing before providing data to their clients; fundamental data is an 
+example. For unstructured yet sophisticated data, such as news, Twit-
+ter posts, and so on, vendors typically apply natural language process-
+ing techniques to analyze the content of the raw data. They provide 
+machine-readable data to their clients instead of raw data that is only 
+human-readable. Some vendors even sell alpha models directly – this 
+means the data itself is the output of alpha models. The clients need 
+only to load the data and trade according to it. Such alpha models are 
+risky, however, because they may be overfit and/or overcrowded, with 
+many clients of the same vendor trading the same model. To avoid these 
+risks, the users of these models must test them carefully out of sample 
+(OS), after the data is point-in-time, and use them in nontrivial ways.
+
+--- PAGE 64 ---
+Data and Alpha Design
+45
+DATA VALIDATION
+When alpha researchers get new data, the first thing they need to do – 
+before checking alpha signals on it – is check the data’s usability. In 
+alpha simulation, the data delivery time is a very important factor. Any 
+piece of data is useless if it does not have a timestamp. This is because 
+without knowing the time a data point is created, we cannot effectively 
+chart its progression; essentially, we are using the data blindly. Only 
+with the correct timestamp can we do correct simulations. If we attempt 
+to use the data before it is available, we will have forward-looking bias, 
+which will make the alpha’s performance look amazing in simula-
+tion but will be unrealizable in live trading. If we do not use the data 
+promptly, the alpha will not perform up to its potential. For example, 
+if Apple’s earnings exceeded expectations, its stock price most likely 
+would increase, all other things being equal; the earnings announce-
+ment would be a good time to buy. If, however, we waited a week to 
+buy Apple, we would not be able to realize those gains because the 
+good news already would have been priced into the stock. So for every 
+dataset we want to use in alpha research, we need to learn about the 
+data delivery timeline and take care to access the data only when it is 
+available, to make sure that we do not have forward-looking bias and 
+that we get meaningful simulation results. We also need to ensure that 
+the data can support alpha production – that the data will be generated 
+in the future following a reliable schedule. Sometimes we learn that the 
+data producer will cease to generate the data. In this case, the data is not 
+usable for an alpha because there is no way to get more data in real time.
+Another possible problem is survival bias. Even if a data vendor pro-
+vides an alpha model that performs well when it is tested, this does not 
+mean the model will perform well in the future. That is because we do 
+not know how many models the vendor developed before this single 
+model was selected. If the vendor tried 1,000 models and only one sur-
+vived, we may face survival bias. The bias is introduced by the vendor 
+and out of our control. In this case, some out-of-sample testing period 
+for the dataset might be useful. Out-of-sample testing is helpful because 
+it is not conducted in a controlled universe and strong performance is a 
+good indicator of an alpha’s robustness.
+In historical simulations, one bad data point can kill the entire alpha 
+signal. In live production, it is very dangerous to assume that the data 
+always is correct. If the data goes wrong, it can distort the alpha sig-
+nals and potentially cause significant losses. When using data in alpha 
+
+[TRUNCATED at 80000 chars — 321 total pages]

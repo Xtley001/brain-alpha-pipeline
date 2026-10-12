@@ -1,0 +1,1591 @@
+
+--- PAGE 1 ---
+THE FRANK J. FABOZZI SERIES
+QUANTITATIVE
+EQUITY
+INVESTING
+FRANK J. FABOZZI, SERGIO M. FOCARDI, PETTER N. KOLM 
+Techniques and Strategies
+
+--- PAGE 2 ---
+ 
+ 
+ 
+ 
+ 
+FOR SALE & EXCHANGE 
+ 
+ 
+ 
+ 
+ 
+www.trading-software-collection.com 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Mirrors: 
+ 
+www.forex-warez.com   
+www.traders-software.com 
+www.trading-software-download.com 
+ 
+ 
+ 
+Join My Mailing List 
+ 
+
+--- PAGE 3 ---
+
+--- PAGE 4 ---
+Quantitative
+Equity
+Investing
+
+--- PAGE 5 ---
+The Frank J. Fabozzi Series
+Fixed Income Securities, Second Edition by Frank J. Fabozzi
+Focus on Value: A Corporate and Investor Guide to Wealth Creation by James L. Grant and James A. Abate
+Handbook of Global Fixed Income Calculations by Dragomir Krgin
+Managing a Corporate Bond Portfolio by Leland E. Crabbe and Frank J. Fabozzi
+Real Options and Option-Embedded Securities by William T. Moore
+Capital Budgeting: Theory and Practice by Pamela P. Peterson and Frank J. Fabozzi
+The Exchange-Traded Funds Manual by Gary L. Gastineau
+Professional Perspectives on Fixed Income Portfolio Management, Volume 3 edited by Frank J. Fabozzi
+Investing in Emerging Fixed Income Markets edited by Frank J. Fabozzi and Efstathia Pilarinu
+Handbook of Alternative Assets by Mark J. P. Anson
+The Global Money Markets by Frank J. Fabozzi, Steven V. Mann, and Moorad Choudhry
+The Handbook of Financial Instruments edited by Frank J. Fabozzi
+Collateralized Debt Obligations: Structures and Analysis by Laurie S. Goodman and Frank J. Fabozzi
+Interest Rate, Term Structure, and Valuation Modeling edited by Frank J. Fabozzi
+Investment Performance Measurement by Bruce J. Feibel
+The Handbook of Equity Style Management edited by T. Daniel Coggin and Frank J. Fabozzi
+The Theory and Practice of Investment Management edited by Frank J. Fabozzi and Harry M. Markowitz
+Foundations of Economic Value Added, Second Edition by James L. Grant
+Financial Management and Analysis, Second Edition by Frank J. Fabozzi and Pamela P. Peterson
+Measuring and Controlling Interest Rate and Credit Risk, Second Edition by Frank J. Fabozzi, 
+Steven V. Mann, and Moorad Choudhry
+Professional Perspectives on Fixed Income Portfolio Management, Volume 4 edited by Frank J. Fabozzi
+The Handbook of European Fixed Income Securities edited by Frank J. Fabozzi and Moorad Choudhry
+The Handbook of European Structured Financial Products edited by Frank J. Fabozzi and 
+Moorad Choudhry
+The Mathematics of Financial Modeling and Investment Management by Sergio M. Focardi and 
+Frank J. Fabozzi
+Short Selling: Strategies, Risks, and Rewards edited by Frank J. Fabozzi
+The Real Estate Investment Handbook by G. Timothy Haight and Daniel Singer
+Market Neutral Strategies edited by Bruce I. Jacobs and Kenneth N. Levy
+Securities Finance: Securities Lending and Repurchase Agreements edited by Frank J. Fabozzi and 
+Steven V. Mann
+Fat-Tailed and Skewed Asset Return Distributions by Svetlozar T. Rachev, Christian Menn, and 
+Frank J. Fabozzi
+Financial Modeling of the Equity Market: From CAPM to Cointegration by Frank J. Fabozzi, Sergio M. 
+Focardi, and Petter N. Kolm
+Advanced Bond Portfolio Management: Best Practices in Modeling and Strategies edited by 
+Frank J. Fabozzi, Lionel Martellini, and Philippe Priaulet
+Analysis of Financial Statements, Second Edition by Pamela P. Peterson and Frank J. Fabozzi
+Collateralized Debt Obligations: Structures and Analysis, Second Edition by Douglas J. Lucas, Laurie S. 
+Goodman, and Frank J. Fabozzi
+Handbook of Alternative Assets, Second Edition by Mark J. P. Anson
+Introduction to Structured Finance by Frank J. Fabozzi, Henry A. Davis, and Moorad Choudhry
+Financial Econometrics by Svetlozar T. Rachev, Stefan Mittnik, Frank J. Fabozzi, Sergio M. Focardi, and 
+Teo Jasic 
+Developments in Collateralized Debt Obligations: New Products and Insights by Douglas J. Lucas, 
+Laurie S. Goodman, Frank J. Fabozzi, and Rebecca J. Manning
+Robust Portfolio Optimization and Management by Frank J. Fabozzi, Peter N. Kolm, 
+Dessislava A. Pachamanova, and Sergio M. Focardi
+Advanced Stochastic Models, Risk Assessment, and Portfolio Optimizations by Svetlozar T. Rachev, 
+Stogan V. Stoyanov, and Frank J. Fabozzi
+How to Select Investment Managers and Evaluate Performance by G. Timothy Haight, 
+Stephen O. Morrell, and Glenn E. Ross
+Bayesian Methods in Finance by Svetlozar T. Rachev, John S. J. Hsu, Biliana S. Bagasheva, and 
+Frank J. Fabozzi
+Structured Products and Related Credit Derivatives by Brian P. Lancaster, Glenn M. Schultz, and 
+Frank J. Fabozzi
+
+--- PAGE 6 ---
+John Wiley & Sons, Inc.
+Quantitative
+Equity
+Investing
+Techniques and Strategies
+FRANK J. FABOZZI
+SERGIO M. FOCARDI
+PETTER N. KOLM
+with the assistance of 
+ Joseph A. Cerniglia and 
+Dessislava Pachamanova
+
+--- PAGE 7 ---
+Copyright © 2010 by John Wiley & Sons, Inc. All rights reserved.
+Published by John Wiley & Sons, Inc., Hoboken, New Jersey.
+Published simultaneously in Canada.
+No part of this publication may be reproduced, stored in a retrieval system, or transmit-
+ted in any form or by any means, electronic, mechanical, photocopying, recording, scan-
+ning, or otherwise, except as permitted under Section 107 or 108 of the 1976 United States 
+Copyright Act, without either the prior written permission of the Publisher, or authorization 
+through payment of the appropriate per-copy fee to the Copyright Clearance Center, Inc., 222 
+Rosewood Drive, Danvers, MA 01923, (978) 750-8400, fax (978) 646-8600, or on the web 
+at www.copyright.com. Requests to the Publisher for permission should be addressed to the 
+Permissions Department, John Wiley & Sons, Inc., 111 River Street, Hoboken, NJ 07030, 
+(201) 748-6011, fax (201) 748-6008, or online at http://www.wiley.com/go/permissions.
+Limit of Liability/Disclaimer of Warranty: While the publisher and author have used their 
+best efforts in preparing this book, they make no representations or warranties with respect 
+to the accuracy or completeness of the contents of this book and speciﬁ cally disclaim any 
+implied warranties of merchantability or ﬁ tness for a particular purpose. No warranty may 
+be created or extended by sales representatives or written sales materials. The advice and 
+strategies contained herein may not be suitable for your situation. You should consult with a 
+professional where appropriate. Neither the publisher nor author shall be liable for any loss 
+of proﬁ t or any other commercial damages, including but not limited to special, incidental, 
+consequential, or other damages.
+For general information on our other products and services or for technical support, please 
+contact our Customer Care Department within the United States at (800) 762-2974, outside 
+the United States at (317) 572-3993, or fax (317) 572-4002.
+Wiley also publishes its books in a variety of electronic formats. Some content that appears in 
+print may not be available in electronic books. For more information about Wiley products, 
+visit our web site at www.wiley.com.
+Library of Congress Cataloging-in-Publication Data:
+Fabozzi, Frank J.
+Quantitative equity investing : techniques and strategies / Frank J. Fabozzi, Sergio M. 
+Focardi, Petter N. Kolm ; with the assistance of Joseph A. Cerniglia and Dessislava Pacha-
+manova.
+       p. cm. — (The Frank J. Fabozzi series)
+Includes index.
+ISBN 978-0-470-26247-4 (cloth)
+1.  Portfolio management. 2.  Investments.  I. Focardi, Sergio. II. Kolm, Petter N. III. Title.
+  HG4529.5.F3346 2010
+  332.63’2042—dc22
+                                                            2009050962
+Printed in the United States of America.
+10   9   8   7   6   5   4   3   2   1
+
+--- PAGE 8 ---
+FJF
+To my wife Donna, and my children 
+Francesco, Patricia, and Karly
+SMF
+To my mother and in memory of my father
+PNK
+To my wife and my daughter, Carmen and Kimberly,
+and in memory of my father-in-law, John
+
+--- PAGE 9 ---
+
+--- PAGE 10 ---
+Contents
+vii
+Preface 
+xi
+About the Authors 
+xv
+CHAPTER 1 
+Introduction 
+1
+In Praise of Mathematical Finance  
+3
+Studies of the Use of Quantitative Equity Management 
+9
+Looking Ahead for Quantitative Equity Investing 
+45
+CHAPTER 2
+Financial Econometrics I: Linear Regressions 
+47
+Historical Notes 
+47
+Covariance and Correlation 
+49
+Regressions, Linear Regressions, and Projections 
+61
+Multivariate Regression 
+76
+Quantile Regressions 
+78
+Regression Diagnostic 
+80
+Robust Estimation of Regressions 
+83
+Classiﬁ cation and Regression Trees 
+96
+Summary 
+99
+CHAPTER 3
+Financial Econometrics II: Time Series 
+101
+Stochastic Processes 
+101
+Time Series 
+102
+Stable Vector Autoregressive Processes 
+110
+Integrated and Cointegrated Variables 
+114
+Estimation of Stable Vector Autoregressive (VAR) Models 
+120
+Estimating the Number of Lags 
+137
+Autocorrelation and Distributional Properties of Residuals 
+139
+Stationary Autoregressive Distributed Lag Models 
+140
+
+--- PAGE 11 ---
+viii 
+CONTENTS
+Estimation of Nonstationary VAR Models 
+141
+Estimation with Canonical Correlations 
+151
+Estimation with Principal Component Analysis 
+153
+Estimation with the Eigenvalues of the Companion Matrix 
+154
+Nonlinear Models in Finance 
+155
+Causality 
+156
+Summary 
+157
+CHAPTER 4
+Common Pitfalls in Financial Modeling 
+159
+Theory and Engineering 
+159
+Engineering and Theoretical Science 
+161
+Engineering and Product Design in Finance 
+163
+Learning, Theoretical, and Hybrid Approaches to 
+Portfolio Management 
+164
+Sample Biases 
+165
+The Bias in Averages 
+167
+Pitfalls in Choosing from Large Data Sets 
+170
+Time Aggregation of Models and Pitfalls in the 
+Selection of Data Frequency 
+173
+Model Risk and its Mitigation 
+174
+Summary 
+193
+CHAPTER 5
+Factor Models and Their Estimation 
+195
+The Notion of Factors 
+195
+Static Factor Models 
+196
+Factor Analysis and Principal Components Analysis 
+205
+Why Factor Models of Returns 
+219
+Approximate Factor Models of Returns 
+221
+Dynamic Factor Models 
+222
+Summary 
+239
+CHAPTER 6  
+Factor-Based Trading Strategies I: 
+Factor Construction and Analysis 
+243
+Factor-Based Trading 
+245
+Developing Factor-Based Trading Strategies 
+247
+Risk to Trading Strategies 
+249
+Desirable Properties of Factors 
+251
+Sources for Factors 
+251
+
+--- PAGE 12 ---
+Contents 
+ix
+Building Factors from Company Characteristics 
+253
+Working with Data 
+253
+Analysis of Factor Data  
+261
+Summary 
+266
+CHAPTER 7
+Factor-Based Trading Strategies II: 
+Cross-Sectional Models and Trading Strategies 
+269
+Cross-Sectional Methods for Evaluation of Factor Premiums 
+270
+Factor Models 
+278
+Performance Evaluation of Factors 
+288
+Model Construction Methodologies for a 
+Factor-Based Trading Strategy 
+295
+Backtesting 
+306
+Backtesting Our Factor Trading Strategy 
+308
+Summary 
+309
+CHAPTER 8
+Portfolio Optimization: Basic Theory and Practice 
+313
+Mean-Variance Analysis: Overview  
+314
+Classical Framework for Mean-Variance Optimization  
+317
+Mean-Variance Optimization with a Risk-Free Asset 
+321
+Portfolio Constraints Commonly Used in Practice  
+327
+Estimating the Inputs Used in Mean-Variance Optimization: 
+Expected Return and Risk 
+333
+Portfolio Optimization with Other Risk Measures 
+342
+Summary 
+357
+CHAPTER 9
+Portfolio Optimization: Bayesian Techniques and the 
+Black-Litterman Model  
+361
+Practical Problems Encountered in 
+Mean-Variance Optimization 
+362
+Shrinkage Estimation  
+369
+The Black-Litterman Model 
+373
+Summary 
+394
+CHAPTER 10
+Robust Portfolio Optimization 
+395
+Robust Mean-Variance Formulations 
+396
+Using Robust Mean-Variance Portfolio Optimization 
+in Practice 
+411
+
+--- PAGE 13 ---
+x 
+CONTENTS
+Some Practical Remarks on Robust Portfolio 
+Optimization Models 
+416
+Summary 
+418
+CHAPTER 11
+Transaction Costs and Trade Execution 
+419
+A Taxonomy of Transaction Costs  
+420
+Liquidity and Transaction Costs 
+427
+Market Impact Measurements and Empirical Findings 
+430
+Forecasting and Modeling Market Impact 
+433
+Incorporating Transaction Costs in Asset-Allocation Models 
+439
+Integrated Portfolio Management: 
+Beyond Expected Return and Portfolio Risk 
+444
+Summary 
+446
+CHAPTER 12
+Investment Management and Algorithmic Trading 
+449
+Market Impact and the Order Book 
+450
+Optimal Execution 
+452
+Impact Models 
+455
+Popular Algorithmic Trading Strategies 
+457
+What Is Next?  
+465
+Some Comments about the High-Frequency Arms Race 
+467
+Summary 
+470
+APPENDIX A
+Data Descriptions and Factor Deﬁ nitions 
+473
+The MSCI World Index 
+473
+One-Month LIBOR 
+482
+The Compustat Point-in-Time, IBES Consensus Databases 
+and Factor Deﬁ nitions 
+483
+APPENDIX B
+Summary of Well-Known Factors and Their Underlying 
+Economic Rationale 
+487
+APPENDIX C  
+Review of Eigenvalues and Eigenvectors 
+493
+The SWEEP Operator 
+494
+Index 
+497
+
+--- PAGE 14 ---
+Preface
+xi
+Quantitative equity portfolio management is a fundamental building block 
+of investment management. The basic principles of investment management 
+have been proposed back in the 1950s in the pathbreaking work of Harry 
+Markowitz. For his work, in 1990 Markowitz was awarded the Nobel Me-
+morial Prize in Economic Sciences. Markowitz’s ideas proved to be very fer-
+tile. Entire new research areas originated from it which, with the diffusion 
+of low-cost powerful computers, found important practical applications in 
+several ﬁ elds of ﬁ nance. 
+Among the developments that followed Markowitz’s original approach 
+we can mention:
+The development of CAPM and of general equilibrium asset pricing 
+models.
+The development of multifactor models. 
+The extension of the investment framework to a dynamic multiperiod 
+environment.
+The development of statistical tools to extend his framework to fat-
+tailed distributions.
+The development of Bayesian techniques to integrate human judgment 
+with results from models.
+The progressive adoption of optimization and robust optimization tech-
+niques.
+Due to these and other theoretical advances it has progressively become pos-
+sible to manage investments with computer programs that look for the best 
+risk-return trade-off available in the market.
+People have always tried to beat the market, in the hunt for a free lunch. 
+This began by relying on simple observations and rules of thumb to pick the 
+winners, and later with the advent of computers brought much more com-
+plicated systems and mathematical models within common reach. Today, 
+so-called buy-side quants deploy a wide range of techniques ranging from 
+econometrics, optimization, and computer science to data mining, machine 
+learning, and artiﬁ cial intelligence to trade the equity markets. Their strate-
+gies may range from intermediate and long-term strategies, six months to 
+■
+■
+■
+■
+■
+■
+
+--- PAGE 15 ---
+xii 
+PREFACE
+several years out, to so-called ultra-high or high-frequency strategies, at the 
+sub-millisecond level. The modern quantitative techniques have replaced 
+good old-fashioned experience and market insight, with the scientiﬁ c rigor 
+of mathematical and ﬁ nancial theories.
+This book is about quantitative equity portfolio management per-
+formed with modern techniques. One of our goals for this book is to present 
+advances in the theory and practice of quantitative equity portfolio manage-
+ment that represent what we might call the “state of the art of advanced 
+equity portfolio management.” We cover the most common techniques, 
+tools, and strategies used in quantitative equity portfolio management in 
+the industry today. For many of the advanced topics, we provide the reader 
+with references to the most recent applicable research in the ﬁ eld.
+This book is intended for students, academics, and ﬁ nancial practitio-
+ners alike who want an up-to-date treatment of quantitative techniques in 
+equity portfolio management, and who desire to deepen their knowledge of 
+some of the most cutting-edge techniques in this rapidly developing area. 
+The book is written in an almost self-contained fashion, so that little back-
+ground knowledge in ﬁ nance is needed. Nonetheless, basic working knowl-
+edge of undergraduate linear algebra and probability theory are useful, 
+especially for the more mathematical topics in this book.
+In Chapter 1 we discuss the role and use of mathematical techniques in 
+ﬁ nance. In addition to offering theoretical arguments in support of ﬁ nance 
+as a mathematical science, we discuss the results of three surveys on the dif-
+fusion of quantitative methods in the management of equity portfolios. In 
+Chapters 2 and 3, we provide extensive background material on one of the 
+principal tools used in quantitative equity management, ﬁ nancial economet-
+rics. Coverage in Chapter 2 includes modern regression theory, applications 
+of Random Matrix Theory, and robust methods. In Chapter 3, we extend 
+our coverage of ﬁ nancial economics to dynamic models of times series, vec-
+tor autoregressive models, and cointegration analysis. Financial engineering, 
+the many pitfalls of estimation, and methods to control model risk are the 
+subjects of Chapter 4. In Chapter 5, we introduce the modern theory of factor 
+models, including approximate factor models and dynamic factor models. 
+Trading strategies based on factors and factor models are the focus of 
+Chapters 6 and 7. In these chapters we offer a modern view on how to 
+construct factor models based on fundamental factors and how to design 
+and test trading strategies based on these. We offer a wealth of practical 
+examples on the application of factor models in these chapters. 
+The coverage in Chapters 8, 9, and 10 is on the use of optimization 
+models in quantitative equity management. The basics of portfolio optimi-
+zation are reviewed in Chapter 9, followed by a discussion of the Bayesian 
+approach to investment management as implemented in the Black-Litterman 
+
+--- PAGE 16 ---
+Preface 
+xiii
+framework in Chapter 9. In Chapter 10 we discuss robust optimization 
+techniques because they have greatly enhanced the ability to implement 
+portfolio optimization models in practice.
+The last two chapters of the book cover the important topic of trad-
+ing costs and trading techniques. In Chapter 11, our focus is on the issues 
+related to trading cost and implementation of trading strategies from a prac-
+tical point of view. The modern techniques of algorithmic trading are the 
+subject of the ﬁ nal chapter in the book, Chapter 12.
+There are three appendixes. Appendix A provides a description of the 
+data and factor deﬁ nitions used in the illustrations and examples in the 
+book. A summary of the factors, their economic rationale, and references 
+that have supported the use of each factor is provided in Appendix B. In 
+Appendix C we provide a review of eigenvalues and eigenvectors.
+TEACHING USING THIS BOOK
+Many of the chapters in this book have been used in courses and workshops 
+on quantitative investment management, econometrics, trading strategies 
+and algorithmic trading. The topics of the book are appropriate for under-
+graduate advanced electives on investment management, and graduate stu-
+dents in ﬁ nance, economics, or in the mathematical and physical sciences. 
+For a typical course it is natural to start with Chapters 1–3, 5, and 8 
+where the quantitative investment management industry, standard economet-
+ric techniques, and modern portfolio and asset pricing theory are reviewed. 
+Important practical considerations such as model risk and its mitigation are 
+presented in Chapter 4. Chapters 6 and 7 focus on the development of fac-
+tor-based trading strategies and provide many practical examples. Chapters 
+9–12 cover the important topics of Bayesian techniques, robust optimiza-
+tion, and transaction cost modeling—by now standard tools used in quanti-
+tative portfolio construction in the ﬁ nancial industry. We recommend that a 
+more advanced course covers these topics in some detail. 
+Student projects can be based on specialized topics such as the devel-
+opment of trading strategies (in Chapters 6 and 7), optimal execution, and 
+algorithmic trading (in Chapters 11 and 12). The many references in these chap-
+ters, and in the rest of the book, provide a good starting point for research.
+ACKNOWLEDGMENTS
+We would like to acknowledge the assistance of several individuals who 
+contributed to this book. Chapters 6 and 7 on trading strategies were co-
+
+--- PAGE 17 ---
+ 
+ 
+ 
+ 
+ 
+FOR SALE & EXCHANGE 
+ 
+ 
+ 
+ 
+ 
+www.trading-software-collection.com 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Mirrors: 
+ 
+www.forex-warez.com   
+www.traders-software.com 
+www.trading-software-download.com 
+ 
+ 
+ 
+Join My Mailing List 
+ 
+
+--- PAGE 18 ---
+xiv 
+PREFACE
+authored with Joseph A. Cerniglia of of Aberdeen Asset Management Inc. 
+Chapter 10 on robust portfolio optimization is coauthored with Dessislava 
+Pachamanova of Babson College. Chapter 12 draws from a chapter by one 
+of the authors and Lee Maclin, adjunct at the Courant Institute of Mathe-
+matical Sciences, New York University, that will appear in the Encyclopedia 
+of Quantitative Finance, edited by Rama Cont and to be published by John 
+Wiley & Sons. 
+We also thank Axioma, Inc. for allowing us to use several ﬁ gures from 
+its white paper series co-authored by Sebastian Ceria and Robert Stubbs.
+Megan Orem typeset the book and provided editorial assistance. We 
+appreciate her patience and understanding in working through numerous 
+revisions.
+ 
+ 
+ 
+ 
+ 
+ 
+Frank J. Fabozzi
+ 
+ 
+ 
+ 
+ 
+ 
+Sergio M. Focardi
+ 
+ 
+ 
+ 
+ 
+ 
+Petter N. Kolm
+
+--- PAGE 19 ---
+About the Authors
+xv
+Frank J. Fabozzi is Professor in the Practice of Finance in the School of Man-
+agement at Yale University and an Afﬁ liated Professor at the University of 
+Karlsruhe’s Institute of Statistics, Econometrics and Mathematical Finance. 
+Prior to joining the Yale faculty, he was a Visiting Professor of Finance in 
+the Sloan School at MIT. Frank is a Fellow of the International Center for 
+Finance at Yale University and on the Advisory Council for the Department 
+of Operations Research and Financial Engineering at Princeton University. 
+He is the editor of the Journal of Portfolio Management. He is a trustee for 
+the BlackRock family of closed-end funds. In 2002, Frank was inducted into 
+the Fixed Income Analysts Society’s Hall of Fame and is the 2007 recipient 
+of the C. Stewart Sheppard Award given by the CFA Institute. His recently 
+coauthored books published by Wiley in include Institutional Investment 
+Management (2009), Finance: Capital Markets, Financial Management and 
+Investment Management (2009), Bayesian Methods in Finance (2008), Ad-
+vanced Stochastic Models, Risk Assessment, and Portfolio Optimization: 
+The Ideal Risk, Uncertainty, and Performance Measures (2008), Financial 
+Modeling of the Equity Market: From CAPM to Cointegration (2006), Ro-
+bust Portfolio Optimization and Management (2007), and Financial Econo-
+metrics: From Basics to Advanced Modeling Techniques (2007). Frank 
+earned a doctorate in economics from the City University of New York in 
+1972. He earned the designation of Chartered Financial Analyst and Certi-
+ﬁ ed Public Accountant. 
+Sergio Focardi is Professor of Finance at the EDHEC Business School in 
+Nice and the founding partner of the Paris-based consulting ﬁ rm The Inter-
+tek Group. He is a member of the editorial board of the Journal of Portfolio 
+Management. Sergio has authored numerous articles and books on ﬁ nan-
+cial modeling and risk management including the following Wiley books: 
+Financial Econometrics (2007), Financial Modeling of the Equity Market 
+(2006), The Mathematics of Financial Modeling and Investment Manage-
+ment (2004), Risk Management: Framework, Methods and Practice (1998), 
+and Modeling the Markets: New Theories and Techniques (1997). He also 
+authored two monographs published by the CFA Institute’s monographs: 
+Challenges in Quantitative Equity Management (2008) and Trends in 
+
+--- PAGE 20 ---
+xvi  
+ABOUT THE AUTHORS
+Quantitative Finance (2006). Sergio has been appointed as a speaker of the 
+CFA Institute Speaker Retainer Program. His research interests include the 
+econometrics of large equity portfolios and the modeling of regime changes. 
+Sergio holds a degree in Electronic Engineering from the University of Ge-
+noa and a PhD in Mathematical Finance and Financial Econometrics from 
+the University of Karlsruhe.
+Petter N. Kolm is the Deputy Director of the Mathematics in Finance Mas-
+ters Program and Clinical Associate Professor at the Courant Institute of 
+Mathematical Sciences, New York University, and a Founding Partner of the 
+New York-based ﬁ nancial consulting ﬁ rm, the Heimdall Group, LLC. Previ-
+ously, Petter worked in the Quantitative Strategies Group at Goldman Sachs 
+Asset Management where his responsibilities included researching and de-
+veloping new quantitative investment strategies for the group’s hedge fund. 
+Petter authored the books Financial Modeling of the Equity Market: From 
+CAPM to Cointegration (Wiley, 2006), Trends in Quantitative Finance 
+(CFA Research Institute, 2006), and Robust Portfolio Management and 
+Optimization (Wiley, 2007). His interests include high-frequency ﬁ nance, 
+algorithmic trading, quantitative trading strategies, ﬁ nancial econometrics, 
+risk management, and optimal portfolio strategies. Petter holds a doctorate 
+in mathematics from Yale University, an M.Phil. in applied mathematics 
+from the Royal Institute of Technology in Stockholm, and an M.S. in math-
+ematics from ETH Zürich. Petter is a member of the editorial board of the 
+Journal of Portfolio Management. 
+
+--- PAGE 21 ---
+1
+CHAPTER 1
+Introduction
+A
+n economy can be regarded as a machine that takes in input labor and 
+natural resources and outputs products and services. Studying this 
+machine from a physical point of view would be very difﬁ cult because we 
+should study the characteristics and the interrelationships among all modern 
+engineering and production processes. Economics takes a bird’s-eye view of 
+these processes and attempts to study the dynamics of the economic value 
+associated with the structure of the economy and its inputs and outputs. 
+Economics is by nature a quantitative science, though it is difﬁ cult to ﬁ nd 
+simple rules that link economic quantities. 
+In most economies value is presently obtained through a market process 
+where supply meets demand. Here is where ﬁ nance and ﬁ nancial markets 
+come into play. They provide the tools to optimize the allocation of resources 
+through time and space and to manage risk. Finance is by nature quantita-
+tive like economics but it is subject to a large level of risk. It is the measure-
+ment of risk and the implementation of decision-making processes based on 
+risk that makes ﬁ nance a quantitative science and not simply accounting. 
+Equity investing is one of the most fundamental processes of ﬁ nance. 
+Equity investing allows allocating the savings of the households to invest-
+ments in the productive activities of an economy. This investment process 
+is a fundamental economic enabler: without equity investment it would be 
+very difﬁ cult for an economy to properly function and grow. With the diffu-
+sion of affordable fast computers and with progress made in understanding 
+ﬁ nancial processes, ﬁ nancial modeling has become a determinant of invest-
+ment decision-making processes. Despite the growing diffusion of ﬁ nancial 
+modeling, objections to its use are often raised. 
+In the second half of the 1990s, there was so much skepticism about 
+quantitative equity investing that David Leinweber, a pioneer in applying 
+advanced techniques borrowed from the world of physics to fund manage-
+ment, and author of Nerds on Wall Street,1 wrote an article entitled: “Is 
+1David Leinweber, Nerds on Wall Street: Math, Machines, and Wired Markets 
+(Hoboken, NJ: John Wiley & Sons, 2009).
+
+--- PAGE 22 ---
+2 
+QUANTITATIVE EQUITY INVESTING
+quantitative investment dead?”2 In the article, Leinweber defended quantita-
+tive fund management and maintained that in an era of ever faster comput-
+ers and ever larger databases, quantitative investment was here to stay. The 
+skepticism toward quantitative fund management, provoked by the failure 
+of some high-proﬁ le quantitative funds at that time, was related to the fact 
+that investment professionals felt that capturing market inefﬁ ciencies could 
+best be done by exercising human judgment. 
+Despite mainstream academic opinion that held that markets are efﬁ -
+cient and unpredictable, the asset managers’ job is to capture market inef-
+ﬁ ciencies and translate them into enhanced returns for their clients. At 
+the academic level, the notion of efﬁ cient markets has been progressively 
+relaxed. Empirical evidence led to the acceptance of the notion that ﬁ nancial 
+markets are somewhat predictable and that systematic market inefﬁ ciencies 
+can be detected. There has been a growing body of evidence that there are 
+market anomalies that can be systematically exploited to earn excess proﬁ ts 
+after considering risk and transaction costs.3 In the face of this evidence, 
+Andrew Lo proposed replacing the efﬁ cient market hypothesis with the 
+adaptive market hypothesis as market inefﬁ ciencies appear as the market 
+adapts to changes in a competitive environment.
+In this scenario, a quantitative equity investment management process 
+is characterized by the use of computerized rules as the primary source of 
+decisions. In a quantitative process, human intervention is limited to a con-
+trol function that intervenes only exceptionally to modify decisions made by 
+computers. We can say that a quantitative process is a process that quantiﬁ es 
+things. The notion of quantifying things is central to any modern science, 
+including the dismal science of economics. Note that everything related to 
+accounting—balance sheet/income statement data, and even accounting at 
+the national level—is by nature quantitative. So, in a narrow sense, ﬁ nance 
+has always been quantitative. The novelty is that we are now quantifying 
+things that are not directly observed, such as risk, or things that are not 
+quantitative per se, such as market sentiment and that we seek simple rules 
+to link these quantities
+In this book we explain techniques for quantitative equity investing. 
+Our purpose in this chapter is threefold. First, we discuss the relationship 
+between mathematics and equity investing and look at the objections raised. 
+We attempt to show that most objections are misplaced. Second, we discuss 
+the results of three studies based on surveys and interviews of major market 
+2David Leinweber, “Is Quantitative Investing Dead?” Pensions & Investments, 
+February 8, 1999. 
+3For a modern presentation of the status of market efﬁ ciency, see M. Hashem 
+Pesaran, “Market Efﬁ ciency Today,” Working Paper 05.41, 2005 (Institute of 
+Economic Policy Research). 
+
+--- PAGE 23 ---
+Introduction 
+ 
+3
+participants whose objective was to quantitative equity portfolio manage-
+ment and their implications for equity portfolio managers. The results of 
+these three studies are helpful in understanding the current state of quantita-
+tive equity investing, trends, challenges, and implementation issues. Third, 
+we discuss the challenges ahead for quantitative equity investing.
+IN PRAISE OF MATHEMATICAL FINANCE 
+Is the use of mathematics to describe and predict ﬁ nancial and economic 
+phenomena appropriate? The question was ﬁ rst raised at the end of the 
+nineteenth century when Vilfredo Pareto and Leon Walras made an initial 
+attempt to formalize economics. Since then, ﬁ nancial economic theorists 
+have been divided into two camps: those who believe that economics is a sci-
+ence and can thus be described by mathematics and those who believe that 
+economic phenomena are intrinsically different from physical phenomena 
+which can be described by mathematics.
+In a tribute to Paul Samuelson, Robert Merton wrote:
+Although most would agree that ﬁ nance, micro investment theory 
+and much of the economics of uncertainty are within the sphere 
+of modern ﬁ nancial economics, the boundaries of this sphere, like 
+those of other specialties, are both permeable and ﬂ exible. It is 
+enough to say here that the core of the subject is the study of the 
+individual behavior of households in the intertemporal allocation 
+of their resources in an environment of uncertainty and of the role 
+of economic organizations in facilitating these allocations. It is the 
+complexity of the interaction of time and uncertainty that provides 
+intrinsic excitement to study of the subject, and, indeed, the math-
+ematics of ﬁ nancial economics contains some of the most interest-
+ing applications of probability and optimization theory. Yet, for all 
+its seemingly obtrusive mathematical complexity, the research has 
+had a direct and signiﬁ cant inﬂ uence on practice4
+The three principal objections to treating ﬁ nance economic theory as 
+a mathematical science we will discuss are that (1) ﬁ nancial markets are 
+driven by unpredictable unique events and, consequently, attempts to use 
+mathematics to describe and predict ﬁ nancial phenomena are futile, (2) 
+ﬁ nancial phenomena are driven by forces and events that cannot be quanti-
+ﬁ ed, though we can use intuition and judgment to form a meaningful ﬁ nan-
+4Robert C. Merton, “Paul Samuelson and Financial Economics,” American 
+Economist 50, no. 2 (Fall 2006), pp. 262–300. 
+
+--- PAGE 24 ---
+4 
+QUANTITATIVE EQUITY INVESTING
+cial discourse, and (3) although we can indeed quantify ﬁ nancial phenom-
+ena, we cannot predict or even describe ﬁ nancial phenomena with realistic 
+mathematical expressions and/or computational procedures because the 
+laws themselves change continuously.
+A key criticism to the application of mathematics to ﬁ nancial economics 
+is the role of uncertainty. As there are unpredictable events with a potentially 
+major impact on the economy, it is claimed that ﬁ nancial economics cannot 
+be formalized as a mathematical methodology with predictive power. In a 
+nutshell, the answer is that black swans exist not only in ﬁ nancial markets 
+but also in the physical sciences. But no one questions the use of mathemat-
+ics in the physical sciences because there are major events that we cannot 
+predict. The same should hold true for ﬁ nance. Mathematics can be used to 
+understand ﬁ nancial markets and help to avoid catastrophic events.5 How-
+ever, it is not necessarily true that science and mathematics will enable unlim-
+ited proﬁ table speculation. Science will allow one to discriminate between 
+rational predictable systems and highly risky unpredictable systems.
+There are reasons to believe that ﬁ nancial economic laws must include 
+some fundamental uncertainty. The argument is, on a more general level, 
+the same used to show that there cannot be arbitrage opportunities in ﬁ nan-
+cial markets. Consider that economic agents are intelligent agents who can 
+use scientiﬁ c knowledge to make forecasts.
+Were ﬁ nancial economic laws deterministic, agents could make (and 
+act on) deterministic forecasts. But this would imply a perfect consensus 
+between agents to ensure that there is no contradiction between forecasts 
+and the actions determined by the same forecasts. For example, all invest-
+ment opportunities should have exactly identical payoffs. Only a perfectly 
+and completely planned economy can be deterministic; any other economy 
+must include an element of uncertainty.
+In ﬁ nance, the mathematical handling of uncertainty is based on prob-
+abilities learned from data. In ﬁ nance, we have only one sample of small 
+size and cannot run tests. Having only one sample, the only rigorous way 
+to apply statistical models is to invoke ergodicity. An ergodic process is a 
+stationary process where the limit of time averages is equal to time-invariant 
+ensemble averages. Note that in ﬁ nancial modeling it is not necessary that 
+economic quantities themselves form ergodic processes, only that residu-
+als after modeling form an ergodic process. In practice, we would like the 
+models to extract all meaningful information and leave a sequence of white 
+noise residuals.
+5This is what Nassim Taleb refers to as “black swans” in his critique of ﬁ nancial 
+models in his book The Black Swan: The Impact of the Highly Improbable (New 
+York: Random House, 2007).
+
+--- PAGE 25 ---
+Introduction 
+ 
+5
+If we could produce models that generate white noise residuals over 
+extended periods of time, we would interpret uncertainty as probability and 
+probability as relative frequency. However, we cannot produce such models 
+because we do not have a ﬁ rm theory known a priori. Our models are a 
+combination of theoretical considerations, estimation, and learning; they 
+are adaptive structures that need to be continuously updated and modiﬁ ed.
+Uncertainty in forecasts is due not only to the probabilistic uncertainty 
+inherent in stochastic models but also to the possibility that the models 
+themselves are misspeciﬁ ed. Model uncertainty cannot be measured with 
+the usual concept of probability because this uncertainty itself is due to 
+unpredictable changes. Ultimately, the case for mathematical ﬁ nancial eco-
+nomics hinges on our ability to create models that maintain their descrip-
+tive and predictive power even if there are sudden unpredictable changes in 
+ﬁ nancial markets. It is not the large unpredictable events that are the chal-
+lenge to mathematical ﬁ nancial economics, but our ability to create models 
+able to recognize these events.
+This situation is not conﬁ ned to ﬁ nancial economics. It is now recog-
+nized that there are physical systems that are totally unpredictable. These 
+systems can be human artifacts or natural systems. With the development 
+of nonlinear dynamics, it has been demonstrated that we can build arti-
+facts whose behavior is unpredictable. There are examples of unpredict-
+able artifacts of practical importance. Turbulence, for example, is a chaotic 
+phenomenon. The behavior of an airplane can become unpredictable under 
+turbulence. There are many natural phenomena from genetic mutations to 
+tsunami and earthquakes whose development is highly nonlinear and cannot 
+be individually predicted. But we do not reject mathematics in the physical 
+sciences because there are events that cannot be predicted. On the contrary, 
+we use mathematics to understand where we can ﬁ nd regions of dangerous 
+unpredictability. We do not knowingly ﬂ y an airplane in extreme turbulence 
+and we refrain from building dangerous structures that exhibit catastrophic 
+behavior. Principles of safe design are part of sound engineering.
+Financial markets are no exception. Financial markets are designed 
+artifacts: we can make them more or less unpredictable. We can use math-
+ematics to understand the conditions that make ﬁ nancial markets subject 
+to nonlinear behavior with possibly catastrophic consequences. We can 
+improve our knowledge of what variables we need to control in order to 
+avoid entering chaotic regions. 
+It is therefore not reasonable to object that mathematics cannot be used 
+in ﬁ nance because there are unpredictable events with major consequences. 
+It is true that there are unpredictable ﬁ nancial markets where we cannot use 
+
+--- PAGE 26 ---
+6 
+QUANTITATIVE EQUITY INVESTING
+mathematics except to recognize that these markets are unpredictable. But 
+we can use mathematics to make ﬁ nancial markets safer and more stable.6
+Let us now turn to the objection that we cannot use mathematics in 
+ﬁ nance because the ﬁ nancial discourse is inherently qualitative and cannot 
+be formalized in mathematical expressions. For example, it is objected that 
+qualitative elements such as the quality of management or the culture of a 
+ﬁ rm are important considerations that cannot be formalized in mathemati-
+cal expressions.
+A partial acceptance of this point of view has led to the development 
+of techniques to combine human judgment with models. These techniques 
+range from simply counting analysts’ opinions to sophisticated Bayesian 
+methods that incorporate qualitative judgment into mathematical models. 
+These hybrid methodologies link models based on data with human over-
+lays.
+Is there any irreducibly judgmental process in ﬁ nance? Consider that 
+in ﬁ nance, all data important for decision-making are quantitative or can 
+be expressed in terms of logical relationships. Prices, proﬁ ts, and losses are 
+quantitative, as are corporate balance-sheet data. Links between companies 
+and markets can be described through logical structures. Starting from these 
+data we can construct theoretical terms such as volatility. Are there hidden 
+elements that cannot be quantiﬁ ed or described logically?
+Ultimately, in ﬁ nance, the belief in hidden elements that cannot be either 
+quantiﬁ ed or logically described is related to the fact that economic agents 
+are human agents with a decision-making process. The operational point 
+of view of Samuelson has been replaced by the neoclassical economics view 
+that, apparently, places the accent on agents’ decision-making. It is curious 
+that the agent of neoclassical economics is not a realistic human agent but a 
+mathematical optimizer described by a utility function. 
+Do we need anything that cannot be quantiﬁ ed or expressed in logical 
+terms? At this stage of science, we can say the answer is a qualiﬁ ed no, if 
+we consider markets in the aggregate. Human behavior is predictable in the 
+aggregate and with statistical methods. Interaction between individuals, at 
+least at the level of economic exchange, can be described with logical tools. 
+We have developed many mathematical tools that allow us to describe criti-
+cal points of aggregation that might lead to those situations of unpredict-
+ability described by complex systems theory.
+We can conclude that the objection of hidden qualitative variables 
+should be rejected. If we work at the aggregate level and admit uncertainty, 
+6A complex system theorist could object that there is a fundamental uncertainty 
+as regards the decisions that we will make: Will we take the path of building safer 
+ﬁ nancial systems or we will build increasingly risky ﬁ nancial systems in the hope of 
+realizing a gain?
+
+--- PAGE 27 ---
+Introduction 
+ 
+7
+there is no reason why we have to admit inherently qualitative judgment. 
+In practice, we integrate qualitative judgment with models because (pres-
+ently) it would be impractical or too costly to model all variables. If we con-
+sider modeling individual decision-making at the present stage of science, 
+we have no deﬁ nitive answer. Whenever ﬁ nancial markets depend on single 
+decisions of single individuals we are in the presence of uncertainty that can-
+not be quantiﬁ ed. However, we have situations of this type in the physical 
+sciences and we do not consider them an obstacle to the development of a 
+mathematical science.
+Let us now address a third objection to the use of mathematics in ﬁ nance. 
+It is sometimes argued that we cannot arrive at mathematical laws in ﬁ nance 
+because the laws themselves keep on changing. This objection is somehow 
+true. Addressing it has led to the development of methods speciﬁ c to ﬁ nan-
+cial economics. First observe that many physical systems are characterized 
+by changing laws. For example, if we monitor the behavior of complex 
+artifacts such as nuclear reactors we ﬁ nd that their behavior changes with 
+aging. We can consider these changes as structural breaks. Obviously one 
+could object that if we had more information we could establish a precise 
+time-invariant law. Still, if the artifact is complex and especially if we cannot 
+access all its parts, we might experience true structural breaks. For example, 
+if we are monitoring the behavior of a nuclear reactor we might not be able 
+to inspect it properly. Many natural systems such as volcanoes cannot be 
+properly inspected and structurally described. We can only monitor their 
+behavior, trying to ﬁ nd predictive laws. We might ﬁ nd that our laws change 
+abruptly or continuously. We assume that we could identify more complex 
+laws if we had all the requisite information, though, in practice, we do not 
+have this information.
+These remarks show that the objection of changing laws is less strong 
+than we might intuitively believe. The real problem is not that the laws of 
+ﬁ nance change continuously. The real problem is that they are too complex. 
+We do not have enough theoretical knowledge to determine ﬁ nance laws 
+and, if we try to estimate statistical models, we do not have enough data 
+to estimate complex models. Stated differently, the question is not whether 
+we can use mathematics in ﬁ nancial economic theory. The real question 
+is: How much information we can obtain in studying ﬁ nancial markets? 
+Laws and models in ﬁ nance are highly uncertain. One partial solution is to 
+use adaptive models. Adaptive models are formed by simple models plus 
+rules to change the parameters of the simple models. A typical example 
+is nonlinear state-space models. Nonlinear state-space models are formed 
+by a simple regression plus another process that adapts continuously the 
+model parameters. Other examples are hidden Markov models that might 
+
+--- PAGE 28 ---
+8 
+QUANTITATIVE EQUITY INVESTING
+represent prices as formed by sequences of random walks with different 
+parameters.
+We can therefore conclude that the objection that there is no ﬁ xed law 
+in ﬁ nancial economics cannot be solved a priori. Empirically we ﬁ nd that 
+simple models cannot describe ﬁ nancial markets over long periods of time: 
+if we turn to adaptive modeling, we are left with a residual high level of 
+uncertainty.
+Our overall conclusion is twofold. First, we can and indeed should 
+regard mathematical ﬁ nance as a discipline with methods and mathematics 
+speciﬁ c to the type of empirical data available in the discipline. Given the 
+state of continuous change in our economies, we cannot force mathemati-
+cal ﬁ nance into the same paradigm of classical mathematical physics based 
+on differential equations. Mathematical ﬁ nance needs adaptive, nonlinear 
+models that are able to adapt in a timely fashion to a changing empirical 
+environment. 
+This is not to say that mathematical ﬁ nance is equivalent to data-mining. 
+On the contrary, we have to use all available knowledge and theoretical 
+reasoning on ﬁ nancial economics. However, models cannot be crystallized 
+in time-invariant models. In the future, it might be possible to achieve the 
+goal of stable time-invariant models but, for the moment, we have to admit 
+that mathematical ﬁ nance needs adaptation and must make use of com-
+puter simulations. Even with the resources of modern adaptive computa-
+tional methods, there will continue to be a large amount of uncertainty in 
+mathematical ﬁ nance, not only as probability distributions embedded in 
+models but also as residual model uncertainty. When changes occur, there 
+will be disruption of model performance and the need to adapt models to 
+new situations. But this does not justify rejecting mathematical ﬁ nance. 
+Mathematical ﬁ nance can indeed tell us what situations are more danger-
+ous and might lead to disruptions. Through simulations and models of 
+complex structure, we can achieve an understanding of those situations 
+that are most critical.
+Economies and ﬁ nancial markets are engineered artifacts. We can use 
+our science to engineer economic and ﬁ nancial systems that are safer or we 
+can decide, in the end, to prefer risk-taking and its highly skewed rewards. 
+Of course we might object that uncertainty about the path our societies 
+will take is part of the global problem of uncertainty. This objection is the 
+objection of complex system theorists to reductionism. We can study a sys-
+tem with our fundamental laws once we know the initial and boundary 
+conditions but we cannot explain how initial and boundary conditions were 
+formed. These speculations are theoretically important but we should avoid 
+a sense of passive fatality. In practice, it is important that we are aware that 
+
+--- PAGE 29 ---
+Introduction 
+ 
+9
+we have the tools to design safer ﬁ nancial systems and do not regard the 
+path towards unpredictability as inevitable.
+STUDIES OF THE USE OF 
+QUANTITATIVE EQUITY MANAGEMENT
+There are three recent studies on the use of quantitative equity management 
+conducted by Intertek Partners. The studies are based on surveys and inter-
+views of market participants. We will refer to these studies as the 2003 Inter-
+tek European study,7 2006 Intertek study,8 and 2007 Intertek study.9
+2003 Intertek European Study 
+The 2003 Intertek European study deals with the use of ﬁ nancial modeling 
+at European asset management ﬁ rms. It is based on studies conducted by 
+The Intertek Group to evaluate model performance following the fall of the 
+markets from their peak in March 2000, and explores changes that have 
+occurred since then. In total, 61 managers at European asset management 
+ﬁ rms in the Benelux countries, France, Germany, Italy, Scandinavia, Switzer-
+land, and the U.K. were interviewed. (The study does not cover alternative 
+investment ﬁ rms such as hedge funds.) At least half of the ﬁ rms interviewed 
+are among the major players in their respective markets, with assets under 
+management ranging from €50 to €300 billion. 
+The major ﬁ ndings are summarized next.10
+Greater Role for Models
+In the two years following the March 2000 market highs, quantitative meth-
+ods in the investment decision-making process began to play a greater role. 
+7The results of this study are reported in Frank J. Fabozzi, Sergio M. Focardi, and 
+Caroline L. Jonas, “Trends in Quantitative Asset Management in Europe,” Journal of 
+Portfolio Management 31, no. 4 (2004), pp. 125–132 (Special European Section).
+8The results of this study are reported in Frank J. Fabozzi, Sergio M. Focardi, and 
+Caroline Jonas, “Trends in Quantitative Equity Management: Survey Results,” 
+Quantitative Finance 7, no. 2 (2007), pp. 115–122.
+9The results of this study are reported in Frank J. Fabozzi, Sergio M. Focardi, and 
+Caroline Jonas, Challenges in Quantitative Equity Management (CFA Institute 
+Research Foundation, 2008) and Frank J. Fabozzi, Sergio M. Focardi, and Caroline 
+L. Jonas, “On the Challenges in Quantitative Equity Management.” Quantitative 
+Finance 8, no. 7 (2008), pp. 649–655.
+10In the quotes from sources in these studies, we omit the usual practice of identifying 
+the reference and page number. The study where the quote is obtained will be clear. 
+
+--- PAGE 30 ---
+10 
+QUANTITATIVE EQUITY INVESTING
+Almost 75% of the ﬁ rms interviewed reported this to be the case, while 
+roughly 15% reported that the role of models had remained stable. The 
+remaining 10% noted that their processes were already essentially quantita-
+tive. The role of models had also grown in another sense; a higher percent-
+age of assets were being managed by funds run quantitatively. One ﬁ rm 
+reported that over the past two years assets in funds managed quantitatively 
+grew by 50%.
+Large European ﬁ rms had been steadily catching up with their U.S. 
+counterparts in terms of the breadth and depth of use of models. As the price 
+of computers and computer software dropped, even small ﬁ rms reported 
+that they were beginning to adopt quantitative models. There were still dif-
+ferences between American and European ﬁ rms, though. American ﬁ rms 
+tended to use relatively simple technology but on a large scale; Europeans 
+tended to adopt sophisticated statistical methods but on a smaller scale.
+Demand pull and management push were among the reasons cited for 
+the growing role of models. On the demand side, asset managers were under 
+pressure to produce returns while controlling risk; they were beginning to 
+explore the potential of quantitative methods. On the push side, several 
+sources remarked that, after tracking performance for several years, their 
+management has made a positive evaluation of a model-driven approach 
+against a judgment-driven decision-making process. In some cases, this led 
+to a corporate switch to a quantitative decision-making process; in other 
+instances, it led to shifting more assets into quantitatively managed funds.
+Modeling was reported to have been extended over an ever greater uni-
+verse of assets under management. Besides bringing greater structure and 
+discipline to the process, participants in the study remarked that models 
+helped contain costs. Unable to increase revenues in the period immediately 
+following the March 2000 market decline, many ﬁ rms were cutting costs. 
+Modeling budgets, however, were reported as being largely spared. About 
+68% of the participants said that their investment in modeling had grown 
+over the prior two years, while 50% expected their investments in modeling 
+to continue to grow over the next year.
+Client demand for risk control was another factor that drove the 
+increased use of modeling. Pressure from institutional investors and consul-
+tants in particular continued to work in favor of modeling.
+More generally, risk management was widely believed to be the key 
+driving force behind the use of models. 
+Some ﬁ rms mentioned they had recast the role of models in portfolio 
+management. Rather than using models to screen and rank assets—which 
+has been a typical application in Europe—they applied them after the asset 
+manager had acted in order to measure the pertinence of fundamental anal-
+
+--- PAGE 31 ---
+Introduction 
+ 
+11
+ysis, characterize the portfolio style, eventually transform products through 
+derivatives, optimize the portfolio, and track risk and performance.
+Performance of Models Improves
+Over one-half of the study’s participants responded that models performed 
+better in 2002 than two years before. Some 20% evaluated 2002 model 
+performance as stable with respect to two years ago, while another 20% 
+considered that performance had worsened. Participants often noted that it 
+was not models in general but speciﬁ c models that had performed better or 
+more poorly.
+There are several explanations for the improved performance of mod-
+els. Every model is, ultimately, a statistical device trained and estimated 
+on past data. When markets began to fall from their peak in March 2000, 
+models had not been trained on data that would have allowed them to cap-
+ture the downturn—hence, the temporary poor performance of some mod-
+els. Even risk estimates, more stable than expected return estimates, were 
+problematic. In many cases, it was difﬁ cult to distinguish between volatility 
+and model risk. Models have since been trained on new sets of data and are 
+reportedly performing better.
+From a strictly scientiﬁ c and economic theory point of view, the ques-
+tion of model performance overall is not easy to address. The basic question 
+is how well a theory describes reality, with the additional complication that 
+in economics uncertainty is part of the theory. As we observed in the previ-
+ous section, we cannot object to ﬁ nancial modeling but we cannot pretend a 
+priori that model performance be good. Modeling should reﬂ ect the objec-
+tive amount of uncertainty present in a ﬁ nancial process. The statement that 
+“models perform better” implies that the level of uncertainty has changed. 
+To make this discussion meaningful, clearly somehow we have to restrict the 
+universe of models under consideration. In general, the uncertainty associ-
+ated with forecasting within a given class of models is equated to market 
+volatility. And as market volatility is not an observable quantity but a hid-
+den one, it is model-dependent.11 In other words, the amount of uncertainty 
+in ﬁ nancial markets depends on the accuracy of models. For instance, an 
+ARCH-GARCH model will give an estimate of volatility different from that 
+of a model based on constant volatility. On top of volatility, however, there 
+is another source of uncertainty, which is the risk that the model is misspeci-
+ﬁ ed. The latter uncertainty is generally referred to as model risk.
+11This statement is not strictly true. With the availability of high-frequency data, there 
+is a new strain of ﬁ nancial econometrics that considers volatility as an observable 
+realized volatility. 
+
+--- PAGE 32 ---
+12 
+QUANTITATIVE EQUITY INVESTING
+The problem experienced when markets began to fall was that models 
+could not forecast volatility simply because they were grossly misspeciﬁ ed. A 
+common belief is that markets are now highly volatile, which is another way 
+of saying that models do not do a good job of predicting returns. Yet models 
+are now more coherent; ﬂ uctuations of returns are synchronized with expec-
+tations regarding volatility. Model risk has been reduced substantially. 
+Overall, the global perception of European market participants who 
+participated in the study was that models are now more dependable. This 
+meant that model risk had been reduced; although their ability to predict 
+returns had not substantially improved, models were better at predicting 
+risk. Practitioners’ evaluation of model performance can be summarized as 
+follows: (1) models will bring more and more insight in risk management, 
+(2) in stock selection, we will see some improvement due essentially to better 
+data, not better models, and (3) in asset allocation, the use of models will 
+remain difﬁ cult as markets remain difﬁ cult to predict.
+Despite the improved performance of models, the perception European 
+market participants shared was one of uncertainty as regards the macroeco-
+nomic trends of the markets. Volatility, structural change, and unforecast-
+able events continue to challenge models. In addition to facing uncertainty 
+related to a stream of unpleasant surprises as regards corporate accounting 
+at large public ﬁ rms, participants voiced the concern that there is consider-
+able fundamental uncertainty on the direction of ﬁ nancial ﬂ ows.
+A widely shared evaluation was that, independent of models them-
+selves, the understanding of models and their limits had improved. Most 
+traders and portfolio managers had at least some training in statistics and 
+ﬁ nance theory; computer literacy was greatly increased. As a consequence, 
+the majority of market participants understand at least elementary statisti-
+cal analyses of markets.
+Use of Multiple Models on the Rise
+According to the 2003 study’s ﬁ ndings, three major trends had emerged in 
+Europe over the prior few years: (1) a greater use of multiple models, (2) the 
+modeling of additional new factors, and (3) an increased use of value-based 
+models. 
+Let’s ﬁ rst comment on the use of multiple models from the point of 
+view of modern ﬁ nancial econometrics, and in particular from the point 
+of view of the mitigation of model risk. The present landscape of ﬁ nancial 
+modeling applied to investment management is vast and well articulated.12 
+12For a discussion of the different families of ﬁ nancial models and modeling issues, 
+see Sergio M. Focardi and Frank J. Fabozzi, The Mathematics of Financial Modeling 
+and Investment Management (Hoboken, NJ: John Wiley & Sons, 2004).
+
+--- PAGE 33 ---
+Introduction 
+ 
+13
+Financial models are typically econometric models, they do not follow laws 
+of nature but are approximate models with limited validity. Every model has 
+an associated model risk, which can be roughly deﬁ ned as the probability 
+that the model does not forecast correctly. Note that it does not make sense 
+to consider model risk in abstract, against every possible assumption; model 
+risk can be meaningfully deﬁ ned only by restricting the set of alternative 
+assumptions. For instance, we might compute measures of the errors made 
+by an option pricing model if the underlying follows a distribution different 
+from the one on which the model is based. Clearly it must be speciﬁ ed what 
+families of alternative distributions we are considering.
+Essentially every model is based on some assumption about the func-
+tional form of dependencies between variables and on the distribution of 
+noise. Given the assumptions, models are estimated, and decisions made. 
+The idea of estimating model risk is to estimate the distribution of errors 
+that will be made if the model assumptions are violated. For instance: Are 
+there correlations or autocorrelations when it is assumed there are none? 
+Are innovations fat-tailed when it is assumed that noise is white and nor-
+mal? From an econometric point of view, combining different models in 
+this way means constructing a mixture of distributions. The result of this 
+process is one single model that weights the individual models. 
+Some managers interviewed for the 2003 study reported they were using 
+judgment on top of statistical analysis. This entails that models be reviewed 
+when they begin to produce results that are below expectations. In practice, 
+quantitative teams constantly evaluate the performance of different fami-
+lies of models and adopt those that perform better. Criteria for switching 
+from one family of models to another are called for, though. This, in turn, 
+requires large data samples.
+Despite these difﬁ culties, application of multiple models has gained 
+wide acceptance in ﬁ nance. In asset management, the main driver is the 
+uncertainty related to estimating returns. 
+Focus on Factors, Correlation, Sentiment, and Momentum
+Participants in the 2003 study also reported efforts to determine new factors 
+that might help predict expected returns. Momentum and sentiment were 
+the two most cited phenomena modeled in equities. Market sentiment, in 
+particular, was receiving more attention.
+The use of factor models is in itself a well-established practice in ﬁ nancial 
+modeling. Many different families of models are available, from the widely 
+used classic static return factor analysis models to dynamic factor models, 
+both of which are described later in Chapter 5. What remains a challenge is 
+determination of the factors. Considerable resources have been devoted to 
+
+--- PAGE 34 ---
+14 
+QUANTITATIVE EQUITY INVESTING
+studying market correlations. Advanced techniques for the robust estima-
+tion of correlations are being applied at large ﬁ rms as well as at boutiques. 
+According to study respondents, over the three years prior to 2001, 
+quantitative teams at many asset management ﬁ rms were working on deter-
+mining which factors are the best indicators of price movements. Senti-
+ment was often cited as a major innovation in terms of modeling strategies. 
+Asset management ﬁ rms typically modeled stock-speciﬁ c sentiment, while 
+sentiment as measured by business or consumer conﬁ dence was often the 
+responsibility of the macroeconomic teams at the mother bank, at least in 
+continental Europe. Market sentiment is generally deﬁ ned by the distribu-
+tion of analyst revisions in earnings estimates. Other indicators of market 
+conﬁ dence are ﬂ ows, volume, turnover, and trading by corporate ofﬁ cers.
+Factors that represent market momentum were also increasingly adopted 
+according to the study. Momentum means that the entire market is moving 
+in one direction with relatively little uncertainty. There are different ways to 
+represent momentum phenomena. One might identify a speciﬁ c factor that 
+deﬁ nes momentum, that is, a variable that gauges the state of the market 
+in terms of momentum. This momentum variable then changes the form of 
+models. There are models for trending markets and models for uncertain mar-
+kets.
+Momentum can also be represented as a speciﬁ c feature of models. A 
+random walk model does not have any momentum, but an autoregressive 
+model might have an intrinsic momentum feature.
+Some participants also reported using market-timing models and style 
+rotation for the active management of funds. Producing accurate timing 
+signals is complex, given that ﬁ nancial markets are difﬁ cult to predict. One 
+source of predictability is the presence of mean reversion and cointegration 
+phenomena.
+Back to Value-Based Models
+At the time of the 2003 study, there was a widespread perception that value-
+based models were performing better in post-2000 markets. It was believed 
+that markets were doing a better job valuing companies as a function of the 
+value of the ﬁ rm rather than price trends, notwithstanding our remarks on 
+the growing use of factors such as market sentiment. From a methodologi-
+cal point of view, methodologies based on cash analysis had increased in 
+popularity in Europe. A robust positive operating cash ﬂ ow is considered to 
+be a better indication of the health of a ﬁ rm than earnings estimates, which 
+can be more easily massaged.
+Fundamental analysis was becoming highly quantitative and auto-
+mated. Several ﬁ rms mentioned they were developing proprietary method-
+
+--- PAGE 35 ---
+Introduction 
+ 
+15
+ologies for the automatic analysis of balance sheets. For these ﬁ rms, with 
+the information available on the World Wide Web, fundamental analysis 
+could be performed without actually going to visit ﬁ rms. Some participants 
+remarked that caution might be called for in attributing the good perfor-
+mance of value-tilted models to markets. One of the assumptions of value-
+based models is that there is no mechanism that conveys a large ﬂ ow of 
+funds through preferred channels, but this was the case in the telecommu-
+nications, media, and technology (TMT) bubble, when value-based models 
+performed so poorly. In the last bull run prior to the study, the major preoc-
+cupation was to not miss out on rising markets; investors who continued 
+to focus on value suffered poor performance. European market participants 
+reported that they are now watching both trend and value.
+Risk Management
+Much of the attention paid to quantitative methods in asset management 
+prior to the study had been focused on risk management. According to 83% 
+of the participants, the role of risk management had evolved signiﬁ cantly 
+over the prior two years to extend across portfolios and across processes. 
+One topic that has received a lot of attention, both in academia and 
+at ﬁ nancial institutions, is the application of extreme value theory (EVT) 
+to ﬁ nancial risk management.13 The RiskLab in Zurich, headed by Paul 
+Embrechts, advanced the use of EVT and copula functions in risk man-
+agement. At the corporate level, universal banks such as HSBC CCF have 
+produced theoretical and empirical work on the applicability of EVT to risk 
+management.14 European ﬁ rms were also paying considerable attention to 
+risk measures. 
+For participants in the Intertek study, risk management was the area 
+where quantitative methods had made their biggest contribution. Since the 
+pioneering work of Harry Markowitz in the 1950s, the objective of invest-
+ment management has been deﬁ ned as determining the optimal risk-return 
+trade-off in an investor’s proﬁ le. Prior to the diffusion of modeling tech-
+niques, though, evaluation of the risk-return trade-off was left to the judg-
+ment of individual asset managers. Modeling brought to the forefront the 
+question of ex ante risk-return optimization. An asset management ﬁ rm that 
+uses quantitative methods and optimization techniques manages risk at the 
+13See Sergio M. Focardi and Frank J. Fabozzi, “Fat Tails, Scaling, and Stable Laws: 
+A Critical Look at Modeling Extremal Events in Financial Phenomena,” Journal of 
+Risk Finance 5, no. 1 (Fall 2003), pp. 5–26.
+14François Longin, “Stock Market Crashes: Some Quantitative Results Based on 
+Extreme Value Theory.” Derivatives Use, Trading and Regulation 7 (2001), pp. 
+197–205.
+
+--- PAGE 36 ---
+16 
+QUANTITATIVE EQUITY INVESTING
+source. In this case, the only risk that needs to be monitored and managed 
+is model risk.15
+Purely quantitative managers with a fully automated management 
+process were still rare according to the study. Most managers, although 
+quantitatively oriented, used a hybrid approach calling for models to give 
+evaluations that managers translate into decisions. In such situations, risk 
+is not completely controlled at the origin.
+Most ﬁ rms interviewed for the study had created a separate risk manage-
+ment unit as a supervisory entity that controls the risk of different portfolios 
+and eventually—although still only rarely—aggregated risk at the ﬁ rm-wide 
+level. In most cases, the tools of choice for controlling risk were multifactor 
+models. Models of this type have become standard when it comes to making 
+risk evaluations for institutional investors. For internal use, however, many 
+ﬁ rms reported that they made risk evaluations based on proprietary models, 
+EVT, and scenario analysis.
+Integrating Qualitative and Quantitative Information
+More than 60% of the ﬁ rms interviewed for the 2003 Intertek study report-
+ed they had formalized procedures for integrating quantitative and qualita-
+tive input, although half of these mentioned that the process had not gone 
+very far; 30% of the participants reported no formalization at all. Some 
+ﬁ rms mentioned they had developed a theoretical framework to integrate 
+results from quantitative models and fundamental views. Assigning weights 
+to the various inputs was handled differently from ﬁ rm to ﬁ rm; some ﬁ rms 
+reported establishing a weight limit in the range of 50%–80% for quantita-
+tive input.
+A few quantitative-oriented ﬁ rms reported that they completely formal-
+ized the integration of qualitative and quantitative information. In these 
+cases, everything relevant was built into the system. Firms that both quan-
+titatively managed and traditionally managed funds typically reported that 
+formalization was implemented in the former but not in the latter.
+Virtually all ﬁ rms reported at least a partial automation in the handling 
+of qualitative information. For the most part, a ﬁ rst level of automation—
+including automatic screening and delivery, classiﬁ cation, and search—is 
+provided by suppliers of sell-side research, consensus data, and news. These 
+suppliers are automating the delivery of news, research reports, and other 
+information.
+15Asset management ﬁ rms are subject to other risks, namely, the risk of not fulﬁ lling 
+a client mandate or operational risk. Although important, these risks were outside 
+the scope of the survey.
+
+--- PAGE 37 ---
+Introduction 
+ 
+17
+About 30% of the respondents note they have added functionality over 
+and above that provided by third-party information suppliers, typically 
+starting with areas easy to quantify such as earnings announcements or ana-
+lysts’ recommendations. Some have coupled this with quantitative signals 
+that alert recipients to changes or programs that automatically perform an 
+initial analysis.
+Only the braver will be tackling difﬁ cult tasks such as automated news 
+summary and analysis. For the most part, news analysis was still considered 
+the domain of judgment. A few ﬁ rms interviewed for this study reported that 
+they attempted to tackle the problem of automatic news analysis, but aban-
+doned their efforts. The difﬁ culty of forecasting price movements related to 
+new information was cited as a motivation.
+2006 Intertek Study
+The next study that we will discuss is based on survey responses and con-
+versations with industry representatives in 2006. Although this predates the 
+subprime mortgage crisis and the resulting impact on the performance of 
+quantitative asset managers, the insights provided by this study are still use-
+ful. In all, managers at 38 asset management ﬁ rms managing a total of $4.3 
+trillion in equities participated in the study. Participants included individu-
+als responsible for quantitative equity management and quantitative equity 
+research at large- and medium-sized ﬁ rms in North America and Europe.16 
+Sixty-three percent of the participating ﬁ rms were among the largest asset 
+managers in their respective countries; they clearly represented the way a 
+large part of the industry was going with respect to the use of quantitative 
+methods in equity portfolio management.17 
+The ﬁ ndings of the 2006 study suggested that the skepticism relative to 
+the future of quantitative management at the end of the 1990s had given 
+way by 2006 and quantitative methods were playing a large role in equity 
+portfolio management. Of the 38 survey participants, 11 (29%) reported 
+that more than 75% of their equity assets were being managed quantita-
+tively. This includes a wide spectrum of ﬁ rms, with from $6.5 billion to over 
+$650 billion in equity assets under management. Another 22 ﬁ rms (58%) 
+reported that they have some equities under quantitative management, 
+though for 15 of these 22 ﬁ rms the percentage of equities under quantitative 
+management was less than 25%—often under 5%—of total equities under 
+16The home market of participating ﬁ rms was a follows: 15 from North America (14 
+from the United States, 1 from Canada) and 23 from Europe (United Kingdom 7, 
+Germany 5, Switzerland 4, Benelux 3, France 2, and Italy 2). 
+17Of the 38 participants in this survey, two responded only partially to the 
+questionnaire. Therefore, for some questions, there are 36 (not 38) responses.
+
+--- PAGE 38 ---
+18 
+QUANTITATIVE EQUITY INVESTING
+management. Five of the 38 participants in the survey (13%) reported no 
+equities under quantitative management. 
+Relative to the period 2004–2005, the amount of equities under quanti-
+tative management was reported to have grown at most ﬁ rms participating 
+in the survey (84%). One reason given by respondents to explain the growth 
+in equity assets under quantitative management was the ﬂ ows into existing 
+quantitative funds. A source at a large U.S. asset management ﬁ rm with 
+more than half of its equities under quantitative management said in 2006 
+“The ﬁ rm has three distinct equity products: value, growth, and quant. 
+Quant is the biggest and is growing the fastest.” 
+According to survey respondents, the most important factor contribut-
+ing to a wider use of quantitative methods in equity portfolio management 
+was the positive result obtained with these methods. Half of the participants 
+rated positive results as the single most important factor contributing to 
+the widespread use of quantitative methods. Other factors contributing to 
+a wider use of quantitative methods in equity portfolio management were, 
+in order of importance attributed to them by participants, (1) the compu-
+tational power now available on the desk top, (2) more and better data, 
+and (3) the availability of third-party analytical software and visualization 
+tools. 
+Survey participants identiﬁ ed the prevailing in-house culture as the 
+most important factor holding back a wider use of quantitative methods 
+(this evaluation obviously does not hold for ﬁ rms that can be described as 
+quantitative): more than one third (10/27) of the respondents at other than 
+quant-oriented ﬁ rms considered this the major blocking factor. This posi-
+tive evaluation of models in equity portfolio management in 2006 was in 
+contrast with the skepticism of some 10 years early. A number of changes 
+have occurred. First, expectations at the time of the study had become more 
+realistic. In the 1980s and 1990s, traders were experimenting with method-
+ologies from advanced science in the hope of making huge excess returns. 
+Experience of the prior 10 years has shown that models were capable of 
+delivering but that their performance must be compatible with a well-
+functioning market.
+More realistic expectations have brought more perseverance in model 
+testing and design and have favored the adoption of intrinsically safer mod-
+els. Funds that were using hundred fold leverage had become unpalatable 
+following the collapse of LTCM (Long Term Capital Management). This, 
+per se, has reduced the number of headline failures and had a beneﬁ cial 
+impact on the perception of performance results. We can say that models 
+worked better in 2006 because model risk had been reduced: simpler, more 
+robust models delivered what was expected. Other technical reasons that 
+explained improved model performance included a manifold increase in 
+
+--- PAGE 39 ---
+Introduction 
+ 
+19
+computing power and more and better data. Modelers by 2006 had avail-
+able on their desk top computing power that, at the end of the 1980s, could 
+be got only from multimillion-dollar supercomputers. Cleaner, more com-
+plete data, including intraday data and data on corporate actions/dividends, 
+could be obtained. In addition, investment ﬁ rms (and institutional clients) 
+have learned how to use models throughout the investment management 
+process. Models had become part of an articulated process that, especially 
+in the case of institutional investors, involved satisfying a number of differ-
+ent objectives, such as superior information ratios.
+Changing Role for Models in Equity Portfolio
+The 2006 study revealed that quantitative models were now used in active 
+management to ﬁ nd sources of excess returns (i.e., alphas), either relative to 
+a benchmark or absolute. This was a considerable change with respect to 
+the 2003 Intertek European study where quantitative models were reported 
+as being used primarily to manage risk and to select parsimonious portfolios 
+for passive management. 
+Another ﬁ nding of the study was the growing amount of funds man-
+aged automatically by computer programs. The once futuristic vision of 
+machines running funds automatically without the intervention of a port-
+folio manager was becoming a reality on a large scale: 55% (21/38) of the 
+respondents reported that at least part of their equity assets were being 
+managed automatically with quantitative methods; another three planned 
+to automate at least a portion of their equity portfolios within the next 12 
+months. The growing automation of the equity investment process suggests 
+that there was no missing link in the technology chain that leads to auto-
+matic quantitative management. From return forecasting to portfolio forma-
+tion and optimization, all the needed elements were in place. Until recently, 
+optimization represented the missing technology link in the automation of 
+portfolio engineering. Considered too brittle to be safely deployed, many 
+ﬁ rms eschewed optimization, limiting the use of modeling to stock ranking 
+or risk control functions. Advances in robust estimation  methodologies (see 
+Chapter 2) and in optimization (see Chapter 8) now allow an asset manager 
+to construct portfolios of hundreds of stocks chosen in universes of thou-
+sands of stocks with little or no human intervention outside of supervising 
+the models.
+Modeling Methodologies and the Industry’s Evaluation
+At the end of the 1980s, academics and researchers at specialized quant 
+boutiques experimented with many sophisticated modeling methodologies 
+
+--- PAGE 40 ---
+20 
+QUANTITATIVE EQUITY INVESTING
+including chaos theory, fractals and multifractals, adaptive programming, 
+learning theory, complexity theory, complex nonlinear stochastic models, 
+data mining, and artiﬁ cial intelligence. Most of these efforts failed to live 
+up to expectations. Perhaps expectations were too high. Or perhaps the re-
+sources or commitment required were lacking. Emanuel Derman provides a 
+lucid analysis of the difﬁ culties that a quantitative analyst has to overcome. 
+As he observed, though modern quantitative ﬁ nance uses some of the tech-
+niques of physics, a wide gap remains between the two disciplines.18
+The modeling landscape revealed by the 2006 study is simpler and more 
+uniform. Regression analysis and momentum modeling are the most widely 
+used techniques: respectively, 100% and 78% of the survey respondents said 
+that these techniques were being used at their ﬁ rms. With respect to regres-
+sion models used today, the survey suggests that they have undergone a sub-
+stantial change since the ﬁ rst multifactor models such as Arbitrage Pricing 
+Theory (APT) were introduced. Classical multifactor models such as APT are 
+static models embodied in linear regression between returns and factors at 
+the same time. Static models are forecasting models insofar as the factors at 
+time t are predictors of returns at time behavior t + 1. In these static models, 
+individual return processes might exhibit zero autocorrelation but still be 
+forecastable from other variables. Predictors might include ﬁ nancial and mac-
+roeconomic factors as well as company speciﬁ c parameters such as ﬁ nancial 
+ratios. Predictors might also include human judgment, for example, analyst 
+estimates, or technical factors that capture phenomena such as momentum. 
+A source at a quant shop using regression to forecast returns said,
+Regression on factors is the foundation of our model building. 
+Ratios derived from ﬁ nancial statements serve as one of the most 
+important components for predicting future stock returns. We use 
+these ratios extensively in our bottom-up equity model and catego-
+rize them into ﬁ ve general categories: operating efﬁ ciency, ﬁ nancial 
+strength, earnings quality (accruals), capital expenditures, and ex-
+ternal ﬁ nancing activities.
+Momentum and reversals were the second most widely diffused modeling 
+technique among survey participants. In general, momentum and reversals 
+were being used as a strategy, not as a model of asset returns. Momentum 
+strategies are based on forming portfolios choosing the highest/lowest 
+returns, where returns are estimated on speciﬁ c time windows. Survey par-
+ticipants gave these strategies overall good marks but noted that (1) they 
+do not always perform so well, (2) they can result in high turnover (though 
+18Emanuel Derman, “A Guide for the Perplexed Quant,” Quantitative Finance 1, 
+no. 5 (2001), pp. 476–480.
+
+[TRUNCATED at 80000 chars — 533 total pages]

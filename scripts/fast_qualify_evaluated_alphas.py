@@ -197,15 +197,22 @@ async def main():
             ref_pnls[aid] = pnl
     log.info("Fetched %d reference PnLs.", len(ref_pnls))
 
-    # 3. Query all evaluated PASS alphas
+    # 3. Query all evaluated candidates with high Sharpe and Fitness
     evaluated_candidates = []
+    PROD_FIREWALL = 0.62
+    TARGET_QUALIFIED = 50
+
     with psycopg.connect(config.database_url) as conn:
         with conn.cursor() as cur:
             cur.execute("""
                 SELECT DISTINCT ON (alpha_id)
                     alpha_id, expression, archetype, sharpe, fitness, turnover, returns, drawdown, source
                 FROM options_evaluations
-                WHERE alpha_id IS NOT NULL AND status = 'PASS' AND sharpe >= 1.25 AND turnover BETWEEN 0.01 AND 0.60
+                WHERE alpha_id IS NOT NULL 
+                  AND sharpe >= 1.25 
+                  AND fitness >= 1.0 
+                  AND turnover BETWEEN 0.01 AND 0.70
+                  AND (drawdown <= 0.30 OR drawdown IS NULL)
                 ORDER BY alpha_id, sharpe DESC;
             """)
             for r in cur.fetchall():
@@ -229,25 +236,26 @@ async def main():
             cur.execute("SELECT count(*) FROM options_alphas WHERE status = 'QUALIFIED';")
             qualified_count = cur.fetchone()[0]
 
-    log.info("Current Qualified Count: %d / 20", qualified_count)
+    log.info("Current Qualified Count: %d / %d", qualified_count, TARGET_QUALIFIED)
 
     for idx, cand in enumerate(evaluated_candidates, 1):
-        if qualified_count >= 20:
-            log.info("🎉 TARGET 20 QUALIFIED ALPHAS REACHED!")
+        if qualified_count >= TARGET_QUALIFIED:
+            log.info("🎉 TARGET %d QUALIFIED ALPHAS REACHED!", TARGET_QUALIFIED)
             break
 
         aid = cand["alpha_id"]
         if aid in ref_pnls:
             continue
 
-        log.info("[%d/%d | Qualified: %d/20] Testing Alpha ID: %s (Sharpe=%.2f, Fit=%.2f, TO=%.1f%%)", idx, len(evaluated_candidates), qualified_count, aid, cand["sharpe"], cand["fitness"], cand["turnover"] * 100)
+        log.info("[%d/%d | Qualified: %d/%d] Testing Alpha ID: %s (Sharpe=%.2f, Fit=%.2f, TO=%.1f%%)",
+                 idx, len(evaluated_candidates), qualified_count, TARGET_QUALIFIED, aid, cand["sharpe"], cand["fitness"], cand["turnover"] * 100)
 
         # 1. Fetch PnL
         pnl = await client.get_alpha_pnl(aid)
         if not pnl or len(pnl) < 30:
             continue
 
-        # 2. Check Correlation Gate
+        # 2. Check Correlation Gate against all reference and already-qualified alphas
         max_corr = 0.0
         worst_ref = ""
         for r_id, r_pnl in ref_pnls.items():
@@ -256,11 +264,11 @@ async def main():
                 max_corr = c_val
                 worst_ref = r_id
 
-        if max_corr >= 0.70:
-            log.info("[-] Correlation FAIL for %s: rho=%.4f vs %s (>= 0.70)", aid, max_corr, worst_ref)
+        if max_corr > PROD_FIREWALL:
+            log.info("[-] Correlation FAIL for %s: rho=%.4f vs %s (> %.2f)", aid, max_corr, worst_ref, PROD_FIREWALL)
             continue
 
-        # 3. Check Platform Checklist
+        # 3. Check Platform Checklist (100% PASS)
         chk_ok, chk_msg = verify_checklist_passes(client._session, aid)
         if not chk_ok:
             log.info("[-] Checklist FAIL for %s: %s", aid, chk_msg)
@@ -274,6 +282,11 @@ async def main():
         is_met = d.get("is", {})
         settings = d.get("settings", {})
 
+        actual_margin = float(is_met.get("margin", 0.0015))
+        if actual_margin <= 0:
+            log.info("[-] Margin FAIL for %s: margin=%.5f <= 0", aid, actual_margin)
+            continue
+
         metrics = SimMetrics(
             alpha_id=aid,
             sharpe=float(is_met.get("sharpe", cand["sharpe"])),
@@ -281,10 +294,15 @@ async def main():
             turnover=float(is_met.get("turnover", cand["turnover"])),
             annualized_return=float(is_met.get("returns", cand["returns"])),
             max_drawdown=float(is_met.get("drawdown", cand["drawdown"])),
-            margin=float(is_met.get("margin", 0.0015)),
+            margin=actual_margin,
             subuniverse_sharpe=float(is_met.get("subuniverseSharpe", 1.0)),
             is_valid=True,
         )
+
+        if metrics.sharpe < 1.25 or metrics.fitness < 1.0 or metrics.turnover > 0.70 or metrics.max_drawdown > 0.30:
+            log.info("[-] Metrics gate FAIL for %s: Sharpe=%.2f, Fit=%.2f, TO=%.1f%%, DD=%.1f%%",
+                     aid, metrics.sharpe, metrics.fitness, metrics.turnover * 100, metrics.max_drawdown * 100)
+            continue
 
         category = "options" if "option" in cand["source"] else ("sentiment" if "sentiment" in cand["source"] else "risk_model")
         commit_qualified_alpha(
@@ -312,13 +330,13 @@ async def main():
             token=config.telegram_bot_token,
             chat_id=config.telegram_chat_id,
             html_text=(
-                f"🌟 <b>NEW RESERVE ALPHA QUALIFIED!</b> ({qualified_count}/20) 🌟\n\n"
+                f"🌟 <b>NEW RESERVE ALPHA QUALIFIED!</b> ({qualified_count}/50) 🌟\n\n"
                 f"• <b>Alpha ID:</b> <code>{safe_alpha}</code>\n"
                 f"• <b>Category:</b> {safe_cat}\n"
                 f"• <b>Archetype:</b> {safe_arch}\n"
                 f"• <b>Sharpe:</b> <b>{metrics.sharpe:.2f}</b>  |  <b>Fitness:</b> <b>{metrics.fitness:.2f}</b>\n"
                 f"• <b>Margin:</b> {metrics.margin * 10000:.1f} bps  |  <b>Turnover:</b> {metrics.turnover * 100:.1f}%\n"
-                f"• <b>Max Correlation:</b> <b>{max_corr:.4f}</b> (&lt; 0.70)\n"
+                f"• <b>Max Correlation:</b> <b>{max_corr:.4f}</b> (&lt; 0.62)\n"
                 f"• <b>Checklist:</b> 100% PASS\n"
                 f"• <b>Expression:</b>\n<code>{safe_expr}</code>"
             ),

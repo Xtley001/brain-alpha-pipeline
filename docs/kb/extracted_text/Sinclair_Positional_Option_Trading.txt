@@ -1,0 +1,1774 @@
+
+--- PAGE 1 ---
+https://t.me/TradersLibrary
+
+--- PAGE 2 ---
+https://t.me/TradersLibrary
+
+--- PAGE 3 ---
+Option
+Trading
+https://t.me/TradersLibrary
+
+--- PAGE 4 ---
+Founded in 1807, John Wiley & Sons is the oldest independent publish-
+ing company in the United States. With ofﬁces in North America, Europe,
+Australia, and Asia, Wiley is globally committed to developing and market-
+ing print and electronic products and services for our customers’ profes-
+sional and personal knowledge and understanding.
+The Wiley Trading series features books by traders who have survived
+the market’s ever-changing temperament and have prospered—some by
+reinventing systems, others by getting back to basics. Whether a novice
+trader, professional, or somewhere in-between, these books will provide
+the advice and strategies needed to prosper today and well into the future.
+For a list of available titles, visit our web site at www.WileyFinance.com.
+https://t.me/TradersLibrary
+
+--- PAGE 5 ---
+Option
+Trading
+Pricing and Volatility
+Strategies and Techniques
+EUAN SINCLAIR
+John Wiley & Sons, Inc.
+https://t.me/TradersLibrary
+
+--- PAGE 6 ---
+Copyright C⃝2010 by Euan Sinclair. All rights reserved.
+Published by John Wiley & Sons, Inc., Hoboken, New Jersey.
+Published simultaneously in Canada.
+No part of this publication may be reproduced, stored in a retrieval system, or transmitted in
+any form or by any means, electronic, mechanical, photocopying, recording, scanning, or
+otherwise, except as permitted under Section 107 or 108 of the 1976 United States Copyright
+Act, without either the prior written permission of the Publisher, or authorization through
+payment of the appropriate per-copy fee to the Copyright Clearance Center, Inc., 222
+Rosewood Drive, Danvers, MA 01923, (978) 750-8400, fax (978) 646-8600, or on the Web at
+www.copyright.com. Requests to the Publisher for permission should be addressed to the
+Permissions Department, John Wiley & Sons, Inc., 111 River Street, Hoboken, NJ 07030, (201)
+748-6011, fax (201) 748-6008, or online at http://www.wiley.com/go/permissions.
+Limit of Liability/Disclaimer of Warranty: While the publisher and author have used their best
+efforts in preparing this book, they make no representations or warranties with respect to the
+accuracy or completeness of the contents of this book and speciﬁcally disclaim any implied
+warranties of merchantability or ﬁtness for a particular purpose. No warranty may be created
+or extended by sales representatives or written sales materials. The advice and strategies
+contained herein may not be suitable for your situation. You should consult with a
+professional where appropriate. Neither the publisher nor author shall be liable for any loss of
+proﬁt or any other commercial damages, including but not limited to special, incidental,
+consequential, or other damages.
+For general information on our other products and services or for technical support, please
+contact our Customer Care Department within the United States at (800) 762-2974, outside the
+United States at (317) 572-3993, or fax (317) 572-4002.
+Wiley also publishes its books in a variety of electronic formats. Some content that appears in
+print may not be available in electronic books. For more information about Wiley products,
+visit our web site at www.wiley.com.
+Library of Congress Cataloging-in-Publication Data:
+Sinclair, Euan, 1969-
+Option trading : pricing and volatility strategies and techniques / Euan Sinclair.
+p. cm. – (Wiley trading series)
+Includes index.
+ISBN 978-0-470-49710-4 (cloth)
+1. Options (Finance)
+2. Pricing–Mathematical models.
+I. Title.
+HG6024.A3S5622 2010
+332.63’2283–dc22
+2010003139
+Printed in the United States of America
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+https://t.me/TradersLibrary
+
+--- PAGE 7 ---
+To my parents
+https://t.me/TradersLibrary
+
+--- PAGE 8 ---
+https://t.me/TradersLibrary
+
+--- PAGE 9 ---
+Contents
+Preface
+xi
+Professional Trading
+xii
+The Role of Mathematics
+xiv
+The Structure of this Book
+xvi
+Acknowledgments
+xix
+CHAPTER 1
+History
+1
+Summary
+6
+CHAPTER 2
+Introduction to Options
+7
+Options
+9
+Speciﬁcations for an Option Contract
+9
+Uses of Options
+11
+Market Structure
+14
+Summary
+20
+CHAPTER 3
+Arbitrage Bounds for Option Prices
+21
+American Options Compared to European Options
+25
+Absolute Maximum and Minimum Values
+25
+Summary
+39
+CHAPTER 4
+Pricing Models
+41
+General Modeling Principles
+42
+Choice of Dependent Variables
+45
+vii
+https://t.me/TradersLibrary
+
+--- PAGE 10 ---
+viii
+CONTENTS
+The Binomial Model
+48
+The Black-Scholes-Merton (BSM) Model
+55
+Summary
+61
+CHAPTER 5
+The Solution of the
+Black-Scholes-Merton
+(BSM) Equation
+63
+Delta
+67
+Gamma
+72
+Theta
+76
+Vega
+80
+Summary
+88
+CHAPTER 6
+Option Strategies
+89
+Forecasting and Strategy Selection
+89
+The Strategies
+93
+Summary
+116
+CHAPTER 7
+Volatility Estimation
+117
+Deﬁning and Measuring Volatility
+119
+Forecasting Volatility
+129
+Volatility in Context
+132
+Summary
+136
+CHAPTER 8
+Implied Volatility
+137
+The Implied Volatility Curve
+138
+Parameterizing and Measuring the Implied
+Volatility Curve
+142
+The Implied Volatility Curve as a Function
+of Expiration
+145
+Implied Volatility Dynamics
+146
+Summary
+151
+https://t.me/TradersLibrary
+
+--- PAGE 11 ---
+Contents
+ix
+CHAPTER 9
+General Principles of Trading
+and Hedging
+153
+Edge
+154
+Hedging
+156
+Trade Sizing and Leverage
+158
+Scalability and Breadth
+163
+Summary
+164
+CHAPTER 10
+Market Making Techniques
+165
+Market Structure
+166
+Market Making
+169
+Trading Based on Order-Book Information
+181
+Summary
+189
+CHAPTER 11
+Volatility Trading
+191
+Hedging
+192
+Hedging in Practice
+193
+The P/L Distribution of Hedged Option Positions
+203
+Summary
+213
+CHAPTER 12
+Expiration Trading
+215
+Pinning
+215
+Pin Risk
+219
+Forward Risk
+221
+Exercising the Wrong Options
+221
+Irrelevance of the Greeks
+223
+Expiring at a Short Strike
+224
+Summary
+225
+CHAPTER 13
+Risk Management
+227
+Example of Position Repair
+228
+Inventory
+232
+Delta
+234
+https://t.me/TradersLibrary
+
+--- PAGE 12 ---
+x
+CONTENTS
+Gamma
+234
+Vega
+238
+Correlation
+240
+Rho
+242
+Stock Risk: Dividends and Buy-in Risk
+242
+The Early Exercise of Options
+243
+Summary
+248
+Conclusion
+249
+APPENDIX A
+Distributions
+253
+Example
+253
+Moments and the “Shape” of Distributions
+254
+APPENDIX B
+Correlation
+263
+Glossary
+271
+Index
+285
+https://t.me/TradersLibrary
+
+--- PAGE 13 ---
+Preface
+T
+raders tend to be a pragmatic group. They are largely interested in
+results. Actually some become so focused on results that it becomes
+a hindrance. This tendency can be a handicap, as the way to achieve
+good results is to focus on good processes and let the results take care of
+themselves. Good traders learn this.
+But good traders are still intellectually parsimonious. They want to
+know what works, but seldom more than the minimum they need. When
+I’m feeling uncharitable I regard this as characteristic of the uncurious,
+dull people I have had the misfortune to work with, and indeed some were
+like this. More realistically, however, this is less a reﬂection on the traders
+themselves, most of who were intelligent people with a wide range of in-
+terests, and more a reﬂection on the nature of trading.
+Trading is complex, changeable, and potentially emotionally draining.
+Once a trader has learned a sensible, statistically valid, proﬁtable method,
+he is better off concentrating on exploiting it rather than continuing to
+experiment.
+So a perfectly valid question when told something is “Why do I need
+to know this?” As a general answer, in the case where everything else is
+equal, the trader with more knowledge will make more money. He will also
+be more easily able to adapt to new markets and opportunities.
+It is possible to trade options successfully without knowing about
+the Black-Scholes-Merton model, or any other pricing model. But for the
+traders who do this, everything is a special situation. They have to indi-
+vidually learn every nuance with no organizing principle. It would be like
+trying to learn chemistry without knowing about the periodic table. Black-
+Scholes-Merton provides a simplifying framework. Traders who know this
+can then learn other things more easily, because they use less energy re-
+membering the otherwise unconnected facts.
+Throughout this book I will tell you things that are truly useful and not
+merely “interesting.” Trading is interesting only if it is proﬁtable.
+However I have no interest in, or intention of, making this an easy read
+for the “average person.” The reason for this is that the “average person”
+xi
+https://t.me/TradersLibrary
+
+--- PAGE 14 ---
+xii
+PREFACE
+will not succeed as a trader, so I would be making things more difﬁcult
+for myself by oversimplifying. The text would be longer and more boring.
+Trading is hard and options are complicated. Much of this book will require
+work and thought. It is not meant to be a light read; it is meant to be a
+thorough treatment.
+I want this book to be the only book an intelligent, diligent person
+would need in order to go from knowing nothing about options to being
+able to trade professionally at a legitimate trading operation (a bank, a
+hedge fund, or a market making ﬁrm).
+PROFESSIONAL TRADING
+It is commonly believed that 90 percent of those attempting to trade will
+lose money. This is a difﬁcult number to verify. First, the people in pos-
+session of the data needed to prove this are members of brokerages and
+clearing ﬁrms, and they have no interest in publicizing the fact that the vast
+majority of their customers fail. Second, we cannot learn much by inter-
+viewing traders as there is the problem of survivorship bias (the only peo-
+ple who will identify themselves as traders are those who have not gone
+bankrupt), and all people tend to exaggerate their successes and minimize
+their losses.
+But even if this ﬁgure is somewhat exaggerated, its implications are
+startling. Most people will fail at trading. The normal excuses for this large-
+scale failure rate given in trading books or seminars (when it is even ac-
+knowledged) take one of two forms.
+r Traders do not know the correct techniques, where “correct” corre-
+sponds to whatever the particular expert is trying to sell.
+r Traders do not have the psychological discipline needed to stick with
+their plan. This is laughable. I know of no other ﬁeld of endeavor where
+failure to perform a skill is routinely blamed on psychology. Would you
+seriously listen to a basketball coach who told you that the main rea-
+son you were not in the NBA was your lack of discipline and desire?
+While great players are also psychologically strong, no amount of de-
+sire and resolve would turn me into a professional level player. Being
+undisciplined might be a personal failing, but it is by no means the most
+important one. This is also true in trading. Psychological coaching can
+help a winner, but it will not make a winner.
+Hundreds of books discuss these subjects, but the survival rate of
+traders gets no better. Yet the proprietary trading desks of banks continue
+https://t.me/TradersLibrary
+
+--- PAGE 15 ---
+Preface
+xiii
+to be proﬁtable (even in the carnage of 2008) and hedge funds proliferate.
+Why can professionals consistently do what the amateurs cannot? Why are
+the same groups successful year after year? In many ﬁelds the answer to
+this question is obvious: it is because they are better. For example, a pro-
+fessional basketball player is doing what I do, but he does it much better.
+Trading is different. Professionals do not generally have more knowledge,
+more skill, or more psychological mastery. They make money because they
+are playing a totally different game.
+Many people completely fail to see this. They are encouraged in this
+view by the proliferation of ﬁnancial news media. There are several full-
+time business television channels, daily newspapers, business radio sta-
+tions, and various Web services that offer to bring people the “inside” view
+of the markets. They do not. If anything, they give their consumers a false
+sense of the depth of their knowledge. Particularly misleading are the oc-
+casions when a ﬂoor trader is interviewed and asked for his views on a
+particular market. The answer will invariably sound useful, containing an
+analysis of the market’s technical and fundamental factors. But success-
+ful traders do not care about these things and asking a ﬂoor trader for his
+opinion on them is like asking Tiger Woods for tennis lessons. He is a great
+sportsman and he hits a ball with an implement, but his tennis views and
+opinions are no more likely to be valid than those of most other people.
+Knowledge is still crucial, but for derivatives traders it is not techni-
+cal analysis or fundamental analysis that is important. They need a sound
+knowledge of market structure and arbitrage relationships. The way they
+consistently make money is through arbitrage and its weaker relatives:
+quasi-arbitrage, statistical arbitrage, and structural arbitrage.
+We will be talking a lot about winning and losing. These can be emo-
+tionally loaded terms. No one likes to be called a loser, and, particularly if
+you are under the age of 40, you have probably become accustomed to hav-
+ing your self-esteem boosted to the point where you think that even if you
+lose money you still are not a loser. This is the wrong way to think. That is
+exactly what you are and if you want that unpleasant fact to change, you
+ﬁrst need to accept it.
+Being a loser does not make you a bad person. On the contrary, many
+of the things winners do would make them bad people in any normal
+setting. Winners (while not setting out to be deliberately unpleasant) are
+ﬁercely competitive, obsessive and often morose and cranky while trading.
+We do not trade to make friends; we trade to make money.
+There is a common misconception of the successful trader as exist-
+ing in a state of preternatural calm. Of course this would be nice, but one
+cannot sustain this state while at the same time maintaining the necessary
+level of obsession. Edges are so small, that you must be a complete control
+freak. You need to obsess over every detail.
+https://t.me/TradersLibrary
+
+--- PAGE 16 ---
+xiv
+PREFACE
+All of this may sound very negative. It could be construed that way. On
+the other hand, I’m going to give you a path that has a far greater chance
+of success. In contrast to the 90 percent failure rate cited earlier, over
+50 percent of the people I have ever known in this industry are still in it,
+meaning that they are competent professionals. Those who succeed are not
+distinguished by special intelligence. They have learned to put themselves
+in market niches that give them an edge. This is the most important trading
+decision they have made. If you also do this and are not stupid, lazy, or
+dishonest, you can also succeed.
+Trading success is measured in money, but people who are purely mo-
+tivated by money might want to reconsider trading as a career choice.
+We’ve already pointed out the colossal failure rate. But even traders who
+“succeed” may not make great fortunes. Many traders manage to stay in
+the game without accumulating great wealth. Most of these people could
+probably have achieved about the same income in another job. Further, a
+more conventional career choice would follow a standard path of profes-
+sional development. A lawyer with 20 years of experience might be a part-
+ner in a law ﬁrm or a judge. A trader does not have these opportunities.
+If he wants to keep trading he will be in the same job as he was when he
+started.
+So why trade? The reason to become a trader is the same reason some-
+one should choose any career: Because that is what they do and who they
+are. Eventually this consideration overwhelms all others. As G. H. Hardy
+said in, “A Mathematician’s Apology,” “I do what I do because it is the one
+and only thing that I can do at all well. . . . If a man has any genuine talent
+he should be ready to make almost any sacriﬁce in order to cultivate it to
+the full.”
+THE ROLE OF MATHEMATICS
+A (very annoying) colleague once asked for something to read about op-
+tion trading that “was not mathematical.” This really is not possible. All
+of the concepts behind the structure, pricing, and trading of options are
+inherently mathematical. This is true of all trading.
+Nonetheless there is a large group of traders who vociferously state
+their distrust of mathematics. The most charitable thing I can say about
+these people is that they really are not thinking about what they are saying.
+Do they really doubt that a trader who makes a million dollars a year is
+better than one who loses a million dollars? After all, this is a question that
+can be decided only by using the appropriate mathematics. This case is sim-
+ple. Is A greater than B? But just because a situation is less clear-cut does
+https://t.me/TradersLibrary
+
+--- PAGE 17 ---
+Preface
+xv
+not necessarily make the application of mathematics irrelevant. In fact, I
+hope to show that more complex situations need the most mathematical
+analysis.
+I do not claim that everything is about mathematics. Intangibles matter.
+Leadership, inspiration, grit, and heart are all important. But they matter
+only if they lead to something tangible. And results are always tangible.
+Causes may not be.
+A skilled mathematical trader will use math and statistics to simplify
+the world. A good mathematical model takes a very complex situation and
+makes it possible to identify a cause and an effect. All traders do this. “If
+nonfarm payroll comes in under expectations, the market will rally,” is an
+example of a trader using a model in this way. He has not expressed it in an
+equation, but it is the same process. Someone can choose to simplify the
+world in a different way to you. This is not a problem. It is a good thing.
+You can always learn from divergent viewpoints.
+A good model has to be based on the appropriate selection of inputs.
+To predict the score of a baseball game, for example, we might consider
+the number and type of hits each team averages, how often players take
+walks and how many runs the pitching staffs give up. Our predictive model
+will then be some function of these variables. But if we were to also include
+the population of each team’s home city, then our prediction would clearly
+rest on an unstable foundation. Fundamental knowledge is necessary to
+avoid this situation.
+So I need to assume a certain amount of mathematical literacy, and
+it is not immediately obvious where to draw this line. I’ve basically de-
+cided to assume that someone who wants to be a serious option trader
+should have picked up the mathematics of a good high school education.
+This includes algebra, logarithms, and exponentiation and basic calculus.
+The Black-Scholes-Merton (BSM) formalism requires more complex math-
+ematics to do properly. We avoid this by doing it improperly. I think we
+can get the essential points across this way. An option trader need not be
+able to give a rigorous derivation of this equation (those who ﬁrst did so
+were rewarded with Nobel prizes), but should be able to follow an informal
+discussion of it.
+I make an exception for statistics. Here I assume that you know far
+less, and discuss probability distributions, descriptive statistics, inference,
+and sampling. There are two reasons for this. First, I’ve found that many
+people come into ﬁnance with a strong background in mathematics or the
+physical sciences. To these people calculus is simple, but their grounding
+in statistics is generally weak. Second, many successful traders have had
+only a basic understanding of the mathematics behind BSM and certainly
+have no idea of the differences between calculus and stochastic calculus.
+https://t.me/TradersLibrary
+
+--- PAGE 18 ---
+xvi
+PREFACE
+This is not generally a great problem. But misunderstanding statistics and
+probability can, and does, lead to disastrous decisions.
+THE STRUCTURE OF THIS BOOK
+This book is roughly divided into three parts. First we will introduce op-
+tions, both historically and conceptually. Next we use the no-arbitrage prin-
+ciple to introduce option pricing. We examine both static arbitrage relation-
+ships and the dynamic hedging approach. The last, and largest, part of the
+book is about how to actually trade options.
+In Chapter 1 we discuss the history of options and other ﬁnancial
+derivatives. I think these stories are interesting, but even if they were not
+interesting, they would be important. Sadly, option traders will often ﬁnd
+themselves in situations where they need to defend their profession. This
+can happen in social situations, which is annoying, but it is also a topic of
+political debate. Traders cannot reasonably expect much public sympathy,
+but they need to be able to conduct a coherent defense of the morality,
+necessity and desirability of the existence of their business. Understand-
+ing the history of derivatives and particularly the way that they have been
+blamed for many past ﬁnancial catastrophes can only help do this.
+Chapter 2 introduces options and option markets. While this is un-
+doubtedly boring material, it is probably the most important chapter in the
+book. Unless the reader has a solid grasp of basic deﬁnitions and nomen-
+clature, he will not be able to go any further.
+Chapter 3 is the ﬁrst chapter in the pricing section of the book. We
+introduce the concept of no arbitrage and use it to derive relationships be-
+tween call and puts and options of different strikes and maturities. Again,
+many of the proofs here are tedious, but the results must become second
+nature and good traders will become familiar enough with the principle of
+no arbitrage to be able to apply it to the analysis of unfamiliar structured
+products.
+In Chapter 4 we work through the two most important option pric-
+ing models: the binomial tree and the Black-Scholes-Merton (BSM) model.
+These are not the most important models because they are the most use-
+ful. Neither one is actually used in practice much anymore. However, they
+provide the conceptual basis for most other models, and traders need to
+become familiar with their assumptions and how we compensate for these
+in practice.
+Chapter 5 examines the solution to the BSM model and introduces
+the famous greeks, the sensitivities of the option price to various param-
+eters and variables. Although the equations we give are tied to the BSM
+https://t.me/TradersLibrary
+
+--- PAGE 19 ---
+Preface
+xvii
+formalism, the nature of the greeks is not. The behavior of the greeks is
+more fundamental than this. Options really do have these dependencies
+irrespective of the particular pricing model we use. This is important: we
+want to become familiar with options, not with option pricing models.
+By this point we will know what options are, and how they are priced.
+Next we can learn how to trade them. Chapter 6 looks at the various strate-
+gies that can be constructed from simple calls and puts. Many books do
+this, but most do so from the perspective of a customer who is trying to
+construct a directional bet with certain risk characteristics. As professional
+traders, we generally will not be doing this. We will usually be interested in
+the volatility aspects of a given position. Nonetheless we still need to know
+what the standard positions and strategies are.
+Option pricing models are not magic. They are incredibly helpful trad-
+ing tools, but they still need inputs in order to generate option prices. The
+most important of these is volatility. Chapter 7 shows how to measure and
+forecast volatility. Chapter 8 is somewhat complementary. Here we con-
+sider the nature and behavior of implied volatility: the volatility that the
+option market is using at any point. The interplay between implied volatil-
+ity and realized volatility is central to the theory and practice of option
+trading.
+While trading does involve instinctual actions it also has a number of
+aspects that can be quantiﬁed. There are a number of indisputable mathe-
+matical truths that need to form the basis of any sensible trading operation.
+In Chapter 9 we introduce the concept of expected value, the general idea
+of hedging and the idea of trade sizing: looking at a trade as a part of a
+continuing business plan rather than a single unrepeated bet.
+Chapter 10 discusses the basic ideas and strategies of market making.
+Not all option traders will be market makers, but all traders can beneﬁt
+from understanding their behavior. At the very least this will improve a
+trader’s ability to execute trades.
+In Chapter 11 we examine volatility trading, in particular, how to hedge
+and what to expect when we do. Volatility trading is a viable stand-alone
+strategy, but it also needs to be understood by any trader using options.
+Option traders inevitably take positions in volatility even if this is not their
+principal focus.
+Expiry trading gets a separate chapter: Chapter 12. Nothing about ex-
+piration is really fundamentally different from any other time, but every-
+thing that happens is far more extreme. It provides opportunities for good
+trading, but also risks that are much larger than at other times. Risk man-
+agement is the most important thing for an option trader to do. Everything
+a trader does, and everything in this book, is about risk management. All
+trades must be evaluated by both their return and their risk. But there is an-
+other level of risk management to consider as well. At this level, we think
+https://t.me/TradersLibrary
+
+--- PAGE 20 ---
+xviii
+PREFACE
+far less about the probability of an event, and much more about the conse-
+quences of its occurrence. This is just one of the many inconsistencies that
+a trader must become comfortable with. We spend a lot of time estimating
+probabilities of events before we do a trade. But we also need to make sure
+that in no state of the world, no matter how unlikely, can the trade cause
+us to go broke. This type of analysis is covered in Chapter 13.
+https://t.me/TradersLibrary
+
+--- PAGE 21 ---
+Acknowledgments
+M
+any people helped me with this project, but deserving of particu-
+lar thanks are those who did proofreading. At the risk of forget-
+ting someone, special thanks go to Julien Gosme, Rich Ghazarian,
+Nicolas Tabardel, Chetan Mehra, Christopher Merrill, DN, Alexander
+Chiang, David Rasho, Derek G. Nokes, Elizabeth S. Duquette, and Benjamin
+Portheault.
+I’d also like to thank all of the traders I have worked with. Some need
+to be thanked for the cautionary tales they provide and some for the valu-
+able advice and education they gave me. Notable members of this second
+group are Art Duquette, Don Perettie, David Little, and, in particular, Raoul
+Rodriguez, who pointed out to me that “if you shut up and listen you might
+not be in that clerk’s jacket forever.”
+xix
+https://t.me/TradersLibrary
+
+--- PAGE 22 ---
+https://t.me/TradersLibrary
+
+--- PAGE 23 ---
+C H A P T E R 1
+History
+In our view, however, derivatives are ﬁnancial
+weapons of mass destruction, carrying dangers that,
+while now latent, are potentially lethal.
+—Warren Buffett, letter to shareholders, 2002
+D
+erivatives have often been characterized as dangerous tools of ﬁ-
+nancial speculation, invented by mathematicians who are out of
+touch with reality, then sold by unscrupulous salesmen to gullible
+customers who do not understand the risks they are taking. They have
+been blamed for most periods of modern ﬁnancial turmoil, including the
+1987 crash, the bankruptcy of Barings Bank, the meltdown of Long Term
+Capital Management, and the current “subprime crisis.” Like many pop-
+ulist misconceptions, there are germs of truth in this straw man, but the
+full truth is far more nuanced, complex, interesting, and proﬁtable to those
+who understand.
+Derivatives are as old as recorded history. The ﬁrst reference we have
+to derivatives is in Genesis 29. Jacob entered an agreement that obligated
+him to work for seven years in exchange for the hand of Rachel. However,
+after Jacob had fulﬁlled his part of the contract, Rachel’s father, Laban, de-
+faulted on his obligations and made Jacob instead marry his elder daughter,
+Leah. So Jacob entered another agreement in which he again worked for
+seven years in order to marry Rachel.
+r This was a forward agreement where Jacob paid (in labor) in return
+for something (Rachel) to be delivered at a certain time in the future
+(seven years).
+1
+https://t.me/TradersLibrary
+
+--- PAGE 24 ---
+2
+OPTION TRADING
+r Laban defaulted, by not carrying out his obligations under the contract,
+making this not only the ﬁrst derivative we know of but also the ﬁrst
+default.
+r Jacob may not have been a great trader. He entered a contract at a high
+price, was cheated, and then did the same thing again.
+The ﬁrst unambiguously historical reference to options is in “The Pol-
+itics” by Aristotle. He tells the story of the philosopher Thales of Miletus
+who lived from 624 to 527 B.C. It seems that Thales eventually grew tired of
+hearing variants of the question, “If you are so smart why aren’t you rich?”
+and resolved to show that learning could indeed lead to riches. According
+to Aristotle:
+He, deducing from his knowledge of stars that there would be a good
+crop of olives, while it was still winter raised a little capital and used
+it to pay deposits on all the oil-presses in Miletus and Chios, thus
+securing an option on their hire. This cost him only a small sum as
+there were no other bidders. Then the time of the harvest came and
+as there was a sudden and simultaneous demand for oil-presses, he
+hired them out at any price he liked to ask.
+Thales actually bought a call option. The deposits bought him the right,
+but not the obligation, to hire the presses. If the harvest had been poor,
+Thales would have chosen not to exercise his right to rent the presses and
+lost only the initial deposit, the option premium. Fortunately, the harvest
+was good and Thales exercised the option. Aristotle concludes,
+He made a lot of money and so demonstrated that it is easy for
+philosophers to be rich, if they want to.
+I do not doubt that the trade was proﬁtable, but at the risk of con-
+tradicting a philosophical giant, I need to emphasize that making money
+is never easy. However, Thales clearly shows that being smart is helpful
+when trading options.
+We can also ﬁnd other examples of option contracts in the ancient
+world. Both the Phoenicians and the Romans had terms in their maritime
+cargo contracts that would today be considered options. It seems likely
+that options were commonplace in the shipping industry, so we should not
+be too surprised when their use spread geographically, particularly to an-
+other nation with a seafaring history.
+The United Kingdom is now one of the world’s great ﬁnancial cen-
+ters, but the medieval English church was not particularly pro-business. It
+speciﬁcally forbade charging interest for loans. To get around this, a loan
+https://t.me/TradersLibrary
+
+--- PAGE 25 ---
+History
+3
+would be structured synthetically using the principles behind the put-call
+parity theorem that we shall encounter later. It could therefore be argued
+that options are thus more fundamental than mortgages.
+The ﬁrst modern ﬁnancial scandal involving derivatives took place in
+another prominent marine trading nation: Holland in 1636. This is an in-
+teresting case. Trade in tulips was conducted through a futures market.
+Dealers and growers would agree on prices before the crop was harvested.
+As prices rose throughout the 1630s, many German burgomasters began to
+purchase futures contracts as pure speculation. In February 1637, prices
+crashed.
+Sometimes the reason for this crash is given as the defeat of the
+Germans by the Swedes in the Battle of Wittstock of October 1636. Accord-
+ing to this theory, demand for tulips collapsed as the German nobles had
+more important things to attend to. However, this is probably a case where
+we are trying to ﬁnd a single cause for an event that does not have one. The
+Battle of Wittstock took part well into the Thirty Years War (1618–1648). In
+this war, somewhere between 10 and 20 percent of the German population
+was killed. One could well guess that the German nobles were already con-
+cerned about this. Why one battle would cause a crash in the tulip market
+is not obvious.
+Whatever the reason for the crash, the Dutch local politicians were
+now faced with paying above-market prices for their bulbs and they re-
+sponded in the typical way for their profession: they changed the rules. Af-
+ter initially trying to renege on their commitments, they turned them into
+options. Now they would not have to buy the tulips unless the crop prices
+were higher. As compensation to the short futures holders, they arranged
+a small premium payment to be made. After this, these options became
+traded speculative vehicles. One of the most important things for deriva-
+tive traders to remember is that the contracts exist only as legal contracts.
+They are hence subject to changes through the legal system. Traders who
+have forgotten this have apparently been getting hurt since at least 1636,
+and probably far earlier than that.
+The other famous bubble of the period that featured options was the
+South Sea bubble of 1720. In return for a loan of £7 million to ﬁnance a
+war against France, the House of Lords granted the South Sea Company
+a monopoly in trade with South America. The company underwrote the
+English national debt, which stood at £30 million, on a promise of 6 percent
+interest from the government. Shares rose immediately. Common stock in
+this company was held by only 499 people, with many members of par-
+liament amongst them. To cash in on the speculative frenzy, the company
+issued “subscription shares,” which were actually compound call options.
+These fueled the ﬁre, but in September of 1720 the market crashed as the
+management realized that the share price was wildly inﬂated. As news of
+https://t.me/TradersLibrary
+
+--- PAGE 26 ---
+4
+OPTION TRADING
+insider selling spread, the price tumbled 85 percent. Many people were ru-
+ined. Isaac Newton was rumored to have lost 20,000 pounds (this is equiva-
+lent to over one million pounds in today’s money). As a result of this crash,
+trading in options was made illegal in the United Kingdom and remained
+so until 1825.
+Options need not be considered in isolation. Financial engineering is
+the construction of hybrid derivative products with features of multiple
+asset classes. This is also not new practice. Early examples were confeder-
+ate war bonds. The antebellum South had one of the lowest tax burdens of
+contemporary societies. The hastily assembled Confederacy did not have
+the infrastructure in place to collect taxes for war ﬁnancing. In 1863 the
+Confederacy issued bonds that allowed them to borrow money in pounds.
+There was also an embedded option that allowed the bondholder to receive
+payment in cotton. The cotton option gave the bondholder more certainty
+of payment, as cotton was the south’s largest crop. The catch was that the
+cotton would be delivered in the Confederacy. This bond was probably
+more important as a political tool rather than a source of ﬁnancing. These
+bonds ﬁnanced only about 1 percent of the military expenditures, but they
+were seen as a way of conferring legitimacy upon the breakaway states
+by being listed in London and having William Gladstone, the Chancellor of
+the Exchequer and future British Prime Minister, among the holders. Of
+course, the Union won the war and the Confederacy ceased to exist—and
+defaulted on all of its obligations.
+In the United States options began trading in the eighteenth century.
+By the nineteenth century an active over-the-counter business in equity
+options had developed. This market had a well-deﬁned structure. Wealthy
+individuals would sell blocks of puts and calls to brokers who would in
+turn sell them to smaller speculators. This arrangement helped to mitigate
+against credit risk, as the smaller traders were only allowed to purchase
+options and had to pay in full for the options up front. These options were
+commonly referred to as “privileges,” because the purchaser had the priv-
+ilege of exercising the option and calling (or putting) the stock but was
+under no obligations.
+While the market was active, it was not considered socially acceptable.
+In 1874 the Illinois state legislature made option trading illegal. Other states
+followed, often because of the idea that speculation was harmful to “real”
+businesses and was nothing more than a form of gambling. Option trading
+was generally considered no more legitimate than trading in bucket shops
+or even participating in outright ﬁnancial frauds.
+Due to the counterparty risk, this market was mainly one of issuance.
+The options would trade in a secondary market, but this was far more illiq-
+uid. Over the next hundred years, this market developed in size but re-
+mained over-the-counter.
+https://t.me/TradersLibrary
+
+--- PAGE 27 ---
+History
+5
+During this time, traders gradually developed many of the rules of
+thumb that we still use today. The equivalence of puts and calls was well
+understood, as were the ideas behind hedging with the underlying and
+other options. There were also several option pricing models being used
+by the more advanced traders. In fact it is likely that traders were using the
+essential features of the Black-Scholes-Merton model in this period.
+The ﬁrst exchange to list standardized contracts was the Chicago
+Board Options Exchange (CBOE). These started trading on April 26th,
+1973. The publication in the same year of the famous Black-Scholes pric-
+ing model (now more correctly referred to as the Black-Scholes-Merton
+model) also boosted the market as more and more people thought they
+could now successfully price and hedge options. Initially options were
+listed on 16 stocks. Today options on thousands of stocks, indices, cur-
+rencies and futures trade on at least 50 exchanges in over 30 countries.
+In addition to this enormous expansion of the universe of underlyings,
+the total activity has increased exponentially. Figure 1.1 shows the total
+volume in U.S. stock options annually since 1973.
+It is currently popular to advocate a dangerous form of ﬁnancial Lud-
+dism in which derivatives are banned, but we can see that even during
+the turmoil of 2008, volume continued to rise. The main reason for this
+large and consistent growth is that derivatives are useful and their users
+like them. They can indeed be used for foolish speculation, but they can
+equally be used for prudent risk reduction and proﬁtable trading. Even if
+the dominant use of options was for speculation, this would seem to be a
+weak argument against them. Practically anything can be used for specula-
+tion. There have been speculative bubbles in baseball cards, stamps, classic
+0
+500
+1,000
+1,500
+2,000
+2,500
+3,000
+3,500
+1973
+1975
+1977
+1979
+1981
+1983
+1985
+1987
+1989
+1991
+1993
+1995
+1997
+1999
+2001
+2003
+2005
+2007
+Equity Option Volume (millions)
+FIGURE 1.1
+The Total Annual Volume in U.S. Stock Options
+https://t.me/TradersLibrary
+
+--- PAGE 28 ---
+6
+OPTION TRADING
+cars, wine, and coins. The subprime crisis was initiated by people buying
+property they could not afford. Options may well have been a tool in the
+speculative bubble, but they were not the root cause.
+Another thread of this argument against ﬁnancial options is that no
+one really understands them. Actually this argument is normally advanced
+by people who think they understand options but no one else does. As
+with all areas of human knowledge, there are indeed things that we do
+not understand, but many traders have, through study and experience, de-
+veloped robust, conservative trading methods. In fact, most professional
+option traders had a relatively good year in 2008, as the high volatility lev-
+els increased the spreads they could charge.
+Derivatives are an exceptionally useful tool. They have made ﬁnan-
+cial products such as ﬁxed-rate mortgages with early prepayment options
+widely available and much cheaper than they would otherwise be. They
+also allow users to tailor their portfolios toward their ideal level of risk. We
+could not return to a “simple” ﬁnancial system without also returning to a
+“simple” economy with a far higher cost of capital and the lower growth
+that this would generate.
+In any case, as a practical matter, derivatives cannot be uninvented.
+It seems very likely that acquiring a solid understanding of vanilla options
+will remain useful and proﬁtable.
+SUMMARY
+r Derivatives are not a modern invention. They have a longer history
+than either stocks or bonds.
+r They have consistently gained in popularity, particularly since they
+were listed on major exchanges.
+r Arguing that they are “too complex” is neither logically or ﬁnancially
+sensible.
+https://t.me/TradersLibrary
+
+--- PAGE 29 ---
+C H A P T E R 2
+Introduction to
+Options
+No one said life would be interesting.
+—My parents
+Boring is good.
+—“Squid,” with 15 years’ worth of option-trading
+experience
+T
+he fact that many people try to trade without understanding basic
+contract speciﬁcations has been illustrated several times in the ETF
+space recently.
+Consider the case of the ultra-short ETFs. These are funds designed
+to return a multiple of the negative daily return of an index. They do this
+fairly well. However, due to the ways that returns compound, they will not
+deliver the negative return if we look over a longer period. Table 2.1 looks
+at the returns of FXI and FXP (which is intended to deliver negative two
+times the daily returns of FXI) in October and November of 2008.
+We can see from this data that the ETF does a reasonable job of deliver-
+ing the negative two times return each day. The relationship is not perfect,
+as FXP actually averages −1.75 times the daily return of FXI. This is mainly
+due to the large bid ask spread slightly distorting the closing prices. But the
+important point to notice is that over the full period, the FXI total return
+was 9.0 percent and FXP returned −49.2 percent. This is clearly nowhere
+close to negative two times the return of FXI. This is not due to any ne-
+farious activity on the part of the fund manager. It is purely the effects of
+compounding.
+7
+https://t.me/TradersLibrary
+
+--- PAGE 30 ---
+8
+OPTION TRADING
+TABLE 2.1
+FXI and FXP
+FXI %
+FXP %
+Date
+FXI
+Returns
+FXP
+Returns
+10/27/2008
+19.29
+183.01
+10/28/2008
+23.15
+20.01
+118.7
+−35.14
+10/29/2008
+22.34
+−3.50
+115.48
+−2.71
+10/30/2008
+25.48
+14.06
+87.03
+−24.63
+10/31/2008
+24.99
+−1.92
+89.00
+2.26
+11/3/2008
+25.28
+1.16
+86.00
+−3.37
+11/4/2008
+27.02
+6.88
+75.20
+−12.56
+11/5/2008
+24.48
+−9.40
+87.00
+15.69
+11/6/2008
+22.54
+−7.92
+101.99
+17.23
+11/7/2008
+25.43
+12.82
+76.32
+−25.17
+11/10/2008
+26.43
+3.93
+69.50
+−8.94
+11/11/2008
+24.88
+−5.86
+76.66
+10.30
+11/12/2008
+23.92
+−3.86
+82.58
+7.72
+11/13/2008
+27.47
+14.84
+60.40
+−26.86
+11/14/2008
+24.98
+−9.06
+69.68
+15.36
+11/17/2008
+24.93
+−0.20
+69.96
+0.40
+11/18/2008
+24.11
+−3.29
+74.61
+6.65
+11/19/2008
+22.13
+−8.21
+86.23
+15.57
+11/20/2008
+21.02
+−5.02
+93.00
+7.85
+Compounding daily leveraged returns is not the same as delivering a
+leveraged return over any arbitrary period. This is a mathematical fact. A
+fabricated example might make the effect clear. Consider two ETFs, X and
+Y. Y is designed to deliver twice the daily return of X. They initially both
+trade at $100. On the ﬁrst trading day, X rallies by 10 percent to $110 and Y
+accordingly rallies 20 percent to $120. On the second day, X drops back to
+$100. This is a decrease of 9.09 percent. Y drops by 18.18 percent, as it is
+designed to do. However this brings the price of Y to $98.18. So after two
+days, the ﬁrst ETF is unchanged and the second has lost 1.82 percent. This
+effect is path dependent and is exacerbated by high volatility.
+This should be perfectly obvious to anyone who has read the prospec-
+tus. The funds are designed to deliver leveraged, daily returns. They do
+this. That this relationship does not hold over longer periods is not the
+fund manager’s fault. The fact that customers thought that this should hap-
+pen is their fault. They did not do their homework. However, the trading
+chat-rooms and message boards indicated that there were plenty of people
+who were eager to blame others for their ignorance.
+This can never happen to a professional. You simply must know all
+details of your instrument’s speciﬁcations.
+https://t.me/TradersLibrary
+
+--- PAGE 31 ---
+Introduction to Options
+9
+This chapter will test your ability to grind through some fairly dull ma-
+terial. It is, however, vital material. You can forget about exploiting the
+nuances of trading if you do not know the basic contract speciﬁcations.
+OPTIONS
+Options are a type of derivative. A derivative is a ﬁnancial instrument
+whose value is derived from the value of another asset: the underlying. An
+option gives the option owner the right, but not the obligation, to buy or
+sell the underlying asset at a speciﬁed price any time during a designated
+period or on a speciﬁed date. To gain this right, the owner pays the seller a
+payment called the option premium.
+The fact that an option holder is under no obligation to do anything is
+worth stressing. The owner of an option can also choose not to exercise
+the option and to let it expire worthless. This creates an asymmetry that
+is one of the great appeals of options. The owner can beneﬁt from a fa-
+vorable move in the price of the underlying, yet does not suffer due to an
+unfavorable move.
+The seller takes the opposite side of this risk in return for the premium.
+He is obligated to fulﬁll the terms of the contract if the owner exercises it.
+Because options are contracts they can be created without limit (At
+least this is true in theory. In reality, a market participant’s position will
+be limited by his ability to collateralize it). An option market can never
+be cornered, and a seller does not have to borrow an option from another
+person in order to short it.
+SPECIFICATIONS FOR AN
+OPTION CONTRACT
+The speciﬁcations that deﬁne an option contract are: option type, underly-
+ing asset, strike price, expiration date, exercise style, and contract unit.
+Option Type
+There are two basic types of options, calls and puts. A call option gives
+the holder the right, but not the obligation, to buy the underlying asset
+at a predetermined price on or by a certain date. A put option gives the
+holder the right, but not the obligation, to sell the underlying asset at a
+predetermined price on or by a certain date.
+https://t.me/TradersLibrary
+
+--- PAGE 32 ---
+10
+OPTION TRADING
+Underlying Asset
+Options are available on a number of underlying assets including stocks,
+indices, and various futures. The underlying asset of a stock option is a
+certain number of shares of the underlying stock. The underlying asset of
+an index option is an amount of cash equal to some multiple of the index
+value (this is sometimes referred to as cash settled). The underlying asset
+of a futures option is a future.
+Strike Price
+The strike, or exercise, price is the price at which the option owner can
+buy or sell the underlying asset.
+Expiration Date
+The expiration date is the last date on which the option exists.
+Exercise Style
+The two most common exercise styles are American and European. Amer-
+ican options can be exercised at any time before the expiration date (or
+more practically at a given time on any trading day before the expira-
+tion date), while European options can be exercised only on the expira-
+tion date. Bermudan options, so named because they fall somewhere be-
+tween American and European, can be exercised on a given number of
+days before the expiration date. There are many other options named for
+geographical areas (for example, Asians, Russians, Israelis, Hawaiians, and
+Parisians), but these refer to features other than exercise style.
+Contract Unit
+The contract unit is the amount of the underlying asset that the option
+owner can buy or sell upon exercise. In the United States, the contract
+unit for individual stock options is usually 100 shares of stock. For index
+options, it is an amount of money equal to $100 times the index. For futures
+options it is one futures contract.
+So if a stock option is traded at a price of $3.00, the buyer would need
+to pay $3 × 100 for each option.
+Traders need to be aware of how the contract units and strike price for
+equity options can be adjusted as a result of corporate actions. If a stock
+undergoes an integer split, the number of open contracts increases by the
+split factor, and the stock price and strike price will decrease. For example,
+https://t.me/TradersLibrary
+
+--- PAGE 33 ---
+Introduction to Options
+11
+if the stock splits two-for-one, the split ratio is two, so the strike and under-
+lying both halve while the number of open contracts doubles. However, if
+the split is not by an integer ratio, the contract unit increases and the num-
+ber of open contracts remains unchanged. For example if the stock splits
+in a 3 to 2 ratio, the contract unit increases to 150 shares, while the stock
+price and strike price decrease by two thirds. In each case the product
+of open contracts, contract units, and the strike price remains constant.
+Other corporate actions such as special dividends, recapitalizations, and
+rights offerings will be treated in similar fashion.
+USES OF OPTIONS
+Options have nonlinear payoffs. This allows users to create risk reward
+proﬁles that are speciﬁcally tailored to their needs (or at least their wants).
+We look at these strategies in Chapter 6. We also see (in Chapter 4) that the
+theory of option pricing uses the idea that we can replicate an option po-
+sition by dynamic trading in the underlying, but this is generally expensive
+and in practice has many limitations. It also requires continuous monitor-
+ing and specialized knowledge. For these reasons, options are not redun-
+dant securities. They give traders the ability to do new things.
+Option trades can usually be split into hedging trades or speculative
+trades. Hedges are designed to mitigate current risks, while speculation is
+designed to create proﬁts. In practice the distinction is one of degree rather
+than type.
+We will spend most of the rest of this book discussing the uses of op-
+tions. Here we give some simple examples of using options for directional
+trading, hedging, volatility trading, and as part of a structured product.
+Hedging a Long Position with a Put
+If we have a long position in the underlying, we can protect ourselves
+against its price falling by purchasing a put.
+For example, we own 1,000 shares of Microsoft (MSFT), which is cur-
+rently trading at $22. We are worried that it may fall in the short term so we
+purchase 10 of the one-month $20 puts for a price of $32 each (the quoting
+convention gives the price as option per share, so these would be offered
+on the exchange as 0.32). As each option has a contract unit of 100 shares
+this means we have secured the right to sell all of our shares for $20 for the
+next month. This is exactly the same as buying insurance.
+A fair question at this point is “If the owner thinks the shares are going
+to fall, why don’t they just sell them?” The simplest answer is that maybe
+https://t.me/TradersLibrary
+
+--- PAGE 34 ---
+12
+OPTION TRADING
+they can’t. An analogous question is, “If you think your house is going to
+burn down why not just sell it? Why buy insurance?” The reason is that
+you need somewhere to live. Further, you hope that even though you have
+insurance, your house won’t burn down. Similarly, sometimes people own
+large blocks of stock that they cannot sell. During the dot-com boom, a
+number of companies were acquired in all stock deals where the company
+owners were given stock in the acquiring company but not allowed to sell it
+until a certain lock-up period was over. So they would buy puts as a hedge.
+They hoped that the puts would expire worthless just as we do when we
+buy house insurance.
+This is the simplest way of seeing the fallacy in methods that use the
+number of outstanding puts or calls to predict the direction of an underly-
+ing security. Just because a trader owns some puts does not imply that he
+expects the underlying to fall. There are too many ways of using options
+to tell.
+It might also be that puts are the cheapest way of protecting the posi-
+tion. The owner could enter a stop order with a broker directing him to sell
+the shares if the price dropped below $20, but stops have a slightly differ-
+ent payoff to a put. A stop will always be executed if the price reaches a
+certain level. An option holder may decide not to exercise his option and in
+fact will usually not do so as soon as the exercise price is reached. Options
+can act as a stop but they are not the same as a stop order in the underlying.
+Although the theory of option pricing is based on the idea that we can
+replicate an option position by dynamically trading the underlying, this is
+just an approximation. In practice the subtle distinctions between option
+behavior and the behavior of the replicating strategy are where profes-
+sional traders can make money.
+Buying a Put (Call) to Speculate on a Fall (Rise)
+If we think a stock will fall (rise) we can buy a put (call). This gives us the
+possibility of making a large proﬁt and only exposes us to the loss of the
+option premium. Further, by purchasing out of the money puts (calls) (op-
+tions that would be worthless if exercised against the current underlying
+price) we give ourselves more leverage than we could obtain by shorting
+the underlying directly.
+Buying a Call as a Hedge
+Sometimes our risk is not that an asset will decrease in price. If we are a
+mortgage provider we will be at risk if interest rates decline. Someone with
+a ﬁxed rate mortgage will want to reﬁnance if rates fall. The borrower has
+the option to reﬁnance, so the lender is short this option. He can hedge this
+https://t.me/TradersLibrary
+
+--- PAGE 35 ---
+Introduction to Options
+13
+by buying bond calls (a bond goes up if interest rates go down). His risk is
+that bonds increase in value, so the call is a hedge.
+Creation of Structured Products
+When options are available and liquid, it is possible to use them to create
+products that are speciﬁcally designed for certain classes of investors. An
+example is the equity-linked note.
+Investors are torn between fear and greed. The ideal product is one
+that allows us to participate in an investment’s upside while giving them
+protection against price falls. It is possible to use vanilla options to con-
+struct such a product.
+As an example, let’s consider the construction of a principal protected,
+equity-linked note. This product guarantees that at its maturity the holder
+will receive his principal plus a return that is tied to the performance of
+an equity index, which we assume initially has a level of 1,000. The note-
+holders will participate in the return on the index once it increases by more
+than a certain percentage.
+Now the structuring ﬁrm (generally a bank or investment fund) will
+take the interest on the principal and use it to buy calls. Assume that this
+interest income can buy the one-year calls with an 1,100 strike. At the end
+of the year, if the index is below this level, the note holder gets his money
+back. Above this level he will make money as the stock market rises.
+Investors love these products because they can be carefully tailored to
+match their psychological concerns about money. People tend to be scared
+of losses and resentful if they miss out on large market rallies. On the other
+hand, the note issuers can make money on these products by taking in a
+structuring fee that is bigger than their transaction costs. This is a case
+where both parties beneﬁt.
+Volatility Trading
+By trading options and dynamically hedging them with the underlying, a
+trader can take a position that is dependent only on the difference in volatil-
+ity implied by the option market and the volatility that actually occurs in
+the underlying during the lifetime of the option.
+This can either be used as a stand-alone strategy or to manage the risk
+in a market maker’s position.
+Structured Product Arbitrage
+Many ﬁnancial products contain options or option-like features. We
+have already mentioned the prepayment option that is present in most
+https://t.me/TradersLibrary
+
+--- PAGE 36 ---
+14
+OPTION TRADING
+mortgages. Another example is a convertible bond. This is a bond where
+the holder receives a slightly lower coupon than a similar but nonconvert-
+ible bond, but has the right to convert the bond into the stock of the issu-
+ing company at a ﬁxed price. This position could be replicated by buying a
+bond and a call option. As these positions are the same, they should have
+the same price. If the price of the components diverges sufﬁciently from
+that of the convertible bond, we can proﬁtably sell the real bond and buy
+the synthetic one, or vice versa.
+MARKET STRUCTURE
+Exchanges can have slightly different structures both on the trading side
+(ﬂoor trading, electronic or hybrid, market maker or specialist, continu-
+ously quoted or response to request, etc.) and in their corporate structure
+(ownership by members, banks or the public, etc.). There is no way we can
+cover all of these extensively. This would be boring and fairly pointless. A
+trader should understand how the general process works and then check
+on the details of his own markets. Here we will examine the structure of the
+United States equity option market because it is deep, broad, likely to be
+useful to most readers, and it is the market with which I am most familiar.
+An Option Account
+In order to make an option trade, a trader must open an account with a
+broker. To do this, he must complete the following documents.
+r A securities account agreement
+r An options account agreement
+r The OCC (The Options Clearing Corporation, whose role we will look
+at later) risk-disclosure agreement, “Characteristics and Risks of Stan-
+dardized Options”
+After this, the trader can place an order.
+An Option Order
+When placing an order, the trader must specify several things. The order
+could either be given to a broker over the phone (in which case give the or-
+der and have him repeat it to conﬁrm that there are no mistakes) or through
+the trading software. The trader must specify the following.
+r Whether the trade is a buy or a sell
+r Whether we are trading a call or a put
+https://t.me/TradersLibrary
+
+--- PAGE 37 ---
+Introduction to Options
+15
+r The number of option contracts
+r The underlying stock
+r The strike
+r The expiration month
+r The account number
+r Whether the option is a market order or a limit order. A market order
+is one that will be executed as soon as the order reaches the exchange.
+A limit order will only be ﬁlled at the speciﬁed price (or better). A limit
+order may also have further limitations placed upon it such as how
+long it is to be effective.
+Market Execution
+Once the brokerage ﬁrm receives the order, it either sends it to a ﬂoor bro-
+ker (for an open outcry exchange) or routes it to the exchange computer
+(for an electronic exchange). The actual mechanics of the trade depend on
+the type of exchange.
+In an open outcry exchange, the order will be yelled into the pit that
+trades options on the appropriate stock. For example, “I need a market for
+March 20 calls on Microsoft!” Market makers (traders who aim to make
+money by collecting the bid-ask spread) respond with a bid price and an
+ask price: “One bid at one point one.” Then the broker shows his size and
+direction of the customer’s trade, “I’ll pay one point one for 100.”
+In an electronic exchange there will be a continuously posted bid and
+offer for each price. Here the customer will see the current price on his
+trading software and can enter his order directly, just as he would if he
+was trading a stock with an online brokerage.
+Currently there are six U.S. equity option exchanges.
+1. Boston Options Exchange, Inc. (BOX)
+2. The Chicago Board Options Exchange (CBOE)
+3. The International Securities Exchange (ISE)
+4. NASDAQ Options Market (NSDQ)
+5. NYSE Alternext U.S.
+6. The Philadelphia Stock Exchange (PHLX)
+These markets are linked together on a real-time basis through a net-
+work capable of transporting orders between each market. This obligates a
+market maker (or specialist) either to match another exchange’s price for
+an order or else route the order to the exchange offering the best price.
+The prices at which the options are quoted and traded must be multi-
+ples of some minimum amount that is set by the exchange. This minimum
+https://t.me/TradersLibrary
+
+--- PAGE 38 ---
+16
+OPTION TRADING
+price ﬂuctuation is known as a “tick.” Depending on the stock this is either
+$0.05 or $0.01.
+At exchanges with a specialist system, things are slightly different. The
+specialist is a market maker who also operates as the order book ofﬁcial.
+As market makers, they fulﬁll the dealer function by maintaining inven-
+tory and trading for their own accounts. As order book ofﬁcials, they fulﬁll
+the broker function by accepting and executing the customer limit orders.
+However, unlike an order book ofﬁcial at the CBOE, the specialist is not re-
+quired to show the limit orders to other members. Other traders will also be
+present, but being the specialist is enormously advantageous. The advan-
+tage is so great that most futures exchanges speciﬁcally prohibit brokers
+from also trading for their own accounts. In fact, I have not seen any re-
+cent research from a disinterested party that shows or even suggests the
+superiority of the specialist system. Its only defenders are the specialists
+themselves.
+There is also another market that operates in parallel with the ex-
+changes. This is the “call-around market” where interdealer brokers call
+a number of market makers and try to obtain a price before trading with
+the winning market maker on the exchange. This is standard practice for
+large orders. It is also of slightly murky legality as most exchanges forbid
+prearranged trades. It seems that they are happy to ignore the prearranging
+when it happens on private phone lines.
+Clearing and the Option Clearing Corporation
+(the OCC)
+The clearing-house is an organization that ﬁlls the role of a centralized com-
+mon counter-party. Instead of traders trading directly with each other, one
+sells to the clearing-house and the other buys from it. This has two great
+advantages:
+r Traders no longer worry about other traders’ credit worthiness. The
+clearing-house is the counter-party to all trades, and a clearing-house
+is far more credit worthy than any individual trader or trading ﬁrm.
+r To close out a trade, a trader does not need to trade with any particular
+trader. This greatly increases liquidity.
+The United States equity options market is served by a single clearing-
+house, the Options Clearing Corporation (the OCC), which the exchanges
+collectively own. When a trade is executed on an exchange, it is reported
+to the OCC. First the buyer and seller conﬁrm the trade details with the
+https://t.me/TradersLibrary
+
+--- PAGE 39 ---
+Introduction to Options
+17
+brokerage ﬁrms involved. If the brokerage is a clearing member, it directly
+reports to the OCC. If the brokerage is a nonclearing member then it must
+report through a clearing member. To become a clearing member, the bro-
+kerage must be an exchange member and also fulﬁll higher capital require-
+ments than a nonclearing member. After receiving trade notiﬁcation, the
+OCC makes sure that both sides agree. At this point the OCC becomes the
+buyer from the original seller and the seller to the original buyer. The ap-
+propriate cash transfer happens on the next business day.
+The Over-the-Counter Market (OTC)
+Over-the-counter trading refers to trades that are conducted directly be-
+tween the counterparties without an exchange as an intermediary. There is
+one main beneﬁt to trading this way:
+r The terms and conditions of the contracts can be negotiated so that
+they more closely hedge the exposures of the customer. This may be as
+simple as choosing a strike or expiration that does not match that listed
+on the exchange, or it could involve several underlyings, a nonstandard
+payoff, and options whose existence is triggered by some other event
+(these are known as “knock-in” options).
+There are also some disadvantages:
+r The counterparties are exposed to credit risk.
+r The trade needs to be closed out with the same counterparty, and it is
+unlikely that the side that needs to close will get a good price due to
+lack of dealer competition.
+There are also some things that are of dubious beneﬁt to the public:
+r The market is not transparent. This leads to worse prices. In fact, the
+banks that were active in the OTC market deliberately kept many prod-
+ucts (e.g., variance swaps and credit default swaps) off the exchanges
+to keep prices free of unnecessary competition.
+r There are no universally enforced levels of collateral that need to be
+posted. This can lead to banks taking more risk than they can handle.
+Much of the subprime crises could have been avoided if the instru-
+ments involved were cleared through an exchange and therefore had
+to be properly collateralized.
+https://t.me/TradersLibrary
+
+--- PAGE 40 ---
+18
+OPTION TRADING
+Exercise and Assignment
+When an option holder exercises an option, the seller must fulﬁll his con-
+tractual obligations. If the option is a call, he needs to deliver shares. If it is
+a put, he must purchase shares at the strike price. The exerciser is required
+to pay the strike price if he exercises a call or to deliver the shares if he has
+exercised a put.
+In order to exercise, a trader must submit an exercise request though
+a clearing member ﬁrm to the OCC. This must be received between 10 A.M.
+Eastern Time and 8 P.M. Eastern Time before the last trading day. On ex-
+piration day notice must be received by 5:30 P.M. Eastern Time. However,
+on the expiration day, the OCC will automatically exercise all options that
+expire in the money, unless the clearing member gives instructions to the
+contrary.
+When an option is exercised the OCC randomly assigns the obligation
+to a clearing member with the corresponding short position. This clearing
+member then assigns the obligation to one of its customers. The underlying
+shares must be delivered by 1 P.M. ET on the third business day after the
+OCC has accepted the exercise notice.
+Trading Costs
+Costs are incurred at several points in the trading and clearing process.
+Whenever an option is bought or sold, a commission is charged by the bro-
+ker. Similarly, commissions are charged on the amount of stock that is
+required to be bought or sold, when an option is exercised. Fees are also
+charged by the exchanges and clearing ﬁrms each time they handle a cus-
+tomer’s order.
+Margin
+In the options markets the term margin has a different meaning from its
+use in the stock market. To buy stocks “on margin,” a trader provides at
+least 50 percent of the necessary cash and borrows the rest from his broker.
+In the option markets, margin refers to the cash or securities that a trader
+posts as collateral to guarantee that he can fulﬁll his obligations under the
+options contract. Minimum margin requirements are set by the OCC, but
+individual brokerage ﬁrms often charge more than this.
+There are two types of margining to consider: strategy-based margin
+and portfolio margin. Strategy-based margin is more conservative (from
+the point of view of the brokerage ﬁrm) and is usually applied to customer
+https://t.me/TradersLibrary
+
+--- PAGE 41 ---
+Introduction to Options
+19
+accounts. Portfolio margin is the standard for market-maker accounts, but
+since April 2007, some classes of stocks have been approved for this type
+of margining for all customer accounts.
+Strategy-Based Margin
+This consists of a number of rules designed to
+insure the broker against the worst-case scenario for each type of position.
+Instead of giving every possible case, we will consider some of the more
+common positions.
+Long Calls or Puts
+An option must be paid for in full. It is illegal to borrow
+money to ﬁnance the purchase.
+Short Calls or Puts
+The margin is the greater of:
+r The proceeds of the sale plus 20 percent of the value of the underlying
+minus the amount the option is out of the money; or
+r The proceeds of the sale plus 10 percent of the value of the underlying.
+The proceeds of the sale can be applied to the initial margin require-
+ment.
+Example: We sell the 105 call for 3.00 when the underlying is at 100.
+First we calculate the greater of
+$100 × 3.00 + 0.2 × $100 × 100 −$5 × 100 = $1,800
+$100 × 3.00 + 0.1 × $100 × 100 = $1,300
+So the total margin is $1,800 −$300 = $1,500.
+Short Calls and Long Stock (a Covered Call) The margin is 50 percent
+of the value of the equity. The proceeds of the call sale may also be applied
+to reduce the necessary margin. No extra margin is required for the call be-
+cause any losses due to the option will be offset by an increase in the equity.
+Portfolio Margin
+This margining method uses a pricing model to cal-
+culate the loss of a position at different underlying prices above and below
+current stock price. The largest loss identiﬁed is the margin of the position.
+Stock positions are tested with price changes of up and down 15
+percent. Small cap broad-based indices are tested with 10 percent price
+changes, and large cap broad-based indices are tested with a move of down
+6 percent and up 8 percent. The range is divided into eight equal units, and
+the loss on the position is calculated at each of the eight points and the two
+high and low points.
+https://t.me/TradersLibrary
+
+--- PAGE 42 ---
+20
+OPTION TRADING
+This is the basic method but there are several adjustments applied.
+r There is a minimum margin of $37.50.
+r “Similar” classes such as SPX and OEX options are assumed to have
+offsetting risks.
+r In addition to the underlying price shift, a volatility shift can also be
+applied.
+SUMMARY
+r You should never make a trade until you fully understand the contract
+speciﬁcations.
+r When making a trade, err on the side of overchecking the contract
+details.
+https://t.me/TradersLibrary
+
+--- PAGE 43 ---
+C H A P T E R 3
+Arbitrage
+Bounds for
+Option Prices
+B
+efore we even consider any models for pricing options, we can make
+some statements about option values. These are based on the prin-
+ciple of no arbitrage.
+This is probably the closest thing ﬁnance has to a fundamental law.
+Sometimes known as the “law of one price,” this states that if two securi-
+ties are the same, then they will have the same price. If they do not, then
+traders called arbitrageurs will trade the securities and make a risk-free
+proﬁt. Making money with no risk is very difﬁcult, so these opportunities
+tend to arise infrequently. Moreover, once these divergences from value
+do occur, the trading action of arbitrageurs tends to eliminate the discrep-
+ancy. Thus the law of no arbitrage is somewhat self-fulﬁlling. This concept
+is crucially important so we will look at some simple examples.
+First, imagine we can buy a share of Microsoft on one exchange for
+$32.00 and sell it immediately on another for $32.02. These shares are ex-
+actly the same, so by doing this we would make 2 cents with no risk. Note
+that to do this our trading costs would need to be less than one cent per
+share (as we have traded two shares in total). Sometimes what appears to
+be an arbitrage opportunity is merely a situation with larger than antici-
+pated transaction costs. Second, there will be an instant when we own a
+share and have not yet sold one (or vice versa). If the price changes in this
+time we can lose money. This is an example of execution risk.
+A far more common form of arbitrage is where two securities are not
+identical, but they have a well-deﬁned ﬁnancial relationship that allows us
+21
+https://t.me/TradersLibrary
+
+--- PAGE 44 ---
+22
+OPTION TRADING
+to construct a risk-free portfolio from combinations of the securities. The
+simplest example of this type is a forward contract.
+Imagine that we have an asset, say a stock with a current price of S,
+which we want to sell at a certain time in the future, T. What is the price,
+F, at which we would be indifferent about agreeing to sell it? By this we
+mean that neither we nor our counterparty have any obvious advantage in
+the trade. In the case where the stock pays no dividends
+F = S exp(rT)
+(3.1)
+where r is the risk-free interest rate.
+As an example, let’s assume we have a stock trading at $100, interest
+rates are 5 percent, and we want to calculate the fair value for a one year
+forward. Equation 3.1 gives this value as
+F = $100 exp(0.05) = $105.13
+We will prove that equation 3.1 holds, by assuming it does not and
+showing that this leads to possible arbitrage proﬁts. First assume that
+F < S exp(rT)
+To make a proﬁt we
+r Buy the futures contract and sells the underlying. We invest the pro-
+ceeds from the sale.
+r On the expiration date, we take the money out of the bank. It will have
+grown at the risk-free rate, r.
+r We then receive the underlying and pay the agreed forward price using
+the matured investment to do so.
+r The difference between the two amounts is the arbitrage proﬁt.
+If
+F > S exp(rT)
+we
+r Sell the futures contract and buy the underlying with borrowed money.
+r On the expiration date, we deliver the underlying, and receive the
+agreed forward price, F.
+r We then repay the lender the borrowed amount plus interest.
+r The difference between the two amounts is the arbitrage proﬁt.
+https://t.me/TradersLibrary
+
+--- PAGE 45 ---
+Arbitrage Bounds for Option Prices
+23
+We see that if equation 3.1 does not hold we can make a risk-free proﬁt.
+So by the law of no arbitrage, equation 3.1 must be true. There are a few
+things to note:
+r The underlying must be an asset we can actually trade. We need to be
+able to buy it and also to sell it short. If only one of these conditions
+held we would have an inequality rather than an equality.
+r We have assumed that the interest rate we can borrow at and lend at is
+the same. This is clearly not the case and if we took this into account
+we would arrive at no arbitrage bands, instead of at a single value.
+r We have assumed that holding the underlying gives the owner no ben-
+eﬁts. This would be untrue if it was a stock that paid a dividend. In this
+case we would need to adjust equation 3.1 so that we considered the
+value of the stock minus the present value of the dividend.
+F = (S −PVD) exp(rT)
+(3.2)
+r Similarly, we have assumed that holding the underlying does not incur
+storage costs. For most commodities this is not the case. These costs
+would behave like a negative dividend.
+r We have assumed that the interest rate is paid by an entity that will not
+default. This is the deﬁnition of the risk-free rate. Such a situation does
+not exist. United States government securities are normally used as
+a proxy for risk-free bonds, but these are neither riskless nor always
+available in the correct duration. In practice, traders borrow from or
+lend funds to their clearing ﬁrm. As different ﬁrms will have slightly
+different rates this means that each trader may have a slightly different
+idea of fair value for the futures contract.
+r We have assumed that the interest rate is constant. This is impor-
+tant when we are considering the difference between forward con-
+tracts and futures. Technically, what we have done here is price a for-
+ward, not a future. Forwards are agreed upon between counterparties,
+whereas futures have an exchange as a central counterparty. Futures
+are marked to market each day and the amount of collateral a trader
+needs to post is hence adjusted daily. If interest rates and the under-
+lying are positively correlated, futures contracts will be worth slightly
+more than forward contracts. This is because when the underlying in-
+creases, the holder of the future makes an immediate gain in his ac-
+count because of the daily settlement. The positive correlation makes
+it likely that rates have also increased, so the gain can be invested at
+a higher rate. So gains will be invested at higher rates and losses at
+lower rates. A forward will not be affected in this way, so a future will
+be worth more than a forward in this case. Negative correlation will
+https://t.me/TradersLibrary
+
+--- PAGE 46 ---
+24
+OPTION TRADING
+imply that futures are worth less than forwards. However, in general
+this difference is too small to bother with and in practically every case
+we can assume futures are priced as forwards.
+r Something that is very important to note is that nowhere have we ap-
+pealed to a forecast of the future price of the asset. The future con-
+tract’s price is not the expected price in the future. It is merely the
+price that allows no arbitrage. If the price is expected to be higher in
+the future it will have to be higher now to prevent arbitrage.
+This is an example of arbitrage through static replication. We did a
+trade, and then held it until the derivative contact expired. We will see in
+Chapter 4 that option pricing is based on the idea of dynamic replication,
+where a position needs to be rebalanced in order to maintain the riskless
+nature of the arbitrage. Obviously, any position that needs to be adjusted
+will have more risk than one that needs only to be traded once, so at this
+point we are not dealing with true arbitrage any more.
+P S E U D O A R B I T R A G E
+Incidentally, you will often encounter this situation in trading, where a risky
+trading strategy is referred to as an arbitrage. Other examples include statisti-
+cal arbitrage, where a relationship should hold on average. At least this fairly
+accurately describes the situation. A less honest example is risk arbitrage; the
+practice of buying shares in a company that has been taken over before the
+transaction has closed. In such situations, the share price generally does not
+immediately rise to the announced takeover price but stays a little lower. This
+is because not all announced transactions are completed. Risk arbitrage traders
+hope that enough mergers are completed to make up for the times where the
+deal falls apart completely. This is a valid example of statistical arbitrage, but
+it is not a true arbitrage at all.
+We will now look at the bounds that this principle implies for option
+prices. If an option price violates these bounds, we would be able to make
+a risk-free proﬁt. These arbitrage bounds give relationships between calls
+and puts and the underlying, also between options with different strikes,
+maturities, and expiration types.
+The results in this section need to become second nature, but it is also
+important to be familiar with the arguments we use for establishing them.
+This type of thought process will need to be used when a trader has to
+trade a previously unfamiliar security. As options are now often embed-
+ded in other ﬁnancial products, this process is probably as important to
+https://t.me/TradersLibrary
+
+--- PAGE 47 ---
+Arbitrage Bounds for Option Prices
+25
+understand as merely remembering the results. Another way to put this is
+that this chapter is repetitive and dull, but it is also very important. One
+could argue that traders do not really need to understand pricing mod-
+els (the argument would be incorrect but at least some defense could be
+mounted), but all traders need to understand these arbitrage relationships.
+AMERICAN OPTIONS COMPARED
+TO EUROPEAN OPTIONS
+An American option is always worth at least as much as a European option.
+We always have the right to exercise the American option before expira-
+tion, but we do not have to. If we hold it until expiry it will be a European
+option. If we ever ﬁnd an American option trading for less than an equiva-
+lent European option we can create a risk-free proﬁt by buying the Amer-
+ican option, selling the European option, then holding the position until
+expiration. So, using the notation where capital letters denote American
+options and lowercase letters denote European options, we have
+c ≤C
+(3.3)
+for calls and
+p ≤P
+(3.4)
+for puts.
+ABSOLUTE MAXIMUM AND
+MINIMUM VALUES
+The Maximum Value of a Call
+A call cannot cost more than the underlying. That is
+c ≤S
+(3.5)
+The ﬁrst way to prove this is to use the argument from obviousness:
+the right to purchase an item cannot be worth more than the item itself.
+However this is both a generally invalid form of proof, and also deprives us
+of an opportunity to see a simple example of the more general method. We
+will show that this statement is true by assuming it is not, then constructing
+a portfolio that can only proﬁt. As we know that arbitrage proﬁts do not
+https://t.me/TradersLibrary
+
+--- PAGE 48 ---
+26
+OPTION TRADING
+just sit around, we can consider the statement proved. This is proof by
+contradiction and the principle of no arbitrage.
+Imagine a European call is trading for more than the underlying. We
+then choose to sell the call and buy the underlying at a price of S0. At expi-
+ration (time T) our proﬁt will be
+c −(S0 −ST)
+(3.6)
+But the second term has to be less than S0, and our assumption was
+that c > S0, so this proﬁt must be greater than zero. We have to make
+money. So for there to be no arbitrage we need to have
+c ≤S
+This argument can be modiﬁed to apply to American options. Here we
+cannot assume that our short option position exists until expiry. The holder
+may decide to exercise before this. But all we need to do is replace the
+terminal price ST by the price at exercise, Sex. The rest of the argument is
+the same.
+The Maximum Value of a Put
+An American put can never be worth more than the strike price.
+P ≤X
+(3.7)
+This is because the most value a put can ever have is when the under-
+lying goes to zero. In this case the payoff is equal to the strike.
+Further, for a European option we know that it will take this maximum
+value only at expiry. So we need to discount this amount. This gives the
+lesser bound
+p ≤X exp(−rt)
+(3.8)
+Minimum Value for a Call Option
+The lower bound for a European call option is given by
+c ≥S −X exp(−rt)
+(3.9)
+To see why this needs to be the case we consider two portfolios. The
+ﬁrst consists of one share. The second consists of a call and an amount
+of cash equal to X exp(−rt). By expiration the cash will have grown to X,
+because we will have invested it at the risk-free rater. If the option is in the
+money it will be worth S −X, and the entire portfolio will be worth S. If the
+https://t.me/TradersLibrary
+
+[TRUNCATED at 80000 chars — 321 total pages]

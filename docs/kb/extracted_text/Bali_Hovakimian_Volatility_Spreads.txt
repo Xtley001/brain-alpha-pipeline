@@ -1,0 +1,2210 @@
+
+--- PAGE 1 ---
+Electronic copy available at: http://ssrn.com/abstract=1029197
+Volatility Spreads and Expected Stock Returns 
+ 
+ 
+ 
+ 
+Turan G. Bali♣ and Armen Hovakimian* 
+ 
+ 
+ 
+ 
+ABSTRACT 
+ 
+We examine the relation between expected future volatility (options’ implied volatility) and the cross-
+section of expected returns. A trading strategy buying stocks in the highest implied volatility quintile 
+and shorting stocks in the lowest implied volatility quintile generates insignificant returns. A similar 
+strategy using one-month lagged realized volatility generates significantly negative returns. To 
+investigate the differences and interactions between alternative measures of total risk, we estimate 
+three principal components based on realized volatility, call implied and put implied volatility. Long-
+short trading strategies generate significant returns only for the second and the third principal 
+components. We find that the second principal component is related to the realized-implied volatility 
+spread which can be viewed as a proxy for volatility risk. We find that the third principal component is 
+related to the call-put implied volatility spread that reflects future price increase of the underlying 
+stock. 
+ 
+ 
+ 
+ 
+JEL classification: G10, G11, G12, G14 
+ 
+Key words: total volatility, realized volatility, implied volatility, stock returns. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+First draft: September 2006 
+This draft: November 2007 
+ 
+                                                 
+♣ Zicklin School of Business, Baruch College, New York, NY 10010. Tel: (646) 312-3506; fax: (646) 312-3451; 
+e-mail: Turan_Bali@baruch.cuny.edu. 
+* Zicklin School of Business, Baruch College, New York, NY 10010. Tel: (646) 312-3490; fax: (646) 312-3451; 
+e-mail: Armen_Hovakimian@baruch.cuny.edu. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 2 ---
+Electronic copy available at: http://ssrn.com/abstract=1029197
+Volatility Spreads and Expected Stock Returns 
+ 
+ 
+ 
+ 
+ 
+ABSTRACT 
+ 
+We examine the relation between expected future volatility (options’ implied volatility) and the cross-
+section of expected returns. A trading strategy buying stocks in the highest implied volatility quintile 
+and shorting stocks in the lowest implied volatility quintile generates insignificant returns. A similar 
+strategy using one-month lagged realized volatility generates significantly negative returns. To 
+investigate the differences and interactions between alternative measures of total risk, we estimate 
+three principal components based on realized volatility, call implied and put implied volatility. Long-
+short trading strategies generate significant returns only for the second and the third principal 
+components. We find that the second principal component is related to the realized-implied volatility 
+spread which can be viewed as a proxy for volatility risk. We find that the third principal component is 
+related to the call-put implied volatility spread that reflects future price increase of the underlying 
+stock. 
+ 
+ 
+ 
+ 
+JEL classification: G10, G11, G12, G14 
+ 
+Key words: total volatility, realized volatility, implied volatility, stock returns. 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 3 ---
+Electronic copy available at: http://ssrn.com/abstract=1029197
+ 
+1
+1. Introduction  
+If investors held all the risky securities available in the market, the expected return of an individual 
+stock would be determined solely by its contribution to the risk of the market portfolio (i.e., only systematic 
+risk would affect expected returns). However, with a constraint on the number of securities in a portfolio, 
+idiosyncratic risk becomes an important component of investors’ decision making process as it affects total 
+risk of the portfolio.1 Several asset pricing models, e.g., Levy (1978) and Merton (1987), show that, limited 
+diversification results in an equilibrium where expected returns compensate not only for market risk but 
+also for idiosyncratic risk. Motivated by these theoretical models and investors’ preferences for holding less 
+than perfectly diversified portfolios, recent empirical studies investigate the cross-sectional relation 
+between expected stock returns and idiosyncratic and total volatility.   
+Using daily return data, Ang, Hodrick, Xing and Zhang (AHXZ, 2006) measure monthly idiosyncratic 
+volatility of individual stocks based on the three-factor Fama-French (1993) model and examine the returns 
+on portfolios of stocks sorted by idiosyncratic volatility. Contrary to most theoretical models, AHXZ 
+indicate a strong negative relation between idiosyncratic volatility and expected stock returns. Fu (2005) 
+and Spiegel and Wang (2005) use conditional measures of idiosyncratic volatility and find a positive and 
+significant relation between idiosyncratic risk and expected returns.  
+Bali and Cakici (2006) focus on the methodological differences that led the previous studies to develop 
+conflicting evidence. They show that data frequency used to estimate idiosyncratic and total risk, weighting 
+scheme adopted for generating average portfolio returns, breakpoints utilized to sort stocks into quintile (or 
+decile) portfolios, and using a screen for size, price and liquidity play a critical role in determining the 
+significance of a cross-sectional relation between expected returns and volatility. 
+To summarize, the existence and the direction of the relation between volatility and the cross-section of 
+expected stock returns is a subject of an intense debate. Although some studies find a positive link between 
+volatility and expected returns at the firm or portfolio level, often the cross-sectional relation has been 
+found insignificant, and sometimes even negative.2  
+This paper examines the relation between “expected future volatility” and the cross-section of expected 
+returns. The aforementioned earlier studies on volatility generally use the past behavior of asset prices to 
+develop expectations about future volatility, modeling movements in volatility as they relate to prior 
+                                                 
+1 The typical investor usually does not hold many risky assets in her portfolio for various reasons, such as transaction 
+costs, incomplete information, indivisibility of investment, institutional restrictions, liquidity constraints, or any other 
+exogenous reasons. For example, Blume and Friend (1975) find that the average number of securities held in a 
+portfolio of typical investor is about 3.41. Barber and Odean (2000) report that the mean household’s portfolio 
+contains only 4.3 stocks and the median household invests in 2.61 stocks. Both studies indicate that most individuals 
+hold very small number of stocks in their portfolios. 
+2 Both AHXZ (2006) and Bali and Cakici (2006) find the cross-sectional predictive power of idiosyncratic and total 
+risks to be very similar. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 4 ---
+ 
+2
+volatility and/or other variables in the investors’ information set. AHXZ (2006) compute the total variance 
+of an individual stock in month t as the sum of squared daily returns in month t–1. In addition to using 
+within month daily data, Bali and Cakici (2006) use the past 60 months of individual stock returns to 
+generate one-month ahead total volatility. Spiegel and Wang (2005) and Fu (2005) define the conditional 
+volatility of individual stocks as a function of the past residuals and the past volatility based on the 
+exponential GARCH (EGARCH) model of Nelson (1991). In contrast to these studies, we focus on the 
+market’s expectation of future volatility of individual stocks. 
+We use the reported call and put option prices to infer volatility expectations.3 We obtain option 
+implied volatilities over the sample period of January 1996 to December 2004 and test whether the call and 
+put implied volatilities of individual stocks can predict the cross-sectional variation in stock returns. The 
+results provide no evidence for a significant link between expected returns and expected future volatility 
+(call and put implied volatility) during our sample period. 
+We also replicate in our sample the analysis of AHXZ (2006) by proxying expected volatility with the 
+one-month lagged realized volatility (RVol) defined as the standard deviation of daily returns over the past 
+one month. Similar to their findings, stocks with low (high) realized volatility earn high (low) average raw 
+and risk-adjusted returns. However, the negative relation does not seem to be robust in terms of statistical 
+significance.  
+With different measures of volatility having such different effects on stock returns, the explanation for 
+the effects of different volatility measures on stock returns could be found by identifying the common and 
+orthogonal components of these measures. We, therefore, investigate the differences and the commonalities 
+between alternative measures of total risk by estimating the principal components of realized and implied 
+volatilities. The first principal component (PC1) is found to be positively correlated with the three volatility 
+measures (realized volatility, call implied volatility, and put implied volatility). The second principal 
+component (PC2) turns out to be positively related to realized volatility, but is negatively related to both 
+implied volatilities. The third principal component (PC3) is positively linked to call implied volatility, 
+negatively linked to put implied volatility, and has almost no association with realized volatility.  
+We examine the cross-sectional relation between expected returns and the principal components of 
+volatility for the NYSE/AMEX/NASDAQ stocks as well as for the NYSE stocks only. The differences in 
+average returns (both raw and risk-adjusted) of the highest PC1 quintile portfolio and the lowest PC1 
+quintile portfolio generally indicate a negative, but statistically insignificant relation between PC1 and 
+expected returns. The results generally provide a negative and significant link between PC2 and the cross-
+section of stock returns. A trading strategy that longs stocks in the lowest PC2 quintile and shorts stocks in 
+                                                 
+3 Since option value depends critically on expected future volatility, the volatility expectation of market participants 
+can be recovered by inverting the option valuation formula such as the closed-form solution of Black and Scholes 
+(1973) or the binomial tree model of Cox, Ross, and Rubinstein (1979). 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 5 ---
+ 
+3
+the highest PC2 quintile produces average raw and risk-adjusted returns in the range of 50 to 90 basis 
+points per month. The univariate portfolio-level analyses indicate a positive and significant cross-sectional 
+relation between PC3 and expected returns. A portfolio that longs stocks in the highest PC3 quintile and 
+shorts stocks in the lowest PC3 quintile earns 1.1% to 1.4% per month and these average raw and risk-
+adjusted return differences are highly significant with the t-statistics greater than 3.0. 
+We also control for the well-known cross-sectional effects including size and book-to-market (Fama 
+and French (1992, 1993)), liquidity and bid-ask spread (Amihud (2002)), analyst forecast dispersion 
+(Diether, Malloy, and Scherbina (2002)), probability of informed trading (Easley, Hvidkjaer, and O’Hara 
+(2002)), and skewness (Harvey and Siddique (2000)). After controlling for these effects in bivariate sorts of 
+portfolios, our main findings remain to be strong with the cross-sectional premium of PC2 (PC3) being 
+negative (positive) and highly significant. 
+In addition to the univariate and bivariate sorts of long-short portfolios, we examine the cross-sectional 
+relation between PC1, PC2, and PC3 and expected returns using the firm-level Fama-MacBeth (1973) 
+regressions. These regression results show a significantly negative (positive) relation between PC2 (PC3) 
+and the cross-section of expected returns. The results remain intact after controlling for size, book-to-
+market, liquidity, analyst forecast dispersion, probability of informed trading, and skewness. 
+Motivated by our findings of significant predictive power of these principal components with respect to 
+future returns, we next investigate the factors underlying these principal components. Specifically, the 
+positive correlation of PC2 with realized volatility and its negative correlation with both implied volatilities 
+suggests that PC2 could be related to the realized-implied volatility spread (RVol-IVol). Similarly, PC3 
+could be related to the call-put implied volatility spread (CVol-PVol). Indeed, we find that the correlations 
+between (RVol-IVol) and PC1, PC2, and PC3 are, respectively, 0.153, 0.896, and -0.001, implying that 
+PC2 is largely the same as (RVol-IVol).4 The correlations between (CVol-PVol) and PC1, PC2, and PC3 
+are -0.030, -0.003, and 0.937, respectively. These sample correlations imply that PC3 can be viewed as 
+almost identical to (CVol-PVol). 
+A high call-put implied volatility spread (CVol-PVol>0) indicates that the call option prices exceed the 
+levels implied by the put option prices and the put-call parity. Ofek, Richardson, and Whitelaw (2004) 
+argue that such violations could arise if irrational investors move stock prices (but not options prices) away 
+from their fundamental values and if there are limits to arbitrage, such as short-sale constraints. If this is 
+true, then stocks with relatively more expensive calls (stocks with high CVol-PVol) are expected to 
+generate higher returns than stocks with relatively more expensive puts (stocks with low CVol-PVol), 
+consistent with our results.  
+                                                 
+4 The implied volatility here is calculated using both call and put options. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 6 ---
+ 
+4
+The negative relation between the realized-implied volatility spread (RVol-IVol) and future stock 
+returns could be due to (RVol-IVol) proxying for innovations in individual stock volatilities. In the 
+intertemporal capital asset pricing model (ICAPM) of Merton (1973), investors want to hedge against 
+unfavorable shifts in the investment opportunity set. Campbell (1993, 1996) has a theoretical framework in 
+which “innovations in aggregate volatility” are viewed as deterioration in investment opportunities (or 
+unfavorable shift in the investment opportunity set).5  Campbell shows that investors want to hedge against 
+innovations in aggregate volatility because increasing volatility (or increase in the difference RVol-IVol) 
+represents deterioration in investment opportunities. Risk-averse investors demand stocks that hedge 
+against this volatility risk. This leads to a negative relation between expected stock returns and high 
+covariance with innovations in market volatility. That is, stocks with higher correlation with (RVol-IVol) 
+are expected to yield lower return. 
+Since Campbell’s (1993, 1996) two-factor ICAPM predicts both a time-series and cross-sectional 
+relation between expected returns and risk, we assume that stocks with high sensitivities to innovations in 
+total volatility provide hedges against deterioration in investment opportunity set. Investors increase their 
+demand for these stocks because they serve as a hedging instrument. The higher demand for these stocks 
+increases their price and lowers their expected return.  Put differently, investors would be willing to accept 
+lower expected return (or lower compensation) from holding stocks with high sensitivities to innovations in 
+total volatility. 
+The paper is organized as follows. Section 2 discusses the data and our sample. Section 3 examines the 
+relation between realized and implied volatilities and the cross section of expected returns. Section 4 
+estimates the principal components of volatilities and examines the relation between these principal 
+components and the cross section of stock returns.  Section 5 provides a battery of robustness checks after 
+controlling for various well-known cross-sectional effects. Section 6 discusses the interpretations of our 
+results. Section 7 concludes the paper. 
+ 
+2. Data 
+Our data come from several sources. Financial statement data are from Compustat.6 Stock return data 
+are from CRSP monthly and daily return files. We retain only data for ordinary common shares (CRSP 
+share codes 10 and 11) and exclude closed-end funds and REITs (SIC codes 6720-6730 and 6798). The 
+                                                 
+5 Innovations in aggregate volatility can be proxied by the difference between realized and implied volatility of market 
+returns since realized volatility is a consistent estimator of actual underlying volatility and implied volatility is an 
+estimator of expected future volatility: Innovation in Volatility = Actual Volatility – Expected Volatility (see 
+Andersen, Bollerslev, Diebold, and Labys (2003)). 
+6 To minimize the influence of outliers, financial ratios calculated using Compustat data are trimmed at values 
+representing their first and the ninety-ninth percentiles. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 7 ---
+ 
+5
+factors (Rm-Rf, SMB, and HML) for the three-factor Fama-French model are downloaded from Kenneth 
+French’s online data library.  
+Option implied volatilities are from the Ivy DB database of OptionMetrics. The Ivy DB database 
+contains daily closing bid and ask prices and implied volatilities for options on individual stocks traded on 
+NYSE, AMEX, and NASDAQ.7 We retain only stock options with expiration dates in at least 30 days but 
+no more than 3 months, with positive open interest, positive best bid price, and non-missing implied 
+volatility. We further delete options with bid-ask spreads exceeding fifty percent of the average of the bid 
+and ask prices. We focus on near-the-money options with absolute values of the natural log of the ratio of 
+the stock price to the exercise price less than 0.1. We retain the last monthly observation of each option, 
+and then we average the implied volatilities across all eligible options and match with stock returns in the 
+following month. Because options data are available for the period from January 1996 to December 2004 
+(108 months), we examine monthly stock returns starting in February 1996 and ending in January 2005. 
+ 
+3. Volatility and the cross-section of stock returns 
+A. Realized volatility and the cross-section of stock returns 
+We start out by replicating in our sample the analysis of the impact of realized volatility on stock 
+returns in the cross-section presented by Ang, Hodrick, Xing, and Zhang (2006).8 For each month, we sort 
+all stocks into quintile portfolios based on the realized volatility calculated using daily returns in the 
+previous month.9 Then the value-weighted returns are calculated for the next month, generating a series of 
+108 monthly returns. Panel A reports the results for all stocks with return and volatility data available, a 
+total of 561,709 monthly observations. Panel B reports the results for the subset of optionable stocks, i.e., 
+stocks with traded options. These results are based on 197,362 monthly returns, or about 35 percent of the 
+overall sample.  
+The average monthly return, R, of each quintile portfolio is reported in the first column of each panel. 
+The second column reports Jensen’s alphas with respect to the Fama-French (1993) three-factor (FF-3) 
+model estimated for each portfolio using 108 monthly returns. The row “5-1” refers to the arbitrage 
+portfolio consisting of a long position in portfolio 5 and a short position in portfolio 1. The reported t-
+statistics are the Newey-West (1987) t-statistics with six lags. 
+Similar to Ang, Hodrick, Xing, and Zhang (2006), the results in Panel A show that the average monthly 
+return increases from 0.9% per month to 1.0% percent per month as we move from quintile 1 (lowest-
+volatility quintile) to quintile 3. From there, the average returns drop. The average return for the highest-
+                                                 
+7 All the options used in this study are American. OptionMetrics uses Cox-Ross-Rubinstein (CRR) binomial tree 
+model to calculate the implied volatility of American options. 
+8 See Panel A of Table VI (p. 285) in Ang et al. (2006). 
+9 We require each stock to have a minimum of fifteen daily return observations when estimating realized volatility. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 8 ---
+ 
+6
+volatility portfolio (quintile 5) is –0.3% per month. The FF-3 alpha for this portfolio (not reported) is 
+−1.5% per month with a highly significant t-statistic of 3.2. 
+The results in the last two rows of Panel A show that the average monthly return on “5-1” arbitrage 
+portfolio is economically large (−1.1%), though it is not statistically significant. The FF-3 alpha for the 
+arbitrage portfolio is even larger (−1.5%) and it is highly significant with a t-statistic of −2.8. These 
+numbers are comparable to those in Ang, Hodrick, Xing, and Zhang (2006), who report an average monthly 
+return of −1.0% and the FF-3 alpha of −1.2% for the arbitrage portfolio in their longer sample period (July 
+1963-December 2000). 
+The next three columns report the average market share, market capitalization, book-to-market ratio, 
+and realized volatility of stocks in the quintile portfolios. The average market share of our quintile 
+portfolios are very similar to those reported in Ang, Hodrick, Xing, and Zhang (2006), where they vary 
+between 41.7% for portfolio 1 and 2.4% for portfolio 5. The book-to-market ratios are somewhat lower in 
+our sample, likely reflecting the higher valuation multiples of late 1990s. It is important to note that given 
+that quintile 5 stocks are generally smaller and have higher book-to-market ratios, they should exhibit 
+higher, not lower, average returns according to the Fama-French three factor model. 
+The patterns of the quintile portfolio and arbitrage portfolio returns do not change when only stocks 
+with traded options are used to form realized volatility quintile portfolios (Panel B, Table 1). The average 
+arbitrage portfolio return is −1.2% and the alpha is −1.6%. The comparison of market capitalizations shows 
+that optionable stocks tend to be larger. Nevertheless, the distribution of relative market shares across the 
+quintile portfolios in Panel B is very similar to that for the overall sample (Panel A). On the other hand, the 
+pattern of book-to-market ratios is reversed in Panel B. The book-to-market ratios now decline across the 
+realized volatility quintiles. Panel B reports two additional columns representing the average values of call 
+implied volatility and put implied volatility for stocks in the quintile portfolios. Not surprisingly, both 
+implied volatilities increase monotonically across the realized volatility quintiles. 
+To summarize, the results in Table 1 are quite similar to the results for portfolios sorted on realized 
+volatility reported in Ang, Hodrick, Xing, and Zhang (2006). The results confirm the existence of a 
+negative relation between volatility and stock returns in our sample, which is not only much shorter but 
+also covers recent years (2001-2004) not covered in the original study. 
+B. Implied volatility and the cross-section of stock returns 
+We next repeat the above analysis, but sort stocks into quintile portfolios using volatilities implied by 
+call and put options on the stock. Panels A and B of Table 2 report the results using the call and put implied 
+volatilities, respectively. The overall pattern of average monthly returns across quintile portfolios is similar 
+to the pattern for the realized volatility portfolios in Table 1. However, the returns and the FF-3 alphas on 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 9 ---
+ 
+7
+arbitrage portfolios formed based on implied volatility quintiles are statistically indistinguishable from 
+zero.  
+The finding that arbitrage portfolios based on realized volatility quintiles generate abnormal FF-3 
+alphas but arbitrage portfolios based on call and put implied volatilities do not, is somewhat puzzling given 
+the monotonically increasing patterns of total and implied volatilities across realized volatility (in Panel B, 
+Table 1), call implied volatility (in Panel A, Table 2), and put implied volatility (in Panel B, Table 2) 
+quintiles. 
+ 
+4. Principal components of volatility and stock returns 
+A. Principal components 
+The differences in the results for realized and implied volatility portfolios should be due to the 
+orthogonal components of realized and implied volatilities. To better understand what drives the negative 
+relation between realized volatility and future returns, we use principal component analysis to transform 
+our original three volatility measures into three new variables, PC1, PC2, and PC3. These new variables are 
+linear transformations of the original variables and are orthogonal to each other. The variables are 
+constructed such that the first principal component, PC1, absorbs most of the variation in the original 
+variables, the second component, PC2, absorbs most of the remaining variation, and the third component, 
+PC3, absorbs the remainder. 
+We estimate the principal components each month based on the realized volatility over the previous 
+month and the volatilities implied by call and put option prices observed at the end of the previous month. 
+Monthly estimation of the principal components allows us to use them to construct trading strategies based 
+on the principal components of volatility.  
+Table 3 presents the full sample correlations between the principal components and the original 
+volatility variables. The coefficients of correlation show that PC1 is highly positively correlated with all 
+three volatility measures. Furthermore, in each of the 108 months, the linear coefficients linking the three 
+volatility measures with PC1 are always positive. The coefficients of correlation also show that PC2 is 
+positively related to realized volatility but is negatively related to both implied volatilities. Furthermore, in 
+each of the 108 months, the linear coefficients linking realized (call implied) volatility with PC2 are 
+positive (negative). For put implied volatility, the linear coefficients linking it with PC2 are negative in 107 
+of 108 months. Finally, the correlations imply that PC3 is positively related to call implied volatility, 
+negatively related to put implied volatility, and pretty much unrelated to realized volatility. The negative 
+relation between put implied volatility and PC3 holds in each of 108 months, whereas the positive relation 
+between call implied volatility and PC3 holds for 107 of 108 months. These results imply that the 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 10 ---
+ 
+8
+correspondence between the principal components and the underlying economic forces is likely to be quite 
+stable. 
+B. Principal components and the cross-section of stock returns 
+We next repeat our analysis of the relation between volatility and stock returns for quintile portfolios 
+formed on the basis of principal components of volatility. Each month, we sort all stocks into quintile 
+portfolios based on PC1, PC2, and PC3. Thus, for each value-weighted quintile portfolio we have a series 
+of 108 monthly returns, which we use to calculate the average monthly portfolio returns as well as alphas 
+with respect to the Fama-French (1993) three-factor model.  
+The results are presented in Table 4. The results for PC1-based portfolios in Panel A are mixed. The 
+overall pattern of average monthly returns across quintile portfolios is similar to the pattern for the realized 
+volatility portfolios in Table 1. However, neither the returns, nor the FF-3 alphas of the arbitrage portfolios 
+are significantly different from zero. The size and book-to-market ratios of portfolios sorted on PC1 exhibit 
+patterns that are qualitatively similar to the patterns for realized volatility portfolios of optionable stocks, 
+but in terms of actual numbers, are closer to the patterns for implied volatility portfolios.  
+The results for PC2 quintile portfolios are presented in Panel B of Table 4. Unlike for volatility 
+portfolios in Tables 1 and 2 and for PC1 portfolio in Panel A of Table 4, the pattern of average monthly 
+returns across PC2 quintiles is more monotonic. The highest return (1.5% per month) is observed for 
+quintile 2 and the lowest return (0.5% percent per month) is observed for quintile 5. The FF-3 alphas 
+exhibit similar patterns. The return on “5-1” arbitrage portfolio is −0.9% per month with a Newey-West t-
+statistic of −1.9, and the FF-3 alpha is −0.8% per month with a t-statistic of 2.0.  
+The market share, size, and book-to-market ratios of the quintile portfolios sorted by PC2 display 
+inverted U-shaped patterns, unlike the patterns observed for other volatility portfolios. Stocks in quintiles 1 
+and 5 are smaller and they have smaller market shares and book-to-market ratios than firms in quintiles 3 
+and 4. Overall, however, the distribution of these values across PC2 quintiles is more even than for the 
+corresponding distribution for PC1 and realized and implied volatility quintiles. The distributions of 
+realized volatility and call and put implied volatilities across PC2 quintiles are also U-shaped. The highest 
+realized volatility is observed for PC2 quintile 5, whereas the highest implied volatilities are observed for 
+quintile 1, which is expected since PC2 is positively related to realized volatility and negatively related to 
+both implied volatilities by construction. 
+ 
+Panel C of Table 4 presents the results for PC3 quintile portfolios. The returns increase monotonically 
+from 0.2% per month for quintile 1 to 1.4% per month for quintile 5. The returns and FF-3 alphas for 
+arbitrage portfolio returns are economically large (1.2-1.3% per month) and highly significant with the t-
+statistics equal or greater than 3.7. The average market share and size of PC3 quintile portfolios display an 
+inverted U-shaped pattern, whereas the book-to-market ratio displays a U-shaped pattern across quintiles. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 11 ---
+ 
+9
+C. Principal components and the cross-section of stock returns: NYSE stocks 
+In this section, we repeat the analysis of the relation between the principal components of volatility and 
+returns for NYSE stocks. Although all quintile portfolios contain 20% of the stocks, some of the extreme 
+quintiles that generate the bulk of abnormal returns represent only a small fraction of the value of the 
+“market”. For example, quintile 5 that contains the highest PC1 stocks, represents only 3.6 percent of 
+market value of all PC1 stocks. It is possible that the evidence presented thus far may be driven by small 
+and illiquid stocks. To confirm the robustness of our results, we repeat our analysis for the stocks that are 
+traded on the NYSE.  Furthermore, the trading profits that are generated by this subsample are closer to 
+what can actually be captured by investors due to relatively low transaction costs and higher 
+implementability. 
+The results are presented in Table 5. In addition to calculating value-weighted portfolio returns for the 
+next month, we also calculate equal-weighted returns. As an additional robustness check, we also report the 
+abnormal portfolio returns, AR, calculated relative to characteristic-matched benchmark portfolios. For 
+this, we use twenty-five benchmark portfolios formed based on the market value of equity (ME) and book-
+to-market of equity (BM).10 The breakpoints for the ME and BM portfolio assignments are based on NYSE 
+stock quintile breakpoints and come from Kenneth French’s online data library. Stocks are assigned to new 
+ME and BM quintiles each July. Characteristic quintile assignments in year t are based on ME value at the 
+end of June of year t and BM value formed using ME at the end of December of year t-1 and book value of 
+equity for the last fiscal year end in year t-1.   
+Panel A reports the results for quintile portfolios sorted by PC1. For the value-weighted portfolios, the 
+returns for quintile 5 are now equal to the returns for quintile 1. For the equal-weighted portfolios, the 
+returns of quintile 5 stocks are slightly higher than the returns of quintile 1 stocks. Although the FF-3 
+alphas are still lower for quintile 5 portfolios, the differential returns, ARs, and FF-3 alphas of all arbitrage 
+portfolios are statistically indistinguishable from zero for the NYSE stocks. 
+The results for PC2 quintile portfolios (Panel B) and PC3 quintile portfolios (Panel C) remain 
+significant as we limit our attention to the NYSE stocks. The PC2 arbitrage portfolio returns, ARs, and FF-
+3 alphas are in the range of –0.5% to –0.7% per month, with all the values statistically significant, except 
+FF-3 alpha for value-weighted arbitrage portfolio, whose t-statistic = –1.9 implies marginal significance. 
+The PC3 arbitrage portfolio returns, ARs, and FF-3 alphas are also all statistically significant and are 
+similar in magnitude (1.1%-1.4% per month) to the corresponding returns in Table 4. 
+                                                 
+10 ME is the price times shares outstanding. Following Davis, Fama, and French (2000), BE is the book value of 
+stockholders’ equity, plus balance sheet deferred taxes and investment tax credit (if available), minus the book value 
+of preferred stock. Depending on availability, we use the redemption, liquidation, or par value (in that order) to 
+estimate the book value of preferred stock. Stockholders’ equity is the value reported by Compustat, if it is available. 
+If not, we measure stockholders’ equity as the book value of common equity plus the par value of preferred stock, or 
+the book value of assets minus total liabilities (in that order).   
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 12 ---
+ 
+10
+The distributions of average market share, size, and book-to-market across quintiles in all panels of 
+Table 5 are qualitatively similar to the distributions in Table 4, except the extreme quintile portfolios in 
+Table 5 represent a larger market share of NYSE. Not surprisingly, for most quintile portfolios, the average 
+size and the average book-to-market ratios in Table 5 are larger than the corresponding values in Table 4, 
+reflecting the fact that firms traded on the NYSE are on average larger and more mature than stocks traded 
+on the NASDAQ. 
+To summarize, of the three principal components formed on the basis of realized volatility and call and 
+put implied volatilities, sorting on the first principal component does not generate a significant return 
+differential between low and high quintile portfolios. In contrast, arbitrage portfolios formed based on 
+sorting on the second and the third principal components generate statistically and economically significant 
+returns. These results hold when we limit our attention to NYSE stocks, when we control for risk, and both 
+for value-weighted and equal-weighted portfolios. 
+ 
+5. Controlling for other cross-sectional effects 
+In this section, we examine whether the significant relations between the second and the third principal 
+components and returns persist once we control for various cross-sectional effects identified in the earlier 
+literature as factors with significant impact on returns.11 Unlike in earlier tests, we form PC quintile 
+portfolios while controlling for one other characteristic at a time. All of the following results are for the 
+sample that consists of the NYSE stocks only. 
+Our procedure follows Ang, Hodrick, Xing, and Zhang (2006). Specifically, each month, the stocks are 
+first sorted into quintiles based on the control characteristic (e.g., size). Then, within each characteristic 
+quintile, the stocks are sorted based on PC2 (Panel A) or PC3 (Panel B). Each characteristic quintile, thus, 
+contains five PC quintiles. Next, PC quintiles 1 from each control characteristic quintile are averaged into a 
+single quintile 1, PC quintiles 2 are averaged into a single quintile 2, etc. The resulting PC quintiles contain 
+stocks with all values of the characteristic and, hence, represent PC quintile portfolios controlling for the 
+characteristic. In Table 6, we report the returns, ARs, and FF-3 alphas of the “5-1” arbitrage portfolios 
+formed on the basis of these quintiles. 
+A. Controlling for Size and Book-to-Market 
+Although the characteristic-matched abnormal returns (AR) and the FF-3 alphas incorporate controls 
+for size and book-to-market, we perform additional controls using the above-described procedure. The first 
+line in each panel represents the arbitrage portfolio returns when PC2 and PC3 portfolios are formed 
+controlling for size. Both for PC2 and PC3, the returns, ARs, and FF-3 alphas of both the equal-weighted 
+                                                 
+11 The results for PC1 portfolios remain insignificant in the presence of all controls and are not reported for brevity. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 13 ---
+ 
+11
+and value-weighted arbitrage portfolios remain economically large and statistically significant. These 
+results imply that size explains neither the PC2 effect, nor the PC3 effect. 
+The second line in each panel represents the arbitrage portfolio returns when PC2 and PC3 portfolios 
+are formed controlling for book-to-market. Both for PC2 and PC3, the returns, ARs, and FF-3 alphas of 
+both the equal-weighted and the value-weighted arbitrage portfolios remain economically large and 
+statistically significant, implying that variations in the book-to-market ratio are not responsible for the 
+observed PC2 and PC3 effects. 
+B. Controlling for Illiquidity 
+We next use Amihud’s (2002) illiquidity measure as a control variable.12 Amihud finds that illiquid 
+stocks earn higher returns. The bivariate portfolio results, reported in the third rows of Panels A (PC2) and 
+B (PC3), show that the significant returns on PC2 and PC3 arbitrage portfolios are robust to controlling for 
+illiquidity.  Depending on the type of risk control and the portfolio weighting scheme, the average arbitrage 
+portfolio returns vary between –0.6% and –0.8% per month for PC2, and between 1.4% and 1.5% per 
+month for PC3. All the returns are statistically significant. 
+C. Controlling for Bid-Ask Spread 
+Another way to control for liquidity is to use the bid-ask spread. For each stock and each month, we 
+calculate the mean daily percentage bid-ask spread over the previous month. The percentage bid-ask spread 
+is the difference between ask and bid prices scaled by the mean of the bid and ask prices.  The arbitrage 
+portfolio returns controlling for bid-ask spread are presented in the fourth rows of Panels A and B. The 
+returns remain economically large and statistically significant.  FF-3 alphas for PC2 arbitrage portfolios are 
+–0.5% with equal weighting and –0.9% with value weighting.  FF-3 alphas for PC3 arbitrage portfolios are 
+1.4% per month with either portfolio weighting scheme. 
+D. Controlling for Analyst Forecast Dispersion  
+Our next control variable is the analyst forecast dispersion, calculated as the standard deviation of the 
+analysts’ forecasts of the next fiscal year’s earnings per share scaled by the mean analyst forecast.13 
+Diether, Malloy, and Scherbina (2002) show that higher dispersion in analysts’ earnings forecasts, which 
+they argue proxies for the differences in investors’ opinions, is associated with lower subsequent average 
+returns. According to Miller (1977), in the presence of short sale constraints, the views of the more 
+pessimistic investors will tend not to be reflected in stock prices, leading such stocks to be overpriced and 
+reducing their future expected returns. 
+                                                 
+12 This measure of illiquidity is calculated as the ratio of the daily absolute stock return to its daily dollar volume, 
+averaged over the previous month. 
+13 These variables come from the IBES summary of estimates file. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 14 ---
+ 
+12
+The results controlling for analyst forecast dispersion are presented in the fifth rows of Panels A and B. 
+The returns, ARs, and FF-3 alphas of all arbitrage portfolios remain statistically and economically 
+significant. The PC2 based FF-3 alphas, for example, are –0.8% for the value-weighted portfolio and –
+0.7% for the equal-weighted portfolio. The PC3 based FF-3 alphas are 1.4% for both the value-weighted 
+and the equal-weighted portfolios. 
+E. Controlling for Informed Trading 
+Easley and O’Hara (2000) present a model showing that private information-based trading affects the 
+cross-section of expected returns. Easley, Hvidkjaer, and O’Hara (2002) generate a measure of the 
+probability of information-based trading, PIN, and show empirically that stocks with higher probability of 
+information-based trading have higher returns. 
+Using the PIN as a control variable, we investigate whether the predictability from PC2 and PC3 is 
+driven by their correlation with concentration of informed traders.14 These results are reported in the sixth 
+rows of Panels A and B of Table 6. Controlling for PIN does affect the returns of value-weighted PC2 
+arbitrage portfolios, which decline in magnitude and become insignificant at the five percent level. The 
+equal-weighted arbitrage portfolio returns, however, remain significant. The equal-weighted FF-3 alpha is –
+0.6% per month, which is similar to our earlier findings from the univariate portfolios. Controlling for PIN 
+does not affect the returns on PC3 arbitrage portfolios. The returns, ARs, and FF-3 alphas, all remain large 
+and significant. 
+F. Controlling for Skewness 
+Our final control variable is skewness.15 Harvey and Siddique (2000) show that coskewness with the 
+market has a significant impact on expected returns. Barberis and Huang (2005) demonstrate that investors 
+with prospect theory based utility functions prefer idiosyncratic skewness, which affects equilibrium 
+expected returns.  
+The results controlling for skewness are presented in the seventh rows of Panels A and B of Table 6. 
+Although controlling for skewness does not affect the arbitrage returns and ARs of PC2 portfolios, the FF-3 
+alpha of the value-weighted arbitrage portfolio becomes marginally significant with t-stat. = –1.8. For PC3 
+portfolios, controlling for skewness does not affect our original findings. The returns, ARs, and FF-3 
+alphas, all remain large and significant. For example, the FF-3 alphas are 1.2% for the value-weighted 
+portfolio and 1.3% for the equal-weighted portfolio, and both alphas are highly significant. 
+                                                 
+14 We downloaded NYSE stock PIN values from Soeren Hvidkjaer’s website. The data are annual and are available 
+through 2001. Since we use the PIN in year (t) to predict monthly returns in year (t+1), the sample used in this 
+analysis starts in February 1996 and ends in December 2002 for a total of 83 months. 
+15 We calculate skewness from daily return observations over the previous month. Minimum fifteen daily return 
+observations are required. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 15 ---
+ 
+13
+G. Fama-MacBeth Regressions 
+An alternative approach to controlling for various determinants of cross-sectional variation in stock 
+returns is to run Fama-MacBeth (1973) regressions of returns on these determinants. Table 7 reports the 
+time-series averages of the slope coefficients from the monthly cross-sectional regressions and their 
+Newey-West adjusted t-statistics. 
+The first regression contains only the principal components as independent variables.  Consistent with 
+our earlier results, the effect of PC1 is insignificant, the effect of PC2 is significantly negative, and the 
+effect of PC3 is significantly positive. The second regression introduces controls for size and book-to-
+market in the form of natural logs of these variables. The third regression, introduces additional controls for 
+illiquidity, analyst forecast dispersion, PIN, and skewness. The effects of PC2 and PC3 remain statistically 
+significant. Among the control variables, only analyst forecast dispersion can significantly predict the 
+cross-sectional variation in stock returns, with higher dispersion associated with lower returns, consistent 
+with earlier studies. 
+ 
+6. Interpretation of the results 
+Our results thus far imply that the existence of a significant relation between the second and the third 
+principal components of realized, call, and put implied volatilities and the cross-section of expected returns. 
+We now turn our attention to identifying the economic factors underlying these principal components.  
+A. Principal Components of Volatility and their Observable Counterparts 
+As reported in Table 3, PC2 is positively correlated with realized volatility and negatively with both 
+call and put implied volatilities. Therefore, it is plausible that PC2 could be related to the spread between 
+the realized volatility and the average implied volatility calculated using both put and call options (RVol-
+IVol). Table 3 also reports that PC3 is positively related to call implied volatility, negatively to put implied 
+volatility, and is essentially unrelated to realized volatility. This suggests that PC3 could be related to the 
+spread between call and put implied volatilities (CVol-PVol).  
+Panels A and B of Table 8 provide evidence supporting these conjectures. Panel A reports the 
+distributions of realized-implied volatility spread (RVol-IVol) and the call-put implied volatility spread 
+(CVol-PVol) across PC1, PC2, and PC3 quintiles. There is very little variation in CVol-PVol across PC1 
+and PC2 quintiles with the differences between quintiles 5 and 1 (-0.002 for both PC1 and PC2) 
+economically trivial and statistically insignificant. In contrast, CVol-PVol monotonically increases across 
+PC3 quintiles such that the difference between quintiles 5 and 1 (0.093) is economically and statistically 
+significant. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 16 ---
+ 
+14
+There is very little variation in RVol-IVol across PC3 quintiles with the differences between quintiles 5 
+and 1 (-0.003) economically and statistically insignificant. The variation across PC1 quintiles is more 
+pronounced generating a statistically significant difference between quintiles 5 and 1. However, the 
+difference (0.038) is economically small when compared with the difference generated by PC2 quintiles 
+(0.317).  
+To summarize, the results in Panel A support our conjectures that PC2 primarily reflects the spread 
+between the realized and implied volatilities, whereas PC3 primarily reflects the spread between the call 
+and put implied volatilities. These conclusions are further supported by results in Panel B, which presents 
+the correlation coefficients of PC1, PC2, and PC3 with RVol-IVol and CVol-PVol. The correlation of 
+CVol-PVol with PC3 is very high (0.937) whereas its correlations with PC1 and PC2 are trivial (-0.030 and 
+-0.003, respectively). The correlation of RVol-IVol with PC2 is also quite high (0.896), whereas the 
+correlation with PC2 (0.153) is much smaller and the correlation with PC3 (-0.001) is essentially zero. 
+B. An Interpretation of the Realized-Implied Volatility Spread   
+Merton (1973)’s ICAPM implies the following equilibrium relation between risk and return, 
+ 
+ 
+ 
+ 
+ 
+ix
+im
+i
+B
+A
+r
+σ
+σ
+µ
+⋅
++
+⋅
+=
+−
+, 
+ 
+ 
+ 
+           (1) 
+where 
+r
+i −
+µ
+ denotes the expected excess return on risky asset i, A reflects the average risk aversion of 
+market investors, 
+im
+σ
+ denotes the covariance between the excess return on asset i and the excess return on 
+the market portfolio, B measures the market’s reaction to shifts in a state variable x that governs the 
+stochastic investment opportunity, and 
+ix
+σ measures the covariance between excess returns on the risky 
+asset i and the state variable x. 
+Equation (1) states that in equilibrium, investors are compensated in terms of expected return, for 
+bearing market (systematic) risk, and for bearing the risk of unfavorable shifts in the investment 
+opportunity set. 
+The second term, 
+ix
+B σ
+⋅
+, in equation (1) reflects the investors’ demand for the asset as a vehicle to 
+hedge against “unfavorable” shifts in the investment opportunity set. An “unfavorable” shift in the 
+investment opportunity set variable x is defined as a change in x such that future consumption c will fall for 
+a given level of future wealth. That is, an unfavorable shift is an increase in x if ∂c=∂x < 0 and a decrease in 
+x if ∂c=∂x > 0. 
+Merton (1973) shows that all risk-averse utility maximizers will attempt to hedge against such shifts in 
+the sense that if ∂c=∂x < 0 (∂c=∂x > 0), then, ceteris paribus, they will demand more of the ith asset, the 
+more positively (negatively) correlated its return is with changes in x. Thus, if the ex-post opportunity set is 
+less favorable than was anticipated, the investor will expect to be compensated by a higher level of wealth 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 17 ---
+ 
+15
+through the positive correlation of the returns. Similarly, if the ex post returns are lower, he will expect a 
+more favorable investment environment. 
+Campbell (1993, 1996) provides a two-factor model in which “unexpected increase in market 
+volatility” represents deterioration in the investment opportunity set (or decrease in optimal consumption). 
+In this setting, a positive covariance of returns with volatility shocks (or innovations in market volatility) 
+predicts a lower return on the stock. In the context of Campbell’s ICAPM, an increase in volatility predicts 
+a decrease in optimal consumption and hence an unfavorable shift in the investment opportunity set. Risk-
+averse investors will demand more of the ith asset, the more positively correlated its return is with changes 
+in volatility because they will be compensated by a higher level of wealth through positive correlation of 
+the returns. That asset can be viewed as a hedging instrument. In other words, an increase in the covariance 
+of returns with volatility risk leads to an increase in the hedging demand, which in equilibrium reduces 
+expected return on the asset. 
+Following Campbell, we assume that investors want to hedge against unexpected change in market 
+volatility defined as the difference between realized market volatility 
+)
+(
+m
+RV
+ and implied market volatility  
+)
+(
+m
+IV
+, i.e., unexpected market volatility = 
+m
+m
+IV
+RV
+−
+. We test whether stocks that have higher 
+correlation with 
+)
+(
+m
+m
+IV
+RV
+x
+−
+=
+ would yield lower expected return.16 
+As discussed in the online supplement, we first estimate the time-varying conditional covariances 
+between the excess returns on Dow 30 stocks and the excess return on the market portfolio, 
+1
+, +
+t
+im
+σ
+, and 
+also the conditional covariances between the excess returns on Dow 30 stocks and unexpected news in 
+market volatility, 
+1
+, +
+t
+ix
+σ
+. Then, we use panel data regressions and estimate the common slope coefficients 
+on 
+1
+, +
+t
+im
+σ
+ and 
+1
+, +
+t
+ix
+σ
+, i.e., A and B in equation (1). As shown in Table I and II of the online supplement, the 
+common slope coefficient A on 
+1
+, +
+t
+im
+σ
+ is estimated to be positive, whereas the common slope B on 
+1
+, +
+t
+ix
+σ
+ 
+is estimated to be negative. Both A and B turn out to be highly significant, both economically and 
+statistically. Overall, the results indicate a positive (negative) and significant relation between expected 
+return and market risk (volatility risk). Based on the stacked time-series and pooled panel regressions, we 
+find that stocks that have higher correlation with unexpected market volatility generate lower expected 
+return. 
+We examine if the strong negative intertemporal relation between expected returns and market 
+volatility risk is carried out to the cross-sectional relation as well. We conjecture that since there is a strong 
+relation between expected returns and unexpected news in market volatility in stacked time-series and 
+                                                 
+16 To be consistent with the page length requirement of Management Science, in the online supplement, we present 
+results from testing whether stocks that have higher correlation with 
+)
+(
+m
+m
+IV
+RV
+−
+ yield lower expected return. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 18 ---
+ 
+16
+pooled panel regressions, the strong negative relation should appear in the cross-section of expected returns 
+and unexpected news in firm-level volatility. Specifically, we test whether investors want to hedge against 
+unexpected news in total volatility of individual stocks defined as the difference between realized volatility 
+and average implied volatility of individual stocks (RVol-IVol). We investigate the presence and 
+significance of a negative relation between expected stock returns and high covariance with innovations in 
+firm-level volatility. Put differently, we examine whether individual stocks that have higher correlation 
+with (RVol-IVol) would generate lower expected return. 
+To test this hypothesis, we sort all optionable NYSE stocks into quintile portfolios based on their firm-
+level volatility risk (RVol-IVol) in the previous month. As shown in Panel C of Table 8, for the value-
+weighted portfolios, we find a negative and economically significant average return difference on (RVol-
+IVol) quintile portfolios (in the range of 60 to 70 basis points per month). These average return differences 
+are also statistically significant. For the equal-weighted portfolios, as presented in the second half of Panel 
+C of Table 8, the relation between volatility risk and expected stock returns is also negative and significant. 
+A trading strategy buying stocks in the lowest (RVol-IVol) quintile and shorting stocks in the highest 
+(RVol-IVol) quintile produces average returns of 60 basis points per month with the statistic of −2.5 to 
+−2.8. These average return differences from the value-weighted and equal-weighted portfolios of volatility 
+risk are very similar to those obtained from the long-short portfolios of PC2 (Table 5, Panel B). 
+C. An Interpretation of the Call-Put Implied Volatility Spread   
+A high call-put implied volatility spread (CVol-PVol>0) implies that the call option prices exceed the 
+levels implied by the put option prices and the put-call parity. Ofek, Richardson, and Whitelaw (2004) 
+argue that such violations could arise if irrational investors move stock prices (but not options prices) away 
+from their fundamental values and if there are limits to arbitrage, such as short-sale constraints. If this is 
+true, then stocks with relatively more expensive calls (stocks with high CVol-PVol) are expected to 
+generate higher returns than stocks with relatively more expensive puts (stocks with low CVol-PVol). To 
+test our conjecture, we sort all optionable stocks into quintile portfolios based on the spread between call 
+and put implied volatilities in the previous month.  
+As shown in Panel D of Table 8, for both the value-weighted and the equal-weighted portfolios, a long-
+short portfolio buying stocks in the highest (CVol-PVol) quintile and shorting stocks in the lowest (CVol-
+PVol) quintile produces average returns in the range of 1.0% to 1.5% per month that are highly significant. 
+The t-statistics of average raw, abnormal, and risk-adjusted returns are in the range of 3.9 to 4.5 for the 
+value-weighted portfolios, and range from 7.9 to 8.6 for the equal-weighted portfolios. These average 
+return differences are very similar to those obtained from the long-short portfolios of PC3 as presented in 
+Panel C of Table 5. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 19 ---
+ 
+17
+7. Conclusions 
+We examine the relation between “expected future volatility” and the cross-section of expected returns 
+over the sample period of February 1996 to January 2005. Unlike earlier studies that rely on the historical 
+data, we focus on the market’s expectation of future volatility of individual stocks, extracted from call and 
+put option prices. We find that a trading strategy buying stocks in the highest implied (call or put) volatility 
+quintile and shorting stocks in the lowest quintile (respectively, call or put) generates returns that are not 
+significantly different from zero. 
+These results are in contrast to the analysis of AHXZ (2006) who use one-month lagged realized 
+volatility to proxy for expected volatility and find that high volatility portfolios generate unusually low 
+returns. Since we are able to replicate AHXZ (2006) results in our sample, the failure of implied volatility 
+based trading strategies is puzzling.  
+To further investigate the differences and interactions between alternative measures of total risk, we 
+transform our three measures of volatility into three orthogonal principal components. We find that 
+although long-short trading strategies based on the first principal component do not generate significant 
+returns, trading strategies based on the second and the third principal components generate economically 
+large and statistically significant return. These results do not change when we control for the well-known 
+cross-sectional effects including size and book-to-market, illiquidity and bid-ask spread, analyst forecast 
+dispersion, probability of informed trading, and skewness.  
+The analysis of the economic content of the principal components with significant impact on returns 
+suggests that the second principal component is related to the realized-implied volatility spread. We, 
+therefore, conjecture that the second principal component is a proxy for volatility risk. The third principal 
+component is related to the call-put implied volatility spread. Our conjecture is that the third principal 
+component reflects investors’ expectation about the future price increase of the underlying stock. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 20 ---
+ 
+18
+References 
+ 
+Amihud, Y., 2002, Illiquidity and stock returns: Cross-section and time-series effects, Journal of Financial 
+Markets 5, 31-56. 
+ 
+Andersen, T. G., T. Bollerslev, F. X., Diebold, and P. Labys, 2003, Modeling and forecasting realized 
+volatility, Econometrica 71, 579-626. 
+ 
+Ang, A., R. J. Hodrick, Y. Xing, and X. Zhang, 2006, The cross-section of volatility and expected returns, 
+Journal of Finance 61, 259-299. 
+ 
+Barber, B.M., and T. Odean, 2000, Trading is hazardous to your wealth: The common stock investment 
+performance of individual investors, Journal of Finance 55, 773-806. 
+ 
+Barberis, N., and M. Huang, 2005, Stocks as lotteries: The implications of probability weighting for 
+security prices, Working Paper, Yale University. 
+ 
+Bali, T. G., and N. Cakici, 2006, Idiosyncratic volatility and the cross-section of expected returns, Journal 
+of Financial and Quantitative Analysis forthcoming. 
+ 
+Black, F., and M. Scholes. 1973. The pricing of options and corporate liabilities, Journal of Political 
+Economy 81 637-654. 
+ 
+Blume, M.E., and I. Friend, 1975, The asset structure of individual portfolios and some implications for 
+utility functions, Journal of Finance 30, 585-603. 
+ 
+Campbell, J.Y., 1993, Intertemporal asset pricing without consumption data, American Economic Review 
+83, 487-512. 
+ 
+Campbell, J.Y., 1996, Understanding risk and return, Journal of Political Economy 104, 298-345. 
+ 
+Cox, J.C., S.A. Ross, and M. Rubinstein, 1979. Option pricing: A simplified approach, Journal of 
+Financial Economics 7, 229-263. 
+ 
+Davis, J.L., E.F. Fama, and K.R. French, 2000. Characteristics, covariances, and average returns: 1929 to 
+1997. Journal of Finance 55, 389-406. 
+ 
+Diether, K.B, C. J. Malloy, and A. Scherbina, 2002. Differences of opinion and the cross section of stock 
+returns, Journal of Finance 57, 2113-2141. 
+ 
+Easley, D., and M. O’Hara, 2000, Information and the cost of capital, Working paper, Johnson Graduate 
+School of Management, Cornell University. 
+ 
+Easley, D., S. Hvidkjaer, and M. O’Hara, 2002, Is information risk a determinant of asset returns? Journal 
+of Finance 57, 2185-2221. 
+ 
+Fama, E.F., and K.R. French, 1992, Cross-section of expected stock returns, Journal of Finance 47, 427-
+465. 
+ 
+Fama, E.F., and K.R. French, 1993, Common risk factors in the returns on stocks and bonds, Journal of 
+Financial Economics 33, 3-56. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 21 ---
+ 
+19
+ 
+Fama, E. F., and J. D. MacBeth, 1973 Risk and return: Some empirical tests, Journal of Political Economy 
+81, 607-636. 
+ 
+Fu, F., 2005, Idiosyncratic risk and the cross-section of expected stock returns, Working Paper, William E. 
+Simon Graduate School of Business Administration, University of Rochester. 
+ 
+Harvey, C, and A. Siddique, 2000, Conditional skewness in asset pricing tests, Journal of Finance 55, 
+1263-1295. 
+ 
+Levy, H., 1978, Equilibrium in an imperfect market: A constraint on the number of securities in the 
+portfolio, American Economic Review 68, 643-658.  
+ 
+Merton, R. C., 1973, An intertemporal capital asset pricing model, Econometrica 41, 867-887. 
+ 
+Merton, R. C., 1987, A simple model of capital market equilibrium with incomplete information, Journal of 
+Finance 42, 483-510. 
+ 
+Miller, E., 1977, Risk, uncertainty, and divergence of opinion, Journal of Finance 32, 1151-1168. 
+ 
+Nelson, D. B., 1991, Conditional heteroskedasticity in asset returns: A new approach, Econometrica 59, 
+347-370. 
+ 
+Newey, W.K., and K.D. West, 1987, A simple, positive semi-definite, heteroskedasticity and 
+autocorrelation consistent covariance matrix, Econometrica 55, 703-708. 
+ 
+Ofek, E., M. Richardson, and R. Whitelaw, 2004, Limited arbitrage and short sales restrictions: Evidence 
+from the options markets, Journal of Financial Economics, 74, 305-342. 
+ 
+Spiegel, M, and X. Wang, 2005, Cross-sectional variation in stock returns: Liquidity and idiosyncratic risk, 
+Yale ICF Working Paper No. 05-13. 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 22 ---
+ 
+20
+Table 1. Portfolios sorted on realized volatility 
+Value-weighted quintile portfolios are formed every month by sorting stocks based on realized volatility measured as the standard deviation of daily returns over 
+the previous month. Quintile 1 (5) denotes the portfolio of stocks with the lowest (highest) volatilities. The average monthly returns on quintile portfolios are 
+reported in columns labeled “R”. The Jensen’s alphas with respect to the Fama-French (1993) three-factor model are reported in columns labeled “Alpha”. 
+Market share refers to the average share of the quintile portfolio stocks in the market value of all stocks represented in the table. Size is the average market 
+capitalization and B/M is the average book-to-market ratio for firms within the quintile portfolios. Call (put) volatility is the volatility implied by the call (put) 
+option prices at the end of the previous month. The row “5-1” refers to the average monthly return on an arbitrage portfolio with a long position in portfolio 5 and 
+a short position in portfolio 1. Newey-West (1987) t-statistics for the arbitrage portfolio returns are reported in the last row. The sample consists of all 
+NYSE/AMEX/NASDAQ stocks with available data and covers February 1996 to January 2005 period. 
+Panel A: All stocks 
+Quintile 
+R 
+Alpha 
+Realized Volatility 
+Market Share 
+Size 
+B/M 
+1 
+0.009 
+0.000 
+0.213 
+0.410 
+4,265 
+0.715 
+2 
+0.009 
+0.000 
+0.353 
+0.336 
+3,485 
+0.670 
+3 
+0.010 
+0.001 
+0.499 
+0.159 
+1,712 
+0.684 
+4 
+0.007 
+-0.003 
+0.712 
+0.072 
+790 
+0.701 
+5 
+-0.003 
+-0.015 
+1.340 
+0.024 
+269 
+0.808 
+5-1 
+-0.011 
+-0.015 
+ 
+ 
+ 
+ 
+t-stat 
+-1.0 
+-2.8 
+ 
+ 
+ 
+ 
+Panel B: Optionable stocks 
+Quintile 
+R 
+Alpha 
+Realized Volatility
+Call Implied 
+Volatility 
+Put Implied 
+Volatility 
+Market Share 
+Size 
+B/M 
+1 
+0.008 
+0.000 
+0.226 
+0.304 
+0.310 
+0.408 
+9,932 
+0.540 
+2 
+0.009 
+0.000 
+0.352 
+0.401 
+0.406 
+0.342 
+7,360 
+0.503 
+3 
+0.010 
+0.001 
+0.498 
+0.524 
+0.531 
+0.160 
+3,871 
+0.478 
+4 
+0.006 
+-0.003 
+0.707 
+0.659 
+0.666 
+0.070 
+1,978 
+0.434 
+5 
+-0.003 
+-0.016 
+1.155 
+0.789 
+0.798 
+0.021 
+1,016 
+0.425 
+5-1 
+-0.012 
+-0.016 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat 
+-1.0 
+-2.4 
+ 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 23 ---
+ 
+21
+Table 2. Portfolios sorted on implied volatility 
+Value-weighted quintile portfolios are formed every month by sorting stocks based on implied volatility from call and put prices observed at the end of the 
+previous month. Quintile 1 (5) denotes the portfolio of stocks with the lowest (highest) volatilities. The average monthly returns on quintile portfolios are 
+reported in columns labeled “R”. The Jensen’s alphas with respect to the Fama-French (1993) three-factor model are reported in columns labeled “Alpha”. 
+Market share refers to the average share of the quintile portfolio stocks in the market value of all stocks represented in the table. Size is the average market 
+capitalization and B/M is the average book-to-market ratio for firms within the quintile portfolios. Total volatility is the standard deviation of daily returns over 
+the previous month. The row “5-1” refers to the average monthly return on an arbitrage portfolio with a long position in portfolio 5 and a short position in 
+portfolio 1. Newey-West (1987) t-statistics for the arbitrage portfolio returns are reported in the last row. The sample consists of all NYSE/AMEX/NASDAQ 
+stocks with available data and covers February 1996 to January 2005 period. 
+Panel A: Call implied volatility 
+Quintile 
+R 
+Alpha 
+Realized Volatility
+Call Volatility 
+Put Volatility 
+Market Share 
+Size 
+B/M 
+1 
+0.007 
+-0.002 
+0.266 
+0.270 
+0.269 
+0.456 
+17,602 
+0.502 
+2 
+0.011 
+0.002 
+0.345 
+0.357 
+0.362 
+0.285 
+11,019 
+0.502 
+3 
+0.012 
+0.004 
+0.439 
+0.455 
+0.461 
+0.148 
+5,837 
+0.490 
+4 
+0.007 
+0.000 
+0.580 
+0.589 
+0.596 
+0.078 
+3,146 
+0.446 
+5 
+0.002 
+-0.004 
+0.799 
+0.806 
+0.825 
+0.033 
+1,354 
+0.375 
+5-1 
+0.000 
+-0.001 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat. 
+0.0 
+-0.2 
+ 
+ 
+ 
+ 
+ 
+ 
+Panel B: Put implied volatility 
+Quintile 
+R 
+Alpha 
+Realized Volatility
+Call Volatility 
+Put Volatility 
+Market Share 
+Size 
+B/M 
+1 
+0.006 
+-0.001 
+0.266 
+0.261 
+0.277 
+0.448 
+15,449 
+0.516 
+2 
+0.011 
+0.002 
+0.346 
+0.355 
+0.364 
+0.286 
+9,814 
+0.511 
+3 
+0.012 
+0.004 
+0.439 
+0.454 
+0.462 
+0.151 
+5,305 
+0.501 
+4 
+0.008 
+-0.001 
+0.578 
+0.587 
+0.597 
+0.080 
+2,873 
+0.458 
+5 
+0.005 
+-0.007 
+0.796 
+0.816 
+0.814 
+0.035 
+1,257 
+0.382 
+5-1 
+-0.005 
+-0.006 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat. 
+-0.3 
+-0.8 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 24 ---
+ 
+22
+Table 3. Correlations between principal components and volatilities 
+The sample period is February 1996 to January 2005. Realized volatility is the standard deviation of daily 
+returns over the previous month. Call (put) volatility is the volatility implied by the call (put) prices at the 
+end of the previous month. PC1 is the first principal component of volatilities. PC2 is the second principal 
+component of volatilities. PC3 is the third principal component of volatilities. The principal components 
+are estimated separately for each of 108 months. 
+ 
+ 
+PC1 
+PC2 
+PC3 
+Realized Vol.
+Call Vol. 
+Put Vol. 
+PC1 
+1 
+ 
+ 
+ 
+ 
+ 
+PC2 
+0 
+1 
+ 
+ 
+ 
+ 
+PC3 
+0 
+0 
+1 
+ 
+ 
+ 
+Realized volatility 
+0.764 
+0.414 
+0.006 
+1 
+ 
+ 
+Call volatility 
+0.854 
+-0.190 
+0.112 
+0.775 
+1 
+ 
+Put volatility 
+0.854 
+-0.183 
+-0.118 
+0.777 
+0.969 
+1 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 25 ---
+ 
+23
+Table 4. Portfolios sorted on principal components 
+Quintile portfolios are formed every month by sorting stocks based on principal components of realized and call and put implied volatilities, estimated over the 
+previous month. Realized volatility is the standard deviation of daily returns over the previous month. Call (put) volatility is the volatility implied by the call 
+(put) prices at the end of the previous month. PC1 is the first principal component of volatilities. PC2 is the second principal component of volatilities. PC3 is the 
+third principal component of volatilities. Quintile 1 (5) denotes the portfolio of stocks with the lowest (highest) value of the principal component. The average 
+monthly returns on quintile portfolios are reported in columns labeled “R”. The abnormal returns relative to characteristics-matched benchmark portfolios are 
+reported in columns labeled “AR”. We use twenty-five benchmark portfolios formed based on market value of equity (ME) and book-to-market of equity. The 
+Jensen’s alphas with respect to the Fama-French (1993) three-factor model are reported in columns labeled “Alpha”. Market share refers to the average share of 
+the quintile portfolio stocks in the market value of all stocks represented in the panel. Size is the average market capitalization and B/M is the average book-to-
+market ratio for firms within the quintile portfolios. The row “5-1” refers to the average monthly return on an arbitrage portfolio with a long position in portfolio 
+5 and a short position in portfolio 1. Newey-West (1987) t-statistics for the arbitrage portfolio returns are reported in the last row. The sample consists of all 
+NYSE/AMEX/NASDAQ stocks with available data and covers February 1996 to January 2005 period. 
+Panel A: PC1 
+Quintile 
+R 
+Alpha 
+Market Share 
+Size 
+B/M 
+Realized Vol. 
+Call IV 
+Put IV 
+1 
+0.007 
+-0.001 
+0.440 
+17,722 
+0.496 
+0.244 
+0.268 
+0.275 
+2 
+0.010 
+0.001 
+0.289 
+11,635 
+0.496 
+0.334 
+0.357 
+0.365 
+3 
+0.013 
+0.004 
+0.155 
+6,335 
+0.490 
+0.433 
+0.455 
+0.463 
+4 
+0.008 
+0.001 
+0.081 
+3,430 
+0.433 
+0.571 
+0.590 
+0.598 
+5 
+0.003 
+-0.005 
+0.036 
+1,555 
+0.368 
+0.854 
+0.807 
+0.815 
+5-1 
+-0.004 
+-0.005 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat 
+-0.3 
+-0.7 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 26 ---
+ 
+24
+Panel B: PC2 
+Quintile 
+R 
+Alpha 
+Market Share 
+Size 
+B/M 
+Realized Vol. 
+Call IV 
+Put IV 
+1 
+0.014 
+0.004 
+0.048 
+1,978 
+0.454 
+0.464 
+0.662 
+0.668 
+2 
+0.015 
+0.006 
+0.153 
+6,317 
+0.467 
+0.408 
+0.484 
+0.491 
+3 
+0.009 
+0.001 
+0.280 
+11,386 
+0.460 
+0.399 
+0.421 
+0.428 
+4 
+0.007 
+0.000 
+0.331 
+13,396 
+0.460 
+0.437 
+0.402 
+0.410 
+5 
+0.005 
+-0.003 
+0.188 
+7,632 
+0.442 
+0.727 
+0.507 
+0.518 
+5-1 
+-0.009 
+-0.008 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat 
+-1.9 
+-2.0 
+ 
+ 
+ 
+ 
+ 
+ 
+Panel C: PC3 
+Quintile 
+R 
+Alpha 
+Market Share 
+Size 
+B/M 
+Realized Vol. 
+Call IV 
+Put IV 
+1 
+0.002 
+-0.008 
+0.089 
+3,649 
+0.491 
+0.537 
+0.519 
+0.587 
+2 
+0.006 
+-0.002 
+0.215 
+8,664 
+0.446 
+0.458 
+0.456 
+0.477 
+3 
+0.010 
+0.003 
+0.328 
+13,336 
+0.430 
+0.438 
+0.443 
+0.450 
+4 
+0.010 
+0.002 
+0.266 
+10,907 
+0.438 
+0.458 
+0.470 
+0.464 
+5 
+0.014 
+0.005 
+0.101 
+4,146 
+0.479 
+0.545 
+0.588 
+0.537 
+5-1 
+0.012 
+0.013 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat 
+3.8 
+3.7 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 27 ---
+ 
+25
+Table 5. Portfolios sorted on principal components: NYSE stocks 
+Quintile portfolios are formed every month by sorting stocks based on principal components of realized and call and put implied volatilities, estimated over the 
+previous month. Realized volatility is the standard deviation of daily returns over the previous month. Call (put) volatility is the volatility implied by the call 
+(put) prices at the end of the previous month. PC1 is the first principal component of volatilities. PC2 is the second principal component of volatilities. PC3 is the 
+third principal component of volatilities. Quintile 1 (5) denotes the portfolio of stocks with the lowest (highest) value of the principal component. The average 
+monthly returns on quintile portfolios are reported in columns labeled “R”. The abnormal returns relative to characteristics-matched benchmark portfolios are 
+reported in columns labeled “AR”. We use twenty-five benchmark portfolios formed based on market value of equity (ME) and book-to-market of equity. The 
+Jensen’s alphas with respect to the Fama-French (1993) three-factor model are reported in columns labeled “Alpha”. Market share refers to the average share of 
+the quintile portfolio stocks in the market value of all stocks represented in the panel. Size is the average market capitalization and B/M is the average book-to-
+market ratio for firms within the quintile portfolios. The row “5-1” refers to the average monthly return on an arbitrage portfolio with a long position in portfolio 
+5 and a short position in portfolio 1. Newey-West (1987) t-statistics for the arbitrage portfolio returns are reported in the last row. The sample consists of all 
+NYSE stocks with available data and covers February 1996 to January 2005 period. 
+ 
+Panel A: PC1 
+ 
+ 
+Value-weighted 
+ 
+ 
+Equal-weighted 
+ 
+ 
+Characteristics
+ 
+Quintile 
+R 
+AR 
+Alpha 
+R 
+AR 
+Alpha 
+Market Share
+Size 
+B/M 
+1 
+0.005 
+-0.004 
+-0.003 
+0.008 
+-0.002 
+-0.002 
+0.352 
+19,194 
+0.506 
+2 
+0.010 
+0.001 
+0.002 
+0.011 
+0.000 
+-0.001 
+0.291 
+15,544 
+0.486 
+3 
+0.011 
+0.001 
+0.000 
+0.012 
+0.000 
+-0.001 
+0.185 
+9,938 
+0.512 
+4 
+0.011 
+0.002 
+0.001 
+0.014 
+0.003 
+0.000 
+0.110 
+6,018 
+0.534 
+5 
+0.005 
+-0.003 
+-0.005 
+0.011 
+0.001 
+-0.005 
+0.061 
+3,466 
+0.577 
+5-1 
+0.000 
+0.001 
+-0.002 
+0.003 
+0.003 
+-0.003 
+ 
+ 
+ 
+t-stat 
+0.0 
+0.1 
+-0.6 
+0.5 
+0.6 
+-0.9 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 28 ---
+ 
+26
+Panel B: PC2 
+ 
+ 
+Value-weighted 
+ 
+ 
+Equal-weighted 
+ 
+ 
+Characteristics
+ 
+Quintile 
+R 
+AR 
+Alpha 
+R 
+AR 
+Alpha 
+Market Share
+Size 
+B/M 
+1 
+0.015 
+0.004 
+0.003 
+0.015 
+0.004 
+0.000 
+0.069 
+3,801 
+0.579 
+2 
+0.012 
+0.003 
+0.002 
+0.012 
+0.001 
+-0.001 
+0.170 
+9,327 
+0.518 
+3 
+0.008 
+-0.001 
+0.000 
+0.011 
+0.000 
+-0.001 
+0.258 
+13,982 
+0.499 
+4 
+0.008 
+-0.002 
+0.000 
+0.010 
+-0.001 
+-0.001 
+0.293 
+15,824 
+0.497 
+5 
+0.007 
+-0.002 
+-0.002 
+0.008 
+-0.003 
+-0.005 
+0.210 
+11,297 
+0.521 
+5-1 
+-0.007 
+-0.006 
+-0.005 
+-0.007 
+-0.006 
+-0.005 
+ 
+ 
+ 
+t-stat 
+-2.4 
+-2.0 
+-1.9 
+-2.7 
+-2.7 
+-2.1 
+ 
+ 
+ 
+Panel C: PC3 
+ 
+ 
+Value-weighted 
+ 
+ 
+Equal-weighted 
+ 
+ 
+Characteristics
+ 
+Quintile 
+R 
+AR 
+Alpha 
+R 
+AR 
+Alpha 
+Market Share
+Size 
+B/M 
+1 
+0.004 
+-0.005 
+-0.006 
+0.006 
+-0.005 
+-0.008 
+0.109 
+5,837 
+0.581 
+2 
+0.006 
+-0.004 
+-0.004 
+0.009 
+-0.002 
+-0.003 
+0.217 
+11,623 
+0.502 
+3 
+0.009 
+0.001 
+0.002 
+0.010 
+0.000 
+-0.002 
+0.289 
+15,738 
+0.481 
+4 
+0.009 
+0.000 
+0.000 
+0.012 
+0.001 
+-0.001 
+0.256 
+14,018 
+0.487 
+5 
+0.016 
+0.006 
+0.006 
+0.020 
+0.008 
+0.006 
+0.129 
+6,996 
+0.563 
+5-1 
+0.012 
+0.011 
+0.012 
+0.014 
+0.013 
+0.014 
+ 
+ 
+ 
+t-stat 
+4.1 
+3.8 
+3.9 
+7.7 
+7.7 
+8.9 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 29 ---
+ 
+27
+Table 6. Principal component arbitrage portfolios with controls for other cross-sectional effects 
+Each month, all NYSE stocks with available data are first sorted based on firm characteristic (size, illiquidity, bid-ask spread, AFD, and PIN) and then, within 
+each characteristic quintile the stocks are sorted based on the principal component. The five principal component quintile portfolios are then averaged over each 
+of the five characteristic portfolios. Hence, they represent principal component quintile portfolios controlling for the characteristic. Each row reports the average 
+monthly returns on an arbitrage portfolio with a long position in PC quintile portfolio 5 and a short position in PC quintile portfolio 1, controlling for the 
+characteristic. The average monthly raw returns on the portfolios are reported in columns labeled “R”. The abnormal returns relative to characteristics-matched 
+benchmark portfolios are reported in columns labeled “AR”. We use twenty-five benchmark portfolios formed based on market value of equity (ME) and book-
+to-market of equity. The Jensen’s alphas with respect to the Fama-French (1993) three-factor model are reported in columns labeled “Alpha”. The principal 
+components of realized and call and put implied volatilities are estimated over the previous month. Realized volatility is the standard deviation of daily returns 
+over the previous month. Call (put) volatility is the volatility implied by the call (put) prices at the end of the previous month. PC2 is the second principal 
+component of volatilities. PC3 is the third principal component of volatilities. Size is the market capitalization of the stock. Illiquidity is Amihud’s measure of 
+illiquidity. Spread is the percentage bid-ask spread relative to the average of the bid and the ask prices. AFD is the analyst forecast dispersion measured as the 
+standard deviation of analyst forecasts scaled by mean analyst forecast. PIN is the probability of information-based trading. Skewness is the skewness of the daily 
+returns over the previous month. The reported t-statistics are Newey-West (1987) adjusted. The sample consists of all NYSE stocks with available data and 
+covers February 1996 to January 2005 period. 
+Panel A: PC2 
+ 
+Value-weighted 
+Equal-weighted 
+  
+R 
+t-stat 
+AR 
+t-stat 
+Alpha 
+t-stat 
+R 
+t-stat 
+AR 
+t-stat 
+Alpha 
+t-stat 
+Size 
+-0.006* 
+-2.4 
+-0.006* 
+-2.3 
+-0.005* 
+-2.0 
+-0.007** 
+-2.8 
+-0.006**
+-2.7 
+-0.006* 
+-2.3 
+Book-to-market -0.007** 
+-3.2 
+-0.007** 
+-3.3 
+-0.006**
+-2.7 
+-0.007** 
+-3.0 
+-0.007**
+-3.3 
+-0.005* 
+-2.3 
+Illiquidity 
+-0.008** 
+-3.0 
+-0.008** 
+-3.2 
+-0.007* 
+-2.6 
+-0.007** 
+-3.0 
+-0.007**
+-3.0 
+-0.006* 
+-2.5 
+Spread 
+-0.010** 
+-3.7 
+-0.010** 
+-3.9 
+-0.009**
+-3.0 
+-0.006** 
+-2.7 
+-0.006**
+-2.7 
+-0.005* 
+-2.2 
+AFD 
+-0.009** 
+-3.6 
+-0.008** 
+-3.5 
+-0.008**
+-3.4 
+-0.009** 
+-3.4 
+-0.008**
+-3.4 
+-0.007** 
+-2.8 
+PIN 
+-0.006 
+-1.7 
+-0.005 
+-1.6 
+-0.003 
+-1.2 
+-0.007** 
+-2.9 
+-0.007**
+-2.8 
+-0.006* 
+-2.5 
+Skewness 
+-0.008** 
+-2.4 
+-0.006* 
+-2.0 
+-0.005 
+-1.8 
+-0.008** 
+-2.8 
+-0.007**
+-2.9 
+-0.005* 
+-2.2 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 30 ---
+ 
+28
+Panel B: PC3 
+ 
+ 
+Value-weighted 
+Equal-weighted 
+  
+R 
+t-stat 
+AR 
+t-stat 
+Alpha 
+t-stat 
+R 
+t-stat 
+AR 
+t-stat 
+Alpha 
+t-stat 
+Size 
+0.014** 
+6.4 
+0.014** 
+6.1 
+0.014**
+6.4 
+0.015** 
+6.8 
+0.014**
+6.7 
+0.015** 
+6.8 
+Book-to-market 
+0.012** 
+4.2 
+0.012** 
+4.3 
+0.012**
+4.0 
+0.015** 
+7.5 
+0.014**
+7.2 
+0.015** 
+8.4 
+Illiquidity 
+0.015** 
+6.3 
+0.014** 
+6.4 
+0.015**
+6.1 
+0.014** 
+7.0 
+0.014**
+7.0 
+0.014** 
+7.3 
+Spread 
+0.013** 
+4.1 
+0.013** 
+3.9 
+0.014**
+4.2 
+0.014** 
+7.3 
+0.013**
+7.2 
+0.014** 
+8.5 
+AFD 
+0.013** 
+4.8 
+0.012** 
+4.9 
+0.014**
+5.0 
+0.014** 
+7.1 
+0.013**
+7.1 
+0.014** 
+8.0 
+PIN 
+0.017** 
+6.8 
+0.015** 
+6.7 
+0.017**
+6.1 
+0.016** 
+8.0 
+0.015**
+7.6 
+0.016** 
+8.1 
+Skewness 
+0.011** 
+5.0 
+0.010** 
+4.8 
+0.012**
+4.8 
+0.014** 
+7.4 
+0.013**
+7.1 
+0.013** 
+8.0 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+--- PAGE 31 ---
+ 
+29
+Table 7. Fama-MacBeth regressions of individual NYSE stock returns 
+Each month, we estimate a cross-sectional regression of individual stock returns. PC1 is the first principal 
+component of volatilities. PC2 is the second principal component of volatilities. PC3 is the third principal 
+component of volatilities. The principal components of realized and call and put implied volatilities are 
+estimated over the previous month. Realized volatility is the standard deviation of daily returns over the 
+previous month. Call (put) volatility is the volatility implied by the call (put) prices at the end of the 
+previous month. MVE is the market capitalization (size) of the stock. B/M is the book-to-market ratio of 
+the firm’s equity. Illiquidity is Amihud’s measure of illiquidity. AFD is the analyst forecast dispersion 
+measured as the standard deviation of analyst forecasts scaled by mean analyst forecast. PIN is the 
+probability of information-based trading. Skewness is the skewness of the daily returns over the previous 
+month. The reported coefficients are the time-series averages of the coefficients from monthly regressions. 
+The reported t-statistics are based on the time-series standard deviation of regression coefficients and  
+Newey-West (1987) adjusted. The sample consists of all NYSE stocks with available data and covers 
+February 1996 to January 2005 period. 
+ 
+  
+Coeff. 
+t-stat 
+Coeff. 
+t-stat 
+Coeff. 
+t-stat 
+Intercept 
+0.011 
+1.8 
+0.021* 
+2.2 
+0.029 
+1.9 
+PC1 
+0.000 
+0.1 
+-0.001 
+-0.2 
+-0.002 
+-0.5 
+PC2 
+-0.007** 
+-3.5 
+-0.006** 
+-3.3 
+-0.005* 
+-2.6 
+PC3 
+0.034** 
+6.7 
+0.033** 
+6.7 
+0.042** 
+7.4 
+Ln(MVE) 
+ 
+ 
+-0.001 
+-1.3 
+-0.002 
+-1.3 
+Ln(B/M) 
+ 
+ 
+0.001 
+0.9 
+0.001 
+0.9 
+Illiquidity 
+ 
+ 
+ 
+ 
+-0.119 
+-1.2 
+AFD 
+ 
+ 
+ 
+ 
+-0.018** 
+-4.9 
+PIN 
+ 
+ 
+ 
+ 
+-0.047 
+-1.7 
+Skewness 
+ 
+ 
+ 
+ 
+-0.001 
+-1.1 
+Observations 
+108 
+ 
+108 
+ 
+83 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1029197
+
+[TRUNCATED at 80000 chars — 33 total pages]

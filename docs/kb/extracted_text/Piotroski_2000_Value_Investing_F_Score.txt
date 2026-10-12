@@ -1,0 +1,2517 @@
+
+--- PAGE 1 ---
+The University of Chicago Graduate School of Business
+Selected Paper 84
+Joseph D. Piotroski
+The University of Chicago 
+Graduate School of Business
+Value Investing: The Use of Historical 
+Financial Statement Information 
+to Separate Winners from Losers
+
+--- PAGE 2 ---
+Joseph D. Piotroski
+The University of Chicago
+Graduate School of Business
+1101 East 58th Street
+Chicago, Illinois 60637
+Phone: 773.834.4199
+Fax: 773.702.0458
+joseph.piotroski@gsb.uchicago.edu
+I would like to thank Mark Bradshaw,
+Peter Joos, Steve Monahan, Charles Lee
+(referee), and workshop participants at
+the 2000 Journal of Accounting
+Research Conference for their comments
+and suggestions. Analyst forecast data
+was generously provided by I/B/E/S.
+Financial support from the University 
+of Chicago Graduate School of Business
+is gratefully acknowledged.
+Publication of this Selected Paper 
+was supported by the Albert P. Weisman
+Endowment.
+© 2002 The University of Chicago. 
+All rights reserved. 
+5-02/13M/CN/01-232
+Design: Sorensen London, Inc.
+
+--- PAGE 3 ---
+Value Investing: The Use of Historical 
+Financial Statement Information 
+to Separate Winners from Losers
+Joseph D. Piotroski
+January 2002
+Abstract
+This paper examines whether a simple accounting-based fundamental analysis
+strategy, when applied to a broad portfolio of high book-to-market firms, can
+shift the distribution of returns earned by an investor. I show that the mean
+return earned by a high book-to-market investor can be increased by at least 
+7H% annually through the selection of financially strong high BM firms while
+the entire distribution of realized returns is shifted to the right. In addition, 
+an investment strategy that buys expected winners and shorts expected losers
+generates a 23% annual return between 1976 and 1996, and the strategy
+appears to be robust across time and to controls for alternative investment
+strategies. Within the portfolio of high BM firms, the benefits to financial
+statement analysis are concentrated in small and medium-sized firms, compa-
+nies with low share turnover, and firms with no analyst following, yet this 
+superior performance is not dependent on purchasing firms with low share
+prices. A positive relationship between the sign of the initial historical infor-
+mation and both future firm performance and subsequent quarterly earnings
+announcement reactions suggests that the market initially underreacts to the
+historical information. In particular, ⁄/^ of the annual return difference between
+ex ante strong and weak firms is earned over the four three-day periods 
+surrounding these quarterly earnings announcements. Overall, the evidence
+suggests that the market does not fully incorporate historical financial 
+information into prices in a timely manner.
+
+--- PAGE 4 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+2
+1 Throughout this
+paper, the terms “value
+portfolio” and “high
+BM portfolio” are 
+used synonymously.
+Although other value-
+based, or contrarian,
+strategies exist, this
+paper focuses on a high
+book-to-market ratio
+strategy. 
+Section 1: Introduction
+This paper examines whether a simple accounting-based fundamental analysis
+strategy, when applied to a broad portfolio of high book-to-market (BM) firms, can
+shift the distribution of returns earned by an investor. Considerable research doc-
+uments the returns to a high book-to-market investment strategy (e.g., Rosenberg,
+Reid, and Lanstein 1984; Fama and French 1992; and Lakonishok, Shleifer, and
+Vishny 1994). However, the success of that strategy relies on the strong perfor-
+mance of a few firms, while tolerating the poor performance of many deteriorating
+companies. In particular, I document that less than 44% of all high BM firms earn
+positive market-adjusted returns in the two years following portfolio formation.
+Given the diverse outcomes realized within that portfolio, investors could benefit
+by discriminating, ex ante, between the eventual strong and weak companies. This
+paper asks whether a simple, financial statement–based heuristic, when applied to
+these out-of-favor stocks, can discriminate between firms with strong prospects
+and those with weak prospects. In the process, I discover interesting regularities
+about the performance of the high BM portfolio and provide some evidence sup-
+porting the predictions of recent behavioral finance models.
+High book-to-market firms offer a unique opportunity to investigate the abil-
+ity of simple fundamental analysis heuristics to differentiate firms. First, value
+stocks tend to be neglected. As a group, these companies are thinly followed by the
+analyst community and are plagued by low levels of investor interest. Given this
+lack of coverage, analyst forecasts and stock recommendations are unavailable 
+for these firms. Second, these firms have limited access to most “informal” infor-
+mation dissemination channels, and their voluntary disclosures may not be viewed
+as credible given their poor recent performance. Therefore, financial statements
+represent both the most reliable and accessible source of information about these
+firms. Third, high BM firms tend to be “financially distressed”; as a result, the 
+valuation of these firms focuses on accounting fundamentals such as leverage, 
+liquidity, profitability trends, and cash flow adequacy. These fundamental charac-
+teristics are most readily obtained from historical financial statements.
+This paper’s goal is to show that investors can create a stronger value portfolio
+by using simple screens based on historical financial performance.1 If effective, the
+differentiation of eventual “winners” from “losers” should shift the distribution of
+the returns earned by a value investor. The results show that such differentiation is
+possible. First, I show that the mean return earned by a high book-to-market
+investor can be increased by at least 7H% annually through the selection of finan-
+cially strong high BM firms. Second, the entire distribution of realized returns is
+shifted to the right. Although the portfolio’s mean return is the relevant benchmark
+for performance evaluation, this paper also provides evidence that the left tail of
+
+--- PAGE 5 ---
+P i o t r o s k i
+3
+the return distribution (i.e., 10th percentile, 25th percentile, and median) experi-
+ences a significant positive shift after the application of fundamental screens. Third,
+an investment strategy that buys expected winners and shorts expected losers 
+generates a 23% annual return between 1976 and 1996. Returns to this strategy are
+shown to be robust across time and to controls for alternative investment strategies.
+Fourth, the ability to differentiate firms is not confined to one particular financial
+statement analysis approach. Additional tests document the success of using alter-
+native, albeit complementary, measures of historical financial performance.
+Fifth, this paper contributes to the finance literature by providing evidence 
+on the predictions of recent behavioral models (such as Hong and Stein 1999;
+Barbaris, Shleifer, and Vishny 1998; and Daniel, Hirshleifer. and Subrahmanyam
+1998). Similar to the momentum-related evidence presented in Hong, Lim, and
+Stein (2000), I find that the positive market-adjusted return earned by a generic
+high book-to-market strategy disappears in rapid information-dissemination
+environments (large firms, firms with analyst following, high share-turnover
+firms). More importantly, the effectiveness of the fundamental analysis strategy 
+to differentiate value firms is greatest in slow information-dissemination 
+environments.
+Finally, I show that the success of the strategy is based on the ability to predict
+future firm performance and the market’s inability to recognize these predictable
+patterns. Firms with weak current signals have lower future earnings realizations
+and are five times more likely to delist for performance-related reasons than firms
+with strong current signals. In addition, I provide evidence that the market is 
+systematically “surprised” by the future earnings announcements of these two
+groups. Measured as the sum of the three-day market reactions around the subse-
+quent four quarterly earnings announcements, announcement period returns for
+predicted “winners” are 0.041 higher than similar returns for predicted losers.
+This one-year announcement return difference is comparable in magnitude to the
+four-quarter “value” versus “glamour” announcement return difference observed
+in LaPorta et al. (1997). Moreover, approximately Ò/^ of total annual return differ-
+ence between ex ante strong and weak firms is earned over just 12 trading days.
+The results of this study suggest that strong performers are distinguishable
+from eventual underperformers through the contextual use of relevant historical
+information. The ability to discriminate ex ante between future successful and
+unsuccessful firms and profit from the strategy suggests that the market does not
+efficiently incorporate past financial signals into current stock prices.
+The next section of this paper reviews the prior literature on both “value”
+investing and financial statement analysis and defines the nine financial signals
+that I use to discriminate between firms. Section 3 presents the research design
+and empirical tests employed in the paper, while section 4 presents the basic
+
+--- PAGE 6 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+4
+results about the success of the fundamental analysis strategy. Section 5 provides
+robustness checks on the main results, while section 6 briefly examines alternative
+methods of categorizing a firm’s historical performance and financial condition.
+Section 7 presents evidence on the source and timing of the portfolio returns, while
+section 8 concludes.
+Section 2: Literature Review and Motivation
+2.1 High book-to-market investment strategy
+This paper examines a refined investment strategy based on a firm’s book-to-
+market ratio (BM). Prior research (Rosenberg, Reid, and Lanstein 1984; Fama and
+French 1992; Lakonishok, Shleifer, and Vishny 1994) shows that a portfolio of high
+BM firms outperforms a portfolio of low BM firms. Such strong return performance
+has been attributed to both market efficiency and market inefficiency. In Fama and
+French (1992), BM is characterized as a variable capturing financial distress, and
+thus the subsequent returns represent a fair compensation for risk. This interpre-
+tation is supported by the consistently low return on equity associated with high 
+BM firms (Fama and French 1995; Penman 1991) and a strong relation between
+BM, leverage, and other financial measures of risk (Fama and French 1992; Chen
+and Zhang 1998). A second explanation for the observed return difference between
+high and low BM firms is market mispricing. In particular, high BM firms 
+represent “neglected” stocks where poor prior performance has led to the forma-
+tion of “too pessimistic” expectations about future performance (Lakonishok,
+Shleifer, and Vishny 1994). This pessimism unravels in the future periods, as 
+evidenced by positive earnings surprises at subsequent quarterly earnings
+announcements (LaPorta et al. 1997).
+Ironically, as an investment strategy, analysts do not recommend high BM
+firms when forming their buy/sell recommendations (Stickel 1998). One potential
+explanation for this behavior is that, on an individual stock basis, the typical value
+firm will underperform the market and analysts recognize that the strategy relies
+on purchasing a complete portfolio of high BM firms.
+From a valuation perspective, value stocks are inherently more conducive to
+financial statement analysis than growth (i.e., glamour) stocks. Growth stock valua-
+tions are typically based on long-term forecasts of sales and the resultant cash
+flows, with most investors heavily relying on nonfinancial information. Moreover,
+most of the predictability in growth stock returns appears to be momentum driven
+(Asness 1997). In contrast, the valuation of value stocks should focus on recent
+changes in firm fundamentals (e.g., financial leverage, liquidity, profitability, 
+and cash flow adequacy). The assessment of these characteristics is most readily
+accomplished through a careful study of historical financial statements.
+
+--- PAGE 7 ---
+P i o t r o s k i
+5
+2.2 Prior fundamental analysis research
+One approach to separate ultimate winners from losers is through the identifica-
+tion of a firm’s intrinsic value and/or systematic errors in market expectations. The
+strategy presented in Frankel and Lee (1998) requires investors to purchase stocks
+whose prices appear to be lagging fundamental values. Undervaluation is identified
+by using analysts’ earnings forecasts in conjunction with an accounting-based valu-
+ation model (e.g., residual income model), and the strategy is successful at gener-
+ating significant positive returns over a three-year investment window. Similarly,
+Dechow and Sloan (1997) and LaPorta (1996) find that systematic errors in market
+expectations about long-term earnings growth can partially explain the success of
+contrarian investment strategies and the book-to-market effect, respectively.
+As a set of neglected stocks, high BM firms are not likely to have readily 
+available forecast data. In general, financial analysts are less willing to follow poor
+performing, low- volume, and small firms (Hayes 1998; McNichols and O’Brien
+1997), while managers of distressed firms could face credibility issues when 
+trying to voluntary communicate forward-looking information to the capital 
+markets (Koch 1999; Miller and Piotroski 2002). Therefore, a forecast-based
+approach, such as Frankel and Lee (1998), has limited application for differentiating
+value stocks.
+Numerous research papers document that investors can benefit from trading
+on various signals of financial performance. Contrary to a portfolio investment
+strategy based on equilibrium risk and return characteristics, these approaches
+seek to earn “abnormal” returns by focusing on the market’s inability to fully
+process the implications of particular financial signals. Examples of these strate-
+gies include, but are not limited to, post–earnings announcement drift (Bernard
+and Thomas 1989, 1990; Foster, Olsen, and Shevlin 1984), accruals (Sloan 1996),
+seasoned equity offerings (Loughran and Ritter 1995), share repurchases
+(Ikenberry, Lakonishok, and Vermaelen 1995), and dividend omissions/decreases
+(Michaely, Thaler, and Womack 1995).
+A more dynamic investment approach involves the use of multiple pieces of
+information imbedded in the firm’s financial statements. Ou and Penman (1989)
+show that an array of financial ratios created from historical financial statements
+can accurately predict future changes in earnings, while Holthausen and Larcker
+(1992) show that a similar statistical model could be used to successfully predict
+future excess returns directly. A limitation of these two studies is the use of com-
+plex methodologies and a vast amount of historical information to make the neces-
+sary predictions. To overcome these calculation costs and avoid overfitting the data,
+Lev and Thiagarajan (1993) utilize 12 financial signals claimed to be useful to
+financial analysts. Lev and Thiagarajan (1993) show that these fundamental signals
+
+--- PAGE 8 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+6
+2 The signals used in
+this study were identi-
+fied through profes-
+sional and academic
+articles. It is important
+to note that these sig-
+nals do not represent,
+nor purport to repre-
+sent, the optimal set of
+performance measures
+for distinguishing good
+investments from bad
+investments. Statistical
+techniques such as fac-
+tor analysis may more
+aptly extract an optimal
+combination of signals,
+but such an approach
+has costs in terms of
+implementability.
+are correlated with contemporaneous returns after controlling for current earnings
+innovations, firm size, and macroeconomic conditions. 
+Since the market may not completely impound value-relevant information in a
+timely manner, Abarbanell and Bushee (1997) investigate the ability of Lev and
+Thiagarajan’s (1993) signals to predict future changes in earnings and future revi-
+sions in analyst earnings forecasts. They find evidence that these factors can
+explain both future earnings changes and future analyst revisions. Consistent with
+these findings, Abarbanell and Bushee (1998) document that an investment strat-
+egy based on these 12 fundamental signals yields significant abnormal returns. 
+This paper extends prior research by using context-specific financial perfor-
+mance measures to differentiate strong and weak firms. Instead of examining the
+relationships between future returns and particular financial signals, I aggregate
+the information contained in an array of performance measures and form portfo-
+lios on the basis of a firm’s overall signal. By focusing on value firms, the benefits
+to financial statement analysis (1) are investigated in an environment where histor-
+ical financial reports represent both the best and most relevant source of informa-
+tion about the firm’s financial condition and (2) are maximized through the
+selection of relevant financial measures given the underlying economic character-
+istics of these high BM firms.
+2.3 Financial performance signals used to differentiate high BM firms
+The average high BM firm is financially distressed (e.g., Fama and French 1995;
+Chen and Zhang 1998). This distress is associated with declining and/or persis-
+tently low margins, profits, cash flows, and liquidity and rising and/or high levels of
+financial leverage. Intuitively, financial variables that reflect changes in these eco-
+nomic conditions should be useful in predicting future firm performance. This
+logic is used to identify the financial statement signals incorporated in this paper. 
+I chose nine fundamental signals to measure three areas of the firm’s financial
+condition: profitability, financial leverage/liquidity, and operating efficiency.2
+The signals used are easy to interpret and implement, and they have broad appeal
+as summary performance statistics. In this paper, I classify each firm’s signal 
+realization as either “good” or “bad,” depending on the signal’s implication for
+future prices and profitability. An indicator variable for the signal is equal to one
+(zero) if the signal’s realization is good (bad). I define the aggregate signal mea-
+sure, F_SCORE, as the sum of the nine binary signals. The aggregate signal is
+designed to measure the overall quality, or strength, of the firm’s financial posi-
+tion, and the decision to purchase is ultimately based on the strength of the 
+aggregate signal.
+It is important to note that the effect of any signal on profitability and prices
+can be ambiguous. In this paper, the stated ex ante implication of each signal is
+
+--- PAGE 9 ---
+P i o t r o s k i
+7
+3 The benchmarks of
+zero profits and zero
+cash flow from opera-
+tions were chosen for
+two reasons. First, a
+substantial portion of
+high BM firms (41.6%)
+experience a loss in the
+prior two fiscal years;
+therefore, positive
+earnings realizations
+are nontrivial events for
+these firms. Second,
+this is an easy bench-
+mark to implement
+since it does not rely on
+industry, market-level,
+or time-specific com-
+parisons. An alternative
+benchmark is whether
+the firm generates pos-
+itive industry-adjusted
+profits or cash flows.
+Results using “indus-
+try-adjusted” factors
+are not substantially
+different than the main
+portfolio results pre-
+sented in Table 3. 
+conditioned on the fact that these firms are financially distressed at some level. 
+For example, an increase in leverage can, in theory, be either a positive (e.g.,
+Harris and Raviv 1990) or negative (Myers and Majluf 1984; Miller and Rock 1985)
+signal. However, for financially distressed firms, the negative implications of
+increased leverage seem more plausible than the benefits garnered through a
+reduction of agency costs or improved monitoring. To the extent the implications 
+of these signals about future performance are not uniform across the set of high 
+BM firms, the power of the aggregate score to differentiate between strong and
+weak firms will ultimately be reduced.
+2.3.1 Financial performance signals: Profitability 
+Current profitability and cash flow realizations provide information about the
+firm’s ability to generate funds internally. Given the poor historical earnings per-
+formance of value firms, any firm currently generating positive cash flow or profits
+is demonstrating a capacity to generate funds through operating activities.
+Similarly, a positive earnings trend is suggestive of an improvement in the firm’s
+underlying ability to generate positive future cash flows.
+I use four variables to measure these performance-related factors: ROA, CFO,
+ROA, and ACCRUAL. I define ROA and CFO as net income before extraordinary
+items and cash flow from operations, respectively, scaled by beginning of the year
+total assets. If the firm’s ROA (CFO) is positive, I define the indicator variable
+F_ROA (F_CFO) equal to one, zero otherwise.3 I define ROA as the current year’s
+ROA less the prior year’s ROA. If ROA  0, the indicator variable F_ ROA equals
+one, zero otherwise.
+The relationship between earnings and cash flow levels is also considered.
+Sloan (1996) shows that earnings driven by positive accrual adjustments (i.e., prof-
+its are greater than cash flow from operations) is a bad signal about future prof-
+itability and returns. This relationship may be particularly important among value
+firms, where the incentive to manage earnings through positive accruals (e.g., to
+prevent covenant violations) is strong (e.g., Sweeney 1994). I define the variable
+ACCRUAL as current year’s net income before extraordinary items less cash flow
+from operations, scaled by beginning of the year total assets. The indicator variable
+F_ ACCRUAL equals one if CFO  ROA, zero otherwise. 
+2.3.2 Financial performance signals: Leverage, liquidity, and source of funds
+Three of the nine financial signals are designed to measure changes in capital
+structure and the firm’s ability to meet future debt service obligations: LEVER,
+LIQUID, and EQ_OFFER. Since most high BM firms are financially constrained, 
+I assume that an increase in leverage, a deterioration of liquidity, or the use of
+external financing is a bad signal about financial risk.
+
+--- PAGE 10 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+8
+LEVER captures changes in the firm’s long-term debt levels. I measure
+LEVER as the historical change in the ratio of total long-term debt to average total
+assets, and view an increase (decrease) in financial leverage as a negative (positive)
+signal. By raising external capital, a financially distressed firm is signaling its
+inability to generate sufficient internal funds (e.g., Myers and Majluf 1984, Miller
+and Rock 1985). In addition, an increase in long-term debt is likely to place addi-
+tional constraints on the firm’s financial flexibility. I define the indicator variable
+F_LEVER to equal one (zero) if the firm’s leverage ratio fell (rose) in the year
+preceding portfolio formation.
+The variable LIQUID measures the historical change in the firm’s current
+ratio between the current and prior year, where I define the current ratio as the
+ratio of current assets to current liabilities at fiscal year-end. I assume that an
+improvement in liquidity (i.e., LIQUID  0) is a good signal about the firm’s
+ability to service current debt obligations. The indicator variable F_LIQUID
+equals one if the firm’s liquidity improved, zero otherwise.
+I define the indicator variable EQ_OFFER to equal one if the firm did not issue
+common equity in the year preceding portfolio formation, zero otherwise. Similar
+to an increase in long-term debt, financially distressed firms that raise external
+capital could be signaling their inability to generate sufficient internal funds to
+service future obligations (e.g., Myers and Majluf 1984; Miller and Rock 1985).
+Moreover, the fact that these firms are willing to issue equity when their stock
+prices are likely to be depressed (i.e., high cost of capital) highlights the poor
+financial condition facing these firms.
+2.3.3 Financial performance signals: Operating efficiency
+The remaining two signals are designed to measure changes in the efficiency of the
+firm’s operations: MARGIN and TURN. These ratios are important because they
+reflect two key constructs underlying a decomposition of return on assets. 
+I define MARGIN as the firm’s current gross margin ratio (gross margin
+scaled by total sales) less the prior year’s gross margin ratio. An improvement 
+in margins signifies a potential improvement in factor costs, a reduction in 
+inventory costs, or a rise in the price of the firm’s product. The indicator variable
+F_ MARGIN equals one if MARGIN is positive, zero otherwise.
+I define TURN as the firm’s current year asset turnover ratio (total sales
+scaled by beginning of the year total assets) less the prior year’s asset turnover
+ratio. An improvement in asset turnover signifies greater productivity from the
+asset base. Such an improvement can arise from more efficient operations (fewer
+assets generating the same levels of sales) or an increase in sales (which could also
+signify improved market conditions for the firm’s products). The indicator variable
+F_TURN equals one if TURN is positive, zero otherwise.
+
+--- PAGE 11 ---
+As expected, several of the signals used in this paper overlap with constructs
+tested in Lev and Thiagarajan (1993) and Abarbanell and Bushee (1997, 1998).
+However, most of the signals used in this paper do not correspond to the financial
+signals used in prior research. Several reasons exist for this difference. First, I
+examine smaller, more financially distressed firms and the variables were chosen
+to measure profitability and default risk trends relevant for these companies.
+Effects from signals such as LIFO/FIFO inventory choices, capital expenditure
+decisions, effective tax rates, and qualified audit opinions would likely be second-
+order relative to broader variables capturing changes in the overall health of these
+companies.4 Second, the work of Bernard (1994) and Sloan (1996) demonstrates
+the importance of accounting returns and cash flows (and their relation to each
+other) when assessing the future performance prospects of a firm. As such, vari-
+ables capturing these constructs are central to the current analysis. Finally, neither
+Lev and Thiagarajan (1993) nor Abarbanell and Bushee (1997, 1998) purport to
+offer the optimal set of fundamental signals; therefore, the use of alternative, albeit
+complementary, signals demonstrates the broad applicability of financial statement
+analysis techniques. 
+2.3.4 Composite score
+As indicated earlier, I define F_SCORE as the sum of the individual binary signals, or
+F_SCORE  F_ROA F_ROA  F_CFO F_ ACCRUAL F_MARGIN 
+ F_TURN F_LEVER F_LIQUID EQ_OFFER.
+Given the nine underlying signals, F_SCORE can range from a low of 0 to a
+high of 9, where a low (high) F_SCORE represents a firm with very few (mostly)
+good signals. To the extent current fundamentals predict future fundamentals, 
+I expect F_SCORE to be positively associated with changes in future firm perfor-
+mance and stock returns. The investment strategy discussed in this paper is based
+on selecting firms with high F_SCORE signals, instead of purchasing firms based
+on the relative realization of any particular signal. In comparison to the work of 
+Ou and Penman (1989) and Holthausen and Larker (1992), this paper represents 
+a “step-back” in the analysis process—probability models need not be estimated
+nor does the data need to be fitted on a year-by-year basis when implementing the
+investment strategy. Instead, the investment decision is based on the sum of these
+nine binary signals.
+This approach represents one simple application of fundamental analysis for
+identifying strong and weak value firms. In selecting this methodology, two issues
+arise. First, the translation of the factors into binary signals could potentially 
+eliminate useful information. I adopted the binary signal approach because it is
+simple and easy to implement. An alternative specification would be to aggregate
+P i o t r o s k i
+9
+4 For example, most of
+these firms have lim-
+ited capital for capital
+expenditures. As a
+result, Lev and
+Thiagarajan’s capital
+expenditure variable
+displays little cross-
+sectional variation in
+this study. Similarly,
+most of these high BM
+firms are likely to be in
+a net operating loss
+carry-forward position
+for tax purposes (due to
+their poor historical
+performance), thereby
+limiting the informa-
+tion content of Lev and
+Thiagarajan’s effective
+tax rate variable. 
+
+--- PAGE 12 ---
+continuous representations of these nine factors. For robustness, the main results
+of this paper are also presented using an alternative methodology where the signal
+realizations are annually ranked and summed. 
+Second, given a lack of theoretical justification for the combined use of these
+particular variables, the methodology employed in this paper could be perceived 
+as ad hoc. Since the goal of the methodology is to merely separate strong value firms
+from weak value firms, alternative measures of financial health at the time of port-
+folio formation should also be successful at identifying these firms. I investigate
+several alternative measures in section 6.
+Section 3: Research Design
+3.1 Sample selection
+Each year between 1976 and 1996, I identify firms with sufficient stock price and
+book value data on COMPUSTAT. For each firm, I calculate the market value of
+equity and BM ratio at fiscal year-end.5 Each fiscal year (i.e., financial report year),
+I rank all firms with sufficient data to identify book-to-market quintile and size
+tercile cutoffs. The prior fiscal year’s BM distribution is used to classify firms into
+BM quintiles.6 Similarly, I determine a firm’s size classification (small, medium,
+or large) using the prior fiscal year’s distribution of market capitalizations. 
+After the BM quintiles are formed, I retain firms in the highest BM quintile with
+sufficient financial statement data to calculate the various financial performance
+signals. This approach yields the final sample of 14,043 high BM firms across the 
+21 years (see appendix 1).7
+3.2 Calculation of returns
+I measure firm-specific returns as one-year (two-year) buy-and-hold returns
+earned from the beginning of the fifth month after the firm’s fiscal year-end
+through the earliest subsequent date: one year (two years) after return compound-
+ing began or the last day of CRSP traded returns. If a firm delists, I assume the
+delisting return is zero. I chose the fifth month to ensure that the necessary annual
+financial information is available to investors at the time of portfolio formation. I
+define market-adjusted returns as the buy-and-hold return less the value-weighted
+market return over the corresponding time period.
+3.3 Description of the empirical tests (main results section)
+The primary methodology of this paper is to form portfolios based on the firm’s
+aggregate score (F_SCORE). I classify firms with the lowest aggregate signals
+(F_SCORE equals 0 or 1) as low F_SCORE firms and expect these firms to have 
+S e l e c t e d P a p e r N u m b e r 8 4
+10
+5 Fiscal year-end prices
+are used to create con-
+sistency between the
+BM ratio used for port-
+folio assignments and
+the ratio used to deter-
+mine BM and size cut-
+offs. Basing portfolio
+assignments on market
+values calculated at the
+date of portfolio inclu-
+sion does not impact
+the tenor of the results.
+6 Since each firm’s
+book-to-market ratio is
+calculated at a different
+point in time (i.e., due
+to different fiscal year-
+ends), observations are
+grouped by and ranked
+within financial report
+years. For example, 
+all observations related
+to fiscal year 1986 
+are grouped together to
+determine the FY86
+size and book-to-
+market cutoffs. Any
+observation related to
+fiscal year 1987
+(regardless of month
+and date of its fiscal
+year-end) is then
+assigned to a size and
+BM portfolio based on
+the distribution of
+those FY86 observa-
+tions. This approach
+guarantees that the
+prior year’s ratios and
+cutoff points are known
+prior to any current
+year portfolio assign-
+ments.
+7 Since prior year dis-
+tributions are used to
+create the high BM
+
+--- PAGE 13 ---
+the worst subsequent stock performance. Alternatively, firms receiving the 
+highest score (i.e., F_SCORE equals 8 or 9) have the strongest fundamental 
+signals and are classified as high F_SCORE firms. I expect these firms to have the 
+best subsequent return performance given the strength and consistency of their
+fundamental signals. I design the tests in this paper to examine whether the 
+high F_SCORE portfolio outperforms other portfolios of firms drawn from the 
+high BM portfolio.
+The first test compares the returns earned by high F_SCORE firms against the
+returns of low F_SCORE firms; the second test compares high F_SCORE firms
+against the complete portfolio of all high BM firms. Given concerns surrounding
+the use of parametric test statistics in a long-run return setting (e.g., Kothari and
+Warner 1997; Barber and Lyon 1997), the primary results are tested using both 
+tradition t-statistics as well as implementing a bootstrapping approach to test for
+differences in portfolio returns.
+The test of return differences between the high and low F_SCORE portfolios
+with bootstrap techniques is as follows: First, I randomly select firms from 
+the complete portfolio of high BM firms and assign them to either a pseudo–
+high F_SCORE portfolio or a pseudo–low F_SCORE portfolio. This assignment 
+continues until each pseudo-portfolio consists of the same number of observations
+as the actual high and low F_SCORE portfolios (number of observations equals
+1,448 and 396, respectively). Second, I calculate the difference between the 
+mean returns of these two pseudo-portfolios and this difference represents an
+observation under the null of no difference in mean return performance. 
+Third, I repeat this process 1,000 times to generate 1,000 observed differences 
+in returns under the null, and the empirical distribution of these return differ-
+ences is used to test the statistical significance of the actual observed return 
+differences. Finally, to test the effect of the fundamental screening criteria on the
+properties of the entire return distribution, I also calculate differences in 
+pseudo-portfolio returns for six different portfolio return measures: mean returns,
+median returns, 10th percentile, 25th percentile, 75th percentile, and 90th 
+percentile returns.
+The test of return differences between high F_SCORE firms and all high BM
+firms is constructed in a similar manner. Each iteration, I randomly form a
+pseudo-portfolio of high F_SCORE firms, and the returns of the pseudo-portfolio
+are compared against the returns of the entire high BM portfolio, thereby generat-
+ing a difference under the null of no-return difference. I repeat this process 
+1,000 times, and the empirically derived distribution of return differences is used
+to test the actual difference in returns between the high F_SCORE portfolio and 
+all high BM firms. I discuss these empirical results in the next section.
+P i o t r o s k i
+11
+portfolio (in order to
+eliminate concerns
+about a peek-ahead
+bias), annual alloca-
+tions to the highest
+book-to-market port-
+folio do not remain a
+constant proportion of
+all available observa-
+tions for a given fiscal
+year. In particular, this
+methodology leads to
+larger (smaller) sam-
+ples of high BM firms
+in years where the
+overall market declines
+(rises). The return dif-
+ferences documented in
+section 4 do not appear
+to be related to these
+time-specific patterns.
+
+--- PAGE 14 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+12
+Section 4: Empirical Results
+4.1 Descriptive evidence about high book-to-market firms
+Table 1 provides descriptive statistics about the financial characteristics of the 
+high book-to-market portfolio of firms, as well as evidence on the long-run
+returns from such a portfolio. As shown in panel A, the average (median) firm in
+the highest book-to-market quintile of all firms has a mean (median) BM ratio of
+2.444 (1.721) and an end-of-year market capitalization of 188.50 (14.37) million
+dollars. Consistent with the evidence presented in Fama and French (1995), the
+portfolio of high BM firms consists of poor performing firms; the average (median)
+ROA realization is –0.0054 (0.0128), and the average and median firm saw declines
+Table 1: Financial and Return Characteristics of High Book-to-Market Firms
+(14,043 firm-year observations between 1975 and 1995)
+Panel A: Financial Characteristics
+Standard
+Proportion with
+Variable
+Mean
+Median
+Deviation
+Positive Signal
+MVE
+188.500
+14.365
+1015.39
+n/a
+ASSETS
+1043.99
+57.561
+6653.48
+n/a
+BM
+2.444
+1.721
+34.66
+n/a
+ROA
+0.0054
+0.0128
+0.1067
+0.632
+ROA
+0.0096
+0.0047
+0.2171
+0.432
+MARGIN
+0.0324
+0.0034
+1.9306
+0.454
+CFO
+0.0498
+0.0532
+0.1332
+0.755
+LIQUID
+0.0078
+0
+0.1133
+0.384
+LEVER
+0.0024
+0
+0.0932
+0.498
+TURN
+0.0119
+0.0068
+0.5851
+0.534
+ACCRUAL
+0.0552
+0.0481
+0.1388
+0.780
+Panel B: Buy-and-Hold Returns from a High Book-to-Market Investment Strategy
+10th
+25th
+75th
+90th
+Percent
+Returns
+Mean
+Percentile
+Percentile
+Median
+Percentile
+Percentile
+Positive
+One-year returns
+Raw
+0.239
+0.391
+0.150
+0.105
+0.438
+0.902
+0.610
+Market-Adj.
+0.059
+0.560
+0.317
+0.061
+0.255
+0.708
+0.437
+Two-year returns
+Raw
+0.479
+0.517
+0.179
+0.231
+0.750
+1.579
+0.646
+Market-Adj.
+0.127
+0.872
+0.517
+0.111
+0.394
+1.205
+0.432
+
+--- PAGE 15 ---
+Table 1 (continued)
+Variable definitions
+MVE
+Market value of equity at the end of fiscal year t. Market value is calculated as the
+number of shares outstanding at fiscal year-end times closing share price.
+ASSETS
+Total assets reported at the end of the fiscal year t.
+BM
+Book value of equity at the end of fiscal year t, scaled by MVE.
+ROA
+Net income before extraordinary items for the fiscal year preceding portfolio 
+formation scaled by total assets at the beginning of year t.
+ROA
+Change in annual ROA for the year preceding portfolio formation. ROA is 
+calculated as ROA for year t less the firm’s ROA for year t-1.
+MARGIN
+Gross margin (net sales less cost of good sold) for the year preceding portfolio for-
+mation, scaled by net sales for the year, less the firm’s gross margin (scaled by net
+sales) from year t-1.
+CFO
+Cash flow from operations scaled by total assets at the beginning of year t.
+LIQUID
+Change in the firm’s current ratio between the end of year t and year t-1. 
+Current ratio is defined as total current assets divided by total current liabilities.
+LEVER
+Change in the firm’s debt-to-assets ratio between the end of year t and year t-1. 
+The debt-to-asset ratio is defined as the firm’s total long-term debt (including the
+portion of long-term debt classified as current) scaled by average total assets.
+TURN
+Change in the firm’s asset turnover ratio between the end of year t and year t-1. The
+asset turnover ratio is defined as net sales scaled by average total assets for the year.
+ACCRUAL
+Net income before extraordinary items less cash flow from operations, scaled by
+total assets at the beginning of year t.
+1yr (2yr) 
+12- (24-) month buy-and-hold return of the firm starting at the beginning of the 
+Raw Return
+fifth month after fiscal year-end. Return compounding ends the earlier of one 
+year (two years) after return compounding started or the last day of CRSP reported
+trading. If the firm delisted, the delisting return is assumed to be zero.  
+Market-adjusted
+Buy-and-hold return of the firm less the buy-and-hold return on the value-weighted 
+Return
+market index over the same investment horizon.
+in both ROA (–0.0096 and –0.0047, respectively) and gross margin (–0.0324 and
+–0.0034, respectively) over the last year. Finally, the average high BM firm saw an
+increase in leverage and a decrease in liquidity over the prior year.
+Panel B presents one-year and two-year buy-and-hold returns for the com-
+plete portfolio of high BM firms, along with the percentage of firms in the portfolio
+with positive raw and market-adjusted returns over the respective investment
+horizon. Consistent with Fama and French (1992) and Lakonishok, Shleifer, and
+Vishny (1994), the high BM firms earn positive market-adjusted returns in the
+one-year and two-year periods following portfolio formation. Yet despite the strong
+mean performance of this portfolio, a majority of the firms (approximately 57%)
+P i o t r o s k i
+13
+
+--- PAGE 16 ---
+earn negative market-adjusted returns over the one- and two-year windows.
+Therefore, any strategy that can eliminate the left tail of the return distribution
+(i.e., the negative return observations) will greatly improve the portfolio’s mean
+return performance.
+4.2 Returns to a fundamental analysis strategy
+Table 2 presents spearman correlations between the individual fundamental signal
+indicator variables, the aggregate fundamental signal score F_SCORE, and the 
+one-year and two-year buy-and-hold market-adjusted returns. As expected,
+F_SCORE has a significant positive correlation with both one-year and two-year
+future returns (0.121 and 0.130, respectively). For comparison, the two strongest
+individual explanatory variables are ROA and CFO (correlation of 0.086 and 
+0.096, respectively, with one-year-ahead market-adjusted returns).
+Table 3 presents the returns to the fundamental investment strategy. Panel A
+presents one-year market-adjusted returns; inferences, patterns and results are
+similar using raw returns (panel B) and a two-year investment horizon (panel C).
+S e l e c t e d P a p e r N u m b e r 8 4
+14
+Table 2: Spearman Correlation Analysis between One- and Two-Year 
+Market-Adjusted Returns, the Nine Fundamental Signals, and the Composite 
+Signal (F_SCORE) for High Book-to-Market Firms
+ROA
+ROA
+MARGIN
+CFO
+LIQUID
+LEVER
+TURN
+ACCRUAL
+EQ_OFFER
+F_SCORE
+RETURN
+0.106
+0.044
+0.039
+0.104
+0.027
+0.058
+0.049
+0.051
+0.012
+0.124
+MA_RET
+0.086
+0.037
+0.042
+0.096
+0.032
+0.055
+0.034
+0.053
+0.041
+0.121
+M_RET2
+0.099
+0.039
+0.045
+0.113
+0.029
+0.067
+0.023
+0.064
+0.043
+0.130
+ROA
+1.000
+0.265
+0.171
+0.382
+0.127
+0.157
+0.016
+0.023
+0.076
+0.512
+ROA
+—
+1.000
+0.404
+0.119
+0.117
+0.137
+0.101
+0.019
+0.040
+0.578
+MARGIN
+—
+—
+1.000
+0.080
+0.083
+0.073
+0.004
+0.000
+0.012
+0.483
+CFO
+—
+—
+—
+1.000
+0.128
+0.094
+0.041
+0.573
+0.035
+0.556
+LIQUID
+—
+—
+—
+—
+1.000
+0.006
+0.053
+0.071
+0.018
+0.395
+LEVER
+—
+—
+—
+—
+—
+1.000
+0.081
+0.016
+0.023
+0.400
+TURN
+—
+—
+—
+—
+—
+—
+1.000
+0.062
+0.034
+0.351
+ACCRUAL
+—
+—
+—
+—
+—
+—
+—
+1.000
+0.015
+0.366
+EQ_OFFER
+—
+—
+—
+—
+—
+—
+—
+—
+1.000
+0.232
+Note: The nine individual factors in this table represent indicator variables equal to one (zero) if the 
+underlying performance measure was a good (bad) signal about future firm performance. The prefix
+(“F_”) for the nine fundamental signals was eliminated for succinctness. One-year market-adjusted
+returns (MA_RET) and two-year market-adjusted returns (MA_RET2) are measured as the buy-and-hold
+return starting in the fifth month after fiscal year-end less the corresponding value-weighted market
+return over the respective holding period.  All raw variables underlying the binary signals are as defined
+in Table 1. The sample represents 14,043 high BM firm-year observations between 1975 and 1995.
+
+--- PAGE 17 ---
+This discussion and subsequent analysis will focus on one-year market-adjusted
+returns for succinctness.
+Most of the observations are clustered around F_SCORES between 3 and 7,
+indicating that a vast majority of the firms have conflicting performance signals.
+However, 1,448 observations are classified as high F_SCORE firms (scores of 8 
+or 9), while 396 observations are classified as low F_SCORE firms (scores of 0 or 1).
+I will use these extreme portfolios to test the ability of fundamental analysis to dif-
+ferentiate between future winners and losers.8
+The most striking result in table 3 is the fairly monotonic positive relationship
+between F_SCORE and subsequent returns (particularly over the first year). As doc-
+umented in panel A, high F_SCORE firms significantly outperform low F_SCORE
+firms in the year following portfolio formation (mean market-adjusted returns 
+of 0.134 versus –0.096, respectively). The mean return difference of 0.230 is 
+significant at the 1% level using both an empirically derived distribution of poten-
+tial return differences and a traditional parametric t-statistic.
+A second comparison documents the return difference between the portfolio 
+of high F_SCORE firms and the complete portfolio of high BM firms. As shown, the
+high F_SCORE firms earn a mean market-adjusted return of 0.134 versus 0.059 
+for the entire BM quintile. This difference of 0.075 is also statistically significant 
+at the 1% level. 
+The return improvements also extend beyond the mean performance of the
+various portfolios. As discussed in the introduction, this investment approach 
+is designed to shift the entire distribution of returns earned by a high BM investor.
+Consistent with that objective, the results in table 3 show that the 10th percentile,
+25th percentile, median, 75th percentile, and 90th percentile returns of the high
+F_SCORE portfolio are significantly higher than the corresponding returns of both
+the low F_SCORE portfolio and the complete high BM quintile portfolio using 
+bootstrap techniques. Similarly, the proportion of winners in the high F_SCORE
+portfolio, 50.0%, is significantly higher than the two benchmark portfolios 
+(43.7% and 31.8%), where significance is based on a binomial test of proportions.
+Overall, it is clear that F_SCORE discriminates between eventual winners and
+losers. One question is whether the translation of the fundamental variables into
+binary signals eliminates potentially useful information. To examine this issue, 
+I re-estimate portfolio results where firms are classified using the sum of annually
+ranked signals [not tabulated]. Specifically, I rank the individual signal realizations
+(i.e., ROA, CFO, ROA, etc.) each year between zero and one, and these ranked
+representations are used to form the aggregate measure. I sum each of the firm’s
+ranked realizations and form quintile portfolios using cutoffs based on the prior
+fiscal year’s RANK_SCORE distribution. Consistent with the evidence in Table 3, 
+I find that the use of ranked information can also differentiate strong and weak
+P i o t r o s k i
+15
+8 Given the ex post dis-
+tribution of firms
+across F_SCORE portfo-
+lios, an alternative
+specification could be
+to define low F_SCORE
+firms as all high BM
+firms having an
+F_SCORE less than or
+equal to 2. Such a clas-
+sification results in the
+low F_SCORE portfolio
+having 1,255 observa-
+tions (compared to the
+1,448 observations for
+the high F_SCORE port-
+folio). Results and
+inferences using this
+alternative definition
+are qualitatively similar
+to those presented
+throughout the paper.
+
+--- PAGE 18 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+16
+Table 3: Buy-and-Hold Returns to a Value Investment Strategy Based 
+on Fundamental Signals
+This table presents buy-and-hold returns to a fundamental investment strategy based on 
+purchasing high BM firms with strong fundamental signals. F_SCORE is equal to the sum of
+nine individual binary signals, or
+F_SCORE  F_ROA  F_ROA  F_CFO  F_ACCRUAL  F_MARGIN 
+ F_TURN  F_LEVER  F_LIQUID  EQ_OFFER
+where each binary signal equals one (zero) if the underlying realization is a good (bad) signal
+about future firm performance. A F_SCORE equal to zero (nine) means the firm possesses the
+least (most) favorable set of financial signals. The low F_SCORE portfolio consists of firms with
+an aggregate score of 0 or 1; the high F_SCORE portfolio consists of firms with a score of 8 or 9.
+Panel A: One-Year Market-Adjusted Returns
+b
+Mean
+10%
+25%
+Median
+75%
+90%
+%Positive
+n
+All Firms
+0.059
+0.560
+0.317
+0.061
+0.255
+0.708
+0.437
+14,043
+F_SCORE
+0
+0.061
+0.710
+0.450
+0.105
+0.372
+0.766
+0.386
+57
+1
+0.102
+0.796
+0.463
+0.203
+0.087
+0.490
+0.307
+339
+2
+0.020
+0.686
+0.440
+0.151
+0.198
+0.732
+0.374
+859
+3
+0.015
+0.691
+0.411
+0.142
+0.186
+0.667
+0.375
+1618
+4
+0.026
+0.581
+0.351
+0.100
+0.229
+0.691
+0.405
+2462
+5
+0.053
+0.543
+0.307
+0.059
+0.255
+0.705
+0.438
+2787
+6
+0.112
+0.493
+0.278
+0.024
+0.285
+0.711
+0.471
+2579
+7
+0.116
+0.466
+0.251
+0.011
+0.301
+0.747
+0.489
+1894
+8
+0.127
+0.462
+0.226
+0.003
+0.309
+0.710
+0.504
+1115
+9
+0.159
+0.459
+0.265
+0.012
+0.327
+0.885
+0.486
+333
+Low Score
+0.096
+0.781
+0.460
+0.200
+0.107
+0.548
+0.318
+396
+High Score
+0.134
+0.462
+0.236
+0.000
+0.316
+0.757
+0.500
+1448
+High—All
+0.075
+0.098
+0.081
+0.061
+0.061
+0.049
+0.063
+—
+t-stat/(p-value)
+3.140
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+Bootstrap Rslt
+2/1000
+0/1000
+0/1000
+0/1000
+2/1000 126/1000
+—
+—
+(p-value)
+(0.002)
+(0.000)
+(0.000)
+(0.000)
+(0.002)
+(0.126)
+—
+—
+High—Low
+0.230
+0.319
+0.224
+0.200
+0.209
+0.209
+0.182
+—
+t-stat/(p-value)
+5.590
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+Bootstrap Rslt
+0/1000
+0/1000
+0/1000
+0/1000
+0/1000 18/1000
+—
+—
+(p-value)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.018)
+—
+—
+
+--- PAGE 19 ---
+P i o t r o s k i
+17
+Table 3 (continued)
+Panel B: One-Year Raw Returns
+a
+Mean
+10%
+25%
+Median
+75%
+90%
+%Positive
+n
+All Firms
+0.239
+0.391
+0.150
+0.105
+0.438
+0.902
+0.610
+14,043
+Low F_Score
+0.078
+0.589
+0.300
+0.027
+0.270
+0.773
+0.460
+396
+High F_Score
+0.313
+0.267
+0.074
+0.166
+0.484
+0.955
+0.672
+1448
+High—All
+0.074
+0.124
+0.076
+0.061
+0.046
+0.053
+0.062
+—
+t-stat/(p-value)
+3.279
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+Bootstrap Rslt
+1/1000
+0/1000
+0/1000
+0/1000
+16/1000 110/1000
+—
+—
+(p-value)
+(0.001)
+(0.000)
+(0.000)
+(0.000)
+(0.016)
+(0.110)
+—
+—
+High—Low
+0.235
+0.322
+0.226
+0.193
+0.214
+0.182
+0.212
+—
+t-stat/(p-value)
+5.594
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+Bootstrap Rslt
+0/1000
+0/1000
+0/1000
+0/1000
+0/1000 28/1000
+—
+—
+(p-value)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.028)
+—
+—
+Panel C: Two-Year Market-Adjusted Returns
+c
+Mean
+10%
+25%
+Median
+75%
+90%
+%Positive
+n
+All Firms
+0.127
+0.872
+0.517
+0.111
+0.394
+1.205
+0.432
+14,043
+Low Score
+0.145
+1.059
+0.772
+0.367
+0.108
+0.829
+0.280
+396
+High Score
+0.287
+0.690
+0.377
+0.006
+0.532
+1.414
+0.505
+1448
+High—All
+0.160
+0.182
+0.140
+0.117
+0.138
+0.209
+0.073
+—
+t-stat/(p-value)
+2.639
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+Bootstrap Rslt
+0/1000
+0/1000
+0/1000
+0/1000
+0/1000
+7/1000
+—
+—
+(p-value)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.007)
+—
+—
+High—Low
+0.432
+0.369
+0.395
+0.373
+0.424
+0.585
+0.225
+—
+t-stat/(p-value)
+5.749
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+Bootstrap Rslt
+0/1000
+0/1000
+0/1000
+0/1000
+0/1000
+0/1000
+—
+—
+(p-value)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+(0.000)
+—
+—
+a A raw return is calculated as the 12-month buy-and-hold return of the firm starting at the beginning of the
+fifth month after fiscal year-end. Return compounding ends the earlier of one year after return compounding
+starts or the last day of CRSP reported trading. If the firm delisted, the delisting return is assumed to be zero.
+b A market-adjusted return equals the firm’s 12-month buy-and-hold return (as defined in panel A) less the
+buy-and-hold return on the value-weighted market index over the same investment horizon.
+c A two-year raw return is calculated as the 24-month buy-and-hold return of the firm starting at the beginning
+of the fifth month after fiscal year end. Return compounding ends the earlier of two years after return com-
+pounding starts or the last day of CRSP reported trading. If the firm delisted, the delisting return is assumed
+to be zero. A two-year market-value adjusted return equals the firm’s 24-month buy-and-hold return less the
+buy-and-hold return on the value-weighted market index over the same investment horizon.
+f T-statistics for portfolio means (p-values for medians) are from two-sample t-tests (signed rank wilcoxon
+tests); empirical p-values are from bootstrapping procedures based on 1,000 iterations. P-values for the 
+proportions are based on a binomial test of proportions.
+
+--- PAGE 20 ---
+value firms. Specifically, the mean (median) one-year market adjusted return 
+difference between the highest and lowest ranked score quintile is 0.092 (0.113),
+both significant at the 1% level.
+4.3 Returns conditional on firm size
+A primary concern is whether the excess returns earned using a fundamental
+analysis strategy is strictly a small firm effect or can be applied across all size 
+categories. For this analysis, I annually rank all firms with the necessary 
+COMPUSTAT data to compute the fundamental signals into three size portfolios
+(independent of their book-to-market ratio). I define size as the firm’s market
+capitalization at the prior fiscal year-end. Compustat yielded a total of approximately
+75,000 observations between 1976 and 1996, of which 14,043 represented high
+book-to-market firms. Given the financial characteristics of the high BM firms, a
+preponderance of the firms (8,302) were in the bottom third of market capital-
+ization (59.12%), while 3,906 (27.81%) and 1,835 (13.07%) are assigned to 
+the middle and top size portfolio, respectively. Table 4 presents one-year market-
+adjusted returns based on these size categories.
+Table 4 shows that the above-market returns earned by a generic high BM port-
+folio are concentrated in smaller companies. Applying F_SCORE within each size
+partition, the strongest benefit from financial statement analysis is also garnered
+in the small firm portfolio (return difference between high and low F_SCORE firms
+is 0.270, significant at the 1% level). However, the shift in mean and median
+returns is still statistically significant in the medium firm size portfolio, with the
+high score firms earning approximately 7% more than all medium-size firms and
+17.3% more than the low F_SCORE firms. Contrarily, differentiation is weak among
+the largest firms, where most return differences are either statistically insignificant
+or only marginally significant at the 5% or 10% level. Thus, the improvement 
+in returns is isolated to firms in the bottom two-thirds of market capitalization.9
+4.4 Alternative partitions
+When return predictability is concentrated in smaller firms, an immediate concern
+is whether or not these returns are realizable. To the extent that the benefits of 
+the trading strategy are concentrated in firms with low share price or low levels of
+liquidity, observed returns may not reflect an investor’s ultimate experience. 
+For completeness, I examine two other partitions of the sample: share price and
+trading volume.
+Similar to firm size, I place companies into share price and trading volume
+portfolios based on the prior year’s cutoffs for the complete COMPUSTAT sample
+(i.e., independent of BM quintile assignment). Consistent with these firms’ small
+market capitalization and poor historical performance, a majority of all high BM
+S e l e c t e d P a p e r N u m b e r 8 4
+18
+9 These results are con-
+sistent with other docu-
+mented anomalies. For
+example, Bernard and
+Thomas (1989) show
+that the post-earnings
+announcement drift
+strategy is more prof-
+itable for small firms,
+with abnormal returns
+being virtually nonexis-
+tent for larger firms.
+Similarly, Hong, Lim,
+and Stein (2000) show
+that momentum strate-
+gies are strongest in
+small firms.
+
+--- PAGE 21 ---
+Table 4: One-Year Market-Adjusted Buy-and-Hold Returns to a Value Investment
+Strategy Based on Fundamental Signals by Size Partition
+Small Firms
+Medium Firms
+Large Firms
+Mean
+Median
+n
+Mean
+Median
+n
+Mean
+Median
+n
+All Firms
+0.091 0.077 8302
+0.008 0.059 3906
+0.003 0.028
+1835
+F_SCORE
+0
+0.000 0.076
+32
+0.146 0.235
+17
+0.120 0.047
+8
+1
+0.104 0.227
+234
+0.083 0.228
+79
+0.136 0.073
+26
+2
+0.016 0.171
+582
+0.045 0.131
+218
+0.031 0.076
+59
+3
+0.003 0.168 1028
+0.049 0.108
+429
+0.036 0.068
+161
+4
+0.058 0.116 1419
+0.024 0.104
+687
+0.002 0.023
+356
+5
+0.079 0.075 1590
+0.028 0.060
+808
+0.004 0.031
+389
+6
+0.183 0.030 1438
+0.029 0.041
+736
+0.012 0.004
+405
+7
+0.182
+0.005 1084
+0.027 0.028
+540
+0.028 0.015
+270
+8
+0.170
+0.001
+671
+0.081
+0.024
+312
+0.012 0.041
+132
+9
+0.204 0.017
+224
+0.068
+0.032
+80
+0.059 0.045
+29
+Low Score
+0.091 0.209
+266
+0.094 0.232
+96
+0.132 0.066
+34
+High Score
+0.179 0.007
+895
+0.079
+0.024
+392
+0.020 0.045
+161
+High–All
+0.088
+0.070
+—
+0.071
+0.083
+—
+0.017 0.017
+—
+t-statistic/(p-value)
+2.456 (0.000)
+—
+2.870 (0.000)
+—
+0.872 (0.203)
+—
+High–Low
+0.270
+0.202
+—
+0.173
+0.256
+—
+0.152
+0.021
+—
+t-statistic/(p-value)
+4.709 (0.000)
+—
+2.870 (0.000)
+—
+1.884 (0.224)
+—
+Note: Each year, all firms on COMPUSTAT with sufficient size and BM data are ranked on the basis of
+the most recent fiscal year-end market capitalization. The 33.3 and 66.7 percentile cutoffs from the
+prior year’s distribution of firm size (MVE) are used to classify the high BM firms into small, medium,
+and large firms each year. All other definitions and test statistics are as described in table 3.
+P i o t r o s k i
+19
+10 Only high F_SCORE
+firm minus low
+F_SCORE firm return
+differences are pre-
+sented in this and sub-
+sequent tables for
+succinctness.
+Inferences regarding
+the return differences
+between high F_SCORE
+firms and all high BM
+firms are similar,
+except where noted in
+the text.
+firms have smaller share prices and are more thinly traded than the average firm on
+COMPUSTAT. However, approximately 48.4% of the firms could be classified as
+having medium or large share prices and 45.4% can be classified as having medium
+to high share turnover. Table 5 examines the effectiveness of fundamental analysis
+across these partitions.10
+4.4.1 Relationship between share price, share turnover, and gains 
+from fundamental analysis
+Contrary to the results based on market capitalization partitions, the portfolio
+results across all share price partitions are statistically and economically signifi-
+cant. Whereas the low and medium share price portfolios yield positive mean
+return differences of 0.246 and 0.258, respectively, the high share price portfolio
+also yields a significant positive difference of 0.132. The robustness of these results
+
+--- PAGE 22 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+20
+across share price partitions suggests that the positive return performance of this
+fundamental analysis strategy is not solely based upon an ability to purchase stocks
+with extremely low share prices.
+Further evidence contradicting the stale price and low liquidity argument is
+provided by partitioning the sample along average share turnover. Consistent with
+the findings in Lee and Swaminathan (2000), this analysis shows that a majority of
+the high BM portfolio’s “winners” are in the low share turnover portfolio. For these
+high BM firms, the average market-adjusted return (before the application of fun-
+damental analysis screens) is 0.101. This evidence suggests, ex ante, that the greatest
+information gains rest with the most thinly traded and most out-of-favored stocks.
+Consistent with those potential gains, the low volume portfolio experiences a large
+return to the fundamental analysis strategy; however, the strategy is successful
+across all trading volume partitions. Whereas the difference between high minus
+low F_SCORE firms is 0.239 in the low volume portfolio, the return difference in
+the high volume partition is 0.203 (both differences are significant at the 1% level).
+The combined evidence suggests that benefits to financial statement analysis
+are not likely to disappear after accounting for a low share price effect or additional
+transaction costs associated with stale prices or thinly traded securities. However,
+one caveat does exist: although the high minus low F_SCORE return differences 
+for the large share price and high volume partitions are statistically significant, the
+return differences between the high F_SCORE firms and all high BM firms are not
+significant for these partitions. And, within the large share price partition, the
+mean and median return differences are (insignificantly) negative. These results,
+however, do not eradicate the claimed effectiveness of financial statement analysis
+for these subsamples. Despite an inability to identify strong companies, the analy-
+sis can successfully identify and eliminate firms with extreme negative returns
+(i.e., the low F_SCORE firms). Additional tests reveal that the two portfolios of low
+F_SCORE firms significantly underperform all high BM firms with the correspond-
+ing share price and trading volume attributes. Thus, within these partitions of the
+high BM portfolio, the benefits from fundamental analysis truly relate to the origi-
+nal motivation of this study: to eliminate the left-hand tail of the return distribution.
+4.4.2 Relationship between analyst following and gains from fundamental analysis
+A primary assumption throughout this analysis is that high BM firms are not heav-
+ily followed by the investment community. In such a setting, financial statement
+analysis may be a profitable method of investigating and differentiating firms. If
+the ability to earn above-market returns is truly driven by information-processing
+limitations for these companies, then (1) these high BM firms should display 
+low levels of analyst coverage and (2) the ability to earn strong returns should be
+
+--- PAGE 23 ---
+P i o t r o s k i
+21
+Table 5: One-Year Market-Adjusted Buy-and-Hold Returns to a Value
+Investment Strategy Based on Fundamental Signals by Share Price, Trading
+Volume, and Analyst Following Partitions
+Panel A: Share Price
+a
+Small Price
+Medium Price
+Large Price
+Mean
+Median
+n
+Mean
+Median
+n
+Mean
+Median
+n
+All Firms
+0.092 0.095 7250
+0.018 0.046 4493
+0.065
+0.002
+2300
+Low Score
+0.092 0.210
+285
+0.099 0.189
+87
+0.124 0.126
+24
+High Score
+0.154 0.016
+749
+0.159
+0.044
+485
+0.008 0.034
+214
+High–Low Diff.
+0.246
+0.194
+—
+0.258
+0.233
+—
+0.132
+0.092
+—
+t-stat/(p-value)
+4.533 (0.000)
+—
+3.573 (0.000)
+—
+1.852 (0.099)
+—
+Panel B: Trading Volume
+b
+Low Volume
+Medium Volume
+High Volume
+Mean
+Median
+n
+Mean
+Median
+n
+Mean
+Median
+n
+All Firms
+0.101 0.044 7661
+0.011 0.092 3664
+0.028 0.033
+2718
+Low Score
+0.072 0.191
+217
+0.108 0.206
+110
+-0.149 0.235
+69
+High Score
+0.167
+0.013
+998
+0.067 0.020
+280
+0.054 0.034
+170
+High–Low Diff.
+0.239
+0.204
+—
+0.175
+0.186
+—
+0.203
+0.201
+—
+t-stat/(p-value)
+4.417 (0.000)
+—
+2.050 (0.001)
+—
+2.863 (0.000)
+—
+Panel C: Analyst Following
+c
+With Analyst Following
+No Analyst Following
+Mean
+Median
+n
+Mean
+Median
+n
+All Firms
+0.002 0.065 5317
+0.101 0.044
+8726
+Low Score
+0.093 0.169
+159
+-0.097 0.209
+237
+High Score
+0.021 0.024
+415
+0.180
+0.012
+1033
+High–Low Diff.
+0.114
+0.145
+—
+0.277
+0.221
+—
+t-stat/(p-value)
+1.832 (0.000)
+—
+5.298 (0.000)
+—
+aShare price equals the firm’s price per share at the end of the fiscal year preceding portfolio formation.
+bTrading volume represents share turnover, defined as the total number of shares traded during the prior fiscal
+year scaled by the average number of shares outstanding during the year. 
+cAnalyst following equals the number of forecasts reported on I/B/E/S during the last statistical period of the
+year preceding portfolio formation.
+dFirms are classified into share price and trading volume portfolios in a manner similar to firm size (see table 4).
+Note: High and low F_SCORE firms are as defined in table 3. Differences in mean (median) realizations
+between the high F_SCORE firms and low F_SCORE firms are measured; T-statistics for differences in means
+(p-values for medians) from two-sample t-tests (signed rank wilcoxon tests) are presented.
+
+--- PAGE 24 ---
+negatively related to the amount of analyst coverage provide. Table 5, panel C 
+provides evidence on this issue.
+Consistent with arguments of low investor interest, only 5,317 of the 14,043
+firms in the sample, or 37.8%, have analyst coverage in the year preceding portfolio
+formation (as reported on the 1999 I/B/E/S summary tape). For the firms with cov-
+erage, the average (median) number of analysts providing a forecast at the end of
+the prior fiscal year was only 3.15 (2). Based on these statistics, it appears that the
+analyst community neglects most high BM firms. Consistent with slow information
+processing for neglected firms, the superior returns earned by a generic high BM
+portfolio are concentrated in firms without analyst coverage. High BM firms with-
+out analyst coverage significantly outperform the value-weighted market index by
+0.101, while those firms with analyst coverage simply earn the market return. In
+addition, the gains from financial statement analysis are also greatest for the group
+of firms without analyst coverage. Although financial statement analysis can be suc-
+cessfully applied to both sets of firms, the average return difference between high
+and low F_SCORE firms is 0.277 for the firms without analyst following compared to
+0.114 for the firms with analyst coverage.
+In conclusion, the evidence suggests that financial statement analysis is fairly
+robust across all levels of share price, trading volume, and analyst following. The
+concentration of the greatest benefits among smaller, thinly traded and underfol-
+lowed stocks suggests that information-processing limitations could be a signifi-
+cant factor leading to the predictability of future stock returns. Section 7 will
+address this issue in detail.
+Section 5: Other Sources of Cross-Sectional Variation in Returns
+Despite all firms being selected annually from the same book-to-market quintile,
+one source of the observed return pattern could be different risk characteristics
+across F_SCORE rankings. Alternatively, a correlation between F_SCORE and
+another known return pattern, such as momentum, accrual reversal, or the effects
+of seasoned equity offerings, could drive the observed return patterns. This section
+addresses these issues. 
+Conceptually, a risk-based explanation is not appealing; the firms with the
+strongest subsequent return performance appear to have the smallest amount of 
+ex ante financial and operating risk (as measured by the historical performance sig-
+nals). In addition, small variation in size and book-to-market characteristics
+across the F_SCORE portfolios [not tabulated] is not likely to account for a 22% dif-
+ferential in observed market-adjusted returns.
+In terms of F_SCORE being correlated with another systematic pattern in real-
+ized returns, there are several known effects that could have a strong relationship
+S e l e c t e d P a p e r N u m b e r 8 4
+22
+
+--- PAGE 25 ---
+P i o t r o s k i
+23
+11 Equity offerings were
+identified through the
+firm’s statement of 
+cash flows or statement
+of sources and uses 
+of funds (through
+Compustat) for the 
+year preceding portfolio
+formation.
+12 The use of this cate-
+gorization throughout
+the paper does not alter
+the inferences reported
+about the successful-
+ness of the F_SCORE
+strategy.
+with F_SCORE. First, underreaction to historical information and financial events,
+which should be the ultimate mechanism underlying the success of F_SCORE, is
+also the primary mechanism underlying momentum strategies (Chan, Jegadeesh,
+and Lakonishok 1996). Second, historical levels of accruals (Sloan 1996) and
+recent equity offerings (Loughran and Ritter 1995, Spiess and Affleck-Graves
+1995), both of which have been shown to predict future stock returns, are imbed-
+ded in F_SCORE and are thereby correlated with the aggregate return metric. As
+such, it is important to demonstrate that the financial statement analysis method-
+ology is identifying financial trends above and beyond these other previously 
+documented effects.
+To explicitly control for some of these correlated variables, I estimate the 
+following cross-sectional regression within the population of high book-to-market
+firms:
+MA_RETi   + 1log(MVEi)  2log(BMi)  3MOMENTi 
+4ACCRUALi  5EQ_OFFERi  6F_SCOREi
+where MA_RET is the one-year market-adjusted return, MOMENT equals the
+firm’s six-month market-adjusted return prior to portfolio formation, ACCRUAL
+equals the firm’s total accruals scaled by total assets, and EQ_OFFER equals one if
+the firm issued seasoned equity in the preceding fiscal year, zero otherwise.11 All
+other variables are as previously defined. Consistent with the strategies originally
+proposed for each of these explanatory variables, I assign MOMENT and ACCRUAL
+into a decile portfolio based on the prior annual distribution of each variable for all
+Compustat firms, and I use this portfolio rank (1 to 10) for model estimation. Panel
+A of table 6 presents the results based on a pooled regression; panel B presents the
+time-series average of the coefficients from 21 annual regressions along with 
+t-statistics based on the empirically derived time-series distribution of coefficients.
+The coefficients on F_SCORE indicate that, after controlling for size and 
+book-to-market differences, a one-point improvement in the aggregate score 
+(i.e., one additional positive signal) is associated with an approximate 2H% to 3%
+increase in the one-year market-adjusted return earned subsequent to portfolio
+formation. More importantly, the addition of variables designed to capture
+momentum, accrual reversal, and a prior equity issuance has no impact on the
+robustness of F_SCORE to predict future returns. 
+Finally, appendix 1 illustrates the robustness of the fundamental analysis strat-
+egy over time. Due to small sample sizes in any given year, firms where a majority
+of the signals are good news (F_SCORES of 5 or greater) are compared against firms
+with a majority of bad news signals (F_SCORES of 4 or less) each year.12 Over the 
+21 years in this study, the average market-adjusted return difference is positive
+(0.097) and statistically significant (tstatistic  5.059). The strategy is successful
+
+--- PAGE 26 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+24
+in 18 out of 21 years, with the largest negative mean return difference being 
+only 0.036 in 1989 (the other two negative return differences are 0.004 
+and0.001). This time series of strong positive performance and minimal nega-
+tive return exposure casts doubt on a risk-based explanation for these return 
+differences. Section 7 will investigate potential information-based explanations for
+the observed return patterns.
+A second concern relates to the potential existence of survivorship issues,
+especially given the small number of observations in the low F_SCORE portfolios
+relative to the high F_SCORE portfolio. To the extent that there exists a set 
+of firms with poor fundamentals that did not survive (and were not represented 
+Table 6: Cross-Sectional Regression
+This table presents coefficients from the following cross-sectional regression:
+MA_RETi    1log(MVEi)  2log(BMi)  3MOMENTi  4ACCRUALi
+ 5EQ_OFFERi  6F_SCOREi
+Panel A presents coefficients from a pooled regression; panel B presents the time-series 
+average coefficients from 21 annual regressions (1976–1996) where the t-statistic is based on
+the distribution of the estimated annual coefficients. MOMENT is equal to the firm’s six month
+market-adjusted buy-and-hold return over the six months preceding the date of portfolio 
+formation. For purposes of model estimation, the variables MOMENT and ACCRUAL were
+replaced with their portfolio decile ranking (1 through 10) based on annual cutoffs derived 
+from the entire population of Compustat firms. (n14,043)
+Panel A: Coefficients from Pooled Regressions
+Intercept
+log(MVE)
+log(BM)
+Moment
+Accrual EQ_OFFER
+F_SCORE
+Adj. R2
+(1)
+0.077
+0.028
+0.103
+—
+—
+—
+0.031
+0.0146
+(2.907) (7.060)
+(6.051)
+—
+—
+—
+(8.175)
+(2)
+0.057
+0.028
+0.103
+0.006
+0.003
+0.007
+0.027
+0.0149
+(1.953) (6.826)
+(5.994)
+(2.475) (1.253) (0.432)
+(6.750)
+Panel B: Time-Series Average of Coefficients from 21 Annual Regressions (1976–1996)
+Intercept
+log(MVE)
+log(BM)
+Moment
+Accrual EQ_OFFER
+F_SCORE
+(1)
+0.030
+0.027
+0.122
+—
+—
+—
+0.031
+(0.556) (3.779)
+(4.809)
+—
+—
+—
+(7.062)
+(2)
+0.040
+0.028
+0.127
+0.000
+0.001
+0.008
+0.032
+(0.669) (4.234)
+(4.193) (0.035)
+(0.141)
+(0.731)
+(5.889)
+
+--- PAGE 27 ---
+P i o t r o s k i
+25
+on Compustat), these missing low F_SCORE observations would have generated
+substantial negative returns. The omission of these firms from the study would 
+bias upward the returns being earned by the current low F_SCORE portfolio.
+Therefore, the high minus low F_SCORE return differences reported in this 
+paper could be understating the actual return performance associated with this
+investment strategy.
+Alternatively, the high F_SCORE portfolio could consist of high BM firms
+recently added by Compustat due to their strong historical performance. Including
+firm observations from the early years of their “coverage” (i.e., back-filled 
+historical data) could inflate the high F_SCORE portfolio returns because of the
+Compustat coverage bias. However, the data requirements of this paper should 
+mitigate this concern. In particular, the variable ROA requires three years 
+of historical data, so any firm-year observation associated with the first or second
+year of apparent Compustat “coverage” has insufficient data to calculate F_SCORE.
+Since Compustat adds three years of data when it initiates coverage, the first firm-
+year observation with sufficient data to be assigned to a portfolio equates to the first
+year the firm had “real time” coverage by Compustat. Thus, the financial informa-
+tion necessary to calculate F_SCORE existed at the time of portfolio formation, and
+the future performance of the firm (after year t) was not a factor in Compustat’s
+decision to cover the firm.
+Section 6: Sensitivity Tests: Use of Alternative Measures of Historical
+Financial Performance to Separate Winners from Losers
+One potential criticism of this paper is the use of an ad hoc aggregate performance
+metric (F_SCORE) to categorize the financial prospects of the company at the 
+time of portfolio formation. To mitigate this concern, table 7 presents results where
+the entire portfolio of high BM firms is split based on two accepted measures of
+firm health and performance: financial distress (Altman’s z-score) and historical
+change in profitability (as measured by the change in return on assets). If these
+simple measures can also differentiate eventual winners from losers, then concerns
+about “metric-specific” results should be eliminated. In addition, I test whether
+the use of an aggregate measure such as F_SCORE has additional explanatory power
+above and beyond these two partitioning variables. 
+Similar to the methodology used for partitioning on firm size, share price, 
+and trading volume, I classify each firm as having either a high, medium, or low
+level of financial distress and historical change in profitability. As shown in panels
+A and B of table 7, nearly half of all high book-to-market firms are classified as
+having high levels of financial distress or poor trends in profitability.
+
+--- PAGE 28 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+26
+Table 7: Ability of Alternative Historical Financial Measures to Differentiate
+Winners from Losers
+Panels A and B of this table present the relationship between one-year market-adjusted returns
+and two historical financial measures: financial distress and change in profitability. Each year,
+all firms on COMPUSTAT with sufficient financial statement data are ranked on the basis of the
+most recent fiscal year-end measures of financial distress (Altman’s Z-score) and change in
+annual profitability (DROA). The 33.3 and 66.7 percentile cutoffs are used to classify the 
+value firms into high, medium, and low portfolios. Financial distress is measure by Altman’s 
+z-statistic. Historical change in profitability is measured by the difference between year t and t-1
+net income before extraordinary items scaled by beginning of year t and year t-1 total assets,
+respectively. All other definitions and test statistics are as described in table 3.
+Panel A: Financial Distress
+High Distress
+Medium Distress
+Low Distress
+Mean
+Median
+Mean
+Median
+Mean
+Median
+Return
+Return
+n
+Return
+Return
+n
+Return
+Return
+n
+By financial distress partition:
+All Firms
+0.042 0.066 7919
+0.073 0.045 4332
+0.103* 0.072
+1792
+Differentiation based on F_SCORE:
+Low Score
+0.060 0.065
+270
+0.145
+0.000
+92
+0.245 0.107
+34
+High Score
+0.127
+0.170
+574
+0.149
+0.167
+595
+0.118
+0.148
+279
+High–Low Diff.
+0.187
+0.235
+—
+0.294
+0.167
+—
+0.363
+0.255
+—
+t-stat/(p-value)
+2.806 (0.000)
+—
+5.219 (0.000)
+—
+4.363 (0.000)
+—
+Panel B: Historical Change in Profitability
+High ROA
+Medium ROA
+Low ROA
+Mean
+Median
+Mean
+Median
+Mean
+Median
+Return
+Return
+n
+Return
+Return
+n
+Return
+Return
+n
+By profitability partition: 
+All Firms
+0.107** 0.051 3265
+0.057 0.035 4391
+0.037 0.087
+6387
+Differentiation based on F_SCORE:
+Low Score
+0.181 0.395
+44
+0.021 0.095
+105
+0.040 0.171
+1106
+High Score
+0.127 0.019 1520 
+0.109 0.006 1462 
+0.171
+0.024
+320
+High–Low Diff.
+0.308
+0.376
+—
+0.130
+0.089
+—
+0.211
+0.195
+—
+t-stat/(p-value)
+2.634 (0.000)
+—
+2.151 (0.016)
+—
+4.814 (0.000)
+—
+** (*) Significantly different than the mean return of the low change in profitability portfolio (high financial 
+distress portfolio) at the 1% (10%) level.
+
+--- PAGE 29 ---
+P i o t r o s k i
+27
+Table 7 (continued)
+Panel C of this table presents one-year market-adjusted returns conditional on the interaction 
+of two components of change in profitability: change in asset turnover and change in gross 
+margins. Firms were assigned to portfolios in a manner consistent with panels A and B. Median
+returns are presented in parentheses below reported mean portfolio returns. Mean (median)
+return differences between strong/high signal and weak/low signal firms are tested using a two-
+sample t-tested (signed rank wilcoxon test). Strong (weak) firms are defined as the observations
+below (above) the off-diagonal of the matrix. MARGIN equals the firm’s gross margin (net sales
+less cost of good sold) for the year preceding portfolio formation, scaled by net sales for the 
+year, less the firm’s gross margin (scaled by net sales) from year t-1. ASSET_ TURN equals the
+change in the firm’s asset turnover ratio between the end of year t and year t-1. The asset
+turnover ratio is defined as net sales scaled by average total assets for the year.
+Panel C: Decomposition of ROA: Changes in Asset Turnover and Gross Margins
+c
+TURN
+Low
+Medium
+High
+Unconditional
+High–Low
+-0.019
+0.032
+0.076
+0.031
+0.095
+Low
+(-0.125)
+(-0.061)
+(-0.092)
+(-0.092)
+(0.033)
+1726
+1902
+1912
+5540
+-
+-0.004
+0.047
+0.130
+0.059
+0.134
+Margin
+Medium
+(-0.102)
+(-0.033)
+(-0.003)
+(-0.044)
+(0.099)
+1331
+1428
+1452
+4211
+-
+0.098
+0.057
+0.137
+0.096
+0.039
+High
+(-0.050)
+(-0.036)
+(-0.045)
+(-0.042)
+(0.005)
+1364
+1530
+1398
+4292
+-
+Unconditional
+0.021
+0.044
+0.110
+0.060
+0.089
+b
+(-0.098)
+(-0.044)
+(-0.045)
+(-0.061)
+(0.053)
+b
+4421
+4860
+4762
+-
+-
+High–Low
+0.117
+0.025
+0.061 
+0.065a
+-
+(0.075)
+(0.025)
+(0.047)
+(0.050)a
+-
+Portfolio-level returns:
+Mean
+10%
+25%
+Median
+75%
+90%
+%Positive
+n
+Strong Firms
+0.107
+-0.521
+-0.290
+-0.028
+0.294
+0.760
+0.469
+4380
+Weak Firms
+0.005
+-0.586
+-0.342
+-0.095
+0.206
+0.605
+0.402
+4959
+Strong–Weak
+0.102
+0.065
+0.052
+0.067
+0.088
+0.155
+0.067
+—
+t-stat/(p-value)
+5.683
+—
+—
+(0.000)
+—
+—
+(0.000)
+—
+a T-statistic  3.579; signed rank wilcoxon p-value  0.0001.
+b T-statistic  4.659; signed rank wilcoxon p-value  0.0001.
+
+--- PAGE 30 ---
+S e l e c t e d P a p e r N u m b e r 8 4
+28
+Partitioning reveals a monotonic relationship between the measures of finan-
+cial distress and historical profitability and mean one-year-ahead market-adjusted
+returns. First, firms with lower levels of financial distress earn significantly
+stronger future returns than high-distress firms (mean market-adjusted return of
+0.103 versus 0.042, respectively).13 This relationship is consistent with Dichev
+(1998), who documents an inverse relationship between measures of financial dis-
+tress and stock returns among a set of CRSP firms facing a reasonable probability of
+default or bankruptcy. Second, high BM firms with the strongest historical prof-
+itability trends also earn significantly higher returns in the subsequent year (0.107
+versus 0.037).14 These results corroborate the evidence and inferences presented
+using F_SCORE as the conditioning “information” variable.
+After controlling for financial distress and historical changes in profitability,
+F_SCORE still displays power to discriminate between stronger and weaker firms
+within each partition. However, the nature of the effectiveness depends upon the
+set of firms being examined. For the set of relatively healthy high BM firms (low
+financial distress), F_SCORE is extremely effective at identifying future poor per-
+forming firms (mean low F_SCORE return of 0.245), yet it demonstrates limited
+power to separate the strongest firms from the whole portfolio. For “troubled”
+firms (medium and high levels of financial distress), the usefulness of F_SCORE 
+is more balanced, leading to both high and low F_SCORE portfolio returns that 
+are significantly different from the returns of all firms in the respective financial
+distress partition. Similar patterns of effectiveness are demonstrated across the
+change in profitability partitions.
+Despite the overall success of these individual metrics, they were unable to 
+differentiate firms along other dimensions of portfolio performance. In particular,
+neither financial distress nor change in profitability alone was able to consistently
+shift the median return earned by an investor. The ability to shift the entire distri-
+bution of returns appears to be a result of aggregating multiple pieces of financial
+information to form a more precise “signal” of historical performance. To demon-
+strate the usefulness of aggregating alternative performance measures, panel C
+examines one-year market-adjusted returns conditioned on two variables that drive
+a change in return on assets: change in asset turnover and change in gross margin. 
+Partitioning ROA into its two fundamental components provides stronger
+evidence on the use of simple historical financial information to differentiate
+firms. First, unconditionally, both metrics provide some information about 
+future performance prospects: firms with strong historical improvements in asset
+turnover and margins earn the strongest future returns. Second, a joint considera-
+tion of the metrics generates stronger predictions of future firm performance. 
+I define strong (weak) value firms as those observations in the three cells below
+(above) the off-diagonal of the matrix (i.e., firms with the highest (lowest) 
+13 The difference in
+mean returns of 0.061
+is significant at the 10%
+level (two-sample 
+t-statistic1.826). 
+14 The differences in
+mean and median
+returns (0.070 and
+0.036, respectively) are
+significant at the one-
+percent level (two-
+sample t-statistic =
+3.270; signed rank
+wilcoxon p-value =
+0.0008).
+
+[TRUNCATED at 80000 chars — 42 total pages]

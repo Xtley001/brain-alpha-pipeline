@@ -1,0 +1,1488 @@
+
+--- PAGE 1 ---
+1 
+ 
+Short-Selling Risk 
+ 
+ 
+ 
+JOSEPH E. ENGELBERG, ADAM V. REED, and MATTHEW C. RINGGENBERG* 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Forthcoming, Journal of Finance 
+ 
+ 
+ 
+ 
+ 
+ 
+ABSTRACT 
+ 
+Short sellers face unique risks, such as the risk that stock loans become expensive 
+and the risk that stock loans are recalled.  We show that short-selling risk affects 
+prices among the cross-section of stocks.  Stocks with more short-selling risk have 
+lower returns, less price efficiency, and less short selling. 
+ 
+ 
+ 
+ 
+ 
+                                                     
+* Joseph E. Engelberg, Rady School of Management, University of California, San Diego, jengelberg@ucsd.edu. 
+Adam V. Reed, Kenan-Flagler Business School, University of North Carolina, adam_reed@unc.edu.  Matthew C. 
+Ringgenberg, David Eccles School of Business, University of Utah, matthew.ringgenberg@eccles.utah.edu.  The 
+authors thank Ken Singleton (the editor), an anonymous associate editor, and two anonymous referees, Tom 
+Boulton, Wes Chan, Itamar Drechsler, David Goldreich, Charles Jones, Juhani Linnainmaa, Paolo Pasquariello, Burt 
+Porter, David Sovich, and Anna Scherbina; participants at the 2012 Data Explorers Securities Financing Forum in 
+New York, the 2013 IMN Beneficial Owner’s International Securities Lending Conference in New Orleans, the 
+2013 RMA/UNC Securities Lending Institutional Contacts Academic and Regulatory Forum, the 6th Annual Florida 
+State University SunTrust Beach Conference, the 2014 Financial Intermediation Research Society conference, the 
+2014 LSE Conference on the Frontiers of Systemic Risk Modelling and Forecasting, the 2014 Western Finance 
+Association annual meeting, the BlackRock WFA pre-conference, the 2014 BYU Red Rock Finance Conference, 
+and the 2015 Wharton / Rodney L. White Center Conference on Financial Decisions and Asset Markets; and 
+seminar participants at Washington University in St. Louis, the University of Michigan, the University of 
+Cambridge, and the University of California - Irvine.  We also thank Markit for providing equity lending data.  All 
+errors are our own. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 2 ---
+2 
+ 
+“Some stocks are hard to borrow. Herbalife is not, especially, but it is risky to borrow…If Carl 
+Icahn were to launch a tender offer, say, it might get a lot more expensive to short Herbalife, and 
+the convertible trade would become considerably less fun.”  
+ 
+ 
+ 
+ 
+Matt Levine, Former Investment Banker, BloombergView (2014) 1 
+ 
+Short selling is a risky business.  Short sellers must identify mispriced securities, borrow shares 
+in the equity lending market, post collateral, and pay a loan fee each day until the position closes.  
+In addition to the standard risks that many traders face, such as margin calls and regulatory 
+changes, short sellers also face the risk of loan recalls and the risk of changing loan fees.  To 
+date, the literature has viewed these risks as a static cost to short sellers, and empirical papers 
+have shown that static impediments to short selling significantly affect asset prices and 
+efficiency.2  The idea in the literature is simple: if short selling is costly, short sellers may be less 
+likely to trade, and as a result prices may be biased or less efficient (e.g., Miller (1977), Diamond 
+and Verrecchia (1987), and Lamont and Thaler (2003)).   
+In this paper, we examine the costs of short selling from a different perspective.  
+Specifically, we show that the dynamic risks associated with short selling result in significant 
+limits to arbitrage.  In particular, stocks with more short-selling risk have lower future returns, 
+less price efficiency, and less short selling. 
+Consider two stocks – A and B – that are identical in every way except for their short-
+selling risk.  Specifically, stock A and stock B have identical fundamentals as well as identical 
+                                                     
+1 Levine, Matt, 2014, What happened to Herbalife yesterday? BloombergView, February 4. 
+2 To test the impact of impediments to short selling, existing studies examine a wide variety of potential measures of 
+short sale constraints including regulatory action (Diether, Lee, and Werner (2009), Jones (2008), Boehmer, Jones, 
+and Zhang (2013), Battalio and Schultz (2011)), institutional ownership (Nagel (2005), Asquith, Pathak, and Ritter 
+(2005)), the availability of traded options (Figlewski and Webb (1993), Danielsen and Sorescu (2001)), and current 
+loan fees (Jones and Lamont (2002), Cohen, Diether, and Malloy (2009)).  However, all of these are static measures 
+of short sale constraints (i.e., they examine how conditions today constrain short sellers), while we focus on the 
+dynamics of short selling constraints (i.e., we examine how the risk of changing future constraints impacts short 
+sellers).   
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 3 ---
+3 
+ 
+loan fees and number of shares available today, but future loan fees and share availability are 
+more uncertain for stock B than for stock A; that is, there is considerable risk that future loan 
+fees for stock B will be higher and future shares of stock B will be unavailable for borrowing.  
+Since higher loan fees reduce the profits from short selling and limited share availability can 
+force short sellers to close their position before the arbitrage is complete, a short seller would 
+prefer to short stock A because it has lower short-selling risk.  In this paper, we present the first 
+evidence that uncertainty regarding future short sale constraints is a significant risk, and we show 
+that this risk affects trading and asset prices.   
+The short-selling risk we describe has theoretical underpinnings in several existing 
+models.  For example, in D’Avolio (2002b) and Duffie, Garleanu, and Pedersen (2002), short-
+selling fees and share availability are a function of the differences of opinion between optimists 
+and pessimists, and short-selling risk emerges as these differences evolve.  As noted by D’Avolio 
+(2002a), “…a short seller is concerned not only with the level of fees, but also with fee 
+variance.”  Accordingly, we focus on the variance of lending fees as our natural proxy for short-
+selling risk.  To get the best possible measure of this proxy, we project the variance of lending 
+fees on several equity lending market characteristics and firm characteristics.  We then use fitted 
+values from this forecasting model (ShortRisk) as our measure of short-selling risk.3 
+Using this measure, we examine whether short-selling risk affects arbitrage activity.  If 
+short-selling risk limits the ability of arbitrageurs to trade and correct mispricing, then it should 
+be related to returns, market efficiency, and short-selling activity.  We find that it is.  First, we 
+show that our short-selling risk proxy is related to future returns: a long-short portfolio formed 
+                                                     
+3 Our results are robust to using alternate measures of short selling risk, including the unconditional historical 
+variance of loan fees for each stock. These results are shown in the Internet Appendix, which is available in the 
+online version of the article on the Journal of Finance website. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 4 ---
+4 
+ 
+based on ShortRisk earns a 9.6% annual five-factor alpha.  Next, in a Fama-MacBeth (1973) 
+regression framework we confirm the return predictability of short-selling risk after controlling 
+for a variety of firm characteristics.  We also consider the Stambaugh, Yu, and Yuan (2015) 
+mispricing measure (MISP) and find that MISP’s ability to predict returns is greatest among 
+stocks with high short-selling risk.  Thus, higher short-selling risk appears to limit the ability of 
+arbitrageurs to correct mispricing, and as a result these stocks earn lower future returns.4    
+We next test whether increases in short-selling risk are associated with decreases in price 
+efficiency.  We examine the Hou and Moskowitz (2005) measure of price delay and find that 
+short-selling risk is associated with significantly larger price delay, even after controlling for 
+current loan market conditions (Saffi and Sigurdsson (2011)); a one-standard-deviation increase 
+in ShortRisk is associated with a 6.8% increase in price delay.  Thus, the risk of future short-
+selling constraints is associated with decreased price efficiency today, independent of short 
+constraints that may exist at the time a short position is initiated. 
+Of course, if short-selling risk is truly a limit to arbitrage, then we would expect this risk 
+to affect trading activity, especially for trades with a long expected time to completion.5  Ofek, 
+Richardson, and Whitelaw (2004) note that the “…difficulty of shorting may increase with the 
+horizon length, as investors must pay the rebate rate spread over longer periods and short 
+positions are more likely to be recalled.”  To test this prediction, we turn to one of the only cases 
+in which mispricing and the expected holding horizon of a trade can be objectively measured ex-
+ante.  Specifically, we examine deviations between stock prices and the synthetic stock price 
+implied from put-call parity.  Ofek, Richardson, and Whitelaw (2004) and Evans et al. (2009) 
+                                                     
+4 This result is consistent with models of limits to arbitrage.  For example, the model in Schleifer and Vishny (1997) 
+predicts that stocks that are riskier to arbitrage will exhibit greater mispricing and have higher average returns to 
+arbitrage. 
+5 We thank an anonymous referee and the Editor for suggesting this point. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 5 ---
+5 
+ 
+show that deviations between the actual and synthetic stock price often imply that a short seller 
+would short sell the underlying stock and purchase the synthetic stock, with the expectation that 
+the two prices will converge upon the option expiration date.  Accordingly, we measure 
+mispricing using the natural log of the ratio of the actual stock price to the implied stock price 
+(henceforth put-call disparity) as in Ofek, Richardson, and Whitelaw (2004), and we examine 
+whether short sellers trade less on mispricings when short-selling risk is high and when the 
+option has a long time to maturity.  We find that they do.  In particular, arbitrageurs short 
+significantly less when short-selling risk is high, and as a result there is more mispricing today.  
+Moreover, both of these effects are significantly larger for long-horizon trades. 
+When ShortRisk and days to expiration are at the 25th percentile in our sample, short 
+volume is approximately 5.1% below its unconditional mean and put-call disparity today is 
+approximately 13.9% above its unconditional mean.  However, when ShortRisk and days to 
+expiration are at the 75th percentile in our sample, short volume is 21.7% below its unconditional 
+mean and put-call disparity today is approximately 149% above its unconditional mean.6  In 
+other words, higher short-selling risk leads to significantly less short selling by arbitrageurs and 
+greater mispricing today, and longer holding horizons magnify both of these effects. 
+Of course, it is natural to expect that the risks we describe here could be correlated with 
+other well-known predictors of returns.  For example, Ang et al. (2006) show that high 
+idiosyncratic volatility is associated with low future returns.  We find that all of our results 
+continue to hold after controlling for other known predictors of returns, including liquidity and 
+idiosyncratic volatility (e.g., Ang et al. (2006), Pontiff (2006)). 
+                                                     
+6 The 25th and 75th percentiles of ShortRisk are 1.54 and 5.38, respectively.  The 25th and 75th percentiles of months 
+to expiration are two and five months, respectively. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 6 ---
+6 
+ 
+Overall, our results make several contributions.  First, and most importantly, this is the 
+first paper to show that uncertainty regarding future short-selling constraints acts as a significant 
+limit to arbitrage.  Specifically, we show that higher short-selling risk is associated with lower 
+future returns, decreased price efficiency, and less short-selling activity by arbitrageurs.  We also 
+show that these effects are more pronounced for trades with a long expected holding horizon.  In 
+addition, we show that short-selling risk is particularly high when there are extreme returns, 
+indicating that short-selling risk may have an adverse correlation with returns.  Finally, we note 
+that our findings may help explain existing anomalies, including the low short-interest puzzle 
+(Lamont and Stein (2004)).  Short-selling risk may also help explain the puzzling fact that short 
+interest data predict future returns even though short interest is publicly observable.  In other 
+words, the fact that short interest data predict returns and are publicly released by the exchanges 
+begs the question: why don’t other investors arbitrage away the predictive ability of short 
+interest?  Our results provide a partial explanation: short selling is risky.  
+The remainder of this paper proceeds as follows: Section I briefly describes the existing 
+literature, Section II describes the data used in this study, Section III characterizes our findings, 
+and Section IV concludes. 
+ 
+I. Background 
+Although we consider short sale constraints from a dynamic perspective, a large literature 
+has considered these constraints from a static perspective.  In this section, we briefly discuss 
+existing work concerning short sale constraints and limits to arbitrage.  We then formalize the 
+hypotheses introduced in the beginning of the paper.  
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 7 ---
+7 
+ 
+A. Existing Literature 
+On the theoretical side, multiple papers have argued that short sale constraints can have 
+an economically significant effect on asset prices (e.g., Miller (1977), Harrison and Kreps 
+(1978), Diamond and Verrecchia (1987)).  In addition, empiricists have investigated multiple 
+forms of short-selling constraints, including regulatory restrictions and equity loan fees.  
+Several papers have analyzed the effect of short sale constraints by examining changes in 
+the regulatory environment.  For example, Diether, Lee, and Werner (2009) examine the effects 
+of the Reg SHO pilot and find limited evidence that short-selling activity changed when the 
+uptick rule was lifted.  Boehmer, Jones, and Zhang (2013) find that the U.S. short-selling ban 
+reduced market quality and liquidity.  More broadly, Beber and Pagano (2013) find that 
+worldwide short-selling restrictions slowed price discovery. 
+The equity loan market also provides an opportunity for researchers to study the impact 
+of short sale constraints.  Using loan fees from the equity loan market, Geczy, Musto, and Reed 
+(2002) suggest that short-selling constraints have a limited impact on well-accepted arbitrage 
+portfolios such as size, book-to-market, and momentum portfolios.  Using institutional 
+ownership as a proxy for supply in the equity loan market, Hirshleifer, Teoh, and Yu (2011) 
+examine the relation between short sales and both the accrual and net operating asset anomalies.  
+They find that short sellers do try to arbitrage mispricings, but short sale constraints appear to 
+limit their ability to arbitrage them away.   
+Several papers abstract from specific short sale constraints and instead use the general 
+fact that short selling is more constrained than buying to examine possible asymmetries in long-
+short portfolio returns.  Stambaugh, Yu, and Yuan (2012) examine a variety of anomalies and 
+find that they tend to be more pronounced on the short side, consistent with the idea that short 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 8 ---
+8 
+ 
+selling is riskier, leading to less short selling by arbitrageurs.  In a related paper, Stambaugh, Yu, 
+and Yuan (2015) note that idiosyncratic volatility is negatively related to returns among 
+underpriced stocks but is positively related to returns among overpriced stocks.  More recently, 
+Drechsler and Drechsler (2014) document a shorting premium and show that asset pricing 
+anomalies are largest for stocks with high equity lending fees. 
+ 
+Finally, in a recent paper, Prado, Saffi, and Sturgess (2016) examine the cross-sectional 
+relation between institutional ownership, short sale constraints, and abnormal stock returns.  
+They find that firms with lower levels of institutional ownership and/or more concentrated 
+institutional ownership tend to have higher equity lending fees, and these firms also tend to earn 
+abnormal returns that are significantly more negative. 
+ 
+B. Hypothesis Development 
+In this paper, we empirically examine the risk that future lending conditions might move 
+against a short seller.  In what follows, we use existing theory to motivate our empirical 
+measures and develop testable predictions. 
+Several extant papers lend support to the idea that short-selling risk impacts arbitrage 
+activity.  Mitchell, Pulvino, and Stafford (2002) empirically examine arbitrage activity for 
+situations in which the market value of a company is less than its subsidiary and find that short-
+selling risk can limit arbitrage activity.  They specifically discuss short-selling risk, noting that 
+“The possibility of being bought-in at an unattractive price provides a disincentive for 
+arbitrageurs to take a large position.”  Consistent with this view, D’Avolio (2002b) develops a 
+theoretical model of equilibrium in the lending market and finds that “In a multiperiod setting, a 
+short seller is concerned not only with the level of fees, but also with fee variance.  This is 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 9 ---
+9 
+ 
+because current regulations stipulate that lenders maintain the right to cancel a loan at any time 
+and hence preclude most large institutions from providing guaranteed term loans.” 
+In D’Avolio (2002b), a short seller can respond to changes in lending market conditions 
+by “buying back the shares and returning them to the lender, or re-establishing the short at the 
+higher loan fee.”  Thus, the model shows that share recalls and loan fee increases both reflect the 
+same underlying event: changes in lending conditions that leave the loan market temporarily out 
+of equilibrium.  As a result, recalls and fee changes are not independent risks: a share recall can 
+be seen as an extremely high loan fee.  Consistent with theoretical models, we develop two 
+empirical measures of short-selling risk in Section II below.  We view our measures as proxies 
+for the risk of short sale constraints that arise from changes in lending market conditions. 
+The model in D’Avolio (2002b) also suggests that lending market conditions impact 
+arbitrage activity.7   Specifically, the model shows that short selling is less attractive to 
+arbitrageurs when short-selling risk is high.8  While D’Avolio (2002b) does not explicitly model 
+the short seller’s demand function in the multiperiod case with short-selling risk, a related model 
+in D’Avolio and Perold (2003) shows that short sellers will be less likely to trade if the 
+probability of binding future short sale constraints is high.  Furthermore, this model suggests that 
+the expected trading horizon matters.  D’Avolio and Perold (2003) show that short sellers’ 
+willingness to trade will be low when “the expected price correction is unlikely to occur in the 
+near future.”  
+                                                     
+7 The model in Stambaugh, Yu, and Yuan (2015) can generate similar predictions. Specifically, if we introduce a 
+stochastic loan fee to the model, the solution to the utility maximization problem shows that portfolio weights are 
+decreasing in the variance of loan fees, and as a consequence mispricing is an increasing function of the variance of 
+loan fees. 
+8 The model focuses primarily on a one-period case, in which equity lending conditions are known with certainty.  
+However, the paper includes a multiperiod extension that discusses short selling risk. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 10 ---
+10 
+ 
+We use these results to generate several testable predictions regarding the impact of 
+short-selling risk.  First, we hypothesize that high short-selling risk is associated with less trading 
+by short sellers, consistent with the predictions in D’Avolio (2002 and 2002b) and D’Avolio and 
+Perold (2003).  Second, consistent with models of limits to arbitrage (e.g., Schleifer and Vishny 
+(1997)), we hypothesize that stocks with higher arbitrage risk, in this case short-selling risk, 
+exhibit greater mispricing.  Third, as suggested by Ofek, Richardson, and Whitelaw (2004) and 
+D’Avolio and Perold (2003), we hypothesize that the impact of short-selling risk is greater for 
+trades with a longer expected holding horizon.  Finally, we note that existing literature finds that 
+short selling leads to improved price efficiency (Saffi and Sigurdsson (2011)).  This leads to our 
+fourth hypothesis, namely, that stocks with more short-selling risk have less price efficiency.  
+In sum, we hypothesize that arbitrageurs may be less willing to short when future lending 
+conditions are more uncertain and when the expected holding horizon is longer.  As a result, 
+short-selling risk may impact returns, price efficiency, and trading volume.   
+ 
+II. Data 
+ 
+To test the hypotheses discussed above, we combine daily equity lending data with data 
+from the Center for Research in Security Prices (CRSP), Compustat, NYSE Trade and Quote 
+(TAQ) database, and OptionMetrics, as discussed in detail below. 
+ 
+A. Equity Lending Data 
+ 
+The equity lending data used in our analyses come from Markit.  The data are sourced 
+from a variety of contributing customers including beneficial owners, hedge funds, investment 
+banks, lending agents, and prime brokers; the market participants that contribute to this database 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 11 ---
+11 
+ 
+are believed to account for the majority of all equity loans in the U.S.  The initial database 
+includes information on a variety of overseas markets and share classes.  However, we exclude 
+data on non-U.S. firms, ADRs, and ETFs, and we drop firms that have a stock price below $5 or 
+a market capitalization below $10 million; we also require each firm to have at least 50 non-
+missing days each year to be included in the sample.  The resulting database includes 
+approximately 220,000 observations at the firm-month level for 4,500 U.S. equities over the 5.5-
+year period from July 1, 2006 through December 31, 2011. 
+ 
+The equity lending database includes several variables from the equity loan market.  Of 
+primary interest are shares borrowed (Short Interest), the active quantity of shares available to be 
+borrowed (Loan Supply), the active utilization rate (Utilization), the weighted average loan fee 
+across all shares currently on loan (Loan Fee), the weighted average loan fee for all new loans 
+over the past day (New Loan Fee), and the weighted average number of days that transactions 
+have been open (Loan Length).  A stock’s Loan Supply represents the total number of shares that 
+institutions are actively willing to lend, expressed as a percentage of shares outstanding.  The 
+Utilization rate is the quantity of shares loaned out as a percentage of Loan Supply.  Finally, 
+Loan Fee, often referred to as specialness, is the cost of borrowing a share in basis points (bps) 
+per annum. 
+INSERT TABLE I ABOUT HERE 
+Panel A of Table I contains summary statistics for the equity lending database.  For the 
+typical firm, approximately 18% of shares outstanding are available to be borrowed and around 
+4% are actually on loan at any given point in time.  The median loan fee is only 11 bps per 
+annum.  It is well known, however, that loan fees exhibit considerable skewness, as indicated by 
+the mean of 85 bps and the 99th percentile of 1,479 bps.  The median loan is open for 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 12 ---
+12 
+ 
+approximately 65 days, indicating that short sellers often hold their position open for several 
+months and thus are exposed to changes in loan fees.  While the magnitude of loan fees may 
+seem small when compared to other risks faced by arbitrageurs, especially when looking at the 
+median loan fee of 11 bps, the 99th percentile of loan fees in our sample is 14.79% per year -- as 
+discussed in Kolasinski, Reed, and Ringgenberg (2013), loan fees can increase to levels that 
+significantly decrease the profitability of nearly any trade.  In Panel B we examine the within-
+firm (i.e., time-series) properties of lending market conditions.  We calculate the mean, median, 
+1st, and 99th percentiles of loan fees and utilization by firm, and then display the cross-sectional 
+mean of these summary statistics.  The mean of the 99th percentile of loans fees is 301 bps points 
+while the 1st percentile is 7 bps.  Thus, the average stock experiences dramatic variation in its 
+loan fees over time. 
+In addition to the equity lending data discussed above, we use publicly available data 
+from the SEC website to add information on failures to deliver.  Failures to deliver occur when 
+shares are not delivered by the standard three-day settlement date (often referred to as t+3); the 
+SEC provides the aggregate net balance of shares that failed to be delivered on each date.  The 
+data provide information on the cumulative number of shares that have not been delivered, which 
+does not necessarily indicate the number of new failures on any given date, as some failed 
+positions may persist for several days.  If the net balance of failed shares is below 10,000 for a 
+given firm, the SEC does not release any information and we record a balance of zero failures for 
+that day.  As shown in Table I, failures to deliver (Qty. Failures) are relatively rare, with a mean 
+of 0.36% of shares outstanding and a median of 0.00% of shares outstanding. 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 13 ---
+13 
+ 
+B. Data Compilation 
+ 
+We match the equity lending database at the firm-month level with information from 
+CRSP, Computstat, TAQ, and OptionMetrics.  From CRSP, we add closing stock prices, closing 
+ask and bid prices, shares outstanding, volume, and monthly returns, including dividend 
+distributions.  From TAQ, we add short sales volume for each stock using the regulation SHO 
+database.9  From OptionMetrics, we add option best bid and offer prices, expiration dates, and 
+strike prices.  As in Ofek, Richardson, and Whitelaw (2004), we drop contracts with bid-ask 
+spreads greater than 50%, absolute value of log moneyness greater than 0.5, or nonpositive 
+implied volatility.  To minimize the impact of illiquidity, we focus on contracts with greater than 
+6 days but less than 181 days to maturity.  From Compustat we add the natural log of the market-
+to-book ratio.  We define book equity as total shareholder equity minus the book value of 
+preferred stock plus the book value of deferred taxes and investment tax credits.  If total 
+shareholder equity is missing, we calculate it as the sum of the book value of common and 
+preferred equity.  If all of these are missing, we calculate shareholder equity as total assets minus 
+total liabilities.  Finally, we add NYSE breakpoints and Fama and French (2015) factors from 
+Kenneth French’s website, and we add the Stambaugh, Yu, and Yuan (2015) mispricing score 
+from Robert Stambaugh’s website.  Panel C of Table I presents summary statistics for the CRSP 
+data.  The mean market capitalization for the firms in our sample is $3.77 billion and the median 
+market capitalization is $0.46 billion.  
+ 
+ 
+ 
+                                                     
+9 We exclude all canceled and invalid trades in TAQ.   
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 14 ---
+14 
+ 
+C. Measures of Short-Selling Risk 
+Motivated by the theoretical results discussed in Section I.B, we construct a measure of 
+short-selling risk (ShortRisk).  Specifically, our measure is motivated by D’Avolio (2002b), who 
+notes that “…a short seller is concerned not only with the level of fees, but also with fee variance.”  
+Accordingly, we first calculate the natural log of the variance of the daily Loan Fee for each stock 
+over the past 12 months.  We then project this variable on a variety of lagged firm and lending 
+market characteristics.  The predicted value of the model, which we label ShortRisk, represents a 
+trader’s estimate of short-selling risk given available information.         
+In our forecasting regression, we appeal to the prior literature in our choice of predictive 
+variables.  Because Aggarwal, Saffi, and Sturgess (2015) demonstrate the importance of utilization 
+in the equity loan market, we consider prior loan utilization as a key forecasting variable.  
+Moreover, because Geczy, Musto, and Reed (2002) demonstrate the usefulness of prices from new 
+loans, we also consider the loan fees from new loans.  Specifically, we use four equity lending 
+market characteristics: (i) VarNewFee, (ii) VarUtilization, (iii) TailNewFee, and (iv) 
+TailUtilization.  VarNewFee is defined as the variance of loan fees for new equity loans and 
+VarUtilization is defined as the natural log of the variance of the ratio of equity loan supply to loan 
+demand (i.e., utilization).  We also define two tail risk versions of these variables, TailFee and 
+TailUtilization, which proxy for the likelihood of extreme loan fees and extreme utilization, 
+respectively.  Specifically, we define TailNewFee and TailUtilization as the 99th percentile of a 
+normal distribution using the trailing annual mean and variance of loan fee and utilization, 
+respectively.10   
+                                                     
+10 Our measures are based on the well-known value-at-risk measure and are calculated on each date for each stock as 
+the mean of loan fee (utilization) + 2.33 × variance of loan fees (utilization), where the mean and variance are 
+measured over the prior 250 trading days. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 15 ---
+15 
+ 
+We also consider a number of potentially relevant firm characteristics, including several 
+characteristics that are worth noting in this context.  Perhaps most important are lagged values of 
+fee risk, the number of fails to deliver, an indicator variable for stocks that had an IPO within the 
+last 90 days, and an indicator variable for stocks with listed options. 
+INSERT TABLE II ABOUT HERE 
+The results from the following model are presented in Table II: 
+𝑉𝑎𝑟(𝐿𝑜𝑎𝑛𝐹𝑒𝑒𝑠𝑖,𝑡+1) = α + 𝛽1𝑉𝑎𝑟𝑁𝑒𝑤𝐹𝑒𝑒𝑖,𝑡 + +𝛽2𝑉𝑎𝑟𝑈𝑡𝑖𝑙𝑖𝑧𝑎𝑡𝑖𝑜𝑛𝑖,𝑡+
+ 𝛽3𝑇𝑎𝑖𝑙𝑁𝑒𝑤𝐹𝑒𝑒𝑖,𝑡+ 𝛽4𝑇𝑎𝑖𝑙𝑈𝑡𝑖𝑙𝑖𝑧𝑎𝑡𝑖𝑜𝑛𝑖,𝑡 + FEi + FirmCharacteristics + 𝜀𝑖,𝑡+1, 
+(1) 
+where i indexes firms, t indexes time, FEi represents firm fixed effects, and FirmCharacteristics 
+is a vector of time-varying firm characteristics.  We display t-statistics calculated using standard 
+errors clustered by firm and date.  Although our main interest in this section is to find an accurate 
+forecast of short-selling risk, the results here shed some light on the underlying determinants of 
+short-selling risk.  For example, the negative and statistically significant coefficient on the option 
+indicator variable suggests that short-selling risk is lower for stocks with traded options.  Similarly, 
+the positive and statistically significant coefficients on the dividend indicator and the number of 
+fails to deliver suggest that short-selling risk is higher immediately following an IPO and for stocks 
+with a large number of failures in the securities lending market.  Overall, the model can explain 
+97% of the variation in one-month-ahead short-selling risk.   
+Accordingly, we use the predicted value from this model as a forecast of short-selling risk, 
+which we call ShortRisk.11  Panel D in Table I reports summary statistics for ShortRisk.  The mean 
+                                                     
+11 We thank an anonymous Associate Editor for suggesting this analysis.   
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 16 ---
+16 
+ 
+value of ShortRisk exceeds the median and the 99th percentile indicates that there is substantial 
+variation in short-selling risk in our sample of firms. 
+ 
+III. Results 
+In this section, we examine whether short-selling risk affects prices and trading by 
+arbitrageurs.  Overall, our findings suggest that higher short-selling risk is a significant limit to 
+arbitrage.  
+ 
+A. Does Short-Selling Risk Impact Arbitrageurs? 
+Short sellers face a number of risks.  In equilibrium, arbitrageurs should be compensated 
+for the risks they take (e.g., Shleifer and Vishny (1997)).  In this section, we begin by showing 
+that high short-selling risk is associated with lower future returns.  We then show that high short-
+selling risk is associated with decreased price efficiency and less short selling by arbitrageurs.   
+ 
+A.1. Short-Selling Risk and Future Returns 
+ 
+To start, we form simple portfolios formed by conditioning on our risk measures. 
+Specifically, each month we form portfolios by sorting firms into quintiles using the previous 
+month’s short-selling risk.  These equal-weighted portfolios are then held for one calendar month 
+and the exercise is repeated.  
+ 
+Figure 1 shows a strong relation between short-selling risk and future returns.  In Panel A 
+we plot the mean returns to portfolios formed by conditioning on short-selling risk.  Stocks in the 
+low short-selling risk quintile earn monthly returns of 0.58% per month while stocks in the high 
+short-selling risk quintile earn monthly returns of -0.49% per month.  Thus, a long-short 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 17 ---
+17 
+ 
+portfolio formed by buying stocks with low short risk and shorting stocks with high short risk 
+earns 1.08% per month.  In Panel B, we plot the cumulative returns to a long-short strategy over 
+our 2006 to 2011 sample period.  The long-short portfolios consistently earn large returns.  
+Overall, Figure 1 shows a close connection between short-selling risk and future returns.   
+INSERT FIGURE 1 ABOUT HERE 
+Of course, a key concern is whether our results are a form of the well-established relation 
+between short selling and future returns.  Several papers show that high short interest predicts 
+low future returns at the stock level (Figlewski (1981), Senchack and Starks (1993), Boehmer, 
+Jones, and Zhang (2008)), and Rapach, Ringgenberg, and Zhou (2016) show that short interest is 
+a strong predictor of returns at the market level.  
+To address this issue, we sort first on short interest and then on our short-selling risk 
+measures.  Panels A and B in Table III report the mean returns to these portfolios, while Panels 
+A and B in Table IV report five-factor alphas.  In Panel A of Table III, we present the equal-
+weighted portfolio returns by quintiles formed on the previous month’s ShortRisk.  Conditioning 
+on the level of short interest in each row, the last column presents mean portfolio returns to a 
+strategy that goes long firms with ShortRisk in the lowest quintile and short firms with ShortRisk 
+in the highest quintile.  As shown in row 1 (All Firms), the long-short portfolio (highlighted in 
+the gray box) earns a mean monthly return of 1.08%, which is statistically significant at the 1% 
+level.  In the remaining rows of Panel A in Table III, we present the returns for each quintile of 
+short interest.  Interestingly, a strategy that buys stocks with low ShortRisk and shorts stocks 
+with high ShortRisk earns positive and statistically significant long-short portfolio returns in each 
+of the five short interest quintiles.  The monthly long-short portfolio returns (highlighted in the 
+gray box) range from 0.63% to 1.19% (7.5% to 14.2% annualized).  We stress that while the first 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 18 ---
+18 
+ 
+row does not condition on short interest, the remaining rows do.  The results are broadly similar 
+to each other, indicating that the effect is not subsumed by the previously studied relation 
+between short interest and returns.    
+INSERT TABLE III ABOUT HERE 
+INSERT TABLE IV ABOUT HERE 
+Of course, it is possible that our portfolio sorts inadvertently sort on other common risk 
+factors.  Accordingly, Table IV repeats the portfolio exercise with five-factor alphas (Fama and 
+French (2015)).  In all three panels the results confirm the findings in Table III.  A long-short 
+portfolio formed by conditioning on our short-selling risk measure earns a five-factor alpha of 
+0.80% per month (highlighted in the gray box).  We also find that the results generally remain 
+significant and economically large after conditioning on the level of short interest.  In other 
+words, Table IV, as with Table III, is consistent with models of limits to arbitrage: we find that 
+the returns to short selling are largest when arbitrage is riskiest. 
+To better understand how the results hold up throughout the cross section, we also 
+examine sorts on firm size (market capitalization) to see if the relation between short-selling risk 
+and returns is concentrated in Micro, Small, or Big firms.  As in Fama and French (2008), we 
+define Micro firms as firms with market capitalization below the 20th percentile of the NYSE 
+breakpoints from Kenneth French’s website, Small firms as firms with market capitalization 
+greater than or equal to the 20th percentile but less than the 50th percentile of NYSE breakpoints, 
+and Large firms as firms with market capitalization greater than or equal to the 50th percentile.  
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 19 ---
+19 
+ 
+Within each size category, we sort into five buckets based on short-selling risk.  We then create 
+value-weighted portfolios and look at the next month’s return.12 
+Panel B of Table III reports raw returns from this exercise, while Panel B in Table IV 
+reports Fama and French (2015) five-factor alphas.  The results are generally strongest for Micro 
+and Small stocks; however, in Table III Large stocks do earn a positive long-short portfolio 
+return (but for these stocks the results exhibit weaker statistical significance).  In Table III we 
+find positive and statistically significant long-short returns for both Micro and Small stocks, 
+ranging from 0.65% to 1.04%.  Similarly, in Table IV we find positive and statistically 
+significant five-factor alphas for Micro and Small stocks, ranging from 0.38% to 0.88%.  In a 
+sense, the fact that our results are strongest among Micro and Small stocks is not surprising as 
+there is relatively little short-selling risk in the sample of Large stocks.  The 99th percentile of 
+loan fees in the Micro sample is 1,119 bps; the 99th percentile of loan fees in the Large stock 
+sample is only 236 bps.  Similarly, the 90th percentile is 189 bps for Micro stocks and only 20 
+bps for the Large stocks.  In addition, we note that while Micro and Small stocks represent a 
+relatively small portion of total market capitalization, they are a large portion of the market by 
+number.  In our analyses, these stocks represent approximately 75% of the sample.  Thus, while 
+our results are weaker among Large stocks, they do occur throughout a large portion of U.S. 
+equities. 
+Interestingly, we also note that our sort results suggest that low short-selling risk stocks 
+are also priced differently.  While the high short-selling risk portfolios consistently earn negative 
+returns, many of the low short-selling risk portfolios earn high returns, a result consistent with 
+                                                     
+12 Because we require firms to have equity lending data, our sample contains fewer Micro stocks than the sample in 
+Fama and French (2008).  Specifically, 60% of all stocks in the Fama and French (2008) sample are Micro stocks 
+but only 44% of the stocks in our sample are classified as Micro. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 20 ---
+20 
+ 
+Boehmer, Huszar, and Jordan (2010).  Nonetheless, taken together, our sort results indicate that 
+arbitrageurs are being compensated for the risk they take on their short positions. 
+Finally, we adopt the regression approach of Boehmer, Jones, and Zhang (2008) to 
+control for more firm characteristics.13  In particular, we run monthly Fama-MacBeth (1973) 
+regressions of the form 
+𝑅𝑒𝑡𝑖,𝑡+1 = α + 𝛽1𝑆ℎ𝑜𝑟𝑡 𝑅𝑖𝑠𝑘𝑖,𝑡 + 𝛽2𝑆ℎ𝑜𝑟𝑡 𝐼𝑛𝑡𝑒𝑟𝑒𝑠𝑡𝑖,𝑡+ Controls + 𝜀𝑖,𝑡+1 
+(2) 
+where i indexes firms, t indexes time, the dependent variable is the buy-and-hold return over the 
+subsequent month in excess of the one-month risk-free rate, Short Interesti,t is the quantity of 
+shares borrowed as of the last day of the month normalized by each firm’s shares outstanding, 
+and Controls is a vector of control variables:  Market / Book is the log of the market-to-book 
+ratio from Compustat, Market Cap is the log of market capitalization, Idio. Volatility is the log of 
+the monthly standard deviation of the daily residual from a Fama-French (1993) three-factor 
+regression,14 Bid-Ask is the log of the closing bid-ask spread calculated as a fraction of the 
+closing midpoint, and Returnt-1 is the return on each stock lagged by one month.   
+INSERT TABLE V ABOUT HERE 
+ 
+Our contribution is to introduce a measure of an arbitrageur’s short-selling risk.  The 
+results are reported in Table V.  In all models, the coefficient on Short Interest is consistent with 
+Boehmer, Jones, and Zhang (2008): we find that short sales activity, as measured by Short 
+                                                     
+13 While we follow a similar approach to that in Boehmer, Jones, and Zhang (2008), our specification includes 
+several differences.  First, we use a different sample period than Boehmer, Jones, and Zhang (2008) and we examine 
+a different set of firms (we examine the entire CRSP universe of equities while they focus on NYSE firms).  Second, 
+we use a measure of Short Interest as an independent variable, while they use Short Volume. 
+14 We calculate idiosyncratic volatility as the standard deviation, each month, of the daily residual from a Fama and 
+French (1993) three-factor model estimated using daily return data over our entire sample period. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 21 ---
+21 
+ 
+Interest, is negative.  In other words, high levels of short selling are associated with future price 
+decreases.   
+ In all models the negative and statistically significant coefficient on ShortRisk is 
+consistent with the hypothesis that short-selling risk is a significant limit to arbitrage.15  In 
+particular, we find in model (1) that a one standard deviation increase in ShortRisk is associated 
+with a 40 bp decrease in future monthly returns (a decrease of approximately 4.7% per year).  In 
+other words, on average, the returns to short selling are larger in the presence of greater short-
+selling risk.   
+In model (3), we consider how short-selling risk, as a limit to arbitrage, interacts with 
+mispricing as measured by Stambaugh, Yu, and Yuan (2015).  We refer to the mispricing 
+variable as MISP, and it is based on 11 anomalies from the existing literature.16  High (low) 
+values of the MISP variable are the most overpriced (underpriced) according to Stambaugh, Yu, 
+and Yuan (2015).  When we interact ShortRisk and MISP, we find a negative and statistically 
+significant coefficient, which suggests that stocks that are both overpriced and risky to short have 
+especially low returns going forward.17  In other words, consistent with models of limits to 
+arbitrage, we find that higher short-selling risk appears to limit the ability of arbitrageurs to 
+correct mispricing, and, as a result, these stocks earn lower future returns.  As ShortRisk and 
+MISP increase, we find that future returns get lower.  When both ShortRisk and MISP are at their 
+                                                     
+15 Because ShortRisk is a generated regressor (Pagan (1984)), we calculate the standard errors of the coefficients 
+using a block bootstrap with 200 replications. The bootstrap does not significantly alter the standard errors.  The 
+results are qualitatively unchanged if we instead use Newey-West (1987) standard errors with three lags, where we 
+set the lag length = T¼ = 66¼ ≈ 3 as discussed in Greene (2002). 
+16 Stambaugh, Yu, and Yuan (2015) do not use any short selling-based anomalies in their mispricing measure. 
+17 When there is no interaction term, the coefficient estimate on MISP is negative and significant as in Stambaugh, 
+Yu, and Yuan (2015).   
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 22 ---
+22 
+ 
+90th percentiles, the next month’s return is 22 bps lower than when both ShortRisk and MISP are 
+at their 50th percentiles. 
+Overall, the findings in Tables III through V suggest that higher short-selling risk limits 
+the ability of arbitrageurs to correct mispricing; as a result, stocks with high short-selling risk 
+earn predictably lower future returns.  We note that we control for the current loan fee in models 
+(2) and (3) of Table V, since it is well known that high equity loan fees predict low future stock 
+returns (e.g., Jones and Lamont (2002), Beneish, Lee, and Nichols (2015), Drechsler and 
+Drechsler (2014)).  Thus, our results show that the risk of future short-selling risk constraints 
+affects returns even after controlling for current short sale constraints and other known predictors 
+of returns.  
+The evidence above also sheds light on an unresolved puzzle.  Several papers have shown 
+that high short interest predicts low future returns (Figlewski (1981), Senchack and Starks 
+(1993), Asquith, Pathak, and Ritter (2005), Boehmer, Jones, and Zhang (2008), Rapach, 
+Ringgenberg, and Zhou (2016)).  It is an open question as to why publicly available short interest 
+data continue to have return predictability.  Our results show that this puzzle is particularly 
+strong among stocks with high short-selling risk.  Although existing literature has been unable to 
+fully explain the puzzle with static short-selling risk constraints (e.g., Cohen, Diether, and 
+Malloy (2009)), our paper suggests that dynamic constraints (i.e., short-selling risk) may help 
+explain more of the puzzle.  In other words, short sellers continue to earn abnormal returns in 
+part because short selling is risky. 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 23 ---
+23 
+ 
+A.2. Short-Selling Risk and Price Efficiency 
+Of course, if short-selling risk is a limit to arbitrage it may also decrease price efficiency.  
+In this section, we use our proxies for short-selling risk to test whether more short-selling risk is 
+associated with less price efficiency.  We first estimate the Hou and Moskowitz (2005) measures 
+of price efficiency by regressing the weekly returns of stock i on the current value-weighted 
+market return and four lags of the value-weighted market return.  Intuitively, the coefficients on 
+lagged market returns are a measure of price delay -- if the return on stock i instantaneously 
+reflects all available information, then the lagged returns should have little explanatory power.  
+Specifically, for each stock i and year y, we estimate the regression 
+𝑟𝑒𝑡𝑖,𝑡 = α + 𝛽1
+𝑖,𝑦𝑟𝑚,𝑡 + (∑
+𝛿𝑗
+𝑖,𝑦𝑟𝑚,𝑡−𝑗
+4
+𝑗=1
+)+ 𝜀𝑖,𝑡 
+  (3) 
+where reti,t is the return on stock i in week t and retm,t is the value-weighted market return from 
+CRSP in week t.  We then calculate two measures of price delay, labeled D1 and D2, as follows: 
+𝐷1𝑖,𝑦= 1 −
+𝑅[𝛿1=𝛿2=𝛿3=𝛿4=0]
+2
+𝑅2
+, 
+(4) 
+where the denominator is the unconstrained R2 and the numerator is the R2 from a regression in 
+which the coefficients on all lagged market returns are constrained to equal zero, and 
+𝐷2𝑖,𝑦=
+∑
+|𝛿𝑗
+𝑖,𝑦|
+4
+𝑗=1
+|𝛽1
+𝑖,𝑦| + ∑
+|𝛿𝑗
+𝑖,𝑦|
+4
+𝑗=1
+, 
+(5) 
+where β and δ are the regression coefficients shown in equation (3).  We then test to see if our 
+proxies for short-selling risk are associated with increased price delay (i.e., worse price 
+efficiency).  To do so, we estimate the following panel regression, similar to Saffi and 
+Sigurdsson (2011): 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 24 ---
+24 
+ 
+𝑃𝑟𝑖𝑐𝑒𝐷𝑒𝑙𝑎𝑦𝑖,𝑦= α + 𝛽1𝑆ℎ𝑜𝑟𝑡𝑅𝑖𝑠𝑘+ 𝛽2𝐿𝑜𝑎𝑛𝐹𝑒𝑒+ 𝛽3𝐿𝑜𝑎𝑛𝑆𝑢𝑝𝑝𝑙𝑦+ 𝐶𝑜𝑛𝑟𝑜𝑙𝑠+ 𝜀𝑖,𝑦 
+(6) 
+The results are reported in Table VI with t-statistics, calculated using a block bootstrap with 200 
+replications, presented below the coefficient estimates.  We include year fixed effects in all 
+models to control for possible unobserved heterogeneity.  Saffi and Sigurdsson (2011) examine 
+the relation between price efficiency and contemporaneous short sale constraints and find that 
+firms with high loan supply tend to have significantly better price efficiency.  The statistically 
+significant negative coefficient on Loan Supply confirms the findings of Saffi and Sigurdsson 
+(2011).  However, we also find that uncertainty regarding future short sale constraints is 
+associated with decreased price efficiency.  In all models, the positive and statistically significant 
+coefficient on ShortRisk indicates that higher uncertainty about future loan fees is associated 
+with a significantly larger price delay for the measure calculated in equation (4).  In model (2), a 
+one-standard-deviation increase in ShortRisk is associated with a 6.8% increase in price delay 
+relative to its unconditional mean.18  In other words, the risk of future short-selling constraints is 
+associated with decreased price efficiency today, independent of short constraints that may exist 
+at the time a short position is initiated.  
+INSERT TABLE VI ABOUT HERE 
+  Taking the results in Table VI together, a general pattern emerges: higher short-selling 
+risk is associated with decreased price efficiency.  
+ 
+ 
+                                                     
+18 The variable ShortRisk has a standard deviation of 3.00 and the Hou and Moskowitz (2005) price delay measure 
+has an unconditional mean of 0.32.  Therefore, 6.8% = (0.0072 * 3.00) / 0.32. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 25 ---
+25 
+ 
+A.3. Short-Selling Risk and Expected Holding Horizon 
+If short-selling risk is truly a limit to arbitrage, we would expect this risk to affect trading 
+activity (D’Avolio (2002a)), especially for trades with a long expected time to completion.  As 
+Ofek, Richardson, and Whitelaw (2004) note, the risk of short selling increases with the holding 
+period.  For example, an arbitrageur shorting a stock with a volatile rebate rate is much more 
+concerned about the volatility if his expected holding horizon is long.  As a result, the arbitrageur 
+is less likely to put on the trade in the first place.    
+To test this prediction, we examine a unique environment in which both the magnitude of 
+the mispricing and the expected holding horizon of a trade can be measured ex-ante.  
+Specifically, we examine a measure of mispricing from Ofek, Richardson, and Whitelaw (2004), 
+PutCallDisparity, which is defined as the log difference between the stock price from the spot 
+market and the synthetic stock price implied from put-call parity in the options market.  Ofek, 
+Richardson, and Whitelaw (2004) and Evans et al. (2009) show that when PutCallDisparity is 
+positive, a short seller would want to short sell the underlying stock and purchase the synthetic 
+stock, and they would expect the two to converge by the option expiration date. 
+INSERT TABLE VII ABOUT HERE 
+Accordingly, Table VII examines the relation between PutCallDisparity, short-selling 
+risk, and holding horizon using OLS panel regressions of the form       
+𝑃𝑢𝑡𝐶𝑎𝑙𝑙𝐷𝑖𝑠𝑝𝑎𝑟𝑖𝑡𝑦𝑖,𝑡= 𝛽1𝑀𝑜𝑛𝑡ℎ𝑠 𝑡𝑜 𝐸𝑥𝑝𝑖𝑟𝑎𝑡𝑖𝑜𝑛𝑖,𝑡 + 𝛽2𝑆ℎ𝑜𝑟𝑡 𝑅𝑖𝑠𝑘𝑖,𝑡−1+ 
+𝛽3(𝑆ℎ𝑜𝑟𝑡 𝑅𝑖𝑠𝑘𝑖,𝑡−1 × 𝑀𝑜𝑛𝑡ℎ𝑠 𝑡𝑜 𝐸𝑥𝑝𝑖𝑟𝑎𝑡𝑖𝑜𝑛𝑖,𝑡) + Controls + 𝐹𝐸𝑖+ 𝐹𝐸𝑡+ 𝜀𝑖,𝑡, 
+(7) 
+where i indexes firms, t indexes time, and Months to Expiration is our measure of the 
+arbitrageur's expected holding horizon, defined as the number of months between an option’s 
+expiration date and the current date.  The variable ShortRisk is calculated as before but is now 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 26 ---
+26 
+ 
+matched to the option expiration date.  Specifically, we first run predictive regressions as in 
+equation (1), where the dependent variable is loan fee variance measured over 1 to 30 days, 31 to 
+60 days, 61 to 90 days, and so on.  We then take this forecast, ShortRisk, and use it as a predictor 
+of PutCallDisparity measured using the same option expiration window.   This lets us match the 
+holding horizon of the arbitrageur with the expected short-selling risk she will face over that 
+horizon. 
+We include firm and date fixed effects in all models to control for possible unobserved 
+heterogeneity.  The coefficient estimates are shown in Table VII with t-statistics (shown in 
+parentheses below the coefficient estimates) calculated using a block bootstrap with 200 
+replications.  To examine the general relation between short-selling risk and mispricing, in model 
+(1) we omit the interaction between ShortRisk and Months to Expiration.  In this specification, 
+the positive and statistically significant coefficient on short risk suggests that the no-arbitrage 
+put-call parity equation is more likely to be violated when short-selling risk is high.  In other 
+words, the results provide additional support for our main hypothesis: short-selling risk leads to 
+more mispricing. 
+In models (2) and (3) we add an interaction term between ShortRisk and Months to 
+Expiration to test whether short-selling risk matters more for trades with a longer expected 
+holding period.  We find evidence that it does.  In model (3), the statistically significant 
+coefficient of 0.0303 on the interaction term suggests that PutCallDisparity is 13.9% above its 
+unconditional mean when both ShortRisk and Months to Expiration are at the 25th percentile in 
+our sample, but the effect increases to 149% when both ShortRisk and Months to Expiration are 
+at the 75th percentile of our sample.19  In other words, there is significantly more mispricing 
+                                                     
+19 The unconditional mean of PutCallDisparity is 0.46.  When ShortRisk is at the 25th percentile of its distribution 
+(1.54) and Months to Expiration is at the 25th percentile of its distribution (two months), we find that PutCall 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 27 ---
+27 
+ 
+today when short-selling risk is high and the trade has a long expected holding horizon.  
+Similarly, in model (2) we find that the impact of ShortRisk increases for options with a longer 
+time to expiration. 
+Importantly, in models (1) and (2) we control for the current level of short sale 
+constraints by including Loan Fee as a control variable.  Ofek, Richardson, and Whitelaw (2004) 
+and Evans et al. (2009) find that the magnitude of PutCallDisparity is related to the level of short 
+sale constraints today.  Our results go beyond this finding – we show that even after controlling 
+for the level of current short-selling constraints, the risk of short-selling constraints is associated 
+with more mispricing today.  
+In models (1) through (3) of Table VII, we find that short-selling risk is associated with 
+more mispricing today.  Existing theoretical work (e.g., D’Avolio and Perold (2003)) posits that 
+higher mispricing today is a result of less trading by arbitrageurs.  Accordingly, we next examine 
+the relation between daily short sale volume, short-selling risk, and expected holding horizon 
+using OLS panel regressions of the form 
+𝑆ℎ𝑜𝑟𝑡 𝑉𝑜𝑙𝑢𝑚𝑒𝑖,𝑡= 
+𝛽1𝑃𝑢𝑡𝐶𝑎𝑙𝑙𝐷𝑖𝑠𝑝𝑎𝑟𝑖𝑡𝑦𝑖,𝑡+𝛽2𝑀𝑜𝑛𝑡ℎ𝑠 𝑇𝑜 𝐸𝑥𝑝𝑖𝑟𝑎𝑡𝑖𝑜𝑛𝑖,𝑡+𝛽3𝑆ℎ𝑜𝑟𝑡 𝑅𝑖𝑠𝑘𝑖,𝑡−1 
++𝛽4(𝑆ℎ𝑜𝑟𝑡 𝑅𝑖𝑠𝑘𝑖,𝑡−1 × 𝑀𝑜𝑛𝑡ℎ𝑠 𝑡𝑜 𝐸𝑥𝑝𝑖𝑟𝑎𝑡𝑖𝑜𝑛𝑖,𝑡)+Controls+𝐹𝐸𝑖+ 𝐹𝐸𝑡 +𝜀𝑖,𝑡, 
+(8) 
+ 
+where i indexes firms, t indexes time, and short volume is the number of shares shorted each day 
+from TAQ, expressed as a fraction of shares outstanding.  The results are reported in models (4) 
+through (6) of Table VII; we include firm and date fixed effects in all models with standard 
+errors calculated using a block bootstrap with 200 replications.  As in models (1) through (3), we 
+                                                     
+Disparity is 13.9% higher = (0.0122 × 2 + -0.0348 × 1.54 + 0.0303 × 2 × 1.54) / 0.46.  However, when ShortRisk is 
+at the 75th percentile of its distribution (5.38) and Months to Expiration is at the 75th percentile of its distribution 
+(five months), we find that PutCallDisparity is 149% higher = (0.0122 × 5 + -0.0348 × 5.38 + 0.0303 × 5 × 5.38)) / 
+0.46.   
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 28 ---
+28 
+ 
+again calculate 𝑆ℎ𝑜𝑟𝑡𝑅𝑖𝑠𝑘 as predicted loan fee variance measured over 1 to 30 days, 31 to 60 
+days, 61 to 90 days, and so on, matching the holding horizon of PutCallDisparity and Months to 
+Expiration.  This lets us match the holding horizon of the arbitrageur with the expected short-
+selling risk she will face over that horizon. 
+Consistent with theory (e.g., D’Avolio and Perold (2003)), we find that short volume is 
+decreasing in both the holding horizon and short-selling risk.  In model (4), the negative and 
+statistically significant coefficient of -0.0763 on ShortRisk implies that a one-standard-deviation 
+increase in short-selling risk is associated with 10.6% decrease in short volume, relative to its 
+unconditional mean.  In other words, short sellers trade less today when short risk is high over 
+the expected holding horizon of their trade. 
+Following the logic that motivated the analysis in equation (7), we expect short risk to 
+matter more for trades with a longer expected holding horizon.  Thus, in models (5) and (6) we 
+again examine the interaction between ShortRisk and Months to Expiration.  In all models, the 
+negative coefficient on the interaction term shows that the effect of short risk is strongest when 
+Months to Expiration is larger, in other words, we find that short sellers trade less when the 
+expected holding period is long.  In model (6), the results suggest that short volume is 5.1% 
+lower when both ShortRisk and Months to Expiration are at the 25th percentile in our sample, but 
+the effect increases to 21.7% when both ShortRisk and Months to Expiration are at the 75th 
+percentile of our sample.20  In other words, short sellers trade significantly less when short-
+selling risk is high and this effect is compounded by long holding horizons. 
+                                                     
+20 The unconditional mean of short volume/shares outstanding is 2.26.  When ShortRisk is at the 25th percentile of its 
+distribution (1.54) and Months to Expiration is at the 25th percentile of its distribution (two months), we find that 
+short volume is 5.1% lower = (-0.0004 × 2 + -0.0731 × 1.54 + -0.0001 × 2 × 1.54) / 2.26. However, when ShortRisk 
+is at the 75th percentile of its distribution (5.38) and Months to Expiration is at the 75th percentile of its distribution 
+(five months), we find that short volume is 21.7% lower = (-0.0004 × 5 + -0.0731 × 5.38 + -0.0001× 5 × 5.38) / 
+2.26.   
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 29 ---
+29 
+ 
+ 
+The result in Table VII also relates to a long-standing question in the existing short-
+selling literature.  Several papers find it puzzling that investors do not short sell stocks in larger 
+amounts (e.g., Lamont and Stein (2004) and Duarte, Lou, and Sadka (2006)).  Our results 
+suggest that short sellers trade less when short-selling risk is high, especially for trades with a 
+long expected holding horizon.  In other words, short-selling risk may help explain why there is 
+so little short selling.  
+ 
+B. Noise Trader Risk and Short-Selling Risk 
+ 
+In the preceding subsections, we document and examine several unique risks faced by 
+short sellers and find that higher short-selling risk is associated with lower future returns, less 
+price efficiency, and less trading by arbitrageurs.  In this section, we explore the relation between 
+short-selling risk and other limits to arbitrage.  For example, Lamont (2012) notes that lending 
+market conditions appear to deteriorate precisely when short sellers most want to trade, and he 
+notes that some firms actively try to impact lending market conditions to prevent short sellers 
+from trading.  As a result, short-selling risk may be related to other market conditions, and these 
+covariances may exacerbate existing limits to arbitrage. 
+INSERT FIGURE 2 ABOUT HERE 
+ 
+As a first pass, in Figures 2 and 3 we conduct a simple analysis in which we sort stocks 
+by their past 20-day return ranking and compare their return ranking to changes in share 
+availability and changes in loan fees.  The results are striking: in Panel A of Figure 2 there is a 
+strong U-shaped pattern in loan fees (highlighted by gray vertical bars), indicating that loan fees 
+tend to be high for stocks with extreme returns.  Specifically, in our sample of U.S. equities over 
+the period July 1, 2006 through December 31, 2011, the unconditional mean loan fee is 85 bps 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 30 ---
+30 
+ 
+per annum.  However, for the 2% of stocks that experienced the largest price increase over the 
+previous 20 days, the mean loan fee is almost three times larger with a mean value of 236 bps per 
+annum, a movement that corresponds to nearly 40% of a standard deviation.  In Panel B, we 
+examine loan fee changes and again find that loans fees tend to increase for stocks with extreme 
+stock returns. 
+INSERT FIGURE 3 ABOUT HERE 
+In fact, we find that loan fees increase significantly when past returns are in either the 
+highest or the lowest quartile of returns.  Moreover, in Figure 3 we find a strong hump-shaped 
+pattern in loan supply, indicating that the supply of shares available to be borrowed exhibits a 
+similar pattern.  While the unconditional mean loan supply is 18% of shares outstanding, the 
+mean loan supply is only 12% for the 2% of stocks that experienced the largest price increase 
+over the previous 20 days, a movement that corresponds to over 40% of a standard deviation.  In 
+other words, when a short seller’s position moves against her, it is likely that it will be more 
+difficult to borrow shares in the equity lending market.   
+INSERT TABLE VIII ABOUT HERE 
+In Table VIII, we run an OLS panel regression specification designed to test the patterns 
+shown in Figures 2 and 3.  In particular, we run regressions of the form 
+LendingMarketConditioni,t = α + β1LowPastReturnsi,t-1,t-20 +β2HighPastReturnsi, t-1,t-20 +εi,t, (9) 
+where the dependent variable, LendingMarketConditioni,t, is either Loan Feei,t or Loan Supplyi,t.  
+The results confirm that when returns are in either the lowest or the highest decile of past returns, 
+loan fees are higher and loan supply is lower.  Specifically, in model (2) we find that firms in the 
+bottom decile of past returns tend to have loan fees that are 13 bps higher and firms that are in 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 31 ---
+31 
+ 
+the top decile of past returns tend to have loan fees that are 10 bps higher.  Compared to the 
+unconditional mean (median) loan fee of 85 bps (11 bps), these results are economically large, 
+with the latter result suggesting that loan fees increase precisely when a short seller’s position 
+has moved against her.  Similarly, in model (4) we find that firms in the top decile of past returns 
+tend to have significantly lower loan supply.  In fact, the statistically significant coefficient 
+estimate of -0.7117 on HighPastReturnsi in model (4) suggests that loan supply levels fall when 
+past returns are high, precisely when it is most costly for a short seller.  
+One potential concern with these results is that we have omitted a firm characteristic in 
+the specification that jointly determines extreme returns and high loan fees.  For example, small 
+stocks or illiquid stocks might have high loan fees and also extreme returns.  To address this 
+concern, models (2) and (4) include firm fixed effects so that the coefficients are estimated 
+within-firm.  Although the magnitude of the coefficient shrinks, the conclusion remains the 
+same: loan fees rise when a stock’s return is extremely high or extremely low, and loan supply 
+contracts precisely when a stock’s return is extremely high.  In other words, short-selling risk is 
+not only a limit to arbitrage on its own -- it may also magnify other previously studied limits to 
+arbitrage.  
+IV. Conclusion 
+ 
+Most of the short-selling literature takes a static view of short-selling costs: if loan fees 
+are high or shares unavailable today, prices may be too high today.  In this paper we propose a 
+dynamic, risk-based view.  Among a cross-section of approximately 4,500 U.S. stocks traded 
+from July 2006 through December 2011, we find that long-short portfolios based on short-selling 
+risk have five-factor alphas of 75 bps per month.  Furthermore, we find that short-selling risk is 
+associated with decreased price efficiency and less short selling today.  Overall, we find that 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 32 ---
+32 
+ 
+short-selling risk is associated with more mispricing and less short selling, especially for trades 
+with longer holding periods. 
+ 
+This evidence sheds light on two puzzles in the short-selling literature.  Specifically, 
+several papers have shown that high short interest predicts low future returns, which begs the 
+question of why publicly available short interest data continue to have return predictability.  Our 
+results show that this puzzle is particularly strong among stocks with high short-selling risk, 
+which suggests that dynamic short sale constraints may explain some of the puzzle.  Moreover, 
+the literature finds it surprising that investors do not short sell stocks in larger amounts.  We find 
+that short sellers trade less when short-selling risk is high, which suggests that dynamic short sale 
+constraints help explain the low level of short selling.  Taking the two puzzles together, the 
+overall idea emerges; when short selling is risky, short sellers are less likely to trade and prices 
+are too high.   
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 33 ---
+33 
+ 
+REFERENCES 
+ 
+Aggarwal, Reena, Pedro A. C. Saffi, and John Sturgess, 2015, The role of institutional investors 
+in voting: Evidence from the securities lending market, Journal of Finance 70, 2309-
+2346. 
+ 
+Ang, Andrew, Robert Hodrick, Yuhang Xing, and Xiaoyan Zhang, 2006, The cross-section of 
+volatility and expected returns, Journal of Finance 61, 259-299. 
+ 
+Asquith, Paul, Parag A. Pathak, and Jay R. Ritter, 2005, Short interest, institutional ownership, 
+and stock returns, Journal of Financial Economics 78, 243-276. 
+ 
+Battalio, Robert, and Paul Schultz, 2011, Regulatory uncertainty and market liquidity: the 2008 
+short sale ban's impact on equity option markets, Journal of Finance 66, 2013-2053. 
+ 
+Beber, Alessandro, and Marco Pagano, 2013, Short-selling bans around the world: evidence from 
+the 2007–09 crisis, Journal of Finance 68, 343-381. 
+ 
+Beneish, Messod Daniel, Charles M. C. Lee, and Craig Nichols, 2015, In short supply: equity 
+overvaluation and short selling, Journal of Accounting and Economics 60, 33-57. 
+ 
+Boehmer, Ekkehart, Zsuzsa Huszar, and Brad Jordan, 2010, The good news in short interest, 
+Journal of Financial Economics 96, 80-97. 
+ 
+Boehmer, Ekkehart, Charles M. Jones, and Xiaoyan Zhang, 2008, Which shorts are informed?  
+Journal of Finance 63, 491-527. 
+ 
+Boehmer, Ekkehart, Charles M. Jones, and Xiaoyan Zhang, 2013, Shackling short sellers: The 
+2008 shorting ban, Review of Financial Studies 26, 1363-1400. 
+ 
+Cohen, Lauren, Karl B. Diether, and Christopher J. Malloy, 2009, Shorting demand and 
+predictability of returns, Journal of Investment Management 7, 36-52. 
+ 
+D’Avolio, Gene, 2002a, The market for borrowing stock, Journal of Financial Economics 66, 
+271-306. 
+ 
+D’Avolio, Gene, 2002b, Appendix to “The market for borrowing stock”: Modeling equilibrium, 
+Unpublished manuscript, Harvard University. 
+ 
+D’Avolio, Gene M., and André F. Perold, 2003, Short selling in practice: Intermediating 
+uncertain share availability, Working paper, Harvard University. 
+ 
+Danielsen, Bartley, and Sorin Sorescu, 2001, Why do option introductions depress stock prices?  
+An empirical study of diminishing short sale constraints, Journal of Financial and 
+Quantitative Analysis 36, 451-484. 
+ 
+Diamond, Douglas W., and Robert E. Verrecchia, 1987, Constraints on short-selling and asset 
+price adjustment to private information, Journal of Financial Economics 18, 277-311. 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 34 ---
+34 
+ 
+ 
+Diether, Karl B., Kuan-Hui Lee, and Ingrid M. Werner, 2009, It's SHO time! Short-sale price 
+tests and market quality, Journal of Finance 64, 37-73. 
+ 
+Drechsler, Itmar, and Qingyi Drechsler, 2014, The shorting premium and asset pricing 
+anomalies, Working paper, New York University. 
+ 
+Duarte, Jefferson, Xiaoxia Lou, and Ronnie Sadka, 2006, Can liquidity events explain the low-
+short-interest puzzle?  Implications from the options market, Unpublished manuscript, 
+Boston College. 
+ 
+Duffie, Darrell, Nicolae Gârleanu, and Lasse Heje Pedersen, 2002, Securities lending, shorting, 
+and pricing, Journal of Financial Economics 66, 307-339. 
+Evans, Richard B., Christopher C. Geczy, David K. Musto, and Adam V. Reed, 2009, Failure is 
+an option: Impediments to short selling and options prices, Review of Financial Studies 
+22, 1955-1980. 
+ 
+Fama, Eugene, and Kenneth French, 1993, Common risk factors in the returns on stocks and 
+bonds, Journal of Financial Economics 33, 3-56. 
+ 
+Fama, Eugene, and Kenneth French, 2008, Dissecting anomalies, Journal of Finance 63, 1653-
+1678. 
+ 
+Fama, Eugene, and Kenneth French, 2015, A five-factor asset pricing model, Journal of 
+Financial Economics 116, 1-22. 
+ 
+Fama, Eugene F., and James D. MacBeth, 1973, Risk, return, and equilibrium: Empirical tests, 
+Journal of Political Economy 81, 607-636. 
+ 
+Figlewski, Stephen, 1981, The informational effects of restrictions on short sales: Some 
+empirical evidence, Journal of Financial and Quantitative Analysis 16, 463-476. 
+ 
+Figlewski, Stephen, and Gwendolyn P. Webb, 1993, Options, short sales, and market 
+completeness, Journal of Finance 48, 761-777. 
+ 
+Geczy, Christopher C., David K. Musto, and Adam V. Reed, 2002, Stocks are special too: An 
+analysis of the equity lending market, Journal of Financial Economics 66, 241-269.  
+ 
+Greene, William H., 2002, Econometric Analysis (Prentice-Hall, Upper Saddle River, NJ).  
+ 
+Harrison, Michael J., and David M. Kreps, 1978, Speculative investor behavior in a stock market 
+with heterogeneous expectations, Quarterly Journal of Economics 92, 323-336. 
+ 
+Hirshleifer, David, Siew Hong Teoh, and Jeff Jiewei Yu, 2011, Do short-sellers arbitrage 
+accrual-based return anomalies? Review of Financial Studies 24, 2429-2461. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 35 ---
+35 
+ 
+Hou, Kewei, and Tobias J. Moskowitz, 2005, Market frictions, price delay, and the cross-section 
+of expected returns, Review of Financial Studies 18, 981-1020.  
+ 
+Jones, Charles, 2008, Shorting restrictions – revisiting the 1930s, Unpublished manuscript, 
+Columbia University. 
+ 
+Jones, Charles M., and Owen A. Lamont, 2002, Short-sale constraints and stock returns, Journal 
+of Financial Economics 66, 207-239. 
+ 
+Kolasinski, Adam C., Adam V. Reed, and Matthew C. Ringgenberg, 2013, A multiple lender 
+approach to understanding supply and search in the equity lending market, Journal of 
+Finance 68, 559-595. 
+ 
+Lamont, Owen A., 2012, Go down fighting: Short sellers vs. firms, Review of Asset Pricing 
+Studies 2, 1-30. 
+ 
+Lamont, Owen A., and Jeremy C. Stein, 2004, Aggregate short interest and market valuations, 
+American Economic Review Papers and Proceedings 94, 29-32. 
+ 
+Lamont, Owen A., and Richard H. Thaler, 2003, Can the market add and subtract?  Mispricing in 
+tech stock carve-outs, Journal of Political Economy 111, 227-268.  
+ 
+Miller, Edward M., 1977, Risk, uncertainty, and divergence of opinion, Journal of Finance 32, 
+1151-1168. 
+ 
+Mitchell, Mark, Todd Pulvino, and Erik Stafford, 2002, Limited arbitrage in equity markets, 
+Journal of Finance 57, 551-584. 
+ 
+Nagel, Stefan, 2005, Short sales, institutional investors and the cross-section of stock returns, 
+Journal of Financial Economics 78, 277-309. 
+ 
+Newey, Whitney K., and Kenneth D. West, 1987, A simple, positive semi-definite, 
+heteroskedasticity and autocorrelation consistent covariance matrix, Econometrica 55, 
+703-708. 
+ 
+Ofek, Eli, Matthew Richardson, and Robert Whitelaw, 2004, Limited arbitrage and short sales 
+restrictions: Evidence from the options markets, Journal of Financial Economics 74, 305-
+342. 
+ 
+Pagan, Adrian, 1984, Econometric issues in the analysis of regressions with generated regressors, 
+International Economic Review 25, 221-247. 
+ 
+Pontiff, Jeffrey, 2006, Costly arbitrage and the myth of idiosyncratic risk, Journal of Accounting 
+and Economics 42, 35-52. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 36 ---
+36 
+ 
+Prado, Melissa Porras, Pedro A. C. Saffi, and John Sturgess, 2016, Ownership structure, limits to 
+arbitrage and stock returns: Evidence from equity lending markets, Review of Financial 
+Studies 29, 3211-3244. 
+ 
+Rapach, David E., Matthew C. Ringgenberg, and Guofu Zhou, 2016, Aggregate short interest 
+and return predictability, Journal of Financial Economics 121, 46-65. 
+ 
+Saffi, Pedro A. C., and Kari Sigurdsson, 2011, Price efficiency and short selling, Review of 
+Financial Studies 24, 821-852. 
+ 
+Senchack Jr., A. J., and Laura T. Starks, 1993, Short-sale restrictions and market reaction to 
+short-interest announcements, Journal of Financial & Quantitative Analysis 28, 177-194. 
+ 
+Shleifer, Andrei, and Robert W. Vishny, 1997, The limits of arbitrage, Journal of Finance 52, 
+35-55. 
+ 
+Stambaugh, Robert F., Jianfeng Yu, and Yu Yuan, 2012, The short of it: Investor sentiment and 
+anomalies, Journal of Financial Economics 104, 288-302. 
+ 
+Stambaugh, Robert F., Jianfeng Yu, and Yu Yuan, 2015, Arbitrage asymmetry and the 
+idiosyncratic volatility puzzle, Journal of Finance 70, 1903-1948. 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 37 ---
+37 
+ 
+Panel A: Mean Monthly Portfolio Returns 
+ 
+ 
+Panel B: Cumulative Portfolio Returns over Time 
+ 
+ 
+Figure 1. Portfolio returns from conditioning on short-selling risk.  Panel A displays mean monthly percentage returns for portfolios 
+and Panel B plots the cumulative return to long-short portfolios calculated over the period July 2006 through December 2011.  Each 
+month, portfolios are formed by sorting into quintiles using the previous month’s short-selling risk and these portfolios are held for one 
+month.  At the far right of Panel A, we display returns from a long-short portfolio that takes a long position in the low short-selling risk 
+portfolio (quintile 1) and a short position in the high short-selling risk portfolio (quintile 5).  In Panel B, we plot the cumulative returns 
+to a long-short portfolio that buys stocks in the lowest quintile of short-selling risk and shorts stocks in the highest quintile of short-
+selling risk.  These equal-weighted portfolios are then held for one calendar month. 
+ 
+ 
+ 
+ 
+-0.6
+-0.4
+-0.2
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+Short Risk:
+1 (Low)
+Short Risk:
+2
+Short Risk:
+3
+Short Risk:
+4
+Short Risk:
+5 (High)
+Long (1) -
+Short (5)
+Mean Monthly Portfolio Returns 
+(in percent)
+-10
+0
+10
+20
+30
+40
+50
+60
+70
+80
+July-2006
+July-2007
+July-2008
+July-2009
+July-2010
+July-2011
+Cumulative Return
+(in %)
+Date
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 38 ---
+38 
+ 
+ 
+ 
+Panel A: Mean Loan Fee 
+Panel B: Mean Loan Fee Changes 
+ 
+Figure 2. Mean loan fees conditional on stock returns over the previous 20 days. Panels A and B plot mean loan fees and mean loan 
+fee changes, respectively, conditional on stock returns over the previous 20 days.  For each day, we rank the stock return over the 
+previous 20 days (i.e., date t-1, t-20) into 50 equally sized bins and then for each bin we calculate the mean loan fee or loan fee change 
+on date t.  In each panel the left vertical axis denotes Loan Fee in bps per annum.  The loan fee measures the cost of borrowing a stock 
+and is calculated as the difference between the rebate rate for a specific loan and the prevailing market rebate rate.  The rebate rate for 
+an equity loan is the rate at which interest on collateral is rebated back to the borrower.  The right vertical axis shows the mean value of 
+past 20-day returns in each of the 50 return bins, and the horizontal axis shows the 50 return bins. 
+ 
+ 
+ 
+-60
+-40
+-20
+0
+20
+40
+60
+80
+0
+50
+100
+150
+200
+250
+300
+350
+400
+450
+500
+0
+5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95
+Past 20-Day Return
+(in %)
+Mean Loan Fee  
+(in BPS)
+Past 20-Day Return Rank
+Loan Fee
+Stock Return
+-60
+-40
+-20
+0
+20
+40
+60
+80
+-0.5
+0
+0.5
+1
+1.5
+2
+2.5
+0
+5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95
+Past 20-Day Return
+(in %)
+Mean Loan Fee Change  
+(in BPS)
+Past 20-Day Return Rank
+Loan Fee Change
+Stock Return
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 39 ---
+39 
+ 
+ 
+Panel A: Mean Loan Supply 
+Panel B: Mean Loan Supply Changes 
+ 
+Figure 3. Mean loan supply conditional on stock returns over the previous 20 days.  Panels A and B plot mean loan supply and 
+mean loan supply changes, respectively, conditional on stock returns over the previous 20 days.  For each day, we rank the stock return 
+over the previous 20 days (i.e., date t-1, t-20) into 50 equally sized bins and then for each bin we calculate the mean loan supply or loan 
+supply change on date t.  In each panel the left vertical axis denotes Active Loan Supply as a percentage of shares outstanding.  The right 
+vertical axis shows the mean value of past 20-day returns in each of the 50 return bins, and the horizontal axis shows the 50 return bins. 
+ 
+-60
+-40
+-20
+0
+20
+40
+60
+80
+0
+5
+10
+15
+20
+25
+0
+5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95
+Past 20-Day Return 
+(in %)
+Mean Active Loan Supply 
+(as a % of shares outstanding)
+Past 20-Day Return Rank
+Loan Supply
+Stock Return
+-60
+-40
+-20
+0
+20
+40
+60
+80
+-0.07
+-0.06
+-0.05
+-0.04
+-0.03
+-0.02
+-0.01
+0
+0.01
+0.02
+0.03
+0
+5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95
+Past 20-Day Return 
+(in %)
+Mean Active Loan Supply  Change
+(as a % of shares outstanding)
+Past 20-Day Return Rank
+Loan Supply Change
+Stock Return
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+--- PAGE 40 ---
+40 
+ 
+Table I 
+Summary Statistics 
+Table I displays summary statistics. The sample combines equity lending data from Markit with 
+data from CRSP, Compustat, NYSE TAQ, and OptionMetrics.  The sample contains approximately 
+4,500 U.S. equities over the period July 1, 2006 through December 31, 2011.  Panel A displays 
+the Mean, Median, 1st Percentile, 99th Percentile, and Standard Deviation values of selected equity 
+lending variables.  Loan Supply represents the total number of shares owned by institutions with 
+lending programs, expressed as a percentage of shares outstanding.  Short Interest is the total 
+quantity of shares that were loaned out as a percentage of shares outstanding.  Short Volume is the 
+natural log of one plus short volume as a fraction of shares outstanding from TAQ (multiplied by 
+100 for scaling).  Utilization is the quantity of shares loaned out as a percentage of shares available 
+to be borrowed.  Loan Fee, often referred to as specialness, is the cost of borrowing a share in bps 
+per annum. Loan Length is the weighted average number of days that loans have been open. Qty. 
+Failures is the total quantity of shares that were not delivered as scheduled, expressed as a 
+percentage of shares outstanding. Panel B displays time-series properties of the lending market.  
+For each firm, we first calculate the time-series summary statistics, and the table presents the cross-
+sectional mean of these values.  Panel C displays information regarding firm characteristics: 
+Market Capitalization and Monthly Return are from CRSP.  Panel D displays information on our 
+short-selling risk measure as defined in Section II of the text. 
+Variable 
+Mean 
+Median 
+1st 
+99th 
+Standard 
+Deviation 
+ 
+ 
+ 
+ 
+ 
+ 
+Panel A: Lending Market Characteristics 
+Loan Supply 
+18.56% 
+19.28% 
+0.00% 
+46.42% 
+13.17% 
+Short Interest 
+4.43% 
+2.18% 
+0.00% 
+27.33% 
+5.99% 
+Short Volume 
+2.16 
+1.48 
+0.18 
+11.50 
+2.07 
+Utilization 
+13.68% 
+4.13% 
+0.00% 
+85.04% 
+20.15% 
+Loan Fee 
+85.13 bps 
+11.57 bps 
+-12.28 bps 
+1,479.29 bps 
+372.67 bps 
+Loan Length (in days) 
+81.46 
+65.00 
+2.00 
+373.00 
+82.61 
+Qty. Failures 
+0.36% 
+0.00% 
+0.00% 
+7.27% 
+3.39% 
+Panel B: Time-Series Properties of Lending Market Characteristics 
+Loan Fee 
+70.65 bps 
+49.01 bps 
+6.75 bps 
+301.42 bps 
+68.48 bps 
+Utilization 
+21.58% 
+18.35% 
+4.00% 
+72.09% 
+17.07% 
+Panel C: Firm Characteristics 
+Market Capitalization 
+$3.77B 
+$0.46B 
+$0.01B 
+$62.81B 
+$16.33B 
+Monthly Return 
+0.31% 
+0.26% 
+-33.84% 
+35.53% 
+12.45% 
+Panel D: Short-Selling Risk 
+ShortRisk 
+4.04 
+3.63 
+-0.92 
+12.11 
+3.00 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2312625
+
+[TRUNCATED at 80000 chars — 47 total pages]

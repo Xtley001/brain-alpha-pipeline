@@ -1,0 +1,2445 @@
+
+--- PAGE 1 ---
+
+--- PAGE 2 ---
+Praise for
+Advances in Active Portfolio Management
+Grinold & Kahn have been true pioneers in both the development and appli-
+cation of science and quantitative techniques in investing, and their work has 
+been foundational to the tremendous success of many of the investment strat-
+egies at Barclays Global Investors and, later, BlackRock. Advances in Active 
+Portfolio Management is an outstanding resource of insights and advances 
+that can greatly benefit any investor in today’s complex and increasingly 
+“efficient” markets.
+—Blake Grossman, former CEO of Barclays Global 
+Investors and Vice Chairman of BlackRock.
+Richard Grinold and Ronald Kahn’s Active Portfolio Management has 
+become a bible for active quant managers since its publication in 1995. Now, 
+Advances in Active Portfolio Management brings readers up to date on 
+critical issues—the estimation of expected return and risk in a dynamic envi-
+ronment, the effective implementation of insights, and accurate assessment 
+of portfolio performance. Along the way, it addresses contemporary devel-
+opments, including the role of active management in a world of smart beta 
+and factor investing, the increased use of leverage and its effects on portfolio 
+risk, and the importance of assessing crowding. Grinold and Kahn continue 
+to advance the theory and practice of quantitative investing.
+—Bruce I. Jacobs, Co-chief Investment Officer and Co-director 
+of Research, Jacobs Levy Equity Management
+Successful portfolio management requires a framework for understanding 
+the elements that matter the most, how they interact, and how to best make 
+the requisite trade-offs. In this book, the authors build on their prior ground-
+breaking work to advance our intuition about (1) the dynamic aspects of 
+active portfolio management—where signals, opportunities, and risks evolve 
+over time; (2) the use and misuse of diversification and leverage in portfolio 
+construction—and especially the implications for the management of tail 
+risks; (3) the importance of placing one’s own approach in the context of 
+what other market participants are doing; and (4) understanding the nuances 
+of how fees impact portfolio performance. This is an important book for 
+anyone concerned with alpha generation, risk assessment, and portfo-
+lio management at a time when practitioner sophistication is considerably 
+advanced, much of it because of the work of Grinold and Kahn.
+—André Perold, Co-Founder, Managing Partner, and CIO of  
+HighVista Strategies and the George Gund Professor of 
+Finance and Banking, Emeritus at Harvard Business School
+
+--- PAGE 3 ---
+If a sequel could ever outshine the original, Advances in Active Portfolio 
+Management threatens to do just that. Building on their earlier masterpiece, 
+Grinold and Kahn offer fresh insights into the central problems in invest-
+ing and provide solutions to many new ones. By taking on fully the dynamic 
+nature of active management with all its real-world complexity, the authors 
+show how their framework can be adapted to meet new needs. Written pri-
+marily for asset managers, it is fruitful reading for asset owners too, provided 
+one is willing to navigate through the evolving chain of notation!
+—Cheng Chih Sung, CEO of Avanda Investment 
+Management and advisor to multiple sovereign 
+investors in Norway, Singapore, and Thailand
+Richard Grinold has been a leading authority on quantitative active man-
+agement for decades. With active management evolving and becoming more 
+systematic, this latest book by renowned authors Grinold and Kahn is an 
+excellent resource for active managers. It provides insight into applications 
+of modern investment techniques and the changing dynamics in the pursuit 
+of alpha.
+—Morry Waked, Managing Director and Chief Investment 
+Officer, Vinva Investment Management, former 
+Global Chief Investment Officer, Active Equities, 
+Barclays Global Investors (BGI/BlackRock)
+Grinold and Kahn’s Advances in Active Portfolio Management is the 
+Bible for professional investment managers who fight in chaotic markets to 
+squeeze “alpha” out of diverse investment opportunities. Based on research 
+and practice in quantitative asset management over decades by the authors, 
+this book turns art of investing into science, skills into technology, and intu-
+itions into systematic thought process with mathematical reasoning. The 
+essential insights for portfolio managers are neatly organized and presented 
+in this book.
+—Katsunari Yamaguchi, CFA, Chairman, 
+Ibbotson Associates Japan, Inc.
+
+--- PAGE 4 ---
+RICHARD C. GRINOLD
+RONALD N. KAHN
+ACTIVE
+PORTFOLIO
+MANAGEMENT
+A D V A N C E S I N
+New Developments in 
+Quantitative Investing
+
+--- PAGE 5 ---
+United States Copyright Act of 1976, no part of this publication may be reproduced or distributed 
+in any form or by any means, or stored in a database or retrieval system, without the prior written 
+permission of the publisher.
+ISBN: 978-1-26-045372-0
+MHID:       1-26-045372-3
+The material in this eBook also appears in the print version of this title: ISBN: 978-1-26-045371-3,
+MHID: 1-26-045371-5.
+eBook conversion by codeMantra
+Version 1.0
+All trademarks are trademarks of their respective owners. Rather than put a trademark symbol after 
+every occurrence of a trademarked name, we use names in an editorial fashion only, and to the benefit 
+of the trademark owner, with no intention of infringement of the trademark. Where such designations 
+appear in this book, they have been printed with initial caps.
+McGraw-Hill Education eBooks are available at special quantity discounts to use as premiums and 
+sales promotions or for use in corporate training programs. To contact a representative, please visit 
+the Contact Us page at www.mhprofessional.com.
+This publication is designed to provide accurate and authoritative information in regard to the subject 
+matter covered. It is sold with the understanding that neither the author nor the publisher is engaged 
+in rendering legal, accounting, securities trading, or other professional services. If legal advice or 
+other expert assistance is required, the services of a competent professional person should be sought.
+—From a Declaration of Principles Jointly Adopted by a Committee of the
+American Bar Association and a Committee of Publishers and Associations
+TERMS OF USE
+This is a copyrighted work and McGraw-Hill Education and its licensors reserve all rights in and to 
+the work. Use of this work is subject to these terms. Except as permitted under the Copyright Act of 
+1976 and the right to store and retrieve one copy of the work, you may not decompile, disassemble, 
+reverse engineer, reproduce, modify, create derivative works based upon, transmit, distribute, dis-
+seminate, sell, publish or sublicense the work or any part of it without McGraw-Hill Education’s 
+prior consent. You may use the work for your own noncommercial and personal use; any other use 
+of the work is strictly prohibited. Your right to use the work may be terminated if you fail to comply 
+with these terms.
+THE WORK IS PROVIDED “AS IS.” McGRAW-HILL EDUCATION AND ITS LICENSORS 
+MAKE NO GUARANTEES OR WARRANTIES AS TO THE ACCURACY, ADEQUACY OR 
+COMPLETENESS OF OR RESULTS TO BE OBTAINED FROM USING THE WORK, INCLUD-
+ING ANY INFORMATION THAT CAN BE ACCESSED THROUGH THE WORK VIA HYPER-
+LINK OR OTHERWISE, AND  EXPRESSLY DISCLAIM ANY WARRANTY, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANT-
+ABILITY OR FITNESS FOR A PARTICULAR PURPOSE. McGraw-Hill Education and its licen-
+sors do not warrant or guarantee that the functions contained in the work will meet your requirements 
+or that its operation will be uninterrupted or error free. Neither McGraw-Hill Education nor its licen-
+sors shall be liable to you or anyone else for any inaccuracy, error or omission, regardless of cause, in 
+the work or for any damages resulting therefrom. McGraw-Hill Education has no responsibility for 
+the content of any information accessed through the work. Under no circumstances shall McGraw-
+Hill Education and/or its licensors be liable for any indirect, incidental, special, punitive, consequen-
+tial or similar damages that result from the use of or inability to use the work, even if any of them has 
+been advised of the possibility of such damages. This limitation of liability shall apply to any claim 
+or cause whatsoever whether such claim or cause arises in contract, tort or otherwise.
+
+--- PAGE 6 ---
+To Leilani
+and to Julia
+
+--- PAGE 7 ---
+This page intentionally left blank 
+
+--- PAGE 8 ---
+	
+	
+v
+Contents
+Acknowledgments  ix
+Preface  xi
+	 1	
+Introduction: Advances in Active Portfolio Management	
+1
+SECTION 1
+Recap of Active Portfolio Management
+	 2	
+Introduction to the Recap of  
+Active Portfolio Management Section	
+7
+	 3	
+Seven Insights into Active Management	
+11
+	 4	
+A Retrospective Look at the  
+Fundamental Law of Active Management	
+45
+	 5	
+Breadth, Skill, and Time	
+60
+SECTION 2
+Advances in Active Portfolio Management
+SECTION 2.1  Dynamic Portfolio Management
+	 6	
+Introduction to the Dynamic Portfolio Management Section	
+103
+	 7	
+Implementation Efficiency	
+124
+	 8	
+Dynamic Portfolio Analysis	
+139
+	 9	
+Signal Weighting	
+170
+	10	
+Linear Trading Rules for Portfolio Management	
+202
+	11	
+Nonlinear Trading Rules for Portfolio Management	
+240
+
+--- PAGE 9 ---
+	 vi	
+Contents
+SECTION 2.2  Portfolio Analysis and Attribution
+	12	
+Introduction to the Portfolio Analysis and Attribution Section	
+267
+	13	
+Attribution	
+288
+	14	
+The Description of Portfolios	
+312
+SECTION 3
+Applications of Active Portfolio Management
+SECTION 3.1  Expected Return: The Equity Risk Premium  
+and Market Efficiency
+	15	
+Introduction to “A Supply Model of the Equity Premium”	
+343
+	16	
+A Supply Model of the Equity Premium	
+344
+	17	
+Introduction to “Is Beta Dead Again?”	
+362
+	18	
+Is Beta Dead Again?	
+365
+	19	
+Introduction to “Are Benchmark Portfolios Efficient?”	
+380
+	20	
+Are Benchmark Portfolios Efficient?	
+385
+SECTION 3.2  Expected Return: Smart Beta
+	21	
+Introduction to the Smart Beta Section	
+399
+	22	
+Who Should Buy Smart Beta?	
+407
+	23	
+Smart Beta: The Owner’s Manual	
+419
+	24	
+Smart Beta Illustrated	
+436
+	25	
+The Asset Manager’s Dilemma	
+449
+SECTION 3.3  Risk
+	26	
+Introduction to the Risk Section	
+461
+	27	
+Heat, Light, and Downside Risk	
+464
+
+--- PAGE 10 ---
+	
+Contents	
+vii
+SECTION 3.4  Portfolio Construction
+	28	
+Introduction to the Portfolio Construction Section	
+487
+	29	
+Optimal Gearing	
+493
+	30	
+The Dangers of Diversification	
+510
+	31	
+The Surprisingly Small Impact of Asset Growth  
+on Expected Alpha	
+532
+	32	
+Mean-Variance and Scenario-Based Approaches  
+to Portfolio Selection	
+549
+	33	
+Five Myths About Fees	
+573
+SECTION 4
+Extras
+	34	
+Introduction to the Extras Section	
+591
+	35	
+Presentations upon Receiving the James R. Vertin Award	
+594
+	36	
+What Investors Can Learn from a Very Alternative Market	
+604
+	37	
+UCLA Master of Financial Engineering  
+Commencement Address	
+610
+SECTION 5
+Conclusion
+	38	
+Advances in Active Portfolio Management Conclusions	
+619
+Index  625
+
+--- PAGE 11 ---
+This page intentionally left blank 
+
+--- PAGE 12 ---
+	
+	
+ix
+Acknowledgments
+We have worked on the material in this book over roughly the past 30 years, 
+though most of the work occurred in the most recent half of that long period. 
+With that in mind, we have benefited from the support of several institutions 
+including BlackRock, Vinva, Barclays Global Investors (BGI), and Barra; 
+and especially key individuals at those institutions: Ken Kroner, Raffaele 
+Savi, and Jeff Shen at BlackRock and BGI; Morry Waked at Vinva and BGI; 
+Blake Grossman at BGI; and Andrew Rudd at Barra.
+We have also benefitted from coauthors on many of the articles that 
+form chapters in this book. Those coauthors include Gerry Garvey, Seanna 
+Kim, Ken Kroner, Mike Lemmon, Dean Petrich, Raffaele Savi, Matt Scan-
+lan, Scott Shaffer, Larry Siegel, Dan Stefek, and Mark Taylor. Larry Siegel 
+has the distinction of coauthoring an article separately with each of us. While 
+acknowledging the contributions of all our coauthors, we take full credit for 
+any remaining errors in the book.
+Most of our articles have appeared in the Journal of Portfolio Manage-
+ment, the Financial Analysts Journal, and publications of the CFA Institute 
+Research Foundation. We are strong supporters of these premier practitioner 
+journals and publications, and we thank them for their permission to include 
+our articles in this book.
+We thank our editor at McGraw-Hill Education, Noah Schwartzberg, 
+for his support of the project throughout.
+This work represents the views of the authors and not necessarily those 
+of our current or former employers.
+
+--- PAGE 13 ---
+This page intentionally left blank 
+
+--- PAGE 14 ---
+	
+	
+xi
+Preface
+At the end of 2017, Richard Grinold suggested that the two of us work on 
+a book collecting all the articles we have written since the second edition of 
+Active Portfolio Management came out in 2000. We had written many arti-
+cles over that time—together and separately—enough to form a coherent 
+body of new material.
+The idea of this new book deftly addressed our challenge in trying to 
+advance the framework we developed in Active Portfolio Management. The 
+second edition of that book is approaching its twentieth anniversary. It is 
+a long book that addresses the theory of active management in a timeless 
+manner. Its limitations include a focus on active management mainly as a 
+single-period problem (rather than the dynamic problem it is) and a scope 
+limited to problems known as of 2000 or earlier. That said, the material cov-
+ered by Active Portfolio Management remain relevant and important. We 
+didn’t need to replace that book but rather to augment it.
+As we started to work on the project, we realized that our efforts and 
+articles over the past 20 years or so fell into two broad categories of advanc-
+ing the theory presented in Active Portfolio Management and applying that 
+theory to issues that have risen to prominence since 2000. The book began 
+to take shape.
+When we published Active Portfolio Management, we both worked as 
+active managers at Barclays Global Investors (BGI). Nineteen years later, 
+Richard is retired and Ron is working at BlackRock (in the same group as 
+back then, but after BlackRock’s acquisition of BGI). Our perspectives on 
+active management remain closely aligned, and modern technology has 
+eliminated most of the challenges of working in different locations. We both 
+remain committed to applying rigorous analysis to investing, and we con-
+tinue to believe, as we stated in our earlier book, that the art of investing is 
+evolving into the science of investing.
+We hope our readers see this book as an invitation to constantly ques-
+tion and improve the status quo, as we have been attempting to do over our 
+careers, including since 2000. For investors interested in this area, much of 
+this work is currently dispersed in time and across sources. Having it in one 
+accessible place will enhance its power and impact.
+
+--- PAGE 15 ---
+This page intentionally left blank 
+
+--- PAGE 16 ---
+	
+	
+1
+1
+Introduction: 
+Advances in Active 
+Portfolio Management
+The quantitative approach to active management has developed over the 
+past 65 years. In 1952, Markowitz framed investing as a trade-off between 
+expected return and risk—which he defined as the variance of return—
+opening portfolio management to quantitative analysis.1 Subsequent 
+developments like the capital asset pricing model and the efficient markets 
+hypothesis quickly focused academics on indexing: passive investing. But, 
+starting in the 1970s, a number of separate efforts created a quantitative 
+framework for active investing.
+In 1995, and with a second edition in 2000, our book, Active Portfolio 
+Management, brought all these threads together into a coherent theory of 
+active management. We described how to develop forecasts of risk, return, 
+and cost and how to combine those elements into active portfolios. We pre-
+sented the information ratio—the ratio of active return to active risk—as the 
+key statistic for active management. All investors seek active managers with 
+high information ratios. The fundamental law of active management (Gri-
+nold 1989), a central concept of the book, shows that high information ratios 
+require some winning combination of skill in making investment decisions; 
+breadth of those decisions, for diversification; and efficiency of implementa-
+tion, so that the portfolio accurately captures the manager’s views. The book 
+was very popular when first published, and remains popular to this day, 
+because it is the recognized authority on quantitative active management.
+We have not stood still since 2000. The theory and framework of Active 
+Portfolio Management were state-of-the-art when written, but we have 
+1. Harry Markowitz, “Portfolio Selection,” Journal of Finance 7, no. 1 (1952): 77–91.
+
+--- PAGE 17 ---
+	 2	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+advanced the state of the art since then, in particular in viewing active man-
+agement as a dynamic problem rather than a one-period challenge, and also 
+in advancing portfolio analysis to provide new perspectives.
+The world of active management has also not stood still since 2000. 
+Issues, trends, and challenges have appeared since the publication of Active 
+Portfolio Management, and we have published many articles on these emerg-
+ing trends in refereed journals. Those articles applied the Active Portfolio 
+Management framework to analyze new problems.
+This book, Advances in Active Portfolio Management, is a companion 
+and successor book to Active Portfolio Management. Articles and essays 
+we have written—together and separately, mainly since the publication of 
+Active Portfolio Management—compose the chapters in this book. We have 
+chosen articles mainly along three dimensions: a recap of Active Portfolio 
+Management, advancing the Active Portfolio Management framework, and 
+applying the Active Portfolio Management framework to newer problems. 
+We have used those three dimensions to organize the book. For each arti-
+cle or group of related articles, we have added an introduction reviewing the 
+material with the benefit of time and providing context and background use-
+ful for reading the articles.
+Section 1 recaps Active Portfolio Management. After the introduction 
+to this section comes the chapter “Seven Insights into Active Management,” 
+a summary of seven key themes in that original book. “A Retrospective Look 
+at the Fundamental Law of Active Management” reviews how this key idea 
+has impacted the field in the 30 years since its publication. “Breadth, Skill, 
+and Time” then provides significant additional insight and detail into the 
+concept of breadth, the least understood component of the fundamental law.
+Section 2 covers advances in active portfolio management. The chapters 
+in this section fall into two general categories: dynamic portfolio manage-
+ment (Section 2.1) and portfolio analysis and attribution (Section 2.2). The 
+introduction to Section 2.1 provides an important overview to a set of articles 
+describing theory that developed over time. This dynamic portfolio manage-
+ment section includes five articles: “Implementation Efficiency,” “Dynamic 
+Portfolio Analysis,” “Signal Weighting,” “Linear Trading Rules for Portfolio 
+Management,” and “Nonlinear Trading Rules for Portfolio Management.” 
+The “Dynamic Portfolio Analysis” paper won the Bernstein Fabozzi/Jacobs 
+Levy Award for the best article in the Journal of Portfolio Management the 
+year it appeared.
+Section 2.2 covers portfolio analysis and attribution—in particular, an 
+approach that converts most attributes of interest into portfolios and then 
+provides analytical results through covariances and correlations between 
+those portfolios. The introduction to this subject provides a broad tutorial 
+on the topic, after which the included articles present the ideas in more devel-
+oped form and show examples. The introduction also discusses two articles 
+not included in the book that delve more deeply into particular points. The 
+two included articles are “Attribution” and “The Description of Portfolios.” 
+Both articles won outstanding article awards from the Journal of Portfolio 
+Management as part of the Bernstein Fabozzi/Jacobs Levy Awards.
+
+--- PAGE 18 ---
+	
+Introduction: Advances in Active Portfolio Management	
+3
+Section 3 covers applications of active portfolio management. This sec-
+tion includes a broader array of topics within four main areas: expected 
+return, smart beta, risk, and portfolio construction.
+Section 3.1, “Expected Return: The Equity Risk Premium and Mar-
+ket Efficiency,” includes chapters on estimating the equity risk premium (“A 
+Supply Model of the Equity Risk Premium”), the many uses of beta (“Is Beta 
+Dead Again?”), and a useful statistical test of whether benchmark portfolios 
+are efficient (“Are Benchmark Portfolios Efficient?”). Each of these chapters 
+has its own introduction.
+Section 3.2, “Expected Return: Smart Beta,” is on smart beta/fac-
+tor investing. It includes an introduction followed by four chapters: “Who 
+Should Buy Smart Beta?,” “Smart Beta: The Owner’s Manual,” “Smart Beta 
+Illustrated,” and “The Asset Manager’s Dilemma.” All these chapters pro-
+vide insight into this new product area that is disrupting active management.
+Section 3.3, “Risk,” includes an introduction and a chapter on alterna-
+tive definitions of risk titled “Heat, Light, and Downside Risk.”
+Section 3.4, “Portfolio Construction,” includes an introduction and five 
+articles. “Optimal Gearing” identifies and analyzes an issue not well under-
+stood among investment managers—that one cannot independently specify 
+risk level and gearing. “The Dangers of Diversification” describes challenges 
+associated with multistrategy or multimanager portfolios—overdiversifica-
+tion and too much exposure to some common factors like smart beta—which 
+lead to heightened tail risk. “The Surprisingly Small Impact of Asset Growth 
+on Expected Alpha” describes a model of capacity. While it describes a quan-
+titative approach to investing that in principle maximizes capacity, a key 
+challenge is that all managers following similar (correlated) strategies share 
+that capacity. “Mean-Variance and Scenario-Based Approaches to Portfolio 
+Selection” describes some challenges associated with using scenario-based 
+approaches to building portfolios. This chapter relates to the downside risk 
+chapter and includes important guidelines to controlling the scenario-based 
+process. The last chapter in this section, “Five Myths About Fees,” is more 
+about fees than portfolio construction, though it includes insights that can 
+help investors compare products with different fee structures. This article 
+also won the Bernstein Fabozzi/Jacobs Levy Best Paper Award the year it 
+appeared in the Journal of Portfolio Management.
+After covering these three main sections, we end with a few extras 
+in Section 4. “Presentations upon Receiving the James R. Vertin Award” 
+contains the authors’ remarks on winning this award, which is “presented 
+periodically by the CFA Institute to recognize individuals who have pro-
+duced a body of research notable for its relevance and enduring value to 
+investment professionals.”2 “What Investors Can Learn from a Very Alterna-
+tive Market” is an essay on behavioral finance using the example of baseball 
+and Michael Lewis’s book Moneyball. The “UCLA Master of Financial 
+Engineering Commencement Address,” hopefully appropriate for the pen-
+ultimate chapter in the book, provides some career advice for students just 
+2. CFA Institute website, https://www.cfainstitute.org/en/research/foundation/vertin-award.
+
+--- PAGE 19 ---
+	 4	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+beginning their financial engineering careers. We end the book with a Con-
+clusion that provides some perspective on the record of quantitative investing 
+over the past 65 years.
+Before finishing this Introduction, we need to provide readers with some 
+logistical warnings. This book is mainly a collection of previously pub-
+lished articles (and many technical appendices originally only available upon 
+request). These articles did not follow completely consistent notation as the 
+authors have developed and refined their notation over time. We have moved 
+these chapters closer to consistent notation, but they still do not follow com-
+pletely consistent notation.
+Related to that, equation numbers and exhibit numbers begin anew with 
+each chapter. Because the chapters began as independent articles, there is no 
+referencing of equations in one chapter by another chapter.
+Finally, we have used the benefit of hindsight to make some improve-
+ments to the articles, in addition to commenting on the articles in the 
+introductory chapters. While each chapter is highly correlated with its origi-
+nal published article, the correlation falls a bit below 100%.
+With this introduction behind us, let’s move on to Section 1.
+
+--- PAGE 20 ---
+SECTION 1
+Recap of 
+Active Portfolio 
+Management
+
+--- PAGE 21 ---
+This page intentionally left blank 
+
+--- PAGE 22 ---
+	
+	
+7
+2
+Introduction to the 
+Recap of Active Portfolio 
+Management Section
+Before focusing on advances to and applications of the theory and approach 
+we outlined in Active Portfolio Management, this first section of Advances 
+in Active Portfolio Management recaps some of the key elements of that pre-
+decessor book. We include three articles here:
+•	 “Seven Insights into Active Management” by Ronald N. Kahn
+•	 “A Retrospective Look at the Fundamental Law of Active Manage-
+ment” by Richard C. Grinold and Ronald N. Kahn
+•	 “Breadth, Skill, and Time” by Richard C. Grinold and Ronald 
+N. Kahn
+The first article covers seven insights that mostly make up the key themes in 
+Active Portfolio Management. The second article looks back on the impact 
+of the fundamental law of active management, 30 years after Richard Gri-
+nold’s original 1989 paper and 24 years after its appearance as a central 
+theme of Active Portfolio Management. The third article provides additional 
+insight into breadth, the least well understood element of the fundamen-
+tal law.
+“Seven Insights into Active Management”
+Of these three articles, this first one comes closest to actually recapping the 
+material in Active Portfolio Management. After the book first came out, we 
+presented a talk, “Seven Quantitative Insights into Active Management,” at 
+a number of investment conferences and later turned that talk into a series 
+
+--- PAGE 23 ---
+	 8	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+published in the Barra Newsletter and Barclays Global Investors’ Investment 
+Insights publication. The second edition of Active Portfolio Management 
+mentioned that talk in the Preface.
+The version we have included here reflects some editorial changes, plus 
+the adherence of one of us to the “rule of seven” organizing principle. We 
+have dropped two of the original insights and replaced them with two other 
+insights we deemed more central to active management, even if they aren’t 
+key elements of our previous book. We now start with Sharpe’s “arithme-
+tic of active management,”1 certainly a key insight into active management 
+even if not mentioned in Active Portfolio Management. We also include an 
+insight about allocating risk budgets to investment products in proportion to 
+information ratios, an insight of importance to product allocators even if we 
+never explicitly called it out in Active Portfolio Management.2 At the same 
+time, we dropped the insight that active management is forecasting—a key 
+element of Active Portfolio Management but one that came across as having 
+few actionable implications. We also dropped the insight that it’s hard to dis-
+tinguish skill from luck, in part because the insight that data mining is easy 
+covers much of the same ground.
+The chapter now includes the following insights:
+1.	The arithmetic of active management shows that it is worse than a 
+zero-sum game.
+2.	Information ratios determine value added.
+3.	Allocate risk budgets in proportion to information ratios.
+4.	Alphas must control for skill, volatility, and expectations.
+5.	The fundamental law of active management shows that information 
+ratios depend on skill, breadth, and efficiency.
+6.	Data mining is easy.
+7.	 Constraints and costs have a surprisingly large impact.
+As noted above, these mainly capture the key insights in Active Portfolio 
+Management.
+“A Retrospective Look at the Fundamental Law of 
+Active Management”
+Thirty years after Richard Grinold’s 1989 article, it seems worth looking 
+back at the impact of the fundamental law of active management. This chap-
+ter discusses the fundamental law and its implications, efforts to improve 
+the fundamental law since its publication, and its impact on the invest-
+ment world.
+Insight 2 above, right after the arithmetic of active management, shows 
+that the information ratio determines value added. All investors should 
+1. William F. Sharpe, “The Arithmetic of Active Management,.” Financial Analysts Journal 47, no. 1 
+(1991): 7–9.
+2. The book essentially contains this result, we just never explicitly use it.
+
+--- PAGE 24 ---
+	
+Introduction to the Recap of Active Portfolio Management Section	
+9
+prefer high information ratio products to low information ratio products. 
+Differences in risk preferences will lead to different overall capital alloca-
+tions, even if investors agree on the rank ordering of products. This insight 
+is important in framing the fundamental law: Given the central role of the 
+information ratio, what can we say about the ex ante information ratios of 
+different strategies?
+According to the fundamental law, the expected information ratio of an 
+active investment strategy—its ratio of exceptional active return to active 
+risk—is:
+	
+IR
+IC
+BR
+=
+⋅
+.
+(1)
+The information coefficient, or IC, is a measure of skill in each investment 
+decision. It is the correlation of forecasts with subsequent realizations. The 
+breadth, or BR, is a measure of diversification. We define it as the number 
+of investment decisions per year.3 High information ratios follow from high 
+levels of skill and/or high breadth or diversification. The law requires some 
+simplifying assumptions, but its value comes from its simplicity and its use in 
+making strategic decisions: Are we better off investing in our team so as to 
+increase their skill in investment decisions or to expand their coverage uni-
+verse? How viable is basic tactical asset allocation—shifting between stocks, 
+bonds, and cash on a roughly quarterly basis? As a statement about expected 
+information ratios—where we don’t expect three decimal places of accu-
+racy—the fundamental law provides a simple and intuitive relationship in 
+exchange for a few reasonable simplifying assumptions.
+While we have seen many attempts to improve the fundamental law, 
+most involve slight improvements in accuracy in exchange for considerable 
+increases in complexity—clear violations of the babies and bathwater tenet. 
+None of those proposed improvements have been widely adopted. There are 
+two developments worth mentioning, however. First is the very useful and 
+elegant improvement due to Clarke, de Silva, and Thorley: the transfer coef-
+ficient, or TC, to extend the fundamental law to handle real-world portfolios 
+built in the presence of constraints and transactions costs (poor portfolio 
+construction too).4 The transfer coefficient, which measures efficiency, is the 
+correlation of the actual portfolio held with the optimal paper portfolio built 
+without constraints and costs.
+The second development is an elaboration of the notion of breadth that 
+takes into account the flow and aging of information. That is the subject of 
+the third paper in this section. We will withhold discussion of that paper 
+until later in this introduction.
+The extended and widely adopted fundamental law is:
+	
+=
+⋅
+⋅
+IR
+IC
+BR TC.
+(2)
+3. Per year because we define the information ratio as an annualized number.
+4. Roger Clarke, Harindra de Silva, and Steven Thorley, “Portfolio Constraints and the Fundamental Law 
+of Active Management,” Financial Analysts Journal, September/October 2002, 48–66.
+
+--- PAGE 25 ---
+	 10	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+The fundamental law, Equation (2), has a very basic implication for active 
+managers, investors, and consultants. Every active manager, no matter their 
+investment style, must articulate some winning combination of skill, breadth, 
+and efficiency. Quantitative strategies tend to focus on all three of these. 
+Fundamental strategies aim in particular for high IC—deep understanding 
+of the relatively few stocks they hold—in combination with lower breadth 
+and efficiency. Both approaches can, in principle, lead to high information 
+ratios, depending on the details of skill, breadth, and efficiency. Tactical 
+asset allocation strategies, which used to be popular in the 1980s and 1990s, 
+are much less popular today in large part due to the fundamental law. Their 
+breadth is sufficiently low so that even reasonably high levels of skill do not 
+suffice to deliver high active return per unit of active risk. These debates, 
+framed through the fundamental law of active management, are now among 
+the daily discussions between managers, investors, and consultants.
+“Breadth, Skill, and Time”
+Four elements comprise the fundamental law of active management:
+•	 IR: the information ratio
+•	 IC: the information coefficient
+•	 BR: the breadth
+•	 TC: the transfer coefficient
+Investors understand the information ratio quite well. It is the ratio of two 
+quantities—active return and active risk—central to investing. Investors also 
+understand the information coefficient and the transfer coefficient, as both 
+are correlations, and they generally understand correlations. Breadth is dif-
+ferent. We have described it as the number of independent bets per year. It is 
+a rate and not a number. In particular, it’s not the number of portfolio hold-
+ings. We know from years of experience that many investors are confused 
+about breadth.
+This article uses an equilibrium dynamic model—a type of model that 
+will appear in many chapters in this book, and especially in Section 2.1, 
+“Dynamic Portfolio Management”—to provide insight into the concept of 
+breadth, as well as a refined notion of skill. In equilibrium, the arrival rate of 
+new information exactly balances the decay rate of old information. We call 
+that the information turnover rate, g. It is relatively easy to measure for any 
+investment process. If the investment process forecasts returns on N assets, 
+the breadth of the strategy is g N
+⋅
+. Skill—the correlation of forecasts and 
+returns—increases with return horizon for small horizons, but then asymp-
+totically decays to zero for very long horizons. Our main result is that the ex 
+ante information ratio (i.e., assuming TC = 1) is IR
+g N
+κ
+=
+⋅
+⋅
+, where κ is 
+a measure of skill.
+
+--- PAGE 26 ---
+	
+	
+11
+3
+Seven Insights into 
+Active Management1
+Our book Active Portfolio Management brought together a set of ideas, 
+many developed between the 1970s and 1990s, that constituted a systematic 
+approach to active investing. At a time when academic finance was firmly 
+anchored on efficient markets, we asked the question, If you had some infor-
+mation about future asset returns, how would you most effectively use that 
+information?
+This chapter provides a rough summary of many of the key ideas con-
+tained in Active Portfolio Management. It also includes some ideas and 
+examples not in that book but consistent with it in spirit. It overlaps to some 
+extent with the 1999 summary Seven Quantitative Insights into Active 
+Management, published by Barra (now MSCI) and Barclays Global Inves-
+tors (now BlackRock).
+Framework
+Let’s start with the basic framework for active management. We separate 
+asset (and portfolio) returns into a systematic (benchmark) component and a 
+residual component, qn(t):
+	
+r
+t
+r
+t
+t
+Cov r ,
+0
+n
+n
+B
+n
+B
+n
+β
+θ
+θ
+( )
+( )
+( )
+{
+}
+=
+⋅
++
+=
+
+(1)
+1. This is Chapter 4 in Ronald N. Kahn, The Future of Investment Management, CFA Institute Research 
+Foundation, 2018. Most of the ideas come directly from Active Portfolio Management by Grinold 
+and Kahn.
+
+--- PAGE 27 ---
+	 12	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+The capital asset pricing model states that the expected residual return 
+is zero. However, the active manager, having identified some useful informa-
+tion, g, forecasts residual returns not equal to zero:
+	
+E
+E
+g
+0
+|
+n
+n
+n
+θ
+θ
+α
+{
+}
+{
+} =
+≡
+
+(2)
+Much of the job of an active manager is to forecast residual returns. Active 
+managers can also forecast market returns, and some do. As we show in this 
+chapter, however, it’s difficult to deliver consistent performance by imple-
+menting such forecasts (timing the market). Note that active managers and 
+investors use the term alpha for several different things: forecast or realized 
+residual or active return (where active return is simply the return minus the 
+benchmark return).2 We consistently use alpha to denote forecast residual 
+returns. If we need to discuss any of its other meanings, we explicitly clar-
+ify them.
+We need to connect forecast residual returns with optimal portfolios. 
+We do this via Markowitz mean-variance optimization. Given our alpha 
+forecasts and risk forecasts for any possible portfolio, we can find the port-
+folio that achieves the highest expected alpha for any given risk level. In 
+particular, we define utility as follows:
+	
+Utility
+h
+h
+V h
+T
+T
+P
+P
+2
+λ
+α
+λω
+α
+=
+⋅
+−
+⋅
+⋅
+=
+−
+
+(3)
+In Equation (3), h is our vector of portfolio holdings, V is the covariance 
+matrix for the assets, l is the risk-aversion parameter capturing investor 
+preferences, and ω measures risk.
+We choose the portfolio that maximizes utility. To do that, we take the 
+derivative of the utility with respect to each of the holdings and set those 
+equal to zero. For the optimal portfolio, Q,
+	
+V h
+2
+Q
+λ
+α =
+⋅
+
+(4)
+Equation (4) directly connects our forecast alphas to portfolio positions. As 
+we vary the risk-aversion parameter, l, the optimal portfolio will vary. The 
+overweights and underweights (or long positions and short positions) will 
+scale up and down. In this way, the optimal portfolio risk will vary with risk 
+aversion.
+2. The difference between active return and residual return may be thought of as follows: Active return is 
+simply the arithmetic difference between the return on an asset or portfolio and that of its benchmark. To 
+calculate the residual return, one leverages the benchmark up or down to match the beta risk of the asset or 
+portfolio and then calculates the difference.
+
+--- PAGE 28 ---
+	
+Seven Insights into Active Management	
+13
+Insight 1. Active Management Is Worse Than a  
+Zero-Sum Game
+William F. Sharpe published “The Arithmetic of Active Management” in 
+1991. It is a two-page paper containing no equations whatsoever. In it, he 
+makes a simple argument:
+•	 The sum of all active management and index management positions is 
+the market.
+•	 The sum of all index management positions is the market.
+•	 Hence, the sum of all active management positions is the market.
+Based on this simple argument that active management in aggregate sums 
+to the market, Sharpe concluded that the (asset-weighted) average active 
+manager matches the market’s performance before fees and costs. This 
+is true whether or not the market is efficient. So, after fees and costs, the 
+average active manager must underperform the market. Index funds are 
+above-median performers, once again independent of whether the market 
+is efficient.
+Sharpe’s argument is quite powerful, though he does make a few 
+assumptions. He assumes that all index management positions sum to the 
+market. This assumption isn’t exactly true even for just the broad market 
+index funds, because those funds are often managed to different indexes. 
+In the United States, we have broad market index funds managed against 
+the S&P 500, the Russell 1000 Index, and the MSCI USA Index—not to 
+mention broad market small-cap indexes. There are also sector and other 
+not-broad index funds whose positions wouldn’t necessarily sum to the 
+market. On the active management side, professional active managers are 
+trying to outperform market indexes. There are also investors who hold non-
+market-cap-weight portfolios (which are active because they differ from the 
+market) but who are not professional active managers. These investors hold 
+positions, often with little active trading, either because their holdings might 
+be part of executive compensation, because trading would trigger significant 
+capital gains, or for other reasons.
+Still, considerable empirical evidence supports the key implication of 
+Sharpe’s arithmetic of active management: that the average active manager 
+underperforms the market. For example, Eugene Fama and Kenneth French 
+(2010) showed that active US equity mutual funds have produced a real-
+ized alpha of roughly zero on average before fees over the period from 1984 
+through 2006. They estimated the average realized alpha after fees to be 
+somewhere between –0.81% and –1.13% per year, with the exact number 
+depending on whether they control for one, three, or four factors. Our defi-
+nition of alpha controls for only one factor—the market (or a broad market 
+index)—but Fama and French also controlled for size and value factors and, 
+in their four-factor analysis, momentum.
+There are at least three important implications of the arithmetic of active 
+management. First, tests of whether successful active management is possible 
+need to look beyond average active performance. We know that the average 
+
+--- PAGE 29 ---
+	 14	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+active manager will underperform every year, even if a few successful active 
+managers outperform year after year. Relatedly, if you want to become an 
+active manager, it’s not good enough to be average. You need to believe that 
+you can consistently be a top-quartile active manager.
+The second implication is that broad market index funds will be 
+consistent second-quartile (or at least above-median) performers. This per-
+formance is independent of the efficiency of the market, and it provides a 
+strong argument in favor of indexing. Unless the investor has the ability to 
+identify successful active managers, he is better off with indexing. Other-
+wise, he is randomly choosing managers with negative expected alpha.
+The third implication is that the burden of proof is on active managers 
+to demonstrate that their expected active returns will more than compensate 
+for added risk and cost.
+Insight 2. Information Ratios Determine Added Value
+Let’s focus on the active manager’s job: outperforming a benchmark. Active 
+managers build portfolios by trading off alpha against residual risk (denoted 
+by w and shortened to simply “risk” in this discussion). As noted previously, 
+the utility, or added value, from active management is given in Equation (3).
+Individual preferences enter into the utility only in how individuals trade 
+off residual return against risk. More risk-averse investors will demand more 
+incremental return for each unit of risk.
+The information ratio is the manager’s (annualized) ratio of residual 
+return to risk:
+	
+IRP
+P
+P
+α
+ω
+=
+
+(5)
+We will consider this a fundamental constant defining the manager, assum-
+ing it does not vary with time or the level of risk. A manager can deliver more 
+residual return only by taking on more risk:
+	
+IR
+P
+P
+P
+α
+ω
+=
+⋅
+
+(6)
+This assertion is exactly true in the absence of constraints. For example, if 
+the manager overweights one position by 5% and underweights another by 
+3%, leading to a given forecast alpha, she can double both the alpha and the 
+risk by increasing the overweight to 10% and the underweight to 6%.
+Understanding Information Ratios
+We can think of the information ratio as a measure of consistency of per-
+formance—that is, the probability that the manager will realize positive 
+residual returns every period. Exhibit 1 shows the probability distribution of 
+alphas for three different information ratio distributions.
+
+--- PAGE 30 ---
+	
+Seven Insights into Active Management	
+15
+EXHIBIT 1  Alpha Distributions
+0.0%
+0.5%
+1.0% 
+1.5%
+2.0%
+2.5% 
+−10%
+−8%
+−6%
+−4%
+−2%
+0%
+2%
+4%
+6%
+8%
+10%
+Probability Distribution
+Alpha
+IR=0.0
+IR=0.5
+IR=1.0
+In this simple illustration, all three distributions have a residual risk level 
+of 2% and the residual returns are normally distributed. As the information 
+ratio increases, the distribution simply shifts to the right. The probability of 
+realizing a positive residual return is simply the area under the curve to the 
+right of a = 0. This probability strictly increases in this example as the infor-
+mation ratio increases.
+Even if we are comparing distributions with differing risk levels, if the 
+residual returns are normally distributed, we find that the probability of real-
+izing a positive residual return is:
+	
+IR
+Pr
+0
+α
+{
+}
+{
+}
+>
+= Φ
+
+(7)
+where Φ is the cumulative normal distribution function. At least in the 
+normal distribution case, the consistency of performance is a monotonic 
+function of the information ratio: the higher the information ratio, the more 
+likely it is that the manager will realize positive residual return in any period. 
+Although residual returns are not exactly normally distributed, we do gen-
+erally observe that consistency of performance increases with information 
+ratios.
+Utility Analysis
+Using Equation (6), we can rewrite the utility (i.e., the added value) as:
+	
+Utility
+IRP
+P
+P
+2
+ω
+λω
+=
+⋅
+−
+
+(8)
+
+--- PAGE 31 ---
+	 16	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+Exhibit 2 shows graphically how utility depends on risk. The active manager 
+chooses the portfolio corresponding to the maximum point in Exhibit 2. At 
+this point,
+	
+IR
+2
+P
+*
+ω
+λ
+=
+
+(9)
+	
+U
+IR
+4
+P
+*
+2
+λ
+=
+
+(10)
+Equation (9) describes the optimal level of residual risk, w*. Optimal resid-
+ual risk depends inversely on risk aversion and directly on the information 
+ratio. More risk-averse investors will choose lower levels of residual risk. The 
+higher the information ratio—and as we have seen, the higher the consis-
+tency of performance—the more residual risk an investor will tolerate.
+EXHIBIT 2  Utility as a Function of Risk
+Utility
+U*
+ω*
+Risk
+Each investor’s maximum added value depends, according to Equation 
+(10), directly on the square of the information ratio and inversely on the risk 
+aversion. This is the critical point. It means that a very risk-averse investor, 
+one with a very high value of l, will maximize added value by investing with 
+the manager with the highest information ratio. But a risk-tolerant inves-
+tor, with a low value of l, will reach exactly the same conclusion. The only 
+difference between the two is how much they will invest with that manager 
+versus an index fund, the zero-residual-risk choice.
+All investors, regardless of their preferences, will agree that the high-
+est information ratio can provide the most value. Equation (10) shows that 
+information ratios determine added value.
+Typical Values for Information Ratios
+Given the central role of information ratios, it is useful to know their 
+typical values. Based on research at Barra and BlackRock, the typical 
+
+--- PAGE 32 ---
+	
+Seven Insights into Active Management	
+17
+before-expenses distribution of information ratios is shown in Exhibit 3, and 
+specific empirical results are shown in Exhibit 4.
+EXHIBIT 3  Typical Distribution of Information Ratios
+PERCENTILE
+IR
+PR{α > 0}
+90
+1.0
+84%
+75
+0.5
+69%
+50
+0.0
+50%
+25
+–0.5
+31%
+10
+1.0
+16%
+EXHIBIT 4  Information Ratio Empirical Results
+EQUITY
+FIXED INCOME
+PERCENTILE
+MUTUAL 
+FUNDS
+LONG-ONLY 
+INST.
+LONG-SHORT 
+INST.
+INSTITUTIONAL
+AVERAGE
+90
+1.04
+0.77
+1.17
+0.96
+0.99
+75
+0.64
+0.42
+0.57
+0.50
+0.53
+50
+0.20
+0.02
+0.25
+0.01
+0.12
+25
+–0.21
+–0.38
+–0.22
+–0.45
+–0.32
+10
+–0.62
+–0.77
+–0.58
+–0.90
+–0.72
+Notes: These results are for US data over the five-year period from January 2003 through December 2007. 
+Empirical studies included 338 equity mutual funds, 1,679 equity long-only institutional funds, 56 equity long-
+short institutional funds, and 537 fixed-income mutual funds.
+Source: BlackRock.
+Exhibit 3 shows the typical distribution numbers. A top-quartile man-
+ager can add 50 bps of realized residual return for every 100 bps of residual 
+risk, before expenses. This finding holds for both equity and fixed-income 
+funds. Exhibit 4 shows results for studies of US equity mutual funds and 
+institutional portfolios, and fixed income institutional portfolios over the 
+five-year period from 2003 through 2007. These studies used Sharpe (1992) 
+style analysis to separate style from selection return for each fund. The style 
+component of the return represents the effective benchmark of each fund. 
+Exhibit 4 shows information ratios of the selection returns. Exact results 
+will vary with the historical period, the asset class under review, and the 
+methodology. These empirical results are roughly consistent with the data 
+in Exhibit 3.
+
+--- PAGE 33 ---
+	 18	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+Insight 3. Allocate Risk Budget in Proportion to 
+Information Ratios
+Insight 2 showed that investors should choose active managers on the basis 
+of their information ratios. What should an investor do when confronted 
+with many investment choices, with a variety of information ratios? The 
+investor will find the highest-information-ratio manager the most attractive, 
+but should the investor place all his money with that manager?
+We can also analyze this situation with mean-variance optimization. 
+Let’s say the investor has identified N different managers, each offering a 
+particular expected alpha, an, at residual risk wn and hence information 
+ratio IRn. For simplicity, assume that these managers’ residual returns are 
+all uncorrelated. We don’t need to make this assumption, but it simplifies the 
+analytical results.
+The investor places a fraction hn with each manager. The portfolio alpha 
+and risk are:
+	
+h
+P
+n
+n
+n
+N
+1∑
+α
+α
+=
+⋅
+=
+
+(11)
+	
+h
+P
+n
+n
+n
+N
+2
+2
+2
+1∑
+ω
+ω
+=
+⋅
+=
+
+(12)
+The investor chooses allocations to maximize her utility. The results are:
+	
+h
+IR
+2
+2
+n
+n
+n
+n
+n
+*
+2
+α
+λω
+λω
+=
+⇒
+
+(13)
+	
+h
+IR
+2
+n
+n
+n
+* ω
+λ
+⋅
+=
+
+(14)
+Equation (13) shows that the investor optimally allocates capital in pro-
+portion to information ratios divided by risk. But, perhaps more naturally, 
+Equation (14) shows that the investor allocates risk in proportion to infor-
+mation ratios. The quantity hn
+n
+* ω
+⋅
+ is the investor’s capital allocation times 
+the risk, which is the risk allocation. It measures how much risk the invest-
+ment contributes at the portfolio level. For example, if the investor places 
+20% of the capital in a fund with 5% risk, that allocation contributes 1% 
+risk at the portfolio level.
+The key observation here: Investors allocate risk in proportion to infor-
+mation ratios.3 The investor does not allocate all the capital, and all the risk, 
+to the best manager—that is, the manager with the highest information 
+3. For those worried about our assumption that these investment choices are uncorrelated, if we take cor-
+relations into account, we find that
+λ
+ω
+ρ
+⋅
+=
+⋅
+−
+h
+IR
+2
+1
+where h is the vector of capital allocations, w is a diagonal matrix with residual risks on the diagonal, r is 
+the correlation matrix, and IR is a vector of information ratios.
+
+--- PAGE 34 ---
+	
+Seven Insights into Active Management	
+19
+ratio. She allocates the most risk to that manager but still diversifies among 
+other managers because she does not know which manager will have the best 
+performance after the fact; the information ratio is just an expectation, not a 
+guarantee, of performance.
+Insight 4. Alphas Must Control for Skill, Volatility, 
+and Expectations
+This insight shows how to process raw information into alphas, which are 
+critical inputs for active management.
+Raw signals, such as analyst earnings forecasts, broker buy/sell recom-
+mendations, and the number of cars in a Walmart parking lot the week before 
+Christmas, hopefully contain information useful in forecasting returns. But 
+these raw data are not alphas (expected residual returns). They are not even 
+necessarily denominated in units of return.
+A basic forecasting formula governs the connection between these raw 
+signals and alphas. This formula refines the raw signals into alphas by con-
+trolling for expectations, skill, and volatility. In many cases, we can simplify 
+this formula to a particularly intuitive form.
+The basic forecasting formula provides the best linear unbiased estimate 
+(BLUE) of the residual return, θ, given the raw signal, g:
+	
+E
+g
+E
+Cov
+g
+Var
+g
+g
+E g
+|
+,
+1
+θ
+θ
+θ
+{
+}
+{ }
+{
+}
+{ }
+{ }
+=
++
+⋅
+⋅
+−
+
+
+−
+
+(15)
+According to Equation (15), the expected residual return conditional on g 
+equals the unconditional expected residual return plus a term that depends 
+on the difference between the observed signal and its unconditional expecta-
+tion. Reordering terms, we see that:
+	
+E
+g
+E
+Cov
+g
+Var
+g
+g
+E g
+|
+,
+1
+θ
+θ
+θ
+{
+}
+{ }
+{
+}
+{ }
+{ }
+−
+=
+⋅
+⋅
+−
+
+
+−
+
+(16)
+As discussed at the beginning of this chapter, the unconditional expected 
+residual return is zero, and alpha is the expected residual return conditional 
+on the manager’s information, g.
+This formula controls for expectations. Only if g differs from its 
+unconditional expectation will the expected residual return differ from its 
+unconditional expectation. Put another way, only if g differs from its uncon-
+ditional expectation will the expected alpha differ from zero.
+This result is intuitive. If company earnings exactly match expectations, 
+we do not expect the stock to move. That happens only when earnings do 
+not match expectations.
+Now let’s simplify Equation (16) into a more intuitive form that reveals 
+how alphas include controls for skill and volatility. The definitions of vari-
+ance and covariance tell us the following:
+	
+Var g
+StDev g
+2
+(
+)
+{ }
+{ }
+=
+
+(17)
+	
+Cov
+g
+Corr
+g
+StDev
+StDev g
+,
+,
+θ
+θ
+θ
+{
+}
+{
+}
+{ }
+{ }
+=
+⋅
+⋅
+
+(18)
+
+--- PAGE 35 ---
+	 20	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+Substituting Equations (17) and (18) into Equation (16) leads to:
+	
+Corr
+g
+StDev
+g
+E g
+StDev g
+,
+α
+θ
+θ
+{
+}
+{ }
+{ }
+{ }
+=
+⋅
+⋅
+−
+
+
+
+
+
+
+(19)
+We commonly refer to the correlation of the signal and the subsequent reali-
+zation as the information coefficient (IC), and the standard deviation of the 
+residual return is the residual risk (w). We refer to the standardized raw sig-
+nal as a z-score, or score for short, because by construction it has a mean of 
+0 and a standard deviation of 1. If the z-scores are normally distributed or 
+close to normally distributed, then about 95% of the time z will range from 
+–2 to +2. That is usually the case, but we will not assume that it is always 
+true. Putting this together, we get:
+	
+IC
+z
+α
+ω
+=
+⋅
+⋅
+
+(20)
+We have decomposed alpha into three components: an information coeffi-
+cient, a volatility, and a score.
+Equation (20) clearly shows how alphas control for skill, volatility, 
+and expectations. The information coefficient is a measure of skill. With 
+no skill—that is, no correlation between signal and subsequent return—the 
+information coefficient is zero and Equation (20) sets the alpha to zero, as it 
+should. The greater the skill, the greater the alpha, other things equal.
+Understanding Skill
+It is useful to provide some context for this important measure of skill. First, 
+Exhibit 5 shows the range of typical information coefficients.
+EXHIBIT 5  Typical Information Coefficients
+SKILL
+IC
+average
+0.00
+good
+0.05
+great
+0.10
+These correlations are small. Consistent with the arithmetic of active 
+management, the average information coefficient is zero. But even a great 
+information coefficient is only 0.1. We know that, as a correlation, the maxi-
+mum possible information coefficient is 1. But these numbers are much lower 
+than that. Forecasting residual returns is difficult. To better understand these 
+magnitudes, we can relate the information coefficient to a simpler measure 
+of skill: how often the manager correctly forecasts the sign of the residual 
+return. If the manager gets the sign right only 50% of the time, he doesn’t 
+have skill. If we assume that residual returns and forecast errors are nor-
+mally distributed and that the information coefficient is much less than 1, 
+we find that:
+
+--- PAGE 36 ---
+	
+Seven Insights into Active Management	
+21
+	
+≪
+fr
+IC
+IC
+IC
+IC
+1
+2
+1
+arctan
+1
+1
+2
+for
+1
+2
+π
+π
+= ⎛
+⎝⎜
+⎞
+⎠⎟+ ⎛
+⎝⎜
+⎞
+⎠⎟⋅
+−
+⎧
+⎨⎪
+⎩⎪
+⎫
+⎬⎪
+⎭⎪
+≈⎛
+⎝⎜
+⎞
+⎠⎟+ ⎛
+⎝⎜
+⎞
+⎠⎟
+
+(21)
+We can see more explicitly that if the information coefficient is zero, the 
+manager correctly forecasts the sign of the residual return 50% of the time. 
+But as the information coefficient increases, the manager correctly forecasts 
+the sign more than 50% of the time. Exhibit 6 expands Exhibit 5 to convert 
+information coefficients into probabilities of forecasting the correct sign.
+EXHIBIT 6  Probability of Forecasting the Correct Sign
+SKILL
+IC
+fr
+average
+0.00
+50.0%
+good
+0.05
+51.6%
+great
+0.10
+53.2%
+Exhibit 6 and Equation (21) help us understand how difficult it is to cor-
+rectly forecast residual returns. An exceptional information coefficient of 
+0.1 corresponds to correctly forecasting the sign of the residual return about 
+53% of the time. I soon show that the key to turning that small edge in each 
+investment decision into a high information ratio is diversification.
+Volatility serves two purposes in Equation (20). First, it causes the fore-
+cast alpha to be expressed in units of return. The information coefficient 
+and the score are dimensionless. Second, it controls the alpha for volatil-
+ity. For a given skill level, imagine two stocks with equally bullish scores of 
++1. We believe both stocks will go up. Equation (20) says that the higher-
+volatility stock will go up more. If both a low-volatility utility stock and 
+a high-volatility technology stock achieve earnings one standard deviation 
+above expectations, the technology stock should rise more. Both stocks will 
+rise, but the technology stock will rise more than the utility stock.
+Keep in mind that optimal holdings are roughly proportional to alpha 
+divided by residual variance. Even if we give the more volatile stock the 
+higher alpha, it will receive a smaller position. The amount of risk we take in 
+each position, though, is proportional to the score.
+The score implements the control for expectations because it has an 
+expectation of zero. Only when the signal doesn’t match expectations does 
+the score differ from zero.
+Understanding the three constituent parts of an alpha can inform our 
+intuition. It can also provide structure in unstructured situations, where the 
+connections between raw signals and alphas are unclear.
+
+--- PAGE 37 ---
+	 22	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+Examples
+The ultimate example of an unstructured situation is a stock tip. Even in this 
+case, Equation (20) can provide structure. Imagine that the stock in question 
+has a residual volatility of 20%. Exhibit 7 shows the range of possible alphas 
+as a function of the information coefficient and score.
+EXHIBIT 7  Alpha of a Stock Tip
+VERY POSITIVE
+VERY, VERY POSITIVE
+IC
+Z = 1
+Z = 2
+Great: 0.1
+2%
+4%
+Good: 0.05
+1%
+2%
+Average: 0.0
+0%
+0%
+Because stock tips are always presented as very, very positive (“I make 
+only one or two recommendations a year, and you are the first person I 
+called . . .”), converting from the tip to an alpha requires only estimating the 
+tipper’s information coefficient. Ask yourself, Is Warren Buffett on the line, 
+or is it someone you have never heard of?
+For an institutional money manager, a more relevant example involves 
+converting broker buy/sell recommendations into alphas. This common sit-
+uation has relatively little structure, but understanding alphas can help. 
+Exhibit 8 shows an example, assuming that the broker has a good informa-
+tion coefficient of 0.05.
+EXHIBIT 8  Broker Buy/Sell Alphas: Information Coefficient of 0.05
+ω
+VIEW
+SCORE
+ALPHA
+15%
+BUY
+1
+0.75%
+20%
+BUY
+1
+1.00%
+15%
+SELL
+–1
+–0.75%
+30%
+BUY
+1
+1.50%
+25%
+SELL
+–1
+–1.25%
+Our conversion from recommendations to scores is straightforward. 
+Notice that the first two stocks in the list, both recommended, have different 
+alphas. We expect the second stock, with a higher volatility, to go up more 
+than the first stock. Contrast this with simply giving every stock on the buy 
+list an alpha of 1%. If all the buy recommendations have the same expected 
+returns, an optimizer would choose the minimum-risk portfolio of those buy 
+recommendations—loading up on the least volatile stocks.
+
+--- PAGE 38 ---
+	
+Seven Insights into Active Management	
+23
+Insight 5. The Fundamental Law of Active Management: 
+Information Ratios Depend on Skill, Diversification, 
+and Efficiency
+Previously, we learned that the information ratio is the key to active man-
+agement. Given that fact, how can we achieve high information ratios? Let’s 
+begin by looking at a relationship Richard Grinold first described in 1989 
+as the “Fundamental Law of Active Management.” This law expresses the 
+information ratio in terms of three other statistics—the information coef-
+ficient, a measure of skill; breadth, a measure of diversification; and the 
+transfer coefficient, a measure of efficiency of implementation:4
+	
+IR
+IC
+BR TC
+=
+⋅
+⋅
+
+(22)
+We previously examined the information coefficient in detail, and we 
+know that it measures skill. If the information coefficient is zero, no correla-
+tion exists between a manager’s forecasts and the subsequent realizations 
+and the manager’s information ratio is zero.
+Understanding Breadth
+Breadth—really breadth of skill—measures the number of independent 
+bets the manager takes per year at an average skill level of IC. It measures 
+diversification. We define breadth as bets per year because we define the 
+information ratio as an annualized quantity.
+According to the fundamental law, to achieve a high information ratio, 
+a manager must demonstrate an edge in making individual investment deci-
+sions and then diversify that edge over many separate decisions. But breadth 
+is still a measure of the diversity of decisions to which the manager has skill 
+to apply. The fundamental law does not say that there is any advantage to 
+investing in asset classes about which the manager knows nothing.
+Breadth is the part of the fundamental law that is hardest to understand. 
+As the number of independent bets per year, it is a rate, not a number. It’s not 
+the number of assets in the portfolio. We expect twice as many bets over two 
+years than one year, so the number of holdings isn’t the right concept.
+To provide some additional insight into breadth, consider an investment 
+process in equilibrium. Old information decays as new information arrives. 
+In equilibrium, the two are in balance, and so the information turnover rate, 
+g, captures both the decay rate of old information and the arrival rate of new 
+information. We can capture this situation schematically with Equation (23):
+	
+
+t
+e
+t
+t
+s
+t
+n
+t
+n
+n
+α
+α
+( )
+(
+)
+( )
+=
+⋅
+−∆
++
+γ
+−⋅∆
+
+(23)
+Equation (23) shows that old information decays over time and new infor-
+mation, s t( ),
+n
+ arrives over time. Equation (23) implies that the decay and 
+4. Grinold (1989) included only the first two terms, effectively assuming perfect implementation. Clarke, 
+de Silva, and Thorley (2002) extended the fundamental law, adding the transfer coefficient to account for 
+imperfect implementation.
+
+--- PAGE 39 ---
+	 24	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+arrival of information happen somewhat continuously, which isn’t usually 
+true. It does show how old information (last period’s alpha forecast) decays 
+over time while new information keeps arriving. Assuming that these two 
+processes are in balance, we can show that the breadth of this forecast is:
+	
+BR
+N
+γ
+=
+⋅
+.
+(24)
+Equation (24) shows how the breadth relates to both the number of assets 
+under consideration and the information turnover rate.5
+This result is useful. Given a signal for N assets over time, we can esti-
+mate the coefficient, g, using Equation (23) and then estimate breadth via 
+Equation (24). For example, if we run a cross-sectional regression of 
+t
+α ( ) 
+against 
+t
+t ,
+α (
+)
+−∆
+ we can estimate e
+t
+γ
+−⋅∆ as a regression coefficient.
+As a particular example, imagine we follow 300 stocks and every week 
+we receive new information on 12 of those stocks. We don’t know ahead of 
+time which 12 stocks the new information will cover. Our breadth is 12 × 
+52 = 624.
+But we could also represent this information process as:
+	
+t
+p
+p
+No change,
+288
+300
+New information,
+12
+300
+n
+α ( ) =
+= 
+
+
+
+= 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(25)
+Because we cannot predict the new information, our expected alphas become:
+	
+E
+t
+t
+t
+288
+300
+n
+n
+α
+α
+{
+}
+( )
+(
+)
+= 
+
+
+⋅
+−∆
+
+(26)
+But comparing Equations (26) and (23) leads us to estimate:
+	
+t
+N
+12
+300
+12 52
+624
+γ
+γ
+⋅∆≈
+
+
+
+⋅
+⇒
+⋅
+=
+
+(27)
+The mathematical formalism of Equation (23) leads back to the intuitive 
+answer.
+Noninvestment Example
+Before considering the third term in the fundamental law, the transfer coeffi-
+cient, let’s consider a noninvestment example of the law: the roulette wheel. 
+The American roulette wheel includes the numbers 1 through 36, 0, and 00. 
+Consider players betting that the roulette number will be even. The play-
+ers win if the number is 2, 4, 6, . . . , 36. The casino wins if the number is 
+1, 3, 5, . . . , 35. The casino has a small edge because it also wins if the final 
+number is 0 or 00. The roulette wheel can stop at 38 possible numbers. The 
+5. See Grinold and Kahn (2011) for details. This is Chapter 5 in this book.
+
+--- PAGE 40 ---
+	
+Seven Insights into Active Management	
+25
+player wins if 18 of those numbers come up. The casino wins if 20 of those 
+numbers come up. Now imagine that during the course of the year, players 
+bet a total of $2.5 million on this roulette wheel. Consider two possible sce-
+narios. In the first scenario, the players all agree to pool resources and bet all 
+$2.5 million on one spin of the wheel. In the second, that $2.5 million con-
+sists of 100,000 spins of the wheel with a $25 bet on each spin.
+Exhibit 9 shows the first scenario, from the casino’s perspective. The 
+casino has a 52.6% chance of winning $2.5 million and a 47.4% chance of 
+losing $2.5 million. Let’s analyze this situation in a bit more detail. View the 
+forecasts as ±1 and the realized returns as ±100%.
+EXHIBIT 9  $2.5 Million Bet on One Spin of the Wheel
+20/38 = 52.6%
++$2.5 million
+−$2.5 million
++100%
+−100%
+18/38 = 47.4%
+We start with the casino’s expected return and variance of return:
+	
+E r
+0.526 100%
+0.474
+100%
+5.2%
+(
+)
+(
+)
+{ } =
++
+−
+=
+
+(28)
+	
+Var r
+0.526 100%
+5.2%
+0.474
+100%
+5.2%
+99.9%
+2
+2
+2
+(
+)
+(
+)
+(
+)
+{ } =
+−
++
+−
+−
+=
+
+(29)
+The casino’s expected return is 5.2%, and the standard deviation of the 
+return is 99.9%. In dollar terms, the casino’s expected winning is $130,000, 
+with a standard deviation of almost $2.5 million. The notably high standard 
+deviation isn’t surprising, because the casino faces only two possible out-
+comes—up 100% or down 100%—with the positive outcome only slightly 
+more likely.
+We can also calculate the casino’s information coefficient. It is positive 
+because it forecasts winning, and the casino does win 52.6% of the time:
+	
+Cov r g
+E r g
+IC
+,
+0.526
+1
+0.474
+1
+0.052
+5.2%
+(
+)
+(
+)
+{
+}
+{
+}
+=
+⋅
+=
++
++
+−
+=
+=
+
+(30)
+
+--- PAGE 41 ---
+	 26	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+In this simple case, the variances of r and g are almost exactly 1, so the cova-
+riance and the correlation are effectively the same.6
+We can now check out the fundamental law of active management. We 
+can calculate the information ratio directly on the basis of our calculations 
+of the casino’s expected return and its standard deviation. We can then com-
+pare it to the fundamental law result, with a breadth of 1 for this scenario.
+	
+IR
+IC
+BR
+5.2%
+99.9%
+0.052
+=
+=
+=
+⋅
+
+(31)
+The information ratio is quite low, yet the information coefficient looks good 
+from the perspective of active management. The problem is that the breadth 
+is very low. It is not surprising that casinos do not encourage this approach 
+to roulette.
+The analysis of the second, more standard scenario is somewhat similar. 
+In this case, though, we play the game 100,000 times over the course of the 
+year and assume each game involves 1/100,000 of the capital. The expected 
+return doesn’t change if we do this. The expected return is 5.2% for each 
+game n, so averaging over 100,000 games still gives us an expected return 
+of 5.2%:
+	
+E r
+N
+E r
+1
+5.2%
+n
+n
+N
+1∑
+{ }
+{ }
+=
+
+
+
+⋅
+⇒
+=
+
+(32)
+The variance of return, however, is quite different. Now we calculate it as 
+follows:
+	
+Var r
+N
+Var r
+Var r
+N
+1
+0.32%
+n
+n
+N
+n
+2
+1
+2
+∑
+(
+)
+{ }
+{ }
+{ }
+=
+
+
+
+⋅
+=
+=
+=
+
+(33)
+The casino’s expected return is the same in both scenarios. However, the 
+casino clearly much prefers the second scenario from a reward-to-risk ratio. 
+In the first scenario, the casino has a 47.4% chance of losing $2.5 million. In 
+the second scenario, the casino could only lose that much if it lost 100,000 
+games in a row, which is enormously unlikely. In fact, Equation (33) shows 
+that the standard deviation of casino outcomes is only 0.32%. The casino 
+is unlikely to win more than 5.9% or win less than 4.5%. It has effectively 
+locked in winnings of around 5%. Exhibit 10 shows how the return distribu-
+tion has changed from one scenario to the other.7
+6. To be more precise, we are analyzing a gamble on evens from the casino’s perspective. The casino’s sig-
+nal is +1 for odds. But the expected signal is zero, as the gamble could have been on odds, in which case the 
+casino’s signal would be –1, i.e., a bet on evens.
+7. The graph is a bit misleading due to the very different scales involved in the two distributions. In fact, the 
+area under each distribution is the same: 100%.
+
+--- PAGE 42 ---
+	
+Seven Insights into Active Management	
+27
+EXHIBIT 10  Comparative Roulette Return Distributions
+0.6
+Probability Distribution
+Return
+0.5
+0.4
+1 bet
+100,000 bets
+0.3
+0.2
+0.1
+0
+0%
+50%
+−50%
+100%
+−100%
+150%
+−150%
+How does the fundamental law do in this case? We can calculate the 
+information ratio directly and compare it to the fundamental law result with 
+a breadth of 100,000:
+	
+IR
+IC
+BR
+5.2%
+0.32%
+16
+=
+=
+=
+⋅
+
+(34)
+In this simple example, breadth works to reduce the variance of outcomes—
+exactly what we expect from diversification. It doesn’t alter the expected 
+return. Its impact on the information ratio is through the denominator.
+Understanding the Transfer Coefficient
+Now back to the third term in the fundamental law, the transfer coefficient. 
+It measures the correlation between the return of a paper portfolio that 
+optimally implements the manager’s views without regard to costs or con-
+straints and the actual portfolio the manager is running. The information 
+ratio of the paper portfolio is IC
+BR
+⋅
+. The information ratio of the actual 
+portfolio—taking into account constraints, costs, and possibly even poor 
+implementation—is typically much lower.
+To see where the transfer coefficient arises, go back to Equation (4), 
+which describes the optimal portfolio, Q:
+	
+V h
+2
+0
+Q
+λ
+α −
+⋅
+=
+
+(35)
+
+--- PAGE 43 ---
+	 28	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+Portfolio Q is the optimal paper portfolio. Using this relationship, we can 
+calculate the forecast alpha and the information ratio of portfolio Q:
+	
+IR
+h
+h
+V h
+2
+2
+2
+Q
+Q
+T
+Q
+T
+Q
+Q
+Q
+Q
+2
+α
+λ
+λω
+λω
+α
+=
+⋅
+⇒
+⋅
+⋅
+=
+=
+
+(36)
+But the manager holds portfolio P, not portfolio Q. We can do a similar cal-
+culation, starting again with Equation (35):
+	
+IR
+IR
+h
+h
+V h
+2
+2
+2
+P
+P
+T
+P
+T
+Q
+P
+Q
+PQ
+P
+Q
+PQ
+Q
+PQ
+α
+λ
+λω
+ω
+ρ
+λω
+ρ
+ρ
+α
+=
+⋅
+⇒
+⋅
+⋅
+=
+⋅
+⋅
+=
+⋅
+=
+⋅
+
+(37)
+The information ratio of any portfolio P is the information ratio of portfo-
+lio Q times the correlation of P and Q. Clarke, de Silva, and Thorley (2002) 
+called that correlation the transfer coefficient.
+Here are some examples of transfer coefficients to provide insight into 
+its magnitude. Let’s assume for these first two examples that residual returns 
+are uncorrelated (the Sharpe [1963] assumption), residual risks are the same 
+for every asset, and scores are normally distributed. If portfolio P was equal-
+weighted, with long positions for all the positive alpha stocks and short 
+positions for all the negative alpha stocks, it would have a transfer coefficient 
+of 
+2
+0.8
+π
+≈
+. Roughly speaking, 80% of our information comes from the 
+sign of the alpha. Second, what if portfolio P consists of portfolio Q with, 
+for example, the 25% smallest positions removed. Exhibit 11 shows the gen-
+eral result.
+EXHIBIT 11  Transfer Coefficient as We Exclude Small Positions
+1.0
+0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0.0
+Transfer Coefﬁcient
+Percent of Smallest Positions Excluded
+0%
+10%
+20%
+30%
+40%
+50%
+60%
+70%
+80%
+90%
+100%
+
+--- PAGE 44 ---
+	
+Seven Insights into Active Management	
+29
+Until you remove about 80% of the smallest positions, the impact on the 
+transfer coefficient is small. Insight 7 will go into much more detail on how 
+the long-only constraint impacts the transfer coefficient. For now, we will just 
+note that the transfer coefficient can vary widely across different approaches 
+to investing. At the high end, long-short portfolios of low-transaction-cost 
+assets (such as futures contracts) can achieve transfer coefficients well above 
+0.9. But long-only portfolios with additional constraints and high levels of 
+residual risk can experience transfer coefficients well below 0.5.
+Investment Examples
+Now let’s consider four investment examples. First, imagine a stock picker 
+with an information coefficient of 0.05, a small but reasonably impressive 
+level of skill in the active equity management business. This manager follows 
+500 stocks per quarter, effectively taking 2,000 bets per year. The man-
+ager then builds a long-only portfolio with a transfer coefficient of 0.35. The 
+fundamental law implies an information ratio of 0.78 0.05
+2,000 0.35
+(
+)
+⋅
+⋅
+, 
+indicative of a top-quartile manager.
+Second, consider a market timer who looks at fundamentals, such as 
+dividend yields and interest rates, and develops skillful new forecasts with an 
+information coefficient of 0.1 roughly once per quarter. This manager runs 
+a long-only portfolio with a transfer coefficient of 0.6. The fundamental law 
+implies an information ratio of 0.12 0.1
+4 0.6
+(
+)
+⋅
+⋅
+, much lower than our 
+stock picker with half the skill in forecasting returns. It is difficult to deliver 
+consistent performance through market timing. It is, of course, possible to 
+deliver significant performance in one quarter through market timing. That 
+is its appeal. But it’s hard to repeat that performance quarter after quar-
+ter. That is why I stated at the beginning of the chapter that managers focus 
+(or should focus) more on forecasting residual returns than on the market’s 
+return.
+For the third example, consider the performance of a tactical asset allo-
+cation manager who switches between stocks, bonds, and cash. Assume 
+that this manager has a high level of skill for every bet, with an information 
+coefficient of 0.1. This manager looks at broad macroeconomic trends and 
+develops new views about once per quarter, making 12 independent bets per 
+year (quarterly views on the three asset classes). The manager runs a long-
+only portfolio with a transfer coefficient of 0.5. In this case, the fundamental 
+law implies an information ratio of 0.17, a bit above the median for active 
+managers. Compared with the stock picker, a higher level of skill per bet 
+does not necessarily translate into a higher information ratio. This is a bit 
+better than market timing, owing to slightly more diversification. Because of 
+the influence of the fundamental law of active management, neither market 
+timing nor tactical asset allocation is a popular strategy anymore.
+Finally, let’s imagine that our tactical asset allocation manager has 
+made these calculations and determined to improve the information ratio 
+by converting the existing fund into a global macro hedge fund. This fund 
+involves similar analysis, which is now applied to asset classes globally and 
+
+--- PAGE 45 ---
+	 30	
+ADVANCES IN ACTIVE PORTFOLIO MANAGEMENT
+implemented in an unconstrained long-short portfolio. Let’s assume the 
+manager expands from forecasting the behavior of three asset classes quar-
+terly to forecasting 25 asset classes quarterly and, in the process, lowers the 
+average information coefficient to 0.08—still respectably high. By going to a 
+long-short structure and by mainly using futures contracts instead of phys-
+ical investments, the transfer coefficient rises from 0.5 to 0.9. The resulting 
+information ratio rises to 0.72, which is close to the result for the stock-
+picking strategy.
+The fundamental law of active management has several implications. 
+First, successful strategies require some winning combination of skill, 
+breadth, and efficiency. Skill is the hardest to obtain. Breadth, i.e., diver-
+sification, can be the easiest to obtain—for example, by following more 
+stocks—but it works only in combination with skill. We can increase effi-
+ciency by eliminating constraints. When hiring managers, investors must 
+understand how they combine skill, breadth, and efficiency. This is one way 
+the fundamental law of active management helps investors choose active 
+managers. In the examples, we saw that market timing and tactical asset 
+allocation strategies had trouble putting together compelling combinations 
+of skill, breadth, and efficiency.
+Note that, in spite of its mathematical nature, the fundamental law 
+of active management applies to all active managers, not just quantitative 
+managers.
+In summary, information ratios, the key to active management, depend 
+on skill, diversification, and efficiency.
+Insight 6. Data Mining Is Easy
+Why is it that so many strategies look great in backtests and disappoint on 
+implementation? Backtesters always have 95% confidence in their results, so 
+why are investors disappointed far more than 5% of the time? It turns out to 
+be surprisingly easy to search through historical data and find patterns that 
+have no predictive power for the future.
+Investment researchers have long used the term data mining pejoratively 
+for the unguided search for patterns in historical data. This approach in 
+general is not effective in finding useful signals for predicting asset returns. 
+Over the past decade or so, however, data mining has become a positive term 
+describing research into extremely large data sets, looking for patterns with 
+higher signal-to-noise ratios than typically observed in investing. Today, for 
+example, parents might be delighted to hear that their son wants to marry his 
+data miner girlfriend. Data mining does have a useful and important role in 
+fields with large amounts of data and reasonable signal-to-noise ratios. The 
+larger the amount of data, the lower the required signal-to-noise ratio. Still, 
+investment research often uses data mining as a derogatory term because 
+many of our data sets are not that big and our signal-to-noise ratios are typ-
+ically low.
+
+--- PAGE 46 ---
+	
+Seven Insights into Active Management	
+31
+To understand why data mining is easy, we must first understand the 
+statistics of coincidence. Let’s begin with some noninvestment examples and 
+then move on to investment research.
+Noninvestment Examples
+In the mid-1980s, Evelyn Adams won the New Jersey state lottery twice in 
+four months. Newspapers put the odds of that happening at 17 trillion to 
+1, an incredibly improbable event. Soon afterward, two Purdue University 
+statisticians, Stephen M. Samuels and George P. McCabe Jr., showed that a 
+double win in the lottery is not a particularly improbable event.8 They esti-
+mated the odds against observing a double winner in four months at only 30 
+to 1. What explains the enormous discrepancy in these two probabilities?
+It turns out that the odds of Evelyn Adams (specifically her) winning the 
+lottery twice are in fact 17 trillion to 1. But millions of people play the lottery 
+every day. Thus, the odds of someone, somewhere, winning two lotteries in 
+four months are only 30 to 1. If it weren’t Evelyn Adams, it would have been 
+someone else. In fact, it has happened again since then.
+Coincidences appear improbable only when viewed from a narrow per-
+spective. When viewed from the correct (broad) perspective, coincidences are 
+not so improbable. Let’s consider another noninvestment example: Norman 
+Bloom, arguably the world’s greatest data miner.9
+Bloom died a few years ago in the midst of his quest to prove the existence 
+of God through baseball statistics and the Dow Jones Industrial Average. He 
+argued that “both instruments are in effect great laboratory experiments 
+wherein great amounts of recorded data are collected and published.” As but 
+one example of thousands of his analyses of baseball, he argued that it was 
+not a coincidence when the Kansas City Royals’ third baseman George Brett 
+hit his third home run in the third game of the playoffs to tie the score 3–3. 
+Rather, it proved the existence of God. In the investment arena, he argued 
+that it was not a coincidence that the Dow’s 13 crossings of the 1,000-point 
+line in 1976 mirrored the 13 colonies that united in 1776. He also pointed 
+out that the twelfth crossing occurred on his birthday, deftly combining 
+message and messenger. He never took into account the enormous volume 
+of data he searched through—in fact, an entire New York Public Library’s 
+worth—to find these coincidences. His focus was narrow, not broad.
+The importance of perspective to understanding the statistics of coin-
+cidence was perhaps best summarized by, of all people, the novelist Marcel 
+Proust (1982, 178), who often showed keen mathematical intuition:
+The number of pawns on the human chessboard being less than the 
+number of combinations that they are capable of forming, in a the-
+ater from which all the people we know and might have expected 
+to find are absent, there turns up one whom we never imagined 
+that we should see again and who appears so opportunely that the 
+8. Samuels and McCabe (1986), and also Diaconis and Mosteller (1989).
+9. For more on Norman Bloom, see Sagan (1977).
+
+[TRUNCATED at 80000 chars — 666 total pages]

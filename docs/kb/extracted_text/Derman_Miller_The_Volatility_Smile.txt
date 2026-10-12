@@ -1,0 +1,1543 @@
+
+--- PAGE 1 ---
+
+--- PAGE 2 ---
+The Volatility
+Smile
+
+--- PAGE 3 ---
+The Wiley Finance series contains books written specifically for finance
+and investment professionals as well as sophisticated individual investors
+and their financial advisors. Book topics range from portfolio manage-
+ment to e-commerce, risk management, financial engineering, valuation,
+and financial instrument analysis, as well as much more. For a list of
+available titles, visit our Web site at www.WileyFinance.com.
+Founded in 1807, John Wiley & Sons is the oldest independent pub-
+lishing company in the United States. With offices in North America,
+Europe, Australia, and Asia, Wiley is globally committed to developing
+and marketing print and electronic products and services for our cus-
+tomers’ professional and personal knowledge and understanding.
+
+--- PAGE 4 ---
+The Volatility
+Smile
+EMANUEL DERMAN
+MICHAEL B. MILLER
+with contributions by David Park
+
+--- PAGE 5 ---
+Cover image: Under the Wave off Kanagawa by Hokusai © Fine Art Premium / Corbis Images
+Cover design: Wiley
+Copyright © 2016 by Emanuel Derman and Michael B. Miller. All rights reserved.
+Published by John Wiley & Sons, Inc., Hoboken, New Jersey.
+Published simultaneously in Canada.
+No part of this publication may be reproduced, stored in a retrieval system, or transmitted in
+any form or by any means, electronic, mechanical, photocopying, recording, scanning, or
+otherwise, except as permitted under Section 107 or 108 of the 1976 United States Copyright
+Act, without either the prior written permission of the Publisher, or authorization through
+payment of the appropriate per-copy fee to the Copyright Clearance Center, Inc., 222
+Rosewood Drive, Danvers, MA 01923, (978) 750-8400, fax (978) 646-8600, or on the Web
+at www.copyright.com. Requests to the Publisher for permission should be addressed to the
+Permissions Department, John Wiley & Sons, Inc., 111 River Street, Hoboken, NJ 07030,
+(201) 748-6011, fax (201) 748-6008, or online at http://www.wiley.com/go/permissions.
+Limit of Liability/Disclaimer of Warranty: While the publisher and author have used their best
+efforts in preparing this book, they make no representations or warranties with respect to the
+accuracy or completeness of the contents of this book and specifically disclaim any implied
+warranties of merchantability or fitness for a particular purpose. No warranty may be created
+or extended by sales representatives or written sales materials. The advice and strategies
+contained herein may not be suitable for your situation. You should consult with a
+professional where appropriate. Neither the publisher nor author shall be liable for any loss of
+profit or any other commercial damages, including but not limited to special, incidental,
+consequential, or other damages.
+For general information on our other products and services or for technical support, please
+contact our Customer Care Department within the United States at (800) 762-2974, outside
+the United States at (317) 572-3993 or fax (317) 572-4002.
+Wiley publishes in a variety of print and electronic formats and by print-on-demand. Some
+material included with standard print versions of this book may not be included in e-books or
+in print-on-demand. If this book refers to media such as a CD or DVD that is not included in
+the version you purchased, you may download this material at http://booksupport.wiley.com.
+For more information about Wiley products, visit www.wiley.com.
+Library of Congress Cataloging-in-Publication Data:
+Names: Derman, Emanuel, author. | Miller, Michael B. (Michael Bernard), 1973- author.
+Title: The volatility smile / Emanuel Derman, Michael B. Miller.
+Description: Hoboken, New Jersey : Wiley, 2016. | Series: The Wiley finance series | Includes
+index.
+Identifiers: LCCN 2016012191 (print) | LCCN 2016019398 (ebook) | ISBN 9781118959169
+(hardback) | ISBN 9781118959176 (pdf) | ISBN 9781118959183 (epub)
+Subjects: LCSH: Finance–Mathematical models. | Securities–Valuation. | BISAC: BUSINESS &
+ECONOMICS / Finance.
+Classification: LCC HG106 .D48 2016 (print) | LCC HG106 (ebook) | DDC
+332.63/228301–dc23
+LC record available at https://lccn.loc.gov/2016012191
+Printed in the United States of America
+10 9 8 7 6 5 4 3 2 1
+
+--- PAGE 6 ---
+My job, I believe, is to persuade others that my conclusions are
+sound. I will use an array of devices to do this: theory, stylized
+facts, time-series data, surveys, appeals to introspection, and so on.
+—Fischer Black
+
+--- PAGE 7 ---
+
+--- PAGE 8 ---
+Contents
+Preface
+xi
+Acknowledgments
+xiii
+About the Authors
+xv
+CHAPTER 1
+Overview
+1
+CHAPTER 2
+The Principle of Replication
+13
+CHAPTER 3
+Static and Dynamic Replication
+37
+CHAPTER 4
+Variance Swaps: A Lesson in Replication
+57
+CHAPTER 5
+The P&L of Hedged Option Strategies in a Black-Scholes-Merton World
+85
+CHAPTER 6
+The Effect of Discrete Hedging on P&L
+105
+CHAPTER 7
+The Effect of Transaction Costs on P&L
+117
+CHAPTER 8
+The Smile: Stylized Facts and Their Interpretation
+131
+CHAPTER 9
+No-Arbitrage Bounds on the Smile
+153
+vii
+
+--- PAGE 9 ---
+viii
+CONTENTS
+CHAPTER 10
+A Survey of Smile Models
+163
+CHAPTER 11
+Implied Distributions and Static Replication
+175
+CHAPTER 12
+Weak Static Replication
+203
+CHAPTER 13
+The Binomial Model and Its Extensions
+227
+CHAPTER 14
+Local Volatility Models
+249
+CHAPTER 15
+Consequences of Local Volatility Models
+265
+CHAPTER 16
+Local Volatility Models: Hedge Ratios and Exotic Option Values
+289
+CHAPTER 17
+Some Final Remarks on Local Volatility Models
+303
+CHAPTER 18
+Patterns of Volatility Change
+309
+CHAPTER 19
+Introducing Stochastic Volatility Models
+319
+CHAPTER 20
+Approximate Solutions to Some Stochastic Volatility Models
+337
+CHAPTER 21
+Stochastic Volatility Models: The Smile for Zero Correlation
+353
+CHAPTER 22
+Stochastic Volatility Models: The Smile with Mean Reversion and
+Correlation
+369
+CHAPTER 23
+Jump-Diffusion Models of the Smile: Introduction
+383
+
+--- PAGE 10 ---
+Contents
+ix
+CHAPTER 24
+The Full Jump-Diffusion Model
+395
+Epilogue
+417
+APPENDIX A
+Some Useful Derivatives of the Black-Scholes-Merton Model
+419
+APPENDIX B
+Backward Itˆo Integrals
+421
+APPENDIX C
+Variance Swap Piecewise-Linear Replication
+431
+Answers to End-of-Chapter Problems
+433
+References
+497
+Index
+501
+
+--- PAGE 11 ---
+
+--- PAGE 12 ---
+Preface
+A
+cademic books and papers on finance have become regrettably formal
+over the past 30 years, filled with postulates, theorems, and lemmas. This
+axiomatic approach is suitable for presenting pure mathematics, but, in our
+view, is inappropriate for the field of finance. In finance, ideas should come
+first; mathematics is simply the language that we use to express ideas and
+elaborate their consequences.
+We feel that the best way to learn and teach financial theory is to walk a
+middle line between the traditionally math-inclined academic and the stereo-
+typically math-skeptical trader. This book tries to present a treatment of the
+volatility smile that combines the insight that comes from models with the
+practicality of the trading desk.
+The first two chapters of this book provide a close look at the theory
+of modeling and the principles of valuation, themes that we return to again
+and again throughout the book. Chapters 3 through 13 explore the Black-
+Scholes-Merton option pricing model. At the heart of this model is a clash
+with the actual behavior of markets, the contradiction of the volatility smile.
+We show how, despite this flaw, there are productive ways to use not only the
+model itself, but the principles underlying it. Finally, in Chapters 14 through
+24, we explore more advanced option models consistent with the smile.
+These models can be grouped into three families: local volatility, stochas-
+tic volatility, and jump-diffusion. While these newer models address many
+of the shortcomings of the Black-Scholes-Merton model, they are them-
+selves imperfect. As markets evolve and traders gain experience, old models
+inevitably fail and need modification, or are replaced by newer models. Our
+hope is that the principles in this book will provide readers with the ability
+to develop and use their own models.
+xi
+
+--- PAGE 13 ---
+
+--- PAGE 14 ---
+Acknowledgments
+E
+manuel Derman: Over the years I have benefited from enlightening con-
+versations with, among many others, Iraj Kani, Mike Kamal, Joe Zou, the
+late Fischer Black, Peter Carr, Paul Wilmott, Nassim Taleb, Elie Ayache, Jim
+Gatheral, and Bruno Dupire. In particular, the influence of the work of Peter
+Carr and Paul Wilmott will be obvious in many chapters.
+We thank Sebastien Bossu, Jesse Cole, and Tim Leung for helpful com-
+ments on the manuscript.
+xiii
+
+--- PAGE 15 ---
+
+--- PAGE 16 ---
+About the Authors
+E
+manuel Derman is a professor at Columbia University, where he directs
+the program in financial engineering. He was born in South Africa but
+has lived most of his professional life in Manhattan. He started out as a the-
+oretical physicist, doing research on unified theories of elementary particle
+interactions. At AT&T Bell Laboratories in the 1980s he developed pro-
+gramming languages for business modeling. From 1985 to 2002 he worked
+on Wall Street, where he codeveloped the Black-Derman-Toy interest rate
+model and the local volatility model. His previous books, My Life as a
+Quant and Models.Behaving.Badly, were both among BusinessWeek’s top
+10 annual books.
+Michael B. Miller is the founder and CEO of Northstar Risk Corp. Before
+starting Northstar, he was the chief risk officer for Tremblant Capital and
+before that the head of quantitative risk management at Fortress Investment
+Group. He is the author of Mathematics and Statistics for Financial Risk
+Management, now in its second edition, and an adjunct professor at Rutgers
+Business School. Before starting his career in finance, he studied economics
+at the American University of Paris and the University of Oxford.
+Joo-Hyung (David) Park has extensive experience in valuation of financial
+instruments and derivatives. He provides valuation advisory services to cor-
+porate and private equity clients for their holdings in nonstandard deriva-
+tive products. These products include equity options granted to executives,
+embedded derivatives in convertible bonds, and many other customized fixed
+income and equity derivatives. Prior to this, he studied financial engineering
+at Columbia University, and physics at the University of Toronto.
+xv
+
+--- PAGE 17 ---
+CHAPTER1
+Overview
+■Financial models in light of the great financial crisis.
+■The difficulties of option valuation.
+■An introduction to the volatility smile.
+■Financial science and financial engineering.
+■The purpose and use of models.
+INTRODUCTION
+Our primary aim in this book is to provide the reader with an accessible,
+not-too-sophisticated introduction to models of the volatility smile. Prior
+to the 1987 global stock market crash, the Black-Scholes-Merton (BSM)
+option valuation model seemed to describe option markets reasonably well.
+After the crash, and ever since, equity index option markets have displayed
+a volatility smile, an anomaly in blatant disagreement with the BSM model.
+Since then, quants around the world have labored to extend the model to
+accommodate this anomaly. Our main focus in this book will be the theory
+of option valuation, the study of the BSM model and its limitations, and a
+detailed introduction to the extensions of the BSM model that attempt to
+rectify its problems. Most of the book is devoted to these topics.
+A secondary motivation for writing this book originates in the great
+financial crisis of 2007–2008, which began with the collapse of the mort-
+gage collateralized debt obligation (CDO) market, whose structured credit
+products were valued using financial engineering techniques. When the cri-
+sis began, some pundits blamed the practice of financial engineering for the
+mortgage market’s meltdown. Paul Volcker, whose grandson was a finan-
+cial engineer, wrote the following paragraph as part of an otherwise sensible
+speech he gave in 2009:
+A year or so ago,my daughter had seen ...some disparaging remarks
+I had made about financial engineering. She sent it to my grandson,
+1
+
+--- PAGE 18 ---
+2
+THE VOLATILITY SMILE
+who normally didn’t communicate with me very much. He sent me
+an email, “Grandpa, don’t blame it on us! We were just following
+the orders we were getting from our bosses.” The only thing I could
+do was send him back an email, “I will not accept the Nuremberg
+excuse.”
+Comparing financial modelers to Nazi war criminals seems extreme, and
+indeed, since then, opinions about modelers’ responsibility for the financial
+meltdown have become more nuanced. Spain and Ireland developed housing
+market bubbles that, unlike those in the United States, were not inflated by
+complex financially engineered products. Paul Krugman has suggested that
+the root cause of the crisis lay in the West’s rapid withdrawal of capital from
+Asia after the currency crisis of 1998, leading Asian countries thereafter to
+concentrate on exporting, saving, and hoarding, which led them to provide
+cheap credit that fueled speculation. Other competing explanations abound.
+As with all complex human events, it’s impossible to pinpoint a single cause.
+Nevertheless, models did play a part in the development of the crisis.
+In the face of very low safe yields, badly engineered financial models were
+indeed used to tempt investors—at times misleadingly and deceptively—into
+buying structured CDOs that promised optimistically high yields. Though
+our expertise lies in models for option valuation rather than mortgage secu-
+rities, we also wanted to write a book that illustrates how to be sensible
+about model building.
+THE BLACK-SCHOLES-MERTON MODEL AND
+ITS DISCONTENTS
+Stephen Ross of MIT, one of the inventors of the binomial option valuation
+model and the theory of risk-neutral valuation, once wrote: “When judged
+by its ability to explain the empirical data, option pricing theory is the most
+successful theory not only in finance, but in all of economics” (Ross 1987).
+But even this most successful of models is far from being perfect.
+Finance academics tend to think of option valuation as a solved problem,
+of little current interest. But readers of this book who end up working as
+practitioners—on options trading desks in equities, fixed income, currencies,
+or commodities, as risk managers or controllers or model auditors—will find
+that the valuation of options isn’t really a solved problem at all. Financial
+markets disrespect the traditional BSM formula even while they employ its
+flawed language to communicate with each other. Practitioners and traders
+who are responsible for coming up with the prices at which they are willing
+to trade derivative securities, especially exotic illiquid derivatives, grapple
+
+--- PAGE 19 ---
+Overview
+3
+with appropriate valuation every day. They have to figure out how to amend
+the BSM model to cope with an actual market that violates its assumptions,
+and they have to keep finding new ways of doing so as the market modifies
+its behavior based on its experiences.
+In this book we’re going to focus on the BSM model and its discontents.
+In one sense the BSM model is a miracle: It lets you value, in a totally rational
+way, securities that before its existence had no plausible or defensible the-
+oretical value at all. In the Platonic world of BSM—a world with normally
+distributed returns, geometric Brownian motion for stock prices, unlimited
+liquidity, continuous hedging, and no transaction costs—their model pro-
+vides a method of dynamically synthesizing an option. It’s a masterpiece of
+engineering in an imaginary world that doesn’t quite exist, because markets
+don’t obey all of its assumptions. It’s a miracle, but it’s only a model, and
+not reality.
+Some of the BSM assumptions are violated in minor ways, some more
+dramatically. The assumption that you can hedge continuously, at zero trans-
+action cost, is an approximation we can adjust for, as we will illustrate in
+later chapters. Skilled traders and quants do this with a mix of estimation
+and intuition every day. You can, for example, heuristically allow for trans-
+action costs by adding some dollars to your option price, or some volatility
+points to the BSM formula. In that sense the model is robust—you can per-
+turb it from its Platonic view of the world to approximate the messiness of
+actual markets.
+Other BSM assumptions are violated in more significant ways. For
+example, stock prices don’t actually follow geometric Brownian motion.
+They can jump, their distributions have fat tails, and their volatility varies
+unpredictably. Adjusting for these more significant violations is not always
+easy. We will tackle many of these difficulties in this book.
+In the end, the BSM model sounds so rational, and has such a strong
+grip on everyone’s imagination, that even people who don’t believe in its
+assumptions nevertheless use it to quote prices at which they are willing to
+trade.
+A QUICK LOOK AT THE IMPLIED VOLATILITY SMILE
+The BSM model assumes that a stock’s future return volatility is constant,
+independent of the strike and time to expiration of any option on that stock.
+Were the model correct, a plot of the implied BSM volatilities for options
+with the same expiration over a range of strikes would be a flat line. Fig-
+ure 1.1 shows what three-month equity index implied volatilities looked like
+before the Black Monday stock market crash of 1987.
+
+--- PAGE 20 ---
+4
+THE VOLATILITY SMILE
+0%
+5%
+10%
+15%
+20%
+25%
+0.90
+0.95
+1.00
+1.05
+1.10
+Volatility
+Strike/Index
+FIGURE 1.1
+Representative S&P 500 Implied Volatilities prior
+to 1987
+Prior to the crash, therefore, the BSM model seemed to describe the
+option market rather well, at least with respect to variation in strikes. Fig-
+ure 1.2 shows typical three-month implied volatilities after the crash of 1987.
+Even though all the options used to generate the smile were written on the
+same underlier, each option had a different implied volatility. This is incon-
+sistent with the BSM model, which assumes that implied volatility is a fore-
+cast of actual volatility, for which there can be only one value. You can
+think of options as metaphorical photographs of the stock’s future volatility,
+taken from different angles or elevations. While photographs of a building
+taken from different points might look different, the actual size of a building
+remains the same. In a similar way, if the BSM model were truly reliable, the
+implied volatility of the stock would be the same, no matter which option
+you chose to view it with. The option price is derived from the stock price,
+but the stock’s volatility should not depend on the option.
+Though the smile appeared most dramatically in equity index option
+markets after the 1987 crash, there had always been a slight smile in currency
+option markets, a smile in the literal sense that the implied volatilities as a
+function of strike resembled one:
+. As depicted in Figure 1.2, the equity
+“smile” is really more a skew or a smirk, but practitioners have persisted in
+using the word smile to describe the relationship between implied volatilities
+and strikes, irrespective of the actual shape. The smile’s appearance after the
+1987 crash was clearly connected with the visceral shock upon discovering,
+
+--- PAGE 21 ---
+Overview
+5
+0%
+5%
+10%
+15%
+20%
+25%
+0.90
+0.95
+1.00
+1.05
+1.10
+Volatility
+Strike/Index
+FIGURE 1.2
+Representative S&P 500 Implied Volatilities after
+1987
+for the first time since 1929, that a giant market could suddenly drop by 20%
+or more in a day. Market participants immediately drew the conclusion that
+an investor should pay more for low-strike puts than for high-strike calls.
+Since the crash of 1987, the volatility smile has spread to most other
+option markets (currencies, fixed income, commodities, etc.), but in each
+market it has taken its own characteristic form and shape. Traders and
+quants in every product area have had to model the smile in their own mar-
+ket. At many firms, not only does each front-office trading desk have its own
+particular smile models, but the firm-wide risk management group is likely
+to have its own models as well. The modeling of the volatility smile is likely
+one of the largest sources of model risk within finance.
+NO-NONSENSE FINANCIAL MODELING
+During the past 20 years there has been a tendency for quantitative finance
+and asset pricing to become increasingly formal and axiomatic. Many
+textbooks postulate mathematical axioms for finance and then derive the
+consequences. In this book, though, we’re studying financial engineering,
+not mathematical finance. The ideas and the models are at least as important
+as the mathematics. The more math you know, the better, but math is the
+
+--- PAGE 22 ---
+6
+THE VOLATILITY SMILE
+syntax, not the semantics. Paul Dirac, the discoverer of the Dirac equation
+who first predicted the existence of antiparticles, had a good point when
+he said:
+I am not interested in proofs, but only in what nature does.
+—Paul Dirac
+About Theorems and Laws
+Mathematics requires axioms and postulates, from which mathematicians
+then derive the logical consequences. In geometry, for example, Euclid’s
+axioms are meant to describe self-evident relationships of parts of things to
+the whole, and his postulates further describe supposedly self-evident prop-
+erties of points and lines. One Euclidean axiom is that things that are equal to
+the same thing are equal to each other. One Euclidean postulate, for example,
+is that it is always possible to draw a straight line between any two points.
+Euclid’s points and lines are abstracted from those of nature. When
+you get familiar enough with the abstractions, they seem almost tangible.
+Even more esoteric abstractions—infinite-dimensional Hilbert spaces that
+form the mathematical basis of quantum mechanics, for example—seem
+real and visualizable to mathematicians. Nevertheless, the theorems of
+mathematics are relations between abstractions, not between the realities
+that inspired them.
+Science, in contradistinction to mathematics, formulates laws. Laws
+are about observable behavior. They describe the way the universe works.
+Newton’s laws allow us to guide rockets to the moon. Maxwell’s equations
+enable the construction of radios and TV sets. The laws of thermodynamics
+make possible the construction of combustion engines that convert heat into
+mechanical energy.
+Finance is concerned with the relations between the values of securities
+and their risk, and with the behavior of those values. It aspires to be a practi-
+cal field, like physics or chemistry or electrical engineering. As John Maynard
+Keynes once remarked about economics, “If economists could manage to
+get themselves thought of as humble, competent people on a level with den-
+tists, that would be splendid.”Dentists rely on science, engineering, empirical
+knowledge, and heuristics, and there are no theorems in dentistry. Similarly,
+one would hope that finance would be concerned with laws rather than theo-
+rems, with behavior rather than assumptions. One doesn’t seriously describe
+the behavior of a market with theorems.
+
+--- PAGE 23 ---
+Overview
+7
+How then should we think about the foundations of finance and finan-
+cial engineering?
+On Financial Engineering
+Engineering is concerned with building machines or devices. A device is a
+little part of the universe, more or less isolated, that, starting from the con-
+structed initial conditions, obeys the laws of its field and, while doing so,
+performs something we regard as useful.
+Let’s start by thinking about more familiar types of engineering.
+Mechanical engineering is concerned with building devices based on the
+principles of mechanics (i.e., Newton’s laws), suitably combined with empir-
+ical rules about more complex forces that are too difficult to derive from
+first principles (friction, for example). Electrical engineering is the study of
+how to create useful electrical devices based on Maxwell’s equations and
+quantum mechanics. Bioengineering is the art of building prosthetics and
+biologically active devices based on the principles of biochemistry, physiol-
+ogy, and molecular biology.
+Science—mechanics, electrodynamics, molecular biology, and so on—
+seeks to discover the fundamental principles that describe the world, and is
+usually reductive. Engineering is about using those principles, constructively,
+to create functional devices.
+What about financial engineering? In a logically consistent world, finan-
+cial engineering, layered above a solid base of financial science, would be the
+study of how to create useful financial devices (convertible bonds, warrants,
+volatility swaps, etc.) that perform in desired ways. This brings us to financial
+science, the putative study of the fundamental laws of financial objects, be
+they stocks, interest rates, or whatever else your theory uses as constituents.
+Here, unfortunately, be dragons.
+Financial engineering rests upon the mathematical fields of calculus,
+probability theory, stochastic processes, simulation, and Brownian motion.
+These fields can capture some of the essential features of the uncertainty
+we deal with in markets, but they don’t accurately describe the characteris-
+tic behavior of financial objects. Markets are plagued with anomalies that
+violate standard financial theories (or, more accurately, theories are plagued
+by their inability to systematically account for the actual behavior of mar-
+kets). For example, the negative return on a single day during the crash of
+1987 was so many historical standard deviations away from the mean that
+it should never have occurred in our lifetime if returns were normally dis-
+tributed. More recently, JPMorgan called the events of the “London Whale”
+an eight-standard-deviation event (JPMorgan Chase & Co. 2013). Stock
+
+--- PAGE 24 ---
+8
+THE VOLATILITY SMILE
+evolution, to take just one of many examples, isn’t Brownian.1 So, while
+financial engineers are rich in mathematical techniques, we don’t have the
+right laws of science to exploit—not now, and maybe not ever.
+Because we don’t have the right laws, the axiomatic approach to finance
+is problematic. Axiomatization is appropriate in a field like geometry, where
+one can postulate any set of axioms not internally inconsistent, or even in
+Newtonian mechanics, where there are scientific laws that hold with such
+great precision that they can be effectively regarded as axioms. But in finance,
+as all practitioners know, our “axioms” are not nearly as good. As Paul
+Wilmott wrote, “every financial axiom . . . ever seen is demonstrably wrong.
+The real question is how wrong . . .” (Wilmott 1998). Teaching by axioma-
+tization is therefore even less appropriate in finance than it is in real science.
+If finance is about anything, it is about the messy world we inhabit. It’s best
+to learn axioms only after you’ve acquired intuition.
+Mathematics is important, and the more mathematics you know the bet-
+ter off you’re going to be. But don’t fall too in love with mathematics. The
+problems of financial modeling are less mathematical than they are concep-
+tual. In this book, we want to first concentrate on understanding concepts
+and their implementation, and then use mathematics as a tool. We’re less
+interested here in great numerical accuracy or computational efficiency than
+in making the ideas we’re using clear.
+We know so little that is absolutely right about the fundamental behav-
+ior of assets. Are there really strict laws they satisfy? Are those laws sta-
+tionary? It’s best to assume as little as possible and rely on models as little
+as possible. And when we do rely on models, simpler is better. With that in
+mind, we proceed to a brief overview of the principles of financial modeling.
+THE PURPOSE OF MODELS
+Before examining the notion of modeling, we must distinguish between price
+and value. Price is simply what you have to pay to acquire a security, or what
+you get when you sell it; value is what a security is worth (or, more accurately,
+what you believe it is worth). Not everyone will agree on value. A price is
+considered fair when it is equal to the value.
+But what is the fair value? How do you estimate it? Judging value, in
+even the simplest way, involves the construction of a model or theory.
+1 See, for example, Mandelbrot (2004) and Gabaix et al. (2003).
+
+--- PAGE 25 ---
+Overview
+9
+A Simple but Prototypical Financial Model
+Suppose a financial crisis has just occurred. Wall Street is laying off people,
+apartments in nearby Battery Park are changing hands daily, but large lux-
+urious apartments are still illiquid. How would you estimate the value of a
+seven-room apartment on Park Avenue, whose price is unknown, if someone
+tells you the price of a two-room apartment in Battery Park? This would be
+a reasonable model: First, figure out the price per square foot of the Battery
+Park apartment; second, multiply by the square footage of the Park Avenue
+apartment; third, make some adjustments for location, views, light, staff,
+facilities, and so forth.
+For example, suppose the two-room Battery Park apartment cost
+$1.5 million and was 1,000 square feet in size. That comes to $1,500 per
+square foot. Now suppose the seven-room Park Avenue apartment occupies
+5,000 square feet. According to our model, the price of the Park Avenue
+apartment should be roughly $7.5 million. But Park Avenue is a very desir-
+able location, and so we understand that there is about a 33% premium over
+Battery Park, which raises our estimate to $10 million. Furthermore, large
+apartments are scarce and carry their own premium, raising our estimate fur-
+ther to $13 million. Suppose further that the Park Avenue apartment is on a
+high floor with great views and its own elevator, so we bump up our estimate
+to $15 million. On the other hand, say the same Park Avenue apartment is
+being sold by the family of a recently deceased parent who hasn’t renovated
+it for 40 years. It will need a lot of work, which causes us to lower our
+estimate to $12 million.
+Our model’s one initial parameter is the implied price per square foot.
+You calibrate the model to Battery Park and then use it to estimate the value
+of the Park Avenue apartment. The price per square foot is truly implied from
+the price; $1,500 is not the price of one square foot of the apartment, because
+there are other variables—views, quality of construction, neighborhood—
+that are subsumed into that one number.
+With financial securities, too, as in the apartment example, models are
+used to interpolate or extrapolate from prices you know to values you
+don’t—in our example, from Battery Park prices to Park Avenue prices.
+Models are mostly used to value relatively illiquid securities based on the
+known prices of more liquid securities. This is true both for structural option
+models and purely statistical arbitrage models. In that sense, and unlike
+models in physics, models in finance don’t really predict the future. Whereas
+Newton’s laws tell you where a rocket will go in the future given its initial
+position and velocity, a financial model tells you how to compare different
+prices in the present. The BSM model tells you how to go from the current
+price of a stock and a riskless bond to the current value of an option, which
+
+--- PAGE 26 ---
+10
+THE VOLATILITY SMILE
+it views as a mixture of the stock and the bond, by means of a very sophis-
+ticated and rational kind of interpolation. Once you calibrate the model to
+a stock’s implied volatility for one option whose price you know, it tells you
+how to interpolate to the value of options with different strikes. The volatil-
+ity in the BSM model, like the price per square foot in the apartment pricing
+model, is implied, because all sorts of other variables—trading costs, hedg-
+ing errors, and the cost of doing business, for example—are subsumed into
+that one number. The way property markets use implied price per square
+foot illustrates the general way in which most financial models operate.
+Additional Advantages of Using a Model
+Models do more than just extrapolate from liquid prices to illiquid values.
+Ranking Securities
+A security’s price doesn’t tell you whether it’s worth
+buying. If its value is more than its price, it may be. But sometimes, faced
+with an array of similar securities, you want to know which security is the
+best deal. Models are often used by investors or salespeople to rank secu-
+rities in attractiveness. Implied price per square foot, for example, can be
+used to rank and compare similar, but not identical, apartments. Suppose,
+to return to our apartment example, that we are interested in purchasing a
+new apartment in the Financial District. The apartment lists at $3 million,
+but is 1,500 square feet, or $2,000 per square foot, appreciably higher than
+the $1,500 per square foot for the Battery Park apartment. What justifies
+the difference? Perhaps the Financial District apartment has better features.
+We might even go one level deeper and start to build a comparative model
+for the features themselves, or for both the features and the square footage,
+to see if the features are fairly priced.
+Implied price per square foot provides a simple, one-dimensional scale
+on which to begin ranking apartments by value. The single number given by
+implied price per square foot does not truly reflect the value of the apartment;
+it provides a starting point, after which other factors must be taken into
+account. Similarly, yield to maturity for bonds allows us to compare the
+values of many similar but not identical bonds, each with a different coupon,
+maturity, and/or probability of default, by mapping their yields onto a linear
+scale from high (attractive) to low (less so). We can do the same thing with
+price-earnings (P/E) ratio for stocks or with option-adjusted spread (OAS)
+for mortgages or callable bonds. All these metrics project a multidimensional
+universe of securities onto a one-dimensional ruler. The implied volatility
+associated with options obtained by filtering prices through the BSM model
+provides a similar way to collapse instruments with many qualities (strike,
+expiration, underlier, etc.) onto a single value scale.
+
+--- PAGE 27 ---
+Overview
+11
+Quantifying Intuition
+Models provide an entry point for intuition, which
+the model then quantifies. A model transforms linear quantities, which you
+can have intuition about, into nonlinear dollar values. Our apartment model
+transforms price per square foot into the estimated dollar value of the apart-
+ment. It is easier to develop intuition about variation of price per square foot
+than it is about an apartment’s dollar value.
+In physics, as we stressed, a theory predicts the future. In finance, a model
+translates intuition into current dollar values. As a further example, equity
+analysts have an intuitive sense, based on experience, about what constitutes
+a reasonable P/E ratio. Developing intuition about yield to maturity, option-
+adjusted spread, default probability, or return volatility may be harder than
+thinking about price per square foot. Nevertheless, all of these parameters
+are directly related to value and easier to judge than dollar value itself. They
+are intuitively graspable, and the more experienced you become, the richer
+your intuition will be. Models advance by leapfrogging from a simple, intu-
+itive mental concept (e.g., volatility) to the mathematics that describes it
+(geometric Brownian motion and the BSM model), to a richer concept (the
+volatility smile), to experience-based intuition (the variation in the shape of
+the smile), and, finally, to a model (a stochastic volatility model, for example)
+that incorporates an extension of the concept.
+Styles of Modeling: What Works and What Doesn’t
+The apartment model is an example of relative valuation. With relative valu-
+ation, given one set of prices, one can use the model to determine the value of
+some other security. One could also hope to develop models that value secu-
+rities absolutely rather than relatively. In physics, Newton’s laws are absolute
+laws. They specify a law of motion, F = ma, and a particular force law, the
+gravitational inverse-square law of attraction, which allow one to calculate
+any planetary trajectory. Geometric Brownian motion and other more elab-
+orate hypotheses for the movement of primitive assets (stocks, commodities,
+etc.) look like models of absolute valuation, but in fact they are based on
+analogy between asset prices and physical diffusion phenomena. They aren’t
+nearly as accurate as physics theories or models. Whereas physics theories
+often describe the actual world—so much so that one is tempted to ignore the
+gap between the equations and the phenomena—financial models describe
+an imaginary world whose distance from the world we live in is significant.
+Because absolute valuation doesn’t work too well in finance, in this book
+we’re going to concentrate predominantly on methods of relative valuation.
+Relative valuation is less ambitious, and that’s good. Relative valuation is
+especially well suited to valuing derivative securities.
+
+--- PAGE 28 ---
+12
+THE VOLATILITY SMILE
+Why do practitioners concentrate on relative valuation for derivatives
+valuation? Because derivatives are a lot like molecules made out of sim-
+pler atoms, and so we’re dealing with their behavior relative to their con-
+stituents. The great insight of the BSM model is that derivatives can be man-
+ufactured out of stocks and bonds. Options trading desks can then regard
+themselves as manufacturers. They acquire simple ingredients—stocks and
+Treasury bonds, for example—and manufacture options out of them. The
+more sophisticated trading desks acquire relatively simple options and con-
+struct exotic ones out of them. Some even do the reverse: acquiring exotic
+options and deconstructing them into simpler parts to be sold. In all cases,
+relative value is important, because the desks aim to make a profit based on
+the difference in price of inputs and outputs—the difference in what it costs
+you to buy the ingredients and the price at which you can sell the finished
+product.
+Relative value modeling is nothing but a more sophisticated version of
+the fruit salad problem: Given the price of apples, oranges, and pears, what
+should you charge for fruit salad? Or the inverse problem: Given the price
+of fruit salad, apples, and oranges, what is the implied price of pears? You
+can think of most option valuation models as trying to answer the options’
+analogue of this question.
+In this book we’ll mostly take the viewpoint of a trading desk or a market
+maker who buys what others want to sell and sells what others want to
+buy, willing to go either way, always seeking to make a fairly safe profit
+by creating what its clients want out of the raw materials it acquires, or
+decomposing what its clients sell into raw materials it can itself sell or reuse.
+For trading desks that think like that, valuation is always a relative concept.
+
+--- PAGE 29 ---
+CHAPTER2
+The Principle of Replication
+■The law of one price: Similar things must have similar prices.
+■Replication: the only reliable way to value a security.
+■A simple up-down model for the risk of stocks, in which expected return
+𝜇and volatility 𝜎are all that matter.
+■The law of one price leads to CAPM for stocks.
+■Replicating derivatives via the law of one price.
+REPLICATION
+Replication is the strategy of creating a portfolio of securities that closely
+mimics the behavior of another security. In this section we will see how repli-
+cation can be used to value a security of interest. We define different styles
+of replication, and discuss the power and limits of this method of valuation.
+The One Law of Quantitative Finance
+Hillel, a famous Jewish sage, when asked to recite the essence of God’s laws
+while standing on one leg, replied:
+Do not do unto others as you would not have them do unto you.
+All the rest is commentary. Go and learn.
+Andrew Lo, a professor at MIT, has quipped that while physics has three
+laws that explain 99% of the phenomena, finance has 99 laws that explain
+only 3%. It’s a funny joke at finance’s expense, but finance actually has one
+more or less reliable law that forms the basis of almost all of quantitative
+finance.
+13
+
+--- PAGE 30 ---
+14
+THE VOLATILITY SMILE
+Though it is often stated in different ways, you can summarize the
+essence of quantitative finance somewhat like Hillel, on one leg:
+If you want to know the value of a security, use the price of another
+security or set of securities that’s as similar to it as possible. All the
+rest is modeling. Go and build.
+This is the law of analogy: If you want to value something, do it by compar-
+ing it to something else whose price you already know.
+Financial economists like a different statement of this principle, which
+they call the law of one price:
+If two securities have identical payoffs under all possible future sce-
+narios, then the two securities should have identical current prices.
+If two securities (or portfolios of securities) with identical payoffs were to
+have different prices, you could buy the cheaper one and short the more
+expensive one, immediately pocket the difference, and experience no positive
+or negative cash flows in the future, since the payoffs of the long and short
+positions would always exactly cancel.
+In practice, we will rarely be able to construct a replicating portfolio that
+is exactly the same in all scenarios. We may have to settle for a replicating
+portfolio that is approximately the same in most scenarios.
+What both of the aforementioned formulations hint at is the impossi-
+bility of arbitrage, the ability to trade in such a way that will guarantee a
+profit without any risk. Another version of the law of one price is therefore
+the principle of no riskless arbitrage, which can be stated as follows:
+It should be impossible to obtain for zero cost a security that has
+nonnegative payoffs in all future scenarios, with at least one scenario
+having a positive payoff.
+This principle states that markets abhor an arbitrage opportunity. It is equiv-
+alent to the law of one price in that, if two securities were to have identical
+future payoffs but different current prices, a suitably weighted long position
+in the cheaper security and a short position in the more expensive one would
+create an arbitrage opportunity.
+Given enough time and enough information, market participants will
+end up enforcing the law of one price and the principle of no riskless arbi-
+trage as they seek to quickly profit by buying securities that are too cheap
+and selling securities that are too expensive, thereby eliminating arbitrage
+
+--- PAGE 31 ---
+The Principle of Replication
+15
+opportunities. In the long run, in liquid markets, the law of one price usu-
+ally holds. But the law of one price is not a law of nature. It is a statement
+about what prices should be, not what they must be. In practice, in the short
+run, in illiquid markets or during financial crises and panics, and in some
+other instances too, the law of one price may not hold.
+The law of one price requires that payoffs be identical under all possible
+future scenarios. Trying to imagine all future scenarios is an impossible task.
+Even if markets are not strictly random, their vagaries are too rich to capture
+in a few thoughts, sentences, or equations. In practice, extreme and often
+unimaginable scenarios (September 11, 2001, for example) are considered
+possible only after they have happened. Before they happen, these events are
+not just considered unlikely, but are entirely excluded from the distribution.
+Valuation by Replication
+How do you use the law of one price to determine value? If you want to esti-
+mate the unknown value of a target security, you must find some replicating
+portfolio, a set of more liquid securities with known prices, that has the same
+payoffs as the target, no matter how the future turns out. The target’s value
+is then simply the known price of the replicating portfolio.
+Where do models enter? It takes a model to demonstrate that the target
+and the replicating portfolio have identical future payoffs under all circum-
+stances. To demonstrate similarity, you must (1) specify what you mean by
+“under all circumstances” for each security, and (2) find a strategy for creat-
+ing a replicating portfolio that, in each future scenario or circumstance, will
+have payoffs identical to those of the target.
+The first step is reductive and involves science. We need to take some
+very complicated things—the economy and financial markets—and reduce
+them to mathematical equations that describe their potential range of future
+behavior. The second step is constructive or synthetic, and involves mostly
+engineering. We must create a replicating portfolio of liquid securities whose
+payoffs match the payoffs of the target in all future scenarios.
+Styles of Replication
+There are two kinds of replication, static and dynamic. Static replication
+reproduces the payoffs of the target security over its entire lifetime with an
+initial portfolio of securities whose weights will never need to be changed.
+Once the static replicating portfolio is created, by buying and selling the
+necessary securities, no additional trading is required for the lifetime of the
+target security. Assuming that the replicating portfolio can be set up, the only
+thing that can go wrong is a failure of credit: Counterparties may not pay
+
+--- PAGE 32 ---
+16
+THE VOLATILITY SMILE
+what they owe you when the securities you purchased from them require
+that they make payments to you. Static replication is the simplest and most
+straightforward method of valuation, but is feasible only in the rare cases
+when the target security closely resembles the available liquid securities.
+Even when the resemblance isn’t perfect, the attraction of a static portfolio
+is so great that traders often try to create static portfolios that only approx-
+imately replicate the target. We will illustrate this for barrier options in
+Chapter 12.
+With dynamic replication, the components and weights of the replicat-
+ing portfolio must change over time. We need to continually buy and sell
+securities as time passes and the price of the underlier changes in order to
+achieve theoretically accurate replication. As practitioners who work with
+trading desks know, dynamic replication can be very complex, both in the-
+ory and in practice. Part of the trouble is the mismatch between the model of
+the markets (the science) and the actual behavior of markets. When it does
+work, though, dynamic replication allows us to value a wide range of secu-
+rities, many of which would be difficult or impossible to value otherwise.
+In 1973, Fischer Black and Myron Scholes, and separately Robert Merton,
+published papers explaining how to replicate a stock option by constructing
+a dynamic portfolio containing shares of the underlying stock and a riskless
+bond. This allowed traders to determine the value of an option based on
+the price of the underlying stock, the prevailing level of interest rates, and
+an estimate of future stock price volatility. That this replicating portfolio
+could be constructed was unsuspected until it was achieved, and its discov-
+ery dramatically changed the financial world. This insight would eventu-
+ally earn Scholes and Merton the Nobel Prize in Economics. Black unfortu-
+nately died before the award was given, and Nobel Prizes are not granted
+posthumously.
+Dynamic replication is very elegant, and almost all of the advances in the
+field of derivatives over the past 40 years have been connected with extend-
+ing the fundamental insight that you can sometimes replicate a complex
+security by dynamically adjusting the weights of a portfolio of the security’s
+underliers.
+The Limits of Replication
+As noted in Chapter 1, all financial models are based on assumptions. Mod-
+els are toy-like descriptions of an idealized world. They don’t accurately
+describe the world we operate in, though they may resemble it. At best,
+therefore, financial models are only approximations to reality. Understand-
+ing the assumptions of our models is the key to understanding the limits of
+replication.
+
+--- PAGE 33 ---
+The Principle of Replication
+17
+The first step in replication involves science: specifying as accurately as
+possible the future scenarios for underliers, interest rates, and so forth. Much
+of the mathematical complexity in finance originates in our attempt to define
+and describe possible future scenarios. Complete accuracy is virtually impos-
+sible in finance. We would like our financial model to be as simple as possible
+while still capturing the essential characteristics of the underlier’s behavior.
+Choosing a financial model, then, often comes down to selecting the model
+that is just complicated enough.
+The second step, constructing a replicating portfolio, is mostly engi-
+neering. In theory, given the necessary securities, constructing the replicat-
+ing portfolio is simply a matter of determining a set of portfolio weights at
+any instant. The efficacy of dynamic hedging rests on the correctness of the
+assumed evolution for the price of the underliers, and on the assumption that
+the person executing the replication strategy can react instantly to any price
+change by adjusting the associated portfolio weights. In practice, adjusting
+the weights by trading in the market can be problematic. Bid-ask spreads,
+illiquidity, and market impact can all affect the replication strategy. If we try
+to buy too much of a security we may push the price up, and when we need
+to sell we may find it difficult to sell at the market price. If we need to short
+a security, we must consider borrowing costs, which rise when the security
+is hard to borrow. Financing costs, transaction costs, and operational risks
+may vary from firm to firm. These problems are all much worse for dynamic
+hedging than for static hedging, because dynamic hedging requires continu-
+ous trading. Finally, dynamic hedging often requires us to estimate the future
+values of certain parameters that are difficult or impossible to observe in the
+market. The most important of these parameters, the future volatility of an
+option’s underlier, is the main topic of this book.
+Wherever we can, we will first try to use static replication for valuing
+securities. If we cannot, then we will use dynamic replication. In actual mar-
+kets, one cannot always find a replicating strategy. In that case, one must
+resort to using economic models. This last approach often requires assump-
+tions about how market participants feel about risk and return—that is,
+about their utility function. Utility functions are the hidden variables of eco-
+nomic theory, quantities never directly observed, and our policy in this book
+will be to avoid them. Much of the charm of option theory lies in its seeming
+ability to ignore these personal preferences.
+MODELING THE RISK OF UNDERLIERS
+As described earlier, replication begins with the science, the descriptive
+model of underlier behavior. Modern portfolio theory rests on the efficient
+
+--- PAGE 34 ---
+18
+THE VOLATILITY SMILE
+market hypothesis (EMH), a framework that has come under renewed and
+very severe attack since the onset of the great financial crisis of 2007–2008.
+Let’s try to understand what it proposes.
+The Efficient Market Hypothesis
+Empirically, no one is very good at stock price prediction, whether using
+magical thinking or deep fundamental analysis. To be sure, there have been
+a few investors who have significantly outperformed the market in the past.
+Whether you believe their performance was due to luck or to skill, to sig-
+nificantly outperform the market you do not need to be very good at stock
+price prediction. Being right just 55% to 60% of the time, consistently, over
+many trades, is remarkable and can lead to great profit.
+In the 1960s, faced with this failure at price prediction, a group of aca-
+demics associated with Eugene Fama at the University of Chicago developed
+what has become known as the efficient market hypothesis. Over the years,
+many formulations of the theory have evolved, some more mathematical and
+rigorous, and some less so. Economists have defined strong, weak, and other
+kinds of “efficiency.” No matter how we define it, though, at its core the
+EMH acknowledges the following more or less true fact of life:
+It is difficult or well-nigh impossible to successfully and consistently
+predict what is going to happen to a stock’s price tomorrow based
+on all the information you have today.
+The EMH formalizes this concept by stating that it is impossible to beat the
+market in the long run, because current prices reflect all current economic
+and market information.
+Converting the experience of failed attempts at systematic stock price
+prediction into a hypothesis was a fiendishly clever jiu-jitsu response on the
+part of economists. It was an attempt to turn weakness into strength: “I can’t
+figure out how things work, so I’ll make the inability to do that a principle.”
+Uncertainty, Risk, and Return
+It might seem as though the efficient market hypothesis claims that the
+stock’s price and value are identical, and that nothing more can be said.
+That’s not the case. Let’s proceed to understand how the assumption of effi-
+cient markets can lead to a model for valuing securities. The elephant in the
+room of finance, as in the realm of all things human, is the unknown future.
+Uncertainty implies risk; risk means danger; danger means the possibility of
+loss.
+
+--- PAGE 35 ---
+The Principle of Replication
+19
+In economics, thoughtful people have come to distinguish between quan-
+tifiable and unquantifiable uncertainty. Examples of unquantifiable uncer-
+tainty include the likelihood of a revolution in Russia within two years,
+the probability of a terrorist attack in midtown Manhattan this year, or the
+chance of finding intelligent life on another planet. Not only are all of these
+events highly uncertain, but any model that we would develop to try to pre-
+dict these events is likely to be highly subjective. There is no way of honestly
+estimating these probabilities. This type of probability is often referred to as
+uncertainty or Knightian uncertainty. We can say that these events are likely
+or unlikely or very unlikely, but not much more.
+In some rare and somewhat idealized cases, uncertainty is quantifiable.
+Some economists like to define risk as quantifiable uncertainty. A good exam-
+ple is the uncertainty involved in tossing an unbiased coin: will it come up
+heads or tails? The probability that an unbiased coin lands on heads is equal
+to the probability that it lands on tails, 1/2. Similarly, one can determine the
+probability for three successive heads followed by two successive tails to be
+(1/2)5, or 1/32. This is the frequentist definition of probability that defines
+the concept in terms of expected frequency of occurrences, in the limit, for
+an infinite number of tosses.
+You might argue that quantifiable uncertainty is unrealistic. On the one
+hand, a perfect coin is a Platonic ideal and no coin is perfectly fair. On the
+other hand, a coin toss is, in some theoretical sense, predictable. If we knew
+the velocity and angle of the flick, how the air was moving around the coin as
+it spun, and the irregularities of the floor upon which the coin was bouncing,
+we could predict the outcome of the coin flip with a high degree of accuracy.
+If we are willing to ignore quantum mechanics, we could argue that there are
+no truly random events, only pseudo-random ones. From a practical stand-
+point, though, outside of a laboratory, even without quantum mechanical
+effects, there are so many factors that might impact the result of a coin toss
+that we may as well consider it to be a random event.
+In human affairs, frequentist probabilities are rare. The world is con-
+stantly changing, and experiments with humans cannot easily be repeated
+with the same initial conditions. Importantly, human beings learn from expe-
+rience. For example, credit markets after the great financial crisis won’t
+behave like credit markets before the crisis, because we have all learned a
+lesson, at least temporarily.
+Put another way, human institutions display hysteresis: Their current
+state depends on their entire history. Though the history of the world doesn’t
+affect a coin toss, the history of the world does have a bearing on the like-
+lihood of a political revolution or the next change in a stock’s price. The
+uncertainty in the behavior of a stock’s price is qualitatively different from
+the uncertainty of a coin flip, because the behavior of people is very different
+
+--- PAGE 36 ---
+20
+THE VOLATILITY SMILE
+from the behavior of coins. The likelihood of a stock market crash is not like
+the likelihood of throwing five tails in succession, because market crashes are
+societal events, and society remembers the last crash and fears the next. A
+coin doesn’t fear a sequence of five tails, and isn’t affected by the other coins
+in your pocket.
+The Behavior of a Share of Stock
+A company—take Apple Inc., for example—is a tremendously complex and
+structured endeavor. Apple has tens of thousands of employees, owns or
+leases buildings in many countries, designs products ranging from power
+plugs and cables to desktop and laptop computers through iPhones, iPads,
+and the Apple Watch. It manufactures some of them on its own, and out-
+sources the manufacturing of others. It distributes its products through
+Apple’s website and stores as well as via third parties, and sells music, videos,
+and books over the Internet. Apple advertises, provides product support,
+maintains websites, and carries out research and development.
+Amazingly, the entire economic value of this organization can, in theory,
+be summed up in just one number, the quoted price of a share of Apple’s
+stock.1 The quoted stock price is the amount of money that was required
+to buy or sell just one incremental share of the company the last time the
+stock traded. Financial modeling is an attempt to project the value of the
+entire enterprise into that single number that symbolizes its value. It aims
+to tell you what you should pay today for a share of the company’s future
+performance.
+The task of a would-be forecaster sounds impossibly difficult, and it gets
+worse. In order to predict the movement of stock prices, it is not enough
+to understand all of the complexities of a corporation and its place in the
+economy. In addition, we need to understand how all the other participants
+in the market view the company as well. Predicting the direction of stock
+prices, as Keynes wrote, is a lot like predicting the winner of a traditional
+beauty contest; you are not trying to figure out who is the most attractive,
+1 To be clear, the total value of a firm, what financial analysts refer to as a company’s
+enterprise value, includes the value of both the company’s stock and its debt, and
+Apple, like most large firms, does issue debt. In fact, in 2013 Apple issued what was,
+at the time, the largest corporate debt issue in history. The value of a company’s debt
+is generally fixed and largely predictable, except perhaps when it enters a credit crisis.
+The interesting part of determining the value of a company is, in most cases, almost
+entirely concerned with determining the value of its stock. This is what we focus on
+here, though more advanced models do treat the enterprise value as the fundamental
+underlier.
+
+--- PAGE 37 ---
+The Principle of Replication
+21
+but who the judges think is the most attractive (Keynes 1936). In the long
+run, fundamentals, the state of the economy, and the state of the company
+count. Sentiment can maintain its influence for only so long. In the short
+run, though, people’s opinions and passions count for a lot. But then again,
+the short run influences the long run. Short-term changes in the price of a
+company’s stock will affect the behavior of the company, its customers, and
+its creditors; psychological reality and economic reality interact, and are in
+fact indivisible.2 When people thought Lehman Brothers might go bankrupt
+in late 2008, they wouldn’t continue to lend it money, so it went bankrupt.
+The more you think about it, if you are honest and introspective, the
+more you realize that valuation is a vastly complex problem involving eco-
+nomics, politics, and psychology—the whole world, in fact—at both short-
+and long-term time scales. That the efficient market hypothesis is able to say
+anything universal about valuation is in fact quite remarkable. And it does
+it by ignoring as much of the particulars as possible.
+The Risk of Stocks
+The most important feature of a stock is the uncertainty of its returns. One
+of the simplest models of uncertainty is the risk involved in flipping a coin.
+Figure 2.1 illustrates a similarly simple model, a binomial tree, for the evo-
+lution of the return on a stock with return volatility 𝜎and expected return
+𝜇over a small instant of time Δt.3 The mean return during this time is 𝜇Δt,
+with a 50% probability that the return will be higher, 𝜇Δt + 𝜎
+√
+Δt, and a
+50% probability that the return will be lower, 𝜇Δt −𝜎
+√
+Δt.
+The volatility 𝜎is a measure of the stock’s risk. If 𝜎is large, then the
+difference between an up-move and a down-move will be significant.
+This simple model turns out to be extremely powerful. By adding more
+steps, as in Figure 2.2, and shrinking the size of Δt, we can mimic the more or
+less continuous motion of prices, much as movies produce the illusion of real
+motion by changing images at the rate of 24 frames per second. Assuming
+2 Ole Bjerg, a philosopher working in the framework of Slavoj ˇZiˇzek, sees the corpo-
+ration as “the real” and the stock price as its “symbol,” and this seems right. What
+interests Bjerg is the way fantasy and ideology fill the gap between reality and sym-
+bol, as discussed in his book Making Money: The Philosophy of Crisis Capitalism
+(Verso Press, 2014).
+3 Throughout the book, whenever we specify the return or volatility of a security
+without specifying a time period, you can assume these values are being expressed
+per year. In our current example, when we said “with . . . expected return 𝜇,” this
+was shorthand for “with an expected return of 𝜇per year.”
+
+--- PAGE 38 ---
+22
+THE VOLATILITY SMILE
+Δ +
+Δ
+Δ
+Δ
+0
+Δ
+50%
+50%
+−
+FIGURE 2.1
+A Binomial Tree for the
+Future Returns of a Stock
+successive returns are uncorrelated with each other, in the limit as Δt →0,
+the distribution of returns at time t becomes normally distributed with mean
+total return 𝜇t and standard deviation of returns 𝜎
+√
+t. Various normal dis-
+tributions are portrayed in Figure 2.3.
+The key feature of this model of risky securities is that the entire behavior
+of the security is captured in just two numbers, the expected return 𝜇and
+the volatility 𝜎. This assumption, a very strong one, will be used later, in
+combination with the law of one price, to derive some famous results of
+neoclassical finance, in particular the capital asset pricing model (CAPM),
+and later, the famous Black-Scholes-Merton option pricing formula.
+0
+4
+Δ
+4 Δ
+Δ
+4 Δ
+4 Δ
+Δ
+4 Δ
+Δ
+Δ
+FIGURE 2.2
+Binomial Tree of Returns with Four Steps
+
+--- PAGE 39 ---
+The Principle of Replication
+23
+–20%
+–10%
+0%
+10%
+20%
+FIGURE 2.3
+Examples of Normal Distributions
+The symmetric distribution of our simple model is at odds with the
+observed return distributions of almost all securities, which are characterized
+by negatively skewed distributions and fat tails. Nevertheless, the binomial
+model is a reasonable starting point for modeling risk. Though the actual
+behavior of securities is more complex and unpredictable, the binomial
+model provides an easily accessible intuitive and mathematical treatment
+of risk. Actual risk is wilder than the model and the normal distribution
+can accommodate. This should never be forgotten. We will investigate some
+more ambitious models, which go beyond these assumptions, later in this
+book.
+Riskless Bonds
+In the binomial model in the limit when 𝜎is zero, the up-move and the down-
+move are identical, and risk vanishes. We refer to the rate earned by a riskless
+security as the riskless rate, often denoted by r. The riskless rate is ubiqui-
+tous throughout economics and finance and is central to the replication and
+valuation of options.
+Figure 2.4 shows the binomial tree for a riskless security. The two
+branches of our tree, though we’ve kept them separate in the drawing, are
+identical. No matter which branch we take, the end value is the same.
+For any risky security, the riskless rate must lie in the zone between the
+up-return and the down-return. If this were not the case—if, for example,
+both the up- and down-returns were greater than the riskless return—you
+
+--- PAGE 40 ---
+24
+THE VOLATILITY SMILE
+Δ
+0
+Δ
+50%
+50%
+FIGURE 2.4
+Binomial Tree for a
+Riskless Security
+could create a portfolio that is long $100 of stock and short $100 of a risk-
+less bond with zero net cost and a paradoxically positive payoff under all
+future scenarios in the binomial model. Any model with such possibilities is
+in trouble before it leaves the ground, because it immediately provides an
+opportunity for a riskless profit, an arbitrage opportunity that violates the
+principle of no riskless arbitrage.
+How do we determine the riskless rate in practice? One possibility is
+to use the yield of a bond with no risk of default, such as a U.S. Treasury
+bill, commonly considered to be entirely safe. Rather than talking about bor-
+rowing or lending at the riskless rate, in fact, we often talk about buying or
+selling a riskless bond. The problem of determining the riskless rate is then a
+problem of defining and then finding a riskless bond. While this may sound
+simple, in practice agreeing on what number to use for the riskless rate can
+become complicated, especially in crisis-ridden markets. Here we will simply
+assume the riskless rate is known.
+THE KEY QUESTION OF INVESTING
+We never know what the future holds. An extremely important question
+in life as well as in finance is how to act in the face of risk or uncertainty.
+In finance, as outlined in the previous section, we think about securities in
+terms of their anticipated risk and return. The key question of investing can
+therefore be stated as follows:
+What anticipated possible future reward justifies a particular
+anticipated risk?
+The law of one price states that securities with identical payoffs under all
+possible circumstances should have identical prices. For the binomial model
+described earlier, the payoffs for a security are entirely characterized by its
+
+--- PAGE 41 ---
+The Principle of Replication
+25
+volatility 𝜎and its expected return 𝜇. Within the binomial framework, on
+which we will focus for now, the key question of finance then becomes:
+What is the relation between 𝜇and 𝜎?
+To answer this question, we must think more deeply about risk and return.
+Some Investment Risks Can Be Avoided
+The law of one price states that securities with identical payoffs under all
+possible circumstances should have identical prices, and therefore identical
+expected returns. It is tempting to reformulate the law of one price to say
+that securities with identical risks should have identical expected returns. It’s
+not quite that simple, though. Not all risks are the same. The risk of a secu-
+rity depends on its relation to other securities. Two securities with the same
+numerical volatility 𝜎might, for example, have different correlations with
+the Standard & Poor’s (S&P) 500 index, and, therefore, when one hedges
+their exposure to the S&P 500, they would have different risks. In other
+words, when more than one stock exists, 𝜎alone is not an adequate charac-
+terization of risk.
+In life, there are certain risks that we can avoid, alter, or voluntarily
+expose ourselves to, while there are other risks that cannot be avoided. The
+same is true in financial markets. By combining assets in various ways via
+financial engineering, we can alter, avoid, or eliminate many forms of finan-
+cial risk. It’s only unavoidable investment risk that is truly fundamental. We
+must therefore consider whether risk is avoidable or unavoidable.
+In general, as we will illustrate in the following sections, there are three
+ways to alter or avoid risk: by dilution, by diversification, and by hedging
+away common risk factors. We propose that you should expect to earn a
+return in excess of the riskless rate on an investment only if that invest-
+ment’s risk is unavoidable or irreducible. An irreducible or unavoidable risk
+is the risk of an asset that is uncorrelated with all other assets. We therefore
+reformulate our law of one price to state:
+Identical unavoidable risks should have identical expected returns.
+To examine the relation between a security’s 𝜇and 𝜎, we will consider
+a stock with volatility 𝜎and return 𝜇. We will then evaluate its risk in a
+sequence of imaginary, but increasingly realistic, model worlds that involve
+ensembles of securities, to determine how much of the security’s risk is avoid-
+able by dilution, diversification, or hedging. Whatever is left over has only
+unavoidable risk, and we will then assume (1) that it has the same return
+
+--- PAGE 42 ---
+26
+THE VOLATILITY SMILE
+as other unavoidable risks of the same size, and (2) that the principle of
+replication applies to it and all other securities. In particular, we will use the
+principle of replication to show that a portfolio with zero risk should earn
+the riskless return. This will allow us to derive a relation between the risk
+and return of any stock.
+The three model worlds we now consider are:
+■World #1: a simple world with a finite number of uncorrelated stocks
+and a riskless bond.
+■World #2: a world with an infinite number of uncorrelated stocks and
+a riskless bond.
+■World #3: a world with an infinite number of stocks all simultaneously
+correlated with the market M, and a riskless bond.
+We will now use the simple Worlds #1 and #2 as warm-up exercises to
+deduce a relation between 𝜇and 𝜎from the law of one price. The results
+we deduce in those worlds will be logically consistent, but will not resemble
+the relation between 𝜇and 𝜎in actual markets. We are using those worlds
+to illustrate an argument so that when we apply it to World #3, which is
+more complicated, the logic will be clearer. World #3 is the one that most
+closely resembles the world we live in. By applying the reformulated law
+of one price to it, we will show how it leads, in that world, to a renowned
+relation between risk and expected return, the capital asset pricing model4
+or the arbitrage pricing theory (APT) (Ross 1976). In all cases, we restrict
+ourselves to a world in which securities evolve according to the binomial
+model, so that every security is entirely characterized by its volatility 𝜎and
+its expected return 𝜇.5
+4 A more complete version of the following presentation is contained in E. Derman,
+“The Perception of Time, Risk and Return during Periods of Speculation,” Quanti-
+tative Finance 2 (2002): 282–296.
+5 In this section and in what follows, we have been assuming that all that matters
+for valuing a security is its volatility 𝜎and its expected return 𝜇. In actual markets,
+security returns can have higher-order moments and cross moments.In the real world,
+two securities could both be uncorrelated with all other securities and have equal
+standard deviations, but have different skewness and/or kurtosis. Securities can also
+differ in their liquidity, in their tax treatment, and in a whole host of other ways that
+investors care about. These factors could, in turn, cause expected returns to be higher
+or lower. In the derivations in this chapter, when we say equal unavoidable risk, we
+are basically assuming that all of these other risk factors do not matter. That is an
+implicit assumption of this model that assumes everything of interest to valuation is
+captured by the first two moments.
+
+--- PAGE 43 ---
+The Principle of Replication
+27
+World #1: Only a Few Uncorrelated Stocks
+and a Riskless Bond
+In this simple world, there are a finite number of stocks and a riskless bond.
+Each stock is uncorrelated with all of the other stocks (and any combina-
+tion of the other stocks). In other words, in this world, stocks have only
+unavoidable risk. Suppose we are interested in investing in a risky stock S
+with volatility 𝜎and expected return 𝜇. Since there are only a finite num-
+ber of uncorrelated stocks in this world, we cannot entirely avoid its risk by
+hedging or by diversification. We can, however, reduce our overall invest-
+ment risk by combining it in a portfolio with a riskless bond. For example,
+given $100, instead of investing all $100 in the risky stock, we could invest
+only $40 in the stock and the remaining $60 in a riskless bond. This can be
+thought of as diluting the risk of the stock.
+More generally, assume that we dilute the risk of stock S by investing a
+percentage of our portfolio, w, in a risky stock and (1 – w) in riskless bonds.
+If w is 1, our portfolio is entirely invested in risky securities. If w is 0, our
+portfolio is entirely invested in riskless bonds. If 0 < w < 1 then our portfolio
+is a mix of risky and riskless securities. If w is greater than 1, then (1 – w) is
+negative and we are borrowing at the riskless rate in order to leverage our
+investment in the risky security.
+w( Δ
+Δ ) + (1− w)rΔ
+w( Δ
+Δ ) + (1− w)rΔ
+0
+Δ
+50%
+50%
+FIGURE 2.5
+Binomial Tree for a Mixture of a
+Risky Stock S and a Riskless Bond
+Figure 2.5 shows the binomial tree of returns for a mixture of a risky
+security and riskless bonds. The expected return of this portfolio, 𝜇P, is sim-
+ply the weighted average of the risky security and the riskless bonds:
+𝜇P = w𝜇+ (1 −w) r
+= r + w (𝜇−r)
+(2.1)
+
+--- PAGE 44 ---
+28
+THE VOLATILITY SMILE
+Because the riskless bonds have no volatility, the volatility 𝜎P of the portfolio
+is simply w𝜎. By decreasing volatility from 𝜎to w𝜎, we decrease the expected
+excess return to w(𝜇−r), the excess return being the return of a security or
+portfolio minus the riskless rate.
+Define a new variable 𝜆, the ratio of a security’s excess return to its
+volatility, so that
+𝜆≡𝜇−r
+𝜎
+(2.2)
+The variable 𝜆is the well-known Sharpe ratio. Now, for the portfolio of a
+risky security and riskless bonds in Equation 2.1, the Sharpe ratio is
+𝜆P ≡𝜇P −r
+𝜎P
+= w𝜇+ (1 −w) r −r
+w𝜎
+= w (𝜇−r)
+w𝜎
+= 𝜇−r
+𝜎
+≡𝜆
+(2.3)
+The Sharpe ratio of the portfolio is equal to the Sharpe ratio of the risky
+security. Diluting a portfolio by investing part of the portfolio in riskless
+bonds has no effect on the Sharpe ratio.6
+Now consider another uncorrelated stock S′ that has the same volatility
+w𝜎as the portfolio P. It has the same numerical risk as portfolio P consisting
+of S and a riskless bond, but, since it is a separate source of risk, uncorrelated
+with the behavior of S, both risks are unavoidable. The reformulated law
+of one price tells us that any security with unavoidable risk w𝜎must have
+expected excess return w(𝜇−r). Therefore, S′ must have the same return as
+P. Thus,
+𝜆S′ ≡𝜇S′ −r
+𝜎S′
+≡𝜇P −r
+𝜎P
+= 𝜇−r
+𝜎
+≡𝜆
+(2.4)
+Equation 2.4 shows that the Sharpe ratio is the same both for the secu-
+rity S′ and for the security S. Therefore, in World #1, the Sharpe ratio must
+be the same for all stocks. By varying w in Figure 2.5, we can create port-
+folios P of any risk 𝜎P. Equation 2.3 shows that the excess return of any
+uncorrelated security will be proportional to its volatility. It confirms the
+popular maxim “More risk, more return,” which strictly speaking should
+read “More unavoidable risk, more expected return.”
+The Sharpe ratio 𝜆is an extremely popular measure of risk-adjusted
+performance first proposed by William Sharpe in 1966. The Sharpe ratio
+6 We’re assuming that w > 0. If we allow w to be negative, effectively shorting the
+risky asset, then 𝜎P = |w|𝜎= −w𝜎but 𝜇P is still w(𝜇– r) and the Sharpe ratio 𝜇P−r
+𝜎P
+=
+w(𝜇−r)
+−w𝜎
+= −(𝜇−r)
+𝜎. The magnitude of the Sharpe ratio for a short position in the risky
+asset is still the same, but with opposite sign.
+
+--- PAGE 45 ---
+The Principle of Replication
+29
+measures the amount of excess return earned per unit of risk. Crudely speak-
+ing, it’s the bang you get for your risk buck. A portfolio manager can always
+increase expected returns by taking more risk (by diluting the portfolio less
+or by borrowing more). In order to generate a higher Sharpe ratio, however,
+a portfolio manager must either increase excess returns without increasing
+risk, keep excess returns the same while lowering risk, or both increase excess
+returns and lower risk. All other things being equal, rational investors prefer
+investments with higher Sharpe ratios.
+Asset managers often employ leverage, and one additional feature of the
+Sharpe ratio as a measure of performance is that, assuming you can borrow
+at the riskless rate, the Sharpe ratio is invariant under changes in leverage. If a
+portfolio manager borrows the full value of her original portfolio with char-
+acteristics (𝜇, 𝜎) to invest twice as much in the same portfolio, her expected
+return increases to 2𝜇−r, twice as much from the portfolio less the interest r
+paid on the loan. The excess return of the leveraged portfolio therefore dou-
+bles to 2𝜇−2r. But the portfolio also has double the volatility, so its Sharpe
+ratio remains the same. It is fitting that a measure of fund performance
+should not increase when the fund simply borrows more money to invest.
+Note that the Sharpe ratio is not dimensionless. When calculating the
+Sharpe ratio, we typically use annualized numbers. The average return is
+then the average return per year, and volatility is calculated as the square
+root of the standard deviation of returns per year, so that the dimension of
+𝜆is (year)−1/2. The Sharpe ratio therefore depends on the units of time used
+to calculate the returns. If we used daily or monthly returns to calculate
+the average return and volatility, we would get a different Sharpe ratio. By
+convention, Sharpe ratios, then, are reported in units of (year)−1/2.
+In this model world, World #1, with a finite number of uncorrelated
+stocks, the law of one price requires securities with the same volatility to
+have the same expected return. Stated another way, therefore, the law of one
+price requires all uncorrelated securities to have the same Sharpe ratio.
+Notice, importantly, that the law of one price, at least so far, has not
+given us an indication of the magnitude of the Sharpe ratio, but only that it
+is the same for all uncorrelated securities.
+SAMPLE PROBLEM
+Question:
+Suppose an emerging markets index has an expected return of 24% per
+year and an annual volatility of 30%. An investor wishes to invest in
+(continued)
+
+--- PAGE 46 ---
+30
+THE VOLATILITY SMILE
+(continued)
+emerging markets, but desires a volatility of 15%. You offer to create a
+custom basket for the investor by combining some amount of riskless
+bonds and the index. Assume you can borrow at a riskless rate of 4%.
+What is the expected return of the basket?
+Answer:
+The Sharpe ratio of the index is 2/3:
+𝜆I = 0.24 −0.04
+0.30
+= 2
+3
+Because you can borrow at the riskless rate, the Sharpe ratio is
+invariant under leverage. Thus the basket will have the same Sharpe
+ratio as the index, even though its expected return and volatility will
+be different. Rearranging Equation 2.2 for the basket, we have:
+𝜇B −r = 𝜆I𝜎B
+𝜇B = r + 𝜆I𝜎B
+𝜇B = 0.04 + 2
+30.15
+𝜇B = 0.14
+The expected return of the basket is therefore 14%.
+We can also figure out how many of the riskless bonds to add
+to the index. To lower the volatility of 30% to 15% when the volatility
+of the riskless bonds is zero, we need to lower the weight of the index
+in the basket to be 1∕2. The other 1∕2 must be riskless bonds. With a
+50–50 mix of index with return 24% and bonds with return 4%, you
+can see that the expected return of the basket is 50% × 24% + 50% ×
+4% = 12% + 2% = 14%.
+World #2: An Infinite Number of Uncorrelated
+Stocks and a Riskless Bond
+We have shown that in World #1 the Sharpe ratio of all stocks is the same.
+Now, suppose that we extend World #1 into World #2, in which there are an
+infinite number of uncorrelated stocks available in the market. In this world,
+just as in World #1, we can still alter risk by dilution. In this world, we can
+
+--- PAGE 47 ---
+The Principle of Replication
+31
+also do something that we could not do in World #1: We can fully eliminate
+risk by diversification.
+Diversification is arguably the most fundamental risk-reduction strat-
+egy. By combining a large number of uncorrelated stocks, we can create a
+portfolio that has lower volatility than any of the securities from which it is
+constructed. We will now show that this method of risk reduction, combined
+with the law of one price, demands that, in this simplified model world, the
+Sharpe ratio of all securities be identical and equal to zero! If this sounds
+strange, remember that this is so because we are still operating in a model
+world that is very different from reality.
+We illustrate our analysis with the special case where all the securities
+in a portfolio have the same volatility 𝜎. If we have n securities, then the
+volatility of the portfolio will be 𝜎∕
+√
+n (remember, we are assuming zero
+correlation). In the limit n →∞the portfolio volatility approaches zero.
+In this limit, if the portfolio volatility is zero, then the portfolio bears
+no risk, and consequently replicates a riskless bond. Thus, by the law of
+one price, the expected return of the portfolio must be the riskless return r.
+Because the return of the portfolio is just the weighted average of the returns
+of all the stocks in the portfolio, this implies that the expected return of
+each of the stocks in the portfolio must also be the riskless rate.7 Thus, in
+World #2, if we can diversify to attain zero risk, then the expected return
+of any stock must be the riskless rate. Now, by Equation 2.2, for any stock,
+𝜇−r = 𝜆𝜎. If the left-hand side of this equation is zero, and the volatility of
+the individual stock is not zero, then we conclude that 𝜆must be zero. That
+is, in this model world the Sharpe ratio of every stock must be zero. Recall
+again: If this sounds strange, remember that this is so because we are still
+operating in a model world in which all stocks are uncorrelated.
+World #3: An Infinite Number of Stocks All
+Simultaneously Correlated with the Entire
+Market, and a Riskless Bond
+World #2 is not the world we live in. In fact, we cannot reduce the volatility
+of a portfolio of stocks to zero simply by increasing the number of stocks
+7 This follows because the expected return of an uncorrelated stock cannot be less
+than the riskless rate. Securities that are negatively correlated with other securities
+can have negative expected excess returns (many insurance products have this char-
+acteristic), but in an efficient market uncorrelated securities should always have non-
+negative excess returns. There is no benefit to an investor in holding an uncorrelated
+security with a negative expected excess return, when the investor could be holding
+riskless bonds instead.
+
+[TRUNCATED at 80000 chars — 528 total pages]

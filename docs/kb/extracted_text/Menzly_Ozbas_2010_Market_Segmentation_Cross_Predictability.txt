@@ -1,0 +1,1628 @@
+
+--- PAGE 1 ---
+Electronic copy available at: http://ssrn.com/abstract=989080
+Market Segmentation and Cross-Predictability of Returns∗
+Lior Menzly
+Nomura Asset Management
+Oguzhan Ozbas
+University of Southern California
+Journal of Finance forthcoming
+Abstract
+We present evidence supporting the hypothesis that due to investor specialization and market
+segmentation, value-relevant information diﬀuses gradually in ﬁnancial markets.
+Using the
+stock market as our setting, we ﬁnd that (i) stocks that are in economically related supplier
+and customer industries cross-predict each other’s returns, (ii) the magnitude of return cross-
+predictability declines with the number of informed investors in the market as proxied by the
+level of analyst coverage and institutional ownership, and (iii) changes in the stock holdings of
+institutional investors mirror the model trading behavior of informed investors.
+∗We thank an anonymous referee, an anonymous associate editor, Wayne Ferson, Cam Harvey (the editor), Chris
+Jones, Berk Sensoy and Mark Westerﬁeld for helpful comments. Financial support from the Marshall General Research
+Fund is gratefully acknowledged. Send correspondence to Oguzhan Ozbas at the University of Southern California,
+Department of Finance & Business Economics, Marshall School of Business, University Park Campus, Building HOH
+514, Mail Code: 0804, Los Angeles, CA 90089; telephone: 213-740-0781; fax: 213-740-6650. E-mail: ozbas@usc.edu
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 2 ---
+Electronic copy available at: http://ssrn.com/abstract=989080
+A growing body of empirical and theoretical research relaxes some of the stringent assumptions of
+the eﬃcient markets hypothesis, and posits that gradual diﬀusion of information among investors
+explains the observed predictability of returns (Hong and Stein, 1999). To test the gradual diﬀusion
+of information hypothesis, the literature has focused mainly on studying the lagged price response
+of assets to their own past returns and their interaction with variables thought to aﬀect the speed
+of information diﬀusion. This approach has been used out of necessity because information ﬂow is
+a complex and unobservable process that is diﬃcult to measure directly as separate from an asset’s
+own past return.
+In this paper, we explore a new channel of information ﬂow that is separate from an asset’s
+own past return, namely delayed price response to shocks that originate in related ﬁrms in supplier
+and customer industries. By examining the factors aﬀecting the delay, we provide some of the ﬁrst
+direct evidence on the gradual diﬀusion of information hypothesis, and on market segmentation
+as an underlying reason. The central contribution of our paper is, thus, to show that investor
+specialization and the resulting informational segmentation of markets have signiﬁcant eﬀects on the
+formation of prices, and that gradual diﬀusion of information from economically related industries
+is pervasive. Our measures of information ﬂow, stock returns in supplier and customer industries,
+also allow us to explore untested implications of return cross-predictability that arise in limited-
+information models among assets with correlated fundamentals.1
+A long line of previous work studies return predictability based on publicly available information,
+and builds on modeling ingredients that are also necessary for there to be return cross-predictability.
+The main ingredients in this literature are: (i) information about fundamentals is dispersed (Hayek,
+1945), (ii) at least some investors can process only a subset of publicly available information (Hong
+and Stein, 1999) because either they have limited information-processing capabilities (Simon, 1955,
+Jensen and Meckling, 1992) or searching over all possible forecasting models using publicly available
+information itself is costly (Hong, Stein and Yu, 2007), and (iii) there are limits to arbitrage (De
+Long, Shleifer, Summers and Waldmann, 1990, Shleifer and Summers, 1990, Shleifer and Vishny,
+1997).
+With these assumptions, new informative signals get incorporated into prices partially
+because at least some investors do not adjust their demand by performing the Grossman-Stiglitz
+(1980) rational expectations inference of recovering informative signals from observed prices. As a
+result of this failure on the part of some investors, returns exhibit predictability.
+1
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 3 ---
+To obtain cross-predictability in a limited information model, two additional assumptions are
+needed: ﬁrms in diﬀerent industries or segments of the market have correlated fundamentals (A1),
+and as in Hong, Torous and Valkanov (2007), investors specialize along these boundaries to some
+degree (A2) which renders markets informationally segmented. Our analysis of cross-predictability
+along the supply chain proceeds by providing evidence on these two important assumptions. We
+ﬁnd that industry proﬁts along the supply chain are indeed correlated, and that analysts, who are
+among the most important producers of information, cover a few stocks and even fewer industries,
+suggesting that the production of new information is specialized. While most, if not all, analysts
+undoubtedly have some knowledge of related stocks or industries, all that a gradual diﬀusion of
+information model needs is that some producers of information be specialists and that they not be
+the source of some new information produced in related markets.
+We then present four sets of cross-predictability ﬁndings that are consistent with the predic-
+tions of a gradual diﬀusion of information model. First, stock- and industry-level returns exhibit
+strong cross-predictability eﬀects based on lagged returns in supplier and customer industries. By
+excluding small and illiquid stocks, we further verify that the cross-predictability results are not
+driven by delayed price response among small stocks (lead-lag eﬀect) or stale prices.
+Second, the extent of cross-predictability is negatively related to the level of information in the
+market. Ranking stocks by the level of analyst coverage or by the level of institutional ownership,
+stocks in the top quintile exhibit no cross-predictability whereas stocks in the bottom quintile
+exhibit two to three times more cross-predictability than the average stock.
+Third, we ﬁnd that the way in which institutional investors trade is consistent with the model
+trading behavior of informed investors exploiting the cross-market content of informative signals.
+Speciﬁcally, institutions increase their ownership in a stock at the same time that they increase
+their ownership in supplier and customer industries, and decrease their ownership in a stock at the
+same time that they decrease their ownership in supplier and customer industries. We also ﬁnd
+similar results using returns in supplier and customer industries, consistent with the joint behavior
+of returns and informed trade in limited-information models.
+Fourth, we show that self-ﬁnancing trading strategies based on cross-predictability eﬀects yield
+economically and statistically signiﬁcant premiums. Speciﬁcally, a trading strategy that consists
+of buying industries with high returns in supplier industries over the previous month and simulta-
+2
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 4 ---
+neously selling industries with low returns in supplier industries over the previous month yields an
+annual premium of 7.3%. A similar trading strategy based on previous-month customer industry
+returns yields an annual premium of 7.0%. Both trading strategies are consistently proﬁtable over
+the sample period, and returns from them exhibit little exposure to well-known return factors such
+as the Fama-French SMB, HML and MOM factors. Moreover, we ﬁnd that the return series of
+long/short equity hedge funds, which are thought to exploit predictability eﬀects, are signiﬁcantly
+correlated, both economically and statistically, with the return series from the trading strategies
+described above.
+The rest of the paper proceeds as follows. Section I provides a discussion of the setting including
+our empirical design, and relates the paper to previous research. Section II explains our data sources,
+and presents our main ﬁndings about cross-predictability. We explore various trading strategies in
+Section III, and provide concluding remarks in Section IV.
+I.
+The Setting
+A.
+Cross-Predictability in Limited-Information Models
+A limited-information model in the spirit of Hong, Torous and Valkanov (2007) underlies our
+tests about the various aspects of cross-predictability. This subsection provides a summary overview
+of model basics and assumptions required to demonstrate how the specialization of investors in their
+information gathering eﬀorts can lead to informationally segmented markets and consequently to
+cross-predictability in asset returns.
+To ﬁx ideas, suppose that there are two markets, three dates, and two types of investors,
+informed and uninformed, with both types of investors able to invest in both markets. Informed
+investors specialize in one of the markets for which, at some intermediate stage, they receive an
+informative signal about the eventual cash ﬂow. Uninformed investors do not receive an informative
+signal, and at least some of them, do not process information because either they have limited-
+information processing capabilities, or processing information is costly for them.
+In this setting, it is fairly straightforward to show that returns exhibit predictability based on
+publicly available information. When the informative signal arrives at the intermediate stage, it is
+incorporated into the price through the demand of informed investors — but only partially because
+3
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 5 ---
+at least some uninformed investors, due to their limited information-processing capabilities, do not
+perform the Grossman-Stiglitz (1980) rational expectations inference of recovering the informative
+signal from the observed price to adjust their demand. As a result of this failure on the part of
+some uninformed investors, returns exhibit positive auto-correlation.
+With two asset markets, returns exhibit cross-predictability as a consequence of two additional
+assumptions: (i) the two markets have correlated fundamentals, and therefore an informative signal
+in one market has information content about the eventual payoﬀin the other market, and (ii) the
+two markets are informationally segmented. Due to the specialization of informed investors, an
+informative signal originating in one of the markets is received only by those investors who happen
+to specialize in that market, and not by investors who specialize in the other market. As a result,
+informative signals with cross-market content are incorporated into prices only partially, and returns
+exhibit cross-predictability — note that this spillover eﬀect is diﬀerent from a lead-lag eﬀect because
+either market can cross-predict the other when there is a new signal, rather than one market always
+leading or always lagging another.
+The limited-information setting outlined above has the following testable predictions. First,
+cross-predictability is to be expected across assets with correlated fundamentals, and to be of the
+same sign as the correlation of fundamentals. Second, allowing the number of informed investors to
+vary, the magnitude of cross-predictability should be lower where there are more informed investors.
+Intuitively, when the amount of information-impounding demand is high in a given market, and
+informative signals are by and large incorporated fully, there is little left to be predicted. Third,
+allowing informed investors to exploit the cross-market content of their signals, their trades in
+fundamentally related markets should be correlated because while information acquisition activities
+may involve specialization, trading need not.2
+B.
+Empirical Design
+It is important that we also motivate our empirical design. Why do we test for cross-predictability
+eﬀects along the supply chain? And, why do we focus on economic boundaries deﬁned by industries?
+Firms close to each other along the supply chain are likely to face correlated cash ﬂow shocks,
+a necessary ingredient for there to be cross-predictability in limited-information models. Supplier
+and customer ﬁrms may have correlated cash ﬂows because they interact with each other either
+4
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 6 ---
+directly through their trading relationships or indirectly through market prices for their inputs and
+outputs. Firms along the supply chain may also face relatively similar demand or technological
+shocks. The Benchmark Input-Output Surveys of the Bureau of Economic Analysis (BEA Surveys,
+hereafter) provide data on the amount of goods and services traded among industries that allow us
+to identify supplier and customer industries.
+Economic boundaries deﬁned by industries are likely to also represent informational boundaries
+induced by investor specialization. This is because the skills necessary to investigate and evaluate
+a given ﬁrm are likely to be useful in understanding other same-industry ﬁrms. Indeed, important
+economic agents such as equity analysts and money managers tend to specialize along industry
+lines.
+The empirical design can alternatively focus on economic boundaries deﬁned by companies.
+Indeed, Menzly and Ozbas (2004), and Cohen and Frazzini (2008) use COMPUSTAT’s customer
+information database to identify economically related stocks. However, for the purposes of the
+present paper, we have ultimately decided for two reasons that the BEA Surveys represent the best
+empirical approach to identify the set of economically related stocks for a given stock or industry.
+First, only the smallest stocks exhibit cross-predictability eﬀects based on lagged COMPUSTAT
+customer returns.
+This raises natural questions as to whether return cross-predictability is an
+economically important phenomenon worthy of study if it is limited to small stocks.
+Second,
+using the customer information database to identify supplier ﬁrms (in eﬀect, by using reported
+relationships in the reverse direction) and then testing for cross-predictability eﬀects from supplier
+ﬁrms yield no signiﬁcant results. This is because the customer ﬁrms reported in COMPUSTAT are
+typically much larger than the reporting ﬁrm. In comparison, the BEA Surveys enable us to identify
+for each ﬁrm broad portfolios of supplier and customer ﬁrms whose returns contain economically
+important information regardless of the size of the ﬁrm in question. As a result, cross-predictability
+eﬀects based on the BEA Surveys are robust even to the exclusion of small stocks.
+C.
+Related Literature
+Our ﬁndings relate to a large literature on return predictability, one strand of which explores
+lead-lag relations among stocks. In an inﬂuential paper, Lo and MacKinlay (1990) document that
+large stocks lead small stocks. Our paper, by showing that cross-predictability eﬀects are robust
+5
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 7 ---
+to the exclusion of small stocks and monthly return observations without a closing price in the
+previous month, addresses an important concern of this literature that observed lead-lag relations
+could be an artifact of thin markets and non-synchronous prices.
+In a recent paper, Hong, Torous and Valkanov (2007) document that in the US several important
+industries such as commercial real estate, petroleum, metal, retail, ﬁnancial, and services lead the
+overall stock market as well as various economic indicators. Moreover, they show that the eight
+largest non-US markets exhibit similar patterns. A natural interpretation of their ﬁndings is that
+information of macroeconomic importance in certain industries diﬀuses gradually to the rest of the
+market. In addition to the contributions we discuss below, our ﬁndings diﬀer from those of Hong,
+Torous and Valkanov (2007) in that we establish pervasive cross-predictability eﬀects throughout
+the supply chain by focusing on returns in immediate supplier and customer industries.
+Another strand of the literature following Lo and MacKinlay (1990) investigates the role of
+informed traders with proxies such as analyst coverage and institutional ownership like we do.
+Brennan, Jegadeesh and Swaminathan (1993) show that many-analyst ﬁrms lead few-analyst ﬁrms,
+suggesting that many-analyst ﬁrms adjust to common information faster than few-analyst ﬁrms do.
+Badrinath, Kale and Noe (1995) show that high-institutional ownership stocks lead low-institutional
+ownership stocks. Because we use return innovations in a relatively contained set of supplier and
+customer industries as opposed to return innovations in market-wide portfolios of stocks which these
+previous papers use, we are able to establish an important role for informed traders in impounding
+relatively less common information into stock prices.
+In another related paper, Hong, Lim and Stein (2000) document that stocks with more analyst
+coverage exhibit less price momentum. This is consistent with the idea that stocks with more
+analyst coverage adjust faster to value-relevant information, though the source as well as the nature
+of the information to which stocks adjust in their study remain unclear. In this respect, our ﬁndings
+complement theirs by showing that stocks with more analyst coverage adjust faster to value-relevant
+information originating in supplier and customer industries.
+Finally, by relating the trading behavior of institutional investors to returns in supplier and
+customer industries, we contribute to the literature investigating the joint behavior of stock returns
+and informed trade in “disagreement models” as articulated by Hong and Stein (2007). Earlier
+work by Cohen, Gompers and Vuolteenaho (2002) shows that institutional investors proﬁt from the
+6
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 8 ---
+momentum eﬀect in prices. We further show that the holdings of institutional investors change in
+a manner consistent with trading strategies that proﬁt from the cross-predictability eﬀect in prices.
+II.
+Empirical Results
+A.
+Data
+A.1.
+CRSP and COMPUSTAT
+Our return data come from the Center for Research in Security Prices (CRSP) monthly returns
+database. The sample period is from July 1963 to June 2005. Consistent with standard practice,
+we use NYSE, AMEX, and Nasdaq stocks, and exclude closed-end funds, real estate investment
+trusts, American Depositary Receipts, foreign companies, primes and scores. We obtain ﬁnancial
+statement and other company information through the Merged COMPUSTAT-CRSP database.
+A.2.
+Benchmark Input-Output Surveys
+We use a series of Benchmark Input-Output Surveys of the Bureau of Economic Analysis to
+identify supplier and customer industries for a given stock or industry (see Fan and Lang, 2000,
+Matsusaka 1993). BEA Surveys provide a detailed picture of the interdependent structure of the
+U.S. economy by assigning gross output to industry accounts and by reporting the amount of
+inter-industry ﬂow of goods and services in the Use Table.
+BEA Surveys are published roughly once every ﬁve years to coincide with the Economic Census
+conducted by the U.S. Census Bureau, and we draw on 11 diﬀerent surveys (2002, 1997, 1992, 1987,
+1982, 1977, 1972, 1967, 1963, 1958 and 1947) on a rolling basis to measure supplier and customer
+relations. We adopt this approach primarily to improve measurement accuracy because each survey
+provides a historical snapshot, and thus, may be inadequate for describing the structure of the U.S.
+economy for our entire sample period. For the ﬁrst part of our analysis testing the underlying
+economics of cross-predictability, we use data from a given survey until a new snapshot is provided
+by the following survey. Speciﬁcally, we use data from the 1963 Survey between 1963 and 1966, the
+1967 Survey between 1967 and 1971, and so on. For the second part of our analysis investigating
+various trading strategies based on cross-predictability eﬀects, we delay using any data from a given
+7
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 9 ---
+survey until the end of the year in which the survey is publicly released. The diﬀerent BEA Surveys
+mentioned above were released during 2007, 2002, 1997, 1994, 1991, 1984, 1979, 1974, 1969, 1964,
+and 1952, respectively.
+For the purposes of our analysis, we merge three separate industry accounts, namely, 2301 (new
+nonresidential construction), 2302 (new residential construction) and 2303 (maintenance and repair
+construction) in the 1997 and 2002 BEA Surveys into a single account because the three industry
+accounts stake overlapping claims on the same North American Industry Classiﬁcation System
+(NAICS) codes and ﬁrms. In pre-1997 BEA Surveys based on Standard Industrial Classiﬁcation
+(SIC) codes, we merge industry account pairs 1-2 (livestock and agricultural products), 5-6 (metallic
+ores mining), 9-10 (nonmetallic minerals mining), 11-12 (construction), 20-21 (lumber and wood
+products), and 33-34 (footwear, leather, and leather products) because the industry accounts within
+each pair stake overlapping claims on the same SIC codes. In addition, we drop miscellaneous
+industry accounts related to government, import and inventory adjustments because they do not
+appear to correspond to any clear economic activity or industry.
+We use BEA SIC and NAICS code dictionaries to assign each stock to an industry based on
+the stock’s reported SIC or NAICS code in COMPUSTAT.3 In case this information is missing in
+COMPUSTAT, we use the reported code in CRSP. Based on industry assignments, we then calculate
+value-weighted monthly industry returns. We require that there be a market capitalization at the
+end of June of a given year for a stock to be included in the analysis for the subsequent 12 months.
+We impose this requirement primarily to stabilize the composition of industry portfolios.
+After calculating industry portfolio returns, we further form two separate portfolios for each
+industry, one composed of supplier industries and another composed of customer industries. In
+calculating monthly returns for these portfolios, we use data on the ﬂow of goods and services
+to and from the industries in question as portfolio weights. These portfolio weights are shares
+of an industry’s total purchases from other industries in calculating supplier industry returns,
+and its total sales to other industries in calculating customer industry returns. For testing limited-
+information models of gradual information diﬀusion, this portfolio weighting scheme has the desired
+properties of (i) identifying the set of economically related supplier and customer industries for a
+given industry, and (ii) reﬂecting the relative economic importance of related industries as proxied
+by the amount of inter-industry trade.
+8
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 10 ---
+A.3.
+I/B/E/S and 13F Holdings
+We use the I/B/E/S database, both its detail and summary history ﬁles, to construct measures
+of analyst coverage and earnings expectations for each stock on CRSP. Because the I/B/E/S ﬁles
+are historical snapshots, we use historical cusip codes to link the two databases. Finally, we use
+Thomson Financial’s 13F Holdings database to construct measures of institutional ownership for
+each stock on CRSP where we again use historical cusip codes to link the two databases.
+B.
+Preliminary Evidence
+We begin by presenting preliminary evidence on two important assumptions in limited-information
+models for there to be cross-predictability from supplier and customer industries. These two as-
+sumptions are that (i) ﬁrms in a given industry have correlated fundamentals with ﬁrms in their
+respective supplier and customer industries, and (ii) informed investors specialize in their informa-
+tion gathering activities.
+To see whether ﬁrms along the supply chain have correlated fundamentals, we construct ﬁrm-
+and industry-level measures of proﬁtability, and estimate panel regressions of the form:
+ROAit = αi + θmarketROAmarket
+t
++ θsupplierROAsupplier
+it
++ θcustomerROAcustomer
+it
++ eit
+(1)
+where ROAit is the return on assets of ﬁrm or industry i in year t. We measure ﬁrm-level return
+on assets as the ratio of cash ﬂow to total assets (COMPUSTAT data item 6), and cash ﬂow as
+the sum of earnings before extraordinary items (item 18) and depreciation and amortization (item
+14). We calculate industry- and market-level ROA by aggregating ﬁrm-level ROA with a portfolio
+approach using ﬁrm assets as portfolio weights. We then calculate ROAsupplier
+it
+and ROAcustomer
+it
+for
+each industry by weighting the industry-level ROA of supplier and customer industries with the ﬂow
+of goods and services to and from the industries in question, similar to our approach for calculating
+returns in supplier and customer industries. Depending on the speciﬁcation, αi represents ﬁrm- or
+industry-level ﬁxed eﬀects which control for unmodeled heterogeneity across ﬁrms and industries.
+Finally, we use robust standard errors that are adjusted for double clustering (Thompson, 2009,
+Petersen, 2009) by ﬁrm and year for the ﬁrm-level speciﬁcation, and by industry and year for the
+9
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 11 ---
+industry-level speciﬁcation. So, the remaining source of independence is between diﬀerent ﬁrms or
+industries in diﬀerent years.
+[Table I about here]
+The results in Table I conﬁrm the validity of our empirical design for testing cross-predictability,
+and show that ﬁrms along the supply chain indeed have correlated fundamentals. In column 1,
+where we present ﬁrm-level evidence, ﬁrm-level ROA is positively correlated with contemporaneous
+ROA in supplier and customer industries over and above the market-wide ROAt as evidenced by
+statistically signiﬁcant coeﬃcients on ROAsupplier
+it
+(0.471) and ROAcustomer
+it
+(0.465).
+We report a similar speciﬁcation in column 2 where the unit of analysis is an industry instead
+of a ﬁrm. The results here too conﬁrm the validity of our supply chain approach at the industry
+level. Speciﬁcally, industries along the supply chain have correlated fundamentals over and above
+the market-wide ROAt as evidenced by statistically signiﬁcant coeﬃcients on ROAsupplier
+it
+(0.398)
+and ROAcustomer
+it
+(0.164).
+We next attempt to address the assumption of specialization among informed investors by
+presenting evidence about the specialization of equity analysts, who probably constitute one of the
+most informed group of market players. Recall that for there to be cross-predictability of returns
+in limited-information models, informative signals need to be dispersed among informed investors.
+To shed some light on this issue, we provide histograms below of the average number of diﬀerent
+stocks and industries covered by an analyst in any given month by using the analyst’s entire record
+in the I/B/E/S detail history ﬁle. We restrict our analysis to the period from January 1982 to
+June 2005 due to data quality concerns about the pre-1982 I/B/E/S data — the number of analyst
+estimates display a large jump from 1981 to 1982. For the purposes of the graph, we consider only
+earnings per share forecasts and assume that an analyst remains actively engaged in a stock for a
+twelve-month period after making an EPS forecast on that stock. We also truncate the average
+number of stocks and industries covered by an analyst at their 95th percentiles for presentation.
+As both graphs in Figure 1 illustrate, equity analysts appear to be highly specialized in their
+information gathering eﬀorts. The median (across all analysts) of the average number of stocks
+covered by an analyst in any given month is 6.60 whereas in comparison, the average number of
+stocks that satisfy our sample requirements and thus could hypothetically be covered by an analyst
+10
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 12 ---
+0
+10
+20
+30
+40
+50
+Percent
+1
+5
+10
+15
+20
+Number of Stocks
+Average Number of Stocks Covered
+0
+10
+20
+30
+40
+50
+Percent
+1
+2
+3
+4
+5
+6
+7
+8
+Number of Industries
+Average Number of Industries Covered
+Figure 1: Average Number of Stocks and Industries Covered by Equity Analysts
+during the same sample period is about 6,036. Moreover, the corresponding statistic for the number
+of industries covered is 1.91 which indicates that the specialization of equity analysts can partly be
+explained by their specialization along industry lines. Furthermore, we ﬁnd similar results regarding
+analyst specialization along the supply chain, our empirical setting. Consistent with the assumption
+of specialization in information gathering activities, the median analyst produces information in
+supplier industries that in total provide only 8.64% of the covered ﬁrm’s inputs, as indicated by
+active coverage of a stock in the ﬁrm’s supplier industries. The corresponding statistic is 8.73%
+for customer industries that buy the covered ﬁrm’s output. This evidence is not to suggest that
+analysts know nothing about any ﬁrm in related supplier and customer industries, but rather the
+evidence supports the assumption of limited-information models that information production is
+specialized to some degree.
+11
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 13 ---
+C.
+Stock- and Industry-Level Cross-Predictability Eﬀects
+We now test whether stock-level returns are cross-predictable based on lagged returns in supplier
+and customer industries. For this, we conduct Fama-MacBeth (1973) regressions of the form:
+ri,t = αt + λsupplier
+t
+r supplier
+i,t−1
++ λcustomer
+t
+r customer
+i,t−1
++ ΛtZi,t−1 + ei,t
+(2)
+where ri,t is the return of stock i in month t, r supplier
+i,t−1
+is the return on the portfolio of supplier
+industries of stock i in month t−1, r customer
+i,t−1
+is the return on the portfolio of customer industries of
+stock i in month t −1, and Zi,t is a vector of lagged control variables known to predict ri,t such as
+short-term reversal and medium-term continuation at the stock (Jegadeesh and Titman, 1993) and
+industry level (Moskowitz and Grinblatt, 1999). For short-term reversal, we use ri,t−1, the return
+of stock i in the previous month t −1. We use ri,t−2:t−12, the return of stock i over a period of
+eleven months covering months t−12 through t−2, to control for medium-term continuation at the
+stock level. We divide this variable by 11 in our regressions to maintain comparability with other
+variables. For medium-term continuation at the industry level, we use r industry
+i,t−1
+, the value-weighted
+industry return in month t −1 of which stock i is a member. Further including estimated return
+betas such as market, HML and SMB to control for risk as well as ﬁrm characteristics such as
+book-to-market and size do not aﬀect the results, and so we omit them for brevity.
+[Table II about here]
+We report the time-series average of each regression coeﬃcient (obtained from monthly cross-
+sectional regressions) along with the time-series t-statistics in Table II. The time-series averages
+can be interpreted as premiums that can be replicated with self-ﬁnancing trading strategies whose
+weighted loading on the speciﬁc regressor variable equals one and zero on others (Fama, 1976).
+The results in column 1 conﬁrm that lagged returns in supplier and customer industries cross-
+predict stock-level returns as evidenced by statistically signiﬁcant coeﬃcients on r supplier
+i,t−1
+(0.114)
+and r customer
+i,t−1
+(0.071). Importantly, the coeﬃcient estimates are also economically signiﬁcant —
+the combined premium on the two portfolios are comparable to known medium-term continuation
+eﬀects as represented by the coeﬃcients on ri,t−2:t−12 (0.072) and r industry
+i,t−1
+(0.134). Consistent with
+short-term reversal, the coeﬃcient on ri,t−1 (-0.062) is negative.
+12
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 14 ---
+In column 2, we exclude stocks with market capitalizations below the 20th NYSE percentile
+to address the possibility that thin markets might be driving our cross-predictability results. The
+estimated coeﬃcients on r supplier
+i,t−1
+(0.105) and r customer
+i,t−1
+(0.058) are smaller, but they remain sta-
+tistically signiﬁcant and the combined premium is still comparable to medium-term continuation
+eﬀects as represented by the coeﬃcients on ri,t−2:t−12 (0.099) and r industry
+i,t−1
+(0.117). The coeﬃcient
+on ri,t−1 (-0.047) is smaller in magnitude as one might expect following the exclusion of small stocks
+with potential thin trading problems. In column 3, we exclude monthly return observations without
+a closing price (with a bid/ask average instead) in the previous month to address the possibility
+that non-synchronous prices might be behind our results, and ﬁnd that the estimated coeﬃcients
+on r supplier
+i,t−1
+(0.117) and r customer
+i,t−1
+(0.059) are still signiﬁcant.
+Next, we test whether the stock-level cross-predictability eﬀects also hold at the industry level.
+There are good reasons for exploring this next step.
+One can reasonably argue that industry-
+level returns are economically more important than stock-level returns in some sense because they
+are value-weighted. Moreover, Moskowitz and Grinblatt (1999) show that there is momentum in
+industry-level returns. They conjecture that momentum may be susceptible to aggregate shocks
+and that the associated premium may represent compensation for taking on undiversiﬁable risk. If
+cross-predictability eﬀects also survive the industry aggregation, then it is quite possible that its
+premium represents compensation for taking on undiversiﬁable risk, and thus, could be a permanent
+feature of stock returns.
+Furthermore, limited-information models predict economically related
+assets to exhibit cross-predictability, regardless of whether the unit of analysis is a stock or an
+industry as long as the process of aggregation does not result in the complete elimination of market
+segmentation. For these reasons, we see the tests using industry-level returns as being more than
+a robustness exercise.
+Using industry-level returns, we conduct Fama-MacBeth regressions of the same form as (2)
+where now ri,t is the return of industry i in month t, r supplier
+i,t−1
+is the return on the portfolio of
+supplier industries of industry i in month t −1, r customer
+i,t−1
+is the return on the portfolio of customer
+industries of industry i in month t−1. The only lagged control variable is ri,t−1, which is the return
+of industry i in month t −1. As before, including estimated betas on the market, HML and SMB
+do not aﬀect the results, and so we omit them for brevity.
+13
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 15 ---
+The results in column 4 conﬁrm the main prediction of limited-information models at the
+industry level.
+Lagged returns in economically related supplier and customer industries cross-
+predict industry-level returns as evidenced by statistically signiﬁcant coeﬃcients on r supplier
+i,t−1
+(0.113)
+and r customer
+i,t−1
+(0.075). Interestingly, the coeﬃcient on ri,t−1 (0.032) is smaller for industry-level
+returns than it is for stock-level returns. The decline in the predictive power of ri,t−1 for value-
+weighted industry-level returns suggests that there is an important size eﬀect and that large ﬁrms
+in an industry lead same-industry small ﬁrms consistent with the recent work of Hou (2007).
+D.
+The Eﬀect of Informed Investors
+A clear prediction of limited-information models is that the magnitude of cross-predictability
+should be lower where there are more informed investors — whose information-impounding demand
+leaves little to be predicted. We now turn to testing this prediction.
+In testing the eﬀect of informed investors on cross-predictability, we work with stock-level
+returns rather than industry-level returns to preserve the degree of cross-sectional heterogeneity of
+information conditions and investor types at the stock level. We employ two diﬀerent stock-level
+proxies to test for the eﬀect of informed investors: the amount of analyst coverage and the presence
+of institutional investors as owners in the stock. Both proxies have been used in prior research to
+establish an important role for informed investors in incorporating common information into prices
+(Brennan, Jegadeesh and Swaminathan, 1993, and Badrinath, Kale and Noe, 1995).
+To construct our stock-level analyst coverage measure, we make use of analyst forecast data in
+the I/B/E/S detail history ﬁle and consider only forecasts of earnings per share, which is the most
+commonly available type of analyst forecast. We obtain similar results using other types of analyst
+forecasts such as sales or dividends per share with the limitation of a thin sample until the late
+1990s. We restrict our analysis to post-1982 data in I/B/E/S due to data quality concerns.
+To proxy for the amount of analyst coverage for a stock, we calculate two diﬀerent measures
+counting the number of analysts who are actively following the stock on a monthly basis. The ﬁrst
+measure assumes that an analyst is active if the analyst has made a forecast for the stock within the
+last twelve months. By allowing for such a long grace period, we hope to account for some analysts
+who appear to release their forecasts once a year. The obvious drawback of this approach is that
+we might erroneously consider the stale forecast of an inactive analyst. To rectify this concern,
+14
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 16 ---
+we construct a second measure where we require an analyst to have made a forecast for the stock
+during a given month to be considered active for that month.
+To see whether the cross-predictability eﬀects based on lagged returns in supplier and customer
+industries are weaker for stocks with higher analyst coverage, we augment our Fama-MacBeth
+regressions in the following form:
+ri,t = αt +
+5
+X
+j=1
+λj
+tAj
+t−1r related
+i,t−1
++ ei,t
+(3)
+where ri,t is the return of stock i in month t, Aj
+t−1 is an indicator variable equal to one if the level of
+analyst coverage for stock i in month t−1 places the stock in the jth quintile and zero otherwise, and
+r related
+i,t−1
+is the return on the portfolio of related supplier and customer industries of stock i in month
+t −1. In the Internet Appendix, we further allow for cross-sectional diﬀerences in expected returns
+across the diﬀerent quintiles by including the indicator variables Aj
+t−1 directly in the speciﬁcation.
+We also exclude stocks with market capitalizations below the 20th NYSE percentile. None of these
+variations aﬀect our conclusions. For brevity, we report speciﬁcation where we use a composite
+variable r composite
+i,t−1
+for r related
+i,t−1
+, which we calculate by taking the average of r supplier
+i,t−1
+and r customer
+i,t−1
+.
+This composite variable has the beneﬁt of reducing the number of parameters to be estimated
+while being model-justiﬁed. Indeed, limited-information models require that assets be economically
+related for there to be cross-predictability, and beyond that make no distinction between supplier
+and customer industries.
+[Table III about here]
+We report our results on analyst coverage in the ﬁrst two columns of Table III. The results
+in column 1 are based on our ﬁrst measure of analyst coverage whereas the results in column 2
+are based on the second. Regardless of the measure used, we ﬁnd that stocks with low analyst
+coverage exhibit more cross-predictability than stocks with high analyst coverage. Importantly,
+the magnitude of the cross-predictability eﬀects declines monotonically across the analyst coverage
+quintiles.
+Furthermore, we ﬁnd large spreads across the analyst coverage quintiles — stocks in
+the lowest quintile of analyst coverage exhibit signiﬁcant cross-predictability whereas stocks in the
+highest quintile of analyst coverage exhibit no cross-predictability at conventional levels. Overall,
+15
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 17 ---
+the results are supportive of limited-information models if the number of analysts can be considered
+as a good proxy for the supply of information to the market and hence indirectly for the number
+of informed investors.
+In our next set of results in Table III, we test whether the cross-predictability eﬀects based on
+lagged returns in supplier and customer industries are weaker for stocks with more institutional
+owners. For this exercise, we use Thomson Financial’s 13F Holdings database which contains the
+stock-level holdings of institutional money managers collected from mandatory quarterly 13f ﬁlings
+made with the Securities Exchange Commission under the Securities Exchange Act Section 3(a)(9)
+and Section 13(f)(5)(A). To proxy for the eﬀect of institutional investors using these data, we
+sum up the holdings of institutional investors in the stock at a given quarter-end report date and
+then divide the total by the number of outstanding shares at the time to compute the percentage
+ownership by institutional investors (we obtain qualitatively similar results using an alternative
+proxy, namely, the number of diﬀerent institutional investors in the stock at a given quarter-end
+report date). We restrict our analysis to holdings data with a report date 1980 or later because the
+database contains very few observations with a report date prior to 1980.
+In column 3, Aj
+t−1 is now an indicator variable equal to one if the institutional ownership in stock
+i at the end of month t −1 based on the then most recent quarterly holdings data places the stock
+in the jth quintile and zero otherwise. We ﬁnd that stocks with low institutional ownership exhibit
+more cross-predictability than stocks with high institutional ownership. Moreover, the magnitude of
+the cross-predictability eﬀects declines monotonically across the institutional ownership quintiles,
+and the resulting spread across the institutional ownership quintiles is even larger than those
+across the analyst coverage quintiles in columns 1 and 2. All in all, we take these results to be
+also supportive of limited-information models if institutional investors can generally be considered
+to be more informed than other investors. In the Internet Appendix, we investigate whether the
+repeated use of the same quarterly holdings data in multiple monthly cross-sectional regressions
+pose statistical problems, and ﬁnd that robust standard errors that allow for clustering at the
+year-quarter level do not change our conclusions.
+16
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 18 ---
+E.
+Evidence on Institutional Trading
+Another untested implication of limited-information models is that when informed investors
+are allowed to trade in markets other than the one in which they specialize to acquire informative
+signals, they trade simultaneously in fundamentally related markets to exploit the cross-market
+content of their signals.
+Assuming that institutional investors are more informed than the rest of the investor population,
+we test this implication by estimating panel regressions of the form:
+∆IOi,q = αi + γq + βrelated∆IOrelated
+i,q
++ ei,q
+(4)
+where ∆IOi,q is the change in the percentage ownership of institutional investors in stock i from
+quarter q −1 to quarter q, ∆IOrelated
+i,q
+is the change in the percentage ownership of institutional
+investors in the related industries (∆IOsupplier
+i,q
+, ∆IOcustomer
+i,q
+) of stock i from quarter q −1 to
+quarter q. We use the ﬂow of goods and services as portfolio weights in constructing ∆IOsupplier
+i,q
+and ∆IOcustomer
+i,q
+as we have done in constructing r supplier
+i,t−1
+and r customer
+i,t−1
+. We include stock-level
+ﬁxed eﬀects αi to control for potential biases that could arise due to unobserved heterogeneity
+across stocks even though we consider changes and not levels. We further include year-quarter
+ﬁxed eﬀects γq to control for systematic fund inﬂows and outﬂows that ultimately should aﬀect
+institutional holdings. Finally, we compute robust standard errors that allow for the clustering of
+error terms at the industry-year level to allay concerns about the possible persistence of fund ﬂows
+across diﬀerent quarters within a year at the industry level — note that any systematic persistence of
+fund ﬂows across diﬀerent quarters within a year is already modeled by the inclusion of year-quarter
+ﬁxed eﬀects γq.
+[Table IV about here]
+We report the results of this analysis in the ﬁrst two columns of Table IV. Given our earlier
+ﬁndings of positive return cross-predictability, we expect institutional investors to relatively increase
+their ownership in a stock at the same time that they increase their ownership in supplier and
+customer industries, and relatively decrease their ownership in a stock at the same time that they
+decrease their ownership in supplier and customer industries. Therefore, we expect βrelated to be
+17
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 19 ---
+positive also. Consistent with this, we ﬁnd that changes in institutional ownership at the stock
+level are positively related to changes in institutional ownership in related industries as evidenced
+by statistically signiﬁcant coeﬃcients on ∆IOsupplier
+i,q
+(0.073) in column 1 and ∆IOcustomer
+i,q
+(0.055)
+in column 2.
+We explore the joint behavior of returns and contemporaneous informed trade next by replacing
+∆IOrelated
+i,q
+with rrelated
+i,q
+in (4) and estimating panel regressions of the form:
+∆IOi,q = αi + γq + βrelatedrrelated
+i,q
++ ei,q
+(5)
+where rrelated
+i,q
+is the return on the portfolio of related industries (r supplier
+i,q
+, r customer
+i,q
+) of stock i
+in quarter q.
+Using returns in related supplier and customer industries as information proxies
+also addresses the possibility that the results above are spurious and driven by reasons other than
+information.
+Once again, given our earlier ﬁndings of positive return cross-predictability, we expect institu-
+tional investors to be increasing their ownership in a stock when returns in related industries are
+high, and to be decreasing their ownership in a stock when returns in related industries are low.
+The results support this prediction as evidenced by statistically signiﬁcant coeﬃcients on r supplier
+i,q
+(0.009) in column 3, and on r customer
+i,q
+(0.007) in column 4.
+Overall, we take the results in Table IV to be uniformly supportive of limited-information
+models. The trading behavior of institutional investors appears to be consistent with the trading
+behavior of informed investors. The one unanswered question, however, is the extent to which
+institutional investors proﬁt from the trading behavior that we document because we lack holdings
+data at a higher frequency than quarterly. Although there is little that we can do about what
+is obviously a data issue, we partly address this question in the next section by studying the
+proﬁtability of various trading strategies that institutional investors could potentially use to exploit
+cross-predictability.
+18
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 20 ---
+III.
+Self-Financing Trading Strategies
+In this section, we analyze the proﬁtability of self-ﬁnancing trading strategies that are based on
+the cross-predictability eﬀects documented in the previous section. Because an important objective
+of the analysis from our perspective is to assess the economic signiﬁcance of cross-predictability,
+we exclusively report on trading strategies that involve the buying and selling of industries as
+opposed to trading strategies that involve the buying and selling of individual stocks. The use of
+industries (which are value-weighted portfolios of stocks) should address potential concerns that thin
+markets could be driving the results or that transactions costs could render the trading strategies
+unattractive.
+In trading strategies reported in the Internet Appendix, we exclude stocks with
+market capitalizations below the 20th NYSE percentile in the formation of value-weighted industry
+portfolios and obtain similar results.
+The way we construct our self-ﬁnancing trading strategies using industries is fairly standard.
+At the beginning of each month, we sort industries into ﬁve bins based on returns in supplier and
+customer industries in the previous month. We allocate industries with previous month related
+industry returns in the bottom quintile to the ﬁrst bin, industries with previous month related
+industry returns in the second quintile to the second bin, and so on. After sorting industries in this
+fashion, we form value-weighted portfolios for each of the ﬁve bins, and calculate returns on these
+portfolios for the ensuing one-month period. Self-ﬁnancing trading strategies consist of buying the
+high portfolio (industries with previous month related industry returns in the top quintile) and
+selling the low portfolio (industries with previous month related industry returns in the bottom
+quintile).
+[Table V about here]
+Table V reports the mean and standard deviation of monthly excess returns for the ﬁve portfolios
+described above (reported ﬁgures are annualized). Looking at Panel A in which industries are sorted
+according to returns in supplier industries in the previous month (r supplier
+i,t−1
+), the mean excess return
+over the next month is 10.0% for the high portfolio and 2.8% for the low portfolio. A self-ﬁnancing
+trading strategy that exploits the return diﬀerence between the two portfolios yields 7.3% annually
+with a Sharpe ratio of about 0.7. In Panel B, we sort industries according to returns in customer
+19
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 21 ---
+industries over the previous month (r customer
+i,t−1
+). There is again a visible positive trend in mean
+excess returns across the ﬁve portfolios. A self-ﬁnancing trading strategy that exploits the return
+diﬀerence between the high portfolio and low portfolios yields 7.0%. Finally, we sort industries on
+the basis of composite returns in supplier and customer industries in the previous month (r composite
+i,t−1
+as deﬁned earlier) in Panel C. A self-ﬁnancing trading strategy of buying the high portfolio and
+selling the low portfolio yields 8.7%.
+The results in Table V show that the proﬁtability of self-ﬁnancing trading strategies based on
+cross-predictability eﬀects can be signiﬁcant. In what follows next, we check whether the returns
+from these trading strategies are exposed to well-known return factors, and whether the return
+series of long/short equity hedge funds, which are thought to exploit predictability eﬀects, contain
+any traces of these trading strategies. We also report on a wide range of trading strategies with
+alternative formation and holding periods.
+A.
+Return Factor Exposure
+A potential concern that one might have is that the returns from the self-ﬁnancing trading
+strategies laid out in Table V are not abnormal because they contain a signiﬁcant amount of
+systematic risk.
+Alternatively, it could be that they are highly exposed to already well-known
+return factors, and so we might not be documenting anything new.
+To address these concerns, we take the monthly returns from the trading strategies reported
+in Table V, and regress them on the excess market return as well as the Fama-French HML, SMB
+and MOM return factors. We report the estimated betas in Table VI.
+[Table VI about here]
+Except for statistically signiﬁcant exposure to the momentum factor MOM (0.102 for the sup-
+plier strategy in column 1 and 0.144 for the composite strategy in column 3), the monthly trading
+returns appear to be fairly orthogonal to the market (which is not surprising because of the long-
+short nature of the trading strategies) as well as the Fama-French HML and SMB return factors.
+The signiﬁcance of MOM in columns 1 and 3 suggests that the momentum factor may be proxying,
+at least in part, for sustained information diﬀusion from related industries — indeed, we report
+below that cross-predictability eﬀects continue for up to a year. The annualized monthly intercept,
+20
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 22 ---
+0
+1
+2
+3
+4
+5
+Cumulative Return
+1963
+1970
+1980
+1990
+2000
+2005
+Year
+ Supplier
+ Customer
+ Composite
+Trading Strategy Returns
+0
+1
+2
+3
+4
+5
+Cumulative Return
+1963
+1970
+1980
+1990
+2000
+2005
+Year
+ HML
+ SMB
+ MOM
+Return Factors
+Figure 2: Cumulative Returns (July 1963 - June 2005)
+our main coeﬃcient of interest, is 6.2% for the supplier strategy, 5.7% for the customer strategy,
+and 6.9% for the composite strategy, which are similar to the annualized returns reported earlier.
+We also check whether the return exposures vary along the business cycle by including interaction
+terms with a business-cycle indicator variable based on NBER recession dates, and ﬁnd similar
+monthly alphas.
+Another concern that one might have is that a small number of industries enter the trading
+strategies in some excessive way, and as a result drive the proﬁtability of the trading strategies
+reported in Table V. We ﬁnd that while there is some heterogeneity in inclusion probabilities, the
+amount is not excessive so as to drive our results. We ﬁnd that the maximum inclusion probability
+of an industry rarely exceeds three percent in any of the strategy-leg combinations (short or long in
+the supplier, customer and composite strategies) and that, when it does, the industry in question
+also appears in the opposite leg of the strategy with a similarly high probability. This shows that
+the proﬁtability of the trading strategies is not driven by simply going long and short in industries
+with historically high and low returns, respectively.
+Finally, we plot cumulative returns from the three trading strategies against HML, SMB and
+MOM in Figure 2. All three strategies appear to be consistently proﬁtable over the sample period.
+21
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 23 ---
+B.
+Evidence from Long/Short Equity Hedge Funds
+We next test whether the return series of long/short equity hedge funds, which constitute a
+group of sophisticated market participants most likely to exploit predictability eﬀects, are correlated
+with the return series from the three (supplier, customer and composite) trading strategies analyzed
+above. If return cross-predictability were an economically important phenomenon, one would expect
+these hedge funds to exploit it and their returns series to show traces of our trading strategies.
+We use the Credit Suisse/Tremont Long/Short Equity Hedge Fund Index to measure the returns
+of long/short equity hedge funds. This is an asset-weighted, net-of-fees index used by many in the
+industry for benchmarking purposes. Unfortunately, its main drawback is that it starts in January
+1994, and so our ﬁndings are limited to a short sample period from January 1994 to June 2005. With
+this caveat in mind, we regress the long/short equity hedge fund return series on the return series
+from our trading strategies. In the regressions, we further include the excess CRSP value-weighted
+market return, and Fama-French SMB, HML and MOM factors as control variables.
+[Table VII about here]
+We report our results in four columns in Table VII. Column 1 reports a speciﬁcation without
+any of the trading strategies to provide a baseline. The coeﬃcient on the excess market return is
+quite high at about 0.5, despite the implicit market neutrality claim of long/short equity hedge
+funds. In addition, their returns appear to have a SMB component of about 0.2 and a MOM
+component of about 0.2. The net-of-fees alpha is indistinguishable from zero, which is consistent
+with a competitive market outcome and also similar to what we know about mutual funds (Carhart,
+1997).
+Importantly, we ﬁnd that the coeﬃcients on all three trading strategies (0.071 on the
+supplier strategy in column 2, 0.060 on the customer strategy in column 3, and 0.080 on the
+composite strategy in column 4) are positive and statistically signiﬁcant. These results indicate
+that long/short equity hedge funds indeed engage in trading strategies that proﬁt from the cross-
+predictability eﬀect in prices. The magnitude of the coeﬃcients on the three trading strategies also
+seems economically signiﬁcant, considering the many diﬀerent trading strategies that these hedge
+funds could be implementing.
+In the Internet Appendix, we consider the proﬁtability of standard J/K self-ﬁnancing strategies
+22
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 24 ---
+to shed some light on the speed of information diﬀusion. These strategies select industries based
+on related industry returns over the past J months and hold them over the next K months, and
+involve the buying and selling of value-weighted portfolios as before. Among the strategies that we
+consider, short-term strategies such as 1/1 seem to be the most proﬁtable. While this indicates that
+cross-predictability eﬀects are strong in the short term, we ﬁnd that other trading strategies with
+longer formation and holding periods also oﬀer statistically signiﬁcant proﬁts. For example, the
+yield on the 1/12 composite strategy is 2.1%. Comparing this with the yield on the corresponding
+1/1 strategy (8.7%), it is clear that cross-predictability eﬀects are not limited to the ﬁrst month
+after portfolio formation. To see this, note that the yield on the 1/12 strategy is the average of the
+ﬁrst month return, the second month return, and so on through to the twelfth month return. If
+there were no cross-predictability eﬀects after the ﬁrst month, the yield on the 1/12 strategy would
+have been about 0.7% (8.7% divided by twelve), and not 2.1% as observed. Further exploring
+cross-predictability in event-time, we ﬁnd that there is more to cross-predictability than just the
+short term, and that cross-predictability eﬀects continue for up to a year beyond the ﬁrst month
+after portfolio formation.
+IV.
+Conclusion
+In this paper, we ﬁnd evidence that ﬁrm- and industry-level returns are cross-predictable based
+on lagged returns in supplier and customer industries.
+The eﬀects appear to be economically
+signiﬁcant — trading strategies designed to exploit them generate annual premiums as high as
+8.7%. In addition, we ﬁnd evidence that cross-predictability eﬀects are weaker for stocks with
+high levels of analyst coverage and institutional ownership.
+Moreover, we document that the
+trading behavior of institutional investors mimic that of an informed investor proﬁting from cross-
+predictable returns. All of these ﬁndings are consistent with limited-information models in which
+value-relevant information diﬀuses gradually across informationally segmented markets due to the
+specialization of information producers and/or informed investors.
+Our work can be fruitfully extended in several directions. First, limited-information models
+take investor specialization and market segmentation as given, and explore their implications for
+information diﬀusion and price formation. Alternatively, one can exploit the empirical design of this
+23
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 25 ---
+paper based on supply chain relationships to explore the fundamental drivers of investor specializa-
+tion, how it arises and why. For example, at an aggregate level, why do some industries enjoy higher
+levels of analyst coverage and institutional ownership than others? At the level of an analyst, which
+pieces of news are worth collecting and analyzing, and which ones are not? In preliminary work,
+we compare the impact of shocks from a single large source with the impact of comparable shocks
+generated by combining shocks from multiple smaller sources. Interestingly, we ﬁnd that single-
+source shocks, which are relatively easier to collect and analyze, are incorporated into prices faster
+than comparable multiple-source shocks. We also ﬁnd that stock-level analyst expectations exhibit
+continuation and cross-predictability like returns do. The evidence on continuation is consistent
+with the underreaction feature of Hong and Stein’s (1999) model due to diﬀerential information.
+Perhaps even the analysts following a given stock are diﬀerentially informed due to diﬀerences in
+their workload proﬁles, as there is signiﬁcant variation in the number of stocks covered by analysts
+(Figure 1).
+Our focus in this paper has been on supplier and customer industries to test the various aspects
+of positive cross-predictability across assets with positively correlated fundamentals. The supply
+chain framework based on the BEA Survey has worked well in large part because supplier and
+customer industries almost always have positively correlated fundamentals with each other.
+A
+worthwhile future extension would be to test negative cross-predictability by identifying instances
+in which certain shocks beneﬁt some industries and hurt others, thereby temporarily causing a
+negative correlation of fundamentals. More generally, our empirical framework provides a novel
+measure of information ﬂow that can be used to expand existing work on other forms of return
+predictability such as post-earnings announcement drift and on the role played by various market
+players such as analysts.
+Another extension of our work would be to investigate the extent of cross-predictability between
+the equity market and the corporate bond market. Since these two markets have their own specialist
+investors who trade ﬁnancial claims based on the same underlying real assets, the potential for
+cross-predictability seems high.
+More work lies ahead before we know whether cross-predictability is widespread in other stock
+markets. Fortunately, the BEA Survey is a common type of census analysis carried out in most
+OECD countries. In addition to exploring cross-predictability internationally, a cross-country study
+24
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 26 ---
+can shed some light on the relation between ﬁnancial development and the speed with which related
+industry information is priced. We believe these are interesting questions for future research.
+25
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 27 ---
+References
+Badrinath, S. G., Jayant Kale, and Thomas Noe, 1995, Of shepherds, sheep, and the cross-
+autocorrelations in equity returns, Review of Financial Studies 8, 401-430.
+Brennan, Michael, Narasimhan Jegadeesh, and Bhaskaran Swaminathan, 1993, Investment analy-
+sis and the adjustment of stock prices to common information, Review of Financial Studies 6,
+799-824.
+Carhart, Mark, 1997, On persistence in mutual fund performance, Journal of Finance 52, 57-82.
+Cohen, Lauren, and Andrea Frazzini, 2008, Economic links and predictable returns, Journal of
+Finance 63, 1977-2011.
+Cohen, Randolph, Paul Gompers, and Tuomo Vuolteenaho, 2002, Who underreacts to cash-ﬂow
+news? Evidence from trading between individuals and institutions, Journal of Financial Eco-
+nomics 66, 409-462.
+De Long, Bradford, Andrei Shleifer, Lawrence Summers, and Robert Waldmann, 1990, Noise
+trader risk in ﬁnancial markets, Journal of Political Economy 98, 703-738.
+Fama, Eugene, 1976, Foundations of Finance: Portfolio Decisions and Securities Prices (Basic
+Books, New York).
+Fama, Eugene, and Kenneth French, 1997, Industry costs of equity, Journal of Financial Eco-
+nomics 43, 153-193.
+Fama, Eugene, and James MacBeth, 1973, Risk, return and equilibrium: empirical tests, Journal
+of Political Economy 81, 607-636.
+Fan, Joseph, and Larry Lang, 2000, The measurement of relatedness: An application to corporate
+diversiﬁcation, Journal of Business 73, 629-660.
+Grossman, Sanford, and Joseph Stiglitz, 1980, On the impossibility of informationally eﬃcient
+markets, American Economic Review 70, 393-408.
+Hayek, Friedrich, 1945, The use of knowledge in society, American Economic Review 35.
+26
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 28 ---
+Hong, Harrison, Terence Lim, and Jeremy Stein, 2000, Bad news travels slowly: Size, analyst
+coverage, and the proﬁtability of momentum strategies, Journal of Finance 55, 265-295.
+Hong, Harrison, and Jeremy Stein, 1999, A uniﬁed theory of underreaction, momentum trading,
+and overreaction in asset markets, Journal of Finance 54, 2143-2184.
+Hong, Harrison, and Jeremy Stein, 2007, Disagreement and the stock market, Journal of Economic
+Perspectives 21, 109-128.
+Hong, Harrison, Jeremy Stein, and Jialin Yu, 2007, Simple forecasts and paradigm shifts, Journal
+of Finance 62, 1207-1242.
+Hong, Harrison, Walter Torous, and Rossen Valkanov, 2007, Do industries lead stock markets?
+Journal of Financial Economics 83, 367-396.
+Hou, Kewei, 2007, Industry information diﬀusion and the lead-lag eﬀect in stock returns, Review
+of Financial Studies 20, 1113-1138.
+Jegadeesh, Narasimhan, and Sheridan Titman, 1993, Returns to buying winners and selling losers:
+Implications for stock market eﬃciency, Journal of Finance 48, 65-91.
+Jensen, Michael, and William Meckling, 1992, Speciﬁc and general knowledge and organizational
+structure, in Lars Werin and Hans Wijkander, ed.: Contract Economics (Oxford).
+Lo, Andrew, and Craig MacKinlay, 1990, When are contrarian proﬁts due to stock market over-
+reaction? Review of Financial Studies 3, 175-208.
+Matsusaka, John, 1993, Takeover motives during the conglomerate merger wave, RAND Journal
+of Economics 24, 357-379.
+Menzly, Lior, and Oguzhan Ozbas, 2004, Cross-industry momentum (presented at 2005 AFA
+Meetings in Philadelphia, PA), Unpublished manuscript, University of Southern California.
+Moskowitz, Tobias, and Mark Grinblatt, 1999, Do industries explain momentum?
+Journal of
+Finance 54, 1249-1290.
+Newey, Whitney, and Kenneth West, 1987, A simple, positive semi-deﬁnite, heteroskedasticity and
+autocorrelation consistent covariance matrix, Econometrica 55, 703-708.
+27
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 29 ---
+Petersen, Mitchell, 2009, Estimating standard errors in ﬁnance panel data sets: Comparing ap-
+proaches, Review of Financial Studies 22, 435-480.
+Shleifer, Andrei, and Lawrence Summers, 1990, The noise trader approach to ﬁnance, Journal of
+Economic Perspectives 4, 19-33.
+Shleifer, Andrei, and Robert Vishny, 1997, The limits of arbitrage, Journal of Finance 52, 35-55.
+Simon, Herbert, 1955, A behavioral model of rational choice, Quarterly Journal of Economics 69,
+99-118.
+Thompson, Samuel, 2009, Simple formulas for standard errors that cluster by both ﬁrm and time,
+Journal of Financial Economics, forthcoming.
+28
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 30 ---
+Notes
+1We note that cross-predictability eﬀects are diﬀerent from lead-lag eﬀects where one market either always leads
+or always lags another market, e.g. large stocks always lead small stocks. With cross-predictability, a market can
+sometimes lead and sometimes lag another related market depending on where information originates.
+2In a previous version of the paper, we derived these predictions by extending Hong, Torous and Valkanov
+(2007). This analysis and several other complementary analyses are provided in the Internet Appendix available
+at http://www.afajof.org/supplements.asp.
+3Firms that operate in multiple industries pose a conceptual problem. In the Internet Appendix, we show that our
+cross-predictability results are fairly similar for single-segment and multi-segment ﬁrms. Classifying a multi-segment
+ﬁrm according to its reported code in COMPUSTAT representing the ﬁrm’s main business appears to constitute a
+good enough method to identify the ﬁrm’s main economic exposure for our purposes.
+29
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 31 ---
+Dependent Variable: ROA
+  (1)
+  (2)
+ROA market
+0.725***
+0.172***
+(5.16)
+(2.60)
+ROA supplier
+0.471***
+0.398***
+(2.68)
+(4.53)
+ROA customer
+0.465***
+0.164*
+(2.98)
+(1.90)
+Fixed Effects
+Yes
+Yes
+Clustered Standard Errors
+Yes
+Yes
+R2
+0.592
+0.394
+N obs
+275,291
+3,002
+Table I
+Supply Chain Fundamentals
+This table presents stock- and industry-level panel regressions of annual return on
+assets (ROA) on contemporaneous market-wide ROA and ROA in related supplier
+and customer industries. The industries are based on the Benchmark Input-Output
+Surveys
+of
+the
+Bureau
+of
+Economic
+Analysis.
+Assets
+are
+measured
+with
+COMPUSTAT item 6. Cash flow is measured as the sum of earnings before
+extraordinary items (item 18) and depreciation and amortization (item 14). Market-
+wide and industry ROA are weighted by firm assets. Supplier (customer) ROA is
+calculated by weighting the industry ROAs of supplier (customer) industries by the
+inter-industry flow of goods and services reported in the Survey. Stock- and industry-
+level specifications include stock and industry fixed effects in columns 1 and 2,
+respectively.
+t-statistics
+are
+reported
+in
+parentheses.
+Standard
+errors
+are
+heteroskedasticity consistent and adjusted for double clustering by stock and year in
+column 1, and by industry and year in column 2. ***, **, or * indicates that the
+coefficient estimate is different from zero at the 1%, 5%, or 10% level, respectively.
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 32 ---
+  (1)
+  (2)
+  (3)
+  (4)
+Constant
+0.005**
+0.006**
+0.006**
+0.006**
+(2.01)
+(2.33)
+(2.45)
+(2.35)
+r supplier,t-1
+0.114***
+0.105***
+0.117***
+0.113***
+(5.03)
+(4.37)
+(5.04)
+(4.88)
+r customer,t-1
+0.071***
+0.058***
+0.059***
+0.075***
+(4.11)
+(3.26)
+(3.46)
+(4.27)
+r stock,t-1
+-0.062***
+-0.047***
+-0.067***
+(14.44)
+(10.41)
+(13.84)
+r stock,t-2:t-12 x 
+0.072***
+0.099***
+0.099***
+(4.07)
+(5.01)
+(5.37)
+r industry,t-1
+0.134***
+0.117***
+0.137***
+0.032***
+(15.52)
+(12.33)
+(15.29)
+(2.83)
+R 2
+0.028
+0.051
+0.034
+0.091
+T
+492
+492
+492
+503
+Sample excludes 
+-
+Table II
+Cross-Predictability Effects in Stock and Industry Returns
+< 20th NYSE
+percentile
+No closing price at
+end of month t-1
+This table presents time-series averages of coefficient estimates from monthly cross-sectional
+regressions of stock returns in columns 1 through 3 and industry returns in column 4. Supplier
+(customer) returns consist of supplier (customer) industry returns weighted by the inter-industry flow of
+goods and services reported in the Benchmark Input-Output Surveys of the Bureau of Economic
+Analysis. All return variables are in excess of the risk-free rate. t-statistics are reported in parentheses.
+Standard errors assume independence across monthly regressions. ***, **, or * indicates that the
+coefficient estimate is different from zero at the 1%, 5%, or 10% level, respectively.
+11
+1
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 33 ---
+  (1)
+  (2)
+  (3)
+Constant
+0.008*
+0.008*
+0.008**
+(1.95)
+(1.89)
+(1.97)
+r composite,t-1 x Rank t-1 (1 st Quintile - Low)
+0.293***
+0.300***
+0.380***
+(4.98)
+(4.95)
+(5.89)
+r composite,t-1 x Rank t-1 (2 nd Quintile)
+0.299***
+0.259***
+0.317***
+(5.12)
+(4.65)
+(5.55)
+r composite,t-1 x Rank t-1 (3 rd Quintile)
+0.185***
+0.201***
+0.244***
+(3.27)
+(3.71)
+(4.50)
+r composite,t-1 x Rank t-1 (4 th Quintile)
+0.143**
+0.157**
+0.177***
+(2.37)
+(2.61)
+(3.16)
+r composite,t-1 x Rank t-1 (5 th Quintile - High)
+0.027
+0.034
+0.067
+(0.43)
+(0.55)
+(1.12)
+R 2
+0.014
+0.012
+0.012
+T
+281
+281
+303
+Table III
+Analyst Coverage, Institutional Ownership and Cross-Predictability Effects
+This table presents time-series averages of coefficient estimates from monthly cross-sectional regressions of
+stock returns on lagged related industry returns interacted with lagged analyst coverage and institutional
+ownership. rcomposite represents returns in related industries, and is calculated as the average of rsupplier and
+rcustomer. Analyst coverage for a stock in a given month is measured as the number of analysts who have made
+an EPS forecast for the stock within the last twelve months (column 1) or the number of analysts who have
+made an EPS forecast for the stock in that month (column 2). Institutional ownership is measured as the
+percentage of outstanding shares owned by institutions (column 3). Stocks are ranked into five quintiles based
+on analyst coverage and institutional ownership. All return variables are in excess of the risk-free rate. t-
+statistics are reported in parentheses. Standard errors assume independence across monthly regressions. ***,
+**, or * indicates that the coefficient estimate is different from zero at the 1%, 5%, or 10% level, respectively.
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 34 ---
+  (1)
+  (2)
+  (3)
+  (4)
+Δ IO supplier,q
+0.073***
+(2.78)
+Δ IO customer,q
+0.055***
+(2.77)
+r supplier,q
+0.009***
+(2.80)
+r customer,q
+0.007**
+(2.28)
+R2
+0.052
+0.052
+0.052
+0.052
+N obs
+500,250
+500,250
+500,250
+500,250
+Table IV
+Change in Institutional Ownership
+This table presents panel regressions in which quarterly changes in institutional ownership at the stock level
+are regressed on contemporaneous changes in institutional ownership in related industries in columns 1 and
+2, and on contemporaneous quarter returns in related industries in columns 3 and 4. Related supplier and
+customer industries are based on the inter-industry trade data reported in the Benchmark Input-Output Survey
+of the Bureau of Economic Analysis. All return variables are in excess of the risk-free rate. All specifications
+include stock and year-quarter fixed effects. t-statistics are reported in parentheses. Standard errors are
+heteroskedasticity consistent and adjusted for clustering at the industry-year level. ***, **, or * indicates that
+the coefficient estimate is different from zero at the 1%, 5%, or 10% level, respectively.
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 35 ---
+Low (1)
+     (2)
+     (3)
+     (4)
+High (5)
+    H - L
+Mean return
+0.028
+0.054
+0.056
+0.072
+0.100
+0.073
+Standard deviation
+0.159
+0.175
+0.178
+0.178
+0.162
+0.110
+Sharpe ratio
+0.173
+0.306
+0.313
+0.406
+0.617
+0.660
+Low (1)
+     (2)
+     (3)
+     (4)
+High (5)
+    H - L
+Mean return
+0.016
+0.060
+0.052
+0.065
+0.085
+0.070
+Standard deviation
+0.176
+0.166
+0.157
+0.165
+0.184
+0.134
+Sharpe ratio
+0.090
+0.361
+0.333
+0.395
+0.463
+0.520
+Low (1)
+     (2)
+     (3)
+     (4)
+High (5)
+    H - L
+Mean return
+0.013
+0.036
+0.074
+0.071
+0.100
+0.087
+Standard deviation
+0.169
+0.165
+0.172
+0.174
+0.172
+0.132
+Sharpe ratio
+0.077
+0.220
+0.430
+0.409
+0.582
+0.658
+Panel C: Industries Sorted on r composite,t-1
+This table reports the mean and standard deviation of monthly excess returns on value-weighted portfolios of
+industries formed on the basis of related industry returns in the previous month (reported figures are annualized).
+Industries are sorted into five bins at the beginning of each month according to returns in related industries in the
+previous month. Self-financing trading strategies reported in the last column consist of buying the high (5) portfolio (top
+quintile) and selling the low (1) portfolio (bottom quintile).
+Table V
+Self-Financing Trading Strategies
+Panel A: Industries Sorted on r supplier,t-1
+Panel B: Industries Sorted on r customer,t-1
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 36 ---
+Trading strategy based on:
+r supplier,t-1
+r customer,t-1
+r composite,t-1
+Alpha
+0.005***
+0.005***
+0.006***
+(3.42)
+(2.61)
+(3.22)
+R market - R f
+0.017
+0.051
+0.038
+(0.48)
+(1.08)
+(0.89)
+SMB
+0.016
+-0.065
+0.004
+(0.35)
+(1.15)
+(0.07)
+HML
+-0.013
+0.054
+0.015
+(0.24)
+(0.82)
+(0.23)
+MOM
+0.102***
+0.068
+0.144***
+(2.89)
+(1.59)
+(3.41)
+R2
+0.019
+0.012
+0.024
+N obs
+503
+503
+503
+Table VI
+Return Factor Exposure
+This table presents the return factor exposure of monthly returns from self-financing trading
+strategies formulated on the basis of returns in related industries in the previous month.
+Monthly trading returns are regressed on monthly CRSP value-weighted market return, and
+Fama-French SMB, HML and MOM factors. t-statistics are reported in parentheses. ***, **,
+or * indicates that the coefficient estimate is different from zero at the 1%, 5%, or 10% level,
+respectively.
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 37 ---
+  (1)
+  (2)
+  (3)
+  (4)
+Alpha
+0.001
+0.001
+0.001
+0.001
+(1.17)
+(1.01)
+(0.78)
+(0.92)
+R market - R f
+0.488***
+0.489***
+0.497***
+0.487***
+(15.26)
+(15.59)
+(15.96)
+(15.99)
+SMB
+0.216***
+0.216***
+0.220***
+0.215***
+(6.62)
+(6.74)
+(6.95)
+(6.89)
+HML
+-0.027
+-0.014
+-0.021
+-0.019
+(0.64)
+(0.33)
+(0.52)
+(0.48)
+MOM
+0.219***
+0.212***
+0.222***
+0.205***
+(9.71)
+(9.52)
+(10.14)
+(9.40)
+Supplier Strategy
+0.071**
+(2.52)
+Customer Strategy
+0.060***
+(3.08)
+Composite Strategy
+0.080***
+(3.78)
+R2
+0.806
+0.815
+0.819
+0.825
+N obs
+138
+138
+138
+138
+Table VII
+Credit Suisse/Tremont Long/Short Equity Hedge Fund Index
+This table presents the return factor exposure of the benchmark hedge fund index compiled
+by Credit Suisse/Tremont for long/short equity hedge funds. Excess monthly return on the
+long/short equity hedge fund index is regressed on excess CRSP value-weighted market
+return, Fama-French SMB, HML and MOM factors, and returns from self-financing supplier,
+customer and composite cross-predictability trading strategies. The sample period is from
+January 1994 to June 2005. t-statistics are reported in parentheses.
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 38 ---
+Internet Appendix to “Market Segmentation and
+Cross-Predictability of Returns”∗
+Lior Menzly
+Nomura Asset Management
+Oguzhan Ozbas
+University of Southern California
+October 2009
+This document contains supplementary material to the paper titled “Market Segmentation and
+Cross-Predictability of Returns.” The document contains two sections. Section 1 studies a limited-
+information model whose predictions about cross-predictability are tested in the paper. Section 2
+reports tables that were prepared in response to questions raised during the review process and
+may be of general interest to the reader, but are not reported in the paper.
+∗Citation format: Menzly, Lior, and Oguzhan Ozbas, [year], Internet Appendix to “Market Segmentation and
+Cross-Predictability of Returns,” Journal of Finance [vol #], [pages], http://www.afajof.org/IA/[year].asp. Please
+note: Wiley-Blackwell is not responsible for the content or functionality of any supporting information supplied by
+the authors. Any queries (other than missing material) should be directed to the authors of the article.
+1
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+--- PAGE 39 ---
+1
+A Model of Cross-Predictability
+In this section, we study a limited-information model in which dispersed information diﬀuses slowly
+across markets with correlated fundamentals and leads to cross-predictability in returns.
+The
+model is inspired by Hong and Stein (1999) with respect to dispersed information, and by Hong,
+Torous and Valkanov (2007) with respect to the study of markets with correlated fundamentals,
+and formally extends the latter in two directions: (i) we introduce uninformed investors, who do
+not have informative signals, to study their eﬀect on cross-predictability, and (ii) we relax the
+assumption that informed investors invest only in the market about which they acquire informative
+signals to study the joint behavior of stock returns and informed trade across related markets.
+The analysis proceeds in two steps. We ﬁrst consider a single asset market in isolation to study
+return predictability. We then consider two asset markets with correlated fundamentals to study
+return cross-predictability.
+1.1
+Return Predictability in a Single Market
+Suppose that there are three dates {t −1, t, t + 1}, a single risky asset in zero supply that pays
+a liquidating dividend d at date t + 1, and a riskless asset whose gross payoﬀis normalized to
+1 and hence is the numeraire. (The zero-supply assumption is for simplicity and without loss of
+generality. A positive supply of the risky asset would merely lead to unconditional risk premia at
+dates t −1 and t, and hence would not aﬀect the analysis.) There are n investors in the economy
+with constant absolute risk aversion parameter a. Investors trade the risky asset at dates t −1 and
+t with market clearing prices denoted pt−1 and pt, respectively, and then consume the liquidating
+dividend at date t + 1. Their common prior belief at date t −1 is that d ∼N
+¡ ¯d, σ2
+d
+¢
+. At date t, an
+informative but noisy signal s about d arrives where s = d + ε and ε is an independent normally
+distributed noise term with mean 0 and variance σ2
+ε. The informative signal allows investors who
+2
+Electronic copy available at: https://ssrn.com/abstract=989080
+
+[TRUNCATED at 80000 chars — 65 total pages]

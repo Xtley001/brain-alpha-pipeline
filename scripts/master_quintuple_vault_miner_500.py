@@ -58,11 +58,25 @@ from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 from brain_options.core.correlation import compute_correlation
 from brain_options.store.store import OptionsStore
 
+# ── Legacy skeleton generators (kept for backward compat) ──────────────────
 from brain_generators.options.smirk_surface import generate_options_vault_candidates
 from brain_generators.sentiment.pead_revision import generate_sentiment_vault_candidates
 from brain_generators.risk_models.betting_against_beta import generate_risk_model_vault_candidates
 from brain_generators.short_interest.lending_dynamics import generate_short_interest_vault_candidates
 from brain_generators.fundamental.quality_profitability import generate_fundamental_vault_candidates
+
+# ── P0: Paper-faithful generators (extracted from 90 research materials) ───
+from brain_generators.options.xing_zhang_zhao_smirk import generate_xing_zhang_zhao_smirk_candidates
+from brain_generators.options.pan_poteshman_pcr_informed import generate_pan_poteshman_pcr_candidates
+from brain_generators.options.carr_wu_vrp import generate_options_vrp_surface_candidates
+from brain_generators.sentiment.bernard_thomas_sue import generate_bernard_thomas_sue_candidates
+from brain_generators.sentiment.gleason_lee_revision_speed import generate_sentiment_p1_candidates
+from brain_generators.risk_models.frazzini_pedersen_bab_exact import generate_frazzini_pedersen_bab_candidates
+from brain_generators.risk_models.ang_idiovol_anomaly import generate_risk_model_p1_candidates
+from brain_generators.short_interest.short_interest_p0_combined import generate_short_interest_p0_candidates
+from brain_generators.fundamental.fundamental_p0_combined import generate_fundamental_p0_candidates
+from brain_generators.fundamental.kakushadze_101_direct import generate_kakushadze_framework_candidates
+from brain_generators.supply_chain.menzly_ozbas_lead_lag import generate_supply_chain_p0_candidates
 
 
 def send_tg_message(token: str, chat_id: str, html_text: str):
@@ -295,17 +309,60 @@ def get_current_qualified_count(db_url: str) -> int:
 
 
 def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
-    """Builds a balanced multi-dataset candidate matrix across 5 orthogonal pillars."""
-    options_cands = generate_options_vault_candidates()
-    sentiment_cands = generate_sentiment_vault_candidates()
-    risk_cands = generate_risk_model_vault_candidates()
-    short_cands = generate_short_interest_vault_candidates()
-    fund_cands = generate_fundamental_vault_candidates()
+    """
+    Builds the full candidate matrix from ALL generators — 90-paper extraction.
+    Pillars:
+      Options:        XZZ Smirk | Pan-Poteshman PCR | Carr-Wu VRP | legacy
+      Sentiment:      Bernard-Thomas SUE | Gleason-Lee revisions | legacy
+      Risk Models:    Frazzini-Pedersen BAB | AHXZ Idiovol | legacy
+      Short Interest: CDM demand-shift | ERR informed | APR float/inst | legacy
+      Fundamental:    Novy-Marx GPA | Piotroski | Cooper AG | Kakushadze 101 | legacy
+      Supply Chain:   Menzly-Ozbas lead-lag | Barrot shock (in fund_cands)
+    """
+    # ── Legacy skeletons (backward compat) ─────────────────────────────────
+    options_legacy    = generate_options_vault_candidates()
+    sentiment_legacy  = generate_sentiment_vault_candidates()
+    risk_legacy       = generate_risk_model_vault_candidates()
+    short_legacy      = generate_short_interest_vault_candidates()
+    fund_legacy       = generate_fundamental_vault_candidates()
 
-    log.info("Quintuple Catalog Inventory: Options=%d, Sentiment=%d, Risk=%d, ShortInterest=%d, Fundamental=%d",
-             len(options_cands), len(sentiment_cands), len(risk_cands), len(short_cands), len(fund_cands))
+    # ── Paper-faithful generators ───────────────────────────────────────────
+    # Options pillar
+    options_xzz  = generate_xing_zhang_zhao_smirk_candidates()
+    options_pcr  = generate_pan_poteshman_pcr_candidates()
+    options_vrp  = generate_options_vrp_surface_candidates()
 
-    # Interleave round-robin across all 5 verticals
+    # Sentiment pillar
+    sentiment_sue  = generate_bernard_thomas_sue_candidates()
+    sentiment_rev  = generate_sentiment_p1_candidates()
+
+    # Risk model pillar
+    risk_bab    = generate_frazzini_pedersen_bab_candidates()
+    risk_ivol   = generate_risk_model_p1_candidates()
+
+    # Short interest pillar
+    short_p0    = generate_short_interest_p0_candidates()
+
+    # Fundamental + Supply Chain pillar
+    fund_p0     = generate_fundamental_p0_candidates()
+    fund_kak    = generate_kakushadze_framework_candidates()
+    sc_p0       = generate_supply_chain_p0_candidates()
+
+    # ── Merge per pillar ────────────────────────────────────────────────────
+    options_cands   = options_xzz + options_pcr + options_vrp + options_legacy
+    sentiment_cands = sentiment_sue + sentiment_rev + sentiment_legacy
+    risk_cands      = risk_bab + risk_ivol + risk_legacy
+    short_cands     = short_p0 + short_legacy
+    fund_cands      = fund_p0 + fund_kak + sc_p0 + fund_legacy
+
+    total = len(options_cands)+len(sentiment_cands)+len(risk_cands)+len(short_cands)+len(fund_cands)
+    log.info(
+        "FULL VAULT — Options=%d | Sentiment=%d | Risk=%d | SI=%d | Fund+SC=%d | TOTAL=%d",
+        len(options_cands), len(sentiment_cands), len(risk_cands),
+        len(short_cands), len(fund_cands), total
+    )
+
+    # Interleave round-robin across all 5 verticals for balanced slot usage
     interleaved: List[Dict[str, Any]] = []
     max_len = max(len(options_cands), len(sentiment_cands), len(risk_cands), len(short_cands), len(fund_cands))
     for i in range(max_len):

@@ -1,0 +1,945 @@
+
+--- PAGE 1 ---
+NBER WORKING PAPER SERIES
+IS SELL-SIDE RESEARCH MORE VALUABLE IN BAD TIMES?
+Roger K. Loh
+René M. Stulz
+Working Paper 19778
+http://www.nber.org/papers/w19778
+NATIONAL BUREAU OF ECONOMIC RESEARCH
+1050 Massachusetts Avenue
+Cambridge, MA 02138
+January 2014
+We thank Marcin Kacperczyk, Oguzhan Karakas, Jeff Kubik, Massimo Massa, Roni Michaely, Jay
+Ritter, Stijin Van Nieuwerburgh, Paola Sapienza, Siew Hong Teoh, Mitch Warachka, Kent Womack,
+Frank Yu, Jialin Yu, an anonymous associate editor and two anonymous referees, participants at the
+AFA 2014 Philadelphia meetings and the 2013 SMU-SUFE Summer Institute of Finance Conference,
+and at a seminar at the University of Zurich for helpful comments. Brian Baugh, Andrei Gonçalves,
+and David Hauw provided excellent research assistance. Roger thanks the Sing Lun Fellowship and
+the Sim Kee Boon Institute for Financial Economics at Singapore Management University for financial
+support. The views expressed herein are those of the authors and do not necessarily reflect the views
+of the National Bureau of Economic Research.
+NBER working papers are circulated for discussion and comment purposes. They have not been peer-
+reviewed or been subject to the review by the NBER Board of Directors that accompanies official
+NBER publications.
+© 2014 by Roger K. Loh and René M. Stulz. All rights reserved. Short sections of text, not to exceed
+two paragraphs, may be quoted without explicit permission provided that full credit, including © notice,
+is given to the source.
+
+--- PAGE 2 ---
+Is Sell-Side Research More Valuable in Bad Times?
+Roger K. Loh and René M. Stulz
+NBER Working Paper No. 19778
+January 2014, Revised November 2016
+JEL No. F14,F20,F24
+ABSTRACT
+Because uncertainty is high in bad times, investors find it harder to assess firm prospects and, hence,
+should value analyst output more. However, higher uncertainty makes analysts’ tasks harder so it is
+unclear if analyst output is more valuable in bad times. We find that, in bad times, analyst revisions
+have a larger stock-price impact, earnings forecast errors per unit of uncertainty fall, reports are more
+frequent and longer, and the impact of analyst output increases more for harder-to-value firms. These
+results are consistent with analysts working harder and investors relying more on analysts in bad times.
+Roger K. Loh
+Singapore Management University
+Lee Kong Chian School of Business
+50 Stamford Rd, #04-01
+Singapore 178899
+Singapore
+rogerloh@smu.edu.sg
+René M. Stulz
+The Ohio State University
+Fisher College of Business
+806A Fisher Hall
+Columbus, OH 43210-1144
+and NBER
+stulz@cob.osu.edu
+
+--- PAGE 3 ---
+ 
+1 
+1. 
+Introduction  
+Even though there is a large literature on sell-side analysts’ role as information intermediaries, this literature 
+mostly ignores the issue of whether the state of the economy affects the value of analyst output for investors.1 
+There are good reasons to believe that the usefulness and performance of sell-side analysts depend on the state 
+of the economy. It is well-known that in bad times such as recessions and crises, there is greater variation in 
+outcomes across firms and across time (see, for instance, Bloom (2009)). To the extent that the role of analysts 
+is to make sense of firms amidst the increased macro uncertainty, their role should be more important in bad 
+times and, consequently, they should work harder in bad times. At the same time, however, the increased 
+uncertainty may make it harder for analysts to perform their job. Further, the drop in trading volume and hence 
+broker profits in bad times may reduce performance rewards, leading to less motivated analysts. Hence, it is not 
+clear whether analyst output is more valuable in bad times than in good times. In this paper, we find that 
+analysts are indeed more valuable in bad times. The stock-price impact of their recommendation and earnings 
+forecast revisions is greater in bad times. We investigate possible explanations for this finding and conclude that 
+the evidence is consistent with analysts working harder and investors relying more on analysts in bad times. 
+We conduct our investigation using a sample of I/B/E/S Detail earnings forecasts from 1983-2014 and 
+recommendations from 1993-2014. We define bad times in multiple ways. The most obvious approach is to use 
+prominent crises that have occurred in the last two decades, such as the October 1987 crash, the LTCM crisis of 
+1998, and the credit crisis of 2007-2009. We also define bad times as recession periods marked by the National 
+Bureau of Economic Research (NBER), and as periods of high uncertainty according to the Baker, Bloom, and 
+Davis (2016) policy uncertainty index (from www.policyuncertainty.com). Our measure of the value of analyst 
+                                                          
+1 For example, Womack (1996), Barber, Lehavy, McNichols, and Trueman (2001), Kecskés, Michaely, and Womack 
+(2016) show that stock prices react to the release of analyst recommendations and a drift follows afterwards. Loh and Stulz 
+(2011) show that some recommendation changes exert a large noticeable change in the firm’s stock price and these 
+recommendations can impact the firm’s information environment. Bradley, Clarke, Lee, and Ornthanalai (2014) report that 
+recommendations are more likely than earnings announcements or company earnings guidance to cause jumps in intraday 
+stock prices. Others find that analyst coverage reduces information asymmetry, improves visibility (Kelly and Ljungqvist 
+(2012)), disciplines credit rating agencies (Fong, Hong, Kacperczyk, and Kubik (2014)), and affects corporate policies 
+(Derrien and Kecskés (2013)). 
+
+--- PAGE 4 ---
+ 
+2 
+output is the price impact, which shows the extent to which analyst signals affect investors’ assessment of the 
+value of firms and hence is a measure of how analysts contribute to the information environment of firms. 
+Using the average two-day abnormal returns to stock recommendation changes, we find that analysts are 
+more impactful during bad times for both downgrades and upgrades. Further, using the definition of influential 
+recommendations in Loh and Stulz (2011), which effectively treats recommendation changes as influential if the 
+stock-price reaction is statistically significant, we find robust evidence that both upgrades and downgrades are 
+more likely to be influential during bad times compared to good times. We also find that the market reacts more 
+strongly to earnings forecast revisions during bad times. Our evidence of greater analyst impact during bad 
+times is robust to controls for firm and analyst characteristics, including analyst fixed effects. We conclude that 
+analyst output is more useful for investors in bad times in that it moves stock prices more. 
+We perform several robustness tests for our results. Our focus is on macro instead of firm-specific bad times 
+because macro bad times are economically important and because they are more likely to be exogenous to 
+analysts. Prior studies like Frankel, Kothari, and Weber (2006) and Loh and Stulz (2011) show that analyst 
+reports are more informative when firm-level uncertainty is higher. While we already control for firm-level 
+uncertainty in our results, we want to be sure that it is macro (i.e. market-level) uncertainty that drives our 
+results. We decompose a firm’s total stock return volatility into market, industry, and firm-specific components. 
+We find that the increased impact of recommendation changes in times of high uncertainty is most robust when 
+the market component is used to define high uncertainty. Second, we investigate whether the market simply 
+reacts more to all types of firm news in bad times (e.g., Schmalz and Zhuk (2015) find that reactions to earnings 
+announcements are larger in recessions). Adapting the methodology in Frankel et al. (2006), we regress a 
+stock’s daily absolute returns on a comprehensive set of dummy variables that represent important firm news 
+events, namely, recommendation changes, reiterations, earnings announcements, earnings guidance, dividend 
+announcements, and insider trades. Interacting these news dummies with bad times indicators, we show that not 
+all firm news events are associated with greater bad times impact. Importantly, the market reacts more to 
+recommendation changes (and reiterations) in bad times even after all other news events and their interactions 
+
+--- PAGE 5 ---
+ 
+3 
+with bad times are controlled for. Hence we believe our finding that analysts have greater impact in bad times is 
+both novel and robust. 
+We also find that the absolute forecast errors of analysts increase during bad times, which makes it puzzling 
+that their output would have more impact on prices. We show, however, that the traditional metrics of analyst 
+precision are not appropriate to compare precision across good and bad times. The relevant measure of precision 
+for investors is one that takes into account the underlying uncertainty. This is easily seen in a simple Bayesian 
+model. Consider investors who receive a new signal from analysts. The extent to which that signal will change 
+their priors depends on the weight that investors put on the new signal and on the weight they put on their prior 
+(e.g., see Pastor and Veronesi (2009)). As the precision of the signal increases relative to the uncertainty 
+associated with their prior, they put more weight on the signal. Hence, in bad times, investors will put more 
+weight on a signal from an analyst if the ratio of the precision of the signal to the uncertainty of the prior 
+increases. Such an outcome could occur if the precision of the signal is lower in bad times as long as the 
+precision of the signal falls less than the increase in the uncertainty about the prior. A useful way to put this is 
+that the relevant measure of forecast error is a measure of forecast error per unit of uncertainty.  
+Using prior volatility to normalize absolute forecast errors, we find that this adjusted forecast precision 
+actually increases during bad times (scaling by prior volatility is similar to the approach we used to define 
+influential recommendation changes). Importantly however, showing that analyst forecast precision increases 
+when measured against the underlying uncertainty does not mean that analysts automatically become more 
+useful to investors. Specifically, it could be that investors rely less on analysts in bad times if they have better 
+alternative sources of information. For instance, Kacperczyk and Seru (2007) show that how much investors rely 
+on public information depends on the precision of their private information. Hence, in their model, if the analyst 
+signal is public information, investors would rely less on analysts in bad times if investors themselves have 
+better private information. 
+We examine five possible, non-mutually exclusive, reasons why analysts have more impact in bad times. 
+First, we develop and investigate an analyst reliance hypothesis that builds on Kacperczyk and Seru (2007). Our 
+analyst reliance hypothesis predicts that investors rely more on analysts for their information during bad times. 
+
+--- PAGE 6 ---
+ 
+4 
+During bad times, investors have to understand how the macro situation with its attendant uncertainty affects the 
+prospects of firms. Because of the greater macro uncertainty, possible outcomes are more extreme and, 
+consequently, have potentially a greater impact on firms than during good times. Everything else equal, we 
+would expect greater demand for analyst output that helps investors sort out the impact of ongoing macro shocks 
+during bad times compared to good times. If investors already know much about a stock, analysts have less to 
+contribute. Consequently, when analyst output is more valuable, it will be especially more valuable for more 
+opaque stocks. It follows that the cross-sectional implication of the analyst reliance hypothesis is that the extent 
+to which analyst output becomes more valuable in bad times is inversely related to the quality of the information 
+environment for a stock and, therefore, the value of analyst output increases relatively more for stocks of more 
+opaque firms in bad times (namely, stocks with no company guidance, low institutional ownership, high 
+idiosyncratic risk, small size, no options traded, or low coverage). We find supportive evidence that the 
+increased impact of analysts in bad times is higher for stocks with a more opaque information environment.    
+The analyst reliance hypothesis does not assume that analysts change what they do in bad times. Rather, 
+analysts become more important for investors because investors face challenges that they do not face in good 
+times and analysts help them deal with these challenges.  However, it is plausible that analysts also change what 
+they do during bad times. The next three hypotheses are about changes in analyst output in bad times. Our 
+second possible explanation for the increased impact of analysts in bad times is that analysts could be working 
+harder in bad times because of career concerns. Glode (2011) explains the better performance of mutual funds in 
+bad times by the fact that investment managers work harder to produce better payoffs because investors have 
+higher marginal utility in bad times. If the greater uncertainty in bad times causes investors to value analyst 
+signals more, analysts might also work harder to produce better signals in bad times.2 However, rewards for 
+better performance might be limited in bad times when bonus pools shrink and analysts’ employers face 
+financial difficulties due to reduced profits. As a result of these two opposing forces, there is no clear empirical 
+prediction as to whether analysts can be expected to work harder in bad times or not. We find that the stock 
+                                                          
+2 This channel is less direct for analysts compared to fund managers. Investors can directly reward good fund managers 
+with more inflows or less outflows. Investors instead can only indirectly reward good analysts through the analyst 
+reputation channel.  
+
+--- PAGE 7 ---
+ 
+5 
+volatility-adjusted precision of analysts’ earnings forecasts goes up during bad times. This implies that analysts 
+work harder to produce better forecasts in bad times. To investigate for more tangible evidence of whether they 
+work harder, we find that analysts indeed revise their earnings forecasts more frequently and write longer 
+reports in bad times. Further, using regressions that examine analyst attrition, we find evidence that analysts are 
+more likely to leave the I/B/E/S database during bad times. This attrition risk could provide an incentive for 
+analysts to work harder during bad times. Since analysts produce better output in industries with more analyst 
+competition (Merkley, Michaely, and Pacelli (2016)), we would expect analysts to work harder in industries 
+with more analyst competition in bad times and hence that their impact would increase more in such industries. 
+We find strong supportive results for downgrades.  
+Third, we investigate whether analysts use different skills in bad times. Kacperczyk, Van Nieuwerburgh, 
+and Veldkamp (2014) find that mutual fund managers display more market-timing skills than stock-picking 
+skills during bad times. It is not clear if analysts also produce more information in bad times that is common 
+across firms when such common (sector/macro) information is more valued by investors. To investigate this, we 
+examine if a recommendation revision on a single firm impacts peer firms. This spillover might occur if part of 
+the information in the revision reflects the analyst’s forecast of the common factor. We find some evidence that 
+in bad times the spillover effect of downgrades on peer firms is larger than it is during good times. There is no 
+difference in the spillover effect of upgrades in bad times compared to good times. Hence part of the increased 
+influence of analysts in bad times, particularly for their downgrades, might come from an increased effort to 
+collect and produce negative macro/sector information. 
+Fourth, there has been much work on potential analyst conflicts of interests (for a review of some of the 
+evidence, see Mehran and Stulz (2007)). If analyst potential conflicts from investment banking are less 
+important in bad times because of lower deal flow, analyst output might become less distorted and hence more 
+valuable. To investigate this, we examine if forecast bias (i.e. the signed forecast error) is different in bad times. 
+If conflicts have less bite in bad times, analysts might be less optimistic in bad times than in good times. We 
+find little support for this hypothesis as the forecast bias is either no different in bad times, or even more 
+optimistic. We also explore whether the increased impact of analysts in bad times is related to the type of broker 
+
+--- PAGE 8 ---
+ 
+6 
+the analyst works for. In particular, we find that the increased influence of analysts in bad times generally holds 
+for independent brokers as well as for brokers with investment banking business. Overall, we do not find 
+consistent evidence that the conflicts of interest hypothesis is helpful in explaining our results. 
+Our final and fifth potential explanation for the greater impact of analysts is that it has nothing to do with 
+analyst output per se but is the product of overreaction by investors. Overreaction could be more likely in bad 
+times due to lower liquidity so that trading on analyst revisions causes a temporary price pressure effect when 
+liquidity providers are less able to accommodate the order flow. Alternatively, arbitrageurs might be more 
+constrained in bad times, so that they cannot counteract overreaction by some investors as effectively as they 
+can in good times. We investigate whether stock-price drift after revisions differs in bad times compared to good 
+times and we find very little difference. Importantly, the stock-price drift after revisions does not exhibit 
+reversals in good or bad times. Hence, overreaction is an unlikely explanation for our results.  
+Our paper is not the first to make the point that economic agents find signals more valuable in bad times. 
+Kacperczyk, Van Nieuwerburgh, and Veldkamp (2015) derive such a result for skilled fund managers, i.e., 
+managers who have access to valuable signals. They show that “[b]ecause asset payoffs are more uncertain, 
+recessions are times when information is more valuable.” In their model, fund managers allocate more attention 
+to aggregate shocks in bad times because of the increase in aggregate uncertainty. Since the risk premium is 
+higher in bad times, skilled managers’ greater attention to aggregate shocks in bad times leads them to perform 
+better in bad times. In good times, when aggregate uncertainty is lower and the risk premium is lower, fund 
+managers focus more on stock picking and pay more attention to signals about individual stocks. Kacperczyk et 
+al. (2014) find empirical support for their prediction that skilled managers are better at market timing in bad 
+times and better at stock selection in good times.  
+A few papers have examined aspects of the impact of crises on analyst output. However, none of them tests 
+the hypotheses that we focus on and are as comprehensive in showing that analyst revisions of recommendations 
+and earnings forecasts are more influential in bad times, or showing that it is the macro nature of bad times that 
+matters. Arand and Kerl (2012) examine analysts’ earnings forecasts and recommendations around the credit 
+crisis and find that, although forecast accuracy dropped, investors continued to react to revisions in 
+
+--- PAGE 9 ---
+ 
+7 
+recommendations. Amiram, Landsman, Owens, and Stubben (2014) examine analyst forecast timeliness during 
+periods of high market volatility and find that analysts are less timely and underreact to news in those periods. 
+However, they also find that forecast revisions in these periods actually have more impact in reducing 
+information asymmetry measured by bid-ask spreads. Hope and Kang (2005) also find that forecast errors are 
+higher during bad times. While these papers conclude that investors wrongly pay attention to analysts who 
+appear to be more inaccurate in bad times, we show that, controlling for the underlying uncertainty, analysts are 
+actually more precise during bad times and investors rightly react more strongly to analyst revisions. 
+The rest of the study is organized as follows. Section 2 summarizes the hypotheses that we test. Section 3 
+describes our sample and reports our main results which show that analyst output is more influential in bad 
+times. Section 4 reports the results of several robustness tests. In Section 5, we examine how forecast precision 
+differs in good and bad times when we use different measures to scale forecast errors. Section 6 investigates 
+potential explanations for the greater impact of analyst output in bad times, and Section 7 concludes.  
+2. 
+Hypotheses  
+Our main goal is to investigate whether analyst revisions in bad times have any differential stock-price 
+impact compared to their impact in good times.  We lay out hypotheses that predict a differential impact of 
+analysts in bad times.  
+2.1. 
+Why analysts might have less impact in bad times 
+There are several reasons why analysts might have less impact in bad times. First, in bad times the 
+forecasting environment is more difficult and this makes it harder for analysts to make accurate forecasts 
+(difficult environment hypothesis). For example, Jacob (1997), Chopra (1998), and Hope and Kang (2005) find 
+that earnings forecasts are less accurate during bad times. Consequently, this hypothesis predicts that analyst 
+forecasts are more inaccurate and their revisions have a smaller stock-price impact in bad times.  
+Second, in bad times, there might be limited rewards for analysts who provide better quality output (shirking 
+hypothesis). This is because investment banking deal flow, equity market capitalizations, trading volume, and 
+
+--- PAGE 10 ---
+ 
+8 
+brokerage business volume shrink in bad times. If brokerages employing analysts have fewer rewards for good 
+performance, analysts might be less motivated to provide quality research in bad times. The greater amount of 
+noise in the information environment also provides a cover for poorer performing analysts, making their lack of 
+effort or skill less noticeable. This is similar to Bertrand and Mullainathan (2001) describing the difficulty that 
+investors have in evaluating manager quality when firm performance is driven by bad macro-economic 
+conditions. This hypothesis also predicts that analyst forecasts are less accurate in bad times and their revisions 
+have less stock-price impact.  
+Third, investors could be distracted in bad times, paying less attention so that there is less stock-price impact 
+to analyst revisions (inattention hypothesis). Hirshleifer, Lim, and Teoh (2009) show that when a lot of news 
+hits the markets, investors tend to react less to firm news events. In bad times when information uncertainty 
+increases, there is a lot more news that investors have to digest, and hence investors might underreact to a 
+specific type of news such as analyst revisions.  
+2.2. 
+ Why analysts might have more impact in bad times 
+Kacperczyk et al. (2015) show that information about payoffs with a given precision is more valuable in bad 
+times because of higher uncertainty. An analyst revision is a signal about firm prospects which investors 
+incorporate into stock prices based on their existing priors. In bad times, uncertainty about investors’ priors goes 
+up. If the noise in analyst signals does not go up as much as the noise in the prior, analyst signals become more 
+valuable, everything else equal. This assumes that analysts have expertise in incorporating into their forecasts 
+the impact of bad macro conditions on the firms that they cover. Hutton, Lee, and Shu (2012) provide some 
+evidence that analysts can better incorporate the implications of bad macroeconomic news into their forecasts 
+than firm managers. The noise of analyst signals relative to prior uncertainty can decrease either because 
+analysts are able to take steps to make sure that the noise in their signals increases less than the prior 
+uncertainty, or because the prior uncertainty increases more than the noise of analyst signals because sources of 
+information for investors, such as private information, dry up in bad times or become much noisier. We now 
+consider the latter situation for our first hypothesis, and then the former for our second to fourth hypotheses. 
+
+--- PAGE 11 ---
+ 
+9 
+Investors have multiple sources of information. They look at public information such as analyst signals, but 
+they may also have access to private information. With opaque firms, public information is limited, but for other 
+firms investors have access to many public information signals that compete with information provided by 
+analysts. It follows that when uncertainty increases due to macro shocks, investor demand for analyst output 
+increases especially for the more opaque firms. However, for analysts to be more valuable to investors in bad 
+times, it is important that the other sources of information of investors do not become more precise or more 
+valuable in bad times compared to analyst information. Such a condition follows from the model of Kacperczyk 
+and Seru (2007). In that model, they evaluate the sensitivity of investors to private and public information when 
+some investors have access to private information. They find that, if private information becomes noisier, 
+investors rely more on public information like analyst signals. Hence, in such a setup, investors will rely more 
+on public information as other sources of information dry up or become noisier. Kacperczyk and Seru (2007) 
+also offer an alternative interpretation of the model, which is that “private” information can also be the ability to 
+process public information more accurately. Bad times can be viewed as a regime change, where the advantage 
+of some investors at processing data may be impaired because they have to adapt to the new regime, or a 
+situation where changes are more extreme so that processing public information is harder because there is little 
+experience with similar situations. 
+The Kacperczyk and Seru (2007) model motivates our investor reliance on analysts hypothesis to explain 
+the increased impact of analysts in bad times. With this hypothesis, analysts have a greater impact on investors’ 
+priors in bad times because investors’ private information or information processing ability becomes noisier in 
+bad times. This leads to an increase in uncertainty that makes it harder for investors to assess the consequences 
+of macro shocks. In good times, uncertainty about macro shocks is limited, so that realizations of macro shocks 
+have relatively less impact on firms and hence are not as important in assessing the prospects of firms. In bad 
+times, macro shock realizations are more extreme and have more of an impact on firms. In such a situation, 
+analyst output becomes more valuable because competing sources of information become less valuable in 
+enabling investors to assess the impact of shocks precisely when these shocks are more important. The cross-
+sectional prediction of the analyst reliance hypothesis is that the increase in uncertainty about the consequence 
+
+--- PAGE 12 ---
+ 
+10 
+of macro shocks for firms is most important for the firms that investors have less information about, i.e. the 
+more opaque firms. For firms that trade in an environment with much information production, there will be 
+more substitutes for analyst output in bad times than for other firms.   
+The second hypothesis we investigate is that analysts might work harder in bad times to produce signals that 
+are of better quality and hence signals that have a higher impact (an analyst effort or incentives hypothesis). 
+There is existing evidence in Glode (2011) that fund managers perform better in bad times so as to satisfy 
+investors’ higher marginal utility in bad times. While it is easier for investors to reward fund managers (directly 
+through flows) than to reward analysts (indirectly through reputation), this incentive might also be at work in 
+analysts through attrition risk. This hypothesis of greater analyst effort also predicts greater frequency of reports 
+and greater accuracy of earnings forecasts after accounting for the greater uncertainty in bad times. We would 
+expect effort to increase more in industries with more analyst competition since the literature shows that more 
+analyst competition within an industry leads to better analyst output (Merkley, Michaely, and Pacelli (2016)). 
+The third hypothesis is an analyst expertise hypothesis. If analysts have expertise to help investors 
+understand the implications of bad times they can employ this expertise only during bad times. For example, in a 
+separate setting, Kacperczyk et al. (2014) show that fund managers have market-timing skills during bad times 
+but stock picking skill in good times. If analysts also have such market-timing skills in bad times, their revisions 
+might contain information for peer firms. This means that the revisions might be more impactful due to them 
+containing more industry information, consistent with some papers finding that analysts have expertise to 
+predict industry returns (e.g., Howe, Unlu, and Yan (2009) and Kadan, Madureira, Wang, and Zach (2012)).  
+Fourth, the conflicts of interest hypothesis predicts that analysts can be more impactful in bad times when 
+investment banking conflicts decline. To the extent that investment banking conflicts lead analysts to have an 
+optimistic bias in their research (see, e.g., Michaely and Womack (1999)), this bias might be lower in bad times 
+when investment banking revenue drops. Specifically, in bad times, analysts in brokers with investment banking 
+divisions are likely to face less deal-related pressure to bias their research. As a result, their research might be of 
+higher quality and hence have higher impact. We can investigate if analyst optimistic bias goes down in bad 
+times and examine how bad times impact brokers with and without investment banking divisions.   
+
+--- PAGE 13 ---
+ 
+11 
+Finally, we investigate an overreaction hypothesis. In bad times, there is evidence that some types of firm 
+news see greater reaction, such as earnings announcements (see, e.g. Schmalz and Zhuk (2015)). This 
+hypothesis predicts that analyst revisions should also see a greater reaction just like all other types of firm news. 
+We also investigate for any evidence that a greater reaction is in fact an overreaction by looking at the future 
+drift of stock prices. Overreaction might be more likely to occur in bad times because arbitrageurs are more 
+constrained in bad times and cannot counteract the inefficient reaction to revisions.  
+3. 
+Main results 
+3.1. 
+Bad times definitions  
+We first define bad times and describe our analyst output sample. We have four proxies for bad times. The 
+first two proxies focus on prominent financial crises. We set the indicator variable Crisis equal to one for the 
+periods September-November 1987 (1987 crisis), August-December 1998 (LTCM crisis), and July 2007-March 
+2009 (credit crisis). Second, we define Credit Crisis equal to one for the credit crisis period since this especially 
+sharp and prolonged crisis warrants a separate investigation. The third definition uses NBER-defined recessions, 
+which for our analyst sample are the periods July 1990-March 1991, March-November 2001, and December 
+2007-June 2009. The fourth measure is the Baker et al. (2016) policy uncertainty index. We define a period of 
+high policy uncertainty (High Uncertainty) as one where the historical index is in the top tercile of available 
+values (198308-201402). This measure assigns more months as bad times compared to the earlier three 
+definitions. In our sample, 7.7%, 5.6%, 9.8%, and 33.4% of the months are classified as Crisis, Credit Crisis, 
+Recession, and High Uncertainty respectively. 
+
+--- PAGE 14 ---
+ 
+12 
+3.2. 
+Earnings forecasts and recommendations data 
+The analyst data are from Thomson Financial’s Institutional Brokers’ Estimate System (I/B/E/S) U.S. Detail 
+file. 3 Earnings forecasts are one quarter-ahead forecasts made from 198308-201412 and actual earnings 
+(announced from 198309-201504) are taken from I/B/E/S. We use the unadjusted file to mitigate the rounding 
+problem in I/B/E/S (see, for instance, Diether, Malloy, and Scherbina (2002)). Using the I/B/E/S split-
+adjustment factors, we adjust the unadjusted forecast so that it is on the same per-share basis as the reported 
+unadjusted actual earnings. As is common practice, financial firms are excluded from our main analysis 
+although we discuss results for this sector in robustness tests (financials are defined as group 29 of the Fama and 
+French (1997) 30-industry definitions).  
+Individual analyst stock recommendations are from the I/B/E/S Detail file issued from 1993-2014. We 
+define upgrades and downgrades using the analyst’s current rating minus the prior rating by the same analyst. A 
+prior rating is assumed to be outstanding if it has not been stopped (checking the I/B/E/S Stopped file) and is 
+less than one year old based on the I/B/E/S review date (following Ljungqvist et al. (2009)). We exclude 
+anonymous analysts, observations with no outstanding prior rating from the same analyst (i.e., analyst initiations 
+or re-initiations are excluded), and recommendation changes where the lagged stock price is less than one dollar. 
+We also remove revisions that occur on firm-news days following Loh and Stulz (2011). This step is important 
+because we do not want recommendations that merely repeat the information contained in firm news releases. 
+Firm-news days are defined as the three trading days centered around a Compustat earnings announcement date 
+or a company earnings guidance date (guidance dates are from First Call Guidelines until it was discontinued on 
+September 29, 2011, and from I/B/E/S Guidance file thereafter), and days with multiple analysts issuing a 
+                                                          
+3 Ljungqvist, Malloy, and Marston (2009) report that matched records in the I/B/E/S recommendations data were altered 
+between downloads from 2000 to 2007. Thomson, in response to their paper, fixed the alterations in the recommendation 
+history file as of February 12, 2007. The dataset we use is dated December 17, 2015 and hence reflects these corrections. 
+However, there are still some large brokers missing from the current I/B/E/S forecasts and recommendations files. To 
+reinstate the missing years from these brokers, we use Capital IQ estimates to extract recommendations and earnings 
+forecasts issued by these missing brokers and splice the collected data into our I/B/E/S sample. Spliced observations make 
+up about 1.05% of the total observations in the forecasts sample and 0.45% of the observations in the recommendations 
+sample. 
+
+--- PAGE 15 ---
+ 
+13 
+recommendation for the firm.4 Similar filters are also used when we examine the stock-price impact of earnings 
+forecast revisions. Stock returns are from the Center for Research in Security Prices (CRSP). 
+3.3. 
+Evidence of large increases in uncertainty during bad times 
+In this section we examine the variance of investors’ priors during bad times using an ex ante proxy. We 
+show that there is indeed more uncertainty about the market and about individual stocks in bad times. In Panel A 
+of Table 1, we report daily estimates of the VIX from CBOE as a proxy for ex ante uncertainty. This data starts 
+from 1990 and overlaps most of our 1983-2014 sample. The typical daily VIX (quoted as an annualized standard 
+deviation) in Crisis periods is 31.339, while in good times it is 18.865. The VIX in Crisis periods is therefore 
+more than 60% greater than in non-Crisis times and this difference is statistically significant. The increase in the 
+VIX is similar for the Credit Crisis period and Recession periods. The increase in the VIX is smaller for the 
+High Uncertainty periods but is still sizable. Hence for all our bad times definitions, the ex ante volatility of the 
+market increases sharply in bad times, which is evidence that investors’ priors become less precise in bad times. 
+We turn now to the ex ante volatility for the common stock of individual firms at the time of 
+recommendation changes. Panel B of Table 1 reports the annualized implied volatilities of the stocks five 
+trading days before they are subject to a recommendation change. The implied volatility data is from Option 
+Metrics’ Volatility Surface file, using the average of the interpolated implied volatility from puts and calls with 
+30 days to expiration and a delta of 50. We are able to match 76% of the recommendation changes in our sample 
+with an implied volatility. Starting with the Crisis definition of bad times for downgrades, we see that the 
+option-implied volatility is 61.820% in bad times and 47.319% in good times. The difference of 13.501 
+percentage points is statistically significant. When we turn to upgrades, the differences in implied volatilities are 
+very similar to what they are for downgrades. For all our definitions of bad times, we find similar results. Hence, 
+                                                          
+4 One concern with these filters is that if analysts piggyback more on firm news in bad times, a larger fraction of poor 
+quality recommendations might be removed in bad times, hence making the remaining sample of recommendations appear 
+“better” in bad times than in good times. However, we find that it is in good times that analysts piggyback more. For 
+example in non-Crisis periods, 37.7% of downgrades (30.3% of upgrades) are removed by the filters compared to 33.8% 
+(27.0% of upgrades) in Crisis periods. We also checked if recommendation changes that occur on firm-news days are more 
+impactful in bad times and we find strong evidence for downgrades (all four definitions of bad times) but mixed evidence 
+for upgrades (only two of four definitions). Because it is hard to distinguish whether these effects can be attributed to 
+analysts or to the firm news events themselves, we focus our analysis on the sample that is not contaminated by firm news.  
+
+--- PAGE 16 ---
+ 
+14 
+there is clear evidence of higher ex ante volatility at the firm level just before recommendation changes in bad 
+times compared to good times. 
+3.4. 
+Stock-price impact of recommendation changes 
+We now address the question of whether analyst output has a greater stock-price impact in bad times. We 
+take the view that if analyst output moves stock prices, it means that investors’ priors are changed and hence the 
+analyst output is valuable to investors. We examine first the stock-price impact of recommendation changes. 
+Because recommendation levels can be biased, recommendation changes are more reliable than levels as a 
+setting to evaluate the impact of analysts (e.g., Boni and Womack (2006) show that rating changes contain more 
+information for returns than rating levels). To estimate the stock-price impact of a recommendation change, we 
+use the cumulative abnormal return (CAR) from the recommendation date to the following trading day, i.e., a 
+day [0,1] event window. If the recommendation is issued on a non-trading day or after trading hours, day 0 is 
+defined as the next trading day. CAR is computed as the cumulative return of the common stock less the 
+cumulative return on an equally weighted characteristics-matched size, book-to-market (B/M), and momentum 
+portfolio (following Daniel, Grinblatt, Titman, and Wermers (1997), thereafter DGTW). Panel A of Table 2, 
+which summarizes our main results, reports the average CAR of recommendation changes, separated into 
+upgrades and downgrades, issued in bad times and in good times with statistical significance based on standard 
+errors clustered by calendar day.  
+We see that downgrades and upgrades have larger impact during bad times. The differences are stark. 
+Starting with the Crisis definition, we see that the average two-day CAR is -2.678% for a recommendation 
+downgrade in Crisis periods and is -1.687% in non-Crisis periods. Both CARs are significant at the 1% level 
+indicating that analysts have impact in both good and bad times. But the significant difference of -0.991% shows 
+that downgrades have larger impact in bad times. The same is true for upgrades. The CAR for upgrades in Crisis 
+periods is 2.658%, while in non-Crisis periods it is 2.044%. The difference in these CARs is 0.614% and is 
+
+--- PAGE 17 ---
+ 
+15 
+again significant at the 1% level. Using other definitions of bad times also shows similar evidence of larger 
+impact of recommendations in bad times.5  
+We now examine whether analysts are more influential in bad times using the influential definition in Loh 
+and Stulz (2011). Loh and Stulz show that it is important to assess whether a recommendation change results in 
+a stock-price reaction that is noticed by investors, meaning that the rating change results in a reaction that is 
+significant at the firm level based on the firm’s prior stock-price volatility.6 Table 2 shows the fraction of 
+recommendation changes that are influential during bad times compared to good times.   
+The results are striking. For all definitions of bad times, a recommendation downgrade is significantly more 
+likely to be influential during bad times than during good times. The difference is especially large when we use 
+the Crisis definition or the Credit Crisis definition of bad times. For these definitions, a recommendation 
+downgrade has a probability of being influential that is one third higher during bad times (e.g., 15.278% versus 
+11.681% for the Crisis definition). The differences are smaller for the Recession and High Uncertainty 
+definitions of bad times. Turning to recommendation upgrades, we find that they are also significantly more 
+likely to be influential in bad times for all definitions of bad times. The results for the fraction of influential 
+recommendations are, therefore, similar to the CAR results.  
+We plot in Figure 1 the summary of our results in Table 2. We can see that upgrades and downgrades are 
+both associated with stronger stock-price reactions and are more likely to be influential in bad times compared 
+to good times. 
+Thus far we have only shown univariate results. Because recommendation impact can be affected by other 
+characteristics besides bad times, it is important to examine if our results are robust to controlling for such 
+                                                          
+5 Using a bad times dummy means that the baseline group is non-bad times, which we term as good times. This 
+approach is consistent with, say, how the NBER only defines recessions and labels other periods as expansions. In 
+unreported tests, we use the monthly market returns to sort non-bad times into two groups, normal times and good times. 
+Using normal times as the baseline group, we continue to find strong evidence of a stronger CAR impact of 
+recommendation changes in bad times. We find little increased impact on CAR in good times compared to normal times, 
+except for upgrades, which have slightly larger impact in good times compared to normal times.  
+6 Specifically, we check if the CAR is in the same direction as the recommendation change and the absolute value CAR 
+exceeds 1.96 × √2 × 𝜎𝜀. We multiply by √2 since the CAR is a two-day CAR. 𝜎𝜀 is the standard deviation of residuals 
+from a daily time-series regression of past three-month (days −69 to −6) firm returns against the Fama and French (1993) 
+three factors. This measure roughly captures recommendation changes that are associated with noticeable abnormal returns 
+that can be attributed to the recommendation changes. 
+
+--- PAGE 18 ---
+ 
+16 
+characteristics. In Table 3, we report estimates of OLS panel regressions where we control for firm, analyst, and 
+recommendation characteristics. 
+We use the following control variables that are known to be related to the impact of recommendations. LFR 
+is the analyst’s prior year leader-follower ratio constructed following Cooper, Day, and Lewis (2001), who show 
+that reports from leader analysts exert greater stock-price impact. 7 Star Analyst is an indicator variable for 
+analysts elected to the All-American team (whether as first-, second-, third-team, or runner-up statuses) in the 
+latest October Institutional Investor annual poll. Fang and Yasuda (2014) show that stars analysts have better 
+performance. Mikhail, Walther, and Willis (1997) show that analyst experience impacts performance. We define 
+Relative Experience as the difference between the analyst’s experience (number of quarters since appearance on 
+I/B/E/S) and the average experience of all analysts covering the same firm. Next, because forecast accuracy can 
+be a proxy for skill in stock picking (Loh and Mian (2006)), we define Accuracy Quintile as the average forecast 
+accuracy quintile (relative to other analysts covering the same firm) of the analyst based on the firms covered in 
+the past year, where the quintile rank is increasing in forecast accuracy. Broker Size is the number of analysts 
+employed by the broker as a proxy for analyst ability and availability of resources. We also add the following 
+firm characteristics: # Analysts which is one plus the number of analysts covering the firm, Size is last June’s 
+market cap, BM is the book-to-market equity ratio (computed and aligned following Fama and French (2006)), 
+Momentum is the buy-and-hold return from month t-12 to t-2, and Stock Volatility is the standard deviation of 
+daily stock returns in the prior month. Adding these controls allows us to determine if our univariate results are 
+robust to controlling for changing firm and analyst characteristics from good to bad times. 
+The descriptive statistics of these variables are reported in Panel C of Table 1 for the full sample, as well as 
+separately for one of the bad times definitions—Crisis and non-Crisis periods. These are averages of the 
+characteristics across all the recommendation change observations within the downgrade or upgrade sample. We 
+see that most analyst characteristics look similar between good and bad times, except that there appears to be a 
+                                                          
+7 To compute the LFR, the gaps between the current recommendation and the previous two recommendations from 
+other brokers are computed and summed. The same is done for the next two recommendations. The leader-follower ratio is 
+the gap sum of the prior two recommendations divided by the gap sum of the next two recommendations. A ratio larger 
+than one indicates a leader analyst, since other brokers issue new ratings quickly in response to the analyst’s current 
+recommendation.  
+
+--- PAGE 19 ---
+ 
+17 
+smaller fraction of star analysts in bad times. For firm characteristics, we see a decrease in the average Size, 
+Momentum, BM, and # Analysts per firm in bad times, while Stock Volatility is markedly higher in bad times. 
+We now turn to the regressions in Table 3 that include these controls. For each definition of bad times, we 
+estimate the CAR regression first using a constant and an indicator variable for bad times. The coefficient on the 
+bad times indicator is the univariate additional impact of downgrades in bad times (equivalent to the CAR 
+difference in Table 2) and the intercept is the good times CAR impact. We then control for firm, analyst, and 
+forecast characteristics, and add industry fixed effects (Fama-French 30 industry groups). Standard errors are 
+clustered by calendar day to account for cross-sectional correlation of returns on the same day.8 From models 1-
+8 for downgrades, we see that regardless of whether we have control variables, all the indicator variables for bad 
+times have coefficients that are negative and statistically significant at the 1% level. This shows that analysts’ 
+downgrades have more stock-price impact in bad times compared to good times. To gauge the economic 
+magnitude of the effect of bad times after the controls are added, we compare the bad times coefficient to the 
+“Good times 𝑌̂”, which is the predicted CAR when the control variables are at their means and the bad times 
+indicator is zero. In model 2, the bad times coefficient is -0.998% and the good times predicted CAR is -1.761%, 
+meaning that bad times increase the CAR impact by about 1.57 times, an effect similar to the case without 
+controls.  
+Looking at the coefficients of the controls, we see that recommendations by analysts with a greater leader-
+follower ratio have a larger impact. Not surprisingly in light of the earlier literature, we see that recommendation 
+changes by bigger brokers have a greater impact. So do the downgrades of star analysts. Also in line with the 
+literature, recommendation changes have less impact when a firm is followed by more analysts or when the firm 
+is larger. Lastly, the impact of analyst downgrades is greater when the firm’s prior stock volatility is higher. 
+Turning to recommendation upgrades, we find that with or without controls, upgrades also have a significantly 
+larger stock-price reaction regardless of the definition of bad times.  
+                                                          
+8 We also tried clustering the standard errors by firm or by analyst and the results are typically similar or statistically 
+stronger.  
+
+--- PAGE 20 ---
+ 
+18 
+Table 4 repeats the analysis in Table 3 by estimating probit models for whether a recommendation change is 
+influential or not. The marginal effects, which measure the change in probability when changing the variable by 
+one standard deviation centered around its mean (or a 0 to 1 change for a dummy variable), are reported with z-
+statistics in parentheses (based on standard errors clustered by calendar day). We see that recommendation 
+downgrades are more likely to be influential in bad times for all definitions of bad times. Interestingly, the 
+marginal effects of the bad times indicator variables are higher when we control for analyst, firm, and 
+recommendation characteristics and industry fixed effects. For example, in regression 1 of Table 4, the marginal 
+effect on Crisis indicates the univariate increase in influential probability of a downgrade in Crisis periods is 
+3.6% (compared to the probit’s predicted influential probability of 12.1% in the downgrades sample). When we 
+add control variables, the coefficient on Crisis goes up to 6.5% (compared to the predicted probability of 11.7%, 
+labeled “Predicted Prob.” in the table). Turning to recommendation upgrades, we find that upgrades are also 
+more likely to be influential during bad times for all definitions and the effect also becomes stronger when we 
+add control variables. 
+Overall, we find strong evidence that recommendation changes are more impactful during bad times. There 
+is also no asymmetry in our results in that both upgrades and downgrades have increased impact in bad times. 
+Some in the literature suggest that the reaction of the market to good and bad news might be asymmetric 
+depending on whether times are good or bad (e.g. Beber and Brandt (2010) and Veronesi (1999)). We find no 
+evidence of such an asymmetric reaction to the “news” produced by analysts because the increased impact of 
+recommendation changes in bad times applies to both upgrades and downgrades.  
+Overall, the result that analysts have more impact in bad times is inconsistent with the difficult environment 
+hypothesis, the shirking hypothesis, and the inattention hypothesis, which all predict that analyst research 
+quality should be reduced in bad times. Instead, our result supports hypotheses that predict better-quality analyst 
+output in bad times.  
+A caveat for our results is that the credit crisis overlaps with a sizable fraction of some bad times definitions. 
+Specifically, 72% and 43% of the Crisis and Recession months respectively occur in the credit crisis. As a 
+result, when we exclude the credit crisis observations, we find weak and at most mixed evidence that analysts 
+
+--- PAGE 21 ---
+ 
+19 
+have more impact in Crisis or Recession periods. However, this issue is mitigated for the High Uncertainty 
+definition of bad times as only 12% of High Uncertainty months occur in the credit crisis. Using the High 
+Uncertainty definition of bad times, excluding credit crisis observations does not affect the evidence of larger 
+analyst impact in bad times. 
+3.5. 
+Stock-price impact of earnings forecast revisions  
+Our analysis thus far has looked at stock recommendations, which are essentially the analyst’s summary 
+measure of the future prospects of investing in the firm’s stock. We now focus on analysts’ forecasts of a 
+specific measure of fundamentals—earnings. The use of earnings forecast revisions also allows us to control for 
+the amount of information in the revision by using the forecast revision magnitude. We investigate whether 
+earnings forecasts are more or less useful to investors during bad times by measuring the impact of forecast 
+revisions on the firm’s stock price. As before, we use two definitions of impact, the two-day CAR and the 
+influential likelihood. A forecast revision is defined using the analyst’s own prior forecast of quarterly earnings, 
+provided that the prior forecast has not been stopped and is still active (less than one year old) using its I/B/E/S 
+review date. The revision is then scaled by the lagged CRSP stock price and we call this the Forecast Revision. 
+We remove forecast revisions on dates that coincide with corporate events (namely, the three trading days 
+around earnings announcements and guidance dates, and multiple-forecast dates) so that we do not falsely give 
+credit to the analyst for company announcement-driven stock-price changes.  
+Figure 2 (left two charts) plots the univariate average forecast revision CARs. We see clear evidence that 
+forecast revisions have more stock-price impact in bad times. Table 5 then estimates regressions with control 
+variables. An important added control is Forecast Revision itself because one naturally expects larger-magnitude 
+revisions to be associated with larger stock-price changes. Table 5 reports the regressions of forecast revision 
+CARs where the standard errors are clustered by calendar day. In regression (1) which has no control variables, 
+we see that the downward forecast revision CAR is much more negative in Crisis times. The intercept of the 
+regression is -0.294% while the coefficient on the indicator variable is -0.398% (t=6.50), meaning that the stock-
+price reaction to a downward revision during bad times is more than double the reaction during good times. 
+
+--- PAGE 22 ---
+ 
+20 
+Adding the control variables to the regression does not meaningfully change the statistical or economic effect of 
+bad times (in model 2, the bad times coefficient is -0.384 compared to the good times predicted CAR of -0.230). 
+The coefficient on Forecast Revision itself is positive and significant meaning that it is not the case that larger-
+magnitude revisions explain the greater CAR impact.9 Similar results hold for the other definitions of bad times. 
+When we turn to upward revisions, the CAR is significantly higher for the Crisis and Credit Crisis definitions of 
+bad times, but not for other definitions. Further, the impact of bad times on the CAR is smaller. For the Crisis 
+definition, the intercept is 0.439% and the estimate of the coefficient on the indicator variable is 0.198%, i.e. 
+about one-third higher than in bad times, which contrasts with an impact that is more than double in bad times 
+for downward revisions.  
+Figure 2 (right two charts) and Table 6 examine whether an earnings forecast revision is more likely to be 
+influential in bad times. Table 6 estimates probits where the dependent variable is an indicator variable that 
+equals one when the forecast is deemed to be influential. The results are stronger than in the earlier table with all 
+the marginal effects being statistically significant, indicating that analysts make more influential earnings 
+forecast revisions in bad times compared to good times. The economic effect is also large. For example, the 
+marginal effect for Crisis in model 2 is 0.036, which means that in Crisis times the influential probability of a 
+downward revision goes up by 3.6%, a big increase from the 4.5% predicted influential probability in the probit 
+model.  
+From these results, we conclude that analyst output is indeed more valuable in bad times. Whether we 
+consider their recommendation changes, which represent their overall assessment of a firm’s prospects, or a 
+specific change in their forecasts of a firm’s upcoming short-term fundamentals (quarterly earnings), we find 
+that analysts have a more influential impact on stock prices.  
+                                                          
+9 When we estimate the bad times regression with only Forecast Revision as a single control in unreported results, the 
+coefficient on Forecast Revision is much stronger for both the downward and upward revision sample. In the presence of 
+other control variables, we see from Table 5 that the effect of Forecast Revision is much weaker. If we add an interaction of 
+Forecast Revision with bad times, the coefficients on such interactions are never significant.  
+
+--- PAGE 23 ---
+ 
+21 
+4. 
+Robustness tests 
+We conduct several robustness tests to examine if our results of greater analyst impact in bad times are new 
+to the literature and whether they are robust.  
+4.1. 
+Does market-wide or firm-specific uncertainty drive our results? 
+Our definition of bad times is based on changes in aggregate economic activity. We use a market-wide 
+definition instead of a firm-specific definition because market-wide bad times are more likely to be exogenous 
+to the analyst and to the industry. Some previous studies have examined how firm-level uncertainty affects 
+analysts’ output. For example, Frankel et al. (2006) find that analyst reports are more informative when trading 
+volume and stock return volatility are higher, and Loh and Stulz (2011) find that analyst recommendations are 
+more influential when firms have higher forecast dispersion. Although our earlier results already control for 
+firm-specific uncertainty, we explore a different method to see how controlling for the role of firm-specific 
+uncertainty affects our results.  
+We first decompose a firm’s prior month total variance of daily stock returns into macro, industry (Fama-
+French 30 groups), and residual (firm-specific) components by regressing a firm’s daily returns on market 
+(CRSP value-weighted) returns and a market-purged industry return. We define high uncertainty as the highest 
+tercile of the relevant variance component over the firm’s history and show in Panel A of Table 7 the 
+recommendation change CAR regressed on these three high uncertainty dummies. We see that all three are 
+related to significantly larger CAR impact in the univariate setting. When we put all three uncertainty dummies 
+together and add control variables, we see that only the coefficient on the market-wide uncertainty dummy 
+remains robust and statistically significant across all specifications. Hence, we believe our results are new in that 
+it is market-wide uncertainty rather than firm-specific uncertainty that drives the higher impact of analysts 
+during periods of high uncertainty. 
+
+--- PAGE 24 ---
+ 
+22 
+4.2. 
+Do reports that reiterate recommendations have more impact? 
+Although we find that analyst reports containing revisions are more impactful in bad times, it might not 
+mean that all analyst reports have more impact in bad times if reports that reiterate recommendations are less 
+informative in bad times. For example, if analysts have less information in bad times, they might choose to just 
+reiterate old ratings instead of revising them. And if these reiterations have mostly no impact in bad times, we 
+might overstate the impact of analyst reports in bad times when we exclude reiterations from our sample. 
+We first examine, in unreported results, the frequency of recommendation changes and reiterations in bad 
+times. It is well known that I/B/E/S does not record all reiterations (see for example, Brav and Lehavy (2003)). 
+Besides the recorded reiterations on I/B/E/S, we infer other reiterations by assuming that the most recent 
+outstanding I/B/E/S rating is reiterated whenever there is a quarterly forecast in the I/B/E/S detail file or a price 
+target forecast in the I/B/E/S price target file but no corresponding new rating in the recommendation file. As 
+before, we remove observations that occur together with firm news. We show that in non-Crisis periods, the 
+average total number of recommendation changes per month for a firm (across all analysts covering it) is 0.183. 
+In Crisis times, this goes up to 0.238 (a 30% increase). We find across all other bad times definitions that the 
+number of recommendation changes also goes up in bad times. Hence, there is no evidence that analysts are 
+more reluctant to revise recommendations in bad times. For reiterations, we find 0.771 reiterations per month in 
+non-Crisis times and 0.903 in Crisis times (a 17% increase). Across all bad times definitions, we also find 
+evidence that the number of reiterations goes up. There is also no evidence that the number of reiterations goes 
+up at the expense of the number of revisions.   
+We now investigate in Panel B of Table 7 whether these more numerous reiterations in bad times have any 
+differential impact compared to good times. We show that the impact of unfavorable reiterations (reiterated sell 
+or hold) is indeed higher in bad times across all specifications, similar to our findings on revisions. Hence 
+analysts are also more impactful when issuing reiterations in bad times. We find less evidence of this for 
+favorable reiterations (reiterated buy), with mostly lower impact in bad times. Overall, we conclude that there is 
+
+--- PAGE 25 ---
+ 
+23 
+no evidence analysts reiterate more in bad times at the expense of revising less. Their bad times reiterations, 
+especially of unfavorable ratings, are also more informative compared to those in good times. 
+4.3. 
+Does the market react more to all types of firm news in bad times? 
+We now examine if all firm news have a greater impact in bad times. If this were the case, it would suggest 
+that there is something systematic about how the market reacts to news in bad times and the heightened reaction 
+to analyst output in bad times can be explained by the fact that the market reacts more to every piece of news 
+rather than that the market reacts more to analyst output only. This investigation makes sense in light of 
+Schmalz and Zhuk (2015) who find that the market reacts more to earnings announcements in bad times. We 
+adapt the methodology in Frankel et al. (2006) by estimating a big panel regression of daily absolute individual 
+stock returns on a comprehensive set of dummy variables that represent important firm news events, namely, 
+recommendation changes, reiterations, earnings announcements, earnings guidance, dividend announcements, 
+insider trade events, and the announcement of insider trades. Following Frankel et al., these dummies are set to 
+one in day 0 of the event, or day 1 of the event if the announcement occurs after trading hours (when the event 
+time is available for us to check this). Dividend announcements are taken from the CRSP event file and insider 
+trades are from the Thomson Insider Form 4 files. The insider trade date is the date when the insider trade 
+occurs and the filing date is when it is reported to the SEC and hence publicly known.  
+We expect the coefficient on these firm news dummies to be positive and the recommendation-related 
+dummies to remain positive in the presence of the other firm news dummies. As controls, we include several 
+firm characteristics such as size, B/M, momentum, idiosyncratic volatility, etc., and also industry fixed effects. 
+We add bad times indicators whose coefficients are expected to be positive if the market is in general more 
+volatile in bad times. We then interact these firm news dummies with bad times indicators and expect such 
+interactions to be positive if the market reacts more to any news in bad times. Of important interest is whether 
+the recommendation-related interactions with bad times remain significantly positive in the presence of the other 
+firm news dummies and their interactions. If so, it will show that the finding of greater reaction to 
+
+--- PAGE 26 ---
+ 
+24 
+recommendations in bad times is robust to controlling for the market’s differential reaction to news in general in 
+bad times. The standard errors are clustered by calendar day.  
+We show in Panel C of Table 7 that the recommendation change and reiteration dummies are always 
+statistically significant alone and in the presence of other firm news dummies. This shows that both 
+recommendation changes and reiterations are more informative in bad times, confirming the earlier results. 
+When including all the interactions with bad times, the coefficient on the recommendation change dummy 
+interacted with bad times remains positive and significant and often has the largest magnitude (that 
+recommendations elicit the largest reaction when compared to other firm events is in general also consistent 
+with Bradley et al. (2014)). This confirms the robustness of our main findings to controlling for the differential 
+impact of firm news in bad times. We also see that the market does not react more to all types of firm news in 
+bad times. Earnings announcements do indeed elicit a greater reaction in bad times but guidance announcements 
+elicit lower reaction. There is also mixed evidence on a greater reaction to dividend announcements and insider 
+trades and announcements in bad times. 
+4.4. 
+Alternative specifications and samples 
+Differences in analyst characteristics could spuriously explain our results. This could be the case if 
+somehow analysts are better on average in bad times than in good times. Controlling for analyst characteristics 
+addresses the concern that the overall quality of the pool of analysts is different in bad times. While it seems 
+unlikely that the change in the analyst pool can be large enough to explain our findings which already control 
+for analyst characteristics, we conduct two further tests. First, we identify a set of seasoned analysts who are 
+present before and after the longest bad times period, i.e. the credit crisis. These are analysts who appear in 
+I/B/E/S before 2007 and continue to issue reports after March 2009. These seasoned analysts are responsible for 
+almost half of the recommendations in our sample. We repeat our tests on this subsample to ascertain the 
+performance differential between good and bad times for this set of analysts. Second, we add analyst fixed 
+effects when analyzing this subsample. With this approach, the increased impact of analyst recommendations 
+and forecasts during the credit crisis cannot be explained by a selection effect or unobserved analyst 
+
+--- PAGE 27 ---
+ 
+25 
+characteristics. In unreported results we show that the impact of recommendation changes continues to be higher 
+in bad times compared to good times when analyst fixed effects are added. In many cases the results are 
+stronger. For example, in the model with control variables, the marginal effect of a Crisis period on the 
+influential probability of a downgrade is 0.059. Adding analyst fixed effects, the marginal effect becomes 0.067. 
+For upgrades, the increased probability of being influential in Crisis period is 0.043 and this is unchanged when 
+analyst fixed effects are added.  
+In a separate and unreported analysis, we control for whether an analyst’s career starts during bad times. 
+Presumably, analysts who begin careers during bad times have more experience with bad times and might do 
+better in such periods. Or it could be that brokers hire analysts with special expertise when bad times strike. To 
+test if this effect drives our results, we define a dummy variable that equals one for an analyst who joined the 
+profession in any bad times period. We also define another dummy variable for analysts who begin their career 
+in the credit crisis. Adding these dummy variables to our main regressions, we find that these two coefficients 
+are mostly statistically insignificant and all our results are unaffected. We conclude that analysts who join 
+brokers during bad times are unlikely to be the main contributors to our results that analysts produce better 
+research in bad times.  
+Finally, we also repeat our analysis on financial firms. We exclude financial firms from our baseline 
+analysis because many of the macro bad times periods started in the financial sector, e.g. the credit crisis and 
+most of the recessions. As such, for the financial sector, the periods which we define as macro bad times are 
+mostly also industry bad times. Industry bad times might also not be as exogenous to analysts as macro bad 
+times are. Nevertheless, we repeat our analysis on financial firms (group 29 of the Fama-French 30-industry 
+definitions). We find that recommendation changes made by analysts on financial firms also have significantly 
+greater CAR impact in bad times. For example, the mean recommendation downgrade CAR in non-Crisis 
+periods is -1.087% but the downgrade in bad times elicits an additional -2.118% abnormal return. For upgrades, 
+the non-Crisis CAR is 1.315% but the Crisis CAR is larger by 1.473%. All results are similarly strong for other 
+bad times definitions and after the addition of controls. For the CAR impact of earnings forecast revisions, the 
+coefficients on the bad times dummies are mostly insignificant. Hence, while our recommendation change 
+
+--- PAGE 28 ---
+ 
+26 
+results are robust to firms in the financial industry, the results for forecast revisions are weaker for these firms. 
+Importantly, it is hard to distinguish for this set of firms whether the results are triggered by industry or macro 
+bad times 
+5. 
+Are analyst signals more precise in bad times? 
+Having established that our results of analyst output being more influential in bad times is strong and robust, 
+we now investigate why it is so. We might expect that analysts are more influential because their signals are 
+more precise in bad times. If analysts have more precise signals in bad times, their forecast errors should be 
+lower. The literature typically measures forecast errors by the absolute difference between the actual and 
+forecasted earnings per share, scaled by the absolute value of actual earnings or price to account for firm 
+heterogeneity. With such a measure of forecast error, it would be surprising if forecast errors were lower in bad 
+times because in bad times earnings naturally become harder to forecast. Indeed, we find that this traditional 
+measure of absolute forecast errors shows that analysts are less precise in bad times, consistent with  Jacob 
+(1997), Chopra (1998), and Hope and Kang (2005).  
+We argue that this traditional measure of forecast errors is not the appropriate measure to understand why 
+analysts are more influential in bad times. The usefulness of analyst signals of a given precision depends on the 
+uncertainty that investors face. To wit, if investors face no underlying uncertainty about the prospects of a firm, 
+analyst signals that have a small amount of noise are useless. Hence, to compare the usefulness of analyst 
+forecasts over time, the precision of their signals has to be evaluated relative to the uncertainty about the 
+prospects of the firm. This is similar in spirit to the way which we define influential recommendations by 
+scaling by the prior volatility of returns. When we use this new approach, we find that analysts are actually more 
+precise in bad times.  
+5.1. 
+Using a traditional measure of forecast error 
+We first report results using a traditional measure of forecast error. For each analyst, the forecast error is 
+actual earnings minus the final unrevised one-quarter-ahead forecast. We focus on forecasts that are revisions of 
+
+--- PAGE 29 ---
+ 
+27 
+prior forecasts since those are the ones which we found earlier to be associated with higher stock-price reactions. 
+We scale forecast errors by the absolute value of actual earnings instead of stock prices because bad times 
+periods are by definition associated with lower stock prices, so that forecast errors get magnified when scaled by 
+stock prices. When scaling forecast errors by the absolute value of actual earnings, denominator values smaller 
+than $0.25 are set to $0.25 to limit the impact of small denominators. Scaled forecast errors are then winsorized 
+at the extreme 1% before we take absolute values.10  
+Models 1-8 in Table 8 formally test whether the traditional measure of absolute forecast error of analysts in 
+bad times is larger. Standard errors are clustered by industry-quarter where the industry definition is the Fama 
+and French (1997) 30-industry groupings. We also tried clustering by analyst-quarter or firm-quarter and the 
+results are usually similar or stronger. We use similar control variables as those in the earlier tables but also add 
+control variables that are relevant for predicting the accuracy of analyst forecasts from the literature. Lim (2001) 
+shows that analysts trade off optimism and accuracy because optimism facilitates access to private information 
+from the covered firm’s management. We add optimism as a control where Optimistic is a dummy variable that 
+equals one when the forecast is in the top half among all final unrevised forecasts in that quarter. Clement 
+(1999) stresses the importance of controlling for forecast recency because forecasts closer to the actual earnings 
+announcement date will obviously be more accurate. Log Days to Annc is the number of days that the forecast 
+date is before the announcement date of actual earnings and serves as a control for forecast recency. As Bradley, 
+Jordan, and Ritter (2008) suggest, days with activity from multiple analysts most likely are caused by a 
+corporate news release. Forecast accuracy may be different when the forecast is made in response to a corporate 
+news release. Multiple Forecast Day is an indicator variable representing days where the forecast falls on a day 
+on which more than one analyst issues a forecast on the firm. To control for differences of opinion among 
+analysts, we include the Dispersion of forecasts measured as the standard deviation of quarterly forecasts 
+making up the final consensus scaled by the absolute value of the mean estimate. 
+                                                          
+10 One concern related to using the absolute value of actual earnings as the deflator is that lower earnings in bad times 
+could artificially inflate forecast errors (although negative earnings might mitigate this concern). In robustness tests, when 
+estimating the multivariate regressions for the traditional measure of forecast errors, we use unscaled forecast errors while 
+controlling for the stock price of the firm in addition to all the other control variables. We find that our results are similar.   
+
+--- PAGE 30 ---
+ 
+28 
+We see in Table 8 that traditional absolute forecast errors are significantly larger in bad times. Model 1 
+shows that in non-Crisis times the absolute forecast error is 14.835 percent of actual earnings. In Crisis times, 
+the absolute forecast error is 2.775 percent higher. This increase in the absolute forecast error is also robust after 
+taking into account analyst, firm, and forecast characteristics. The same results hold for all the other definitions 
+of bad times, which appear to tell us that analysts are more imprecise during bad times.  
+5.2. 
+Absolute forecast errors scaled by stock volatility 
+We now examine whether analyst forecast errors are larger in bad times after we account for the greater 
+uncertainty that investors face in bad times. To do this, we normalize the absolute forecast errors by the stock’s 
+prior month daily stock return volatility (annualized). This new scaling allows us to examine whether the 
+increase in absolute forecast error can be explained by the increase in the underlying uncertainty surrounding the 
+firm in bad times. This approach is similar in spirit to our earlier approach of using prior volatility to scale the 
+return impact of recommendation changes to identify influential revisions. To our knowledge, the literature has 
+not considered such a measure of forecast precision, which is akin to measuring the forecast error per unit of 
+uncertainty. Models 9 to 16 in Table 8 show the results of this new measure of adjusted forecast precision. We 
+see that the intercept of model 9 is 26.852, which can be interpreted as the percentage absolute forecast error per 
+unit (100%) of stock volatility. Hence, the coefficient on the Crisis variable of -6.667 describes the difference in 
+the uncertainty-adjusted forecast precision during bad times compared to good times. This number tells us that 
+the analysts’ precision improves by 25% (
+−6.667
+26.852) during bad times. Model 2 shows that this percentage 
+improvement is almost unchanged with the addition of control variables. Across all the bad times definitions, we 
+see that after the addition of control variables, the finding that the precision of analyst earnings forecasts is 
+higher in bad times is statistically significant. We also tried using the implied volatility (when available) five 
+trading days before forecast as a proxy for the uncertainty facing the firm and we find similar results.  
+
+--- PAGE 31 ---
+ 
+29 
+These results of improved analyst forecast precision during bad times supports our main finding that analyst 
+revisions have larger stock-price impact in bad times. This larger impact is justified by the higher earnings 
+forecast precision per unit uncertainty in bad times compared to good times.    
+6. 
+Why is analyst output more impactful in bad times? 
+So far, we have shown that analyst output is more impactful in bad times and that analysts offer more 
+precise signals during bad times after taking into account the uncertainty facing investors. In this section, we 
+explore five possible, non-mutually exclusive explanations for these results. We presented these potential 
+explanations in Section 2. There is clearly no support for the hypotheses in Section 2 which predict that analysts 
+will be less impactful in bad times. We investigate instead potential explanations for why analysts might be 
+more impactful in bad times, namely the reliance on analysts hypothesis, the hypothesis that analysts work 
+harder in bad times, the hypothesis that analyst output reflects different skills in bad times, the hypothesis that 
+conflicts of interest affect analyst output less in bad times, and the overreaction hypothesis.   
+6.1. 
+Reliance on analysts hypothesis 
+The analyst reliance hypothesis predicts that analyst output becomes more valuable in bad times especially 
+for more opaque stocks. We use several characteristics to proxy for stocks which are more opaque and might 
+have more reliance on analysts, namely, stocks with no company guidance, low institutional ownership, high 
+idiosyncratic volatility to total volatility ratio, small size, no traded options (a proxy for less informed trading), 
+and low analyst coverage.11  
+We examine the impact of these characteristics on our main results in a cross-sectional analysis by 
+interacting the bad times dummies with dummy variables representing these characteristics. NoGuidance equals 
+                                                          
+11 In the uncertainty literature, an increase in idiosyncratic volatility is a proxy for an increase in uncertainty (Bloom 
+(2009)). It has also been viewed as evidence of informed trading, e.g. in Roll (1988), as a proxy for skewness (Bali, Cakici, 
+and Whitelaw (2011)), and as a proxy for illiquidity (Han and Lesmond (2011)). Ultimately, it is an empirical question 
+whether analysts have more or less impact on high idiosyncratic volatility stocks during bad times. With our discussion in 
+Section 2 of the analyst reliance hypothesis, if idiosyncratic volatility is a proxy for uncertainty, everything else equal we 
+would expect analyst output to be more valuable for stocks with higher idiosyncratic volatility provided that the precision 
+of analyst output decreases less than proportionately when uncertainty increases. Whether this is true or not is an empirical 
+issue. 
+
+[TRUNCATED at 80000 chars — 61 total pages]

@@ -1,0 +1,1576 @@
+
+--- PAGE 1 ---
+ 
+ 
+Stock Price Clustering on Option Expiration Dates¹ 
+ 
+Sophie Xiaoyan Nia, Neil D. Pearsona,*, Allen M. Poteshmana 
+ 
+aUniversity of Illinois at Urbana-Champaign, Champaign, IL  61820, USA 
+ 
+ 
+ 
+August 27, 2004 
+ 
+Abstract 
+ 
+ 
+This paper presents striking evidence that option trading changes the prices of underlying stocks.  In 
+particular, we show that on expiration dates the closing prices of stocks with listed options cluster at 
+option strike prices.  On each expiration date, the returns of optionable stocks are altered by an 
+average of at least 16.5 basis points, which translates into aggregate market capitalization shifts on 
+the order of $9 billion.  We provide evidence that hedge re-balancing by option market-makers and 
+stock price manipulation by firm proprietary traders contribute to the clustering. 
+ 
+ 
+JEL classification:  G12; G13; G24 
+ 
+Keywords:  Stock price clustering; Option expiration; Hedging; Manipulation 
+ 
+                                                 
+¹ We thank Joe Levin, Eileen Smith, and Dick Thaler for assistance with the CBOE data, and thank the Office for 
+Futures and Options Research of the University of Illinois at Urbana-Champaign for supporting Sophie Xiaoyan Ni 
+through the Corzine Assistantship and for partial financial support of the Ivy DB data from OptionMetrics.  The 
+suggestions of an anonymous referee were especially helpful in improving the paper.  The comments of Marco 
+Avellaneda, Kerry Back, Dan Bernhardt, Bill Christie, Ryan Davies, Jeff Harris, Larry Harris, Narasimhan 
+Jegadeesh, Michael Lipkin, Stewart Mayhew, George Pennacchi, Bill Schwert (the editor), Joshua White and 
+seminar participants at Louisiana State University, Rutgers University-Camden, the Securities and Exchange 
+Commission, the University of Florida, the University of Illinois at Urbana-Champaign, and the University of Iowa 
+are also gratefully acknowledged.  We are responsible for any remaining errors. 
+* Corresponding author.  Address:  304D David Kinley Hall, 1407 W. Gregory Drive, Urbana, IL  61801; tel:  (217) 
+244-0490; fax:  (217) 244-9867; e-mail address:  pearson2@uiuc.edu (N.D. Pearson). 
+ 
+ 
+
+--- PAGE 2 ---
+1. Introduction 
+Exchanged-based trading of options commenced in the United States in 1973 when the 
+Securities and Exchange Commission (SEC) authorized the Chicago Board Options Exchange 
+(CBOE) to undertake a pilot program to trade calls on 16 underlying common stocks (Securities and 
+Exchange Commission, 1978, pp. 1–2.)  In June 1977 the SEC first permitted the listing of puts, but 
+only on an experimental basis (Whaley, 2003, p. 1134, n. 6.)  Later in 1977, however, the SEC 
+proposed a moratorium on new option introductions while it investigated exchange-listed option 
+trading.1  An important factor in the SEC’s initial caution in allowing exchange-based trading of calls 
+and puts and its subsequent moratorium on new option listings was a concern that underlying stock 
+prices would be perturbed.  Despite this longstanding concern, little evidence has emerged that 
+option trading has much impact on underlying stock prices.   
+ 
+One set of studies examines option introductions to see whether option trading influences 
+underlying stock prices.2  Some of the earlier papers (Skinner (1989), Conrad (1989), and Bansal, 
+Pruitt, and Wei (1989)) indicate option introductions produce a decrease in the price volatility of 
+underlying stocks.  However, Lamoureux and Panikkath (1994), Freund, McCann, and Webb (1994), 
+and Bollen (1998) provide evidence that this effect is likely due to market-wide volatility changes, as 
+similar changes occur in samples of matched control firms.  Conrad (1989) and Detemple and Jorion 
+(1990) investigate whether option introductions change the price levels of underlying stocks and find 
+positive effects.  Recent evidence, however, suggests that this result is not robust.  Sorescu (2000) 
+finds a positive price impact during Conrad’s data period (i.e., prior to 1980), but a decrease in stock 
+prices after 1980.  Ho and Liu (1997) obtain similar results.  Mayhew and Mihov (2004) find that—
+like the volatility effects—the apparent price level effects largely vanish when a comparison is made 
+to an appropriate set of control firms.3 
+                                                 
+1 By 1977 options were trading at several US exchanges.  These exchanges voluntarily complied with the proposed 
+moratorium until the SEC signaled its approval to resume option introductions in 1980. 
+2 There is also a large theoretical literature on how the introduction of derivatives might impact stock prices.  The 
+results of this literature are ambiguous in that different models, and sometimes the same model with different 
+parameter values, imply different impacts.  Mayhew (2000) provides a recent survey of this literature.   
+3 Some of the option introduction studies also examine the impact on the trading volume or microstructure level 
+characteristics of the underlying stock.  Kumar, Sarin, and Shastri (1998) is an example of this type of research. 
+1 
+
+--- PAGE 3 ---
+A smaller number of studies investigate stock price behavior around expiration dates.4  An 
+early CBOE (1976) report found no evidence of abnormal price behavior in the two-week period 
+leading up to option expirations.  Klemkosky (1978) examines 14 option expiration dates in 1975 and 
+1976 and finds an average abnormal return of –1% in the week leading up to option expiration and of 
++0.4% in the week following option expiration.  The finding for the week leading up to expiration is 
+more reliable.5  Cinar and Vu (1987) also study the impact of impending option expiration on six 
+underlying stocks over a longer six and one-half year period from January 1979 to June 1985.  They 
+find that the return from the Thursday to Friday of expiration week when compared to non-expiration 
+weeks is significantly positive for one stock, significantly negative for one stock, and insignificant 
+for the other four stocks.  Although a joint test of the returns for the six stocks was not performed, it 
+would not be surprising if it failed to show a significant expiration-week difference.  None of the six 
+stocks had volatilities from Thursday to Friday on expiration weeks that were significantly different 
+from other Thursday to Friday time periods.    
+All in all, the option introduction and expiration literature has not shown that equity option 
+trading significantly impacts the prices of underlying stocks.  The present paper, by contrast, 
+provides striking evidence that option trading alters the distribution of underlying stock prices and 
+returns.  In particular, we show that over the 1996-2002 period optionable stocks (i.e., stocks with 
+listed options) cluster at option strike prices on expiration dates.  There is no corresponding 
+expiration date change in the distribution of the closing prices of non-optionable stocks.  Nor are 
+optionable stocks more likely to close near a strike price on the Fridays before or after expiration 
+                                                 
+4 There is a larger body of research on expiration effects for stock index options or futures (e.g., Stoll and Whaley 
+(1986, 1987, 1991, 1997), Edwards (1988), Feinstein and Goetzmann (1988), Herbst and Maberly (1990), Hancock 
+(1991), Chen and Williams (1994), Karolyi (1996), Diz and Finucane (1998), Bollen and Whaley (1999), Alkebäck 
+and Hagelin (2002), and Chow, Yung, and Zhang (2003).)  Mayhew (2000; p. 32) surveys much of this literature, 
+and concludes that “there is little evidence of a strong, systematic price effect around expiration.”  It may be the case 
+that expiration effects for index derivatives have been more widely studied because (unlike stock options) they are 
+cash-settled.  Whaley (2003, Section 7.2) argues that cash-settled derivatives are more likely to have expiration 
+effects in the prices of their underlying assets. 
+5 The negative return in the week leading up to expiration is significant at the 5% level for seven of the 14 expiration 
+dates.  The positive return in the week following option expiration is significant at the 5% level for only three of the 
+fourteen expiration dates.  Klemkosky (1978) does not examine volatility changes in the underlying stock around 
+expirations.  In a non-US study, Pope and Yadav (1992) find similar, though smaller, return effects in the U.K. 
+2 
+
+--- PAGE 4 ---
+Fridays.  Hence, it appears that the increased likelihood that the stock prices close near option strike 
+prices is indeed attributable to the expiration of the options written on them.6 
+Unsurprisingly, the changes in expiration Friday closing stock prices are associated with 
+return differences on expiration relative to non-expiration Fridays.  On expiration Fridays optionable 
+stocks are more likely to experience returns that are small in absolute value and less likely to 
+experience returns that are large in absolute value. This difference suggests that the expiration date 
+clustering is produced primarily from cases in which Thursday stock prices that are close to option 
+strike prices remain in the neighborhood of the strike rather than from cases in which Thursday stock 
+prices that are distant from the strike price move to the neighborhood of the strike.  
+We derive an expression that provides a lower bound on the expiration date return deviations.  
+Using this expression, we estimate that optionable stocks have their returns altered on average by at 
+least 16.5 basis points (bps) per expiration date.  In addition, we are able to determine that on a 
+typical expiration date at least two percent of optionable stocks have their returns altered.  Since at 
+any point during our data period there are roughly 2,500 optionable stocks, the 16.5 bps lower bound 
+on average return impact implies that if all 2,500 optionable stocks are impacted the average 
+deviation in returns is 16.5 bps, if half or 1,250 are impacted the average deviation is 16.5/0.5 = 33 
+bps, if five percent or 125 are impacted the average deviation is 16.5/0.05 = 330 bps, and if two 
+percent or 50 are impacted the average deviation is 16.5/0.02 = 825 bps.  Regardless of the 
+percentage of optionable stocks that are impacted, our estimates imply that on average the return 
+deviations shift market capitalizations of optionable stocks by at least $9.1 billion per expiration date. 
+The expiration day stock price deviations lead to wealth transfers in both the option and the 
+stock market.  For example, there are wealth transfers in the option market insofar as investors who 
+have purchased expiring options make exercise decisions based on expiration Friday closing stock 
+prices.  The changed exercise decisions have welfare implications both for the option purchasers and 
+for the option writers whose probability of getting assigned varies with the exercise decisions.7  
+                                                 
+6 Krishnan and Nelken (2001) provide a related piece of evidence.  They show that shares of Microsoft (which is an 
+optionable stock) close near integer multiples of $5 more frequently on expiration Fridays than on other trade dates. 
+7 It is, of course, possible that all option purchasers are aware of the clustering phenomenon and successfully 
+account for it when making exercise decisions at option expiration.  This possibility seems remote. 
+3 
+
+--- PAGE 5 ---
+There will also be wealth transfers when non-expiring options trade near expiration, because option 
+prices vary with the prices of underlying stocks.  In addition, transfers will occur among stock market 
+investors who do not participate in the option market but who happen to be trading optionable stocks 
+near expiration. 
+Our results naturally raise the question of what produces the strike price clustering on option 
+expiration dates.  We investigate four potential explanations.  Here we indicate their general nature, 
+deferring to the body of the paper a more detailed discussion of the mechanism by which each might 
+cause the clustering.  The first is proposed by Avellaneda and Lipkin (2003), who develop a model in 
+which stock trading undertaken to maintain delta-hedges on existing net purchased option positions 
+pushes stock prices toward strike prices as expiration approaches.  The second is that the clustering is 
+induced by delta-hedging (with the underlying stock) particular types of changes in option positions 
+on the day of expiration.  The third potential explanation is that the clustering results from investors 
+unwinding certain combined stock and option positions on expiration dates.  A final possible 
+explanation is that investors with written options intentionally manipulate the underlying stock price 
+at expiration so that the options finish at-the-money (ATM) or just out-of-the-money (OTM) and 
+consequently are not exercised.8 
+We investigate these potential explanations in several ways.  First, we re-examine the strike 
+price clustering around option expiration dates for subsamples of underlying stocks where likely 
+delta-hedgers have net purchased or net written option positions.  We find that when the likely delta-
+hedgers have net purchased option positions, the clustering increases in the days leading up to 
+expiration and spikes on the expiration date.  On the other hand, when likely delta-hedgers have net 
+written option positions, the clustering decreases in the days leading up to option expiration, but still 
+increases on the expiration date.  These findings suggest that the clustering is produced by hedge re-
+                                                 
+8 A fifth potential explanation is that since strike prices are usually round numbers such as integer multiples of $5.00 
+or $2.50, our findings may be just another manifestation of the asset price clustering that is known to pervade 
+financial markets (e.g., Harris (1991).)  An earlier version of this paper included an in-depth empirical investigation 
+of this possibility and found no evidence that it contributes to the expiration date clustering.  Since it seems 
+somewhat implausible that the explanation plays an important role – because it would require that investors switch 
+to a coarser grid of transaction prices on expiration Friday and then switch back the following Monday – we omit 
+the analysis of this explanation from the paper. 
+ 
+4 
+
+--- PAGE 6 ---
+balancing combined with one or more of the other mechanisms, because hedge re-balancing predicts 
+increasing (decreasing) clustering leading up to the expiration date when delta-hedgers have net 
+purchased (written) option positions, while the other mechanisms predict in both cases an increase in 
+clustering on the expiration date.  Second, we perform logistic regressions to determine which of the 
+explanations’ predictions about increased likelihood of stock prices closing near strike prices on 
+expiration dates are realized in the data.  We find that the clustering is significantly elevated when 
+the delta-hedge re-balancing and stock price manipulation explanations predict that it should be 
+greater, but that the clustering does not increase as predicted by the delta-hedging of new option 
+position or unwinding of combined stock and option position explanations.  Third, we examine the 
+option writing in the week leading up to expiration of a group of investors who are natural candidates 
+for manipulating stock prices.  In accordance with the hypothesis that these investors manipulate 
+stock prices, we find that the written option positions turn out to be quite profitable and that when 
+calls (puts) are written there is an elevated probability that on the expiration date the underlying stock 
+price crosses below (above) the strike price so that the options finish OTM. 
+ 
+In summary, our investigation of these four explanations provides evidence that the hedge re-
+balancing described by Avellaneda and Lipkin (2003) and stock price manipulation by option writers 
+both contribute to the clustering, while suggesting that the two other potential factors do not play an 
+important role.  These findings are interesting not only because they provide insight into the 
+clustering phenomenon, but also because they indicate more generally that hedging and manipulation 
+each impact underlying stock prices. 
+The remainder of this paper is organized as follows.  The next section describes the data.  
+Section 3 documents underlying stock price clustering at strike prices on option expiration dates.  
+The fourth section presents four potential explanations for the clustering.  Section 5 provides 
+empirical evidence on these explanations.  The sixth section concludes, and an appendix contains the 
+proof of a technical result. 
+5 
+
+--- PAGE 7 ---
+ 
+2.  Data 
+The primary data used in this paper are the Ivy DB data from OptionMetrics LLC.  This data 
+set includes end-of-day bid and ask quotes, open interest, and daily trading volume on every call and 
+put option on individual stocks traded at any U.S. exchange from January 4, 1996 through September 
+13, 2002.  It also provides daily price, return, dividend, and split data on all stocks that trade on U.S. 
+exchanges.  For the paper’s main tests we use the Ivy DB data to determine on each trade date the 
+universes of optionable and non-optionable stocks.  We also use this data set to get daily closing 
+stock prices, stock returns, and stock trading volumes. 
+The second data set that we use was obtained from the CBOE.  These data include daily open 
+interest and trading volume for each option that trades at the CBOE from the beginning of 1996 
+through the end of 2001.  When a CBOE option also trades at other exchanges, the open interest data 
+reflect outstanding contracts from all exchanges at which the option trades.  The volume data, on the 
+other hand, are only for transactions that actually occur at the CBOE.  The open interest data are 
+broken down into four categories defined by purchased and written open interest and two types of 
+investors,9 while the trading volume data are broken down into eight categories defined by four types 
+of volume and two types of investors.  The four volume types are volume from buy orders that open 
+new purchased positions (open buy volume), volume from sell orders that open new written positions 
+(open sell volume), volume from buy orders that close existing written positions (close buy volume), 
+and volume from sell orders that close existing purchased positions (close sell volume). 
+The two investor types are public customers and firm proprietary traders.  The Option 
+Clearing Corporation (OCC) assigns one of three origin codes to each option transaction:  C for 
+public customers, F for firm proprietary traders, and M for market-makers.  The CBOE data include 
+all non-market-maker open interest and volume broken down into public customer and firm 
+proprietary trader categories according to the OCC classification.10  Investors trading through Merrill 
+                                                 
+9 While aggregate purchased open interest must equal aggregate written open interest, this generally will not be true 
+for each type of investor. 
+10 The CBOE further subdivided the public customer category into customers of discount brokers, customers of full-
+service brokers, and other public customers.  This further subdivision of the public customer category is not 
+employed in any of the results reported in this paper.  It was used in some untabulated robustness checks.  
+6 
+
+--- PAGE 8 ---
+Lynch or Etrade are examples of public customers while an option trader at Goldman Sachs who 
+trades for the bank’s own account is an example of a firm proprietary trader. 
+Exchange listed options expire at 10:59 pm Central Standard Time on the Saturday 
+immediately following the third Friday of each month.  The options do not trade between the close of 
+the markets on Friday and the expiration on Saturday night, and we treat the third Friday of each 
+month as the option expiration date.  There are 80 option expiration dates during our data period that 
+extends over the 80 months from January 1996 through August 2002.  On a given trade date, a stock 
+is considered to be optionable if it has at least one option listed on it and a strictly positive closing 
+price in the Ivy DB database.  From January 1996 through August 2002, there are 4,395 stocks that 
+are optionable on at least one trade date, and there are a total of 184,449 optionable stock-expiration 
+date pairs across the 80 option expiration dates.  On a given trade date, a stock is considered non-
+optionable if it has a strictly positive closing price but no options listed on it.  There are 12,001 
+stocks that are non-optionable on at least one expiration date during our data period from January 
+1996 through August 2002.  Across the 80 expiration dates, there are a total of 417,007 non-
+optionable stock-expiration date pairs. 
+Daily stock closing prices and numbers of shares outstanding from the Center for Research in 
+Security Prices (CRSP) are used to compute market capitalizations of optionable stocks.  CRSP daily 
+stock returns are also used for a robustness check reported in a footnote. 
+ 
+3.  Stock price clustering on option expiration dates 
+This section of the paper investigates stock price clustering on option expiration dates.  In the 
+first subsection, we show that optionable stocks are more likely to close at or near strike prices on 
+expiration dates.  The second subsection provides two pieces of evidence that the clustering is 
+actually related to option expiration.  First, we show that there is no expiration date clustering for the 
+universe of non-optionable stocks.  Second, we show that the expiration date clustering appears when 
+non-optionable stocks become optionable and disappears when optionable stocks become non-
+optionable.  In the third subsection, we compare the closing price and return distributions of 
+7 
+
+--- PAGE 9 ---
+optionable stocks on expiration and non-expiration Fridays.  The final subsection estimates a lower 
+bound on the magnitude of the expiration Friday changes in the returns of optionable stocks. 
+ 
+3.1.  Closing prices of optionable stocks 
+We begin our investigation by examining the probability that optionable stocks close near a 
+strike price as a function of the number of trade dates before or after expiration.  Panel A of Figure 1 
+displays the percentage of optionable stocks that have a daily closing price within $0.25 of a strike 
+price (of one of its own options) for each of the 21 trade dates from ten trade dates before to ten trade 
+dates after an option expiration Friday.11  In the figure, trade date –10 is ten trade dates before the 
+option expiration date (i.e., typically two Fridays before option expiration), trade date 0 is the option 
+expiration Friday, and trade date 10 is ten trade dates after the option expiration Friday (i.e., typically 
+two Fridays after option expiration.)  Panel A shows that more than 19 percent of optionable stocks 
+close within $0.25 of a strike price on option expiration Fridays while less than 18 percent do so on 
+the Fridays before and after expiration (i.e., on trade dates –5 and +5.)  It is clear from the plot that 
+the percentage on trade date zero is well outside of the range of the percentages on the other (i.e., 
+non-expiration) trade dates.  We test formally for a difference on trade date zero by computing a z-
+statistic for the null hypothesis that the percentage on the expiration Friday is drawn from the same 
+population as the percentage on the non-expiration dates.  We estimate the mean and the standard 
+deviation of this population by the sample mean and standard deviation from the 20 non-expiration 
+dates.  The resulting z-statistic is a highly significant 8.15.12   It is also worth noting that the 
+percentages appear to be increasing in the week leading up to expiration (i.e., on trade dates –5 
+through –1.)  We will return to this observation when we consider various explanations for the 
+expiration date clustering. 
+                                                 
+11 Here and for the remainder of the paper within $x of a strike price means less than or equal to $x from a strike 
+price.   
+12 A large part of the variability on the non-expiration dates is attributable to the few days immediately prior to 
+expiration.  As discussed below, clustering on these dates appears to be due to one of the phenomena that explain 
+clustering on the expiration date.  Thus, this z-statistic (and the others reported below) understate the statistical 
+significance of the results. 
+8 
+
+--- PAGE 10 ---
+Panels B and C of Figure 1 are constructed like Panel A except that they depict the 
+percentage of optionable stocks that close, respectively, within $0.125 of a strike price or exactly on 
+a strike price.  As expected, the percentages are lower in Panel B than Panel A and lower still in 
+Panel C.  The overall shapes of the three plots, however, are very similar.  In all three cases, the 
+percentages seem to be increasing in the week leading up to expiration and there is a pronounced 
+spike on the expiration date.  The percentage on trade date zero is different than the other dates with 
+high significance in both Panels B and C.  In particular, the z-statistics for Panels B and C are, 
+respectively, close to nine and seven.  For brevity, in the rest of the paper we will focus on the case 
+of stock prices closing within $0.125 of a strike price.  None of the conclusions are sensitive to this 
+choice. 
+ 
+3.2.  Is the clustering related to option expiration? 
+If the clustering that we just documented is indeed related to the presence of expiring options, 
+then it should not be observed on non-optionable stocks.  In addition, the clustering should 
+materialize when stocks become optionable and vanish when they become non-optionable.  We next 
+investigate these implications of the clustering indeed being related to option expiration. 
+Obviously, non-optionable stocks do not have associated strike prices.13  As a result, in order 
+to compare clustering of optionable and non-optionable stocks, we investigate the extent to which 
+these two universes of stocks congregate around integer multiple of $5.  We do this because 
+exchanges introduce equity options in such a way that there are usually options with exercise prices 
+at integer multiples of $5 that lie near the current price of an underlying stock.14  Consequently, if the 
+closing price of an optionable stock is near an integer multiple of $5, it is most likely near a strike 
+                                                 
+13 Strictly speaking, non-optionable stocks also do not have option expiration dates.  We use the expiration date the 
+stock would have if it were optionable—all U.S. exchange-traded equity options expire on the Saturday following 
+the third Friday of the month. 
+14 Exercise prices below $20 include odd integer multiples of $2.50.  Occasionally exercise prices that are not 
+integer multiples of $2.50 also occur, typically when options are adjusted for stock splits or stock dividends.  (The 
+practice of regularly listing options with strike prices that are integer multiples of $1 began after the end of our data 
+period.)  Not every integer multiple of $5 is an option strike price because even though new option series are 
+typically added when the underlying stock trades through the highest or lowest strike price available, this is 
+generally not done when there would be only a short time remaining until expiration.  Also, option strike prices 
+greater than $200 are at $10 intervals. 
+9 
+
+--- PAGE 11 ---
+price.  Panel A of Figure 2 displays percentages of optionable stocks that have a daily closing price 
+within $0.125 of an integer multiple of $5, while Panel B displays these percentages for non-
+optionable stocks.  The plot for the optionable stocks has a conspicuous spike at the option expiration 
+date while there is no expiration date increase for the non-optionable stocks.  Indeed, for the 
+optionable stocks the z-statistic for the expiration date percentage being different than the non-
+expiration date percentages has a highly significant value of about nine, while for the non-optionable 
+stocks the expiration date percentage is right in the middle of the percentages from the non-expiration 
+dates.  It is also interesting that while the main features of optionable stock clustering around integer 
+multiples of $5 (i.e., Panel A of Table 2) are similar to those for clustering around strike prices (i.e., 
+Panel B of Table 1), the clustering around integer multiples of $5 is somewhat less distinct.  That is, 
+the size of the expiration date spike is a bit smaller and the increase in clustering through the 
+expiration week is not as clear.  We attribute this to integer multiples of $5 being a somewhat noisy 
+proxy for the prices about which optionable stocks actually are clustering, namely, option strike 
+prices. 
+We next investigate whether there are changes in clustering when stocks become optionable 
+or non-optionable.  In our sample, there are 2,628 stocks that first become optionable between 
+February 1996 and August 2002.  These stocks yield 47,134 observations on option expiration dates 
+before they become optionable, and 81,170 observations on option expiration dates while they are 
+optionable.  Panel A of Figure 3 reports the percentages of their prices that close within $0.125 of an 
+integer multiple of $2.50 before the stocks become optionable.15  The average percentage is around 
+11.0 percent, and there is not much variation as a function of the number of trade dates from the 
+option expiration date. In particular, the percentage on the option expiration date is typical of all of 
+the percentages that are observed.  Panel B of Figure 3 reports the percentage of closing stock prices 
+within $0.125 of an integer multiple of $2.50 after the stocks become optionable.  Once the stocks 
+are optionable, the average percentage on non-expiration dates increases from 11.0 percent to 11.5 
+                                                 
+15 We use integer multiples of $2.50 for Figures 3 and 4 instead of the integer multiples of $5 used earlier, because 
+the stocks that become non-optionable during the sample period tend to have lower prices.  Option strike prices 
+below $20 are typically integer multiples of $2.50.  
+10 
+
+--- PAGE 12 ---
+percent and the percentage on the expiration date jumps to 12.3 percent.  The z-statistic for the 
+difference between the expiration and non-expiration dates is close to 6. 
+ 
+In our sample, there are 1,079 optionable stocks that subsequently became non-optionable.  
+These stocks have 30,149 expiration date observations during the time they are optionable and 
+20,412 expiration date observations when they no longer have listed options.  Panel A of Figure 4 
+shows the percentages of these stocks that have closing prices within $0.125 of an integer multiple of 
+$2.50 during the time period when they are optionable, while Panel B shows the percentages that 
+have closing prices within $0.125 of an integer multiple of $2.50 after their options have been 
+delisted.  Because of the smaller sample size, these graphs display more variability than the previous 
+ones.  It is still the case, however, that when the stocks were optionable the percentage on the 
+expiration date is greater than on any other trade date, with a z-statistic slightly above 4.  After the 
+stocks were no longer optionable, the percentage on the option expiration date is well within the 
+range of the percentages from the other trade dates. 
+ 
+3.3. Price and return distribution differences between expiration and non-expiration Fridays 
+We have established that on expiration Fridays optionable stocks are more likely to close 
+near strike prices than on other dates.16  The expiration Friday change in the distribution of 
+optionable stock prices farther away from the strike prices is also of interest.  In order to abstract 
+from any potential day-of-the-week effects, we compare the distribution of closing prices for 
+optionable stocks on expiration Fridays to the distribution on the Fridays before and after expiration.  
+The comparison is made by computing for optionable stocks the absolute difference (AD) between 
+closing prices and nearest strike prices and sorting these absolute differences into 20 non-overlapping 
+adjacent intervals: 
+ 
+$0.125,
+AD ≤
+$0.125
+$0.25,
+AD
+<
+≤
+ $0.25
+$0.375,
+AD
+<
+≤
+ …, $2.375 < AD ≤ 
+$10.00.17  We then compute the percentage of optionable stocks that close in each of the twenty 
+intervals on expiration Fridays and the percentage of optionable stocks that close in each of the 
+                                                 
+16 We also computed the percentage of closing stock prices near strike prices for each year from 1996 to 2002 and 
+for each month from January to December.  Optionable stocks are more likely to close near strike prices on option 
+expiration dates in every year and every month. 
+17 The small number of observations with AD > $10.00 are omitted. 
+11 
+
+--- PAGE 13 ---
+twenty intervals on the Fridays before and after expiration.  Panel A of Figure 5 plots for each of the 
+20 intervals the percentage from the expiration Fridays minus the percentage from the Fridays before 
+and after expiration. 
+The plot has a large positive bar of about 1.3 percent in the first (i.e., 
+) interval.  
+This bar indicates that optionable stocks are about 1.3 percent more likely to close near a strike price 
+on expiration Fridays than on the Fridays before or after expiration.  Although this is already known 
+from the previous figures, this bar underscores that the effect is not related to the fact that expirations 
+occur on Fridays.  By construction, the bars in the panel must sum to zero.  It is interesting, however, 
+that the large positive bar in the first interval is not offset by negative bars evenly distributed across 
+the other 19 intervals.  Instead, the negative bars are concentrated around an absolute difference of 
+about $0.50 to $1.00.  Consequently, on expiration Fridays more optionable stock prices close near a 
+strike price and fewer close from $0.50 to $1.00 away from the nearest strike price.  This fact is 
+consistent with optionable stocks that would have otherwise closed between $0.50 and $1.00 from 
+the nearest strike price on non-expiration Fridays instead closing within $0.125 of a strike price on 
+expiration Fridays.  However, this need not be the case.  For example, the plot is equally consistent 
+with some optionable stocks that would have closed between $0.50 and $1.00 from the nearest strike 
+price instead closing about $0.25 from the nearest strike price and an equal number that would have 
+closed about $0.25 from the nearest strike price instead closing within $0.125 of a strike price. 
+$0.125
+AD ≤
+We next examine the difference in returns of optionable stocks on expiration Fridays and the 
+Fridays before and after expiration.  We proceed by considering the 20 absolute return intervals, 
+ 
+…, 95
+0 bps
+|
+|
+50 bps,
+r
+≤
+<
+50 bps
+|
+|
+100 bps,
+r
+≤
+<
+0 bps
+|
+|
+1,000 bps,
+r
+≤
+<
+ and compute the 
+percentage of optionable stocks with positive option volume that have absolute returns in each  
+interval on expiration Fridays and on the Fridays before and after expiration.  For each interval, Panel 
+B of Figure 5 plots the percentage of returns from the expiration Fridays minus the percentage from 
+the Fridays before and after expiration.18  All of the bars from 0 bps to 300 bps are positive while all 
+of those from 300 bps to 1,000 bps are negative.19  This pattern indicates that on expiration Fridays 
+                                                 
+18 For both Panels in Figure 5, the plots are similar if the non-expiration Fridays are limited to only the Fridays 
+before or only the Fridays after expiration. 
+19 As in the previous panel the bars must sum to zero by construction.   
+12 
+
+--- PAGE 14 ---
+optionable stocks are more likely to experience returns that are small in absolute value and less likely 
+to experience returns that are large in absolute value, and suggests that the clustering is due more 
+often than not to cases in which Thursday stock prices close to the strike are prevented from leaving 
+the neighborhood of the strike rather than cases in which Thursday stock prices distant from the 
+strike are pushed to the strike.20  The 0 bps to 50 bps interval shows the greatest increase and the 350 
+bps to 500 bps intervals show the greatest decrease (although there is also a noticeable increase in the 
+50 bps to 100 bps interval and a noticeable decrease over the entire 300 bps to 750 bps range.)  The 
+plot is consistent with optionable stocks that would have had returns with absolute values of 350 bps 
+to 500 bps on non-expiration Fridays instead having returns with absolute values of less than 50 bps 
+on expiration Fridays.  As with Panel A, however, the plot in Panel B does not force this conclusion.  
+It is also consistent, for example, with some optionable stocks that would have had absolute returns 
+of 350 bps to 500 bps instead having returns of about 200 bps and an equal number of optionable 
+stocks that would have had returns of about 200 bps instead having returns of fewer than 50 bps.  It 
+should also be noted that the figure does not entail that the effect arises solely from absolute returns 
+shifting toward zero; all that is required is that the frequency with which absolute returns are 
+decreased exceeds the frequency with which they are increased.  
+ 
+3.4. Implications of differences in expiration day returns  
+In order to understand more fully the expiration day alteration in the movement of optionable 
+stock prices, we next develop an expression that provides a lower bound on the average deviation in 
+the absolute returns of optionable stocks on expiration dates.  Let  denote the return on the stock in 
+the i-th optionable stock-expiration date pair on expiration Friday and  denote what the return 
+would have been in the absence of the expiration day effect, i.e., let r
+ˆir
+ir
+i denote the unaltered stock 
+return.  We are interested in the quantity 
+ˆ
+,
+i
+i
+E r
+r
+−
+ which measures the average effect on returns.  
+The following proposition, derived in the appendix, provides a lower bound for 
+. 
+|
+ˆ
+|
+i
+i
+r
+r
+E
+−
+ 
+                                                 
+20 It should be borne in mind that if expiration Friday returns are altered by phenomena other than clustering, these 
+alterations will also be reflected in the return distribution difference as well. 
+13 
+
+--- PAGE 15 ---
+Proposition 1.  Define ˆia
+r
+≡ˆi and 
+.
+i
+i
+a
+r
+≡
+  Then 
+ 
+ 
+ 
+( )
+( )
+ˆ
+ˆ
+.
+i
+i
+i
+i
+E r
+r
+E a
+E a
+−
+≥
+−
+ 
+(1) 
+The quantities
+ and 
+ can be interpreted as the average distances of 
+ and 
+ from 
+zero, so the right-hand side of (1) can be interpreted as the change in the average distance.  
+Interpreting the right-hand side this way, the proposition says that if the average distance from zero 
+changes, then on average returns were shifted by at least the same amount.  The right-hand side of (1) 
+provides a lower bound on the average shift in returns rather than an estimate of it due to the 
+existence of shifts in returns that do not affect the average distance from zero.  For example, consider 
+three returns 
+)
+ˆ
+(
+ia
+E
+)
+(
+ia
+E
+irˆ
+ir
+0
+.
+x
+y
+z
+<
+≤
+<
+ If one stock has its return shifted from y up to z and another stock has its 
+return shifted from z down to x, the bound 
+|
+|
+)
+(
+)
+ˆ
+(
+i
+i
+a
+E
+a
+E
+−
+ only includes the net effect of a single 
+shift from y down to x, and thus understates the alteration of returns on option expiration dates.  The 
+bound also underestimates 
+ because it does not account for cases in which a return x is 
+shifted to y and another return y is shifted to x and for the greater change in return when a stock with 
+return y (≥ x >0) has its return shifted to –x rather than to x.  The bound provided by the right-hand 
+side of (1) can be crudely estimated from Panel B of Figure 5, and estimated accurately from a 
+version of the figure that uses a smaller bin size.  To see this, note that Panel B of Figure 5 shows the 
+differences in the probabilities of each of the bins.  If one multiplies the differences in the 
+probabilities by the midpoints of the bins and sums the products, the result is an estimate of the 
+differences in average distances 
+ˆ| i
+E r −
+|,
+ir
+)
+ˆ
+(
+ia
+E
+)
+(
+ia
+E
+−
+, but with an error stemming from the relatively large 
+bin sizes.  In order to develop a more accurate estimate, let 
+and 
+)
+(ˆ •
+f
+)
+(•
+f
+ be the density functions 
+of, respectively, 
+ and a We can then re-write the right hand side of inequality (1) as 
+ˆia
+.
+i
+ 
+ 
+( )
+( )
+( )
+( )
+0
+ˆ
+ˆi
+i
+E a
+E a
+f u
+f u
+u du
+∞
+
+
+−
+=
+−
+
+
+∫
+ 
+(2) 
+and approximate it as 
+14 
+
+--- PAGE 16 ---
+ 
+( )
+( )
+( )
+( )
+( )
+1
+ˆ
+ˆ
+B
+i
+i
+b
+E a
+E a
+p b
+p b
+a b
+=
+−
+≈
+−
+
+
+
+
+∑
+ 
+(3) 
+where b
+ indexes 
+1,...,
+=
+B
+B absolute return intervals, ( )
+a b is the absolute return of interval b, and 
+( )
+ˆ
+( )
+p b
+p b
+−
+ is the difference in the probability that an optionable stock’s absolute return will fall in 
+interval b on expiration and non-expiration Fridays.21  The B absolute return intervals should be non-
+overlapping and cover the range of absolute returns for which there is a non-trivial difference in the 
+expiration and non-expiration densities.  In order to illustrate the components of the right hand side 
+of approximation (3), consider Panel B of Figure 5.  In this panel B is 20, ( )
+a b ∈ 
+ and 
+[(
+1
+),
+) 50 bps,
+b −
+×
+50 bps
+b×
+( )
+( )
+ˆp b
+p b
+−
+ is equal to the value of the bth bar.  The quality of the 
+approximation in expression (3) is governed by the width of the absolute return interval.  In the limit 
+where the width of the intervals goes to zero, the approximation becomes exact (provided that the B 
+intervals cover the range of absolute returns where the expiration and non-expiration densities are not 
+identical.) 
+ 
+We estimate a lower bound for 
+ˆi
+E r
+ri
+−
+ by computing the right hand side of approximation 
+(3) from optionable stocks with positive option volume.  We set 
+1,000,000
+B =
+ and use 0.01 bps 
+absolute return intervals to cover the range from 0 bps up to 10,000 bps (i.e., up to 100%).  For each 
+of the 1,000,000 intervals, we set 
+ to the average of the absolute returns that fall within the 
+interval.  The resulting lower bound for 
+(
+a b)
+ˆi
+i
+E r
+r
+−
+ is 16.57 bps.  This estimate is not sensitive to the 
+choices we make when computing it.  For example, if the bin width is changed from 0.01 bps to 1 bp, 
+the lower bound is still 16.57 bps (i.e., there is no change to two decimal place accuracy.)  If we keep 
+the bin width at 0.01 bps but limit the absolute return intervals to the range 0 bps to 5,000 bps, then 
+the lower bound decreases only from 16.57 bps to 15.88 bps.22 
+The 16.57 bps lower bound on 
+ˆi
+E r
+ri
+−
+ implies that across optionable stocks the average 
+expiration date alteration in absolute return is at least 16.57 bps.  This lower bound suggests that the 
+total impact is consequential regardless of the percentage of optionable stocks that are influenced on 
+                                                 
+21 We estimate the probabilities ( )
+p b from the returns on optionable stocks on the Fridays before and after 
+expiration. 
+22 We also performed the lower bound calculations using CRSP rather than OptionMetrics returns.  The results were 
+very similar. 
+15 
+
+--- PAGE 17 ---
+a typical expiration date.  For example, if ten percent of the optionable stocks (or about 250) have 
+their returns altered, the average absolute return deviation of the impacted stocks is at least 165.7 bps.  
+Return deviations of this magnitude are large, especially in light of the fact that option expirations 
+occur twelve times per year.23  Since the positive bars in Panel B of Figure 5 sum to about two 
+percent, we know that at least two percent of optionable stocks are influenced on a typical expiration 
+date.  We doubt that only two percent are impacted, because that would imply there are no cases in 
+which a large absolute return is shifted to an intermediate absolute return and an intermediate 
+absolute return is shifted to a small absolute return.  If it, nonetheless, turns out that only two percent 
+of optionable stocks (or about 50) have their returns altered, then the lower bound on the average 
+absolute return deviation of the impacted stock is an enormous 828.5 bps.  Although it also seems 
+unlikely, it is possible that nearly all optionable stocks (or about 2,500) are impacted on each 
+expiration date.  In this case, the lower bound on the average absolute return deviation is 16.57 bps.  
+This is still an impressive number, because during our data period optionable stocks comprised the 
+great majority of U.S. stock market capitalization. 
+As is common with many financial market phenomena, the lower bound on the average 
+absolute return effect varies with market capitalization.  We document this variation by grouping the 
+optionable stocks on each expiration date into deciles based on their market capitalizations, and then 
+computing the lower bound for each decile separately.  The estimates of the lower bounds ranged 
+from 24.30 bps and 28.52 bps, respectively, for deciles 1 and 2 (the deciles with the smallest market 
+capitalization stocks), to 13.63 bps and 6.70 bps for deciles 9 and 10 (the deciles with the largest 
+market capitalization stocks).   Note that this sort into size deciles is based on only the optionable 
+stocks, and the market capitalizations of optionable stocks tend to be larger than those of non-
+optionable stocks.  For example, the median stocks in deciles 1 and 2 fall into the second and third 
+deciles of NYSE market capitalizations, and the 13.63 bps and 6.70 bps lower bounds apply to some 
+of the largest market capitalization stocks traded in the U.S.  
+                                                 
+23 That is, if ten percent of optionable stocks are impacted on each expiration date, in expectation each optionable 
+stock will be impacted every year. 
+16 
+
+--- PAGE 18 ---
+ 
+We can also use the lower bounds on 
+ˆi
+i
+E r
+r
+−
+ for the deciles to estimate the average 
+expiration day impact on the market capitalization of optionable stocks.  We do so by multiplying the 
+lower bound and average market capitalization for each decile and then summing these products 
+across the deciles.  This procedure yields a lower bound on the impact on the market capitalization of 
+optionable stocks of $9.1 billion per expiration date.  Hence, it appears that each month at expiration 
+there are large shifts in market capitalization associated with the changes in the returns of optionable 
+stocks.  Note that the $9.1 billion approximation for the lower bound is invariant to the percentage of 
+optionable stocks that typically have their returns altered on expiration dates. 
+ 
+ 
+ 
+4. Potential sources of the clustering 
+ 
+This section of the paper describes four potential explanations for the expiration date strike 
+price clustering of optionable stocks documented above.  The next section will provide empirical 
+evidence on these explanations.  The explanations are not mutually exclusive, so more than one may 
+contribute to the clustering. 
+ 
+4.1. Re-balancing of delta-hedges on existing option positions 
+Avellaneda and Lipkin (2003) propose a model in which expiration date stock price 
+clustering at strike prices is produced by the delta-hedging activity of option market participants with 
+existing net purchased option holdings.  A delta-hedging option investor attempts to maintain a stock 
+position that is opposite to the delta of his net option position.  Consequently, as the deltas of his 
+existing portfolio of options change, he trades in the underlying stock in order to keep his overall 
+option and stock position close to delta-neutral.  Specifically, when the delta of his net option 
+position increases (decreases), a delta-hedger sells (buys) stock in order to remain delta-neutral.  If 
+the elasticity of the underlying stock price with respect to selling and buying volume is non-zero 
+(which Avellaneda and Lipkin assume), then the re-balancing of delta hedges will affect stock prices. 
+In order to understand how re-balancing by investors with net purchased option positions 
+pushes stock prices toward strike prices as expiration approaches, recall that the Black-Scholes delta 
+17 
+
+--- PAGE 19 ---
+of a call option on a non-dividend paying stock is 
+(
+)
+1 ,
+N d
+ where  N(•) is the standard normal 
+distribution function, 
+ 
+ 
+2
+1
+ln( /
+)
+(
+/ 2)(
+) ,
+S K
+r
+T
+t
+d
+T
+t
+σ
+σ
++
++
+−
+≡
+−
+ 
+(4) 
+ 
+S is the stock price, K is the strike price, r is the risk-free rate, σ is the volatility of the underlying 
+stock, T is the expiration date, and t is the current date.  A straightforward application of put-call 
+parity shows that the corresponding put delta is 
+(
+)
+1
+1.
+N d
+−
+ These formulas imply that the time 
+derivatives of the call and put deltas are the same: 
+ 
+ 
+(
+)
+2
+1
+1
+1
+3/ 2
+(
+)
+1
+(
+)
+1
+(
+)
+ln( /
+)
+(
+/ 2)(
+)
+2 (
+)
+N d
+N d
+N d
+S K
+r
+T
+t
+t
+t
+T
+t
+σ
+σ
+∂
+−
+∂
+′
+
+
+=
+=
+−
++
+−
+
+
+∂
+∂
+−
+,  
+(5)              
+ 
+where 
+ is the standard normal density function. 
+( )
+N′ •
+ 
+If we disregard the term (
+, which is small relative to 
+ as 
+ 
+provided that 
+ the remaining component of the time derivative is greater than or less than zero 
+depending on whether S is greater than or less than K.  That is, denoting the time derivative of the 
+option delta by 
+)(
+2 / 2
+r
+T
+σ
++
+)t
+−
+ln(
+/
+)
+S K
+t
+T
+→
+,
+S
+K
+≠
+,t
+∂∆∂
+ for both a put and a call as t
+T 
+→
+ 
+ 
+1
+3/ 2
+(
+)
+ln( /
+)
+0
+if 
+,
+2 (
+)
+N d
+S K
+S
+K
+t
+T
+t
+σ
+′
+∂∆≈
+>
+∂
+−
+>
+ 
+(6) 
+ 
+ 
+1
+3/ 2
+(
+)
+ln( /
+)
+0
+if 
+.
+2 (
+)
+N d
+S K
+S
+K
+t
+T
+t
+σ
+′
+∂∆≈
+<
+∂
+−
+<
+ 
+(7) 
+ 
+This time derivative of the option 
+ plays a key role in the analysis of Avellaneda and Lipkin 
+(2003). 
+∆
+ 
+In particular, consider an agent who has purchased options on n shares of stock, and thus has 
+a position with a delta of n∆.  If the agent continuously re-hedges the option position, then at each 
+instant of time the stock position is −n∆ shares.  The previous analysis implies that if 
+ as 
+S
+K
+>
+18 
+
+--- PAGE 20 ---
+expiration approaches, then the time derivative 
+0.
+t
+∂∆∂>
+ The positive time derivative of 
+ in turn, 
+implies that 
+,
+∆
+(
+)
+0,
+n
+t
+∂−∆
+∂<
+,
+S
+K
+<
+ or that as time passes the agent sells stock driving S down toward K.  
+On the other hand, if 
+ then (
+)
+0
+n
+t
+∂−∆
+∂>
+ which implies that as time passes the agent buys 
+stock driving S up toward K.  That is, the hedge re-balancing of an agent who has net purchased 
+option positions tends to push the stock price toward the option strike price.  A directly analogous 
+argument, however, shows that a delta-hedging agent with a net written option position trades in the 
+opposite direction, and, thereby tends to push the stock prices away from a strike price.  Thus, the 
+Avellaneda and Lipkin (2003) model implies that stock prices should tend to cluster at option strike 
+prices when delta-hedging option market participants have net purchased option positions and to de-
+cluster when they have net written option positions. 
+Avellaneda and Lipkin (2003) suppose that market-makers are the heaviest delta-hedgers in 
+the option market and that they sometimes have net purchased option positions.  Below we establish 
+that although it is not unusual for market-makers to have net written option positions, they most often 
+have net purchased positions.  Hence, the Avellaneda and Lipkin (2003) model of hedge re-balancing 
+is capable of explaining stock price clustering at option strike prices.  In our empirical analysis 
+below, we also make use of the fact that the model predicts de-clustering at strike prices when likely 
+delta-hedgers have net written option positions. 
+ 
+4.2.  Delta-hedging of changes in option positions 
+ 
+Investors who delta-hedge their net option positions will buy and sell the underlying stock 
+not only to re-balance when the deltas of their existing options change as discussed above, but also to 
+establish or remove hedges when they open or close option positions.  This fact may lead to 
+clustering through the following mechanism suggested in Anders (1982).  Suppose that some non-
+trivial portion of non-delta-hedging (e.g., public) option investors do not like to exercise and take 
+delivery of shares if their purchased call options expire in-the-money (ITM).  These customers will 
+then sell their ITM purchased calls in the days leading up to expiration.  However, for those calls 
+close to the money, it is not clear until expiration Friday whether they will expire ITM.  For these 
+calls, the non-delta-hedging investors wait until expiration Friday and sell if the stock price is above 
+19 
+
+--- PAGE 21 ---
+the strike price.  When the non-delta-hedging option customers sell their calls, they are typically 
+purchased by market-makers who delta-hedge the increase in their call position by selling stock.  The 
+stock sale tends to push the stock price down toward the strike price.  Analogously, if non-delta-
+hedging investors do not like to deliver shares, then on expiration Fridays they will sell their 
+purchased slightly ITM puts to market-makers who will delta-hedge the increase in their put position 
+by buying stock.  The stock buying will push the stock price upward toward the strike price. 
+ 
+In addition to the specific mechanism just described, there may be other option market 
+practices that result in likely delta-hedgers buying calls (or selling puts) when the stock price is 
+slightly above the strike price on expiration Fridays or buying puts (or selling calls) when the stock 
+price is slightly below the strike price on expiration Fridays.  Consequently, below we test for a 
+relation between clustering and these changes in the option positions of likely delta-hedgers. 
+ 
+4.3.  Stock trading by non-delta-hedging option investors 
+ 
+Investors who do not delta-hedge still sometimes enter into stock positions in combination 
+with option positions.  If these investors unwind these combined positions on expiration Fridays, then 
+their transactions in the underlying stock may contribute to the clustering.24  Two common positions 
+are covered calls, which are written call positions combined with long stock positions, and protective 
+puts, which are purchased put positions combined with long stock positions.  Investors may be more 
+likely to unwind OTM covered calls or protective puts.  The reason is that when the options finish 
+ITM the stock can just be delivered to the counter-party upon assignment (in the case of a covered 
+call) or exercise (in the case of a protective put.)   If the options finish OTM, on the other hand, then 
+the investor is left with a naked stock position over the weekend if he does not sell his long stock 
+position on expiration Friday.  Since the unwinding of covered calls and protective puts by non-delta-
+hedgers both involve selling stock, it has the potential to push the stock price downward and thereby 
+contribute to clustering when close to expiration the stock price is above the strike price.  
+                                                 
+24 Unwinding these positions also involves buying or selling options to market-makers who will generally transact in 
+the underlying stock to delta-hedge the changes in their option positions.  This delta-hedging by the market-makers 
+will be accounted for in the empirical work via the changes in the option positions of likely delta-hedgers (which 
+was discussed in the previous subsection.) 
+20 
+
+--- PAGE 22 ---
+Consequently, in the empirical tests below, we check whether the clustering is positively related to 
+the purchased OTM put and written OTM call open interest of investors who are relatively less likely 
+to be delta-hedging their option positions when shortly before expiration the stock price is greater 
+than the nearest strike price. 
+ 
+4.4.  Option investor manipulation of underlying stock prices 
+ If the option market is populated by sophisticated and unsophisticated investors, then stock 
+price manipulation by a subset of the sophisticated investors is another possible explanation for the 
+greater propensity of optionable stocks to close on or near strike prices at expiration dates.  Suppose 
+that sophisticated traders have the resources to manipulate underlying stock prices and that at 
+expiration unsophisticated investors follow the simple rule of exercising their purchased options 
+when the closing stock price on expiration Friday indicates that the option is ITM.  In this case, 
+sophisticated option writers have an incentive to manipulate underlying stock prices so that 
+unsophisticated option buyers do not exercise their options.  In particular, sophisticated option 
+writers have an incentive to manipulate underlying stock prices so that ITM options become OTM 
+and OTM options are prevented from becoming ITM.  When a sophisticated option writer prevents 
+exercise through such manipulation, he avoids a liability equal to the (absolute) difference between 
+the unmanipulated underlying stock price and the strike price.   
+Of course, some option buyers will be drawn from the pool of sophisticated option market 
+participants.  They might recognize that other sophisticated option market participants with written 
+options sometimes manipulate the underlying stock price and may exercise their positions even if 
+they are not ITM according to the closing price of the underlying stock.  Although this would lessen 
+the incentive to manipulate, it would not eliminate it provided that some option buyers are 
+unsophisticated.25  Further, even if sophisticated option buyers are aware that underlying stock prices 
+are sometimes manipulated, they will not know with certainty whether manipulation occurred in 
+                                                 
+25 Some option writers will be drawn from the pool of unsophisticated investors.  They will not manipulate 
+underlying stock prices, and their existence does not alter the incentive that sophisticated option writers have to 
+manipulate. 
+21 
+
+--- PAGE 23 ---
+particular cases, so they will still sometimes fail to exercise options when manipulation has actually 
+occurred.26   
+Finally, since artificially moving or constraining stock prices is costly, sophisticated option 
+writers have no further incentive to manipulate once an initially ITM option becomes OTM or when 
+an OTM option is not just about to become ITM.  Thus, stock price manipulation by option traders 
+with written positions will tend to increase the frequency with which optionable stock prices close on 
+or near strike prices on expiration dates. 
+ 
+While it might seem that traders with purchased option positions would have similar 
+incentives to manipulate the prices of underlying stocks leading up to expiration, they do not.  
+Suppose a sophisticated trader who has purchased a call manipulates the stock price upward so that 
+exercise seems optimal.  If he then exercises the call on the expiration date, he will receive shares of 
+overpriced stock.  These shares may well be difficult to sell at their inflated value, reducing or 
+eliminating the apparent profit.  Likewise, if a sophisticated trader who has purchased a put 
+manipulates the stock price downward and then exercises the put, he will deliver shares of 
+undervalued stock.  The fact that the delivered shares are undervalued will also reduce or eliminate 
+the apparent profit.27  Written and purchased option positions do not provide symmetric incentives to 
+manipulate the underlying stock price, because the sophisticated option writer gains when an 
+unsophisticated purchaser is “tricked” into making an exercise decision based upon the manipulated 
+price; an option purchaser cannot profit by tricking himself into making an incorrect exercise 
+decision.28 
+                                                 
+26 It should also be noted that if non-manipulating sophisticated investors could identify manipulation with a high 
+degree of accuracy, they might choose to bet against it directly in the stock market.  However, given the difficulty 
+that non-manipulating investors would face in identifying manipulation with confidence, it would not be surprising 
+if such betting does not occur.   
+27 This argument that a trader who has purchased options cannot benefit from manipulating the price of the 
+underlying asset does not apply to cash-settled index options.  Of course, manipulating a stock index is likely to be 
+more difficult than manipulating the price of an individual stock. 
+28 Even if investors with purchased option positions do engage in manipulation, they would have no reason to stop 
+manipulating the stock price once the option becomes ITM.  Consequently, their manipulation would not produce 
+strike price clustering.  Manipulators with written option positions, on the other hand, will stop manipulating once 
+the option is more than slightly OTM, because manipulating is costly and they receive no additional benefits as the 
+option goes further OTM. 
+22 
+
+--- PAGE 24 ---
+It is also worth noting that the argument above implies that any stock position held by option 
+traders, for example a “delta-hedge,” will not affect the incentives to manipulate created by the 
+existence of written option positions.  Any apparent gain or loss on the stock position from the 
+manipulation will reverse when the stock price reverts to its non-manipulated level. 
+ 
+Of course, the fact that option market participants have incentives to manipulate the prices of 
+the underlying stocks does not imply that they do so.  There are also costs to manipulating, including 
+the cost of artificially moving or constraining the stock price and the possibility of penalties if the 
+manipulation is detected.  A trader contemplating manipulation must assess whether the benefit is 
+likely to exceed the cost.  The benefit will be increasing in the size of the short option position, while 
+the cost of the manipulation is not directly related to the size of the option holdings.  This fact 
+suggests that traders who undertake larger option positions are more likely candidates for 
+manipulating the underlying stock price at expiration. 
+Evidence that investors manipulate prices in two other contexts lends plausibility to the 
+notion that investors in exchange traded options may manipulate underlying stock prices at expiration 
+dates.  First, Carhart, Kaniel, Musto, and Reed (2002) provide evidence that mutual fund managers 
+manipulate the prices of the stocks in their portfolios on the last days of quarters and years in order to 
+obtain top rankings and benefit from the resulting inflow of investments.  It seems at least as likely 
+that option traders or option trading desks would manipulate stock prices, because stock price 
+manipulation produces immediate profits for option investors.  The benefits to mutual fund 
+management companies, by contrast, are delayed until after future increased investment flows into 
+funds.  In addition, the benefit to mutual fund managers is attenuated by the fact that increasing 
+returns in one period through stock price manipulation comes at the cost of reducing returns in the 
+next period.  Second, in late November 1994 a hedge fund operated by well-known fund manager 
+Michael Steinhardt bought from Merrill Lynch $500 million of “knock in” put options on 
+Venezuelan Brady bonds that expired in early January.  By early December there was open warfare 
+between the hedge fund that was trying to drive the price of the underlying bonds up to the knock-in 
+level and Merrill Lynch, which was trying to keep the price of the bonds below the knock-in level.  
+On December 9 as much as $1.5 billion of the $6.5 billion of face value outstanding changed hands.  
+23 
+
+--- PAGE 25 ---
+The head of emerging-market debt trading at a big European bank remarked “nobody could have 
+imagined the amount of money” that each side would spend to muscle the market in its favor. (Sesit 
+and Jereski, 1995)  Although the market for listed equity options is clearly different along a number 
+of dimensions than the over-the-counter market for barrier options on Brady bonds, this incident 
+lends credence to the idea that traders of exchange listed options may engage in stock price 
+manipulation. 
+ 
+5.  Evidence on potential explanations for clustering 
+ 
+In order to provide an empirical assessment of the potential explanations, we need to separate 
+cases where there is more delta-hedging of options on an underlying stock by investors with 
+purchased options from those where there is more delta-hedging by investors with written options.  
+Although the numbers of purchased and written option positions on an underlying stock are 
+necessarily identical, certain types of investors are more likely than others to delta-hedge.  
+Avellaneda and Lipkin (2003) maintain that the clustering in their model would be produced by 
+option market-makers with net purchased option positions.  Cox and Rubinstein (1985) likewise 
+contend that market-makers are the option market participants who are most likely to delta-hedge 
+their net option positions on underlying stocks.  They write: 
+ 
+… many Market Makers attempt to adhere quite strictly to a delta-neutral strategy.  
+However, a delta-neutral strategy usually requires relatively frequent trading.  As a 
+result, it is not advisable as a consistent practice for investors with significant 
+transaction costs.  While public investors fall into this category, Market Makers do 
+not. (p. 308) 
+Hull (2000, pp. 307, 319) similarly maintains that market-makers and firm proprietary traders but not 
+public customers are likely to delta-hedge their net option positions.  He explains that delta-hedging 
+is relatively more attractive to investors who hold large portfolios of options on an underlying stock.  
+These investors can delta-hedge their entire portfolios with a single transaction in the underlying 
+stock and thereby offset the hedging cost with the profits from many option trades.  Delta-hedging by 
+investors who hold only a small number of options on an underlying asset, on the other hand, is 
+extremely expensive.  McDonald (2003) devotes an entire chapter of his textbook to “Market-
+24 
+
+--- PAGE 26 ---
+Making and Delta-Hedging.”  Based on the widely held view that non-public investors are the 
+predominant delta-hedgers in the option market, we assume either that delta-hedging is concentrated 
+in the market-makers or that it is concentrated in the market-makers plus firm proprietary traders.  
+The results of the test conducted below are quite similar regardless of which assumption is made.  
+Consequently, for brevity, we report results only for tests that assume delta-hedging is concentrated 
+in the market-makers. 
+ 
+5.1.  Clustering and net purchased or written positions of likely delta-hedgers 
+ 
+The implications of hedge re-balancing for expiration date clustering at strike prices depend 
+crucially upon the net option position of market participants who delta-hedge with the underlying 
+stock.  When delta-hedgers have net purchased positions in the expiring options of an underlying 
+stock with a particular strike price, hedge re-balancing will push the stock price toward the strike 
+price and thereby tend to produce clustering.  When delta-hedgers have net written option positions, 
+on the other hand, hedge re-balancing will push the stock price away from the strike price and 
+thereby tend to produce de-clustering (i.e., lower probabilities of closing near the strike price.) 
+Based on the assumption that market-makers are the predominant delta-hedgers in the option 
+market, Figure 6 uses the CBOE open interest data to investigate the extent to which clustering 
+depends on the net option position of market-makers from January 1996 to December 2001.  The 
+CBOE data contain the total purchased and written open interest for all non-market makers on every 
+CBOE traded option on every trade date.29  We obtain market-maker net open interest for an 
+underlying stock-trade date from these data in the following way.  First, we compute non-market-
+maker net open interest as non-market-maker purchased open interest in the closest to expiration call 
+and put with strike price nearest to the trade date’s closing stock price minus non-market-maker 
+written open interest in these options.  We then set the market-maker net open interest to the negative 
+of the non-market-maker net open interest.  When this quantity is positive on a trade date for an 
+underlying stock, the stock-trade date is classified as one on which market-makers have net 
+                                                 
+29 The public customer and firm proprietary traders together constitute all non-market-makers.  Recall that when 
+CBOE listed options also trade at other markets, the open interest data reflect the positions across all markets. 
+25 
+
+--- PAGE 27 ---
+purchased open interest. When the quantity is negative the stock-trade date is classified as one on 
+which market-makers have net written open interest.  Market-makers have net purchased open 
+interest on 62% of the stock-trade date pairs and net written open interest on 38% of the stock-trade 
+date pairs. 
+ 
+Panel A of Figure 6 shows the percentage of optionable stocks closing within $0.125 of a 
+strike price as a function of the number of trade dates before or after option expiration when market-
+makers have a net purchased position in the closest-to-expiration options on an underlying stock with 
+strike price nearest to the closing stock price.  This plot has two important features.  First, the spike at 
+trade date zero is very pronounced.  It is nearly 2 percent higher than on the non-expiration dates, 
+which is about double the size of the spike when there is no conditioning on whether the market-
+makers have net written or purchased option positions (i.e., Panel B of Figure 1.)  Second, the 
+percentages before expiration are larger than those after expiration.30  That is, there is elevated 
+clustering leading up to the expiration date.  Consequently, the evidence in Panel A of Figure 6 is 
+consistent with the hedge re-balancing explanation which predicts that when delta-hedgers have net 
+purchased option positions clustering will be elevated leading up to expiration and will peak at 
+expiration.  It should be noted, however, that since some of the other explanations considered in the 
+previous section predict increased clustering right at expiration, the evidence is also consistent with 
+hedge re-balancing plus one or more of the other mechanisms producing the expiration date 
+clustering. 
+  
+Panel B of Figure 6 is like Panel A except that it is constructed from stock-trade date pairs for 
+which option market-makers have a net written (rather than a net purchased) position in the closest to 
+expiration options on an underlying stock with strike price nearest to the closing stock price.  This 
+plot also has two important features.  First, although there is still a spike on the expiration date, it is 
+now less pronounced than when there is no conditioning on the market-maker net option position 
+(i.e., Figure B of Panel 1).  Second, the percentages before expiration are now lower than those after 
+                                                 
+30 A binomial test shows that the difference in percentages between the three trade dates before expiration (i.e., dates 
+–3 to –1) and the three trade dates after expiration (i.e., dates +1 to +3) is highly significant with a p-value of less 
+than 0.000001. 
+26 
+
+--- PAGE 28 ---
+expiration.31  That is, there is de-clustering leading up to the expiration date.  Neither hedge re-
+balancing nor any of the other explanations in isolation can account for both of the features of this 
+plot.  The hedge re-balancing explanation predicts the de-clustering leading up to the expiration date 
+but cannot explain the positive spike at expiration.  Indeed, the hedge re-balancing explanation 
+predicts that de-clustering should be most conspicuous at expiration.  The other explanations can 
+account for the spike at expiration, but do not predict de-clustering leading up to expiration.  It seems 
+that the expiration date clustering is produced by hedge re-balancing combined with at least one of 
+the other potential explanations.32 
+ 
+5.2.  Logistic regressions 
+ 
+We now perform logistic regressions to investigate further the contributions of the potential 
+explanations to the expiration date clustering.  We use a fixed-effects logistic regression model with 
+a dependent variable that is set to one when the underlying stock price closes within $0.125 of an 
+option strike price, and otherwise is set to zero.33  The unit of observation in the regressions is a 
+stock-expiration Friday pair, e.g., Microsoft on Friday, September 21, 2001.  Observations that meet 
+the following conditions are included:  (1) the stock has strictly positive closing prices on both the 
+expiration Friday and the preceding Thursday;34 (2) the distance between the Thursday closing stock 
+price and the strike price nearest the Friday closing stock price is less than $10; and (3) the CBOE 
+data include written open interest (which may be zero) for both the firm proprietary traders and the 
+                                                 
+31 Once again, a binomial test shows that the difference in percentages between the three trade dates before 
+expiration (i.e., dates –3 to –1) and three trade dates after expiration (i.e., dates +1 to +3) is highly significant with a 
+p-value of less than 0.000001. 
+32 We believe that the main features of Figure 6 do not result from error in our measure of delta-hedger’s net option 
+positions, because we obtain a similar figure if we assume that market-makers plus firm proprietary traders (rather 
+than market-makers alone) are the predominant delta-hedgers in the option market.  Hedge funds are another group 
+of investors who may tend to delta-hedge their net option positions.  Our data do not allow us to separate out the 
+purchased and written option positions of hedge funds.  Nonetheless, given that our results are robust to using either 
+market-makers alone or market-makers combined with firm proprietary traders as the assumed delta-hedgers, we 
+doubt that including hedge funds as well would make much of a difference.  Even if there is non-trivial noise in our 
+proxy for the delta-hedgers, it is difficult to see how one could account for the evidence in the figure without 
+appealing to both hedge re-balancing and at least one other explanation. 
+33 We also performed the logistic analysis with pooling and with random effects.  The results were similar to those 
+reported below. 
+34 Here and throughout the discussion of the logistic regressions, “Thursday” and “Friday” always refer to the 
+Thursday and Friday of expiration week. 
+27 
+
+--- PAGE 29 ---
+public customers.  There are observations on 2,585 different stocks and 75,690 stock-expiration 
+Friday pairs in the period from January 1996 through December 2001 that satisfy these conditions. 
+The first independent variable measures clustering pressure from the hedge re-balancing 
+activities of likely delta-hedgers.  We again assume that market-makers are the primary delta-hedgers 
+in the option market, and set the first independent variable to the market-maker net purchased open 
+interest.  This variable is computed from the open interest data at the close of trading on Thursday in 
+the expiring put and call whose strike prices are nearest to the Thursday closing stock price.35  As in 
+the previous subsection, we compute the market-maker net purchased open interest by using the fact 
+that it is equal to the negative of the non-market-maker net purchased open interest.  The hedge re-
+balancing explanation predicts a positive coefficient on this variable. 
+The next variable measures clustering pressure from the delta-hedging of changes in option 
+positions (as opposed to delta-hedging that results from the changing deltas of existing option 
+positions.)  That is, it measures delta-hedging of changes in market-maker option positions which 
+requires selling stock on Friday when the stock price is greater than the strike price or buying stock 
+on Friday when the stock price is less than the strike price: 
+ 
+ 
+. 
+(8) 
+(
+)
+(
+)
+MM
+MM
+Thur
+Call
+Put
+New delta hedging
+sign S
+K
+DeltaAdjChgOI
+DeltaAdjChgOI
+≡
+−
+×
++
+ 
+In this expression, 
+(
+Thur
+)
+sign S
+K
+−
+ takes the values +1, 0 and  −1 when the Thursday closing stock 
+price is, respectively, greater than, equal to, or less than the nearest strike price. 
+MM
+Call
+DeltaAdjChgOI
+ is 
+the delta-adjusted Thursday to Friday change in net market-maker open interest aggregated across all 
+calls on the underlying stock, and 
+MM
+Put
+DeltaAdjChgOI
+ is a similar variable for the puts on the 
+                                                 
+35 If there is a large stock price change on Friday the option strike price nearest the Thursday closing stock price may 
+no longer be the strike price nearest the intra-day stock price on Friday, and net purchased open interest at the strike 
+price nearest the Thursday closing stock price may not be the best measure of the potential effect of hedge re-
+balancing.  A separate issue is that when SThurs = K clustering pressure from delta-hedging changes in option 
+positions may be negative, but the expression in equation (8) below treats it as zero. We address these issues by re-
+estimating the regressions including only those observations for which:  (4) the option strike price closest to the 
+stock’s closing prices is the same on both Thursday and Friday; and (5) the Thursday stock closing price is not equal 
+to a strike price.  There are observations on 2,236 different stocks and 62,121 stock-expiration Friday pairs in the 
+period from January 1996 through December 2001 that satisfy these conditions in addition to (1)−(3) above.  Re-
+estimating the logistic regressions with this smaller sample results in coefficient estimates that are similar in 
+magnitude and significance to those reported below. 
+28 
+
+--- PAGE 30 ---
+underlying stock.  In order to understand how this variable measures clustering pressure from delta-
+hedging of new option positions, consider the situation where the Thursday closing stock price is 
+greater than the nearest strike price.  In this case, 
+(
+)
+Thur
+sign S
+K
+−
+ is equal to +1.  Since increases 
+(decreases) in net long call positions are delta-hedged by selling (buying) stock, increases (decreases) 
+will lead to hedging which pushes the stock price toward (away from) the strike price.  For this 
+reason, the changes in call net open interest enter positively.  Analogous considerations for puts 
+indicate that the 
+MM
+Put
+DeltaAdjChgOI
+ variable should also enter the expression with a positive sign.  A 
+positive coefficient on the new delta hedging variable indicates that delta-hedging of changes in 
+option positions contributes to the clustering. 
+(
+)
+Thur
+I S
+K
+OTMWrittenOI
+
+≡
+−
+
++
+and protective put
+)
+1
+K
+−
+=
+)
+0
+Firm Public
+Put
++
+ 
+The third independent variable measures the unwinding by non-delta-hedgers of positions 
+that combine options and the underlying stock.  As discussed in Subsection 4.3, non-delta-hedger 
+unwinding of OTM covered call and OTM protective puts will tend to push the stock price toward 
+the strike price when the stock price is greater than the strike price.  For this reason we define a 
+covered call and protective put unwinding variable by 
+                             
+,
+Firm Public
+Put
+Firm Public
+Call
+Covered call
+unwinding
+OTMPurchasedOI
++
++
+×
+
+ 
+(9) 
+ 
+where (
+Thur
+I S
+ if the Thursday closing stock price is greater than the strike price nearest the 
+Thursday closing stock price, and (
+Thur
+I S
+K
+−
+=
+ otherwise.  The variable 
+OTMPurchasedOI
+ is the purchased open interest of expiring OTM puts at the close on 
+Thursday by firm proprietary traders and public customers, while 
+Firm Public
+Call
+TMWrittenOI
++
+O
+ is the 
+written open interest of expiring OTM calls at the close on Thursday by firm proprietary traders and 
+public customers.  Although it is possible that stock activity related to non-delta-hedgers unwinding 
+combined option positions other than covered calls or protective puts could be in the right direction 
+29 
+
+[TRUNCATED at 80000 chars — 53 total pages]

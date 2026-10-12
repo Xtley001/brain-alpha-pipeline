@@ -1,0 +1,1155 @@
+
+--- PAGE 1 ---
+Input Speciﬁcity and the Propagation of
+Idiosyncratic Shocks in Production Networks∗
+Jean-No¨el Barrot
+Julien Sauvagnat
+December 2014
+Job Market Paper
+Abstract
+This paper examines whether ﬁrm-level idiosyncratic shocks propagate in produc-
+tion networks. We identify idiosyncratic shocks with the occurrence of natural disasters.
+We ﬁnd that aﬀected suppliers impose substantial output losses on their customers,
+especially when they produce speciﬁc inputs. These output losses translate into signif-
+icant market value losses, and they spill over to other suppliers. Our point estimates
+are economically large, suggesting that input speciﬁcity is an important determinant
+of the propagation of idiosyncratic shocks in the economy.
+∗Jean-No¨el Barrot is with MIT Sloan School of Management.
+Contact:
+jnbarrot@mit.edu.
+Julien
+Sauvagnat is with Toulouse School of Economics and CREST. Contact: julien.sauvagnat@ensae.fr.
+We
+thank Nittai Bergman, Bruno Biais, Murillo Campello, Thomas Chaney, Philippe Chon´e, Pierre Dubois,
+Xavier Gabaix, Christian Hellwig, Johan Hombert, Augustin Landier, Kambiz Mohkam, S´ebastien Pouget,
+Ezra Oberﬁeld, Matthew Rognlie, Ronan le Saout, Antoinette Schoar, David Thesmar, as well as participants
+at the MIT Sloan Finance Retreat, CREST internal seminar, IDC Summer Conference, and EARIE annual
+meetings for their valuable comments and suggestions. Julien Sauvagnat gratefully acknowledges ﬁnancial
+support from the Agence Nationale de la Recherche - Investissements d’Avenir (ANR-11-IDEX-0003/Labex
+Ecodec/ANR-11-LABX-0047).
+
+--- PAGE 2 ---
+Introduction
+The origin of business cycle ﬂuctuations is a long-standing question in economics. Starting
+with Long and Plosser (1983), a number of studies have explored whether sectoral linkages
+may help explain the aggregation of sector-speciﬁc shocks, and have found mixed empirical
+evidence of the importance of such linkages. Relative to spillovers across sectors, spillovers
+within networks of ﬁrms have received little attention in the literature. The main reason for
+this is the diﬃculty of identifying ﬁrm-speciﬁc shocks. Whether or not ﬁrm-level idiosyncratic
+shocks propagate in production networks therefore remains an open question.
+On the one hand, ﬁrm-level idiosyncratic shocks should be quickly absorbed in production
+networks. Firms plausibly organize their operations to avoid being aﬀected by temporary
+disruption to their supplies. Even when they face such disruptions, they might be ﬂexible
+enough to recompose their production mix, or to switch to other suppliers. The gradual de-
+crease in trade tariﬀs and transportation costs, as well as the development of online business
+should make it even easier for ﬁrms to adjust their sourcing. On the other hand, frictions
+might prevent ﬁrms from quickly making adjustments in the event of supply disruptions. If
+ﬁrms face switching costs whenever they need to replace a disrupted supplier, idiosyncratic
+shocks might propagate from ﬁrm to ﬁrm, and gradually be ampliﬁed.
+This paper studies whether ﬁrm-level shocks propagate, or whether they are absorbed in
+production networks. To identify ﬁrm-level idiosyncratic shocks, we consider major natural
+disasters in the past thirty years in the U.S.1 These events have large short-term eﬀects on
+the sales growth of aﬀected ﬁrms. We trace the propagation of these shocks in production
+networks using supplier-customer links reported by publicly listed U.S. ﬁrms. If disrupted
+intermediate inputs can be easily substituted, we should not expect input shocks to propagate
+signiﬁcantly.
+1Natural disasters have already been used in prior work to instrument for school displacement (Imberman
+et al., 2012), positive local demand shocks (Bernile et al., 2013), temporary shocks to local labor markets (Be-
+lasen and Polachek, 2008), changes in uncertainty (Baker and Bloom, 2013), and changes in risk perception
+(Dessaint and Matray, 2013).
+2
+
+--- PAGE 3 ---
+Yet, we ﬁnd that suppliers hit by a natural disaster impose signiﬁcant output losses
+on their customers. When one of their suppliers is hit by a major natural disaster, ﬁrms
+experience an average drop of 2 percentage points in sales growth following the event. Given
+that suppliers represent a small share of ﬁrms’ total intermediate inputs in our sample, these
+estimates are strikingly large. We show that these estimates are robust to controlling for the
+location of ﬁrms’ establishments. In addition, we do not ﬁnd any evidence of propagation
+from suppliers to customers when they are not in an active relationship, which suggests that
+these estimates are not driven by common demand shocks triggered by natural disasters.
+We investigate whether the drop in ﬁrms’ sales caused by supply disruptions translates
+into value losses. If input disruptions simply cause a delay in sales, they would have little
+eﬀect on ﬁrms’ cash ﬂows, and ultimately on ﬁrm value. However, we do not observe any
+sort of overshooting in sales on average following disasters, suggesting that these sales are
+lost indeed. We also conduct event studies and estimate ﬁrms’ cumulative abnormal returns
+around disaster events aﬀecting one of their suppliers. We ﬁnd that input disruptions cause a
+1% drop in ﬁrms’ equity value. Again, the eﬀect is almost twice as large when the disrupted
+supplier is a speciﬁc supplier, i.e., a supplier producing diﬀerentiated goods, generating high
+R&D expenses, or holding patents.
+We then show that input speciﬁcity is a key driver of the propagation of ﬁrm-level shocks.
+To do so, we construct three measures of suppliers’ speciﬁcity. The ﬁrst one borrows from
+the Rauch (1999) classiﬁcation of goods traded on international markets. Second, we use
+suppliers’ R&D expenses to capture the importance of relationship-speciﬁc investments. Fi-
+nally, we use the number of patents issued by suppliers to capture restrictions on alternative
+sources of substitutable inputs. Each of these measures is strongly correlated with the em-
+pirical duration of supplier-customer relationships, suggesting that they capture variations
+in the cost for customers to switch suppliers.2 We ﬁnd that the propagation of input shocks
+varies strongly with our measures of speciﬁcity. Firms’ sales growth and stock prices signif-
+2We also check that the intensity of shocks aﬀecting suppliers or the relative size of the supplier do not
+systematically vary with our measures of input speciﬁcity, in a manner that could drive the results.
+3
+
+--- PAGE 4 ---
+icantly drop only when a major disaster hits one of their speciﬁc suppliers.
+We also ask whether the shock originating from one supplier propagates horizontally to
+other suppliers of the same ﬁrm, which were not directly aﬀected by the natural disaster.
+Even though ﬁrms reduce output when one of their suppliers is hit, they could very well keep
+buying from their other suppliers, and even start buying more. Even if the customer reduces
+purchases from all its suppliers following the disruption of one of its inputs, other suppliers
+might be able to ﬁnd alternative buyers for their production. Instead, we ﬁnd large negative
+spillovers of the initial shock to other suppliers. The eﬀect is only observed when the disaster
+hits a speciﬁc supplier. We show that our estimates are robust to controlling for the location
+of suppliers’ establishments. Moreover, we do not ﬁnd evidence of horizontal propagation
+when the economic link between ﬁrms is inactive, which conﬁrms that our estimates are not
+driven by common demand shocks.
+Finally, we discuss the economic signiﬁcance of our estimates. We ﬁrst ask whether the
+drop in ﬁrms’ sales growth is compensated by an increase in the sales of their competitors,
+so that the aggregate output of their sector remains unaﬀected. To do so, we combine data
+from the U.S. Industrial Production Index and the BEA input-output matrix. We ﬁnd that
+shocks aﬀecting speciﬁc upstream sectors have a negative eﬀect on downstream sectors’ real
+output growth.
+This conﬁrms that, on average, speciﬁc input disruptions translate into
+sector-wide output losses. In addition, we compute the aggregate dollar value of sales lost
+for suppliers and customers in our sample. We ﬁnd that $1 dollar of lost sales at the supplier
+level leads to $3.6 of lost sales at the customer level, which indicates that propagation in
+production networks is substantial.
+Overall, our ﬁndings highlight that the speciﬁcity of intermediate inputs allows idiosyn-
+cratic shocks to propagate in production networks. They echo numerous press reports in-
+dicating that natural disasters have important disruptive eﬀects that propagate along the
+supply chain.3 They also highlight the presence of strong interdependencies in production
+3See for instance: “Hurricane Isaac: Lessons For The Global Supply Chain” (Forbes, 8/31/2012), “A
+Storm-Battered Supply Chain Threatens Holiday Shopping” (New York Times, 4/11/2012).
+4
+
+--- PAGE 5 ---
+networks, which are highly relevant in order to assess the implications of corporate bailouts.4
+This paper contributes to several strands of the literature. It relates to a growing body
+of work assessing whether signiﬁcant aggregate ﬂuctuations may originate from microeco-
+nomic shocks.
+This view has long been discarded on the basis that these shocks would
+average out, and thus would have negligible aggregate eﬀects (Lucas, 1977). Two streams
+of papers challenge this intuition: the ﬁrst is based on the idea that large ﬁrms contribute
+disproportionately to total output (Gabaix, 2011; Carvalho and Gabaix, 2013); the second
+stream posits that shocks are transmitted in the economy through industry linkages (Long
+and Plosser, 1987; Jovanovic, 1987; Durlauf, 1993; Bak et al., 1993; Horvath, 1998, 2000;
+Conley and Dupor, 2003; Di Giovanni and Levchenko, 2010; Carvalho, 2010; Caselli et al.,
+2011; Acemoglu et al., 2012; Bigio and LaO, 2013). However, the empirical evidence on
+the importance of sector linkages for the aggregation of sector-speciﬁc shocks is mixed and
+depends on the level of aggregation (Horvath, 2000), the way linkages are modeled (Foerster
+et al., 2011), and the speciﬁcation of the production function (Jones, 2011; Atalay, 2013).
+While earlier work has focused on the linkages across sectors,5 we carefully estimate linkages
+within networks of ﬁrms.6 In contemporaneous work, Todo et al. (2014) and Carvalho et al.
+(2014) study the supply-chain eﬀects of the Japanese earthquake of 2011. Our setting, which
+encompasses multiple natural disasters over a period of thirty years allows us to disentan-
+gle input disruptions from common demand shocks, and to cleanly identify the importance
+of input speciﬁcity for the propagation and ampliﬁcation of idiosyncratic shocks. We also
+add to this literature by documenting that in addition to propagating to downstream ﬁrms,
+idiosyncratic shocks also propagate horizontally into supplier networks.
+Furthermore, we build on earlier work that considers the importance of switching costs
+4In its testimony to the Senate Committee on Banking, Housing, and Urban Aﬀairs on December 4, 2008,
+Ford CEO Alan Mulally said: “The collapse of one or both of our domestic competitors would threaten Ford
+because we have 80 percent overlap in supplier networks and nearly 25 percent of Ford’s top dealers also
+own GM and Chrysler franchises.”
+5Di Giovanni et al. (2014) is a recent exception.
+6While this paper takes the network structure as given, Chaney (2011), Oberﬁeld (2013), and Carvalho
+and Voigtl¨ander (2014) among others explicitly model the formation of business networks.
+5
+
+--- PAGE 6 ---
+for the propagation of ﬁrm-level shocks. A number of studies have analyzed the role of
+switching costs in banking relationships for the diﬀusion of ﬁnancial shocks (Slovin et al.,
+1993; Hubbard et al., 2002; Khwaja and Mian, 2008; Fernando et al., 2012). Amiti and
+Weinstein (2013) and Chodorow-Reich (2014) ﬁnd that such frictions can explain a large
+share of the aggregate drop in investment and employment in the recent ﬁnancial crisis.
+We show that switching costs between trade partners are substantial, and can explain the
+propagation of shocks in networks of non-ﬁnancial ﬁrms. The existence of costs of searching
+for suppliers is a key parameter in recent studies of ﬁrms’ sourcing decisions (Antras et
+al., 2014; Bernard et al., 2014). Our ﬁndings suggest that these costs can be large in the
+short-run.
+We also add to a growing body of work in ﬁnancial economics that studies how ﬁrms are
+aﬀected by their environment, and in particular by their customers and suppliers. Recent
+studies have found evidence of comovement in stock returns within production networks
+(Cohen and Frazzini, 2008; Hertzel et al., 2008; Menzly and Ozbas, 2010; Ahern, 2012; Boone
+and Ivanov, 2012; Kelly et al., 2013). Our results, which emphasize the importance of input
+complementarity and switching costs, provide a foundation for this comovement. In addition,
+our results also relate to prior studies of the implications of product market relationships for
+ﬁrms’ corporate policies (Titman, 1984; Titman and Wessels, 1988; MacKay and Phillips,
+2005; Kale and Shahrur, 2007; Campello and Fluck, 2007; Banerjee et al., 2008; Chu, 2012;
+Moon and Phillips, 2014; Ahern and Harford, 2014). A key result of this literature is that
+ﬁrms whose suppliers need to make relationship-speciﬁc investments hold less leverage to
+avoid imposing high liquidation costs on them.
+Our results suggest that an alternative
+reason why ﬁrms linked to speciﬁc suppliers hold less leverage is to avoid the risk of ﬁnancial
+distress brought about by input disruptions.
+The remainder of the paper is organized as follows. In Section 1, we use a simple frame-
+work to derive the conditions under which input shocks propagate in production networks.
+Section 2 presents our empirical strategy. Section 3 presents the data; Section 4 describes
+6
+
+--- PAGE 7 ---
+the results, and Section 5 concludes.
+1.
+Theoretical framework
+Should ﬁrms be aﬀected by disruptions of their supplies of intermediate inputs? In Ap-
+pendix A.1, we present a simple framework that delivers predictions of the magnitude of the
+pass-through of input shocks to ﬁrms’ output. We start with a standard constant-returns-
+to-scale production function. The quantity of capital is ﬁxed in the short-run, and the ﬁrm
+chooses the quantities of labor and intermediate inputs in order to maximize proﬁts. We
+express the response of a representative ﬁrm’s output to a small deviation in the availability
+of one of its intermediate inputs. We obtain the following insights.
+First, the eﬀect on output of a drop in the availability of an intermediate input increases
+with the degree of complementarity between intermediate inputs. When intermediate inputs
+are perfect substitutes, the ﬁrm’s production is unaﬀected by a disruption in the supply of
+one input. Firms oﬀset the drop in the disrupted input by using simply more of the other
+intermediate inputs. By contrast, when intermediate inputs are perfect complements,7 the
+pass-through can be relatively high, irrespective of the cost share of the disrupted input in
+production.
+The second insight relates to the reaction of other intermediate inputs to the disruption in
+the supply of one input. The pass-through rate of a given input shock to other intermediate
+inputs can be either positive or negative. If intermediate inputs are strong substitutes, the
+pass-through rate is negative, i.e., the disruption of an intermediate input leads to an increase
+in the use of other inputs. In sharp contrast, if intermediate inputs are strong complements,
+the pass-through rate is positive, and can even be larger than the eﬀect on total production.
+The intuition for this result is that, in response to a shock to a given input, the share of
+intermediate inputs in production will drop, as the substitution towards labor outweighs the
+substitution across intermediate inputs.
+7This limit case is the Leontief (1936) production function.
+7
+
+--- PAGE 8 ---
+This simple theoretical framework is helpful to think about the empirical relationships
+between the output growth of a supplier caused by a natural disaster, of the ﬁrm using this
+input, and of the ﬁrm’s other suppliers of intermediate inputs.8 The key prediction for our
+analysis is the following: when the constrained input cost share is small – as it is on average
+in our sample9 – the size of the pass-through is small unless intermediate inputs are strong
+complements.
+Empirically, we would expect to ﬁnd an eﬀect only when the ﬁrm faces relatively large
+costs of searching for, and switching to alternative suppliers of the same input. Otherwise,
+following the disruption of the supplier of a given intermediate input, the ﬁrm would turn
+to other providers of the same input, and maintain its ﬁrst-best level of output. Hence, the
+size of the pass-through rate should increase with the speciﬁcity of the input provided by
+the disrupted supplier.
+Similarly, we would expect to ﬁnd spillovers of the initial shock to other suppliers only
+if they cannot easily switch to alternative customers. Moreover, if the customer can easily
+replace the disrupted supplier, then its demand for other intermediate inputs should not
+change, so that other suppliers will remain unaﬀected. Therefore, the magnitude of spillovers
+should increase with the speciﬁcity of the input provided by the disrupted supplier.
+2.
+Identiﬁcation strategy
+The main source of identiﬁcation in this paper is the occurrence of major natural disasters.
+We identify disruptions to suppliers’ output in a given quarter with the event that the county
+8One of the limitations of this exercise is that we have assumed that input prices are ﬁxed. Assuming
+that the price of an input rises when that input is disrupted would generate an additional ampliﬁcation
+mechanism, whereby the ﬁrm might willingly reduce its use of the disrupted input if its price rises too much.
+Note however that prior literature has provided consistent evidence on the stickiness of prices in the short
+run. Very relevant for our study, Cavallo et al. (2014) ﬁnd that supermarket prices remained stable for
+several months following the 2010 earthquake in Chile and the 2011 earthquake in Japan, even for goods
+that were experiencing severe stockouts. Using questionnaire responses from respectively U.S., U.K., and
+Swedish ﬁrms, Blinder et al. (1998), Hall et al. (2000) and Apel et al. (2005) highlight the importance of both
+implicit and explicit contracts in explaining the rigidity of prices between suppliers and their customers.
+9The average suppliers’ input share in ﬁrms’ cost of goods sold in our sample is 2.2%, see Table 2.
+8
+
+--- PAGE 9 ---
+where their headquarters is located is hit by a natural disaster. Of course, ﬁrms’ plants and
+establishments are not always located in the same county as their headquarters. However,
+this measurement error is likely to bias the estimates against ﬁnding any eﬀect of natural
+disasters on ﬁrms’ output. In addition, using establishment-level data from Infogroup,10
+we ﬁnd that in our sample of suppliers, the average (median) ﬁrm has 57% (62%) of its
+employees located at its headquarters (see Table 2).
+There are many diﬀerent but unobservable reasons why disasters might aﬀect ﬁrms’
+output. It might be that they trigger power outages disrupting production.11 Alternatively,
+it might be that assets including buildings, machines, or inventories are damaged. Finally,
+ﬁrms’ workforce or management might be prevented from reaching the workplace. Although
+we have no way to pin down the exact channel through which disasters disrupt production,
+we conﬁrm in Section 4 that such disasters have a temporary and signiﬁcant negative eﬀect
+on these suppliers’ sales growth.12
+The main focus of the paper is not the disruption to the supplying ﬁrm itself, but rather
+the impact on the ﬁrm’s customers, as well as on the customers’ other suppliers.
+Our
+identiﬁcation strategy closely approximates the following example. Assume that ﬁrm S1 is
+a supplier to ﬁrm C, who also purchases input from ﬁrm S2. Suppose, however, that S1 and
+S2 do not have any economic links other than their relationship with C. We ﬁrst analyze the
+response of C when S1 is hit by a natural disaster. We then focus on the response of S2. In
+each case, we contrast these eﬀects with characteristics that capture the cost of replacing S1
+with another provider of the same input.
+To capture supplier-customer links, we rely on the obligation that publicly listed ﬁrms
+have in the U.S. to report any customer accounting for more than 10% of their sales.13 We
+consider that S1 is a supplier to C in all years ranging from the ﬁrst to the last year when
+10We describe the data in more detail in Section 3.
+11Hines et al. (2008) ﬁnd that 44% of major power outages in the U.S. are weather-related (i.e., caused by
+tornado, hurricane/tropical storm, ice storm, lightning, wind/rain, or other cold weather).
+12Following standard event methodology, we also ﬁnd that ﬁrms experience a signiﬁcant stock price decline
+following the date of a major disaster hitting the county location of their headquarters.
+13We describe the data in more detail in Section 3.
+9
+
+--- PAGE 10 ---
+S1 reports C as one of its customers. We then estimate the eﬀect of the shock to S1 on C’s
+sales growth in a diﬀerence-in-diﬀerences framework at the ﬁrm level, where the treatment
+amounts to having at least one supplier hit by a natural disaster.
+We run the following OLS regression at the ﬁrm-quarter level in our sample of cus-
+tomers,14
+∆Salesi,t,t+4 = α0 + α1.HitsSupplieri,t + α2.HitsFirmi,t + ηi + πt + ϵi,t,
+(1)
+where ∆Salesi,t,t+4 is the sales growth between the current quarter and the same quarter
+in the following year. HitsSupplieri,t is a dummy taking the value of one if at least one
+of the ﬁrm’s suppliers is located in a county hit by a natural disaster. HitsFirmi,t is a
+dummy equal to one if the ﬁrm is directly hit by a natural disaster. ηi and πt are year-
+quarter and ﬁrm ﬁxed eﬀects. All regressions control for ﬁscal-quarter ﬁxed eﬀects. In some
+speciﬁcations, we include industry×year ﬁxed eﬀects and state×year ﬁxed eﬀects. We also
+introduce lagged controls for size, age, and proﬁtability interacted with year-quarter ﬁxed
+eﬀects.15 We build these controls by interacting year-quarter dummies with terciles of ﬁrms’
+assets, age, and return on assets two years prior to date t. In all regressions, standard errors
+are clustered at the ﬁrm level to account for serial correlation of the error term within ﬁrms.
+The coeﬃcient of interest is α1, which measures the eﬀect on the ﬁrm’s sales growth of a
+disruption to at least one of its suppliers.
+For our strategy to consistently estimate the eﬀect of the shock to S1 on C, we need to
+make several identifying assumptions. First, C’s sales growth would have been ﬂat in the
+absence of treatment (parallel trends assumption). We will check whether we ﬁnd any eﬀect
+in the quarter prior to the natural disaster, and also formally test whether eventually treated
+and never treated ﬁrms experience diverging trends over the sample period.
+Second, the natural disaster should aﬀect C only through its disruptive eﬀect on S1
+14The beneﬁt of using sales is that it is available at the quarterly level for all publicly listed U.S. ﬁrms,
+which is the ideal frequency to study the temporary disruptions caused by natural disasters. The drawback
+is that sales reﬂect prices and quantities. However, in Section 4, we show that similar results are obtained
+at the sector level using a quarterly index of industrial output.
+15Including these controls ensures that the estimates are not driven by heterogeneous trends among large,
+old, or proﬁtable ﬁrms.
+10
+
+--- PAGE 11 ---
+(exclusion restriction). However, this assumption might be violated if C’s own production
+facilities are aﬀected by the disaster. We handle this problem by excluding from the sample
+any supplier-customer relationships where both parties’ headquarters are located in the same
+state. In addition, we add a dummy in the regression which captures whether the headquar-
+ters county location of C is hit by a natural disaster. Finally, we use establishment-level data
+to control for the fact that plants of C might be directly hit by disasters aﬀecting S1. The
+exclusion restriction might otherwise be violated if C’s demand is aﬀected by the disaster
+hitting one of its suppliers, for instance because its customer base is located close to its sup-
+plier base. If this were the case, disasters hitting the supplier’s location would presumably
+aﬀect the customer irrespective of whether their economic link was active or not. We address
+this concern by checking that the eﬀect is only present when the economic link between S1
+and C is active.
+One might also worry that ﬁrms endogenously select their location – and the location
+of their suppliers – by taking into account the fact that natural disasters will disrupt their
+production. This is not a threat to the identiﬁcation strategy: if anything, this should bias
+the results against ﬁnding any propagation eﬀects. However, it might aﬀect the external
+validity of these estimates, a point that we discuss in Section 4.5. A related concern is that
+ﬁrms might insure against the consequences of natural disasters. Again, this would bias
+the results against ﬁnding any propagation eﬀects. Nonetheless, prior studies as well as
+anecdotal evidence suggest that ﬁrms do not systematically insure against these risks.16
+We then contrast the eﬀects with the extent to which the customer can switch to other
+suppliers of a given input. We hypothesize that suppliers are more likely to produce speciﬁc
+inputs if they operate in industries producing diﬀerentiated goods as deﬁned by Giannetti
+16Froot (2001) and Garmaise and Moskowitz (2009) show that there are ineﬃciencies in the catastrophe
+insurance market, which lead to partial coverage of this risk at the ﬁrm level. The choice of not insuring
+against catastrophe event risk is explicitly mentioned in some annual reports, see e.g. Walmart 2013 Annual
+Report: “In light of the substantial premiums payable for insurance coverage for losses caused by certain
+natural disasters, such as hurricanes, cyclones, typhoons, tropical storms, earthquakes, ﬂoods and tsunamis
+in the current insurance market, as well as the limitations on available coverage for such losses, we have
+chosen to be primarily self-insured with respect to such losses. [...] Signiﬁcant losses caused by such events
+could materially adversely aﬀect our ﬁnancial performance.”
+11
+
+--- PAGE 12 ---
+et al. (2011), if they have a high level of R&D, or if they hold patents. Using these three
+diﬀerent proxies to measure the speciﬁcity of any given supplier, we augment Equation (1)
+as follows:
+∆Salesi,t,t+4 = β0 + β1.HitsSupplier.NSi,t + β2.HitsSupplier.Si,t + β3.HitsFirmi,t + ηi + πt + ϵi,t
+(2)
+where HitsSupplier.NSi,t is a dummy taking the value of one if at least one non-speciﬁc
+supplier of the ﬁrm is hit by a natural disaster. HitsSupplier.Si,t is another dummy taking
+the value of one if at least one speciﬁc supplier of the ﬁrm is hit by a natural disaster. The
+coeﬃcients of interest are β1 and β2, which measure the eﬀect on the ﬁrm’s sales growth of
+a disruption to its non-speciﬁc and speciﬁc suppliers.
+Finally, we study the eﬀect of the initial shock on S1 on any other supplier S2 of C. To
+do so, we run the following OLS regression in our sample of suppliers, at the ﬁrm-quarter
+level,
+∆Salesi,t,t+4 = γ0 + γ1.HitsCustSupi,t + γ2.HitsCusti,t + γ3.HitsFirmi,t + ηi + πt + ϵi,t
+(3)
+where HitsCustSupi,t is a dummy taking the value of one if at least one other supplier of
+the ﬁrm’s customer(s) is hit by a natural disaster. HitsCusti,t is a dummy taking the value
+of one if (at least) one customer of the ﬁrm is hit by a natural disaster. Finally, HitsFirmi,t
+is a dummy equal to one if the ﬁrm is directly hit by a natural disaster. The coeﬃcient of
+interest is γ1, which measures the eﬀect on the ﬁrm’s sales growth of a disruption to the
+production function of its customer triggered by the fact that another supplier was hit by a
+natural disaster. 17
+17This test rests on the same assumptions needed to identify the eﬀect of the natural disaster on C. In
+particular, it needs to be the case that the natural disaster should aﬀect S2 only through its disruptive eﬀect
+on S1, and its indirect eﬀect on C. The exclusion restriction might be violated if S2’s production facilities
+are aﬀected by the disaster hitting S1. We drop from the sample any relationship where S2 is located in the
+same state as S1 or C. We also drop relationships where S2 is a customer or a supplier of S1. In addition, we
+use establishment-level data to control for the fact that plants of S2 might be directly aﬀected by disasters.
+The exclusion restriction might alternatively be violated if S2’s demand is aﬀected by the disaster hitting
+S1, for instance because its customer base is located close to S1. If this were the case, disasters hitting S1
+would presumably aﬀect S2 irrespective of whether they were linked through their relationship with C. We
+address this concern by checking that disasters hitting S1 only aﬀect S2 when the economic link between S1
+and C is active, and when the economic link between S2 and C is active.
+12
+
+--- PAGE 13 ---
+3.
+Data
+3.1.
+Firm level information
+Financial data and information about ﬁrm headquarters location are retrieved from Com-
+pustat North America Fundamentals Quarterly database. We restrict our sample to non-
+ﬁnancial ﬁrms whose headquarters are located in the U.S. over the 1978-2010 period.18 We
+restrict the sample to ﬁrms reporting in calendar quarters. All continuous variables are win-
+sorized at the 1st and 99th percentiles of their distributions. We adjust our computation of
+the growth in sales and cost of goods sold for inﬂation using the GDP deﬂator of the Bureau
+of Economic Analysis.
+As already mentioned, we use the county location of headquarters to identify whether
+a ﬁrm is hit by a natural disaster. We make an important adjustment to the (county and
+state) location of the headquarters of the ﬁrms in our sample. Compustat only records the
+last available location of the headquarters of each ﬁrm. We update the county and state of
+each ﬁrm in our sample using information gathered by Infogroup, which goes back as far as
+1997.19 In addition, we use employment and establishment information from Infogroup to
+construct controls for whether more than 10% of employees of a ﬁrm across all establishments
+are hit by a natural disaster.20 Finally, we construct the 48 Fama-French industry dummies
+from the conversion table in the appendix of Fama and French (1997) using the ﬁrm’s 4-digit
+SIC industry code.
+We also examine below the eﬀect of input disruptions on stock prices. For this, we obtain
+data on daily stock prices from the Center for Research in Security Prices (CRSP daily ﬁle).
+We focus on ordinary shares of stocks traded on NYSE, AMEX and NASDAQ.
+18Customer-supplier links detailed below are available only from 1978; 2010 is the last year for which data
+on major natural disasters are available.
+19This leads to a non-negligible adjustment. Between 1997 and 2010, the county location of ﬁrms’ head-
+quarters is corrected for 13% (respectively 15%) of observations in our sample of customers (respectively
+suppliers). For years before 1997, we update the county and state location of ﬁrms using the nearest available
+year in Infogroup.
+20Infogroup makes phone calls to establishments to gather, among other data items, the number of full-time
+equivalent employees.
+13
+
+--- PAGE 14 ---
+3.2.
+Supplier-customer links
+Crucial to our analysis is the identiﬁcation of relationships between suppliers and their cus-
+tomers. Fortunately, regulation SFAS No. 131 requires ﬁrms to report selected information
+about operating segments in interim ﬁnancial reports issued to shareholders. In particular,
+ﬁrms are required to disclose certain ﬁnancial information for any industry segment that
+comprises more than 10% of consolidated yearly sales, assets, or proﬁts, and the identity of
+any customer representing more than 10% of the total reported sales.
+We take advantage of this requirement to obtain information on supplier-customer links.
+For each ﬁrm ﬁling with the SEC, we obtain the name of its principal customers and associ-
+ated sales from the Compustat Segment ﬁles from 1978 to 2010.21 Given that we are mainly
+interested in publicly listed customers for which accounting data is available, we associate
+each name to a Compustat identiﬁer by hand. More speciﬁcally, we use a phonetic string
+matching algorithm to match each customer name with the ﬁve closest names from the set
+of ﬁrms ﬁling with the SEC as well as all their subsidiaries. We then select the best match
+by hand by inspecting the ﬁrm and customer’s names and industries. Customers with no
+match are excluded from the sample.
+Customers in our dataset represent approximately 75% of the total sales in Compustat
+over the sample period, which makes us conﬁdent that the sample is representative of the
+U.S. economy. There are, however, limitations associated with this data. In particular, we
+generally do not observe suppliers whose sales to the customer are lower than 10% of their
+revenues.22 Fortunately, Atalay et al. (2011) show that the truncation issue does not aﬀect
+the shape of the in-degree distribution: the fraction of suppliers that we miss because of
+the 10% rule is similar for customers with many or few suppliers. In addition, given that
+our main interest lies in the reaction of customers, the fact that we are missing some of
+21Other papers have used the customer-supplier data, including Fee and Thomas (2004), and Fee et al.
+(2006), who analyze respectively, the eﬀect of mergers and corporate equity ownership on the value of
+suppliers.
+22Some ﬁrms voluntarily report the names of other major customers when sales are below this threshold.
+14
+
+--- PAGE 15 ---
+their suppliers introduces noise which is likely to bias the results against ﬁnding any sort of
+propagation.
+3.3.
+Natural disasters
+We obtain information on each major natural disaster hitting the U.S. territory from the
+SHELDUS (Spatial Hazard and Loss Database for the United States) database maintained
+by the University of South Carolina.
+For each event the database provides information
+on the start date, the end date, and the Federal Information Processing Standards (FIPS)
+code of all aﬀected counties.
+We restrict the list to events classiﬁed as major disasters
+that occurred after 1978, which is when supplier-customer data become available. We also
+restrict the sample to disasters lasting less than thirty days with total estimated damages
+above one billion 2013 constant dollars. As evidenced in Table 1, we are left with thirty ﬁve
+major disasters of all kinds, including blizzards, earthquakes, ﬂoods, and hurricanes. These
+disasters aﬀect a broad range of U.S. states and counties over the sample period. However,
+they are generally very localized and aﬀect at most 15.7% of U.S. employment.23 Figure 1
+shows the frequency of occurrence of major natural disasters over the sample period for each
+U.S. county. Some counties are more frequently hit than others, especially those located
+along the south-east cost of U.S. mainland. In comparison, as evidenced in Figure 2, the
+location of suppliers in the sample spans the entire U.S. mainland, including both counties
+that are never and often hit by natural disasters.
+3.4.
+Input speciﬁcity
+We rely on three diﬀerent proxies to measure the speciﬁcity of any given supplier. We ﬁrst
+use the Giannetti et al. (2011) classiﬁcation of 2-digit SIC codes industries (itself based on the
+Rauch (1999) product classiﬁcation) in either diﬀerentiated goods industries, standardized
+23Most of the events aﬀect less than 10% of U.S. employment, which provides us with an ideal setting to
+cleanly identify input disruptions from general equilibrium eﬀects. We further check that the estimates are
+similar for relatively small and relatively large natural disasters (see Table A.4).
+15
+
+--- PAGE 16 ---
+goods industries or services. A supplier is thus considered as speciﬁc if it operates in an
+industry producing diﬀerentiated goods. We also proxy for the level of speciﬁcity with the
+ratio of R&D to sales, and we classify suppliers as speciﬁc if this ratio lies above the sample
+median in the two years prior to any given quarter. Finally, suppliers holding patents are
+more likely to produce inputs that cannot be easily replaced by other suppliers. Hence, in
+each quarter, we also sort ﬁrms based on the number of patents they issued in the previous
+ﬁve years and consider as speciﬁc those lying above the sample median. To do so, we retrieve
+patent information from Google patents assembled by Kogan et al. (2012).24
+3.5.
+Summary statistics
+Table 2 presents summary statistics for our sample. Panel A presents the customer sample,
+which consists of 60,682 ﬁrm-quarters between 1978 and 2010. There are 2,014 ﬁrms in this
+sample. A ﬁrm is included in the sample in each quarter between the ﬁrst and last year it
+appears as a customer in the Compustat Segment ﬁles. On average, a ﬁrm is reported by 2
+suppliers in a given year. The main variables of interest are the growth in sales and cost of
+goods sold over the following four quarters. The sample averages for these variables are 9.1%
+and 9.6%, and their medians are 3.9% and 3.7%. The probability that at least one of the
+suppliers of a given ﬁrm is hit by a natural disaster in any quarter is 1.9%. This compares
+with the probability of 1.4% that the customer is directly hit by a natural disaster.
+There are on average ﬁve to seven years between the ﬁrst and the last year a supplier re-
+ports a ﬁrm as a customer. Speciﬁc suppliers have longer relationships with their customers,
+which is consistent with the idea that it is more costly for customers to breach these relation-
+ships. The average sales of suppliers to their customers (identiﬁed with variable SALECS
+in the Compustat Segment ﬁles) represents 2.2% of ﬁrms’ cost of goods sold. Given that
+wages and associated costs represent a large share of cost of goods sold, this is probably an
+underestimate of the importance of these suppliers in customers inputs. However, this sug-
+24We thank the authors for making the data available to us.
+16
+
+--- PAGE 17 ---
+gests that suppliers are small with respect to customers. There is no signiﬁcant diﬀerence in
+the share that speciﬁc and non-speciﬁc suppliers represent in ﬁrms’ cost of goods sold across
+our three measures of input speciﬁcity. Finally, suppliers are located on average a little over
+1,100 miles away from their customers, irrespective of whether they are speciﬁc or not.
+The last part of Panel A compares the size, age, and return on assets of eventually
+treated and never treated ﬁrms.25 Eventually treated ﬁrms – those having one supplier hit
+by a major disaster at least once during the sample period – are larger, older, and slightly
+more proﬁtable than never treated ﬁrms. This makes it all the more important to ensure in
+the empirical analysis that ﬁrm-level characteristics are not driving the results.
+Panel B presents the supplier sample, which consists of 92,977 ﬁrm-quarters between
+1978 and 2010. There are 4,112 ﬁrms in this sample. A ﬁrm is included in the sample
+in each quarter between the ﬁrst and last year it reports another ﬁrm as a customer in the
+Compustat Segment ﬁles. These ﬁrms report an average of 1.2 customers. The main variable
+of interest is the growth in sales over the following four quarters. The sample average for this
+variable is 15.8%, and the median is 3.9% . The probability that a ﬁrm in this sample is hit
+by a natural disaster in any quarter is 1.5%. The probability that one of a ﬁrm’s customers is
+hit in any given quarter is 1.2%. Finally, the probability that one of its customers’ suppliers
+is hit is 7.1%.
+25Size is deﬁned as total assets (Compustat item AT). Age is deﬁned as the number of years since incor-
+poration; when the date of incorporation is missing, age is deﬁned as the number of years since the ﬁrm
+has been in the Compustat database. Return on assets (ROA) is operating income before depreciation and
+amortization (item OIBDP) divided by total assets.
+17
+
+--- PAGE 18 ---
+4.
+Results
+4.1.
+Eﬀect on aﬀected suppliers
+We ﬁrst explore the extent to which suppliers’ production is aﬀected when the county where
+their headquarters are located is hit by a natural disaster.26 As already discussed, we have
+no way to formally pin down the channel through which natural disasters translate into
+disruptions to suppliers’ production functions. Instead, we consider their eﬀect on ﬁrms’
+sales.
+In our sample of suppliers, we regress ﬁrms’ sales growth (relative to the same quarter in
+the following year) on a series of dummies indicating whether a major natural disaster hits
+the ﬁrm in each of the previous three quarters (t-3, t-2, t-1), the current quarter (t), and each
+of the following four quarters (t+1, t+2, t+3, t+4), as well as ﬁscal-quarter, year-quarter and
+ﬁrm ﬁxed eﬀects. The results are presented in Table 3. In column (1), the coeﬃcient on the
+dummies indicating that a disaster hits the ﬁrm in the following three quarters are negative
+and signiﬁcant, ranging from 3.6 to 5.4 percentage points, which indicates that suppliers’
+sales growth drops signiﬁcantly for three consecutive quarters following a disaster.
+The
+coeﬃcient on Disaster hits ﬁrm (t+4) is small and insigniﬁcant, indicating that suppliers’
+sales growth is aﬀected only after the passage of a major disaster. Finally, the coeﬃcients
+on Disaster hits ﬁrm (t-1), Disaster hits ﬁrm (t-2) and Disaster hits ﬁrm (t-3) are small
+and insigniﬁcant which indicates that the eﬀect on sales growth eventually vanishes. We
+introduce controls for size, age and proﬁtability interacted with year-quarter ﬁxed eﬀects in
+column (2). The coeﬃcients’ range does not change, which suggests that diﬀerences in the
+types of ﬁrms that are hit do not drive the patterns in sales growth. In columns (3) and
+(4), we introduce industry×year ﬁxed eﬀects and state×year ﬁxed eﬀect. The eﬀect goes
+26It is important to note that the eﬀect of a natural disaster on production could go a priori either way,
+since the destruction triggered by disasters sometimes generate a local increase in demand (Bernile et al.,
+2013). Anecdotal evidence indeed suggests that providers of basic supplies experience boosts in sales in the
+period around the disaster (see e.g. Bloomberg, August 26, 2011, “Home Depot, Lowe’s stocks get hurricane
+boost.”)
+18
+
+--- PAGE 19 ---
+down slightly in magnitude but remains signiﬁcant. Taken together, the results suggest that
+relative to ﬁrms in the same state or the same industry, ﬁrms with headquarters located in
+a county directly aﬀected by the natural disaster seem to do worse.
+One purpose of the following section is to assess whether suppliers’ speciﬁcity is a driver of
+the propagation of ﬁrm-level shocks. However, if shocks to speciﬁc suppliers were on average
+larger than shocks to non-speciﬁc suppliers, this would lead us to mechanically overestimate
+the eﬀect of input speciﬁcity on the propagation of shocks. We check in Table 4 that the
+disruption caused by natural disasters is not larger for speciﬁc than for non-speciﬁc suppliers.
+To do so, we consider the sample of suppliers and regress ﬁrms’ sales growth on a dummy
+indicating whether the ﬁrm is hit by a disaster (in the current or following three quarters), as
+well as a dummy taking the value of one if the ﬁrm which is hit is a speciﬁc one. We run the
+same regression for our three measures of input speciﬁcity. The coeﬃcient on the interaction
+term is always positive, although generally not statistically signiﬁcant, which suggests that
+shocks to speciﬁc suppliers are, if anything, of smaller magnitude than shocks to non-speciﬁc
+suppliers.27
+4.2.
+Downstream propagation: eﬀect on customers’ sales
+In this section, we estimate the eﬀect on ﬁrms’ sales of shocks aﬀecting their suppliers.
+We ﬁrst illustrate the results in Figure 4, which compares the growth in sales (relative to
+the same quarter in the following year) at diﬀerent quarters surrounding a major natural
+disaster for both directly aﬀected suppliers and their customers. The graph highlights that
+input disruptions translate into lost sales for the ﬁrm a few quarters after the supplier is hit.
+Baseline results.
+We then run the OLS panel regression detailed in Section 2, Equation 1,
+and present the results in Table 5. In Panel A, we consider the eﬀect of input disruption
+27The coeﬃcient DIFF ﬁrm is omitted in columns (1) and (2) because ﬁrms’ industry classiﬁcation is ﬁxed
+over time, and is therefore absorbed by ﬁrm ﬁxed eﬀects.
+19
+
+--- PAGE 20 ---
+on sales growth. The variable of interest is the dummy Disaster hits one supplier (t) which
+takes the value of one if (at least) one of the ﬁrm’s suppliers is hit by a natural disaster
+in quarter t, and zero otherwise. The estimates in column (1) indicate that sales growth
+drops by 2.9 percentage points. Given the sample mean of 9%, the estimate is economically
+large. In column (2), we introduce controls for lagged size, age, and proﬁtability, interacted
+with year-quarter ﬁxed eﬀects. The estimate decreases slightly to 2.3 percentage points and
+remains signiﬁcant. In column (3), we add industry×year ﬁxed eﬀects. The point estimate
+is 2 percentage points, which suggests that the eﬀect is not driven by an industry-wide
+shock. In column (4), we control for state×year ﬁxed eﬀects and obtain similar results.
+This conﬁrms that the eﬀect of input disruption on sales is not related to temporary shocks
+at the state level, or to the fact that treated ﬁrms might be closer to the disaster zone
+than other ﬁrms. Across speciﬁcations, the coeﬃcient on the dummy Disaster hits ﬁrm is
+negative, which reﬂects the ﬁnding presented in Table 3. Similar results are obtained in
+Panel B, when we replace the dependent variable with the growth in the cost of goods sold.
+Altogether the results indicate that disruptions to their suppliers’ production strongly aﬀect
+ﬁrms’ sales growth, which drops by a little over 20% with respect to the sample average.
+Since suppliers in the sample represent approximately 3% of ﬁrms’ cost of goods sold, these
+estimates are strikingly large.
+The drop in sales growth should show no prior trends and should be temporary, in
+order for the parallel trends assumption to be satisﬁed.
+As their suppliers restore their
+productive capacity, ﬁrms’ sales growth should recover. To test whether this is indeed the
+case, we analyze the dynamics of the eﬀects. We regress the ﬁrm’s sales growth on dummies
+indicating whether a major disaster hits (at least) one of their suppliers in each of the
+previous three quarters (t-3, t-2, t-1), the current quarter (t), and each of the following four
+quarters (t+1, t+2, t+3, t+4). The results presented in Table 6 indicate that the coeﬃcient
+in the current quarter (Disaster hits one ﬁrm (t)) is the largest in absolute value.
+The
+dummies Disaster hits one supplier (t+3) and Disaster hits one supplier (t+4) allow us to
+20
+
+--- PAGE 21 ---
+assess whether an eﬀect on ﬁrms’ sales growth is found contemporaneously or prior to the
+quarter when the eﬀect of natural disasters is found on suppliers (which occurs in (t+3),
+see Table 3). We ﬁnd that, across all speciﬁcations, both coeﬃcients are economically and
+statistically insigniﬁcant. This conﬁrms that the drop in ﬁrms’ sales growth is not driven by
+prior trends, but that it is indeed caused by the natural disaster aﬀecting one of its suppliers.
+We go one step further to test the validity of the parallel trend assumption. We check
+whether eventually treated ﬁrms and never treated ﬁrms experience diverging time trends
+in the absence of major natural disasters. To do so, we regress ﬁrms’ sales growth on a
+treatment dummy which equals one for ﬁrms eventually treated in our sample interacted
+with the full set of year-quarter ﬁxed eﬀects, Ti × δt, and estimate the regression only over
+periods for which no major natural disaster has hit the U.S. territory in the previous, current
+or following three quarters. The regression also includes ﬁscal-quarter ﬁxed eﬀects and ﬁrm
+ﬁxed eﬀects. We are mainly interested in the F-statistics of the joint signiﬁcance test of all
+the Ti × δt (see column (5)). If we fail to reject the null hypothesis that they all equal zero,
+this would provide strong support for the parallel trend assumption. Results are reported in
+Table 7. In all cases, F-tests are small, and we always fail to reject at conventional levels the
+null hypothesis that all Ti ×δt are zero in the absence of major natural disasters. This makes
+us conﬁdent that never treated ﬁrms provide a good counterfactual for eventually treated
+ﬁrms in periods of major natural disasters.
+One might be concerned that the results are driven by the location of customers’ plants
+close to the headquarters of their suppliers. In Panel A, Table 8, we introduce a dummy
+taking the value of one if more than 10% of the customer’s workforce across all establishments
+is hit by a natural disaster. If headquarters’ locations are poor proxies for the true location
+of customers’ establishments, and if the economic link with the supplier proxies for the true
+location of the customer, this variable should absorb the eﬀect. The results indicate that
+this is not the case, as the coeﬃcient on Disaster hits a supplier remains remarkably stable
+21
+
+--- PAGE 22 ---
+(compared to Table 5) and statistically signiﬁcant in all speciﬁcations.28
+Another concern is that the estimates from Table 5 might reﬂect common demand shocks
+aﬀecting the ﬁrm and its suppliers, for instance because their customer base is located in
+the same area. To handle this issue, we augment our OLS regressions with a dummy called
+Disaster hits any eventually linked suppliers’ location which takes the value of one if any of all
+the headquarters’ county locations of all suppliers once in a relationship with the ﬁrm is hit
+by a natural disaster. If the eﬀects that we are picking up in Table 5 reﬂect common demand
+shocks, this variable should subsume the main variable of interest, Disaster hits one supplier.
+This is arguably a very conservative test of our hypothesis, since it is likely that some of
+the supplier-customer relationships that we observed from the SFAS No. 131 were initiated
+earlier (at a time where the customer represented less than 10% of the suppliers’ sales) or
+maintained later on. We present the results of this speciﬁcation in Panel B, Table 8. The
+coeﬃcient on the additional variable is insigniﬁcant, while the coeﬃcient on Disaster hits one
+supplier remains stable and signiﬁcant in all speciﬁcations. Hence, input disruptions caused
+by natural disasters propagate only when there is an active business relationship between
+the disrupted supplier and the ﬁrm.
+Inventories.
+The propagation of input shocks should be stronger when the ﬁrm held less
+inventories in the quarter prior to the disaster. To test whether this is indeed the case, we
+analyze the dynamics of the eﬀects separately for ﬁrms holding few and a lot of inventories
+in the previous quarter (t-1). The results are presented in the Appendix, Table A.2. As
+expected, the eﬀect of input disruptions on sales growth is mitigated when ﬁrms held more
+inventories.
+28The results are similar when instead of a 10% threshold, we use a 1, 2, or 5% threshold. They are also
+similar when we restrict the sample to ﬁrm-years for which establishment data are available, from 1997 to
+2010.
+22
+
+--- PAGE 23 ---
+Input speciﬁcity.
+The propagation of input shocks should be stronger when the supplier
+is speciﬁc, and thus harder for the ﬁrm to replace. We use our three measures of speciﬁcity
+to test whether this is the case. To do so, we run the augmented model detailed in Section 2,
+Equation 2. We expect the coeﬃcient on the dummy Disaster hits one speciﬁc supplier to
+be positive, signiﬁcant, and larger than the dummy on the coeﬃcient Disaster hits one non-
+speciﬁc supplier. The results are presented in Table 9. Overall, the eﬀect is indeed much
+stronger when a disaster hits a speciﬁc supplier rather than a non-speciﬁc one. The eﬀect of
+non-speciﬁc suppliers is insigniﬁcant, whereas the eﬀect of speciﬁc suppliers is greater than
+the baseline estimates. Hence, the results suggest that input speciﬁcity is a key driver of the
+propagation of shocks from suppliers to their customers.
+Suppliers’ size.
+We then investigate whether the eﬀect of input disruption varies with
+the relative size of aﬀected suppliers. Going back to the theoretical framework presented
+in Section 1, if intermediate inputs are strong complements, the eﬀect of input disruptions
+should not depend on the importance of aﬀected suppliers in ﬁrms’ production. We augment
+the baseline regression with the dummy Disaster hits one large supplier in columns (1) and
+(2) of Table A.3, and with the dummy Disaster hits more than one supplier in columns (3)
+and (4). In both cases, we ﬁnd that the coeﬃcient is negative, but low and insigniﬁcant.
+Hence, the eﬀect of input disruptions on sales growth is larger when relatively larger suppliers
+are aﬀected, but not signiﬁcantly so, which suggests that intermediate inputs are indeed
+strong complements.
+Robustness.
+Finally, we perform a set of robustness tests and present the results in the
+Appendix. We ﬁrst want to check that our results are not driven by large natural disasters,
+which would aﬀect customers in our sample through their aggregate eﬀect on the U.S. econ-
+omy. To do so, we interact the dummy Disaster hits one supplier with the variable Large
+nb of aﬀected ﬁrms, which takes the value of one for disasters that lie in the top half of
+23
+
+--- PAGE 24 ---
+the distribution of the total number of directly aﬀected Compustat ﬁrms. The results are
+reported in columns (1) and (2) of Table A.4. The coeﬃcient on the interaction term is
+positive and insigniﬁcant, indicating that the eﬀect of input disruption does not vary with
+the importance of disasters – if anything, it is smaller for more important ones. We also
+look at whether the results diﬀer for exporters and non-exporters. To do so, we interact the
+dummy Disaster hits one supplier with the variable > 25% sales abroad, which takes the
+value of one if the customer ﬁrm reports sales abroad that represent more than 25% of its
+total sales in the two years prior to any given quarter. As shown in columns (3) and (4), we
+ﬁnd that the eﬀect or the treatment is virtually the same for exporters and non-exporters,
+indicating again that the results are driven by input disruptions rather than demand eﬀects
+due to natural disasters on the U.S. economy.
+We have shown above that when we control for the location of ﬁrms’ headquarters and
+establishments. It remains the possibility that the exclusion restriction assumption might be
+violated for natural disasters events that aﬀect suppliers and customers jointly, though there
+are very few observations in that case in our sample. Still, we show in Panel A of Table A.5
+that our results remain virtually the same when we restrict the sample to customer-supplier
+relationships where both parties are never jointly aﬀected by a natural disaster over the
+whole sample period. We perform an additional robustness test to address the possibility of
+diverging time trends between control and treated groups which consists of estimating the
+diﬀerence-in-diﬀerences speciﬁcation using only observations of eventually treated ﬁrms. We
+show in Panel B of Table A.5 that our results are similar to those in Table 5 when we restrict
+the sample to eventually treated customer ﬁrms.
+Firms with more suppliers are mechanically more likely to have one supplier hit by a
+natural disaster. We augment the baseline regression with dummies indicating terciles of
+the number of ﬁrms’ suppliers in Panel A of Table A.6; in Panel B, we interact controls for
+the number of ﬁrms’ suppliers interacted with year-quarter ﬁxed eﬀects. In both cases, the
+estimates remain stable, which indicate that the results are driven by the treatment rather
+24
+
+--- PAGE 25 ---
+than the number of ﬁrms’ links. Finally we check in Table A.7 that our results are robust
+to an alternative deﬁnition of our main dependent variable, namely the diﬀerence in the
+logarithm of ﬁrm sales.
+4.3.
+Downstream propagation: eﬀect on customers’ value
+The drop in sales growth could simply reﬂect the fact that sales are delayed, which would
+have few consequences for ﬁrms’ cash ﬂows and value. However, the estimates in Table
+6 indicate that ﬁrms’ sales growth does not overshoot in the quarters following disasters,
+suggesting that these sales are lost indeed. We go one step further and ask whether the
+disruption to speciﬁc suppliers is reﬂected in ﬁrms’ stock returns. We follow standard event
+study methodology, and consider the ﬁrst day when a given major disaster hits a county in
+which a linked supplier’s headquarters is located. Under the eﬃcient market hypothesis, the
+news of input disruption should be quickly reﬂected in the ﬁrm share price, allowing us to
+compute the associated drop in ﬁrm value.
+Empirical methodology.
+We select all ﬁrm-disaster pairs in our sample satisfying the
+following requirements: (i) (at least) one supplier of the ﬁrm is hit by the disaster, (ii) the
+ﬁrm is not hit by the disaster, (iii) the ﬁrm and its suppliers are not hit by another major
+disaster in the previous or following 30 trading days around the event date, and (iv) the
+ﬁrm has no missing daily returns in the estimation or event window. The event date is the
+day considered as the beginning of the disaster in the SHELDUS database.29 We ﬁnd 1,039
+events satisfying the above requirements. For each ﬁrm-disaster pair, we then estimate daily
+abnormal stock returns using the Fama-French-Carhart four-factor model:
+Ri,t = αi + βiRM,t + si SMBt + hi HMLt + ui UMDt + ϵi,t
+(4)
+29If the day reported as the beginning of the disaster in SHELDUS is a non-trading day, we use the next
+trading day as the event date. If more than one supplier is hit by the same disaster, the earliest beginning
+date in SHELDUS is considered as the event date.
+25
+
+--- PAGE 26 ---
+where Ri,t is the daily return of ﬁrm i; RM,t is the daily return of the market portfolio minus
+the risk-free rate; SMBt is the daily return of a small-minus-big portfolio, HMLt is the
+daily return of a high-minus-low portfolio, UMDt is the daily return of an up-minus-down
+portfolio.30 The four-factor model is estimated over the interval from 260 to 11 trading days
+before the event date. We use the estimates of the model ˆαi, ˆβi, ˆsi, ˆhi, ˆui to construct
+abnormal returns in the event window as:
+ARit = Rit −( ˆαi + ˆβiRM,t + ˆsiSMBt + ˆhiHMLt + ˆuiUMDt)
+(5)
+We then aggregate daily abnormal stock returns by averaging them over all ﬁrm-disaster
+pairs (N) and summing them over the trading days of diﬀerent event windows – [−10, −1],
+[0, 10], [11, 20], [21, 30], and [−10, 30] where [t0 = −10, T = 30] is a 41 trading days window
+starting 10 trading days before the event date – to obtain cumulative average abnormal
+returns (CAAR). Formally,
+CAAR =
+T
+X
+t=t0
+( 1
+N
+N
+X
+i=1
+ARit)
+We also examine whether the eﬀect on ﬁrms’ stock returns diﬀers with the speciﬁcity of
+aﬀected suppliers. To do so, we compute ﬁrms’ cumulative abnormal returns separately for
+natural disasters aﬀecting or not (at least) one speciﬁc supplier.
+Since natural disasters hit several ﬁrms at the same time, this is likely to generate cross-
+sectional correlation in abnormal returns across (indirectly aﬀected) customer ﬁrms.
+In
+order to address this issue, we test for statistical signiﬁcance using the ADJ-BMP t-statistic
+proposed by Kolari and Pynn¨onen (2010), which is a modiﬁed version of the standardized
+test developed in Boehmer et al. (1991). Kolari and Pynn¨onen (2010) show that the ADJ-
+BMP test accounts for cross-sectional correlation in abnormal returns and is robust to serial
+correlation.31
+30RM, SMB, HML, and UMD returns are obtained from Kenneth French’s website. SMB, HML, and
+UMD returns are meant to capture size, book-to-market, and return momentum eﬀects, respectively.
+31Note also that simulations presented in Kolari and Pynn¨onen (2010) suggest that the ADJ-BMP test is
+superior in terms of power to the commonly used portfolio approach to account for serial correlation.
+26
+
+--- PAGE 27 ---
+Results.
+Table 10, illustrated in Figure 5, reports cumulative average abnormal returns
+over diﬀerent event windows – as well as their respective ADJ-BMP t-statistics – separately
+for treated ﬁrms, their (directly aﬀected) suppliers, as well as untreated ﬁrms, i.e., for which
+all linked suppliers are not aﬀected by a given major disaster. In robustness tests presented
+in Tables A.8 and A.9 in the Appendix, we report the results when abnormal returns are esti-
+mated with the three-factor model of Fama and French (1993). CAAR for treated customer
+ﬁrms on the 41 trading days event window [t0 = −10, T = 30] are negative and statistically
+signiﬁcant, indicating a drop of around 1% in the ﬁrm stock price when one of its supplier(s)
+is hit by a major natural disaster. Virtually all of this drop occurs in the 21 trading days
+[t0 = 0, T = 20] following the event, for which CAAR are highly statistically signiﬁcant,
+which is consistent with investors quickly reacting to the news. These ﬁndings indicate that
+ﬁrms’ sales are not simply postponed in reaction to input disruptions, but materialize into
+sizable value losses.
+We ﬁnd that directly aﬀected suppliers experience an abnormal drop in returns of around
+2.4% over the same event window. We also observe a negative, although not statistically
+signiﬁcant eﬀect in the 10 trading days before the event.32 In the third column of Table 10
+we consider the average stock price reaction of untreated customers. Reassuringly, the size
+of the eﬀect is small in all event windows for these ﬁrms.
+Finally, Table 11 presents the results separately for events aﬀecting speciﬁc and non-
+speciﬁc suppliers. For our three measures of input speciﬁcity, we obtain very similar ﬁndings:
+ﬁrms experience an economically and statistically signiﬁcant drop in returns only when dis-
+asters hit their speciﬁc suppliers (ranging between -1.3 and -2.6% depending on the measure
+of input speciﬁcity).
+Overall, these ﬁndings indicate that stock prices react to supplier risk, especially when
+32Earthquakes’ striking dates might be considered truly unexpected events. However, with hurricanes for
+instance, stock price valuation might incorporate forecasts about the passage and severity of the hurricane
+in the few days prior to the striking date. Still, such adjustments should be relatively small in comparison
+with the news revealed from the day on which the hurricane strikes, regarding the actual damages incurred
+by suppliers.
+27
+
+--- PAGE 28 ---
+linked suppliers are speciﬁc. These ﬁndings provide, to the best of our knowledge, the ﬁrst
+cleanly identiﬁed evidence that input disruptions have an eﬀect on ﬁrm value, and that input
+speciﬁcity is a key determinant thereof.
+If input shocks to ﬁrms’ production are driving the results on customer stock prices, it
+should be true that a larger drop in abnormal returns for customer ﬁrms predicts a larger
+drop in their sales growth. We test this hypothesis by regressing customer ﬁrms’ sales growth
+relative to the same quarter in the following year on their estimated cumulative abnormal
+results (CAR) around the ﬁrst day of a natural disaster aﬀecting (at least) one of their
+suppliers. Table 12 presents the results. Reassuringly, we ﬁnd a robust relationship between
+CAR and future sales growth: an abnormal decrease in returns in the few days following
+an event aﬀecting one of the ﬁrm’s suppliers is associated with a decrease in sales growth
+relative to the following year.
+4.4.
+Horizontal propagation: eﬀect on related suppliers
+In this section, we explore whether the eﬀects documented above spill over to other related
+suppliers, which are not directly aﬀected by the natural disaster, but only indirectly through
+their common relationship with the same customer. Going back to the setting described
+in Section 2, we are interested in the response of S2 to the drop in C’s sales triggered by
+a disruption to S1’s production. As discussed in Section 1, the direction of the eﬀect is
+unclear. If intermediate inputs are substitutes, other suppliers might experience a boost in
+sales. By contrast, if intermediate inputs are strong complements, related suppliers might
+experience a decrease in sales, in particular if they cannot easily shift to other customers.
+To estimate the direction of the eﬀect, we run the OLS regression presented in Equation (3).
+The coeﬃcient of interest is Disaster hits a customer’s supplier, which indicates whether
+a supplier’s customer has at least one other supplier hit by a natural disaster in a given
+quarter.
+The results are presented in Table 13. In column (1), the coeﬃcient on Disaster hits
+28
+
+--- PAGE 29 ---
+one customer’s supplier is a negative and signiﬁcant 2.8 percentage point decrease in sales
+growth. This is consistent with substantial negative spillovers to related suppliers. In line
+with Table 3, the coeﬃcient on Disaster hits ﬁrm (t,t+3) is also negative and signiﬁcant. Re-
+sults presented in columns (2) to (4) are obtained by augmenting the model with a dummy,
+Disaster hits one customer’s speciﬁc supplier, which isolates the eﬀect of disruptions to spe-
+ciﬁc suppliers of the customer. The estimates indicate that most of the negative eﬀect feeding
+back from the customer comes from initial shocks to speciﬁc suppliers (either diﬀerentiated,
+R&D-intensive, or patent-intensive). These results uncover an important channel through
+which ﬁrm-speciﬁc shocks propagate horizontally, across suppliers of a given ﬁrm.
+These eﬀects may be driven by the fact that some establishments of S2 are located close
+to S1. In order to address this concern, we introduce a dummy equal to one if at least 10%
+of S2’s workforce is hit by the disaster. If the eﬀect that we are measuring in Table 13 is due
+to the fact that the link between S1 and S2 proxies for the location of S2’s plants, then this
+variable should absorb the eﬀects of our main treatment variable. In Panel A, Table 14, the
+introduction of this dummy does not aﬀect the coeﬃcient on Disaster hits one customer’s
+supplier.
+Another concern might be that these results are driven by unobserved economic links
+between S1 and S2, not related to their common relationship with C. The fact that S2’s
+sales growth is aﬀected when S1 is hit by a natural disaster could be the consequence of the
+fact that S2’s demand is located close to the headquarters of S1 and is therefore aﬀected by
+the disaster. In Panel B, Table 14, we augment the model with a dummy called Disaster hits
+any customers’ eventually linked suppliers’ location which takes the value of one if for any
+customer of S1, at least one of all the locations of all suppliers once in a relationship with this
+customer is hit by a natural disaster. If the eﬀects that we are picking up in Table 13 reﬂect
+the geographical clustering of the demand to suppliers of C, this variable should subsume the
+main variable of interest. However, we ﬁnd that the results are robust to the introduction
+of this variable.
+29
+
+--- PAGE 30 ---
+Finally, we check that the eﬀect on S2 is not driven by a common industry shock aﬀecting
+both S1 and S2 by introducing a dummy called Disaster hits any eventually linked customer’s
+suppliers taking the value of one whenever C is aﬀected by a shock to S1, irrespective of
+whether there is an active business relationship between C and S2. If the eﬀects found on S2
+are related to common shocks to S1 and S2, the inclusion of this variable should absorb the
+eﬀect of the variable Disaster hits one customer’s supplier. However, in Panel C, Table 14,
+the coeﬃcients are robust to the introduction of this variable. In addition, the coeﬃcient on
+this variable is not diﬀerent from zero, which indicates that the initial shock would not spill
+over to related suppliers in the absence of an active economic link through their common
+customer.
+4.5.
+Discussion
+Is the eﬀect of disruptions in ﬁrms’ sales growth reﬂected in sector-wide data, or is it oﬀset
+in the aggregate? To answer this question, we follow Foerster et al. (2011) and use the
+Federal Reserve Boards Index of Industrial Production (IP), a quarterly index of real output
+disaggregated into 233 NAICS sectors. To identify whether the suppliers of a given sector
+are hit by a natural disaster, we use the 2007 input-output table produced by the BEA,
+disaggregated into 388 NAICS sectors. We consider a sector as a supplier to a downstream
+sector if it accounts for more than 10% of the intermediate inputs of the downstream sector.
+We use the 2008 County Business Pattern data from the U.S. Census Bureau to obtain the
+number of employees per NAICS×county. In each quarter, we compute the proportion of
+employees in a given sector located in counties which are hit by a natural disaster. We
+then run similar regressions as those we ran on ﬁrm-level data, and present the results in
+Table A.10. As it turns out, disruptions to speciﬁc sectors cause a drop by more than 1
+percentage point in the real output growth of downstream sectors.
+How economically meaningful is the propagation mechanism that we identify from natural
+disasters? The economic importance of propagation depends on the relative aggregate output
+30
+
+--- PAGE 31 ---
+losses for suppliers and customers in our sample. To compute this multiplier, we ﬁrst estimate
+the lost sales for each ﬁrm in the sample due to direct or indirect exposure to natural disasters.
+The drop in sales growth is obtained for each ﬁrm by taking the residual of a regression of sales
+growth on ﬁscal-quarter, year-quarter and ﬁrm ﬁxed eﬀects, as well as controls for size, age,
+and return on assets interacted with year-quarter dummies, in the four quarters surrounding
+any disaster. We then apply these sales growth residuals to the 2013 constant dollar value
+of ﬁrms’ sales to obtain the dollar value of lost sales. We aggregate these lost sales across
+suppliers and customers in our sample. We ﬁnd that lost sales amount to approximately
+$103 billion for suppliers, and $366 billion for customers. Hence, $1 of lost sales at the
+supplier level leads to $3.5 of lost sales at the customer level in our sample. This suggests
+that relationships in production networks substantially amplify idiosyncratic shocks.
+How important are speciﬁc intermediate inputs for the average U.S. ﬁrm? Figure 6 draws
+from Nunn (2007) to quantify the importance of input speciﬁcity. The author uses the U.S.
+input-output table to identify which intermediate inputs are used and in what proportions,
+in the production of each ﬁnal good. Then, using data from Rauch (1999), inputs are sorted
+into those sold on an organized exchange, those referenced priced in a trade publication, and
+those that are diﬀerentiated. As evidenced from the graph, the share of diﬀerentiated inputs
+is large and increasing. Hence, the propagation channel examined in this paper is likely to
+play an important and growing role for the aggregation of idiosyncratic shocks in production
+networks.
+How much can we learn from natural disasters? Our results are informative for these
+kinds of idiosyncratic shocks and their propagation in the economy.
+Nonetheless, these
+results can plausibly be extended to other forms of ﬁrm-speciﬁc idiosyncratic shocks, such
+as strikes or management turnover for instance.33 In addition, the results presented in this
+paper also extend to the speciﬁcity of inputs within the boundaries of the ﬁrm. While the
+customer-supplier links allow us to pin down the nature of the input, we would expect similar
+33For narrative examples of the role of strikes at the largest U.S. ﬁrms in explaining GDP ﬂuctuations,
+see Gabaix (2011).
+31
+
+--- PAGE 32 ---
+results to be obtained within a ﬁrm, when the division producing a speciﬁc part of the ﬁnal
+good is hit by a shock.
+Finally, the extrapolation of the results should take into account that ﬁrms endogenously
+select their location, and the location of their suppliers. This does not threaten our identiﬁ-
+cation strategy, and should bias the results against ﬁnding any propagation eﬀects. However,
+it might aﬀect the extent to which we can use these ﬁndings to estimate the impact of larger
+shocks, if ﬁrms devote more resources to insure themselves against those than against natural
+disasters.
+5.
+Conclusion
+This paper explores whether ﬁrm-level shocks propagate in production networks.
+Using
+supplier-customer links reported by U.S. publicly listed ﬁrms, we ﬁnd that customers of
+suppliers hit by a natural disaster experience a drop of 2 percentage points in sales growth
+following the event, which amounts to a 20% drop with respect to the sample average. Given
+the relative size of suppliers and customers in our sample, this estimate is strikingly large.
+The eﬀect is temporary; it shows no prior trends, and is only observed when the relationship
+between customers and suppliers is active.
+It is signiﬁcantly stronger when the aﬀected
+supplier produces diﬀerentiated goods, has a high level of R&D, or owns patents and is thus
+plausibly more diﬃcult to replace. Sales losses translate into signiﬁcant value losses to the
+order 1% of market equity value. Finally, the eﬀect spills over to other suppliers, who also
+experience a drop in sales growth following the disaster.
+We provide evidence that, on average, speciﬁc input disruptions do not seem to be com-
+pensated, and translate into sector-wide output losses. Given that a large share of ﬁrms’
+inputs in the U.S. are speciﬁc, the ampliﬁcation mechanism that we describe is likely to be
+pervasive. Taken together, these ﬁndings suggest that input speciﬁcity is a key determinant
+of the propagation of idiosyncratic shocks in the economy.
+32
+
+--- PAGE 33 ---
+References
+Acemoglu, Daron, Vasco M. Carvalho, Asuman Ozdaglar, and Alireza Tahbaz-
+Salehi, “The Network Origins of Aggregate Fluctuations,” Econometrica, 2012, 80 (5),
+1977–2016.
+Ahern, Kenneth R, “Network centrality and the cross section of stock returns,” Unpub-
+lished Manuscript, University of Southern California, 2012.
+and Jarrad Harford, “The importance of industry links in merger waves,” Journal of
+Finance, 2014, 69 (2), 527–576.
+Amiti, Mary and David E. Weinstein, “How Much do Bank Shocks Aﬀect Investment?
+Evidence from Matched Bank-Firm Loan Data,” NBER Working Paper, 2013.
+Antras, Pol, Teresa C. Fort, and Felix Tintelnot, “The Margins of Global Sourcing:
+Theory and Evidence from US ﬁrms,” Working Paper, 2014.
+Apel, Mikael, Richard Friberg, and Kerstin Hallsten, “Microfoundations of macroeco-
+nomic price adjustment: Survey evidence from Swedish ﬁrms,” Journal of Money, Credit,
+and Banking, 2005, 37 (2), 313–338.
+Atalay, Enghin, “How Important Are Sectoral Shocks?,” Working Paper, 2013.
+, Ali Horta¸csu, James Roberts, and Chad Syverson, “Network Structure of Pro-
+duction,” Proceedings of the National Academy of Sciences, 2011, 108 (13), 5199–5202.
+Bak, Per, Kan Chen, Jos´e Scheinkman, and Michael Woodford, “Aggregate Fluc-
+tuations from Independent Sectoral Shocks: Self-organized Criticality in a Model of Pro-
+duction and Inventory Dynamics,” Ricerche Economiche, 1993, 47 (1), 3–30.
+Baker, Scott R. and Nicholas Bloom, “Does Uncertainty Reduce Growth? Using Dis-
+asters as Natural Experiments,” NBER Working Paper, 2013.
+33
+
+--- PAGE 34 ---
+Banerjee, Shantanu, Sudipto Dasgupta, and Yungsan Kim, “Buyer-supplier Rela-
+tionships and the Stakeholder Theory of Capital Structure.,” Journal of Finance, 2008,
+63 (5), 2507–2552.
+Belasen, Ariel R. and Solomon W. Polachek, “How Hurricanes Aﬀect Wages and
+Employment in Local Labor Markets,” American Economic Review, 2008, 98 (2), 49–53.
+Bernard, Andrew B., Andreas Moxnes, and Yukiko U. Saito, “Production Networks,
+Geography and Firm Performance,” CEPR Working Paper, 2014.
+Bernile, Gennaro, George M. Korniotis, and Alok Kumar, “Geography of Firms
+and Propagation of Local Economic Shocks,” Working Paper, 2013.
+Bigio, Saki and Jennifer LaO, “Financial Frictions in Production Networks,” Working
+Paper, 2013.
+Blinder, Alan, Elie R.D. Canetti, David E. Lebow, and Jeremy B. Rudd, “Asking
+about Prices: a New Approach to Understanding Price Stickiness,” Russell Sage Founda-
+tion, 1998.
+Boehmer, Ekkehart, Jim Masumeci, and Annette B. Poulsen, “Event-Study
+Methodology under Conditions of Event-Induced Variance,” Journal of Financial Eco-
+nomics, 1991, 30 (2), 253–272.
+Boone, Audra L. and Vladimir I. Ivanov, “Bankruptcy Spillover Eﬀects on Strategic
+Alliance Partners,” Journal of Financial Economics, 2012, 103 (3), 551–569.
+Campello, Murillo and Zsuzsanna Fluck, “Product Market Performance, Switching
+Costs, and Liquidation Values: The Real Eﬀects of Financial Leverage,” AFA 2007 Chicago
+Meetings Paper, 2007.
+Carvalho, Vasco, “Aggregate Fluctuations and the Network Structure of Intersectoral
+Trade,” Working Paper, 2010.
+34
+
+--- PAGE 35 ---
+and Nico Voigtl¨ander, “Input Diﬀusion and the Evolution of Production Networks,”
+NBER Working Paper, 2014.
+and Xavier Gabaix, “The Great Diversiﬁcation and its Undoing,” American Economic
+Review, 2013, 103 (5), 1697–1727.
+, Makoto Nirei, and Yukiko U. Saito, “Supply Chain Disruptions: Evidence from
+Great East Japan Earthquake,” Working paper, 2014.
+Caselli, Francesco, Miklos Koren, Milan Lisicky, and Silvana Tenreyro, “Diversi-
+ﬁcation through Trade,” Working Paper, 2011.
+Cavallo, Alberto, Eduardo Cavallo, and Roberto Rigobon, “Prices and Supply Dis-
+ruptions during Natural Disasters,” Review of Income and Wealth, 2014, 60 (S2), S449–
+S471.
+Chaney, Thomas, “The Network Structure of International Trade,” NBER Working paper,
+2011.
+Chodorow-Reich, Gabriel, “The Employment Eﬀects of Credit Market Disruptions:
+Firm-level Evidence from the 2008–9 Financial Crisis,” Quarterly Journal of Economics,
+2014, 129 (1), 1–59.
+Chu, Yongqiang, “Optimal Capital Structure, Bargaining, and the Supplier Market Struc-
+ture,” Journal of Financial Economics, 2012, 106 (2), 411–426.
+Cohen, Lauren and Andrea Frazzini, “Economic Links and Predictable Returns,” Jour-
+nal of Finance, 2008, 63 (4), 1977–2011.
+Conley, Timothy G. and Bill Dupor, “A Spatial Analysis of Sectoral Complementarity,”
+Journal of Political Economy, 2003, 111 (2), 311–352.
+Dessaint, Olivier and Adrien Matray, “Do Managers Overreact to Salient Risks? Evi-
+dence from Hurricane Strikes,” Working Paper, 2013.
+35
+
+--- PAGE 36 ---
+Di Giovanni, Julian and Andrei A. Levchenko, “Putting the Parts Together: Trade,
+Vertical Linkages, and Business Cycle Comovement,” American Economic Journal:
+Macroeconomics, 2010, 2 (2), 95–124.
+,
+, and Isabelle Mejean, “Firms, Destinations, and Aggregate Fluctuations,” Econo-
+metrica, 2014, 82 (4), 1303–1340.
+Durlauf, Steven N., “Nonergodic Economic Growth,” Review of Economic Studies, 1993,
+60 (2), 349–366.
+Fama, Eugene F. and Kenneth R. French, “Common Risk Factors in the Returns on
+Stocks and Bonds,” Journal of Financial Economics, 1993, 33 (1), 3–56.
+and
+, “Industry Costs of Equity,” Journal of Financial Economics, 1997, 43 (2), 153–
+193.
+Fee, Edward C. and Shawn Thomas, “Sources of Gains in Horizontal Mergers: Evidence
+from Customer, Supplier, and Rival ﬁrms,” Journal of Financial Economics, 2004, 74 (3),
+423–460.
+, Charles J. Hadlock, and Shawn Thomas, “Corporate Equity Ownership and the
+Governance of Product Market Relationships,” Journal of Finance, 2006, 61 (3), 1217–
+1251.
+Fernando, Chitru S., Anthony D. May, and William L. Megginson, “The Value
+of Investment Banking Relationships: Evidence from the Collapse of Lehman Brothers,”
+Journal of Finance, 2012, 67 (1), 235–270.
+Foerster, Andrew T., Pierre-Daniel G. Sarte, and Mark W. Watson, “Sectoral
+versus Aggregate Shocks: A Structural Factor Analysis of Industrial Production,” Journal
+of Political Economy, 2011, 119 (1), 1–38.
+36
+
+--- PAGE 37 ---
+Froot, Kenneth A., “The Market for Catastrophe Risk: A Clinical Examination,” Journal
+of Financial Economics, 2001, 60 (2), 529–571.
+Gabaix, Xavier, “The Granular Origins of Aggregate Fluctuations,” Econometrica, 2011,
+79 (3), 733–772.
+Garmaise, Mark J. and Tobias J. Moskowitz, “Catastrophic Risk and Credit Markets,”
+Journal of Finance, 2009, 64 (2), 657–707.
+Giannetti, Mariassunta, Mike Burkart, and Tore Ellingsen, “What you Sell is what
+you Lend? Explaining Trade Credit Contracts,” Review of Financial Studies, 2011, 24
+(4), 1261–1298.
+Hall, Simon, Mark Walsh, and Anthony Yates, “Are UK companies’ prices sticky?,”
+Oxford Economic Papers, 2000, 52 (3), 425–446.
+Hertzel, Michael G., Zhi Li, Micah S. Oﬃcer, and Kimberly J. Rodgers, “Inter-ﬁrm
+Linkages and the Wealth Eﬀects of Financial Distress along the Supply Chain,” Journal
+of Financial Economics, 2008, 87 (2), 374–387.
+Hines, Paul, Jay Apt, and Sarosh Talukdar, “Trends in the History of Large Black-
+outs in the United States,” Power and Energy Society General Meeting-Conversion and
+Delivery of Electrical Energy in the 21st Century, 2008 IEEE, 2008.
+Horvath, Michael, “Cyclicality and Sectoral Linkages: Aggregate Fluctuations from Inde-
+pendent Sectoral Shocks,” Review of Economic Dynamics, 1998, 1 (4), 781–808.
+, “Sectoral Shocks and Aggregate Fluctuations,” Journal of Monetary Economics, 2000,
+45 (1), 69–106.
+Hubbard, Glenn R., Kenneth N. Kuttner, and Darius N. Palia, “Are There Bank
+Eﬀects in Borrowers’ Costs of Funds? Evidence from a Matched Sample of Borrowers and
+Banks,” Journal of Business, 2002, 75 (4), 559–581.
+37
+
+[TRUNCATED at 80000 chars — 78 total pages]

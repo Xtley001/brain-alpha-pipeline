@@ -1,0 +1,2337 @@
+
+--- PAGE 1 ---
+Electronic copy available at: http://ssrn.com/abstract=1107464
+ 
+ 
+What Does Individual Option Volatility Smirk Tell Us about Future Equity Returns? 
+ 
+ 
+ 
+ 
+ 
+Yuhang Xing, Xiaoyan Zhang and Rui Zhao* 
+ 
+ 
+                                                        
+* Xing, yxing@rice.edu, Jones School of Management, Rice University, 6100 Main Street, Houston, TX 
+77005; Zhang, xz69@cornell.edu, 336 Sage Hall, Johnson Graduate School of Management, Cornell 
+University, Ithaca, NY 14853; Zhao, rui.zhao@blackrock.com, Blackrock, Inc. 40 East 52nd Street, New 
+York, NY, 10022. The authors thank Andrew Ang, Robert Hodrick, Charles Jones, Haitao Li, Maureen 
+O’Hara, and seminar participants at Columbia University and Citi Quantitative Conference.   
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 2 ---
+Electronic copy available at: http://ssrn.com/abstract=1107464
+ 
+2 
+ 
+What Does Individual Option Volatility Smirk Tell Us About Future Equity Returns? 
+ 
+ 
+ 
+ 
+ 
+Abstract 
+ 
+The shape of the volatility smirk has significant cross-sectional predictive power for future 
+equity returns. Stocks exhibiting the steepest smirks in their traded options underperform 
+stocks with the least pronounced volatility smirks in their options by around 10.9% per year 
+on a risk-adjusted basis. This predictability persists for at least six months, and firms with the 
+steepest volatility smirks are those experiencing the worst earnings shocks in the following 
+quarter. The results are consistent with the notion that informed traders with negative news 
+prefer to trade out-of-the-money put options, and that the equity market is slow in 
+incorporating the information embedded in volatility smirks.  
+ 
+JEL classification: G11, G12, G14  
+Keywords: stock return predictability, option-implied volatility smirks, cross-sectional asset 
+pricing 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 3 ---
+ 
+3 
+ 
+I.  Introduction 
+ 
+How information becomes incorporated into asset prices is one of the fundamental 
+questions in finance. Due to distinct characteristics of different markets, informed traders 
+may choose to trade in certain markets, and information is likely to be incorporated into asset 
+prices in these markets first. If other markets fail to incorporate new information quickly, we 
+might observe lead-lag relation between asset prices among different markets. In this paper, 
+we use option price data from OptionMetrics to demonstrate that option prices contain 
+important information for the underlying equities. In particular, we focus on the predictability 
+and information content of volatility smirks, which is the difference between the implied 
+volatilities of out-of-the-money (OTM hereafter) put options and the implied volatilities of 
+at-the-money (ATM hereafter) call options. We show that option volatility smirks have a 
+significant power in predicting future equity returns in the cross-section. Our analysis also 
+sheds light on the nature of the information embedded in volatility smirks.  
+ 
+The pattern of volatility smirks is well-known for stock index options and has been 
+examined in numerous papers. For instance, Pan (2002) documents that the volatility smirk 
+for an S&P 500 index option with about 30 days to expiration has a volatility smirk of 
+roughly 10% on a median volatile day. Bates (1991) argues that the set of index call and put 
+option prices across all exercise prices gives a direct indication of market participants’ 
+aggregate subjective distribution of future price realizations. Therefore, OTM puts become 
+unusually expensive (compared to ATM calls), and volatility smirks become especially 
+prominent before big negative jumps in price levels, for example, during the year preceding 
+the 1987 stock market crash. In an option pricing model, Pan (2002) incorporates both a jump 
+risk premium and a volatility risk premium1 and shows that investors’ aversion toward 
+negative jumps is the driving force for the volatility smirks. For OTM put options, the jump 
+risk premium component represents 80% of total risk premium, while the premium is only 
+30% for OTM calls. Put differently, investors tend to choose OTM puts to express their 
+                                                        
+1 Many other papers also include both jump and volatility processes for index option pricing models, e.g., 
+Duffie, Singleton and Pan (2000) and Broadie, Chernov and Johannes (2007), among others. 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 4 ---
+ 
+4 
+ 
+worries concerning possible future negative jumps. Consequently, OTM puts become more 
+expensive before large negative jumps.  
+ 
+In this article, we focus on individual stock options rather than on stock index options. 
+We first document the prevalent existence of volatility smirks in individual stock options, 
+which is consistent with previous literature (see Bollen and Whaley (2004), Bates (2003), and 
+Garleanu, Pedersen and Poteshman (2007)). From 1996 to 2005, more than 90% of the 
+observations for all firms with listed options exhibit positive volatility smirks, with a median 
+difference between OTM put and ATM call-implied volatilities being roughly 5%. Next, we 
+demonstrate that the implied volatility smirks exhibit economically and statistically 
+significant predictability for future stock returns. Similar to Bates’ (1991) and Pan’s (2002) 
+arguments based on index options, higher volatility smirks in individual options should 
+reflect a greater risk of large negative price jumps.2 For our sample period from 1996 to 2005, 
+stocks with steeper volatility smirks underperform those with flatter smirks by 10.90% per 
+year on a risk-adjusted basis using the Fama and French (1996) three-factor model. This 
+return predictability is robust to controls of various cross-sectional effects, such as size, 
+book-to-market, idiosyncratic volatility and momentum.  
+ 
+To understand the nature of the information embedded in volatility smirks, we examine 
+whether the predictability persists or reverses quickly. We find that the predictability of the 
+volatility skew on future stock returns is persistent for at least six months. We also investigate 
+the relation between volatility smirks and future earnings shocks. We find that stocks with the 
+steepest volatility smirks are those stocks experiencing the worst earnings shocks in the 
+following quarter. Our results indicate that the information in volatility smirks is related to 
+firm fundamentals. 
+ 
+                                                        
+2 To be precise, the volatility skew contains at least three levels of information: the likelihood of a negative 
+price jump, the expected magnitude of the price jump, and the premium that compensates investors for both the 
+risk of a jump and the risk that the jump could be large. Separating the three levels of information is beyond the 
+current paper, and here we summarize the three levels of information as the risk of a large negative price jump.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 5 ---
+ 
+5 
+ 
+It is not necessarily true that volatility skew should predict underlying stock returns. For 
+instance, Heston (1993) develops an option pricing model with stochastic volatility, under the 
+assumption that there is no arbitrage between the options market and the stock market. This 
+model is able to generate volatility skew, but volatility skew in this model does not predict 
+underlying stock returns, because the information sets of both options market and stock 
+market are identical, and there is no information flow between the two markets. Conrad, 
+Dittmar and Ghysels (2007) examine implied volatility, skewness and kurtosis using 
+risk-neutral density function under the same no-arbitrage assumption. Different from the 
+above two papers, we focus on the information embedded in volatility smirks without 
+assuming both equity market and options market have identical information sets. In a 
+different setting, Gârleanu, Pedersen and Poteshman (2007) construct a demand-based option 
+pricing model. In their model, competitive risk-averse intermediaries cannot perfectly hedge 
+their option positions, and thus demand for an option affects its price. In this new equilibrium, 
+Gârleanu, Pedersen and Poteshman (2007) find a positive relationship between option 
+expensiveness measured by implied volatility and end-user demand. To put their model in our 
+perspective, the end-user might have information advantage which might lead to higher 
+demand for particular option contracts. This in turn affects the expensiveness of options 
+measured by option implied volatility, and possibly predicts future stock returns. Thus, the 
+findings in this paper are consistent with the equilibrium model of Gârleanu, Pedersen and 
+Poteshman (2007).  
+ 
+Our paper contributes to the literature that examines the linkage between the options 
+market and the stock market at firm level. This literature is vast, and we only include several 
+papers that are closely related. Easley, O’Hara and Srinivas (1998) provide empirical 
+evidence that option volume (separated by buyer-initiated and seller-initiated) can predict 
+stock returns. Ofek, Richardson and Whitelaw (2004) use individual stock options in 
+combination with the rebate rate spreads to examine deviation from put-call parity and the 
+existence of arbitrage opportunity between stock and options market. They find the deviation 
+from put-call parity and rebate rate spreads are significant predictors of future stock returns. 
+Chakravarty, Gulen and Mayhew (2004) investigate the contribution of options market to 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 6 ---
+ 
+6 
+ 
+price discovery and find that for their sample of 60 firms over five years, the options market’s 
+contribution to price discovery is about 17% on average. Cao, Chen and Griffin (2005) find 
+that prior to takeover announcements, call volume imbalances are strongly correlated with 
+next-day stock returns. Finally, Pan and Poteshman (2006) show that put-call ratios by newly 
+initiated trades have significant predictability for equity returns, which indicates informed 
+trading in the options market.  
+ 
+Our work differs from previous studies along several dimensions. First, we are the first to 
+examine the predictability and the information content of volatility smirks of individual stock 
+options. Intuitively, OTM put is a natural place for informed traders with negative news to 
+place their trades. Thus, the shape of volatility smirks would reflect the risk of negative future 
+news. Previous literature has mostly focused on information contained in option volume. For 
+instance, Pan and Poteshman (2006), Cao, Chen and Griffin (2005) and Chan, Chung and 
+Fong (2002) investigate whether volume from the options market carries predictive 
+information for the equity market. Chakravarty, Gulen and Mayhen (2004) and Ofek, 
+Richardson and Whitelaw (2004) both use option price information in predicting equity 
+returns, but neither of these studies examine volatility smirks. Second, our results shed light 
+on the nature of the informational content of volatility smirks. The literature has documented 
+that option prices as well as other information in options market predict movements in the 
+underlying securities. It is natural to ask whether the predictability is due to informed traders’ 
+information about fundamentals. We find that the information embedded in volatility smirks 
+is related to future earnings shocks, in the sense that firms with the steepest volatility smirks 
+have the worst earnings surprises. Finally, in order to examine the speed at which markets 
+adjust to public information, we develop trading strategies based on past volatility smirks and 
+examine risk-adjusted returns of these trading strategies over different holding periods. Pan 
+and Poteshman (2006) find that publicly observable option signals are able to predict stock 
+returns for only the next one or two trading days, and the stock prices subsequently reverse. 
+They conclude that it is the private information that leads to predictability. In contrast, we 
+find no quick reversals of the stock price movements following publicly observable volatility 
+smirks. In fact, the predictability from volatility smirks persists for at least six months.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 7 ---
+ 
+7 
+ 
+ 
+The remainder of the paper is organized as follows. Section II describes our data. Section III 
+summarizes empirical results on the predictability of the option price information for equity 
+returns. Section IV investigates the information content of volatility smirks. Section V 
+discusses related research questions, and Section VI concludes.  
+ 
+II. Data 
+ 
+Our sample period is from January 1996 to December 2005. Option data are from 
+OptionMetrics, which provides end-of-day bid and ask quotes, open interests and volumes. It 
+also computes implied volatilities and option Greeks for all listed options using the binomial 
+tree model. More details about the option data can be found in the data appendix. Equity 
+returns, general accounting data and earnings forecast data are from CRSP, COMPUSTAT 
+and IBES, respectively. 
+ 
+We calculate our implied volatility smirk measure for firm i at week t, 
+t
+i,
+SKEW , as the 
+difference between the implied volatilities of OTM puts and ATM calls, denoted by  
+OTMP
+,
+VOL t
+i
+ and 
+ATMC
+VOLi,t
+, respectively. That is,   
+(1)  
+ 
+ 
+ 
+ATMC
+OTMP
+,
+,
+VOL
+VOL
+SKEW
+i,t
+t
+i
+t
+i
+−
+=
+. 
+A put option is defined as OTM when the ratio of strike price to the stock price is lower than 
+0.95 (but higher than 0.80), and a call option is defined as ATM when the ratio of strike price 
+to the stock price is between 0.95 and 1.05.3 To ensure that the options have enough liquidity, 
+we only include options with time to expiration between 10 and 60 days. We compute the 
+weekly SKEW by averaging daily SKEW over a week (Tuesday close to Tuesday close). 
+ 
+                                                        
+3 There are several alternative ways to measure moneyness. For instance, Bollen and Whaley (2004) use 
+Black-Scholes (1973) delta to measure moneyness and Ni (2007) uses total volatility-adjusted strike-to-stock 
+price ratio as one of the moneyness measures. We find quantitatively similar results using these alternative 
+moneyness measures and present the main results with the simplest moneyness measure of strike price over 
+stock price. 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 8 ---
+ 
+8 
+ 
+When there are multiple ATM and OTM options for one stock on one particular day, we 
+further select options or weight all available options using different approaches to come up 
+with one SKEW observation for each firm per day. Our main approach is based on the 
+option’s moneyness, which is also used in Ofek, Richardson and Whitelaw (2004). That is, 
+we choose one ATM call option with its moneyness closest to 1, and one OTM put option 
+with its moneyness closest to 0.95. Alternatively, we compute a volume-weighted volatility 
+skew measure, where we use option trading volumes as weights to compute the average 
+implied volatilities for OTM puts and ATM calls for each stock each day. Obviously, if an 
+option has zero volume during a particular day, the weight on this option will be zero. Thus, 
+volume-weighted implied volatility only reflects information from options with non-zero 
+volumes. We find that around 60% of firms have ATM call and OTM put options listed with 
+valid price quotes and positive open interest, but these options are not traded everyday and 
+thus have zero volumes from time to time. Compared to the volume-weighted SKEW, the 
+moneyness-based SKEW utilizes all data available with valid closing quotes and positive 
+open interests. Our later results mainly focus on the moneyness-based SKEW measure, but 
+we always use the volume-weighted SKEW for robustness check.4 
+ 
+We motivate the use of our SKEW measure from the demand-based option pricing model 
+of Gârleanu, Pedersen and Poteshman (2007). They find end-user’s demand for index option 
+is positively related to option expensiveness measured by implied volatility, which 
+consequently affects the steepness of the implied volatility skew. Here we can develop 
+similar intuition for individual stock volatility skew. If there is an overwhelming pessimistic 
+perception of the stock, investors would tend to buy put options either for protection against 
+future stock price drops (hedging purpose) or for a high potential return on the long put 
+positions (speculative purpose). If there are more investors willing to long the put than those 
+willing to short the put, both the price and the implied volatility of the put would increase, 
+                                                        
+4 We also consider several other alternative methods for computing SKEW when there are more than one pair of 
+ATM calls and OTM puts, such as selecting the options with the highest volumes or open interests, or use open 
+interests as weighting variables. Our results are not sensitive to which SKEW measure we choose to use. Results 
+based on these alternative measures of SKEW are available upon request.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 9 ---
+ 
+9 
+ 
+reflecting higher demand and it leads to a steeper volatility skew. In general, high buying 
+pressure for puts and steep volatility skew are associated with bad news about future stock 
+prices. Empirically, we choose to use OTM puts to capture the severity of the bad news. 
+When bad news is more severe, in terms of probability and/or magnitude, we expect stronger 
+buying pressure on OTM puts and an increase in our SKEW variable. We choose to use 
+implied volatility of ATM calls as the benchmark of implied volatility, because it is generally 
+believed that ATM calls are one of the most liquid options traded and should reflect investors’ 
+consensus of the firm’s uncertainty.5 Due to data limitation, we do not directly calculate the 
+buying pressure and selling pressure.  
+ 
+Table 1 provides summary statistics for the underlying stocks and options in our sample. 
+We first calculate the summary statistics over the cross-section for each week, and then we 
+average the statistics over the weekly time-series. We include firms with non-missing SKEW 
+measures, where the SKEW measure is computed using implied volatilities of ATM calls with 
+the strike-to-stock price ratio closest to 1 and OTM puts with the strike-to-stock price ratio 
+closest to 0.95. We require all options to have positive open interests. The first two rows 
+report firms’ equity market capitalizations and book-to-market ratios. Naturally, firms in our 
+sample are relatively large firms with low book-to-market ratios compared to those firms 
+without traded options. Firms with listed options have an average market capitalization of 
+$10.22 billion and a median of $2.45 billion, whereas firms without listed options have an 
+average market capitalization of $0.63 billion and a median of $0.11 billion. To compute 
+stock turnover, we divide the stock’s monthly trading volume by the total number of shares 
+outstanding. On average, 24% of shares are traded within a month. Thus, our sample firms 
+are far more liquid than an average firm traded on NYSE/NASDAQ/AMEX, with a turnover 
+of about 14% per month over the same period. The variable VOLSTOCK is the stock return 
+volatility, calculated using daily return data over the past month. An average firm in this 
+sample has an annualized volatility of around 47.14%, which is smaller than the average firm 
+                                                        
+5 ATM calls account for 25% of call and put options trading volumes combined in our sample We do not use 
+OTM calls because OTM calls are much less liquid, which account for less than 8% of total option trading 
+volume. 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 10 ---
+ 
+10 
+ 
+level volatility of 57% for the sample of all stocks, as in Ang, Hodrick, Xing and Zhang 
+(2006). The reason, again, is that our sample is tilted toward large firms, and large firms tend 
+to be relatively less volatile. The next three rows report summary statistics calculated from 
+option data. VOLATMC, the implied volatility for an ATM call with the strike-to-stock price 
+ratio closest to one, has an average of 47.95%, about 0.8% higher than the historical volatility, 
+VOLSTOCK. This finding is consistent with Bakshi and Kapadia (2003a, 2003b), who argue 
+that the difference between VOLATMC and VOLSTOCK is due to a negative volatility risk 
+premium. VOLOTMP, the implied volatility for an OTM put option with the strike-to-stock 
+price ratio closest to 0.95, has an average of around 54.35%, much higher than both 
+VOLSTOCK and VOLATMC. The variable SKEW, defined as the difference between VOLOTMP 
+and VOLATMC, has a mean of 6.40% and a median of 4.76%. Alternatively, when we compute 
+SKEW using the option trading volume as the weighting variable, the mean and median of 
+SKEW become 5.70% and 5.05%, respectively,. The correlation between the 
+moneyness-based SKEW and the volume-weighted SKEW is 80%. 
+ 
+[Insert Table 1 about here] 
+ 
+III. Can Volatility Skew Predict Future Stock Returns? 
+ 
+We argue that volatility skew reflects investors’ expectation of a downward price jump. If 
+informed traders choose the options market to trade in first and the stock market is slow to 
+incorporate the information embedded in the options market, then we should see the 
+information from options market predicting future stock returns. In this section, we illustrate 
+that option volatility skew predicts underlying equity returns using different methodologies. 
+In subsection 3.A, we conduct a Fama-MacBeth (1973) regression (FM regression hereafter) 
+to examine whether volatility skew can predict the next week’s returns, while controlling for 
+different firm characteristics. In subsection 3.B, we construct weekly long-short trading 
+strategies based on the volatility skew measure. In subsection 3.C, we examine time-series 
+behavior of volatility skew, and whether predictability lasts beyond one week.  
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 11 ---
+ 
+11 
+ 
+A. Fama-MacBeth Regression  
+ 
+The standard FM regression has two stages. In the first stage, we estimate the following 
+regression in cross-section for each week t: 
+(2)  
+ 
+ 
+ 
+,
+CONTROLS
+'
+SKEW
+RET
+1
+,
+2
+1
+,
+1
+0
+,
+it
+t
+i
+t
+t
+i
+t
+t
+t
+i
+e
+b
+b
+b
++
++
++
+=
+−
+−
+ 
+where variable RETi,t is firm i’s return for week t (Wednesday close to Wednesday close) 
+SKEWi,t-1 is firm i’s volatility skew measure for week t-1 (Tuesday close to Tuesday close) 
+and CONTROLSi,t-1 is a vector of control variables for firm i observed at week t-1. The 
+options market closes at 4:02 p.m. for individual stock options, while the equity market 
+closes at 4 p.m. If one uses same day prices for both equity prices and option price, as pointed 
+out by Battalio and Schultz (2006), there exist serious non-synchronous trading issues. 
+Therefore, we skip one day between weekly returns and weekly volatility skews to avoid 
+non-synchronous trading issues. As one might expect, the results are even stronger if we do 
+not skip one day.  
+ 
+After obtaining a time-series of slope coefficients, {b0t, b1t, b2t}, the second stage of standard 
+FM methodology is to conduct inference on the time-series of the coefficients by assuming 
+the coefficients over time are i.i.d. For robustness, we also examine results when we allow 
+the time-series of coefficients to have a trend or to have auto-correlation structures, by 
+detrending or using the Newey-West (1987) adjustment. The results are close to those of the 
+i.i.d. case and are available upon request. With the FM regression, not only can we easily 
+examine the significance of the predictability of the SKEW variable, but we can also control 
+for numerous firm characteristics at the same time. 
+ 
+We report the results for FM regression in Panel A of Table 2. In the first regression, we 
+only include the volatility skew, and its coefficient estimate is -0.0061 with a statistically 
+significant t-statistic of -2.50. To better understand the magnitude of the predictability, we 
+compute the inter-quartile difference in next week’s returns. From Table 1, the 25 percentile 
+and 75 percentile of SKEW are 2.40% and 8.43%, respectively. When SKEW increases from 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 12 ---
+ 
+12 
+ 
+25 percentile to 75 percentile, the implied decrease in next week’s return becomes 
+(8.43%-2.40%) * (-0.0061) = - 5.52 basis points (or -2.90% per year).  
+ 
+[Insert Table 2 about here] 
+ 
+To separate the predictive power of volatility skew from other firm characteristics, we 
+consider ten control variables in the second regression in Panel A of Table 2. The first six 
+controls are from the equity market with potential predictive power in the cross-section of 
+equity returns. The first control variable, SIZE, is firm equity market capitalization. Since 
+Banz (1981), numerous papers have demonstrated that smaller firms have higher returns than 
+larger firms. The second control variable, BM, is the book-to-market ratio, which is meant to 
+capture the value premium (Fama and French 1993, 1996). The third control variable, LRET, 
+is the past six-months of equity returns. We use this variable to control for possible 
+momentum effect (Jegadeesh and Titman 1993) in stock returns. The fourth variable, 
+VOLSTOCK, is stocks’ historical volatilities, computed using one month of daily returns. The 
+reason for including this variable is that Ang et al. (2006) show high historical volatility 
+strongly predicts low subsequent returns. The fifth control variable, TURNOVER, is stock 
+turnover. As in Lee and Swaminathan (2000) and Chordia and Swaminathan (2000), 
+firm-level liquidity is strongly related to a firm’s future stock return. The sixth characteristic 
+variable, HSKEW, is the historical skewness measure for the stock, measured using one 
+month of daily returns. Volatility skew is usually considered an indirect measure of skewness 
+of the implied distribution under the risk-neutral probability, while historical skewness is 
+computed under the real probability. The remaining four control variables are from the 
+options market. The seventh control variable, PCR, the put-call ratio, is calculated from the 
+options market as the average volume of puts over volume of calls from the last week. Pan 
+and Poteshman (2006) show that high put-call ratio is related to low future stock returns.6 
+The eighth control variable, PVOL, is the difference between the implied volatility of ATM 
+call, VOLATMC and historical stock return volatility, VOLSTOCK. We include this variable to 
+                                                        
+6 Pan and Poteshman (2006) use newly initiated put-to-call ratio to predict equity returns. As newly initiated 
+put-to-call ratio is not publicly available, our overall put-to-call ratio serves only as a rough approximation.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 13 ---
+ 
+13 
+ 
+examine whether the predictive power of SKEW is related to the negative volatility risk 
+premium, as suggested by Bakshi and Kapadia (2003a, 2003b). Finally, we include option 
+volumes on all contracts and option new open interests on all contracts to control for option 
+characteristics.  
+ 
+Inclusion of the control variables does not reduce the predictive power of SKEW for the 
+empirical results in Panel A of Table 2. Now the coefficient on volatility skew becomes 
+-0.0089, with a t-statistic of -3.86. In terms of economic magnitude, the inter-quartile 
+difference for future return becomes (8.43%-2.40%) * (-0.0089) = - 8.30 basis points (or 
+-4.41% per year), where the inter-quartile numbers are reported in Table 1. 
+ 
+We now take a closer look at the coefficients on the control variables. The size variable 
+carries a positive and insignificant coefficient, possibly because size effect is almost 
+non-existent over our specific sample period from 1996 to 2005. It may also be due to the 
+relatively large market capitalization of the firms in our sample. For the book-to-market 
+variable, the coefficient is positive, which is consistent with the value effect, but it is not 
+significant. The coefficient for lagged return over the past six months turns out to be positive 
+and significant, indicating a strong momentum effect. The coefficients for the firm historical 
+volatility and turnover are negative but insignificant. Surprisingly, the historical skewness is 
+positive and significant. It is counterintuitive because previous work, such as Barbaris and 
+Huang (2008), indicates one should expect higher return for more negatively skewed stocks. 
+However, when we use historical skewness to predict n-week ahead returns, the pattern 
+reverses (see section 5.A.) The put-call ratio has a negative coefficient, which is consistent 
+with the finding in Pan and Poteshman (2006), although insignificant. The coefficient on 
+volatility premium, PVOL, is negative, which indicates firms with higher volatility premium 
+have higher returns. However, the coefficient is insignificant. The coefficients on option 
+volumes and option open interest are not significant.  
+ 
+We also provide results using volume-weighted volatility skew in Panel B of Table 2. 
+The coefficient of volatility skew is statistically significant and larger in magnitude than the 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 14 ---
+ 
+14 
+ 
+moneyness-based volatility skew measure. To summarize, after controlling for firm and 
+option characteristics, the predictive power of SKEW remains economically large and 
+statistically significant.  
+ 
+B. Long-Short Portfolio Trading Strategy  
+ 
+In this subsection, we demonstrate the predictability of SKEW using the portfolio sorting 
+approach. Each week, we sort all sample firms into quintile portfolios based on the previous 
+week average skew (Tuesday close to Tuesday close). Portfolio 1 includes firms with the 
+lowest skews, and portfolio 5 includes firms with the highest skews. We then skip one day 
+and compute the value-weighted quintile portfolio returns for the next week (Wednesday 
+close to Wednesday close). If we long portfolio 1 and short portfolio 5, then the return on this 
+long-short investment strategy heuristically illustrates the economic significance of the 
+sorting SKEW variable. Compared to the linear regressions as in the FM approach, the 
+portfolio sorting procedure has the advantage of not imposing a restrictive linear relation 
+between the variable of interest and the return. Furthermore, by grouping individual firms 
+into portfolios, we can reduce firm level noise in the data.  
+ 
+    In Panel A of Table 3, we present the weekly quintile portfolio excess returns and 
+characteristics based on the moneyness-based volatility skew measure. Each quintile portfolio 
+has 168 stocks on average. Portfolio 1, containing firms with the lowest skews, has a weekly 
+return in excess of the risk-free rate of 24 basis points (an annualized excess return of 
+13.18%), and portfolio 5, containing firms with the highest skews, has a weekly excess return 
+of 8 basis points (an annualized excess return of 3.99%).  Portfolio 5 underperforms 
+portfolio 1 by 16 basis points per week (9.19% per year) with a t-statistic of -2.19, consistent 
+with our conjecture that steeper volatility smirks forecast worse news.  We adjust for risk by 
+applying the Fama and French (1996) three-factor model. The Fama-French alphas for 
+portfolios 1 and 5 are 10 basis points and -11 basis points per week, respectively. If we long 
+portfolio 1 and short portfolio 5, the Fama-French alpha of the long-short strategy is 21 basis 
+points per week (10.90% annualized) with a t-statistic of 2.93. It is evident that the large 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 15 ---
+ 
+15 
+ 
+spread for this long-short strategy is driven by both portfolio 1 and portfolio 5.7 From results 
+not reported, if we conduct risk-adjustment by including market aggregate volatility risk, as 
+in Ang, Hodrick, Xing and Zhang (2006), the return spread is very similar to those when we 
+use the Fama-French three-factor model. This suggests that the return spread between the low 
+skew firms and high skew firms is not driven by their exposure to aggregate volatility risk. 
+ 
+[Insert Table 3 about here] 
+ 
+We also report several characteristics of the quintile portfolio firms in Panel A. The SIZE 
+column exhibits a hump-shaped pattern from portfolio 1 to 5. Even though the market 
+capitalizations for portfolio 1 and 5 are relatively smaller than those of the intermediate 
+portfolios, their absolute magnitudes are still large, since our sample consists mainly of large 
+cap firms. For the book-to-market ratio column, the pattern is relatively flat, except for the 
+last quintile, where BM is higher than those of the other four quintiles. Stock return volatility, 
+VOLSTOCK, displays a slightly downward trend from quintile 1 to quintile 5. The next column, 
+PVOL, reports volatility premium. Interestingly, as SKEW increases from portfolio 1 to 5, 
+PVOL decreases. Hence, for firms with low volatility skews, the options market prices the 
+options higher than historical volatilities mandate, while high skew firms’ options are less 
+expensive than historical volatilities imply. It is possible that SKEW’s predictive power is 
+related to the magnitude of PVOL, yet our earlier FM regression results show PVOL doesn’t 
+have strong predictive power in a linear regression. In the last two columns, we report 
+average volumes and average open interests for all contracts. It is interesting to see that 
+volumes on firms with the lowest volatility skews are much higher than volumes on firms 
+with the highest skews. However, high trading intensity is not a necessary condition for 
+option prices to contain information. The open interest variable displays a similar pattern in 
+the last column.8  
+                                                        
+7 In our sample, 9.91% of observations have negative volatility skews. We also separate firms with positive 
+skews and negative skews, and redo the portfolios sorting for firms with positive skews only. The return 
+difference is very similar. 
+8 From results not reported, we conduct double sort based on volume/open interest and volatility skew. Our goal 
+is to see whether the long-short strategy works better for firms with more option trading (in terms of higher 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 16 ---
+ 
+16 
+ 
+ 
+Panel B reports the returns and characteristics for quintile portfolios sorted on 
+volume-weighted volatility skew, where options with zero volumes are implicitly excluded. 
+By requiring positive trading volume, we impose a stricter requirement on option liquidity. 
+As a consequence, sample size in Panel B is considerably smaller than in Panel A. Quintile 
+portfolios in Panel B, on average, have 68 firms per week. By comparing Panels A and B, we 
+find that firms with positive daily option volumes are twice as large in terms of market 
+capitalization, and their SKEW measures are smaller. If we long the quintile portfolio with 
+the lowest volume-weighted skew firms and short the quintile portfolio with the highest 
+volume-weighted skew firms, the Fama-French adjusted return now becomes 19 basis points 
+per week, or 10.06% annualized, with a t-statistic of 2.07. The patterns of characteristics in 
+Panel B are qualitatively similar to those in Panel A with the exceptions on volume and open 
+interest. With volume-weighted implied volatility, the volume and open interest are fairly flat 
+across the quintile portfolios.  
+ 
+To summarize, we find firms with high volatility skews underperform firms with low 
+volatility skews. The return difference is economically large and statistically significant, no 
+matter which SKEW measure is used. In the interest of being concise, we only report results 
+on moneyness-based SKEW for the remainder of the paper. Our results are quantitatively and 
+qualitatively similar among different SKEW measures and are available upon request. 
+ 
+C. How Long Does the Predictability Last? 
+ 
+We have just shown that stocks with high volatility skews underperform those with low 
+volatility skews in the subsequent week. In this subsection, we examine whether this 
+underperformance lasts over longer horizons. If the stock market is very efficient in 
+incorporating new information from the options market, the predictability would be 
+temporary and would be unlikely to persist over a long period. Whether the predictability 
+                                                                                                                                                                            
+volume and larger open interest), and the results indicate that is the case.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 17 ---
+ 
+17 
+ 
+lasts over a longer horizon might also relate to the nature of the information. If the 
+information is a temporary fad and has nothing to do with fundamentals, the predictability 
+also would fade rather quickly. Of course, the definitions of “temporary” and “longer period” 
+are relative. In this subsection, “temporary” refers to less than one week, and “longer period” 
+refers to more than one week, but less than half year. We take two approaches to investigate 
+this issue: First, we examine whether volatility skew can predict future return after n weeks 
+by using FM regressions; second, we examine portfolio holding period returns over different 
+longer periods by using volatility skew from the previous week as the sorting variable.  
+ 
+Panel A of Table 4 reports the FM regression results. We focus on weekly returns from 
+the 4th week (return over week t+4), the 8th week (return over week t+8) up until the 24th 
+week (return over week t+24). We control for firm characteristics as well as option 
+characteristics in all regressions, as in equation (2). We choose the dependent variables to be 
+weekly returns, rather than cumulative returns such as from week t+1 to week t+4, because 
+this allows us to easily compare magnitudes of parameters on the SKEW variable with the 
+benchmark case of the next week (week t+1), as presented in the first two rows. The 
+coefficients on volatility skew are significant for returns in the 4th week up to the 24th week. 
+The coefficient on SKEW changes from -0.0089 in the first week to -0.0038 for the 24th week, 
+indicating that the predictability weakens as the time horizon lengthens. Interestingly, 
+historical skewness (HSKEW) now has the expected negative coefficients for all estimated 
+horizons, and the coefficients are significant from the 4th week to the 16th week. Clearly, a 
+positive and significant coefficient on historical skewness is only true for a one week horizon. 
+Over the longer term, a high historical skewness leads to negative returns, which is consistent 
+with explanations based on investor preferences for skewed assets, as in Barbaris and Huang 
+(2008). 
+ 
+[Insert Table 4 about here] 
+ 
+Table 4 Panel B presents portfolio holding period returns results. First, we sort firms into 
+quintile portfolios based on last week’s volatility skew measure, and then we compute the 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 18 ---
+ 
+18 
+ 
+value-weighted holding period returns for the next 4 weeks (from week t+1 to week t+4), the 
+next 8 weeks (from week t+1 to week t+8) and up until week 28 (from week t+1 to week 
+t+28). Different from Panel A, here we present cumulative holding period returns, rather than 
+weekly returns, because it is easier for portfolio managers to understand the magnitudes for 
+different holding periods. These holding period returns are annualized and are adjusted by the 
+Fama-French three-factor model. The reported t-statistics are adjusted using Newey-West 
+(1987), because the holding period returns overlap. For a holding period of one week, as in 
+Table 3, the alpha difference between firms with the lowest skews and the highest skews is 
+10.90%. The alpha difference drops to 6.52% when we extend the holding period to 4 weeks. 
+This is almost 40% smaller than the alpha if we hold the portfolio for one week. For holding 
+period returns from 8 to 28 weeks, the risk-adjusted returns for the long-short strategy stay 
+between 6% and 7%. It declines further after week 28. The results suggest that the stock 
+market is slow in incorporating information embedded in option prices. The predictability of 
+volatility skew lasts over the 28-week horizon and then slowly dies out.  
+ 
+We conduct additional analysis on volatility skew to investigate whether volatility skew 
+itself is persistent or mean-reverting. First, we calculate the auto-correlation coefficient of the 
+volatility skew measure. In Panel C of Table 4, the first order auto-correlation coefficient is 
+66%, and then the autocorrelation goes down almost monotonically to around 20% for the 8th 
+order auto-correlation. This indicates that volatility skew is not highly persistent over weekly 
+horizon. 
+  
+Figure 1 plots the evolution of the average volatility skew for firms belonging to 
+different quintile portfolios sorted on week 0’s volatility skew. It spans 24 weeks before and 
+after the portfolio formation time, which is week 0. The figure clearly shows that for the 
+firms with the highest volatility skews at week 0, average volatility skew starts to increase 
+about 2-3 weeks before portfolio formation, and it quickly decreases over week +1 to +3 after 
+it reaches the peak at week 0. Afterwards the speed of decreasing slows down. The pattern for 
+firms with the lowest volatility skews is the opposite. Overall, the figure indicates that the big 
+increase in volatility skew for portfolio 1 firms is short-term, as driven by short-term 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 19 ---
+ 
+19 
+ 
+information, rather than permanent. 
+ 
+ [Insert Figure 1 about here] 
+ 
+To summarize, the results in this subsection show that the predictability of volatility 
+skew can last for as long as around half year, suggesting the equity market is slow in reacting 
+to information in the options market.  
+ 
+IV. Volatility Smirks and Future Earnings Surprise 
+ 
+Given the strong predictability of volatility skew, the next natural question becomes: 
+What is the nature of the information embedded in volatility skew? Broadly speaking, 
+information relevant for a firm’s stock price includes news to its discount rate and news to its 
+future cash flows. The news could be at the aggregate market level, at the industry level or it 
+could be firm-specific. Since the volatility skew is a firm-specific variable, we focus on 
+firm-level information rather than on aggregate information. Nevertheless, we do not rule out 
+the possibility that there are some underlying macroeconomic factors which affect the 
+volatility skew in a systematic fashion and we leave that to potential future studies.  
+ 
+The most important firm-level event is a firm’s earnings announcement. Dubinsky and 
+Johannes (2006) note that most of the volatility in stock returns is concentrated around 
+earnings announcement days. This indicates that a firm’s earnings announcement is a major 
+channel for new information release. Hence, in this section we investigate whether the option 
+volatility skew contains information related to future earnings.9  
+ 
+First, we sort firms into quintile portfolios based on the volatility skew. Then, we 
+examine the next quarterly earnings surprise for firms in each quintile portfolio. The earnings 
+surprise variable, UE, is the difference between announced earnings and the latest consensus 
+                                                        
+9 In a related paper, Amin and Lee (1997) examine trading activities in the four-day period just before earnings 
+announcements and document that option trading volume is related to price discovery of earnings news. 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 20 ---
+ 
+20 
+ 
+earnings forecast before the announcement. We also scale the earnings surprise variable, UE, 
+by the standard deviation of the latest consensus earnings forecast and this gives us the 
+standardized earnings surprise variable, SUE. If the information in SKWE is related to news 
+about firms’ earnings, firms with the highest skews are likely to be firms with the worst news, 
+and they should have the lowest UE/SUE in the next quarter. Since our sample firms are 
+generally large firms, about 80% of these firms have earnings forecast data available within 
+the next 12 week interval. So the results in this section are representative of the general cross 
+section in this article. 
+ 
+We report earnings surprise statistics in Table 5. Panel A includes all observations with an 
+earnings release within the next n weeks after observing the volatility skew variable, where n 
+= 4, 8, 12, 16, 20 and 24. Consider n = 12 as an example: the difference in UE between the 
+lowest 20% of firms ranked by volatility skew and the highest 20% of firms is 0.63 of a cent 
+($.0063), with a significant t-statistic of 3.04. Given the average size of UE to be 2 cents, the 
+0.63 of a cent difference is economically significant. The results on SUE are qualitatively 
+similar. The above findings are consistent with the hypothesis that SKEW is related to future 
+earnings, and higher SKEW suggests worse news.  
+ 
+[Insert Table 5 about here] 
+ 
+We also conduct FM regression to investigate whether volatility skew can predict future 
+earnings surprise. To be more specific, we examine whether the coefficient on volatility skew 
+is significantly negative for earnings announcement within the next n-weeks, where n = 4, 8, 
+12, 16, 18, 20 and 24. The results are presented in Panel B of Table 5. In the left, we use 
+volatility skew to predict future UE, and we predict SUE in the right. For the UE regressions, 
+the coefficient estimates for the volatility skew range between -0.033 to -0.045 and are 
+statistically significant over all the horizons from week 4 to 24. The results on SUE are 
+qualitatively similar.  
+ 
+The results demonstrate a close link between the shape of the volatility smirk and future 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 21 ---
+ 
+21 
+ 
+news about firm fundamentals. We find firms with the highest skews are firms with the worst 
+earnings surprise in the near future between 1 and 6 months. This empirical finding is 
+suggestive of the superior informational advantage option traders have over stock traders. 
+ 
+V. Discussion on Related Literature 
+ 
+A. Volatility Skew vs. Risk Neutral Skew 
+ 
+A few papers, such as Conrad, Dittmar and Ghysels (2007) and Zhang (2005), indicate 
+that lower skewness leads to higher return. The intuition is that firms with more negative 
+skewness are riskier and thus should receive higher expected returns as compensation. 
+However, the skewness measures used in these studies are either risk neutral skewness or 
+historical skewness, under the assumption that there is no arbitrage or information difference 
+between options market and stock market.  
+ 
+Bakshi, Kapadia and Madan (2003) show that more negative risk neutral skewness 
+equals a steeper slope of implied volatilities, everything else being equal. Thus, our volatility 
+skew measure is negatively related to risk neutral skewness. In previous sections, we show 
+that firms with higher volatility skews have lower average returns. If our volatility skew is a 
+proxy for risk neutral skewness or historical skewness, then our finding is at odds with the 
+risk explanations mentioned above. In this subsection, we empirically separate the predictive 
+power of volatility skew, risk neutral skewness and historical skewness. 
+ 
+We compute risk neutral skewness, denoted by RNSKEW, following Bakshi, Kapadia 
+and Madan’s (2003, BKM hereafter) procedure. BKM show that higher moments in the risk 
+neutral world, such as skewness and kurtosis, can be expressed as functions of OTM calls and 
+OTM puts. Based on equation (5) – equation (9) in BKM, we compute the risk neutral 
+skewness using at least two pairs of OTM calls and OTM puts for each day. Next, we average 
+the daily risk neutral skewness over a week to obtain weekly measures that are compatible in 
+frequency with the volatility skew measure. Since not all stocks have more than two pairs of 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 22 ---
+ 
+22 
+ 
+OTM calls and OTM puts each day, we only require that the stock has more than two daily 
+observations in each week to be included in our weekly sample. Even so, many smaller 
+stocks don’t have two pairs of OTM calls and OTM puts with valid price quotes. Finally, 
+there are only about 140 firms with weekly risk neutral skewness for each week, on average, 
+which is substantially smaller than the sample size with the volatility skew measure available. 
+Due to the significant smaller sample size, we would like to warn readers that results in this 
+subsection should be interpreted with caution.  
+ 
+We first investigate the correlations between different skewness measures. As expected, 
+the cross-sectional correlation between volatility skew and risk neutral skewness is -29%. 
+Historical skewness has close to zero correlations with the other two skewness measures: its 
+correlation with volatility skew is 1.79%, and its correlation with risk neutral skewness is 
+-0.43%. 
+ 
+To separate the explanatory power of volatility skew, risk neutral skewness and historical 
+skewness, we apply an FM regression, rather than double sorting, due to the limited number 
+of firms with available risk neutral skewness data. In the FM regression, we use all three 
+skewness measures to predict the weekly return in the first, 4th through 24th week after the 
+skewness measures are observed. Using the regression, we test two hypotheses: First, 
+whether volatility skew can still predict future stock returns in the presence of other skewness 
+measures; second, whether the risk neutral skewness and historical skewness can predict 
+future stock returns, and whether they carry a negative sign as expected from a risk 
+explanation.  
+ 
+Table 6 reports the regression results. In the left panel, we do not include characteristics 
+variables as controls, and in the right panel we include the 10 control variables as in equation 
+(2). For the sample of firms with risk neutral skewness available, the volatility skew is 
+negative and statistically significant in predicting next week’s returns when there are no 
+control variables. However, the predictability weakens substantially when we extend the 
+weekly returns further into the future. The risk neutral skewness measure does not appear to 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 23 ---
+ 
+23 
+ 
+be significant in any regression. Historical skewness has an expected negative coefficient 
+over horizons longer than one week. The results suggest that risk neutral skewness and 
+volatility skew contain different information for future equity returns. Bakshi, Kapadia and 
+Madan (2003) show that implied volatility can be expressed as a linear transformation of risk 
+neutral higher moments like skewness and kurtosis. The correlation between risk neutral 
+skewness and volatility skew in our sample is fairly low at -29%. It is possible that, in 
+addition to risk neutral skewness, there are additional factors, such as risk neutral kurtosis 
+that affect the shape of the volatility skew. This may lead to the difference in predictive 
+power of SKEW and RNSKEW. 
+ 
+[Insert Table 6 about here] 
+ 
+Overall, the volatility skew and historical skewness both have weak predictive power in 
+the presence of risk neutral skewness for a much smaller sample size. Risk neutral skewness 
+doesn’t predict future returns. It is likely that volatility skew and risk neutral skewness 
+contain different information, and this might explain the differences between our findings and 
+those of Conrad, Dittmar and Ghysels (2007).  
+ 
+B. Where Do Informed Traders Trade?  
+ 
+We have documented that the volatility skew variable can predict the underlying 
+cross-sectional equity returns, and we argue that the informational advantage of some option 
+traders might be the reason for the observed predictability. In this subsection, we investigate 
+the question of when informed traders would choose to trade in options market rather than 
+equity market. 
+ 
+Easley, O’Hara and Srinivas (1998) provide a theoretical framework for understanding 
+where informed traders trade. In the pooling equilibrium of their model, given access to both 
+the stock market and the options market, profit-maximizing informed traders may choose to 
+trade in one or both markets. Informed traders would choose to trade in the options market if 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 24 ---
+ 
+24 
+ 
+the options traded provide high leverage, and/or if there are many informed traders in the 
+stock market, and/or the stock market for the particular firm is illiquid. Presumably, the 
+predictive power of volatility skew would be stronger when more informed traders choose to 
+trade in the options market. To test the above conjecture, we first define measurable proxies 
+for the key variables. For option leverage, we use option’s delta, which is the first-order 
+derivative of option price with respect to stock price. Since informed traders are more likely 
+to use OTM puts to trade and reveal severe negative information, we use the deltas of OTM 
+puts, rather than the deltas of ATM calls. The higher leverage of a put option is equivalent to 
+a more negative delta. We follow Easley, Hvidkjaer and O’Hara (2002) to use the PIN10 
+measure, i.e. probability of informed trading, to proxy for the percentage of informed trading 
+for individual stocks. Lastly, we use stock turnover to proxy for the stock trading liquidity.  
+ 
+To investigate how the SKEW’s predictability fluctuates with the option’s delta, PIN and 
+stock turnover, we estimate another set of Fama-MacBeth regressions by adding in 
+interaction terms: 
+(3)  
+ 
+.
+CONTROLS
+SKEW
+)
+PIN
+(
+RET
+,
+CONTROLS
+SKEW
+)
+DELTA
+(
+RET
+,
+CONTROLS
+SKEW
+)
+TURNOVER
+(
+RET
+1
+,
+2
+1
+,
+1
+,
+3
+1
+0
+,
+1
+,
+2
+1
+,
+1
+,
+2
+1
+0
+,
+1
+,
+2
+1
+,
+1
+,
+1
+1
+0
+,
+it
+t
+i
+t
+t
+i
+t
+i
+t
+t
+t
+t
+i
+it
+t
+i
+t
+t
+i
+t
+i
+t
+t
+t
+t
+i
+it
+t
+i
+t
+t
+i
+t
+i
+t
+t
+t
+t
+i
+e
+b
+c
+b
+b
+e
+b
+c
+b
+b
+e
+b
+c
+b
+b
++
++
++
++
+=
++
++
++
++
+=
++
++
++
++
+=
+−
+−
+−
+−
+−
+−
+−
+−
+−
+ 
+To be consistent with Easley et al. (1998), the predictability of SKEW should be increasing in 
+stock market illiquidity, option delta, and stock market asymmetric information. Thus, the 
+coefficient c1 should be negative, the coefficient c2 should be positive and the coefficient c3 
+should be negative.  
+ 
+Table 7 presents the Fama-MacBeth regression results. In the first regression, the 
+interaction between SKEW and TURNOVER carries a negative sign, which indicates when 
+stock market liquidity deteriorates, the predictive power of SKEW becomes stronger. In the 
+second regression, we find the coefficient on the interaction between SKEW and OTM put 
+delta has a positive sign and is marginally significant. This implies that when OTM put 
+                                                        
+10 The data on PIN is obtained from Soeren Hvidkjaer’s Web site for the sample period from 1996-2002. So the 
+regression with PIN would have a shorter sample period than other regressions.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 25 ---
+ 
+25 
+ 
+option deltas become more negative, i.e. options become more leveraged, more informed 
+traders prefer to choose options market to trade and cause stronger predictability of the 
+volatility skew variable. Finally, the interaction between SKEW and PIN is positive, 
+indicating that as information asymmetry increases in the stock market, the predictability of 
+volatility skew becomes weaker. Apart from the PIN measure, the regression results are 
+consistent with the model predictions in Easley et al. (1998). Although most of the 
+coefficients are insignificant, the SKEW variable always has a negative sign.  
+ 
+[Insert Table 7 about here] 
+ 
+VI. Conclusion 
+ 
+Informed traders might choose to trade in different markets to benefit from their 
+informational advantage. Thus, one market could lead another market in the price discovery 
+process. In this paper we investigate whether the shape of the volatility smirk contains 
+relevant information for the underlying stock’s future returns. We define the volatility skew 
+variable as the difference between the implied volatilities of out-of-the-money puts and 
+at-the-money calls. Empirically, the majority of individual stock options exhibit a downward 
+sloping volatility smirk pattern. We find that volatility skew has significant predictive power 
+for future cross-sectional equity returns. Firms with the steepest volatility skews 
+underperform those with the least pronounced volatility skews. This cross-sectional 
+predictability is robust to various controls and is persistent for at least six months. The 
+predictability we document is consistent with Gârleanu, Pedersen and Poteshman’s (2007) 
+model that shows demand is positively related to option expensiveness. It also suggests that 
+informed traders trade in the options market and that the stock market is slow to incorporate 
+information from the options market. We further document that firms with the steepest 
+volatility smirks are those experiencing the worst earnings shocks in subsequent months, 
+suggesting that the information embedded in the shape of the volatility smirk is related to 
+firm fundamentals.  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 26 ---
+ 
+26 
+ 
+Data Appendix 
+ 
+The option data are obtained from OptionMetrics. We apply the following filters to the daily 
+option data: 
+1. The underlying stock’s volume for that day is positive. 
+2. The underlying stock’s price for that day is higher than $5. 
+3. The implied volatility of the option is between 3% and 200%. 
+4. The option’s price (average of best bid price and best ask price) is higher than $0.125. 
+5. The option contract has positive open interest and non-missing volume data. 
+6. The option matures within 10 to 60 days. 
+ 
+For the at-the-money call options, we require the option’s moneyness to be between 0.95 
+and 1.05. For the out of money put options, we require the option’s moneyness to be between 
+0.80 and 0.95. We compute firm daily volatility skew by using the daily difference between 
+implied volatilities of at-the-money calls and out-of-the-money puts. The daily skew dataset 
+on average has 1,005 firms each day over the sample period 1996 – 2005.  
+ 
+We choose the ATM call as a benchmark for implied volatility because it has the highest 
+liquidity among all traded options. In fact, in terms of volume, the average daily volume for 
+ATM calls accounts for about 25% of volume for all call and put options combined. The ATM 
+puts account for 17% of daily volume, and the OTM puts account for another 10%. On 
+average, each firm has about two ATM call options each day, and we chose the one with 
+moneyness closest to 1.00. Each firm has approximately one OTM put option daily. 
+ 
+When we construct the weekly volatility skew dataset, we only include firms that have at 
+least two non-missing daily skew observations within the week. The weekly skew dataset on 
+average has 840 firms each week over the sample period 1996 – 2005. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 27 ---
+ 
+27 
+ 
+References 
+ 
+Amin, K. and C. Lee. “Option Trading, Price Discovery, and Earnings News Dissemination.” 
+Contemporary Accounting Research, 14 (1997), 153-192. 
+ 
+Ang, A., R. Hodrick, Y. Xing and X. Zhang. “The Cross-Section of Volatility and Expected 
+Returns.” Journal of Finance, 61 (2006), 259-299. 
+ 
+Bakshi, G. and N. Kapadia. “Delta-Hedged Gains and the Negative Volatility Risk 
+Premium.” Review of Financial Studies, 16 (2003a), 527-566. 
+ 
+Bakshi, G. and N. Kapadia. “Volatility Risk Premiums Embedded in Individual Equity 
+Options: Some New Insights.” Journal of Derivatives, Fall 2003 (2003b), 45-54.  
+ 
+Bakshi, G., N. Kapadia and D. Madan. “Stock Returns Characteristics, Skew Laws, and the 
+Differential Pricing of Individual Equity Options.” Review of Financial Studies, 16 (2003), 
+101-143. 
+ 
+Banz, W. “The Relation Between Return and Market Value of Common Stocks.” Journal of 
+Financial Economics, 9 (1981), 3-18. 
+ 
+Barbaris, N. and M. Huang. “Stock as Lotteries: The Implications of Probability Weighting 
+for Security Prices.” American Economics Review, forthcoming (2008).  
+  
+Bates, D. “The Crash of ’87: Was It Expected? The Evidence from Options Market.” Journal 
+of Finance, 46 (1991), 1009-1044. 
+ 
+Bates, D. “Empirical Option Pricing: A Retrospection.” Journal of Econometrics, 116 (2003), 
+387-404. 
+ 
+Battalio, R. and P. Schultz. “Options and the Bubble.” Journal of Finance, 61 (2006), 
+2071-2102. 
+ 
+Black, F. and M. Scholes. “The Pricing of Options and Corporate Liabilities.” Journal of 
+Political Economy, 81 (1973), 637-654. 
+ 
+Bollen, N. and R. Whaley. “Does Net Buying Pressure Affect the Shape of Implied Volatility 
+Functions.” Journal of Finance, 59 (2004), 711-754. 
+ 
+Broadie, M., M. Chernov and M. Johannes. “Model Specification and Risk Premiums: 
+Evidence from Futures Options.” Journal of Finance, 62 (2007), 1453-1490. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 28 ---
+ 
+28 
+ 
+Cao, C., Z. Chen and J. M. Griffin. “Informational Content of Option Volume Prior to 
+Takeovers.” Journal of Business, 78 (2005), 1073-1109. 
+ 
+Chakravarty, S., H. Gulen and S. Mayhew. “Informed Trading in Stock and Option Markets.” 
+Journal of Finance, 59 (2004), 1235-1257. 
+ 
+Chan, K., Y. P. Chung and W. Fong. “The Informational Role of Stock and Option Volume.” 
+Review of Financial Studies, 15 (2002), 1049-1075. 
+ 
+Chordia, T. and B. Swaminathan. “Trading Volume and Cross-Autocorrelations in Stock 
+Returns.” Journal of Finance, 55 (2000), 913-935. 
+ 
+Conrad, J., R. F. Dittmar and E. Ghysels. “Skewness and the Bubble,” Working Paper, 
+University of Michigan (2007). 
+ 
+Dubinsky, A. and M. Johannes. “Earnings Announcements and Equity Options.” Working 
+Paper, Columbia University (2006). 
+ 
+Duffie, D., K. Singleton and J. Pan. “Transform Analysis and Asset Pricing for Affine 
+Jump-Diffusions.” Econometrica, 68 (2000), 1343-1376. 
+ 
+Easley, D., S. Hvidkjaer and M. O’Hara. “Is Information Risk a Determinant of Asset 
+Returns?” Journal of Finance, 57 (2002), 2185-2222. 
+ 
+Easley, D., M. O’Hara and P. Srinivas. “Option Volume and Stock Prices: Evidence on 
+Where Informed Traders Trade.” Journal of Finance, 53 (1998), 431-465. 
+ 
+Fama, E. and K. French. “Common Risk Factors in the Returns on Stocks and Bonds.” 
+Journal of Financial Economics, 33 (1993), 3-56. 
+ 
+Fama, E. and K. French. “Multifactor Explanation of Asset Pricing Anomalies.” Journal of 
+Finance, 51 (1996), 55-84. 
+ 
+Fama, E. and J. MacBeth. “Risk, Return, and Equilibrium: Empirical Tests.” Journal of 
+Political Economy, 81 (1973), 607-636. 
+ 
+Gârleanu, N., L. H. Pedersen and A. Poteshman.“Demand-Based Option Pricing.” Working 
+Paper, University of Pennsylvania, (2007). 
+ 
+Heston, S. “A Closed-Form Solution for Options with Stochastic Volatility with Applications 
+to Bond and Currency Options.” Review of Financial Studies, 6 (1993), 327-343. 
+ 
+Jegadeesh, N., and S. Titman. “Returns to Buying Winners and Selling Losers: Implications 
+for Stock Market Efficiency.” Journal of Finance, 48 (1993), 65-91. 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 29 ---
+ 
+29 
+ 
+ 
+Lee, C. and B. Swaminathan. “Price Momentum and Trading Volume.” Journal of Finance, 
+55 (2000), 2017-2069.  
+ 
+Newey, W. and K. West. “A Simple Positive Semi-Definite, Heteroskedasticity and 
+Autocorrelation Consistent Covariance Matrix.” Econometrica, 29 (1987), 229-256. 
+ 
+Ni, S. “Stock Option Returns: A Puzzle.” Working Paper (2007). 
+ 
+Ofek, E., M. Richardson and R. Whitelaw. “Limited Arbitrage and Short Sale Constraints: 
+Evidence from the Option Markets.” Journal of Financial Economics, 74 (2004), 305-342. 
+ 
+Pan, J. “The Jump-Risk Premia Implicit in Options: Evidence from an Integrated Time-Series 
+Study.” Journal of Financial Economics, 63 (2002), 3-50. 
+ 
+Pan, J. and A. Poteshman. “The Information in Option Volume for Future Stock Prices.” 
+Review of Financial Studies, 19 (2006), 871-908. 
+ 
+Zhang, Y. “Individual Skewness the Cross-Section of Average Stock Returns.” Working 
+Paper, Yale University (2005).
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 30 ---
+ 
+30 
+ 
+Table 1: Summary Statistics 
+ 
+Data are obtained from CRSP and Compustat (for stocks) and OptionMetrics (for options). Our 
+sample period is 1996 to 2005. Variable SIZE is the firm market capitalization in $ billions. Variable 
+BM is the book-to-market ratio. Variable TURNOVER is calculated as monthly volume divided by 
+shares outstanding. Variable VOLSTOCK is the underlying stock return volatility, calculated using last 
+month’s daily stock returns. Variable VOLATMC is the implied volatility for at-the-money calls, with 
+the strike-to-stock price closest to 1. Variable VOLOTMP is the implied volatility for out-of-the-money 
+puts, with the strike-to-stock price closest to 0.95. Variable SKEW is the difference between VOLOTMP 
+and VOLATMC. We first calculate the summary statistics over the cross-section for each week, then we 
+average the statistics over the weekly time-series. For each week, there are on average 840 firms in 
+the sample.  
+ 
+Variable 
+Mean 
+5% 
+25% 
+50% 
+75% 
+95% 
+SIZE 
+10.22 
+0.35 
+0.94 
+2.45 
+7.56 
+45.14 
+BM 
+0.40 
+0.07 
+0.17 
+0.30 
+0.50 
+0.99 
+TURNOVER (%) 
+0.24 
+0.05 
+0.09 
+0.16 
+0.29 
+0.68 
+VOLSTOCK (%) 
+47.14 
+19.78 
+29.41 
+41.37 
+58.87 
+92.83 
+VOLATMC (%) 
+47.95 
+24.00 
+32.91 
+44.53 
+60.03 
+82.84 
+VOLOTMP (%) 
+54.35 
+29.07 
+38.93 
+51.25 
+66.65 
+89.87 
+SKEW (%) 
+6.40 
+-0.99 
+2.40 
+4.76 
+8.43 
+19.92 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 31 ---
+ 
+31 
+ 
+Table 2: Predictability of Volatility Skew after Controlling for Other Effects, Fama-MacBeth Regression 
+ 
+Data is obtained from CRSP and Compustat (for stocks) and OptionMetrics (for options). Our sample period is 1996 to 2005. Variable SKEW is the 
+difference between the implied volatilities of out-of-the-money put options and at-the-money call options. Variable LOGSIZE is the logged firm market 
+capitalization. Variable BM is the book-to-market ratio. Variable LRET is the last six month return. Variable VOLSTOCK is the underlying return volatility 
+calculated using last month’s daily stock returns. Variable TURNOVER is the stock trade volume over number of shares outstanding. Variable HSKEW is the 
+underlying return skewness calculated using last month’s daily stock returns. Variable PCR is the option volume put-call ratio. Variable PVOL is the volatility 
+premium, which is the difference between the implied volatility for at-the-money call options and VOLSTOCK. Variable VOLUME is the total volume on all 
+option contracts. Variable OPEN is the total open interest on all option contracts. In both panels, we report Fama-MacBeth regression estimates for weekly 
+returns, as specified in equation (2). In Panel A, the implied volatilities are the implied volatilities on ATM calls with moneyness closest to 1 and OTM puts 
+with moneyness closest to 0.95. In Panel B, the implied volatilities are volume weighted for ATM calls and OTM puts. Asterisks, *, ** and *** indicate 
+significance at 10%, 5% and 1% levels, respectively. 
+ 
+Panel A. Fama-MacBeth regression for one week return, using moneyness-based SKEW 
+ 
+ 
+  
+SKEW 
+LOGSIZE 
+BM 
+LRET 
+VOLSTOCK 
+TURNOVER 
+HSKEW 
+PCR 
+PVOL 
+VOLUME 
+OPEN 
+ADJ R2 
+I 
+coef. 
+-0.0061 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.18% 
+ 
+t-stat 
+-2.50** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+II 
+coef. 
+-0.0089 
+0.0001 
+0.0006 
+0.0037 
+-0.0034 
+0.0000 
+0.0011 
+0.0000 
+-0.0008 
+0.0000 
+0.0000 
+8.52% 
+  
+t-stat 
+-3.86*** 
+0.24 
+1.49 
+3.52*** 
+-0.97 
+0.33 
+5.69*** 
+-0.55 
+-0.25 
+-0.34 
+0.45 
+  
+ 
+Panel B. Fama-MacBeth regression for one week return, using volume-weighted SKEW 
+ 
+ 
+  
+SKEW 
+LOGSIZE 
+BM 
+LRET 
+VOLSTOCK 
+TURNOVER 
+HSKEW 
+PCR 
+PVOL 
+VOLUME 
+OPEN 
+ADJ R2 
+I 
+coef. 
+-0.0223 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.18% 
+ 
+t-stat 
+-4.30*** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+II 
+coef. 
+-0.0216 
+0.0003 
+0.0015 
+0.0032 
+-0.0038 
+0.0000 
+0.0011 
+-0.0001 
+0.0008 
+0.0000 
+0.0000 
+11.11% 
+  
+t-stat 
+-4.09*** 
+0.89 
+1.79* 
+2.73*** 
+-0.93 
+0.20 
+3.62*** 
+-0.81 
+0.20 
+-0.12 
+-0.29 
+  
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 32 ---
+ 
+32 
+ 
+Table 3: Predictability of Volatility Skew, Portfolio Forming Approach 
+ 
+Data is obtained from CRSP and Compustat (for stocks) and OptionMetrics (for options). Our sample 
+period is 1996 to 2005. Variable SKEW is the difference between the implied volatilities of 
+out-of-the-money put options and at-the-money call options. Variable EXRET is the weekly excess 
+return over risk-free rate. Variable ALPHA is the weekly risk-adjusted return using the Fama-French 3 
+factor model. Variable SIZE is the firm market capitalization in $ billions. Variable BM is the 
+book-to-market ratio. Variable VOLSTOCK is the underlying return volatility calculated using last 
+month’s daily stock returns. Variable PVOL is the volatility premium, which is the difference between 
+the implied volatility for at-the-money call options and VOLSTOCK. Variable VOLUME is the total 
+volume on all option contracts. Variable OPEN is the total open interest on all option contracts. Both 
+panels report summary statistics for quintile portfolios sorted on the last week’s SKEW. For each week, 
+we form quintile portfolios based on the average skew from last week. We then skip a day and hold the 
+quintile portfolios for another week. In Panel A, the implied volatilities are the implied volatilities on 
+ATM calls with moneyness closest to 1 and OTM puts with moneyness closest to 0.95. On average, 
+each quintile portfolio contains 168 firms. In Panel B, the implied volatilities are volume weighted for 
+ATM calls and OTM puts. On average, each quintile portfolio contains 68 firms. The t-statistics for 
+mean returns and alphas are calculated over 520 weeks. The firm characteristics are computed by 
+averaging over the firms within each quintile portfolio and then over 520 weeks. Asterisks, *, ** and 
+*** indicate significance at 10%, 5% and 1% levels, respectively. 
+ 
+Panel A. Quintile portfolios, using moneyness-based skew 
+ 
+ 
+EX RET 
+ALPHA 
+SKEW 
+ SIZE 
+BM 
+VOLSTOCK 
+PVOL 
+VOLUME 
+OPEN 
+low 
+0.24% 
+0.10% 
+-0.34% 
+7.82 
+0.394 
+0.504 
+3.03% 
+1042 
+10718 
+2 
+0.15% 
+0.03% 
+2.87% 
+13.81 
+0.377 
+0.454 
+1.11% 
+1234 
+13890 
+3 
+0.16% 
+0.03% 
+4.79% 
+14.70 
+0.373 
+0.459 
+0.51% 
+1258 
+14299 
+4 
+0.11% 
+-0.02% 
+7.55% 
+10.46 
+0.398 
+0.474 
+0.18% 
+962 
+10865 
+high 
+0.08% 
+-0.11% 
+17.14% 
+4.29 
+0.468 
+0.466 
+-0.80% 
+469 
+5618 
+low-high 
+0.16% 
+0.21% 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat 
+2.19** 
+2.93*** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Panel B. Quintile portfolios, using volume-based skew 
+ 
+ 
+EX RET 
+ALPHA 
+SKEW 
+ SIZE 
+BM 
+VOLSTOCK 
+PVOL 
+VOLUME 
+OPEN 
+low 
+0.26% 
+0.14% 
+0.48% 
+13.56 
+0.342 
+0.543 
+1.98% 
+1994 
+18222 
+2 
+0.21% 
+0.08% 
+3.45% 
+22.25 
+0.316 
+0.483 
+0.21% 
+2244 
+22987 
+3 
+0.14% 
+0.04% 
+5.06% 
+25.57 
+0.301 
+0.487 
+-0.56% 
+2525 
+26839 
+4 
+0.15% 
+0.04% 
+6.96% 
+23.95 
+0.302 
+0.506 
+-0.96% 
+2535 
+26918 
+high 
+0.07% 
+-0.05% 
+12.54% 
+13.26 
+0.348 
+0.558 
+-1.27% 
+2024 
+21859 
+low-high 
+0.19% 
+0.19% 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+t-stat 
+2.05** 
+2.07** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 33 ---
+ 
+33 
+ 
+Table 4: How Long Does SKEW’s Predictability Last? 
+ 
+Data is obtained from CRSP and Compustat (for stocks) and OptionMetrics (for options). Our sample period is 1996 to 2005. Variable SKEW is the 
+difference between the implied volatilities of out-of-the-money put options (strike/stock closest to 0.95) and at-the-money call options (strike/stock closest to 
+1). Variable LOGSIZE is the logged firm market capitalization. Variable BM is the book-to-market ratio. Variable LRET is the last six month return. Variable 
+VOLSTOCK is the underlying return volatility calculated using last month’s daily stock returns. Variable TURNOVER is the stock trade volume over number of 
+shares outstanding. Variable HSKEW is the underlying return skewness calculated using last month’s daily stock returns. Variable PCR is the option volume 
+put-call ratio. Variable PVOL is the volatility premium, which is the difference between the implied volatility for at-the-money call options and VOLSTOCK. 
+Variable VOLUME is the total volume on all option contracts. Variable OPEN is the total open interest on all option contracts. In Panel A, we report 
+Fama-MacBeth regression estimates for n-week ahead weekly returns, with n = 1, 4, 8, ..., 24. Panel B reports cumulative holding period returns for quintile 
+portfolios sorted on the last week’s skew over the next n weeks, with n = 4, 8, ..., 28. All returns are adjusted by Fama-French 3 factor model, and the 
+risk-adjusted returns are annualized. Panel C reports autocorrelation coefficients of the SKEW. Asterisks, *, ** and *** indicate significance at 10%, 5% and 
+1% levels, respectively. 
+ 
+Panel A. Predict future n-th weekly returns, Fama-MacBeth regression  
+ 
+n-th week 
+  
+SKEW 
+LOGSIZE 
+BM 
+LRET 
+VOLSTOCK 
+TURNOVER 
+HSKEW 
+PCR 
+PVOL 
+VOLUME 
+OPEN 
+ADJ R2 
+1 
+coef. 
+-0.0216 
+0.0003 
+0.0015 
+0.0032 
+-0.0038 
+0.0000 
+0.0008 
+0.0011 
+-0.0001 
+0.0000 
+0.0000 
+11.11% 
+ 
+t-stat 
+-4.09*** 
+0.89 
+1.79* 
+2.73*** 
+-0.93 
+0.20 
+0.20 
+3.62*** 
+-0.81 
+-0.12 
+-0.29 
+  
+4 
+coef. 
+-0.0067 
+-0.0002 
+0.0008 
+0.0016 
+-0.0037 
+0.0001 
+-0.0004 
+0.0000 
+-0.0027 
+0.0000 
+0.0000 
+7.88% 
+ 
+t-stat 
+-3.27*** 
+-1.07 
+1.97** 
+1.67* 
+-1.08 
+0.81 
+-2.30** 
+-0.02 
+-0.88 
+-0.60 
+0.76 
+ 
+8 
+coef. 
+-0.0040 
+-0.0005 
+0.0002 
+0.0016 
+-0.0055 
+0.0001 
+-0.0003 
+0.0000 
+-0.0044 
+0.0000 
+0.0000 
+7.80% 
+ 
+t-stat 
+-1.89 
+-2.04** 
+0.49 
+1.64 
+-1.58 
+1.21 
+-1.93* 
+1.81* 
+-1.42 
+0.60 
+0.74 
+ 
+12 
+coef. 
+-0.0026 
+-0.0003 
+0.0005 
+0.0015 
+-0.0038 
+0.0001 
+-0.0004 
+0.0000 
+-0.0050 
+0.0000 
+0.0000 
+7.44% 
+ 
+t-stat 
+-1.30 
+-1.52 
+1.15 
+1.64 
+-1.09 
+0.60 
+-2.21** 
+0.13 
+-1.55 
+1.41 
+-0.33 
+ 
+16 
+coef. 
+-0.0052 
+-0.0003 
+0.0011 
+0.0021 
+-0.0011 
+0.0000 
+-0.0005 
+0.0000 
+-0.0002 
+0.0000 
+0.0000 
+7.30% 
+ 
+t-stat 
+-2.47** 
+-1.25 
+2.43** 
+2.24** 
+-0.32 
+-0.14 
+-2.97*** 
+-0.70 
+-0.07 
+1.37 
+0.03 
+ 
+20 
+coef. 
+-0.0043 
+-0.0003 
+0.0006 
+0.0020 
+-0.0033 
+0.0000 
+-0.0001 
+0.0000 
+-0.0049 
+0.0000 
+0.0000 
+7.14% 
+ 
+t-stat 
+-2.03** 
+-1.29 
+1.38 
+2.24** 
+-0.93 
+0.35 
+-0.43 
+1.37 
+-1.52 
+0.35 
+0.69 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 34 ---
+ 
+34 
+ 
+24 
+coef. 
+-0.0038 
+-0.0005 
+0.0008 
+0.0019 
+-0.0030 
+0.0000 
+-0.0003 
+0.0000 
+-0.0034 
+0.0000 
+0.0000 
+6.77% 
+ 
+t-stat 
+-1.82 
+-2.41** 
+1.90* 
+2.21** 
+-0.86 
+-0.17 
+-1.52 
+-0.56 
+-1.04 
+0.05 
+1.51 
+ 
+ 
+Panel B. Holding period returns for the next n weeks, risk adjusted by the Fama-French 3-factor model 
+ 
+n weeks 
+4 
+8 
+12 
+16 
+20 
+24 
+28 
+low 
+3.40% 
+3.55% 
+3.97% 
+3.46% 
+3.59% 
+3.94% 
+3.51% 
+2 
+1.15% 
+1.84% 
+2.28% 
+2.43% 
+2.35% 
+2.43% 
+1.98% 
+3 
+1.69% 
+0.90% 
+0.76% 
+0.87% 
+0.89% 
+0.97% 
+1.20% 
+4 
+-1.33% 
+-0.58% 
+-1.12% 
+-1.25% 
+-0.77% 
+-0.72% 
+-0.68% 
+high 
+-3.12% 
+-3.32% 
+-3.16% 
+-2.53% 
+-2.92% 
+-3.11% 
+-2.87% 
+low-high 
+6.52% 
+6.88% 
+7.14% 
+5.99% 
+6.50% 
+7.04% 
+6.38% 
+t-stat 
+2.70*** 
+3.73*** 
+4.23*** 
+4.32*** 
+4.34*** 
+4.33*** 
+4.31*** 
+ 
+Panel C. Auto correlations for SKEW 
+ 
+AR1 
+AR2 
+AR3 
+AR4 
+AR5 
+AR6 
+AR7 
+AR8 
+0.660 
+0.412 
+0.316 
+0.285 
+0.251 
+0.195 
+0.189 
+0.225 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 35 ---
+ 
+35 
+ 
+Table 5: Option Volatility Smirks and Future Earnings Surprise 
+ 
+Data is obtained from CRSP and IBES (for stocks) and OptionMetrics (for options). Our sample 
+period is 1996 to 2005. Variable SKEW is the difference between the implied volatilities of 
+out-of-the-money put options (strike/stock closest to 0.95) and the at-the-money call options 
+(strike/stock closest to 1). Variable UE is the unexpected earnings, the difference between announced 
+earnings and the latest earnings forecast consensus. Variable SUE is the standardized UE, where UE is 
+divided by volatility of analyst forecasts. In Panel A, we sort stocks into quintiles based on last week’s 
+average SKEW. We then check the average future UE/SUE for each portfolio, where the firms have an 
+earnings release within the next n-weeks, with n = 4, 8, ..., 24. In Panel B, we use Fama-MacBeth 
+regression to investigate whether last week’s volatility skew is able to predict future UE/SUE within 
+the next n-weeks, with n = 4, 8, ..., 24. Asterisks, *, ** and *** indicate significance at 10%, 5% and 
+1% levels, respectively. 
+ 
+Panel A. Earnings surprises for firms with earnings announcements within the next n weeks 
+ 
+ 
+UE 
+ 
+SUE 
+ 
+n weeks 
+low SKEW – high SKEW 
+t-stat 
+low SKEW – high SKEW 
+t-stat 
+4 
+0.0087 
+3.24*** 
+0.3167 
+2.63*** 
+8 
+0.0088 
+2.59*** 
+0.3163 
+3.01*** 
+12 
+0.0063 
+3.04*** 
+0.3369 
+2.88*** 
+16 
+0.0062 
+2.35** 
+0.3427 
+2.43** 
+20 
+0.0104 
+3.85*** 
+0.4881 
+4.40*** 
+24 
+0.0074 
+2.62** 
+0.3672 
+2.10** 
+ 
+Panel B. Predicting future earnings surprise within next n weeks using last week’s SKEW, 
+Fama-MacBeth regression 
+ 
+ 
+UE 
+ 
+SUE 
+ 
+n weeks 
+coef.  
+t-stat 
+coef.  
+t-stat 
+4 
+-0.039 
+-2.51** 
+-1.847 
+-2.98*** 
+8 
+-0.045 
+-2.78*** 
+-2.023 
+-3.57*** 
+12 
+-0.033 
+-3.26*** 
+-2.063 
+-3.72*** 
+16 
+-0.033 
+-2.98*** 
+-1.980 
+-2.75*** 
+20 
+-0.053 
+-3.43*** 
+-2.681 
+-3.66*** 
+24 
+-0.041 
+-2.87*** 
+-2.188 
+-2.61*** 
+ 
+ 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 36 ---
+ 
+36 
+ 
+Table 6: Distinguishing between Different Skew Measures, Fama-MacBeth Regression 
+ 
+Data is obtained from CRSP and Compustat (for stocks) and OptionMetrics (for options). Our sample 
+period is 1996 to 2005. Variable SKEW is the difference between the implied volatilities of 
+out-of-the-money put options (strike/stock closest to 0.95) and at-the-money call options (strike/stock 
+closest to 1). Variable RNSKEW is the risk neutral skewness estimated following Bakshi, Kapadia 
+and Madan (2003). Variable HSKEW is the historical skewness estimated using the last month’s daily 
+return. We report the Fama-MacBeth regression estimates for n-week ahead weekly returns, where n = 
+1, 4, ..., 24. The control variables are the same as in equation (2). Asterisks, *, ** and *** indicate 
+significance at 10%, 5% and 1% levels, respectively. 
+ 
+ 
+ 
+ 
+Without Controls 
+With Controls 
+n-th week 
+ 
+SKEW 
+RNSKEW 
+HSKEW 
+SKEW 
+RNSKEW 
+HSKEW 
+1 
+coef. 
+-0.0457 
+0.0014 
+0.0021 
+-0.0324 
+0.0001 
+0.0017 
+ 
+t-stat 
+-2.67*** 
+0.76 
+3.93*** 
+-1.74* 
+0.07 
+2.63*** 
+4 
+coef. 
+0.0022 
+0.0004 
+-0.0001 
+-0.0121 
+-0.0002 
+-0.0003 
+ 
+t-stat 
+0.15 
+0.24 
+-0.21 
+-0.64 
+-0.11 
+-0.66 
+8 
+coef. 
+-0.0172 
+-0.0006 
+-0.0002 
+0.0285 
+0.0049 
+-0.0008 
+ 
+t-stat 
+-1.23 
+-0.37 
+-0.48 
+0.86 
+1.23 
+-1.11 
+12 
+coef. 
+-0.0008 
+0.0021 
+-0.0010 
+-0.0444 
+-0.0023 
+-0.0003 
+ 
+t-stat 
+-0.05 
+1.24 
+-2.10** 
+-0.82 
+-0.35 
+-0.30 
+16 
+coef. 
+0.0006 
+0.0027 
+-0.0005 
+0.0252 
+0.0070 
+-0.0010 
+ 
+t-stat 
+0.04 
+1.42 
+-1.10 
+0.75 
+1.62 
+-1.55 
+20 
+coef. 
+0.0073 
+0.0009 
+-0.0013 
+0.0586 
+0.0075 
+-0.0023 
+ 
+t-stat 
+0.52 
+0.56 
+-2.56** 
+1.35 
+1.30 
+-2.24** 
+24 
+coef. 
+-0.0154 
+0.0007 
+-0.0005 
+-0.0354 
+0.0011 
+0.0004 
+ 
+t-stat 
+-1.12 
+0.39 
+-1.18 
+-1.44 
+0.52 
+0.44 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+--- PAGE 37 ---
+ 
+37 
+ 
+Table 7: Where Do Informed Traders Trade? 
+ 
+Data is obtained from CRSP and Compustat (for stocks) and OptionMetrics (for options). Our sample 
+period is 1996 to 2005. Variable SKEW is the difference between the implied volatilities of 
+out-of-the-money put options (strike/stock closest to 0.95) and at-the-money call options (strike/stock 
+closest to 1). Variable TURNOVER is the stock trade volume over the number of shares outstanding. 
+Variable DELTA is the delta of the OTM put option. Variable PIN is the PIN measure from Easley, 
+O’Hara and Hvidkjaer (2002). We report Fama-MacBeth regression results as specified in equation 
+(3). Asterisks, *, ** and *** indicate significance at 10%, 5% and 1% levels, respectively. 
+ 
+ 
+ 
+SKEW 
+SKEW* 
+TURNOVER 
+SKEW* 
+DELTA 
+SKEW* 
+PIN 
+adj R2 
+I 
+coef. 
+-0.0050 
+-0.0015 
+ 
+ 
+8.08% 
+ 
+t-stat 
+-1.73* 
+-1.38 
+ 
+ 
+ 
+II 
+coef. 
+-0.0028 
+ 
+0.0407 
+ 
+7.82% 
+ 
+t-stat 
+-0.67 
+ 
+1.49 
+ 
+ 
+III 
+coef. 
+-0.0088 
+ 
+ 
+0.0385 
+7.46% 
+ 
+t-stat 
+-1.07 
+ 
+ 
+0.65 
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1107464
+
+[TRUNCATED at 80000 chars — 38 total pages]

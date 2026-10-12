@@ -1,0 +1,2382 @@
+
+--- PAGE 1 ---
+ 
+ 
+ 
+Persistence in Mutual Fund Performance: 
+Analysis of Holdings Returns 
+ 
+Samuel Kruger* 
+June 2007 
+ 
+ 
+ 
+ 
+Abstract: 
+ 
+Do mutual funds that performed well in the past select stocks that perform well in 
+the future?  I construct mutual fund holdings returns by calculating the returns funds 
+would have earned had they held all stocks owned as of the end of a year for the next 
+year without trading or incurring any expenses.  I find that under almost all sorts on past 
+performance, the future returns to mutual fund holdings are explained by the 4-factor 
+model of Carhart (1997).  This evidence supports the conclusions of Carhart (1997) and 
+establishes that the persistent underperformance of the bottom decile of mutual funds in 
+Carhart (1997) is unrelated to mutual fund holdings. 
+                                                 
+* The University of Chicago, Graduate School of Business.  I thank Eugene Fama and participants in The 
+University of Chicago Graduate School of Business Research Projects: Finance seminar (Business 35908) 
+for helpful comments. 
+
+--- PAGE 2 ---
+ 
+1
+I. 
+Introduction 
+Mutual fund performance is a rich topic for academic research.  The very 
+existence of the mutual fund industry with its high expenses and transaction costs is a 
+puzzle to the efficient markets hypothesis.  If markets are efficient, why are so many 
+resources invested in stock picking? 
+The conventional wisdom is that at least some mutual fund managers have stock-
+picking skills.  Investors frequently look to past returns and historical ratings such as 
+Morningstar for guidance on which funds will perform well in the future.  Successful 
+fund managers are glorified in the media and turned to for investment advice for years to 
+come. 
+The academic literature is much more mixed.  It is generally agreed that there is 
+some persistence in mutual fund performance.1  However, the source of this persistence 
+remains a topic of debate.  For example, Carhart (1997) attributes almost all persistence 
+in mutual fund performance to four-factor loadings, expenses, and transaction costs.  On 
+the other hand, Wermers, Yao, and Zhao (2007) finds that “good” managers pick better-
+performing stocks even after controlling for style characteristics. 
+By examining the future performance of stocks held by “good” and “bad” mutual 
+funds, I conclude that fund managers do not have stock picking skills.  This paper adds to 
+the literature by applying the performance-sorted portfolio methodology of Carhart 
+(1997) to a dataset that includes returns on the underlying holdings of mutual funds as 
+well as the returns of the funds themselves.  Section II provides a brief review of the 
+relevant literature.  Section III describes my dataset.  Section IV introduces my analytical 
+approach.  Section V discusses the results of my analysis.  Section VI concludes. 
+                                                 
+1 See Carhart (1997). 
+
+--- PAGE 3 ---
+ 
+2
+ 
+II. 
+Literature Review 
+Mark Carhart’s 1997 Journal of Finance article, “On Persistence in Mutual Fund 
+Performance,” is the primary motivation for my analysis.  Carhart examines the returns of 
+mutual funds from 1962 to 1993 to look for evidence of performance persistence.  
+Carhart’s primary analytical technique was to form performance decile portfolios of 
+mutual funds on January 1 of each year based on returns over the past year.  The 
+portfolios are then held for one year and monitored for any abnormal performance.  If 
+performance is persistent, funds that performed well in the past should perform well in 
+the future, and the top decile portfolios should outperform the other portfolios. 
+Carhart finds that past winners do outperform past losers.  However, most of this 
+persistence is explained by a four-factor model including factor-mimicking portfolios for 
+the market return, size, book-to-market, and one-year momentum.  Momentum is the 
+biggest explanation of the persistence.  The remaining persistence is mainly explained by 
+fund expenses and transaction costs, which are higher in the lower performance deciles.  
+Of the 8% difference in annual returns that Carhart finds between the top and bottom 
+deciles, 4.6% is explained by four-factor loadings, 0.7% is explained by expense 
+differences, and 1.0% is explained by transaction cost differences.  This leaves an 
+unexplained return spread of 1.7%, almost all of which is concentrated in the difference 
+between the ninth and tenth deciles.  In other words, Carhart finds some evidence that the 
+very worst funds continue to underperform but finds no evidence of persistent skill in any 
+of the other deciles. 
+
+--- PAGE 4 ---
+ 
+3
+Wermers, Yao, and Zhao (2007) analyzes the returns of mutual fund holdings and 
+comes to the opposite conclusion that good managers have significant stock-picking skill.  
+Wermers et al identifies “good” managers based on past alpha estimates and then forms 
+an equal weight portfolio that is long stocks held disproportionately by “good” managers 
+and short stocks held disproportionately by “bad” managers.  They find that this trading 
+strategy results in significant alpha, which they interpret as evidence of stock-picking 
+skill.  A significant problem with this analysis is that forming portfolios based on the 
+same model used to analyze returns could bias the results.  Significant alpha could come 
+from biases in the model.  Additionally, employing equal-weight portfolios of stocks will 
+overweight small stocks.  I avoid these problems by sorting based on returns instead of 
+alpha estimates and forming equal-weight portfolios of fund returns instead of stock 
+returns. 
+My analysis builds on Carhart (1997) by applying Carhart’s analytical approach 
+to data on the returns of mutual fund holdings.  If fund managers have stock-picking 
+skills, the stocks they choose to buy should have high future returns.  Analyzing holdings 
+returns without the noise of expenses and transactions should be a cleaner way to identify 
+stock-picking skill.  Using this approach, I find no compelling evidence of stock-picking 
+skill. 
+Additionally, examining the holdings returns helps to identify the source of the 
+persistent underperformance of the worst funds in Carhart (1997).  Is this 
+underperformance due to picking bad stocks, or is it the result of transaction costs, hidden 
+expenses, or other unobserved actions?  Given that I find no unexplained persistence in 
+the holdings returns, I conclude that Carhart’s persistent underperformance must be due 
+
+--- PAGE 5 ---
+ 
+4
+to other actions of the mutual fund, likely transaction costs from being forced to sell 
+shares as investors pull out money. 
+Finally, analyzing the holdings data is useful because any anomaly can be 
+translated directly into a trading strategy.  Persistence in mutual fund returns is interesting 
+but difficult to exploit.  I can purchase the winning funds, but I cannot short the losers.  
+On the other hand, if return persistence is present in fund holdings, I can exploit this with 
+a zero-investment portfolio by buying stocks held by winning funds and shorting stocks 
+held by losing funds.  The fact that this is a tradable strategy also makes holdings returns 
+a better test of market efficiency. 
+ 
+III. 
+Data 
+My dataset covers domestic equity mutual funds from January 1980 to December 
+2006.  My data includes information on both returns and holdings.  As a result I am able 
+to analyze both fund performance and the performance one would achieve by buying and 
+holding a fund’s underlying securities. 
+Monthly survivor-bias-free mutual fund returns data comes from the CRSP 
+mutual fund dataset available on WRDS.  Data is available starting in 1962.  I focus on 
+post-1980 returns because this is the period for which holdings data is available. 
+Data on mutual fund holdings comes from the Thomson Financial CDA/Spectrum 
+dataset, also available on WRDS.  This dataset records the positions mutual funds hold in 
+individual securities.  The information comes from N-30D SEC filings, which are 
+required to be filed twice a year by all mutual fund companies.  The data is free from 
+survivor bias and starts in 1980.  I link the mutual fund returns data to the holdings data 
+
+--- PAGE 6 ---
+ 
+5
+using Mutual Fund Links (MFLinks), created by Russ Wermers and available on 
+WRDS.2 
+To focus on domestic equity funds, I limit my analysis to funds with an 
+investment objective of growth, aggressive growth, or growth and income.  This 
+eliminates international funds, as well as funds focused on bonds, metals, balanced, and 
+unclassified strategies.  I also require that funds be present in the returns data for at least 
+one year, report holdings at least once during the preceding year, and have a valid link in 
+MFLinks.  Finally, I consolidate repeat entries resulting from multiple share classes in the 
+CRSP Mutual Fund returns data by taking a weighted average according to total net 
+assets.3 
+To calculate holdings returns for each fund, I look at how the fund’s reported 
+holdings as of the end of a year performed over the next year.  Fund holdings returns are 
+calculated as the weighted average of CRSP return data for the individual stocks held by 
+a fund.  January weights are based on the most recently reported holdings positions.  
+Subsequent weights are adjusted based on past returns.  The resulting holdings returns 
+time series represents the returns an investor would receive by purchasing the most 
+recently disclosed holdings of a fund on each January 1 and holding that portfolio for the 
+next year. 
+Table I summarizes the dataset.  In total, I have 18,401 fund-year observations 
+(220,812 fund-months).  As expected, the number of funds increases over time, ranging 
+from a minimum of 177 funds in 1983 (end-of-year 1982) to a maximum of 1,480 funds 
+                                                 
+2 Wermers (2000) is an early example of this link. 
+3 Redundant entries are not a problem in the holdings data because each fund with a single set of holdings 
+is only reported once.  The MFLinks file identifies redundant entries in the CRSP data.  Because total net 
+assets are not always reported monthly, I use the most recent number available.  When historical total net 
+assets is not available I look forward for future values or weight the share class with $1 of total net assets. 
+
+--- PAGE 7 ---
+ 
+6
+in 2000 (end-of-year 1999).  These counts are in line with datasets used by other 
+researchers.  Wermers, Yao, and Zhao (2007) use a dataset that ranges from 270 funds in 
+1982 to 1,653 in 1997.  My lower counts are likely the result of my requirement that 
+firms be alive for one year prior to their inclusion in my analysis.  For the period of 1962 
+to 1993, Carhart (1997) analyzes 1,892 total funds, with an average of 500 fund each 
+year. 
+Table I also summarizes average monthly returns for the funds and their holdings.  
+Average monthly fund returns range from -1.25% in 1981 to 2.26% in 1991.  As 
+expected, variation over time roughly corresponds to overall market patterns.  Funds 
+generally, though not always, underperform their holdings.  On average the difference is 
+2.04% annually, largely representing fund expenses and transaction costs. 
+ 
+IV. 
+Analysis 
+My analytical technique is to apply the methodology of Carhart (1997) and 
+Hendricks, Patel, and Zeckhauser (1993) to my holdings returns dataset.  On January 1 of 
+each year, I sort all mutual funds based on their average reported returns over the past 
+year.  For robustness, I limit the dataset to funds that reported returns in each of the past 
+twelve months.  I then form ten equal-weight decile portfolios based on the reported 
+returns and hold their holdings for the next year.  The difference between my approach 
+and that of Carhart (1997) is that Carhart analyzed mutual fund returns over the next year 
+whereas I analyze the performance of the funds’ year-end holdings.  The advantage of my 
+approach is that I can look for stock-picking skill without the noise introduced by fund 
+expenses and transactions.  If managers have true stock-picking skills, good managers 
+
+--- PAGE 8 ---
+ 
+7
+(e.g. those with good past returns) should hold stocks that will outperform the market in 
+the future (e.g. over the course of the next year).  I directly test this hypothesis. 
+As in Carhart (1997), I measure performance using the Capital Asset Pricing 
+Model (CAPM) of Sharpe (1964) and Lintner (1965) and the 4-factor model of Carhart 
+(1997).  The 4-factor model uses the market (rmrf), size (smb), and value (hml) factors of 
+Fama and French (1993) as well as a momentum (umd) factor based on Jegadeesh and 
+Titman’s (1993) one-year momentum.  The model specifications are: 
+CAPM:  
+it
+t
+i
+i
+it
+e
+rmrf
+r
++
++
+=
+β
+α
+                                                                              (1) 
+4-Factor Model:  
+it
+i
+i
+t
+i
+t
+i
+i
+it
+e
+umd
+u
+hml
+h
+smb
+s
+rmrf
+b
+r
++
++
++
++
++
+= α
+                     (2) 
+where rit is the excess return on holdings portfolio i over the one-month T-Bill rate; rmrft 
+is the excess return on the value-weighted portfolio of all NYSE, Amex, and Nasdaq 
+stocks; and smbt, hmlt, and umdt are zero-investment factor-mimicking portfolios for size, 
+book-to-market equity, and one-year momentum.4 
+ 
+V. 
+Results 
+A. 
+Mutual Fund Returns 
+Before proceeding to my analysis of holdings returns, I first implement my 
+analytical approach solely on reported mutual fund returns to ensure consistency with 
+previous results.  Table II shows returns, CAPM estimates, and 4-factor estimates for the 
+1981 to 2006 mutual fund returns in my data set.  Consistent with Carhart (1997), there is 
+significant persistence in returns.  The top decile portfolio outperforms the bottom decile 
+portfolio by 5.88% annually.  The CAPM explains none of this persistence.  However, 
+                                                 
+4 All data on rmrf, smb, hml, umd, and the risk free rate are from Ken French’s website. 
+
+--- PAGE 9 ---
+ 
+8
+most of the persistence is explained by the four-factor model.  In particular, significant 
+momentum loadings explain much of the persistence.  Funds with high past returns are 
+more likely to own stocks that performed well over the past year.  The momentum effect 
+described by Jegadeesh and Titman (1993) shows that we should expect these stocks and 
+funds to have high future returns.  Size also explains some of the persistence.  Good 
+funds tend to load more heavily on small stocks.  The value effect is relatively small and 
+goes in the wrong way.  Four-factor alphas show some variation across portfolios.  In 
+particular, the bottom portfolio shows negative separation from the others.  However, 
+differences in the alphas are not significant, suggesting that persistence in mutual fund 
+performance is almost entirely explained by the four-factor model.  These results are 
+consistent with Carhart (1997) except that Carhart shows more separation between the 
+bottom two portfolios. 
+ Table III directly compares my analysis to Carhart (1997).  Each row summarizes 
+analysis on the spread between the top and bottom portfolio.  Row (1) is taken directly 
+from Table III of Carhart (1997).  Row (2) is my replication of Carhart (1997) for the 
+same time period.5  Row (3) is the Table II analysis of mutual fund returns in my dataset.  
+My monthly excess returns and CAPM results are very close to Carhart’s suggesting that, 
+as intended, my dataset and analytical techniques are a good approximation of Carhart’s.  
+Nonetheless, our four-factor results differ a bit.  Whereas Carhart shows a significant 
+alpha difference (primarily driven by the bottom decile), I do not detect any significant 
+alpha.  The difference is driven by larger differences in momentum loadings in my 
+                                                 
+5 Data for my replication of Carhart (1997) was obtained from John Cochrane as part of a problem set for 
+Advanced Investments (B35150). 
+
+--- PAGE 10 ---
+ 
+9
+analysis.  The rest of Table III (rows (4) to (9)) compares different time periods.  
+Performance persistence does not appear to have changed much over time. 
+Following Carhart (1997), a second analytical technique that I use in this paper is 
+to sort portfolios based on past four-factor alpha estimates instead of past returns.  Table 
+IV analyzes decile portfolios formed based on lagged three-year four-factor alpha 
+estimates.  Like Tables II and III, all results in Table IV, analyze reported returns of the 
+mutual funds themselves.  Alpha-sorted portfolios show little persistence in returns.  The 
+top performers have negative hml loadings, creating significant four-factor alpha 
+differences across the portfolios. 
+One interpretation of these results is that good managers have stock-picking skill 
+that is persistent over time, and that these skilled managers are more likely to invest in 
+growth stocks.  As a result, they do not outperform other funds in terms of returns, but 
+they do have consistently positive alpha.  This is consistent with Davis (2001), which 
+finds that positive alpha is more common among growth funds. 
+However, I am reluctant to read too much into these results.  The analysis is 
+highly susceptible to model misspecification.  As Carhart (1997) cautions, forming 
+portfolios based on the same model used to analyze them risks identifying shortcomings 
+of the model instead of picking up true stock-picking skill.  Past alpha estimates could 
+simply be picking up omitted (or mispriced) risk factors that are persistent into the future.  
+Table IV is as much a test of the four-factor model as it is a test of performance 
+persistence.  Unless we are convinced that the four-factor model perfectly describes all 
+returns, we should not be surprised that there is some alpha persistence. 
+ 
+
+--- PAGE 11 ---
+ 
+10
+B. 
+Holdings Returns 
+I now turn to the primary contribution of this paper, analysis of mutual fund 
+holdings returns.  My primary result is that the holdings of past winning funds do not 
+outperform the holdings of past losing funds, suggesting that mutual fund managers do 
+not possess stock picking skills. 
+Table V shows the primary evidence for my no-stock-picking-skills result.  Funds 
+are sorted into equal-weight portfolios based on the past year of reported returns.  I then 
+analyze the performance of their holdings over the next year.  In terms of returns, the 
+holdings of winners outperform the holdings of losers by 4.20% annually, which is less 
+than the difference that I found in the returns of the funds themselves (see Table II) and is 
+not statistically significant.  More importantly, the four-factor model completely explains 
+all observed persistence in holdings returns.  Similar to the fund returns analysis in Table 
+II, umd and hml explain the persistence while hml goes somewhat in the wrong direction.  
+The bottom line is that after adjusting for four-factor loadings, the year-end holdings of 
+“good” funds perform no better than the holdings of “bad” funds over the next year. 
+The differences between Tables II and V appear to be driven by expenses and 
+transaction costs.  Fund returns in Table II had a 1 – 10 spread alpha of 0.20% compared 
+to a holdings returns spread alpha of 0.02% in Table V.  This translates into a 2.16% 
+annual difference, which is close the 1.7% return difference that Carhart attributes to 
+expenses and transaction costs.  The remaining difference is within the margin of error 
+and may be due to extra transaction costs facing the worst-performing portfolio.  
+Whatever is causing the apparent persistent underperformance of the worst funds in 
+Carhart (1997) does not appear to be present in the holdings returns. 
+
+--- PAGE 12 ---
+ 
+11
+To examine whether return persistence is a short-run phenomenon that I miss with 
+my year-long holding period, I look at monthly returns within the holding period.  Figure 
+1 shows that alpha estimates do not systematically change across time.  In particular, 
+there is no pattern to the 1 – 10 spread alpha, suggesting that persistence is just as 
+nonexistent in January as in any other month. 
+To check the robustness of my results, I include several additional sorts to test 
+other potential definitions of “good” funds.  First, I sort funds based on three-year returns 
+instead of one-year returns.  If manager skill is persistent, the longer sort period should be 
+less noisy.  Table VI shows that performance is actually less persistent in the three-year 
+sort.  Even the returns are the same across funds.  The difference seems to be driven by 
+lower momentum loadings in the three year-sort.  This suggests that high-performing 
+funds do not pursue momentum strategies, but rather end up with momentum loadings as 
+a byproduct of owning stocks that happened to do well.  A three-year sort weakens this 
+effect. 
+The next sort I try is based on past alpha estimates.  This approach is related to the 
+analysis of Wermers, Yao, and Zhao (2007), which identifies “good” managers based on 
+past alpha estimates.  Consistent with Wermers et al, I find that holdings returns alpha is 
+persistent when sorts are based on one-year lagged alpha estimates.  However, this is not 
+compelling evidence of stock-picking skill.  Twelve months of returns is not enough data 
+to reliably fit the four-factor model.  Further, as discussed before, alpha persistence could 
+easily be the result of model misspecification as opposed to stock-picking skill. 
+Table VIII addresses the stock-picking skill vs. model misspecification issue by 
+sorting portfolios based on longer, three-year lagged alpha estimates.  If stock-picking 
+
+--- PAGE 13 ---
+ 
+12
+skill is present and persistent, the three-year sort should identify it with less noise.  
+Instead, sorting based on the longer time period eliminates any significant persistence in 
+either returns or four-factor alphas.  A likely explanation for this result is that the four-
+factor model omits some risk factor, and that funds’ loading on this risk factor is 
+persistent over a one-to-two-year horizon but changes over longer horizons.  This 
+suggests that managers do not have stock-picking skills and casts doubts on the 
+conclusions of Wermers, Yao, and Zhao (2007). 
+ 
+VI. 
+Conclusion 
+Mutual fund managers do not appear to possess stock-picking skills.  Stocks held 
+by past winners outperform those held by past losers over the next year, but the 
+persistence is explained by the four-factor model.  In particular, much of the performance 
+is explained by momentum.  Funds that performed well over the past year are likely to 
+hold recently appreciated stocks (the source of the high fund returns), which benefit from 
+momentum over the next year.  Persistence in mutual fund returns appears to primarily be 
+a manifestation of the Jegadeesh and Titman (1993) momentum effect. 
+Persistence is even less prevalent in holdings returns than it is in fund returns.  
+Carhart (1997) identified significant underperformance in the bottom decile of funds that 
+could not be fully explained by the four factor model or expenses and transaction costs.  
+By contrast, the holdings returns four-factor alphas are almost exactly zero across all 
+portfolios. 
+The only evidence of stock-picking skill comes from portfolios sorted based on 
+one-year alpha estimates, and this is likely the byproduct of model misspecification.  
+
+--- PAGE 14 ---
+ 
+13
+Sorting based on more reliable three-year alpha estimates eliminates any return 
+persistence. 
+The evidence in this paper suggests that even the “best” mutual fund managers do 
+not have stock picking skills.  Thus, investors should not chase “hot” mutual funds, nor 
+should they attempt to invest directly in the holdings of “hot” funds.  Instead the prudent 
+investor will focus solely on purchasing a diversified portfolio with his desired factor 
+loadings at the lowest possible cost. 
+
+--- PAGE 15 ---
+ 
+14
+References: 
+ 
+Wermers, Russ, Tong Yao, and Jane Zhao, 2007, The investment value of mutual fund 
+portfolio disclosure, working paper. 
+ 
+Carhart, Mark M., 1997, On persistence in mutual fund performance, Journal of Finance 
+52, 57-82. 
+ 
+Sharpe, William F., 1964, Capital Asset Prices: A theory of market equilibrium under 
+conditions of risk, Journal of Finance 50, 549-572. 
+ 
+Lintner, John, 1965, The valuation of risk assets and the selection of risky investments in 
+stock portfolios and capital budgets, Review of Economics and Statistics 47, 13-37. 
+ 
+Jegadeesh, Narasimham, and Sheridan Titman, 1993, Returns to buying winners and 
+selling losers: Implications for stock market efficiency, Journal of Finance 48, 65-91. 
+ 
+Wermers, Russ, 2000, Mutual Fund Performance: An empirical decomposition into 
+stock-picking talent, style, transaction costs, and expenses, Journal of Finance 55, 
+1655-1695. 
+ 
+Hendricks, Darryll, Jayendu Patel, and Richard Zeckhauser, 1993, Hot hands in mutual 
+funds: Short-run persistence of performance, 1874-88, Journal of Finance 48, 93-130. 
+ 
+Fama, Eugene F., and Kenneth R. French, 1993, Common risk factors in the returns on 
+bonds and stocks, Journal of Financial Economics 33, 3-53. 
+ 
+Davis, James, L., 2001, Mutual fund performance and manager style, Financial Analysts 
+Journal 57, 19-27. 
+ 
+
+--- PAGE 16 ---
+Figure 1.  Holdings Alpha Estimates by Month of Portfolios Formed on One-Year 
+Lagged Returns (1981 - 2006).  This figure is based on the same analysis reported in 
+Table V.  Mutual funds are sorted on January 1 each year from 1981 to 2006 into decile 
+portfolios based on their previous year's returns.  Portfolio returns represent equal-
+weighted (by fund) holdings returns.  Alpha estimates are from four-factor OLS 
+regressions.  Monthly alpha estimates are calculated as the overall alpha estimate for a 
+portfolio plus the average monthly error term (residual) for that portfolio.
+-3
+-2
+-1
+0
+1
+2
+3
+4
+Jan Feb Mar Apr May Jun
+Jul
+Aug Sep Oct Nov Dec
+Month
+Alpha Estimate (%)
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+1 - 10
+15
+
+--- PAGE 17 ---
+Mutual
+Year
+Count
+Funds
+Holdings
+Difference
+1981
+229
+            
+(1.25)
+       
+(1.46)
+       
+0.21
+        
+1982
+195
+            
+1.12
+        
+1.31
+        
+(0.19)
+       
+1983
+177
+            
+0.89
+        
+1.16
+        
+(0.27)
+       
+1984
+240
+            
+(0.83)
+       
+(0.78)
+       
+(0.04)
+       
+1985
+265
+            
+1.50
+        
+1.84
+        
+(0.35)
+       
+1986
+303
+            
+0.66
+        
+0.78
+        
+(0.12)
+       
+1987
+344
+            
+0.02
+        
+0.27
+        
+(0.24)
+       
+1988
+398
+            
+0.68
+        
+0.93
+        
+(0.26)
+       
+1989
+429
+            
+1.27
+        
+1.51
+        
+(0.24)
+       
+1990
+467
+            
+(1.01)
+       
+(1.01)
+       
+(0.00)
+       
+1991
+496
+            
+2.26
+        
+2.59
+        
+(0.33)
+       
+1992
+547
+            
+0.47
+        
+0.61
+        
+(0.14)
+       
+1993
+640
+            
+0.81
+        
+0.92
+        
+(0.11)
+       
+1994
+635
+            
+(0.42)
+       
+(0.23)
+       
+(0.19)
+       
+1995
+811
+            
+1.80
+        
+2.06
+        
+(0.26)
+       
+1996
+788
+            
+1.08
+        
+1.34
+        
+(0.26)
+       
+1997
+1,190
+         
+1.40
+        
+1.68
+        
+(0.28)
+       
+1998
+1,049
+         
+0.79
+        
+1.01
+        
+(0.22)
+       
+1999
+1,196
+         
+1.56
+        
+1.52
+        
+0.04
+        
+2000
+1,480
+         
+(0.29)
+       
+(0.11)
+       
+(0.18)
+       
+2001
+1,180
+         
+(0.98)
+       
+(0.84)
+       
+(0.14)
+       
+2002
+989
+            
+(2.03)
+       
+(1.96)
+       
+(0.07)
+       
+2003
+1,145
+         
+2.32
+        
+2.62
+        
+(0.29)
+       
+2004
+1,034
+         
+0.90
+        
+1.10
+        
+(0.20)
+       
+2005
+1,144
+         
+0.34
+        
+0.50
+        
+(0.16)
+       
+2006
+1,030
+         
+0.65
+        
+0.81
+        
+(0.16)
+       
+Total
+18,401
+       
+Mean
+0.53
+        
+0.70
+        
+(0.17)
+       
+Standard Deviation
+1.10
+        
+1.19
+        
+0.12
+        
+Table I
+Data Summary
+Average Monthly Return (%)
+The table summarizes the dataset constructed for this 
+paper.  Mutual fund returns are from the CRSP mutual 
+fund dataset.  Holdings returns are constructed from end-
+of-year CDA/Spectrum reported holdings and CRSP stock 
+return data.  The two datasets are linked using MFLinks.
+16
+
+--- PAGE 18 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+1 (high)
+0.77%
+0.14%
+1.05
+0.741
+0.01%
+0.95
+0.48
+-0.13
+0.29
+0.919
+(2.57)
+(0.94)
+(29.82)
+(0.09)
+(41.03)
+(16.57)
+(-3.82)
+(14.02)
+2
+0.68%
+0.09%
+0.99
+0.866
+-0.03%
+0.94
+0.32
+-0.03
+0.18
+0.955
+(2.61)
+(0.95)
+(44.80)
+(-0.57)
+(62.51)
+(17.01)
+(-1.18)
+(13.29)
+3
+0.60%
+0.02%
+0.96
+0.937
+-0.06%
+0.94
+0.19
+0.01
+0.09
+0.966
+(2.45)
+(0.40)
+(68.17)
+(-1.16)
+(77.41)
+(12.63)
+(0.76)
+(7.88)
+4
+0.59%
+0.02%
+0.96
+0.959
+-0.06%
+0.96
+0.14
+0.03
+0.07
+0.975
+(2.46)
+(0.40)
+(85.79)
+(-1.37)
+(91.51)
+(10.70)
+(1.91)
+(7.11)
+5
+0.52%
+-0.04%
+0.94
+0.973
+-0.08%
+0.95
+0.07
+0.05
+0.00
+0.975
+(2.21)
+(-1.10)
+(105.41)
+(-2.04)
+(94.15)
+(5.41)
+(3.53)
+(-0.32)
+6
+0.45%
+-0.11%
+0.94
+0.973
+-0.13%
+0.95
+0.06
+0.04
+-0.02
+0.974
+(1.93)
+(-2.78)
+(105.11)
+(-3.10)
+(92.13)
+(4.48)
+(2.48)
+(-1.74)
+7
+0.47%
+-0.09%
+0.94
+0.959
+-0.11%
+0.96
+0.06
+0.08
+-0.05
+0.964
+(1.98)
+(-1.92)
+(84.89)
+(-2.27)
+(78.38)
+(3.66)
+(4.24)
+(-4.96)
+8
+0.47%
+-0.08%
+0.93
+0.936
+-0.08%
+0.94
+0.07
+0.07
+-0.06
+0.943
+(2.00)
+(-1.36)
+(67.62)
+(-1.39)
+(60.88)
+(3.59)
+(2.94)
+(-4.57)
+9
+0.44%
+-0.12%
+0.93
+0.898
+-0.10%
+0.94
+0.10
+0.09
+-0.11
+0.915
+(1.82)
+(-1.50)
+(52.28)
+(-1.28)
+(48.95)
+(4.06)
+(3.16)
+(-6.69)
+10 (low)
+0.28%
+-0.31%
+0.99
+0.834
+-0.19%
+0.98
+0.17
+0.07
+-0.23
+0.881
+(1.06)
+(-2.81)
+(39.56)
+(-1.92)
+(38.88)
+(5.31)
+(1.96)
+(-10.15)
+1 - 10
+0.49%
+0.45%
+0.05
+0.001
+0.20%
+-0.03
+0.31
+-0.21
+0.52
+0.496
+(2.23)
+(2.06)
+(1.09)
+(1.19)
+(-0.59)
+(5.96)
+(-3.27)
+(13.76)
+CAPM
+4-Factor Model
+Table II
+Portfolios of Mutual Fund Returns Formed on Lagged 1-Year Returns (1981 - 2006)
+Mutual funds are sorted on January 1 each year from 1981 to 2006 into decile portfolios based on their previous year's return.  
+Portfolio returns represent equal-weighted fund returns.  Rmrf, smb, hml, and umd are returns of factor-mimicking portfolios 
+obtained from Ken French's website.  Parameter estimates are from OLS regressions.  The t-statistics are in parentheses.
+17
+
+--- PAGE 19 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Dates
+Source*
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+(1) 1 - 10
+1963 - 1993
+Carhart (1997)
+0.67%
+0.67%
+0.01
+-0.002
+0.29%
+-0.05
+0.30
+0.03
+0.38
+0.231
+(4.68)
+(0.39)
+(2.13)
+(-1.52)
+(6.30)
+(0.53)
+(10.07)
+(2) 1 - 10
+1963 - 1993
+MF Data
+0.70%
+0.65%
+0.10
+0.012
+0.12%
+0.01
+0.37
+0.00
+0.56
+0.318
+(3.68)
+(3.46)
+(2.37)
+(0.70)
+(0.14)
+(6.26)
+(-0.06)
+(11.93)
+(3) 1 - 10
+1980 - 2006
+Paper Data
+0.49%
+0.45%
+0.05
+0.001
+0.20%
+-0.03
+0.31
+-0.21
+0.52
+0.496
+(2.23)
+(2.06)
+(1.09)
+(1.19)
+(-0.59)
+(5.96)
+(-3.27)
+(13.76)
+(4) 1 - 10
+1963 - 1982
+MF Data
+0.89%
+0.87%
+0.09
+0.006
+0.09%
+-0.02
+0.43
+0.01
+0.64
+0.405
+(3.55)
+(3.45)
+(1.59)
+(0.45)
+(-0.48)
+(6.10)
+(0.12)
+(11.62)
+(5) 1 - 10
+1983 - 2002
+MF Data
+0.66%
+0.59%
+0.12
+0.010
+0.15%
+0.05
+0.36
+-0.17
+0.62
+0.501
+(2.18)
+(1.94)
+(1.83)
+(0.67)
+(0.96)
+(5.21)
+(-2.08)
+(12.49)
+(6) 1 - 10
+1963 - 1972
+MF Data
+0.77%
+0.74%
+0.06
+-0.005
+0.26%
+-0.09
+0.46
+0.01
+0.56
+0.309
+(2.29)
+(2.18)
+(0.67)
+(0.86)
+(-1.05)
+(4.17)
+(0.09)
+(5.88)
+(7) 1 - 10
+1973 - 1982
+MF Data
+1.01%
+1.01%
+0.11
+0.009
+-0.06%
+0.00
+0.45
+0.03
+0.69
+0.472
+(2.70)
+(2.70)
+(1.45)
+(-0.20)
+(0.05)
+(4.46)
+(0.24)
+(9.97)
+(8) 1 - 10
+1983 - 1992
+MF Data
+0.47%
+0.38%
+0.13
+0.026
+0.22%
+0.08
+0.22
+0.02
+0.36
+0.128
+(1.65)
+(1.34)
+(2.04)
+(0.79)
+(1.13)
+(1.89)
+(0.12)
+(3.86)
+(9) 1 - 10
+1993 - 2002
+MF Data
+0.86%
+0.81%
+0.12
+0.000
+0.04%
+0.10
+0.34
+-0.25
+0.70
+0.633
+(1.59)
+(1.49)
+(1.02)
+(0.12)
+(1.13)
+(3.64)
+(-2.16)
+(11.28)
+*Carhart (1997) summaries taken directly from his paper.  MF Data is a data set that replicates Carhart (1997) data for the period from 1962 to 2002.
+ MF Data was obtained from John Cochrane as part of a problem set for Advanced Investments (B35150).  Paper Data is the dataset contructed for
+ this paper.
+CAPM
+4-Factor Model
+Table III
+Date Range Comparisons
+Portfolios of Mutual Fund Returns Formed on Lagged 1-Year Returns
+Mutual funds are sorted on January 1 each year of the given date range into decile portfolios based on their previous year's return.  Portfolio returns represent 
+equal-weighted fund returns.  Rmrf, smb, hml, and umd are returns of factor-mimicking portfolios obtained from Ken French's website.  Parameter estimates 
+are from OLS regressions.  The t-statistics are in parentheses.
+18
+
+--- PAGE 20 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+1 (high)
+0.63%
+-0.10%
+1.10
+0.881
+0.04%
+0.98
+0.36
+-0.16
+-0.01
+0.956
+(2.14)
+(-0.99)
+(46.12)
+(0.53)
+(57.99)
+(17.00)
+(-6.45)
+(-0.98)
+2
+0.60%
+-0.06%
+0.99
+0.944
+-0.04%
+0.96
+0.20
+-0.01
+-0.01
+0.965
+(2.34)
+(-0.99)
+(69.21)
+(-0.74)
+(72.60)
+(12.13)
+(-0.54)
+(-0.93)
+3
+0.60%
+-0.03%
+0.94
+0.963
+-0.05%
+0.94
+0.10
+0.04
+0.00
+0.968
+(2.49)
+(-0.58)
+(85.86)
+(-1.06)
+(78.97)
+(6.83)
+(2.43)
+(-0.43)
+4
+0.61%
+-0.01%
+0.93
+0.972
+-0.05%
+0.94
+0.08
+0.07
+-0.01
+0.976
+(2.59)
+(-0.17)
+(100.60)
+(-1.15)
+(94.33)
+(6.72)
+(4.67)
+(-0.87)
+5
+0.56%
+-0.07%
+0.93
+0.973
+-0.12%
+0.95
+0.07
+0.07
+0.01
+0.976
+(2.34)
+(-1.63)
+(100.67)
+(-3.03)
+(93.35)
+(5.30)
+(4.98)
+(0.94)
+6
+0.56%
+-0.06%
+0.93
+0.967
+-0.11%
+0.95
+0.05
+0.10
+-0.01
+0.971
+(2.37)
+(-1.27)
+(91.74)
+(-2.63)
+(85.89)
+(3.63)
+(5.95)
+(-0.82)
+7
+0.52%
+-0.10%
+0.92
+0.970
+-0.14%
+0.94
+0.09
+0.07
+0.00
+0.974
+(2.18)
+(-2.43)
+(95.46)
+(-3.48)
+(89.12)
+(6.71)
+(4.28)
+(-0.11)
+8
+0.58%
+-0.04%
+0.93
+0.958
+-0.10%
+0.93
+0.13
+0.05
+0.04
+0.969
+(2.44)
+(-0.77)
+(81.05)
+(-2.17)
+(80.51)
+(8.93)
+(3.16)
+(3.53)
+9
+0.59%
+-0.04%
+0.95
+0.948
+-0.12%
+0.95
+0.18
+0.07
+0.04
+0.966
+(2.41)
+(-0.74)
+(72.41)
+(-2.43)
+(77.25)
+(11.58)
+(4.05)
+(3.75)
+10 (low)
+0.51%
+-0.17%
+1.02
+0.921
+-0.22%
+0.99
+0.28
+0.03
+0.05
+0.962
+(1.90)
+(-2.27)
+(57.93)
+(-3.93)
+(69.19)
+(15.65)
+(1.40)
+(3.95)
+1 - 10
+0.12%
+0.07%
+0.08
+0.044
+0.26%
+-0.01
+0.08
+-0.19
+-0.06
+0.224
+(1.35)
+(0.78)
+(3.78)
+(2.97)
+(-0.38)
+(2.91)
+(-5.88)
+(-3.33)
+CAPM
+4-Factor Model
+Table IV
+Portfolios of Mutual Fund Returns Formed on Lagged 3-Year Alpha Estimates (1983 - 2006)
+Mutual funds are sorted on January 1 each year from 1983 to 2006 into decile portfolios based on their previous three years' four-
+factor alpha estimate.  Portfolio returns represent equal-weighted fund returns.  Rmrf, smb, hml, and umd are returns of factor-
+mimicking portfolios obtained from Ken French's website.  Parameter estimates are from OLS regressions.  The t-statistics are in 
+parentheses.
+19
+
+--- PAGE 21 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+1 (high)
+0.89%
+0.19%
+1.18
+0.762
+0.04%
+1.08
+0.49
+-0.14
+0.30
+0.915
+(2.68)
+(1.14)
+(31.60)
+(0.39)
+(41.12)
+(14.84)
+(-3.45)
+(12.97)
+2
+0.85%
+0.19%
+1.10
+0.875
+0.05%
+1.07
+0.31
+-0.02
+0.19
+0.947
+(2.92)
+(1.83)
+(46.66)
+(0.71)
+(58.55)
+(13.80)
+(-0.72)
+(11.69)
+3
+0.75%
+0.10%
+1.08
+0.943
+0.02%
+1.07
+0.18
+0.00
+0.09
+0.966
+(2.72)
+(1.49)
+(71.75)
+(0.37)
+(76.79)
+(10.38)
+(0.17)
+(7.52)
+4
+0.74%
+0.11%
+1.06
+0.962
+0.03%
+1.06
+0.13
+0.05
+0.05
+0.971
+(2.79)
+(2.11)
+(88.90)
+(0.67)
+(86.29)
+(8.39)
+(2.68)
+(4.50)
+5
+0.71%
+0.07%
+1.07
+0.967
+0.03%
+1.08
+0.08
+0.06
+0.00
+0.970
+(2.65)
+(1.42)
+(96.15)
+(0.54)
+(84.93)
+(4.90)
+(2.97)
+(-0.13)
+6
+0.62%
+-0.01%
+1.06
+0.964
+-0.02%
+1.07
+0.05
+0.05
+-0.04
+0.966
+(2.34)
+(-0.22)
+(91.70)
+(-0.32)
+(80.18)
+(3.00)
+(2.30)
+(-3.14)
+7
+0.63%
+0.00%
+1.06
+0.957
+0.00%
+1.07
+0.05
+0.07
+-0.07
+0.962
+(2.38)
+(0.02)
+(83.35)
+(0.03)
+(75.73)
+(3.07)
+(3.16)
+(-5.23)
+8
+0.66%
+0.02%
+1.06
+0.938
+0.04%
+1.07
+0.07
+0.07
+-0.10
+0.947
+(2.44)
+(0.35)
+(68.85)
+(0.65)
+(63.45)
+(3.37)
+(2.82)
+(-6.35)
+9
+0.63%
+-0.01%
+1.08
+0.897
+0.02%
+1.09
+0.10
+0.11
+-0.15
+0.917
+(2.25)
+(-0.16)
+(51.98)
+(0.22)
+(49.75)
+(3.66)
+(3.35)
+(-7.73)
+10 (low)
+0.54%
+-0.15%
+1.16
+0.844
+0.02%
+1.13
+0.18
+0.06
+-0.29
+0.897
+(1.74)
+(-1.23)
+(41.08)
+(0.19)
+(41.77)
+(5.38)
+(1.58)
+(-11.89)
+1 - 10
+0.35%
+0.34%
+0.02
+-0.003
+0.02%
+-0.05
+0.31
+-0.20
+0.59
+0.510
+(1.49)
+(1.42)
+(0.38)
+(0.11)
+(-1.11)
+(5.48)
+(-2.99)
+(14.85)
+CAPM
+4-Factor Model
+Table V
+Portfolios of Holdings Returns Formed on Lagged 1-Year Returns (1981 - 2006)
+Mutual funds are sorted on January 1 each year from 1981 to 2006 into decile portfolios based on their previous year's returns.  
+Portfolio returns represent equal-weighted (by fund) holdings returns.  Rmrf, smb, hml, and umd are returns of factor-mimicking 
+portfolios obtained from Ken French's website.  Parameter estimates are from OLS regressions.  The t-statistics are in 
+parentheses.
+20
+
+--- PAGE 22 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+1 (high)
+0.77%
+-0.09%
+1.28
+0.831
+0.09%
+1.12
+0.40
+-0.28
+0.04
+0.917
+(2.18)
+(-0.58)
+(37.58)
+(0.85)
+(40.16)
+(11.65)
+(-6.78)
+(1.59)
+2
+0.81%
+0.04%
+1.15
+0.927
+0.07%
+1.08
+0.23
+-0.09
+0.05
+0.958
+(2.70)
+(0.53)
+(60.14)
+(1.10)
+(64.27)
+(10.86)
+(-3.45)
+(3.41)
+3
+0.79%
+0.06%
+1.09
+0.957
+0.05%
+1.07
+0.15
+0.00
+0.02
+0.968
+(2.80)
+(0.96)
+(80.14)
+(0.95)
+(77.91)
+(8.88)
+(-0.17)
+(1.52)
+4
+0.74%
+0.02%
+1.08
+0.968
+0.00%
+1.07
+0.10
+0.04
+0.00
+0.972
+(2.67)
+(0.36)
+(93.70)
+(-0.09)
+(85.47)
+(6.44)
+(2.02)
+(0.03)
+5
+0.72%
+0.03%
+1.04
+0.963
+-0.03%
+1.06
+0.08
+0.08
+0.00
+0.966
+(2.70)
+(0.50)
+(85.89)
+(-0.49)
+(78.06)
+(4.95)
+(3.85)
+(0.28)
+6
+0.81%
+0.11%
+1.04
+0.960
+0.05%
+1.06
+0.08
+0.09
+-0.01
+0.963
+(3.00)
+(1.97)
+(82.65)
+(0.93)
+(75.55)
+(4.55)
+(4.45)
+(-0.46)
+7
+0.76%
+0.07%
+1.04
+0.944
+0.01%
+1.07
+0.07
+0.11
+-0.02
+0.948
+(2.83)
+(1.04)
+(69.83)
+(0.15)
+(63.64)
+(3.27)
+(4.35)
+(-1.25)
+8
+0.78%
+0.09%
+1.02
+0.923
+0.01%
+1.07
+0.07
+0.15
+-0.03
+0.931
+(2.89)
+(1.20)
+(58.72)
+(0.09)
+(55.24)
+(2.92)
+(5.43)
+(-1.52)
+9
+0.76%
+0.07%
+1.04
+0.921
+-0.01%
+1.07
+0.10
+0.15
+-0.03
+0.929
+(2.80)
+(0.90)
+(58.02)
+(-0.12)
+(54.32)
+(4.04)
+(5.16)
+(-1.56)
+10 (low)
+0.78%
+0.05%
+1.09
+0.880
+0.01%
+1.10
+0.25
+0.16
+-0.08
+0.906
+(2.66)
+(0.49)
+(45.91)
+(0.09)
+(44.93)
+(8.35)
+(4.45)
+(-3.59)
+1 - 10
+-0.01%
+-0.14%
+0.19
+0.061
+0.08%
+0.02
+0.15
+-0.44
+0.12
+0.306
+(-0.05)
+(-0.74)
+(4.44)
+(0.50)
+(0.38)
+(2.81)
+(-6.98)
+(3.10)
+CAPM
+4-Factor Model
+Table VI
+Portfolios of Holdings Returns Formed on Lagged 3-Year Returns (1983 - 2006)
+Mutual funds are sorted on January 1 each year from 1983 to 2006 into decile portfolios based on their previous three years' 
+returns.  Portfolio returns represent equal-weighted (by fund) holdings returns.  Rmrf, smb, hml, and umd are returns of factor-
+mimicking portfolios obtained from Ken French's website.  Parameter estimates are from OLS regressions.  The t-statistics are in 
+parentheses.
+21
+
+--- PAGE 23 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+1 (high)
+0.93%
+0.18%
+1.26
+0.860
+0.22%
+1.14
+0.42
+-0.18
+0.11
+0.945
+(2.80)
+(1.44)
+(43.66)
+(2.63)
+(53.29)
+(15.78)
+(-5.62)
+(5.77)
+2
+0.74%
+0.07%
+1.12
+0.940
+0.08%
+1.08
+0.22
+-0.03
+0.02
+0.962
+(2.60)
+(0.98)
+(69.50)
+(1.29)
+(71.21)
+(11.77)
+(-1.44)
+(1.12)
+3
+0.69%
+0.05%
+1.07
+0.958
+0.02%
+1.07
+0.13
+0.04
+0.01
+0.964
+(2.57)
+(0.96)
+(83.80)
+(0.37)
+(76.20)
+(7.24)
+(1.70)
+(0.48)
+4
+0.71%
+0.09%
+1.05
+0.965
+0.04%
+1.06
+0.09
+0.07
+-0.01
+0.968
+(2.71)
+(1.70)
+(92.16)
+(0.74)
+(83.01)
+(5.92)
+(3.60)
+(-0.58)
+5
+0.67%
+0.05%
+1.04
+0.969
+0.00%
+1.06
+0.05
+0.07
+0.00
+0.970
+(2.57)
+(1.04)
+(98.29)
+(-0.03)
+(86.37)
+(3.16)
+(3.62)
+(-0.03)
+6
+0.72%
+0.10%
+1.04
+0.960
+0.03%
+1.07
+0.06
+0.11
+-0.02
+0.963
+(2.75)
+(1.85)
+(86.15)
+(0.58)
+(78.38)
+(3.51)
+(5.17)
+(-1.36)
+7
+0.67%
+0.04%
+1.06
+0.969
+0.03%
+1.06
+0.07
+0.03
+-0.02
+0.971
+(2.55)
+(0.89)
+(99.33)
+(0.68)
+(86.64)
+(4.60)
+(1.69)
+(-1.83)
+8
+0.66%
+0.02%
+1.07
+0.959
+-0.03%
+1.08
+0.12
+0.07
+-0.01
+0.964
+(2.44)
+(0.30)
+(84.98)
+(-0.61)
+(77.58)
+(6.92)
+(3.43)
+(-0.51)
+9
+0.63%
+-0.01%
+1.08
+0.949
+-0.04%
+1.07
+0.16
+0.05
+-0.01
+0.959
+(2.32)
+(-0.21)
+(75.96)
+(-0.73)
+(70.94)
+(8.66)
+(2.10)
+(-0.72)
+10 (low)
+0.58%
+-0.10%
+1.13
+0.912
+-0.10%
+1.11
+0.30
+0.06
+-0.05
+0.943
+(1.98)
+(-1.13)
+(56.69)
+(-1.39)
+(57.96)
+(12.57)
+(2.02)
+(-3.22)
+1 - 10
+0.35%
+0.28%
+0.12
+0.056
+0.33%
+0.03
+0.12
+-0.24
+0.16
+0.337
+(2.82)
+(2.27)
+(4.41)
+(2.95)
+(1.15)
+(3.48)
+(-5.67)
+(6.60)
+CAPM
+4-Factor Model
+Table VII
+Portfolios of Holdings Returns Formed on Lagged 1-Year Alpha Estimates (1981 - 2006)
+Mutual funds are sorted on January 1 each year from 1981 to 2006 into decile portfolios based on their previous year's four-
+factor alpha estimate.  Portfolio returns represent equal-weighted (by fund) holdings returns.  Rmrf, smb, hml, and umd are 
+returns of factor-mimicking portfolios obtained from Ken French's website.  Parameter estimates are from OLS regressions.  The 
+t-statistics are in parentheses.
+22
+
+--- PAGE 24 ---
+Monthly
+Excess
+Adj.
+Adj.
+Portfolio
+Return
+Alpha
+rmrf
+R-sq
+Alpha
+rmrf
+smb
+hml
+umd
+R-sq
+1 (high)
+0.82%
+-0.03%
+1.27
+0.885
+0.11%
+1.15
+0.39
+-0.17
+-0.01
+0.951
+(2.40)
+(-0.26)
+(46.94)
+(1.31)
+(55.83)
+(15.43)
+(-5.45)
+(-0.47)
+2
+0.77%
+0.02%
+1.12
+0.946
+0.05%
+1.08
+0.18
+0.00
+-0.02
+0.960
+(2.65)
+(0.29)
+(70.77)
+(0.75)
+(68.66)
+(9.46)
+(-0.17)
+(-1.54)
+3
+0.79%
+0.07%
+1.07
+0.954
+0.06%
+1.07
+0.10
+0.03
+0.00
+0.958
+(2.84)
+(1.17)
+(77.33)
+(0.91)
+(68.87)
+(5.30)
+(1.31)
+(-0.18)
+4
+0.78%
+0.08%
+1.05
+0.960
+0.04%
+1.07
+0.05
+0.08
+-0.01
+0.962
+(2.88)
+(1.39)
+(83.31)
+(0.65)
+(74.53)
+(3.10)
+(3.61)
+(-1.11)
+5
+0.73%
+0.05%
+1.02
+0.962
+-0.01%
+1.04
+0.07
+0.09
+0.00
+0.965
+(2.77)
+(0.86)
+(84.74)
+(-0.28)
+(77.37)
+(4.41)
+(4.46)
+(0.16)
+6
+0.76%
+0.06%
+1.04
+0.963
+0.01%
+1.06
+0.02
+0.07
+0.00
+0.964
+(2.82)
+(1.13)
+(85.87)
+(0.23)
+(76.54)
+(1.36)
+(3.58)
+(-0.30)
+7
+0.75%
+0.05%
+1.04
+0.968
+0.02%
+1.05
+0.07
+0.07
+-0.02
+0.971
+(2.79)
+(1.00)
+(92.97)
+(0.50)
+(84.03)
+(4.46)
+(3.56)
+(-2.15)
+8
+0.75%
+0.05%
+1.05
+0.959
+-0.01%
+1.06
+0.11
+0.07
+0.01
+0.965
+(2.76)
+(0.82)
+(82.20)
+(-0.17)
+(76.27)
+(6.53)
+(3.62)
+(0.77)
+9
+0.80%
+0.08%
+1.07
+0.951
+0.01%
+1.08
+0.17
+0.08
+0.02
+0.963
+(2.87)
+(1.28)
+(74.97)
+(0.23)
+(74.18)
+(9.38)
+(3.77)
+(1.76)
+10 (low)
+0.76%
+0.00%
+1.14
+0.923
+-0.02%
+1.11
+0.32
+0.04
+0.00
+0.960
+(2.54)
+(-0.02)
+(58.63)
+(-0.28)
+(68.03)
+(15.79)
+(1.68)
+(0.12)
+1 - 10
+0.06%
+-0.03%
+0.13
+0.107
+0.12%
+0.04
+0.07
+-0.21
+-0.01
+0.267
+(0.58)
+(-0.31)
+(5.95)
+(1.37)
+(1.82)
+(2.64)
+(-6.07)
+(-0.51)
+CAPM
+4-Factor Model
+Table VIII
+Portfolios of Holdings Returns Formed on Lagged 3-Year Alpha Estimates (1983 - 2006)
+Mutual funds are sorted on January 1 each year from 1983 to 2006 into decile portfolios based on their previous three years' four-
+factor alpha estimate.  Portfolio returns represent equal-weighted (by fund) holdings returns.  Rmrf, smb, hml, and umd are 
+returns of factor-mimicking portfolios obtained from Ken French's website.  Parameter estimates are from OLS regressions.  The 
+t-statistics are in parentheses.
+23

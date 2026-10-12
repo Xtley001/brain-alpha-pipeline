@@ -1,0 +1,1225 @@
+
+--- PAGE 1 ---
+NBER WORKING PAPER SERIES
+TECHNOLOGICAL INNOVATION, RESOURCE ALLOCATION, AND GROWTH
+Leonid Kogan
+Dimitris Papanikolaou
+Amit Seru
+Noah Stoffman
+Working Paper 17769
+http://www.nber.org/papers/w17769
+NATIONAL BUREAU OF ECONOMIC RESEARCH
+1050 Massachusetts Avenue
+Cambridge, MA 02138
+January 2012
+We thank Hal Varian for helping us in extracting information on Patents from Google Patents 
+database. We are grateful to Andrew Atkeson, Nick Bloom, Andrea Eisfeldt, Yuriy 
+Gorodnichenko, Roel Griep, Pete Klenow, Danielle Li, Jonathan Parker, Tomasz Piskorski, and 
+Heidi Williams for detailed comments. We also thank numerous other discussants and 
+participants at the AEAs, Boston University, Columbia Business School, Duke/UNC Asset 
+Pricing Conference, FRB Chicago, NBER Asset Pricing, NBER Economic Fluctuations and 
+Growth, NBER Entrepreneurship, NBER Productivity, Minnesota, Northwestern, NYU, and 
+SITE for helpful discussions. We are grateful to Tom Nicholas for sharing his patent citations 
+data. The authors thank the Fama-Miller Center at University of Chicago, the Zell Center and the 
+Jerome Kenney Fund for financial assistance. The views expressed herein are those of the authors 
+and do not necessarily reflect the views of the National Bureau of Economic Research.
+NBER working papers are circulated for discussion and comment purposes. They have not been 
+peer-reviewed or been subject to the review by the NBER Board of Directors that accompanies 
+official NBER publications.
+© 2012 by Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. All rights 
+reserved. Short sections of text, not to exceed two paragraphs, may be quoted without explicit 
+permission provided that full credit, including © notice, is given to the source.
+
+--- PAGE 2 ---
+Technological Innovation, Resource Allocation, and Growth
+Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman 
+NBER Working Paper No. 17769
+January 2012, Revised May 2016
+JEL No. E32,G14,O3,O4
+ABSTRACT
+We propose a new measure of the economic importance of each innovation. Our measure uses 
+newly collected data on patents issued to US firms in the 1926 to 2010 period, combined with the 
+stock market response to news about patents. Our patent- level estimates of private economic 
+value are positively related to the scientific value of these patents, as measured by the number of 
+citations that the patent receives in the future. Our new measure is associated with substantial 
+growth, reallocation and creative destruction, consistent with the predictions of Schumpeterian 
+growth models. Aggregating our measure suggests that technological innovation accounts for 
+significant medium-run fluctuations in aggregate economic growth and TFP. Our measure 
+contains additional information relative to citation-weighted patent counts; the relation between 
+our measure and firm growth is considerably stronger. Importantly, the degree of creative 
+destruction that is associated with our measure is higher than previous estimates, confirming that 
+it is a useful proxy for the private valuation of patents.
+Leonid Kogan
+MIT Sloan School of Management
+100 Main Street, E62-636
+Cambridge, MA  02142
+and NBER
+lkogan@mit.edu
+Dimitris Papanikolaou
+Kellogg School of Management
+Northwestern University
+2001 Sheridan Road
+Evanston, IL 60208
+and NBER
+d-papanikolaou@kellogg.northwestern.edu
+Amit Seru
+Booth School of Business
+University of Chicago
+5807 South Woodlawn Avenue
+Chicago, IL 60637
+and NBER
+amit.seru@chicagobooth.edu
+Noah Stoffman
+Kelley School of Business, Indiana University
+1309 E 10th Street
+Bloomington, IN  47405
+nstoffma@indiana.edu
+A online appendix is available at http://www.nber.org/data-appendix/w17769/
+
+--- PAGE 3 ---
+Since Schumpeter, economists have argued that technological innovation is a key driver of
+economic growth. Models of endogenous growth have rich testable predictions about both
+aggregate quantities and the cross-section of ﬁrms, linking improvements in the technology
+frontier to resource reallocation and subsequent economic growth. However, the predictions
+of these models are diﬃcult to test directly, mainly due to the scarcity of directly observable
+measures of technological innovation. To assess the importance of technological innovation
+for economic growth, an ideal measure should capture the economic value of new inventions,
+and be comparable both across industries and across time. This paper aims to ﬁll this gap
+by constructing a new measure of the economic importance of each innovation.
+We propose a new measure of the private, economic value of new innovations that is based
+on stock market reactions to patent grants. We construct this measure combining a novel
+dataset of patent grants over the period 1926 to 2010 with stock market data.1 The advantage
+of using ﬁnancial data is that asset prices are forward-looking and hence provide us with an
+estimate of the private value to the patent holder that is based on ex-ante information. This
+private value need not coincide with the scientiﬁc value of the patent – typically assessed
+using forward patent citations. For instance, a patent may represent only a minor scientiﬁc
+advance, yet be very eﬀective in restricting competition, and thus generate large private
+rents. These ex-ante private values are useful in studying ﬁrm allocation decisions, estimating
+the (private) return to R&D spending, and assessing the degree of creative destruction and
+reallocation that results following waves of technological progress. Further, the fact that
+our measure of ‘quality’ is in terms of dollars implies that our estimates are comparable
+across time and across diﬀerent industries; in contrast, since patenting propensities could
+vary, comparing patent counts across industries and time becomes more challenging.
+We construct an estimate of the private value of the patent by exploiting movements
+in stock prices following the days that patents are issued to the ﬁrm. We ﬁrst document
+that trading activity in the stock of the ﬁrm that issued a patent increases after the patent
+issuance date. Second, we ﬁnd that returns on patent grant days are more volatile than
+on days without any patent grant announcement, suggesting that valuable information is
+released to the market. However, even within a narrow window around grant days, stock
+prices may move for reasons that are unrelated to patent values. To ﬁlter the component of
+ﬁrm return that is related to the value of the patent from noise, we make several distributional
+assumptions. Several robustness checks suggest that our estimates are not overly sensitive to
+the particular choice of underlying distributions. The resulting distribution of the estimated
+patent values is fat-tailed, consistent with past research describing the nature of radical
+innovations (Harhoﬀ, Scherer, and Vopel, 1997). The characteristics of innovating ﬁrms and
+industries are similar to those discussed in Baumol (2002), Griliches (1990), Scherer (1965)
+1Several new studies exploit the same source of patent data (Google Patents) as we do in our paper. For
+instance, see Moser and Voena (2012), Moser, Voena, and Waldinger (2012) and Lampe and Moser (2011).
+Ours is the ﬁrst to exploit this data at a large scale and match it to ﬁrms with stock price data.
+1
+
+--- PAGE 4 ---
+and Scherer (1983) who describe ﬁrms that have conducted radical innovation and have been
+responsible for technical change in the U.S.
+To illustrate the usefulness of our measure, we use it to examine three important questions
+in the literature on innovation and growth. Addressing these issues using existing measures
+has proved to be a challenge. First, the relation between the private and the scientiﬁc
+value of innovation – as measured by patent citations – has been the subject of considerable
+debate.2 We examine the relation between our measure and the number of citations that
+the patent receives in the future. We ﬁnd that our patent-level estimates of economic value
+are strongly positively related to forward citations; this correlation is robust to a number of
+patent- and ﬁrm-level controls. Placebo experiments conﬁrm that this relation is unlikely
+to be spurious. In terms of economic magnitudes, our results are comparable to Hall et al.
+(2005); an additional patent citation is associated with an increase of 0.1% to 3.2% in the
+economic value of a patent.
+Second, we use our estimate of the market value of innovation to examine the predictions
+of models of endogenous growth (e.g. Romer, 1990; Aghion and Howitt, 1992; Grossman and
+Helpman, 1991; Klette and Kortum, 2004). Since the value of a ﬁrm’s innovative output is
+hard to observe, constructing direct empirical tests of these models has proven challenging;
+existing approaches rely on indirect inference (see, e.g. Garcia-Macia, Hsieh, and Klenow,
+2015). A unifying prediction of Schumpeterian models of growth is that ﬁrms grow through
+successful innovation – either through acquiring new products or by improving existing
+varieties. By contrast, innovation by competing ﬁrms has a negative eﬀect – either directly
+through business stealing, or indirectly through movements in factor prices. The strength
+of these eﬀects depends on the economic value of the new inventions. Our results using
+several measures of ﬁrm size – the nominal value of output, proﬁts, capital and number
+of employees – suggest that both channels are important. Firms that experience a one-
+standard deviation increase in their innovation output experience higher growth of 2.5%
+to 4.6% over a period of ﬁve years. Conversely, ﬁrms that fail to innovate in an industry
+that experiences a one-standard deviation increase in its innovative output experience lower
+growth of 2.7% to 5.1% over the same horizon. In addition to ﬁrm growth, we ﬁnd similar
+eﬀects on revenue-based productivity (TFPR). Firms that innovate experience productivity
+increases, whereas those that fall behind see productivity declines. By revealing a strong
+relation between innovation, ﬁrm growth and the reallocation of resources across ﬁrms –
+2For instance, Hall, Jaﬀe, and Trajtenberg (2005) and Nicholas (2008) document that ﬁrms owning highly
+cited patents have higher stock market valuations. Harhoﬀ, Narin, Scherer, and Vopel (1999) and Moser,
+Ohmstedt, and Rhode (2011) provide estimates of a positive relation using smaller samples that contain
+estimates of economic value. By contrast, Abrams, Akcigit, and Popadak (2013) use a proprietary dataset
+that includes estimates of patent values based on licensing fees and show that the relation between private
+values and patent citations is non-monotonic. Our approach allows us to revisit this question at a higher
+level of granularity than Hall et al. (2005), while using a broader sample than Harhoﬀet al. (1999), Moser
+et al. (2011) and Abrams et al. (2013).
+2
+
+--- PAGE 5 ---
+capital and labor ﬂow to innovating ﬁrms and away from their competitors – these ﬁndings
+support the Schumpeterian view of growth and creative destruction.
+Third, we assess the role of technological innovation in accounting for medium-run
+ﬂuctuations in aggregate economic growth and TFP. A notable challenge facing real business
+cycle models is the scarcity of evidence linking movements in TFP to clearly identiﬁable
+measures of technological change. At the aggregate level, whether technological innovation is
+socially valuable in endogenous growth models depends on the degree to which it contributes
+to aggregate productivity – as opposed to simply being a force for reallocation and creative
+destruction. Our ﬁrm-level results, when aggregated using all the ﬁrms in our sample, are
+strongly suggestive of a net positive eﬀect of innovation. However, these eﬀects are conﬁned
+to the sample of public ﬁrms that we study. To study the relation between innovation and
+growth more broadly at the economy level, we construct an aggregate index of innovation
+based on our estimated patent values. This index is motivated by a simple growth model, in
+which, under certain assumptions, ﬁrm monopoly proﬁts from innovation are approximately
+linearly related to aggregate improvements in output and TFP. Our index captures known
+periods of high technological progress, namely the 1920s, the 1960s and the 1990s (Field, 2003;
+Alexopoulos and Cohen, 2009, 2011; Alexopoulos, 2011). This innovation index is strongly
+related to aggregate growth in output and TFP. In particular, a one-standard deviation
+increase in our index is associated with a 1.6% to 6.5% increase in output and a 0.6% to 3.5%
+increase in measured TFP over a horizon of ﬁve years, depending on the speciﬁcation.
+Our measure speaks to the literature that has spent considerable eﬀort in estimating the
+value of innovative output. The most popular approach consists of using citation-weighted
+patent counts (Hall et al., 2005). We ﬁnd that our innovation measure contains considerable
+information about ﬁrm growth in addition to what is contained in patent citations. In
+particular, we repeat our ﬁrm-level analysis replacing our measure with citation-weighted
+patent counts – both for the ﬁrm and for its competitors. When doing so, we ﬁnd a comparable
+– though somewhat weaker – relation between the ﬁrm’s own innovation output and future
+growth. However, we ﬁnd no similar negative link between the ﬁrm’s future growth and
+the citation-weighted patenting output of its competitors. We ﬁnd similar results when we
+include both our estimated patent values and citation-weighted patent counts in the same
+speciﬁcation. These ﬁndings are consistent with the view that, relative to the patent’s forward
+citations, our estimated value of a patent is a better estimate of its private economic value.
+Our work is related to the literature in macroeconomics that aims to measure technological
+progress. Broadly, there are three main approaches to identifying technology shocks. The
+ﬁrst two approaches measure technology shocks indirectly. One approach is to measure
+technological change – either at the aggregate or at the ﬁrm level – through TFP (see
+e.g. Olley and Pakes, 1996; Basu, Fernald, and Kimball, 2006). However, since these TFP
+measures are based on residuals, they could incorporate other forces not directly related
+3
+
+--- PAGE 6 ---
+to technology, such as resource misallocation (see e.g., Hsieh and Klenow, 2009). In the
+second approach, researchers have imposed model-based restrictions to identify technology
+shocks either through VARs or through estimation of structural models (see e.g., Gali, 1999;
+Smets and Wouters, 2003). The resulting technology series are highly dependent on speciﬁc
+identiﬁcation assumptions. Our paper falls into the third category, which constructs direct
+measures of technological innovation using micro data (Shea, 1999; Alexopoulos, 2011).3
+We are not the ﬁrst to link ﬁrm patenting activity to stock market valuations (see, e.g.
+Pakes, 1985; Austin, 1993; Hall et al., 2005; Nicholas, 2008). In particular, Pakes (1985)
+examines the relation between patents and the stock market rate of return in a sample of
+120 ﬁrms during the 1968–1975 period. His estimates imply that, on average, an unexpected
+arrival of one patent is associated with an increase in the ﬁrm’s market value of $810,000. The
+ultimate objective of these papers is to measure the economic value of patents; in contrast,
+we use the stock market reaction as a means to an end—to construct appropriate weights for
+an innovation measure which we can be employed to study diﬀerent issues in the literature
+on innovation and growth.
+Our paper contributes to the literature that studies the determinants of ﬁrm growth rates.
+Early studies show considerable dispersion in ﬁrm growth that is weakly related to size (see,
+e.g. Simon and Bonini, 1958). Our paper is related to the growing body of work that explores
+the link between innovation and ﬁrm growth dynamics (Caballero and Jaﬀe, 1993; Klette
+and Kortum, 2004; Lentz and Mortensen, 2008; Acemoglu, Akcigit, Bloom, and William,
+2011; Garcia-Macia et al., 2015). Existing approaches rely on calibration or estimation
+of structural models. In contrast, our approach consists of building a direct measure of
+technological innovation implied by our model and using that measure to test the model’s
+predictions directly. Our paper is also related to work that examines whether technological
+innovation leads to positive knowledge spillovers or business stealing. Related to our paper is
+the work of Bloom, Schankerman, and Van Reenen (2013), who disentangle the externalities
+generated by R&D expenditures on ﬁrms competing in the product and technology space.
+We contribute to this literature by proposing a measure of patent quality based on asset
+prices and assessing reallocation and growth dynamics after bursts of innovative activity.
+3Shea (1999) constructs direct measures of technology innovation using patents and R&D spending and
+ﬁnds a weak relationship between TFP and technology shocks. Our contrasting results suggest that this
+weak link is likely the result of the implicit assumption in Shea (1999) that all patents are of equal value.
+Indeed, Kortum and Lerner (1998) show that there is wide heterogeneity in the economic value of patents.
+Furthermore, ﬂuctuations in the number of patents granted are often the result of changes in patent regulation,
+or the quantity of resources available to the US patent oﬃce (see e.g. Griliches, 1990; Hall and Ziedonis,
+2001). As a result, a larger number of patents does not necessarily imply greater technological innovation.
+Using R&D spending to measure innovation overcomes some of these issues, but doing so measures innovation
+indirectly. The link between inputs and output may vary as the eﬃciency of the research sector varies over
+time or due to other economic forces (see e.g., Kortum, 1993). The measure proposed by Alexopoulos (2011)
+based on books published in the ﬁeld of technology overcomes many of these shortcomings. However, this
+measure is only available at the aggregate level, and may not directly capture the economic value of innovation
+to the ﬁrm. In contrast, our measure is available at the ﬁrm level, which allows us to evaluate reallocation
+and growth dynamics across ﬁrms and sectors.
+4
+
+--- PAGE 7 ---
+Finally, our paper is also related to productivity literature that has documented substantial
+dispersion in measured productivity across plants and ﬁrms (see e.g., Syverson, 2004). We
+contribute to this literature by constructing a direct measure of technological innovation and
+showing that it can account for a signiﬁcant fraction of cross-ﬁrm dispersion in measured
+TFP in our sample.
+1
+Construction of the Innovation Measure
+Our main objective in this section is to obtain an empirical estimate of the economic
+value of the patent, deﬁned as the present value of the monopoly rents associated with that
+patent. To estimate this value, we combine information from patent data and ﬁrm stock
+price movements. We proceed in two steps.
+The ﬁrst empirical challenge is to isolate the information about the value of the patent
+contained in stock prices from unrelated news. To do so, we focus on a narrow window
+following the date when the market learns that the patent application is successful. The US
+Patent Oﬃce (USPTO) has consistently publicized successful patent applications throughout
+our sample. Focusing on the days around this event allows us to isolate a discrete change
+in the information set of the market participants regarding a given patent. However, even
+during a small window around the event, stock prices are likely to be contaminated with
+other sources of news unrelated to the value of the patent. Therefore, our second step ﬁlters
+the stock price reaction to the patent issuance from the total stock return over the event
+window. Next, we discuss the data used in constructing our measure and describe these two
+steps in more detail.
+1.1
+Description of patent data
+We begin by ﬁrst providing a brief description of the patent data; we relegate the details
+to the Online Appendix. We download the entire history of U.S. patent documents (7.8
+million patents) from Google Patents using an automation script.4 First, we clean assignee
+names by comparing each assignee name to the more common names, and if a given name is
+close, according to the Levenshtein distance, to a much more common name, we substitute
+the common name for the uncommon name. Having an assignee name for each patent, we
+match all patents in the Google data to corporations whose returns are in the CRSP database.
+Some of these patents appear in the NBER data set and therefore are already matched to
+CRSP ﬁrms. Remaining assignee names are matched to CRSP ﬁrm names using a name
+4Google also makes available for downloading bulk patent data ﬁles from the USPTO. The bulk data
+does not have all of the additional “meta” information including classiﬁcation codes and citation information
+that Google includes in the individual patent ﬁles. Moreover, the quality of the text generated from Optical
+Character Recognition (OCR) procedures implemented by Google is better in the individual ﬁles than in the
+bulk ﬁles provided by the USPTO. This is crucial for identifying patent assignees.
+5
+
+--- PAGE 8 ---
+matching algorithm. Visual inspection of the matched names conﬁrms very few mistakes in
+the matching. We extract patent citations from the Google data and complement them with
+the hand-collected reference data of Nicholas (2008).5
+Out of the 6.2 million patents granted in or after 1926, we ﬁnd the presence of an assignee
+in 4,374,524 patents. After matching the names of the assignees to public ﬁrms in CRSP, we
+obtain a database of 1,928,123 matched patents. Out of these patents, 523,301 (27%) are
+not included in the NBER data. Overall, our data provides a matched permco for 44.1%
+of all patents with an assignee and 31% of all granted patents. By comparison, the NBER
+patent project provides a match for 32% of all patents from 1976–2006, so our matching
+technique is comparable, even though we use only data extracted from OCR documents for
+the period before the NBER data. Last, another point of comparison is Nicholas (2008), who
+uses hand-collected patent data covering 1910 to 1939. From 1926–1929, he matches 9,707
+patents, while our database includes 8,858 patents; from 1930–1939 he has 32,778 patents
+while our database includes 47,036 matches during this period. After restricting the sample of
+patents to those with a unique assignee, those issued while the ﬁrm has non-missing market
+capitalization in CRSP, and for which we can compute return volatilities, we obtain a ﬁnal
+sample of 1,801,879 patents.
+1.2
+Identifying information events
+The ﬁrst step in constructing our measure is to isolate the release of information to the
+market. The US Patent and Trademark Oﬃce (USPTO) issues patents on Tuesdays, unless
+there is a federal holiday. The USPTO’s publication, Oﬃcial Gazette, also published every
+Tuesday, lists patents that are issued that day along with the details of the patent. Identifying
+additional information events prior to the patent issue day is diﬃcult, since before 2000,
+patent application ﬁlings were not oﬃcially publicized (see, e.g., Austin, 1993). However,
+anecdotal evidence suggests that the market often had advance knowledge of which patent
+applications were ﬁled, since ﬁrms often choose to publicize new products and the associated
+patent applications themselves. For now, we assume that the market value of the patent,
+denoted by ξ, is perfectly observable to market participants before the patent is granted. We
+show how relaxing this assumption aﬀects our measure in Section 1.4 below.
+5For the Google data, we extract patent citations from two sources. First, all citations for patents granted
+between 1976 and 2011 are contained in text ﬁles available for bulk downloading from Google. These citations
+are simple to extract and likely to be free of errors, as they are oﬃcial USPTO data. Second, for patents
+granted before 1976, we extract citations from the OCR text generated from the patent ﬁles. We search the
+text of each patent for any 6- or 7-digit numbers, which could be patent numbers. We then check if these
+potential patent numbers are followed closely by the corresponding grant date for that patent; if the correct
+date appears, then we can be certain that we have identiﬁed a patent citation. Since we require the date to
+appear near any potential patent number, it is unlikely that we would incorrectly record a patent citation –
+it is far more likely that we would fail to record a citation than record one that isn’t there.
+6
+
+--- PAGE 9 ---
+On the patent issue date, the market learns that the patent application has been successful.
+Absent any other news, the ﬁrm’s stock market reaction ∆V on the day the patent j is
+granted would be given by
+∆Vj = (1 −πj) ξj,
+(1)
+where, πj is the market’s ex-ante probability assessment that the patent application is
+successful and ξj is the dollar value of patent j. The market’s reaction to the patent grant (1)
+understates the total impact of the patent on the ﬁrm value, since the information about
+the probability that a patent will be granted is known to the market before the uncertainty
+about patent application is resolved.6
+Next, we need to choose the length of the announcement window around the patent
+issuance event. To guide our decision, we examine the pattern of trading volume on the
+stocks of ﬁrms that have been issued a patent. We focus on the ratio of daily volume to
+shares outstanding. We compute the ‘abnormal’ share turnover around patent issuance
+days, after adjusting for ﬁrm-year and calendar day eﬀects. As we see in Figure 1, there
+is a moderate and statistically signiﬁcant increase in share turnover around the day that
+the ﬁrm is granted a patent – with most of the increase taking place on the ﬁrst two days
+following the announcement.7 In particular, we ﬁnd that the total abnormal turnover in the
+ﬁrst two days after the announcement increases by 0.2%. This is a signiﬁcant increase when
+compared to the median daily turnover rate of 1.3%. Even though prices can adjust to new
+information absent any trading, the fact that stock turnover increases following a patent
+grant is consistent with the view that patent issuance conveys important information to the
+market.
+In sum, we conclude that two days after the patent issuance seems a reasonable window
+over which information about successful patent grant is reﬂected in the stock market. We
+thus choose a three-day announcement window, [t, t + 2], for the remainder of our analysis
+when constructing our measure. As robustness, we also extend the window to ﬁve days and
+obtain quantitatively similar results.
+6In addition to the patent issuance date, we examined stock price responses around other event dates,
+speciﬁcally, application ﬁling and publication dates. We ﬁnd no signiﬁcant stock price movements around
+application ﬁling dates, consistent with the fact that the USPTO does not publish applications at the time
+they are ﬁled. After 2000, the USPTO started publishing applications eighteen months after the ﬁling date.
+We ﬁnd some weak stock price movements around application publication dates. Since publication-day
+announcements only occur in the post-2000 period, we do not include the information from these dates since
+we did not want the statistical properties of the measures to be diﬀerent across periods.
+7Our estimates imply that trading volume is temporarily lower prior to the patent issuance announcement.
+A potential explanation is the presence of increased information asymmetry, with investors worrying about
+trading against potentially informed insiders who might know more about an impending patent issuance.
+Similar patterns in trading volume have been documented before earnings announcements, see e.g., Lamont
+and Frazzini (2007).
+7
+
+--- PAGE 10 ---
+1.3
+Some Illustrative Examples
+Before turning to our main analysis, we ﬁrst examine some illustrative case studies to
+study the relation between the stock market reaction and important patent grants. For these
+examples we performed an extensive search of online and print news sources to conﬁrm that
+no other news events are likely to account for the return around the patent dates.
+The ﬁrst example is patent 4,946,778, titled “Single Polypeptide Chain Binding Molecules”,
+which was granted to Genex Corporation on August 7, 1990. The ﬁrm’s stock price increased by
+67 percent (in excess of market returns) in the three days following the patent announcement.
+Investors clearly believed the patent was valuable, and news of the patent was reported in
+the media. For example, on August 8 Business Wire quoted the biotechnology head of a
+Washington-based patent law ﬁrm as saying “The claims issued to Genex will dominate the
+whole industry. Companies wishing to make, use or sell genetically engineered SCA proteins
+will have to negotiate with Genex for the rights to do so.” The patent has subsequently
+proved to be important on other dimensions as well. The research that developed the patent,
+Bird, Hardman, Jacobson, Johnson, Kaufman, Lee, Lee, Pope, Riordan, and Whitlow (1988),
+was published in Science and has since been cited over 1300 times in Google Scholar, while
+the patent itself has been subsequently cited by 775 patents. Genex was acquired in 1991 by
+another biotechnology ﬁrm, Enzon. News reports at the time indicate that the acquisition
+was made in particular to give Enzon access to Genex’s protein technology. Another example
+from the biotechnology industry is patent 5,585,089, granted to Protein Design Labs on
+December 17, 1996. The stock rose by 22 percent in the next two days on especially high
+trading volume. On December 20, the New York Times reported that the patent “could
+aﬀect as much as a fourth of all biotechnology drugs currently in clinical trials.”
+As another illustration, consider the case of patent 6,317,722 granted to Amazon.com on
+November 13, 2001 for the “use of electronic shopping carts to generate personal recommen-
+dations”. When Amazon ﬁled this patent in September 1998, online commerce was in its
+infancy. Amazon alone has grown from a market capitalization of approximately $6 billion
+to over $100 billion today. The importance of a patent that staked out a claim on a key
+part of encouraging consumers to buy more – the now-pervasive “customers also bought”
+suggestions– was not missed by investors: the stock appreciated by 34 percent in the two
+days after the announcement, adding $900 million in market capitalization.
+Our methodology is potentially helpful in distinguishing between innovations that are
+scientiﬁcally important and those that have a large impact on ﬁrm proﬁts. For example,
+consider patent 6,329,919 granted to IBM in 2001 for a “system and method for providing
+reservations for restroom use.” This patent describes a system to allow passengers on an
+airplane to reserve a spot in the bathroom queue. The patent has subsequently been of
+such little value to IBM that the ﬁrm has stopped paying the annual renewal fee to the
+USPTO, and the patent has now lapsed. Our method would identify this patent as having
+8
+
+--- PAGE 11 ---
+little economic value – the return over the 3-day window is slightly negative, and there is no
+change in the trading volume. By contrast, citation counts indicate that this patent presented
+a considerable scientiﬁc advance – the patent has received 21 citations, which places it in the
+top 20% of the patents granted in the same year.
+1.4
+Estimating the Value of a Patent
+The second step in constructing our measure is to isolate the component of ﬁrm return
+around patent issuance events that is related to the value of the patent. In particular, the
+stock price of innovating ﬁrms may ﬂuctuate during the announcement window around
+patent issuance for reasons unrelated to innovation. Hence, it is important to account for
+measurement error in stock returns.
+To remove market movements, we focus on the ﬁrm’s idiosyncratic return deﬁned as the
+ﬁrm’s return minus the return on the market portfolio.8 We decompose the idiosyncratic
+stock return R for a given ﬁrm around the time that its patent j is issued as
+Rj = vj + εj,
+(2)
+where vj denotes the value of patent j – as a fraction of the ﬁrm’s market capitalization –
+and εj denotes the component of the ﬁrm’s stock return that is unrelated to the patent.
+We construct our estimate ξ of the economic value of patent j as the product of the
+estimate of the stock return due to the value of the patent times the market capitalization
+M of the ﬁrm that is issued patent j on the day prior to the announcement of the patent
+issuance:
+ξj = (1 −¯π)−1 1
+Nj
+E[vj|rj] Mj.
+(3)
+If multiple patents Nj are issued to the same ﬁrm on the same day as patent j, we assign
+each patent a fraction 1/Nj of the total value. Since the unconditional probability ¯π of a
+successful patent application is approximately 56% in the 1991-2001 period (see, e.g. Carley,
+Hegde, and Marco, 2014), we account for this understatement by multiplying our estimates
+of patent values by 1/0.44 = 2.27.9
+8By using this ‘market-adjusted-return model’ (Campbell, Lo, and MacKinlay, 1997), we avoid the need to
+estimate the ﬁrm’s stock market beta, therefore removing one source of measurement error. As a robustness
+check, we construct the idiosyncratic return as the ﬁrm’s stock return minus the return on the beta-matched
+portfolio (CRSP: bxret). This has the advantage that it relaxes the assumption that all ﬁrms have the same
+amount of systematic risk, but is only available for a smaller sample of ﬁrms. Our results are quantitatively
+similar when using this alternative deﬁnition.
+9In principle, the ex-ante probability of a successful patent grant πj could vary with the private value of a
+patent ξ. This possibility will induce measurement error in the estimated patent values. Aggregating patent
+values within a ﬁrm (or year) will partly ameliorate this concern, as long as the joint distribution of π and ξ
+is stable within ﬁrm-years. However, this need not be the case. Carley et al. (2014) use proprietary data
+9
+
+--- PAGE 12 ---
+To implement (3), we need to make assumptions about the distributions of v and ε. We
+allow both distributions to vary across ﬁrms f and across time t. Since the market value of
+the patent v is a positive random variable, we assume that v is distributed according to a
+normal distribution truncated at zero, vj ∼N +(0, σ2
+vft).10 Further, we assume that the noise
+term is normally distributed, εj ∼N(0, σ2
+εft). Given our assumptions, the ﬁltered value of
+vj as a function of the idiosyncratic stock return R is equal to
+E[vj|Rj] = δft Rj +
+p
+δft σεft
+φ
+
+−
+p
+δft
+Rj
+σεft
+
+1 −Φ
+
+−
+p
+δft
+Rj
+σεft
+,
+(4)
+where φ and Φ are the standard normal pdf and cdf, respectively, and δ is the signal-to-noise
+ratio,
+δft =
+σ2
+vft
+σ2
+vft + σ2
+εft
+.
+(5)
+The conditional expectation in (4) is an increasing and convex function of the idiosyncratic
+ﬁrm return R. The exact shape of this function depends on the distributional assumptions
+for v and ε.11
+To proceed further, we need to estimate the parameters σεft and σvft. If we allow both
+variances to arbitrarily vary across ﬁrms and across time, the number of parameters becomes
+quite large and thus infeasible to estimate. We therefore specify that the signal-to-noise ratio
+is constant across ﬁrms and time, δft = δ. This assumption implies that σ2
+εft and σ2
+vft are
+allowed to vary across ﬁrms and time, but in constant proportions to each other. To estimate
+from USPTO and document that the point estimates of the acceptance rates varied between 50% and 60% in
+the 1991-2001 period. This possibility implies that our ﬁrm and aggregate level innovation measures should
+be interpreted with caution. Obtaining an estimate of the ex-ante probability π at the ﬁrm-year level over
+the horizon of our sample is challenging because data on patent applications – required to construct π – are
+publicly available only post-2000. In addition, even during post-2000 period, this data contains unreliable
+information on assignee names that is required to match the patents to ﬁrms. We return to this issue in
+Section 3.2 below.
+10We are grateful to John Cochrane for this suggestion.
+11We experimented with diﬀerent distributional assumptions for v and ε. We relegate the details to the
+Online Appendix. We, (i) allowed for a non-zero mean for the truncated normal; (ii) we modeled v as an
+exponential distribution; and (iii) we modeled v and ϵ as following a truncated Cauchy and a standard
+Cauchy distribution, respectively. The resulting estimates of patent values were quite similar: in the ﬁrst
+case, allowing for a non-zero mean had mostly a scaling eﬀect on our estimates: the correlation of ﬁltered
+returns (4) was in excess of 99%. To obtain a more meaningful diﬀerence we would have to allow for the
+unconditional mean of vj to vary across ﬁrm-years. This is diﬃcult to do since daily data on stock returns
+are not very informative about the mean of the value of the patent. In cases (ii) and (iii) the correlation
+between the ﬁltered returns under these additional distributional assumptions ranges from 84% to 89%. In
+an earlier version of the paper, we also approximated (4) with a piecewise linear function, max(0, R); the
+correlation between this approximation and our ﬁltered returns (4) was approximately equal to 48%. In the
+Online Appendix, we repeat the main parts of the analysis in the paper using measures constructed under
+these alternative distributional assumptions. The results are comparable, as we can see in Online Appendix
+Tables (A.7) and (A.8).
+10
+
+--- PAGE 13 ---
+δ, we compute the increase in the volatility of ﬁrm returns around patent announcement days.
+Speciﬁcally, we regress the log squared returns on a patent issue-day dummy variable, Ifd,
+log (Rfd)2 = γIfd + c Zfd + ufd,
+(6)
+where Rfd refers to the 3-day idiosyncratic return of ﬁrm f, starting on day d. In this
+estimation, we restrict the sample to ﬁrms that have been granted at least one patent. We
+include controls Z for day-of-week and ﬁrm interacted with year ﬁxed eﬀects to account
+for seasonal ﬂuctuations in volatility and the fact that ﬁrm volatility is time-varying. The
+signal-to-noise estimate can be recovered from the estimated value of γ using bδ = 1 −e−bγ.
+Our estimate bγ = 0.0146 implies bδ ≈0.0145, so we use this as our benchmark value.12 The
+last step in estimating (4), involves estimating the variance of the measurement error σ2
+εft.
+We do so non-parametrically using the sum of squared market-adjusted returns, and we allow
+the estimate to vary at an annual frequency (see, e.g. Andersen and Terasvirta, 2009).13
+Last, one important caveat is that our estimation of δ implicitly assumes that the market
+does not revise its beliefs about the value of the patent at the time the patent is issued. This
+assumption is valid post-2000, under the view that market has the same expertise as the
+USPTO in evaluating the patent given the same information set. Speciﬁcally, subsequent
+to the American Inventors Protection Act, which became eﬀective on November 30, 2000,
+the USPTO began publishing patent applications 18 months after the ﬁling date, even if the
+patents had not yet been granted. Hence, for these applications, the market should have had
+full knowledge of the value of the patent at the time of the patent grant. However, prior
+to 2000, patent applications were only disclosed to the public at the time the patents were
+granted to ﬁrms. Hence, it is possible that during the period prior to 2000, the market did
+not know the full value of the patent prior to the patent being granted. If this were the case,
+then the increase in stock market volatility following a patent grant likely overestimates δ,
+since it also includes movements in stock prices that are related to revisions of the patent
+value.14
+12We also experimented with allowing γ to vary by ﬁrm size; except for the smallest ﬁrms, the estimates of
+γ were statistically similar across ﬁrm size quintiles.
+13In particular, we ﬁrst estimate the conditional volatility of ﬁrm f at year t using the realized mean
+idiosyncratic squared returns, σ2
+ft. This second moment is estimated over both announcement and non-
+announcement days, so it is a mongrel of both σ2
+vft and σ2
+εft. Given our estimate of σ2
+ft, the fraction of trading
+days that are announcement days, dft, and our estimate bγ, we recover the variance of the measurement error
+through σ2
+εft = 3 σ2
+ft
+ 1 + 3 dft (eˆγ −1)
+−1.
+14Speciﬁcally, if the market also updates its beliefs about ξ, the change in the stock price at the grant date
+would be equal to
+∆Vjt = (1 −πj) ξj + π (ξj −ˆξj),
+where ˆξ is the prior belief about the market value of the patent. Assuming the forecast error ξj −ˆξj is
+uncorrelated with the value of the patent, equation (2) still applies. However, we can no longer use (6) to
+estimate δ.
+11
+
+--- PAGE 14 ---
+To examine the importance of this issue, we exploit the change in information disclosure
+policy by the American Inventors Protection Act (AIPA) that applied to all patents ﬁled
+after November 30th 2000. For the patents that were ﬁled after November 30th 2000 – and
+whose publication date occurred 18 months after the application date, but before the grant
+date – the market had full knowledge of their quality at the time these patents were granted.
+By contrast, for the patents ﬁled before November 30th, it is possible that on the grant day
+the stock market reaction indeed contains news about the market value of the patent, ξ. To
+assess if this possibility impacts our estimation, we compare estimates of the signal-to-noise
+ratio using (6) across the two sets of patents: patents that were ﬁled just before the act, that
+is in the month of November 2000; and patents that were ﬁled immediately after the act,
+that is in December 2000. Using stock price reactions around the grant dates of these patents
+we ﬁnd that the point estimate of γ is 0.03 larger for the patents ﬁled in December 2000
+relative to the patents ﬁled in November 2000. However, the diﬀerence is not statistically
+signiﬁcant (p-value is 0.31). We interpret this evidence as suggesting that the information
+content around the application publication date may be small and as a result we do not alter
+the estimation of the signal-to-noise ratio δ.15
+1.5
+Descriptive Statistics
+In Table 1 we report the sample distribution of ξ along with other variables: the number
+of forward citations, the idiosyncratic ﬁrm returns Rf, and ﬁltered patent values obtained
+from
+(4). As is well known, the distribution of patent citations is highly skewed, with
+approximately 16% of patents receiving zero citations. In addition, the distribution of ﬁrm
+returns Rf is right skewed, and positive roughly 55 percent of the time. In addition, the
+estimated value of patents – both in absolute terms ξ as well as relative to the ﬁrm market
+capitalization (4) – is also highly skewed.
+Our procedure delivers a median value of a patent equal to $3.2 million in 1982 dollars.
+Given the scarcity of data on the value of innovations, the plausibility of this number is
+diﬃcult to assess. One point of comparison is Giuri et al. (2007) who conduct a survey of
+inventors for a sample of 7,752 European patents. The inventors were asked to estimate the
+minimum price at which the owner of the patent, whether the ﬁrm, other organizations, or
+the inventor himself, would have sold the patent rights on the day on which the patent was
+granted. Giuri et al. (2007) report that about 68% of all the patents in their sample have a
+(minimum) value of less than 1 million Euros.
+Given those estimates, the average level of patent values seems a bit high. However,
+we should note that our estimates are based on a sample of public ﬁrms; these ﬁrms may
+15Nevertheless, we do investigate the robustness of our results to diﬀerent values of δ. As noted above,
+in the presence of information about the patent quality that is also revealed on grant date, our estimate of
+the signal-to-noise ratio δ underestimates the amount of noise. We thus repeat our empirical analysis using
+smaller estimates of δ. Our ﬁndings are economically similar and are available upon request.
+12
+
+--- PAGE 15 ---
+attach higher valuations to individual patents compared to the inventors of the sample in
+Giuri et al. (2007). In addition, the distributional assumptions we made in equation (4)
+likely also play a role. In particular, the mean of the distribution of vj is closely tied to the
+second moment of vj.16 Further, we have scaled our estimated patent values by the average
+acceptance probability ¯π in the 1991-2001 subsample. If the ex-ante acceptance probability is
+correlated with patent values, this will bias the estimate of the average patent value upwards.
+Last, another possibility that could inﬂate the estimated patent values is that a patent grant
+may sometimes provide information about the likelihood of future patents being granted.
+In sum, even if the average valuation is too high, cross-sectional diﬀerences in value across
+patents can still be meaningful. Thus, we next explore whether our measure correlates with
+the other commonly used measure of patent quality, forward citations.
+2
+Patent Market Values and Citations
+The relation between the private and the scientiﬁc value of innovation has been the subject
+of considerable debate. The innovation literature has argued that forward patent citations
+are a good indicator of the ‘quality’ of the innovation. Hall et al. (2005) and Nicholas (2008)
+have argued that forward citations are also correlated with the private value of patents based
+on a regression of a ﬁrms Tobin’s Q on its stock of citation-weighted patents. Harhoﬀet al.
+(1999) and Moser et al. (2011) provide estimates of a positive relation using smaller samples
+that contain estimates of economic value. However, the relation between patent citations and
+the private value of a patent can be theoretically ambiguous. Abrams et al. (2013) cast doubt
+on these earlier ﬁndings by proposing a model of defensive patenting. Using a proprietary
+dataset that includes estimates of patent values based on licensing revenues, they document
+an inverse-U relation between citations and patent values.
+Armed with our measure, we re-examine the relation between citations and the market
+value of innovation using the number of citations that the patent receives in the future. Our
+measure allows us to study this question at a more granular level than Hall et al. (2005),
+while using a broader sample than Abrams et al. (2013). We relate the total number of
+citations C a patent j receives in the future to the estimated value of the patent, ξj,
+log ξj = a + b log (1 + Cj) + c Zj + uj.
+(7)
+To control for omitted factors that may inﬂuence citations and the measured patent valuations,
+we include a vector of controls Z that includes: grant-year ﬁxed eﬀects, because older patents
+have had more time to accumulate citations; the ﬁrm’s log market capitalization log Mj
+16For instance, allowing the mean of the distribution of vj (before truncation) to vary from zero resulted in
+somewhat smaller magnitudes for patent values (median of 1.8 million). However, doing so has only a scaling
+eﬀect on our estimate of patent values.
+13
+
+--- PAGE 16 ---
+(measured on the day prior to the patent grant), as larger ﬁrms may produce more inﬂuential
+patents; the ﬁrm’s log idiosyncratic volatility log σft, since it mechanically aﬀects our measure
+while at the same time fast-growing ﬁrms have more volatile returns and could produce
+higher quality patents; technology class-year ﬁxed eﬀects, since citation numbers may vary
+across diﬀerent technologies over time; and ﬁrm ﬁxed eﬀects to control for the presence of
+unobservable ﬁrm eﬀects. Last, we also estimate a speciﬁcation with ﬁrm eﬀects interacted
+with year, to account for the possibility that these unobservable ﬁrm eﬀects may vary over
+time. We cluster the standard errors by grant year to account for potential serial correlation
+in citations across patents granted in a given year.
+We present the results in Table 2. Consistent with the ﬁndings of Harhoﬀet al. (1999)
+and Hall et al. (2005), we ﬁnd a strong and positive association between forward citations
+and market values. Figure 2 summarizes the univariate relation between citations and patent
+market values. To plot it we group the patent data into 100 quantiles based on their patent
+citations, scaled by the mean number of citations to patents in the same year cohort. We
+then plot the average number of cohort-adjusted patent citations in each quantile versus the
+mean of the estimated patent value in each quantile, also scaled by the mean estimate of
+all patents in the same year cohort. We see that this relation is monotonically increasing,
+and mostly log-linear, with the possible exception of patents with very few citations.17 This
+pattern is somewhat at odds with the ﬁndings of Abrams et al. (2013), who document an
+inverse-U relation between citations and value of patents. We conjecture that this discrepancy
+may be due to diﬀerences in our sample relative to that used in Abrams et al. (2013).
+The economic magnitudes implied by our estimates are comparable to those obtained
+by the existing literature. One additional forward citation, around the median number of
+citations, is associated with a 0.1% to 3.2% increase in the value of that patent, depending on
+the controls included. For comparison, Hall et al. (2005) ﬁnd that, relative to the median, if
+all the ﬁrm’s patents were to have one additional cite, this increase would be associated with
+an increase in the value of the ﬁrm by approximately 3%. A further point of comparison is
+Harhoﬀet al. (1999), who study the relation between survey-based estimates of patent values
+and citations for a sample of 962 patents. Their estimates imply that a single citation around
+the median is associated with, on average, more than $1 million of economic value. Evaluated
+at the mean of the distribution of ξj, our estimates imply that one additional citation around
+the median number of citations in our sample is associated with approximately 15 to 500
+thousand US dollars (in 1982 prices).
+In sum, our innovation measure ξ is economically meaningfully related to future citations.
+This fact, combined with the previously documented links regarding patent citations and
+17As Table 1 shows, a quarter of patents in our sample receive either zero or one citation in the future.
+The discreteness of citation counts makes it diﬃcult to diﬀerentiate among these patents. In contrast, our
+measure indicates some variation in quality among these less-cited patents. The non-linearity at the bottom
+end of the citations distribution partly reﬂects this fact. Further, citations occur with a lag, implying that
+this discreteness problem will be accentuated for more recent patents.
+14
+
+--- PAGE 17 ---
+market value, can be interpreted as a test of external validity for our measure. Along these
+lines, we performed a series of placebo experiments to illustrate that the relation between
+value of a particular patent and the number of citations received by that patent in the future
+is not spurious. In each placebo experiment, we randomly generate a diﬀerent issue date for
+each patent within the same year the patent is granted to the ﬁrm. We repeat this exercise
+500 times and then reconstruct our measure using the placebo grant dates. In Figure 3,
+we plot the distribution of the estimated coeﬃcients and t-statistics corresponding to the
+speciﬁcation in column (5) of Table 2. Based on the distribution of coeﬃcients and t statistics
+across the placebo experiments, centered at zero, relative to the eﬀects we ﬁnd in Table 2, we
+conclude that our results are unlikely to be spurious.
+Importantly, we want to reiterate that our innovation measure ξ and forward patent
+citations likely measure diﬀerent aspects of quality. By construction, our procedure aims
+to measure the private economic value of a patent. Patent citations are more reﬂective of
+the scientiﬁc value of the innovation. For instance, one patent may represent only a minor
+scientiﬁc advance – and thus receive few citations – but be particularly successful at restricting
+competition and thus generate sizeable private beneﬁts. With that distinction in mind, we
+show in the next section that our measure also contains information about future ﬁrm growth
+that is distinct from that included in patent citations.
+3
+Innovation and Firm Growth
+Models of endogenous growth have rich testable predictions about the cross-section of
+ﬁrms, linking improvements in the technology frontier to resource reallocation and subsequent
+economic growth (Romer, 1990; Aghion and Howitt, 1992; Grossman and Helpman, 1991;
+Klette and Kortum, 2004). Since the value of a ﬁrm’s innovative output is hard to observe,
+constructing direct empirical tests of these models has proven challenging. Here, we use our
+estimate of the value of innovation to examine the predictions of these models. We will also
+contrast the dynamics of reallocation and growth using our measure with the citations based
+measure that is available in the literature.
+3.1
+Firm-level measures of innovation
+We merge our patent data with the CRSP/Compustat merged database. We restrict the
+sample to ﬁrm-year observations with non-missing values for book assets and SIC classiﬁcation
+codes. We also omit ﬁrms in industries that never patent in our sample. In addition, we omit
+ﬁnancial ﬁrms (SIC codes 6000 to 6799) and utilities (SIC codes 4900 to 4949), leaving us
+with 158,739 ﬁrm-year observations that include 15,787 ﬁrms in the 1950 to 2010 period. Out
+of these ﬁrms, only one third (5,801 ﬁrms) ﬁle at least one patent. To minimize the impact
+of outliers, we winsorize all variables at the 1% level using yearly breakpoints.
+15
+
+--- PAGE 18 ---
+We ﬁrst measure the total dollar value of innovation produced by a given ﬁrm f in year t,
+based on stock market (sm), by simply summing up all the values of patents j that were
+granted to that ﬁrm,
+Θsm
+f,t =
+X
+j∈Pf,t
+ξj,
+(8)
+where Pf,t denotes the set of patents issued to ﬁrm f in year t. A highly popular measure of
+the output of innovation produced by a ﬁrm is its citation-weighted (cw) patents. We thus
+constrict an analogous measure using this metric,
+Θcw
+f,t =
+X
+j∈Pf,t
+
+1 + Cj
+¯Cj
+
+(9)
+where ¯Cj is the average number of forward citations received by the patents that were granted
+in the same year as patent j. This scaling is used to adjust for citation truncation lags (Hall
+et al. (2005)). Both (8) and (9) are essentially weighted patent counts; if ﬁrm f ﬁles no
+patents in year t, both variables are equal zero.
+Large ﬁrms tend to ﬁle more patents. As a result, Θsm
+f,t and Θcw
+f,t are strongly increasing in
+ﬁrm size (see Online Appendix Table A.3). In our analysis, we need to ensure that ﬂuctuations
+in size are not driving the variation in innovative output. We therefore scale the two measures
+above by ﬁrm size. We use book assets as our baseline case,
+θm
+f,t = Θm
+f,t
+Bft
+,
+(10)
+for m ∈{sm, cw}, where Bft is book assets of ﬁrm f in year t. We note that our inferences in
+the analysis that follows are not sensitive to using book assets for normalization since we also
+control for various measures of ﬁrm size in all our speciﬁcations. As we discuss below, the
+results using our measure are similar if we scale by the ﬁrm’s market capitalization instead.
+Table 3 presents summary statistics related to the two measures of innovation, θsm
+f,t and
+θcw
+f,t. Innovative activity is highly skewed across ﬁrms – as captured by both our measure
+and citation-weighted patents. This is consistent with the prior literature that has noted
+that most ﬁrms do not patent and that there is large dispersion in the number of citations
+across patents. Examining the next rows of Table 3, we note that there is substantial
+heterogeneity in ﬁrm growth rates of output, proﬁts as well as capital and labor. Further,
+there is substantial heterogeneity in mean innovation outcomes across industries (see Online
+Appendix, Table A.5). The most innovative industries are Drugs, Automobiles and Chemicals
+while least innovative ones are Food, Tobacco and Apparel/Retail. These patterns match
+those of innovators as described by Baumol (2002), Griliches (1990) and Scherer (1983). In
+addition, there is some interesting time series variation in the distribution of innovation
+outcomes across ﬁrms (see Online Appendix, Table A.4). In particular, we see an increase
+16
+
+--- PAGE 19 ---
+in dispersion of innovative output, with an increase in both the mass of ﬁrms that do not
+patent as well, as an increase in the value of innovative output at the extreme end.
+3.2
+Firm Innovation, Growth and Productivity
+We now examine the relation between innovation and ﬁrm growth and productivity.
+Endogenous growth models imply that ﬁrm growth is related to innovation, typically measured
+by the number of product varieties or the quality of goods the ﬁrm is producing (Romer,
+1990; Aghion and Howitt, 1992; Grossman and Helpman, 1991; Klette and Kortum, 2004). In
+a majority of these models, innovation by other ﬁrms has a negative impact on ﬁrm growth,
+either directly through business stealing or indirectly through changes in factor prices. We
+refer to the latter eﬀect as creative destruction.
+Methodology
+To examine creative destruction, we need to compute a measure of innovation by competing
+ﬁrms. We deﬁne the set of competing ﬁrms as all ﬁrms in the same industry – deﬁned at the
+SIC3 level– excluding ﬁrm f. We denote this set by I \ f. We then measure innovation by
+competitors of ﬁrm f as the weighted average of the innovative output of its competitors,
+θi
+I\f,t =
+P
+f′∈I\f Θi
+f′,t
+P
+f′∈I\f Bf′t
+.
+(11)
+We compute (11) for both the market based measure (sm) as well as for citation-weighted
+patent counts (cw).
+We assess the relation between the innovative activity of the ﬁrm and its competitors and
+its future growth and productivity. In particular, as dependent variables, X, we iteratively
+use (a) proﬁts, (b) nominal value of output, (c) capital stock, (d) number of employees and
+(e) revenue-based productivity (TFPR). We estimate the following speciﬁcation.
+log Xf,t+τ −log Xf,t = aτ θf,t + bτ θI\f,t + c Zft + uft+τ.
+(12)
+We explore horizons τ of 1 to 5 years. In addition to Xft, the vector Z includes the log
+value of the capital stock and the log number of employees to alleviate our concern that ﬁrm
+size may introduce some mechanical correlation between the dependent variable and our
+innovation measure. For instance, large ﬁrms tend to innovate more, yet have been shown to
+grow slower (see e.g., Evans, 1987). Controlling for other measures of size (i.e. book assets)
+yields similar results. We control for ﬁrm idiosyncratic volatility σft because it may have a
+mechanical eﬀect on our innovation measure and is likely correlated with ﬁrms’ future growth
+opportunities (Myers and Majluf, 1984). Last, we include industry and time dummies to
+account for unobservable factors at the industry and year level. We cluster standard errors by
+17
+
+--- PAGE 20 ---
+both ﬁrm and year. To facilitate the comparison between our measure and patent citations,
+we normalize both variables to unit standard deviation.
+Estimation Results
+We focus on the estimates of a and b, which capture the direct impact of ﬁrm innovation
+on growth and the degree of creative destruction, respectively. Panels (a) to (d) of Table 4
+examine ﬁrm growth, as measured by the growth rate of (a) proﬁts, (b) nominal output,
+(c) capital and (d) number of employees. Consistent with models of innovation, we see that
+future ﬁrm growth is strongly related to the ﬁrm’s own innovative output. The magnitudes
+are substantial; over a ﬁve-year horizon, a one standard deviation increase in ﬁrm’s innovation
+is associated with a 4.6% increase in proﬁts, a 3.2% increase in output, a 3.8% increase in
+capital investment, and a 2.5% increase in employment.
+Our estimates of b suggest that innovation is associated with a substantial degree of
+creative destruction.
+In particular, a one standard deviation increase in innovation by
+ﬁrm’s competitors is associated with a decline of 3.8% in proﬁts, 5.1% in output, 3.8%
+in capital investment and 2.7% in employment, over the same ﬁve-year horizon. Relative
+to existing studies that study externalities associated with ﬁrm innovation (e.g. Bernstein
+and Nadiri, 1989; Bloom et al., 2013) our estimates imply a substantially higher degree of
+creative destruction. We conjecture that this diﬀerence is likely due to the fact that θsm – by
+construction – measures the private value of innovation – as opposed to its social value, which
+may include research-related externalities. We revisit this issue below when we compare our
+results to those using citation-weighted patent counts.
+Panel (e) of Table 4 examines the relation between innovation and (revenue-based) ﬁrm
+productivity. We see that a one standard deviation increase in ﬁrm’s innovation is associated
+with a 2.4% increase in ﬁrm’s revenue-based productivity. Conversely, a one standard deviation
+increase in innovation by ﬁrm’s competitors is followed by a 1.7% drop in productivity over
+ﬁve years. The negative eﬀect of competitor innovation on revenue-based productivity is most
+likely due to its negative eﬀect on ﬁrm-level prices, possibly due to business-stealing eﬀects.18
+Overall, our measure of innovation activity is related to ﬁrm growth and productivity,
+providing direct support for models of endogenous growth. In addition, these results contribute
+to the discussion on the determinants of growth rates and productivity diﬀerences across
+ﬁrms. Understanding why these diﬀerences exist – and persist over time – and relating them
+to speciﬁc aspects of ﬁrms’ economic activity remains a signiﬁcant challenge.19 A direct
+18For instance, if the ﬁrm is producing a portfolio of patented and non-patented goods, and having a patent
+allows the ﬁrm to act as a monopolist and charge a higher markup, the loss of a good to a rival ﬁrm could
+imply that the ﬁrm’s average markup – across all goods it produces – falls. In this case, we would see a drop
+in TFPR.
+19See, for example Syverson (2011); Haltiwanger (2012). While some of the measured diﬀerences likely
+reﬂect imperfections in the measurement in productivity, they also reﬂect, to a large degree, real diﬀerences
+in ﬁrms’ ability to generate revenue for given capital and labor inputs.
+18
+
+--- PAGE 21 ---
+measure of the ﬁrm’s innovative output allows us to quantify the strength of this relation.
+In this respect, our approach is similar to Bloom and Van Reenen (2007) who document
+that diﬀerences in their measure of management quality across ﬁrms account for a signiﬁcant
+fraction of dispersion in TFP across ﬁrms.20
+Comparison to citation-based measures
+We next compare the results above to those obtained using a more traditional measure
+of innovative output, citation-weighted patents. Table 5 reports estimates of (12) using
+the citation-based measure θcw. Examining the response of future growth and productivity
+to own innovation, we again see a strong positive association. Comparing these estimates
+of a to those of Table 4, we note that they are smaller in magnitude, typically less than
+half. Speciﬁcally, a one standard deviation change in ﬁrm’s innovation, as measured using
+citations-weighted patents, is associated with a 2.5% increase in proﬁts, 1.9% increase in
+output, 1.5% increase in capital investment, 1.5% increase in employment and a 1% increase
+in productivity. These smaller magnitudes are not surprising, since ﬁrm investment decisions
+are related to the private value of innovation, which may be imperfectly reﬂected in the
+number of citations to the patent.
+More importantly, the results in Table 5 reveal no evidence for creative destruction. The
+estimated coeﬃcients b are either positive or not statistically diﬀerent from zero. The stronger
+pattern of creative destruction associated with θsm is consistent with our conjecture above
+that our measure is more highly correlated with the private value of a patent relative to patent
+citations. Citations on the other hand are more likely to be correlated with the scientiﬁc
+value of a patent and thus more accurately measure the impact of research externalities.
+Last, we explore whether our measure and patent citations contain independent information
+about future ﬁrm growth. That is, we re-estimate (12) including both θsm
+f
+and θcw
+f , as well as
+θsm
+I\f and θcw
+I\f. We report the estimation results in Table 6. We see that the relation between
+θsm and future ﬁrm growth and productivity is comparable to those in Table 4. By contrast,
+the relation between the citation-based measure and own ﬁrm growth is in many cases not
+statistically diﬀerent from zero. By design, our measure and citation-weighted patent counts
+should contain independent information regarding externalities. Examining the right panel
+of Table 6 we note a strong negative eﬀect of competitor innovation on ﬁrm growth and
+productivity measured using value-weighted patent counts (θsm) and a positive eﬀect when
+innovation output is measured using citation-weighted patent counts (θcw).
+20A direct comparison between our results and Bloom and Van Reenen (2007) is diﬃcult because their
+management quality measure is a stock measure, while our innovation measure is a ﬂow measure. Speciﬁcally,
+(Bloom and Van Reenen, 2007) ﬁnd that spanning the interquartile range of the management score distribution,
+for example, corresponds to a productivity change of between 3.2 and 7.5 percent, which is between 10 and
+23 percent of the interquartile range of TFP in their sample.
+19
+
+--- PAGE 22 ---
+In sum, these ﬁndings allow us to draw two conclusions.
+First, there is additional
+information about the quality of innovation in our measure than what is captured in citations.
+This additional information is most likely related to private values of a patent. Depending on
+the intended application, one measure may be more useful than the other.21 Second, using
+our estimate of the private value of innovation, we document substantial patterns of creative
+destruction relative to those previously documented.
+Robustness and Caveats
+The estimated value of innovative output θsm
+f,t contains information on the ﬁrm’s market
+valuation in the numerator, but not in the denominator. Hence, one potential concern is that
+ﬂuctuations in θsm
+f,t simply reﬂect ﬂuctuations in the market valuation of ﬁrm f rather than
+the value of the innovative output of ﬁrm in year t. To address this concern, we replace the
+book value of assets in the denominator of θsm
+f,t with the ﬁrm’s stock market capitalization at
+the end of year t. We ﬁnd that doing so leads to similar results, although they are smaller in
+magnitude by about one-third (see Table A.9 in the Online Appendix). Second, market values
+are measured at a point in time, while citations are measured throughout the entire sample.
+As a robustness check, we verify that results are similar when we only measure citations
+within the ﬁrst few years after the patent is granted (see Table A.10 in the Online Appendix).
+A third caveat is that the relation between innovation and ﬁrm growth we document is based
+on correlations and cannot be interpreted causally. For instance, fast-growing ﬁrms may
+invest more in R&D and thus also innovate more, but innovation may be unrelated to ﬁrm
+growth. We found that including controls for R&D spending did little to alter the magnitude
+of the estimated coeﬃcients a and b (Table A.11 in the Online Appendix). Fourth, it is
+possible that our measure simply captures ﬂuctuation in investor attention; if investors pay
+attention to fast growing ﬁrms, this could explain our results. We found that controlling for
+three proxies for investor attention – the number of times the ﬁrm is mentioned in the Wall
+Street Journal, the number of analyst coverage, and the fraction of institutional ownership –
+did little to aﬀect the economic and statistical signiﬁcance of our results (Table A.12 in the
+Online Appendix).
+More generally, we measure the private value of innovative output with substantial
+measurement error. In particular, as we can see from equation (1), this measurement error
+depends on the ex-ante likelihood of the patent being granted.22 We cannot rule out the
+possibility that this measurement error covaries with unobservable factors that also determine
+ﬁrm growth. To partly alleviate these concerns, we use the R&D price variable constructed
+21We could extend our methodology to estimate the value of a patent including its eﬀect on competing
+ﬁrms, using the competitors’ stock market reaction. This measure could be closer to the ‘social value’ of
+innovation. We leave this task for future research.
+22Estimating the ex-ante likelihood of a patent grant requires information on patent applications. As noted
+earlier, such data is only available post-2001. However, as of 2015, there is no reliable publicly available
+assignee information in these patent applications.
+20
+
+--- PAGE 23 ---
+by Bloom et al. (2013) as an instrument. This R&D price is constructed at an annual level for
+each ﬁrm using state-level R&D tax credits. This price varies across ﬁrms because diﬀerent
+states have diﬀerent levels of R&D tax credits and corporation tax, which will diﬀerentially
+aﬀect ﬁrms depending on their cross-state distribution of R&D activity. In addition, we
+construct an R&D price for competing ﬁrms in a similar manner to equation (11), that is,
+equal to the average R&D price of ﬁrms competing with ﬁrm f. We then use the ﬁrm and
+competitor R&D price to instrument for θf and θI\f when estimating equation (12). The
+ﬁrst-stage regression reveals a strong, negative, relation between the ﬁrm- and competitor
+R&D price and ﬁrm and competitor innovation outcomes, respectively. Importantly, the
+second-stage estimates are qualitatively similar to our baseline results, thought the magnitudes
+are stronger (see Table A.13 in the Online Appendix).
+4
+Aggregate Eﬀects of Innovation
+Here, we assess the role of technological innovation in accounting for medium-run ﬂuc-
+tuations in aggregate economic growth and TFP. A notable challenge facing real business
+cycle models is the scarcity of evidence linking movements in TFP to clearly identiﬁable
+measures of technological change. At the aggregate level, whether technological innovation is
+socially valuable in endogenous growth models depends on the degree to which it contributes
+to aggregate productivity – as opposed to simply being a force for reallocation and creative
+destruction. If the creative destruction eﬀects dominate, an increase in aggregate innovation
+activity would lead to resource reallocation across ﬁrms but only minor increases in output.
+We tackle this question in two ways. First, the results in the previous section illustrate that
+an increase in a ﬁrm’s innovative output is associated with higher growth and productivity;
+by contrast, innovation by competing ﬁrms has the opposite eﬀect. In Section 4.1, we use
+ﬁrm-level estimates of Section 3.2 to examine the net impact of innovation on aggregate
+output and productivity. Second, in Section 4.2, we propose an aggregate index of innovation
+activity – that is based on a simple model of innovation – and relate the index to aggregate
+output and productivity.
+4.1
+Aggregating coeﬃcients
+As a ﬁrst step in assessing the net impact of innovation, we examine what our empirical
+estimates in Section 3.2 imply about the net eﬀect of innovation within our sample of
+publicly traded ﬁrms. To do so, we need to compare the relative magnitudes of the estimated
+coeﬃcients a and b in equation (12). However, since the equation is expressed in terms of
+growth rates, we cannot determine the sign and the magnitude of the net eﬀect by simply
+comparing the two coeﬃcients a and b.
+21
+
+--- PAGE 24 ---
+We thus proceed as follows. We ﬁrst compute the portion of the dollar change in the
+size X of ﬁrm f between time t and t + τ that is associated with its own innovation and the
+innovation by other ﬁrms in the same industry as
+ˆXf,t+τ −ˆX′
+f,t+τ =
+h
+exp
+
+ˆaτ θft + ˆbτ θI\ft + ˆcτ Zft
+
+−exp
+
+ˆcτ Zft
+i
+Xf,t,
+(13)
+where we have made explicit the dependence of the estimated regression coeﬃcients on the
+horizon, τ. Here, we use the notation X′ to refer to the counterfactual level of X in the
+case in which our measure is uniformly equal to zero. Second, we aggregate these estimates
+across all ﬁrms in the sample to obtain the average component of aggregate growth related
+to innovation,
+ˆGτ = 1
+T
+T
+X
+t=1
+
+1
+τ
+P
+f
+
+ˆXf,t+τ −ˆX′
+f,t+τ
+
+P
+f Xf,t
+
+,
+(14)
+In equation (14), the numerator and denominator sum across all ﬁrms that survive to time τ.
+The sample mean of ˆGt,t+τ can be interpreted as the annual aggregate growth rate between
+periods t and t + τ that is related to ﬁrm innovation, subject to two caveats: i) we omit some
+general equilibrium eﬀects due to the presence of time dummies in equation (12) and ii) our
+estimate aggregates outcomes within our sample of public ﬁrms.
+Similarly, we can deﬁne an index of creative destruction in a manner analogous of excess
+reallocation (using the deﬁnition of Davis, Haltiwanger, and Schuh, 1998), as
+ˆDτ = 1
+T
+T
+X
+t=1
+"
+1
+τ
+P
+f | ˆXf,t+τ −ˆX′
+f,t+τ|
+P
+f Xft
+−| ˆGt,t+τ|
+#
+(15)
+Equation (15) measures the degree of cross-sectional volatility in growth rates that is related
+to innovation. To assess the magnitudes of (14) and (15) we can compare them to their
+realized counterparts,
+Gτ = 1
+T
+T
+X
+t=1
+"
+1
+τ
+P
+f [Xf,t+τ −Xf,t]
+P
+f Xf,t
+#
+(16)
+and
+Dτ = 1
+T
+T
+X
+t=1
+"
+1
+τ
+P
+f |Xf,t+τ −Xf,t|
+P
+f Xft
+−|Gt,t+τ|
+#
+.
+(17)
+When comparing our aggregate estimate of reallocation (15) to its realized counterpart (17),
+note that ˆDτ is based on predicted values, hence it is unlikely to capture a substantial fraction
+of ﬂuctuations in realized ﬁrm growth rates, since these are hard to predict.
+Our estimates imply that the contribution of innovation to aggregate growth is positive
+and substantial. To conserve space, we only report the highest value across horizons τ. Our
+estimate of ˆGτ implies that our estimate of innovation can account for an average net growth
+22
+
+--- PAGE 25 ---
+rate of up to 0.8% in ﬁrm proﬁts, 0.1% in ﬁrm output, 0.7% in capital and 0.1% in the
+number of employees. Comparing these estimates to the mean aggregate growth rate for the
+corresponding variables G within our sample of public ﬁrms, we ﬁnd that innovation can
+account for a fraction of 5% to 23% of net economic growth.
+The degree of creative destruction implied by our estimates is also substantial. Our
+estimates of ˆD imply that innovation can account for a mean cross-sectional dispersion of
+0.5% in ﬁrm proﬁts, dispersion of 0.5% in sales growth rates, 0.3% in growth rates of capital
+and 0.3% in the change in the number of employees. Comparing these magnitudes to the
+realized dispersion in ﬁrm growth rates, D, we ﬁnd them to be approximately 6% to 19%
+of their realized counterparts. Our estimates thus suggest that diﬀerences in innovative
+outcomes can account for a substantial fraction of ex-post diﬀerences in ﬁrm growth rates.23
+In sum, our analysis suggests that, in the aggregate, innovation is associated with signiﬁcant
+resource reallocation and growth. While this ﬁrm level analysis has several appealing features,
+its ﬁndings should be interpreted with caution for at least two reasons. First, our estimates
+are based on comparing outcomes within a sample of public ﬁrms. They omit any eﬀect
+of innovation by these public ﬁrms on private ﬁrms in the industry. Second, our empirical
+speciﬁcation (12) include time ﬁxed eﬀects to control for unobserved changes in the economic
+environment that are unrelated to innovation. However, these time eﬀects could also absorb
+some of the general equilibrium eﬀects of innovation by ﬁrms in our sample. We next explore
+an alternative approach that constructs an aggregate index of innovation that is motivated
+by an economic model.
+4.2
+Aggregate Index of Innovation
+Here, we construct an economy-wide index of innovation output. To aggregate our ﬁrm-
+level innovation measures to a composite, we need to make particular assumptions about how
+ﬁrm monopoly proﬁts relate to aggregate improvements in TFP. In Appendix A, we provide
+a simple model of innovation – based on Atkeson and Burstein (2011) – that delivers an
+approximately linear relation between the two.24 After discussing the descriptive properties of
+23We can also similarly aggregate the ﬁrm level coeﬃcients we obtained in Section 3.2 using the citation-
+based measure. We would expect the relation between aggregate innovation and growth to be greater when
+using citation-weighted patent counts for two reasons. First, citations may include research externalities
+that need not be captured by our measure. Second, since citations are an imperfect estimate of private
+value, they underestimate the eﬀect of creative destruction. Both of these eﬀects should in theory imply that
+citation-weighted patent counts will overestimate the relation between innovation and growth relative to what
+would be obtained using our measure. However, the empirical evidence is mixed. We ﬁnd that, when using
+citation-weighted patent counts, innovation can account for an average net growth rate of up to 0.4% in
+ﬁrm proﬁts, 0.2% in ﬁrm output, 0.2% in capital and 0.4% in the number of employees. These estimates are
+comparable in magnitude to those obtained using our baseline measure. Importantly, the degree of creative
+destruction implied by the citation-weighted patent measure is essentially zero.
+24Alternative models of innovation may result in diﬀerent functional relations between ﬁrm proﬁts and
+aggregate productivity improvements, particularly quality-ladder models with endogenous markups. These
+models would therefore generate alternative innovation indices. We leave this for future work.
+23
+
+--- PAGE 26 ---
+the index, we examine its correlation with measures of aggregate productivity and economic
+growth.
+Methodology
+We construct an economy-wide index of innovation as
+ˆχt = Y −1
+t
+X
+f∈Ft
+Θsm
+ft .
+(18)
+Equation (18) is equal to the sum of the value of all patents granted in year t to the ﬁrms in
+our sample, scaled by aggregate output Y . The construction of the index (18) is motivated
+by a simple model of innovation, described in Appendix A. In the model, the index (18) is
+approximately proportional to the productivity (and output) gains from improvements in the
+aggregate technology frontier.
+A potential concern with the index (18) is that its ﬂuctuations may capture movements in
+‘discount rates’, or more generally, ﬂuctuations in the level of stock prices that are unrelated
+to fundamentals. To address this concern, we also construct an alternative index, in which
+instead of output Y we scale by the total market capitalization of the ﬁrms in our sample in
+year t. In the model, the level of the stock market is a constant multiple of output, hence
+these two indices coincide. In the data, the correlation between the two indices is 0.89 in
+levels and 0.75 in ﬁrst diﬀerences.
+We plot the two innovation indices in panels (a) and (b) of Figure 4. We see that
+both indices line up well with the three major waves of technological innovation in the U.S.
+First, both indices suggest high values of technological innovation in the 1930s, consistent
+with the evidence compiled in Field (2003), and Alexopoulos and Cohen (2009, 2011).25
+When we dissect the composition of the index we ﬁnd that ﬁrms that primarily contribute
+to technological developments during the thirties are in the automobiles (such as General
+Motors) and telecommunication (such as AT&T) sectors. This description is consistent
+with studies that have examined which sectors and ﬁrms led to technological developments
+and progress in the 1930s (Smiley, 1994). Second, our measure suggests higher innovative
+activity during 1960s and early 1970s – a period commonly recognized as a period of high
+innovation in the U.S (see, e.g. Laitner and Stolyarov, 2003). Indeed, this was a period that
+saw development in chemicals, oil and computing/electronics – the same sectors we ﬁnd to be
+contributing the most to our measure with major innovators being ﬁrms such as IBM, GE,
+3M, Exxon, Eastman Kodak, du Pont and Xerox. Third, developments in computing and
+telecommunication have brought about the latest wave of technological progress in the 1990s
+25Notably, our series peaks slightly earlier in the 1930s than Alexopoulos and Cohen (2011). This seems
+reasonable since our measure is based on patents as opposed to commercialization dates that their measure
+captures.
+24
+
+[TRUNCATED at 80000 chars — 46 total pages]

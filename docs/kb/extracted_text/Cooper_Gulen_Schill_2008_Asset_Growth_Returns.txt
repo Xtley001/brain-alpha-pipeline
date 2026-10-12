@@ -1,0 +1,2856 @@
+
+--- PAGE 1 ---
+ 
+ 
+Asset growth and the cross-section of stock returns:  
+Evidence from Nordic equity markets 
+ 
+ 
+Fredrik Biesèrt                                          Joel Wägmark 
+23704@student.hhs.se                                      23691@student.hhs.se 
+ 
+ 
+Stockholm School of Economics 
+Master’s Thesis in Finance 
+Spring 2020 
+ 
+ 
+Abstract 
+ 
+We investigate the relationship between firm year-on-year percentage change in total assets 
+and subsequent stock returns in Nordic equity markets. Asset growth rates are strong predictors 
+of future stock returns and hold for firm capitalization. Of particular interest, the asset growth 
+effect is present among large capitalization Nordic stocks. In a sample of big Nordic stocks 
+spanning from 1991 to 2019, the average spread between value–weighted low and high growth 
+portfolios is 8.73% per annum. In Sweden alone, the average spread is 11.75%. The long-short 
+asset growth portfolio for big Nordic stocks has significant nonzero intercepts when measured 
+against three-, four- and six-factor models. On an individual stock level, the asset growth effect 
+remains even when controlling for standard determinants of stock returns. When decomposing 
+total asset growth, we find that certain balance sheet items act as predictors of future stock 
+returns. Finally, a time series analysis reveals that the long-short asset growth portfolio appears 
+to be inversely related to downturns in the overall market.  
+ 
+________________________ 
+ 
+Supervisor: Michael Halling 
+Keywords: Asset Growth Effect, Asset Growth Anomaly, Investment Factor, Nordics  
+ 
+Acknowledgements: We would like to express our deepest gratitude to Michael Halling for 
+his advice and support. 
+
+--- PAGE 2 ---
+ 
+ 
+ 
+2
+Contents 
+ 
+1 
+INTRODUCTION ............................................................................................................ 3 
+2 
+RELATED LITERATURE ............................................................................................. 6 
+2.1 
+BACKGROUND ON ASSET PRICING RESEARCH .............................................................. 6 
+2.2 
+EMPIRICAL EVIDENCE .................................................................................................. 7 
+2.3 
+EXPLANATIONS OF THE ASSET GROWTH EFFECT ......................................................... 9 
+3 
+DATA AND EMPIRICAL METHODOLOGY ........................................................... 11 
+3.1 
+SAMPLE CONSTRUCTION ............................................................................................. 11 
+3.2 
+EMPIRICAL METHODOLOGY ....................................................................................... 13 
+3.3 
+DESCRIPTION OF RISK FACTORS ................................................................................. 15 
+3.4 
+DESCRIPTIVE STATISTICS ........................................................................................... 16 
+4 
+EMPIRICAL RESULTS ................................................................................................ 19 
+4.1 
+CROSS-SECTIONAL PORTFOLIO REGRESSIONS ............................................................ 19 
+4.2 
+CROSS-SECTIONAL FAMA–MACBETH REGRESSIONS ................................................. 26 
+4.3 
+DECOMPOSING ASSET GROWTH ................................................................................. 31 
+4.4 
+TIME SERIES ANALYSIS OF THE ASSET GROWTH EFFECT ........................................... 37 
+5 
+ROBUSTNESS TESTS .................................................................................................. 41 
+5.1 
+FOUR-FACTOR MODEL ................................................................................................ 41 
+5.2 
+SIX-FACTOR MODEL ................................................................................................... 42 
+6 
+CONCLUSION ............................................................................................................... 43 
+REFERENCES ....................................................................................................................... 45 
+APPENDIX ............................................................................................................................. 48 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 3 ---
+ 
+ 
+ 
+3
+1 Introduction  
+The relationship between firm characteristics and cross-sectional stock returns have been 
+closely studied over the past decades. The underlying economic premise of this research, 
+whether it is sought to be proven or disproven, is that well-functioning capital markets price 
+assets efficiently. One of the most influential ideas of this research is the Capital Asset Pricing 
+Model (CAPM) (Treynor, 1961; Sharpe, 1964; Lintner, 1965). The CAPM states that the 
+expected risk premium of an asset is determined by the asset’s exposure to a comprehensive 
+market portfolio, its systematic risk (Black, Jensen and Scholes, 1972). However, the CAPM 
+has proven inadequate in explaining certain systematic variations in stock returns. This has 
+given reason for researchers to focus on whether certain stock characteristics lead to 
+predictability in returns. 
+         Cooper, Gulen, and Schill (2008) were first to document total asset growth as a strong 
+predictor of stock returns. They find that firms with high year-on-year percentage change in 
+total assets, that grow by external financing, capital investments and acquisitions, subsequently 
+report poor stock returns. In contrast, firms that experience asset contraction, share repurchases, 
+and debt retirement show the opposite results. Cooper et al. (2008) focus on the U.S. market 
+over the period 1968 to 2003 and document an annual 20% value-weighted return spread 
+between low and high asset growth firms. Moreover, they do not find any basis for a risk-based 
+explanation and favor a mispricing argument for the effect. Since the original discovery by 
+Cooper et al. (2008), the asset growth effect has been researched across other markets and 
+geographies. Watanabe et al. (2013) and Titman, Wei and Xie (2013) find evidence of an asset 
+growth effect across a large international sample. Gray and Johnson (2011) further show that 
+an asset growth effect exists in the Australian equity market, both on portfolio and individual 
+stock level. Yao et al. (2011) study nine markets in Asia and find a pervasive negative relation 
+between asset growth and future stock returns.  
+The purpose of this paper is to extend this research and study the asset growth effect in 
+Nordic equity markets, comprising of Sweden, Norway, Denmark and Finland, over the period 
+from 1991 to 2019. Such efforts are meaningful for many reasons. First, Nordic equity markets 
+remain unexplored as a region for the asset growth effect. These markets represent well-
+developed market-based economies and have delivered strong returns over the past several 
+decades (Evli, 2020). This is of high interest, as Watanabe et al. (2013) argue that the asset 
+growth effect is stronger in developed markets. Second, recent studies show that an investment 
+factor formed by sorting on total asset growth adds much predictive power for the cross-section 
+
+--- PAGE 4 ---
+ 
+ 
+ 
+4
+of stock returns (Fama and French, 2015). It is therefore of increased importance to study the 
+effect’s robustness across equity markets also outside of the U.S. Finally, we are able to study 
+more than a decade of additional data since the original publication by Cooper et al. (2008).  
+The empirical methodology applied in this paper is consistent with previous research. 
+First, stocks are allocated into quintiles at the end of June of each year t based on annual asset 
+growth rates. Next, portfolios are formed from July of year t to June of year t+1. We hold the 
+portfolios for one year and then rebalance. Consistent with the findings of Cooper et al. (2008), 
+we find that the low growth quintile exhibits statistically higher returns than the high growth 
+quintile. We find that low growth firms produce equal-weighted (EW) monthly returns of 
+0.95%, whilst high growth firms generate a far inferior 0.43%. The results are replicated for 
+value-weighted (VW) portfolios, where the low growth quintile produces average monthly 
+returns of 1.39%, whilst the high growth quintile generates only 0.86%. The spread between 
+the low and high growth quintiles are significant for both EW and VW portfolios.  Fama and 
+French (2008) argue that the asset growth effect is primarily driven by small capitalization 
+stocks and stress the importance of examining the effect across size groupings. Following the 
+methodology of Cooper et al. (2008), we rank firms into one of three groups (small, medium 
+and big) based on the 30th and 70th market capitalization percentiles in June of year t. 
+Interestingly, in contrast to Fama and French (2008), we find that big stocks exhibit the 
+strongest asset growth effect, both in terms of magnitude and statistical significance.  
+The negative relation between asset growth and subsequent stock returns remain when 
+we control for the standard risk factors of Fama and French (1993). When testing the spread of 
+a zero-cost portfolio (long low growth stocks and short high growth stocks) against the Fama 
+and French (1993) three–factor model, we find consistent and significant nonzero intercepts. 
+Of particular interest, the negative relation between asset growth and subsequent risk-adjusted 
+returns remains significant for big Nordic stocks, further suggesting that the effect is not 
+primarily driven by small-capitalization stocks. In terms of economic significance, the VW 
+three-factor spread between big low growth firms and big high growth firms amounts to 7.44% 
+annually. Sweden is the largest market in the Nordics both in terms of market capitalization 
+and number of stocks. To examine the consistency of the Nordic results, we study Sweden as 
+an example of an individual country. The results remain largely unchanged.  
+After we find evidence of an asset growth effect on a portfolio level, we investigate the 
+marginal effect on an individual stock level by performing Fama–MacBeth (1973) two-step 
+regressions. We control for other previously documented determinants of cross-sectional 
+returns, such as the book-to-market ratio, market capitalization, momentum variables (DeBondt 
+
+--- PAGE 5 ---
+ 
+ 
+ 
+5
+and Thaler, 1985; Fama and French, 1992; Jegadeesh and Titman, 1993) and the growth 
+measures net operating assets (Hirshleifer et al, 2004) and accruals (Sloan, 1996). Total asset 
+growth retains its forecasting ability on an individual stock level. 
+To better understand the underlying drivers of the asset growth effect, we follow 
+Cooper et al. (2008) and Cooper et al. (2017) and decompose total asset growth into major 
+components of both the investment and financing side of the balance sheet. The results suggest 
+that several different subcomponents have explanatory power for future returns, but that these 
+vary widely across size groupings.  
+ 
+After decomposing total asset growth, we examine how portfolios sorted on asset 
+growth perform in a time series analysis. We focus on big stocks since they are the strongest 
+drivers of the asset growth effect on a portfolio level. The asset growth effect appears to be 
+stable over time for both EW and VW portfolios. Moreover, the spread portfolio appears to be 
+inversely related to downturns in the overall market. 
+ 
+To further test the robustness of the asset growth effect in Nordic equity markets, we 
+control for three additional risk factors: momentum (UMD), betting against beta (BAB) and 
+quality minus junk (QMJ) (Carhart, 1997; Frazzini and Pedersen, 2014; Assnes et al, 2019). 
+The negative relation between asset growth and subsequent abnormal returns remains even 
+after we control for exposure to these factors as well. Of particular interest, asset growth retains 
+its predicative power for big stocks. In terms of economic significance, the VW six-factor 
+spread for big stocks amounts to 10.30% annually.  
+         The remainder of this paper is organized as follows. Section 2 presents a summary of 
+previous literature and theory surrounding both stock market anomalies in general and the asset 
+growth effect specifically. Section 3 describes our data collection method, as well as sample 
+construction and empirical methodology. Section 4 presents our results and analyzes our 
+findings. Section 5 provides robustness tests, to provide further evidence of our main findings. 
+Section 6 concludes. 
+ 
+ 
+
+--- PAGE 6 ---
+ 
+ 
+ 
+6
+2 Related Literature 
+In this section, we review existing literature. We begin by explaining the theoretical framework 
+underlying asset pricing research. Next, we describe the record of previous research made on 
+the asset growth effect. We conclude by presenting two of the main explanations for the asset 
+growth effect.   
+2.1 Background on Asset Pricing Research 
+2.1.1 Efficient Market Hypothesis and CAPM 
+The Efficient Market Hypothesis (EMH) was introduced by Eugene Fama in 1965 and has 
+since served as a pillar of modern portfolio theory (Fama, 1965). The concept of market 
+efficiency is used to describe a market where stock prices reflect all relevant and available 
+information. According to the EMH, assets always trade at their fair value, making it 
+impossible to earn consistent abnormal returns from investment strategies. Therefore, in an 
+efficient market, the return an investor can earn corresponds to his exposure to risk; the only 
+way an investor can obtain higher returns is by taking on more risk.  
+The fundamental model explaining this relationship is the CAPM (Treynor, 1961; 
+Sharpe, 1964; Lintner, 1965). The CAPM states that the expected risk premium of an asset is 
+determined by the asset’s exposure to a comprehensive market portfolio, its’ systematic risk 
+(Black, Jensen and Scholes, 1972). Although the model remains a pillar in financial theory and 
+application, it performs poorly empirically when large market indices are used as proxy for the 
+market portfolio (Fama and French, 2004). Essentially, the CAPM is unable to explain certain 
+systematic variations in stock returns and thus proves inadequate. 
+2.1.2 Stock Market Anomalies  
+Since the introduction of the EMH and the CAPM, numerous studies have been published 
+documenting patterns in cross-sectional stock returns that deviate from these models. These 
+patterns have subsequently been referred to as stock market anomalies. Banz (1981) has found 
+a size premium where stocks with low market capitalization produce higher returns than those 
+with high market capitalization. Moreover Rosenberg, Reid and Lanstein (1984) find that firms 
+with high book-to-market ratios generate abnormal stock returns (the value premium). Fama 
+and French (1993) show that the size and value premiums complement the CAPM. They form 
+
+--- PAGE 7 ---
+ 
+ 
+ 
+7
+a three-factor model, which explains a far greater portion of variation in stock returns than the 
+original CAPM. Although the three-factor model improves the predictive power of cross-
+sectional stock returns, several other documented anomalies remain unexplained (Fama and 
+French, 2008). Among these, firms with higher profitability generate higher stock returns 
+(Fairfield, Whisenant and Yohn, 2003), firms with higher accruals report lower stock returns 
+(Sloan, 1996) and firms experience lower stock returns after equity issuances (Loughran and 
+Ritter, 1995). Jegadeesh and Titman (1993) document a momentum premium where stocks 
+with low (high) returns over the past year tend to have low (high) future returns. Carhart (1997) 
+forms a four-factor model by adding the momentum premium to the Fama and French (1993) 
+three-factor model. Since the publication of the three- and four-factor models, several new 
+factors have been proposed. Among these, Frazzini and Pedersen (2014) show that Betting 
+Against Beta (BAB), a portfolio long low beta stocks and short high beta stocks, produces 
+superior risk-adjusted returns. Assnes et al. (2019) also show that high quality stocks 
+outperform low quality stocks and form the Quality Minus Junk Factor (QMJ). More factors 
+and pricing anomalies are continuously being found. 
+2.2 Empirical Evidence  
+2.2.1 U.S. Market 
+A number of studies on the U.S. stock market document the relationship between firm-level 
+investment and subsequent stock returns. For instance, Titman, Wei and Xie (2004) find that 
+firms that substantially increase capital investments subsequently experience negative risk-
+adjusted returns. Baker et al. (2003) and Anderson and Garcia-Feijoo (2006) find a negative 
+relation between current capital expenditure and future stock returns. Richardson and Sloan 
+(2003) study the relation between external financing and subsequent stock returns. These 
+studies provide evidence of a negative relation between several subcomponents of firm-level 
+investment and financing activity and future stock returns.  
+Cooper et al. (2008) are the first to capture a firm’s overall investment by creating a 
+simple measure of total asset growth. They show that total asset growth provides greater 
+predictive power for future stock returns than growth in any individual investment or financing 
+activity. Total asset growth also turns out to be more powerful than previously documented 
+determinants in predicting the cross-section of stock returns. Lipson, Mortal and Schill (2011) 
+examine the asset growth effect among different size groups and find that the effect remains 
+
+--- PAGE 8 ---
+ 
+ 
+ 
+8
+across groupings. Lam and Wei (2011) document that total asset growth is empirically stronger 
+than subcomponents of firm expansion.  
+2.2.2 International Markets  
+Watanabe et al. (2013) examine whether the negative relationship between asset growth and 
+subsequent stock returns is present internationally. They study 40 countries from the time 
+period 1982 to 2006 and investigate to which extent country characteristics influence the 
+magnitude of the asset growth effect. They find that, in aggregate, the asset growth effect exists 
+across international equity markets. In addition to this, they find that the asset growth effect is 
+stronger in more developed countries with more efficient stock markets. Titman et al. (2013) 
+also study the asset growth effect on a large international sample. They find that most equity 
+markets exhibit a negative relation between asset growth and future stock returns but find 
+substantial cross-country differences. Similar to Watanabe et al. (2013) they conclude that the 
+asset growth effect is stronger in developed markets.  
+Li, Becker and Rosenfeld (2012) provide further evidence on the asset growth effect in 
+international markets. They study the MSCI World Universe, which incorporates all developed 
+markets. They find a strong negative relationship between asset growth and future stock 
+returns. The predictive power is particularly strong for two-year total asset growth rates and 
+survives adjustments of both size and book-to-market factors. Moreover, the asset growth 
+effect is prevalent among both small and large capitalization stocks.   
+Yao et al. (2011) study nine markets in Asia during the period from 1981 to 2007. They 
+find a pervasive negative relation between asset growth and future stock returns. However, the 
+relation is weaker than in the U.S. market.  
+Gray and Johnson (2011) provide evidence of an asset growth effect in the Australian 
+equity market. Interestingly, the asset growth rate holds its predictive power for both small and 
+large capitalization stocks. On the other hand, Bettman, Kosev and Sault (2011) find that value-
+weighted returns fail to confirm an asset growth effect, concluding that the evidence is 
+misleading due to overstated influence of small capitalization stocks. 
+As of yet, no study on the asset growth effect has focused on the Nordic region. There 
+are a few studies that include individual Nordic markets as part of their international sample 
+(Li et al, 2012; Titman et al, 2013; Watanabe et al, 2013). However, they study Nordic equity 
+markets from the viewpoint of cross-country comparisons and conclude that an asset growth 
+effect can be seen internationally.  
+
+--- PAGE 9 ---
+ 
+ 
+ 
+9
+2.3 Explanations of the Asset Growth Effect 
+2.3.1 Risk-Based Explanations 
+Since Cooper et al. (2008) originally discovered the asset growth effect, it has become regarded 
+as a risk factor (Fama and French, 2015). More specifically, it has become known as the 
+investment factor and has been formed by taking the difference between returns on diversified 
+portfolios of low and high asset growth stocks. Fama and French (2015) derive the investment 
+factor from rearranging the dividend discount model, where lower expected returns are implied 
+from a higher expected growth in book value.  
+         Cooper et al. (2008) do not favor a risk-based explanation for the asset growth effect. 
+Their study provides evidence suggesting that both the three-factor model (Fama and French, 
+1993) and the four-factor model (Carhart, 1997) fail to explain variations in returns from the 
+asset growth effect. Cooper et al. (2008) do however point to studies which describe how risk 
+possibly decreases as a result of increased investment. Berk, Green and Naik (1999) measure 
+expected returns with regards to growth options relative to firm assets. They suggest that 
+increased investment broadens the asset base, which leads to lower dependence on growth 
+options from each individual asset. Thus, a lower return is to be expected from the decreased 
+risk following increased asset base diversification. However, Cooper et al. (2008) dismiss this 
+theoretical explanation due to a multitude of reasons. First, the model of Berk et al. (1999) 
+exhibits a relation to size and BM factors (Anderson and Garcia-Feijoo, 2006), and thus should 
+be captured by the three-factor model. This deviation would cause the cost of capital, implied 
+by the asset growth effect, to reach unprecedented levels and thus seems implausible. Instead, 
+they find evidence suggesting market inefficiency and propose that aggressive growth 
+strategies by corporate managers, in combination with investors’ over-extrapolation, are 
+possible causes behind the strong dispersion. Fama and French (2008) claim that the asset 
+growth effect is essentially only prevalent in micro- and small-cap stocks, whilst not identifying 
+a reliable relation for big stocks. 
+2.3.2 Mispricing Explanations 
+The second major explanation of the asset growth effect is attributable to theories of mispricing. 
+Mispricing explanations tend to relate to behavioral finance literature. In this setting, 
+mispricing of assets occurs due to systematic psychological biases and/or limitations of 
+efficient arbitrage (De Bondt and Thaler, 1985; Shleifer and Vishny, 1997). The hallmark of 
+
+--- PAGE 10 ---
+ 
+ 
+ 
+10
+behavioral finance theories is the overreaction hypothesis, which states that investors overreact 
+to past firm performance (De Bondt and Thaler, 1985; Lakonishok, Shleifer and Vishny, 1994). 
+Cooper et al. (2008) test this hypothesis by examining operating profitability for each asset 
+growth decile and find that high growth firms tend to have negative profitability shocks and 
+vice versa. Moreover, they find evidence of lower (higher) mean returns on earnings 
+announcement days for high (low) asset growth stocks, indicating that abnormal returns are a 
+result of systematically unanticipated bad (good) news, confirming the hypothesis put forth by 
+La Porta et al. (1997). 
+This view has been further supported in academic literature. Gray and Johnson (2011) 
+study the Australian equity market and find that the asset growth effect cannot be explained in 
+full by risk. Moreover, they find a substantial negative relationship between asset growth and 
+future stock returns for large capitalization stocks. This result contradicts the explanation that 
+the asset growth effect is only prevalent among small capitalization stocks, as proposed by 
+Fama and French (2008).  
+Finally, Lam and Wei (2011) examine both the limits-to-arbitrage hypothesis of Shleifer 
+and Vishny (1997) and the q-theory with investment frictions of Li and Zhang (2010) with 
+regards to the asset growth effect. They find evidence that proxies for both hypotheses are often 
+highly correlated and supported by similar amounts of evidence, thus providing cause for 
+further scrutiny. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 11 ---
+ 
+ 
+ 
+11
+3 Data and Empirical Methodology 
+In this section, we describe the source of our data. We further explain the empirical 
+methodology and the construction process of portfolios and factors. Finally, we report 
+summary statistics.  
+3.1 Sample construction 
+Monthly return data and annual accounting items are obtained from Thomson Reuters 
+Datastream and Worldscope Database. Monthly factor returns are found in AQR’s public data 
+library. We use all common stocks listed on NASDAQ OMX in Sweden, Denmark and Finland, 
+and on Oslo Stock Exchange in Norway between 1990 and 2019. We thus exclude closed-end-
+funds, depositary receipts, exchange-traded funds, preference shares and warrants. The stocks 
+are allocated to their respective market based both on the country of exchange and country of 
+domicile. We only include major securities and we use primary quotes for equities traded on 
+several exchanges, as defined by Datastream. Following Fama and French (1993) and Cooper 
+et al. (2008), we include both active and defunct firms to avoid overestimating historical 
+performance and survivorship bias. Defunct firms are those who have merged, defaulted or 
+were delisted during the sample period. Furthermore, we follow Fama and French (1992) and 
+Cooper et al. (2008) in excluding financial firms. This is because high leverage is common in 
+financial firms, whilst it is a sign of distress in nonfinancial firms.  
+The full Nordic sample consists of monthly observations of 2654 firms with 991 active 
+and 1663 dead, stretching over a time period of 336 months. Table I reports a summary of the 
+total number of stocks included in the sample.  
+ 
+Table I 
+Summary of the Number of Stocks 
+The sample is created over the period from 1990 to 2019. 
+Dead stocks have merged, defaulted or delisted during the 
+sample period. Nordics is created by adding Sweden, 
+Norway, Denmark and Finland together.  
+ 
+Total 
+Active 
+Dead 
+Nordics 
+2654 
+991 
+1663 
+Sweden 
+1340 
+578 
+762 
+Norway 
+591 
+173 
+418 
+Denmark 
+452 
+108 
+344 
+Finland 
+271 
+132 
+139 
+
+--- PAGE 12 ---
+ 
+ 
+ 
+12
+ 
+Sweden is the largest market and accounts for roughly 50% of the Nordic sample. Finland is 
+the smallest market with only 10% of total stocks. We denote all returns and fundamental data 
+in SEK since Sweden is the largest market both in terms of market capitalization and number 
+of stocks. Following Fama and French (2012) we ignore exchange rate risk and implicitly 
+assume complete purchasing power parity or that assets cannot be used to hedge exchange rate 
+risk.   
+Datastream has reported issues with data quality, such as decimal jumps in return data 
+(Porter and Ince, 2006). Consistent with previous research, we winsorize all variables at the 1st 
+and 99th percentiles of their respective distributions, to filter out suspiciously large stock returns 
+in any direction (Watanabe et al, 2013). Our return data has been calculated by importing the 
+Total Return Index for each firm (Datastream item RI), which is a price measure adjusted for 
+both corporate actions and dividends. The Total Return Index is defined as:   
+ 
+ 
+𝑅𝐼𝑡= 𝑅𝐼𝑡−1 × 𝑃𝑡+ 𝐷𝑡
+𝑃𝑡−1 , 
+(1) 
+ 
+ 
+where RI is the Total Return Index at time t and t–1, P is the share price at time t and t–1 and 
+D is the dividend paid at time t. For delisted firms, Datastream continues to report the last 
+closing price after delisting, and we therefore remove all price data after delisting has occurred. 
+When constructing yearly asset growth rates, we obtain Total Assets (Worldscope item 
+WC02999) for each year between 1990 to 2017. We follow Cooper et al. (2008) and define 
+total asset growth as the year-on-year percentage change in Total Assets: 
+ 
+ 
+𝐴𝑆𝑆𝐸𝑇𝐺 𝑡= 𝑇𝐴𝑡−1 −𝑇𝐴𝑡−2
+𝑇𝐴𝑡−2
+ , 
+(2) 
+ 
+where ASSETG denotes the asset growth rate and TA are Total Assets in year t–1 and t–2. To 
+compute this measure, a firm must have nonzero total assets in both year t–1 and t–2. Figure 1 
+reports time series summary statistics for annual asset growth rates for the Nordic sample.  
+ 
+
+--- PAGE 13 ---
+ 
+ 
+ 
+13
+ 
+Figure I. Times series summary statistics for annual asset growth rates. The figure reports 
+cross-sectional summary statistics for annual asset growth rates for Nordic nonfinancial firms 
+from 1990 to 2019.   
+3.2 Empirical Methodology 
+3.2.1 Portfolio Sorting 
+Following the sorting methodology of Fama and French (1992, 1993, 2015) and Cooper et al. 
+(2008), stocks are allocated into quintiles at the end of June of each year t based on annual asset 
+growth rates. Cooper et al. (2008) allocate stocks into deciles, but to ensure a sufficient number 
+of stocks in each portfolio we sort into quintiles. The reason for allocating stocks in June is to 
+mitigate the lag between firms’ annual reports and the availability of this data to investors. The 
+firms in quintile 1 are those with the lowest asset growth rates, whilst firms in quintile 5 are 
+those with the highest. Once firms have been assigned to quintiles, we calculate monthly returns 
+for EW and VW portfolios for the next 12 months between July of year t and June of year t+1. 
+The portfolios are rebalanced yearly.1  
+ 
+We further form portfolios controlling for firm capitalization to understand if the asset 
+growth effect is persistent across size groupings. Following the methodology of Cooper et al. 
+(2008), firms are ranked into one of three groups based on the 30th and 70th market 
+capitalization percentiles at the end of June of year t. After size groups have been formed, 
+stocks within each group are assigned to quintiles, again based on annual asset growth rates, 
+and subsequently used to form EW and VW portfolios for the next 12 months. 
+ 
+1 Portfolios are rebalanced yearly based on asset growth rates and weighting within portfolios is done monthly. 
+-20%
+0%
+20%
+40%
+60%
+80%
+100%
+120%
+140%
+160%
+180%
+1990
+1992
+1994
+1996
+1998
+2000
+2002
+2004
+2006
+2008
+2010
+2012
+2014
+2016
+2018
+Mean
+Median
+Standard deviation
+
+--- PAGE 14 ---
+ 
+ 
+ 
+14
+Next, we construct a zero-cost portfolio consisting of a long position in low growth 
+firms (quintile 1) and a short position in high growth firms (quintile 5). Spreads from zero-cost 
+portfolios are likely to be partially explained by risk factors such as size and the book-to-market 
+ratio. Thus, to examine the risk-adjusted predictive power of the asset growth effect, we control 
+for the Fama and French (1993) three-factor model. The model is defined as follows: 
+ 
+ 
+𝑟𝑖𝑡−𝑟𝑓𝑡= 𝛼𝑖+ 𝛽𝑖(𝑟𝑚𝑡−𝑟𝑓𝑡) + 𝑠𝑖𝑆𝑀𝐵𝑡+ ℎ𝑖𝐻𝑀𝐿𝑡+ 𝜀𝑖𝑡, 
+(3) 
+ 
+where ri is the monthly portfolio return, rf is the monthly risk-free rate, rm is the monthly 
+market return, SMB is the average return difference between small and large capitalization 
+stocks and HML is the average return difference between low and high book-to-market stocks. 
+We explain the factor construction in greater detail in Section 3.3.  
+3.2.2 Fama–MacBeth Regressions 
+Following Cooper et al. (2008), we further examine the asset growth effect from a Fama–
+MacBeth framework (Fama and MacBeth, 1973). Instead of aggregating stocks into portfolios, 
+the Fama–MacBeth cross-sectional regression is conducted on an individual stock level. The 
+procedure of the Fama–MacBeth regression can be divided into two steps. In the first step, we 
+perform a time-series estimation of asset betas, by regressing stock returns against a selection 
+of variables. Then, in a second step, we perform cross-sectional regressions, where stock 
+returns are regressed against the estimated betas of the previous step to determine the risk 
+premium for each variable. The variables used in the Fama–Macbeth regressions will now be 
+described. 
+         The base set of variables used in every model are the natural logarithm of market 
+capitalization and the book-to-market ratio, and two momentum variables defined as lagged 
+past 6- and 36-month returns (Banz, 1981; Rosenberg et al, 1984; DeBondt and Thaler, 1985; 
+Jegadeesh and Titman, 1993). We add three additional models to test whether the asset growth 
+effect holds in combination with other growth-related variables. First, we add a lagged asset 
+growth measure between t–3 and t–2 (L2ASSETG). Next, we examine the original model with 
+the addition of scaled net operating assets (NOA/A) by Hirschleifer et al. (2004). Finally, we 
+add the accruals (ACCRUALS) measure by Sloan (1996) to the original model.2 We further 
+divide stocks into three size groupings (small, medium and big) by dividing stocks at the 30th 
+ 
+2 We provide detailed explanations of variable construction in Appendix.  
+
+--- PAGE 15 ---
+ 
+ 
+ 
+15
+and 70th market capitalization percentiles and test whether the asset growth effect holds across 
+size groups. Furthermore, the Fama–MacBeth methodology only provides standard errors 
+corrected for cross-sectional correlation. It is however prone to autocorrelated standard errors, 
+and we therefore apply the Newey–West (1987) procedure to decrease correlation between 
+error terms.  
+         In Section 5, we apply the Fama-Macbeth methodology again to provide a 
+decomposition of the asset growth effect. Following Cooper et al. (2008), we divide the asset 
+investment side of the balance sheet into year-on-year change in cash, non-cash current assets, 
+other assets and property, plant and equipment. We divide the asset financing side into year-
+on-year change in debt, retained earnings, operating liabilities and stock financing. We regress 
+annual stock returns against lagged values of each subcomponent.  
+3.3 Description of Risk Factors 
+We download data on factor returns from the AQR Data Library (AQR, 2020). We filter and 
+merge monthly factor returns with the monthly returns of our asset growth portfolios. The data 
+is available from 1990-07-02, but because sufficient accounting data is not available before 
+1990, our first portfolios are formed 1991-06-30. Therefore, we use monthly factor returns 
+from 1991-06-30 to 2019-06-30. The Quality Minus Junk Factor (QMJ) is not available before 
+1995-06-30. We download factor returns for each Nordic country individually and construct 
+the aggregated Nordic factors by weighting each country’s portfolio by the country’s total 
+lagged (t–1) market capitalization. 
+         A description of how the factors are constructed will now follow. The Market Factor 
+(MKT), contains VW returns on all available stocks minus the one-month Treasury bill rate. 
+The other factors are constructed by using 2x3 conditional sorts, by first assigning stocks into 
+two size-sorted portfolios based on their market capitalization, with the size breakpoint as the 
+80th percentile of market capitalization, and then sorting stocks on the second variable. The 
+second variable is divided into three portfolios within each size group, at the 30th and 70th 
+percentiles of that variables’ relevant value-measurement. This method of sorting leads to six 
+portfolios, divided into two size groups with the second variable determining the other 
+dimension of how portfolios are sorted. Factors are rebalanced monthly to maintain value 
+weights. The following factors are used in our study: 
+
+--- PAGE 16 ---
+ 
+ 
+ 
+16
+ Value Factor (HML) is long the average return of two portfolios of small and big stocks 
+above the 70th book-to-market percentile and short the average return of two portfolios 
+of small and big stocks below the 30th book-to-market percentile. 
+ Size Factor (SMB) is long the average return of three book-to-market sorted portfolios 
+below the 80th market capitalization percentile and short the average return of three 
+book-to-market sorted portfolios above the 80th market capitalization percentile. 
+ Momentum Factor (UMD) is long the average return of two portfolios of small and big 
+stocks above the 70th percentile of prior cumulative returns and short the average return 
+of two portfolios of small and big stocks below the 30th percentile of prior cumulative 
+returns.3 
+ Betting Against Beta Factor (BAB) is long low-beta stocks and short high-beta stocks 
+(Frazzini and Pedersen, 2014). To construct the BAB factor all stocks are ranked in 
+ascending order based on their estimated beta and assigned to one of two portfolios: 
+low-beta and high-beta. Stocks are weighted by the ranked betas where lower-beta 
+stocks have larger weights in the low-beta portfolio and higher-beta stocks have larger 
+weights in the high-beta portfolio. Both the low and high beta portfolios are scaled to 
+have a beta of one at portfolio formation. 
+ Quality Minus Junk Factor (QMJ) is long the average return of two portfolios of small 
+and big stocks above the 70th quality percentile and short the average return of two 
+portfolios of small and big stocks below the 30th quality percentile (Assnes et al, 2019). 
+The quality score is the average of four aspects: profitability, growth, safety and payout.  
+3.4 Descriptive Statistics 
+Table II reports summary statistics for the main variables used in our study.  We have divided 
+the table into Panel A, which reports statistics for the full Nordic sample and Panel B, which 
+reports statistics from our largest subsample, Sweden. Cell values are calculated as time-series 
+averages of annual cross-sectional medians. 
+ 
+Asset growth (ASSETG) increases monotonically by design and is substantially higher 
+for high growth than low growth firms in both samples. In the Nordic sample, high growth 
+firms have an average asset growth rate of 65.93%, whilst low growth firms report an average 
+asset growth rate of –17.10%. Medium-rate growth firms (Quintile 3) report an average growth 
+ 
+3 Cumulative prior returns from months t–12 to t–2 where t is the portfolio formation date. 
+
+--- PAGE 17 ---
+ 
+ 
+ 
+17
+rate of 6.05%. In line with Cooper et al. (2008) and Gray and Johnson (2011) there is also some 
+evidence of persistence in asset growth rates across time. Lagged Asset Growth (L2ASSETG) 
+increases monotonically from low to high growth firms, thus mirroring ASSETG albeit with 
+much less variation between quintiles. For our Nordic sample, low growth firms have an 
+average lagged growth rate of 1.71%, whilst high growth firms report an average lagged growth 
+of 14.76%.  
+ 
+In both samples, medium-rate growth firms are the largest both in terms of book value 
+of assets (ASSETS) and market value (MV). In the full Nordic sample, the average market value 
+for medium-rate growth firms is SEKm 1106. The market value for both high and low growth 
+firms is substantially lower, with high growth firms reporting an average market value of 
+SEKm 637 and low growth firms an even lower average of SEKm 303. High growth firms are 
+thus not the largest firms in either of our samples, and even have the lowest book value of 
+assets of all quintiles in the full Nordic sample.  
+The average book-to-market ratio (BM) decreases monotonically from low to high 
+growth firms, thus characterizing firms with high asset growth rates as also being growth firms 
+according to the Fama and French (1993) definition. For our full Nordic sample, low growth 
+firms report an average book-to-market ratio of 0.88 whilst high growth firms report an average 
+of 0.52. These results are consistent with growth in capital expenditure conditioning subsequent 
+BM portfolio classification (Anderson and Garcia-Feijoo, 2006; Cooper et al, 2008). 
+With regards to stock performance, high growth firms have substantially higher average 
+past 36-month returns (BHRET36) than low growth firms. In our full Nordic sample, BHRET36 
+increases monotonically from low to high growth firms, with low growth firms reporting 
+returns of –21.13%, whilst high growth firms report 58.31%. With regards to average past 6-
+month returns (BHRET06), high and low growth firms report the lowest returns of all quintiles. 
+In our full Nordic sample, low growth firms have slightly higher past 6-month returns than high 
+growth firms, of 4.5% and 4.3% respectively.  
+The year-on-year change in scaled net operating assets (NOA/A) is higher for low 
+growth firms than for high growth firms in both samples but does not show a consistent pattern 
+across quintiles. In both samples, the average year-on-year change in accruals (ACCRUALS) 
+increases monotonically from low to high growth firms and remains negative across all 
+quintiles. 
+
+--- PAGE 18 ---
+ 
+ 
+ 
+18
+ 
+ 
+Table II 
+Characteristics of Asset Growth Quintiles 
+This table reports the characteristics of Nordic and Swedish stocks in each asset growth quintile in the year prior to the portfolio formation date. At the end 
+of June of each year t from 1991 to 2018, stocks are allocated into quintiles according to their asset growth rate (ASSETG) defined as the year-on-year 
+percentage change in total assets from the fiscal year ending in calendar year t–2 to fiscal year ending in calendar year t–1. L2ASSETG is the lagged asset 
+growth rate defined as the percentage change in total assets from year t–3 to t–2. ASSETS is total assets in millions of SEK from the fiscal year ending in 
+calendar year t–1. MV is market value of equity in millions of SEK at the end of June of year t. Accounting variables book-to-market ratio (BM), scaled net 
+operating assets (NOA/A) and accruals (ACCRUALS) are calculated in year t–1. BHRET06 is the buy-and-hold return from January to June in year t.  BHRET36 
+is the 36-month buy-and-hold return from July in year t–3 to June of year t. The numbers in each cell are the time-series average of yearly cross-sectional 
+medians. All numbers except for ASSETS and MV are in decimal form. Panel A reports the characteristics of Nordic stocks and Panel B reports the 
+characteristics of Swedish stocks. 
+Panel A: Nordics 
+Quintile 
+ASSETG 
+L2ASSETG ASSETS 
+MV 
+BM 
+BHRET06 
+BHRET36 
+NOA/A 
+ACCRUALS 
+1 (Low) 
+–0.1710 
+0.0171 
+627.92 
+303.43 
+0.8848 
+0.0454 
+–0.2113 
+0.5584 
+–0.0473 
+2 
+–0.0199 
+0.0378 
+1471.60 
+758.15 
+0.8617 
+0.0855 
+0.1402 
+0.6088 
+–0.0332 
+3 
+0.0605 
+0.0598 
+1663.43 
+1106.99 
+0.7805 
+0.0792 
+0.3713 
+0.5975 
+–0.0227 
+4 
+0.1764 
+0.1016 
+1311.15 
+996.05 
+0.6411 
+0.0770 
+0.5617 
+0.5672 
+–0.0141 
+5 (high) 
+0.6593 
+0.1476 
+620.75 
+636.82 
+0.5221 
+0.0428 
+0.5831 
+0.5253 
+–0.0047 
+Panel B: Sweden 
+Quintile 
+ASSETG 
+L2ASSETG ASSETS 
+MV 
+BM 
+BHRET06 
+BHRET36 
+NOA/A 
+ACCRUALS 
+1 (Low) 
+–0.1866 
+0.0321 
+1000.50 
+246.94 
+1.0055 
+0.0032 
+–0.2396 
+0.5098 
+–0.0412 
+2 
+–0.0169 
+0.0420 
+1774.47 
+760.24 
+0.9953 
+0.1018 
+0.1065 
+0.5754 
+–0.0259 
+3 
+0.0709 
+0.0740 
+1853.23 
+1125.82 
+0.8375 
+0.0731 
+0.4231 
+0.5583 
+–0.0140 
+4 
+0.2089 
+0.1175 
+1405.27 
+714.21 
+0.7234 
+0.0684 
+0.6400 
+0.5299 
+–0.0061 
+5 (High) 
+0.7857 
+0.1664 
+767.73 
+558.22 
+0.6611 
+0.0338 
+0.5881 
+0.4769 
+–0.0011 
+
+--- PAGE 19 ---
+ 
+ 
+ 
+19
+4 Empirical Results  
+4.1 Cross-sectional Portfolio Regressions  
+4.1.1 Full Nordic Sample 
+Table III reports the average monthly raw returns for each asset growth quintile over the period 
+July 1991 through June 2019 for both EW and VW portfolios. The spread is the difference in 
+returns of low (quintile 1) and high (quintile 5) growth firms. In Panel A, we report EW 
+portfolio returns separately for all firms, small firms, medium firms and big firms. When all 
+stocks are pooled (in row “All”), low growth firms have an average monthly return of 0.98%, 
+high growth firms have an average monthly return of 0.43%, and the monthly spread equals 
+0.54% (p value = 0.0046). Economically, the EW spread portfolio exhibits annual returns of 
+6.70%.  
+ 
+When value-weighting portfolio returns for all firms, the asset growth effect remains 
+significant (p value = 0.0525) with a monthly spread of 0.52% (Panel B). Interestingly, the 
+average VW monthly returns fall in a perfectly monotonic fashion across the five quintiles, 
+with low growth firms earning 1.39% per month, decreasing to 0.86% for high growth firms. 
+Thus, when all stocks are pooled, there appears to be a significant asset growth effect for both 
+EW and VW portfolios. 
+We further examine portfolio returns across size groupings. For EW portfolios, there is 
+a clear and significant asset growth effect across all groups (small, medium and big). In Panel 
+A, small low growth firms earn average monthly portfolio returns of 1.07% and small high 
+growth firms earn average returns of 0.35%, a monthly spread of 0.72% (p value = 0.0141). 
+The monthly EW portfolio spread for medium sized firms is marginally significant and lower 
+at 0.42% (p value = 0.0718), increasing to a highly significant 0.72% for big firms (p value = 
+0.0024).    
+ 
+When turning to VW returns in Panel B, the observed asset growth effect is dampened. 
+The average VW spreads in small and medium firms are insignificant. However, this is not the 
+case for big firms, where low growth firms earn average monthly returns of 1.44% and high 
+growth firms earn average monthly returns of 0.74%, a spread of 0.70% (p value = 0.0068).
+
+--- PAGE 20 ---
+ 
+ 
+ 
+20
+ 
+ 
+ 
+Table III 
+Nordic Asset Growth Quintile Portfolio Returns 
+In June of each year t from 1991 to 2018, all Nordic stocks are sorted into quintile portfolios based on their total asset growth rate defined 
+as the year-on-year percentage change in total assets from the fiscal year end of t–2 to the fiscal year end of t–1. The portfolios are held 
+for one year and then rebalanced i.e. from July of year t to June of year t+1. Panel A reports average monthly equal-weighted raw portfolio 
+returns, and Panel B reports average monthly value-weighted raw portfolio returns. The spread portfolio is the difference between low 
+growth stocks (quintile 1) and high growth stocks (quintile 5). We report portfolio returns for all firms, small-sized firms, medium-sized 
+firms and big-sized firms separately. Firms are ranked into one of three size groups in June of year t based on the 30th and 70th market 
+capitalization percentiles.  
+ 
+Nordics 
+Asset Growth Quintiles 
+Spread 
+t (spread) 
+p value 
+1 (low) 
+2 
+3 
+4 
+5 (high) 
+ 
+ 
+ 
+Panel A: Equal-weighted portfolio returns  
+All 
+0.0098 
+0.0119 
+0.0118 
+0.0105 
+0.0043 
+0.0054 
+2.8507 
+0.0046 
+Small 
+0.0107 
+0.0108 
+0.0120 
+0.0099 
+0.0035 
+0.0072 
+2.4677 
+0.0141 
+Medium 
+0.0086 
+0.0103 
+0.0105 
+0.0113 
+0.0044 
+0.0042 
+1.8063 
+0.0718 
+Big 
+0.0130 
+0.0133 
+0.0116 
+0.0100 
+0.0058 
+0.0072 
+3.0636 
+0.0024 
+Panel B: Value-weighted portfolio returns  
+All 
+0.0139 
+0.0133 
+0.0124 
+0.0093 
+0.0086 
+0.0052 
+1.9462 
+0.0525 
+Small 
+0.0056 
+0.0074 
+0.0094 
+0.0114 
+0.0045 
+0.0011 
+0.3099 
+0.7569 
+Medium 
+0.0088 
+0.0107 
+0.0112 
+0.0131 
+0.0069 
+0.0019 
+0.7301 
+0.4659 
+Big 
+0.0144 
+0.0137 
+0.0096 
+0.0107 
+0.0074 
+0.0070 
+2.7244 
+0.0068 
+
+--- PAGE 21 ---
+ 
+ 
+ 
+21
+Interestingly, for big firms, the decrease in VW average returns across asset growth quintiles 
+is near monotonic. To put our results into perspective, the evidence found by Cooper et al. 
+(2008) has been criticized by Fama and French (2008), who argue that the asset growth effect 
+is primarily driven by small stocks, and that the effect is nonexistent among big stocks. In 
+contrast to this, Table III suggests that there is a negative relation between asset growth and 
+subsequent stock returns for big stocks in Nordic equity markets. This holds true for both EW 
+and VW portfolios. These findings are in line with Gray and Johnson (2011) who find evidence 
+of an asset growth effect in the largest Australian stocks. Economically, the VW spread 
+portfolio for big stocks exhibits an average annual return of 8.73%.  
+ 
+Returns for spread portfolios are likely to be partially explained by other known risk 
+factors. To examine the predictive power of the asset growth effect, we therefore control for 
+the Fama and French (1993) three-factor model. We report monthly three-factor alphas for 
+asset growth quintiles for the full sample and across the three size groupings. In Table IV, we 
+report risk-adjusted EW and VW portfolio returns from July 1991 through June 2019. Panel A 
+presents the EW portfolio three-factor alphas for all firms, small firms, medium firms and big 
+firms separately. In Panel A, when all stocks are pooled, low growth firms have a monthly 
+alpha of 0.33%, high growth firms have a monthly alpha of –0.21%, and the spread equals 
+0.54% (p value = 0.0037).  
+When value-weighting the portfolio three-factor alphas for all firms, the asset growth 
+effect remains marginally significant. In Table IV Panel B, low growth firms have a monthly 
+alpha of 0.54% and high growth firms have a monthly alpha of 0.10%. The VW spread for all 
+firms is 0.45% (p value = 0.0721). Similar to the VW portfolio returns, the VW risk-adjusted 
+portfolio returns decrease in a perfectly monotonic fashion as we move from low growth firms 
+to high growth firms.  
+ 
+Next, we report three–factor alphas across the three size groupings. Using EW 
+portfolios, the risk-adjusted asset growth effect remains significant for both small and big firms. 
+As can be seen in Table IV Panel A, small low growth firms have a monthly alpha of 0.57%, 
+small high growth firms have a monthly alpha of –0.16%, and the spread equals 0.74% (p value 
+= 0.0130). Big low growth firms have a monthly alpha of 0.52% and big high growth firms 
+have a monthly alpha of –0.20%, with a spread of 0.72% (p value = 0.0005). The monthly EW 
+risk-adjusted spread for medium-sized firms is insignificant (p value = 0.1150).  
+ 
+Table IV Panel B reports VW risk-adjusted returns across the three size groupings. 
+Consistent with raw VW portfolio returns, the negative relation between growth and abnormal
+
+--- PAGE 22 ---
+ 
+ 
+ 
+22
+ 
+ 
+ 
+Table IV 
+Nordic Fama and French (1993) Three-factor Risk-adjusted Portfolio Returns 
+In June of each year t from 1991 to 2018, all Nordic stocks are sorted into quintile portfolios based on their total asset growth rate 
+defined as the year-on-year percentage change in total assets from the fiscal year end of t–2 to the fiscal year end of t–1. The portfolios 
+are held for one year and then rebalanced i.e. from July of year t to June of year t+1. Panel A reports average monthly equal-weighted 
+Fama and French (1993) three-factor alphas, and Panel B reports average monthly value-weighted Fama and French (1993) three-
+factor alphas. The spread portfolio is the difference between low asset growth stocks (quintile 1) and high asset growth stocks (quintile 
+5). We report portfolio returns for all firms, small-sized firms, medium-sized firms and big sized-firms separately. Firms are ranked 
+into one of three size groups in June of year t based on the 30th and 70th market capitalization percentiles.  
+ 
+Nordics 
+Asset Growth Quintiles 
+Spread 
+t (spread) 
+p value 
+1 (low) 
+2 
+3 
+4 
+5 (high) 
+ 
+ 
+ 
+Panel A: Risk-adjusted equal-weighted portfolio returns  
+All 
+0.0033 
+0.0054 
+0.0055 
+0.0040 
+–0.0021 
+0.0054 
+2.9200 
+0.0037 
+Small 
+0.0057 
+0.0050 
+0.0073 
+0.0048 
+–0.0016 
+0.0074 
+2.4960 
+0.0130 
+Medium 
+0.0018 
+0.0041 
+0.0045 
+0.0052 
+–0.0018 
+0.0036 
+1.5810 
+0.1150 
+Big 
+0.0052 
+0.0056 
+0.0042 
+0.0026 
+–0.0020 
+0.0072 
+3.5340 
+0.0005 
+Panel B: Risk-adjusted value-weighted portfolio returns  
+All 
+0.0054 
+0.0050 
+0.0047 
+0.0017 
+0.0010 
+0.0045 
+1.8040 
+0.0721 
+Small 
+0.0001 
+0.0016 
+0.0049 
+0.0062 
+–0.0008 
+0.0009 
+0.2630 
+0.7927  
+Medium 
+0.0017 
+0.0044 
+0.0051 
+0.0069 
+0.0004 
+0.0013 
+0.4870 
+0.6260 
+Big 
+0.0057 
+0.0058 
+0.0018 
+0.0029 
+–0.0003 
+0.0060 
+2.4630 
+0.0143 
+
+--- PAGE 23 ---
+ 
+ 
+ 
+23
+returns is only found for big firms. Big low growth firms have a monthly alpha of 0.57% and 
+big high growth firms exhibit a monthly alpha of –0.03%. The VW risk-adjusted spread for big 
+firms generates a monthly alpha of 0.60% (p value = 0.0143).  
+ 
+To summarize, when all stocks are pooled there is strong evidence supporting an asset 
+growth effect in the Nordics over the period from July 1991 through June 2019. This holds true 
+for both EW and VW portfolios adjusted for risk factors proposed by Fama and French (1993). 
+Of particular interest, Table IV suggests that the negative relation between asset growth and 
+subsequent risk-adjusted returns remains significant for big Nordic stocks. In contrast to the 
+findings of both Fama and French (2008) and Cooper et al. (2008), the asset growth effect in 
+the Nordics is mainly driven by large capitalization stocks. 
+4.1.2 Subsample: Sweden 
+Sweden is the largest market in the Nordics both in terms of market capitalization and number 
+of stocks. To examine the consistency of our Nordic findings, we study Sweden as an example 
+of an individual country. We follow the same portfolio sort methodology as for the Nordic 
+sample. In the following, we report EW and VW raw and risk-adjusted returns over the period 
+July 1991 through June 2019 for Swedish stocks.  
+In Table V Panel A, we report EW portfolio returns. When all stocks are pooled, low 
+growth firms have an average monthly return of 1.16%, high growth firms have an average 
+monthly return of 0.53%, and the spread equals 0.63% (p value = 0.0213). However, this 
+finding disappears when we use VW to form portfolios (in Panel B). Thus, when Swedish 
+stocks are pooled, there appears to be a significant asset growth effect only for EW portfolios.  
+Interestingly, when the three size groupings (small, medium and big) are considered, there is 
+no evidence of an asset growth effect for small-sized firms. This applies to both EW and VW 
+portfolios. The medium-sized firms exhibit a marginally significant negative relationship 
+between asset growth and future stock returns when using EW to form portfolios (Panel A). 
+The most striking finding in Table V is that there is a strong significant asset growth effect in 
+big Swedish stocks. Using EW to form portfolios, big low growth firms earn average monthly 
+returns of 1.38% and big high growth firms earn average monthly returns of 0.66%, a monthly 
+spread of 0.72% (p value = 0.0212). When considering VW portfolio returns for big firms, the 
+monthly spread is even higher at 0.93% (p value = 0.0297). Economically, the VW spread for 
+big Swedish firms generates significant average annual returns of 11.75%.  In Table VI, we 
+
+--- PAGE 24 ---
+ 
+ 
+ 
+24
+ 
+ 
+ 
+ 
+ 
+ 
+Table V 
+Swedish Asset Growth Quintile Portfolio Returns 
+In June of each year t from 1991 to 2018, all Swedish stocks are sorted into quintile portfolios based on their total asset growth rate defined 
+as the year-on-year percentage change in total assets from the fiscal year end of t–2 to the fiscal year end of t–1. The portfolios are held 
+for one year and then rebalanced i.e. from July of year t to June of year t+1. Panel A reports average monthly equal-weighted raw portfolio 
+returns, and Panel B reports average monthly value-weighted raw portfolio returns. The spread portfolio is the difference between low 
+asset growth stocks (quintile 1) and high asset growth stocks (quintile 5). We report portfolio returns for all firms, small-sized firms, 
+medium sized-firms and big-sized firms separately. Firms are ranked into one of three size groups in June of year t based on the 30th and 
+70th market capitalization percentiles.  
+ 
+Sweden 
+Asset Growth Quintiles 
+Spread 
+t (spread) 
+p value 
+1 (low) 
+2 
+3 
+4 
+5 (high) 
+ 
+ 
+ 
+Panel A: Equal-weighted portfolio returns  
+All 
+0.0116 
+0.0127 
+0.0117 
+0.0119 
+0.0053 
+0.0063 
+2.3139 
+0.0213 
+Small 
+0.0155 
+0.0095 
+0.0119 
+0.0109 
+0.0075 
+0.0080 
+1.3052 
+0.1927 
+Medium 
+0.0113 
+0.0115 
+0.0125 
+0.0114 
+0.0056 
+0.0056 
+1.7090 
+0.0884 
+Big 
+0.0138 
+0.0128 
+0.0116 
+0.0120 
+0.0066 
+0.0072 
+2.3152 
+0.0212 
+Panel B: Value-weighted portfolio returns  
+All 
+0.0141 
+0.0152 
+0.0093 
+0.0121 
+0.0089 
+0.0052 
+1.4185 
+0.1570 
+Small 
+0.0065 
+0.0044 
+0.0103 
+0.0079 
+0.0015 
+0.0050 
+0.7570 
+0.4496 
+Medium 
+0.0096 
+0.0107 
+0.0132 
+0.0134 
+0.0078 
+0.0018 
+0.4834 
+0.6291 
+Big 
+0.0168 
+0.0122 
+0.0094 
+0.0107 
+0.0074 
+0.0093 
+2.1828 
+0.0297 
+
+--- PAGE 25 ---
+ 
+ 
+ 
+25
+ 
+ 
+ 
+ 
+Table VI 
+Swedish Fama and French (1993) Three-factor Risk-adjusted Portfolio Returns 
+In June of each year t from 1991 to 2018, all Swedish stocks are sorted into quintile portfolios based on their total asset growth rate 
+defined as the year-on-year percentage change in total assets from the fiscal year end of t–2 to the fiscal year end of t–1. The portfolios 
+are held for one year and then rebalanced i.e. from July of year t to June of year t+1. Panel A reports average monthly equal-weighted 
+Fama and French (1993) three-factor alphas, and Panel B reports average monthly value-weighted Fama and French (1993) three-
+factor alphas. The spread portfolio is the difference between low asset growth stocks (quintile 1) and high asset growth stocks (quintile 
+5). We report portfolio returns for all firms, small-sized firms, medium-sized firms and big sized-firms separately. Firms are ranked 
+into one of three size groups in June of year t based on the 30th and 70th market capitalization percentiles.  
+ 
+Sweden 
+Asset Growth Quintiles 
+Spread 
+t (spread) 
+p value 
+1 (low) 
+2 
+3 
+4 
+5 (high) 
+ 
+ 
+ 
+Panel A: Risk-adjusted equal-weighted portfolio returns  
+All 
+0.0050 
+0.0054 
+0.0047 
+0.0046 
+–0.0010 
+0.0060 
+2.2160 
+0.0274 
+Small 
+0.0108 
+0.0033 
+0.0071 
+0.0051 
+0.0028 
+0.0079 
+1.2860 
+0.1990 
+Medium 
+0.0044 
+0.0050 
+0.0055 
+0.0046 
+–0.0007 
+0.0051 
+1.5670 
+0.1180 
+Big 
+0.0047 
+0.0042 
+0.0037 
+0.0042 
+–0.0013 
+0.0060 
+2.1680 
+0.0309 
+Panel B: Risk-adjusted value-weighted portfolio returns  
+All 
+0.0055 
+0.0054 
+0.0018 
+0.0041 
+0.0013 
+0.0042 
+1.1970 
+0.2320 
+Small 
+0.0013 
+–0.0014 
+0.0054 
+0.0018 
+–0.0030 
+0.0043 
+0.6470 
+0.5178 
+Medium 
+0.0026 
+0.0039 
+0.0060 
+0.0066 
+0.0011 
+0.0015 
+0.3980 
+0.6910 
+Big 
+0.0075 
+0.0029 
+0.0018 
+0.0026 
+–0.0002 
+0.0077 
+1.8520 
+0.0650 
+ 
+ 
+
+--- PAGE 26 ---
+ 
+ 
+ 
+26
+report three-factor alphas. When all stocks are pooled, only EW portfolios exhibit a significant 
+risk-adjusted asset growth effect. As can be seen in Panel A, the EW spread generates a 
+significant monthly alpha of 0.60% (p value = 0.0274). Turning to the size groupings, there is 
+no evidence of a risk-adjusted asset growth effect in neither small nor medium-sized firms. 
+This holds true for both EW and VW portfolios. Of particular interest, the asset growth effect 
+for big Swedish firms remains significant also after controlling for Fama and French (1993) 
+risk factors. Using EW to form portfolios for big firms, low growth firms have a monthly alpha 
+of 0.47% and high growth firms have a monthly alpha of –0.13%, resulting in a monthly three-
+factor spread of 0.60% (p value = 0.0309). Using VW to form portfolios, the spread generates 
+an even higher monthly alpha of 0.77% (p value = 0.0650). These results are highly interesting, 
+as they suggest that, in Sweden, only big stocks exhibit a significant asset growth effect.  
+4.2 Cross-Sectional Fama–MacBeth Regressions 
+In this section, we continue to investigate the asset growth effect on the Nordic sample. To 
+better understand the marginal effect of asset growth on stock returns we conduct Fama–
+MacBeth (1973) two-step regressions over the period July 1991 through June 2019. Instead of 
+aggregating stocks into portfolios, the Fama–MacBeth framework analyzes returns on an 
+individual stock level.  
+Table VII reports results from the stock-level analysis. In Panel A, we report results for 
+the full sample. Model 1 in Panel A suggests that the asset growth effect is not subsumed when 
+controlling for other covariates commonly related to stock returns. Interestingly, together with 
+the momentum variable BHRET06, asset growth turns out to be the strongest predictor of future 
+returns in terms of p value. In line with our previous results, asset growth is inversely related 
+to returns with a coefficient of –0.0557 (p value = 0.0219). Thus, the Fama–MacBeth 
+regression confirms the significant negative relation between asset growth and returns from the 
+portfolio sort regressions of Section 4.1. 
+In Model 2, we augment the initial variables with the lagged asset growth variable 
+L2ASSETG. In this model, both asset growth variables (ASSETG and L2ASSETG) exhibit 
+significant results. Consistent with intuition, L2ASSETG is inversely related to returns with a 
+coefficient of –0.0432 (p value = 0.0399). ASSETG is largely unchanged from the first model 
+with a coefficient of –0.0560 (p value = 0.0220). The asset growth effect remains strong and 
+significant even when we control for the growth rate variables NOA/A and ACCRUALS in
+
+--- PAGE 27 ---
+ 
+ 
+ 
+27
+ 
+ 
+ 
+Table VII 
+Fama–MacBeth Regressions of Annual Returns on Asset Growth and Other Key Characteristics 
+This table reports estimates from cross-sectional Fama–MacBeth regressions at an individual stock level for the Nordic sample. Annual stock 
+returns from July 1991 to June 2019 are regressed on lagged accounting and return-based variables. The two-step regression is repeated each 
+year. The beta estimates are time-series averages of the annual cross-sectional regression estimates. ASSETG is defined as the year-on-year percentage 
+change in total assets from the fiscal year ending in calendar year t–2 to fiscal year ending in calendar year t–1. BM is the book-to-market ratio calculated in 
+fiscal year ending in year t–1. MV is market value at the end of June of year t. BHRET06 is the buy-and-hold return from January to June in year t. BHRET36 
+is the 36-month buy-and-hold return from July in year t–3 to June of year t. L2ASSETG is the lagged asset growth rate defined as the percentage change in 
+total assets from year t–3 to t–2. Net operating assets divided by total assets (NOA/A) and accruals (ACCRUALS) are calculated in year t–1. We report beta 
+estimates for all firms (Panel A), small-sized firms (Panel B), medium-sized firms (Panel C) and big-sized firms (Panel D) separately. Firms are 
+ranked into one of three size groups in June of year t based on the 30th and 70th market capitalization percentiles. The p values reported in 
+parenthesis are adjusted for first-order autocorrelation.  
+ 
+Panel A: All Firms 
+Model 
+ 
+Intercept 
+ASSETG 
+BM 
+MV 
+   BHRET06 
+BHRET36 L2ASSETG 
+NOA/A 
+ACCRUALS 
+1 
+Beta 
+0.1605 
+–0.0557 
+0.0180 
+–0.0031 
+0.1802 
+0.0139 
+ 
+ 
+ 
+ 
+p value 
+(0.1396) 
+(0.0219) 
+(0.2067) 
+(0.6105) 
+(<0.0001) 
+(0.1441) 
+ 
+ 
+ 
+2 
+Beta 
+0.1612 
+–0.0560 
+0.0184 
+–0.0028 
+0.1731 
+0.0172 
+–0.0432 
+ 
+ 
+ 
+p value 
+(0.1291) 
+(0.0220) 
+(0.2006) 
+(0.6368) 
+(<0.0001) 
+(0.0693) 
+(0.0399) 
+ 
+ 
+3 
+Beta 
+0.2034 
+–0.0575 
+0.0220 
+–0.0024 
+0.1760 
+0.0107 
+ 
+–0.0942 
+ 
+ 
+p value 
+(0.0915) 
+(0.0204) 
+(0.0943) 
+(0.6956) 
+(<0.0001) 
+(0.2769) 
+ 
+(0.0693) 
+ 
+4 
+Beta 
+0.1527 
+–0.0509 
+0.0179 
+–0.0029 
+0.1810 
+0.0157 
+ 
+ 
+–0.0847 
+ 
+p value 
+(0.1497) 
+(0.0338) 
+(0.2126) 
+(0.6319) 
+(<0.0001) 
+(0.0935) 
+ 
+ 
+(0.2414) 
+ 
+ 
+
+--- PAGE 28 ---
+ 
+ 
+ 
+28
+ 
+ 
+ 
+ 
+ 
+ 
+Table VII – Continued   
+Panel B: Small Firms 
+Model 
+ 
+Intercept  
+ASSETG 
+     BM 
+     MV 
+    BHRET06 
+BHRET36 
+L2ASSETG   NOA/A 
+ACCRUALS 
+1 
+Beta 
+0.0637    –0.0674 
+0.0257 
+0.0077 
+0.2061 
+0.0256 
+ 
+ 
+ 
+ 
+p value 
+(0.8105) 
+(0.4521) 
+(0.3298) 
+(0.7501) 
+(0.0002) 
+(0.3522) 
+ 
+ 
+ 
+2 
+Beta 
+0.2094 
+–0.1732 
+0.0128 
+–0.0059 
+0.1546 
+0.0535 
+–0.0415 
+ 
+ 
+ 
+p value 
+(0.3620) 
+(0.0648) 
+(0.6767) 
+(0.7588) 
+(0.0058) 
+(0.0474) 
+(0.5544) 
+ 
+ 
+3 
+Beta 
+0.0138 
+–0.0442 
+0.0330 
+0.0187 
+0.2059 
+0.0209 
+ 
+–0.1228 
+ 
+ 
+p value 
+(0.9686) 
+(0.6476) 
+(0.2584) 
+(0.5683) 
+(0.0002) 
+(0.4619) 
+ 
+(0.0217) 
+ 
+4 
+Beta 
+0.0889 
+–0.0142 
+0.0251 
+0.0043 
+0.2153 
+0.0375 
+ 
+ 
+–0.2801 
+ 
+p value 
+(0.7234) 
+(0.8379) 
+(0.3320) 
+(0.8490) 
+(0.0002) 
+(0.1486) 
+ 
+ 
+(0.1000) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 29 ---
+ 
+ 
+ 
+29
+ 
+ 
+Table VII – Continued   
+Panel C: Medium Firms 
+Model 
+ 
+Intercept  
+ ASSETG      BM 
+    MV 
+    BHRET06 
+BHRET36 
+L2ASSETG NOA/A 
+ACCRUALS 
+1 
+Beta 
+–0.0933 
+–0.0467 
+–0.0002 
+0.0157 
+0.1997 
+0.0106 
+ 
+ 
+ 
+ 
+p value 
+(0.6026) 
+(0.2155) 
+(0.9936) 
+(0.2391) 
+(<0.0001) 
+(0.4390) 
+ 
+ 
+ 
+2 
+Beta 
+–0.0854 
+–0.0444 
+–0.0005 
+0.0153 
+0.1929 
+0.0146 
+–0.0354 
+ 
+ 
+ 
+p value 
+(0.6324) 
+(0.2377) 
+(0.9793) 
+(0.2532) 
+(<0.0001) 
+(0.2602) 
+(0.2497) 
+ 
+ 
+3 
+Beta 
+–0.1031 
+–0.0481 
+0.0067 
+0.0215 
+0.1939 
+0.0081 
+ 
+–0.1136 
+ 
+ 
+p value 
+(0.5623) 
+(0.1845) 
+(0.6798) 
+(0.0973) 
+(<0.0001) 
+(0.5659) 
+ 
+(0.0157) 
+ 
+4 
+Beta 
+–0.0670 
+–0.0456 
+–0.0017 
+0.0133 
+0.1996 
+0.0120 
+ 
+ 
+0.0205 
+ 
+p value 
+(0.7152) 
+(0.2124) 
+(0.9332) 
+(0.3265) 
+(<0.0001) 
+(0.3909) 
+ 
+ 
+(0.8246) 
+Panel D: Big Firms 
+Model 
+ 
+Intercept  
+ASSETG 
+     BM 
+    MV 
+    BHRET06 
+BHRET36 
+L2ASSETG  NOA/A 
+ACCRUALS 
+1 
+Beta 
+0.0856 
+–0.0500 
+0.0255 
+0.0031 
+0.1092 
+0.0074 
+ 
+ 
+ 
+ 
+p value 
+(0.5394) 
+(0.0643) 
+(0.1238) 
+(0.6671) 
+(0.0243) 
+(0.5835) 
+ 
+ 
+ 
+2 
+Beta 
+0.0869 
+–0.0512 
+0.0248 
+0.0034 
+0.1039 
+0.0084 
+–0.0174 
+ 
+ 
+ 
+p value 
+(0.5324) 
+(0.0638) 
+(0.1355) 
+(0.6352) 
+(0.0244) 
+(0.5292) 
+(0.6512) 
+ 
+ 
+3 
+Beta 
+0.1569 
+–0.0519 
+0.0286 
+0.0022 
+0.1041 
+0.0031 
+ 
+–0.1069 
+ 
+ 
+p value 
+(0.2903) 
+(0.0607) 
+(0.0780) 
+(0.7677) 
+(0.0335) 
+(0.8182) 
+ 
+(0.1541) 
+ 
+4 
+Beta 
+0.0716 
+–0.0391 
+0.0266 
+0.0037 
+0.1140 
+0.0071 
+ 
+ 
+–0.0940 
+ 
+p value 
+(0.6056) 
+(0.1385) 
+(0.1116) 
+(0.6108) 
+(0.0201) 
+(0.5982) 
+ 
+ 
+(0.4646) 
+
+--- PAGE 30 ---
+ 
+ 
+ 
+30
+Model 3 and 4.  Hirshleifer et al. (2004) report a negative relationship between the cumulative 
+accruals measure net operating assets (NOA/A) and returns. In Model 3 NOA/A is marginally 
+significant with a coefficient of –0.0942 (p value = 0.0693). Sloan (1996) find a negative 
+relation between accruals and future returns. In Model 4, ACCRUALS exhibits the expected 
+sign but is insignificant. In all models, we find evidence of a strong 6-month momentum effect 
+with coefficients ranging from 0.1731 to 0.1810 (p value < 0.0001). Neither of the growth rate 
+variables subsume the asset growth effect; ASSETG remains negative and significant in Model 
+3 and 4 with coefficients of –0.0575 (p value = 0.0204) and –0.0509 (p value = 0.0338) 
+respectively. To put these results into perspective, running the same models, Cooper et al. 
+(2008) report similar but slightly higher coefficients on ASSETG of –0.0918 and –0.0704 
+respectively. Economically, the coefficient on ASSETG in Model 4 suggests that a 100% 
+increase in asset growth would reduce the future 12 month return by an average of 5.09%. To 
+summarize, the Fama–MacBeth regressions provide evidence supporting an asset growth effect 
+on an individual stock level over the period July 1991 through June 2019. ASSETG remains 
+negative and statistically significant in all four models, thus confirming the results in the cross-
+sectional portfolio regressions of Table IV.  
+Next, we examine the results from the Fama–MacBeth (1973) regressions across size 
+groupings. For small firms in Panel B, Model 1 documents a negative coefficient on asset 
+growth, but the results are not significant (p value = 0.4521). The only significant variable in 
+Model 1 is the prior 6-month momentum variable BHRET06 with a strong coefficient of 0.2061 
+(p value = 0.0002). Interestingly, when including lagged asset growth (L2ASSETG) in Model 
+2, ASSETG becomes marginally significant with a coefficient of –0.1732 (p value = 0.0648). 
+There is no asset growth effect in Model 3 (NOA/A) or Model 4 (ACCRUALS). All together, 
+we find little evidence of an asset growth effect on an individual stock level for small firms.  
+In Panel C, we report Fama–MacBeth coefficients for medium-sized firms. Recall that 
+we did not find significant evidence of an asset growth effect for medium-sized firms in the 
+risk–adjusted portfolio sort of Table IV. This also hold true in the Fama–MacBeth (1973) 
+regressions where ASSETG is insignificant in all models.  
+In Panel D, we report the Fama–MacBeth regression results for big firms. In Model 1, 
+the slope of ASSETG is negative and marginally significant at –0.0500 (p value = 0.0643). 
+When including the additional control variables L2ASSETG in Model 2 and NOA/A in Model 
+3, the results remain largely unchanged. When we control for ACCRUALS in regression Model 
+4, all variables are insignificant except for BHRET06.  
+
+--- PAGE 31 ---
+ 
+ 
+ 
+31
+Taken as a whole, the results in this section suggest that when all stocks are pooled in 
+Panel A, the Fama–MacBeth two-step regressions support a negative relation between asset 
+growth and subsequent returns as documented at the portfolio level. When dividing the sample 
+into size groups, the results are somewhat inconsistent. For small firms, the regression slopes 
+of ASSETG are insignificant in a majority of the models. Consistent with our risk-adjusted 
+portfolio sort regressions of Table IV, there is no asset growth effect firms medium-sized firms 
+on an individual stock level. Curiously, small and medium-sized firms exhibit stronger relation 
+to the 6-month momentum variable and NOA/A. Of particular interest, the asset growth effect 
+for big Nordic stocks remains marginally significant on an individual stock level after 
+controlling for other determinants of future returns 
+4.3 Decomposing Asset Growth 
+Total asset growth is affected by several different balance sheet items. To better understand the 
+underlying drivers of the total asset growth effect, we follow Cooper et al. (2008) and Cooper 
+et al. (2017) by decomposing total asset growth into major subcomponents. Total asset growth 
+is divided into 1) asset investment components and 2) asset financing components. For 
+comparability reasons, we follow Cooper et al. (2008) and define the asset investment 
+composition as follows: 
+ 
+Total asset growth (ASSETG) 
+= Cash growth (ΔCASH) 
++ Noncash current assets growth (ΔCA) 
++ Property plant and equipment growth (ΔPPE) 
++ Other assets growth (ΔOA) 
+ 
+Whereas the asset financing composition is defined as:  
+ 
+Total asset growth (ASSETG) 
+= Operating liabilities growth (ΔOpL) 
++ Debt financing growth (ΔDEBT) 
++ Stock financing growth (ΔSTOCK) 
++ Retained earnings growth (ΔRE) 
+ 
+
+--- PAGE 32 ---
+ 
+ 
+ 
+32
+For detailed definitions of the subcomponents, refer to Appendix I. All subcomponents are 
+scaled by lagged total assets so that each side of the balance sheet equals the percentage growth 
+in total assets. To understand the explanatory power of the subcomponents, we employ Fama–
+MacBeth (1973) two-step regressions over the period July 1991 through June 2019. We run the 
+regressions for all firms and for the three size groups separately. As described in section 3.2.2, 
+to ensure robustness of our results, the standard errors from the Fama–MacBeth regressions are 
+adjusted for first-order autocorrelation.  
+ 
+In Table VIII Panel A, we report the regression results for all firms. Looking at the asset 
+investment side, we only find a significant negative coefficient for change in property, plant 
+and equipment (ΔPPE) of -0.1444 (p value = 0.0266). Of particular interest, the change in cash 
+(ΔCASH) is significant but with a positive coefficient of 0.0966 (p value = 0.0333). When we 
+perform the regression on all investment variables, only the coefficient on cash remains 
+significant (marginally). Turning to the asset financing side for all firms, we find significant 
+negative regression slopes for change in operating liabilities (ΔOpL) and change in debt 
+(ΔDEBT) with coefficients of -0.0594 (p value = 0.0512) and -0.1538 (p value = 0.0428) 
+respectively. When all financing variables are regressed, only ΔOpL remains significant.  
+ 
+In Panel B, we report Fama–MacBeth coefficients for small capitalization firms. None 
+of the investment components exhibit significant relationships in any of the regressions. On the 
+financing side, only change in stock financing (ΔSTOCK) is marginally significant with a 
+negative coefficient of -0.1952 (p value = 0.0747).  This could be a result of firms experiencing 
+lower returns after equity issuances (Loughran and Ritter, 1995).  
+We report the results for medium-sized firms in Panel C. The only significant 
+subcomponents in medium sized firms are ΔCASH and change in retained earnings (ΔRE) and 
+they both exhibit a positive relation with future returns. Both effects are large in magnitude 
+with coefficients of 0.1956 (p value = 0.0173) and 0.1845 (p value = 0.0661) respectively. The 
+positive ΔCASH effect remains also when we perform the regression on all investment 
+components. One potential explanation of this is the documented positive relationship between 
+firms building excess cash reserves, in anticipation of future investment opportunities, and 
+future stock returns (Simutin, 2010). 
+ 
+Lastly, we report the results for big firms in Panel D. With regards to investment 
+components, big firms report a marginally significant coefficient for changes in noncash 
+current assets (ΔCA) of -0.1459 (p value = 0.0982). ΔPPE exhibits the strongest negative 
+relationship with future returns, with a coefficient of -0.3151 (p value = 0.0089). In terms of
+
+--- PAGE 33 ---
+ 
+ 
+ 
+33
+ 
+ 
+ 
+Table VIII 
+Fama–MacBeth Regressions of Annual Returns on Asset Growth: Decompositions 
+This table reports estimates from cross-sectional Fama–MacBeth regressions of annual stock returns from July 1991 to June 2019 on subcomponents 
+of asset growth. The two-step regression is repeated each year. The beta estimates are time-series averages of the annual cross-sectional regression 
+estimates. On the left side, we report the asset investment decomposition defined as cash growth (ΔCASH), noncash current assets growth (ΔCA), 
+property, plant and equipment growth (ΔPPE) and other assets growth (ΔOA). On the right side, we report the asset financing decomposition defined 
+as operating liabilities growth (ΔOpL), debt financing growth (ΔDEBT), stock financing growth (ΔSTOCK) and retained earnings growth (ΔRE). All 
+variables are scaled by lagged total assets. We report beta estimates for all firms (Panel A), small-sized firms (Panel B), medium-sized firms (Panel 
+C) and big-sized firms (Panel D) separately. Firms are ranked into one of three size groups in June of year t based on the 30th and 70th market 
+capitalization percentiles. The p values reported in parenthesis are adjusted for first-order autocorrelation using the Newey–West (1987) procedure. 
+ 
+Panel A: All Firms 
+Intercept  
+ ΔCASH 
+     ΔCA 
+    ΔPPE 
+          ΔOA 
+    ΔOpL 
+ ΔDEBT 
+ΔSTOCK 
+    ΔRE 
+0.1517 
+0.0966 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0028) 
+(0.0333) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1397 
+ 
+–0.0550 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0078) 
+ 
+(0.2454) 
+ 
+ 
+  
+ 
+ 
+ 
+0.1462 
+ 
+ 
+–0.1444 
+ 
+ 
+ 
+ 
+ 
+(0.0052) 
+ 
+ 
+(0.0266) 
+ 
+ 
+ 
+ 
+ 
+0.1443 
+ 
+ 
+ 
+–0.0829 
+ 
+ 
+ 
+ 
+(0.0058) 
+ 
+ 
+ 
+(0.1226) 
+ 
+ 
+ 
+ 
+0.1592 
+0.1111 
+–0.0767 
+–0.1275 
+–0.0750 
+ 
+ 
+ 
+ 
+(0.0016) 
+(0.0980) 
+(0.2463) 
+(0.1999) 
+(0.3046) 
+ 
+ 
+ 
+ 
+0.1445 
+ 
+ 
+ 
+ 
+–0.0594 
+ 
+ 
+ 
+(0.0055) 
+ 
+ 
+ 
+ 
+(0.0512) 
+ 
+ 
+ 
+0.1439 
+ 
+ 
+ 
+ 
+ 
+–0.1538 
+ 
+ 
+(0.0061) 
+ 
+ 
+ 
+ 
+ 
+(0.0428) 
+ 
+ 
+0.1436 
+ 
+ 
+ 
+ 
+ 
+ 
+–0.0692 
+ 
+(0.0058) 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.1114) 
+ 
+0.1409 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1031 
+(0.0068) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.1670) 
+0.1429 
+ 
+ 
+ 
+ 
+–0.1995 
+–0.0541 
+0.1154 
+0.0361 
+(0.0054) 
+ 
+ 
+ 
+ 
+(0.0288) 
+(0.5830) 
+(0.1956) 
+(0.5304) 
+ 
+
+--- PAGE 34 ---
+ 
+ 
+ 
+34
+ 
+ 
+ 
+ 
+Table VIII – Continued   
+Panel B: Small firms 
+Intercept  
+  ΔCASH 
+    ΔCA 
+    ΔPPE 
+         ΔOA 
+   ΔOpL 
+  ΔDEBT 
+ΔSTOCK 
+    ΔRE 
+0.1630 
+0.0529 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0057) 
+(0.7770) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1367 
+ 
+–0.1531 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0189) 
+ 
+(0.1550) 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1438 
+ 
+ 
+–0.2143 
+ 
+ 
+ 
+ 
+ 
+(0.0168) 
+ 
+ 
+(0.1986) 
+ 
+ 
+ 
+ 
+ 
+0.1414 
+ 
+ 
+ 
+–0.0203 
+ 
+ 
+ 
+ 
+(0.0190) 
+ 
+ 
+ 
+(0.8622) 
+ 
+ 
+ 
+ 
+0.1673 
+–0.2515 
+–0.2088 
+0.0319 
+0.1477 
+ 
+ 
+ 
+ 
+(0.0049) 
+(0.2408) 
+(0.1981) 
+(0.8912) 
+(0.4175) 
+ 
+ 
+ 
+ 
+0.1375 
+ 
+ 
+ 
+ 
+–0.1548 
+ 
+ 
+ 
+(0.0181) 
+ 
+ 
+ 
+ 
+(0.1094) 
+ 
+ 
+ 
+0.1305 
+ 
+ 
+ 
+ 
+ 
+–0.1923 
+ 
+ 
+(0.0324) 
+ 
+ 
+ 
+ 
+ 
+(0.1672) 
+ 
+ 
+0.1399 
+ 
+ 
+ 
+ 
+ 
+ 
+–0.1952 
+ 
+(0.0171) 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0747) 
+ 
+0.1362 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.0839 
+(0.0203) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.4822) 
+0.1287 
+ 
+ 
+ 
+ 
+–0.1013 
+–0.1217 
+–0.0960 
+0.1510 
+(0.0230) 
+ 
+ 
+ 
+ 
+(0.4971) 
+(0.3749) 
+(0.5955) 
+(0.4257) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 35 ---
+ 
+ 
+ 
+35
+ 
+ 
+ 
+Table VIII – Continued   
+Panel C: Medium firms 
+Intercept  
+  ΔCASH 
+    ΔCA 
+    ΔPPE 
+         ΔOA 
+    ΔOpL 
+  ΔDEBT 
+ΔSTOCK 
+    ΔRE 
+0.1440 
+0.1956 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0044) 
+(0.0173) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1348 
+ 
+–0.0056 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0114) 
+ 
+(0.9373) 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1452 
+ 
+ 
+–0.1013 
+ 
+ 
+ 
+ 
+ 
+(0.0076) 
+ 
+ 
+(0.2567) 
+ 
+ 
+ 
+ 
+ 
+0.1453 
+ 
+ 
+ 
+–0.1022 
+ 
+ 
+ 
+ 
+(0.0070) 
+ 
+ 
+ 
+(0.3319) 
+ 
+ 
+ 
+ 
+0.1504 
+0.2403 
+0.0552 
+–0.0867 
+–0.1420   
+ 
+ 
+ 
+ 
+(0.0018) 
+(0.0318) 
+(0.5697) 
+(0.4712) 
+(0.3332) 
+ 
+ 
+ 
+ 
+0.1428 
+ 
+ 
+ 
+ 
+–0.0208 
+ 
+ 
+ 
+(0.0066) 
+ 
+ 
+ 
+ 
+(0.6025) 
+ 
+ 
+ 
+0.1419 
+ 
+ 
+ 
+ 
+ 
+–0.0745 
+ 
+ 
+(0.0094) 
+ 
+ 
+ 
+ 
+ 
+(0.3056) 
+ 
+ 
+0.1403 
+ 
+ 
+ 
+ 
+ 
+ 
+–0.0119 
+ 
+(0.0092) 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.8637) 
+ 
+0.1376 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1845 
+(0.0114) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0661) 
+0.1339 
+ 
+ 
+ 
+ 
+0.0654 
+-0.1208 
+0.0306 
+0.2009 
+(0.0094) 
+ 
+ 
+ 
+ 
+(0.5406) 
+(0.2337) 
+(0.8897) 
+(0.3553) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 36 ---
+ 
+ 
+ 
+36
+ 
+ 
+ 
+ 
+Table VIII – Continued 
+ 
+ 
+Panel D: Big firms 
+Intercept  
+  ΔCASH 
+    ΔCA 
+    ΔPPE 
+          ΔOA 
+   ΔOpL 
+  ΔDEBT 
+ ΔSTOCK 
+    ΔRE 
+0.1504 
+–0.0217 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0011) 
+(0.8498) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1522 
+ 
+–0.1459 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.0008) 
+ 
+(0.0982) 
+ 
+ 
+ 
+ 
+ 
+ 
+0.1557 
+ 
+ 
+–0.3151 
+ 
+ 
+ 
+ 
+ 
+(0.0006) 
+ 
+ 
+(0.0089) 
+ 
+ 
+ 
+ 
+ 
+0.1479 
+ 
+ 
+ 
+0.0093 
+ 
+ 
+ 
+ 
+(0.0012) 
+ 
+ 
+ 
+(0.9252) 
+ 
+ 
+ 
+ 
+0.1608 
+–0.0968 
+–0.1189 
+–0.3653 
+0.0018 
+ 
+ 
+ 
+ 
+(0.0004) 
+(0.4187) 
+(0.2526) 
+(0.0023) 
+(0.9859) 
+ 
+ 
+ 
+ 
+0.1586 
+ 
+ 
+ 
+ 
+–0.1094 
+ 
+ 
+ 
+(0.0004) 
+ 
+ 
+ 
+ 
+(0.0407) 
+ 
+ 
+ 
+0.1553 
+ 
+ 
+ 
+ 
+ 
+–0.3151 
+ 
+ 
+(0.0007) 
+ 
+ 
+ 
+ 
+ 
+(0.0001) 
+ 
+ 
+0.1532 
+ 
+ 
+ 
+ 
+ 
+ 
+–0.0440 
+ 
+(0.0009) 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.5970) 
+ 
+0.1503 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.0765 
+(0.0011) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.4524) 
+0.1622 
+ 
+ 
+ 
+ 
+–0.1644 
+–0.1717 
+0.1856 
+0.2665 
+(0.0003) 
+ 
+ 
+ 
+ 
+(0.1997) 
+(0.3626) 
+(0.2684) 
+(0.1374) 
+
+--- PAGE 37 ---
+ 
+ 
+ 
+37
+economic significance, a 100% increase in property plant and equipment would on average 
+reduce future 12 month returns with 31.51%. This is consistent with findings of Titman, Wei 
+and Xie (2004) who document a negative relation between abnormal capital investments and 
+subsequent stock returns. The relation between PPE and stock returns remains negative and 
+significant when the subcomponents are regressed together. Next, we examine the asset 
+financing variables. We find that increases in ΔOpL and ΔDEBT are associated with significant 
+negative coefficients. ΔDEBT exhibits the strongest negative relation with future returns, with 
+a coefficient of -0.3151 (p value = 0.0001). However, when introduced together, none of the 
+financing components are statistically significant.  
+ 
+To summarize, the results suggest that different subcomponents of total asset growth 
+have explanatory power for future stock returns. These, however, vary largely across size 
+groups. Of particular interest, big firms exhibit a strong negative relationship between both 
+ΔPPE and ΔDEBT and future stock returns. Richardson and Sloan (2003) find an especially 
+strong negative relation when proceeds from external financing are invested in net operating 
+assets as opposed to being stored as cash or charged against income. This might explain why 
+we see such strong coefficients on both ΔPPE and ΔDEBT. 
+4.4 Time Series Analysis of the Asset Growth Effect 
+In previous sections, we have identified an asset growth effect both on a portfolio and an 
+individual stock level. In this section, we study how the asset growth effect performs over time 
+for big stocks. Big stocks exhibit the strongest asset growth effect on a portfolio level, both in 
+terms of magnitude and statistical significance. Moreover, big stocks tend to be the most liquid 
+and are thus more likely to be used in investment strategies (Gray and Johnson, 2011).  
+In Figure II and III, we plot cumulative log returns for EW and VW low growth (P1), 
+high growth (P5) and spread portfolios from July 1991 to June 2019. We utilize log returns to 
+reduce the variation of the time series. This is done to improve comparability of variables. 
+Across the sample period, we observe that both spread portfolios appear to increase steadily 
+over time. This is similar to findings of Cooper et al. (2008) who document that low growth 
+firms consistently outperform high growth firms for both EW and VW portfolios. The most 
+striking finding is that the spread portfolio appears to appreciate when P1 and/or P5 
+experience(s) large drawdowns. However, the plots suggest that during rapid runups shortly 
+before downturns for P1 and/or P5, the spread portfolio drifts sideways or even decreases. This 
+
+[TRUNCATED at 80000 chars — 54 total pages]

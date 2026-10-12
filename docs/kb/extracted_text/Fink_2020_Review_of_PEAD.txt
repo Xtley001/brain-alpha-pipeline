@@ -1,0 +1,1086 @@
+
+--- PAGE 1 ---
+ 
+ 
+A Review of the Post
+-Earnings
+-Announcement Drift
+Josef Fink
+Working Paper 2020-04 
+November 20, 2020 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Recommended citation: 
+Fink, J., 2020. “A Review of the Post-Earnings-Announcement Drift”, University of Graz, School of 
+Business, Economics and Social Sciences Working Paper 2020-04. 
+ 
+ 
+ 
+ 
+ 
+ 
+UNIVERSITY  OF  GRAZ 
+Working Paper Series 
+School of Business, Economics and Social Sciences 
+University of Graz 
+ISSN 2304-7658 
+http://bit.ly/graz-working-papers 
+sowi-wp@uni-graz.at 
+
+--- PAGE 2 ---
+ 
+ 
+A Review of the Post-Earnings-Announcement Drift 
+ 
+Josef Fink 
+University of Graz, Institute of Banking and Finance 
+Working Paper 2020-04 
+November 20, 2020 
+Abstract 
+The “Post-Earnings-Announcement Drift” refers to an anomaly in financial markets. It describes the drift of 
+a firm’s stock price in the direction of the firm’s earnings surprise for an extended period of time. Contrary 
+to what the efficient market hypothesis predicts, an earnings surprise does not lead to a full, instantaneous 
+adjustment of stock prices, but to a slow, predictable drift. The phenomenon has been described at length 
+for decades. Numerous studies have investigated the drift’s origins and properties, covering drivers such as 
+insufficient risk adjustment of returns, trading frictions, or behavioral explanations. This paper summarizes 
+the literature around the phenomenon. While there is evidence for a number of different factors, an all-
+encompassing explanation remains out of sight. 
+ 
+Keywords: 
+post-earnings-announcement drift, earnings autocorrelation, anomaly, 
+efficient market hypothesis, risk, transaction costs 
+JEL: 
+G12, G14, G40, M41 
+ 
+Working Paper Series 
+School of Business, Economics and Social Sciences 
+University of Graz 
+ISSN 2304-7658 
+http://bit.ly/graz-working-papers 
+sowi-wp@uni-graz.at 
+Graphic art by Roman Klug, Presse + Kommunikation, University of Graz © 2018 
+Any opinions expressed herein are those of the author(s) and not 
+those of the Faculty of Social and Economic Sciences. Working 
+Papers receive only limited review and often represent preliminary 
+work. They are circulated to encourage discussion. Citation of such 
+a paper should account for its provisional character. A revised 
+version may be available directly from the author. 
+UNIVERSITY  OF  GRAZ 
+
+--- PAGE 3 ---
+Working paper: 14.06.2020
+A Review of the Post-Earnings-Announcement Drift
+Josef Fink
+Department of Banking and Finance, University of Graz, Universitätsstraße 15, 8010 Graz, Austria
+Abstract
+The “Post-Earnings-Announcement Drift” refers to an anomaly in ﬁnancial markets. It describes
+the drift of a ﬁrm’s stock price in the direction of the ﬁrm’s earnings surprise for an extended period
+of time. Contrary to what the eﬃcient market hypothesis predicts, an earnings surprise does not lead
+to a full, instantaneous adjustment of stock prices, but to a slow, predictable drift. The phenomenon
+has been described at length for decades. Numerous studies have investigated the drift’s origins
+and properties, covering drivers such as insuﬃcient risk adjustment of returns, trading frictions,
+or behavioral explanations. This paper summarizes the literature around the phenomenon. While
+there is evidence for a number of diﬀerent factors, an all-encompassing explanation remains out of
+sight.
+Keywords:
+post-earnings-announcement drift, earnings autocorrelation, anomaly, eﬃcient market
+hypothesis, risk, transaction costs
+JEL: G12, G14, G40, M41
+The objective of this paper is to give an overview of the literature discussing the Post-Earnings-
+Announcement Drift (PEAD). It includes the ﬁndings from 215 published and 7 working papers, as
+well as a book chapter. The intention is to summarize the research conducted on the topic for more
+than 50 years now, give audiences unfamiliar with the topic an introduction, and give researchers
+a source of reference. The structure of the paper is as follows: Section 1 summarizes the main
+elements of the drift. Section 2 gives an overview of the diﬀerent explanations for the drift brought
+forward so far. Section 3 summarizes and concludes.
+Email address: josef.fink@edu.uni-graz.at (Josef Fink)
+Preprint submitted to no journal yet
+14.06.2019
+
+--- PAGE 4 ---
+1. Introduction to the Post-Earnings-Announcement Drift
+1.1. The eﬃcient market hypothesis and the role of earnings
+Earnings announcements provide investors with valuable information regarding a ﬁrm’s market
+value.
+Thus, when earnings news are surprising in the sense that they exceed or fall short of
+expectations, a distinct stock market reaction should be observable. Ball and Brown (1968) report
+the ﬁrst well-documented relationship between earnings surprises and stock market reactions. This
+launched “the most concerted research eﬀort in accounting history” (Lev, 1989, p. 153). There
+are more than 1000 papers in three decades of research studying the relationship between capital
+markets and ﬁnancial statements (Kothari, 2001), a research stream that originated with Ball and
+Brown (1968).
+Earnings (surprises) have an impact on ﬁrm valuations. Consistent, abnormal returns, however,
+would be at odds with the eﬃcient market hypothesis (Fama, 1970). According to the (semi-strong
+form of the) eﬃcient market hypothesis (EMH), all publicly available information is instantaneously
+impounded into the price and, as a result, no market participant can expect abnormal excess
+returns in the long run. Evidence contradicting the well-established EMH, therefore, constitutes
+an anomaly.
+1.2. Introduction to the PEAD
+The Post-Earnings-Announcement Drift (PEAD), which Fama (1998, p. 286) calls the “grand-
+daddy of underreaction events”, is one of the most puzzling anomalies in ﬁnance. PEAD refers to
+the phenomenon that stock prices tend to continue to drift upward (downward) following earnings
+announcements when the quarterly earnings were above (below) expectations. This is why the
+anomaly is often called the ‘SUE-eﬀect’, for standardized unexpected earnings (others call it the
+‘earnings momentum eﬀect’). The PEAD was most convincingly demonstrated by Bernard and
+Thomas (1989, 1990).1
+Stocks react to earnings surprises with a price adjustment, reﬂecting the new information con-
+tained in the announcement. However, only a portion of the adjustment happens immediately.
+Empirical studies ﬁnd that the adjustment can take months to level out, which leads to the distinct
+drift pattern of stock prices. The direction and magnitude of the drift and the earnings surprise
+are directly related. When grouping a universe of stocks into quantile portfolios by the magnitude
+of their earnings surprises (from most negative to most positive earnings surprise), the quantile
+appears to be strongly related to the drift direction and magnitude. The drift is also economically
+signiﬁcant. Early evidence shows that a strategy of zero-investment portfolios, long (short) in stocks
+with the most positive (negative) earnings surprise, can generate annualized abnormal returns of
+18% (Bernard and Thomas, 1989).
+1There is evidence for a PEAD in REITs (Price et al., 2012b), and even more alternative markets such as baseball
+cards (Engelberg et al., 2017). This review, however, is focused on stocks.
+2
+
+--- PAGE 5 ---
+1.3. General characteristics of the PEAD
+Observation 1. The PEAD is a global phenomenon.
+PEAD exists all over the world, both in highly and in less developed ﬁnancial markets (Griﬃn
+et al., 2010; ?).
+The magnitude of the eﬀect appears surprisingly stable across developed and
+emerging markets.2 Numerous country-level studies conﬁrm a PEAD: Australia (Schneider and
+Gaunt, 2012), Canada (Chudek et al., 2011), China (Truong, 2011), Finland (Booth et al., 1997),
+Greece (Forbes and Giannopoulos, 2015), India (Sehgal and Jain, 2015; Sen, 2009; Singh et al.,
+2018), New Zealand (Truong, 2010), Saudi Arabia (Syed and Bajwa, 2018), South Africa (Swart
+and Hoﬀman, 2013), South Korea (Goh and Jeon, 2017), Spain (Forner et al., 2009), Tunisia
+(Bouteska and Regaieg, 2017), Turkey (Saleem and Yalaman, 2017; Yılmaz et al., 2020), and the
+UK (Liu et al., 2003 and Hew et al., 1996). The international picture, however, is not entirely
+conclusive. Studies from Belgium (Van Huﬀel et al., 1996)3 or Singapore (Ariﬀet al., 1997), for
+example, ﬁnd no drift. Nonetheless, there is little evidence against the notion that PEAD is a
+global phenomenon.
+Observation 2. The abnormal return of the PEAD was around 4% per quarter in the past, but
+is weakening.
+Ball and Brown (1968) use annual income measures (being more concerned with pre-announcement
+drift) and divide stocks into two groups (those above and those below expectations). The resulting
+PEAD is negligible. Ball (1978) gives a good summary of early studies with often varying PEAD
+deﬁnitions. The contemporary way to express the drift became the standard in the 1980s (Bernard
+and Thomas, 1989; Foster et al., 1984; Rendleman Jr et al., 1982).
+Researchers use quarterly
+earnings ﬁgures to divide stocks into quantiles (usually deciles), based on standardized unexpected
+earnings (SUE). They form a zero-investment portfolio long (short) in stocks from the highest (low-
+est) surprise decile4 and record abnormal returns after earnings announcements. The results of
+Bernard and Thomas (1989) show a positive (negative) drift of around 2% over 60 trading days for
+the good (bad) news stocks. This amounts to about 4% (18%) in abnormal quarterly (annualized)
+excess returns.5
+Surprisingly, the drift continues to exist even two decades after publication and across markets
+(Griﬃn et al., 2010). However, there is also evidence that the magnitude of PEAD returns has
+been declining (Chordia et al., 2014; Martineau, 2019; Richardson et al., 2010). This could be
+due to lower limits to arbitrage (Ng et al., 2008), more arbitrage activity (Chordia et al., 2014),
+improvements in the information environment (?) including the advent of the internet,6 and more
+sophistication in processing earnings news by market participants (Martineau, 2019). It remains to
+be seen whether this development is permanent and/or extends globally. Additionally, the predictive
+2There does not, however, seem to be PEAD in markets with very weak institutions (Afego, 2013).
+3Van Huﬀel et al. (1996) use semi-annual instead of quarterly earnings announcements.
+4To avoid look-ahead bias, they use the cut-oﬀpoints for earnings surprise deciles from the preceding quarter.
+5PEAD is typically measured in terms of abnormal returns but there are also speciﬁc measures of investor
+underreaction, one of the primary explanations for the drift (Chung et al., 2019; Yan et al., 2012).
+6The net eﬀect of the internet is not clear, as it improves the information environment (Chan et al., 2005), but
+also allows unsophisticated traders easier access to markets (Ahmed et al., 2003).
+3
+
+--- PAGE 6 ---
+power of the SUE variable over returns appears to systematically vary alongside other variables (see
+Observations 14, 15, 16, 17, 19, 21, 22, and 23).
+Observation 3. The PEAD is strongest in the quarter directly following the announcement, but
+persists for multiple quarters.
+The most distinct characteristic of the PEAD is that a price adjustment that should happen
+relatively instantaneously takes weeks and often even multiple months to fully materialize. Initially,
+the focus was on annual earnings ﬁgures and longer time-frames (Ball and Brown, 1968). Since the
+1980s, the focus is on quarterly ﬁgures and holding periods (Rendleman Jr et al., 1982; Foster et al.,
+1984; Bernard and Thomas, 1989). Early evidence shows that the adjustment is relatively constant
+throughout the quarter following the announcement, and only slightly steeper around announce-
+ments. A signiﬁcant fraction of the PEAD return is concentrated in the three-day announcement
+window of the subsequent quarter. This could be characterized as a predictable pre-announcement
+drift for the subsequent quarter (Freeman and Tse, 1989; Rendleman et al., 1987).
+Overall, it
+appears that the adjustment happens more slowly for small ﬁrms (see Observation 4). An econom-
+ically and statistically signﬁcant PEAD can be observed for two to three quarters after the original
+announcement (Bernard and Thomas, 1989), but with alternative PEAD speciﬁcations, this period
+can extend even further (Doyle et al., 2006).
+Observation 4. The strength of the PEAD is inversely related to ﬁrm size.
+PEAD can be observed across all ﬁrm sizes, and the magnitude of abnormal returns appears to
+be inversely related to ﬁrm size (Foster et al., 1984; Rendleman et al., 1987; Bernard and Thomas,
+1989). A number of factors related to ﬁrm size contribute to PEAD. These typically include higher
+trading frictions (see Observation 8) and worse information environments (see Observation 9) for
+small ﬁrms.
+Arguably, size seems to be subsumed by other factors and have little incremental
+explanatory power (Bhushan, 1994; Bartov et al., 2000). Still it can be seen as a convenient “catch-
+all variable for other inﬂuences” (Chan et al., 1996, p. 1701).
+Observation 5. Earnings surprises used to detect PEAD can be deﬁned via earnings time series,
+analyst forecasts, and returns.
+The SUE-variable used as the independent variable to predict PEAD is the scaled diﬀerence
+between the actual earnings and the estimate of expected earnings. Early studies use time-series
+predictions to estimate earnings (such as Foster, 1977, Griﬃn, 1977, or Brown and Rozeﬀ, 1979).7
+In their original study, Bernard and Thomas (1989) estimate expected earnings using the approach
+of Foster (1977), analogous to Foster et al. (1984). The unexpected earnings are the diﬀerence
+between actual earnings and expected earnings from the time-series estimate. These unexpected
+earnings are then standardized using a deﬂator, such as the standard deviation of forecast errors
+over the estimation period (e.g., Bernard and Thomas, 1989), or simply the end-of-quarter share
+price of the stock (e.g., Livnat and Mendenhall, 2006).
+Another way to form earnings estimates is to use analyst forecasts, which tend to be more
+7Bathke Jr and Lorek (1984) ﬁnd that the model of Brown and Rozeﬀ(1979) best describes the quarterly earnings
+process. It consists of a ﬁrst-order autoregressive and a seasonal moving average term.
+4
+
+--- PAGE 7 ---
+accurate than time series in predicting quarterly earnings (Brown et al., 1987). Initially, many
+studies built on Value Line earnings forecasts (Aﬄeck-Graves and Mendenhall, 1992 and Bernard
+and Abarbanell, 1992), later on IBES analyst forecasts (Doyle et al., 2006, Livnat and Mendenhall,
+2006). The magnitude of the drift is greater using analyst forecasts compared to time-series pre-
+dictions (Doyle et al., 2006; Livnat and Mendenhall, 2006; Lerman et al., 2007; Freeman and Tse,
+1989).8 Given that the excess returns are accrued disproportionally from the long side of the port-
+folio and, unlike time series-based drifts, show no reversal around qt+4 (Doyle et al., 2006), these
+two drift measures might capture somewhat diﬀerent phenomena. When combining time series-
+and analyst forecast-based surprises (two-way sort), the resulting PEAD is even stronger (Livnat
+and Mendenhall, 2006).
+A third way to identify surprises is by using abnormal announcement window returns. Market
+participants react not only to earnings information but also to non-earnings information (Lipe,
+1990; Liu and Thomas, 2000). Along with the release of new earnings ﬁgures, an earnings an-
+nouncement is usually accompanied by more detailed components of earnings (e.g., sales, margins),
+less tangible information (e.g., investments, strategic information), and conference calls. Abnormal
+announcement window returns can be understood as a comprehensive surprise measure and predict
+subsequent price drift (Brandt et al., 2008; Chan et al., 1996; Zhou and Zhu, 2012; Gerard, 2012).9
+Observation 6. PEAD is a separate anomaly, not subsumed by others.
+Attempts to explain PEAD with other anomalies or phenomena have been unsuccessful. PEAD
+and price momentum are clearly distinct, both in the U.S. (Bernard et al., 1997; Chan et al., 1996,
+1999; Chen et al., 2014) and internationally (Bohl et al., 2016; Leippold and Lohre, 2012).
+If
+anything, PEAD subsumes price momentum (Chordia and Shivakumar, 2006). PEAD is distinct
+from the accruals anomaly (Collins and Hribar, 2000; Louis and Sun, 2011).
+The Value Line
+enigma is also a distinct anomaly (Choi, 2000; Zhang et al., 2010; Nayar et al., 2011), or at best
+a manifestation of the PEAD (Aﬄeck-Graves and Mendenhall, 1992). The value-glamour anomaly
+is distinct (Bernard et al., 1997; Yan and Zhao, 2011). Other anomalies based on fundamentals
+(earnings levels, earnings sign, or proﬁtability measures10) do not explain PEAD (Balakrishnan
+et al., 2010; Bernard et al., 1997; Kausar, 2018). After controlling for PEAD, Daniel et al. (2020)
+ﬁnd that none of the 12 short-term (<1 year) anomalies investigated are signiﬁcant at the 5% level
+anymore.11
+8The time series-based drift is not necessarily smaller than the analyst forecast-based drift. There is evidence that
+the delayed proportion of the drift is still higher for time series-based PEAD. In other words, the proportion of post-
+announcement return in relation to total returns (the sum of announcement window return and post-announcement
+window return) is higher for the time series-based drift, at least in more recent times (Clement et al., 2019).
+9Also, analyst forecast revisions (Liu and Thomas, 2000; Zhang, 2007) and management guidance news (Milian,
+2018) can produce PEAD-like eﬀects.
+10E.g., Pr anomalies, such as in Ou and Penman (1989)
+11These include multiple speciﬁcations of the same anomalies (number of speciﬁcations): standardized unexpected
+earnings (2), cumulative abnormal returns around earnings announcements (2), revisions in analysts’ earnings fore-
+casts (1), price momentum (2), industry momentum (1), quarterly ROE and ROA (2), number of consecutive quarters
+with earnings increases (1), and failure probability (1).
+5
+
+--- PAGE 8 ---
+2. Explanations for the Post-Earnings-Announcement Drift
+There have been many attempts to explain the PEAD, which broadly fall into two categories:
+those that are compatible with the EMH (Section 2.1) and those that are not (Section 2.2).12
+2.1. EMH-compatible explanations
+Observation 7. Insuﬃcient risk adjustment typically does not explain abnormal returns.
+Ball et al. (1993) assert that betas increase for ﬁrms with high unexpected earnings and decrease
+for ﬁrms with low unexpected earnings. An increase or a decrease in beta (or risk) can then explain
+the seemingly abnormal returns after earnings announcements. However, while SUE-decile and beta
+seem to be rank-correlated, the eﬀect is relatively weak and can only explain a small fraction of the
+abnormal returns. Also, returns of high-SUE (low-SUE) stocks are positive (negative) in both up
+and down markets. Finally, excess PEAD returns are concentrated in subsequent announcements
+windows (Bernard and Thomas, 1989). Explicit market adjustment of returns typically has no
+diﬀerential impact across SUE-sorted portfolios (Sadka, 2006). In other words, high-SUE minus
+low-SUE returns do not materially change with market adjustment. While there is evidence that
+betas implied in stock option valuations (partly) explain PEAD (Ho and Tsai, 2018),13 depending
+on the type of market risk adjustment the PEAD might even be understated (Zolotoy, 2011).14
+Extending the market model to the three factor model (Fama and French, 1993) only decreases
+excess returns by a small fraction or even increases them (Chordia et al., 2009; Francis et al., 2007;
+Sadka, 2006). There are further additions to the three-factor model, typically increasing explanatory
+power of returns while not substantially diminishing the eﬀect: accruals quality (Francis et al.,
+2007), momentum (Francis et al., 2007; Chordia and Shivakumar, 2006), the APT risk factors
+of Chen et al. (1986),15 dividend yield (Bernard and Thomas, 1989), and future inﬂation risk
+(Chordia and Shivakumar, 2005). An “Earning Surprise” risk factor by Kim and Kim (2003) can
+partly explain PEAD returns (it is constructed from pre-announcement information uncertainty,
+which is discussed in Observation 9). One factor that has the potential for high explanatory power
+over PEAD is liquidity risk. Unexpected variations in market-wide liquidity appear to be a priced
+risk factor (Sadka, 2006). Finally, arbitrage risk can be an issue. The idiosyncratic volatility (i.e.,
+the risk that cannot be hedged) is related to PEAD (Brav et al., 2009; Mendenhall, 2004).16
+12Early attempts to explain the PEAD as a product of research design ﬂaws will not be discussed, given the broad
+literature acknowledging and analyzing the PEAD in many settings.
+13Stock options markets can be used to derive option-implied betas which vary systematically with SUE (based on
+an approach by Chen et al., 2016, exploiting the forward-looking nature of information in option prices to estimate
+equity risk).
+14Zolotoy (2011) ﬁnds that post-announcement betas for bad (good) news ﬁrms increase (decrease) due to increased
+(decreased) leverage.
+15The macroeconomic risk factors associated with industrial production, changes in default risk premiums, changes
+in the term structure, unanticipated inﬂation, and changes in expected inﬂation.
+16This aﬀects some classes of investors diﬀerently than others: hedge fund managers are more comfortable with
+arbitrage risk as opposed to mutual fund managers, likely due to lock-up provisions for investors (Gurun and Coskun,
+2012).
+6
+
+--- PAGE 9 ---
+Any of these risk-adjustment models suﬀer from the joint-hypothesis problem. Diﬀerent tests,
+however, are also unsuccessful in (fully) explaining PEAD with risk. Stochastic dominance tests
+show ﬁrst-order stochastic dominance of high-SUE (top decile) over low-SUE (bottom decile) port-
+folios (Bernard and Seyhun, 1997). Using a stochastic discount factor approach (a discount factor
+constructed from a set of basis assets instead of employing a speciﬁed risk-adjustment model) can
+explain about a quarter of PEAD returns (Min and Kim, 2012).
+Observation 8.
+Trading frictions (transaction costs, liquidity) are positively related to PEAD
+and partly explain it.
+Trading frictions come in a variety of forms: from direct transaction costs (bid-ask spreads,
+commissions) to indirect transaction costs (illiquidity, market impact costs). Whether such frictions
+allow for proﬁtable arbitrage opportunities is disputed and depends on the speciﬁcations of trading
+strategy and risk factors. While there are studies that ﬁnd (close to) zero abnormal proﬁts after
+accounting for trading frictions (Chordia et al., 2009; Ng et al., 2008; Zhang et al., 2013),17 other
+studies ﬁnd signiﬁcant proﬁts (Battalio and Mendenhall, 2011; Ke and Ramalingegowda, 2005).
+Whether transaction costs are responsible for the persistence, and even the existence, of the
+PEAD is also debatable. If mispricing is within transaction costs then transaction costs might
+prevent trades and the impounding of information.
+Yet, there is mispricing in spite of trades
+occurring (Bernard and Thomas, 1990). So, transaction costs cannot explain PEAD.18 On the
+other hand, Ng et al. (2008) argue that transaction costs can explain the incidence of the PEAD
+via the price adjustment mechanism.19 What is undisputed is that, generally, trading frictions are
+positively related to PEAD.
+PEAD is highest in the stocks with the highest direct (Bhushan, 1994; Doyle et al., 2006; Ng
+et al., 2008; Zhang et al., 2013) and indirect transaction costs (Chordia et al., 2009; Chung and
+Hrazdil, 2011).20 Indirect transaction costs are frequently associated with illiquidity, which can
+be seen as a measure of information-based trading (Kyle, 1985). Liquidity risk can explain large
+portions of abnormal PEAD returns, resulting from unexpected variations in the aggregate ratio
+of informed traders to noise traders (Sadka, 2006). At the same time, higher abnormal order ﬂow
+(a proxy for information-based trading as opposed to noise trading) leads to lower PEAD (Vega,
+2006).21 Information asymmetry and illiquidity around announcements are positively related (Kim
+17Pavlova and Parhizgari (2011) employ a genetic algorithm to improve trading strategy speciﬁcations, but ﬁnd
+very little potential for abnormal returns (after accounting for transaction costs).
+18Ball (1992) notes that a large proportion of PEAD returns are concentrated around announcements and that
+there is relatively more trading around announcements, making transaction costs an unlikely explanation.
+19Informed traders trade with market makers and bid up the price (in the case of a positive surprise), until further
+approximation of price to fundamental value is unproﬁtable because of transaction costs. This apparent underreaction
+increases with transaction costs. The second step in the price adjustment involves further news events in the post-
+announcement period. Random news events have a chance to increase or decrease fundamental value. In case of a
+further increase in fundamental value (continuing the example of a positive earnings surprise), the arbitrageur trades
+and pushes the price upwards. In case of a decline, the arbitrageur does not act. A series of random news events
+after the announcement eventually leads to a convergence of price and fundamental value, which is then perceived
+as drift.
+20There is also evidence that PEAD returns are concentrated in a small sample of low-rated stocks facing deteri-
+orating credit conditions (Avramov et al., 2013).
+21Similar eﬀects can play out between exchange and oﬀ-exchange trading (Cox, 2020).
+7
+
+--- PAGE 10 ---
+and Verrecchia, 1994; Krinsky and Lee, 1996; Lee et al., 1993).22,23
+Interestingly, unexpected
+trading volume around earnings announcements, as a measure of opinion divergence, is positively
+related to PEAD (Garﬁnkel and Sokobin, 2006; Gerard, 2012). Liquidity risk is also positively
+related to PEAD via the link of accounting quality (Chen et al., 2017a).24 There is also evidence,
+however, that transaction costs and PEAD can be negatively related via the earnings persistence
+channel. Firms with higher earnings persistence (i.e., lower ex ante earnings volatility) have lower
+trading frictions, but also a stronger drift per unit of earnings surprise (Cao and Narayanamoorthy,
+2012).
+Observation 9.
+Information uncertainty leads to an underreaction to earnings news, and the
+delayed reaction results in PEAD.
+Information uncertainty can be seen as a behavioral factor, since investors underreact to in-
+formation releases. However, in a rational learning model the underreaction can be justiﬁed when
+signals are noisy (for example, because of low earnings quality). Resolving the uncertainty sub-
+sequently leads to a (delayed) price correction.25 Behavioral and rational explanations for asset
+pricing anomalies can be diﬃcult to distinguish (Brav and Heaton, 2002; Liang and Zhang, 2019).
+A muted reaction to information releases means the earnings response coeﬃcient is low. A num-
+ber of studies show the negative association between diﬀerent metrics of information uncertainty
+and the earnings response coeﬃcient (and a positive association with PEAD). Firstly, they relate
+to the forecasting environment: data availability (Li et al., 2020; Schaub, 2018), persistence of
+earnings (Kormendi and Lipe, 1987), ability of past earnings to predict future earnings time-series
+(Lipe, 1990), forecasting diﬃculty (Zhang, 2012), and accuracy (Han et al., 2009).26
+Secondly,
+accounting quality: accruals quality, special items (Callen et al., 2013; Francis et al., 2007), and
+reputation of the auditor (Ferguson and Matolcsy, 2004). Thirdly, opinion divergence:27 analyst
+forecast dispersion (Ayers et al., 2011; Han et al., 2009; ImhoﬀJr and Lobo, 1992; Liang, 2003),28
+more active trading across market participants (Anderson et al., 2007), abnormal volume (Garﬁnkel
+and Sokobin, 2006),29 ﬁrm age, and return volatility (Jiang et al., 2005). Yet, there is also evi-
+dence inconsistent with the idea of delayed reaction due to information uncertainty. Dische (2002)
+assumes a behavioral perspective and argues that low forecast dispersion means a higher infor-
+mation content of earnings news. Investors increasingly underreact to surprises with the degree
+22The after-hours market, a very illiquid environment, provides some evidence.
+Spreads widen ahead of the
+announcement, to the point that they contain the post-announcement price (Gregoire and Martineau, 2019).
+23Ali et al. (2020) ﬁnd that actively managed funds trading on the PEAD are more successful when avoiding
+competition among each other, and that they achieve this by investing in illiquid stocks. Such funds appear to have
+an information advantage and are better able to ﬁnd mispriced stocks.
+24The intuition is that stocks with lower information quality are more sensitive to large shocks to market liquidity.
+Additionally, market makers are less willing to provide liquidity to such stocks.
+25In the wake of noise (non-information based trading), it can be rational to hold oﬀon trading at ﬁrst (continuing
+to attach weight on one’s prior beliefs). Prior beliefs are only gradually eliminated from equilibrium prices, leading
+to a PEAD (Dontoh et al., 2003).
+26A similar eﬀect can be observed for management forecasts. If they are more reliable, the immediate stock price
+response is stronger and the price drift over the 3 months following the forecast is weaker (Ng et al., 2013).
+27If investors observe (via prices) others’ private information that conﬂicts with their own private information
+(i.e., opinion divergence) they will update their beliefs, leading to PEAD (Choi et al., 2019).
+28The “Earnings Surprise” risk factor by Kim and Kim (2003) is also based on analyst forecast dispersion.
+29See Atiase and Gift (2015) and Atiase et al. (2016) for a number of information uncertainty factors that drive
+trading volume.
+8
+
+--- PAGE 11 ---
+of forecast convergence (i.e., low uncertainty).30 Zhang et al. (2013) have a similar intuition but
+come to a diﬀerent result. In their model, high information uncertainty leads to less underreaction
+(because announcements are more important for such ﬁrms). They ﬁnd, however, that this eﬀect
+is dominated by transaction costs, which also increase with information uncertainty.
+Information uncertainty exists on the ﬁrm and market levels. Generally, market-wide uncer-
+tainty in combination with sentiment signiﬁcantly aﬀects PEAD (Bird et al., 2014).31 The media
+landscape also contributes to the information environment, with more reliable media leading to
+less PEAD.32,33 Information shocks at the market level can reduce uncertainty: the introduction
+of common accounting standards (?), or requirements to submit computer-readable (XBRL) re-
+ports (Chen et al., 2017c; Efendi et al., 2014) contribute to weaker PEAD.34 At the ﬁrm level, the
+introduction of conference calls reduces uncertainty and PEAD (Kimbrough, 2005).
+Information uncertainty can be mitigated or resolved with the arrival of new information. Such
+signals can cause the price to converge more quickly to the fundamental value that the recent
+earnings information implies.
+Delayed disclosure of items that are withheld from the 10-Q ﬁl-
+ings lead to initial underreaction but there is a (partial) catch-up upon full disclosure (Li et al.,
+2020). Subsequent same-sign earnings innovations can indicate persistence of an initial earnings
+surprise (Freeman and Tse, 1989).35 Post-announcement recommendations and forecasts by an-
+alysts facilitate impounding of information (Soﬀer and Lys, 1999), and when analysts are more
+responsive in revising their forecasts, the market adjusts more quickly, resulting in less PEAD
+(Zhang, 2008). Analysts revise their forecasts not just on the basis of new earnings but also based
+on non-earnings information like conference calls, private discussions with management, or weekly
+sales ﬁgures (Shane and Brous, 2001). Such softer factors can go as far as to the tone and sen-
+timent in conference calls, which also impacts PEAD (Feldman et al., 2010; Price et al., 2012a;
+Milian and Smith, 2017).36 Managers appear to be savvy about their company’s valuation, and
+their post-announcement trades are related to the PEAD (Dargenidou et al., 2018; Kolasinski and
+Li, 2010), even if there is mixed evidence on whether they exploit stock price underreactions (Core
+et al., 2006). Corroborating information can also come from economically linked ﬁrms, such as
+competitors and customers (Kovacs, 2016; Baker et al., 2019; Zhu, 2014). Industry-related news
+30Liang (2003) provides similar evidence.
+31The market-wide uncertainty is measured by the implied volatility from the options market. Options trading
+itself can facilitate the pre-announcement impounding of private information into the stock price, pre-empting the in-
+formation content of the announcement. Post-announcement, options trading helps incorporating public information
+into prices, reducing PEAD (Truong and Corrado, 2014). Regarding credit default swaps, these seem to anticipate
+earnings surprises too and typically do not exhibit PEAD themselves (Zhang and Zhang, 2013; Jenkins et al., 2016).
+32The Chinese stock market, with partly state-controlled media, provides some evidence.
+However, whether
+politically captured media is perceived as less reliable, leading to more PEAD (Kim et al., 2019), or perceived as
+more reliable, leading to less PEAD (Guo and Huang, 2019) is not entirely clear.
+33Lower levels of media attention to value stocks (as opposed to glamour stocks) could be a potential driver of
+information uncertainty and a more muted price reaction upon earnings announcements (Yan and Zhao, 2011).
+34Regulation that gives prioritized access to news to certain market participants can pre-empt the information
+from earnings announcements prior to public release (Dong et al., 2015).
+35How investors interpret streaks in earnings surprises is not entirely clear. There is evidence that they underreact
+to streaks of earnings changes in the same direction (potentially because of mean-reversion beliefs), leading to PEAD,
+but correctly react to streak-ending announcements (Loh and Warachka, 2012). There is also evidence, however,
+that streaks of same-sign earnings surprises lead to more intense trading (Shanthikumar, 2012).
+36However, since the conference call tone aﬀects announcement window return and PEAD in the same direction,
+the tone must have another function than just mitigating investor underreaction around the announcement.
+9
+
+--- PAGE 12 ---
+in the post-announcement period leads to a stronger (weaker or reversed) drift if these news agree
+(disagree) with the ﬁrm-speciﬁc earnings surprise (Liang and Zhang, 2019).
+Observation 10. Information processing costs cannot explain the PEAD.
+Jones and Litzenberger (1970) observe the drift and interpret the delayed adjustment as a
+gradual dissemination of information about the fundamental value of a security from investment
+professionals to the public. The resulting excess returns from the slow adjustment can be seen as
+a normal compensation that accrues to investment professionals as part of their occupation. They
+are better (or more specialized) at processing information (i.e., have lower search and information
+processing costs). It is true, in fact, that timely analyst forecast revisions lead to more eﬃcient
+pricing (Zhang, 2008). It also appears as if it is not always worthwhile or possible for analysts to
+actually incorporate all available information (Kothari, 2001). For example, analyst forecast errors
+for complex (Barinov et al., 2019) or internationally diversiﬁed ﬁrms (Kang et al., 2017) are larger
+and PEAD is stronger. Nonetheless, as Ball (1978) argues, these costs are at best negligible. This
+should be especially true with today’s information technology and data availability.
+Observation 11. Active institutional ownership weakens PEAD.
+Small or individual traders appear to form expectations diﬀerently than larger, institutional,
+and supposedly more sophisticated investors (see Observation 13). Whether small traders cause the
+PEAD is not entirely clear. The evidence from studies of granular brokerage data is mixed (Eom
+et al., 2019; Hirshleifer et al., 2008). Overall, however, there is strong evidence that institutional
+ownership is negatively correlated with PEAD (Bartov et al., 2000; Chen et al., 2017a; Doyle et al.,
+2006; Jegadeesh and Livnat, 2006a; Ng et al., 2008; Son et al., 2018). When institutional investors
+enter a market, mispricing diminishes (Qin and Bai, 2014; Shin and Park, 2018). The eﬀect of
+institutional trading volume might be an even stronger negative PEAD predictor than institutional
+holdings (Shu, 2013). Institutional investors and short-sellers tend to be informed and anticipate
+earnings surprises (Alexander et al., 2014; Campbell et al., 2009). In the post-announcement period
+too, they appear to increase (decrease) their exposure to good (bad) news stocks (Berkman and
+McKenzie, 2012). Short-selling can decrease (Boehmer and Wu, 2013) or increase PEAD (Lasser
+et al., 2010).37
+Diﬀerent classes of institutional investors aﬀect PEAD diﬀerently. Active institutional investors
+contribute to making prices more eﬃcient. Transient investors trade to exploit the PEAD and
+thereby reduce it (Ke and Ramalingegowda, 2005).
+High-frequency traders mitigate PEAD by
+supplying liquidity (Ke and Zhang, 2019). On the other hand, a higher share of passive institutional
+investors (ETFs, Index funds) reduces the informational eﬃciency of prices and increases PEAD
+(Qin and Singal, 2015). Similarly, institutional herding (the tendency of mutual funds to buy and sell
+the same stocks at the same time) may happen for reasons unrelated to ﬁnancial information, such
+as career and reputational concerns as well as litigation risk (Chen et al., 2017b). There are other
+factors that lead to institutional ownership potentially exacerbating PEAD: high concentrations of
+37Short-selling can accelerate price adjustment, especially for negative surprises. On the other hand, short-selling
+activity can be a bullish signal (short-sellers eventually have to buy back the shares to close the position). The pent-
+up demand for stocks after high short-selling activity leads to higher (lower) stock price response around earnings
+announcements and a weaker (stronger) PEAD for positive (negative) surprises.
+10
+
+--- PAGE 13 ---
+(institutional) ownership can stiﬂe price adjustment. It can lead to lower announcement returns
+and make short-selling and arbitrage activities more diﬃcult, thus contributing to stronger PEAD
+(Porras Prado et al., 2016). Also, institutional investors face investment constraints such as the
+type of stocks in the portfolio, position limits on a stock, industry limits, or portfolio turnover.
+Institutions appear to be reluctant to buy good news stocks (sell bad news stocks) if these stocks
+are already overweighted (underweighted) in their portfolios, contributing to market underreaction
+(Cao et al., 2017).
+2.2. EMH-incompatible explanations
+Observation 12. Investors fail to incorporate, or underestimate earnings autocorrelation.
+Quarterly earnings of companies can be forecasted with time-series models (Bathke Jr and
+Lorek, 1984; Brown and Rozeﬀ, 1979; Foster, 1977; Griﬃn, 1977).
+The time-series pattern of
+earnings typically exhibits correlated seasonal diﬀerences in quarterly earnings. This correlation is
+strongest in adjacent quarters and levels oﬀ(but remains positive) at lags two and three. Correlation
+reverses at lag four. There is evidence that (at least some groups of) investors are (partly) unaware
+of this autocorrelation pattern and base their expectations on a seasonal random walk.38,39 As a
+result, forecast errors and returns over time are predictable (Rendleman et al., 1987). The market
+is surprised again around subsequent announcements as evidenced by return spikes. The initial
+surprise has a positive but decaying correlation with returns around announcements qt+1 through
+qt+3, and a negative correlation with returns around announcement qt+4 (Bernard and Thomas,
+1990).40
+It is also possible that investors understand the time-series pattern but do not correctly assess
+its parameters (“partially naive expectation model”). There is evidence that investors are aware of
+the correct sign of the correlation coeﬃcient at lags 1-4 but that they underestimate the magnitude
+of the correlation coeﬃcient by about 50% (Ball and Bartov, 1996). The underestimation of the
+autoregressive component is larger in some ﬁrms than in others, which coincides with a stronger
+drift (Lee and Rui, 2011). Experiments show that subjects (MBA students) generally underestimate
+autoregressive and moving-average components of a Brown-Rozeﬀtime series (Maines and Hand,
+1996).41 This evidence extends to the (experimental) market level (Calegari and Fargher, 1997).
+Undergraduate business students also underestimate autocorrelation by about 40% in the ﬁrst lag
+(but no later lag). A simple seasonal random walk model does not describe expectations for the
+majority of the subjects. In fact, they use somewhat more complex models.42,43
+38See Enke and Zimmermann (2019) for more general evidence of correlation neglect.
+39Jacob et al. (2000) argue that this is not necessarily the case. They point out that PEAD is also consistent with
+researchers over-diﬀerencing an already stationary earnings time series.
+40Brown and Han (2000) show that investors appear to not fully understand an earnings process that follows an
+even simpler AR1 model, which applies to about 15-20% of ﬁrms. This suggests that the ﬁndings of Bernard and
+Thomas (1990) could not be driven by model complexity alone.
+41Brown and Rozeﬀput forward a Box-Jenkins (1,0,0) x (0,1,1) model for the time series of quarterly accounting
+earnings that dominates other time-series models (Bathke Jr and Lorek, 1984; Brown and Rozeﬀ, 1979).
+42Experimental subjects (and potentially investors) overrely on old information and therefore do not adequately
+take into account new information (Bloomﬁeld et al., 2003).
+43Soﬀer and Lys (1999) have a diﬀerent interpretation than Ball and Bartov (1996). At the beginning of the
+11
+
+--- PAGE 14 ---
+The long-standing PEAD anomaly attracts arbitrageurs and Milian (2015) shows that they can
+disrupt the autocorrelation structure of stock returns. Those ﬁrms with active exchange-traded
+options (which are easiest to arbitrage) appear to attract a large number of (unsophisticated)
+arbitrageurs who overcompensate the well-documented underreaction to earnings surprises. For
+these ﬁrms, those that are in the highest decile of earnings surprises underperform those in the
+lowest decile in the following announcement window.
+As Milian (2015, p.
+175) puts it, “. . . if
+anomalies arise due to unsophisticated investors’ behavioral biases, then these same biases can also
+apply to unsophisticated arbitrageurs . . . ”. Unsophisticated arbitrageurs appear to consistently
+underestimate the level of arbitrage by others.
+Observation 13. Naive expectations are more prevalent in unsophisticated investors.
+Empirical studies show that only a fraction of the traders in the market exhibits naive expec-
+tations. These are typically small or less sophisticated investors. Small traders, relative to large
+traders, tend to build expectations based on a seasonal random walk model, while large traders
+tend to rely on analyst forecasts (Ayers et al., 2011; Battalio and Mendenhall, 2005; Bhattacharya,
+2001; Walther, 1997). If there is less institutional ownership and analyst following in a market, the
+reliance on seasonal random walk forecasts is greater (Zolotoy, 2012). Similarly, media coverage
+of earnings news is positively associated with time series-based PEAD. Typically, news outlets re-
+port earnings news compared to the same quarter in the preceding year. This presentation format
+does not consider autocorrelation between adjacent quarters and potentially reinforces the idea of
+a seasonal random walk for quarterly earnings for retail investors (Pinnuck, 2014). Of course, small
+traders do not exclusively employ naive expectation models. Experimental evidence shows that
+about 13% of subjects use a seasonal random walk expectation model when forecasting quarterly
+earnings. 56% employ either an autoregressive or a moving average component. For 31% of traders,
+a Brown-Rozeﬀmodel describes forecasts best (Calegari and Fargher, 1997).
+Observation 14. Underestimation of earnings autocorrelation depends on the level of autocorre-
+lation.
+Experimental subjects correctly weight moderate autocorrelations, underweight large autocor-
+relations, and overweight small or nonexistent autocorrelations (Maines and Hand, 1996). Similar
+empirical evidence shows that for lags 1 and 4, where autocorrelation is highest in absolute terms,
+the market underestimates autocorrelation. For lags 2 and 3, where autocorrelation is low, the mar-
+ket correctly assesses autocorrelation. Investors also underestimate autocorrelation at lag 1 when
+autocorrelation is high, but not when it is moderate or low. (Bathke Jr et al., 2006). Firms with
+high earnings autocorrelation experience a stronger underreaction and subsequent PEAD (Bathke
+et al., 2014; Cao and Narayanamoorthy, 2012). For the subset of ﬁrms with no autocorrelation of
+seasonally diﬀerenced earnings, investors actually assume some autocorrelation, leading to return
+reversals (Bathke Jr et al., 2016). On the other hand, there is evidence that investors are quite
+quarter (directly after the announcement), investors appear to expect earnings to follow a seasonal random walk.
+Later, the expectations of investors incorporate more and more of the properties of the actual, autocorrelated earnings
+time series. Just before the following announcement, about 50% of the autocorrelation is contained in expectations.
+Soﬀer and Lys (1999) argue that it is less plausible that investors change expectation models over the course of each
+quarter. Rather, information is disseminated which investors perceive to be new and they update their expectations
+accordingly. This information content could, however, have been discerned from the earnings announcement already.
+12
+
+--- PAGE 15 ---
+capable of assessing earnings autocorrelation and how it varies accross ﬁrms (Mendenhall, 2002),
+even if not at the deepest level (Chen, 2013).44
+Observation 15. SUE autocorrelation and drift are stronger when earnings surprises are driven
+by cash ﬂow (as opposed to accruals) or revenue (as opposed to expense) surprises.
+Unexpected cash ﬂows have a higher predictive power over PEAD than unexpected accruals
+(Shivakumar, 2006). The market appears to underestimate (overestimate) the persistence of cash
+ﬂows (accruals) for earnings (Collins and Hribar, 2000). High SUE and low (i.e., income decreasing)
+accruals lead to stronger positive drift, while low SUE and high (i.e., income increasing) accruals lead
+to stronger negative drift (Louis and Sun, 2011). PEAD is also signiﬁcantly higher when considering
+revenue surprises, in addition to SUE. Revenue surprises appear to have a more persistent eﬀect
+on earnings than expense surprises (Jegadeesh and Livnat, 2006a,b). Investors also underestimate
+the persistence of revenues on the persistence of earnings (i.e., the conditional persistence following
+Amir et al., 2011). They underreact to earnings surprises if the persistence in earnings is driven
+to a higher degree by revenue surprises (Amir et al., 2015). The eﬀect of revenue surprises on the
+SUE-PEAD relationship is more pronounced for ﬁrms with high earnings volatility, such as R&D-
+intensive companies (Kama, 2009). On the other hand, if earnings surprise and announcement
+window returns have opposing signs, this is frequently driven by revenue surprises discordant with
+earnings surprises. This points to decreased earnings persistence and weakens PEAD (Johnson and
+Zhao, 2012).
+Observation 16.
+PEAD returns can be aﬀected by ﬁrm characteristics such as past PEAD,
+reputation, and celebrity status.
+On a meta-level, ﬁrms with historically strong PEAD continue to exhibit stronger PEAD for
+future earnings surprises (Son et al., 2018). Also, “high-reputation” ﬁrms (ﬁrms publicly recognized
+for high quality of capabilities and output) are less likely, and “celebrity” ﬁrms (ﬁrms enjoying a
+high level of public attention and positive emotional responses from stakeholders) are more likely
+to deliver positive earnings surprises. Both types get higher return rewards for positive surprises
+and lower return penalties for negative surprises (Pfarrer et al., 2010).
+Observation 17.
+Accounting practices and earnings management lead to variations in PEAD
+returns.
+Accounting conservatism leads to predictable variation in SUE autocorrelations (Narayanamoor-
+thy, 2006). Accounting principles typically demand that economic losses be more easily and more
+quickly recognized than proﬁts. “Thus, earnings reﬂects [sic] bad news more quickly than good
+news” (Narayanamoorthy, 2006, p. 769). This also suggests that losses or earnings decreases have a
+stronger tendency to mean-revert than proﬁts and earnings increases. Firms with losses or earnings
+decreases consequently have a lower autocorrelation coeﬃcient.45 The integral approach to quar-
+44Chen (2013) constructs a model in which persistence is not constant, but determined by a number of accounting
+and economic parameters for each ﬁrm-quarter combination. For example, proﬁt margin is a positive determinant of
+earnings persistence, extreme accruals are a negative predictor of persistence. While investors appear to appreciate
+time-series persistence of earnings, they do not seem to be aware of time-varying persistence of earnings, especially
+in complex information environments.
+45The conditional probability of a quarterly loss following a loss in the preceding quarter, however, is higher than
+13
+
+--- PAGE 16 ---
+terly reporting also has predictive power over SUE autocorrelations. Certain earnings components
+have to be smoothed across quarters of the same year and cannot be smoothed across quarters of
+diﬀerent ﬁscal years. Autocorrelation is stronger between quarters in the same ﬁscal year than for
+quarters in diﬀerent ﬁscal years (Rangan and Sloan, 1998). Beyond the impact of earnings surprises
+and accruals, the likelihood of earnings management also aﬀects the magnitude of the PEAD (Louis
+and Sun, 2011).
+Observation 18. Analysts (and managers) exhibit biases that are similar to those found in the
+market.
+A large body of research examines the role of analysts who forecast earnings, their biases,
+incentives, and conﬂicts of interest (see discussion in Kothari, 2001).
+With respect to PEAD,
+analysts seem to underreact to earnings information, thereby contributing to the subsequent drift
+(Mendenhall, 1991).46
+Quarterly earnings forecasts by analysts share some of the properties of
+the naive model of a seasonal random walk. The degree of analysts’ underreaction to earnings,
+however, is only half as large as it would have to be to explain the magnitude of the subsequent drift
+(Bernard and Abarbanell, 1992). This is consistent with the market in general (Ball and Bartov,
+1996). The degree of underreaction among analysts depends on their experience and personality.
+Less experienced analysts (Mikhail et al., 2003), and those with a herd-to-consensus bias (Tamura,
+2002) tend to exhibit larger forecast errors. Managers are prone to similar biases and their forecast
+errors also tend to be serially correlated (Xu, 2009).
+Observation 19. Limited investor attention contributes to the PEAD.
+Distractions can divert attention and can make it more diﬃcult to analyze the implications of
+new information. A higher number of earnings releases on the same day makes earnings surprises
+harder to process for investors, leading to a delayed reaction and to PEAD (Hirshleifer et al.,
+2009; ?).47 Similarly, announcements on Fridays receive less attention and lead to higher PEAD
+(DellaVigna and Pollet, 2009; Michaely et al., 2016). On top of concurrent announcements and
+Fridays, less pre-earnings options trading points to lower attention and results in stronger PEAD
+(Wang et al., 2018b). Other situations that can divert attention and lead to more underreaction
+are: low turnover and down markets (Hou et al., 2009),48 high market volatility (Kottimukkalur,
+2019; Jacobs and Weber, 2016), changes in market sentiment (Mian and Sankaraguruswamy, 2012;
+Shin et al., 2019b), religious holidays (Pantzalis and Ucar, 2014), sports games (Pantzalis and Ucar,
+2019), and seasonal aﬀective disorder (Lin, 2015). Delayed disclosure of individual 10-Q ﬁling items
+leads to an underreaction at the announcement date.
+However, once all items have been fully
+disclosed, the response catch-up remains incomplete. The evidence points to underreaction because
+of lower attention outside of focal periods (i.e., earnings announcement dates) by investors and
+the unconditional probability of a quarterly loss (Balakrishnan et al., 2010).
+46This eﬀect appears to be particularly pronounced for negative surprises when analysts have conﬂicts of interest
+(Constantinou et al., 2003).
+47A contributing factor is that data providers such as First Call (Thompson Reuters) or IBES sometimes have a
+delay in disseminating earnings news. This delay is caused by manual validations, quality checks, and adjustments
+of ﬁgures. As a result, announcement window returns are signiﬁcantly lower and PEAD is stronger. The abnormal
+post-announcement returns are concentrated on the day of the actual information dissemination (Schaub, 2018).
+48There is evidence to the contrary, however: during the Great Recession, PEAD returns may have decreased or
+even reversed (Anderson et al., 2019).
+14
+
+--- PAGE 17 ---
+analysts (Li et al., 2020). Generally, ﬁrms with fewer attention-grabbing events exhibit stronger
+PEAD (Lin et al., 2016).
+A more complex information environment can lead to initial underreaction, as it might be
+harder to consider all relevant facts and relationships (Chen, 2013). Conglomerates, as opposed to
+single-segment ﬁrms (Barinov et al., 2019), and more internationally diversiﬁed ﬁrms as opposed
+to less internationally diversiﬁed ﬁrms (Kang et al., 2017) have a more muted initial reaction and
+a stronger PEAD (an eﬀect that weakens with more transparent disclosure requirements). PEAD
+is more pronounced for ﬁrms that concurrently release earnings announcement and 10-K ﬁlings,
+as opposed to those issuing a stand-alone earnings announcement (Arif et al., 2018).49
+It also
+appears as if earnings management and the implications of accruals are partly overlooked because
+of cognitive limits or inattention (Louis and Sun, 2011). Economic links between diﬀerent entities
+might be overlooked too. Investors are inattentive to the industry-wide implications of earnings
+announcements by individual ﬁrms for other ﬁrms and underreact to them (Kovacs, 2016). This
+eﬀect is even more pronounced when earnings news are released on a day with a high volume of
+announcements (Baker et al., 2019). In industries with relatively homogeneous ﬁrms, on the other
+hand, this cross-ﬁrm information transfer appears easier, leading to less PEAD (Shin et al., 2019a).
+Information sharing networks among investors can also facilitate information diﬀusion and attenuate
+PEAD (Pantzalis and Wang, 2017). A similar eﬀect of lack of attention to economic links can be
+observed in customer-supplier relationships (Zhu, 2014). In fact, there might be a whole range of
+economic links that predict earnings surprises but which investors do not pay suﬃcient attention to
+(Müller, 2019). Of course, for certain news events, concurrent announcements can reduce PEAD.
+If a ﬁrm has high macroeconomic exposure and announces concurrently with macroeconomic news,
+the market can better distinguish between systematic and ﬁrm-speciﬁc implications (Chen et al.,
+2018).
+Investor information demand before and around the announcement can point to increased at-
+tention and mitigate underreaction: Increased searches for the SEC’s EDGAR log ﬁles (Li et al.,
+2019) increased Social Media engagement (Wu, 2019), and increased Google searches (Drake et al.,
+2012; Fricke et al., 2018) can attenuate PEAD. However, increased Google searches, if done by local
+investors, can have diﬀerent eﬀects. They can point to more informed trading and reduce PEAD
+(Wang et al., 2018a), or to more familiarity bias and increase PEAD (Chi and Shanthikumar, 2017).
+Managers can also (opportunistically) boost headline salience of earnings news in the media. The
+added attention leads to a stronger price response in the announcement window and weaker PEAD
+(Huang et al., 2018).
+Observation 20. Overconﬁdence bias and cultural dimensions contribute to the PEAD.
+Liang (2003) provides evidence that investors rely overly much on private information and that
+they underweight reliable public information. High analyst opinion divergence leads to a stronger
+drift (as discussed in Observation 9). The reduction in uncertainty (i.e., the reduction in analyst
+forecast error from before to after the announcement) is a measure for the reliability of the earnings
+announcement. Liang (2003) ﬁnds a negative relationship between signal reliability and PEAD
+and interprets it as overconﬁdence in less reliable information and underconﬁdence in more reliable
+49The conjecture is that concurrent information releases are harder to interpret due to limited attention and
+information processing capacity.
+15
+
+--- PAGE 18 ---
+information (similar to Dische, 2002).
+In high-uncertainty information environments, investors
+appear to trade more on private information due to overconﬁdence, leading to a stronger drift
+(Jiang et al., 2005). Higher overconﬁdence can also stem from a higher degree of individualism
+in a society. It appears as if PEAD is positively correlated with individualism. Additionally, it
+is negatively correlated with uncertainty avoidance. High uncertainty avoidance individuals are
+uncomfortable with ambiguity and update their beliefs more quickly upon announcements (Dou
+et al., 2016).
+Observation 21. The disposition eﬀect aﬀects the PEAD.
+When stocks are (in the aggregate) in the gain domain investors disproportionally sell stocks
+to realize their gains. Conversely, when stocks are in the loss domain investors hold on to them in
+the hopes of breaking even. This disposition eﬀect impedes upward (downward) price adjustment
+following positive (negative) surprises, contributing to PEAD (Frazzini, 2006). A similar eﬀect
+can be observed for investor target prices (for long investors). If the stock price exceeds analysts’
+targets, selling pressure delays adjustment after positive earnings surprises (Huang et al., 2019).
+Observation 22. Anchoring and recency bias aﬀect PEAD.
+A stock’s 52-week high provides an anchor which contributes to the PEAD. The relative distance
+of a stock’s price to its 52-week high (proximity), as well as the time passed since a stock reached its
+52-week high (recency) each contribute incrementally. Investors underreact to positive (negative)
+surprises of stocks close to (far from) their 52-week highs, which leads to a stronger subsequent
+upward (downward) drift (George et al., 2015; Goh and Jeon, 2017). Similarly, if a stock’s 52-
+week high occurred in the recent (distant) past, investors are reluctant to buy (sell) it following
+positive (negative) news. This recency eﬀect is incremental to the proximity eﬀect (Ma et al., 2014).
+Sophisticated investors are less prone to these types of behavioral biases (Shin and Park, 2018).
+Observation 23. Sensitivity of earnings to inﬂation can partly explain the PEAD.
+PEAD is related to the inﬂation illusion hypothesis of Modigliani and Cohn (1979). Investors
+consider the implications of inﬂation on the discount rate, but not on nominal earnings growth. In
+fact, the sensitivity of earnings to inﬂation varies monotonically across SUE-sorted portfolios. The
+predictive ability of inﬂation for future earnings and returns is incremental to that of current and
+past SUE (Chordia and Shivakumar, 2005). Return decomposition shows that PEAD results from
+slow incorporation of cash-ﬂow news vs. discount rate news (Mao and Wei, 2014). Analysts also
+do not seem to (fully) incorporate the implications of inﬂation and sensitivity to inﬂation into their
+models (Basu et al., 2010).
+3. Summary and conclusion
+More than 50 years after the original paper by Ball and Brown (1968), and especially since
+Bernard and Thomas (1989, 1990), research around the PEAD has grown into a large body of
+literature. The PEAD continues to be one of the most prominent anomalies in ﬁnancial markets
+and garners strong research interest. It is clear that anomalies often disappear or at least weaken
+16
+
+--- PAGE 19 ---
+following their publication (Chordia et al., 2014). Remarkably, however, the PEAD has been studied
+for decades already.
+Many explanations for the PEAD point to investor irrationality, posing a challenge to the EMH.
+Most notably, it appears as if investors, and even analysts, have diﬃculty processing earnings
+news accurately.
+Attention constraints and a host of behavioral biases also play a role.
+The
+decades-long persistence of the anomaly, however, makes researchers rightfully reluctant to accept
+an explanation based on irrationality. Explanations compatible with the EMH, therefore, have
+also been studied extensively. Insuﬃcient risk-adjustment does not seem to be the driving force.
+Information uncertainty, however, is an important factor. Limits to arbitrage in general do play a
+role in the existence and persistence of the PEAD. Abnormal returns appear to be concentrated in
+stocks that are more diﬃcult to arbitrage (i.e., small, low liquidity, low volume, high transaction
+cost stocks).
+Given the long history of active PEAD research, there appears to be little room for entirely
+new factors that could explain the existence, persistence, and variations of the drift. Future re-
+search should thus focus on two areas: better isolating individual eﬀects and assessing their relative
+importance. Firstly, studies on the PEAD so far rely almost exclusively on empirical data. This
+data is noisy and subject to omitted variable bias. Experimental asset markets could be useful
+in isolating individual eﬀects while holding everything else constant. They would permit the re-
+searcher to control the fundamental value, the information supplied to traders, and the aggregate
+risk in a market. Secondly, the vast majority of papers are from either the EMH-compatible or
+EMH-incompatible perspective. Few studies use a broad, multifactorial approach. A comprehen-
+sive, empirical investigation into the relative importance of the most important factors could be
+worthwhile. This would require an interaction model, similar to Zhang et al. (2013), yet extended
+by behavioral components.
+There is evidence that the PEAD has attenuated in recent years (Martineau, 2019), but whether
+this eﬀect is geographically or temporally conﬁned is not clear. A comprehensive appraisal across
+markets using the latest data available would be helpful. At the same time, researchers continue to
+come up with new ways of enhancing the predictive power of earnings surprises for delayed abnormal
+returns. A consensus on an all-encompassing explanation for the PEAD, therefore, remains elusive.
+Meanwhile, the PEAD, in one form or another, continues to exist despite highly publicized research
+and more than half a century of potential arbitrage activity. At the end of the day, given the evidence
+provided by both camps (EMH-compatible and -incompatible), it is most likely a combination of
+many factors that explains the anomaly.
+17
+
+--- PAGE 20 ---
+References
+References
+Afego, P.N., 2013.
+Stock price response to earnings announcements: Evidence from the nigerian stock market.
+Journal of African Business 14, 141–149.
+Aﬄeck-Graves, J., Mendenhall, R.R., 1992.
+The relation between the value line enigma and post-earnings-
+announcement drift. Journal of Financial Economics 31, 75–96.
+Ahmed, A.S., Schneible Jr, R.A., Stevens, D.E., 2003. An empirical analysis of the eﬀects of online trading on stock
+price and trading volume reactions to earnings announcements. Contemporary Accounting Research 20, 413–439.
+Alexander, G.J., Peterson, M.A., Beardsley, X.W., 2014. The puzzling behavior of short sellers around earnings
+announcements. Journal of Financial Intermediation 23, 255–278.
+Ali, A., Chen, X., Yao, T., Yu, T., 2020. Can mutual funds proﬁt from post earnings announcement drift? the role
+of competition. Journal of Banking & Finance 114, 105774.
+Amir, E., Kama, I., Levi, S., 2015. Conditional persistence of earnings components and accounting anomalies. Journal
+of Business Finance & Accounting 42, 801–825.
+Amir, E., Kama, I., Livnat, J., 2011. Conditional versus unconditional persistence of rnoa components: implications
+for valuation. Review of Accounting Studies 16, 302–327.
+Anderson, B., Ivanov, S., et al., 2019. Study of the impact of the great recession on the relation between earnings
+surprises and stock returns. Economics Bulletin 39, 1118–1126.
+Anderson, K.L., Harris, J.H., So, E.C., 2007. Opinion divergence and post-earnings announcement drift. Working
+paper, McDonough School of Business .
+Arif, S., Marshall, N.T., Schroeder, J.H., Yohn, T.L., 2018. A growing disparity in earnings disclosure mechanisms:
+The rise of concurrently released earnings announcements and 10-ks. Journal of Accounting & Economics (JAE),
+Forthcoming , 19–2.
+Ariﬀ, M., Loh, A.L., Chew, P.M., 1997. The impact of accounting earnings disclosures on stock prices in singapore.
+Asia Paciﬁc Journal of Management 14, 17–29.
+Atiase, R.K., Dontoh, A.K., Gift, M.J., 2016. Diﬀerences in prior beliefs, diﬀerential interpretation, and the consensus
+eﬀect of quarterly earnings signals and trading volume. Journal of Accounting, Auditing & Finance 31, 483–514.
+Atiase, R.K., Gift, M.J., 2015. The informedness eﬀect and volume of trade. Journal of Accounting, Auditing &
+Finance 30, 407–430.
+Avramov, D., Chordia, T., Jostova, G., Philipov, A., 2013. Anomalies and ﬁnancial distress. Journal of Financial
+Economics 108, 139–159.
+Ayers, B.C., Li, O.Z., Yeung, P.E., 2011. Investor trading and the post-earnings-announcement drift. The Accounting
+Review 86, 385–416.
+Baker, H.K., Ni, Y., Saadi, S., Zhu, H., 2019. Competitive earnings news and post-earnings announcement drift.
+International Review of Financial Analysis 63, 331–343.
+Balakrishnan, K., Bartov, E., Faurel, L., 2010. Post loss/proﬁt announcement drift. Journal of Accounting and
+Economics 50, 20–41.
+Ball, R., 1978.
+Anomalies in relationships between securities’ yields and yield-surrogates.
+Journal of ﬁnancial
+economics 6, 103–126.
+Ball, R., 1992. The Earnings-Price Anomaly. Journal of Accounting and Economics 15, 319–345.
+Ball, R., Bartov, E., 1996. How Naive is the Stock Market’s Use of Earnings Information? Journal of Accounting
+and Economics 21, 319–337.
+Ball, R., Brown, P., 1968. An Empirical Evaluation of Accounting Income Numbers. Journal of Accounting Research
+6, 159–178.
+Ball, R., Kothari, S., Watts, R., 1993. The Economic Determinants of the Relation between Earnings Changes and
+Stock Returns. The Accounting Review 68, 622–638.
+Barinov, A., Park, S.S., Yıldızhan, Ç., 2019. Firm complexity and post-earnings-announcement drift. Available at
+SSRN 2360338 .
+Bartov, E., Radhakrishnan, S., Krinsky, I., 2000. Investor Sophistication and Patterns in Stock Returns after Earnings
+Announcements. The Accounting Review 75, 43–63.
+Basu, S., Markov, S., Shivakumar, L., 2010. Inﬂation, Earnings Forecasts, and Post-Earnings Announcement Drift.
+Review of Accounting Studies 15, 403–440.
+18
+
+--- PAGE 21 ---
+Bathke, A., Morton, R., Notbohm, M., Zhang, T., 2014. Objective Estimation versus Subjective Perceptions of
+Earnings Patterns and Post-Earnings-Announcement Drift. Accounting and Finance 54, 305–334.
+Bathke Jr, A.W., Lorek, K.S., 1984. The relationship between time-series models and the security market’s expec-
+tation of quarterly earnings. Accounting Review , 163–176.
+Bathke Jr, A.W., Lorek, K.S., Willinger, G.L., 2006. The security market’s reaction to ﬁrms’ quarterly earnings
+evidencing varying degrees of autocorrelation. Advances in Accounting 22, 29–43.
+Bathke Jr, A.W., Mason, T.W., Morton, R.M., 2016. Investor overreaction to earnings surprises and post-earnings-
+announcement reversals. Contemporary Accounting Research .
+Battalio, R.H., Mendenhall, R.R., 2005. Earnings expectations, investor trade size, and anomalous returns around
+earnings announcements. Journal of Financial Economics 77, 289–319.
+Battalio, R.H., Mendenhall, R.R., 2011. Post-earnings announcement drift: Bounds on proﬁtability for the marginal
+investor. Financial Review 46, 513–539.
+Berkman, H., McKenzie, M.D., 2012. Earnings announcements: Good news for institutional investors and short
+sellers. Financial Review 47, 91–113.
+Bernard, V., Abarbanell, J., 1992. Tests of Analysts’ Overreaction/Underreaction to Earnings Information as an
+Explanation for Anomalous Stock Price Behavior. Journal of Finance 47, 1181–1207.
+Bernard, V., Seyhun, H.N., 1997. Does post-earnings-announcement drift in stock prices reﬂect a market ineﬃciency?
+a stochastic dominance approach. Review of Quantitative Finance and Accounting 9, 17–34.
+Bernard, V., Thomas, J., 1989. Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium?
+Journal of Accounting Research 27, 1–36.
+Bernard, V., Thomas, J., 1990. Evidence that Stock Prices Do Not Fully Reﬂect the Implications of Current Earnings
+for Future Earnings. Journal of Accounting and Economics 13, 305–340.
+Bernard, V., Thomas, J., Wahlen, J., 1997. Accounting-based stock price anomalies: Separating market ineﬃciencies
+from risk. Contemporary Accounting Research 14, 89–136.
+Bhattacharya, N., 2001. Investors’ trade size and trading responses around earnings announcements: An empirical
+investigation. The Accounting Review 76, 221–244.
+Bhushan, R., 1994. An Informational Eﬃciency Perspective on the Post-Earnings Announcement Drift. Journal of
+Accounting and Economics 18, 45–65.
+Bird, R., Choi, D., Yeung, D., 2014. Market Uncertainty, Market Sentiment, and the Post-Earnings Announcement
+Drift. Review of Quantitative Finance and Accounting 43, 45–73.
+Bloomﬁeld, R., Libby, R., Nelson, M., 2003. Do Investors Overrely on Old Elements of the Earnings Time Series?
+Contemporary Accounting Research 20, 1–31.
+Boehmer, E., Wu, J., 2013. Short selling and the price discovery process. Review of Financial Studies 26, 287–322.
+Bohl, M.T., Czaja, M.G., Kaufmann, P., 2016. Momentum proﬁts, market cycles, and rebounds: Evidence from
+germany. The Quarterly Review of Economics and Finance 61, 139–159.
+Booth, G., Kallunki, J.P., Martikainen, T., 1997. Delayed price response to the announcements of earnings and its
+components in ﬁnland. European Accounting Review 6, 377–392.
+Bouteska, A., Regaieg, B., 2017. Earnings announcement eﬀect on the tunisian stock market. Cogent Business &
+Management 4, 1413733.
+Brandt, M.W., Kishore, R., Santa-Clara, P., Venkatachalam, M., 2008. Earnings announcements are full of surprises.
+SSRN eLibrary .
+Brav, A., Heaton, J.B., 2002.
+Competing theories of ﬁnancial anomalies.
+The Review of Financial Studies 15,
+575–606.
+Brav, A., Heaton, J.B., Li, S., 2009. The limits of the limits of arbitrage. Review of Finance 14, 157–187.
+Brown, L.D., Han, J.C., 2000. Do stock prices fully reﬂect the implications of current earnings for future earnings
+for ar1 ﬁrms? Journal of Accounting Research , 149–164.
+Brown, L.D., Richardson, G.D., Schwager, S.J., 1987. An information interpretation of ﬁnancial analyst superiority
+in forecasting earnings. Journal of Accounting Research , 49–67.
+Brown, L.D., Rozeﬀ, M.S., 1979. Univariate Time-Series Models of Quarterly Accounting Earnings per Share: A
+Proposed Model. Journal of Accounting Research 17, 179–189.
+Calegari, M., Fargher, N.L., 1997. Evidence that Prices Do Not Fully Reﬂect the Implications of Current Earnings
+for Future Earnings: An Experimental Markets Approach. Contemporary Accounting Research 14, 397–433.
+Callen, J.L., Khan, M., Lu, H., 2013. Accounting quality, stock price delay, and future stock returns. Contemporary
+Accounting Research 30, 269–295.
+Campbell, J.Y., Ramadorai, T., Schwartz, A., 2009.
+Caught on tape: Institutional trading, stock returns, and
+earnings announcements. Journal of Financial Economics 92, 66–91.
+19
+
+--- PAGE 22 ---
+Cao, J., Han, B., Wang, Q., 2017. Institutional investment constraints and stock prices. Journal of Financial and
+Quantitative Analysis 52, 465–489.
+Cao, S.S., Narayanamoorthy, G.S., 2012. Earnings volatility, post–earnings announcement drift, and trading frictions.
+Journal of Accounting Research 50, 41–74.
+Chan, L.K., Jegadeesh, N., Lakonishok, J., 1996. Momentum strategies. The Journal of Finance 51, 1681–1713.
+Chan, L.K., Jegadeesh, N., Lakonishok, J., 1999. The proﬁtability of momentum strategies. Financial Analysts
+Journal 55, 80–90.
+Chan, T., Watson, I., Wee, M., 2005. The impact of the internet on earnings announcements. Paciﬁc-Basin Finance
+Journal 13, 263–300.
+Chen, C., 2013. Time-varying earnings persistence and the delayed stock return reaction to earnings announcements.
+Contemporary Accounting Research 30, 549–578.
+Chen, H.Y., Chen, S.S., Hsin, C.W., Lee, C.F., 2014.
+Does revenue momentum drive or ride earnings or price
+momentum? Journal of Banking & Finance 38, 166–185.
+Chen, J.Z., Lobo, G.J., Zhang, J.H., 2017a. Accounting quality, liquidity risk, and post-earnings-announcement drift.
+Contemporary Accounting Research 34, 1649–1680.
+Chen, L.H., Huang, W., Jiang, G.J., 2017b. Herding on earnings news: The role of institutional investors in post–
+earnings-announcement drift. Journal of Accounting, Auditing & Finance 32, 536–560.
+Chen, L.H., Jiang, G.J., Zhu, K.X., 2018. Total attention: The eﬀect of macroeconomic news on market reaction to
+earnings news. Journal of Banking & Finance 97, 142–156.
+Chen, N.F., Roll, R., Ross, S.A., 1986. Economic forces and the stock market. Journal of business , 383–403.
+Chen, S., Guo, J., Tong, X., 2017c. Xbrl implementation and post-earnings-announcement drift: the impact of state
+ownership in china. Journal of Information Systems 31, 1–19.
+Chen, T.F., Chung, S.L., Tsai, W.C., 2016.
+Option-implied equity risk and the cross section of stock returns.
+Financial analysts journal 72, 42–55.
+Chi, S.S., Shanthikumar, D.M., 2017. Local bias in google search and the market response around earnings an-
+nouncements. The Accounting Review 92, 115–143.
+Choi, J., Thompson, L., Williams, J., 2019. Asymmetric learning from prices and post-earnings-announcement drift.
+Contemporary Accounting Research 36, 1724–1750.
+Choi, J.J., 2000. The value line enigma: The sum of known parts? Journal of Financial and Quantitative Analysis
+35, 485–498.
+Chordia, T., Goyal, A., Sadka, G., Sadka, R., Shivakumar, L., 2009. Liquidity and the Post-Earnings-Announcement
+Drift. Financial Analysts Journal 65, 18–32.
+Chordia, T., Shivakumar, L., 2005. Inﬂation Illusion and Post-Earnings-Announcement Drift. Journal of Accounting
+Research 43, 521–556.
+Chordia, T., Shivakumar, L., 2006. Earnings and price momentum. Journal of ﬁnancial economics 80, 627–656.
+Chordia, T., Subrahmanyam, A., Tong, Q., 2014. Have capital market anomalies attenuated in the recent era of high
+liquidity and trading activity? Journal of Accounting and Economics 58, 41–58.
+Chudek, M., Truong, C., Veeraraghavan, M., 2011. Is trading on earnings surprises a proﬁtable strategy? canadian
+evidence. Journal of International Financial Markets, Institutions and Money 21, 832–850.
+Chung, D., Hrazdil, K., 2011. Market Eﬃciency and the Post-Earnings Announcement Drift. Contemporary Ac-
+counting Research 28, 926–956.
+Chung, K.H., Kim, O., Lim, S.C., Yang, S., 2019. An analytical measure of market underreaction to earnings news.
+International Review of Economics & Finance 64, 612–624.
+Clement, M., Lee, J., Yong, K.O., 2019. A new perspective on post-earnings-announcement-drift: Using a relative
+drift measure. Journal of Business Finance & Accounting 46, 1123–1143.
+Collins, D.W., Hribar, P., 2000. Earnings-based and accrual-based market anomalies: one eﬀect or two? Journal of
+Accounting and Economics 29, 101–123.
+Constantinou, C.P., Forbes, W.P., Skerratt, L., 2003.
+Analyst underreaction in the united kingdom.
+Financial
+Management , 93–106.
+Core, J.E., Guay, W.R., Richardson, S.A., Verdi, R.S., 2006. Stock market anomalies: what can we learn from
+repurchases and insider trading? Review of Accounting Studies 11, 49–70.
+Cox, J., 2020. Market fragmentation and post-earnings announcement drift. Journal of Economics and Finance ,
+1–24.
+Daniel, K., Hirshleifer, D., Sun, L., 2020. Short-and long-horizon behavioral factors. The Review of Financial Studies
+33, 1673–1736.
+Dargenidou, C., Tonks, I., Tsoligkas, F., 2018. Insider trading and the post-earnings announcement drift. Journal of
+20
+
+--- PAGE 23 ---
+Business Finance & Accounting 45, 482–508.
+DellaVigna, S., Pollet, J.M., 2009. Investor inattention and friday earnings announcements. The Journal of Finance
+64, 709–749.
+Dische, A., 2002. Dispersion in analyst forecasts and the proﬁtability of earnings momentum strategies. European
+Financial Management 8, 211–228.
+Dong, B., Li, E.X., Ramesh, K., Shen, M., 2015. Priority dissemination of public disclosures. The Accounting Review
+90, 2235–2266.
+Dontoh, A., Ronen, J., Sarath, B., 2003. On the rationality of the post-announcement drift. Review of Accounting
+Studies 8, 69–104.
+Dou, P., Truong, C., Veeraraghavan, M., 2016. Individualism, uncertainty avoidance, and earnings momentum in
+international markets. Contemporary Accounting Research 33, 851–881.
+Doyle, J.T., Lundholm, R.J., Soliman, M.T., 2006. The extreme future stock returns following i/b/e/s earnings
+surprises. Journal of Accounting Research 44, 849–887.
+Drake, M.S., Roulstone, D.T., Thornock, J.R., 2012. Investor information demand: Evidence from google searches
+around earnings announcements. Journal of Accounting research 50, 1001–1040.
+Efendi, J., Park, J.D., Smith, L.M., 2014. Do xbrl ﬁlings enhance informational eﬃciency? early evidence from
+post-earnings announcement drift. Journal of Business Research 67, 1099–1105.
+Engelberg, J., Thompson, L., Williams, J., 2017. Stock market anomalies and baseball cards. Financial Review .
+Enke, B., Zimmermann, F., 2019. Correlation neglect in belief formation. The Review of Economic Studies 86,
+313–332.
+Eom, Y., Hahn, J., Sohn, W., 2019. Individual investors and post-earnings-announcement drift: Evidence from
+korea. Paciﬁc-Basin Finance Journal 53, 379–398.
+Fama, E., 1998. Market Eﬃciency, Long-Term Returns, and Behavioral Finance. Journal of Financial Economics
+49, 283–306.
+Fama, E.F., 1970. Eﬃcient capital markets: A review of theory and empirical work. Journal of Finance 25, 383–417.
+Fama, E.F., French, K.R., 1993. Common Risk Factors in the Returns of Stocks and Bonds. Journal of Financial
+Economics 33, 3–56.
+Feldman, R., Govindaraj, S., Livnat, J., Segal, B., 2010. Management’s tone change, post earnings announcement
+drift and accruals. Review of Accounting Studies 15, 915–953.
+Ferguson, A., Matolcsy, Z., 2004.
+Audit quality and post earnings announcement drift.
+Asia-Paciﬁc Journal of
+Accounting & Economics 11, 121–137.
+Forbes, W., Giannopoulos, G., 2015. Post-earnings announcement drift in greece. Review of Paciﬁc Basin Financial
+Markets and Policies 18, 1550019.
+Forner, C., Sanabria, S., Marhuenda, J., 2009.
+Post-earnings announcement drift: Spanish evidence.
+Spanish
+Economic Review 11, 207–241.
+Foster, G., 1977. Quarterly Accounting Data: Time-Series Properties and Predictive-Ability Results. The Accounting
+Review 52, 1–21.
+Foster, G., Olsen, C., Shevlin, T., 1984. Earnings Releases, Anomalies, and the Behavior of Security Returns. The
+Accounting Review 59, 574–603.
+Francis, J., Lafond, R., Olsson, P., Schipper, K., 2007. Information Uncertainty and Post-Earnings-Announcement-
+Drift. Journal of Business Finance and Accounting 34, 403–433.
+Frazzini, A., 2006. The Disposition Eﬀect and Underreaction to News. Journal of Finance 61, 2017–2046.
+Freeman, R.N., Tse, S., 1989.
+The multiperiod information content of accounting earnings: Conﬁrmations and
+contradictions of previous earnings reports. Journal of Accounting Research 27, 49–79.
+Fricke, E., Fung, S., Goktan, S., 2018. Informed versus uninformed investors: Internet searches, options trading, and
+post-earnings announcement drift. International Research Journal of Applied Finance 9, 374–393.
+Garﬁnkel, J., Sokobin, J., 2006. Volume, Opinion Divergence, and Returns: A Study of Post-Earnings Announcement
+Drift. Journal of Accounting Research 44, 85–112.
+George, T.J., Hwang, C.Y., Li, Y., 2015.
+Anchoring, the 52-week high and post earnings announcement drift.
+Available at SSRN 2391455 .
+Gerard, X., 2012. Information Uncertainty and the Post-Earnings Announcement Drift in Europe. Financial Analysts
+Journal 68, 51–69.
+Goh, J., Jeon, B.H., 2017. Post-earnings-announcement-drift and 52-week high: Evidence from korea. Paciﬁc-Basin
+Finance Journal 44, 150–159.
+Gregoire, V., Martineau, C., 2019. How is earnings news transmitted to stock prices? Available at SSRN 3060094 .
+Griﬃn, J.M., Kelly, P.J., Nardari, F., 2010. Do market eﬃciency measures yield correct inferences? a comparison of
+21
+
+[TRUNCATED at 80000 chars — 28 total pages]

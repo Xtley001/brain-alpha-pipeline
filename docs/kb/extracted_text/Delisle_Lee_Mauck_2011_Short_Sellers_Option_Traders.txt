@@ -1,0 +1,4056 @@
+
+--- PAGE 1 ---
+Munich Personal RePEc Archive
+The dynamic relation between short
+sellers, option traders, and aggregate
+returns
+Delisle, R. Jared and Lee, Bong Soo and Mauck, Nathan
+Washington State University, Florida State University, University of
+Missouri-Kansas City
+10 November 2012
+Online at https://mpra.ub.uni-muenchen.de/42566/
+MPRA Paper No. 42566, posted 12 Nov 2012 14:49 UTC
+
+--- PAGE 2 ---
+ 
+ 
+The dynamic relation between short sellers, option traders, and aggregate 
+returns   
+ 
+ 
+ 
+ 
+R. Jared DeLisle 
+Washington State University 
+j.delisle@wsu.edu 
+(360) 546-9169 
+ 
+Bong Soo Lee 
+Florida State University 
+blee2@cob.fsu.edu 
+(850) 644-4713 
+ 
+Nathan Mauck 
+University of Missouri - Kansas City 
+mauckna@umkc.edu 
+(816) 235-6113 
+ 
+Abstract: 
+Contrary to existing event studies around option listing introductions, we show short selling and 
+options trading are complements, rather than substitutes. Further, while a plethora of literature 
+demonstrates both short sellers and option traders are informed traders, relatively little is known 
+about which group is relatively more informed.  The results of our dynamic tests indicate that 
+options traders are relatively more informed and that short sellers are backward-looking. Our 
+results support the claim that options markets are non-redundant.  
+ 
+JEL classification: G12, G14, G17 
+Key words: Short selling, options market, informed traders 
+ 
+
+--- PAGE 3 ---
+ 
+ 
+ 
+ 
+The dynamic relation between short sellers, option traders, and aggregate 
+returns  
+ 
+ 
+ 
+ 
+Abstract: 
+Contrary to existing event studies around option listing introductions, we show short selling and 
+options trading are complements, rather than substitutes. Further, while a plethora of literature 
+demonstrates both short sellers and option traders are informed traders, relatively little is known 
+about which group is relatively more informed.  The results of our dynamic tests indicate that 
+options traders are relatively more informed and that short sellers are backward-looking. Our 
+results support the claim that options markets are non-redundant.  
+ 
+JEL classification: G12, G14, G17 
+Key words: Short selling, options market, informed traders  
+ 
+
+--- PAGE 4 ---
+ 
+ 
+1 
+ 
+I. Introduction 
+ 
+There is a great deal of literature providing evidence establishing both short sellers and 
+option traders as "informed" investors. The information contained in option trades is often 
+viewed as evidence of non-redundancy and suggests that the options market contains information 
+not present in the equities market, which includes short selling. However, relatively little is 
+known about the relation between short selling and options traders, and even less is known about 
+the dynamic relation. In this paper, we empirically investigate the dynamic relation between 
+aggregate monthly short interest, option open interest, the ratio of option volume to stock 
+volume, and equity returns for S&P 500 firms using methodology based on Sims (1972).  
+We focus on three issues:  
+1) Are short selling and option trading substitutes or complements? 
+2) Does aggregate option trading add to market completeness (i.e., is the options market 
+non-redundant)? 
+3) Who is relatively more informed between short sellers and option traders?   
+The first issue, whether short selling and option trading are complements or substitutes, 
+has been addressed frequently in the literature. However, a consensus has not been reached and 
+previous methodologies may not be reliable. The assumption of substitutability is commonly 
+made in the extant literature that examines the effect of short sale constraints on the 
+(over)valuation of stocks. Some argue, following Miller (1977), that in an environment of 
+heterogeneous beliefs about a stock's value, optimists will purchase the stock and pessimists will 
+short the stock. If short sale constraints are present, however, the optimists will have a larger 
+impact on the stock's price and thus cause overvaluation. In their model, Diamond and 
+Verrecchia (1987) agree that options reduce short selling costs, but disagree that short sale 
+
+--- PAGE 5 ---
+ 
+ 
+2 
+ 
+constraints necessarily bias prices upward. Diamond and Verrecchia (1987) also propose that 
+unexpected short selling is indicative of bad news, which is empirically confirmed by Aitken, 
+Frino, McCorry, and Swan (1998).  
+ 
+There has been further empirical evidence (e.g., Sorescu (2000) and Danielsen and 
+Sorescu (2001)), which shows post-1980 stock prices decline upon option introduction. This 
+seems to confirm a relaxation of short sale constraints and suggests pessimistic investors 
+substituting options for shorting (by either buying puts or writing calls). Consistent with Miller's 
+predictions, Phillips (2011) finds options alleviate a majority of pricing inefficiencies between 
+constrained and unconstrained stocks, but only with respect to negative news (i.e., no efficiency 
+gains are present with positive news). Accordingly, analyses such as Boehme, Danielsen, and 
+Sorescu (2006) explicitly use stock option status as an indicator of lessened short sale 
+constraints.  
+ 
+Yet, not all studies are consistent in revealing shorting and options as substitutes. For 
+example, Lakonishok, Lee, Pearson, and Poteshman (2007) document non-market maker 
+investors are net writers of options, with the majority of their open interest in call options. Evans, 
+Geczy, Musto, and Reed (2009) provide evidence that option market makers, as counterparties to 
+investors who are synthetically shorting, hedge their inherently long position by shorting the 
+stock. Additionally, Battalio and Schultz (2006) and Blau and Brough (2011b) find no evidence 
+of substitutability between short sales and bearish option trades. These findings place short 
+selling and option markets not as substitutes, but rather as complements:  higher option trading 
+activity would coincide with higher short selling, but, according to hedging argument, not 
+necessarily vice versa.  
+
+--- PAGE 6 ---
+ 
+ 
+3 
+ 
+ 
+Given that Chan, Chung, and Fong (2002) find informed traders operate in the equities 
+market, and Danielsen, van Ness, and Warr (2007) find the market quality of the underlying 
+security improves prior to option listing, an argument can be made that increased short selling, in 
+conjunction with option activity, drives the results of Sorescu (2000) and Danielsen and Sorescu 
+(2001). Additionally, D'Avolio (2002), Asquith, Pathak, and Ritter (2005) and Boehmer, Jones, 
+and Zhang (2008) demonstrate that the vast majority of stocks are not short-sale constrained, 
+thus there is little motivation for the short seller to migrate to options. Battalio and Schultz 
+(2011) and Grundy, Lim, and Verwijmeren (2012) notice volume and liquidity decreased for 
+options on stocks that fell under the U.S. SEC's September, 2008 short sale ban, and show it is 
+difficult to switch strategies from short selling to options trading when market makers are 
+uncertain about their ability to hedge.  Furthermore, Blau and Brough (2011a) find that short 
+selling activity is endogenous to the decision to list the stock on an options exchange, as market 
+makers who trade options want the ability to easily short equities in their delta hedging activities. 
+These findings make previous event studies establishing substitutability by associating option 
+listing decisions and subsequent stock returns questionable.  
+Prior literature focuses on static tests such as an event study methodology to examine 
+option exchange listings. We focus on stocks that have options traded on them and use dynamic 
+tests that avoid the problems of endogeneity faced by previous studies to examine the relations 
+between the substitutability between short sales and option open interest over time. Contrary to 
+the findings of event studies around option listings, our results show that options and short 
+trading are complements rather than substitutes. This result is consistent with the literature 
+demonstrating that relatively few stocks are short sale constrained, which thus limits the need to 
+substitute in the options market.  
+
+--- PAGE 7 ---
+ 
+ 
+4 
+ 
+The second issue we consider is the information provided by the options market. 
+Specifically, given that short selling and options are not found to be substitutes (i.e., informed 
+traders are not leaving the equities market to participate in the options market), it is not apparent 
+that option markets add information about the equities market. Some evidence suggests that the 
+options market is redundant. Stephan and Whaley (1990) and Chan, Chung, and Johnson (1993) 
+use intraday data to show that the equities market leads the options market and that the options 
+market does not add additional information. Muravyev, Pearson, and Broussard (2012) also use 
+intraday data to demonstrate the option market offers no additional price discovery beyond what 
+is available in the equities market. Similarly, Chan, Chung, and Fong (2002) show that stock 
+volume, but not option volume, has predictive power for returns, suggesting the options market 
+does not contain any information not already reflected in the market for the underlying securities.  
+Other studies show that the options market is non-redundant. Black (1975), Manaster, 
+and Rendleman (1982), Figlewski and Webb (1993), Buraschi and Jackwerth (2001), Vanden 
+(2004, 2006), and Buraschi and Jiltsov (2006) either theoretically show or empirically 
+demonstrate the option market is non-redundant to the equities market, and contains information 
+not contemporaneously incorporated in the stock market.1  Consequently, the options market is 
+thought to provide price discovery that is incremental to that of the underlying equities market.  
+Many studies provide evidence for option market non-redundancy by showing the option 
+market has the ability to predict future stock returns, and thus contains informed traders not 
+acting in the equities market. For example, Easley, O'Hara, and Srinivas (1998) demonstrate that 
+buyer-initiated versus seller initiated option volume is able to predict stock returns. Similarly, 
+Pan and Poteshman (2006) provide evidence that initiated put volume relative to call volume has 
+                                                          
+1 Black (1975) reasons that the natural leverage provided by options provides an attractive arena for informed traders 
+to act on their information.  Additionally, Easley et al. (1998) show that there can exist a pooling equilibrium where 
+informed traders will prefer to execute information in the options market. 
+
+--- PAGE 8 ---
+ 
+ 
+5 
+ 
+explanatory power over future stock returns, and that option traders possess nonpublic 
+information. Roll, Schwartz, and Subrahmanyam (2010) and Johnson and So (2012) demonstrate 
+the return predictability of option to stock trading volume ratio also suggests options traders are 
+informed. Chakravarty, Gulen, and Mayhew (2004) find that the average contribution of the 
+options market to price discovery is about 17%. Ofek, Richardson, and Whitelaw (2004), Bali 
+and Hovakimian (2009), Cremers and Weinbaum (2010), and Xing, Zhang, and Zhao (2010) 
+demonstrate option put-call parity or implied volatilities can predict future stock returns.2   
+ 
+Related to the issue of redundancy is the third issue addressed in our paper. Specifically, 
+we ask whether short sellers or option traders are relatively more informed. While there is some 
+debate about the information contained in the options market as discussed above, extant literature 
+makes a good case for short sellers being sophisticated investors and superior processors of 
+information. Diamond and Verrecchia (1987) explain investors would not short sell for liquidity 
+reasons since the proceeds from the short sale are not available for use by the investors. 
+Therefore, the majority of short sales should be informed and not noise trades. Supporting this 
+assertion, Dechow, Hutton, Meulbroek, and Sloan (2001) demonstrate short sellers trade against 
+firms whose fundamental ratios do not support their price. Drake, Rees, and Swanson (2011) find 
+similar evidence of short sellers trading based on firm fundamentals, and show short sellers 
+outperform analysts in this regard.3  Diether, Lee, and Werner (2009) also find short sellers are 
+contrarian with respect to momentum, selling stock after past positive returns.  
+                                                          
+2 Additionally, Patell and Wolfson (1981), Barone-Adesi, Brown, and Harlow (1994), Levy and Yoder (1993), 
+Jayaraman, Frye, and Sabherwal (2001), Cao, Chen, and Griffin (2005), and Jin, Livnat, and Zhang (2012) find that 
+option markets can predict the content of earnings announcements as well as corporate events such as merger 
+announcements and probability of merger completion.  Furthermore, Cao et al. find option volume imbalances are 
+proportional to takeover premiums. 
+3 Many other studies find short sellers profit from accounting-based information, establishing them as advanced 
+information processors, including Desai, Krishnamurthy, and Venkataraman (2006). 
+
+--- PAGE 9 ---
+ 
+ 
+6 
+ 
+Several studies, such as Asquith and Meulbroek (1995), Jayaraman, Frye, and Sabherwal 
+(2001), Desai, Ramesh, Thiagarajan, and Balachandran (2002), Boehmer, Jones, and Zhang 
+(2008), and Diether, Lee, and Werner (2009), show an inverse relation between short sales and 
+future returns, indicating short sellers can predict stock returns. Furthermore, Safieddine and 
+Wilhelm (1996), Christophe, Ferri, and Hsieh (2010), Karpoff and Lou (2010), and Liu and 
+Swanson (2012) find short sellers anticipate events such as earnings surprises, financial 
+misconduct, analyst downgrades, credit rating downgrades, mergers, repurchases, and seasoned 
+equity offerings. Christophe, Ferri, and Hsieh (2010) and Henry and Koski (2010) suggest short 
+sellers are "tipped off" or engage in price manipulation, but Drake, Rees, and Swanson (2011), 
+Blau and Pinegar (2012), and Engelberg, Reed, and Ringgenberg (2012) find short sellers are 
+skilled at information processing, and Boehmer and Wu (2012) demonstrate short selling is 
+contrarian and important to the price discovery process.  
+ 
+While studies such as Chan, Chung, and Fong (2002) and Muravyev, Pearson, and 
+Broussard (2012) show price discovery occurs in the equities market and not necessarily in the 
+options market, they do not explore short sales. We hypothesize that,  if option traders act 
+independently of or before short sellers, this would indicate informed traders engaging in the 
+options market and supports the theory of non-redundancy. On the other hand, if option traders 
+simply follow the lead of short sellers, then the short sellers are the more informed traders acting 
+in the equities market, and this suggests the options market is not adding any completeness to the 
+equities market and rejects non-redundancy.  
+  
+The results of our dynamic analysis indicate that aggregate option open interest follows 
+aggregate returns and short interest. This suggests that, in aggregate, options open interest 
+contains little information about future equity returns and the options market is redundant. 
+
+--- PAGE 10 ---
+ 
+ 
+7 
+ 
+However, we find that Roll et al.'s (2011) ratio of dollar option volume to dollar stock volume, 
+which includes important price information about options, leads both aggregate returns and 
+aggregate short selling. Thus, when considering both option prices and activity, we find that the 
+options market is informed and non-redundant. Finally, we find that short traders are generally 
+backward-looking and respond to past negative return performance with increased short activity 
+(e.g., momentum traders). Once past returns are controlled for, aggregate short trading is unable 
+to add predictive ability for future returns. Collectively, our results suggest that short sellers are 
+not particularly informed in aggregate while option traders are relatively more informed. In 
+general, the results in our paper are sensitive to the use of levels or first-differences of variables 
+and to the inclusion of price information for options. The conclusions discussed above relate to 
+tests that appropriately control for nonstationarity and cointegration. Differences in results are 
+discussed in the robustness section.    
+The remainder of the article is organized as follows. Section II discusses the data and 
+variables. Section III discusses how to investigate whether options and short trading are 
+complements or substitutes and how to test whether short traders and option traders are informed 
+traders based on potential information asymmetry between these traders and other investors.  
+Section IV presents the empirical findings. Section V concludes the paper. 
+ 
+II. Data and Methodology   
+ 
+ 
+We obtain returns and outstanding shares for Standard and Poor's 500 (S&P 500) Index 
+firms from the Center for Research in Security Prices (CRSP). We focus on S&P 500 firms in an 
+effort to create a sample with relatively homogenous short sale constraints. Additionally, this 
+sample allows us to conduct robustness tests based on index level options. Monthly short interest 
+
+--- PAGE 11 ---
+ 
+ 
+8 
+ 
+ratios for each firm comes from the NYSE and Nasdaq exchanges, where the short interest ratio 
+for firm i in month t (SIRi,t) is defined as: 
+       
+                 
+                       
+  
+ 
+The short interest ratios for each firm in the S&P 500 are then aggregated by market 
+capitalization into a single short interest ratio, SIRt.  
+Optionmetrics Ivy DB provides the open interest, volume, and bid/ask prices across put 
+and call contracts for each firm. We first focus on open interest in an effort to use an analogous 
+measure to short interest. The information content of open interest is in question, however, since 
+the literature has, to the best of our knowledge, not established a robust predictive ability of 
+option open interest with respect to future returns.4 The call (OIRCt) and put (OIRPt) open 
+interest ratios across all call and put options for each firm are constructed as follows: 
+            
+ ∑                                    
+                       
+ 
+   
+    
+ 
+where D equals the number of trading days in month t. Each firm’s open interest ratio is then 
+aggregated each month by market capitalization to form the ratio. We use open interest because 
+it reflects all open option contracts on the underlying, which is conceptually similar to the 
+number of outstanding shares contemporaneously sold short in the SIR measure.   
+ 
+ 
+Although an analogous measure to SIR, since open interest is not established as a strong 
+predictor of future returns, it may be a weak measure of information contained in the options 
+market. Thus, we additionally run tests using the option to stock volume ratio (O/S), which is 
+                                                          
+4 Safieddine and Wilhelm (1996) show open interest can predict seasoned equity offerings, and Jayaraman, Frye, 
+and Sabherwal (2001) find it has predictive ability over mergers, but neither study establishes that open interest 
+contains general predictability of returns. 
+
+--- PAGE 12 ---
+ 
+ 
+9 
+ 
+recently identified by Roll, Schwartz, and Subrahmanyam (2010) and Johnson and So (2012) as 
+having a strong negative relation with future returns, and thus presumably contains information 
+not incorporated in the equities market.5  Similar to the negative relation between short interest 
+and future returns, the relation between O/S and future returns is indicative of informed trading. 
+Following Roll et al. (2010), we define O/S of firm i in month t as: 
+   
+                                    
+                            
+  
+where the total monthly dollar options volume for each firm is computed by multiplying the total 
+contracts traded in each option by the end-of-day quote midpoints, aggregating across all options 
+listed on the firm over the month, and multiplying that value by 100 to account for the 
+convention that each contract represents 100 equity shares. The total dollar share volume is 
+calculated by multiplying the closing price of the stock each day by the number of daily shares 
+traded and aggregating over the month. The option-to-stock volume ratios for each firm in the 
+S&P 500 are then aggregated each month by market capitalization into a single option-to-stock 
+volume ratio, O/St. 
+ 
+Our aggregate short interest, option open interest, and O/S measures contain only firms 
+that have options traded on them. Thus, the aggregate value does not include all S&P 500 firms. 
+As an unreported robustness check, we have conducted all analyses using data for S&P 500 
+index options and including all S&P 500 stocks in our short interest aggregation. The results, 
+while generally similar to those reported, are not included as they do not provide for a true test of 
+complements versus substitutes. Specifically, stocks with no option activity clearly have no 
+                                                          
+5 As a robustness check, we also examine call-put volatility spreads of SPX (S&P 500) index options weighted by 
+open interest.  These unreported results are qualitatively similar to those using open interest (except where noted 
+otherwise in the text).  SPX options are used because the requirement of having call/put pairs at the same strike 
+prices severely reduces the number of individual firms available to use in the sample.  The O/S measure does not 
+have such a requirement, thus all S&P 500 firms with options traded on their stock are in the sample. 
+
+--- PAGE 13 ---
+ 
+ 
+10 
+ 
+relation between short interest and option activity and the inclusion of such firms would cloud 
+our analysis. Based on the availability of option and short interest data, our sample covers the 
+period 1996-2009. 
+ 
+III. Empirical Methods  
+ 
+To address the issues discussed above, we develop an empirical framework that helps us 
+test whether short selling and option trading are complements or substitutes and whether short 
+sellers and option traders are informed traders.  
+ 
+3.1. Short sales and option trading: Substitutes or complements? 
+ 
+To see whether short interest (SIR) and option trades (OIR: open interest of calls or puts) 
+are complements or substitutes, we look at the dynamic relation between the two variables using 
+the following regressions:   
+ 
+  
+ 
+ 
+ 
+(1) 
+  
+ 
+ 
+ 
+(2) 
+In equations (1) and (2), we include the contemporaneous OIR and SIR, respectively. If 
+the null hypothesis, H0 :  
+, is rejected and 
+is negative (positive) in (1), then open 
+interest of calls (or puts) is substituting (complementing) short interest. That is, in this analysis 
+we focus on the (cumulative) net effect of a variable on the dependent variable provided by the 
+1
+0
+,
+m
+m
+t
+j
+t
+j
+j
+t
+j
+j
+j
+SIR
+SIR
+OIR
+
+
+
+
+
+
+
+
+
+
+
+
+1
+0
+.
+m
+m
+t
+j
+t
+j
+j
+t
+j
+j
+j
+OIR
+OIR
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+0
+0
+m
+j
+j
+
+
+
+
+0
+m
+j
+j
+
+
+
+--- PAGE 14 ---
+ 
+ 
+11 
+ 
+sum of the coefficients for current and lagged variables to tell whether two variables are 
+substitutes or complements.  Similarly, if the null hypothesis, H0 :  
+, is rejected and 
+is negative (positive) in (2), then short interest is substituting (complementing) open 
+interest of calls (or puts).  
+ 
+3.2. Informed short sellers and two-sided regression-based causality tests (Sims test) 
+In this section, we provide a simple, parsimonious time-series model in which there is 
+information asymmetry between potentially informed short sellers (or option traders) and other 
+uninformed investors. In such a case, short-sale (or option trading) decisions may contain (or 
+convey) new information about future stock returns. In fact, some short-sale (or option trading) 
+decisions may be information events (i.e., forward-looking), while others may be non-
+information events (i.e., backward-looking) with respect to stock returns. The short-sale (or 
+option trading) decision will be related to future stock returns when it is an informative event 
+under information asymmetry. The idea is that, although informed short sellers (or option traders) 
+and other uninformed investors observe the same financial variables such as current and past 
+stock returns and fundamentals, other uninformed investors may not recover all the information 
+that short sellers (or option traders) use in short sales (or option trading).6 Our model is very 
+useful because it provides a regression model that tests the predictive power of short sales (or 
+option trading) under potential information asymmetry. 
+                                                          
+6 We capture this intuition in a time-series concept of the non-invertibility of the moving average representation (see 
+Box and Jenkins (1976, p.69) and Granger and Newbold (1986, p.145)). 
+0
+0
+m
+j
+j
+
+
+
+
+0
+m
+j
+j
+
+
+
+--- PAGE 15 ---
+ 
+ 
+12 
+ 
+Here we utilize a theorem in time-series econometrics, which states that any time-series 
+process has both invertible and non-invertible representations (see Fuller, 1976 (pages 64-66, 
+Theorem 2.6.4)). Although stock returns, Rt, may follow a general autoregressive moving-
+average (i.e., ARMA(p,q)) process, for expositional simplicity, we assume that other uninformed 
+investors, observing current and past stock returns, infer a first-order (invertible) moving 
+average, MA(1) (i.e., ARMA (0,1)), process of the returns:  
+ 
+               Rt = (1 –  L) ut,         < 1.0 , 
+ 
+                                     
+ 
+(3) 
+where Rt is the stock return at time t, L is the lag (or backshift) operator (i.e., Ln Rt = Rt-n), and ut 
+is white noise with var(ut) = u
+2. The autocovariance functions (ACFs) for this MA(1) return 
+process are: 7 
+ 
+var(Rt) = (1 + 2) u
+2, 
+cov(Rt, Rt-1) = -  u
+2, 
+cov(Rt, Rt-k) = 0, for k  2. 
+ 
+  
+                           
+ 
+ 
+(4) 
+On the other hand, suppose that informed short sellers (or option traders), observing the 
+same current and past stock returns, infer the following (non-invertible) MA(1) process of the 
+returns: 
+            Rt = (1 – -1 L) vt,        < 1.0 , 
+ 
+                          
+ 
+ 
+(5) 
+where vt is white noise with var(vt) = v
+2. The ACFs for this MA(1) return process are: 
+                                                          
+7 For expositional simplicity, we use an MA(1) model of the return process. Any higher order representation of 
+returns yields the same dynamic relations with more complicated computations.   
+
+--- PAGE 16 ---
+ 
+ 
+13 
+ 
+var(Rt) = (1 + -2) v
+2, 
+cov(Rt, Rt-1) = - -1 v
+2, 
+cov(Rt, Rt-k) = 0, for k  2. 
+ 
+                           
+ 
+ 
+ 
+(6) 
+It is noted that if we set v
+2  = 2 u
+2, then the ACFs in (4) and (6) are identical. Since the 
+return process can be identified in practice by the observed ACFs, the identical ACFs imply that 
+stock return processes in (3) and (5) represent the same return process. That is, for a given return 
+process, uninformed investors and informed short sellers (or option traders) may infer different 
+MA(1) processes.8    
+In addition, it is noted that v
+2 is smaller than u
+2 :  
+ 
+v
+2  < u
+2 . 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(7) 
+ 
+This is because  v
+2  =  2 u
+2  and < 1.0. This means that the variance of the one-step-ahead 
+forecast error of the return process in (5) by informed short sellers (i.e., v
+2 ) would be smaller 
+than the corresponding variance of the return process in (3) by other uninformed investors (i.e., 
+u
+2). However, unlike the ut process, the vt process cannot be fully recovered by other 
+uninformed investors from the information about current and past values of stock returns because 
+the process is not invertible. That is, although both short sellers and other uninformed investors 
+observe the same (current and past) returns, under information asymmetry, informed short sellers 
+with a larger information set, t
+* = {Rt-j, vt-j, ut-j, for j  0}, can forecast future returns better than 
+other uninformed investors with a smaller information set, t = {Rt-j, ut-j, for j  0}. 
+                                                          
+8 The return process in (3) with innovation ut is an invertible MAR because the root of the determinant of the MAR 
+of Rt is greater than 1 (i.e., det [1- z] = 0, for z = -1). However, the return process with the innovations vt in (5) is a 
+non-invertible MAR because the root of the determinant is less than 1 (i.e., det [1- -1 z] = 0, for z = ). 
+
+--- PAGE 17 ---
+ 
+ 
+14 
+ 
+We obtain an important alternative insight by comparing the corresponding autoregressive 
+representations (ARR) of the moving average representations (MAR) of stock return processes 
+{Rt} in (3) and (5):   
+ 
+Note that the innovations {ut} in the other uninformed investors’ return process are backward-
+looking, whereas the innovations {vt} in the informed short sellers’ return process are forward-
+looking.9   
+How is this information asymmetry between informed short sellers and other uninformed 
+investors related to the dynamic relation between short sales and stock returns (i.e., the predictive 
+power of short sales)?  Suppose that short sellers have an informational advantage in that they 
+can forecast the firm’s future prospects (or overvaluation) better than other uninformed investors 
+by observing vt. If informed short sellers use this information in their short-sale decisions, their 
+short sales (or short interest ratio, SIRt) will be a function of innovation vt that they observe but 
+other uninformed investors do not:   
+ 
+  
+Then, by using vt in (8), short interest and stock return processes will be related as follows:  
+                                                          
+9 The innovations {ut} are represented by a square summable linear combination of current and past values of the 
+Rt’s (i.e., ut lies in the space spanned by current and lagged Rt’s ). However, the innovations {vt} are represented by 
+a square summable linear combination of future values of Rt’s (i.e., vt lies in the space spanned by future Rt’s ). This 
+is because if we solve the relation in (8) backwards, the right-hand side is not square summable. 
+1
+-1
+-1
+-1
+1
+j
+t
+t
+t
+t j
+j 1
+v
+(1
+ L) R 
+  -( L )(1
+ L ) R
+ 
+ R
+.
+(8)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+j
+j
+t
+j
+t
+1
+t
+and
+,
+R
+ 
+R
+L)
+ 
+(1
+u
+
+
+i
+2
+t
+t
+i
+t
+i
+t-i
+i 0
+i 0
+i 0
+f (v )
+ (
+ L ) v 
+ 
+v ,  with  
+.
+(9)
+i
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- PAGE 18 ---
+ 
+ 
+15 
+ 
+ 
+ 
+where 
+ for j = -∞, …, -2, -1, 0, 1, 2, ….∞ is a function of 
+ and 
+. That is, the informed short 
+sales will be a linear combination of future, current, and past returns; thus, they will be forward-
+looking.10  
+In contrast, suppose that short sellers do not have an informational advantage or they 
+simply do not make short-sale decisions based on their informational advantage. Then, the 
+uninformed short sales will be a function of the innovation that other uninformed investors 
+observe, ut: 
+  
+Then, by using ut in (8), uninformed short sales and stock return processes will be related as 
+follows: 
+                                                          
+10 In practice, since short sellers do not have perfect foresights, (10) will be  
+1
+t
+j
+t
+j
+t
+j
+t
+j
+j 0
+j -
+ 
+ 
+ R
+ +  E [
+ 
+ R
+ ].                                                             (10)'       
+SIR
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+j
+
+i
+j
+i
+i
+1
+t
+i
+t
+i
+t
+i 0
+i 0
+i
+t-j
+k
+t-k
+i 0
+0
+k 0
+ ( L ) u 
+ 
+ ( L ) (1
+ L) R
+ 
+(
+) {
+ R } 
+ 
+R ,                                                                       (12)            
+i
+j
+j
+SIR
+L
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+i
+2
+t
+t
+i
+t
+i
+t-1
+i 0
+i 0
+i 0
+f ( u )
+ (
+ L ) u 
+ 
+u ,    with  
+ 
+.
+(11)
+i
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+i
+i
+-1
+1
+t
+i
+t
+i
+t
+i 0
+i 0
+i
+j
+i
+t j
+j
+t j
+i 0
+j 1
+j -
+ (
+ L ) v 
+ 
+ (
+ L ) { (1
+ L) R }
+ (
+ L )(
+ 
+ R
+)
+  
+ 
+ R
+ ,                                               (10)  
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- PAGE 19 ---
+ 
+ 
+16 
+ 
+where 
+for k = 0, 1, 2, ….∞ is a function of 
+ and 
+. That is, in this case, the uninformed 
+short sales will only reflect the past and current returns and will not be related to future returns; 
+thus, they will be backward-looking. To summarize, we have shown that under information 
+asymmetry, informed (or informative) short sales (or short interests) are related not only to past 
+and current returns but also to future returns. In contrast, in the absence of information 
+asymmetry, uninformed (or non-informative) short sales (or short interests) are not related to 
+future returns.  
+A practical question is how we distinguish between the two types of short sales (or short 
+interests): informative and non-informative. When an investor engages in a short sale, if it 
+contains new information about future prospects of the firm (i.e., stock returns) that is not 
+contained in the current and past values of returns and short sales, it is an informative (i.e., 
+forward-looking) short sale and it is related to future returns. Otherwise, it is a non-informative 
+(i.e., backward-looking) short sale. We can empirically test whether short-sale decisions are 
+informative or not by using the following proposition. 
+The equivalence of the two-sided regression in (10) with Granger (1969) causality has 
+been established by Sims (1972, Theorem 2), which we restate in our context: 
+Proposition 1. Consider the following two-sided regression:   
+       
+                                                                                  (13) 
+where E(εt. Rt-j) = 0 for all j (= -m. …-1, 0, 1,… m). If the null hypothesis that all the 
+coefficients of future returns are zero (i.e., 
+ = 0 for all j < 0 ) is rejected, then 
+ 
+Granger-causes Rt.  
+k
+
+i
+j
+,
+m
+t
+j
+t
+j
+t
+j
+m
+SIR
+R
+
+
+
+
+
+
+
+
+
+j
+
+t
+SIR
+
+--- PAGE 20 ---
+ 
+ 
+17 
+ 
+That is, we can use the two-sided regression as a means of testing the predictability of short 
+sales for market returns, and the finding of the predictive power of short sales can be interpreted 
+based on information asymmetry. The intuition behind this test is that including lagged values of 
+market returns helps us control for potential feedback in short-sale decisions.  
+ 
+IV. Empirical Results 
+4.1. Nonstationary variables 
+ 
+In Table 1 we examine the stationarity of the various option and short interest variables 
+used in our analysis. If a variable is non-stationary, the first-difference of the variable is needed. 
+However, using the first-difference in a variable that is already stationary is not desirable (i.e., a 
+potential over-differencing issue which could lead to less stable coefficient estimates). Thus, it is 
+important to carefully identify the stationarity of each variable. The results of our Augmented 
+Dickey-Fuller (1979) and Phillips and Perron (1988) unit root tests can be found in Table 1. We 
+find that SIRt, OIRPt, and OIRCt are all nonstationary series, while RETURN and O/S series are 
+stationary. This implies that we need to use the first-differenced series of these nonstationary 
+variables in our analysis. When we consider a linear combination of these nonstationary series, 
+these residuals (i.e., linear combinations) are stationary.  This implies that a linear combination 
+of SIRt and OIRPt (i.e., RESPt), that of SIRt and OIRCt (i.e., RESCt), and that of SIRt, OIRPt and 
+OIRCt (RES3t) are cointegrated. That is, we find RESPt, RESCt, and RES3t are stationary. Given 
+the observed cointegration, a VECM (vector error correction model) with an error correction 
+term, which is a linear combination of cointegrated variables, is used when these variables are 
+included. 
+[Insert Table 1 Here] 
+
+--- PAGE 21 ---
+ 
+ 
+18 
+ 
+ 
+4.2. Short sales and option trading: Substitutes or complements? 
+The issue of whether short selling and option activity are complements or substitutes has 
+been addressed by the literature without reaching a consensus. It is possible that options may 
+alleviate short sale constraints and allow investors an alternative (i.e., substitute) method of 
+acting on pessimistic sentiment. However, most stocks are not found to be short sale constrained 
+and pessimistic positions may be taken in both the equities and options market.  
+Table 2 displays the results testing whether options and shorts are complements or 
+substitutes. In this analysis we focus on the (cumulative) net effect of a variable on the dependent 
+variable provided by the sum of the coefficients for current and lagged variables as discussed in 
+Section 3.1 with equations (1) and (2). In general, there is strong evidence of options and short 
+activity serving as complements for one another. When we focus on relations significant at a 
+minimum of the 10% level we find: 
+1) 
+OIRP and 
+OPIRC are neither a substitute nor a complement to 
+SIR. 
+2) 
+SIR complements 
+OIRP and 
+OIRC. 
+3) 
+OIRC complements 
+OIRP and 
+OIRP complements 
+OIRC. 
+4) Levels of OIRP and OIRC complement levels of SIR, and levels of SIR 
+complement levels of OIRP and OIRC. 
+5) Levels of OIRC complement levels of OIRP, and levels of OIRP complement 
+levels of OIRC. 
+6) O/S is neither a substitute nor a complement to 
+SIR, and 
+SIR is neither a 
+substitute nor a complement to O/S.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- PAGE 22 ---
+ 
+ 
+19 
+ 
+Thus, our results are consistent with option and short interest serving as complements for one 
+another. Our results are inconsistent with the suggestion that options and shorts serve as 
+substitutes due to option introduction relieving short sale constraints. 
+[Insert Table 2 Here] 
+ 
+4.3. Tests of informedness based on Sims (1972) bivariate, two-sided regression 
+The literature is mixed with respect to the information contained in option trading. Some 
+evidence suggests that options activity is redundant and does not contain information in addition 
+to that found in equities while other evidence suggests that option activity can be used to predict 
+returns. While short sellers are generally considered to be informed, a comparison of the relative 
+information contained by short sellers versus option traders has, to our knowledge, not been 
+addressed. In Table 3 we directly test which of the various groups (short sellers and option 
+traders) are relatively more informed. We do so using Sims (1972) two-sided regression based 
+causality tests in (13).  
+In Table 3, Panels A through D, we use bivariate models with first-differenced SIR, 
+OIRP, OIRC, and levels of O/S as short interest and option variables and RETURN for the return 
+variable. In all panels we test both the joint and cumulative (net) effect of the variables of 
+interest. If the null hypothesis that the coefficients of past returns are zero as a group is rejected, 
+it implies that past returns Granger-cause the other variable (i.e., SIR or OIR or O/S). If the null 
+hypothesis that the coefficients of future returns are zero as a group is rejected, it implies that the 
+other variable (i.e., SIR or OIR or O/S) Granger-causes returns, and we can interpret this as 
+evidence of an informed decision by short sales (or option trades) as we have discussed above in 
+
+--- PAGE 23 ---
+ 
+ 
+20 
+ 
+Section 3.2. The t-test for the sum of the lagged (or future) coefficients tests if the direction (i.e., 
+positive or negative) of the causal relation is significant. 
+The results in Panel A of Table 3 indicate that RETURN Granger-causes SIR and the 
+effect is negative and significant (at the 1% level). Thus, consistent with expectations, higher 
+returns result in lower short interest. SIR is found to Granger-cause returns but the direction of 
+the effect is insignificantly positive. The combined results suggest that while short sellers 
+increase short activity in response to lower returns, they are not well informed investors in that 
+their increased short activity does not anticipate lower future returns. Instead, short sellers seem 
+to be backward-looking momentum traders responding to past returns. 
+In Panel B of Table 3 we find that RETURN Granger-causes OIRP with a marginally 
+significant positive effect. However, OIRP does not Granger-cause returns. This suggests that 
+put activity increases in response to higher returns and put traders are not informed investors as 
+their increased put activity is not in anticipation of significantly lower future returns. Rather, they 
+seem to be backward-looking investors responding to higher recent returns. The positive relation 
+may be due to investors essentially purchasing insurance via put options, locking in recently 
+acquired paper gains.  
+Panel C of Table 3 shows that RETURN Granger-causes OIRC with a marginal positive 
+effect, and OIRC does not Granger-cause returns. This implies that call activity increases 
+marginally in response to higher returns, and call traders are not well informed investors in that 
+their increased call activities are not in anticipation of significantly higher future returns. Rather, 
+they seem to be backward-looking investors marginally responding to past recent higher returns. 
+In Panel D of Table 3, RETURN Granger-causes O/S with a statistically significant 
+negative net effect, and O/S Granger-causes RETURN with a statistically significant negative net 
+
+--- PAGE 24 ---
+ 
+ 
+21 
+ 
+effect. Thus, there is a feedback relation between O/S and RETURN. The results indicate that O/S 
+helps better predict future returns and that, although options traders appear to be momentum 
+traders, they are, on average and in aggregate, informed investors. 
+ 
+ 
+[Insert Table 3 Here] 
+ 
+4.4. Tests of informedness based on multivariate causality tests 
+The bivariate analysis in Table 3 is conducted using the two-sided regression causality 
+tests developed by Sims (1972), which we relate to potential information asymmetry.  However, 
+it does not provide lags of the dependent variable or include more than one variable of interest at 
+a time. To further test causal relations based on multiple variables, in Table 4, we add both to our 
+causality tests, which become usual multivariable causality tests.  
+In the expanded model in Panel A of Table 4, we find SIR does not Granger-cause 
+returns, while OIRP and OIRC Granger-cause returns. OIRP (OIRC) anticipates positive 
+(negative) stock returns, which suggests both activities are not well informed or that non-market 
+makers are net writers of calls and are informed. Panel B of Table 4 displays results that indicate 
+RETURN Granger-causes SIR with a marginally significant negative effect. This implies that 
+short sales are responding to lower stock returns, which is consistent with Panel A of Table 3. 
+OIRP and OIRC do not Granger-cause SIR, which implies that neither put nor call activities lead 
+to short sale activities. Overall, while neither OIRP nor OIRC has the power to predict SIR, SIR 
+activities increases in response to lower stock returns (i.e., backward-looking activities).  
+In Panel C of Table 4, we find that RETURN Granger-causes OIRP with a positive 
+cumulative effect (significant at the 1% level), which is consistent with Panel B of Table 3, 
+implying that put activities are responding to higher stock returns. SIR Granger-causes OIRP 
+
+--- PAGE 25 ---
+ 
+ 
+22 
+ 
+with a positive effect, which implies that short sale activities lead put activities or put activities 
+tend to follow higher short sales.  While OIRC Granger-causes OIRP with a negative effect, its 
+net effect is not significant. In Panel D of Table 4, we see that RETURN Granger-causes OIRC 
+with a marginally significant positive net effect. This implies that call activities respond to higher 
+stock returns. SIR Granger-causes OIRC with a marginally positive net effect, which implies that 
+short sale activities lead call activities or call activities tend to weakly follow higher short sales. 
+However, put activities do not have any predictive power for call activities. Overall, indicative of 
+a complementary relation, call activities tend to respond to higher stock returns and weakly 
+follow higher short sale activities.  
+In Panel E of Table 4, SIR Granger-causes RETURN (i.e., significant joint test) though 
+the net effect is not significant. O/S Granger-causes RETURN with a significant net negative 
+effect as in the two-sided regressions in Panel D of Table 3. In Panel F, RETURN Granger-causes 
+SIR with a significant negative net effect. O/S does not Granger-cause SIR. In Panel G, neither 
+RETURN nor SIR Granger-causes O/S. Overall, these three panels indicate that O/S contains 
+information about future returns, while SIR does not. SIR responds to past RETURN, but O/S 
+does not. Thus, option traders appear to be informed about future stock returns while short sellers 
+are backward-looking. 
+[Insert Table 4 Here] 
+ 
+4.5. Tests of informedness based on bivariate models 
+While the literature has provided evidence that suggests that both short interest and 
+option activity may be informed, the question of which group is relatively more informed 
+remains unanswered. Our results in Tables 3 and 4 are consistent with option traders being 
+relatively more informed. In Table 5 we focus on the relation between short interest and option 
+
+--- PAGE 26 ---
+ 
+ 
+23 
+ 
+activity to test more directly who more informed traders are between short traders and option 
+traders.  
+In Panels A and B, we examine which group (i.e., short traders and option traders) is 
+more informed using two-sided regressions. In Panel A, which uses the first differences of the 
+variables in our VECM, OIRP and SIR Granger cause each other, but the net effect is not 
+significant. This suggests that when we take into account the cointegration between the two 
+variables, the net effect is not clear. In Panel B of Table 5, we examine the relation between SIR 
+and OIRC. The results indicate that OIRC and SIR Granger cause each other, but the net effect is 
+not significant. This suggests that when we take into the cointegration between the two variables, 
+the net effect is not clear. Overall, short sales are not significantly affected by either put or call 
+trades. 
+In Panels C through F, we examine dynamic relations between short interest and option 
+activity using conventional VAR based causality tests. In Panel C of Table 5, OIRP helps better 
+predict SIR with a negative net effect (significant at the 1% level) on SIR. In Panel D, SIR helps 
+better predict OIRP with an insignificant net effect on OIRP. Overall, for Panels C and D, OIRP 
+helps better predict SIR with a net significant negative effect on SIR. 
+In Panel E, we examine the ability OIRC to predict SIR. We find that OIRC helps better 
+predict SIR with a negative net effect (significant at the 1% level). In Panel F, we examine the 
+ability of SIR to predict OIRC. We find that SIR helps predict OIRC with an insignificant net 
+effect. Overall, for Panels E and F, OIRC helps better predict SIR with a net negative effect on 
+SIR.  
+In Panels G and H, we examine the ability of O/S to predict SIR and the ability of SIR to 
+predict O/S, respectively. We do not find a causal relation between O/S and SIR or between SIR 
+
+--- PAGE 27 ---
+ 
+ 
+24 
+ 
+and O/S. Thus, the evidence suggests that option traders and short traders act independently of 
+one another. 
+ The results of Table 5 consistently indicate that option interest helps predict short 
+activity, and that short activity helps predict option interest. We find that short activity decreases 
+following an increase in option volume. However, when we consider either cointegration or both 
+volume and price of options via the O/S measure, there is no longer a significant relation. 
+ 
+[Insert Table 5 Here] 
+ 
+4.6. Tests of informedness based on trivariate models 
+We extend the tests of Table 5 by including put, call, and short activity in our model at 
+the same time. Note that we do not examine O/S in this table as it does not have a natural pair as 
+is the case for puts and calls. The results are reported in Table 6. In Panel A of Table 6, neither 
+OIRP nor OIRC helps predict SIR. Thus, when we include all three variables of interest, option 
+activity does not have predictive power for short activity. 
+In Panel B of Table 6, we find that both SIR and OIRC help predict OIRP, but the net 
+effect is insignificant. In Panel C of Table 6, SIR helps predict OIRC, but its net effect is 
+insignificant.  
+When both types of option activity are included in the model with short activity, we find 
+consistent results. Specifically, short interest helps predict option activity and option activity 
+does not predict short interest. However, the lack of significance in the net effect yields no 
+conclusions about which group is relatively more informed in this analysis. 
+ 
+[Insert Table 6 Here] 
+
+--- PAGE 28 ---
+ 
+ 
+25 
+ 
+ 
+4.7. Robustness 
+ 
+We have conducted a battery of robustness tests. The results are not reported here, but are 
+available upon request. Our robustness checks include: 1) different measures of option open 
+interest, 2) using levels of non-stationary variables, and 3) using index level option volatility 
+spreads. The alternate option open interest measures include total option open interest (call open 
+interest plus put open interest) and net put open interest (put open interest less call open interest). 
+Open interest results are qualitatively identical regardless of the measures used.  
+Using the levels of non-stationary variables is less appropriate than the first-differenced 
+results reported. Nonetheless, we have conducted all analyses using the levels of non-stationary 
+variables. The results using levels are qualitatively different from those using first differences. 
+Specifically, when using levels, the results indicate that option interest follows short interest. 
+This would suggest that options traders take their cue from short traders in deciding when to 
+trade. Thus, correctly controlling for the non-stationarity of option open interest proves to be 
+critical.  
+Finally, we examine index (S&P 500) level option volatility spreads as an additional 
+measure of option activity. Results are generally similar to what we find for option open interest, 
+but differ from our results using the ratio of option volume to stock volume. Specifically, we find 
+that index level volatility spreads do not help better predict returns. We note that the issue of a 
+possible complementary or substitute relation is not appropriate for index level data as several 
+firms in the S&P 500 lack available traded options. Thus, the possibility to substitute from short 
+interest to options or vice versa is not possible. 
+ 
+ 
+
+--- PAGE 29 ---
+ 
+ 
+26 
+ 
+ 
+V. Conclusion 
+ 
+We examine the dynamic relation between aggregate returns, short trading, and option 
+activity in the U.S. over the period 1996-2009. Our goal is three-fold: 1) to determine whether 
+short selling and option trading are substitutes or not, 2) to explore if the options market is non-
+redundant to the equities market, and 3) to ascertain the relative informedness between short 
+selling and option trading.  Counter to the findings of event studies around option listings, we 
+find that short interest and option open interest are complements, not substitutes.  Thus, short 
+sellers do not leave the equities market in preference for the options market.   
+Additionally, consistent with the findings of Lamont and Stein (2004), the results suggest 
+that, in aggregate, short sellers are generally momentum traders, as their activity responds to past 
+negative return performance with increased short interest.  We add to the existing literature by 
+showing aggregate option activity, like short selling, is also backward-looking.  Further results 
+indicate that neither short interest nor option open interest contains information about future 
+equity returns. However, when we employ the option-to-stock volume ratio (O/S) measure in our 
+analysis we find that options traders are informed in that their activity helps predict future 
+returns, while short interest still contains no return predictability. The O/S measure's return 
+predictability indicates the options market contains information not present in the equities 
+market.  Thus, taking all the evidence together, option traders are relatively more informed than 
+both traditional equity and short traders, rendering the options market non-redundant and not a 
+substitute for short selling.  
+ 
+ 
+
+--- PAGE 30 ---
+ 
+ 
+27 
+ 
+Appendix A – Variable Definitions 
+Variable Name Definition 
+SIR 
+Short interest as a % of shares outstanding 
+RETURN 
+Value-weighted return of S&P 500 firms with option and short data 
+OIRP 
+Total open interest of puts 
+OIRC 
+Total open interest of calls 
+O/S 
+Total dollar option volume divided by total dollar share volume 
+ 
+ 
+ 
+
+--- PAGE 31 ---
+ 
+ 
+28 
+ 
+References 
+Aitken, Michael J., Alex Frino, Michael S. McCorry, and Peter L. Swan, 1998, Short Sales Are Almost 
+Instantaneously Bad News: Evidence from the Australian Stock Exchange, Journal of Finance 
+53, 2205-2223. 
+ 
+Asquith, Paul, and Lisa Meulbroek, 1995, An Empirical Investigation of Short Interest, Working Paper. 
+ 
+Asquith, Paul, Parag A. Pathak, and Jay R. Ritter, 2005, Short interest, institutional ownership, and stock 
+returns, Journal of Financial Economics 78, 243-276. 
+ 
+Bali, Turan G., and Armen Hovakimian, 2009, Volatility Spreads and Expected Stock Returns, 
+Management Science 55, 1797-1812. 
+ 
+Barone-Adesi, G., K. C. Brown, and W. V. Harlow, 1994, On the Use of Implied Stock Volatilities in the 
+Prediction of Successful Corporate Takeovers, Advances in Futures and Options Research 7, 
+147-166. 
+ 
+Battalio, Robert, and Paul Schultz, 2006, Options and the Bubble, Journal of Finance 61, 2071-2102. 
+ 
+Battalio, Robert, and Paul Schultz, 2011, Regulatory Uncertainty and Market Liquidity: The 2008 Short 
+Sale Ban's Impact on Equity Option Markets, Journal of Finance 66, 2013-2053. 
+ 
+Black, Fischer, 1975, Fact and Fantasy in the Use of Options, Financial Analysts Journal 31, 36-72. 
+ 
+Blau, Benjamin M., and Tyler Brough, 2011a, Short Sales and Option Listing Decisions, Utah State 
+University Working paper. 
+ 
+Blau, Benjamin M., and Tyler Brough, 2011b, The Substitutability between Short Sales and Bearish-
+Option Activity, Utah State University Working paper. 
+ 
+Blau, Benjamin M., and J. M. Pinegar, 2012, Do Short-Selling Prophets Currently Profit from Short 
+Selling Around Earnings Announcements?, Brigham Young University Working paper. 
+ 
+Boehme, Rodney D., Bartley R. Danielsen, and Sorin M. Sorescu, 2006, Short-Sale Constraints, 
+Differences of Opinion, and Overvaluation, Journal of Financial and Quantitative Analysis 41, 
+455-487. 
+ 
+Boehmer, Ekkehart, Charles M. Jones, and Xiaoyan Zhang, 2008, Which Shorts Are Informed?, Journal 
+of Finance 63, 491-527. 
+ 
+Boehmer, Ekkehart, and Juan Wu, 2012, Short Selling and the Price Discovery Process, Review of 
+Financial Studies Forthcoming. 
+ 
+Box, G. E. P., and G. M. Jenkins, 1976. Time  Series  Analysis:  Forecasting  and  Control (Holden-Day). 
+ 
+Buraschi, A, and J Jackwerth, 2001, The price of a smile: hedging and spanning in option markets, 
+Review of Financial Studies 14, 495-527. 
+ 
+Buraschi, Andrea, and Alexei Jiltsov, 2006, Model Uncertainty and Option Markets with Heterogeneous 
+Beliefs, Journal of Finance 61, 2841-2897. 
+
+--- PAGE 32 ---
+ 
+ 
+29 
+ 
+ 
+Cao, Charles, Zhiwu Chen, and John M. Griffin, 2005, Informational Content of Option Volume Prior to 
+Takeovers, Journal of Business 78, 1073-1109. 
+ 
+Chakravarty, Sugato, Huseyin Gulen, and Stewart Mayhew, 2004, Informed Trading in Stock and Option 
+Markets, Journal of Finance 59, 1235-1258. 
+ 
+Chan, Kalok, Y. Peter Chung, and Wai-Ming Fong, 2002, The Informational Role of Stock and Option 
+Volume, Review of Financial Studies 15, 1049-1075. 
+ 
+Chan, Kalok, Y. Peter Chung, and Herb Johnson, 1993, Why Option Prices Lag Stock Prices: A Trading-
+based Explanation, Journal of Finance 48, 1957-1967. 
+ 
+Christophe, Stephen E., Michael G. Ferri, and Jim Hsieh, 2010, Informed trading before analyst 
+downgrades: Evidence from short sellers, Journal of Financial Economics 95, 85-106. 
+ 
+Cremers, Martijn, and David Weinbaum, 2010, Deviations from Put-Call Parity and Stock Return 
+Predictability, Journal of Financial and Quantitative Analysis 45, 335-367. 
+ 
+D'Avolio, Gene, 2002, The market for borrowing stock, Journal of Financial Economics 66, 271-306. 
+ 
+Danielsen, Bartley R., and Sorin M. Sorescu, 2001, Why Do Option Introductions Depress Stock Prices? 
+A Study of Diminishing Short Sale Constraints, Journal of Financial and Quantitative Analysis 
+36, 451-484. 
+ 
+Danielsen, Bartley R., Bonnie F. van Ness, and Richard S. Warr, 2007, Reassessing the Impact of Option 
+Introductions on Market Quality: A Less Restrictive Test for Event-Date Effects, Journal of 
+Financial and Quantitative Analysis 42, 1041-1062. 
+ 
+Dechow, Patricia M., Amy P. Hutton, Lisa Meulbroek, and Richard G. Sloan, 2001, Short-sellers, 
+fundamental analysis, and stock returns, Journal of Financial Economics 61, 77-106. 
+ 
+Desai, Hemang, Srinivasan Krishnamurthy, and Kumar Venkataraman, 2006, Do Short Sellers Target 
+Firms with Poor Earnings Quality? Evidence from Earnings Restatements, Review of Accounting 
+Studies 11, 71-90. 
+ 
+Desai, Hemang, K. Ramesh, S. Ramu Thiagarajan, and Bala V. Balachandran, 2002, An Investigation of 
+the Informational Role of Short Interest in the Nasdaq Market, Journal of Finance 57, 2263-2287. 
+ 
+Diamond, Douglas, and Robert Verrecchia, 1987, Constraints on short-selling and asset price adjustment 
+to private information, Journal of Financial Economics 18, 277-311. 
+ 
+Dickey, David A., and Wayne A. Fuller, 1979, Distribution of the Estimators for Autoregressive Time 
+Series With a Unit Root, Journal of the American Statistical Association 74, 427-431. 
+ 
+Diether, Karl B., Kuan-Hui Lee, and Ingrid M. Werner, 2009, Short-Sale Strategies and Return 
+Predictability, Review of Financial Studies 22, 575-607. 
+ 
+Drake, Michael S., Lynn Rees, and Edward P. Swanson, 2011, Should Investors Follow the Prophets or 
+the Bears? Evidence on the Use of Public Information by Analysts and Short Sellers, The 
+Accounting Review 86, 101-130. 
+
+--- PAGE 33 ---
+ 
+ 
+30 
+ 
+ 
+Easley, David, Maureen O'Hara, and P. S. Srinivas, 1998, Option Volume and Stock Prices: Evidence on 
+Where Informed Traders Trade, Journal of Finance 53, 431-465. 
+ 
+Engelberg, Joseph, Adam V. Reed, and Matthew Ringgenberg, 2012, How are Shorts Informed? Short 
+Sellers, News, and Information Processing, Journal of Financial Economics Forthcoming. 
+ 
+Evans, Richard B., Christopher C. Geczy, David K. Musto, and Adam V. Reed, 2009, Failure Is an 
+Option: Impediments to Short Selling and Options Prices, Review of Financial Studies 22, 1955-
+1980. 
+ 
+Figlewski, Stephen, and Gwendolyn P. Webb, 1993, Options, Short Sales, and Market Completeness, 
+Journal of Finance 48, 761-777. 
+ 
+Fuller, Wayne A., 1976. Introduction to Statistical Time Series (John Wiley, New York). 
+ 
+Granger, C. W. J., 1969, Investigating Causal Relations by Econometric Models and Cross-spectral 
+Methods, Econometrica 37, 424-438. 
+ 
+Granger, C. W. J., and P. Newbold, 1986. Forecasting Economic Time Series (Academic Press). 
+ 
+Grundy, Bruce D., Bryan Lim, and Patrick Verwijmeren, 2012, Do option markets undo restrictions on 
+short sales? Evidence from the 2008 short-sale ban, Journal of Financial Economics 106, 331-
+348. 
+ 
+Henry, Tyler R., and Jennifer L. Koski, 2010, Short Selling Around Seasoned Equity Offerings, Review of 
+Financial Studies 23, 4389-4418. 
+ 
+Jayaraman, Narayanan, Melissa B. Frye, and Sanjiv Sabherwal, 2001, Informed Trading around Merger 
+Announcements: An Empirical Test Using Transaction Volume and Open Interest in Options 
+Market, Financial Review 36, 45-74. 
+ 
+Jin, W. E. N., Joshua Livnat, and Yuan Zhang, 2012, Option Prices Leading Equity Prices: Do Option 
+Traders Have an Information Advantage?, Journal of Accounting Research 50, 401-432. 
+ 
+Johnson, Travis L., and Eric C. So, 2012, The Option to Stock Volume Ratio and Future Returns, Journal 
+of Financial Economics Forthcoming. 
+ 
+Karpoff, J. M., and X. Lou, 2010, Short Sellers and Financial Misconduct, Journal of Finance 65, 1879-
+1913. 
+ 
+Lakonishok, Josef, Inmoo Lee, Neil D. Pearson, and Allen M. Poteshman, 2007, Option Market Activity, 
+Review of Financial Studies 20, 813-857. 
+ 
+Lamont, Owen A., and Jeremy C. Stein, 2004, Aggregate Short Interest and Market Valuations, American 
+Economic Review 94, 29-32. 
+ 
+Levy, Haim, and James A. Yoder, 1993, The Behavior of Option Implied Standard Deviations Around 
+Merger and Acquisition Announcements, Financial Review 28, 261-272. 
+ 
+
+--- PAGE 34 ---
+ 
+ 
+31 
+ 
+Liu, Harrison, and Edward P. Swanson, 2012, Silent Combat: Do Managers Use Share Repurchases to 
+Trade against Short Sellers?, Working paper. 
+ 
+Manaster, Steven, and Richard J. Rendleman, Jr., 1982, Option Prices as Predictors of Equilibrium Stock 
+Prices, Journal of Finance 37, 1043-1057. 
+ 
+Miller, Edward M., 1977, Risk, Uncertainty, and Divergence of Opinion, Journal of Finance 32, 1151-
+1168. 
+ 
+Muravyev, Dmitriy, Neil D. Pearson, and John Paul Broussard, 2012, Is There Price Discovery in Equity 
+Options?, Journal of Financial Economics Forthcoming. 
+ 
+Ofek, Eli, Matthew Richardson, and Robert F. Whitelaw, 2004, Limited arbitrage and short sales 
+restrictions: evidence from the options markets, Journal of Financial Economics 74, 305-342. 
+ 
+Pan, Jun, and Allen M. Poteshman, 2006, The Information in Option Volume for Future Stock Prices, 
+Review of Financial Studies 19, 871-908. 
+ 
+Patell, James M., and Mark A. Wolfson, 1981, The Ex Ante and Ex Post Price Effects of Quarterly 
+Earnings Announcements Reflected in Option and Stock Prices, Journal of Accounting Research 
+19, 434-458. 
+ 
+Phillips, Blake, 2011, Options, short-sale constraints and market efficiency: A new perspective, Journal 
+of Banking & Finance 35, 430-442. 
+ 
+Phillips, Peter C. B., and Pierre Perron, 1988, Testing for a unit root in time series regression, Biometrika 
+75, 335-346. 
+ 
+Roll, Richard, Eduardo Schwartz, and Avanidhar Subrahmanyam, 2010, O/S: The relative trading activity 
+in options and stock, Journal of Financial Economics 96, 1-17. 
+ 
+Safieddine, Assem, and William J. Wilhelm, Jr., 1996, An Empirical Investigation of Short-Selling 
+Activity Prior to Seasoned Equity Offerings, Journal of Finance 51, 729-749. 
+ 
+Sims, Christopher A., 1972, Money, Income, and Causality, American Economic Review 62, 540-552. 
+ 
+Sorescu, Sorin M., 2000, The Effect of Options on Stock Prices: 1973 to 1995, Journal of Finance 55, 
+487-514. 
+ 
+Stephan, Jens A., and Robert E. Whaley, 1990, Intraday Price Change and Trading Volume Relations in 
+the Stock and Stock Option Markets, Journal of Finance 45, 191-220. 
+ 
+Vanden, Joel M., 2004, Options Trading and the CAPM, Review of Financial Studies 17, 207-238. 
+ 
+Vanden, Joel M., 2006, Option coskewness and capital asset pricing, Review of Financial Studies 19, 
+1279-1320. 
+ 
+Xing, Yuhang, Xiaoyan Zhang, and Rui Zhao, 2010, What Does the Individual Option Volatility Smirk 
+Tell Us About Future Equity Returns?, Journal of Financial and Quantitative Analysis 45, 641-
+662. 
+ 
+ 
+
+--- PAGE 35 ---
+ 
+ 
+32 
+ 
+Table 1.   
+ 
+Unit root tests: sample period, 1996:03 to 2009:12 (Observations 167) 
+ 
+    (i)  Augmented Dickey-Fuller regression       
+             
+ 
+ 
+ 
+    (ii)   Phillips-Perron  regression 
+ 
+ 
+     
+. 
+ 
+ 
+variables (
+) 
+ 
+Dickey-Fuller test 
+ 
+Phillips-Perron test 
+ 
+  
+  
+  
+ 
+ 
+ 
+ 
+  
+    
+  
+ 
+Z(tb) 
+ 
+  
+ 
+1 lag 
+2 lags 
+3 lags 
+4 lags 
+ 
+1 lag 
+2 lags 
+3 lags 
+4 lags 
+ 
+RETURNt 
+-8.762 
+-6.4823 
+-5.362 
+-4.850 
+ 
+-11.318 
+-11.292 
+-11.309 
+-11.344 
+SIR t 
+-1.348 
+-1.355 
+-1.447 
+-1.091 
+ 
+-1.478 
+-1.483 
+-1.497 
+-1.471 
+  OIRP t 
+-0.831 
+-0.485 
+-0.362 
+-0.363 
+ 
+-0.775 
+-0.686 
+-0.587 
+-0.532 
+OIRCt 
+-1.112 
+-0.787 
+-0.637 
+-0.629 
+ 
+-1.012 
+-0.947 
+-0.853 
+-0.790 
+O/St 
+-4.578 
+-3.737 
+-3.284 
+-2.859 
+ 
+-4.634 
+-4.475 
+-4.326 
+-4.217 
+ 
+RESPt 
+ 
+-3.744 
+ 
+-3.850 
+ 
+-3.309 
+ 
+-3.007 
+ 
+ 
+-3.422 
+ 
+-3.554 
+ 
+-3.531 
+ 
+-3.458 
+RESCt 
+RES3t 
+RESPCt 
+ 
+-3.877 
+-3.651 
+-2.362 
+-3.941 
+-3.774 
+-2.399 
+ 
+-3.347 
+-3.263 
+-2.111 
+ 
+-2.857 
+-3.035 
+-2.601 
+ 
+ 
+-3.442 
+-3.393 
+-2.625 
+ 
+-3.584 
+-3.518 
+-2.648 
+ 
+-3.566 
+-3.494 
+-2.601 
+ 
+-3.469 
+-3.435 
+-2.708 
+ 
+Note:  
+RETURNt = value weighted return of S&P 500 firms WITH option and short data (in other words, not all 
+500 firms make it into this return calculation);  
+SIRt = short interest as a %; OIRPt = total open interest of puts;  OIRCt = total open interest of calls; 
+O/St =  total dollar option volume / total dollar share volume;  
+RESPt = residual in the regression of SIRt on OIRPt;  RESCt = residual in the regression of SIRt on OIRCt; 
+RES3t = residual in the regression of SIRt on OIRPt and OIRCt;  RESPCt = residual in the regression of 
+OIRPt on OIRCt. 
+Critical values of t-statistics for both  and Z(tb) are: 1%= -3.470 5%= -2.879 10%= -2.576 (Fuller 
+(1976, Tables 8.5.1 and 8.5.2, pp. 371-373)). The details of the adjusted t-statistics Z(tb) can be found in 
+the work of Phillips and Perron (1988).  
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+m
+i
+t
+i
+t
+i
+t
+t
+v
+x
+x
+a
+x
+1
+1
+0
+
+
+t
+t
+t
+v
+bx
+b
+x
+
+
+
+1
+0
+tx
+
+--- PAGE 36 ---
+ 
+ 
+33 
+ 
+Table 2.   Complements versus substitutes:  
+ 
+          H0 (null hypothesis) 
+         .                   Chi-square statistic               Significance level 
+ 
+          H0 (null hypothesis)          sum of coeff.            t-statistic                           Significance level 
+ 
+ 
+ 
+ 
+ 
+ 
+(1) 
+H0 :  
+  
+              -0.0066                  t = -0.4238                                0.6717 
+ 
+3
+3
+1
+1
+0
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+SIR
+SIR
+OIRC
+b RESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+(1) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+              -0.0082                  t = -0.6519                                0.5145 
+ 
+3
+3
+1
+1
+0
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+OIRP
+OIRP
+SIR
+b RESP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               4.9969                  t =1.8559                                  0.0635 
+ 
+3
+3
+1
+1
+0
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+OIRC
+OIRC
+SIR
+b RESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+             (2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               5.1121                  t =1.8628                                  0.0625 
+3
+3
+1
+1
+0
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+OIRP
+OIRP
+OIRC
+b RESPC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+ 
+             (2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               0.9140                  t =6.7472                                  0.0000 
+ 
+3
+3
+1
+1
+0
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+OIRC
+OIRC
+OIRP
+b RESPC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+ 
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               1.2512                  t =6.4552                                  0.0000 
+ 
+3
+3
+1
+0
+t
+j
+t
+j
+j
+t
+j
+j
+j
+SIR
+SIR
+OIRP
+
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+(1) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+              0.0055                  t = 2.3159                                0.0206 
+3
+3
+1
+1
+0
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+SIR
+SIR
+OIRP
+b RESP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3
+0
+0.
+j
+j
+
+
+
+
+
+--- PAGE 37 ---
+ 
+ 
+34 
+ 
+ 
+         H0 (null hypothesis) 
+         .                   Chi-square statistic               Significance level 
+ 
+          H0 (null hypothesis)          sum of coeff.            t-statistic                           Significance level 
+ 
+ 
+3
+3
+1
+0
+t
+j
+t
+j
+j
+t
+j
+j
+j
+SIR
+SIR
+OIRC
+
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+(1) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+              0.0054                  t = 2.7182                                0.0066 
+ 
+3
+3
+1
+0
+t
+j
+t
+j
+j
+t
+j
+j
+j
+OIRP
+OIRP
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+                           
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               1.5947                  t =2.6626                                  0.0078 
+ 
+3
+3
+1
+0
+t
+j
+t
+j
+j
+t
+j
+j
+j
+OIRC
+OIRC
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               1.5744                  t =2.6789                                  0.0074 
+ 
+3
+3
+1
+0
+t
+j
+t
+j
+j
+t
+j
+j
+j
+OIRP
+OIRP
+OIRC
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               0.0732                  t =2.0786                                  0.0377 
+ 
+3
+3
+1
+0
+t
+j
+t
+j
+j
+t
+j
+j
+j
+OIRC
+OIRC
+OIRP
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+               0.0967                  t =2.2293                                  0.0258 
+ 
+3
+3
+1
+0
+/
+t
+j
+t
+j
+j
+t
+j
+j
+j
+SIR
+SIR
+O S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+                          (1) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+                0.0012                  t = 0.7448                                0.4582 
+ 
+3
+3
+1
+0
+/
+/
+t
+j
+t
+j
+j
+t
+j
+j
+j
+O S
+O S
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(2) 
+H0 :  
+3
+0
+0.
+j
+j
+
+
+
+
+  
+              -11.4987                 t =-1.2915                                0.1965 
+
+--- PAGE 38 ---
+ 
+ 
+35 
+ 
+Table 3   
+Tests of the information content using Sims (1972) causality tests: 1996:04 to 2009:12 
+(Observations 164) 
+ 
+ 
+           H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+ Sims (1972) causality test for sample period, 1996:03 to 2009:12 (Observations 167) 
+    
+Panel A: 
+t
+SIR
+
+ on RETURN  
+ 
+                
+3
+3
+Re
+t
+j
+t
+j
+j
+SIR
+turn
+
+
+
+
+
+
+
+,  
+ 
+ 
+ 
+ 
+                   ( 13 ) 
+ 
+H0 :  
+j = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 13.0547  
+ 
+       0.0045 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              -0.0065                t = -2.7721                                       0.0056 
+ 
+H0 :  
+j = 0 for j = -1, -2, -3,  
+                        χ2 (3) = 10.1286  
+ 
+       0.0175 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+
+  
+              0.0036                  t = 1.4798                                       0.1389 
+ 
+ 
+Panel B: OIRP
+
+ on RETURN  
+ 
+                
+3
+3
+Re
+t
+j
+t
+j
+j
+OIRP
+turn
+
+
+
+
+
+
+
+, 
+ 
+ 
+ 
+ 
+ 
+        ( 13 ) 
+ 
+H0 :  
+j = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 8.4706 
+ 
+ 
+       0.0372 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              0.0637                t = 1.5413                                         0.1232 
+ 
+H0 :  
+j = 0 for j = -1, -2, -3,  
+                        χ2 (3) = 3.7415 
+ 
+ 
+       0.2908 
+ 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+
+  
+              -0.0200                t = -0.6864                                       0.4925            
+ 
+
+--- PAGE 39 ---
+ 
+ 
+36 
+ 
+          H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+ Sims (1972) causality test for sample period, 1996:04 to 2009:12 (Observations 166) 
+    
+Panel C: OIRC
+
+ on RETURN  
+ 
+                
+3
+3
+Re
+t
+j
+t
+j
+j
+OIRC
+turn
+
+
+
+
+
+
+
+, 
+ 
+ 
+ 
+ 
+ 
+       ( 13 ) 
+ 
+H0 :  
+j = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 6.4240 
+ 
+ 
+       0.0927 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              0.0674                t = 1.3734                                         0.1696 
+ 
+H0 :  
+j = 0 for j = -1, -2, -3,  
+                        χ2 (3) = 4.9826 
+ 
+ 
+       0.1731 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+
+  
+              -0.0534                t = -1.3985                                       0.1620 
+ 
+ 
+Panel D: O/S on RETURN  
+ 
+                
+3
+3
+/
+Re
+t
+j
+t
+j
+j
+O S
+turn
+
+
+
+
+
+
+,  
+ 
+         
+                                               ( 13 ) 
+ 
+H0 :  
+j = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 12.1652  
+ 
+          0.0068 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              -0.4492                t = -3.4187                                          0.0006 
+ 
+H0 :  
+j = 0 for j = -1, -2, -3,  
+                        χ2 (3) = 26.5361  
+ 
+          0.0000 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+
+  
+              -0.7706                 t =-5.0421                                          0.0000 
+ 
+ 
+ 
+
+--- PAGE 40 ---
+ 
+ 
+37 
+ 
+Table 4   
+Tests of the information content using causality tests: 1996:04 to 2009:12 (Observations 164) 
+           H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+   Panel A: RETURN regression 
+   
+3
+3
+3
+3
+1
+1
+1
+1
+Re
+Re
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+j
+turn
+a
+turn
+b
+SIR
+c
+OIRP
+d
+OIRC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+        
+ 
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 3.8251 
+ 
+ 
+       0.2810 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+              7.1230                t = 0.9761                                         0.3290 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 7.3732 
+ 
+ 
+       0.0609 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+              3.3378                  t = 2.2324                                       0.0256 
+ 
+H0 :  
+j
+d = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 8.1579 
+ 
+ 
+       0.0429 
+H0 :  
+3
+1
+0.
+j
+j
+d
+
+
+
+
+  
+              -3.2996                  t = -2.5305                                     0.0114 
+Panel B: SIR regression 
+   
+3
+3
+3
+3
+1
+1
+1
+1
+Re
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+j
+SIR
+a
+SIR
+b
+turn
+c
+OIRP
+d
+OIRC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,  
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 11.8667  
+ 
+       0.0079 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+              -0.0046                t = -1.6554                                       0.0978 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,     
+                        χ2 (3) = 1.8499 
+ 
+ 
+       0.6041 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+              0.0159                  t = 0.4686                                       0.6394 
+ 
+H0 :  
+j
+d = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 3.1210 
+ 
+ 
+       0.3733 
+H0 :  
+3
+1
+0.
+j
+j
+d
+
+
+
+
+  
+              -0.0380                  t = -1.4154                                     0.1570 
+
+--- PAGE 41 ---
+ 
+ 
+38 
+ 
+           H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+            
+Panel C: OIRP regression 
+ 
+   
+3
+3
+3
+3
+1
+1
+1
+1
+Re
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+j
+OIRP
+a
+OIRP
+b
+turn
+c
+SIR
+d
+OIRC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+ 
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 11.8828  
+ 
+       0.0078 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+              0.0852                  t = 2.3684                                       0.0179 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 10.1624  
+ 
+       0.0172 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+              4.1973                  t = 1.8175                                       0.0691 
+ 
+H0 :  
+j
+d = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 8.0929 
+ 
+ 
+       0.0441 
+H0 :  
+3
+1
+0.
+j
+j
+d
+
+
+
+
+  
+              -0.0590                  t = -0.1508                                     0.8801 
+ 
+ 
+Panel D: OIRC regression 
+ 
+   
+3
+3
+3
+3
+1
+1
+1
+1
+Re
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+j
+OIRC
+a
+OIRC
+b
+turn
+c
+SIR
+d
+OIRP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+ 
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 8.3889 
+ 
+ 
+       0.0386 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+              0.0729                  t = 1.8089                                       0.0705 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 12.5125  
+ 
+      0.0058 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+              3.6938                  t = 1.3879                                       0.1652 
+ 
+H0 :  
+j
+d = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 0.9037 
+ 
+ 
+       0.8245 
+H0 :  
+3
+1
+0.
+j
+j
+d
+
+
+
+
+  
+              -0.0598                 t = -0.1006                                     0.9199 
+
+--- PAGE 42 ---
+ 
+ 
+39 
+ 
+ 
+ 
+           H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+Panel E: RETURN regression 
+ 
+   
+3
+3
+3
+1
+1
+1
+Re
+Re
+/
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+turn
+a
+turn
+b
+SIR
+c O S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,   
+                               
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 7.4290 
+ 
+ 
+       0.0594 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+              10.4694               t = 1.4203                                         0.1555 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,    
+                        χ2 (3) =15.9600  
+ 
+       0.0012 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+            - 0.2096                 t =-3.2978                                        0.0010 
+ 
+Panel F: SIR regression 
+ 
+   
+3
+3
+3
+1
+1
+1
+Re
+/
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+SIR
+a
+SIR
+b
+turn
+c O S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+  
+ 
+                                          
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 15.7666  
+ 
+       0.0013 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+              -0.0074                t = -3.0775                                       0.0021 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 2.4360 
+ 
+ 
+       0.4870 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+              -0.0008                t = -0.4982                                       0.6183 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 43 ---
+ 
+ 
+40 
+ 
+ 
+           
+           H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+Panel G: O/S regression 
+  
+     
+3
+3
+3
+1
+1
+1
+/
+/
+Re
+,
+t
+j
+t
+j
+j
+t
+j
+j
+t
+j
+j
+j
+j
+O S
+a O S
+b
+turn
+c
+SIR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+   
+                                                   
+H0 :  
+jb = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 2.3216 
+ 
+ 
+       0.5083 
+H0 :  
+3
+1
+0.
+j
+j
+b
+
+
+
+  
+            - 0.0144                 t = -0.1146                                       0.9088 
+ 
+ 
+H0 :  
+jc = 0 for j = 1, 2, 3,    
+                        χ2 (3) = 5.1887 
+ 
+ 
+       0.1585 
+H0 :  
+3
+1
+0.
+j
+j
+c
+
+
+
+
+  
+            -16.0931                t = -2.2349                                      0.0254 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 44 ---
+ 
+ 
+41 
+ 
+Table 5 
+Tests of the information content using Sims (1972) causality tests: 1996:04 to 2009:12 
+(Observations 164) 
+ 
+ 
+           H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+ Sims (1972) causality test for sample period, 1996:03 to 2009:12 (Observations 167) 
+  
+Panel A: 
+t
+SIR
+
+ on OIRP
+
+ 
+ 
+                
+3
+3
+*
+t
+j
+t
+j
+t
+j
+SIR
+OIRP
+b RESP
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+ 
+ 
+ 
+ 
+H0 :  
+j
+ = 0 for j = 1, 2, 3,  and b = 0  
+              χ2 (4) = 12.4043 
+ 
+       0.0146 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              -0.0120                  t = -1.0040                                     0.3154 
+ 
+H0 :  
+j
+ = 0 for j = -1, -2, -3, and b = 0                χ2 (4) = 12.5855 
+ 
+       0.0135 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+
+  
+              0.0136                    t = 0.9548                                      0.3397 
+ 
+ 
+Panel B: SIR on OIRC 
+ 
+                
+3
+3
+*
+t
+j
+t
+j
+t
+j
+SIR
+OIRC
+b RESC
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+ 
+ 
+ 
+ 
+H0 :  
+j
+ = 0 for j = 1, 2, 3,  and b = 0  
+              χ2 (4) = 10.2756                               0.0360 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              -0.0143                 t = -1.3628                                     0.1729 
+ 
+H0 :  
+j
+ = 0 for j = -1, -2, -3, and b = 0                χ2 (4) = 10.7714 
+ 
+      0.0293 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+
+  
+               0.0077                  t = 0.6815                                     0.4956 
+ 
+ 
+ 
+
+--- PAGE 45 ---
+ 
+ 
+42 
+ 
+ 
+            H0 (null hypothesis) 
+           .                Chi-square statistic              Significance level 
+ 
+           H0 (null hypothesis)        sum of coeff.           t-statistic                           Significance level 
+ 
+ 
+ 
+Panel C: SIR on OIRP  
+ 
+                
+3
+3
+1
+1
+1
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+SIR
+b
+SIR
+OIRP
+d
+RESP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+ 
+      
+ 
+H0 :  
+j
+ = 0 for j = 1, 2, 3,   and d = 0,                χ2 (4) = 8.8444      
+ 
+       0.0651 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              -0.0358                t = -2.6707                                       0.0076 
+ 
+ 
+Panel D: OIRP on SIR  
+ 
+                
+3
+3
+1
+1
+1
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+OIRP
+b
+OIRP
+SIR
+d
+RESP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+     
+                
+ 
+H0 :  
+j
+ = 0 for j = 1, 2, 3,    
+                        χ2 (4) = 9.7231 
+ 
+ 
+       0.0454 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              1.9720                t = 0.7675                                         0.4428 
+ 
+ 
+Panel E: SIR on OIRC  
+ 
+                
+3
+3
+1
+1
+1
+*
+t
+j
+t
+j
+j
+t
+j
+t
+j
+j
+SIR
+b
+SIR
+OIRC
+d
+RESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, 
+ 
+ 
+ 
+ 
+      
+H0 :  
+j = 0 for j = 1, 2, 3,   and d = 0,                χ2 (4) = 11.1793      
+ 
+       0.0246 
+H0 :  
+3
+1
+0.
+j
+j
+
+
+
+
+  
+              -0.0336                t = -2.9784                                       0.0029 
+ 
+ 
+ 
+ 
+ 
+ 
+
+[TRUNCATED at 80000 chars — 48 total pages]

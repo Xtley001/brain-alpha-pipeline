@@ -1,0 +1,2621 @@
+
+--- PAGE 1 ---
+Journal of Financial Economics 121 (2016) 46–65 
+Contents lists available at ScienceDirect 
+Journal of Financial Economics 
+journal homepage: www.elsevier.com/locate/finec 
+Short interest and aggregate stock returns  
+David E. Rapach a , 1 , Matthew C. Ringgenberg b , 2 , Guofu Zhou b , c , d , ∗
+a John Cook School of Business, Saint Louis University, 3674 Lindell Boulevard, St. Louis, MO 63108, USA 
+b Olin Business School, Washington University in St. Louis, 1 Brookings Drive, St. Louis, MO 63130, USA 
+c China Academy of Financial Research, Shanghai 20 0 030, China 
+d China Economics and Management Academy, Beijing 10 0 081, China 
+a r t i c l e 
+i n f o 
+Article history: 
+Received 9 June 2015 
+Revised 11 September 2015 
+Accepted 12 October 2015 
+Available online 19 March 2016 
+JEL classiﬁcation: 
+C58 
+G12 
+G14 
+Keywords: 
+Equity risk premium 
+Predictive regression 
+Short interest 
+Cash ﬂow channel 
+Informed traders 
+a b s t r a c t 
+We show that short interest is arguably the strongest known predictor of aggregate stock 
+returns. It outperforms a host of popular return predictors both in and out of sample, with 
+annual R 2 statistics of 12.89% and 13.24%, respectively. In addition, short interest can gener- 
+ate utility gains of over 300 basis points per annum for a mean-variance investor. A vector 
+autoregression decomposition shows that the economic source of short interest’s predic- 
+tive power stems predominantly from a cash ﬂow channel. Overall, our evidence indicates 
+that short sellers are informed traders who are able to anticipate future aggregate cash 
+ﬂows and associated market returns. 
+© 2016 Elsevier B.V. All rights reserved. 
+1. Introduction 
+The equity market risk premium impacts many funda- 
+mental areas of ﬁnance, from portfolio theory to capital 
+ We thank William Schwert (editor) and Ingrid Werner (referee) for in- 
+sightful comments that signiﬁcantly improved the paper. We also thank 
+conference and seminar participants at the 2015 Society for Financial 
+Studies Finance Cavalcade, Miami University, National University of Singa- 
+pore, Saint Louis University, St. Gallen University, Singapore Management 
+University, Washington University in St. Louis, and West Virginia Uni- 
+versity, as well as Ekkehart Boehmer, Bidisha Chakrabarty, Charles Cuny, 
+Adam Reed (SFS Finance Cavalcade discussant), and Xiaoyan Zhang for 
+very helpful comments. The usual disclaimer applies. 
+∗Corresponding author at: Olin Business School, Washington University 
+in St. Louis, 1 Brookings Drive, St. Louis, MO 63130, USA. Tel.: +314 935 
+6384; fax: +314 935 6359. 
+E-mail addresses: rapachde@slu.edu (D.E. Rapach), 
+ringgenberg@wustl.edu (M.C. Ringgenberg), zhou@wustl.edu (G. Zhou). 
+1 Tel.: 314 977 3601; fax: 314 977 1478. 
+2 Tel.: 314 935 7171; fax: 314 935 6359. 
+budgeting. Accordingly, a voluminous literature attempts 
+to predict changes in future aggregate excess stock re- 
+turns. 3 In this paper, we show that short interest, aggre- 
+gated across securities, is arguably the strongest predictor 
+of the equity risk premium identiﬁed to date. Short inter- 
+est outperforms a host of popular return predictors from 
+the literature in both in-sample and out-of-sample tests. 
+Short interest also generates substantial utility gains and 
+Sharpe ratios that exceed those provided by popular pre- 
+dictors. Furthermore, we provide evidence that the abil- 
+ity of short interest to predict future market returns stems 
+predominantly from a cash ﬂow channel. Taken together, 
+our results suggest that short sellers are informed traders 
+who are able to anticipate changes in future aggregate cash 
+ﬂows and associated changes in future market returns. 
+3 See Pástor and Stambaugh (2009) , Henkel, Martin, and Nardari (2011) , 
+and Pettenuzzo, Timmermann, and Valkanov (2014) for recent examples. 
+Rapach and Zhou (2013) provide a survey of the literature. 
+http://dx.doi.org/10.1016/j.jﬁneco.2016.03.004 
+S0304-405X(16)30032-0/© 2016 Elsevier B.V. All rights reserved. 
+
+--- PAGE 2 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+47 
+1975
+1980
+1985
+1990
+1995
+2000
+2005
+2010
+-2
+-1
+0
+1
+2
+Log equal-weighted short interest
+A. Log equal-weighted short interest
+1975
+1980
+1985
+1990
+1995
+2000
+2005
+2010
+-3
+-2
+-1
+0
+1
+2
+3
+Short interest index
+B. Short interest index
+Fig. 1. Aggregate short interest, 1973:01–2014:12. The solid line in Panel A delineates the log of the equal-weighted mean across all ﬁrms of the number 
+of shares held short in a given ﬁrm (from Compustat) normalized by each ﬁrm’s shares outstanding; the dashed line is the linear trend for the series. Panel 
+B delineates the deviation in the solid line from the dashed line in Panel A, where the deviation has been standardized to have a standard deviation of 
+one. Vertical bars depict recessions as dated by the National Bureau of Economic Research (NBER). 
+We begin by constructing a long monthly time series 
+of aggregate short interest spanning 1973 to 2014. Each 
+month, using data recently made available by Compustat, 
+we calculate the log of the equal-weighted mean of short 
+interest (as a percentage of shares outstanding) across 
+all publicly listed stocks on U.S. exchanges. The resulting 
+series constitutes a measure of total short selling in the 
+economy. The short interest series, which is plotted in 
+Panel A of Fig. 1 , displays a strong upward trend over 
+our sample period. Much of the upward trend is likely 
+due to the continued development of the equity lending 
+market, which has made it easier to short sell over time, 
+as well as the increase in the number of hedge funds in 
+existence, which has led to an increase in the amount of 
+capital devoted to short arbitrage. Indeed, we ﬁnd signif- 
+icant evidence of a linear trend using robust statistical 
+tests; this trend obscures the true information content 
+in aggregate short interest. We thus detrend the short 
+interest series to capture the variation in short interest 
+that is due to changes in the beliefs of short sellers, and 
+not simply secular changes in equity lending conditions 
+and/or the amount of capital devoted to short arbitrage. 
+We standardize the detrended series to create a short 
+interest index (SII, hereafter), which can be viewed as 
+a measure of market pessimism based on short interest 
+data. 
+If short interest does contain information about future 
+market returns, we would expect higher values of SII to 
+predict lower future returns. We ﬁnd that it does. In- 
+sample tests show that a one-standard-deviation increase 
+in SII corresponds to a six to seven percentage point de- 
+crease in the future annualized market excess return. SII 
+produces predictive regression R 2 statistics of 1.24% at the 
+monthly horizon and 12.89% at the annual horizon. We 
+also compare the predictive power of SII to that of 14 
+popular predictor variables from Goyal and Welch (2008) . 
+SII substantially outperforms all of the popular predictors 
+at quarterly, semi-annual, and annual horizons and per- 
+forms as well as or better than all of the predictors at the 
+monthly horizon. 
+Goyal and Welch (2008) show that, despite signiﬁ- 
+cant evidence of in-sample predictive ability, popular pre- 
+dictor variables fail to predict the equity risk premium 
+based on out-of-sample tests. Consequently, we also exam- 
+ine the out-of-sample predictive ability of SII. 4 We ﬁnd 
+positive out-of-sample R 2 statistics ( Campbell and Thomp- 
+son, 2008 ) of 1.94%, 6.54%, 11.70%, and 13.24% at horizons 
+4 We are careful to use only information available at the time of fore- 
+cast formation when we calculate detrended aggregate short interest for 
+our out-of-sample tests, so that our forecasts do not have a “look-ahead”
+bias. 
+
+--- PAGE 3 ---
+48 
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+of one, three, six, and 12 months, respectively, which are 
+statistically signiﬁcant and larger than those for all of the 
+popular predictors from the literature. Using encompass- 
+ing tests, we also show that forecasts based on SII have 
+superior information content relative to forecasts based on 
+popular predictors. 
+In addition, we examine the economic signiﬁcance of 
+SII’s predictive ability via an asset allocation analysis and 
+ﬁnd that SII generates large utility gains for a mean- 
+variance investor who allocates between equities and risk- 
+free bills. Assuming a relative risk aversion coeﬃcient of 
+three, a mean-variance investor would be willing to pay 
+between 343 and 544 basis points in annualized portfo- 
+lio management fees at various rebalancing frequencies to 
+have access to excess return forecasts based on SII. These 
+utility gains far outweigh those provided by popular pre- 
+dictor variables. Around the recent Global Financial Crisis, 
+the utility gains accruing to SII are particularly large, with 
+gains of approximately 1,100 basis points or more at all re- 
+balancing frequencies. 
+Why does SII predict future market returns? We present 
+evidence that SII’s predictive ability primarily operates via 
+a cash ﬂow channel. Speciﬁcally, we use the Campbell 
+(1991) and Campbell and Ammer (1993) vector autore- 
+gression (VAR) approach and the information contained in 
+popular predictors to decompose total stock returns into 
+their expected return, discount rate news, and cash ﬂow 
+news components. We ﬁnd that the ability of SII to predict 
+future stock returns predominantly results from its ability 
+to predict future cash ﬂow news. If we treat the set of 
+popular predictors as a proxy for the market information 
+set, then our results suggest that short sellers primarily 
+possess information acquisition and/or processing ad- 
+vantages when it comes to anticipating future aggregate 
+cash ﬂows in the economy. This ﬁnding is consistent with 
+the existing literature indicating that short sellers are 
+informed traders who earn excess returns in compensation 
+for processing ﬁrm-speciﬁc information ( Akbas, Boehmer, 
+Erturk, and Sorescu, 2013; Boehmer, Jones, and Zhang, 
+2008; Engelberg, Reed, and Ringgenberg, 2012; Karpoff
+and Lou, 2010 ). 5 In our setting, we ﬁnd that short sellers 
+are also able to predict future overall market movements 
+due to their informed anticipations of future aggregate 
+cash ﬂows. The information content of short selling thus 
+appears more economically important than previously 
+thought. 
+To the best of our knowledge, there are only a few 
+academic studies that examine the relation between short 
+interest and stock returns at the aggregate level. Seneca 
+(1967) estimates a signiﬁcantly negative relation between 
+the level of the Standard and Poor’s (S&P) 500 index (de- 
+ﬂated by the wholesale price index) and aggregate short 
+interest in the middle of the previous month. This early 
+study does not directly examine the predictability of the 
+equity risk premium and predates the advent of modern 
+5 These empirical ﬁndings are consistent with theoretical models; for 
+example, Diamond and Verrecchia (1987) point out that short sellers can- 
+not access the proceeds of a short sale and thus are unlikely to trade for 
+liquidity reasons. 
+time-series econometrics. 6 In a later paper, Lamont and 
+Stein (2004) investigate aggregate short interest for Nas- 
+daq ﬁrms from 1995 to 2002 and examine how limits to 
+arbitrage may have prevented short sellers from correcting 
+aggregate mispricings. However, they do not analyze the 
+predictive ability of short interest for aggregate market re- 
+turns. Finally, in a recent paper, Lynch, Nikolic, Yan, and 
+Yu (2014) examine daily short sales volume from January 
+2005 to July 2007. They ﬁnd that short volume exhibits 
+commonality across stocks and that some measures of ag- 
+gregate short sales volume can predict market returns over 
+the next ﬁve to 20 days. Our paper is distinct from these 
+existing works: using a modern time-series approach, we 
+are the ﬁrst to show that aggregate short interest is ar- 
+guably the strongest known predictor of the equity risk 
+premium. 
+We emphasize that the predictive ability of aggregate 
+short interest that we uncover is also distinct from the 
+existing literature on ﬁrm-level short selling. The litera- 
+ture on ﬁrm-level short selling detects a signiﬁcant rela- 
+tion between cross-sectional variation in short interest and 
+future returns (e.g., Asquith, Pathak, and Ritter, 2005; De- 
+sai, Ramesh, Thiagarajan, and Balachandran, 2002; Diether, 
+Lee, and Werner, 2009; Senchack and Starks, 1993 ). How- 
+ever, it is known that ﬁrm-level relations do not necessar- 
+ily hold at the aggregate level. For example, in contrast to 
+the positive relation documented at the ﬁrm level, Kothari, 
+Lewellen, and Warner (2006) ﬁnd a negative relation be- 
+tween aggregate earnings surprises and returns. In addi- 
+tion, Hirshleifer, Hou, and Teoh (2009) ﬁnd a reversal in 
+the accrual-return relation from negative at the ﬁrm level 
+to positive at the aggregate level. Indeed, ﬁrm-level stud- 
+ies of short selling typically explicitly control for aggregate 
+effects by estimating two-way ﬁxed-effects panel regres- 
+sions and/or factor models that include the market factor. 
+By construction, such procedures measure the effects of 
+relative short interest positions and thus do not shed light 
+on aggregate effects. In contrast, our paper is the ﬁrst to 
+explicitly examine the relation between aggregate short in- 
+terest and aggregate stock returns. 
+The rest of the paper is organized as follows. 
+Section 2 describes our data, including the construction 
+of SII. Section 3 reports in-sample and out-of-sample pre- 
+dictive regression results for SII and 14 popular predictor 
+variables, while Section 4 reports results for the asset al- 
+location analysis. Section 5 provides results for the VAR 
+decomposition to analyze the economic underpinnings of 
+SII’s predictive ability, and Section 6 discusses possible in- 
+terpretations of the results. Section 7 concludes. 
+2. Data 
+To examine the information content of aggregate short 
+interest, we combine monthly short interest data from 
+6 In particular, Seneca (1967) uses the level of the S&P 500 index as the 
+dependent variable in his main speciﬁcation. Furthermore, he normalizes 
+aggregate short interest by volume (while it is now common practice to 
+normalize by shares outstanding). See Hanna (1968) for a critique of the 
+ﬁndings in Seneca (1967) . 
+
+--- PAGE 4 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+49 
+Compustat with data on the equity risk premium and pop- 
+ular predictor variables from the existing literature. 
+2.1. Short interest 
+We construct an aggregate short interest series using 
+ﬁrm-level short interest data from Compustat. Each month, 
+U.S. exchanges publicly report the level of short interest 
+in each stock. The data are typically compiled as of the 
+15th of each month and publicly reported four business 
+days later. 7 Historically, these data were published in the 
+ﬁnancial press on the day following their public release 
+from the exchanges. As such, our data were available to 
+investors at each point in time. The Compustat short inter- 
+est data begin in January of 1973 and our sample extends 
+through December 2014. We note that historical short in- 
+terest data extending back to 1973 were only added to the 
+Compustat database in 2014; to the best of our knowledge, 
+ours is the ﬁrst paper to examine such a long time series 
+of short interest data. 
+The raw short interest numbers from Compustat are re- 
+ported as the number of shares that are held short in a 
+given ﬁrm. We normalize these numbers by dividing the 
+level of short interest by each ﬁrm’s shares outstanding 
+from the Center for Research in Security Prices (CRSP). We 
+ﬁlter the data to exclude assets with a stock price below 
+$5 per share, and we drop assets that are below the ﬁfth 
+percentile breakpoint of NYSE market capitalization using 
+the breakpoints provided on Kenneth French’s website. The 
+resulting database includes over two million observations 
+at the ﬁrm-month level for the 42-year period from Jan- 
+uary 1973 through December 2014. The data cover a va- 
+riety of asset classes, including common equities, Amer- 
+ican Depositary Receipts (ADRs), Exchange Traded Funds 
+(ETFs), and Real Estate Investment Trusts (REITs). While 
+many studies often exclude data on ADRs, ETFs, and RE- 
+ITs, it is likely that alternative asset classes, especially ETFs, 
+contain valuable information about the aggregate economy. 
+In particular, ETFs represent a relatively inexpensive way 
+for investors to achieve a short exposure to a sector or 
+the market in general. Accordingly, we include ADRs, ETFs, 
+and REITs in our calculation of aggregate short interest (al- 
+though in our robustness analysis in Section 3.4 , we ex- 
+amine the effects of removing these assets). Each month, 
+we calculate aggregate short interest as the equal-weighted 
+mean of all asset-level short interest data (EWSI, here- 
+after). 
+To relate our ﬁndings to the voluminous literature on 
+market return predictability, we compare the predictive 
+ability of aggregate short interest to that of 14 monthly 
+predictor variables from Goyal and Welch (2008) , 8 which 
+constitute a set of popular predictors from the literature. 
+Speciﬁcally, we include the following predictors: 
+7 As of September 2007, short interest data are reported twice a 
+month. For consistency, we use only the mid-month numbers in the post- 
+September 2007 period, so that our entire sample consists of one short 
+interest number each month for each stock. 
+8 Updated data for the variables in Goyal and Welch (2008) are avail- 
+able from Amit Goyal’s webpage at http://www.hec.unil.ch/agoyal/ . 
+1. Log dividend-price ratio (DP): log of a 12-month 
+moving sum of dividends paid on the S&P 500 in- 
+dex minus the log of stock prices (S&P 500 index). 
+2. Log dividend yield (DY): log of a 12-month mov- 
+ing sum of dividends minus the log of lagged stock 
+prices. 
+3. Log earnings-price ratio (EP): log of a 12-month 
+moving sum of earnings on the S&P 500 index mi- 
+nus the log of stock prices. 
+4. Log dividend-payout ratio (DE): log of a 12-month 
+moving sum of dividends minus the log of a 12- 
+month moving sum of earnings. 
+5. Excess stock return volatility (RVOL): computed us- 
+ing a 12-month moving standard deviation estima- 
+tor, as in Mele (2007) . 9 
+6. Book-to-market ratio (BM): book-to-market value ra- 
+tio for the Dow Jones Industrial Average. 
+7. Net equity expansion (NTIS): ratio of a 12-month 
+moving sum of net equity issues by NYSE-listed 
+stocks to the total end-of-year market capitalization 
+of NYSE stocks. 
+8. Treasury bill rate (TBL): interest rate on a three- 
+month Treasury bill (secondary market). 
+9. Long-term yield (LTY): long-term government bond 
+yield. 
+10. Long-term return (LTR): return on long-term govern- 
+ment bonds. 
+11. Term spread (TMS): long-term yield minus the Trea- 
+sury bill rate. 
+12. Default yield spread (DFY): difference between 
+Moody’s BAA- and AAA-rated corporate bond yields. 
+13. Default return spread (DFR): long-term corporate 
+bond return minus the long-term government bond 
+return. 
+14. Inﬂation (INFL): calculated from the Consumer Price 
+Index (CPI) for all urban consumers. 10 
+Consistent with the existing literature on predicting ag- 
+gregate returns, we focus on predicting the excess return 
+on a value-weighted market portfolio. We measure the 
+market excess return as the log return on the S&P 500 in- 
+dex minus the log return on a one-month Treasury bill. 11 
+2.2. Sample properties 
+Panel A of Table 1 contains summary statistics for EWSI 
+and the 14 predictor variables from the literature over our 
+1973:01 to 2014:12 sample period. EWSI has a mean of 
+2.15% (expressed as a percent of shares outstanding), a me- 
+dian of 1.31%, and a maximum value of 8.93% in July of 
+2008 (unreported). 
+In Panel B of Table 1 , we show the mean value of 
+EWSI in each of four subsamples broken out by time; from 
+9 Goyal and Welch (2008) measure stock return volatility using the sum 
+of squared daily excess stock returns during the month. However, this 
+measure produces a severe outlier in October of 1987, while the moving 
+standard deviation estimator avoids this problem and yields more plausi- 
+ble estimation results. 
+10 We account for the delay in CPI data releases when testing the pre- 
+dictive ability of inﬂation. 
+11 These data are also from Amit Goyal’s webpage. 
+
+--- PAGE 5 ---
+50 
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+Table 1 
+Summary statistics, 1973:01–2014:12. 
+The database contains 504 monthly observations for January 1973 to December 2014. The table displays summary statistics 
+for 14 predictor variables from Goyal and Welch (2008) and aggregate short interest. DP is the log dividend-price ratio, DY is 
+the log dividend yield, EP is the log earnings-price ratio, DE is the log dividend-payout ratio, RVOL is the volatility of excess 
+stock returns, BM is the book-to-market value ratio for the Dow Jones Industrial Average, NTIS is net equity expansion, TBL 
+is the interest rate on a three-month Treasury bill, LTY is the long-term government bond yield, LTR is the return on long- 
+term government bonds, TMS is the long-term government bond yield minus the Treasury bill rate, DFY is the difference 
+between Moody’s BAA- and AAA-rated corporate bond yields, DFR is the long-term corporate bond return minus the long-term 
+government bond return, and INFL is inﬂation calculated from the CPI for all urban consumers. EWSI is the equal-weighted 
+mean across all ﬁrms of the number of shares held short in a given ﬁrm normalized by each ﬁrm’s shares outstanding. The 
+data for raw short interest and shares outstanding are from Compustat and CRSP, respectively. EWSI includes all publicly listed 
+stocks on U.S. exchanges, ADRs, ETFs, and REITs, after excluding assets with a stock price below $5 per share and assets that are 
+below the ﬁfth percentile breakpoint of NYSE market capitalization. SII is the detrended log of EWSI, constructed by removing 
+a linear trend from the log of EWSI; SII is standardized to have a standard deviation of one. See Section 2 for more details on 
+the sample construction. 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+Panel A: Summary statistics 
+1st 
+99th 
+Variable 
+Mean 
+Median 
+percentile 
+percentile 
+Std. dev. 
+DP 
+−3 .62 
+−3 .57 
+−4 .47 
+−2 .84 
+0 .44 
+DY 
+−3 .61 
+−3 .57 
+−4 .47 
+−2 .83 
+0 .44 
+EP 
+−2 .82 
+−2 .83 
+−4 .60 
+−1 .97 
+0 .49 
+DE 
+−0 .80 
+−0 .86 
+−1 .24 
+1 .03 
+0 .35 
+RVOL (ann.) 
+0 .15 
+0 .14 
+0 .06 
+0 .31 
+0 .05 
+BM 
+0 .49 
+0 .38 
+0 .13 
+1 .14 
+0 .29 
+NTIS 
+0 .01 
+0 .01 
+−0 .05 
+0 .04 
+0 .02 
+TBL (%, ann.) 
+5 .05 
+5 .05 
+0 .02 
+14 .98 
+3 .44 
+LTY (%, ann.) 
+7 .17 
+7 .07 
+2 .26 
+13 .94 
+2 .73 
+LTR (%) 
+0 .74 
+0 .82 
+−6 .78 
+9 .29 
+3 .13 
+TMS (%, ann.) 
+2 .11 
+2 .35 
+−2 .18 
+4 .37 
+1 .51 
+DFY (%, ann.) 
+1 .10 
+0 .96 
+0 .56 
+2 .86 
+0 .47 
+DFR (%) 
+−0 .01 
+0 .05 
+−4 .84 
+3 .91 
+1 .47 
+INFL (%) 
+0 .34 
+0 .29 
+−0 .50 
+1 .33 
+0 .34 
+EWSI (%) 
+2 .15 
+1 .31 
+0 .22 
+7 .86 
+1 .98 
+SII 
+0 .00 
+−0 .09 
+−2 .13 
+2 .45 
+1 .00 
+Panel B: Mean of EWSI across time 
+Variable 
+1973–1982 
+1983–1992 
+1993–2002 
+2003–2014 
+EWSI (%) 
+0 .31 
+0 .91 
+1 .82 
+4 .98 
+the subsamples, it is apparent that EWSI exhibits a strong 
+upward trend over the last four decades. Speciﬁcally, the 
+mean of EWSI monotonically increases from 0.31% in the 
+ﬁrst decade of our sample to a mean of 4.98% over the last 
+decade. Similarly, Panel A of Fig. 1 plots the log of EWSI 
+and clearly shows the secular increase in aggregate short 
+interest over our 1973:01 to 2014:12 sample period. 
+The strong upward trend in aggregate short interest is 
+likely due to several factors. Anecdotal evidence suggests 
+that the equity lending market has expanded signiﬁcantly 
+over the last few decades; as a result, short sale constraints 
+have likely been reduced. 12 There has also been a signif- 
+icant increase in the amount of capital devoted to short 
+arbitrage over our sample period. An industry report by 
+the Managed Funds Association (2012) indicates that as- 
+sets under management for the hedge fund industry more 
+12 Because the equity lending market is an over-the-counter market, 
+there are no detailed data on the size of the market in the 1970s, 1980s, 
+and 1990s. Since the mid 20 0 0s, Data Explorers has collected and dis- 
+tributed a proprietary database on the supply and demand of shares in 
+the lending market. Using the Data Explorers database, Prado, Saﬃ, and 
+Sturgess (2014) document a signiﬁcant increase in the supply of shares 
+available to be borrowed from 2005 to 2010. 
+than tripled between 2002 and 2012, and the number of 
+hedge funds increased from less than 1,0 0 0 funds in 1990 
+to more than 7,0 0 0 funds in 2012. As a consequence, it is 
+likely that much of the increase in short interest over our 
+sample period relates to secular increases in short selling 
+due to the development of the equity lending market and 
+growth of the hedge fund industry; such secular increases 
+are unrelated to the information set of short sellers. 
+Statistical evidence conﬁrms the existence of a signiﬁ- 
+cant trend in aggregate short interest. Consider the linear 
+time trend model: 
+log ( EWSI t ) = a + b · t + u t for t = 1 , . . . , T , 
+(1) 
+where EWSI t is equal-weighted short interest for month t . 
+Because, like many predictor variables from the literature, 
+the log of EWSI appears quite persistent in Fig. 1 , Panel 
+A, we use the Harvey, Leybourne, and Taylor (2007) proce- 
+dure to test the signiﬁcance of b in Eq. (1) for our 1973:01 
+to 2014:12 sample period. The conventional t -statistic for 
+testing the signiﬁcance of b can lead to inaccurate in- 
+ferences when u t is highly persistent. Harvey, Leybourne, 
+and Taylor (2007) develop a test that is robust to the de- 
+gree of persistence in u t (unit root, local-to-unit root, or 
+
+--- PAGE 6 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+51 
+Table 2 
+Predictor variable correlations, 1973:01–2014:12. 
+The table displays Pearson correlation coeﬃcients for 14 predictor variables from Goyal and Welch (2008) , as well as the short interest index (SII). See 
+the notes to Table 1 for the variable deﬁnitions and sample description. 0.00 indicates less than 0.005 in absolute value. 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+(7) 
+(8) 
+(9) 
+(10) 
+(11) 
+(12) 
+(13) 
+(14) 
+(15) 
+(16) 
+Variable 
+DP 
+DY 
+EP 
+DE 
+RVOL 
+BM 
+NTIS 
+TBL 
+LTY 
+LTR 
+TMS 
+DFY 
+DFR 
+INFL 
+SII 
+DP 
+1 .00 
+DY 
+0 .99 
+1 .00 
+EP 
+0 .73 
+0 .73 
+1 .00 
+DE 
+0 .25 
+0 .25 
+−0 .48 
+1 .00 
+RVOL 
+0 .01 
+0 .02 
+−0 .25 
+0 .37 
+1 .00 
+BM 
+0 .90 
+0 .90 
+0 .82 
+0 .00 
+0 .04 
+1 .00 
+NTIS 
+0 .04 
+0 .04 
+0 .10 
+−0 .09 
+−0 .10 
+0 .14 
+1 .00 
+TBL 
+0 .67 
+0 .67 
+0 .65 
+−0 .07 
+−0 .06 
+0 .69 
+0 .09 
+1 .00 
+LTY 
+0 .76 
+0 .76 
+0 .61 
+0 .11 
+0 .01 
+0 .71 
+0 .13 
+0 .91 
+1 .00 
+LTR 
+0 .03 
+0 .04 
+0 .02 
+0 .00 
+0 .01 
+0 .01 
+−0 .07 
+0 .00 
+−0 .02 
+1 .00 
+TMS 
+−0 .15 
+−0 .14 
+−0 .38 
+0 .35 
+0 .15 
+−0 .29 
+0 .04 
+−0 .64 
+−0 .26 
+−0 .04 
+1 .00 
+DFY 
+0 .48 
+0 .48 
+0 .12 
+0 .45 
+0 .44 
+0 .46 
+−0 .32 
+0 .25 
+0 .36 
+0 .10 
+0 .08 
+1 .00 
+DFR 
+0 .02 
+0 .04 
+−0 .08 
+0 .14 
+0 .13 
+0 .01 
+0 .03 
+−0 .04 
+0 .01 
+−0 .44 
+0 .12 
+0 .10 
+1 .00 
+INFL 
+0 .45 
+0 .45 
+0 .52 
+−0 .15 
+−0 .02 
+0 .55 
+0 .16 
+0 .51 
+0 .41 
+−0 .07 
+−0 .43 
+0 .01 
+−0 .08 
+1 .00 
+SII 
+−0 .13 
+−0 .14 
+−0 .23 
+0 .16 
+−0 .13 
+−0 .23 
+−0 .28 
+−0 .03 
+−0 .06 
+−0 .03 
+−0 .05 
+−0 .07 
+−0 .06 
+−0 .02 
+1 .00 
+stationary), and their test clearly indicates that b is signiﬁ- 
+cant in Eq. (1) . 13 
+In light of the robust evidence for a trend in the log of 
+EWSI, we remove the secular increase in aggregate short 
+interest to isolate the economically relevant variation in 
+short selling that reﬂects the changing beliefs of short sell- 
+ers. Speciﬁcally, we estimate Eq. (1) using ordinary least 
+squares (OLS) for 1973:01 to 2014:12 and take the ﬁtted 
+residual, ˆ 
+u t , as our detrended measure of aggregate short 
+interest. 14 By construction, ˆ 
+u t has a mean of zero, and we 
+standardize the series to have a standard deviation of one. 
+We treat the standardized series as our short interest in- 
+dex, SII, which can be interpreted as a measure of mar- 
+ket pessimism based on short interest data. In our out- 
+of-sample analysis, we compute SII recursively using only 
+data available at time t to forecast the return for time t + 1 . 
+Panel B of Fig. 1 depicts the SII series. SII exhibits 
+signiﬁcant ﬂuctuations in Fig. 1 , Panel B, often around 
+business-cycle turning points. Most notably, SII increases 
+in a reasonably steady manner during the mid 20 0 0s in 
+the run-up to the recent Global Financial Crisis and con- 
+comitant Great Recession; it then increases substantially in 
+the middle of 2008 just before the worst part of the crisis 
+and subsequently falls sharply during the later stages of 
+the crisis and Great Recession. 15 
+13 The Harvey, Leybourne, and Taylor (2007) z mδ
+λ
+statistics are 4.12, 3.89, 
+and 3.57 at the 10%, 5%, and 1% levels, respectively, all of which are sig- 
+niﬁcant. The z mδ
+λ
+statistic is different for each signiﬁcance level due to the 
+calibration of a scaling factor that is unique to the signiﬁcance level. 
+14 We consider alternative detrending methods in Section 3 . Note that 
+Ng and Perron (2001) unit root tests with good size and power indicate 
+that the log of EWSI is a stationary process around a linear trend: their 
+MZ GLS 
+α
+( ADF GLS ) statistic is −20 . 32 ( −2 . 82 ), which is signiﬁcant at the 5% 
+(10%) level. 
+15 The Securities and Exchange Commission banned short selling in se- 
+lected U.S. equities from September 19, 2008 through October 8, 2008. 
+Because we measure short interest at the monthly horizon using data 
+compiled by the exchanges on September 15, 2008 and October 15, 2008, 
+our short interest data are not impacted by the short sales ban. Similarly, 
+equity lending market conditions do not signiﬁcantly impact our short 
+interest data. While equity loan fees, in aggregate, do increase in the last 
+2.3. Relation to other predictors 
+Table 2 displays Pearson correlation coeﬃcients for 
+the 14 popular predictor variables from Goyal and Welch 
+(2008) and SII. While many of the popular predictors from 
+the literature exhibit strong correlations with each other, 
+our SII measure appears largely unrelated to these predic- 
+tors. The strongest correlation (in magnitude) between SII 
+and one of the popular predictors occurs with NTIS, which 
+has a correlation of only −0 . 28 . In other words, our SII 
+measure appears to contain substantially different infor- 
+mation from many of the stock return predictors used in 
+the existing literature. 16 
+3. Predictive regression analysis 
+3.1. In-sample tests 
+A predictive regression model is the standard frame- 
+work for analyzing aggregate stock return predictability: 
+r t :t + h = α + βx t + ε t :t + h for t = 1 , . . . , T −h, 
+(2) 
+where r t :t + h = (1 /h )(r t+1 + · · · + r t+ h ) , r t is the S&P 500 
+log excess return for month t , and x t is a predictor variable. 
+We are interested in testing the signiﬁcance of β in Eq. (2) . 
+For a more powerful test of predictability, Inoue and Kil- 
+ian (2005) recommend using a one-sided alternative hy- 
+pothesis, as theory often suggests the sign of β under pre- 
+dictability. It is well known that statistical inferences in 
+Eq. (2) are complicated by the Stambaugh (1999) bias, as 
+well as the use of overlapping observations when h > 1 
+(e.g., Goetzmann and Jorion, 1993; Hodrick, 1992; Nelson 
+and Kim, 1993 ). To address these complications and make 
+more reliable inferences, we use a heteroskedasticity- and 
+few days of September 2008, they are at normal levels on September 15th 
+and October 15th, when we measure short interest. 
+16 Using updated data through 2010:12 available from Jeffrey Wurgler’s 
+webpage at http://people.stern.nyu.edu/jwurgler/ , we ﬁnd that SII is only 
+weakly correlated ( −0 . 13 ) with the Baker and Wurgler (2007) sentiment 
+index. 
+
+--- PAGE 7 ---
+52 
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+Table 3 
+In-sample predictive regression estimation results, 1973:01–2014:12. 
+The table reports the ordinary least squares estimate of β and R 2 statistic for the predictive regression model, 
+r t :t + h = α + βx t + ε t :t + h for t = 1 , . . . , T −h, 
+where r t :t + h = (1 /h )(r t+1 + · · · + r t+ h ) , r t is the S&P 500 log excess return for month t, x t is the predictor variable in the ﬁrst 
+column, and (-) indicates that we take the negative of the predictor variable. See the notes to Table 1 for the variable deﬁnitions 
+and sample description. Each predictor variable is standardized to have a standard deviation of one. Brackets below the ˆ 
+β
+estimates report heteroskedasticity- and autocorrelation-robust t -statistics for testing H 0 : β = 0 against H A : β > 0; ∗, ∗∗, and 
+∗∗∗indicate signiﬁcance at the 10%, 5%, and 1% levels, respectively, according to wild bootstrapped p -values; 0.00 indicates less 
+than 0.005 in absolute value. The “SII (-)|PC” row corresponds to a multiple predictive regression that includes an intercept, SII, 
+and the ﬁrst three principal components extracted from the non-SII predictors in the ﬁrst column. For this multiple predictive 
+regression, the table reports the estimated slope coeﬃcient and partial R 2 statistic corresponding to SII. 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+(7) 
+(8) 
+(9) 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+Predictor 
+ˆ 
+β
+R 2 (%) 
+ˆ 
+β
+R 2 (%) 
+ˆ 
+β
+R 2 (%) 
+ˆ 
+β
+R 2 (%) 
+DP 
+0 .15 
+0 .12 
+0 .17 
+0 .39 
+0 .19 
+0 .93 
+0 .20 
+2 .06 
+[0 .75] 
+[0 .94] 
+[1 .06] 
+[1 .12] 
+DY 
+0 .18 
+0 .15 
+0 .18 
+0 .44 
+0 .19 
+1 .00 
+0 .21 
+2 .18 
+[0 .86] 
+[0 .99] 
+[1 .10] 
+[1 .15] 
+EP 
+0 .09 
+0 .04 
+0 .06 
+0 .05 
+0 .06 
+0 .09 
+0 .08 
+0 .34 
+[0 .37] 
+[0 .27] 
+[0 .25] 
+[0 .43] 
+DE 
+0 .06 
+0 .02 
+0 .12 
+0 .22 
+0 .16 
+0 .68 
+0 .14 
+1 .03 
+[0 .23] 
+[0 .57] 
+[0 .88] 
+[1 .21] 
+RVOL 
+0 .35 
+0 .62 
+0 .33 
+1 .53 
+0 .27 
+1 .90 
+0 .18 
+1 .58 
+[1 .90] ∗∗
+[2 .12] ∗∗
+[1 .95] ∗∗
+[1 .26] 
+BM 
+−0 .01 
+0 .00 
+0 .01 
+0 .00 
+0 .04 
+0 .05 
+0 .05 
+0 .14 
+[−0 .05] 
+[0 .06] 
+[0 .23] 
+[0 .29] 
+NTIS ( −) 
+0 .07 
+0 .02 
+0 .00 
+0 .00 
+−0 .01 
+0 .00 
+0 .02 
+0 .02 
+[0 .27] 
+[0 .00] 
+[−0 .02] 
+[0 .07] 
+TBL ( −) 
+0 .26 
+0 .34 
+0 .22 
+0 .67 
+0 .19 
+0 .91 
+0 .17 
+1 .38 
+[1 .28] 
+[1 .20] 
+[0 .99] 
+[0 .99] 
+LTY ( −) 
+0 .15 
+0 .10 
+0 .10 
+0 .15 
+0 .08 
+0 .15 
+0 .00 
+0 .00 
+[0 .71] 
+[0 .57] 
+[0 .40] 
+[0 .03] 
+LTR 
+0 .33 
+0 .55 
+0 .14 
+0 .27 
+0 .23 
+1 .41 
+0 .15 
+1 .14 
+[1 .67] ∗∗
+[0 .92] 
+[2 .48] ∗∗∗
+[2 .90] ∗∗∗
+TMS 
+0 .33 
+0 .56 
+0 .31 
+1 .33 
+0 .28 
+2 .14 
+0 .36 
+6 .52 
+[1 .66] ∗∗
+[1 .72] ∗
+[1 .62] ∗
+[2 .27] ∗∗
+DFY 
+0 .15 
+0 .11 
+0 .16 
+0 .37 
+0 .24 
+1 .51 
+0 .19 
+1 .75 
+[0 .55] 
+[0 .66] 
+[1 .24] 
+[1 .18] 
+DFR 
+0 .50 
+1 .24 
+0 .23 
+0 .72 
+0 .16 
+0 .71 
+0 .06 
+0 .17 
+[1 .58] ∗
+[1 .26] 
+[1 .38] ∗
+[0 .89] 
+INFL ( −) 
+0 .06 
+0 .02 
+0 .17 
+0 .43 
+0 .26 
+1 .81 
+0 .27 
+3 .64 
+[0 .21] 
+[0 .90] 
+[1 .62] ∗
+[2 .04] ∗
+SII ( −) 
+0 .50 
+1 .24 
+0 .56 
+4 .37 
+0 .57 
+8 .07 
+0 .53 
+12 .89 
+[2 .50] ∗∗∗
+[2 .88] ∗∗∗
+[2 .73] ∗∗
+[2 .70] ∗∗
+SII ( −)|PC 
+0 .51 
+1 .27 
+0 .58 
+4 .54 
+0 .59 
+8 .64 
+0 .55 
+13 .69 
+[2 .64] ∗∗∗
+[3 .02] ∗∗∗
+[2 .79] ∗∗
+[2 .73] ∗∗
+autocorrelation-robust t -statistic and compute a wild boot- 
+strapped p -value to test H 0 : β = 0 against H A : β > 0 in 
+Eq. (2) . 
+We estimate Eq. (2) via OLS for each of the 14 Goyal 
+and Welch (2008) predictor variables and our SII measure. 
+To facilitate comparisons across predictors, we standardize 
+each predictor to have a standard deviation of one. We also 
+take the negative of NTIS, TBL, LTY, INFL, and SII before es- 
+timating Eq. (2) for these predictors (as indicated by the 
+negative sign in parentheses in the ﬁrst column of Table 3 ), 
+so that H A : β > 0 is the relevant alternative hypothesis for 
+each predictor. For our 1973:01 to 2014:12 sample period, 
+after accounting for lags and overlapping observations, we 
+have 503, 501, 498, and 492 usable observations for esti- 
+mating Eq. (2) at monthly ( h = 1 ), quarterly ( h = 3 ), semi- 
+annual ( h = 6 ), and annual ( h = 12 ) horizons, respectively. 
+Table 3 reports the OLS estimate of β in Eq. (2) and 
+its corresponding t -statistic for each predictor and horizon. 
+At the monthly horizon, four of the 14 Goyal and Welch 
+(2008) predictors display signiﬁcant predictive ability at 
+conventional levels in the second column of Table 3 : RVOL, 
+LTR, TMS, and DFR. Among these predictors, DFR has the 
+largest ˆ 
+β estimate (0.50). SII also exhibits signiﬁcant pre- 
+dictive ability in the second column (at the 1% level), and 
+its ˆ 
+β estimate (0.50) matches that of DFR and is larger than 
+the estimates for the remaining predictors. The ˆ 
+β estimate 
+for SII has the expected sign (recall that we take the neg- 
+ative of SII in Table 3 ) and is economically large: a one- 
+standard-deviation increase in SII is associated with a 50 
+basis point decrease in next month’s equity market excess 
+return (corresponding to a six percentage point decrease in 
+annualized excess return). 
+Because monthly returns inherently contain a large un- 
+predictable component, the R 2 statistics in the third col- 
+umn of Table 3 will necessarily be small. Nevertheless, 
+Campbell and Thompson (2008) argue that a monthly R 2 
+
+--- PAGE 8 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+53 
+statistic of approximately 0.5% represents an economically 
+meaningful degree of return predictability. 17 The monthly 
+R 2 statistics for the signiﬁcant predictors are very near or 
+well above this threshold. SII and DFR deliver the highest 
+monthly R 2 statistic (1.24%). Overall, the second and third 
+columns of Table 3 demonstrate that the predictive power 
+of SII at the monthly horizon is clearly on par with the 
+best individual predictors from the literature. 
+At the quarterly, semi-annual, and annual horizons, SII 
+displays substantially stronger predictive ability than the 
+14 popular predictors. The quarterly ˆ 
+β estimate for SII is 
+0.56 in the fourth column of Table 3 . This estimate is sig- 
+niﬁcant, well above the ˆ 
+β estimates for the remaining pre- 
+dictors, and implies that a one-standard-deviation increase 
+in SII corresponds to a 6.72 percentage point decrease in 
+future annualized excess return. Among the remaining pre- 
+dictors, only RVOL and TMS have signiﬁcant ˆ 
+β estimates. 
+The quarterly R 2 statistic for SII is a sizable 4.37% in the 
+ﬁfth column, which is well over twice as large as the next 
+highest quarterly R 2 statistic (1.53% for RVOL). 
+The semi-annual and annual ˆ 
+β estimates for SII re- 
+main sizable in the sixth and eighth columns, respectively, 
+of Table 3 . These estimates are again signiﬁcant and well 
+above the ˆ 
+β estimates for the other predictors. Among 
+the other predictors, only ﬁve (three) are signiﬁcant at the 
+semi-annual (annual) horizon. The semi-annual (annual) R 2 
+statistic for SII is 8.07% (12.89%) in the seventh (ninth) col- 
+umn of Table 3 . These R 2 statistics are approximately two 
+to four times larger than the highest R 2 statistics for the 
+remaining predictors. 18 
+The last row of Table 3 reports the OLS estimate of βSII 
+and corresponding t -statistic for the following predictive 
+regression: 
+r t :t + h = α + βSII SII t + 
+3 
+ 
+j=1 
+β f, j ˆ 
+f j,t + ε t :t + h , 
+(3) 
+where ˆ 
+f 1 ,t , ˆ 
+f 2 ,t , and ˆ 
+f 3 ,t are the ﬁrst three principal com- 
+ponents extracted from the entire set of Goyal and Welch 
+(2008) variables. Ludvigson and Ng (2007) show that prin- 
+cipal components provide an effective strategy for incor- 
+porating the information from a large number of economic 
+variables in predictive regression models for stock returns. 
+This speciﬁcation allows us, in a reasonably parsimonious 
+manner, to test the predictive power of SII after controlling 
+for the entire group of popular predictor variables taken 
+together. The last row of Table 3 also reports the partial R 2 
+statistic corresponding to SII for Eq. (3) . 
+Comparing the “SII (-)” and “SII (-)|PC” rows of Table 3 , 
+we see that including the principal components in the pre- 
+17 Theoretically, Ross (2005) , Zhou (2010) , and Huang and Zhou 
+(2016) provide upper bounds on the degree of stock return predictabil- 
+ity in terms of the R 2 statistic. 
+18 Other papers have documented similarly large R 2 statistics for long- 
+horizon predictive regressions. For example, Fama and French (1988) re- 
+port predictive regression R 2 statistics for dividend yields of 7%, 10%, 13%, 
+and 13% for horizons of one, two, three, and four years, respectively, for 
+1927 to 1986, while Hirshleifer, Hou, and Teoh (2009) report an annual 
+R 2 statistic for accruals of 20% for 1965 to 2005. Using data from Com- 
+pustat for our 1973:01 to 2014:12 sample period, we ﬁnd that SII evinces 
+substantially stronger predictive power than aggregate earnings surprises 
+and accruals at quarterly, semi-annual, and annual horizons. 
+dictive regression has very little effect on the predictive 
+ability of SII. The estimated slope coeﬃcients for SII remain 
+sizable when the principal components are included in 
+the predictive regression, and the partial R 2 statistics indi- 
+cate that SII retains substantial marginal predictive power 
+in the presence of the principal components. In sum, di- 
+rectly controlling for numerous popular predictors from 
+the literature via principal components does not affect the 
+predictive ability of SII. In accord with the discussion in 
+Section 2.3 , SII contains information that is quite different 
+from that contained in a variety of popular predictors, and 
+this differential information is useful for predicting returns. 
+3.2. Alternative detrending 
+As explained in Section 2.2 , we use linear detrending 
+to construct our SII measure. To examine the sensitivity 
+of SII’s predictive ability to alternative speciﬁcations of the 
+time trend in the log of EWSI, we generalize Eq. (1) to al- 
+low for higher-order polynomial terms: 
+log ( EWSI t ) = a + b 1 t + b 2 t 2 + b 3 t 3 + u t . 
+(4) 
+Eq. (4) allows for a cubic time trend in the log of EWSI and 
+speciﬁes a quadratic time trend model when b 3 = 0 . Us- 
+ing either a quadratic or cubic trend speciﬁcation, we esti- 
+mate Eq. (4) via OLS and again take the ﬁtted residual as 
+our SII measure (where we again standardize SII to have 
+a standard deviation of one). We also consider “stochas- 
+tic detrending” based on a ﬁve-year window, where SII for 
+month t is the difference between log(EWSI) for month 
+t minus the average of log(EWSI) from month t −59 to 
+month t . For stochastic detrending, SII observations are 
+available starting in 1977:12. 19 
+Table 4 reports estimation results for the predictive re- 
+gression in Eq. (2) based on SII for the different trend spec- 
+iﬁcations. 20 The results show that the predictive power of 
+SII is very robust to different detrending methods: the ˆ 
+β
+estimates are statistically and economically signiﬁcant for 
+all detrending speciﬁcations at all horizons (with the ex- 
+ception of cubic detrending at the annual horizon, where 
+the unreported wild bootstrapped p -value is 0.11). 
+3.3. Out-of-sample tests 
+To examine the robustness of the in-sample results, 
+Table 5 reports results for out-of-sample tests of return 
+predictability. Such tests are important in light of Goyal 
+and Welch (2008) , who show that the in-sample predictive 
+ability of a variety of plausible return predictors generally 
+does not hold up in out-of-sample tests. 
+3.3.1. Out-of-sample R 2 
+Corresponding to each predictor, we compute a predic- 
+tive regression forecast as 
+ˆ 
+r t : t + h = ˆ 
+αt + ˆ 
+βt x t , 
+(5) 
+19 Stochastic detrending is frequently applied to the Treasury bill yield 
+in predictive regressions (e.g., Campbell, 1991 ). We obtain similar results 
+when we use windows of three or four years for stochastic detrending. 
+20 To facilitate comparisons, Table 4 also reports the predictive regres- 
+sion estimation results for SII based on linear detrending from Table 3 . 
+
+--- PAGE 9 ---
+54 
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+Table 4 
+Predictive regression estimation results for alternative detrending methods, 1973:01–2014:12. 
+The table reports the ordinary least squares estimate of β and R 2 statistic for the predictive regression model, 
+r t :t + h = α + βSII t + ε t :t + h for t = 1 , . . . , T −h, 
+where r t :t + h = (1 /h )(r t+1 + · · · + r t+ h ) , r t is the S&P 500 log excess return for month t , SII t is the short interest index, and (-) 
+indicates that we take the negative of SII t . SII is computed as the deviation in the log of EWSI from a linear, quadratic, or cubic 
+time trend (as indicated in the ﬁrst column), where EWSI is the equal-weighted mean across all ﬁrms of the number of shares 
+held short in a given ﬁrm normalized by each ﬁrm’s shares outstanding. See the notes to Table 1 for the sample description. 
+“Stochastic” indicates that SII is computed as the deviation in the log of EWSI from a 60-month backward-looking moving 
+average; the sample for SII based on stochastic detrending starts in 1977:12. SII is standardized to have a mean of zero and a 
+standard deviation of one. Brackets below the ˆ 
+β estimates report heteroskedasticity- and autocorrelation-robust t -statistics for 
+testing H 0 : β = 0 against H A : β > 0; ∗, ∗∗, and ∗∗∗indicate signiﬁcance at the 10%, 5%, and 1% levels, respectively, according to 
+wild bootstrapped p -values. 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+(7) 
+(8) 
+(9) 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+Detrending method 
+ˆ 
+β
+R 2 (%) 
+ˆ 
+β
+R 2 (%) 
+ˆ 
+β
+R 2 (%) 
+ˆ 
+β
+R 2 (%) 
+Linear ( −) 
+0 .50 
+1 .24 
+0 .56 
+4 .37 
+0 .57 
+8 .07 
+0 .53 
+12 .89 
+[2 .50] ∗∗∗
+[2 .88] ∗∗∗
+[2 .73] ∗∗
+[2 .70] ∗∗
+Quadratic ( −) 
+0 .56 
+1 .57 
+0 .62 
+5 .38 
+0 .62 
+9 .79 
+0 .56 
+15 .51 
+[2 .74] ∗∗∗
+[3 .12] ∗∗∗
+[2 .92] ∗∗∗
+[2 .87] ∗∗
+Cubic ( −) 
+0 .40 
+0 .79 
+0 .46 
+3 .06 
+0 .46 
+5 .72 
+0 .40 
+8 .35 
+[1 .68] ∗
+[2 .07] ∗∗
+[1 .99] ∗
+[1 .76] 
+Stochastic ( −) 
+0 .42 
+0 .91 
+0 .49 
+3 .50 
+0 .51 
+7 .44 
+0 .45 
+11 .02 
+[1 .98] ∗∗
+[2 .56] ∗∗∗
+[2 .74] ∗∗
+[2 .83] ∗∗
+Table 5 
+Out-of-sample test results, 1990:01–2014:12. 
+The second through ﬁfth columns report the proportional reduction in mean squared forecast error (MSFE) at the h -month 
+horizon for a predictive regression forecast of the S&P 500 log excess return based on the predictor variable in the ﬁrst column 
+vis-á-vis the prevailing mean benchmark forecast, where statistical signiﬁcance is based on the Clark and West (2007) statistic 
+for testing the null hypothesis that the prevailing mean MSFE is less than or equal to the predictive regression MSFE against 
+the alternative hypothesis that the prevailing mean MSFE is greater than the predictive regression MSFE. See the notes to 
+Table 1 for the variable deﬁnitions and sample description. The sixth through ninth columns report the estimated weight on 
+the predictive regression forecast based on SII in a combination forecast that takes the form of a convex combination of a 
+predictive regression forecast based on SII and a predictive regression forecast based on one of the non-SII predictor variables 
+in the ﬁrst column, where statistical signiﬁcance is based on the Harvey, Leybourne, and Newbold (1998) statistic for testing 
+the null hypothesis that the weight on the SII-based forecast is equal to zero against the alternative hypothesis that the weight 
+on the SII-based forecast is greater than zero; ∗, ∗∗, and ∗∗∗indicate signiﬁcance at the 10%, 5%, and 1% levels, respectively. 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+(7) 
+(8) 
+(9) 
+Out-of-sample R 2 statistics (%) 
+Encompassing tests 
+Predictor 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+DP 
+−2 .06 
+−5 .80 
+−10 .97 
+−26 .39 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+DY 
+−2 .20 
+−5 .66 
+−11 .04 
+−25 .82 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+EP 
+−1 .14 
+−4 .24 
+−8 .85 
+−16 .39 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+DE 
+−2 .27 
+−6 .29 
+−7 .85 
+−3 .56 
+1 .00 ∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+0 .96 ∗∗∗
+RVOL 
+−0 .56 
+−1 .40 
+−1 .77 
+−3 .40 
+0 .98 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+BM 
+−0 .56 
+−1 .75 
+−3 .55 
+−9 .68 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+NTIS 
+−3 .23 
+−8 .88 
+−19 .06 
+−27 .82 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+TBL 
+−0 .38 
+−0 .92 
+−1 .66 
+−1 .75 
+1 .00 ∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗
+LTY 
+−0 .31 
+−1 .53 
+−3 .66 
+−11 .85 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+LTR 
+−0 .51 
+−1 .59 
+−0 .94 
+−0 .91 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+0 .94 ∗∗∗
+TMS 
+−0 .76 
+−1 .72 
+−1 .43 
+3 .35 ∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+0 .83 ∗∗
+DFY 
+−3 .07 
+−7 .15 
+−8 .92 
+−7 .35 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+DFR 
+−1 .75 
+−1 .11 
+−0 .39 
+−0 .78 
+0 .95 ∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+INFL 
+−0 .64 
+−0 .32 
+1 .95 ∗
+3 .24 
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+1 .00 ∗∗∗
+0 .89 ∗∗∗
+SII 
+1 .94 ∗∗∗
+6 .54 ∗∗∗
+11 .70 ∗∗∗
+13 .24 ∗∗
+−
+−
+−
+−
+where ˆ 
+αt and ˆ 
+βt are the OLS estimates of α and β, re- 
+spectively, in Eq. (2) based on data from the beginning of 
+the sample through month t . 21 The prevailing mean fore- 
+21 Note that we only use data from the beginning of the sample through 
+month t to estimate the linear trend used to deﬁne SII when computing 
+Eq. (5) , so that there is no “look-ahead” bias in the predictive regression 
+forecast based on SII. 
+cast, the average excess return from the beginning of the 
+sample through month t , serves as a natural benchmark. 
+This forecast corresponds to the constant expected excess 
+return model, Eq. (2) with β = 0 , and implies that returns 
+are not predictable, as in the canonical random walk with 
+drift model for the log of stock prices. 
+The second through ﬁfth columns of Table 5 re- 
+port the proportional reduction in mean squared forecast 
+
+--- PAGE 10 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+55 
+error (MSFE) for the predictive regression forecast vis-á-vis 
+the prevailing mean benchmark forecast—what Campbell 
+and Thompson (2008) label the out-of-sample R 2 statis- 
+tic ( R 2 
+OS )—over the 1990:01 to 2014:12 forecast evaluation 
+period. 22 To ascertain whether the predictive regression 
+forecast delivers a statistically signiﬁcant improvement in 
+MSFE, we use the Clark and West (2007) statistic to test 
+the null hypothesis that the prevailing mean MSFE is less 
+than or equal to the predictive regression MSFE against the 
+alternative hypothesis that the prevailing mean MSFE is 
+greater than the predictive regression MSFE (correspond- 
+ing to H 0 : R 2 
+OS ≤0 against H A : R 2 
+OS > 0 ). 23 
+As indicated by the negative R 2 
+OS statistics in the sec- 
+ond column of Table 5 , all 14 of the popular predictors 
+fail to outperform the prevailing mean benchmark in terms 
+of MSFE at the monthly horizon, conﬁrming the ﬁndings 
+of Goyal and Welch (2008) . In contrast, the monthly R 2 
+OS 
+statistic for SII is positive (1.94%) and signiﬁcant accord- 
+ing to the Clark and West (2007) statistic, so that, unlike 
+the 14 popular predictors, SII outperforms the prevailing 
+mean benchmark and clears the out-of-sample hurdle. A 
+similar situation prevails at the quarterly horizon: SII is 
+the only predictor with a lower MSFE than the bench- 
+mark, and the R 2 
+OS statistic for SII is sizable (6.54%) and 
+signiﬁcant. 
+SII continues to outperform the benchmark at the semi- 
+annual and annual horizons, with R 2 
+OS statistics of 11.70% 
+and 13.24%, respectively, both of which are signiﬁcant. INFL 
+is the only other predictor that outperforms the bench- 
+mark at the semi-annual horizon, but its signiﬁcant R 2 
+OS 
+statistic of 1.95% is still well below that of SII. TMS and 
+INFL are the only popular predictors that outperform the 
+benchmark at the annual horizon. The annual R 2 
+OS statistic 
+for INFL is 3.24%, which is insigniﬁcant, while the annual 
+R 2 
+OS statistic for TMS is reasonably large (3.35%) and signif- 
+icant but again well below that of SII. 24 
+3.3.2. Forecast encompassing tests 
+Next, we use forecast encompassing tests to directly 
+compare the information content of the predictive regres- 
+sion forecast based on SII to that of the individual predic- 
+tive regression forecasts based on the 14 popular predic- 
+22 Starting the out-of-sample period in 1990:01 provides a reasonably 
+long initial in-sample period for reliably estimating the parameters used 
+to generate the initial predictive regression forecasts. This is especially 
+relevant when generating forecasts based on SII, as we also need to esti- 
+mate the trend for the log of EWSI to construct SII. 
+23 The popular Diebold and Mariano (1995) and West (1996) statistic for 
+comparing predictive accuracy has a nonstandard distribution when com- 
+paring forecasts from nested models ( Clark and McCracken, 2001; Mc- 
+Cracken, 2007 ). Clark and West (2007) modify this statistic so that it has 
+an approximately standard distribution when comparing forecasts from 
+nested models. Note that we account for the serial correlation in the over- 
+lapping forecasts when computing the Clark and West (2007) statistic for 
+h > 1. 
+24 Analogously to the in-sample results in Table 4 , we checked the ro- 
+bustness of the out-of-sample predictive ability of SII to different detrend- 
+ing speciﬁcations. For quadratic and stochastic detrending, the R 2 
+OS statis- 
+tics for SII are qualitatively similar to those based on linear detrending at 
+the monthly, quarterly, semi-annual, and annual horizons. For cubic de- 
+trending, the R 2 
+OS statistics for SII are qualitatively similar at the monthly, 
+quarterly, and semi-annual horizons. The complete results are reported in 
+Table A1 of the online Appendix. 
+tors. We start by forming an optimal combination forecast 
+as a convex combination of a predictive regression forecast 
+based on one of the popular predictors and the predictive 
+regression forecast based on SII: 
+ˆ 
+r ∗
+t : t + h = (1 −λ) ˆ 
+r i 
+t : t + h + λˆ 
+r SII 
+t : t + h , 
+(6) 
+where ˆ 
+r i 
+t : t + h ( ˆ 
+r SII 
+t : t + h ) is the predictive regression forecast 
+based on one of the popular predictors (SII) and 0 ≤λ ≤
+1. If λ = 0 , then the optimal combination forecast given by 
+Eq. (6) excludes the forecast based on SII, so that the pre- 
+dictive regression forecast based on the popular predictor 
+encompasses the predictive regression forecast based on 
+SII; in this case, SII does not contain information that is 
+useful for forecasting excess returns beyond the informa- 
+tion already found in the popular predictor. Alternatively, 
+if λ > 0, then the optimal combination forecast includes 
+the forecast based on SII, so that the predictive regres- 
+sion forecast based on the popular predictor does not en- 
+compass the predictive regression forecast based on SII; 
+in other words, SII provides information that is useful for 
+forecasting excess returns beyond the information already 
+contained in the popular predictor. 
+The sixth through ninth columns of Table 5 report the 
+estimate of λ in Eq. (6) corresponding to each popular 
+predictor and indicate whether the estimate is signiﬁcant 
+using the approach of Harvey, Leybourne, and Newbold 
+(1998) . The ˆ λ estimates in Table 5 are all sizable and 
+signiﬁcant, so that none of the forecasts based on the 
+popular predictors encompasses the SII-based forecast. 
+Interestingly, the vast majority of ˆ λ estimates equal one, 
+and the remaining estimates are reasonably close to 
+one; when λ = 1 , the optimal combination forecast in 
+Eq. (6) is simply ˆ 
+r SII 
+t : t + h , meaning that the optimal forecast 
+only incorporates information from SII. Indeed, using the 
+Harvey, Leybourne, and Newbold (1998) procedure, we 
+cannot reject the null hypothesis that the weight on ˆ 
+r i 
+t : t + h 
+equals zero in Eq. (6) for any of the popular predictors 
+at any horizon, so that the predictive regression forecasts 
+based on SII always encompass the forecasts based on 
+the popular predictors. In sum, we have strong evidence 
+that λ = 1 regardless of the popular predictor included in 
+Eq. (6) , which points to the superior information content 
+of SII relative to numerous popular predictors from the 
+literature with respect to out-of-sample forecasting. 
+3.4. Robustness 
+Our results are robust to a variety of alternative spec- 
+iﬁcations. In what follows, we discuss several robustness 
+checks which conﬁrm the main ﬁndings of the paper. 25 
+The complete results are reported in Tables A2 through A5 
+of the online Appendix. 
+3.4.1. Persistence 
+First, the monthly autocorrelation coeﬃcient for SII is 
+0.95, so that—like many popular return predictors from 
+the literature—it is highly persistent. It is well known that 
+25 We thank the referee for these and other insightful suggestions that 
+helped to substantially improve the paper. 
+
+--- PAGE 11 ---
+56 
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+highly persistent regressors raise econometric concerns 
+(e.g., Cavanagh, Elliott, and Stock, 1995; Torous, Valka- 
+nov, and Yan, 2004 ). To address these concerns, Kostakis, 
+Magdalinos, and Stamatogiannis (2015) develop a powerful 
+Wald test that is robust to the regressor’s degree of persis- 
+tence (unit root, local-to-unit root, near stationary, or sta- 
+tionary). We use their IVX-Wald statistic to test H 0 : β = 0 
+against H A : β̸ = 0 for SII in Eq. (2) . The IVX-Wald statistics 
+are signiﬁcant at all horizons, so that we have robust ev- 
+idence that the predictive power of SII in Table 3 is not a 
+statistical artifact of SII’s persistence. 
+3.4.2. Temporal stability 
+Second, we do not ﬁnd signiﬁcant evidence of struc- 
+tural instability in the ˆ 
+β estimates for SII in Table 3 ac- 
+cording to the Elliott and Müller (2006) test. Their test 
+is particularly useful for analyzing the temporal stabil- 
+ity of predictive regressions: it is asymptotically eﬃcient 
+for a wide variety of breaking processes, and Paye and 
+Timmermann (2006) show via simulations that the test 
+has excellent ﬁnite-sample properties for predictive regres- 
+sions with highly persistent predictors. Using the Elliott 
+and Müller (2006)  
+qLL statistic to test H 0 : βt = β for all 
+t , none of the  
+qLL statistics is signiﬁcant at any horizon for 
+the ˆ 
+β estimates for SII in Table 3 . In other words, we do 
+not ﬁnd evidence that the predictive ability of SII changes 
+over our 1973:01 to 2014:12 sample period. Although we 
+do not ﬁnd evidence of temporal instability, we also ex- 
+amine predictive regressions for decadal subsamples. The 
+estimated slope coeﬃcients are signiﬁcant for both the 
+ﬁrst (1973:01 to 1982:12) and fourth (2003:01 to 2014:12) 
+subsamples at all horizons, despite the substantial reduc- 
+tions in sample size, while the estimated slope coeﬃ- 
+cients are insigniﬁcant for the second (1983:01–1992:12) 
+and third (1993:01–2002:12) subsamples. As discussed in 
+Section 4 , this pattern is consistent with the extant litera- 
+ture that ﬁnds that return predictability in general is con- 
+centrated in subsamples with deep recessions. Overall, the 
+evidence indicates that SII reliably predicts market returns 
+only during periods that include severe macroeconomic 
+crises. 
+3.4.3. Equal-weighted market returns 
+Third, our results are robust to alternative measures 
+of market returns. We have shown that our SII measure, 
+which is based on equal-weighted short interest, strongly 
+predicts value-weighted market returns. As previously dis- 
+cussed, we focus on predicting value-weighted returns so 
+that our results are comparable to the extant literature, 
+even though it is natural to examine the relation be- 
+tween equal-weighted short interest and equal -weighted 
+returns. In fact, we also ﬁnd that SII strongly predicts 
+equal-weighted market portfolio returns. Speciﬁcally, SII is 
+a statistically and economically signiﬁcant predictor of the 
+equal-weighted CRSP market excess return (as well as the 
+equal-weighted S&P 500 excess return) at the monthly, 
+quarterly, semi-annual, and annual horizons. When r t is 
+the equal-weighted CRSP log excess return in Eq. (2) , the ˆ 
+β
+estimates for SII and R 2 statistics are larger than the corre- 
+sponding values in Table 3 . To summarize, our SII measure 
+based on EWSI is a powerful predictor of both equal- and 
+value-weighted market excess returns. 
+3.4.4. Short interest constituents 
+Fourth, our results are also robust to the universe of as- 
+sets underlying SII. Our baseline SII measure includes short 
+interest positions in common equities, ADRs, ETFs, and 
+REITs. SII continues to exhibit statistically and economi- 
+cally signiﬁcant predictive ability when it is comprised of 
+short positions in common equities only or ADRs, ETFs, 
+and REITs only. However, our baseline SII measure that in- 
+cludes common equities, ADRs, ETFs, and REITs evinces the 
+strongest predictive power. 
+3.4.5. Why equal-weighted short interest? 
+Finally, we note that our goal is to extract a signal 
+from short interest data that measures the changing be- 
+liefs of short sellers in the aggregate. Since we focus on 
+predicting the return on the value-weighted market port- 
+folio (following the aggregate return predictability liter- 
+ature), it seems natural to use a value-weighted aver- 
+age of short interest as well. However, as pointed out by 
+Desai, Ramesh, Thiagarajan, and Balachandran (2002) and 
+Asquith, Pathak, and Ritter (2005) , short selling is less im- 
+portant in large-capitalization stocks. Indeed, in our sam- 
+ple, large-cap stocks display relatively little variation in 
+short interest, while the variation is much higher for mid- 
+cap stocks. For example, the variance of short interest 
+peaks in the sixth decile of stocks at 7.26 and declines 
+monotonically to 1.05 for the largest market capitaliza- 
+tion decile. Given that market capitalization is highly right 
+skewed, a value-weighted measure would necessarily em- 
+phasize the actions of short sellers in a segment of the 
+market where they are relatively inactive, while an equal- 
+weighted measure places greater emphasis on more active 
+segments of the short selling market. 
+Furthermore, because we want to extract an aggregate 
+signal, we want to emphasize beliefs that are held broadly 
+in common across a wide variety of ﬁrms. Intuitively, the 
+number of stocks shorted reﬂects the amount of negative 
+news across the market: to a certain extent, the greater 
+the number of stocks shorted, the more pervasive the 
+negative news, and hence the more likely the market is 
+going to fall. By placing relatively more emphasis on the 
+number of ﬁrms shorted, equal weighting likely provides 
+a more informative aggregate signal. 
+An alternative way to mitigate these concerns is to use 
+quasi-value weighting, where we weight short interest by 
+the log of market capitalization, instead of raw market 
+capitalization. The quasi-value-weighting approach reduces 
+the impact of right skewness in market capitalization, em- 
+phasizes mid-cap ﬁrms which have an active short selling 
+market, and emphasizes the number of ﬁrms with high 
+short interest. As a consequence, it is similar to EWSI in 
+that it is more likely to provide an informative aggregate 
+signal. Indeed, we ﬁnd that quasi-value-weighted short in- 
+terest generates ˆ 
+β estimates and R 2 statistics that are very 
+similar to those based on EWSI in Table 3 . 
+Our SII measure based on EWSI predicts both equal- 
+and value-weighted market returns, consistent with the 
+idea that SII predicts the systematic component of returns 
+
+--- PAGE 12 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+57 
+that is common across stocks of all sizes. 26 There is an in- 
+teresting open issue: short sellers largely focus on mid- 
+cap stocks, even though large-cap stocks are likely less 
+expensive to short. One possible explanation for this is 
+that mid-cap stocks are more exposed to systematic shocks 
+than large-cap stocks (i.e., they typically have larger be- 
+tas); as a result, when short sellers have a bearish signal 
+about systematic return movements, they might ﬁnd it op- 
+timal to focus on mid-cap stocks to increase downside ex- 
+posure. Another possibility is that the link between mid- 
+cap short interest and future returns broadly across market 
+segments relates to the types of information frictions iden- 
+tiﬁed by Hou and Moskowtitz (2005) , Hou (2007) , Hong, 
+Torous, and Valkanov (2007) , Cohen and Frazzini (2008) , 
+and Menzly and Ozbas (2010) . While beyond the scope of 
+the present paper, it would be informative to pursue this 
+interesting open issue in future research. 
+3.5. An end to the trend? 
+Our results show that detrended short interest is a 
+powerful predictor of aggregate returns, both in and out 
+of sample. While aggregate short interest displays a strong 
+upward trend over our sample period, this trend may level 
+off in the future. A straightforward method for accommo- 
+dating a ﬂattening of the secular trend is to ﬁt a quadratic 
+or cubic time trend to the log of EWSI, or to use stochas- 
+tic detrending. We have shown that the predictive power 
+of SII is robust to quadratic, cubic, and stochastic detrend- 
+ing over our sample period. To the extent that the secular 
+trend in the log of EWSI ﬂattens in the future, quadratic, 
+cubic, and/or stochastic detrending should work even bet- 
+ter going forward. Another strategy for accommodating a 
+ﬂattening of the secular trend entails testing for a break 
+in the linear trend. As reported in Section 2.2 , the log of 
+EWSI clearly exhibits a signiﬁcant linear trend according to 
+the Harvey, Leybourne, and Taylor (2007) test. Harvey, Ley- 
+bourne, and Taylor (2009) subsequently develop a test for 
+a break in a linear trend that delivers reliable inferences 
+for persistent processes. When we apply their test to the 
+log of EWSI for our sample period, there is not signiﬁcant 
+evidence of a break in the linear trend. 27 If signiﬁcant evi- 
+dence of a trend break emerges in the future, EWSI can be 
+appropriately detrended to continue to track the changing 
+beliefs of short sellers. 
+4. Asset allocation 
+In this section, we measure the economic value of 
+SII’s predictive ability from an asset allocation perspec- 
+tive. Speciﬁcally, as in Campbell and Thompson (2008) , 
+Rapach, Strauss, and Zhou (2010) , and Ferreira and Santa- 
+Clara (2011) , we consider a mean-variance investor who 
+26 Indeed, the correlation between S&P 500 value-weighted (i.e., large- 
+cap) returns and CRSP equal-weighted returns is 0.79. 
+27 The Harvey, Leybourne, and Taylor (2009) t λ statistics are 2.12, 2.16, 
+and 2.26 at the 10%, 5%, and 1% levels, respectively, none of which is sig- 
+niﬁcant. Because a unique scaling factor is calibrated for the signiﬁcance 
+level, the t λ statistic is different for each signiﬁcance level. 
+allocates between equities and risk-free bills using a pre- 
+dictive regression forecast of excess stock returns. At the 
+end of month t , the investor optimally allocates the follow- 
+ing share of her portfolio to equities during the subsequent 
+month: 
+w t = 1 
+γ
+ˆ 
+r t+1 
+ˆ 
+σ 2 
+t+1 
+, 
+(7) 
+where γ is the investor’s coeﬃcient of relative risk aver- 
+sion, ˆ 
+r t+1 is a predictive regression excess return fore- 
+cast, 28 and ˆ 
+σ 2 
+t+1 is a forecast of the excess return variance. 
+Similarly to Campbell and Thompson (2008) , we gener- 
+ate the volatility forecast using a ten-year moving window 
+of past returns. We also restrict w t to lie between −0 . 5 
+and 1.5, which imposes realistic portfolio constraints and 
+produces better-behaved portfolio weights given the well- 
+known sensitivity of mean-variance optimal weights to re- 
+turn forecasts. 
+The investor who allocates using Eq. (7) realizes an av- 
+erage utility or certainty equivalent return (CER) of 
+CER = ¯R p −0 . 5 γ σ 2 
+p , 
+(8) 
+where ¯R p and σ 2 
+p are the mean and variance, respectively, 
+of the portfolio return over the forecast evaluation period. 
+The CER is the risk-free rate of return that an investor 
+would be willing to accept in lieu of holding the risky port- 
+folio. We also compute the CER for the investor when she 
+uses the prevailing mean excess return forecast instead of 
+the predictive regression forecast in Eq. (7) . The CER gain is 
+then the difference between the CER for the investor when 
+she uses the predictive regression forecast to guide asset 
+allocation and the CER when she uses the prevailing mean 
+benchmark forecast. We annualize the CER gain so that it 
+can be interpreted as the annual portfolio management fee 
+that the investor would be willing to pay to have access 
+to the predictive regression forecast in place of the pre- 
+vailing mean forecast. In this way, we measure the direct 
+economic value of return predictability. 29 
+To analyze the economic value of return predictability 
+at longer horizons, we assume that the investor rebalances 
+at the same frequency as the forecast horizon. For the 
+quarterly horizon, at the end of the quarter, the investor 
+uses a predictive regression or prevailing mean forecast of 
+the excess return over the next three months ( h = 3 ) and 
+the allocation rule given by Eq. (7) to determine the eq- 
+uity weight for the next three months; at the end of the 
+next quarter, the investor updates the quarterly predictive 
+regression or prevailing mean forecast and determines the 
+new weight (so that the investor uses nonoverlapping re- 
+turn forecasts). The investor follows analogous procedures 
+for semi-annual and annual return forecasts and rebalanc- 
+ing. 
+The second through ﬁfth columns of Table 6 show 
+the CER gains accruing to predictive regression forecasts 
+based on each of the 14 popular predictor variables from 
+28 Note that we forecast the simple excess return—and not the log ex- 
+cess return—for the asset allocation analysis. 
+29 We always use the ten-year moving window variance forecast in 
+Eq. (7) , so that the portfolio weights only differ because of the excess 
+return forecasts. 
+
+--- PAGE 13 ---
+58 
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+Table 6 
+Out-of-sample CER gains. 
+The table reports the annualized certainty equivalent return (CER) gain (in percent) for a mean-variance investor with relative risk aversion 
+coeﬃcient of three who allocates between equities and risk-free bills using a predictive regression excess return forecast based on the predictor 
+variable in the ﬁrst column relative to the prevailing mean benchmark forecast. See the notes to Table 1 for the variable deﬁnitions and sample 
+description. The equity weight is constrained to lie between −0 . 5 and 1.5. Buy and hold corresponds to the investor passively holding the market 
+portfolio. The forecast horizon and rebalancing frequency coincide and are given by h . 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+(7) 
+(8) 
+(9) 
+(10) 
+(11) 
+(12) 
+(13) 
+1990:01-2014:12 out-of-sample period 
+1990:01-2006:12 out-of-sample period 
+2007:01-2014:12 out-of-sample period 
+Predictor 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+DP 
+−3 .19 
+−2 .46 
+−3 .50 
+−3 .48 
+−4 .47 
+−3 .64 
+−5 .54 
+−5 .64 
+−0 .48 
+0 .00 
+0 .67 
+0 .99 
+DY 
+−2 .96 
+−2 .34 
+−3 .34 
+−3 .36 
+−4 .35 
+−3 .69 
+−5 .53 
+−5 .53 
+−0 .02 
+0 .49 
+1 .16 
+1 .14 
+EP 
+−0 .34 
+−0 .38 
+−1 .12 
+−1 .37 
+−1 .02 
+−0 .57 
+−1 .51 
+−1 .51 
+1 .10 
+0 .02 
+−0 .30 
+−1 .03 
+DE 
+−1 .13 
+−1 .57 
+−2 .27 
+−0 .47 
+−1 .58 
+−1 .40 
+−0 .95 
+−0 .48 
+−0 .16 
+−1 .88 
+−4 .65 
+−0 .77 
+RVOL 
+−1 .82 
+−1 .77 
+−1 .48 
+−0 .30 
+−3 .03 
+−2 .88 
+−2 .48 
+−0 .94 
+0 .70 
+0 .45 
+0 .36 
+0 .85 
+BM 
+−0 .78 
+−0 .63 
+−0 .98 
+−1 .32 
+−1 .14 
+−0 .87 
+−1 .53 
+−1 .91 
+−0 .01 
+−0 .12 
+0 .15 
+−0 .22 
+NTIS 
+−2 .57 
+−2 .77 
+−2 .75 
+−3 .62 
+−1 .58 
+−1 .10 
+−1 .41 
+−1 .94 
+−4 .67 
+−6 .28 
+−5 .60 
+−7 .87 
+TBL 
+0 .66 
+0 .35 
+−0 .06 
+−0 .82 
+1 .15 
+0 .95 
+0 .42 
+−1 .16 
+−0 .40 
+−0 .95 
+−1 .09 
+−0 .34 
+LTY 
+−0 .05 
+−0 .53 
+−0 .79 
+−1 .79 
+−0 .33 
+−0 .76 
+−1 .17 
+−2 .04 
+0 .57 
+−0 .02 
+0 .02 
+−1 .12 
+LTR 
+−0 .95 
+0 .41 
+−0 .31 
+1 .17 
+−0 .98 
+1 .21 
+0 .55 
+1 .91 
+−0 .92 
+−1 .27 
+−2 .08 
+−0 .40 
+TMS 
+0 .25 
+0 .87 
+0 .60 
+1 .40 
+1 .05 
+2 .17 
+1 .00 
+0 .13 
+−1 .48 
+−1 .95 
+−0 .44 
+3 .69 
+DFY 
+−4 .90 
+−4 .56 
+−4 .69 
+−1 .86 
+−4 .43 
+−4 .49 
+−5 .85 
+−2 .87 
+−5 .93 
+−4 .80 
+−2 .53 
+−0 .24 
+DFR 
+1 .08 
+0 .67 
+0 .89 
+0 .50 
+0 .96 
+0 .08 
+−0 .23 
+0 .29 
+1 .34 
+1 .87 
+3 .05 
+0 .89 
+INFL 
+−0 .55 
+−0 .48 
+1 .87 
+1 .68 
+0 .62 
+0 .30 
+0 .63 
+−0 .35 
+−3 .01 
+−2 .15 
+4 .33 
+5 .34 
+SII 
+4 .17 
+4 .65 
+5 .44 
+3 .43 
+0 .88 
+0 .73 
+0 .57 
+−0 .38 
+11 .18 
+13 .08 
+15 .91 
+11 .23 
+Buy and hold 
+1 .70 
+2 .59 
+2 .25 
+2 .04 
+2 .07 
+2 .96 
+1 .74 
+2 .26 
+0 .91 
+1 .70 
+3 .06 
+1 .03 
+Goyal and Welch (2008) and SII for the 1990:01 to 2014:12 
+forecast evaluation period. We assume a relative risk aver- 
+sion coeﬃcient of three. 30 The performance of SII clearly 
+stands out. At the monthly horizon, SII provides a hefty 
+CER gain of 417 basis points. Among the 14 popular predic- 
+tors, only TBL, TMS, and DFR generate positive CER gains 
+(66, 25, and 108 basis points, respectively), but the gains 
+are well below those of SII. SII continues to generate very 
+sizable CER gains of 465, 544, and 343 basis points at the 
+quarterly, semi-annual, and annual horizons, respectively, 
+all of which are higher than any of the gains for the pop- 
+ular predictors. Only four (three) of the 14 popular predic- 
+tors also produce positive CER gains at the quarterly and 
+annual (semi-annual) horizons, but the gains remain well 
+below those of SII. The last row of Table 6 shows that 
+a buy-and-hold portfolio that passively holds the market 
+portfolio produces CER gains well below those of SII, so 
+that SII also easily outperforms a buy-and-hold strategy. 
+The sixth through ninth columns of Table 6 report 
+CER gains for the 1990:01–2006:12 forecast evaluation 
+period predating the Global Financial Crisis, while the last 
+four columns report gains for the 2007:01–2014:12 period 
+surrounding the recent crisis. For the former period, SII 
+provides reasonably sizable CER gains of 88, 73, and 57 
+basis points at the monthly, quarterly, and semi-annual 
+horizons, respectively, and a negative gain of 38 basis 
+points at the annual horizon. These gains are typically well 
+above those provided by the individual predictors (most of 
+which are negative), close to those produced by the best 
+individual predictors, and below those of the buy-and-hold 
+strategy. After providing moderate gains for the 1990:01–
+2006:12 period, SII generates stunning CER gains of 1,118, 
+30 This value is consistent with estimates of relative risk aversion from 
+the literature (e.g., Bliss and Panigirtzoglou, 2004 ). The results are similar 
+for other reasonable relative risk aversion coeﬃcient values. 
+1,308, 1,591, and 1,123 basis points at the monthly, quar- 
+terly, semi-annual, and annual horizons, respectively, for 
+the 2007:01–2014:12 period corresponding to the Global 
+Financial Crisis. More of the popular predictors from the 
+literature provide positive and sizable CER gains in the 
+last four columns compared to the sixth through ninth 
+columns. However, the gains accruing to SII are approx- 
+imately two to ten times higher than those accruing to 
+the best of the popular predictors. SII also generates much 
+higher CER gains than a buy-and-hold strategy around the 
+crisis. The especially strong performance of SII during the 
+Global Financial Crisis is consistent with the recent ﬁnd- 
+ings of Rapach, Strauss, and Zhou (2010) , Henkel, Martin, 
+and Nardari (2011) , Rapach and Zhou (2013) , and Neely, 
+Rapach, Tu, and Zhou (2014) , who show that aggregate 
+stock return predictability and the associated utility gains 
+tend to be particularly sizable around periods of severe 
+economic recessions. The 1990:01–2006:12 period covers 
+much of the so-called Great Moderation and contains two 
+relatively mild recessions in the early 1990s and early 
+20 0 0s, while the 2007:01–2014:12 period surrounding the 
+Global Financial Crisis contains the Great Recession, which 
+is by most measures the most severe recession since the 
+Great Depression. In sum, SII offers modest gains during 
+“normal” times and striking gains during periods that 
+include acute macroeconomic stress. 
+Table 7 reports Sharpe ratios for the portfolios, which 
+allows us to compare portfolio performance independently 
+of relative risk aversion. The second through ﬁfth columns 
+of Table 7 report annualized Sharpe ratios for the en- 
+tire 1990:01–2014:12 forecast evaluation period. The ratios 
+for the portfolio based on the prevailing mean benchmark 
+forecast range from 0.31 to 0.39 at the various horizons. 
+The 14 predictors from the literature rarely outperform the 
+prevailing mean in terms of the Sharpe ratio. Turning to 
+SII, it produces Sharpe ratios that are approximately 1.5 to 
+
+--- PAGE 14 ---
+D.E. Rapach et al. / Journal of Financial Economics 121 (2016) 46–65 
+59 
+Table 7 
+Sharpe ratios. 
+The table reports the annualized Sharpe ratio for a mean-variance investor who allocates between equities and risk-free bills using a predictive 
+regression excess return forecast based on the predictor variable in the ﬁrst column or the prevailing mean benchmark forecast. See the notes to 
+Table 1 for the variable deﬁnitions and sample description. The equity weight is constrained to lie between −0 . 5 and 1.5. Buy and hold corresponds 
+to the investor passively holding the market portfolio. The forecast horizon and rebalancing frequency coincide and are given by h . 
+(1) 
+(2) 
+(3) 
+(4) 
+(5) 
+(6) 
+(7) 
+(8) 
+(9) 
+(10) 
+(11) 
+(12) 
+(13) 
+1990:01-2014:12 out-of-sample period 
+1990:01-2006:12 out-of-sample period 
+2007:01-2014:12 out-of-sample period 
+Predictor 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+h = 1 
+h = 3 
+h = 6 
+h = 12 
+Prevailing mean 
+0 .39 
+0 .31 
+0 .37 
+0 .35 
+0 .38 
+0 .33 
+0 .45 
+0 .37 
+0 .40 
+0 .28 
+0 .19 
+0 .28 
+DP 
+0 .11 
+0 .10 
+0 .01 
+0 .01 
+0 .01 
+0 .04 
+−0 .08 
+−0 .12 
+0 .37 
+0 .27 
+0 .20 
+0 .32 
+DY 
+0 .12 
+0 .11 
+0 .02 
+0 .02 
+0 .02 
+0 .04 
+−0 .08 
+−0 .11 
+0 .43 
+0 .32 
+0 .24 
+0 .33 
+EP 
+0 .36 
+0 .27 
+0 .26 
+0 .22 
+0 .30 
+0 .27 
+0 .33 
+0 .24 
+0 .54 
+0 .28 
+0 .11 
+0 .16 
+DE 
+0 .31 
+0 .24 
+0 .21 
+0 .34 
+0 .29 
+0 .27 
+0 .38 
+0 .36 
+0 .39 
+0 .14 
+−0 .19 
+0 .28 
+RVOL 
+0 .28 
+0 .24 
+0 .26 
+0 .32 
+0 .20 
+0 .18 
+0 .26 
+0 .31 
+0 .45 
+0 .36 
+0 .26 
+0 .33 
+BM 
+0 .33 
+0 .27 
+0 .28 
+0 .26 
+0 .31 
+0 .28 
+0 .33 
+0 .25 
+0 .40 
+0 .27 
+0 .17 
+0 .25 
+NTIS 
+0 .20 
+0 .14 
+0 .19 
+0 .19 
+0 .26 
+0 .24 
+0 .34 
+0 .24 
+0 .11 
+−0 .05 
+−0 .02 
+0 .11 
+TBL 
+0 .45 
+0 .37 
+0 .37 
+0 .33 
+0 .47 
+0 .41 
+0 .48 
+0 .35 
+0 .39 
+0 .27 
+0 .18 
+0 .28 
+LTY 
+0 .38 
+0 .27 
+0 .30 
+0 .17 
+0 .37 
+0 .28 
+0 .36 
+0 .18 
+0 .45 
+0 .27 
+0 .14 
+0 .11 
+LTR 
+0 .33 
+0 .35 
+0 .35 
+0 .42 
+0 .32 
+0 .40 
+0 .49 
+0 .47 
+0 .35 
+0 .22 
+0 .10 
+0 .29 
+TMS 
+0 .41 
+0 .38 
+0 .41 
+0 .43 
+0 .45 
+0 .45 
+0 .52 
+0 .39 
+0 .34 
+0 .25 
+0 .25 
+0 .50 
+DFY 
+−0 .02 
+−0 .02 
+0 .02 
+0 .21 
+−0 .08 
+−0 .07 
+−0 .06 
+0 .15 
+0 .04 
+0 .05 
+0 .12 
+0 .32 
+DFR 
+0 .46 
+0 .36 
+0 .43 
+0 .38 
+0 .45 
+0 .33 
+0 .43 
+0 .39 
+0 .49 
+0 .43 
+0 .41 
+0 .33 
+INFL 
+0 .36 
+0 .31 
+0 .49 
+0 .46 
+0 .43 
+0 .36 
+0 .49 
+0 .40 
+0 .19 
+0 .18 
+0 .49 
+0 .59 
+SII 
+0 .66 
+0 .60 
+0 .72 
+0 .53 
+0 .44 
+0 .37 
+0 .49 
+0 .38 
+1 .05 
+1 .06 
+1 .22 
+0 .93 
+Buy and hold 
+0 .50 
+0 .48 
+0 .52 
+0 .45 
+0 .53 
+0 .50 
+0 .59 
+0 .48 
+0 .46 
+0 .43 
+0 .42 
+0 .39 
+two times larger than those of the prevailing mean, and 
+the Sharpe ratios for SII are always greater than those for 
+the popular predictors (as well as the buy-and-hold strat- 
+egy). 
+Following the pattern in Table 6 , the performance of 
+SII for the 1990:01–2006:12 period as gauged by the 
+Sharpe ratio is similar to the best individual predictors and 
+somewhat below that of the buy-and-hold strategy, while 
+SII’s performance is especially impressive for the 2007:01–
+2014:12 period encompassing the Global Financial Crisis. 
+For the latter period, the prevailing mean generates Sharpe 
+ratios between 0.19 and 0.40, and the predictors from the 
+literature often produce Sharpe ratios in this range. The 
+largest Sharpe ratios among the popular predictors are 0.54 
+for EP at the monthly horizon and 0.59 for INFL at the an- 
+nual horizon. The buy-and-hold portfolio produces Sharpe 
+ratios between 0.39 and 0.46 at each horizon. In sharp con- 
+trast, SII generates substantial Sharpe ratios ranging from 
+0.93 to 1.22 for the period including the recent crisis. 
+Fig. 2 provides additional perspective on the behavior of 
+the monthly portfolio based on SII. Panel A depicts equity 
+weights for the monthly portfolios based on SII and the 
+prevailing mean over the 1990:01–2014:12 forecast evalua- 
+tion period. Because the prevailing mean benchmark fore- 
+cast is very smooth, the equity weight for the portfolio 
+based on the prevailing mean is relatively stable through- 
+out the out-of-sample period, typically reasonably close to 
+0.75. In contrast, the equity weight for the portfolio based 
+on SII exhibits substantial ﬂuctuations. The equity weights 
+diverge most dramatically during the run-up to the Global 
+Financial Crisis through the “recovery” from the Great Re- 
+cession. Speciﬁcally, in the early stages of the Global Fi- 
+nancial Crisis and Great Recession, the portfolio based on 
+SII takes a short equity position; the portfolio then moves 
+abruptly to an aggressive long position in late 2008 and 
+remains aggressively long through the end of 2014. 
+Panel B of Fig. 2 , which shows the log cumulative 
+wealth for the two portfolios, reveals that the large shifts 
+in the equity weight for the SII portfolio in Panel A rep- 
+resent adept market timing. The SII portfolio’s short po- 
+sition in the early stages of the crisis enables it to make 
+money during the Great Recession, and its subsequent long 
+position enables it to ride the bull market from 2009 to 
+2014, so that cumulative wealth grows substantially from 
+the end of 2007 to the end of 2014. In contrast, the pre- 
+vailing mean portfolio—which ignores the information in 
+SII—suffers a major drawdown during the Great Recession, 
+and cumulative wealth at the end of 2014 barely returns to 
+its level at the end of 2007. 
+The results in this section indicate that the information 
+in SII has substantial economic value for a risk-averse in- 
+vestor. This is especially true around the Global Financial 
+Crisis, where SII signals the investor to move to an aggres- 
+sive short (long) position in the early (late) stages of the 
+crisis. Reiterating the results in Section 3 , the information 
+contained in SII appears considerably more valuable than 
+that found in a myriad of popular predictors from the lit- 
+erature. 
+5. Stock return decomposition 
+To glean insight into the economic underpinnings of 
+SII’s predictive ability, we analyze whether short sellers 
+are able to anticipate future stock returns by anticipat- 
+ing discount rate and/or cash ﬂow news, where we mea- 
+sure the news components using the VAR methodology 
+of Campbell (1991) and Campbell and Ammer (1993) . We 
+begin with the deﬁnition of the log stock return, r t+1 = 
+log [(P t+1 + D t+1 ) /P t ] , where P t ( D t ) is the month- t stock 
+price (dividend). The Campbell and Shiller (1988) log-linear 
+approximation of r t+1 is given by 
+r t+1 ≈k + ρp t+1 + (1 −ρ) d t+1 −p t , 
+(9) 
+
+[TRUNCATED at 80000 chars — 20 total pages]

@@ -1,0 +1,1175 @@
+
+--- PAGE 1 ---
+Sports sentiment and stock returns∗
+Alex Edmans
+Sloan School of Management at MIT
+Diego Garc´ıa
+Tuck School of Business at Dartmouth
+Øyvind Norli
+Norwegian School of Management
+December 2005
+Abstract
+This paper investigates the stock market reaction to sudden changes in investor mood. Mo-
+tivated by psychological evidence of a strong link between soccer outcomes and mood, we
+use international soccer results as our primary mood variable. We ﬁnd a signiﬁcant market
+decline after soccer losses. For example, a loss in the World Cup elimination stage leads to
+a next-day abnormal stock return of −38 basis points. This loss eﬀect is stronger in small
+stocks and in more important games, and is robust to methodological changes. We also
+document a loss eﬀect after international cricket, rugby, and basketball games.
+JEL classiﬁcation: A12, G14.
+Keywords: soccer, stock returns, investor mood, behavioral ﬁnance.
+∗This paper was earlier circulated as two separate papers: “Football and Stock Returns” by Diego Garc´ıa and
+Øyvind Norli and “Soccer, Sentiment, and Stocks” by Alex Edmans. Our joint paper was ﬁrst circulated with
+the title “Football and Stock Returns.” We thank an anonymous referee, an associate editor, Jack Bao, Nick
+Barberis, Andrew B. Bernard, Øyvind Bøhren, B. Espen Eckbo, Florian Ederer, Ken French, Xavier Gabaix, David
+Hirshleifer, Tim Johnson, Lisa Kramer, Rafael LaPorta, Nils Rudi, Petter Rudi, Rob Stambaugh (the editor),
+Jeﬀrey Wurgler, participants at the 2005 European Finance Association meetings, and seminar participants at MIT
+Sloan and the Norwegian School of Management for helpful comments. Julie Wherry provided research assistance
+on Alex’s earlier paper. All remaining errors are our own. The authors can be contacted at: aedmans@mit.edu,
+diego.garcia@dartmouth.edu, and oyvind.norli@bi.no.
+
+--- PAGE 2 ---
+1
+Introduction
+This paper employs a novel mood variable, international soccer results, to investigate the eﬀect
+of investor sentiment on asset prices. Using a cross-section of 39 countries, we ﬁnd that losses
+in soccer matches have an economically and statistically signiﬁcant negative eﬀect on the losing
+country’s stock market. For example, elimination from a major international soccer tournament
+is associated with a next-day return on the national stock market index that is 38 basis points
+lower than average. We also document a loss eﬀect after international cricket, rugby, and basket-
+ball games. On average, the eﬀect is smaller in magnitude for these other sports than for soccer,
+but is still economically and statistically signiﬁcant. We ﬁnd no evidence of a corresponding
+eﬀect after wins for any of the sports that we study. Controlling for the pre-game expected out-
+come, we are able to reject that the loss eﬀect after soccer games is driven by economic factors
+such as reduced productivity or lost revenues. We also document that the eﬀect is stronger in
+small stocks, which have previously been found to be disproportionately held by local investors
+and more strongly aﬀected by sentiment. Overall, our interpretation of the evidence is that the
+loss eﬀect is caused by a change in investor mood.
+Our study is part of a recent literature investigating the asset pricing impact of behavioral
+biases documented in psychology research. This literature has expanded signiﬁcantly over the
+last decade and is comprehensively reviewed by Hirshleifer (2001) and Shiller (2000). The strand
+of the literature closest to this paper investigates the eﬀect of investor mood on asset prices. The
+two principal approaches have been to link returns either to a single event or a continuous variable
+that impacts mood. Examples of a continuous variable are sunshine (Saunders (1993); Hirshleifer
+and Shumway (2003)), temperature (Cao and Wei (2005)), daylight (Kamstra, Kramer, and Levi
+(2003)), and lunar cycles (Yuan, Zheng, and Zhu (2005)). The event study approach is used
+by Kamstra, Kramer, and Levi (2000) to investigate the impact of disruption to sleep patterns
+caused by changes to and from daylight saving and by Frieder and Subrahmanyam (2004) to
+study non-secular holidays. The main advantage of the event approach compared to the use of
+a continuous variable is that it clearly identiﬁes a sudden change in the mood of investors. As
+for all event studies, this gives a large signal-to-noise ratio in returns. The main disadvantage
+is that the number of observed signals tends to be low, reducing statistical power.
+Our main contribution is to study a variable, international soccer results, that has partic-
+ularly attractive properties as a measure of mood. Extensive psychological evidence, reviewed
+below, shows that sports in general have a signiﬁcant eﬀect on mood. TV viewing ﬁgures, me-
+dia coverage and merchandise sales suggest that soccer in particular is of “national interest” in
+many of the countries we study.1 It is hard to imagine other regular events that produce such
+1Several countries even legally require the public broadcaster to show national soccer games live and cable
+channels are not permitted to bid for the rights to the games. In countries such as Italy, Spain, Greece, and
+Portugal the best selling newspapers are dedicated exclusively to sports, particularly soccer.
+1
+
+--- PAGE 3 ---
+substantial and correlated mood swings in a large proportion of a country’s population. These
+characteristics give us a strong a priori motivation for using game outcomes to capture mood
+changes among investors. This is a key strength of our study since it mitigates concerns about
+“data mining.”
+The large loss eﬀect that we report reinforces the ﬁndings of Kamstra, Kramer, and Levi
+(2000) who document a stock market eﬀect of similar magnitude related to the daylight saving
+“clock-change.” While Pinegar (2002) argues that the “daylight saving anomaly” is sensitive to
+outliers, our eﬀect remains economically and statistically signiﬁcant even after removing outliers
+in the data and applying a number of other robustness checks. Another contribution of this paper
+is that we are able to go a long way towards addressing the main disadvantage of the event
+approach. Our sample of soccer matches exceeds 1,100 observations, and exhibits a signiﬁcant
+cross-sectional variation across nations. In addition, we study more than 1,500 cricket, rugby,
+ice hockey, and basketball games.2
+The sample of 2,600 independent observations compares
+favorably to existing mood-event studies.
+The rest of the paper is organized as follows. Section 2 explains the a priori motivations
+for investigating the link between sports and stock returns. In Section 3 we describe the data,
+and in particular the competitions that are the subject of our study. Section 4 documents an
+economically and statistically signiﬁcant loss eﬀect. Section 5 distinguishes between behavioral
+and economic explanations for this eﬀect. Section 6 summarizes our ﬁndings and concludes.
+2
+Motivation
+A number of recent papers have documented a link between mood and stock returns. Convincing
+arguments that such results are not simply the product of “data mining” are either a strong
+a priori reason for investigating a new mood variable, or testing an existing mood variable
+on an independent sample to conﬁrm results of previous studies. For example, Hirshleifer and
+Shumway (2003) conﬁrm and extend the sunlight eﬀect ﬁrst documented by Saunders (1993).
+Moreover, since the null hypothesis is that markets are eﬃcient, the investigation should include
+a clear unidirectional alternative hypothesis. This limits the possibility of rejecting the null in
+any direction to suggest statistical signiﬁcance. For example, Frieder and Subrahmanyam (2004)
+ﬁnd abnormally positive returns around Yom Kippur and St. Patrick’s Day, and negative returns
+around Rosh Hashanah, without specifying a priori why positive returns would be expected with
+certain religious holidays and negative returns with others.
+2Ashton, Gerrard, and Hudson (2003) and Boyle and Walter (2002) study the stock market eﬀect of soccer in
+England and rugby in New Zealand, respectively. Ashton, Gerrard, and Hudson (2003) argue the eﬀect of wins
+and losses is symmetric and Boyle and Walter (2002) conclude, with similar point estimates to those in this paper,
+that there is no evidence in favor of any eﬀect of rugby on New Zealand’s stock market. Both conclusions stand
+in sharp contrast to our large sample evidence.
+2
+
+--- PAGE 4 ---
+With the above in mind, we argue that a mood variable must satisfy three key characteristics
+to rationalize studying its link with stock returns. First, it must drive mood in a substantial
+and unambiguous way, so that its eﬀect is powerful enough to show up in asset prices. Second,
+it must be shown to impact the mood of a large proportion of the population, so that it is likely
+that enough investors are aﬀected. Third, the eﬀect must be correlated across the majority of
+individuals within a country.
+We believe that results from international soccer competitions are a mood variable that sat-
+isﬁes these criteria. There is a multitude of psychological evidence that sports results in general
+have a signiﬁcant eﬀect on mood. Wann, Dolan, Mcgeorge, and Allison (1994) document that
+fans often experience strong positive reactions to watching their team perform well and a cor-
+responding negative reaction when the team performs poorly. More importantly, such reactions
+extend to increased or decreased self-esteem and to positive or negative feelings about life in
+general. For example, Hirt, Erickson, Kennedy, and Zillmann (1992) ﬁnd that Indiana Univer-
+sity college students estimate their own performance to be signiﬁcantly better after watching
+a win by their college basketball team than following a loss. Schwarz, Strack, Kommer, and
+Wagner (1987) document that the outcome of two games played by Germany in the 1982 World
+Cup signiﬁcantly changed subjects’ assessments of their own well-being and their view on na-
+tional issues. A related study by Schweitzer, Zillmann, Weaver, and Luttrell (1992) shows that
+students rooting for the winning team of a televised American football game assessed both the
+probability of a 1990 war in Iraq and the potential casualties as signiﬁcantly lower than fans
+from the losing team. Changes in mood also aﬀect economic behavior. Arkes, Herren, and Isen
+(1988) ﬁnd that sales of Ohio State lottery tickets increased in the days after a victory by the
+Ohio State University football team. Since sports results have been shown to aﬀect subjects’
+optimism or pessimism about not just their own abilities, but life in general, we have a strong
+reason to hypothesize that they impact investors’ views on future stock prices.3
+As a testament to the fundamental importance of sports, the eﬀects of sports results extend
+far beyond simple mood changes. Sports results have in many cases been found to have such a
+strong eﬀect that they adversely aﬀect health. Carroll, Ebrahim, Tilling, Macleod, and Smith
+(2002) show that admissions for heart attacks increased by 25% during the three day period
+starting on June 30, 1998—the day England lost to Argentina on a World Cup penalty shoot-
+out.4 White (1989) documents that elimination from the US National Football League playoﬀs
+leads to a signiﬁcant increase in homicides in the relevant cities following the games. Wann,
+Melnick, Russell, and Pease (2001) list several cases of riots after disappointing sports results
+and cite a multitude of other papers on the same issue. Trovato (1998) ﬁnds that suicides among
+Canadians rise signiﬁcantly if the Montreal Canadiens are eliminated early from the Stanley Cup
+3For other related studies see Sloan (1979), Wann and Branscombe (1995), Platow, Durante, Williams, Garrett,
+Walshe, Cincotta, Lianos, and Barutchu (1999), and Bizman and Yinon (2002).
+4See Berthier and Boulay (2003) and Chi and Kloner (2003) for more recent studies with similar conclusions.
+3
+
+--- PAGE 5 ---
+playoﬀs.
+In addition to the psychological evidence showing that sporting events in general impact
+human behavior, there is ample evidence showing that soccer in particular is an important
+part of many people’s lives. This explains the motivation for our primary choice of sport. For
+example, the cumulative number of television viewers that followed the 2002 World Cup in
+Korea/Japan exceeded 25 billion. The ﬁnal between Brazil and Germany was viewed by more
+than 1 billion. On average more than 20 million Italians watch their national team in the ﬁnal
+stages of the World Cup or European Cup, while Spain and England’s local audiences are well
+above 10 million.5 Moreover, national soccer results inﬂuence the mood of the entire country in
+a similar way. Other popular sports, such as American football and baseball, are predominantly
+contested on a club rather than country level. The “home bias” documented by French and
+Poterba (1991) means that the individuals aﬀected are also likely to be the marginal investors in
+the domestic stock market.6 Thus, international soccer matches are among the very few events
+that take place at regular intervals and that are perceived as important by a large fraction of
+the population in a broad range of countries—and as such are interesting to study.
+To increase our sample size, we also investigate the impact of cricket, rugby, ice hockey and
+basketball results. These sports also involve regular international competition and are important
+in a number of countries. However, we expect any results to be strongest in soccer given it is
+the number one sport in most of the countries we study, often by a substantial margin.
+The psychology literature documents a signiﬁcant diﬀerence in the behavior of fans following
+wins and losses. The increase in heart attacks, crimes, and suicides that accompany sporting
+losses, with no evidence of improvements in mood of similar magnitude after wins, suggests that
+we should expect a greater eﬀect after soccer losses than after soccer wins.7 A similar prediction
+follows from the prospect theory of Kahneman and Tversky (1979). At the heart of prospect
+theory is its reliance on gains and losses as carriers of utility, rather than wealth levels. Thus, the
+reference point against which gains and losses are measured becomes an important determinant
+of utility. The natural reference point in our setting is supporters’ pre-game expectations of how
+their team will perform. A number of studies have shown that fans are subject to an “allegiance
+bias”—the rendering of biased predictions by individuals who are psychologically invested in a
+5These ﬁgures are substantially greater than for other sports. For example, based on TV viewership ﬁgures, all
+the top 30 sport events in England in 2000 were associated with soccer, with the exception of the Grand National
+(horse racing).
+The TV viewership data are obtained using news searches in factiva.com and google.com;
+extensive viewing ﬁgures are unavailable for other countries.
+6French and Poterba (1991) ﬁnd that the domestic ownership shares of the world’s ﬁve largest stock markets
+lie between 79% and 96%. This has been conﬁrmed by a multitude of further studies, summarized by Karolyi
+and Stulz (2003).
+7The psychology literature also hints at the possibility of win eﬀects being larger than loss eﬀects. According
+to behavioral patterns known as basking-in-reﬂected glory (BIRGing) and cutting-oﬀ-reﬂected-failure (CORFing),
+fans cut their association with losing teams and increase their association with winning teams. See, for example,
+the discussion in Hirt, Erickson, Kennedy, and Zillmann (1992).
+4
+
+--- PAGE 6 ---
+desired outcome (see Markman and Hirt (2002); Wann, Melnick, Russell, and Pease (2001)).
+Thus, if the reference point of soccer fans is that their team will win, we may expect to ﬁnd a
+greater stock price reaction after losses than after wins. A third reason to expect an asymmetric
+reaction to wins and losses, speciﬁc to elimination games, results from the inherent asymmetry
+of the competition format. While a win merely advances a country to the next stage, a loser is
+immediately removed from the competition.
+3
+The data
+We collect international soccer results from the website www.rdasilva.demon.co.uk for the
+period January 1973 through December 2004. The data includes games from the World Cup
+and the main continental cups (European Championship, Copa America, and Asian Cup).
+International soccer competitions have used slightly diﬀerent formats throughout the last
+thirty years. As of 2004, national teams from diﬀerent geographic regions play against each
+other to qualify for the World Cup. We refer to games at this stage as “qualifying games.”
+Based on performance in the qualifying rounds, 32 teams are selected as competitors for the
+World Cup. The teams are divided into groups of four. We refer to games in this stage as
+“group games.” Teams in each group play against each other with the top two advancing to the
+“elimination stage.” This stage starts with a round of sixteen, in which no ties are allowed. At
+each of the following stages, half of the remaining teams are eliminated. The team that survives
+all elimination matches wins the World Cup. The European Championship, Copa America, and
+Asian Cup follow a similar format to determine the winner.
+The international soccer sample comprises matches played by 39 diﬀerent countries (see
+the appendix for country selection and Table 9 for details). There are a total of 1,162 soccer
+matches, 638 wins and 524 losses, that we deﬁne as relevant “mood events.” This includes all
+elimination and group games in the World Cup and the continental cups—a total of 756 games.
+In addition, we add another 406 relevant qualifying games. Owing to the large disparity in skill
+among participating countries in a typical qualifying group, a national team will usually play
+only 4-6 matches that will be critical for its qualiﬁcation and thus will have a signiﬁcant mood
+impact.8 To select games that has a reasonable chance of being important, we use closeness in
+opponents’ ability as a proxy for importance. Ability is measured using Elo ratings, obtained
+from www.eloratings.net. 9 A qualifying game is deﬁned as close if the Elo rating of the two
+opponents are within 125 points (after adding 100 points to the team with home advantage) or
+8Strong soccer nations such as England, Italy and Spain, may play in the same groups as substantially weaker
+nations such as Malta, San Marino and Luxembourg. Games against weak opposition are less likely to generate
+any interest, and are therefore less interesting as a mood event.
+9Elo ratings, developed by Arpad Elo, are best known as the rating system used in chess to rank players.
+These ratings have started to become popular for paired comparisons in other sports.
+5
+
+--- PAGE 7 ---
+if the game is played as part of the knock-out stage between the qualifying rounds and the group
+stage. As of October 31, 2005, the diﬀerence in Elo ratings between the top ranked country
+(Brazil) and the country ranked 10th (Portugal) is 122 points.
+The data on cricket, rugby, ice hockey, and basketball are collected from various web sources.
+The cricket matches are One Day Internationals played over the period 1975 to 2004. The rugby
+matches are from the Six Nations (England, France, Ireland, Italy, Scotland, and Wales), Tri
+Nations (Australia, New Zealand, and South Africa), and World Cup competitions between 1973
+and 2004. The ice hockey matches are the World Championships (1998 to 2004), the Olympics
+(1980 to 2002), and World Cup/Canada Cup (1996 and 2004). The basketball matches are the
+Olympics (1992 to 2004) and the World Championships (1994 to 2002). The appendix describes
+data sources and the details of the sample selection for all sports. The sample of cricket, rugby,
+ice hockey, and basketball matches contains 905 wins and 645 losses for 24 countries. This gives
+on average 388 games for each of these four sports. About 45% of the additional sample is
+comprised of rugby games, due to both longer time series of stock returns for rugby nations and
+the greater regularity of rugby games.
+The market indices used in this study are from Datastream. Returns are computed using
+a total return index (assuming that dividends are reinvested). If the total return index is not
+available, we use a price index instead. Index returns are measured in the local currency since
+the biases we have in mind are associated with domestic investors, for which local returns are
+the relevant benchmark. The appendix reports the details on the indices used in this study.
+4
+Results
+To measure the eﬀect of international sports results on stock prices, we use the return on a broad
+stock market index on the ﬁrst trading day following the game. For some weekday games, the
+market is open while the match is being played. Nevertheless, to ensure that we have the return
+for a full day when the game outcome is known, we choose to use the ﬁrst trading day after the
+match for all games. If anything, this potential asynchrony attenuates our results since part of
+the reaction may have been incorporated in prices before our measurement day.
+4.1
+Descriptive statistics
+Table 1 provides information about the number of games included in the sample for each sport
+as well as mean daily log returns on the stock markets on days following game days and on non-
+game days. For the sample of soccer countries in Panel A, there are 181,796 trading days that
+are not associated with a soccer match. The average return and standard deviation for these
+days is 5.8 and 144.9 basis points, respectively. The average return on days after an international
+soccer win is positive (5.0 basis points) but negative and signiﬁcantly lower on days following a
+6
+
+--- PAGE 8 ---
+loss (−18.4 basis points). The standard deviation of returns is slightly higher after game days
+than for other days, but the diﬀerence is only minor. Looking across the diﬀerent cups and
+stages in the competition, it is apparent that the loss eﬀect is most pronounced for World Cup
+games and elimination games in general. A similar win/loss pattern shows up in the returns
+after other sports results in Panel B of Table 1. For the 645 loss days, the average return is
+−15.3 basis points. The loss eﬀect seems to be more pronounced for cricket and basketball: the
+cricket point estimates are consistent with the sport’s importance in South Asia. The average
+return on the 903 win days is −4.0 basis points, with positive point estimates only for the ice
+hockey and basketball subsamples.
+In Panels A and B, there are a total of 10 diﬀerent and independent subsamples of games. It
+is reasonable to assume that the stock returns associated with a game will be independent across
+these groups. In Panel A, the diﬀerence between average returns after win days and loss days
+is always positive, with a maximum of over 50 basis points for World Cup elimination games.
+In Panel B the diﬀerences are positive with the exception of the rugby subsample, where the
+diﬀerence is negative, but by less than one basis point. Therefore, in nine of the ten subgroups
+the point estimates show a positive diﬀerence between win and loss days. The probability that
+there are nine or more successes out of ten equally likely Bernoulli trials is 1%. Thus, the null
+hypothesis of similar return after wins and losses can easily be rejected at conventional levels of
+statistical signiﬁcance. In sum, even ignoring the actual size of the diﬀerences, the evidence in
+Table 1 suggests that sports results are indeed correlated with stock returns.
+An important property of the soccer events we study is that they are clustered around a few
+weeks, mostly in the months of June and July for the World Cup, the European Championship,
+and Copa America. For example, even though we have 177 distinct elimination games with wins
+and 138 with losses, there are only 113 distinct days in our database for which there is at least
+one country that won and only 96 days for which at least one country lost. If there are common
+shocks to stock returns across diﬀerent countries, return observations on event dates will not be
+independent. Moreover, for all the sports, many matches are played between Friday afternoon
+and Sunday afternoon. Thus, we measure the daily return on Monday for all these games. This
+may potentially introduce a spurious day-of-the-week relationship between soccer results and
+stock returns. The next section details the econometric approach we are following to deal with
+these and other issues that may inﬂuence our results.
+4.2
+Econometric approach
+Our null hypothesis is that stock markets are unaﬀected by the outcomes of soccer matches.
+This null hypothesis embeds the view that investors are rational, that markets are eﬃcient, and
+that the economic beneﬁts associated with winning an international soccer game are too small
+to inﬂuence the national stock market index. The alternative hypothesis is that wins lead to a
+7
+
+--- PAGE 9 ---
+positive stock market reaction and that losses lead to a negative reaction. This is motivated by
+the ﬁndings from the psychology literature that wins are associated with good mood and losses
+with bad mood.
+Under the null hypothesis, soccer outcomes are uncorrelated with asset prices. This in turn
+implies that the eﬀects of soccer will be consistently estimated with any model of stock returns—
+even one that is completely misspeciﬁed.10 To estimate the impact of wins and losses on stock
+returns while controlling for the Monday eﬀect and other confounding eﬀects, we ﬁrst estimate
+the following model for each country i:
+Rit = γ0i + γ1iRit−1 + γ2iRmt−1 + γ3iRmt + γ4iRmt+1 + γ5iDt + γ6iQt + ϵit;
+(1)
+where Rit is the continuously compounded daily local currency return on a broadly based stock
+market index for country i on day t, Rmt is the continuously compounded daily US dollar
+return on Datastream’s world market index on day t, and Dt = {D1t, D2t, D3t, D4t} are dummy
+variables for Monday through Thursday, and Qt = {Q1t, Q2t, Q3t, Q4t, Q5t} are dummy variables
+for days for which the previous one through ﬁve days are non-weekend holidays.
+The model speciﬁcation in (1) is motivated by previous studies of the time series variability
+of stock returns. The lagged index return, Rit−1, is included to account for ﬁrst-order serial
+correlation. To the extent that international stock markets are integrated, the return on local
+indices will be correlated across countries. The contemporaneous return on the world market
+portfolio, Rmt, is included to control for this correlation. Since some local markets may be lagging
+the world index while other may be leading the index, the model also includes Rmt−1 and Rmt+1.
+We estimate the model simultaneously for all countries by interacting each independent variable
+with a set of country dummies. For the sample of 39 soccer nations, the adjusted R-squared for
+this regression is 15%.
+Let ˆϵit denote the residuals from regression (1). We estimate the eﬀect of the outcome of
+international soccer matches using the following regression model:
+ˆϵit = β0 + βW Wit + βLLit + uit.
+(2)
+where Wit = {W1it, W2it, . . . } are dummy variables for wins in diﬀerent game sub-groups and
+Lit = {L1it, L2it, . . . } are loss-dummies for the same set of game sub-groups.
+The number
+of game sub-groups will vary depending on the setting. More speciﬁcally, Wgit is a dummy
+variable that equals one if country i won a soccer match in game sub-group g (e.g., a World
+Cup elimination game) on a day that makes t the ﬁrst trading day after the match and zero
+otherwise; Lgit is a dummy variable for losses deﬁned analogously to the win dummy. As in
+10This follows from the fact that omitted variables do not bias coeﬃcient estimates in a regression when the
+omitted variable is independent of other regressors.
+8
+
+--- PAGE 10 ---
+Hirshleifer and Shumway (2003) we estimate the above model using Panel Corrected Standard
+Errors (PCSE) which assumes that the error terms uit are mean-zero and uncorrelated over
+time, but allows for heteroskedasticity and contemporaneous correlation across countries.
+One possible concern regarding the above statistical speciﬁcation is its constant-volatility
+assumption. French, Schwert, and Stambaugh (1987) and Bollerslev, Engle, and Nelson (1994),
+among others, have shown that stock index returns have time-varying volatility. If international
+soccer competitions occurred during periods of high volatility, the magnitude of our coeﬃcient
+estimates would be biased upward. To address this issue we model stock return volatility using a
+GARCH model as developed by Engle (1982) and generalized by Bollerslev (1986). Stock returns
+are model using equation (1). The volatility of the error term from this regression is modeled as
+a GARCH(1,1) process: σ2
+it = λ0i + λ1iϵ2
+it−1 + λ2iσ2
+it−1, where σ2
+it is the index return volatility
+for country i on day t. The time series ˆσ2
+it is used to form a new time series of normalized stock
+index returns: R0
+it = ai + bi(1/ˆσit)Rit, where ai and bi are chosen so that the mean of R0
+it is
+equal to zero and the standard deviation is equal to one. By normalizing all index returns we
+eliminate the heterogeneity in volatility across countries in addition to the time series variation
+adjustment of the GARCH model. The normalized returns, R0
+it, are then used in the model
+speciﬁcation (1), from which we obtain a second set of normalized residuals which we denote by
+˜ϵit. For the most part, our analysis is done on the normalized residuals ˜ϵit. To distinguish these
+residuals from the residuals ˆϵit, we refer to the latter as “abnormal raw returns” and the former
+as “abnormal normalized returns.”
+4.3
+The loss eﬀect
+Table 2 reports the main ﬁndings of this paper. Panel A details results using abnormal raw
+returns for matches played in the eight World Cups and all continental cups between 1974 and
+2004. Focusing ﬁrst on the results for losses on the right hand side of Panel A, the most striking
+ﬁnding is that national stock markets earn a statistically and economically signiﬁcant negative
+return on days after a loss by the national soccer team. The OLS coeﬃcient on the loss dummy
+is −38.4 basis points for the 138 elimination games, and a staggering −49.4 basis points for
+the 56 World Cup elimination games. The point estimates are consistently negative for all six
+subsets of games.
+The point estimates for the loss eﬀect are increasing in game importance. First, the World
+Cup games show a bigger loss eﬀect than continental cup games for all three game groups.
+Second, the loss eﬀect for elimination games is larger than for group games which in turn show a
+larger loss eﬀect than close qualifying games. It seems natural to argue that elimination games
+in the ﬁnal stages of soccer competitions should have the strongest mood eﬀect. They receive the
+greatest media coverage, and a loss in an elimination game immediately sends a national team
+home. Moreover, some losses in group or qualifying games may either be irrelevant (because a
+9
+
+--- PAGE 11 ---
+team already qualiﬁed or no longer has a chance of qualiﬁcation due to performance in earlier
+group games) or may not yield immediate elimination (since a team can recover by winning
+other group games).
+For the full sample of 524 soccer losses, the point estimate is −21.2 basis points, highly
+signiﬁcant both in economic and statistical terms. We reject the null hypothesis of βL = 0 at
+any conventional level using Panel Corrected Standard Errors. The win coeﬃcient is a positive
+1.6 basis points for the overall sample and a positive 9.0 basis points for World Cup elimination
+games.
+However, these estimates are not statistically distinguishable from zero.
+The large
+negative eﬀect for losses and smaller positive eﬀect for wins is consistent with the inherent
+asymmetry between elimination wins and losses. While a loss leads to instant exit, a win merely
+advances the team to the next round. Thus, fans’ attention after a win may quickly turn to
+the next stage of matches. This may be exacerbated by an allegiance bias in fans’ expectations
+regarding the game outcome. If fans overestimate the probability of a national team win, losses
+will have a particularly dramatic eﬀect.
+Panel B in Table 2 reports the results using the abnormal normalized returns described in
+Section 4.2. Since the estimates on these normalized returns give less weight to observations in
+countries with volatile stock markets, game-day observations that come from extreme returns
+from highly volatile markets will have a smaller impact on the point estimate. The results on the
+right hand side of Panel B conﬁrm the ﬁndings from Panel A. The loss eﬀect is unaﬀected by the
+GARCH(1,1) volatility adjustment—if anything, the GARCH adjustment and the normalization
+of returns increase the statistical power to reject the null hypothesis. In order to interpret the size
+of the coeﬃcient estimates, and thereby measure economic signiﬁcance, notice that βL = −0.157
+for all games implies an average return that is 0.157 standard deviations below its mean. For
+a stock market index with daily volatility of 1.449 basis points (see Panel A Table 1), this
+translates into an abnormal raw return of 0.157×1.449 = 0.23—which is almost identical to the
+point estimate for raw abnormal returns from Panel A. Turning to the left hand side of Panel
+B, the results from Panel A is again conﬁrmed. There is no evidence of any abnormal stock
+market returns after wins. The win coeﬃcients are virtually zero for all game subsets and not
+statistically distinguishable from zero.11
+When comparing across competitions and stages in Panel A of Table 2, it appears that
+the loss eﬀect is increasing in game importance. In Table 3 we further explore this issue by
+investigating whether the eﬀect is stronger in countries where soccer is of greatest importance.
+We split the sample into “Top Seven soccer nations” and “Other soccer nations.” The Top
+11We also ﬁnd moderate evidence that the market bounces back after the initial drop. The point estimate
+for the second trading day after the game is 7.2 basis points for all soccer losses (controlling for ﬁrst-order
+autocorrelation) and statistically signiﬁcant at close to 5% using a one-sided test. The point estimate is 5.6 basis
+points for elimination games and not statistically signiﬁcant. These results are not reported for brevity but are
+available from the authors upon request.
+10
+
+--- PAGE 12 ---
+Seven soccer nations are: Argentina, Brazil, England, France, Germany, Italy, and Spain.12 The
+remaining 32 countries are referred to as Other soccer nations. Panel A of Table 3 contains
+the results for the Top Seven countries while Panel B contains results for Other countries.
+Comparing corresponding point estimates in the two panels, the point estimates for the Top
+Seven are larger in magnitude for all wins and all losses except for continental group games.
+However, an economically and statistically signiﬁcant loss eﬀect still exists for Other countries,
+so the eﬀect documented in Table 2 is not purely driven by the Top Seven. The strength of the
+eﬀect in Other countries, coupled with the high standard errors, prevents us from statistically
+rejecting the hypothesis that all point estimates in Panel A are equal to the corresponding point
+estimates in Panel B.13
+4.4
+Statistical robustness checks
+This section investigates the robustness of the loss eﬀect by controlling for the clustering of
+games on certain dates and by eliminating the eﬀect of outliers in the data. For brevity we
+report results only on normalized returns—the results using raw returns are virtually identical.
+A potentially important problem with our data is the time-clustering of observations. Al-
+though equation (1) controls for market movements, we may be overstating the statistical sig-
+niﬁcance of our estimates if the model does not fully capture the correlations among diﬀerent
+countries’ returns on a given date. For example, shocks to emerging markets are likely inad-
+equately captured by the Datastream world index, which is mostly composed of returns from
+developed nations. To mitigate the problems created by the time-clustering, we form “portfolios”
+of winners and losers for each game-date. For each date t for which either Wit = 1 or Lit = 1
+for some i, we average ˜ϵit over all countries with Wit = 1, and average ˜ϵit over all countries with
+Lit = 1. This yields two time series of abnormal normalized portfolio returns, ˆwLt and ˆwWt, for
+losing countries and winning countries respectively. Under our null hypothesis, these time series
+should both have zero means.
+Panel A of Table 4 presents the number of win days and loss days, the average returns on
+the win and loss portfolios, and standard t-values for a test of zero-mean. Consistent with all
+our earlier ﬁndings, there is a statistically signiﬁcant loss eﬀect as well as a negligible eﬀect for
+wins. The point estimates are very similar to those in Panel B of Table 2, aside from a small fall
+in the statistical signiﬁcance of the tests since we are dropping all cross-sectional information
+on a given day. However, the loss eﬀect remains statistically signiﬁcant at levels close to 5% or
+better for all ﬁnal stage game subsets (both elimination and group games). The results for the
+12The professional soccer leagues of England, France, Germany, Italy and Spain collectively account for 80% of
+soccer revenues in Europe, which in turn is by far the most dominant continent for global soccer income. These
+countries are known throughout the industry as the “Big Five”. Together with Argentina and Brazil, these seven
+countries systematically occupy the top world rankings.
+13This test is not reported in a table but is available from the authors upon request.
+11
+
+--- PAGE 13 ---
+full sample of 524 losses, which is reduced to 358 date observations, remain highly signiﬁcant,
+with a point estimate of −14.9 basis points and a t-statistic of −3.3.
+We also investigate the sensitivity of our result to outliers. This is motivated by Pinegar
+(2002), who shows that the clock change results of Kamstra, Kramer, and Levi (2000) are
+sensitive to outliers in their data. We deﬁne outliers as observations where the dummy variables
+Wit or Lit equal one and the absolute value of the abnormal normalized returns, ˜ϵit, is “large.”
+In other words, we identify observations with large negative or large positive returns on a win-
+day or a loss-day. This approach eﬀectively identiﬁes the observations that have the greatest
+inﬂuence on the estimates of βW and βL.
+Panel B in Table 4 reports trimmed means where 20% of the game-day observations is
+removed (10% extreme negative observations and 10% extreme positive observations). The t-
+statistics reported are calculated using standard asymptotic approximations for trimmed means
+(See Huber (1996), in particular chapter 3). Again, we ﬁnd that the loss eﬀect documented
+in Table 2 is remarkably robust.
+After trimming the data, the point estimate after losses
+in international soccer matches is −12.6 basis points with a t-statistic of −3.50. The trimmed
+means for losses are slightly less negative than untrimmed means, revealing that negative outliers
+tend to be somewhat larger in absolute value than positive outliers, especially for the qualifying
+games subset. However, both the economic and statistical signiﬁcance of the results remain
+strong. Consistent with our previous analysis, these robust estimates fail to uncover any positive
+eﬀect after wins.
+4.5
+Evidence from other sports
+Panel B of Table 2 shows that the loss eﬀect is statistically signiﬁcant in all three mutually ex-
+clusive groups of the 524 soccer losses games (elimination, group, and close qualiﬁers). However,
+from Panel A of Table 2, it is clear that the loss eﬀect is strongest in the sub-samples of 138
+elimination games and 81 World Cup group games. To increase our sample of sports-related
+mood events, we investigate whether the loss eﬀect documented for soccer exists in other inter-
+national sports. To ensure that each sport is important in a reasonable number of countries, the
+sports we look at are cricket, rugby, ice hockey, and basketball. The appendix details country
+selection for each sport.
+Since soccer is the main sport for the vast majority of the 39 countries we have deﬁned as
+soccer nations, we expect that other sports will exhibit a weaker eﬀect. A possible exception
+would be cricket, as this is the main sport for around half (India, Pakistan, Sri Lanka, and
+possibly South Africa) of the seven countries included as cricket nations. For example, about
+75% of sports related advertising revenues in India is generated through cricket events. The
+Indian government considered moving the 2004 elections to avoid a conﬂict with a cricket series
+against Pakistan, fearing a sporting defeat would severely impact electorate mood.
+12
+
+--- PAGE 14 ---
+Table 5 reproduces the analysis in Tables 2 and 4 for our sample of other sports. Somewhat
+surprisingly, given the lesser importance of these sports, Panel A of Table 5 shows a similar pat-
+tern to that reported for the soccer sample. In particular, the point estimate after losses in these
+other competitions is negative, −8.4 basis points, and statistically signiﬁcant at conventional
+levels. The eﬀect is negative for all subsamples but ice hockey, and particularly large for cricket
+and basketball. As for soccer, there is no signiﬁcant eﬀect after wins in the overall sample.
+Although smaller in magnitude compared to the soccer point estimates from Table 2 (consistent
+with the other sports being a weaker mood variable), the data supports the hypothesis that
+these other sporting events are also associated with stock market movements.
+The last two panels of Table 5 perform robustness checks along the lines of those in Section
+4.4. The point estimate for the full sample of games is virtually unchanged by either pooling
+the cross-sectional returns over dates (Panel B) or computing trimmed means (Panel C). The
+t-statistic drops to −1.88 for the portfolio approach and increases to −2.53 for trimmed means.
+The cricket subsample is the most robust of the four, showing even larger point estimates and
+strong statistical signiﬁcance using either portfolio returns or trimmed means, partly as the
+trimming removes an extreme positive outlier for India after a cricket loss.14 This ﬁnding is
+consistent with the fact that cricket is the number one sport, and therefore a strong mood
+proxy, in half out of the seven countries included as cricket nations. The evidence is marginal
+for the rugby and basketball subsamples, and only the ice hockey games do not seem to have
+point estimates consistent with our previous analysis. Again, this could be related to the fact
+that these sports are second in importance when compared to soccer, implying that a smaller
+proportion of the population is inﬂuenced by game outcomes.
+To sum up, the results reported in Tables 2 through 5 show a striking loss eﬀect. Stock
+markets exhibit a statistically and economically signiﬁcant negative return on days after a loss
+by the national team in a sport the country views as important. The eﬀect is especially strong
+after international soccer losses but is also signiﬁcant after losses in other sports. The following
+section investigates competing interpretations of the loss eﬀect.
+5
+Soccer, mood, and economics
+Our study was motivated by the behavioral alternative hypothesis that soccer results aﬀect
+stock returns through their impact on investor mood. However, the loss eﬀect may be a result of
+eﬃcient markets rationally reacting to the negative economic consequences of losing a game. This
+includes direct economic eﬀects such as lower sales of related merchandise and advertising on TV,
+14On March 3, 1992 the stock market index for India rose 29%. This can be attributed to a market deregulation
+that authorized foreign institutional investors to make investments in all securities traded on the primary and
+secondary markets. The Indian cricket team experienced a loss on March 1; since March 2 is coded as a holiday
+for India, March 3 is the ﬁrst trading day after the cricket game.
+13
+
+--- PAGE 15 ---
+the negative impact on productivity and a potential reduction in consumer expenditure resulting
+from mood changes. The main goal of this section is to distinguish between these competing
+explanations for the loss eﬀect. One simple argument that casts doubt on a pure economic
+explanation is the sheer size of the eﬀect. To put the results in perspective, 40 basis points of
+the UK market capitalization as of November 2005 is $11.5 billion. This is approximately three
+times the total market value of all the soccer clubs belonging to the English Premier League.
+We further investigate the competing explanations for the loss eﬀect in three ways. First,
+rational asset pricing suggests that market declines should be particularly strong for losses that
+are unexpected under objective probabilities. To test this implication we add data on the ex
+ante probability of a win in a particular game. Second, we study whether the eﬀect is stronger in
+small versus large stocks since the former are particularly held by local investors and valuations
+are more likely to be aﬀected by sentiment. Third, we study trading volume around our event
+dates to rule out potential stock market liquidity eﬀects.
+5.1
+The loss eﬀect and expected game outcome
+Even if the negative eﬀect of a soccer loss is due to irrationality, investors could still be perfectly
+rational when pricing ﬁnancial assets. In particular, market eﬃciency predicts that investors
+should price in the expected economic impact of soccer results before the game. Therefore, the
+loss eﬀect should be stronger for losses that are more unexpected. To test this, let VWit denote
+the value of the stock market in country i at time t following a soccer win, and let VLit denote
+the corresponding value after a loss. A negative economic eﬀect of soccer losses suggests that
+VWit > VLit.
+If investors have assigned a probability pit to a national team win, the economic eﬀect priced
+into the index level of the national stock market will be pitVWit + (1 −pit)VLit. Let Iit be the
+index level that includes the expected soccer eﬀect. After controlling for other factors that move
+the national index, the soccer related realized return on the index is:
+ϵit = (VWit −VLit)
+Iit
+Wit −(VWit −VLit)
+Iit
+pit + vit;
+(3)
+where Wit is a dummy variable that equals one if country i won a soccer match on a day that
+makes t the ﬁrst post-game trading day and zero if the game was lost, and vit is an mean zero
+error term.
+We can generate testable predictions of a rational story as follows. Since the index level Iit
+is large relative to the soccer eﬀect, ∂Iit/∂pit is approximately zero. This implies that ∂ϵit/∂pit
+is approximately equal to −(VWit −VLit)/Iit. Thus, if we study returns on game dates only, the
+14
+
+--- PAGE 16 ---
+soccer related realized return can be written as a cross-sectional regression:
+ϵit = α0 + α1Wit + α2pit + vit.
+(4)
+Comparing equation (4) to equation (3), the above economic arguments imply the following
+three restrictions on the parameters: α0 = 0, α1 > 0, and α1 = −α2.
+While the above arguments clearly predict a more negative impact of an unexpected loss
+(i.e. α2 < 0), there are no unambiguous predictions under the behavioral explanation. First,
+as discussed in section 2, the allegiance bias suggests that agents’ beliefs may not be closely
+related to expectations computed under objective probabilities—under an allegiance bias, losses
+are nearly always unexpected. For example, 86% of fans surveyed thought that England would
+beat Brazil in the 2002 World Cup quarter ﬁnal, even though Brazil were the world’s top
+ranked team and eventually won the competition. This contrasts with the 42% probability that
+bookmakers assigned to a victory. Second, even if we had data on subjective probabilities, it is
+not clear that we would expect a negative coeﬃcient on the subjective probability in equation
+(4). On the one hand, losses to strong opponents may be indeed less painful as they are less
+unexpected. At the same time, formidable opponents tend to be historic rivals and so a loss
+against them (e.g. England losing to Germany or Spain to Italy) may be as emotionally painful
+as an “embarrassing” loss to weak opposition.
+We test the restrictions on the coeﬃcients of equation (4) using probabilities derived from
+Elo ratings.
+Let EH and EA be the Elo rating for the “home-team” and the “away-team”
+respectively. The probability that the home-team wins is:15
+P(Home-team wins) =
+1
+10−(EH+100−EA)/400 + 1
+(5)
+The probabilities implied by the Elo ratings have a correlation of 0.929 with betting odds data
+that we obtained for slightly less than 60% of the overall sample. Evidence surveyed in Hausch
+and Ziemba (1995) shows that odds data coincide closely with objective probabilities—implying
+that our Elo-based ex ante probabilities should proxy well for expected game outcome.
+The estimation of equation (4) is conducted in two stages. First, we estimate ˜ϵit as described
+in section 4.2. Second, the game-date residuals from the ﬁrst-stage regression are used as the
+dependent variable in the cross-sectional regression in equation (4).
+Panel A of Table 6 reports the results from the estimation of equation (4) without any
+restrictions on the coeﬃcients. To ensure that point estimates in Panel A are comparable to
+15For the games where there is no home team (i.e. most ﬁnal stage games), we use
+P(Team H wins) =
+1
+10−(EH−EA)/400 + 1.
+15
+
+--- PAGE 17 ---
+our earlier ﬁndings, we normalize pit to have zero mean. Thus, since Wit is zero on loss days,
+the intercept picks up the loss eﬀect controlling for the ex ante probability that country i would
+win the match. Focusing ﬁrst on the sample of all games, the intercept is negative, close to the
+point estimate for losses from Table 2, and statistically signiﬁcant. The eﬀect after wins can
+be computed by summing the coeﬃcient estimates for α0 and α1. This sum is close to zero,
+conﬁrming our earlier ﬁndings. In the last column of Panel A, we observe that there seems to
+be no relationship between ex ante probabilities and stock market reactions. Thus, the main
+implication of models that assume rational investors is not borne out in our data.
+To further test this implication, Panel B of Table 6 reports results from the estimation of the
+model in equation (4) under the restricted parameters. Since the model implies both equality
+restrictions and inequality restrictions, it is estimated using quadratic programming. In partic-
+ular, we estimate the model under the parameter restrictions above and test the null hypothesis
+that these restrictions jointly hold against the alternative hypothesis that the restrictions do not
+hold. Kodde and Palm (1986) develop a Wald test for joint equality and inequality restrictions.
+The last column of Table 6 reports the Kodde-Palm “Wald-D” test statistic. For all games taken
+together the Wald-D statistic is 9.274. Under the null, the probability of observing a Wald-D
+statistic of 9.274 or larger is 0.018.
+The fundamental reason for why the economic explanations are rejected in our data is that
+the loss eﬀect picked up by the intercept in equation (4) is too large to be explained by the win
+probability. To see this, consider a model where investors are rational, which implies that E(Wit)
+should be identical to pit. Thus, the average number of wins in the sample (i.e., the average of
+Wit) should converge to the average pit as the sample size increases. Since the big soccer nations
+are overrepresented in our sample, the average pit is 0.62. One immediate implication is that the
+loss eﬀect should be of opposite sign and approximately 0.62/0.38 = 1.6 times the magnitude
+of the win eﬀect. This implication has already been rejected by the evidence in Table 2, which
+shows that the loss eﬀect is 13 times as large as the win eﬀect.
+5.2
+Portfolio characteristics and local ownership
+If it is the mood of local investors that drives our results, we would expect stocks with an
+especially high local ownership to be more sensitive to soccer results. The models of Merton
+(1987) and Gehrig (1993) predict that foreigners will underweight stocks where their informa-
+tional disadvantages are greatest. It seems reasonable to believe that small stocks with low
+analyst and media coverage (Bhushan (1989)) and growth ﬁrms where “hard” accounting infor-
+mation is a less important driver of ﬁrm value, would characterize ﬁrms where foreigners are
+at an informational disadvantage. This prediction is supported by Kang and Stulz (1997) and
+Dahlquist and Robertsson (2001) who document that small ﬁrms are underweighted by foreign
+investors in Japan and Sweden, respectively. Dahlquist and Robertsson (2001) also ﬁnd that
+16
+
+--- PAGE 18 ---
+foreigners prefer ﬁrms with large cash positions on their balance sheets, which is a feature of
+value stocks. Moreover, even holding local ownership constant, investor sentiment is more likely
+to aﬀect small stocks as they are disproportionately held by individual investors (Lee, Shleifer,
+and Thaler (1991)) and less interesting to potential arbitrageurs who would act to eliminate any
+mispricing. Indeed, many market “anomalies”, such as the January and Monday eﬀects, are
+stronger in small stocks, and Baker and Wurgler (2005) ﬁnd that small stocks are more strongly
+aﬀected by investor sentiment. Hence, both diﬀerences in the extent of local ownership and the
+eﬀect of sentiment given a particular ownership structure lead to a cross-sectional prediction
+that soccer results will have a greater eﬀect on a small stock index than a large stock index, and
+on a growth index than a value index.
+Panel A of Table 7 reports the results from estimating the model in equation (2) using
+pairs of small/large or value/growth indices. The appendix describes our index selection. The
+results show that the loss eﬀect is stronger in small-cap indices. The point estimate after losses
+is −0.245 basis points, two-and-a-half times the estimate of −0.093 for large-cap indices. The
+−15.2 basis point diﬀerence is statistically signiﬁcant at below the 10% level using a one-sided
+test. By contrast, the loss eﬀect is of the same magnitude in both value and growth indices.
+The value/growth loss eﬀect is the same as the eﬀect for the overall market index. Thus, the
+result could possibly be explained by foreigners having equal access to the individual ﬁrms that
+constitute the value/growth indices.
+5.3
+Liquidity
+This section investigates whether the loss eﬀect is driven by changes in liquidity. If investors are
+“hung over” on the day after a match, they may not want to participate in the stock market
+that day, causing a reduced order ﬂow. If suﬃciently many local investors stay away from the
+market, the greater execution time for a trade may induce sellers to accept a lower price. To
+investigate the liquidity hypothesis, we use data on aggregate trading volume on the stocks in
+the national index.
+To measure abnormal trading volume, we model expected volume using a ﬁltering proce-
+dure similar to the one in Gallant, Rossi, and Tauchen (1992). In particular, expected vol-
+ume is constructed in the following way. Let Vit be the log of aggregate trading volume for
+the constituent shares of country i’s stock index (from Datastream). We run the regression
+Vit = γ0ixit + uit, where xit is a set of explanatory variables. Next, we estimate a model of vari-
+ance: log(ˆu2
+it) = γ1iyit + ϵit, where yit is a second set of explanatory variables. Finally, we deﬁne
+ˆwit = ai +biˆuit/ exp(ˆγiyit/2), where ai and bi are chosen so that ˆwit has zero mean and unit vari-
+ance. For the mean volume regression, xit includes day-of-the-week and month dummies, two
+lags of volume, a time trend, and the time trend squared. For the variance equation, yt includes
+the variables in xit except the two lags of volume. The procedure essentially generates, for each
+17
+
+--- PAGE 19 ---
+country, a mean zero time series of abnormal volume with unit variance. The normalization of
+all the time series eliminates the heterogeneity in volatility across countries. The eﬀect of soccer
+match outcomes on volume is estimated using the model ˆwit = γ0 + βW Wit + βLLit + ϵit.
+The sample includes 34 countries from the original sample for which Datastream provides
+volume data.16 For most countries Datastream volume data does not start until the beginning
+of the 1980s, which reduces the number of soccer matches that can be included in the sample.
+Table 8 reports results using the abnormal volume time series. If the loss eﬀect is caused by a
+reduction in market liquidity on the days after a soccer game, we would expect to see a reduction
+in volume on these days. For elimination games, the point estimates are positive but insigniﬁcant
+for both wins and losses. For the sample of all games, the point estimates of abnormal volume
+are all negative but again insigniﬁcant. Thus, there does not seem to be any reliable drop in
+volume on the loss days. It seems justiﬁed to conclude that the loss eﬀect is not related to a
+reduction in market liquidity—at least when liquidity is measured using trading volume.
+By contrast, under a behavioral story there are no clear predictions as to the eﬀect of mood
+changes on volume. Although one might expect sad mood to cause inactivity and inertia in
+traders, it is equally plausible that investors may trade more to take their minds oﬀthe soccer
+defeat. Indeed, there is ample psychological evidence that agents engage in “mood regulation”,
+taking actions to ﬁx their mood. For example, Erber and Tesser (1992) note that “exerting
+eﬀort on a task may be one way to successfully overcome sad moods” and ﬁnd evidence that a
+negative mood is attenuated by performing challenging tasks. Trading is a plausible example of
+such a task: not only is it a cognitively intense activity, but also it has the potential of generating
+proﬁts to negate the negative mood.
+6
+Conclusion
+Motivated by the abundance of psychological evidence showing that sports results have a strong
+eﬀect on mood, this paper investigates the stock market eﬀect of international soccer results. We
+document a strong negative stock market reaction to losses by national soccer teams. The size of
+the loss eﬀect is economically signiﬁcant—in monthly terms, the excess returns associated with a
+soccer loss exceeds 7%. We ﬁnd a statistically signiﬁcant but smaller loss eﬀect for international
+cricket, rugby and basketball games. There is no evidence of a corresponding reaction to wins
+in any of the sports.
+The ﬁnding that the eﬀect is not priced into the index when a loss is highly expected leads us
+to reject the view that the loss eﬀect stems from rational investors’ reaction to cash ﬂow relevant
+information. Instead, we interpret the eﬀect as resulting from the impact of sports results on
+16Compared to the 39 countries in Table 9, the missing countries are Bahrain, Croatia, Jordan, Nigeria, and
+Saudi Arabia.
+18
+
+--- PAGE 20 ---
+investor mood. There are several justiﬁcations for this interpretation. First, soccer results were
+chosen as an event precisely because they are believed to impact mood and have little direct
+economic impact. Second, the eﬀect is more pronounced in countries where soccer is especially
+important, for games in the World Cup, and for elimination games. These important matches
+are precisely the games with greatest mood impact. Third, the eﬀect is especially large in small
+stocks. Small stocks have previously been found to be especially aﬀected by investor sentiment,
+and they are predominantly held by local investors, whose mood is aﬀected by the performance
+of the national soccer team.
+The magnitude of the loss eﬀect, and its concentration in Western European countries with
+developed stock markets, suggests that investors would have obtained large excess returns by
+trading on these mood events. One such strategy would be to short futures on both countries’
+indices before an important match to exploit the asymmetry of the eﬀect. However, the events
+we cover do not seem to occur with enough frequency to have a portfolio fully dedicated to
+trading on them.
+Moreover, the eﬀect seems to be particularly strong in small stocks and
+involves shorting, which suggests that even traders facing low transaction costs would ﬁnd it
+challenging to take advantage of the price drop. Our principal contribution is not to identify
+a proﬁtable trading strategy, but to document that mood can have a large eﬀect on stock
+returns—signiﬁcantly expanding existing evidence linking mood to asset prices.
+19
+
+--- PAGE 21 ---
+Appendix
+A
+Stock index returns and index volume
+Returns are obtained from Datastream, and are computed using a total return index (assuming
+that dividends are reinvested). If the total return index is unavailable, we use a price index
+instead. Index returns are measured in the local currency. The starting date of the index for
+country i is selected to ensure that the market was reasonably liquid at the time of the starting
+date. The starting date is the ﬁrst date for which the ﬁve-day average number of ﬁrms in the
+index is at least 10 and the average number of ﬁrms (over a ﬁve day period) that experienced a
+price change is greater than 50%.
+We use the total return indices with a Datastream mnemonic that starts with “TOTMK.”
+Datastream does not provide TOTMK indices for seven countries in our sports data. For Croatia,
+Slovakia and Lithuania we use the Nomura price index. For Bahrain, Jordan, Nigeria, and Saudi
+Arabia we use the S&P/IFCG indices from Standard & Poor’s Global Index Series. The index
+returns for Argentina, Czech Republic, Indonesia, Poland, Romania, and Russia are very volatile
+and contain extreme returns in the ﬁrst few months of the series. Based on a visual inspection
+we trim the beginning of these time series. Only four basketball wins are lost because of this
+trimming. The return time series for South Korea, Indonesia, and Nigeria exhibit a persistent
+and dramatic increase in volatility in September 1997, August 1997, and April 1999 respectively.
+Whenever we use these time series in our analysis, we include a dummy variable that takes on the
+value one before these dates and is zero otherwise. None of our reported results are inﬂuenced
+by the trimming or the inclusion of the time dummies. The second column of Table 9 reports
+the starting date for the returns time series.
+For the analysis in Table 7 we use data on large indices for 18 countries out of the 39
+soccer countries listed in Table 9. Namely we include as large-cap indices the Australia ASX-20,
+Austria ATX Prime, Belgium BEL-20, Denmark Copenhagen KFX, England FTSE-100, France
+CAC-40, Germany DAX-30, Greece Athens SE General, Ireland ISEQ, Italy Milan Comit-30,
+Japan Nikkei-225, Netherlands AEX, Norway OBX, Portugal PSI-20, South Korea Kospi-200,
+Spain IBEX-35, Sweden OMX-30, and Switzerland MSCI. The small indices are those provided
+by HSBC via Datastream for the list of countries for which we have a large index. The growth
+and value indices are from Standard and Poor’s, both available from Datastream for 34 out of
+the 39 soccer countries listed in Table 9. Owing to data limitations with the return series, we
+use the price series for all of these indices.
+Datastream uses the same calendar for all countries and does not provide information about
+holidays. To avoid computing returns for holidays, we identify holidays as days where the price
+of fewer than three of the stocks in the index moved and there was no trading volume. We
+20
+
+--- PAGE 22 ---
+identify more than 95% of the holidays this way. The remaining holidays are identiﬁed using
+the same two criteria separately.
+Volume data is available for all countries for which Datastream provides a TOTMK index.
+For some countries, the volume data contains multiple zero-volume days at the beginning of the
+time series. To reduce the overall volatility of the volume time series for country i, we set the
+start date of the time series as the ﬁrst date where volume has exceeded 100 for ﬁve consecutive
+days.
+B
+Soccer
+We collect international soccer results from the website www.rdasilva.demon.co.uk for the
+period January 1973 through December 2004. The data were checked for errors manually using
+various sources including the websites of the F´ed´eration Internationale de Football Association
+(FIFA) and the Union des Associations Europ´eennes de Football (UEFA).
+To enter our sample, Datastream must provide a national stock market index with daily
+returns and a country needs to be recorded with at least one win or one loss (over the time-
+period where we have return data) in either the World Cup or the continental cups. These
+sampling criteria result in a sample of 41 countries. However, given the large number and strong
+popularity of club sports (baseball, basketball, American football and ice hockey) in Canada
+and the USA, these countries are excluded. Table 9 lists the 39 countries that are included.
+In the 1974 and 1978 World Cups, eight teams proceeded from the group stage to a second
+round playoﬀseries. The winner and runner-up from this playoﬀstage qualiﬁed for the ﬁnal.
+We deﬁne all games in the second round series as elimination games. A similar format was
+used in the 1982 World Cup, but twelve teams proceeded to the second round and the four top
+teams played in the semi-ﬁnals. For this year also we have deﬁned the second round games as
+elimination games.
+C
+Cricket
+Cricket has traditionally been played over multiple days (with a maximum of ﬁve). This does
+not lend itself easily to a study that relates game outcome to stock market response because it
+is unclear when the outcome of the game became clear. However, since cricket is the main sport
+in many South Asian countries, we include One Day International (ODI) cricket matches in our
+sample of other sports. The International Cricket Council (ICC) World Championship is played
+as ODIs and we collect game results for eight World Championships played between 1975 and
+2003. The cricket results are obtained from the website of the ICC: www.icc-cricket.com. We
+deﬁne as cricket nations those that were ranked in the top ten countries every year between 2002
+21
+
+--- PAGE 23 ---
+and 2005 (the top ten did not change over this period). When we restrict the countries to have
+stock market data on Datastream, we are left with seven cricket nations: Australia, England,
+India, New Zealand, Pakistan, South Africa, and Sri Lanka. Table 9 reports the number of
+cricket wins and losses.
+D
+Rugby
+International rugby data were obtained from the website www.rugbyinternational.net. Data
+for Australia from 2001 and South Africa were unavailable from the website owing to a broken
+link and were obtained directly from the website owners. We study all games in the Six Nations,
+Tri Nations and the ﬁnal stages of the World Cup. Rugby nations are deﬁned as the countries
+that participate in Tri Nations (Australia, New Zealand, and South Africa) or Six Nations
+(England, Wales, Scotland, Ireland, France, and Italy). Scotland and Wales are excluded because
+they have no independent stock market, leaving us with seven rugby nations. Table 9 reports
+the number of rugby wins and losses.
+E
+Ice hockey
+Ice Hockey data is collected from the website www.iihf.com of the International Ice Hockey
+Federation (IIHF) and the independent website www.hockeynut.com. The hockey matches are
+the World Championships (1998 to 2004), the Olympics (1980 to 2002), and World Cup/Canada
+Cup (1996 and 2004). We deﬁne ice hockey nations as the top ten countries based on performance
+in the 2004, 2003, 2002, and 2001 World Cup and the 2002 Olympics. As for soccer, the USA
+is excluded: not only does hockey lag behind baseball, American football and basketball, but
+also any hockey interest is focused on the National Hockey League rather than international
+matches (the NHL playoﬀs occur at the same time as the World Championships meaning many
+top players do not participate in the latter). Latvia is excluded because of no stock market
+data. This leaves us with the following eight hockey nations: Canada, Czech Republic, Finland,
+Germany, Russia, Slovakia, Sweden, and Switzerland. Table 9 reports the number of ice hockey
+wins and losses.
+F
+Basketball
+World Championship and Olympic basketball results were obtained from www.fiba.com. The
+website contained, for each tournament, the names of the two opponents, the round and the
+result. Unfortunately it did not contain dates, so these had to be obtained from a variety of
+other sources. Olympic dates were obtained from sports.espn.go.com/oly/index for 2004 and
+22
+
+--- PAGE 24 ---
+2000, and www.sunmedia.ca/OlympicsBasketball/sked.html for 1996. World Championship
+dates were obtained from www.insidehoops.com/wbc.shtml for 2002 and the Associated Press
+headlines for 1998: see amarillo.com/sports/index080498.html as an example of headlines
+for a particular day. For the 1992 Olympics and the 1994 World Championships, the USA’s
+dates were obtained from www.usocpressbox.org. Since games in each round take place on the
+same day, we could then work out the dates for all other teams’ matches for the entire 1994
+World Championships and the quarter-ﬁnals onward for the 1992 Olympics.
+To deﬁne basketball nations, we follow the same approach as for soccer and require a country
+to have participated in a signiﬁcant number of basketball events. This requirement eliminates
+Japan, Turkey, Venezuela, South Korea, Croatia, and Nigeria. A total of 27 games are lost
+because of this requirement. We also remove Australia and New Zealand because there are at
+least two other sports (cricket and rugby) that are more important in terms of attention in
+these countries. Again, we remove the USA owing to the substantially greater focus on club
+sports and college basketball. Many top American NBA players do not participate, in contrast
+to other countries which are at close to full strength. This is consistent with the limited media
+coverage of international basketball in the US. The removal leaves us with eleven basketball
+nations: Argentina, Brazil, Canada, China, France, Germany, Greece, Italy, Lithuania, Russia,
+and Spain. Table 9 shows reports the number of basketball wins and losses for these eleven
+countries.
+G
+Multiple games on one day
+If a country plays an international game in more than one of the sports (soccer, cricket, rugby,
+ice hockey, and basketball) on one single day we remove the observation if the country wins in
+one sport and loses in another. If the outcome is the same in all sports, we keep the observation.
+For example, England won a cricket match and a rugby match on February 17th and 24th, 2003.
+All four of these observations are kept. This adjustment aﬀects less than 1% of our sample of
+games.
+23
+
+--- PAGE 25 ---
+References
+Arkes, Hal, Lisa Herren, and Alice Isen, 1988, The role of potential loss in the inﬂuence of aﬀect
+on risk-taking behavior, Organizational Behavior and Human Decision Processes 42, 181–193.
+Ashton, John, Bill Gerrard, and Robert Hudson, 2003, Economic impact of national sporting
+success: evidence from the London Stock Exchange, Applied Economics Letters 10, 783–785.
+Baker, Malcolm, and Jeﬀrey Wurgler, 2005, Investor sentiment and the cross-section of stock
+returns, Journal of Finance forthcoming.
+Berthier, Fabrice, and Fr´ed´eric Boulay, 2003, Lower myocardial infarction mortality in French
+men the day France won the 1998 World Cup of football, Heart 89, 555–556.
+Bhushan, Ravi, 1989, Firm characteristics and analyst following, JAE 11, 255–274.
+Bizman, Aharon, and Yoel Yinon, 2002, Engaging in distancing tactics among sport fans: eﬀects
+on self-esteem and emotional responses, Journal of Social Psychology 142, 381–392.
+Bollerslev, Tim, 1986, Generalized autoregressive conditional heteroskedasticity, Journal of
+Econometrics 31, 307–327.
+Bollerslev, Tim, Robert F. Engle, and Daniel Nelson, 1994, ARCH models, in Robert Engle, and
+Daniel McFadden, eds.: Handbook of Econometrics (Elsevier, North-Holland, Amsterdam ).
+Boyle, Glenn, and Brett Walter, 2002, Reﬂected glory and failure: international sporting success
+and the stock market, Applied Financial Economics 13, 225–235.
+Cao, Melanie, and Jason Wei, 2005, Stock market returns: a note on temperature anomaly,
+Journal of Banking and Finance 29, 1559–1573.
+Carroll, Douglas, Shah Ebrahim, Kate Tilling, John Macleod, and George Davey Smith, 2002,
+Admissions for myocardial infarction and World Cup football: database survey, British Med-
+ical Journal 325, 1439–1442.
+Chi, Jason, and Robert Kloner, 2003, Stress and myocardial infarction, Heart 89, 475–476.
+Dahlquist, Magnus, and Goran Robertsson, 2001, Direct foreign ownership, institutional in-
+vestors, and ﬁrm characteristics, Journal of Financial Economics 59, 413–440.
+Engle, Robert F., 1982, Autoregressive conditional heteroskedasticity with estimates of the
+variance of U.K. inﬂation, Econometrica 50, 987–1008.
+Erber, Ralph, and Abraham Tesser, 1992, Task eﬀort and the regulation of mood: the absorption
+hypothesis, Journal of Experimental Social Psychology 28, 339–359.
+French, Kenneth R., and James M. Poterba, 1991, Investor diversiﬁcation and international
+equity markets, American Economic Review 81, 222–226.
+French, Kenneth R., William G. Schwert, and Robert F. Stambaugh, 1987, Expected stock
+returns and volatility, Journal of Financial Economics 19, 3–29.
+24
+
+--- PAGE 26 ---
+Frieder, Laura, and Avanidhar Subrahmanyam, 2004, Nonsecular regularities in returns and
+volume, Financial Analysts Journal 60, 29–34.
+Gallant, Ronald, Peter Rossi, and George Tauchen, 1992, Stock prices and volume, Review of
+Financial Studies 5, 199–242.
+Gehrig, Thomas, 1993, An information based explanation of the domestic bias in international
+equity investment, Scandinavian Journal of Economics 95, 97–109.
+Hausch, Donald B., and William T. Ziemba, 1995, Eﬃciency of sports and lottery betting
+markets, in Robert A. Jarrow, Vojislav Maksimovic, and William T. Ziemba, eds.: Finance
+(North-Holland, Amsterdam ).
+Hirshleifer, David, 2001, Investor psychology and asset pricing, Journal of Finance 91, 342–346.
+Hirshleifer, David, and Tyler Shumway, 2003, Good day sunshine: stock returns and the weather,
+Journal of Finance 58, 1009–1032.
+Hirt, Edward R., Grant A. Erickson, Chris Kennedy, and Dolf Zillmann, 1992, Costs and beneﬁts
+of allegiance: changes in fans’ self-ascribed competencies after team victory versus defeat,
+Journal of Personality and Social Psychology 63, 724–738.
+Huber, Peter J., 1996, Robust statistical procedures. (CBMS-NSF regional conference series in
+applied mathematics) second edn.
+Kahneman, Daniel, and Amos Tversky, 1979, Prospect theory: an analysis of decision under
+risk, Econometrica 47, 263–292.
+Kamstra, Mark J., Lisa A. Kramer, and Maurice D. Levi, 2000, Losing sleep at the market: the
+daylight saving anomaly, American Economic Review 12, 1000–1005.
+Kamstra, Mark J., Lisa A. Kramer, and Maurice D. Levi, 2003, Winter blues: a SAD stock
+market cycle, American Economic Review 93, 324–343.
+Kang, Jun-Koo, and Ren´e Stulz, 1997, Why is there a home bias? An analysis of foreign portfolio
+equity ownership in Japan, Journal of Financial Economics 46, 3–28.
+Karolyi, Andrew, and Ren´e Stulz, 2003, Are ﬁnancial assets priced locally or globally?, in
+George M. Constantinides, Milton Harris, and Ren´e M. Stulz, eds.: Handbook of Economics
+of Finance (North-Holland, Amsterdam ).
+Kodde, David A., and Franz C. Palm, 1986, Wald criteria for jointly testing equality and in-
+equality restrictions, Econometrica 54, 1243–1248.
+Lee, Charles, Andrei Shleifer, and Richard Thaler, 1991, Investor sentiment and the closed-end
+fund puzzle, Journal of Finance 46, 75–109.
+Markman, Keith, and Edward Hirt, 2002, Social prediction and the “allegiance bias”, Social
+Cognition 20, 58–86.
+25
+
+--- PAGE 27 ---
+Merton, Robert, 1987, A simple model of capital market equilibrium with incomplete informa-
+tion, Journal of Finance 42, 483–510.
+Pinegar, J. Michael, 2002, Losing sleep at the market: comment, American Economic Review
+92, 1251–1256.
+Platow, Michael, Maria Durante, Naeidra Williams, Matthew Garrett, Jarrod Walshe, Steven
+Cincotta, George Lianos, and Ayla Barutchu, 1999, The contribution of sport fan social
+identity to the production of prosocial behavior, Group Dynamics: Theory, Research and
+Practice 3, 161–169.
+Saunders, Edward M., 1993, Stock prices and Wall Street weather, American Economic Review
+83, 1337–1345.
+Schwarz, Norbert, Fritz Strack, Detlev Kommer, and Dirk Wagner, 1987, Soccer, rooms, and
+the quality of your life: mood eﬀects on judgements of satisfaction with life in general and
+with speciﬁc domains, European Journal of Social Psychology 17, 69–79.
+Schweitzer, Karla, Dolf Zillmann, James Weaver, and Elizabeth Luttrell, 1992, Perception of
+threatening events in the emotional aftermath of a televised college football game, Journal of
+Broadcasting and Electronic Media 36, 75–82.
+Shiller, Robert, 2000, Irrational Exuberance. (Cambridge University Press).
+Sloan, Lloyd Reynolds, 1979, The function and impact of sports for fans: a review of theory
+and contemporary research, in Jeﬀrey Goldstein, eds.: Sports, Games and Play (Lawrence
+Erlbaum Associates, Hillsdale, New Jersey ).
+Trovato, Frank, 1998, The Stanley Cup of hockey and suicide in Quebec, Social Forces 77,
+105–127.
+Wann, Daniel, and Nyla Branscombe, 1995, Inﬂuence of identiﬁcation with a sports team on
+objective knowledge and subjective beliefs, International Journal of Sport Psychology 26,
+551–567.
+Wann, Daniel, Thomas Dolan, Kimberly Mcgeorge, and Julie Allison, 1994, Relationships be-
+tween spectator identiﬁcation and spectators’ perceptions of inﬂuence, spectators’ emotions,
+and competition outcome, Journal of Sport and Exercise Psychology 16, 347–364.
+Wann, Daniel, Merrill Melnick, Gordon Russell, and Dale Pease, 2001, Sport fans: the psychology
+and social impact of spectators. (Routledge London).
+White, Garland, 1989, Media and violence: the case of professional football championship games,
+Aggressive Behavior 15, 423–433.
+Yuan, Kathy, Lu Zheng, and Qiaoqiao Zhu, 2005, Are investors moonstruck? Lunar phases and
+stock returns, Journal of Empirical Finance forthcoming.
+26
+
+--- PAGE 28 ---
+Table 1
+Number of wins and losses in international team sport matches and percent mean
+daily return on the ﬁrst trading day after matches
+The table reports the number of wins and losses in international soccer, cricket, rugby, ice hockey, and basketball
+matches. The soccer matches are played over the period 1973 to 2004 in the World Cup, European Championship,
+Copa America, Asian Cup, World Cup qualifying stages, and European Championship qualifying stages. The
+cricket matches are One Day Internationals played over the period 1975 to 2004. The rugby matches are Six
+Nations, Tri Nations, and World Cup matches between 1973 and 2004. The ice hockey matches are the World
+Championships (1998 to 2004), the Olympics (1980 to 2002), and World Cup/Canada Cup (1996 and 2004). The
+basketball matches are the Olympics (1992 to 2004) and the World Championships (1994 to 2002). The mean
+returns reported in the table are computed from the log daily return on national stock market indices (from
+Datastream) on the ﬁrst trading day after wins and losses. The appendix details the country selection for each
+sport. Elimination matches are matches where the loser is eliminated from further play in the tournament. Group
+games are played during the championship and qualiﬁes teams for the elimination stage. Close qualifying games
+are played to qualify for the championship by two teams with a diﬀerence in Elo rating below 125 points, after
+adding 100 points to the team with home advantage.
+No games
+Wins
+Losses
+N
+Mean
+Std.
+N
+Mean
+Std.
+N
+Mean
+Std.
+A. International soccer (39 countries)
+No games
+181,796
+0.058
+1.449
+All games
+638
+0.050
+1.474
+524
+−0.184
+1.547
+World Cup elimination games
+76
+0.172
+1.306
+56
+−0.359
+1.901
+World Cup group games
+115
+−0.067
+1.535
+81
+−0.516
+1.329
+World Cup close qualifying games
+137
+−0.067
+2.089
+122
+−0.074
+1.304
+Continental cups elimination games
+101
+−0.044
+1.021
+82
+−0.330
+1.544
+Continental cups group games
+128
+0.164
+1.186
+117
+0.035
+1.838
+European Champ. close qualifying games
+81
+0.239
+1.121
+66
+−0.036
+1.235
+B. Other international team sports (25 countries)
+No games
+120,416
+0.054
+1.438
+All games
+903
+−0.040
+1.823
+645
+−0.153
+1.838
+Cricket
+153
+−0.071
+2.908
+88
+−0.210
+3.413
+Rugby
+403
+−0.161
+1.117
+307
+−0.152
+1.091
+Ice hockey
+238
+0.139
+1.707
+148
+−0.018
+1.305
+Basketball
+111
+0.071
+2.166
+102
+−0.302
+2.315
+27
+
+[TRUNCATED at 80000 chars — 36 total pages]

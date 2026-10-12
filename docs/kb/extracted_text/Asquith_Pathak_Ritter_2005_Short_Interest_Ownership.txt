@@ -1,0 +1,2269 @@
+
+--- PAGE 1 ---
+Journal of Financial Economics 78 (2005) 243–276
+Short interest, institutional ownership,
+and stock returns$
+Paul Asquitha,b,, Parag A. Pathakc, Jay R. Ritterd
+aM.I.T Sloan School of Management, Cambridge, MA 02142, USA
+bNBER, Cambridge, MA, USA
+cHarvard University, Cambridge, MA 02138, USA
+dUniversity of Florida, Gainesville, FL 32611, USA
+Received 4 April 2004; received in revised form 21 December 2004; accepted 5 January 2005
+Available online 2 August 2005
+Abstract
+Stocks are short-sale constrained when there is a strong demand to sell short and a limited
+supply of shares to borrow. Using data on both short interest (a proxy for demand) and
+institutional ownership (a proxy for supply) we ﬁnd that constrained stocks underperform
+during the period 1988–2002 by a signiﬁcant 215 basis points per month on an equally
+weighted basis, although by only an insigniﬁcant 39 basis points per month on a value-
+weighted basis. For the overwhelming majority of stocks, short interest and institutional
+ownership levels make short selling constraints unlikely.
+r 2005 Elsevier B.V. All rights reserved.
+JEL classiﬁcation: G12; G14
+Keywords: Short sales; Short interest; Limits to arbitrage
+ARTICLE IN PRESS
+www.elsevier.com/locate/jfec
+0304-405X/$ - see front matter r 2005 Elsevier B.V. All rights reserved.
+doi:10.1016/j.jﬁneco.2005.01.001
+$We would like to thank the NYSE, Amex, and Nasdaq for supplying us with short interest data, and
+Lisa Meulbroek for her contributions. Comments from Eugene Fama, Leo Guzman, Jonathan Lewellen,
+David Musto, Stefan Nagel, Burt Porter, Matthew Richardson, Jeri Seidman, and workshop participants
+at Barclays Global Investors, the 2004 BARRA Conference, Carnegie-Mellon, and the Universities of
+Dayton, North Carolina, and Pittsburgh are appreciated. We would especially like to thank two
+anonymous referees for their helpful comments. In addition, we thank Vivek Bohra, Jeff Braun, Stefan
+Budac, Jason Hotra, Carl Huttenlocher, Kevin Kadakia, and Matthew Zames for their research
+assistance.
+Corresponding author. Fax: +1 617 258 6855.
+E-mail address: pasquith@mit.edu (P. Asquith).
+
+--- PAGE 2 ---
+1. Introduction
+Shares sold short, as a percentage of shares outstanding, have more than doubled
+in the last 20 years. In dollar terms, the increase is more than twentyfold. While our
+understanding of short sales has not increased nearly as much, it is now widely
+accepted that if short selling is costly and there are heterogeneous investor beliefs, a
+stock can be overvalued and generate low subsequent returns. This hypothesis
+originates with Miller (1977), and its cross-sectional predictions have motivated
+many recent empirical studies.
+There are now three distinct empirical literatures on short selling. The oldest
+contends that high short interest ratios (shares sold short/shares outstanding)
+forecast low future returns. The second literature investigates the actual cost of short
+selling by looking at the rebate rate on borrowed stock. The third and most recent
+empirical short-sale literature assumes that short sales depend on stock ownership by
+mutual funds and institutions. This literature assumes either that the number of
+institutions owning a stock is a proxy for heterogeneous expectations or that most
+lendable shares are from institutional owners.
+Each of these literatures examines an instrument relevant to short-sale constraints.
+Constraints exist when investors wish to sell short but either are unable to borrow
+shares or can only do so by receiving a low rebate rate on the proceeds from their short
+sales. In this paper, we combine the ﬁrst and third literatures to identify short-sale
+constraints. We posit that short interest ratios are a proxy for short sale demand and
+institutional ownership is a proxy for lendable supply. Next, we assume that short-sale
+constraints are most binding when there is strong demand and limited supply.
+Using data on short interest ratios for NYSE-Amex stocks from the period
+1980–2002, and for Nasdaq stocks from June 1988 to December 2002, we ﬁnd that
+portfolios of stocks with high short interest generally underperform the market, as
+measured by the intercepts from four-factor time-series regression models. When
+these high short interest portfolios are then ranked by institutional ownership, we
+ﬁnd a monotonic relation between returns and institutional ownership using equally
+weighted (EW) portfolios: the lower the institutional ownership, the more negative
+are the portfolio’s abnormal returns. When using value-weighted (VW) portfolios of
+stocks with high short interest, however, we do not ﬁnd statistically reliable
+underperformance or a monotonic relation between institutional ownership and
+subsequent returns.
+We deﬁne short-sale constrained stocks as those in the highest percentile of short
+interest ratios that are also ranked in the lowest third of stocks by institutional
+ownership. Portfolios of these short-sale constrained stocks underperform by 215
+basis points per month during the period 1988–2002 on an EW basis. Stocks with
+high short interest but with high institutional ownership do not underperform as
+much. On a VW basis, the underperformance of short-sale constrained stocks is a
+statistically insigniﬁcant 39 basis points per month.
+This paper also extends the time series of short sales used by Asquith and
+Meulbroek (1995) and Desai et al. (2002) until 2002. We ﬁnd that while short interest
+ratios rose above the levels reported by those papers as of 1993 and 1994,
+ARTICLE IN PRESS
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+244
+
+--- PAGE 3 ---
+respectively, and both NYSE-Amex and Nasdaq short interest ratios reached new
+maximums in 2002, the general uptrend was interrupted during the bull market of
+the late 1990s. The longer time-series data continue to show that short interest ratios
+are skewed, however, with only a few stocks having high ratios. We also ﬁnd,
+consistent with other studies, that the higher the short interest ratio, the lower is the
+subsequent performance.
+When we examine short interest ratios and stock returns along with other criteria,
+however, we ﬁnd more ambiguous patterns than the previous literature suggests.
+While stocks with high short interest signiﬁcantly underperform for EW portfolios,
+they do not for VW portfolios. This difference is not because highly shorted stocks
+are predominantly micro-cap stocks. Highly shorted stocks are disproportionately
+small stocks, with both micro-cap stocks and large-cap stocks underrepresented, and
+they have a larger median equity value than for non-highly shorted stocks. There are
+also differences between NYSE-Amex and Nasdaq stocks. The abnormal returns on
+NYSE-Amex stocks with high short interest are more negative and more well-
+behaved across portfolios than for Nasdaq stocks.
+Desai et al. (2002) report, for the period July 1988–December 1994, that the
+negative abnormal performance of stocks with high short interest persists for up to
+12 months. We ﬁnd that, in the eight years following their sample period, high short
+interest ratio portfolios that remove stocks as soon as the short interest ratio drops
+below a ﬁxed threshold have more negative abnormal returns than those that keep a
+ﬁrm in the portfolio for some additional inclusion period, e.g., 12 months. Thus, to
+implement a strategy that is restricted to stocks with a high short interest ratio,
+portfolio turnover must be extensive, and this would result in an implementation
+shortfall relative to returns that are estimated ignoring transaction costs.
+Moreover, we document that individual stocks have high short interest for a
+variety of reasons. Some stocks have high short interest because some investors feel
+they are overvalued (valuation shorts). Other stocks have high short interest because
+some investors feel that a convertible bond issued by the company is undervalued
+(arbitrage shorts). When we categorize stocks in our high short interest portfolios on
+the basis of whether they are subject to convertible bond arbitrage, we ﬁnd that the
+arbitrage short sellers do not proﬁt as much as value-based short sellers.
+Finally, while we ﬁnd that stocks that are short-sale constrained have reliably
+negative abnormal returns, these stocks constitute a small percentage of all stocks
+and market capitalization. In a typical year, there are 5,500 domestic operating
+companies trading on the NYSE, Amex, and the Nasdaq National Market System.
+For these stocks, we ﬁnd that institutional ownership is greater than short sales for
+95% of stocks, suggesting that short-sale constraints are not common. We classify
+only about 21 stocks per month as short-sale constrained. For the other 5,479 stocks,
+short interest ratios have only a modest ability to predict abnormal returns. This
+ﬁnding severely restricts the importance of short-sale constraints in explaining why
+anomalous patterns in stock returns are not arbitraged away.
+The remainder of this paper is organized as follows. Section 2 reviews related
+literature and Section 3 describes the data. Section 4 outlines the research design.
+Section 5 presents the main empirical results, while Section 6 considers arbitrage
+ARTICLE IN PRESS
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+245
+
+--- PAGE 4 ---
+versus valuation-based short selling. Section 7 outlines some implications of our
+results and concludes.
+2. Related literature
+Short sales restrictions were originally imposed to prevent downward pressure on
+stock prices (Jones and Lamont, 2002) and short sellers remain reviled today by
+corporate managers (Lamont, 2002). Rubinstein (2004) surveys the theoretical
+literature on short sales and the connection between short sales and stock returns.
+This literature primarily relies on the institutional restrictions governing short sales
+and on heterogeneous beliefs among investors. With heterogeneous beliefs and no
+short-sale constraints, pessimistic investors who sell short counterbalance optimistic
+investors who buy long and they jointly set equilibrium stock prices and, as a
+consequence, subsequent returns. With short-sale constraints, pessimistic investors
+are unable to short the stock to the extent they desire, and the equilibrium price will
+reﬂect a positive bias and subsequent returns will be low. For any given degree of
+short-sale constraint, the more heterogeneous the expectations, the greater will be
+the price and return bias. Likewise, given the amount of divergence in expectations,
+the greater the constraint on short sales, the greater the price and return bias.
+The modern empirical literature linking the level of short sales with subsequent
+stock returns begins with Asquith and Meulbroek (1995) and Desai et al. (2002), who
+ﬁnd negative and signiﬁcant abnormal returns for stocks with high short interest on,
+respectively, the New York (NYSE) and American (Amex) Stock Exchanges for
+1976–1993 and Nasdaq for 1988–1994. Contemporaneous research on levels of
+short interest and stock returns includes Boehme et al. (2004) and Gopalan (2003).
+Boehme et al. examine the relation between short interest and abnormal returns in
+the period January 1988–July 1999 for NYSE-listed stocks and January 1993–July
+1999 for Nasdaq-listed stocks. They use market capitalization as a proxy for the
+difﬁculty of shorting and the standard deviation of residuals as a proxy for the
+divergence of investor opinion. They report that the underperformance of stocks
+with a high short interest ratio is concentrated among smaller stocks with a higher
+residual standard deviation. Gopalan uses dispersion of analyst forecasts as a proxy
+for heterogeneous beliefs, and ﬁnds that high short interest stocks have lower returns
+the greater is the dispersion of analyst forecasts for a sample of NYSE and Nasdaq
+stocks from 1992–2000.
+There are also two recent papers that look at daily short sales and subsequent
+returns on the Australian and Nasdaq stock markets. The ﬁrst, by Aitken et al.
+(1998), examines daily short sales on the Australian Stock Exchange for the three
+years 1994–1996. The second, by Angel et al. (2003), uses proprietary Nasdaq data
+over a three-month period from September 13 through December 12, 2000. Both
+papers show that high daily short sales are followed quickly by negative abnormal
+returns. Finally, in their event study of the announcement effects of monthly short
+interest, Senchack and Starks (1993) ﬁnd that changes in short sales are followed by
+negative abnormal returns. Taken together with the previous papers on monthly
+ARTICLE IN PRESS
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+246
+
+--- PAGE 5 ---
+short interest, this literature provides consistent evidence that high short interest is
+followed by lower stock returns.
+A recent strand of the short sale literature uses the interest rate that institutional
+short sellers receive on the proceeds of the sale. (Retail borrowers typically receive no
+interest on their proceeds.) This interest rate is called the rebate rate. If the amount of
+shares available to borrow exceeds the number of shares that short sellers desire to
+sell short, then the rebate rate is approximately equal to the Fed funds overnight
+rate. If the demand for shorting a stock exceeds the amount available to borrow at
+the Fed funds rate, the rebate rate falls. In short sellers’ jargon, these stocks are ‘‘on
+special.’’ If the demand is sufﬁciently high and the supply sufﬁciently low, the rebate
+rate received by the short seller can actually become negative.
+Currently, rebate rates are not publicly available and empirical research has
+generally been limited to proprietary databases over short time periods. Jones and
+Lamont (2002) examine a small database of rebate rates on stocks that they collect
+from the Wall Street Journal for the period 1926–1933. During this period, there was
+a public ‘‘stock loan’’ market with public loan rates. Jones and Lamont ﬁnd that
+the 167 stocks that are newly listed in this market subsequently underperform. Geczy
+et al. (2002), using a database from a single lender for the period November
+1998–October 1999, report that the higher costs of borrowing stocks that are on
+special do not eliminate the abnormal returns from the short selling strategies they
+examine. They also conclude that short-sale constraints are unable to explain
+anomalous patterns in stock returns.
+D’Avolio (2002), also using a database from a single lender for the period April
+2000 through September 2001, reports that only 9% of the stocks in his sample are
+‘‘on special’’ on a typical day. The other 91% have a rebate rate approximately equal
+to the Fed funds overnight rate. He also ﬁnds that stocks that are on special have
+higher short interest ratios.1 Finally, Ofek et al. (2004), using a proprietary database
+of rebate rates from July 1999 to December 2001, document that stocks that are on
+special are more likely to violate put-call parity. Consistent with D’Avolio, they ﬁnd
+that 10.8% of their sample stocks have rebate rates more than 100 basis points below
+the Fed funds rate. Furthermore, they report that stocks with abnormally low rebate
+rates have lower subsequent returns.
+Most recently, a new literature uses institutional ownership to proxy for short-sale
+constraints. It has also criticized research that uses short interest to measure short-
+sale constraints. This is most clearly stated by Chen et al. (2002), who write that
+‘‘there need be no clear-cut relationship between short interest and subsequent
+returns.’’ They posit that short-sale constraints are strongly linked to the availability
+of shares to borrow, and argue that when the number of institutions owning a stock
+ARTICLE IN PRESS
+1D’Avolio’s Fig. 1 shows that both the highest and the lowest short interest stocks have a higher
+percentage of stocks that are on special. However, his result for low short interest stocks is likely due to his
+inclusion of ADRs and recent initial public offerings (IPOs), whose short interest ratios are probably
+misleading because the ﬂoat available to borrow shares from is much smaller than the shares outstanding.
+D’Avolio’s Table 4 lists 35 negative rebate rate stocks, of which 21 are either foreign ﬁrms or recent IPOs.
+When we compute the short interest ratios for these 35 stocks, we ﬁnd that the stocks with the seven lowest
+short interest ratios consist of four ADRs or foreign listings and three recent IPOs.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+247
+
+--- PAGE 6 ---
+increases or decreases, short-sale constraints are either relaxed or tightened,
+respectively. They present evidence that during 1979–1998 the change in the number
+of mutual funds holding a stock is positively related to subsequent stock returns.
+Chen et al. point out that this might be due not to short-sale constraints but rather to
+mutual funds choosing stocks that perform better.
+Nagel (2004) modiﬁes this proxy by considering the percentage of shares owned by
+institutions instead of the number of institutions owning shares. During his sample
+period 1980–2003, he reports that a number of cross-sectional patterns, including the
+book-to-market effect, are much stronger when residual institutional ownership is
+low than when it is moderate or high. Furthermore, he reports that the patterns are
+mainly driven by low returns on overvalued stocks, rather than high returns on
+undervalued stocks. Nagel also ﬁnds that when he combines his period with Chen,
+Hong, and Stein’s period, there is no longer any reliable pattern for 1980–2003
+between the number of mutual funds holding a stock and subsequent returns.
+D’Avolio (2002) directly tests whether institutional ownership affects the amount
+of short selling. His data are from one lender and cover ﬁve quarters beginning with
+the second quarter of 2000. He ﬁnds that the percentage of institutional ownership
+explains an average of 55% of the cross-sectional variation in the lender’s supply of
+loanable shares scaled by shares outstanding. This R2 probably overstates this
+relation for a random sample of stocks, however, since D’Avolio’s data come from a
+large stock lender that is a depository for mutual funds that mainly invest in large-
+cap stocks. In fact, D’Avolio ﬁnds that 19% of the stocks shorted during his sample
+period are not available for loan from his stock lender.
+Other empirical work focuses on why stocks are shorted. For example, Dechow et
+al. (2001) document that short sellers position themselves in stocks with low ratios of
+fundamentals (such as earnings and book values) to market values and cover their
+positions as ratios mean-revert. In addition, Christophe et al. (2004) examine short
+sales around earnings announcements and ﬁnd that short interest increases before
+negative earning surprises.
+3. Descriptive statistics
+We use a sample of NYSE and Amex stocks from 1980–2002 and Nasdaq
+National Market System (NMS) stocks from July 1988–December 2002 and collect
+both short sales and institutional ownership data. The exchanges collect the level of
+short interest in individual stocks for the NYSE, Amex, and Nasdaq from member
+ﬁrms on the 15th calendar day of every month (if it is a business day) and the
+institutional ownership level is collected quarterly as of the last day of every quarter.
+(Even though the Nasdaq market is not an exchange, for convenience we will refer
+to all three markets as exchanges.) The Appendix presents a detailed description of
+the data.
+Fig. 1 plots the time series of monthly short interest data and quarterly
+institutional ownership data (relative to shares outstanding) for NYSE and Amex
+stocks over the period January 1980–December 2002. Fig. 2 plots the short interest
+ARTICLE IN PRESS
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+248
+
+--- PAGE 7 ---
+and institutional ownership ratios for Nasdaq stocks over the period June
+1988–December 2002. Four ratios are reported in the ﬁgures: the median, 90th,
+and 99th percentiles of short interest, and the median of institutional ownership.2
+Three characteristics of the short interest distributions stand out. First, the typical
+ﬁrm in our sample has very little short interest. Even at its peak in 2002, the median
+ﬁrm in Fig. 1 on the NYSE-Amex and in Fig. 2 on Nasdaq had only 1% of its
+outstanding shares shorted. While most stocks have little or no short interest, a very
+small number have substantial short interest. An NYSE-Amex ﬁrm in the 99th
+percentile had at least 23% of its outstanding shares shorted in December 2002, and
+the corresponding ﬁrm on Nasdaq had 24% shorted. Second, short interest increased
+dramatically from 1980 for NYSE-Amex stocks, and from 1988 for Nasdaq stocks.
+This is true for all three short interest measures presented in Figs. 1 and 2. Third, the
+ARTICLE IN PRESS
+0%
+10%
+20%
+30%
+40%
+50%
+60%
+Jan-80
+Jan-81
+Jan-82
+Jan-83
+Jan-84
+Jan-85
+Jan-86
+Jan-87
+Jan-88
+Jan-89
+Jan-90
+Jan-91
+Jan-92
+Jan-93
+Jan-94
+Jan-95
+Jan-96
+Jan-97
+Jan-98
+Jan-99
+Jan-00
+Jan-01
+Jan-02
+Short Interest and Institutional Ownership
+0
+300
+600
+900
+1200
+1500
+1800
+S&P 500
+99th Percentile SI
+90th Percentile SI
+median SI
+median IO
+S&P 500
+Fig. 1. The median, 90th , and 99th percentiles of short interest ratios (scale on left axis) for NYSE-Amex
+stocks, the median institutional ownership (left axis), and the level of the S&P 500 (right axis) at the end of
+the month, for January 1980 to December 2002. Short interest ratios are deﬁned as short interest divided
+by shares outstanding. If no short interest is reported for a stock in a given month, the ratio is assumed to
+be zero. Institutional ownership is deﬁned as shares held by institutions divided by shares outstanding and
+is calculated quarterly.
+2All short interest numbers in this paper are reported as percentages of total shares outstanding. A more
+traditional measure, reported in the Wall Street Journal each month, is short interest relative to daily
+trading volume, known as the days to cover ratio or days short. Which measure is more appropriate partly
+depends on the question being addressed. If one views short interest as indicative of future buying pressure
+as short sellers cover their positions, the days to cover ratio is arguably the best measure. But if one views
+short interest as reﬂecting the information of informed investors, then the short interest to shares
+outstanding ratio is arguably the best measure. In any event, these two measures are positively correlated.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+249
+
+--- PAGE 8 ---
+rise in short interest is not continuous. The secular increase in short interest ratios is
+subject to interruptions following positive market returns. For example, there is a
+decline in the late 1990s.3
+The institutional ownership measures in Figs. 1 and 2 show that there is a
+dramatic rise in institutional ownership over our time period 1980–2002. In addition,
+ARTICLE IN PRESS
+0%
+10%
+20%
+30%
+40%
+50%
+60%
+Jun-88
+Dec-88
+Jun-89
+Dec-89
+Jun-90
+Dec-90
+Jun-91
+Dec-91
+Jun-92
+Dec-92
+Jun-93
+Dec-93
+Jun-94
+Dec-94
+Jun-95
+Dec-95
+Jun-96
+Dec-96
+Jun-97
+Dec-97
+Jun-98
+Dec-98
+Jun-99
+Dec-99
+Jun-00
+Dec-00
+Jun-01
+Dec-01
+Jun-02
+Dec-02
+Short Interest and Institutional Ownership
+0
+1000
+2000
+3000
+4000
+5000
+6000
+NASDAQ
+99th Percentile SI
+90th Percentile SI
+median SI
+median IO
+NASDAQ Comp
+Fig. 2. The median, 90th, and 99th percentiles of short interest ratios (scale on left axis) for Nasdaq NMS
+stocks, the median institutional ownership (left axis), and the level of the Nasdaq Composite (right axis) at
+the end of the month, for June 1988 to December 2002. Short interest ratios are deﬁned as short interest
+divided by shares outstanding. If no short interest is reported for a stock in a given month, the ratio is
+assumed to be zero. The jump in short interest ratios in January 1992 is due to an increase in the number of
+ﬁrms for which Nasdaq reported positive short interest. Institutional ownership is deﬁned as shares held
+by institutions divided by shares outstanding and is calculated quarterly.
+3This point is also made by Lamont and Stein (2004) who compare monthly Nasdaq short interest ratios
+and the prior 12-month market return for the period 1995–2002. They report a sample correlation between
+these variables of 0.54. We ran the same correlations for our longer period and for NYSE-Amex as well
+as Nasdaq stocks. In unreported results, we ﬁnd a dramatically lower correlation of 0.16 between the
+Nasdaq short interest ratio and 12-month returns over the July 1988–December 2002 period, and a
+correlation of 0.13 between the NYSE-Amex short interest ratio and 12-month returns over the
+1980–2002 period. Because the upward trend in mean short interest ratios (see Figs. 1 and 2) suggests that
+the series is nonstationary, it is not surprising to ﬁnd that, the longer the sample period, the closer to zero
+is the correlation between the level of short interest and prior market returns. Since short interest should
+change quickly when arbitrageurs perceive misvaluations to have changed, we feel a better measure to
+examine a ‘‘limits to arbitrage’’ argument is to calculate the correlation between the change in the
+percentage of the market sold short and the lagged market return. The correlation between the one-month
+prior market return and the subsequent change in short interest is 0.17.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+250
+
+--- PAGE 9 ---
+the institutional ownership medians are many times larger than the short interest
+medians. This means that for most stocks, if institutional ownership is a proxy for
+loan supply, ﬁnding shares to borrow in order to sell short will not be difﬁcult. To
+illustrate the types of stocks with high short interest, Table 1 lists the names of the 54
+stocks in the 99th percentile portfolio in December 2002, along with several
+characteristics of each ﬁrm. Of the 54 stocks, 51 have a market capitalization of
+between $140 million and $1.5 billion. Thus, most are small-cap stocks, but not
+micro-cap. Almost all of these stocks were in the Russell 2000 index, representing the
+stocks with market caps ranked 1,001 to 3,000 among the roughly 5,000 domestic
+operating companies on the NYSE, Amex, and Nasdaq NMS at the end of 2002.
+Furthermore, the industry representation is fairly broad—this portfolio of stocks
+does not subject the holder to excessive concentration in one industry. The combined
+market cap of these 54 stocks was approximately $35 billion, only a little more than
+10% of the market cap of General Electric or Microsoft.
+Table 1 also lists the prior 12-month buy-and-hold return for the 54 stocks with
+high short interest, their market-to-book ratios, and the percent owned by
+institutions. Inspection of the list shows that most of the stocks have negative
+returns in the prior year, although a few have big run-ups. As measured by market-
+to-book ratios, there is a combination of growth and value stocks, with Nasdaq
+stocks tending to be growth stocks and NYSE-Amex stocks tending to be value
+stocks. The institutional ownership of these stocks is also quite high for most
+of the sample and in some instances exceeds 100%. Because shares that are
+shorted are owned by more than one party (the original lender plus the purchaser on
+the other side of the short sale), institutional ownership can exceed 100%. If a share
+sold short is re-borrowed and sold again, short interest ratios can also exceed 100%.
+For only three of the 54 stocks is the institutional ownership less than the
+short interest.4
+Table 2 compares median size, market-to-book ratios, and institutional ownership
+of highly shorted stocks to the medians for other stocks. The median market cap of
+highly shorted stocks in Panel A is noticeably higher than the median for other
+stocks, reﬂecting the paucity of micro-cap stocks in our portfolios. This is consistent
+with Table 1, which lists the 99th percentile sample of stocks for December 2002 and
+their characteristics. Panel B shows that the median highly shorted ﬁrm is a growth
+ﬁrm, as measured by its market-to-book ratio, consistent with Dechow et al. (2001).
+Panel C shows that median institutional ownership is higher for highly shorted
+stocks than for non-shorted stocks. This is consistent with Nagel (2004), who ﬁnds
+that short interest is highly correlated with institutional ownership.
+ARTICLE IN PRESS
+4As we discuss in the Appendix, CRSP sometimes underreports the number of shares outstanding,
+resulting in calculations of short interest and institutional ownership ratios that are higher than the true
+ratios. We investigate each of the 54 stocks in Table 1 using data from SEC ﬁlings, and in one case had to
+correct the number of shares outstanding. The one case we had to modify was UAL Corporation, which
+underwent a bankruptcy and restructuring. CRSP’s shares outstanding reﬂected the actual change in
+shares outstanding two months late.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+251
+
+--- PAGE 10 ---
+ARTICLE IN PRESS
+Table 1
+54 Firms in the 99th Percentile Portfolio in December 2002
+Short interest ratio is shares short in November 2002 divided by shares outstanding. Institutional
+ownership is the sum of shares held by institutions from 13F ﬁlings in December 2002 divided by shares
+outstanding. Market cap is as of June 30, 2002. Book value of equity is for the end of the ﬁscal year ending
+during calendar 2002, or (for three companies that had not ﬁled 2002 annual reports as of August 2003)
+the latest quarterly report during 2002. The 12-month prior return is for the 12 months ending in
+November 2002. When a return is missing for any of the prior 12 months, the ﬁrm’s return is set to the
+return on the value-weighted market index. The 99th percentile short interest ratio cutoff is determined
+from a pooled sample of NYSE-Amex and Nasdaq ﬁrms.
+Company name
+Short interest
+(%)
+Institutional
+ownership (%)
+Market
+cap
+($mm)
+Market to
+book
+Prior 12-
+month
+return
+(%)
+Industry
+NYSE-Amex
+CVD Equipment
+Corp
+99.3
+0.00
+653
+1.10
+42.37
+Semiconductor
+processor
+Prepaid Legal
+Services
+54.7
+74.06
+401
+11.46
+50.00
+Legal services
+UAL (United
+Airlines)
+39.2
+10.66
+638
+0.18
+85.48
+Airline
+Federal
+Agricultural
+Mortgage
+33.5
+88.01
+269
+0.17
+30.86
+Consumer ﬁnance
+Fleetwood
+Enterprises
+33.3
+122.50
+304
+2.74
+34.34
+Recreational
+vehicle producer
+Jo Ann Stores
+32.7
+72.88
+293
+1.01
+258.38
+Retail fabric stores
+Metris
+32.1
+94.31
+517
+0.82
+79.00
+Credit card issuer
+BMC Industries
+30.2
+40.75
+260
+0.44
+34.74
+Electronics
+SWS Group
+29.2
+51.37
+338
+1.33
+10.80
+Finance
+Fleming
+Companies
+28.9
+102.24
+976
+1.45
+70.85
+Supermarket
+supplier
+Northwestern
+Corp.
+28.7
+49.92
+464
+1.02
+56.64
+Electricity and gas
+distribution
+Nautilus Group
+28.5
+42.36
+1,077
+5.32
+43.37
+Exercise
+equipment
+Sunrise Assisted
+Living
+28.1
+79.65
+602
+1.29
+1.93
+Retirement
+housing
+Action
+Performance
+27.9
+95.81
+562
+2.45
+32.88
+Motorsports
+merchandise
+Administaff
+26.6
+73.45
+280
+2.41
+76.70
+Temporary
+stafﬁng
+Univision
+Communications
+26.2
+97.84
+5,025
+3.23
+9.74
+Spanish-language
+TV
+American Italian
+Pasta
+25.7
+114.65
+916
+3.08
+2.16
+Pasta producer
+and marketer
+Chico Fas
+24.4
+88.60
+1,490
+6.21
+112.68
+Women’s clothing
+retailer
+Salton
+23.3
+61.94
+157
+0.64
+19.63
+Small appliance
+retailer
+Duane Reade
+23.3
+116.09
+812
+2.46
+42.37
+Drug store chain
+Footstar
+23.2
+108.72
+492
+1.74
+76.55
+Shoe retailer
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+252
+
+--- PAGE 11 ---
+ARTICLE IN PRESS
+Table 1 (continued )
+Company name
+Short interest
+(%)
+Institutional
+ownership (%)
+Market
+cap
+($mm)
+Market to
+book
+Prior 12-
+month
+return
+(%)
+Industry
+Nasdaq
+Biosite
+48.3
+114.72
+415
+3.85
+72.74
+Diagnostic
+product developer
+Cognizant Tech
+Solutions
+46.1
+135.29
+452
+2.73
+123.02
+IT outsourcing
+Polymedica
+45.0
+102.90
+310
+1.58
+24.96
+Medical products
+retailer
+Eresearch
+Technology
+43.1
+73.49
+176
+4.34
+120.05
+Cardiac clinical
+research
+Cabot
+Microelectronics
+39.6
+107.15
+1,045
+4.89
+12.99
+Polishing
+compound
+producer
+Neoware Systems
+37.7
+81.43
+146
+4.01
+676.54
+Thin client
+appliances/
+software
+FPIC Insurance
+Group
+37.6
+67.07
+141
+0.85
+53.65
+Liability insurance
+provider
+American Capital
+Strategies
+33.0
+58.96
+1,058
+1.54
+17.53
+Buyout fund
+Sirius Satellite
+Radio
+31.6
+35.11
+289
+9.54
+87.78
+Satellite radio
+Expedia
+31.1
+105.69
+1,337
+2.75
+131.13
+Internet travel
+agency
+New Century
+Financial
+31.0
+75.36
+864
+2.24
+67.51
+Subprime
+mortgages
+Silicon
+Laboratories
+29.5
+77.68
+1,366
+8.77
+13.70
+Integrated circuit
+designer
+THQ
+29.3
+108.79
+1,177
+2.88
+53.21
+Video games for
+PCs
+J2 Global Comm
+28.9
+69.64
+178
+3.14
+460.99
+Communications
+services
+Zix Corp.
+28.7
+10.94
+97
+10.12
+42.52
+E-mail
+management/
+protection
+AAIPharma
+28.0
+86.84
+411
+4.13
+16.54
+Drug marketing
+XM Satellite
+Radio Holdings
+27.4
+38.75
+661
+1.12
+78.26
+Satellite radio
+Hot Topic Inc.
+26.6
+108.38
+848
+5.27
+27.67
+Clothing retailer
+for teenagers
+Invision
+Technologies
+25.8
+64.18
+403
+1.70
+15.03
+Airline security
+systems
+Shufﬂe Master
+25.8
+89.02
+330
+6.56
+7.78
+Gambling industry
+supplier
+Cell Therapeutics
+25.3
+67.70
+181
+4.17
+64.91
+Biotech (cancer)
+Kroll Inc
+25.3
+94.15
+656
+1.44
+30.03
+Risk consulting
+and security
+SCP Pool Corp.
+25.3
+99.78
+751
+5.29
+22.08
+Swimming pool
+wholesaler
+Photon Dynamics
+25.0
+104.66
+514
+2.27
+9.92
+Flat panel display
+developer
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+253
+
+--- PAGE 12 ---
+4. Research design
+To empirically investigate whether stocks with short-sale constraints underper-
+form relative to the market, we ﬁrst study the relation between short interest and
+subsequent returns. We form portfolios of highly shorted stocks and calculate
+returns on these portfolios. We later sort these portfolios by the level of institutional
+ownership and calculate these returns. Our reasoning is that the strongest relation
+between short interest and abnormal returns should exist for stocks that have large
+short positions combined with low institutional ownership. These are the stocks that
+are most likely to be short-sale constrained.
+We assume that short interest is a proxy for short sale demand and that
+institutional ownership is a proxy for the supply of shares available to be shorted.
+This ﬁrst assumption is consistent with the ﬁnding in the literature that high short
+interest precedes abnormal returns (see Asquith and Meulbroek, 1995; and Desai
+et al., 2002). The second assumption is consistent with the assumption in the
+literature that high institutional ownership prevents short-sale constraints, i.e.,
+stocks with high institutional ownership are readily available to borrow and hence
+the stocks do not become overpriced (see Chen et al., 2002; Nagel, 2004). The
+amount of institutional ownership is our proxy for the length of the horizontal
+segment of the supply curve, for which the rebate rate is equal to the Fed funds rate.
+Beyond this, the supply curve is positively sloped with the vertical axis measuring the
+net interest rate received by the lender of shares.
+ARTICLE IN PRESS
+Table 1 (continued )
+Company name
+Short interest
+(%)
+Institutional
+ownership (%)
+Market
+cap
+($mm)
+Market to
+book
+Prior 12-
+month
+return
+(%)
+Industry
+Conceptus
+24.7
+98.74
+350
+4.95
+26.92
+Surgical birth
+control
+Astropower
+24.1
+51.28
+427
+2.75
+64.25
+Solar cell
+manufacturer
+Multimedia
+Games
+23.8
+88.63
+280
+4.27
+4.50
+Gambling industry
+supplier
+Webex
+Communications
+23.7
+77.92
+645
+7.32
+39.40
+Internet
+conferencing
+services
+Take Two
+Interactive
+23.1
+107.02
+800
+2.25
+114.71
+Video games for
+PCs
+Scios Inc.
+22.6
+98.05
+1,427
+216.32
+19.77
+Biotech (heart
+disease)
+Trimeris Inc.
+22.5
+86.40
+833
+6.40
+32.96
+Biotech (anti-
+virus)
+Drexler
+Technology Corp.
+21.5
+54.95
+223
+6.05
+1.57
+Optical data
+storage
+Microstrategy
+21.1
+66.43
+24
+0.69
+46.98
+Business software
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+254
+
+--- PAGE 13 ---
+As shown in Figs. 1 and 2, the median percentage of shares sold short is far less
+than the median percentage of shares held by institutional owners. We also ﬁnd, in
+unreported results, that over the entire time period 1980–2002, only 5.0% of our
+sample stocks in an average month have short interest greater than institutional
+ownership. Thus, for most stocks, the positively sloped segment of the supply curve
+is always to the right of the demand curve. Consistent with this being the norm,
+D’Avolio (2002) reports that 91% of the shorted stocks in his sample have a rebate
+rate approximately equal to the Fed funds rate. For some stocks, however, the
+demand for shorting the stock exceeds the amount available to borrow at the Fed
+funds rate. The cost of borrowing rises, the stock is ‘‘on special’’ (i.e., the rebate rate
+ARTICLE IN PRESS
+Table 2
+Median size, market-to-book, and institutional ownership of highly shorted ﬁrms
+Panel A reports the median size (market capitalization) for ﬁrms in the respective short interest
+portfolios, and for ﬁrms whose short interest ratio is lower than required for inclusion. For ﬁrms with a
+missing size value in year t, the year t1 size value is used. Size is calculated by taking the year-end market
+price times the shares outstanding at year end. Panel B reports the median market-to-book ratio of equity
+for ﬁrms in the respective short interest portfolios, and for ﬁrms whose short interest ratio is lower than
+required for inclusion. For ﬁrms with a missing book value in year t, the year t1 book value is used. Book
+values are from Compustat and are calculated at the end of the ﬁscal year. Nasdaq ﬁrms include only
+National Market System (NMS) listings. For Panels A and B, the ﬁrms in the portfolio are determined for
+each year: a ﬁrm is considered highly shorted if it is in the portfolio during any month of the year. Then,
+the median is calculated by taking the median of the pooled ﬁrm-year sample. Panel C reports the median
+shares held by institutions divided by shares outstanding for ﬁrms in the respective short interest portfolios
+and those not in the portfolios. The median is calculated as the median of the pooled ﬁrm-quarter
+institutional ownership percentage.
+All ﬁrms, 1980–2002
+NYSE-Amex 1980–2002
+Nasdaq July 1988–2002
+Portfolio
+Highly
+shorted
+Others
+Highly
+shorted
+Others
+Highly
+shorted
+Others
+Panel A: Median size ($ millions)
+2.5–4.9%
+366
+70
+716
+218
+237
+43
+5.0–9.9%
+343
+77
+488
+230
+265
+44
+X10.0%
+326
+81
+373
+234
+280
+45
+95–98.9th %ile
+267
+78
+314
+234
+196
+44
+X99th %ile
+242
+83
+256
+237
+192
+46
+Panel B: Median market-to-book ratios
+2.5–4.9%
+2.43
+1.52
+1.79
+1.39
+3.14
+1.69
+5.0–9.9%
+2.51
+1.55
+1.79
+1.41
+3.26
+1.71
+X10.0%
+2.61
+1.57
+1.65
+1.42
+3.46
+1.72
+95–98.9th %ile
+2.13
+1.56
+1.58
+1.42
+2.96
+1.70
+X99th %ile
+2.30
+1.57
+1.60
+1.42
+3.19
+1.73
+Panel C: Median institutional ownership (as a percentage of shares outstanding)
+2.5–4.9%
+43.2%
+19.2%
+49.2%
+30.7%
+36.8%
+12.8%
+5.0–9.9%
+45.4%
+19.7%
+50.0%
+31.3%
+41.4%
+13.0%
+X10.0%
+49.7%
+20.0%
+50.1%
+31.6%
+49.5%
+13.3%
+95–98.9th %ile
+39.2%
+19.7%
+40.8%
+31.5%
+35.5%
+13.0%
+X99th %ile
+41.5%
+20.2%
+38.5%
+31.8%
+43.2%
+13.5%
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+255
+
+--- PAGE 14 ---
+received by the short seller falls), and the measured short interest underestimates the
+unconstrained demand for shorting. In this case, short interest measures the
+intersection of supply and demand on the positively sloped segment of the supply
+curve. Since the amount of borrowable supply limits the measured amount of short
+interest, the short interest ratios are not necessarily negatively correlated with
+subsequent returns, validating the criticism leveled by Chen et al. (2002).
+Using institutional ownership by itself to proxy for short constraints, however, is
+subject to the same criticism. It is possible for a stock with high institutional
+ownership to be more constrained than one with low institutional ownership if the
+demand to short the ﬁrst stock is high enough. Only by considering demand and
+supply together can it be determined if a stock is short-sale constrained. Only stocks
+with binding short-sale constraints should have negative subsequent abnormal
+returns.5
+We use two approaches to select samples of stocks with large short interest
+positions and, by implication, high short demand. The ﬁrst approach identiﬁes
+stocks based on their short interest relative to other stocks. Speciﬁcally, each month
+all stocks are ranked according to short interest divided by shares outstanding. The
+stocks in the top percentile of short interest constitute the 99th percentile sample
+and, similarly, the stocks in the top 5% constitute the 95th percentile sample.
+Because the overall level of short interest increased substantially during the
+1980–2002 time period, stocks entering the high percentile samples during the early
+part of the time period are likely to have smaller short interest positions than stocks
+entering the sample during the later part of the time period. The second approach to
+selecting stocks with large short interest positions imposes absolute cutoff criteria.
+Following Asquith and Meulbroek (1995) and Desai et al. (2002), we construct three
+different absolute short interest samples. These samples have short interest greater
+than or equal to 2.5%, 5%, or 10% of shares outstanding.
+Since short interest information is collected in the middle of a calendar month and
+released near the end of that month, we form monthly short interest portfolios on the
+basis of whether a stock’s short interest ratio was high during prior months. We
+name portfolios as [1,T], where the [1,T] portfolio is composed of stocks that
+qualiﬁed for inclusion during at least one month in the prior T months. The [1,1]
+portfolio is composed of ﬁrms whose short interest ratio in the prior calendar month
+qualiﬁes them for inclusion. Most of our reported results are for the [1,1] inclusion
+period. The [1,12] inclusion period is discussed in Section 5.6 of the text and is
+representative of a longer inclusion period.
+ARTICLE IN PRESS
+5Our proxies for supply and demand are not perfect and might not capture all instances of stocks that
+are short-sale constrained. For example, if there exists no supply of shares to borrow, a stock can have
+zero short sales yet still be constrained. In addition, there might be available shares of stock to borrow
+from sources other than institutional owners (e.g., retail brokerage accounts). In fact, D’Avolio ﬁnds that
+19% of the stocks sold short during his sample period are not available in his database, which examines
+one large lender. These additional stocks are being borrowed from somewhere, possibly other institutions
+or even non-institutional sources. The ideal way to measure short-sale constraints would be to have actual
+demand, supply, and price.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+256
+
+--- PAGE 15 ---
+Stocks often remain highly shorted for several consecutive months. Table 3 reports
+the length of time that stocks remain in a high short interest [1,1] portfolio once they
+have entered it. Table 3 shows that some stocks have high short interest for only one
+or a few months, but others have high short interest for years. For example, about
+one-third of the stocks that enter a [1,1] portfolio in a given month are there for
+only one month, but about half are in for three consecutive months or more.
+Approximately 11–19% of the stocks, depending on the portfolio, remain in the high
+short interest [1,1] portfolios for more than one year after entering. This means that
+the portfolio for inclusion period [1,1] includes stocks that are highly shorted for the
+ﬁrst time, as well as stocks that have been highly shorted for many previous
+months. The last column in Table 3 shows that the median number of consecutive
+months that a ﬁrm is highly shorted is 2–3 months. Finally, Table 3 shows that once
+stocks are highly shorted, approximately 70% remain highly shorted for more than
+one month.
+Monthly portfolio returns are calculated from the monthly Center for Research in
+Security Prices (CRSP) tapes, where all returns are from holding long positions.
+Thus, a negative return is good for short sellers since the stocks sold short decreased
+in price. This return does not incorporate the possibly higher costs of short selling.
+That is, it does not include the costs to borrow, i.e., the difference between the rebate
+rate and the market interest rate, the risk of demand loans, and transaction costs
+associated with heavy portfolio turnover.
+Portfolio abnormal returns are estimated from the four-factor regression model:
+rpt  rft ¼ a þ bmðrmt  rftÞ þ bs SMBt þ bh HMLt þ bo MOMt þ pt,
+where rptrft is the portfolio return minus the risk-free rate on a portfolio in time
+period t, rmtrft is the realization of the market risk premium in period t, SMBt
+is the return on a portfolio of small stocks minus the return on a portfolio
+of big stocks in period t, HMLt is the return on a portfolio of high book-to-market
+ARTICLE IN PRESS
+Table 3
+Highly shorted ﬁrms categorized by persistence and median months in portfolio
+Table 3 reports the distribution of the length of time that a ﬁrm spends continuously in the high short
+interest [1,1] portfolios once it enters. For example, of ﬁrms that crossed the 2.5% short interest ratio
+threshold, 31.8% fall back below 2.5% in the following month. A ﬁrm that re-enters the 2.5% portfolio
+after falling out is treated as a new observation. If a ﬁrm is in a portfolio in 2002, the length of its
+observation can be truncated. For example, a ﬁrm that enters a portfolio in December 2002 will count for
+at most one month. The sample is the ‘‘All ﬁrms’’ sample in Table 2.
+Distribution of the length of time spent in a portfolio once entering
+Portfolio
+1 month
+2–3 months
+4–12 months
+13 or more months
+Median months
+X2.5%
+31.8%
+22.0%
+26.9%
+19.4%
+3
+X5%
+30.6%
+22.8%
+28.8%
+17.8%
+3
+X10%
+32.8%
+23.3%
+29.5%
+14.4%
+3
+X95%ile
+32.8%
+23.4%
+27.5%
+16.3%
+3
+X99%ile
+35.1%
+26.7%
+26.9%
+11.3%
+2
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+257
+
+--- PAGE 16 ---
+(value) stocks minus a portfolio of low book-to-market (growth) stocks in
+period t, and MOMt is the return on a portfolio of prior winners minus the
+return on a portfolio of prior losers (Fama and French, 1993; Carhart, 1997). The
+return interval over which winners and losers are measured is the 11 months before
+month t1 (i.e., for March 2002, winners and losers are based on returns from
+March 2001 through January 2002). The monthly factor return realizations are
+provided by Kenneth French. The intercept is our measure of monthly abnormal
+performance.
+We calculate four-factor time-series regression model abnormal returns on ﬁve
+different high short interest portfolios: 2.5%, 5%, 10%, 95th percentile, and 99th
+percentile. We also calculate returns for ﬁve different inclusion periods: [1,1], [1,3],
+[1,6], [1,12], and [1,24], although we do not report results for the [1,3], [1,6], and [1,24]
+portfolios. While Table 4 reports [1,1] returns for all ﬁve portfolios, in most tables we
+only report returns from the 2.5% and 99th percentile [1,1] portfolios. Table 7
+reports both the [1,1] and the [1,12] inclusion period. The [1,12] portfolio’s abnormal
+performance per month is typically smaller than the [1,1], [1,3], and [1,6] but larger
+than the [1,24] inclusion periods.
+Since we assume that the supply of shares available to short is correlated with
+institutional ownership, we next examine institutional ownership. In each month
+after selecting our portfolio of highly shorted stocks, we then divide this portfolio
+into thirds by institutional ownership. Our prediction is that highly shorted stocks in
+the lowest third of institutional ownership are the most constrained and will have the
+lowest subsequent returns. Stocks with high short interest that fall into the highest
+third of institutional ownership should be less constrained and should have normal
+or less negative subsequent returns. Since institutional ownership is only reported
+quarterly, we use the institutional ownership data from the beginning of the quarter
+for all the months in the quarter.6
+5. Empirical results
+5.1. Abnormal portfolio returns for high short interest stocks over inclusion period
+[1,1]
+In Panels A and B of Table 4, we report the results of four-factor regressions for
+ﬁve portfolios composed of all NYSE-Amex and Nasdaq stocks with high short
+interest over the July 1988–December 2002 time period. This is the 174-month period
+that includes both NYSE-Amex and Nasdaq stocks. The portfolio inclusion period
+ARTICLE IN PRESS
+6Using the quarterly institutional ownership data over three months could introduce a bias towards
+ﬁnding no abnormal returns if institutional ownership rises or falls substantially over the quarter.
+Fortunately, institutional ownership tends to remain fairly constant from quarter to quarter. Although not
+reported in any table, we ﬁnd that for 80% of stocks the percentage of shares held by institutional owners
+changes by less than plus or minus 3% from one quarter to the next. The mean percentage change from
+quarter to quarter is 0.36%, reﬂecting the growth in institutional ownership over time that is documented
+in Figs. 1 and 2.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+258
+
+--- PAGE 17 ---
+ARTICLE IN PRESS
+Table 4
+Four-factor model parameters for EW and VW portfolios of NYSE-Amex-Nasdaq stocks with high short
+interest, July 1988–December 2002
+In the time-series regressions using monthly percentage returns, the dependent variable is rptrft, the
+excess return over the risk-free rate on either an equally weighted (EW) or value-weighted (VW) portfolio
+in time period t, rmtrft is the realization of the market risk premium in period t, SMBt is the return on a
+portfolio of small stocks minus the return on a portfolio of big stocks in period t, HMLt is the return on a
+portfolio of high book-to-market (value) minus low book-to-market (growth) stocks in period t, and
+MOMt is the return on a portfolio of prior winners minus the return on a portfolio of prior losers. The
+monthly factor return realizations are provided by Kenneth French. For July 1988–December 2002, 174
+monthly returns are used in the regressions. In Panels A and B, the 2.5–4.9% portfolio in month t is the
+portfolio composed of all Amex, NYSE, and Nasdaq National Market System stocks with a short interest
+ratio (short interest/shares outstanding) greater than 2.5% but less than 5.0% in month t1. The portfolio
+is updated monthly. The 5.0–9.9%, 10%, 95–98.9th percentile, and 99th percentile portfolios are deﬁned
+analogously. T-statistics are shown in parentheses. An intercept of 0.28 is 28 basis points per month.
+rpt  rft ¼ a þ bmðrmt  rftÞ þ bs SMBt þ bh HMLt þ boMOMt þ pt
+Sample
+Intercept
+RMRF
+SMB
+HML
+MOM
+R2adj
+Panel A: EW NYSE-Amex-Nasdaq Firms July 1988– December 2002
+2.5–4.9%
+0.28
+1.19
+0.89
+0.07
+0.32
+91%
+(1.58)
+(24.95)
+(17.77)
+(1.14)
+(8.92)
+5.0–9.9%
+0.62
+1.31
+1.09
+0.01
+0.39
+91%
+(3.00)
+(23.83)
+(18.82)
+(0.10)
+(9.39)
+X10.0%
+0.78
+1.28
+1.25
+0.24
+0.51
+88%
+(2.87)
+(17.84)
+(16.52)
+(2.50)
+(9.37)
+95–98.9th %ile
+0.36
+1.29
+1.00
+0.14
+0.44
+91%
+(1.74)
+(23.11)
+(18.86)
+(1.91)
+(10.48)
+X99th %ile
+1.25
+1.33
+1.38
+0.08
+0.41
+87%
+(4.42)
+(17.73)
+(17.52)
+(0.84)
+(7.33)
+Panel B: VW NYSE-Amex-Nasdaq Firms, July 1988– December 2002
+2.5–4.9%
+0.31
+1.18
+0.29
+0.23
+0.22
+88%
+(1.69)
+(23.77)
+(5.63)
+(3.60)
+(5.91)
+5.0–9.9%
+0.11
+1.33
+0.50
+0.31
+0.31
+90%
+(0.55)
+(24.75)
+(8.76)
+(4.43)
+(7.64)
+X10.0%
+0.27
+1.36
+0.86
+0.45
+0.31
+83%
+(0.86)
+(16.33)
+(9.89)
+(4.14)
+(4.97)
+95–98th %ile
+0.32
+1.25
+0.48
+0.47
+0.36
+91%
+(1.63)
+(23.89)
+(8.77)
+(6.83)
+(9.18)
+X99th %ile
+0.38
+1.42
+1.18
+0.30
+0.17
+81%
+(1.09)
+(15.26)
+(12.09)
+(2.44)
+(2.48)
+Panel C: EW July 1988– December 2002, by exchange
+NYSE-Amex
+0.65
+1.26
+0.77
+0.68
+0.28
+87%
+X2.5%
+(3.62)
+(26.23)
+(15.18)
+(10.68)
+(7.67)
+Nasdaq
+0.42
+1.26
+1.16
+0.50
+0.44
+92%
+X2.5%
+(1.85)
+(20.44)
+(18.20)
+(6.31)
+(9.78)
+NYSE-Amex
+1.46
+1.32
+1.13
+0.45
+0.47
+69%
+X99th %ile
+(3.71)
+(12.62)
+(10.31)
+(3.27)
+(5.98)
+Nasdaq
+1.27
+1.30
+1.35
+0.37
+0.43
+82%
+X99th %ile
+(3.49)
+(13.38)
+(13.38)
+(2.90)
+(6.04)
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+259
+
+--- PAGE 18 ---
+is [1,1]. The ﬁve portfolios we use have short interest ratios during the prior month of
+2.5–4.9%, 5.0–9.9%, greater than 10.0%, or that place them in the 95–98.9th or 99th
+percentile of all stocks. Unlike Asquith and Meulbroek (1995) and Desai et al.
+(2002), in Table 2 and Panels A and B of Table 4 we use truncated portfolios for the
+2.5%, 5.0%, and 95th percentile portfolios. That is, we truncate the 2.5% portfolio
+before 5.0%, the 5.0% portfolio before 10.0%, and the 95th percentile portfolio
+before the 99th percentile. The portfolios for X10% and X99th percentile are
+untruncated portfolios. In Panel A, we report equally weighted results, and in Panel
+B, we report value-weighted results.
+Using truncated portfolios ensures that no ﬁrm appears in more than one
+portfolio. Without using truncated portfolios, if higher short interest stocks have
+more negative returns, portfolios with a short interest ratio greater than or equal to
+2.5%, for example, will have a more negative return than the portfolio with short
+interest between 2.5% and 4.9%. In Panels C and D of Table 4 and later tables,
+when we present only two portfolios, we use the untruncated portfolio X2.5% to
+capture all stocks with short interest of at least 2.5%.
+Inspection of the EW results in Panel A shows that all ﬁve portfolios have negative
+intercepts ranging from 28 basis points to 125 basis points per month. The more
+heavily shorted are the stocks in a portfolio, the more negative is the performance.
+On an annualized basis, this is 3% to 15% per year. The negative abnormal
+returns are statistically signiﬁcant at the 5% level (two-tailed test) for three of the
+portfolios: 5.0–9.9%, greater than or equal to 10%, and the 99th percentile. The
+largest intercept of 125 basis points per month is from the 99th percentile portfolio,
+with a t-statistic of 4.42.
+In contrast to the statistically signiﬁcant negative abnormal returns for the EW
+portfolios reported in Panel A, the VW results in Panel B show no reliable
+underperformance. Indeed, several of the VW portfolios have positive intercepts. As
+in Panel A, the more extreme portfolios (10% and 99th percentile) have lower
+intercepts than the less extreme portfolios (2.5–4.9% and 95–98.9th percentile). The
+difference between the EW and VW results suggests that larger stocks with high
+short interest do not reliably underperform.
+ARTICLE IN PRESS
+Table 4 (continued )
+Sample
+Intercept
+RMRF
+SMB
+HML
+MOM
+R2adj
+Panel D: VW July 1988– December 2002, by exchange
+NYSE-Amex
+0.11
+1.18
+0.25
+0.26
+0.21
+89%
+X 2.5%
+(0.81)
+(30.07)
+(6.06)
+(4.98)
+(7.26)
+Nasdaq
+0.07
+1.38
+0.70
+0.89
+0.27
+90%
+X 2.5%
+(0.27)
+(19.46)
+(9.51)
+(9.65)
+(5.16)
+NYSE-Amex
+0.95
+1.50
+0.76
+0.34
+0.28
+56%
+X99th %ile
+(1.85)
+(10.94)
+(5.25)
+(1.90)
+(2.68)
+Nasdaq
+0.73
+1.44
+1.17
+0.79
+0.05
+79%
+X99th %ile
+(1.66)
+(12.15)
+(9.57)
+(5.13)
+(0.62)
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+260
+
+--- PAGE 19 ---
+Examination of the factor loadings (the slope coefﬁcients) in Panels A and B of
+Table 4 reveals that stocks with high short interest tend to have relatively high
+systematic risk, to positively covary with small stocks, to be tilted towards growth
+stocks when value-weighted portfolios are used, and to have negative momentum.
+The high loading on SMB is accounted for by the rarity of very large capitalization
+stocks in the high short interest portfolio. As we pointed out in the discussion of the
+54 stocks listed in our Table 1, both large-cap stocks and micro-cap stocks are
+underrepresented, with small stocks overrepresented.
+In Panels C and D of Table 4, we examine whether the EW and VW performance
+of stocks with high short interest differs between NYSE-Amex stocks and Nasdaq
+stocks during the July 1988–December 2002 period. Two representative untruncated
+sample portfolios are presented: X2.5% and the 99th percentile. In constructing the
+NYSE-Amex portfolios and Nasdaq portfolios using the 99th percentiles, we use
+population-speciﬁc short interest ratio cutoffs, whereas when we report combined
+NYSE-Amex-Nasdaq results, the same absolute cutoff is used for all stocks in a
+given month.
+In Panel C, the EW portfolio intercepts of NYSE-Amex stocks are slightly more
+negative than those of Nasdaq stocks. The value-weighted intercepts in Panel D
+exhibit positive intercepts for the X2.5% portfolios. In further contrast with the EW
+results in Panels A and C, none of the VW portfolio intercepts in Panels B and D
+have a t-statistic of 2.0 or less, although the intercepts for the 99th percentile
+portfolio for NYSE-Amex and Nasdaq stocks in Panel D are signiﬁcant at the 10%
+level, reﬂecting underperformance of 11% and 9% per year, respectively.
+While in all of the regressions in Panels C and D the systematic risk is high and the
+momentum factor loadings are negative, some of the factor loadings differ
+substantially between the NYSE-Amex and Nasdaq regressions. Speciﬁcally, the
+EW Nasdaq portfolios are more sensitive to small stock movements, and the NYSE-
+Amex portfolios move with value stocks, whereas the Nasdaq portfolios move with
+growth stocks. The reliably positive coefﬁcients on HML for NYSE-Amex stocks are
+somewhat surprising, given that our Table 2 and Dechow et al. (2001) report that
+NYSE-Amex stocks with high short interest tend to be growth stocks.7 Having
+investigated the relation between stock returns and short interest (our proxy for
+demand), we next examine the relation between short interest and institutional
+ownership (our proxy for supply).
+ARTICLE IN PRESS
+7The difference in conclusions about whether highly shorted NYSE-Amex stocks tend to be growth
+stocks (the conclusion based on the medians) or value stocks (the conclusion based on the slope
+coefﬁcients) has to do with differences in the weighting schemes. The Fama–French HML factor is
+constructed by giving equal weights to the returns on a value-weighted portfolio of small value stocks and
+a value-weighted portfolio of large value stocks, and then subtracting the returns on two growth stock
+portfolios that are weighted in a similar manner. The effect of this (which is done to minimize the
+correlation of the HML factor with the size factor) is to overweight the inﬂuence of small growth stocks on
+Nasdaq. Consequently, since NYSE-Amex stocks are tilted towards value relative to Nasdaq stocks, even
+growth stocks on the NYSE-Amex appear to have a value tilt with respect to the HML factor.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+261
+
+--- PAGE 20 ---
+5.2. Institutional ownership and short sales
+D’Avolio (2002) reports that the number of shares available to borrow is highly
+correlated with institutional ownership. Although we do not have data on the supply
+of shares to borrow, we do have the actual shares shorted and we regress this against
+institutional ownership. While institutional ownership is signiﬁcantly related to the
+short interest ratio, both the slope coefﬁcient and our adjusted R2 of 8.5% are much
+lower than D’Avolio ﬁnds using the supply of borrowable shares rather than the
+shares actually shorted. These differences in results between loan supply and loan
+usage suggest that while short sales are dependent on institutional ownership, the
+stocks with the highest institutional ownership are not necessarily those shorted the
+most. Another way to state this is that short sellers ﬁrst decide what stocks to short
+and then try to ﬁnd shares to borrow.
+We also do a direct comparison of short interest versus institutional ownership on
+a ﬁrm-by-ﬁrm basis. Over the entire time period 1980–2002, only 5.0% of our sample
+stocks in an average month have short interest greater than institutional ownership.
+The highest percentage of stocks having short interest greater than institutional
+ownership is during the third quarter of 1998 when it is 7.9%. These percentages are
+slightly less than the 9% of stocks that D’Avolio ﬁnds have higher short interest than
+loan supply. Since short interest is sometimes greater than institutional ownership, it
+shows that there is a supply of shares available to short outside of institutional
+lenders, most likely from retail brokerages.
+5.3. Abnormal returns for highly shorted stocks partitioned by levels of institutional
+ownership
+Since we hypothesize that short-sale constraints should be a function of both short
+sale demand as proxied by short interest and short sale supply as proxied by
+institutional ownership, Table 5 sorts our high short interest portfolios by
+institutional ownership. We report EW and VW four-factor model intercepts for
+the X2.5% and 99th percentile portfolios sorted into thirds by levels of institutional
+ownership.8 We examine two periods, 1980–2002 and July 1988–December 2002 in
+Table 5, although the results from January 1980 to June 1988 are only available for
+NYSE-Amex stocks.
+Panel A reports monthly abnormal returns from the EW portfolios for all stocks
+(NYSE-Amex-Nasdaq) for both time periods. Panel B reports the two VW portfolio
+returns for the same stocks and subperiods. In each panel, we partition the two short
+interest (SI) portfolios into thirds by institutional ownership (IO). The row labeled
+lowest IO is for the one-third of stocks with the lowest percentage owned by
+institutions and is our proxy for the lowest shortable supply. The last row of each
+ARTICLE IN PRESS
+8We do not use truncated portfolios in Table 5. Since we are not comparing several portfolios chosen
+with the same criteria, there is no reason to worry about overlapping samples. Moreover, the number of
+stocks in the remaining portfolios after dividing the portfolios into thirds on the basis of institutional
+ownership is larger with the untruncated portfolio.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+262
+
+--- PAGE 21 ---
+ARTICLE IN PRESS
+Table 5
+Four-factor model intercepts for EW and VW portfolios of NYSE-Amex-Nasdaq, NYSE-Amex, and
+Nasdaq Stocks with high short interest partitioned by institutional ownership
+In the time-series regressions using monthly percentage returns, the dependent variable is rptrft, the
+excess return over the risk-free rate on a portfolio in time period t, rmtrft is the realization of the market
+risk premium in period t, SMBt is the return on a portfolio of small stocks minus the return on a portfolio
+of big stocks in period t, HMLt is the return on a portfolio of high book-to-market (value) minus low
+book-to-market (growth) stocks in period t, and MOMt is the return on a portfolio of prior winners minus
+the return on a portfolio of prior losers. The 2.5% portfolio in month t is the untruncated portfolio
+composed of all stocks with a short interest ratio (short interest/shares outstanding) of at least 2.5% in
+month t1 and the 99th percentile is deﬁned analogously. Intercepts are presented for the sample
+partitioned into thirds by institutional ownership
+(IO) while the last row of each panel presents combined results. The ﬁrst panel presents results on an
+equally weighted (EW) basis, while Panel B presents results on a value-weighted (VW) basis. T-statistics
+are shown in parentheses. An intercept of 2.15 is 215 basis points per month.
+rpt  rft ¼ a þ bmðrmt  rftÞ þ bs SMBt þ bh HMLt þ boMOMt þ pt
+Panel A: All markets EW by time period (only NYSE-Amex prior to July 1988
+Sample
+1980–2002
+July 1988–December 2002
+EW X2.5%
+EW 99th %ile
+EW X2.5%
+EW 99th %ile
+Lowest IO third
+0.59
+1.31
+0.81
+2.15
+(1.87)
+(3.03)
+(1.92)
+(4.17)
+Middle IO third
+0.19
+0.40
+0.32
+0.88
+(1.24)
+(1.14)
+(2.07)
+(1.87)
+Highest IO third
+0.13
+0.33
+0.31
+0.83
+(0.80)
+(1.07)
+(1.84)
+(2.29)
+Combined
+0.30
+0.66
+0.48
+1.25
+(2.13)
+(2.76)
+(2.79)
+(4.42)
+Panel B: All markets VW by time period (only NYSE-Amex prior to July 1988
+Sample
+1980–2002
+July 1988–December 2002
+VW X2.5%
+VW 99th %ile
+VW X2.5%
+VW 99th %ile
+Lowest IO third
+0.26
+0.59
+0.58
+0.39
+(0.75)
+(0.80)
+(1.39)
+(0.46)
+Middle IO third
+0.17
+0.38
+0.04
+0.34
+(0.82)
+(0.70)
+(0.17)
+(0.45)
+Highest IO third
+0.38
+0.11
+0.25
+0.46
+(2.37)
+(0.31)
+(1.47)
+(1.01)
+Combined
+0.32
+0.05
+0.16
+0.38
+(2.20)
+(0.16)
+(1.02)
+(1.09)
+Panel C: EW by time period and exchange
+Sample
+1980–2002
+July 1988–December 2002
+EW X2.5%
+EW 99th %ile
+EW X2.5%
+EW 99th %ile
+NYSE lowest
+1.00
+1.77
+1.21
+2.63
+IO third
+(3.70)
+(3.28)
+(3.37)
+(3.67)
+NYSE
+0.53
+0.89
+0.65
+1.46
+Combined
+(3.29)
+(2.98)
+(3.62)
+(3.71)
+Nasdaq lowest
+—
+—
+0.55
+2.55
+IO third
+(1.11)
+(3.75)
+Nasdaq
+—
+—
+0.42
+1.27
+Combined
+(1.84)
+(3.49)
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+263
+
+--- PAGE 22 ---
+panel gives the combined short interest results without being partitioned by
+institutional ownership. These abnormal returns for the 99th percentile portfolios
+are identical to those reported in Panels A and B of Table 4. For the X2.5%
+portfolios, the numbers differ from Table 4 because the 2.5–4.9% truncated portfolio
+result is reported in that table. The remaining two panels of Table 5 categorize stocks
+by market. Panel C reports EW results for the combined portfolio and bottom third
+IO portfolio for NYSE-Amex vs. Nasdaq stocks over our two time periods. Panel D
+reports VW returns for the same portfolios.
+Table 5 allows us to investigate whether using institutional ownership increases the
+explanatory power over using short interest alone. To test this, we look for several
+patterns. The ﬁrst is to see whether the abnormal returns vary by level of
+institutional
+ownership—that
+is,
+whether
+the
+portfolios
+that
+are
+the
+most
+institutional ownership constrained, i.e., the third with the lowest IO, have the
+most negative abnormal returns, and if the least institutional ownership constrained,
+the third with the highest IO, the least negative. We also wish to see if the
+combination of high short interest and low institutional ownership, i.e., our most
+constrained portfolios, produces the most negative results. Finally, we wish to see if
+the addition of institutional ownership data allows us to see patterns not detected
+using the short interest data alone. Inspection of Table 5 shows that for EW
+portfolios, the returns are generally monotonic with respect to institutional
+ownership, and the portfolio with 99th percentile short interest and lowest-third
+institutional ownership usually has the most negative abnormal return. The results
+are more mixed for VW portfolios. In addition, Table 5 provides insights on EW and
+VW portfolios and exchanges not provided in Table 4.
+In Panel A, partitioning the high short interest portfolios into thirds by level of
+institutional ownership shows that the abnormal returns are monotonic by amount
+of institutional ownership. That is, the third with the lowest IO has lower abnormal
+returns than the middle third, which has lower abnormal returns than the highest
+third. The most constrained portfolio, the one with the highest demand and the least
+supply (i.e., the 99th percentile portfolio with the lowest third of institutional
+ownership), has the most negative abnormal returns for both the sample starting in
+ARTICLE IN PRESS
+Panel D: VW by time period and exchange
+Sample
+1980–2002
+July 1988–December 2002
+VW X2.5%
+VW 99th %ile
+VW X2.5%
+VW 99th %ile
+NYSE lowest
+0.27
+1.41
+0.35
+3.15
+IO third
+(0.84)
+(1.92)
+(1.04)
+(3.95)
+NYSE
+0.19
+0.52
+0.12
+0.95
+Combined
+(1.29)
+(1.29)
+(0.81)
+(1.85)
+Nasdaq lowest
+—
+—
+0.59
+1.12
+IO third
+(1.09)
+(1.08)
+Nasdaq
+—
+—
+0.07
+0.73
+Combined
+(0.27)
+(1.66)
+Table 5 (continued)
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+264
+
+--- PAGE 23 ---
+1980 and the sample starting in 1988. For the July 1988–December 2002 period,
+this portfolio has abnormal returns of 215 basis points/month, or more than 25%
+per year.
+In Panel B, which presents the VW returns over the same sample, there is no
+consistent pattern. Examining the columns, we ﬁnd that the abnormal returns are
+monotonically related to institutional ownership for only the X2.5% portfolio, and
+the abnormal return during 1980–2002 for the most constrained portfolio is
+insigniﬁcantly positive.
+Panels C and D divide our sample stocks by market. In Panel C, we report EW
+results by market (NYSE-Amex vs. Nasdaq) for the third of stocks with the lowest
+IO and for the entire sample of stocks for our two high short interest portfolios. In
+Panel D, we report the VW results for these same portfolios. In Panels C and D there
+are no Nasdaq results over the period 1980–2002. In Panel C, the abnormal returns
+are more negative for the constrained portfolios for both exchanges, but the
+abnormal returns of the NYSE-Amex portfolios are always more negative than
+the Nasdaq’s. The difference is small for the 99th percentile portfolios but large for
+the X2.5% portfolios. All four NYSE portfolios are signiﬁcant, as are the two
+Nasdaq portfolios. In addition, for either market or time period, the most
+constrained portfolio (99th percentile of short interest and lowest third of IO) is
+the most negative, with monthly abnormal returns ranging from 177 to 263 basis
+points per month.
+Panel D reports the VW portfolio results by exchange. Here, the patterns are
+similar to our EW results but not as statistically signiﬁcant. For both periods and
+both exchanges the abnormal returns are more negative for the VW portfolios with
+the lowest third of IO. The most constrained portfolios are also the most negative for
+both exchanges, although only the NYSE-Amex most constrained portfolio from
+July 1988–December 2002 is statistically signiﬁcant.
+In Table 5, our VW portfolios of highly constrained stocks have intercepts of 39
+basis points per month for the combined NYSE-Amex-Nasdaq sample, but 315
+bp/month for the NYSE-Amex sample and 112 bp/month for the Nasdaq sample.
+The more extreme results for the two different exchanges could be due to the effect of
+different factor loadings. As seen in Table 4, NYSE-Amex shorts tend to be value
+stocks and Nasdaq shorts tend to be growth stocks. It should also be noted that
+dividing the 99th percentile portfolio into institutional ownership thirds, and then
+splitting the sample by exchange, makes the portfolios quite small: NYSE-Amex
+portfolios average only about seven stocks per month and Nasdaq portfolios about
+14 stocks per month. Since the sample cutoffs we use are exchange-speciﬁc, it is
+possible that the ﬁrms in our NYSE-Amex sample and Nasdaq sample are not
+exactly the same as the ﬁrms in the combined NYSE-Amex-Nasdaq sample. A few
+different ﬁrms per month combined with our small sample sizes could also be a
+reason for the differences in our intercepts.
+In summary, the panels in Table 5 show that for high short interest EW portfolios,
+the lower the institutional ownership, the more negative are the abnormal returns.
+High short interest, low-IO EW portfolio abnormal returns are also signiﬁcant
+regardless of exchange. Taken together, these results support the view that short-sale
+ARTICLE IN PRESS
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+265
+
+--- PAGE 24 ---
+constrained stocks are overvalued, where short-sale constrained is deﬁned as having
+both high demand, in the form of short interest, and low supply, in the form of low
+IO. The VW results are not reliably negative.
+5.4. Abnormal returns for calendar subperiods
+Comparing the NYSE-Amex results over the two periods reported in Table 5
+shows that the portfolio returns for the period July 1988–December 2002 are more
+negative than those of 1980–2002. This raises the possibility that abnormal returns
+are time-period speciﬁc. In this section, we examine this issue in more detail and
+compare our results to those in Desai et al. (2002).
+Table 6 breaks the time period July 1988–December 2002, where we have
+results for all markets, into two subperiods, July 1988–December 1994 and
+January 1995–December 2002. The ﬁrst subperiod is the subperiod that Desai
+et al. (2002) analyze. The second subperiod covers the tremendous stock price
+increases of the late 1990s and their subsequent decline. In the last section, we show
+that the results differ between markets, so we continue to divide our sample into
+NYSE-Amex stocks vs. Nasdaq stocks. This also allows us to directly compare
+our results to Desai et al., who only examine Nasdaq stocks. We continue to
+report abnormal returns for two portfolios, stocks with short interest X2.5% and
+the 99th percentile, for both the combined sample of stocks and stocks in the lowest
+third of IO.
+Panel A of Table 6 shows that the EW abnormal returns are negative and signiﬁcant
+in the subperiod July 1988–December 1994. All four of the reported NYSE-Amex
+portfolios, and all four of the reported Nasdaq portfolios, have statistically signiﬁcant
+negative abnormal returns. The most constrained portfolios have negative abnormal
+returns of 271 basis points ðt ¼ 2:62Þ for NYSE-Amex stocks and 313 basis points
+ðt ¼ 3:25Þ for Nasdaq stocks during this subperiod. In the subperiod 1995–2002, the
+EW results for NYSE-Amex stocks are similar to those for July 1988–December 1994,
+particularly for the most constrained portfolio. The EW Nasdaq portfolios have
+abnormal returns that are less negative or even insigniﬁcantly positive in the later
+subperiod. The most constrained EW Nasdaq portfolio in 1995–2002 has abnormal
+returns of 220 basis points ðt ¼ 2:31Þ which is less extreme than in the early time
+period. The differences between the two subperiods for our VW constrained portfolios
+are also larger for Nasdaq stocks than for NYSE-Amex stocks.9
+ARTICLE IN PRESS
+9When comparing our July 1988–December 1994 EW X2.5% combined portfolio of Nasdaq stocks in
+Table 6 to Desai et al.’s EW X2.5% portfolio, our four-factor model intercept of 103 basis is more
+negative than the underperformance of the 76 basis points that they report. Our stronger results could be
+due to our extensive data cleaning which would reduce sample selection mistakes. In addition, our
+empirical results consistently have larger standard errors than in Desai et al. (2002), even when we use
+untruncated portfolios and a methodology that is identical to their Table 2 methodology. Our t-statistic of
+3.37 implies a monthly standard error of 31 basis points, whereas their t-statistic implies a monthly
+standard error of 23 basis points. Finally, on pp. 2275 and 2277 in their paper, they report the point
+estimates and t-statistics from additional robustness checks, with implied standard errors of an implausibly
+low 3–6 basis points per month.
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+266
+
+--- PAGE 25 ---
+To summarize, Table 6 shows that constrained short interest portfolios of Nasdaq
+stocks have more negative abnormal returns in July 1988–December 1994, the period
+Desai et al. (2002) examine, than during 1995–2002. There is no clear difference
+between subperiods for our NYSE-Amex stocks.
+5.5. Robustness
+To examine the robustness of our results, we calculate abnormal returns using
+several alternatives to the four-factor regression model. All of our qualitative results
+hold, and in order to save space we do not report these results in a table.
+ARTICLE IN PRESS
+Table 6
+Four-factor model intercepts for EW and VW portfolios of NYSE-Amex and Nasdaq stocks with high
+short interest partitioned by calendar subperiods
+In the time-series regressions using monthly percentage returns, the dependent variable is rptrft, the
+excess return over the risk-free rate on a portfolio in time period t, rmtrft is the realization of the market
+risk premium in period t, SMBt is the return on a portfolio of small stocks minus the return on a portfolio
+of big stocks in period t, HMLt is the return on a portfolio of high book-to-market (value) minus low
+book-to-market (growth) stocks in period t, and MOMt is the return on a portfolio of prior winners minus
+the return on a portfolio of prior losers. The 2.5% portfolio in month t is the portfolio composed of all
+Nasdaq National Market System stocks with a short interest ratio (short interest/shares outstanding) of at
+least 2.5% in month t1. The portfolio is updated monthly. The 99th percentile portfolios are deﬁned
+analogously. T-statistics are shown in parentheses. An intercept of 2.68 is 268 basis points per month.
+rpt  rft ¼ a þ bmðrmt  rftÞ þ bs SMBt þ bh HMLt þ boMOMt þ pt
+Panel A: EW by time period and exchange
+July 1988–December 1994
+1995–2002
+EWX2.5%
+EW 99th %ile
+EWX2.5%
+EW 99th %ile
+NYSE Lowest
+1.35
+2.71
+0.94
+2.68
+IO Third
+(2.11)
+(2.62)
+(2.91)
+(2.70)
+NYSE
+0.63
+1.62
+0.59
+1.36
+Combined
+(2.48)
+(2.75)
+(3.14)
+(2.67)
+Nasdaq Lowest
+1.38
+3.13
+0.13
+2.20
+IO Third
+(2.16)
+(3.25)
+(0.19)
+(2.31)
+Nasdaq
+1.03
+1.36
+0.02
+1.24
+Combined
+(3.37)
+(3.03)
+(0.06)
+(2.28)
+Panel B: VW by time period and exchange
+July 1988–December 1994
+1995–2002
+VWX2.5%
+VW 99th %ile
+VWX2.5%
+VW 99th %ile
+NYSE Lowest
+1.39
+2.46
+0.39
+3.83
+IO Third
+(2.54)
+(2.19)
+(1.11)
+(3.36)
+NYSE
+0.22
+1.45
+0.05
+0.64
+Combined
+(1.16)
+(2.32)
+(0.26)
+(0.90)
+Nasdaq Lowest
+1.20
+1.80
+0.13
+0.38
+IO Third
+(1.83)
+(1.57)
+(0.18)
+(0.24)
+Nasdaq
+0.66
+1.59
+0.62
+0.06
+Combined
+(1.94)
+(3.20)
+(1.78)
+(0.09)
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+267
+
+--- PAGE 26 ---
+First, instead of using a four-factor model, we compute Fama–French (1993)
+three-factor model regression intercepts. Since all of our high short interest
+portfolios load negatively on momentum, we expect that omitting the momentum
+factor will make all of our intercepts more negative and this is what happens.
+For example, using the three-factor model for the most constrained portfolio of
+NYSE-Amex-Nasdaq stocks during 1988–2002, the intercept increases from 215
+bp/month to 281 bp/month.
+Next,
+we
+calculate
+both
+raw
+and
+benchmark-adjusted
+monthly
+average
+returns. We use two benchmarks, the CRSP value-weighted market portfolio
+and size and book-to-market portfolios. The second benchmark uses a 5  5 sort
+on market capitalization (using NYSE ﬁrms for the size cutoffs) and book-to-
+market.
+For
+the
+most
+constrained
+NYSE-Amex-Nasdaq
+portfolio
+during
+1988–2002, the average raw return is 183 bp/month, the average market-adjusted
+return is 274 bp/month, and the average size and book-to-market adjusted
+return is 238 bp/month. For all of these four measures, the monotonic pattern
+with regard to institutional ownership that we report in Panel A of Table 5 continues
+to hold.
+In addition to alternative return methodologies, we consider two potential biases.
+The ﬁrst, as is well documented, arises because extreme small-growth ﬁrms have
+negative intercepts in three-factor and four-factor model regressions. For example,
+using size and book-to-market quintiles, Fama and French (1993, Table 9a) report a
+VW negative intercept of 34 basis points per month for the extreme small-growth
+ﬁrm portfolio. Since many of our Nasdaq high short interest ﬁrms are in the small
+growth category, this misspeciﬁcation could bias our results towards negative
+intercepts. This bias cannot explain the magnitude of our results, however, given that
+our EW portfolio of the most constrained NYSE-Amex-Nasdaq stocks generates a
+four-factor model intercept of 215 basis points per month over the 1988–2002
+period.
+The second potential bias, as ﬁrst pointed out by Chopra et al. (1992), arises
+because the empirical relation between average realized returns and beta is
+much ﬂatter than the CAPM or multi-factor models assume. Thus, portfolios
+with betas greater than 1.0 will tend to have negative measured intercepts.
+For example, if the market risk premium is 6% per year (50 basis points per
+month) and the empirical slope of the relation between beta and excess returns is
+zero, the extent of the bias will be ðb  1Þ  ð0  50Þ per month. Since in our
+four-factor regression models, beta estimates are as high as 1.4, this would
+make the bias 20 basis points per month. While this bias would result in more
+negative intercepts in our regressions, it is too small to explain our results. It also
+does not explain our differential results for low and high institutional ownership
+portfolios. Although we do not report the slope coefﬁcients (factor loadings)
+to save space, the betas of the different portfolios are economically indistinguishable
+from each other. Thus, if this bias exists for our sample, it does not explain the
+magnitude of our results or affect our conclusion that EW portfolios with high short
+interest and low institutional ownership have the most extreme subsequent
+underperformance.
+ARTICLE IN PRESS
+P. Asquith et al. / Journal of Financial Economics 78 (2005) 243–276
+268
+
+[TRUNCATED at 80000 chars — 34 total pages]

@@ -1,0 +1,2410 @@
+
+--- PAGE 1 ---
+ 
+ 
+ 
+Capital Investments and Stock Returns 
+ 
+ 
+Sheridan Titman 
+Department of Finance 
+University of Texas at Austin 
+Austin, Texas 78712-1179 
+Tel: (512)-232-2787; Fax: (512)-471-5073 
+Email: titman@mail.utexas.edu 
+ 
+ 
+K.C. John Wei 
+Department of Finance 
+Hong Kong University of Science and Technology 
+Clearwater Bay, Kowloon, Hong Kong 
+Tel: (852)-358-7676; fax: (852)-2358-1749 
+Email: johnwei@ust.hk 
+ 
+ 
+Feixue Xie 
+Department of Economics 
+National University of Singapore 
+Singapore 119260 
+Tel: (65)-874-3958; fax: (65)-775-2646 
+Email: ecsxiefx@nus.edu.sg 
+ 
+ 
+April 30, 2001 
+ 
+_______________________________ 
+*  The authors appreciate the helpful comments of the seminar participants at the Hong Kong University of Science 
+and Technology and National Central University.  The authors also thank Andres Almazan for helpful comments 
+and Dr. Virginia Unkefer for editorial assistance. John Wei acknowledges the financial support from an RGC 
+Competitive Earmarked Research Grant (HKUST6014/99H) and the Wei Lun Fellowship. 
+ 
+
+--- PAGE 2 ---
+Capital Investments and Stock Returns 
+ 
+ 
+Abstract 
+Firms that spend the most on capital investments relative to their sales or total assets, subsequently 
+achieve negative benchmark-adjusted returns.  We consider two hypotheses to explain these returns. The 
+first explanation, that firms artificially increase cash flows to fund investment expenditures, suggests that 
+the negative relation between returns and investment expenditures should be strongest for the most 
+financially constrained firms. The second explanation, that firms that invest a lot tend to be over-investing, 
+suggests that the negative relation between returns and investment expenditures should be strongest for 
+firms with the most financial slack.  The evidence tends to support the second explanation.  That is, the 
+negative capital investment/return relation is stronger for firms with higher cash flows and lower debt 
+ratios and reverses in the period when firms of this type were subject to hostile takeovers. 
+
+--- PAGE 3 ---
+ 
+ 
+1
+Capital Investments and Stock Returns 
+1. 
+Introduction 
+There is now substantial research that suggests that a firm’s investment expenditures are more closely 
+linked to its cash flows than to its stock prices (see for example, Fazzari, Hubbard and Peterson (1988) 
+and Morck, Shleifer and Vishny (1990)).1  In other words, firms tend to invest more when they have 
+available cash rather than when their stock prices signal good investment opportunities.  A popular 
+explanation for the sensitivity of investment expenditure to cash flow is that most firms are credit 
+constrained, perhaps because of information asymmetries, and hence have a tendency to underinvest 
+when they do not have sufficient cash flow. The fact that cash flows provide better predictors of 
+investment expenditures amongst firms that appear to be financially constrained tends to support this 
+explanation. An alternative explanation has to do with managerial agency problems. According to this 
+explanation, managers have an incentive to build empires and hence tend to overinvest when they have 
+more than enough cash flow (see Jensen (1986)).  The fact that cash flows seem to be important 
+determinants of the investment expenditures of firms that do not appear to be financially constrained (see 
+Kaplan and Zingales (1997) and Cleary (1999)) tends to support this explanation. 
+In this paper, we attempt to distinguish between the capital constraint/underinvestment explanation and 
+the managerial agency/overinvestment hypotheses by carefully examining the relation between capital 
+expenditures and stock returns.  In the absence of managerial agency problems and information 
+asymmetries we would expect to observe a positive relation between investment expenditures and stock 
+returns.  The firms with the best opportunities will generally invest the most; so higher investment 
+expenditures should be associated with favorable information and higher stock returns.  This is not, 
+however, what we observe.  As we show later in this paper, higher levels of capital expenditure are 
+                                                                 
+1 See Hubbard (1998) for an excellent review of this literature.  
+ 
+
+--- PAGE 4 ---
+ 
+ 
+2
+generally associated with lower benchmark-adjusted stock returns.  Our findings here are quite strong and 
+do not appear to be sensitive to the choice of benchmarks. 
+The observed negative relation between stock returns and investment expenditures is consistent, 
+however, with empire builders overinvesting as well as constrained firms underinvesting.  For example, if 
+there is some uncertainty about whether a firm’s managers tend to overinvest, evidence of high investment 
+can generate a negative stock price response because it provides unfavorable evidence about the 
+individuals who manage the firm.  Alternatively, when there is underinvestment because of asymmetric 
+information, and new investment is funded with equity issues (or junior debt issues), capital investment 
+expenditures may be associated with negative stock returns for the reasons mentioned in Myers and 
+Majluf (1984).  Moreover, higher investment expenditures may make investors skeptical about the quality 
+of the firm’s current and past earnings if constrained firms have a tendency to push their cash flows 
+forward to fund current or future investment needs.  Specifically, a higher than expected level of 
+investment could lead investors to suspect that past earnings were artificially inflated which could, in turn, 
+lead to a downward revision in a firm’s stock price, even if the actual investment expenditures were 
+viewed favorably. 
+To provide evidence that may allow us to distinguish between these conjectures we examine whether 
+the relation between capital expenditures and stock returns differ over time and across firms. For example, 
+we examine whether the relation is related to the market’s perception of the firm’s investment 
+opportunities, as measured by Tobin’s q.  Firms with better investment opportunities may have less of a 
+need to manipulate earnings or cash flows prior to increasing their investment expenditures and may also 
+be less likely to be taking negative NPV investments.  These arguments suggest that underperformance 
+should be more pronounced for those firms that have both high capital expenditures and low q’s.  The 
+magnitude of underperformance may also be related to the past cash flows and the leverage ratios of the 
+firms.  One might expect that more constrained firms have a greater incentive to manipulate cash flows, 
+
+--- PAGE 5 ---
+ 
+ 
+3
+suggesting that highly levered firms with low cash flows will have the most negative post-investment 
+returns.  However, the firms with the most slack can more easily make bad investments, which would 
+imply the opposite result. 
+Our empirical results tend to support the managerial agency theory.  In particular, we find that the 
+negative relation between capital expenditures and stock returns is strongest for firms with both high cash 
+flows and low leverage; i.e., those firms that are likely to be the least constrained.  In addition, we find that 
+the negative relation between capital expenditures and stock returns is most pronounced in years in which 
+discipline from the market for corporate control is weakest.  Indeed, during the hostile takeover wave of 
+the1980s, the relation is actually reversed. 
+The analysis in this paper is closely related to a series of event studies that examine market reactions 
+to capital investment announcements.  The empirical evidence in McConnell and Muscarella (1985) 
+indicates that announcements of increases in planned capital investments are generally associated with 
+significantly positive excess stock returns. In follow-up studies, Blose and Shieh (1997) and Vogt (1997) 
+find a significant positive relation between the magnitude of the stock market reaction to capital investment 
+announcements and the level of new investment.  While these studies tend to be inconsistent with our 
+findings of a negative relation between the level of capital expenditures and stock returns, there is also 
+evidence that is consistent with the overinvestment hypothesis.  For example, in the area of foreign direct 
+investment, Doukas (1995) finds that average returns associated with foreign investment announcements 
+are substantially higher for value maximizing (i.e., well-managed) firms than for overinvesting (i.e., poorly 
+managed) firms. Chung, Wright, and Chareonwong (1998) show that announcements of increases 
+(decreases) in capital spending positively (negatively) affect the stock prices of firms with valuable 
+investment opportunities, but the opposite relation is found for firms without such opportunities. 
+For a variety of reasons, the results from these event studies should be interpreted somewhat 
+cautiously. First, the above studies examine only publicly announced investments which induces a bias in 
+
+--- PAGE 6 ---
+ 
+ 
+4
+their estimates if firms are more likely to publicly announce investments that the capital markets are likely 
+to view favorably.  Second, evidence in the initial public offering (IPO) and seasoned equity offering 
+(SEO) literature (Teoh, Welch and Wong (1997, 1998)) suggests that investors generally do not take into 
+account the incentives of management to manipulate earnings (and by extension, cash flows) prior to 
+equity issues.  And finally, there is now a growing body of evidence that indicates that market prices 
+initially underreact to information contained in corporate announcements, suggesting that it makes sense to 
+look at the long-term effect of these events.2 
+The analysis in this paper avoids these problems by examining the stock returns of a comprehensive 
+sample that includes all reported capital expenditures (available on COMPUSTAT) and thus avoids the 
+bias that is inherent in an analysis of only publicly reported expenditures.  In addition, by looking at stock 
+returns in the years subsequent to capital expenditure increases, we can examine whether the market 
+reacts to the investment changes in a timely manner.  Of course, by looking at long-horizon returns, we 
+raise concerns about the possibility that the observed excess returns are simply a manifestation of a faulty 
+benchmark.  For this reason, we compute excess returns with both a characteristic-based matching 
+procedure as well as with a factor model.  
+This paper is also closely related to the literature on the long-term reaction of stock prices to seasoned 
+equity offers (SEOs), (e.g., Loughran and Ritter (1995)).  These papers document a negative long-term 
+relation between stock returns and SEOs.  Firms that issue equity generally have high capital expenditures, 
+but the reverse is not always true.  Adverse selection models, like Myers and Majluf (1984), suggest that 
+the negative stock returns associated with high capital investments should be concentrated in those firms 
+that fund the capital expenditures with SEOs.  However, our results indicate that the negative relation 
+between capital expenditures and stock returns is equally strong for firms with and without SEOs.  
+                                                                 
+2 See Daniel, Hirshleifer and Subrahmanyam (1998) for a summary of this evidence along with a behavioral explanation 
+for the market’s underreaction to corporate disclosures. 
+
+--- PAGE 7 ---
+ 
+ 
+5
+Our results are also related to the literature on long-term contrarian investment strategies (e.g., 
+DeBondt and Thaler (1985)), which find that stocks that do well over a three to five year period 
+subsequently do poorly.  Since the firms with the highest capital expenditures are generally those firms 
+with better than average stock price performance in prior years, it is possible that the evidence that these 
+firms subsequently perform poorly may be due to the DeBondt and Thaler contrarian effect.  Our results, 
+however, suggest that this is not the case.  Specifically, the capital expenditure effect is still significant 
+after controlling for the contrarian effect, but the contrarian effect is no longer reliably different than zero 
+when we control for the capital expenditure effect.   
+The remainder of the paper is organized as follows.  Section 2 describes the data and Section 3 
+outlines the methodology.  The preliminary findings on the relationship between capital investments and 
+expected returns are presented in Section 4.  Section 5 examines the year-to-year pattern of the 
+investment/return relation and Section 6 presents the empirical results regarding different hypotheses.  
+Finally, Section 7 concludes the paper. 
+ 
+2. 
+Data description 
+The current study considers all domestic, primary stocks listed on the New York Stock Exchange 
+(NYSE), American Stock Exchange (Amex), and Nasdaq stock markets.  Closed-end funds, trusts, 
+ADRs, REITs, units of beneficial interest, and other financial institutions are excluded from the analysis.  
+The sample stock returns cover the period from July 1973 to June 1996. The monthly stock returns, 
+monthly stock prices, monthly shares outstanding, and the market capitalization (stock price times the 
+number of shares outstanding) for NYSE/Amex firms and Nasdaq firms are obtained from the Center for 
+Research in Security Prices (CRSP).  We use U.S. one-month Treasury bill rates as our risk-free rate.  
+Financial statement data, such as book equity, cash flow, long-term debt, and sales are obtained from 
+COMPUSTAT tapes. 
+
+--- PAGE 8 ---
+ 
+ 
+6
+To be included in the tests, a firm must meet the following criteria.  First, it should have CRSP stock 
+prices for December of year t-1 and June of t and the COMPUSTAT book equity for year t-1.  Second, 
+its annual total net sales should be no less than US$10 million.3  Third, it should not have negative book 
+equity for the fiscal year ending in calendar year t-1.  Moreover, following Fama and French (1992, 1993), 
+firms are not included until they have appeared on COMPUSTAT for two years to avoid the potential 
+survival/selection bias inherent in the way COMPUSTAT adds firms to its tapes (Banz and Breen 
+(1986)). 
+A firm’s market equity (ME) is defined as its price multiplied by the number of shares outstanding, and 
+its market size (SZ) is measured as the ME at the end of June of year t.  The book-to-market equity (BM) 
+is computed as the ratio of the book equity (BE) of a firm for the fiscal year ending in calendar year t-1 to 
+the firm’s ME at the end of December of t-1. As in Fama and French (1993), we define book equity as 
+the COMPUSTAT book value of stockholders’ equity, plus balance-sheet deferred taxes and investment 
+tax credits (if available), minus the book value of the preferred stock.  Depending on availability, the 
+redemption, liquidation, or par value (in that order) is used to estimate the value of the preferred stock. 
+In the results reported in this paper, the measure of capital investment (CIt-1) in the formation year t-1, 
+is calculated as follows: 
+                         
+1
+3
+/)
+(
+4
+3
+2
+1
+1
+−
++
++
+=
+−
+−
+−
+−
+−
+t
+t
+t
+t
+t
+CE
+CE
+CE
+CE
+CI
+, 
+where CEt-1 is a firm’s capital expenditure (COMPUSTAT data item 128) scaled by its sales for year t-1.4  
+We use the last three-year average capital investment to project the firm’s formation year’s benchmark 
+investment,5 and interpret firms with high CI as high investors. Using sales as the deflator, we implicitly 
+assume that the benchmark level of capital expenditures will grow proportionately with sales.  By this 
+                                                                 
+3 This is to exclude firms at the early development stage such as biotech or internet firms. 
+ 
+4 The results without scaling are virtually identical to those reported here. 
+
+--- PAGE 9 ---
+ 
+ 
+7
+definition, a CI value of equal to (greater than, less than) zero indicates that the formation year’s capital 
+investment is the same as (greater than, less than) the prior three years’ average.  To see how the results 
+are sensitive to the measure of CI, we also use CEt-1 – (CEt-2 + CEt-3 + CEt-4)/3 as well as (CEt-1 – 1) 
+alone to measure CIt-1. In addition, we also use total assets to replace sales as the deflator in all CI 
+measures. The results (not reported here) are basically insensitive to alternative measures of CI. 
+To ensure that accounting information is known before we use it to explain the stock returns, we 
+match stock returns for the period between July of year t to June of year t+1 to the accounting data of a 
+firm for the fiscal year ending in calendar year t-1.  In addition, we do not use negative-BE firms when 
+calculating the breakpoints for BM or when forming the portfolios. 
+ 
+3. 
+Methodology 
+3.1. 
+Characteristic-based benchmark portfolios  
+Firms with different levels of investment expenditures are likely to be subject to different types of risk.  
+One might expect that firms that invest the most are the riskiest, since a greater fraction of their value 
+consists of growth options.  Alternatively, since the least risky firms have the lowest cost of capital, they 
+may invest the most.  In any event, when one compares the returns of firms that invest high and low 
+amounts, it is critical that appropriate benchmarks are chosen. 
+Our procedure for calculating benchmark-adjusted returns follows the methodology outlined in the 
+Daniel, Grinblatt, Titman, and Wermers (1997) study that developed benchmarks to evaluate mutual fund 
+performance.  In particular, we will be controlling for characteristics as well as factor sensitivities.  
+Specifically, we form 125 portfolios that capture three stock characteristics, namely book-to-market equity, 
+size, and momentum, which are significantly related to the cross-sectional variation in returns.6 To form 
+                                                                                                                                                                                                                 
+5 We also use the last five-year average to project the formation year’s benchmark capital investment.  The results are 
+basically identical to those reported here. 
+6 See Fama and French (1992, 1993), Jegadeesh and Titman (1993), and Daniel and Titman (1997). 
+
+--- PAGE 10 ---
+ 
+ 
+8
+these portfolios, starting with July of year t, the universe of common stocks is first sorted into quintiles 
+based on each firm’s size (SZ) at the end of June of year t according to the breakpoints for the NYSE 
+firms only. Then firms in each SZ quintile are further sorted into quintiles based on their book-to-market 
+ratio (BM) at the end of year t-1. Finally, the firms in each of the 25 SZ/BM portfolios are sorted into 
+quintiles based on their prior-year return (PR1YR, calculated through the end of May of year t),7 giving us 
+a total of 125 portfolios. The value-weighted returns on benchmark portfolios are calculated from July of 
+year t to June of year t+1. All benchmark portfolios are rebalanced every year. 
+Once we form these 125 characteristic-based benchmark portfolios, calculating the excess return is 
+straightforward. Each stock, in each year, is assigned to a benchmark portfolio according to its rank based 
+on SZ, BM, and PR1YR. Excess returns of a particular stock are then calculated by subtracting the 
+stock’s corresponding benchmark portfolio’s returns from the stock’s returns. These excess returns are 
+then used to calculate the excess returns of value-weighted test portfolios we form based on the sortings 
+of CI and other variables.  
+                                                                 
+7 In ranking prior-year returns, we skip the portfolio formation month to reduce the bias from bid-ask bounces and 
+monthly return reversals. 
+
+--- PAGE 11 ---
+ 
+ 
+9
+3.2. 
+The Carhart four-factor model  
+To control for factor risk, these benchmark-adjusted portfolio returns are regressed on the Fama-
+French three factors and the Carhart momentum factor, which we refer to as the Carhart four-factor 
+model: 
+         
+,
+)
+(
+,
+,
+1
+Pr
+,
+1
+Pr
+,
+,
+,
+,
+,
+,
+,
+t
+p
+t
+yr
+p
+yr
+ft
+t
+Mkt
+p
+Mkt
+t
+SMB
+p
+SMB
+t
+HML
+p
+HML
+p
+t
+p
+R
+R
+R
+R
+R
+AR
+ε
+β
+β
+β
+β
+α
++
++
+−
++
++
++
+=
+  
+(1) 
+where ARp,t is the benchmark-adjusted return on CI ranked portfolio p, Rft is the risk-free rate, RHML, 
+RSMB, and RMkt are the three factors suggested by Fama and French (1993, 1996),8 and RPr1yr is the return 
+on the PR1YR (high minus low prior-year return, skipping the return in the formation month) momentum 
+portfolio. The momentum factor suggested by Carhart (1997) captures the Jegadeesh and Titman’s (1993) 
+one-year momentum in stock returns. For the detailed description of the construction of these factor 
+portfolios, please see Fama and French (1993) and Carhart (1997). 
+ 
+4. 
+Empirical results 
+4.1. 
+The relationship between returns and capital investments 
+We form five capital investment (CI) portfolios as follows: Starting with July of year t, we equally 
+divide all stocks into quintiles based on their year t-1 capital investment, CI. The firms remain in these 
+portfolios from July of year t to June of year t+1. From these portfolios, we form a CI-spread portfolio that 
+has a one-dollar long position in the two lowest CI portfolios (the 1st and the 2nd) and a one-dollar short 
+position in the two highest CI portfolios (the 4th and 5th). The portfolios are rebalanced in each year. 
+The benchmark-adjusted returns of the CI portfolios are presented in Column 2 of Table 1.  The table 
+reveals that except for the lowest CI quintile, the benchmark-adjusted returns monotonically decrease with 
+capital investments. Furthermore, the mean return on the CI-spread portfolio is significantly positive with a 
+                                                                 
+8 More specifically, RHML is the return on the HML (High Minus Low) book-to-market portfolio, RSMB is the return on 
+the SMB (Small Minus Big) size portfolio, and RMkt is the return on the market portfolio. 
+
+--- PAGE 12 ---
+ 
+ 
+10
+value of 0.168% (t-value = 2.91) per month or 2.02% per year, indicating that firms that invest more 
+realize lower stock returns than firms that invest less after controlling for size, book-to-market equity, and 
+momentum effects.  
+[Put Table 1 here] 
+Although our benchmarks control for return differences that arise because of differences in 
+characteristics, the benchmarks do not necessarily control for factor risk.  According to the factor-pricing 
+model, the factors should capture the variation in the portfolios’ excess returns and, therefore, the 
+intercepts (αp) in Equation (1) for all characteristic-balanced CI portfolios should be indistinguishable from 
+zero. A non-zero intercept from the regression of returns on a CI-spread portfolio on the Carhart four 
+factors will indicate that the return spread between low and high capital investment portfolios still exists 
+even after taking risks into account.  
+Regression results from the benchmark-adjusted returns of the CI portfolios on the Carhart four 
+factors are reported in Columns 3-8 of Table 1.  The results indicate that three out of five estimated 
+intercepts are reliably different from zero. With the exception of the first quintile, the intercepts are 
+monotonically decreasing with capital investments. In addition, the estimated intercept for the zero-cost 
+CI-spread portfolio is significantly positive, indicating that the high return for low investors is not due to 
+risks associated with the Carhart four factors. After adjusting for stock characteristics and taking into 
+account the Carthart four factors, low CI firms still earn, on average, a return of about 0.192% (t-value = 
+3.25) per month or 2.3% per year more than high CI firms do. In other words, the Daniel, Grinblatt, 
+Titman, and Wermers’ (1997) three-characteristic-based model and the Carhart four-factor model fail to 
+explain the underperformance of high investors. 
+
+--- PAGE 13 ---
+ 
+ 
+11
+4.2. 
+The persistence of the negative relationship between capital investment and stock returns 
+ 
+The studies of value/growth stocks and post-event returns such as returns after IPO/SEO events 
+indicate that abnormal returns can persist for up to 5 years. Our results presented in the last row of Table 
+4 (will be discussed in detail later) reveal that low investors tend to outperform high investors for at least 5 
+years as well. The returns in year 2 (2.26%), year 3 (1.91%), year 4 (1.85%), year 5 (1.64%) and year 6 
+(1.05%) are all statistically indistinguishable from the year 1 returns and with the exception of the year 6 
+returns, are reliably different than zero.9  
+4.3. 
+Effects of new equity-offering activities 
+Past research documents that companies issuing new equity, either IPOs or SEOs, subsequently 
+realize poor long-run stock price performance (Loughran and Ritter (1995), Cai and Wei (1997) and 
+others).  Since these firms tend to invest more after issuing equity, the observed negative capital 
+investment-return relationship may be attributed to these new equity-offering firms.  To examine whether 
+this is the case, we reexamine the benchmark-adjusted return differences between high and low investors 
+that have not issued stock in any year from year –5 to year –1.10  
+The results for firms that have not issued new equity in any of the years –5 to –1 are reported in 
+Table 2.  The underperformance of high investors relative to low investors remains intact and is slightly 
+stronger. Specifically, the benchmark-adjusted return of 0.186% (t-value=3.34) per month or 2.23% per 
+year as well as the risk-adjusted return of 0.208% (t-value=3.43) per month or 2.50% per year for the CI-
+spread portfolio are slightly higher than their counterparts reported in Table I. The evidence suggests that 
+the observed negative CI-return relation is not driven by the IPO/SEO effect.11  In addition, for each of 
+                                                                 
+9 The average return on the CI-spread portfolio in year 6 is not reported in the table to save space. 
+10  Firms with IPOs in either years –1 or –2 are not included, since firms are not included until after they have 
+appeared on the Compustat for two years. 
+11 The unreported results indicate that the benchmark-adjusted returns on the CI-spread portfolio formed on the basis 
+of firms that have not issued new equity in any of the past five years also persist for at least five years. Specifically, 
+the returns are 2.49% (t=3.23) for year 1, 2.67% (t=3.11) for year 2, 2.15% (t=2.67) for year 3, 2.26% (t=2.47) for year 4, 
+and 1.71% (t=1.98) for year 5 and the five-year cumulative benchmark-adjusted return is 9.91% (t=3.00). If we exclude 
+
+--- PAGE 14 ---
+ 
+ 
+12
+the CI portfolios, the benchmark-adjusted return and the risk-adjusted return are higher for firms that do 
+not raise new equity.  This suggests that on average, firms that raise equity subsequently underperform 
+firms that do not issue equity based on either the benchmark-adjusted or risk-adjusted return, which is 
+consistent with previous findings that indicate that stocks underperform following IPOs/SEOs.12   
+[Put Table 2 here] 
+We also replicate the results for firms that issued equity in either the formation year or in any of the 
+previous five years.  The unreported results reveal that for these firms, the return-investment relation is 
+either reversed or flat.  That is, firms that invest more either slightly outperform or do not underperform 
+firms that invest less, and this pattern persists for the following five years.13 This could conceivably be 
+related to the motivation of the IPOs/SEOs.  Firms that do not have large investment needs may be more 
+likely to issue new equity when they believe that their stocks are overpriced. 
+4.4. 
+The relation between the capital investment effect and the contrarian effect 
+The firms in our sample with high capital expenditures tend to have experienced above average stock 
+returns in the preceding years.  Hence, it is possible that the capital investment effect that we have 
+documented is driven by the contrarian effect that was previously documented by De Bondt and Thaler 
+(1985). 
+To examine this more closely, we independently sort firms into quintiles by both the past 5-year returns 
+of their stock and the level of their capital investment.  The returns of the resulting 25 portfolios are 
+reported in Table 3.  These returns suggest that there is clearly a capital expenditure effect that is 
+independent of the contrarian effect.  There also seems to be a contrarian effect that is independent of the 
+                                                                                                                                                                                                                 
+firms that have issued new equity in the formation year only, the results are virtually identical to those reported here 
+and in Table 2.  
+12 Our direct tests on IPO/SEO firms confirm this argument.  
+13 We also check the CI measures for IPO/SEO firms versus non-IPO/SEO firms.  The results indicate that the CI 
+measures are virtually the same for both groups of firms.  
+
+--- PAGE 15 ---
+ 
+ 
+13
+capital expenditures effect but it is not statistically significant.  Clearly, the capital investment effect is 
+stronger than the contrarian effect.14 
+[Put Table 3 here] 
+ 
+5. 
+The year-to-year performance of the CI spread strategy 
+In order to examine the robustness of our results and the riskiness of the CI spread strategy we 
+examine the year-to-year returns of the strategy.  Specifically, Table 4 presents the year-by-year 
+performance (from July 1973 to June 1996) of the zero-cost benchmark-adjusted portfolio that has a one-
+dollar long position in low CI stocks and a one-dollar short position in high CI stocks.  The table reports 
+the performance of the CI-spread portfolio in the first through the fifth year following the formation year 
+as well as the five-year cumulative returns.  
+[Put Table 4 here] 
+The results in Table 4 reveal that low investment stocks outperform high investment stocks in about 
+two-thirds of the years. However, the year-by-year returns are strongly positive in each year between 
+1974 and 1980, they are negative in 1981 and each year between 1984-1989, and are positive in all 
+subsequent years.  This pattern of returns holds for CI-spread portfolios formed on the basis of the 
+previous year’s CI as well as the CI measured in any of the preceding 4 years.  The return pattern is very 
+unlikely to occur purely by chance, and does not appear to be consistent with a risk-based explanation.  
+Indeed, the returns tend to be positive when the market return is negative and when the aggregate 
+economy is doing poorly.  
+                                                                 
+14  To check the robustness of our results, (1) we also rank the stocks based on the past 3-year returns instead of the 
+past 5-year returns, and (2) we sort the stocks first based on the past returns and then the CI-measures or the reverse.  
+The unreported results indicate that the return patterns are almost identical to those reported in Table 3.  More 
+specifically, there exists a capital investment effect that is independent of the contrarian effect.  In addition, the 
+capital investment effect is significant and is stronger than the contrarian effect, which is not significant. 
+
+--- PAGE 16 ---
+ 
+ 
+14
+The time-series return pattern is consistent, however, with an agency explanation.  The CI-spread 
+returns were very high in the 70s when lax corporate governance and a weak takeover market allowed 
+firms to overinvest.  After 1984, firms that tended to overinvest were often taken over or were 
+restructured, which could have lead to abnormal returns of the high capital expenditure firms in the 1984-
+1989 period. However, because of various impediments to takeovers introduced in the late 1980s, the 
+relation between investment expenditures and returns may have again reversed in the later period.15 
+ 
+6. 
+The cross-sectional determinants of the CI spread return relation 
+The results in the previous section indicate that in the pre- and post-hostile takeover years, there is a 
+strong negative relation between investment expenditures and returns.  In this section we examine the 
+cross-sectional determinants of this return relation.  Specifically, we will examine how variables that have 
+been shown to influence investment expenditures, Tobin’s q, cash flows, and debt ratios, affect the relation 
+between CI and stock returns. Given that the analysis in the previous section suggests that the relation 
+between CI and stock returns is negative only in the pre- and post-hostile takeover years, we will confine 
+our analysis to those years.16 
+                                                                 
+15 In our sample, there are more takeovers in 80s (2.6%) than either the 70s (0.52%) or the 90s (0.88%).  In addition, the 
+CI measure is, on average, higher for firms that were eventually taken over than for firms that were not. The CI 
+measure is 0.095 for the merged group versus 0.019 for the non-merged group. These CI measures are the time series 
+averages of the yearly value-weighted CI measures. If a firm is merged in year t, it enters the CI calculation in both 
+year t and year t-1. 
+16 The results including all years are qualitatively similar but are slightly weaker than those reported here. 
+
+--- PAGE 17 ---
+ 
+ 
+15
+6.1. 
+The relation between Tobin’s q and the capital investment-return pattern 
+In this section, we examine the capital investment-return pattern for firms facing different investment 
+opportunities, as measured by Tobin’s q, which we approximate as the ratio of the market value of a firm 
+to its book value. Since firms are likely to make the year t-1’s capital investment decisions at the end of 
+year t-2, we use year t-2’s book-to-market ratio as a proxy for Tobin’s q.  We hypothesize that if the 
+negative returns associated with capital expenditures are due to overinvestment, the negative capital 
+investment-return relation will be weaker for high q firms than for low q firms.  As we show below, our 
+evidence relating to this issue is very weak and does not support this hypothesis. 
+To test this hypothesis, we form ten test portfolios based on q ratios and CIs as follows. Starting with 
+July of year t, we place all stocks into two groups according to their year t-2’s book-to-market ratio (BM). 
+If a firm’s BM is below the median BM of the year, it is designated as part of the high q group; otherwise 
+it is placed in the low q group. Within each q group, stocks are equally divided into quintiles based on their 
+year t-1’s CIs in an ascending order. As a result, we have a total of ten portfolios based on the q ratio and 
+CI. The returns of a particular stock are adjusted for its corresponding characteristic-based benchmark 
+portfolio returns. We then calculate each portfolio’s value-weighted monthly excess returns from July of 
+year t to June of year t+1, and then reform the portfolios in June of t+1.  
+We also form two CI-spread portfolios, one for the low q group and another for the high q group. In 
+addition, we form one H-L (High minus Low) q CI-spread portfolio. The CI-spread portfolio denotes a 
+zero-investment portfolio that has a one-dollar long position in the lowest two CI portfolios and a one-
+dollar short position in the highest two CI portfolios for a given q group. The H-L q CI-spread portfolio is 
+the difference in the CI-spread portfolios between the high and low q groups. It has a long position in the 
+high q CI-spread portfolio and a short position in the low q CI-spread portfolio. Forming portfolios in this 
+way allows us to determine whether there is a differential pattern in the CI-return relation for low q and 
+
+--- PAGE 18 ---
+ 
+ 
+16
+high q firms after controlling for the book-to-market, size and momentum effects. We also regress CI 
+portfolio returns on the Carhart four factors to control for risks.  
+Table 5 presents the mean excess returns (in percentage) and the regression results for the ten 
+characteristic-adjusted q/CI portfolios and the two zero-cost CI-spread portfolios. The last row of Table 5 
+provides mean return and regression coefficient estimates along with their t-statistics for the H-L q CI-
+spread portfolio. The results from the mean excess returns suggest that firms that invest the most 
+generally underperform firms that invest the least for both q groups. The excess return on the CI-spread 
+portfolio for the high q group (return = 0.32%) is slightly higher than that for the low q group (return = 
+0.222%). However, the formal test indicates that the return difference (i.e., the mean return on H-L q CI-
+spread portfolio) is insignificantly different from zero with a value of 0.098% (t-value = 0.70). The 
+regression results on the Carhart four-factor model indicate that the intercept for the H-L q CI-spread 
+portfolio is significant at the 0.1 level with a value of 0.257% (t-value = 1.85).  This suggests that the risk-
+adjusted spread between firms that invest the most and firms that invest the least is actually higher for the 
+high q group than for the low q group, which is inconsistent with our investment opportunity hypothesis.  
+[Put Table 5 here] 
+6.2. 
+The relation between cash flow levels, debt ratios and the capital investment-return pattern  
+ 
+Jensen (1986) argues that those firms with the highest cash flows and the lowest leverage ratios are 
+the most likely to overinvest.17  If this is true, then one might expect to observe a stronger CI-return 
+relationship among firms with either high cash flows or low leverage.  However, one might expect these 
+firms to be the least constrained, and thus the least likely to manipulate cash flows to meet their investment 
+needs. If this is true, then one might expect to observe a weaker CI-return relationship among firms with 
+either high cash flows or low leverage.  
+                                                                 
+17 Firms with high cash flows and low leverage tend to invest more than less levered firms with lower cash flows. 
+Lang, Ofek, and Stulz (1996)) argue that this is at least partially due to the fact that existing debt is an impediment to 
+investment. 
+
+--- PAGE 19 ---
+ 
+ 
+17
+To test these competing hypotheses, we use the same procedure described in the last subsection.  We 
+first form ten portfolios based on cash flow (CF) and CI rankings. Cash flow is measured as operating 
+income before depreciation minus interest expenses, taxes, preferred dividends, and common dividends, 
+and it is scaled by total assets. If a firm’s cash flow is below the median cash flow for a particular year, 
+the firm is designated as part of the low cash flow group; otherwise it belongs to the high cash flow group. 
+We also form two CI-spread portfolios for low CF and high CF groups and one H-L CF CI-spread 
+portfolio.  
+This same procedure is used to determine whether a firm’s debt ratio affects the CI-return sensitivity.  
+We form ten portfolios based on debt-to-assets ratio (DA) and capital investment (CI) and then to form 
+two CI-spread portfolios and one H-L DA CI-spread portfolio. The debt/assets ratio is defined as the ratio 
+of long-term debt over the sum of long-term debt plus the market value of firm’s equity. If a firm’s 
+debt/assets ratio is below the median debt/assets ratio of the year, the firm is designated as part of the low 
+debt group; otherwise it belongs to the high debt group. Returns on portfolios are value-weighted and 
+adjusted for characteristic-based benchmark portfolios’ returns. Returns calculated from July of year t to 
+June of year t+1 are matched with a debt/assets ratio for the fiscal year ending in calendar year t-2 to 
+insure that firm managers have the full scope of information about a firm’s debt outstanding when making 
+investment decisions.  
+The results reported in Tables 6 and 7 support for the agency explanation.  Table 6 reports the results 
+from the CF portfolios.  The mean excess returns for high CF firms are monotonically decreasing with 
+capital investments. The same pattern is found for firms with low cash flows except for the lowest CI 
+quintile. This negative CI-return relation is further confirmed by the test on the CI-spread portfolios. We 
+notice that the mean returns for the two CI-spread portfolios are all positive, indicating that low investors 
+outperform high investors for both CF groups. However, the CI-spread for the high CF group (0.422% per 
+month) is higher than that for the low CF group (0.151% per month). A formal test of the return on the H-
+
+--- PAGE 20 ---
+ 
+ 
+18
+L CI-spread portfolio confirms that the difference is significantly different from zero with a value of 
+0.271% (t-value=2.17) per month or 3.25% per year.  This finding is consistent with the agency 
+explanation that the negative CI-return relation is stronger for high CF firms than for low CF firms.  
+[Put Table 6 here] 
+These results are strengthened when we control for risk using the Carhart four-factor model. The 
+intercept for the CI-spread portfolio is higher for high CF group (value = 0.479% per month) than for the 
+low CF group (value = 0.137% per month). A formal test on the intercept of the H-L CI-spread portfolio 
+confirms that the difference is significantly different from zero with a value of 0.342% (t-value=2.72) per 
+month or 4.10% per year.  
+Table 7 shows the average returns of characteristic-adjusted portfolios based on DA and CI as well 
+as the regression results on the Carhart four factors. The excess returns are monotonically decreasing 
+with the CI measure for both DA groups.  The mean returns on the CI-spread portfolios are positive for 
+both DA groups, suggesting that the negative CI-return relation holds for both DA groups. However, the 
+returns on the CI-spread portfolios are higher for low DA firms (0.418% per month or 5.02% per year) 
+than high DA group (0.172% per month or 2.06% per year).  A formal test on the H-L DA CI-spread 
+portfolio return shows that the CI-spread difference between high DA and low DA group is significantly 
+different at the 0.1 level with a value of –0.245% (t-value = –1.79) per month or –2.94% per year. This 
+evidence is consistent with the agency explanation that the negative CI-return relation is stronger for low 
+DA group than high DA group.  
+[Put Table 7 here] 
+These results are also strengthened when we control for risk using the Carhart four-factor model.  
+The regression intercept of the CI-spread is higher for low DA group (0.512% per month or 5.25% per 
+year) than for the high DA group (0.148% per month or 1.78% per year).  A formal test on the H-L DA 
+
+--- PAGE 21 ---
+ 
+ 
+19
+CI-spread portfolio indicates that the regression intercept of this portfolio is significantly different from 
+zero with a value of –0.373% (t-value = –2.69) or 4.48% per year.  
+6.3. 
+The size effect on the capital investment-return relation 
+Small firms are more likely to be financially constrained and may be less subject to agency problems.  
+Hence, one might expect increased investment expenditures to be viewed favorably since it shows that 
+they have access to capital.  However, smaller firms have the greatest incentive to manipulate cash flows 
+to fund increased investment, which would suggest the opposite. 
+In this subsection we examine the CI-return relation across four different subsamples. The sample is 
+first split into two subsamples according to whether the firms are relatively unconstrained (high cash flow 
+or low leverage) or constrained (low cash flow or high leverage). The sample is then split into firms with 
+market capitalizations that are above and below the median capitalization. Table 8 reports the test results 
+of the size/financial constraint effect on the CI-return relation.  Panel A of Table 8 uses cash flow to 
+measure whether the firms are financially constrained and Panel B uses the debt ratio to measure whether 
+the firms are financially constrained. 
+[Put Table 8 here] 
+The results indicate that cash flow has a stronger effect on the CI-return relation for large firms than 
+for small firms.  This finding is consistent with the agency explanation.  However, we do not find that size 
+significantly affects the relation between leverage and the CI-return relation. 
+
+--- PAGE 22 ---
+ 
+ 
+20
+7. 
+Conclusion 
+This paper documents a negative relation between corporate capital investments and future stock 
+returns.  Firms that invest more achieve below average stock returns for at least five subsequent years.  
+Our results indicate that the negative investment expenditure/return relation cannot be explained by the 
+risks, the characteristics, or the new equity-offering activities of the firms. 
+We consider two hypotheses that can potentially explain the negative relation between investment 
+expenditures and stock returns.  The first explanation is that financially constrained firms manipulate their 
+cash flows to fund investment expenditures and subsequently perform poorly because the higher cash flow 
+level cannot be sustained. The second explanation is that firms that are not financially constrained have an 
+incentive to overinvest.  
+The evidence tends to support the second explanation.  First, we find that the negative capital 
+investment/return relation reverses in the 1984-1989 period; a period in which firms that over-invested 
+were disciplined by an active takeover market.  Second, we find that the negative capital investment/return 
+relation is significantly stronger for firms with higher cash flows and lower debt ratios, which probably 
+have a greater tendency to overinvest.  We also find that the relation between cash flow and the negative 
+capital investment/return relation is stronger for large firms, which also supports the overinvestment 
+hypothesis. 
+There are, of course, other potential explanations for the negative capital investment/return relation 
+that we did not consider in detail.  One possibility is that stocks have time varying rates of return and 
+choose to invest more when the expected return on their stock, or in other words their cost of capital, is 
+unusually low.  Hence, low future returns are the cause, rather than the effect, of high investment 
+expenditures.  Lamont (2000) examined this hypothesis using aggregate nonresidential U.S. investment 
+data and found support for this hypothesis.   
+
+--- PAGE 23 ---
+ 
+ 
+21
+To summarize, our results are consistent with the hypothesis that firms that report increased capital 
+expenditures tend to be overinvesting, and that the market tends to underreact to this information. One 
+might conclude that these results should be viewed as further evidence against the efficient markets 
+hypothesis.  However, without the benefit of hindsight, an investor would not know, a priori, that firms with 
+high investment expenditures tend to be over-investing, and therefore, would not be able to implement the 
+trading strategy that we evaluate in this paper.   
+As we mentioned at the outset, the results in this paper have implications for research on the roles of 
+stock prices and cash flows as determinants of corporate investment expenditures.  In particular, by 
+establishing a negative relation that runs from investment expenditures to stock returns, our research 
+suggests that regressions that seek to estimate a causal relation running from cash flows and Tobin’s q to 
+investment expenditures are likely to be biased.  Specifically, we would expect the coefficient of Tobin’s q 
+in these regressions to be negatively biased (since    investment can reduce q) and the coefficient of cash 
+flow to be positively biased.  Moreover, these coefficients would be further biased if firms actively 
+managed their cash flows to meet their investment needs.  These are issues that future research on the 
+determinants of corporate investment expenditures should address.  
+
+--- PAGE 24 ---
+ 
+ 
+22
+References 
+Banz, Rolf W., and William Been, 1986, “ Sample dependent results using accounting and market data: 
+Some evidence,” Journal of Finance 41, 779-793. 
+ 
+Blose, Laurence E and Joseph C.P. Shieh, 1997, “Tobin’s q-ratio and market reaction to capital 
+investment announcements,” The Financial Review 32, 449-476. 
+ 
+Cai, Jun and K.C. John Wei, 1997 “The investment and operating performance of Japanese IPO Firms,” 
+Pacific-Basin Finance Journal 5, 389-417. 
+ 
+Carhart, Mark M., 1997, “On persistence in mutual fund performance,” Journal of Finance 52, 57-83.  
+ 
+Chung, Kee H, Peter Wright, and Charlie Charoenwong, 1998, “Investment opportunities and market 
+reaction to capital expenditure decisions,” Journal of Banking & Finance, 22, 41-60. 
+ 
+Cleary, Sean, 1999, “The relationship between firm investment and financial status,” Journal of Finance 
+54, 673-692. 
+ 
+Daniel, Kent, Mark Grinblatt, Sheridan Titman, and Russ Wermers, 1997, “Measuring mutual fund 
+performance with characteristic-based benchmarks,” Journal of Finance 52, 1035-1058.  
+ 
+Daniel, Kent, David Hirshleifer, and Avanidhar Subrahmanyam, 1998, “Investor psychology and security 
+market under- and overreactions,” Journal of Finance 53, 1839-1885. 
+ 
+Daniel, Kent and Sheridan Titman, 1997, “Evidence on the characteristics of cross sectional variation in 
+Journal of Finance 52, 1-33.  
+ 
+De Bondt, Werner F.M. and Richard H. Thaler, 1985, “ Does the stock market overreact?” Journal of 
+Finance 40, 793-805.  
+ 
+Doukas, John, 1995, “Overinvestment, Tobin’s q and gains from foreign acquisitions,” Journal of 
+Banking and Finance 19, 1285-1303. 
+ 
+Fama, Eugene F. and Kenneth R. French, 1992, “The cross-section of expected stock returns,” Journal 
+of Finance 47, 427-465. 
+ 
+Fama, Eugene F. and Kenneth R. French, 1993, “Common risk factors in the returns on stocks and 
+Journal of Financial Economics 33, 3-56.  
+ 
+Fama, Eugene F. and Kenneth R. French, 1996, “Multifactor explanations of asset pricing anomalies,” 
+Journal of Finance 51, 55-84. 
+ 
+Fazzari, Steven M., Ron G. Hubbard and Bruce C. Peterson, 1988, “Financing constraints and corporate 
+investment,” Brookings Papers on Economic Activity 1, 141-205. 
+ 
+Hubbard, R. Glenn, 1998, “Capital-market imperfections and investment,” Journal of Economic 
+Literature 36, 193-225. 
+
+--- PAGE 25 ---
+ 
+ 
+23
+ 
+Jensen, Michael, 1986, “Agency costs of free cash flow, corporate finance, and takeov
+American 
+Economic Review 76, 323-329. 
+ 
+Jegadeesh, Narasimhan, and Sheridan Titman, 1993, “Returns to buying winners and selling losers: 
+Journal of Finance 48, 65-91. 
+ 
+Kaplan, Steven N. and Luigi Zingales, 1997, “Do investment-cash flow sensitivities provide useful 
+measures of financial constraints?” Quarterly Journal of Economics 112, 169-215. 
+ 
+Lamont, Owen, 2000, “Investment plans and stock returns,” Journal of Finance, forthcoming. 
+ 
+Lang, Larry H., Eli Ofek, and Rene M. Stulz, 1996, “Leverage, investment, and firm growth,” Journal of 
+Financial Economics 40, 3-29. 
+ 
+Loughran, Tim and Jay Ritter, 1995, “The new issues puzzle,” Journal of Finance 50, 23-52. 
+ 
+McConnell, John J. and Chris J. Muscarella, 1985, “Corporate capital investment decisions and the market 
+value of the firms,” Journal of Financial Economics 14, 399-422. 
+ 
+Morck, Robert, Andrei Shleifer and Robert Vishny, 1990, “The stock market and investment: Is the 
+market a side-show?” Brookings Papers on Economic Activity 2, 157-215. 
+ 
+Teoh, Siew Hong, Ivo Welch, and T.J. Wong, 1997, “Earnings management and the underperformce of 
+Journal of Financial Economics, 50, 63-99. 
+ 
+Teoh, Siew Hong, Ivo Welch, and T.J. Wong, 1998, “Earnings management and the long-run market 
+performance of initial public offerings,” Journal of Finance, 53, 1935-1974. 
+ 
+Vogt, Stephen C., 1997, “Cash flow and capital spending: Evidence from capital expenditure 
+announcement,” Financial Management, 26, 44-57. 
+
+--- PAGE 26 ---
+Table 1 
+Mean excess returns and regression results for the characteristic-adjusted capital investment portfolio returns on the 
+Carhart four factors: July 1973 to June 1996 
+ 
+This table presents mean excess returns and intercepts from the following time-series regression of the characteristic-
+adjusted capital investment (CI) portfolio returns on the HML, SMB, excess-Market, and PR1YR portfolio returns: 
+ 
+5
+,...
+1
+,
+)
+(
+,
+,
+1
+Pr
+,
+1
+Pr
+,
+,
+,
+,
+,
+,
+,
+=
++
++
+−
++
++
++
+=
+p
+R
+R
+R
+R
+R
+R
+t
+p
+t
+yr
+p
+yr
+ft
+t
+Mkt
+p
+Mkt
+t
+SMB
+p
+SMB
+t
+HML
+p
+HML
+p
+t
+p
+ε
+β
+β
+β
+β
+α
+. 
+ 
+The dependent variables in these regressions are the monthly excess returns on CI portfolios (described below). 
+Rft is the risk-free rate in month t. RHML,t is the return on the HML (High Minus Low) factor portfolio. RSMB,t is the 
+return on the SMB (Small Minus Big) size factor portfolio. RMkt,t is the return on the Mkt (Market) factor portfolio. 
+RPr1yr is the return on the PR1YR (high minus low prior-year return) momentum portfolio. 
+To calculate excess returns for CI portfolios, we first construct 125 characteristic-based benchmark portfolios 
+based on size, book-to-market equity, and momentum as follows. At each June of year t, the universe of common 
+stocks are first sorted into quintiles based on each firm’s market equity at the end of June of year t according to the 
+breakpoints for the NYSE firms. The firms within each size quintile are further sorted into quintiles based on their 
+book-to-market ratio. Finally, the firms in each of the 25 SZ/BM portfolios are sorted into quintiles based on their 
+preceding twelve-month return (PR1YR, calculated through the end of May), giving us a total of 125 portfolios. The 
+value-weighted returns on portfolios are calculated from July of year t to June of year t+1. 
+Next, each stock in each year is assigned to a benchmark portfolio according to its SZ, BM, and PR1YR rank. The 
+excess return of a particular stock is then calculated by subtracting the benchmark portfolio’s return from the stock’s 
+return. The five CI portfolios are formed as follows. At each June of year t, all stocks are equally divided into quintiles 
+based on their values on capital investment in ascending order. Value-weighted portfolio excess returns are 
+calculated from July of year t to June of year t+1. All portfolios are rebalanced for each year. 
+CI-spread denotes a zero-investment portfolio that has a long position in the low capital investment portfolios 
+and a short position in the high capital investment portfolios. The return series for this portfolio is calculated by 
+subtracting the sum of the returns on the 4th and 5th quintile of CI portfolios from the sum of the returns on the 1st and 
+2nd quintile of CI portfolios, and then divide by 2. 
+ 
+ 
+Portfolio 
+Characteristic-balanced Portfolios: Mean Excess Return and Regression Coefficients 
+CI 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+Lowest 
+0.042 
+-0.012 
+0.037 
+0.075 
+0.030 
+0.008 
+0.068 
+2 
+0.083** 
+0.119** 
+-0.061** 
+-0.001 
+-0.022** 
+0.009 
+0.053 
+3 
+0.055 
+0.058 
+0.001 
+0.002 
+-0.007 
+-0.001 
+0.002 
+4 
+-0.083** 
+-0.103** 
+0.023* 
+0.004 
+0.016* 
+-0.015 
+0.031 
+Highest 
+-0.127** 
+-0.173** 
+0.072** 
+0.011 
+0.031** 
+0.014 
+0.032 
+CI-spread 
+0.168** 
+0.192** 
+-0.060** 
+0.030 
+-0.020 
+0.009 
+0.027 
+(t-value) 
+(2.91) 
+(3.25) 
+(-2.42) 
+(1.19) 
+(-1.37) 
+(0.26) 
+ 
+ 
+* represents significance at the 0.10 level. ** represents significance at the 0.05 level. 
+
+--- PAGE 27 ---
+ 
+ 
+Table 2 
+Mean excess returns and regression results for the characteristic-adjusted capital investment portfolio returns 
+excluding IPO/SEO firms on the Carhart four factors: July 1973 to June 1996 
+ 
+This table reports the test results on the IPO/SEO effect. Specifically, it reports mean excess returns and intercepts 
+from the following time-series regression of the characteristic-adjusted capital investment (CI) portfolio returns 
+formed on the basis from firms that have not raised new equity in the past five years on the HML, SMB, excess-
+Market, and PR1YR portfolio returns: 
+ 
+5
+,...
+1
+,
+)
+(
+,
+,
+1
+Pr
+,
+1
+Pr
+,
+,
+,
+,
+,
+,
+,
+=
++
++
+−
++
++
++
+=
+p
+R
+R
+R
+R
+R
+R
+t
+p
+t
+yr
+p
+yr
+ft
+t
+Mkt
+p
+Mkt
+t
+SMB
+p
+SMB
+t
+HML
+p
+HML
+p
+t
+p
+ε
+β
+β
+β
+β
+α
+. 
+ 
+The portfolio formation and the description of four factors are referred to Table 1.  
+ 
+ 
+Characteristic-balanced Portfolios: Mean Excess Return and Regression Coefficients 
+CI 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+Lowest 
+0.094 
+0.028 
+0.048* 
+0.083** 
+0.040** 
+0.010 
+0.08 
+2 
+0.083* 
+0.124** 
+-0.064** 
+-0.004 
+-0.027* 
+0.011 
+0.06 
+3 
+0.083** 
+0.076* 
+0.012 
+0.011 
+-0.001 
+0.011 
+0.01 
+4 
+-0.072** 
+-0.103** 
+0.047** 
+0.002 
+0.019** 
+-0.023 
+0.06 
+Highest 
+-0.123* 
+-0.161** 
+0.064** 
+0.003 
+0.022 
+-0.015 
+0.03 
+CI-spread 
+0.186** 
+0.208** 
+-0.064** 
+0.037 
+-0.013 
+0.029 
+0.03 
+(t-value) 
+(3.34) 
+(3.43) 
+(-2.52) 
+(1.45) 
+(-0.90) 
+(0.83) 
+ 
+ 
+* represents significance at the 0.10 level. ** represents significance at the 0.05 level. 
+ 
+
+--- PAGE 28 ---
+Table 3 
+The capital investment effect versus the contrarian effect 
+ 
+At end of each June from 1973 to 1996, all stocks in the sample are sorted into five equal groups from small to large 
+based on their past five-year returns (denoted as PR) at the end of June of year t.  We also separately break all stocks 
+into five equal groups from low to high based on their CI measures at the end of year t-1.  The 25 portfolios are 
+constructed from the intersections of the five past return and five CI groups.  Monthly value-weighted returns (in 
+percent) for each of these 25 portfolios are calculated from July of year t to June of year t+1. . All portfolios are 
+rebalanced for each year. 
+Each CI-spread (or PR-spread) is a zero-investment portfolio that has a long position in the low capital 
+investment (past return) portfolios and a short position in the high capital investment (past return) portfolios for a 
+given PR (CI) group. The return series for the CI-spread (PR-spread) portfolio is calculated by subtracting the sum of 
+the returns on the 4th and 5th quintile of CI (PR) portfolios from the sum of the returns on the 1st and 2nd quintile of CI 
+(PR) portfolios, and then divided by 2.  Average CI-spread (PR-spread) is the average of these five CI-spreads (PR-
+spreads). 
+Panel A reports the raw returns, while Panel B reports the benchmark-adjusted returns described in Table 1. 
+ 
+Panel A: Raw returns 
+ 
+CI measures at the end of year t-1 
+Past 5-year 
+returns 
+Lowest 
+2 
+3 
+4 
+Highest 
+CI-spread 
+Smallest 
+1.627 
+1.360 
+1.397 
+1.076 
+1.187 
+0.362 
+2 
+1.838 
+1.354 
+1.386 
+1.056 
+1.139 
+0.499** 
+3 
+1.302 
+1.301 
+1.268 
+1.173 
+1.011 
+0.210 
+4 
+1.432 
+1.324 
+1.244 
+1.223 
+1.310 
+0.054 
+Largest 
+1.440 
+1.243 
+1.227 
+0.782 
+0.825 
+0.538** 
+PR-spread 
+0.213  
+0.073 
+0.156 
+0.064 
+0.095 
+ 
+Average CI-spread = 
+0.264** 
+ 
+ 
+ 
+ 
+Average PR-spread = 
+0.153 
+ 
+ 
+ 
+ 
+ 
+Panel B: Benchmark-adjusted returns 
+ 
+CI measures at the end of year t-1 
+Past 5-year 
+returns 
+Lowest 
+2 
+3 
+4 
+Highest 
+CI-spread 
+Smallest 
+0.310 
+0.146 
+0.166 
+-0.175 
+-0.002 
+0.317 
+2 
+0.285 
+-0.000 
+0.163 
+-0.055 
+-0.066 
+0.202 
+3 
+-0.032 
+0.089 
+0.072 
+-0.009 
+-0.360 
+0.213 
+4 
+0.122 
+0.097 
+0.108 
+0.064 
+0.065 
+0.013 
+Largest 
+0.075 
+-0.087 
+0.189 
+-0.253 
+-0.322 
+0.281* 
+PR-spread 
+0.068 
+0.068 
+0.016 
+-0.020 
+0.094 
+ 
+Average CI-spread = 
+0.159** 
+ 
+ 
+ 
+ 
+Average PR-spread = 
+0.093 
+ 
+ 
+ 
+ 
+ 
+* represents significance at the 0.10 level. ** represents significance at the 0.05 level. 
+ 
+
+--- PAGE 29 ---
+Table 4 
+The year-by-year returns on the benchmark-adjusted CI-spread portfolio: 1973 to 1995 
+ 
+This table presents the year-by-year returns on the benchmark-adjusted CI-spread portfolio that has a long position 
+in the lowest two CI groups and a short position in the highest two CI groups (for the detailed portfolio construction, 
+refer to Table I). For each formation period, the table reports the returns (in percentage) on the CI-spread portfolio in 
+years 1, 2, 3, 4 and 5 after formation and the five-year cumulative returns. The last row reports the arithmetic means 
+across periods and the t-statistics are in parentheses. 
+ 
+Formation 
+Year 
+Return in 
+Year 1 
+Return in 
+Year 2 
+Return in 
+Year 3 
+Return in 
+Year 4 
+Return in 
+Year 5 
+Cumulative 
+Return 
+1973 
+-0.95 
+9.22 
+2.65 
+5.79 
+8.60 
+25.32 
+1974 
+7.41 
+3.53 
+4.88 
+8.05 
+5.30 
+29.17 
+1975 
+3.16 
+5.78 
+7.95 
+5.49 
+6.73 
+29.12 
+1976 
+5.41 
+7.90 
+4.97 
+7.02 
+1.04 
+26.34 
+1977 
+7.71 
+3.84 
+6.43 
+0.45 
+-3.92 
+14.51 
+1978 
+3.43 
+5.90 
+1.29 
+-3.67 
+0.99 
+7.95 
+1979 
+5.44 
+0.60 
+-1.48 
+0.00 
+1.43 
+6.00 
+1980 
+0.62 
+-1.31 
+0.28 
+1.42 
+-4.38 
+-3.38 
+1981 
+-1.56 
+0.33 
+1.55 
+-4.34 
+-0.67 
+-4.69 
+1982 
+0.93 
+1.09 
+-4.29 
+-0.70 
+-1.66 
+-4.63 
+1983 
+1.06 
+-4.02 
+-0.92 
+-1.58 
+-2.26 
+-7.71 
+1984 
+-3.95 
+-1.21 
+-1.35 
+-2.03 
+-3.12 
+-11.67 
+1985 
+-1.08 
+-1.19 
+-1.81 
+-3.24 
+-1.83 
+-9.15 
+1986 
+-0.75 
+-2.01 
+-3.23 
+-1.58 
+5.03 
+-2.54 
+1987 
+-1.19 
+-1.00 
+-2.04 
+3.87 
+1.85 
+1.50 
+1988 
+-0.94 
+-2.39 
+3.76 
+2.09 
+1.65 
+4.17 
+1989 
+-2.57 
+3.78 
+2.18 
+2.55 
+6.88 
+12.81 
+1990 
+3.45 
+1.40 
+2.23 
+6.50 
+5.25 
+18.83 
+1991 
+2.00 
+2.54 
+6.62 
+6.60 
+4.25 
+22.00 
+1992 
+1.54 
+6.49 
+6.42 
+4.27 
+ 
+ 
+1993 
+6.52 
+5.97 
+4.11 
+ 
+ 
+ 
+1994 
+6.36 
+4.54 
+ 
+ 
+ 
+ 
+1995 
+4.52 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Avg. 
+2.02 
+2.26 
+1.91 
+1.85 
+1.64 
+8.10 
+(t-statistic) 
+(2.86) 
+(2.88) 
+(2.46) 
+(2.10) 
+(1.81) 
+(2.55) 
+ 
+
+--- PAGE 30 ---
+Table 5 
+Mean excess returns and regression results for the characteristic-adjusted portfolio returns formed on past q ratio 
+and capital investment on the Carhart four factors: July 1973 to June 1996 (excluding those negative CI-spread years) 
+ 
+This table presents mean excess returns and regression estimates from the following time-series regression of the 
+characteristic-adjusted portfolio returns based on past q ratio and capital investment (hence q/CI portfolio) on the 
+HML, SMB, excess-Market, and PR1YR portfolio returns: 
+5
+,...
+1
+,
+)
+(
+,
+,
+1
+Pr
+,
+1
+Pr
+,
+,
+,
+,
+,
+,
+,
+=
++
++
+−
++
++
++
+=
+p
+R
+R
+R
+R
+R
+R
+t
+p
+t
+yr
+p
+yr
+ft
+t
+Mkt
+p
+Mkt
+t
+SMB
+p
+SMB
+t
+HML
+p
+HML
+p
+t
+p
+ε
+β
+β
+β
+β
+α
+. 
+The dependent variables in these regressions are the monthly excess returns on q/CI portfolios (described 
+below). Rft is the risk-free rate in month t. RHML,t is the return on the HML (High Minus Low) factor portfolio. RSMB,t is 
+the return on the SMB (Small Minus Big) size factor portfolio. RMkt,t is the return on the Mkt (Market) factor portfolio. 
+RPr1yr is the return on the PR1YR (high minus low prior-year return) momentum portfolio. 
+Before constructing q/CI portfolios, we first construct 125 characteristic-based benchmark portfolios based on 
+and momentum (See Table I for the construction of the benchmark portfolios). Next, each stock in each year is 
+assigned to a benchmark portfolio according to its SZ, BM, and PR1YR rank. The excess return of a particular stock is 
+then calculated by subtracting the benchmark portfolio’s return from the stock’s return. This excess return is used 
+when calculating portfolio return.  
+The q/CI portfolios are formed as follows. At each June of year t, all stocks are assigned to two groups 
+according to their year t-2’s book-to-market ratio (BM), which is used to proxy for Tobin’s q ratio. If a firm’s BM is 
+below the median BM of the year, it is designated to the high q group, otherwise to the low q group. Within each q 
+group, stocks are equally divided into quintiles based on their values on capital investment in ascending order. 
+Value-weighted portfolio excess returns are calculated from July of year t to June of year t+1. All portfolios are 
+rebalanced for each year. 
+CI-spread denotes a zero-investment portfolio that has a long position in the low capital investment portfolios 
+and a short position in the high capital investment portfolios for a given q group. The return series for this portfolio 
+is calculated by subtracting the sum of the returns on the 4th and 5th quintile of CI portfolios from the sum of the 
+returns on the 1st and 2nd quintile of CI portfolios, and then divided by 2. H-L q CI-spread is the difference in CI-
+spreads between high and low q groups. 
+ 
+Portfolio 
+Characteristic-balanced Portfolios: Mean Return and Regression Coefficient 
+CI 
+q 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+Lowest 
+Low 
+0.139 
+-0.033 
+-0.034 
+0.192** 
+0.071** 
+-0.029 
+0.170 
+ 
+High 
+0.168 
+0.143 
+0.010 
+0.039 
+0.006 
+0.020 
+0.008 
+2 
+Low 
+0.107 
+0.116 
+-0.012 
+-0.004 
+0.016 
+0.041 
+0.010 
+ 
+High 
+0.060 
+0.120* 
+-0.048* 
+0.010 
+-0.059** 
+0.028 
+0.096 
+3 
+Low 
+0.054 
+0.138* 
+-0.065** 
+-0.048 
+-0.045** 
+-0.000 
+0.085 
+ 
+High 
+0.073 
+0.034 
+0.044* 
+-0.040 
+0.038** 
+-0.073** 
+0.092 
+4 
+Low 
+-0.082 
+-0.135* 
+0.079** 
+0.115** 
+-0.011 
+0.116** 
+0.100 
+ 
+High 
+-0.160 
+-0.189** 
+-0.014 
+0.034 
+0.009 
+-0.017 
+0.031 
+Highest 
+Low 
+-0.116 
+-0.066 
+-0.043 
+-0.063 
+-0.030 
+-0.082 
+0.025 
+ 
+High 
+-0.253 
+-0.347** 
+0.101** 
+0.042 
+0.043* 
+-0.009 
+0.065 
+CI-spread 
+Low 
+0.222 
+0.142 
+-0.041 
+0.068 
+0.064* 
+-0.011 
+0.073 
+ 
+High 
+0.320 
+0.399** 
+-0.062* 
+-0.014 
+-0.053* 
+0.037 
+0.065 
+H-L q  
+Coeff 
+0.098 
+0.257* 
+-0.022 
+-0.082 
+-0.117** 
+0.048 
+0.115 
+CI-spread 
+t-value 
+(0.70) 
+(1.85) 
+(-0.39) 
+(-1.44) 
+(-3.36) 
+(0.61) 
+ 
+* represents significance at the 0.10 level.  ** represents significance at the 0.05 level.
+
+--- PAGE 31 ---
+Table 6 
+Mean excess returns and regression results for the characteristic-adjusted portfolio returns formed on cash flow and 
+capital investment on the Carhart four factors: July 1973 to June 1996 (excluding those negative CI-spread years) 
+ 
+This table presents mean excess returns and regression estimates from the following time-series regression of the 
+characteristic-adjusted portfolio returns based on cash flow and capital investment (hence CF/CI portfolio) on the 
+HML, SMB, excess-Market, and PR1YR portfolio returns: 
+5
+,...
+1
+,
+)
+(
+,
+,
+1
+Pr
+,
+1
+Pr
+,
+,
+,
+,
+,
+,
+,
+=
++
++
+−
++
++
++
+=
+p
+R
+R
+R
+R
+R
+R
+t
+p
+t
+yr
+p
+yr
+ft
+t
+Mkt
+p
+Mkt
+t
+SMB
+p
+SMB
+t
+HML
+p
+HML
+p
+t
+p
+ε
+β
+β
+β
+β
+α
+. 
+The dependent variables in these regressions are the monthly excess returns on CF/CI portfolios (described 
+below). Rft is the risk-free rate in month t. RHML,t is the return on the HML (High Minus Low) factor portfolio. RSMB,t is 
+the return on the SMB (Small Minus Big) size factor portfolio. RMkt,t is the return on the Mkt (Market) factor portfolio. 
+RPr1yr is the return on the PR1YR (high minus low prior-year return) momentum portfolio. 
+Before constructing CF/CI portfolios, we first construct 125 characteristic-based benchmark portfolios based on 
+size, book-to-market and momentum (See Table I for the construction of the benchmark portfolios). Next, each stock 
+in each year is assigned to a benchmark portfolio according to its SZ, BM, and PR1YR rank. The excess return of a 
+particular stock is then calculated by subtracting the benchmark portfolio’s return from the stock’s return. This 
+excess return is used when calculating portfolio return.  
+The CF/CI portfolios are formed as follows. At each June of year t, all stocks are assigned to two groups 
+according to their value in cash flow in year t-2. CF is measured as operating income before depreciation minus 
+interest expenses, taxes, preferred dividends, and common dividends, and is scaled by total assets. If a firm’s CF is 
+above the median CF of the year, it is designated to the high CF group, otherwise to the low CF group. Within each 
+CF group, stocks are equally divided into quintiles based on their values on capital investment in ascending order. 
+Value-weighted portfolio excess returns are calculated from July of year t to June of year t+1. All portfolios are 
+rebalanced for each year. 
+CI-spread denotes a zero-investment portfolio that has a long position in the low capital investment portfolios 
+and a short position in the high capital investment portfolios for a given CF group. The return series for this portfolio 
+is calculated by subtracting the sum of the returns on the 4th and 5th quintile of CI portfolios from the sum of the 
+returns on the 1st and 2nd quintile of CI portfolios, and then divide by 2. H-L CF CI-spread is the difference in CI-
+spread between high and low CF groups. 
+ 
+Portfolio 
+Characteristic-Balanced Portfolios: Mean Excess Return and Regression Coefficient 
+CI 
+CF 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+Lowest 
+Low 
+-0.042 
+-0.174 
+-0.038 
+0.098** 
+0.107** 
+-0.016 
+0.163 
+ 
+High 
+0.237** 
+0.157 
+0.075* 
+0.081* 
+0.009 
+0.007 
+0.054 
+2 
+Low 
+0.092 
+0.094 
+0.002 
+-0.018 
+0.038* 
+0.058 
+0.031 
+ 
+High 
+0.154** 
+0.236** 
+-0.099** 
+0.003 
+-0.061** 
+0.022 
+0.118 
+3 
+Low 
+0.023 
+0.032 
+0.014 
+0.017 
+0.004 
+0.082* 
+0.018 
+ 
+High 
+0.070 
+0.074 
+-0.005 
+-0.041* 
+-0.003 
+-0.078** 
+0.034 
+4 
+Low 
+-0.006 
+-0.016 
+-0.022 
+0.034 
+0.003 
+0.020 
+0.012 
+ 
+High 
+-0.164** 
+-0.238** 
+0.037 
+0.064** 
+0.027 
+-0.007 
+0.075 
+Highest 
+Low 
+-0.246** 
+-0.340** 
+0.133** 
+0.037 
+0.018 
+-0.044 
+0.080 
+ 
+High 
+-0.289** 
+-0.327** 
+0.018 
+0.021 
+0.019 
+-0.018 
+0.011 
+CI-spread  
+Low 
+0.151 
+0.137 
+-0.073* 
+0.005 
+0.062** 
+0.033 
+0.082 
+ 
+High 
+0.422** 
+0.479** 
+-0.039 
+-0.001 
+-0.049** 
+0.027 
+0.036 
+H-L CF  
+Coeff 
+0.271** 
+0.342** 
+0.034 
+-0.006 
+-0.111** 
+-0.006 
+0.092 
+CI-spread 
+t-value 
+(2.17) 
+(2.72) 
+(0.67) 
+(-0.112) 
+(-3.53) 
+(-0.09) 
+ 
+ 
+* represents significance at the 0.10 level.  ** represents significance at the 0.05 level.
+
+--- PAGE 32 ---
+Table 7 
+Mean excess returns and regression results for the characteristic-adjusted portfolio returns formed on debt-to-assets 
+ratio and capital investment on the Carhart four factors: July 1973 to June 1996 (excluding those negative CI-spread 
+years) 
+ 
+This table presents mean excess returns and regression estimates from the following time-series regression of the 
+characteristic-adjusted portfolio returns based on debt-to-assets ratio and capital investment (hence DA/CI portfolio) 
+on the HML, SMB, excess-Market, and PR1YR portfolio returns: 
+5
+,...
+1
+,
+)
+(
+,
+,
+1
+Pr
+,
+1
+Pr
+,
+,
+,
+,
+,
+,
+,
+=
++
++
+−
++
++
++
+=
+p
+R
+R
+R
+R
+R
+R
+t
+p
+t
+yr
+p
+yr
+ft
+t
+Mkt
+p
+Mkt
+t
+SMB
+p
+SMB
+t
+HML
+p
+HML
+p
+t
+p
+ε
+β
+β
+β
+β
+α
+. 
+The dependent variables in these regressions are the monthly excess returns on DA/CI portfolios (described 
+below). Rft is the risk-free rate in month t. RHML,t is the return on the HML (High Minus Low) factor portfolio. RSMB,t is 
+the return on the SMB (Small Minus Big) size factor portfolio. RMkt,t is the return on the Mkt (Market) factor portfolio. 
+RPr1yr is the return on the PR1YR (high minus low prior-year return) momentum portfolio. 
+Before constructing DA/CI portfolios, we first construct 125 characteristic-based benchmark portfolios based on 
+size, book-to-market and momentum (See Table IV for the construction of the benchmark portfolios). Next, each stock 
+in each year is assigned to a benchmark portfolio according to its SZ, BM, and PR1YR rank. The excess return of a 
+particular stock is then calculated by subtracting the benchmark portfolio’s return f
+excess return is used when calculating portfolio return.  
+The DA/CI portfolios are formed as follows. At each June of year t, all stocks are assigned to two groups 
+according to their value in debt-to-assets ratio DA in year t-2. DA is defined as the ratio of long-term debt over the 
+sum of long-term debt plus the market value of firm’s equity. If a firm’s DA is above the median DA of the year, it is 
+designated to the high debt group, otherwise to the low debt group. Within each DA group, stocks are equally 
+divided into quintiles based on their values on capital investment in ascending order. Value-weighted portfolio 
+excess returns are calculated from July of year t to June of year t+1. All portfolios are rebalanced for each year. 
+CI-spread denotes a zero-investment portfolio that has a long position in the low capital investment portfolios 
+and a short position in the high capital investment portfolios for a given DA group. The return series for this 
+portfolio is calculated by subtracting the sum of the returns on the 4th and 5th quintile of CI portfolios from the sum of 
+the returns on the 1st and 2nd quintile of CI portfolios, and then divide by 2. H-L DA CI-spread is the difference in CI-
+spread between high and low D/A groups. 
+ 
+Portfolio 
+Characteristic-balanced Portfolios: Mean Return and Regression Coefficient 
+CI 
+DA 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+Lowest 
+Low 
+0.255* 
+0.262** 
+-0.062 
+0.035 
+-0.009 
+0.010 
+0.017 
+ 
+High 
+0.160 
+0.003 
+0.010 
+0.131** 
+0.125** 
+0.057 
+0.173 
+2 
+Low 
+0.101 
+0.184** 
+-0.088 
+-0.014 
+-0.054** 
+0.023 
+0.098 
+ 
+High 
+0.090 
+0.040 
+0.067** 
+0.049 
+0.014 
+0.041 
+0.035 
+3 
+Low 
+0.069 
+0.028 
+0.038 
+-0.035 
+0.032** 
+-0.087** 
+0.081 
+ 
+High 
+0.065 
+0.132* 
+-0.022 
+-0.022 
+-0.047** 
+0.037 
+0.080 
+4 
+Low 
+-0.173** 
+-0.202** 
+-0.036 
+0.030 
+0.014 
+-0.033 
+0.045 
+ 
+High 
+-0.036 
+-0.121 
+0.085** 
+0.106** 
+0.021 
+0.076* 
+0.097 
+Highest 
+Low 
+-0.307** 
+-0.394** 
+0.065 
+0.054 
+0.014 
+-0.069 
+0.056 
+ 
+High 
+-0.059 
+-0.132 
+0.060 
+0.085** 
+0.035 
+0.077 
+0.051 
+CI-spread  
+Low 
+0.418** 
+0.521** 
+-0.089** 
+-0.031 
+-0.046 
+0.068 
+0.084 
+ 
+High 
+0.172* 
+0.148 
+-0.034 
+-0.006 
+0.042* 
+-0.027 
+0.032 
+H-L DA  
+Coeff 
+-0.245* 
+-0.373** 
+0.056 
+0.025 
+0.088** 
+-0.095 
+0.075 
+CI-spread 
+t-value 
+(-1.79) 
+(-2.69) 
+(0.10) 
+(0.45) 
+(2.51) 
+(-1.21) 
+ 
+ 
+* represents significance at the 0.10 level. ** represents significance at the 0.05 level.  
+
+--- PAGE 33 ---
+Table 8 
+Tests of size effect on the capital investment and return relation: July 1973 to June 1996 (excluding those negative CI-
+spread years) 
+ 
+This table reports the test results of the size effect on the capital investment and return relation. Firms are first 
+divided equally into two groups based on their cash flows (or debt-to-equity ratios). Within each CF (or DA) group, 
+firms are further divided equally into two groups based on their market capitalizations (SZ) in June. The CI-spread 
+difference is the difference between large and small size groups. 
+ 
+Panel A: Test results on size effect for cash flow  
+ 
+Portfolio 
+Characteristic-balanced Portfolios: Mean Return and Regression Coefficient 
+CI-spread 
+Size 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+High CF 
+Small 
+0.159 
+0.142 
+-0.040 
+-0.056 
+0.021 
+-0.154** 
+0.045 
+ 
+Large 
+0.418** 
+0.496** 
+-0.066* 
+-0.003 
+-0.067** 
+0.019 
+0.066 
+Coeff. 
+0.259* 
+0.354** 
+-0.026 
+0.052 
+-0.088** 
+0.173** 
+0.081 
+CI-spread 
+Difference 
+t-value 
+(1.90) 
+(2.56) 
+(-0.46) 
+(0.92) 
+(-2.54) 
+(2.22) 
+ 
+Low CF 
+Small 
+0.192 
+0.053 
+-0.073 
+0.078 
+0.046 
+-0.248** 
+0.160 
+ 
+Large 
+0.184* 
+0.234** 
+-0.089** 
+-0.007 
+0.017 
+0.090 
+0.067 
+CI-spread 
+Difference 
+Coeff. 
+t-value 
+-0.008 
+(-0.05) 
+0.182 
+(1.11) 
+-0.016 
+(-0.24) 
+-0.084 
+(-1.25) 
+-0.030 
+(-0.72) 
+0.338** 
+(3.64) 
+0.159 
+ 
+ 
+Panel B: Test results on size effect for debt-to-equity ratio  
+ 
+Portfolio 
+Characteristic-balanced Portfolios: Mean Return and Regression Coefficient 
+CI-spread 
+Size 
+Mean 
+α 
+βHML 
+βSMB 
+βMkt 
+βMN 
+2
+R 
+High DA 
+Small 
+0.055 
+-0.034 
+-0.060 
+0.007 
+0.054 
+-0.203** 
+0.098 
+ 
+Large 
+0.181* 
+0.190** 
+-0.025 
+-0.020 
+0.025 
+0.017 
+0.016 
+Coeff. 
+0.126 
+0.224 
+0.035 
+-0.027 
+-0.029 
+0.220** 
+0.065 
+CI-spread 
+Difference 
+t-value 
+(0.79) 
+(1.38) 
+(0.54) 
+(-0.40) 
+(-0.72) 
+(2.40) 
+ 
+Low DA 
+Small 
+0.254** 
+0.314** 
+-0.090* 
+-0.122** 
+-0.001 
+-0.147** 
+0.057 
+ 
+Large 
+0.380** 
+0.461** 
+-0.068* 
+-0.013 
+-0.040* 
+0.067 
+0.061 
+CI-spread 
+Difference 
+Coeff. 
+t-value 
+0.126 
+(0.85) 
+0.147 
+(0.97) 
+0.022 
+(0.36) 
+0.109* 
+(1.76) 
+-0.039 
+(-1.02) 
+0.214** 
+(2.50) 
+0.048 
+ 
+* represents significance at the 0.10 level. ** represents significance at the 0.05 level.  
+ 

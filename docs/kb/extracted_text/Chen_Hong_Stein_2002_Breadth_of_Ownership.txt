@@ -1,0 +1,2574 @@
+
+--- PAGE 1 ---
+ 
+Journal of Financial Economics 00 (2002) 000-000 
+ 
+Breadth of ownership and stock returns 
+ 
+Joseph Chena, Harrison Hongb, Jeremy C. Steinc* 
+ 
+aMarshall School of Business, University of Southern California, Los Angeles, CA 90089, USA 
+bGraduate School of Business, Stanford University, Stanford, CA 94305, USA 
+cDepartment of Economics, Harvard University, Cambridge, MA 02138, USA 
+ 
+(Received 13 March 2001; accepted 27 July 2001) 
+ 
+Abstract 
+ 
+We develop a stock market model with differences of opinion and short-sales constraints.  When 
+breadth is low―i.e., when few investors have long positions―this signals that the short-sales constraint is 
+binding tightly, and that prices are high relative to fundamentals.  Thus reductions in breadth should 
+forecast lower returns.  Using data on mutual fund holdings, we find that stocks whose change in breadth 
+in the prior quarter is in the lowest decile of the sample underperform those in the top decile by 6.38% in 
+the twelve months after formation.  Adjusting for size, book-to-market, and momentum, the figure is 
+4.95%. 
+ 
+ 
+JEL classification: G12; G14 
+ 
+Keywords: Differences of opinion; Short-sales constraints; Return predictability 
+ 
+ 
+*Corresponding author E-mail address: jeremy_stein@harvard.edu  
+ 
+We are grateful to the National Science Foundation and the Division of Research at Harvard 
+Business School for research support.  A special thanks to Ken Froot for his insightful comments on our 
+earlier work, which helped to spark our interest in the topic of this paper.  Thanks also to the referee (Ken 
+French), to Kent Daniel, Owen Lamont, Toby Moskowitz, and Andrei Shleifer, and to seminar 
+participants at Duke, the University of North Carolina, Yale, the NBER, London Business School, the 
+Federal Reserve Bank of New York, Harvard, Vanderbilt, University of Southern California, Michigan, 
+Princeton, and the University of Texas Finance Festival and the Western Finance Association meetings 
+for helpful suggestion. 
+ 
+0304-405X/99/ $19.00  © 2002 Elsevier Science S.A.  All rights reserved. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 2 ---
+ 
+1
+Introduction 
+ 
+In this paper, we bring new evidence to bear on an asset-pricing hypothesis which has 
+been around a long while, but which has thus far not received much empirical support.  The idea, 
+which dates back to Miller (1977), has to do with the combined effects of short-sales constraints 
+and differences of opinion on stock prices. Miller argues that when there are short-sales 
+constraints, a stock’s price will reflect the valuations that optimists attach to it, but will not 
+reflect the valuations of pessimists, because the pessimists simply sit out of the market (as 
+opposed to selling short, which is what they would do in an unconstrained setting).  Thus short-
+sales constraints can exert a significant influence on equilibrium prices and expected returns.1  
+For example, one interesting cross-sectional implication of Miller’s logic is that the greater the 
+divergence in the valuations of the optimists and the pessimists, the higher the price of a stock in 
+equilibrium, and hence the lower the subsequent returns. 
+ 
+This theory seems appealing because it is simple and its premises seem empirically 
+reasonable.  First, it is hard to argue with the notion that investors can—even when looking at the 
+same information set—come to sharply varying conclusions about a stock’s fundamental value.  
+Indeed, such differences of opinion are perhaps the leading explanation for trading volume in 
+asset markets (e.g., Varian, 1989; Harris and Raviv, 1993; Kandel and Pearson, 1995; Odean, 
+1998).  
+Second, with respect to the existence of short-sales constraints, the theory only requires 
+(as we demonstrate explicitly below) that some, not all, investors be constrained.  This condition  
+                                                          
+1 Other theoretical work on the implications of short-sales constraints includes Harrison and Kreps (1978), Jarrow 
+(1980), Diamond and Verrecchia (1987), Allen, Morris, and Postlewaite (1993), Morris (1996), and Hong and Stein 
+(2001).  In contrast to Miller (1977), some of these papers (e.g., Diamond and Verrecchia, and Hong and Stein) are 
+more in the efficient-markets tradition, and have nothing to say about predictability in returns.  This is because they 
+assume complete arbitrage by rational investors who adjust their expectations to incorporate any effects of short-
+sales constraints. 
+
+--- PAGE 3 ---
+ 
+2
+is clearly met at the individual-stock level, even apart from any transaction costs associated with 
+shorting, since many important institutional investors, such as mutual funds, are simply 
+prohibited by their charters from ever taking short positions.2  Indeed, aggregate short interest is 
+very low for the vast majority of stocks.  Dechow et al. (2001) document that over the period 
+1976 through 1993 more than 80% of NYSE/AMEX firms had short interest of less than 0.5% of 
+shares outstanding and more than 98% of firms had short interest of less than 5%. 
+Yet in spite of its surface plausibility and intuitive appeal, the evidence for Miller’s 
+theory remains somewhat sparse, even after almost 25 years.  Empirical efforts in this area have 
+tended to follow Figlewski (1981), who tests the theory by looking at the relationship between 
+short interest and subsequent returns.  The basis for this test is the assumption that one can use 
+“the recorded level of actual short interest as a proxy for the amount of short selling there would 
+have been if it had not been constrained, and therefore, the amount of adverse information that 
+was excluded from the market price.” (Figlewski and Webb, 1993, p. 762).  Among the papers 
+that attempt to forecast returns with short interest are Brent, Morse, and Stice (1990), Figlewski 
+and Webb (1993), Woolridge and Dickinson (1994), Asquith and Meulbroek (1995), and 
+Dechow et al. (2001). 
+However, this approach has a couple of important limitations.  First, as noted above, the 
+majority of stocks have virtually no short interest outstanding at any given point in time.  Thus if 
+the test design involves tracking the abnormal returns of a portfolio of high-short-interest stocks,  
+this portfolio will by definition be small, thereby potentially reducing the power of any tests, as  
+                                                          
+2 Almazan, Brown, Carlson, and Chapman (1999) document that roughly 70% of mutual funds explicitly state (in 
+Form N-SAR that they file with the SEC) that they are not permitted to sell short.  This is obviously a lower bound 
+on the fraction of funds that never take short positions.  Relatedly, Koski and Pontiff (1999) find that 79% of equity 
+mutual funds make no use of derivatives whatsoever (either futures or options) suggesting that funds are also not 
+finding synthetic ways to take short positions. 
+
+--- PAGE 4 ---
+ 
+3
+well as calling into question the generalizability of the results.  Second, and relatedly, the key 
+identifying assumption in this literature—that one can use short interest as a proxy for the 
+amount of negative information excluded from the market price—is on fragile ground.  Variation 
+across stocks in short interest may instead reflect variation in the transactions costs of shorting, 
+perhaps because some stocks have greater institutional ownership and thus have more of their 
+shares available for lending (D’Avolio, 2001).  If so, a stock with a low or zero value of short 
+interest may simply be one that is difficult or costly to short, which could potentially translate 
+into more, rather than less, negative information being held off the market. As we demonstrate 
+more formally below, this kind of reasoning implies that there need be no clear-cut relationship 
+between short interest and subsequent returns. 
+Our goal in this paper is to devise a sharper and more powerful test of Miller’s theory.  
+To do so, we observe that a more reliable proxy for how tightly short-sales constraints bind (and 
+hence for the amount of negative information withheld from the market) can be constructed by 
+looking at data on breadth of ownership, where breadth is defined roughly as the number of 
+investors with long positions in a particular stock.  Specifically, when breadth for a stock is 
+lower, more investors are sitting on the sidelines, with their pessimistic valuations not registered 
+in the stock’s price.  Thus our basic insight is that breadth of ownership is a valuation indicator. 
+This insight yields two types of testable hypotheses.  First, breadth should, by itself, be 
+useful for forecasting returns.  Specifically, reductions in breadth should forecast lower 
+subsequent returns, and conversely, increases in breadth should forecast higher returns.  Second, 
+one might expect breadth to be positively correlated with other valuation indicators—i.e., with 
+other variables that indicate that price is low relative to fundamentals and as a result also forecast 
+increased risk-adjusted returns.  Possible candidates include book-to-market (Fama and French, 
+
+--- PAGE 5 ---
+ 
+4
+1992; Lakonishok, Shleifer, and Vishny, 1994), earnings-to-price (Basu, 1983), and momentum 
+(Jegadeesh and Titman, 1993). 
+Using quarterly data on mutual fund holdings over the period 1979 to 1998 and a variety 
+of different tests, we find evidence supportive of both of these hypotheses.  With respect to the 
+first hypothesis, we find that those stocks whose change in breadth in the prior quarter places 
+them in the lowest decile of the sample underperform those in the top change-in-breadth decile 
+by 3.82% in the first six months after portfolio formation and by 6.38% in the first 12 months.  
+With respect to the second hypothesis, we find that breadth in any given quarter responds in a 
+positive fashion to both earnings-to-price and recent price momentum (measured by returns over 
+the prior year).  The correlation between breadth and the prior year’s return is particularly strong.  
+As we discuss in more detail below, this correlation suggests that short-sales constraints play an 
+important role in the momentum phenomenon.  Still, even after controlling for size, book-to-
+market, and momentum, we continue to find that our trading strategy based on change-in-breadth 
+earns significant profits with abnormal returns of 2.92% in the first six months after formation 
+and 4.95% in the first 12 months. 
+The mutual fund data are useful for our purposes because they represent comprehensive 
+coverage of the stockholdings of a large, well-defined segment of the investor population.  
+Moreover, as noted above, we are probably on safe ground in assuming that mutual funds rarely, 
+if ever, take short positions.  This lack of shorting among mutual funds is crucial if we are to use 
+breadth as a proxy for negative information held off the market. It implies that if we observe a 
+given fund not having a long position in a particular stock, we can equate this with the fund 
+sitting on the sidelines, i.e., having no position at all. 
+
+--- PAGE 6 ---
+ 
+5
+At the same time, using the mutual fund data is not without its drawbacks.  Ideally, we 
+would have data that covered all potential investors subject to short-sales constraints.  Because 
+our data do not cover all investors, our measure of breadth is in part influenced by movements in 
+the relative holdings of mutual funds vs. other classes of investors.  Consider the following 
+example.  Suppose there are one hundred shares of stock outstanding and one hundred mutual 
+funds.  In the first period, each fund owns one share.  In Scenario A, in the second period, 50 of 
+the funds own two shares each and 50 of the funds have reduced their holdings to zero.  This 
+scenario corresponds precisely to a reduction in breadth of the sort we want to capture. The 
+aggregate holdings of the mutual fund sector are unchanged from the first to the second period, 
+but within the mutual fund sector, the shares are less broadly held. 
+However, in Scenario B, in the second period, 50 of the funds own one share each, 50 of 
+the funds have holdings of zero, and 50 shares have migrated into the hands of 50 other 
+investors, perhaps individuals, who now also hold one share each.  Given that our data covers 
+only mutual funds, we will record this as a reduction in breadth as well.  But it is clearly not what 
+the theory has in mind—all that has happened in this scenario is that shares have on net moved 
+out of the mutual fund sector and into the hands of individuals. 
+This sort of measurement error opens the door to alternative interpretations of our results.  
+In particular, one might hypothesize that changes in breadth are able to forecast returns not 
+because of the theoretical mechanism that we are interested in, but rather because mutual fund 
+managers have better stock-picking skills than individuals.  If this is so, the movement of shares 
+from mutual funds to individuals in Scenario B above would be a bearish signal simply because 
+fund managers are smarter than individuals.  Recent work by Chen, Jegadeesh, and Wermers 
+(2000) lends some support to this hypothesis.  They show that changes in the mutual fund 
+
+--- PAGE 7 ---
+ 
+6
+sector’s aggregate holdings of a stock have some forecasting power for returns—when funds are 
+on net buyers of a stock, the stock tends to outperform over the next year or so, and vice-versa. 
+In our tests, we attempt to control for the effect identified by Chen, Jegadeesh, and 
+Wermers (2000).  For example, in the context of a regression that uses our change-in-breadth 
+variable to forecast returns, we add as a control their changes-in-aggregate-fund-holdings 
+variable.  The goal is to have the breadth measure pick up only the kind of variation described in 
+Scenario A of the example, and not the kind in Scenario B.  As it turns out, the breadth measure 
+survives this kind of control essentially intact.   
+Nevertheless, the fact remains that our measure of breadth is based not on the entire 
+investing universe—as the theory suggests it should be—but rather on just the mutual-fund 
+sector.   This is an important limitation, and it suggests interpreting our results with some 
+caution.  It is hard to completely rule out the possibility that our results do not really reflect 
+binding short-sales constraints, but rather some kind of superior stock-picking skill on the part of 
+mutual fund managers that operates in such a way that it is not well summarized by the Chen, 
+Jegadeesh, and Wermers (2000) changes-in-aggregate-fund-holdings variable. 
+The remainder of the paper is organized as follows.  Section 2 builds a simple model that 
+shows how differences of opinion and short-sales constraints affect individual stock prices.  
+Although the model is based on Miller’s ideas, it is formulated somewhat differently, in such a 
+way as to make the logic behind our empirical tests as transparent as possible.  Section 3 
+describes the data we use to conduct these tests.  Our main empirical results are in Sections 4 and 
+5.  Section 6 concludes. 
+ 
+ 
+
+--- PAGE 8 ---
+ 
+7
+2.  The model 
+Our model considers the pricing of a single stock and has two dates.  There is a total 
+supply of Q shares of the stock, which at time 2 pays a terminal dividend of 
+ε
++
+F
+ per share, 
+where ε is a normally distributed shock, with a mean of zero and variance of one.  At time 1, 
+there are two classes of traders in the stock.  First, there is a group of buyers who can only take 
+long positions. For concreteness, one might interpret the buyers as mutual funds, who are 
+generally prohibited from going short.  There is a continuum of such buyers, with valuations 
+(i.e., estimates of the time-2 dividend) uniformly distributed on the interval 
+]
+H
+F
+,
+H
+F
+[
++
+−
+.  
+Thus on average the buyers have the right valuation, but there is heterogeneity across the group, 
+with the degree of this heterogeneity parameterized by H .  
+The total mass of the buyer population is normalized to one, and each buyer has constant-
+absolute-risk-aversion (CARA) utility, with a risk tolerance of 
+B
+γ
+. Thus in the absence of short-
+sales constraints, a buyer i with valuation of 
+i
+V would have demand equal to 
+(
+)
+P
+Vi
+B
+−
+γ
+.  
+However, given the constraint, the observed demand is 
+(
+)
+[
+]
+P
+V
+Max
+i
+B
+−
+γ,0
+. 
+The second class of traders is a group of fully rational arbitrageurs who can take either 
+long or short positions.  One might think of these arbitrageurs as hedge funds who face no 
+restrictions on shorting and who are adept at minimizing any frictional costs associated with such 
+transactions. The arbitrageurs also have CARA utility, and their aggregate risk tolerance is 
+A
+γ
+, 
+so that their total demand is given by 
+(
+)
+P
+F
+A
+−
+γ
+. 
+If there were no short-sales constraints facing the buyers, market-wide demand at time 1, 
+denoted by 
+DU
+Q
+, would be given by:  
+ 
+
+--- PAGE 9 ---
+ 
+8
+∫
++
+−
+−
++
+−
+=
+H
+F
+H
+F
+A
+i
+i
+B
+DU
+P
+F
+dV
+P
+V
+H
+Q
+)
+(
+)
+(
+2
+1
+γ
+γ
+.  
+ 
+ 
+ 
+ 
+       (1) 
+ 
+Performing the integration indicated in Eq. (1), and setting the demand 
+DU
+Q
+ equal to the supply 
+Q , it is easily shown that the time-1 price in this unconstrained case, given by 
+U
+P , satisfies: 
+ 
+B
+A
+U
+Q
+F
+P
+γ
+γ
++
+−
+=
+.  
+ 
+ 
+ 
+ 
+ 
+             
+       (2) 
+ 
+As can be seen, when there are no short-sales constraints, the heterogeneity of the buyers has no 
+effect on price: the optimists and the pessimists offset each other, and the price is the same as 
+would prevail if all the buyers had the rational-expectations valuation of exactly F .   
+On the other hand, in the presence of a binding short-sales constraint, market-wide 
+demand, now denoted by 
+DC
+Q
+, is given by: 
+ 
+(
+)
+(
+)
+∫
++
+−
++
+−
+=
+H
+F
+P
+A
+i
+i
+B
+DC
+P
+F
+dV
+P
+V
+H
+Q
+γ
+γ
+2
+1
+.  
+ 
+ 
+ 
+ 
+       (3) 
+ 
+After integrating and imposing the market clearing condition that 
+Q
+Q DC =
+, we obtain a 
+quadratic that can be solved (see the Appendix for details) to yield the following expression for 
+the price in the case of a binding constraint, 
+C
+P : 
+ 
+⎟⎟
+⎠
+⎞
+⎜⎜
+⎝
+⎛
++
++
+−
++
++
+=
+H
+Q
+H
+2
+H
+F
+P
+B
+B
+A
+2
+A
+A
+B
+C
+γ
+γ
+γ
+γ
+γ
+γ
+. 
+ 
+ 
+ 
+ 
+       (4) 
+ 
+
+--- PAGE 10 ---
+ 
+9
+Observe, however, that the short-sales constraint only binds if the price in the 
+unconstrained case, 
+U
+P , exceeds the valuation of the most pessimistic buyer, 
+H
+F −
+.  That is, 
+the short-sales constraint only binds if H is sufficiently large; in particular, if 
+B
+A
+Q
+H
+γ
+γ
++
+≥
+.  
+Thus overall, the equilibrium price, which we denote by 
+∗
+P , is given by: 
+ 
+⎪
+⎪
+⎩
+⎪⎪
+⎨
+⎧
++
+≥
++
+<
+=
+∗
+B
+A
+C
+B
+A
+U
+Q
+H
+if
+P
+Q
+H
+if
+P
+P
+γ
+γ
+γ
+γ
+ .            
+ 
+ 
+ 
+ 
+ 
+       (5) 
+ 
+The equilibrium price 
+∗
+P has a variety of intuitive properties, which we establish 
+formally in the Appendix.  First, 
+∗
+P is always greater than the unconstrained price 
+U
+P .  
+Moreover, 
+∗
+P is an increasing function of the heterogeneity parameter H , which means that the 
+expected return on the stock between time 1 and time 2, (
+)
+∗
+−P
+F
+, decreases with H .  This is 
+true for any finite value of 
+A
+γ
+; as the risk tolerance of the arbitrageurs goes to infinity, both 
+∗
+P 
+and 
+U
+P approach F , so that expected returns with or without short-sales constraints converge to 
+zero.  Note that we are using “expected return” here as a synonym for (F – P*), the difference 
+between price and fundamentals.  But since our model does not include any factor risks of the 
+sort seen in classical pricing models such as the CAPM or APT, (F – P*) is more precisely 
+thought of as the net factor-risk-adjusted expected return.  That is, in a classical setting with no 
+priced factor risks, arbitrageurs’ risk tolerance would be infinite and (F – P*) would be zero. 
+
+--- PAGE 11 ---
+ 
+10
+The directional effect of arbitrageurs’ risk tolerance 
+A
+γ
+ on the stock price can go either 
+way.  When H is relatively large compared to Q (more precisely, when 
+B
+Q
+4
+H
+γ
+≥
+), the stock  
+price exceeds the fundamental value F , and the arbitrageurs take short positions.  In this case, 
+any increase in 
+A
+γ
+ drives the stock price down, back towards F .  In contrast, when H is small 
+compared to Q , the stock price is below the fundamental value F , and the arbitrageurs take 
+long positions.  In this case, an increase in 
+A
+γ
+ represents an increase in risk-sharing capacity, 
+and pushes the stock price up. 
+ 
+2.1.    Breadth and expected returns  
+For the purposes of our empirical work, we are most interested in establishing the 
+connection between expected returns and the breadth of ownership among those investors subject 
+to short-sales constraints—i.e., the buyers.  We define breadth of ownership B as the fraction of 
+buyers who are long the stock: 
+ 
+ 
+⎥
+⎦
+⎤
+⎢
+⎣
+⎡
+−
++
+=
+∗
+1,
+H
+2
+P
+H
+F
+Min
+B
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+       (6) 
+ 
+Breadth is bounded between zero and one. It is one when the price is less than or equal to the 
+valuation of the most pessimistic buyers, and it approaches zero when the price approaches the 
+valuation of the most optimistic buyers. 
+ 
+We begin by asking what kind of relationship between breadth and expected returns is 
+induced by variations in the parameter H .  In the Appendix, we establish: 
+ 
+
+--- PAGE 12 ---
+ 
+11
+Proposition 1:  As the divergence of opinion H increases, breadth B and the expected return 
+(
+)
+∗
+−P
+F
+ both decrease. 
+ 
+Thus, if we consider a cross-section of stocks that only vary in the degree of divergence of 
+opinion, then those stocks with the lowest values of breadth will also have the lowest expected 
+returns.  This is precisely Miller’s (1977) intuition. 
+ 
+Of course, if the only source of variation in the model were differences across stocks in 
+H , one could also obtain a clear-cut prediction using short interest.  In particular, those stocks 
+with the highest values of H (and hence the lowest expected returns) would also be the most 
+heavily shorted by the arbitrageurs.  As a result, high values of short interest (just like low values 
+of breadth) would also forecast lower returns. 
+ 
+However, the link between short interest and expected returns is much less robust than 
+that between breadth and expected returns.  This can be seen by considering variations in some 
+of the other parameters of the model.  In the Appendix, we show that: 
+ 
+Proposition 2:  Cross-stock variation in any of the other model parameters (
+A
+γ
+, 
+B
+γ
+, or Q ) 
+induces a positive correlation between breadth and expected returns.  Thus regardless of the 
+source of variation, the unconditional correlation between breadth and expected returns is 
+unambiguously positive. 
+ 
+ 
+The intuition behind Proposition 2 is straightforward, and can be seen by looking at Eq. 
+(6).  Holding fixed H , breadth is determined completely by (
+)
+∗
+−P
+F
+—i.e., by the difference 
+between fundamentals and price, or equivalently, by the expected return on the stock.  Thus 
+
+--- PAGE 13 ---
+ 
+12
+anything that causes the price 
+∗
+P to go up relative to fundamentals (be it a change in 
+A
+γ
+, 
+B
+γ
+, or 
+Q ) will also manifest itself as a reduction in breadth.  Moreover, one can think of changes in Q 
+as not literally just supply shocks, but rather as unmodeled changes in investor sentiment that, as 
+in DeLong et al. (1990), induce divergences between prices and fundamentals.  The bottom line 
+is that breadth is a robust valuation indicator.      
+ 
+In contrast, consider the relationship between short interest and expected returns induced 
+by cross-stock differences in arbitrageurs’ risk tolerance 
+A
+γ
+.  In the Appendix, we prove: 
+ 
+Proposition 3:  Suppose 
+B
+Q
+4
+H
+γ
+≥
+.  In this case,
+F
+P ≥
+∗
+ so that arbitrageurs take short positions.  
+Moreover, an increase in 
+A
+γ
+ leads to an increase in short interest.  This increase in short 
+interest is accompanied by a decrease in prices and hence by an increase in both breadth and 
+expected returns. 
+ 
+ 
+Thus for H large enough, variations in 
+A
+γ
+ induce a positive correlation between short 
+interest and expected returns. This is just the opposite of the correlation induced by variations 
+in H .  So while the model produces an unambiguous link between breadth and expected returns, 
+the same is not true for short interest and expected returns.  This formalizes the point made in the 
+introduction, namely that there is no good theoretical reason to expect short interest to be a 
+reliable predictor of returns.  
+ 
+
+--- PAGE 14 ---
+ 
+13
+2.2.    Testable hypotheses 
+In our empirical work below, we test three specific hypotheses that are implied by 
+Propositions 1 and 2: 
+ 
+Hypothesis 1: An increase (decrease) in a stock’s breadth at time t should forecast higher 
+(lower) returns over some future interval from t to t+k. 
+ 
+Hypothesis 2:  If there are other time-t variables that are known to be positively related to risk-
+adjusted future returns (perhaps book-to-market, earnings-to-price, or momentum), then breadth 
+at time t should be positively correlated with these predictive variables.  
+ 
+Hypothesis 3:  After controlling for other known predictors of returns, the ability of breadth at 
+time t to forecast future returns should be reduced though not necessarily eliminated. 
+ 
+Hypothesis 1 follows directly from Propositions 1 and 2 and needs no further elaboration.  
+Hypothesis 2 is a bit subtler.  Recall that whatever the source of variation, breadth is positively 
+related to the risk-adjusted expected return (
+)
+∗
+−P
+F
+ on the stock.  This implies that if there are 
+other observable variables that are also good proxies for risk-adjusted expected returns, breadth 
+should be positively correlated with these proxies. 
+To take a relevant example, suppose there is a non-risk-related momentum effect in stock 
+prices (Jegadeesh and Titman, 1993), so that returns from time t to t+k are positively correlated 
+with returns from t-k to t.  In this case, one would expect breadth at time t to be positively related 
+to past returns (i.e., to returns from t-k to t).  Thus if a stock’s price falls from t-k to t, breadth at 
+
+--- PAGE 15 ---
+ 
+14
+time t should fall also.  The intuition for this result is as follows.  In a world with momentum, a 
+price drop over the interval from t-k to t is a signal that the price at time t is too high relative to 
+fundamentals.  Given that the median buyer makes an accurate assessment of fundamentals, this 
+buyer will be more inclined to want to get out of the stock at time t.  Or to say it differently, since 
+reductions in breadth are an indication that the short-sales constraint is more binding, the 
+model’s implication is that the constraint binds more tightly after a price decline. 
+Note however, that if a given variable is able to forecast returns solely because it is a 
+proxy for risk, then there would be no reason to expect it to be correlated with movements in 
+breadth.  For example, if Fama and French (1992, 1993, 1996) are correct, and book-to-market is 
+purely a risk measure, then one should not expect the short-sales constraint to bind more tightly 
+(i.e., breadth to be lower) in low-book-to-market glamour stocks. 
+Hypothesis 3 is a direct byproduct of Hypotheses 1 and 2.  Continuing with the 
+momentum example, if breadth at time t is correlated with returns from t-k to t, then one should 
+expect breadth to have less forecasting power for future returns once we control for past returns.  
+Of course, from the perspective of someone interested in devising innovative trading strategies, 
+the hope is that the predictive power of the breadth variable is not largely subsumed by a known 
+predictor such as momentum.  
+ 
+3.  Data 
+Our data on mutual fund holdings come from the Mutual Fund Common Stock 
+Holding/Transactions database obtained from CDA/Spectrum. This database contains 
+information on quarterly equity holdings of mutual funds based in the United States from the 
+first quarter of 1979 through the fourth quarter of 1998.  Mutual funds are required by SEC 
+
+--- PAGE 16 ---
+ 
+15
+regulation N30-D to disclose their portfolio holdings twice a year.  CDA/Spectrum collects data 
+from these filings and supplements the data through voluntary quarterly reports published by the 
+mutual funds for their shareholders.3  We do not exclude any funds on the basis of their 
+investment objectives. 
+ 
+In each quarter t, we measure breadth of ownership for every stock, denoted BREADTHt, 
+as the ratio of the number of mutual funds that hold a long position in the stock to the total 
+number of mutual funds in the sample for that quarter.  Since our universe of mutual funds 
+evolves over time as new funds are created and existing funds are dissolved, we need to take 
+special care in measuring the change in breadth of ownership, so as to capture the trading 
+activities of existing funds rather than changes in the composition of the universe. (At the 
+beginning of our sample period, 1979Q1, we have data on 582 funds.  By the end of the period, 
+1998Q4, we have data on 8950 funds.) Thus to define the change in breadth of ownership, 
+denoted as ΔBREADTHt, we look at only those funds that are in our sample in both quarter t and 
+quarter t-1.  From this group, we take the number of funds who hold the stock at quarter t minus 
+the number of funds who hold the stock at quarter t-1 and divide by the total number of funds in 
+the sample at quarter t-1.   
+ 
+In some of our robustness checks, we make use of the fact that ΔBREADTHt can be 
+decomposed as ΔBREADTHt = INt - OUTt, where INt is defined as the fraction of funds in the 
+sample at both quarters t-1 and t that have a zero position in the stock at quarter t-1 and that open 
+a new position at quarter t, and OUTt is defined as the fraction of funds in the sample at both 
+quarters t-1 and t that completely remove a previously-existing position at quarter t. 
+                                                          
+3 Further details on the construction of this database are available in Appendix A of Wermers (1999). 
+
+--- PAGE 17 ---
+ 
+16
+We also compute a measure of the aggregate stockholdings of all mutual funds, denoted 
+HOLDt, as the total number of  shares held by all mutual funds at the end of quarter t divided by 
+the total number of shares outstanding.  We define ΔHOLDt as the change in aggregate mutual 
+fund stockholdings from the end of quarter t-1 to the end of quarter t.  The latter of these two 
+variables is identical to that used by Chen, Jegadeesh, and Wermers (2000) to forecast returns; as 
+noted earlier, it will be one of our key controls.   
+ 
+Data on quarterly stock returns and trading volume are obtained by aggregating monthly 
+stock file data from the Center for Research in Security Prices (CRSP).  We follow standard 
+convention and limit our analysis to common stocks of firms incorporated in the United States; 
+these stocks are identified by a CRSP share type code of 10 or 11.  LOGSIZEt is defined as the 
+logarithm of market capitalization calculated from CRSP at the end of quarter t.  We obtain data 
+on book value and earnings from S&P COMPUSTAT’s annual and quarterly files.  Following 
+Fama and French (1993), we define book value as the value of common stockholders’ equity, 
+plus deferred taxes and investment tax credit, minus the book value of preferred stock.  The book 
+value is then divided by the firm’s market capitalization on the day of the firm’s fiscal year-end 
+to yield the book-to-market ratio, denoted as BK/MKTt.  For each quarter, we use the value of 
+book-to-market as of the most recent fiscal year-end.  For each quarter, we also collect from 
+COMPUSTAT each firm’s past-twelve-months cumulative primary earnings per share.  This 
+value is divided by the price of the stock at the end of the quarter to give earnings-per-share, 
+denoted E/Pt.  We also obtain from CRSP each firm’s twelve-month cumulative holding-period 
+return to the end of quarter of t, denoted as MOM12t. 
+ 
+We use the CRSP monthly tape to calculate share turnover for each month as the total 
+number of shares traded divided by shares outstanding.  We sum share turnover over every three 
+
+--- PAGE 18 ---
+ 
+17
+months to obtain a quarterly measure of share turnover, denoted TURNOVERt.  Since the dealer 
+nature of the NASDAQ market makes turnover on this exchange hard to compare with turnover 
+on the NYSE and AMEX, we work with a measure of turnover which has been demeaned, 
+allowing for two means each quarter: one for NYSE/AMEX firms and one for NASDAQ firms.  
+The resulting exchange-adjusted turnover variable is denoted XTURNOVERt. 
+ 
+ 
+3.1.    Summary statistics 
+Table 1 shows summary statistics for the variables to be used in our analysis.  A few 
+important points stand out.  First, in Panel A, we see that the mean value of BREADTHt is 
+closely related to market capitalization, ranging from 7.09% for stocks in the top-size quintile 
+(based on NYSE breakpoints), to 0.25% for stocks in the bottom-size quintile.  In other words, 
+only a small number of mutual funds hold positions in the lowest-cap stocks at any point in time.  
+The standard deviations of BREADTHt and ΔBREADTHt show similar patterns with respect to 
+firm size.  This raises the concern that, among the low-cap stocks, we may not have enough 
+meaningful variation in our key right-hand-side variable to find anything.  So in our baseline 
+specifications, we eliminate the bottom-quintile stocks from our sample, and focus only on those 
+stocks with market capitalization above the 20th percentile NYSE breakpoint.  We do however 
+examine these small-cap stocks separately in one of our robustness checks. 
+ 
+Panels B and C make it clear that we cannot simply use the raw value of BREADTHt as 
+an empirical analog to our model’s B variable.  In levels, BREADTHt is effectively a permanent 
+firm characteristic, with a quarterly autocorrelation of 0.99. Not surprisingly, BREADTHt is 
+highly correlated with LOGSIZEt (contemporaneous correlation = 0.69), as well as with 
+XTURNOVERt (correlation = 0.09), which just says that more funds hold large, liquid stocks.  
+
+--- PAGE 19 ---
+ 
+18
+Our univariate correlations also pick up a weak tendency for more mutual funds to hold glamour 
+stocks than value stocks; the correlation between BREADTHt  and  BK/MKTt   is –0.06.   
+In an effort to purge such firm fixed effects, we work instead with ΔBREADTHt.  We 
+have also experimented with using a stochastically detrended version of our breadth measure, 
+generated by subtracting from BREADTHt an average of its values over the past three quarters.  
+Our results in this case are similar to those using ΔBREADTHt, so we do not report them. 
+ 
+4.  Determinants of ΔBREADTH 
+In Table 2, we investigate the determinants of ΔBREADTHt. We have two goals in doing 
+so.  First, as noted in the introduction, we need to be aware of any correlation between 
+ΔBREADTHt and the Chen-Jegadeesh-Wermers (2000) variable ΔHOLDt; when we turn to 
+forecasting  returns, we will need to control for the fact that some movements in our breadth 
+variable do not reflect just a rearrangement of stockholdings within the mutual-fund sector, 
+(which is what our model would have us look at) but rather, an overall movement of shares in 
+and out of  the sector.  Second, in an effort to test Hypothesis 2, we want to see to what extent 
+ΔBREADTHt is capturing the information in other well-known predictors of stock returns. 
+In Panel A, we present the results of regressing ΔBREADTHt against the following five 
+variables: ΔHOLDt, LOGSIZEt, BK/MKTt, MOM12t, and XTURNOVERt.  The regressions are 
+implemented as follows.  We run a separate regression each quarter for each of the four size 
+classes. (Recall that we are dropping the smallest quintile of stocks from our baseline analysis.) 
+We then average the regression coefficients across quarters, as in Fama-MacBeth (1973), to 
+produce a result for each size class.  Finally, the coefficients for each size class are averaged 
+together to produce an overall result for the whole universe. The reason that we do things this 
+
+--- PAGE 20 ---
+ 
+19
+way (rather than running a single cross-sectional regression for all stocks in our sample each 
+quarter) is that, as can be seen from Panel A of Table 1, there is much more variance in 
+ΔBREADTHt among larger stocks.  Were we to run a single regression for all stocks pooled 
+together, this heteroskedasticity would cause the larger stocks to exert a disproportionate 
+influence on the overall results. This issue becomes even more important when we use 
+ΔBREADTHt  to forecast returns, and we will take an analogous approach to dealing with it. 
+The key conclusions from Panel A of Table 2 are as follows.  First, as expected, there is a 
+significant positive correlation between ΔBREADTHt and ΔHOLDt.  This correlation would 
+seem to be purely mechanical—when the mutual fund sector as a whole owns a larger percentage 
+of a given stock, it is likely that a greater number of funds will be long the stock—and does not 
+speak to any of our hypotheses.  Nevertheless, as stressed above, it is something we will need to 
+control for in our subsequent tests.   
+Perhaps more interestingly, there is also a strong positive correlation between 
+ΔBREADTHt and the momentum variable, MOM12t.  Given that momentum is a predictor of 
+future returns (Jegadeesh and Titman, 1993), this finding is consistent with Hypothesis 2.  
+Moreover, the finding suggests that the momentum phenomenon is itself linked to the existence 
+of binding short-sales constraints.  In particular, consider a situation in which, for a given stock, 
+past returns are strongly negative, so that the rational expectation is that future returns will be 
+relatively low.  The obvious question is why this effect is not arbitraged away.  The results in 
+Table 2 suggest that some would-be arbitrageurs are held in check by their inability to go short.  
+That is, many mutual funds do get completely out of a stock with negative momentum, but since 
+they cannot go any further than just getting out, they are unable to immediately drive prices all 
+the way down to the point where they ought to go.  This line of argument is closely related to the 
+
+--- PAGE 21 ---
+ 
+20
+observation that the bulk of profits in momentum strategies appear to come from the short side of 
+the trade (Hong, Lim, and Stein, 2000).  It also fits nicely with D’Avolio’s (2001) finding that 
+the explicit transactions costs of shorting—as measured by whether the underlying stock is hard 
+to borrow—are, all else equal, greater for stocks with negative momentum.  
+On the other hand, Hypothesis 2 strikes out with respect to another well-known return 
+predictor, the book-to-market ratio.  The correlation between ΔBREADTHt and BK/MKTt 
+actually goes the wrong way (it is negative) although it is statistically insignificant for all but the 
+largest size quintile and implies only a tiny economic effect.  One possible interpretation for this 
+outcome is that Fama and French (1992, 1993, 1996) are right and book-to-market captures risk, 
+not mispricing relative to fundamentals. Or said somewhat more agnostically, to the extent that 
+there is some risk-adjusted predictability associated with the book-to-market effect, it is not great 
+enough to create a significant pent-up desire by investors to go short.   
+An alternative rationalization is that our sample of mutual funds is not representative of 
+all investors in terms of its behavior toward the book-to-market attribute. Recall that ideally, our 
+model would have us look at breadth across all investors subject to short-sales constraints.  If, for 
+example, the number of mutual funds that invest primarily in glamour stocks exceeds the number 
+focusing on value stocks, this could generate the sort of result seen in Panel A of Table 2, even if 
+across the entire investing population, the correlation between (appropriately measured) changes 
+breadth and book-to-market were in fact positive.  
+In Panel B of Table 2, we rerun the same basic exercise, keeping everything the same 
+except replacing BK/MKTt with the earnings-to-price ratio E/Pt.4  (The correlation between these 
+two measures of fundamentals-to-price is not all that high in our sample, at only 0.12.)  This 
+                                                          
+4 The E/Pt variable has some large outliers, especially on the negative side.  To prevent them from dominating the 
+results, we truncate these outliers at their three-standard-deviation values.  
+
+--- PAGE 22 ---
+ 
+21
+change produces results more in line with Hypothesis 2.  The coefficient on E/Pt has the 
+predicted positive sign, and is statistically significant across all size classes.  So, continuing with 
+the above logic, perhaps earnings-to-price contains more information about non-risk-related 
+movements in expected returns than does book-to-market.  
+At the same time, it is important to recognize that even though E/Pt is statistically 
+significant in Panel B of Table 2, its economic impact is small relative to that of the momentum 
+variable.  Specifically, across the full sample, a one-standard-deviation move in E/Pt has roughly 
+one-thirteenth the effect on ΔBREADTHt as a one-standard deviation move in MOM12t.  So the 
+first-order conclusion from Table 2 is that of the variables that are known to predict returns, 
+momentum seems to be the most closely linked with binding short-sales constraints. 
+However, some readers have suggested a caveat to this interpretation of the evidence in 
+Table 2.  In our model, we implicitly assume that all buyers are continuously monitoring every 
+stock.  Thus if a given buyer sits out of a stock, it is because he has a well-thought-out valuation 
+for that stock that is below the market price.  But more realistically, it may be that a stock is 
+simply “not on the radar screen” of some mutual fund managers (Merton, 1987). This possibility 
+is underscored by the data in Table 1.A, which shows that on average across quintiles two 
+through five, the typical stock is only held by 2.30% of mutual funds.  If so, one needs to worry 
+about the following alternative interpretation:  perhaps positive momentum in a given stock is 
+associated with an increase in breadth not because it leads to a change in the distribution of 
+valuations among those buyers already actively following the stock, but rather because it 
+enlarges the set of buyers who pay attention to the stock. 
+To address this point, we decompose ΔBREADTHt as ΔBREADTHt =  INt - OUTt, and 
+examine the determinants of INt and OUTt separately.  The caveat above applies most directly to 
+
+--- PAGE 23 ---
+ 
+22
+INt, since if a fund first opens a position in a stock at t, we don’t know if it was out of the stock 
+at t-1 because its valuation was too low, or because it simply was not following the stock.  In 
+contrast, OUTt is conceptually cleaner from this perspective.  After all, if a fund closes an 
+existing position in a stock at t, it probably was following the stock at t-1, given that it owned the 
+stock at that time. 
+ 
+In Table 3, we reproduce the regressions in Table 2.A, except that we replace 
+ΔBREADTHt on the left-hand side with INt (in Panel A) and OUTt (in Panel B).  The MOM12 
+variable now attracts significant positive coefficients in the INt regressions and significant 
+negative coefficients in the OUTt regressions.  But more strikingly, the coefficients in the OUTt 
+regressions are substantially larger in absolute magnitude—roughly five times larger over the full 
+sample.  Thus while both INt and OUTt contribute something to the positive correlation between 
+ΔBREADTHt and MOM12, the lion’s share of the contribution is coming from OUTt.  This 
+helps to allay the concern that the positive correlation between ΔBREADTHt and MOM12 
+reflects just an increased-attention phenomenon. Or said differently, the results in Tables 2 and 3 
+are, when taken together, most consistent with the following story: when a stock has negative 
+momentum,  an increased number of funds that were previously owners of it actively reevaluate 
+it in such a way that they choose to sell out completely and move to the sidelines. 
+ 
+Table 3 also sheds further light on why the correlation between ΔBREADTHt and 
+BK/MKTt is so weak.  The correlation between OUTt and BK/MKTt is actually strongly 
+negative, which is what one might have expected based on Hypothesis 2—as a stock becomes 
+more glamour-like, an increasing number of funds who were already actively monitoring it 
+choose to get out of it.  But this effect is more or less exactly offset by a strong negative 
+correlation between INt and BK/MKTt, which runs counter to Hypothesis 2, and which might 
+
+--- PAGE 24 ---
+ 
+23
+possibly reflect the increased-attention phenomenon—as a stock becomes more glamour-like, 
+perhaps an increasing number of funds start to notice it for the first time. 
+ 
+5. Using ΔBREADTH to forecast returns 
+5.1.   Portfolio sorts 
+We now turn to Hypotheses 1 and 3, which involve using the ΔBREADTH variable to 
+forecast stock returns.  In Tables 4 and 5, this forecasting is done with portfolio sorts.  Consider 
+first Panel A of Table 4.  Here our aim is to forecast raw returns.  In the four left-hand columns 
+of the panel, we sort stocks into ten portfolios every quarter based simply on ΔBREADTH.  We  
+do so by assigning stocks into decile classes of ΔBREADTH, with the decile breakpoints 
+determined separately within each size quintile.  We then recombine the deciles across size 
+classes.  This procedure ensures that within each ΔBREADTH decile, we will have stocks of 
+roughly the same size.  The procedure is necessary because, as we have seen, there is much more 
+variation in ΔBREADTH across large stocks; if we instead did an unconditional ranking on 
+ΔBREADTH independent of size, the extreme (high and low ΔBREADTH) deciles would be 
+dominated by large stocks.   
+In the four right-hand columns of the panel, we do a similar assignment of stocks to 
+deciles, except here we sort on “RESIDUAL ΔBREADTH,” defined as the residual in a 
+univariate regression of ΔBREADTHt against ΔHOLDt.  The rationale for sorting on 
+RESIDUAL ΔBREADTH, as opposed to simply on ΔBREADTH, is that, as discussed above, 
+our model implies that we want to isolate changes in the composition of stockholdings within the 
+mutual-fund sector, as distinct from an overall movement of shares in and out of the sector. 
+
+--- PAGE 25 ---
+ 
+24
+In either case, we track returns out one, two, three, and four quarters after the portfolio 
+formation date.  We have also done some experimentation with horizons beyond four quarters.  
+Although it appears that excess returns continue to accrue to our strategies after the four-quarter 
+mark, the effects are relatively weaker and increasingly clouded by the statistical noise that 
+accompanies longer horizons. 
+As can be seen, the results for raw returns in Panel A of Table 4 are striking and not 
+much affected by whether we sort on ΔBREADTH or RESIDUAL ΔBREADTH.  For example, 
+two quarters after portfolio formation, the (P10-P1) portfolio that is long the top-decile-
+ΔBREADTH stocks and short the bottom-decile-ΔBREADTH stocks has earned 3.82%, which 
+translates into an annualized rate of return of 7.79%.  Four quarters after portfolio formation, the 
+(P10-P1) portfolio is up by 6.38%.  Using RESIDUAL ΔBREADTH instead of ΔBREADTH to 
+do the sorts, the corresponding numbers are 3.77% after two quarters (7.68% on an annualized 
+basis) and 6.25% after four quarters.  In all cases the results are strongly statistically significant. 
+In Panel B of Table 4, we redo everything in Panel A using returns adjusted to control for 
+size and book-to-market. To implement this control, we create portfolio benchmarks using a 
+characteristics-based procedure similar to Daniel, Grinblatt, Titman, and Wermers (1997).  At 
+the end of every quarter, we assign stocks to market-cap quintiles based on NYSE breakpoints.  
+Within each size quintile, stocks are further ranked into subquintiles, based on their book-to-
+market ratios (again using NYSE breakpoints).  This yields a total of 25 groups of stocks.  For 
+each group, the equal-weighted holding-period return is computed (for one, two, three, and four-
+quarter horizons) and is used as the benchmark portfolio return.  The size and book-to-market 
+adjusted return for a stock over any holding period is then the holding-period return for that stock 
+in excess of the holding-period return on the portfolio to which it belongs. 
+
+--- PAGE 26 ---
+ 
+25
+ 
+Finally, Panel C of Table 4 reports results using size, book-to-market, and momentum- 
+adjusted returns.  This is a three-dimensional extension of the adjustment in Panel B.  In addition 
+to the 25 groupings based on size and book-to-market, stocks are further ranked into momentum 
+quintiles each quarter, based on their raw returns over the prior twelve months, resulting in a 
+total of 125 portfolio groups.  The equal-weighted holding-period return for each of the 125 
+benchmark portfolios is then calculated, and the adjusted return for a stock is defined as its 
+holding-period return less the holding-period return on the portfolio to which it belongs. 
+As can be seen, the size and book-to-market adjustment in Panel B of Table 4 does not 
+make any perceptible difference.  For example, when forming portfolios based on ΔBREADTH, 
+the (P10-P1) return is 6.38% after four quarters with raw returns in Panel A.  With the size and 
+book-to-market adjustment the four-quarter return is 6.39%.  The fact that the adjustment has 
+little effect should not be surprising in light of the results in Table 2: recall that ΔBREADTH is 
+virtually uncorrelated with book-to-market and only weakly correlated with size. 
+Of course, the results in Table 2 also suggest that adding a momentum control to our 
+measure of returns might potentially make more of a difference, since ΔBREADTH and MOM12 
+are quite strongly correlated.  And indeed, this is evident in Panel C of Table 4, where returns are 
+size, book-to-market, and momentum-adjusted.  Now after two quarters the (P10-P1) return is 
+down to 2.92% (5.93% on an annualized basis) and after four quarters it is 4.95%.   Thus the 
+momentum control reduces the amount of predictability by roughly 20%-25% as compared to the 
+case of raw returns.   Nevertheless, the effect that remains continues to be of a magnitude that, at 
+a minimum, would appear to be economically interesting. 
+In Table 5, we disaggregate Table 4’s results by size. We also for the first time look at 
+those stocks in the first-size quintile, which we have been leaving out of our baseline sample. 
+
+--- PAGE 27 ---
+ 
+26
+Panel A gives a condensed treatment of the raw-returns case. Panels B and C cover size and 
+book-to-market-adjusted returns, and size, book-to-market, and momentum-adjusted returns 
+respectively.  To save space, we only look at sorts based on RESIDUAL ΔBREADTH. As might 
+be inferred from Table 4, the results using sorts based on simple ΔBREADTH are very similar. 
+The picture that emerges from Table 5 can be summarized as follows.  First, there is no 
+evidence that RESIDUAL ΔBREADTH has any ability to forecast returns among the smallest 
+stocks—the (P10-P1) differentials in quintile 1 are statistically and economically close to zero.  
+While this is not surprising given the relative lack of variation in ΔBREADTH in quintile 1, it 
+does mean that by choosing to exclude the quintile-1 stocks from our baseline specifications we 
+have made our results look stronger than they otherwise would. 
+Second, once one moves beyond quintile 1, the results look robust in the sense that there 
+is significant predictability based on RESIDUAL ΔBREADTH across all the remaining size 
+classes, no matter which measure of returns one looks at.  At the same time, the magnitude of 
+this predictability appears greater among the smaller stocks in quintiles 2 and 3 (especially 
+quintile 3) than among the larger stocks in quintiles 4 and 5, though we do not have the power to 
+make statements about these differences being statistically significant.  For example, in Panel A 
+with raw returns, the four-quarter (P10-P1) return is: 6.40% in quintile 2; 8.24% in quintile 3; 
+4.76% in quintile 4; and 4.84% in quintile 5.  In Panel C with size, book-to-market, and 
+momentum-adjusted returns, the corresponding numbers are 5.02%, 6.23%, 3.82%, and 3.33% 
+for quintiles 2 through 5 respectively.  
+ 
+ 
+ 
+
+--- PAGE 28 ---
+ 
+27
+5.2.   Fama-MacBeth regressions 
+As an alternative approach to evaluating the forecasting power of ΔBREADTH, we 
+present in Table 6 a series of Fama-MacBeth (1973) regressions.  We implement the Fama-
+MacBeth technique in much the same way as in Tables 2 and 3.  That is, for every specification 
+of interest, we run a separate cross-sectional regression every quarter for every size class.  With 
+79 quarters and four size classes, this gives us a total of 316 regressions.  Table 6 then reports the 
+mean coefficients across these 316 regressions, along with the associated t-statistics.5  As before, 
+the rationale for running separate regressions for each size class is the strong tendency for there 
+to be more variance in ΔBREADTH for larger stocks. 
+In all cases, our dependent variable is now measured in units of raw returns; in this 
+format controls can be added as right-hand-side variables in the regression, so there is no need to 
+use benchmark-adjusted returns on the left-hand-side. There are four panels in Table 6, 
+corresponding to forecast horizons of one, two, three, and four quarters.  The patterns are similar 
+across panels, so the basic story can be understood by focusing on just Panel D, which looks at a 
+four-quarter horizon. 
+In the first column, the only variable used to forecast returns is ΔBREADTH.  It enters 
+with a coefficient of 4.47 and a t-statistic of 3.51.  To get a sense of magnitudes, the coefficient 
+of 4.47 implies that a two-standard deviation spread in ΔBREADTH generates a differential in 
+expected returns of 4.14% over a four-quarter horizon.6  In the second column, the only right-
+hand-side variable is the Chen-Jegadeesh-Wermers (2000) variable, ΔHOLD.  Consistent with  
+                                                          
+5 The standard errors are computed as follows.  First, for every quarter, we average the coefficients across size 
+classes, yielding 79 full-sample point estimates—one for each quarter.  The standard errors are then based on the 
+time-series serial correlation properties of these 79 estimates, as in the usual Fama-MacBeth application. 
+6 From Table 1, Panel A, the standard deviation of ΔBREADTH for quintiles 2-5 is 0.46%.  So we have 2 x 4.47 x 
+0.46% = 4.14%. 
+
+--- PAGE 29 ---
+ 
+28
+their findings, ΔHOLD is significant on its own, with a coefficient of 0.722 and a t-statistic of 
+3.25.  In the third column, we put ΔBREADTH and ΔHOLD in the regression together.  
+Interestingly, the clear winner of this horse race is ΔBREADTH—its coefficient is, at 4.50, 
+almost identical to that in the univariate case.  In contrast, the coefficient on ΔHOLD is badly 
+damaged by the addition of ΔBREADTH, falling from 0.722 to 0.207, and becoming statistically 
+insignificant. 
+ 
+Finally, in the fourth column we add several other control variables to the regression: 
+LOGSIZE, BK/MKT, MOM12, and XTURNOVER.7  As might be expected from what we have 
+already seen in the portfolio sorts, these added controls (especially the MOM12 variable, which 
+enters strongly) reduce, but do not eliminate, the effect of ΔBREADTH.  In particular, the 
+coefficient on ΔBREADTH is now 2.93, with a t-statistic of 3.18. This implies that, controlling 
+for everything else in the regression, a two-standard deviation spread in ΔBREADTH generates a 
+differential in expected returns of 2.71% over a four-quarter horizon. 
+To put the forecasting power of ΔBREADTH in perspective, consider the coefficient 
+estimate of 0.029 for the BK/MKT variable in the same column-four regression in Panel D of 
+Table 6.  This estimate implies that a two-standard deviation spread in BK/MKT generates a 
+differential in expected returns of 3.33% over a four-quarter horizon.  Thus when put on equal 
+footing, it appears that ΔBREADTH and BK/MKT have roughly similar incremental forecasting 
+power over a one-year horizon. 
+ 
+5.3.    Robustness checks 
+                                                          
+7 We include XTURNOVER in our list of controls because a number of recent papers (e.g., Brennan, Chordia, and 
+Subrahmanyam, 1998) have found a negative relationship between turnover and expected returns.  As can be seen in 
+Table 6, our regressions strongly bear out the existence of this pattern.    
+
+--- PAGE 30 ---
+ 
+29
+We have conducted a range of further tests to verify the robustness of our basic results.   
+Table 7 begins with the full-set-of-controls four-quarter Fama-MacBeth specification in column 
+4 of Table 6.D (which, for ease of comparability, is also reproduced as column 1 of Table 7) and 
+then displays several of the more significant variations explored. 
+ 
+5.3.1. Alternative momentum controls 
+Given the pronounced correlation between ΔBREADTH and MOM12, it makes sense to 
+ask whether our results are sensitive to different specifications of the momentum control.  In 
+column 2 of Table 7, the MOM12 variable is redefined so that it is lagged one month.  Jegadeesh 
+and Titman (1993) and others have argued that this approach can potentially improve the 
+measurement of momentum effects, by eliminating microstructure-related noise.  This variation 
+reduces the coefficient on ΔBREADTH by about 15%, from 2.93 to 2.49, but leaves it still 
+statistically significant. 
+In a similar spirit, column 3 of Table 7 decomposes MOM12 into four separate terms, 
+each covering three months’ worth of past returns.  This less parsimonious representation of 
+momentum simply allows the past-return terms to soak up more of the explanatory power for 
+future returns.  The effect here is close to that in the previous column, with the coefficient on 
+ΔBREADTH falling to 2.39, but again remaining statistically significant. 
+ 
+5.3.2.    Decomposing the predictive power of  ΔBREADTH: IN vs. OUT 
+Our theoretical model implies that both components of ΔBREADTH (IN and OUT) 
+should play a role in helping to forecast returns.  In other words, both high values of IN as well 
+as low values of OUT should predict higher future returns.  Thus it would be somewhat awkward 
+
+--- PAGE 31 ---
+ 
+30
+for the model if, for example, IN was contributing strongly to the predictive power of 
+ΔBREADTH by attracting a large positive coefficient, while OUT was partially nullifying this 
+contribution by also attracting a positive, albeit smaller, coefficient. 
+We investigate this possibility in column 4 of Table 7, replacing ΔBREADTH with IN 
+and OUT and allowing for a separate coefficient on each.  Both coefficients are economically 
+substantial and of the predicted signs (3.67 for IN and –2.01 for OUT). Yet, when we separate 
+them this way, we barely have the precision to say that either is statistically significant in its own 
+right and cannot conduct a meaningful test of whether the two are reliably different from one 
+another—the t-stats are only 1.83 and 1.43 for IN and OUT, respectively. 
+ 
+5.3.3.  Is ΔBREADTH just forecasting future mutual fund demand? 
+Another concern is that the ΔBREADTH variable forecasts future returns not because of 
+the theoretical effect that we are interested in, but rather because it predicts future mutual fund 
+demand.  In particular, one might hypothesize that if a mutual fund first establishes a long 
+position in a stock in quarter t—thereby registering an increase in ΔBREADTHt—this fund 
+might be particularly likely to continue buying shares in quarters t+1, t+2, etc.  If this is true, 
+and if these further rounds of buying push the price up in subsequent quarters via a price-
+pressure effect, this could lead to the sorts of results that we have documented. 
+  
+As a naïve attempt to control for this price-pressure hypothesis, we include in column 5 
+of Table 7 future values of ΔHOLD (i.e., future mutual fund net purchases) as additional 
+independent variables in the Fama-MacBeth regression.  Specifically, we re-run the regression, 
+adding the realizations of ΔHOLD over the next four quarters (i.e., ΔHOLDt+1, ΔHOLDt+2, 
+ΔHOLDt+3, and ΔHOLDt+4).  This approach is conservative, since there is strong reason to 
+
+--- PAGE 32 ---
+ 
+31
+suspect a reverse-causality effect that biases the coefficients on the future ΔHOLD terms up, and 
+hence, if ΔBREADTHt is in fact positively correlated with these future ΔHOLD terms, biases the 
+coefficient on ΔBREADTHt toward zero.  The potential for bias arises because ΔHOLD would 
+likely be positively correlated with contemporaneous returns even in the absence of any price-
+pressure effect, simply because mutual funds are known to be trend-chasers—i.e., because 
+mutual fund purchases respond to price movements, rather than vice-versa.8   
+In spite of this potential for downward bias and the fact that the future ΔHOLD terms 
+themselves emerge as strongly significant, the impact on the ΔBREADTH coefficient is only 
+modest.  This coefficient falls from its column-1 value of 2.93 to 2.34, a decline of 20%, and 
+remains statistically significant.  The conclusion we draw from this (admittedly simplistic) 
+exercise is that it is unlikely that our results are much influenced by price-pressure effects. 
+Finally, we briefly discuss a couple of further robustness checks which are not displayed 
+in any of the tables. 
+ 
+5.3.4. Seasonality  
+One might conjecture that movements in ΔBREADTH are more informative at some 
+times of the year than others. For example, it might be that movements in ΔBREADTH in the 
+fourth quarter are disproportionately influenced by institutional factors outside of our theoretical 
+model, such as year-end tax-loss-selling and window-dressing. If this is true, portfolios formed 
+based on fourth-quarter values of ΔBREADTH might be expected to be less profitable than those 
+formed in other quarters. 
+                                                          
+8 Grinblatt, Titman, and Wermers (1995) document the trend-chasing tendencies of mutual funds. 
+
+--- PAGE 33 ---
+ 
+32
+To investigate this possibility, we disaggregate the analysis in Table 4 by the quarter of 
+portfolio formation. That is, we calculate (P10–P1) profits separately for ΔBREADTH portfolios 
+formed in the first quarter, the second quarter, the third quarter, and the fourth quarter.  Overall, 
+this disaggregation effort does not turn up much in the way of differences across quarters.   For 
+example, using raw returns and an investment horizon of four quarters, the (P10-P1) spreads are 
+6.76%, 6.08%, 6.49%, and 6.37% for portfolios formed at the end of the first, second, third, and 
+fourth quarters respectively.  
+ 
+5.3.5. Outliers 
+As a last check, we truncate all stock-return observations to their three-standard-deviation 
+values (these thresholds are calculated separately within each size class every quarter) and then 
+redo everything in Tables 4 and 6.  As it turns out, all the results remain virtually unchanged, 
+suggesting that none of our inferences are driven by large outliers. 
+ 
+6.  Conclusions 
+We draw two basic conclusions from the work reported here.  First, the evidence is 
+broadly consistent with the idea that short-sales constraints matter for equilibrium stock prices 
+and expected returns.9  As predicted by our model, stocks experiencing declines in breadth of 
+ownership—a proxy for short-sales constraints becoming more tightly binding—subsequently 
+underperform those for which breadth has increased.  Second, of the variables already known to 
+                                                          
+9 After completing the first draft of this paper, we became aware of independently developed work by 
+Scherbina (2000), who also seeks to test Miller’s (1977) ideas.  In her case, however, she proceeds by trying to 
+measure differences of opinion (corresponding to the parameter H in our model) directly.  To do so, she computes 
+the standard deviation of analysts’ earnings forecasts (scaled by the mean earnings forecast).  Consistent with Miller 
+(1977), she then finds that a portfolio that is long low-analyst-dispersion stocks and short high-analyst-dispersion 
+stocks yields significant positive returns.   
+ 
+
+--- PAGE 34 ---
+ 
+33
+forecast returns such as book-to-market, earnings-to-price, and momentum, it appears that the 
+momentum phenomenon is the one most closely bound up with short-sales constraints.  In this 
+regard, our findings tie in nicely with previous research (e.g., Hong, Lim, and Stein, 2000) which 
+has hinted at the same conclusion. 
+An interesting question that our work raises, but does not answer, is this: why do short-
+sales constraints seem to be so strongly binding?  Or said slightly differently: why, in spite of the 
+high apparent risk-adjusted returns to strategies involving shorting, is there so little aggregate 
+short interest in virtually all stocks?  Recent evidence suggests that the direct transactions costs 
+of going short (manifested as the fee paid to a borrow a stock for shorting) can be a significant 
+impediment in a small fraction of cases (D’Avolio, 2001; Geczy, Musto, and Reed, 2001; and 
+Jones and Lamont 2001). Yet, we are skeptical that all, or even most of the answer has to do with 
+these specific transactions costs.  With respect to the mutual funds that we have been studying, 
+there is a facile alternative answer, namely that they are simply prohibited by their charters from 
+ever taking short positions. But why are such restrictions so pervasive?  And why do we not see 
+individuals or other types of institutions filling the void?   At this point, we don’t really know. 
+
+--- PAGE 35 ---
+ 
+34
+Appendix 
+ 
+A.1. 
+Solving for the equilibrium price with short-sales constraints 
+After evaluating the integral in Eq. (3), the aggregate demand of the buyers and the 
+arbitrageurs is given by 
+ 
+(
+)
+(
+)
+P
+F
+H
+4
+P
+H
+F
+Q
+A
+2
+B
+DC
+−
++
+−
++
+=
+γ
+γ
+.  
+ 
+ 
+ 
+ 
+ 
+   (7) 
+ 
+Setting 
+Q
+Q DC =
+ gives a market-clearing condition that is a quadratic function in P.  Applying 
+the quadratic formula yields two roots given by 
+ 
+⎟⎟
+⎠
+⎞
+⎜⎜
+⎝
+⎛
++
++
+±
++
++
+=
+H
+Q
+H
+2
+H
+F
+P
+B
+B
+A
+2
+A
+A
+B
+γ
+γ
+γ
+γ
+γ
+γ
+. 
+ 
+ 
+ 
+ 
+   (8) 
+ 
+The larger of the two roots can never be an equilibrium price since it exceeds the highest 
+possible valuation of the short-sales constrained investors, 
+H
+F +
+.  Hence, taking the smaller of 
+the two roots gives the constrained price 
+C
+P in Eq. (4). 
+Next, note that 
+C
+P is the equilibrium price only when the short-sales constraint is 
+actually binding, which requires that 
+B
+A
+Q
+H
+γ
+γ
++
+≥
+.  In fact, it is easy to verify that  
+ 
+B
+A
+Q
+H
+c
+Q
+F
+P
+B
+A
+γ
+γ
+γ
+γ
++
+−
+=
++
+=
+, 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   (9) 
+ 
+
+--- PAGE 36 ---
+ 
+35
+and so 
+U
+C
+P
+P
+=
+at 
+B
+A
+Q
+H
+γ
+γ
++
+=
+ at which point the buyers with the lowest valuation of 
+H
+F −
+ 
+are just at their reservation value.  When 
+B
+A
+Q
+H
+γ
+γ
++
+<
+, the market clears at the equilibrium price 
+of 
+U
+P and even buyers with the lowest valuation of 
+H
+F −
+are long the stock.  That is, when the 
+degree of divergence of opinion is less than the risk-tolerance-adjusted supply of the stock, short-
+sales constraints do not bind and the equilibrium price is simply that of the unconstrained case. 
+For simplicity of exposition throughout the Appendix, we make the following two 
+definitions.  First, we define the following constant  
+ 
+H
+Q
+B
+B
+A
+2
+A
+γ
+γ
+γ
+γ
+λ
++
++
+=
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   (10) 
+ 
+Next, we rewrite the breadth of ownership B given in Eq. (5) as 
+ 
+⎥
+⎥
+⎦
+⎤
+⎢
+⎢
+⎣
+⎡
+−
+=
+⎥
+⎦
+⎤
+⎢
+⎣
+⎡
+−
++
+=
+∗
+1,
+Min
+1,
+H
+2
+P
+H
+F
+Min
+B
+B
+A
+γ
+γ
+λ
+. 
+ 
+ 
+ 
+ 
+   (11) 
+ 
+ 
+   
+A.2. 
+Proof that 
+∗
+P is increasing in H 
+To show that 
+∗
+P is increasing in H , we first establish a few additional properties of 
+C
+P .  
+Taking the derivative of 
+C
+P with respect to H , we have 
+ 
+(
+)
+2
+1
+A
+B
+C
+H
+Q
+2
+1
+H
+P
+−
++
+−
++
+=
+∂
+∂
+λ
+λ
+γ
+γ
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+   (12) 
+ 
+Evaluating this derivative at 
+B
+A
+Q
+H
+γ
+γ
++
+=
+, we have 
+
+--- PAGE 37 ---
+ 
+36
+ 
+0
+H
+P
+B
+A
+Q
+H
+C
+=
+∂
+∂
++
+=
+γ
+γ
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   (13) 
+ 
+Next, taking the second derivative of 
+C
+P with respect to H , it is easy to show that this second 
+derivative is nonnegative: 
+ 
+0
+H
+2
+Q
+H
+P
+2
+3
+3
+B
+2
+2
+2
+≥
+=
+∂
+∂
+−
+λ
+γ
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   (14) 
+ 
+Recall that the equilibrium stock price for 
+B
+A
+Q
+H
+γ
+γ
++
+<
+ is simply 
+U
+P .  Then for 
+B
+A
+Q
+H
+γ
+γ
++
+≥
+, the properties of 
+C
+P given by Eqs. (9), (13), and (14) imply that 
+C
+P increases 
+monotonically upward from 
+U
+P with H .  We conclude that for all H , the stock price is upward 
+biased relative to the frictionless benchmark and this upward bias increases (weakly) in H . 
+ 
+A.3. 
+Relationship between price and arbitrageurs’ risk tolerance 
+ 
+Taking the derivative of 
+C
+P with respect to 
+A
+γ , we have 
+ 
+⎟⎟
+⎠
+⎞
+⎜⎜
+⎝
+⎛
++
+−
+=
+∂
+∂
+λ
+γ
+γ
+γ
+γ
+B
+A
+B
+A
+C
+2
+2
+1
+1
+H
+2
+P
+.  
+ 
+ 
+ 
+ 
+ 
+ 
+   (15) 
+ 
+ 
+ 
+ 
+ 
+ 
+Observe that the sign of this derivative is negative if and only if 
+ 
+  
+B
+A
+2
+2
+γ
+γ
+λ
++
+≤
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   (16) 
+ 
+With some algebra, it is easy to show that this condition is equivalent to 
+
+--- PAGE 38 ---
+ 
+37
+ 
+B
+Q
+4
+H
+γ
+≥
+. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (17) 
+ 
+A.4. 
+Proof of Proposition 1 
+We have already shown that the price 
+∗
+P is increasing in H , and hence the expected 
+return (
+)
+∗
+−P
+F
+ is decreasing in H .  Moreover, we know that all buyers are long the stock when 
+B
+A
+Q
+H
+γ
+γ
++
+<
+, whereas not all buyers will be long the stock when 
+B
+A
+Q
+H
+γ
+γ
++
+≥
+.  Finally, once 
+inside the constrained region where 
+B
+A
+Q
+H
+γ
+γ
++
+≥
+, it follows from Eq. (11) that breadth of 
+ownership decreases with H since λ decreases in H . Thus breadth is decreasing in H overall, 
+which establishes the proposition. 
+ 
+ 
+ 
+A.5. 
+Proof of Proposition 2 
+ 
+This follows immediately from the formula for B in Eq. (6) of the text.  Holding fixed 
+H , B is monotonically increasing in the expected return (
+)
+∗
+−P
+F
+. 
+ 
+A.6. 
+Proof of Proposition 3 
+ 
+This follows from the result established above, namely that the derivative of 
+C
+P with 
+respect to 
+A
+γ is negative for 
+B
+Q
+4
+H
+γ
+≥
+.  
+
+--- PAGE 39 ---
+ 
+38
+References 
+ 
+Allen, F., Morris, S., Postlewaite, A., 1993. Finite bubbles with short sales constraints and 
+asymmetric information.  Journal of Economic Theory 61, 206-229. 
+ 
+Almazan, A., Brown, B.C., Carlson, M., Chapman, D.A., 1999. Why constrain your mutual fund 
+manager?  Unpublished working paper.  University of Texas. 
+ 
+Asquith, P., Meulbroek, L., 1995. An empirical investigation of short interest. Unpublished 
+working paper.  Harvard Business School. 
+ 
+Basu, S., 1983.  The relationship between earnings yield, market value, and return for NYSE 
+common stocks: further evidence.  Journal of Financial Economics 12, 129-156. 
+ 
+Brennan, M.J., Chordia, T., Subrahmanyam, A., 1998. Alternative factor specifications, security 
+characteristics, and the cross section of expected stock returns. Journal of Financial 
+Economics 49, 345-373. 
+ 
+Brent, A., Morse, D., Stice, E.K., 1990. Short interest: explanations and test.  Journal of 
+Financial and Quantitative Analysis 25, 273-289. 
+ 
+Chen, H., Jegadeesh, N., Wermers, R., 2000. The value of active mutual fund management: an 
+examination of the stockholdings and trades of fund managers. Journal of Financial and 
+Quantitative Analysis 35, 343-368. 
+ 
+Daniel, K., Grinblatt, M., Titman, S., Wermers, R., 1997. Measuring mutual fund performance 
+with characteristic-based benchmarks.  Journal of Finance 52, 1035-1058. 
+ 
+D’Avolio, G., 2001.  The market for borrowing stock.  Unpublished working paper.  Harvard 
+Univerisity. 
+ 
+Dechow, P.M., Hutton, A.P., Meulbroek, L., Sloan, R.G., 2001. Short-sellers, fundamental 
+analysis, and stock returns.  Journal of Financial Economics 61, 77-106. 
+ 
+DeLong, J.B., Shleifer, A., Summers, L.H., Waldmann, R.J., 1990. Noise trader risk in financial 
+markets.  Journal of Political Economy 98, 703-38. 
+ 
+Diamond, D.W., Verrecchia, R.E., 1987. Constraints on short-selling and asset price adjustment 
+to private information.  Journal of Financial Economics 18, 277-311. 
+ 
+Fama, E.F., French, K.R., 1992.  The cross section of expected stock returns.  Journal of Finance 
+47, 427-465. 
+ 
+Fama, E.F., French, K.R., 1993.  Common risk factors in the returns on stocks and bonds. 
+Journal of Financial Economics 33, 3-56. 
+ 
+
+--- PAGE 40 ---
+ 
+39
+ 
+Fama, E.F., French, K.R., 1996.  Multifactor explanations of asset pricing anomalies. Journal of 
+Finance 51, 55-84. 
+ 
+Fama, E.F., MacBeth, J.D., 1973. Risk, return, and equilibrium: empirical tests. Journal of 
+Political Economy 81, 607-636. 
+ 
+Figlewski, S., 1981. The informational effects of restrictions on short sales: some empirical 
+evidence.  Journal of Financial and Quantitative Analysis 16, 463-476. 
+ 
+Figlewski, S., Webb, G.P., 1993.  Options, short sales, and market completeness. Journal of 
+Finance 48, 761-777. 
+ 
+Geczy, C., Musto, D.K., Reed, A.V., 2001.  Stocks are special too:  an analysis of the equity 
+lending market.  Unpublished working paper. University of Pennsylvania. 
+ 
+Grinblatt, M., Titman, S., Wermers, R., 1995. Momentum investment strategies, portfolio 
+performance, and herding: a study of mutual fund behavior.  American Economic Review 
+85, 1088-1105. 
+ 
+Harris, M., Raviv, A., 1993.  Differences of opinion make a horse race.  Review of Financial 
+Studies 6, 473-506. 
+ 
+Harrison, J.M., Kreps, D.M., 1978. Speculative investor behavior in a stock market with 
+heterogeneous expectations.  Quarterly Journal of Economics 93, 323-336. 
+ 
+Hong, H., Lim, T., Stein, J.C., 2000. Bad news travels slowly: size, analyst coverage, and the 
+profitability of momentum strategies.  Journal of Finance 55, 265-295. 
+ 
+Hong, H., Stein, J.C., 2001.  Differences of opinion, rational arbitrage, and market crashes. 
+Unpublished working paper.  Harvard University. 
+ 
+Jarrow, R., 1980. Heterogeneous expectations, restrictions on short sales, and equilibrium asset 
+prices.  Journal of Finance 35, 1105-1114. 
+ 
+Jegadeesh, N., Titman, S., 1993.  Returns to buying winners and selling losers: implications for 
+stock market efficiency.  Journal of Finance 48, 93-130. 
+ 
+Jones, C.M., Lamont, O.A., 2001.  Short-selling costs and stock returns.  Unpublished working 
+paper.   University of Chicago. 
+ 
+Kandel, E., Pearson, N.D., 1995.  Differential interpretation of public signals and trade in 
+speculative markets.  Journal of Political Economy 103, 831-72. 
+ 
+Koski, J.L., Pontiff, J., 1999.  How are derivatives used? Evidence from the mutual fund 
+industry.  Journal of Finance 54, 791-816. 
+
+--- PAGE 41 ---
+ 
+40
+ 
+Lakonishok, J., Shleifer, A., Vishny, R.W., 1994.  Contrarian investment, extrapolation, and risk. 
+Journal of Finance 49, 1541-1578. 
+ 
+Merton, R.C., 1987.  A simple model of capital market equilibrium with incomplete information. 
+Journal of Finance 42, 483-510. 
+ 
+Miller, E., 1977.  Risk, uncertainty, and divergence of opinion.  Journal of Finance 32, 1151-
+1168. 
+ 
+Morris, S., 1996.  Speculative investor behavior and learning.  Quarterly Journal of Economics 
+111, 1111-1133. 
+ 
+Odean, T., 1998.  Volume, volatility, price, and profit when all traders are above average.  
+Journal of Finance 53, 1887-1934. 
+ 
+Scherbina, A., 2000.  Stock prices and differences of opinion: empirical evidence that prices 
+reflect optimism.  Unpublished working paper.   Northwestern University. 
+ 
+Varian, H.R., 1989.  Differences of opinion in financial markets.  In: Stone, C.C. (Ed.), Financial 
+Risk: Theory, Evidence, and Implications: Proceedings of the 11th Annual Economic Policy 
+Conference of the Federal Reserve Bank of St. Louis.  Kluwer Academic Publishers, 
+Boston, pp. 3-37. 
+ 
+Wermers, R., 1999.  Mutual fund herding and the impact on stock prices.  Journal of Finance 54, 
+581-622. 
+ 
+Woolridge, J.R., Dickinson, A., 1994.  Short selling and common stock prices.  Financial 
+Analysts Journal 50, 20-28. 
+ 
+
+--- PAGE 42 ---
+ 
+41
+ 
+Table 1 
+Summary statistics 
+ 
+The sample includes stocks from the NYSE, AMEX, and NASDAQ between 1979 through 1998.  BREADTHt is the fraction of 
+all mutual funds long the stock at the end of quarter t.  ΔBREADTHt is the change in breadth of ownership from the end of 
+quarter t-1 to quarter t.  INt is the fraction of mutual funds in the sample at both quarters t-1 and t that have established a new 
+position in a stock at quarter t.  OUTt is the fraction of mutual funds that have completely removed an existing position in a stock 
+at quarter t.  HOLDt is the fraction of shares outstanding of a stock held by mutual funds at the end of quarter t.  ΔHOLDt is the 
+change in the fraction of shares held by mutual funds from the end of quarter t-1 to quarter t.  LOGSIZEt is the log of market 
+capitalization measured at the end of quarter t.  BK/MKTt is the most recently available observation of book-to-market ratio at 
+the end of quarter t.  E/Pt is past year’s earnings per share divided by the price at the end of quarter t.  NYSE/AMEX 
+TURNOVERt is the share turnover in quarter t among stocks listed on NYSE and AMEX.  NASDAQ TURNOVERt is the share 
+turnover in quarter t of stocks listed on NASDAQ.  XTURNOVERt is share turnover demeaned within each quarter by the 
+average turnover for the firm’s exchange (either NYSE/AMEX or NASDAQ).  MOM12t is the raw return in the twelve months 
+up to quarter t.  Size quintiles are determined using NYSE breakpoints. 
+ 
+Panel A: Means and standard deviations 
+ 
+ 
+ 
+ 
+ 
+All firms 
+Quintiles 
+2-5 firms
+Quintile 5
+(largest)
+ firms
+Quintile 4 
+firms
+ 
+Quintile 3 
+firms 
+ 
+Quintile 2 
+firms 
+Quintile 1
+(smallest) 
+firms
+      BREADTHt 
+Mean
+1.29% 
+2.30%
+7.09%
+2.56%
+1.43% 
+0.76% 
+0.25%
+Std. dev.
+2.46% 
+3.12%
+5.10%
+1.42%
+0.93% 
+0.55% 
+0.25%
+ΔBREADTHt 
+Mean
+0.00% 
+0.00%
+-0.02%
+-0.01%
+0.00% 
+0.00% 
+-0.01%
+Std. dev.
+0.34% 
+0.46%
+0.91%
+0.46%
+0.31% 
+0.20% 
+0.10%
+INt 
+Mean
+0.15% 
+0.27%
+0.71%
+0.32%
+0.20% 
+0.10% 
+0.03%
+Std. dev.
+0.37% 
+0.49%
+0.87%
+0.42%
+0.28% 
+0.18% 
+0.08%
+OUTt 
+Mean
+0.16% 
+0.27%
+0.73%
+0.32%
+0.19% 
+0.10% 
+0.03%
+Std. dev.
+0.30% 
+0.37%
+0.57%
+0.29%
+0.21% 
+0.14% 
+0.07%
+HOLDt 
+Mean
+8.58% 
+10.90%
+10.80%
+12.33%
+11.39% 
+9.88% 
+6.19%
+Std. dev.
+8.62% 
+9.26%
+8.37%
+9.96%
+9.80% 
+8.73% 
+7.17%
+ΔHOLDt 
+Mean
+0.12% 
+0.19%
+0.16%
+0.16%
+0.22% 
+0.19% 
+0.05%
+Std. dev.
+2.89% 
+2.55%
+1.63%
+2.38%
+2.61% 
+2.90% 
+3.20%
+LOGSIZEt 
+Mean
+5.049 
+6.424 
+8.578 
+7.169 
+6.206 
+5.295 
+3.638 
+Std. dev.
+1.818 
+1.341 
+0.999 
+0.612 
+0.565 
+0.568 
+0.961 
+BK/MKTt 
+Mean
+0.722 
+0.664 
+0.620 
+0.658 
+0.649 
+0.697 
+0.780 
+Std. dev.
+2.238 
+0.568 
+0.463 
+0.487 
+0.502 
+0.675 
+3.132 
+E/Pt 
+Mean
+-0.194 
+0.038 
+0.068 
+0.058 
+0.043 
+0.005 
+-0.411 
+Std. dev.
+0.954 
+0.127 
+0.052 
+0.074 
+0.107 
+0.200 
+1.511 
+NYSE/AMEX 
+TURNOVERt 
+Mean
+15.8% 
+17.6% 
+17.7% 
+18.8% 
+17.7% 
+16.3% 
+12.4% 
+Std. dev.
+15.7% 
+16.3% 
+13.8% 
+16.2% 
+17.4% 
+17.2% 
+14.0% 
+NASDAQ 
+TURNOVERt 
+Mean
+29.8% 
+37.5% 
+44.0% 
+42.8% 
+39.4% 
+34.7% 
+25.2% 
+Std. dev.
+35.6% 
+42.9% 
+48.0% 
+49.5% 
+45.5% 
+38.9% 
+29.6% 
+MOM12t 
+Mean
+20.2% 
+24.3% 
+24.0% 
+23.5% 
+24.2% 
+24.8% 
+15.7% 
+Std. dev.
+62.9% 
+51.7% 
+36.2% 
+44.2% 
+50.7% 
+61.1% 
+72.8% 
+ 
+No. of obs.
+204,829 
+103,747 
+16,740 
+19,927 
+27,216 
+39,864 
+101,082 
+
+--- PAGE 43 ---
+ 
+42
+Panel B: Contemporaneous correlations (using only firms above 20th percentile in size) 
+ 
+ 
+BREADTHt 
+ΔBREADTHt 
+INt 
+OUTt 
+HOLDt 
+ΔHOLDt 
+LOGSIZEt 
+BK/MKTt 
+E/Pt 
+XTURNOVERt 
+MOM12t 
+BREADTHt  
+0.056
+0.781
+0.718
+0.080
+0.010
+0.691
+-0.062
+0.084
+0.090
+-0.011
+ΔBREADTHt  
+ 
+0.217
+-0.336
+0.026
+0.185
+0.014
+-0.025
+0.013
+0.002
+0.167
+INt  
+ 
+ 
+0.632
+0.127
+0.106
+0.596
+-0.082
+0.062
+0.213
+0.096
+OUTt  
+ 
+ 
+ 
+0.026
+0.185
+0.014
+-0.025
+0.014
+0.002
+0.169
+HOLDt  
+ 
+ 
+ 
+ 
+0.179
+0.231
+-0.207
+-0.022
+0.293
+0.071
+ΔHOLDt  
+ 
+ 
+ 
+ 
+ 
+0.023
+-0.023
+0.023
+-0.019
+0.128
+LOGSIZEt  
+ 
+ 
+ 
+ 
+ 
+ 
+-0.160
+0.092
+0.027
+0.069
+BK/MKTt  
+ 
+ 
+ 
+ 
+ 
+ 
+0.123
+-0.100
+-0.113
+E/Pt  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+-0.092
+0.001
+XTURNOVERt  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.149
+MOM12t  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 44 ---
+ 
+43
+Panel C: Autocorrelations and cross-autocorrelations (using only firms above 20th percentile in size) 
+ 
+ 
+BREADTHt-1 
+ΔBREADTHt-1 
+INt-1 
+OUTt-1 
+HOLDt-1 
+ΔHOLDt-1 
+LOGSIZEt-1 
+BK/MKTt-1 
+E/Pt-1 
+XTURNOVERt-1 
+MOM12t-1 
+BREADTHt 
+0.989 
+0.061
+0.779
+0.712
+0.078
+0.009
+0.697
+-0.063
+0.079
+0.090
+-0.019
+ΔBREADTHt 
+-0.092 
+0.028
+-0.017
+-0.100
+-0.025
+0.046
+-0.008
+-0.012
+0.019
+-0.009
+0.125
+INt 
+0.751 
+0.088
+0.714
+0.630
+0.097
+0.020
+0.587
+-0.080
+0.053
+0.200
+0.072
+OUTt 
+0.766 
+-0.006
+0.695
+0.718
+0.092
+-0.026
+0.548
+-0.057
+0.057
+0.232
+-0.037
+HOLDt 
+0.076 
+0.038
+0.126
+0.054
+0.962
+0.168
+0.229
+-0.206
+-0.033
+0.286
+0.090
+ΔHOLDt 
+-0.016 
+0.028
+0.004
+-0.026
+-0.100
+-0.040
+0.010
+-0.013
+0.018
+-0.020
+0.075
+LOGSIZEt 
+0.690 
+0.019
+0.591
+0.530
+0.226
+0.015
+0.988
+-0.154
+0.087
+0.022
+0.016
+BK/MKTt 
+-0.060 
+-0.041
+-0.090
+-0.039
+-0.201
+-0.034
+-0.164
+0.907
+0.107
+-0.099
+-0.161
+E/Pt 
+0.074 
+-0.003
+0.063
+0.042
+-0.037
+-0.001
+0.090
+0.143
+0.798
+-0.079
+0.010
+XTURNOVERt 
+0.092 
+0.024
+0.205
+0.197
+0.304
+0.033
+0.033
+-0.099
+-0.088
+0.849
+0.180
+MOM12t 
+-0.035 
+0.147
+0.072
+-0.096
+0.038
+0.134
+0.003
+-0.049
+0.028
+0.127
+0.711
+ 
+
+[TRUNCATED at 80000 chars — 54 total pages]

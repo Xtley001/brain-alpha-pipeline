@@ -1,0 +1,1888 @@
+
+--- PAGE 1 ---
+Differences of Opinion and the Cross-Section of
+Stock Returns
+Karl B. Diether
+Christopher J. Malloy
+Anna Scherbina∗
+October 25, 2001
+ABSTRACT
+We provide evidence that stocks with higher dispersion in analysts’ earnings forecasts
+earn lower future returns than otherwise similar stocks. This effect is most pronounced in
+small stocks, and stocks that have performed poorly over the past year. Interpreting dis-
+persion in analysts’ forecasts as a proxy for differences in opinion about a stock, we show
+that this evidence is consistent with the hypothesis that prices will reﬂect the optimistic view
+whenever investors with the lowest valuations do not trade. By contrast, our evidence is
+inconsistent with a view that dispersion in analysts’ forecasts proxies for risk.
+∗Karl B. Diether and Christopher J. Malloy are at the Graduate School of Business, University of Chicago; Anna
+Scherbina is at the Kellogg School of Management, Northwestern University. This paper combines results from two
+earlier papers: “Analyst Disagreement and the Cross-Section of Stock Returns” by Karl B. Diether and Christopher
+J. Malloy and “Stock Prices and Differences of Opinion: Empirical Evidence that Prices Reﬂect Optimism” by Anna
+Scherbina. The authors thank Nick Barberis, Kent Daniel, Doug Diamond, Eugene Fama, Rick Green (the editor),
+Kathleen Hagerty, Gilles Hillary, Ravi Jagannathan, Robert Korajczyk, Owen Lamont, Joel Lander, Robert Mac-
+Donald, Cade Massey, Lior Menzly, Toby Moskowitz, Jeremy Nalewaik, Lubos Pastor, Chris Polk, Todd Pulvino,
+David Robinson, Richard Thaler, Beverly Walther, Volker Wieland, Andy Wong, and an anonymous referee. Data
+on analysts’ forecasts was provided by I/B/E/S Inc. under a program to encourage academic research. All remaining
+errors are our own.
+
+--- PAGE 2 ---
+Differences of Opinion and the Cross-Section of Stock Returns
+ABSTRACT
+We provide evidence that stocks with higher dispersion in analysts’ earnings forecasts
+earn lower future returns than otherwise similar stocks. This effect is most pronounced in
+small stocks, and stocks that have performed poorly over the past year. Interpreting dis-
+persion in analysts’ forecasts as a proxy for differences in opinion about a stock, we show
+that this evidence is consistent with the hypothesis that prices will reﬂect the optimistic view
+whenever investors with the lowest valuations do not trade. By contrast, our evidence is
+inconsistent with a view that dispersion in analysts’ forecasts proxies for risk.
+
+--- PAGE 3 ---
+Differences of Opinion and the Cross-Section of Stock Returns
+In this paper we analyze the role of dispersion in analysts’ earnings forecasts in predicting
+the cross-section of future stock returns. We ﬁnd that stocks with higher dispersion in analysts’
+earnings forecasts earn signiﬁcantly lower future returns than otherwise similar stocks. In par-
+ticular, a portfolio of stocks in the highest quintile of dispersion underperforms a portfolio of
+stocks in the lowest quintile of dispersion by 9.48% per year. This effect is strongest in small
+stocks, and stocks that have performed poorly over the past year. Our results are robust to various
+risk-adjustment techniques, and are inconsistent with an interpretation of dispersion in analysts’
+forecasts as a proxy for risk.
+We postulate that dispersion in analysts’ earnings forecasts can be viewed as a proxy for dif-
+ferences of opinion among investors. Differences of opinion are typically modeled via dogmatic
+beliefs or asymmetric information sets, and have been included in numerous models that relax
+the standard assumption of homogeneous expectations.1 When included in models in place of the
+standard assumption of homogeneous expectations, heterogeneous beliefs can change the stock
+market equilibria. For example, Williams (1977) and Goetzmann and Massa (2001) show that
+heterogeneous beliefs can affect aggregate market returns, while Mayshar (1982), Miller (1977),
+Jarrow (1980), Diamond and Verrecchia (1987), Morris (1996), Viswanathan (2000), and Chen,
+Hong, and Stein (2001) produce cross-sectional asset pricing predictions. And yet, to date there
+has been little empirical research to investigate how differences of opinion affect asset prices.
+Since many of the theoretical papers that incorporate differences of opinion produce conﬂicting
+cross-sectional implications, the debate can only be resolved with a careful empirical investiga-
+tion. Our paper takes a step in this direction.
+The theoretical debate centers on the intuitively appealing idea (set forth by Miller (1977))
+that prices will reﬂect a more optimistic valuation if pessimistic investors are kept out of the mar-
+ket by high short-sale costs. In Miller’s (1977) model (as in other price-optimism models such as
+1Harris and Raviv (1993) were the ﬁrst to explicitly model investors who were dogmatic about their beliefs.
+However, their model attempts to explain trading volume rather than stock prices.
+1
+
+--- PAGE 4 ---
+Morris (1996), Chen, Hong, and Stein (2001), and Viswanathan (2000)), optimists hold the stock
+because they have the highest valuations. They suffer losses in expectation since the best estimate
+of the stock value is the average opinion. These price-optimism models suggest that the bigger
+the disagreement about a stock’s value, the higher the market price relative to the true value of the
+stock, and the lower its future returns. By contrast, this predicted upward bias in prices disappears
+in models such as Diamond and Verrecchia (1987) and Hong and Stein (2000) that introduce in-
+ﬂuential rational agents. The Diamond and Verrecchia (1987) model depends on the existence of
+a perfectly rational market maker with unlimited computational abilities who can instantaneously
+estimate the unbiased stock value, conditional on all publicly available information. On the other
+hand, the Hong and Stein (2000) result relies on perfectly rational arbitrageurs that can eliminate
+mispricing, perhaps a questionable assumption in light of the burgeoning literature on the limits
+to arbitrage. For example, Shleifer and Vishny (1997), Gromb and Vayanos (2001), and Chen,
+Hong, and Stein (2001) provide compelling theoretical explanations why arbitrageurs may fail to
+close the arbitrage opportunity.
+In light of the strong assumptions behind the models that predict unbiased prices when opin-
+ions diverge, perhaps it is not surprising that our results strongly support the basic Miller (1977)
+prediction. While we use dispersion in analysts’ earnings per share forecasts as a proxy for dif-
+ferences of opinion, Chen, Hong, and Stein (2001) use breadth of mutual fund ownership as a
+measure of the magnitude of disagreement among investors and come to the same conclusion.
+The authors ﬁnd that reductions (increases) in breadth of ownership lead to lower (higher) future
+returns, as Miller (1977) would predict. In addition, Lee and Swaminathan’s (2000) ﬁnding that
+higher trading volume, another possible proxy for differences of opinion, predicts lower future
+returns is consistent with the Miller (1977) story as well.
+On a more general level, given boundedly rational agents and limited arbitrage, any friction
+that prevents the revelation of negative opinions will produce the upward bias in prices that we
+ﬁnd in the data. For example, we provide evidence that the incentive structure of analysts (which
+discourages analysts with poor outlooks from voicing their opinions) can be viewed as an alter-
+native mechanism to the short-sale constraints emphasized in the Miller (1977) model.
+2
+
+--- PAGE 5 ---
+Finally, our results strongly reject the interpretation of dispersion in analysts’ forecasts as
+a measure of risk. While we show that dispersion is positively related to earnings variability,
+standard deviation in returns, and market β, the strong negative relation between dispersion and
+future returns is hard to reconcile within a risk-based framework. In fact, Gebhardt, Lee, and
+Swaminathan (2001) include dispersion in analysts’ forecasts as one of their proxies for risk in
+their attempts to explain implied cost of capital estimates, and are surprised to ﬁnd the same
+negative relation that we document here. However, they do not examine the source and robust-
+ness of this result in any depth. Other prior evidence of a dispersion effect is mixed. Cragg
+and Malkiel (1982) report a positive relation between dispersion in forecasts and future returns,
+but they do so using an extremely limited sample (including only 175 companies, with yearly
+forecasts from 1961-69). By contrast, Ackert and Athanassakos (1997) provide preliminary ev-
+idence that standard deviation in analysts’ forecasts is negatively related to future returns, but
+do so using a sample of only 167 ﬁrms. Lastly, Doukas, Kim, and Pantzalis (2000) is the only
+other paper we know of that explores dispersion in analysts’ forecasts, but they normalize their
+measure of dispersion by price, which is likely to induce the well known book-to-market effect.
+Furthermore, they do not use dispersion to predict future returns.
+The layout of the paper is as follows. In the next section, we discuss three competing hy-
+potheses, the data, and our sample characteristics. Section II describes our procedure of forming
+portfolios on the basis of dispersion in analysts’ forecasts and presents our initial results. Section
+III explores a risk-based explanation for our ﬁndings, while Section IV presents various robust-
+ness checks. Finally, Section V evaluates potential explanations for our results, and Section VI
+concludes.
+3
+
+--- PAGE 6 ---
+I. Methodology
+A. Competing Hypotheses
+Our main objective in this paper is to analyze the role of dispersion in analysts’ earnings forecasts
+in predicting the cross-section of future stock returns. In particular, we test three competing
+hypotheses about the relation between dispersion in forecasts and future returns.
+The ﬁrst hypothesis views dispersion in forecasts as a proxy for differences of opinion among
+investors. This hypothesis centers on Miller’s (1977) conjecture that whenever stock valuations
+differ, equity prices tend to reﬂect the view of the more optimistic investors, leading to low future
+returns. Miller (1977) argues that when opinions diverge and short-sale constraints bind, investors
+with pessimistic valuations do not sell the stock, and optimistic demand pushes stock prices up.
+Miller’s (1977) verbal model assumes that investors are boundedly rational in the sense that they
+are overconﬁdent about their own valuations.2 However, his argument can be easily modiﬁed to
+accommodate investors who are not overconﬁdent, but rather make inaccurate inferences about
+others’ signals. For example, if the short-sale constraint binds, an informed investor with a low
+valuation will not sell the stock. However, an informed investor may also stay out of the market
+if she agrees with the market price. Boundedly rational market participants may erroneously
+assume that the informed investor did not trade simply because her valuation equaled the market
+price. If so, boundedly rational traders will not revise their valuations downward after observing
+that the informed investor did not trade, and the stock price will remain unchanged. In this
+scenario, negative information will not be appropriately incorporated, and the market price will
+be upwardly biased.
+The ﬁrst hypothesis suggests that the larger the disagreement about a stock’s value (either
+caused by overconﬁdence or by inaccurate inferences about others’ signals), the higher the mar-
+ket price relative to the true value of the stock, and the lower its future returns. And although
+2See Daniel, Hirshleifer, and Subrahmanyam (2001) and Gervais, Heaton, and Odean (2000) for models that
+explicitly model overconﬁdence; in these models, investors are overconﬁdent in the sense that they overestimate the
+precision of their private signals.
+4
+
+--- PAGE 7 ---
+Miller’s (1977) model focuses on short-sale constraints, any friction that prevents the revelation
+of negative opinions will produce this negative relation between dispersion in forecasts and future
+returns.
+The second hypothesis also views dispersion in forecasts as a proxy for differences of opinion,
+but states that market prices will be unbiased when opinions about the correct valuation diverge,
+and so future returns will be independent of the current level of disagreement about the stock
+value. This prediction is stated in Diamond and Verrecchia (1987). As a price-setting mechanism,
+the authors model a rational market-maker who correctly sets bid and ask prices, conditioned on
+the possibility that some informed investors with low valuations are constrained from selling
+stock. The outcome is that stock prices are unbiased: no trading proﬁts can be made based on
+the publicly available information. The key assumption of the model is that the market-maker
+has perfect knowledge of his economic environment and can perform Bayesian updating in the
+short time between two consecutive trades. Similarly, Hong and Stein (2000) achieve unbiased
+prices by introducing competitive, risk-neutral, and perfectly rational arbitrageurs who do not
+face short-sale constraints. The arbitrageurs correctly infer the expected stock value from the
+actions of informed overconﬁdent short-sale-constrained investors in a price auction. The market
+clears at the price that is equal to expected stock value. Thus, both of these models predict no
+relation between observed dispersion in analysts’ forecasts and future returns.
+The ﬁnal hypothesis views dispersion in analysts’ earnings forecasts as a proxy for risk. In-
+vestors who are not well-diversiﬁed will demand to be compensated for the idiosyncratic risk of
+the securities they hold (see, for example, Merton (1987)). Since dispersion in analysts’ forecasts
+likely indicates a more volatile, less predictable earnings stream, stocks with higher dispersion
+in analysts’ forecasts should earn higher future returns, and dispersion in analysts’ forecasts will
+hold explanatory power beyond the standard risk factors.
+In summary, the ﬁrst hypothesis predicts a negative relation between dispersion and future
+returns. The second hypothesis predicts no relation. And the third hypothesis predicts a positive
+relation.
+5
+
+--- PAGE 8 ---
+B. Data and Sample Characteristics
+Returns are drawn from the Center for Research in Securities Prices (CRSP) Monthly Stocks
+Combined File, which includes NYSE, AMEX, and Nasdaq stocks. For many of the tests in the
+paper, ﬁrms must also have data in COMPUSTAT on book equity for the ﬁscal year ending in
+calendar year t −1.3 The data on analysts’ earnings estimates are taken from the Institutional
+Brokers Estimate System (I/B/E/S).
+The nature of our inquiry makes the standard-issue I/B/E/S dataset unsuitable for our purposes
+because of the following reporting inaccuracy. I/B/E/S analysts’ forecasts are adjusted histori-
+cally for stock splits in order to produce a smooth time-series of earnings per share estimates.
+For example, analysts’ earnings per share estimates for December, 1976 are reported on the basis
+of the number of shares outstanding as of today, rather than the number of shares outstanding as
+of December, 1976. However, after dividing historical analysts’ forecasts by a split adjustment
+factor, I/B/E/S rounds the estimate to the nearest cent. For example, for a stock that has split
+tenfold, actual earnings per share estimates of 10 cents and 14 cents would be reported as one
+cent per share each. I/B/E/S would then include an adjustment factor of 10 in the Adjustment
+File, so that the “unadjusted” earnings per share estimates would be 10 cents each, rather than
+the correct values of 10 cents and 14 cents, respectively. The observed variance of analysts’ fore-
+casts would then be zero, when in fact it is positive. Observations with no dispersion in analysts’
+forecasts would thus contain ex-post information about the future success of the ﬁrm, embedded
+in the number of stock splits. We conducted our analysis on the raw forecast data, unadjusted for
+stock splits (provided by I/B/E/S on request). Had we utilized the commonly-used I/B/E/S ﬁles,
+we would have found that as a group, stocks with the lowest levels of dispersion earned high
+abnormal returns, simply because we would have been picking up observations of ﬁrms that did
+well in the future.4
+3Limiting the sample for all tests to include only those ﬁrms that have data in COMPUSTAT on book equity does
+not signiﬁcantly alter any of our results.
+4We believe we are the ﬁrst to document this error. This ﬁnding has important implications for prior and sub-
+sequent empirical research that uses I/B/E/S data to investigate issues related to dispersion (for example, herding
+among security analysts).
+6
+
+--- PAGE 9 ---
+I/B/E/S data includes U.S. Detail History and Summary History datasets. The Summary
+History dataset contains the summary statistics on analyst forecasts, such as mean and standard
+deviation values. These variables are calculated on the basis of all outstanding forecasts as of (or-
+dinarily) the third Thursday of each month. The Detail History ﬁle contains individual analysts’
+forecasts organized by the date on which the forecast was issued. Each record also contains a
+revision date, i.e., the date on which the forecast was last conﬁrmed as accurate.
+In order to address concerns that the U.S. Summary History ﬁle makes use of analysts’ fore-
+casts that are no longer current, we calculate forecast statistics from the Detail History ﬁle and
+match them to the numbers in the Summary History ﬁle. We compute month-end averages and
+standard deviations from the individual estimates in the Detail History ﬁle by extending each
+forecast until its revision date. For example, if the forecast was made in May and was last con-
+ﬁrmed as accurate in July, it will be used in our computation of averages and standard deviations
+for May, June and July. If an analyst makes more than one forecast in a given month, only the
+last forecast is used in our calculations.
+In some records, a revision date precedes the actual forecast date, which constitutes an error
+on the part of I/B/E/S. In this case, the forecast will be assumed valid only for the month in
+which it was made. In addition, occasional aberrant observations in the Detail History ﬁle are
+not picked up by the Summary History ﬁle. Even given these inconsistencies, the mean and
+standard deviation values calculated from the Detail History ﬁle data closely track the values in
+the Summary History ﬁle. Generally, when compiling statistics from the Detail History ﬁle, we
+obtain fewer monthly forecasts than reported in Summary History ﬁle because we assume that
+forecasts are no longer valid past the revision date, which is not the case for the Summary History
+ﬁle conventions. We compute our portfolio results in Section II using data in both the Summary
+History and Detail History ﬁles. Since the results are very similar, we report only the results
+obtained using the Summary History ﬁle throughout the paper.
+7
+
+--- PAGE 10 ---
+For each stock in CRSP, we set the coverage in any given month equal to the number of
+I/B/E/S analysts who provide ﬁscal year 1 earnings estimates that month.5 Obviously each stock
+must be covered by two or more analysts during that month, since we deﬁne dispersion as the
+standard deviation of earnings forecasts scaled by the absolute value of the mean earnings fore-
+cast.
+There is an unavoidable issue of data deletion when using the I/B/E/S database, since many
+ﬁrms listed on CRSP are not covered by I/B/E/S. However, LaPorta (1996) presents evidence
+showing that the performance of stocks in the I/B/E/S sample is almost identical to those in
+CRSP. The most salient feature of the sample of stocks in the intersection of CRSP, Compustat,
+and I/B/E/S is that it is heavily tilted towards big stocks. As Hong, Lim, and Stein (2000) note,
+the smallest ﬁrms are simply not covered. Table I provides an overview of the extent of analyst
+coverage for NYSE, AMEX, and Nasdaq stocks. As shown in Panel A, in January of 1976 only
+12.8% of stocks are even eligible to be included in our sample. There is a marked deepening of
+coverage by the end of 1979, with the fraction of eligible ﬁrms increasing to 29.2% percent. But
+Panel C shows that even by January of 1983 (the beginning point of our chosen data sample),
+only 4.1% of ﬁrms in the ﬁrst decile are eligible for our sample. Additionally, fewer ﬁrms in our
+sample are delisted for cause relative to the entire CRSP universe.6 This suggests that ﬁnancially
+distressed ﬁrms may be under-represented in our sample.
+Insert Table I Here
+We choose the time period of January 1983 through November 2000 for our portfolio tests in
+Section II for two reasons. First, by January of 1983, the cross-section of stocks has substantial
+variation in size and book-to-market ratio. Second, the data in the Detail History ﬁle are not
+available prior to 1983. Since we replicate portfolio results from Section II with the Detail History
+ﬁle data, we need to use post-1982 data. Using the entire sample makes our results slightly
+stronger.
+5All of the tests in this paper were replicated for different ﬁscal periods (e.g., 2-years). Discussion of these and
+other robustness checks is presented in Section IV.
+6For example, only 14.5% of the ﬁrms in our sample are delisted for cause (delist codes of 400 and above on
+CRSP), compared to 30.3% for the universe of CRSP stocks.
+8
+
+--- PAGE 11 ---
+II. Portfolio Strategies
+In this section, we assign stocks to portfolios based on certain characteristics, such as dispersion
+in analyst forecasts, in order to draw conclusions about average returns for these classes of stocks.
+This is a standard approach in asset pricing, which reduces the variability in returns. The method-
+ology employed here was pioneered by Jegadeesh and Titman (1993). Following Jegadeesh and
+Titman (2001), stocks with share price lower than $5 are omitted in order to ensure that the results
+are not driven by small, illiquid stocks or by bid-ask bounce.
+Dispersion is deﬁned as the standard deviation of earnings forecasts scaled by the absolute
+value of the mean earnings forecast. If the mean earnings forecast is zero, then the stock is
+assigned to the highest dispersion category. Excluding observations with a mean earnings forecast
+of zero does not signiﬁcantly affect the portfolio returns. An alternative deﬁnition of dispersion
+as the ratio of standard deviation of earnings forecasts to the book equity per share does not
+signiﬁcantly affect our results.
+Each month, we assign stocks into ﬁve quintiles based on dispersion in analyst earnings fore-
+casts as of the previous month. After assigning stocks into portfolios, stocks are held for one
+month. We calculate the monthly portfolio return as the equal-weighted average of the returns
+of all the stocks in the portfolio. The last column of Table II shows that this sort produces a
+strong negative relation between average returns and dispersion in analysts’ earnings forecasts.
+The annual return on the D1−D5 strategy is 9.48%, and is strongly signiﬁcant. Of that D1−D5
+spread, 68.4% comes from the short side of the trade, i.e., the difference between medium disper-
+sion stocks and high dispersion stocks. This evidence is strongly supportive of the Miller (1977)
+hypothesis laid out in Section I.
+Table II also presents two-way cuts on size and dispersion, to test if we are simply capturing
+a size effect. Each month, we assign stocks to one of ﬁve quintiles based on the level of market
+capitalization as of the third Thursday of the previous month. We rank stocks in each size quintile
+into ﬁve further quintiles based on dispersion in analyst earnings forecasts as of the previous
+9
+
+--- PAGE 12 ---
+month. Each of the 25 resulting portfolios contains an average of 113 stocks, if the Summary
+History ﬁle is used.7 Table II shows that the average monthly return differential between low-
+and high-dispersion portfolios declines as the average size increases. While the return differential
+between the low- and high-dispersion stocks is positive and highly signiﬁcant for the smaller
+stocks, it becomes insigniﬁcant for stocks in the two highest market-capitalization quintiles.8 In
+particular, the D1−D5 strategy for the smallest quintile earns an enormous 16.4% annual return
+on average. Thus it does not appear that we are simply picking up a size effect, since the two-way
+sorts still produce a strong negative relation between average returns and dispersion for the ﬁrst
+three quintiles.
+Insert
+Table
+II
+Here
+However, I/B/E/S-based market-capitalization quintiles might be misleading because the I/B/E/S
+universe is comprised of only relatively large ﬁrms–especially among the ﬁrms covered by at least
+two analysts. In order to be consistent with reporting convention, we also form portfolios using
+NYSE-based market capitalization deciles. Table III reports returns on these portfolios. There
+are not enough stocks in the three lowest deciles to produce representative average portfolio re-
+turns for these classes of stocks. The return differential for the ﬁfth through ninth NYSE size
+deciles turns out to be statistically signiﬁcant, indicating that the dispersion result holds for even
+relatively large stocks.
+Insert
+Table
+III
+Here
+A. Sorting by Size and Book-to-Market
+In this section we triple-sort on size, book-to-market (BE/ME) ratio, and dispersion to test if we
+are merely picking up a book-to-market effect in returns. Since low book-to-market stocks tend
+to have higher levels of market capitalization, we try to control for the strong size-related pattern
+observed in Table II (namely that within small stocks we see a huge return differential between
+low and high dispersion stocks) by sorting on size and book-to-market. Stocks are ﬁrst sorted
+into three categories based on the level of market capitalization at the end of the previous month.
+7We use conditional sorts here for consistency, since some of out later three-way sorts result in portfolios that are
+very thin if we use independent sorts. Our results are not signiﬁcantly affected if we use independent sorts instead.
+8Results do not change signiﬁcantly when data are restricted to stocks covered by at least three analysts.
+10
+
+--- PAGE 13 ---
+Within each size category, the stocks are sorted into three groups based on the book-to-market
+ratio, and ﬁnally into three dispersion groups within each resulting group. Book equity (BE) is
+deﬁned as the Compustat book value of stockholders’ equity, plus balance sheet deferred taxes
+and investment tax credit (if available), minus the book value of preferred stock. Depending
+on availability, we use redemption, liquidation, or par value (in that order) to estimate the book
+value of preferred stock. To insure that the book equity ﬁgure is known to the market before
+the returns that it is used to explain, we match the yearly book equity ﬁgure for all ﬁscal years
+ending in calendar year t −1 with returns starting in July of year t. This ﬁgure is then divided by
+market capitalization (ME) at month t −1 to form the BE/ME ratio, so that the BE/ME ratio is
+updated each month. Finally, within each size and book-to-market group, stocks are sorted into
+three further subdivisions based on dispersion in earnings-per-share forecasts as of the previous
+month.
+Table IV presents the returns on the resulting 27 portfolios. Note that each portfolio contains
+an average of 55 stocks. The return differential between low and high dispersion stocks is still
+signiﬁcant in 4 of the 9 categories, indicating that the dispersion effect is not simply capturing a
+book-to-market effect. Again we observe the strong size pattern ﬁrst depicted in Table II, with
+small stocks exhibiting the largest return differential. However, no clear pattern emerges with
+respect to book-to-market ratios. While the return differential between low and high dispersion
+stocks is larger for value stocks (those with high BE/ME ratios), this result is not overwhelming.
+On the other hand, the lower half of the table is more revealing. In particular, value stocks have
+much larger average dispersion in forecasts than growth stocks, implying that book-to-market
+ratios are positively related to dispersion in analysts’ forecasts.
+Despite having lower average values of dispersion, growth stocks in the high-dispersion port-
+folios earn returns almost as low as value stocks, indicating that the same amount of dispersion
+in analysts’ earnings per share forecasts would cause lower returns for growth stocks than value
+stocks. This is not surprising, given that the same amount of disagreement about earnings per
+share should translate into a higher level of disagreement about the intrinsic value of a growth
+stock as compared to a value stock. This in turn would translate into a higher price run-up for
+11
+
+--- PAGE 14 ---
+growth stocks, and lower subsequent returns. However, low-dispersion growth stocks earn lower
+returns than low-dispersion value stocks because of the famous value premium, and that translates
+into lower spreads between low- and high-dispersion portfolios for growth stocks.
+Insert
+Table
+IV
+Here
+B. Sorting by Size and Momentum
+Our ﬁnal portfolio strategy entails a three-way cut on size, momentum, and dispersion, to rule out
+the possibility that the momentum effect documented in Jegadeesh and Titman (1993) is driving
+our results. Stocks are ﬁrst sorted into three categories based on the level of market capitalization
+at the end of the previous month. Within each size category, the stocks are sorted into three groups
+based on past returns from t −12 to t −2 (as in Fama and French (1996)). Lastly, within each
+size and momentum group, stocks are sorted into three further subdivisions based on dispersion
+in earnings-per-share forecasts as of the previous month.
+Table V presents the returns on the resulting 27 portfolios. Again the return differential be-
+tween low and high dispersion stocks is still strongly signiﬁcant in 2 of the 9 categories, indicating
+that the dispersion effect is not simply capturing a momentum effect. However, a clear pattern
+emerges with respect to momentum, as the return differential between low and high dispersion
+stocks is strongest in stocks that have performed poorly over the past year (“Losers”). For ex-
+ample, the D1 −D3 strategy for the smallest quintile of losers earns a 9.84% average annual
+return.
+Insert
+Table
+V
+Here
+III. Regression Tests
+Fama and French (1996) show that sorting stocks on variables such as BE/ME (the book-to-
+market ratio), E/P (the earnings-to-price ratio), or C/P (the cash ﬂow-to-price ratio) can produce
+a strong (in their case positive) ordering of returns across deciles. They also argue, however,
+that estimates of three-factor time series regressions indicate that the three-factor model captures
+12
+
+--- PAGE 15 ---
+these patterns in average returns. The regression intercepts are uniformly small, and the GRS
+(Gibbons, Ross, and Shanken (1989)) tests never come close to rejecting the hypothesis that the
+three-factor model describes average returns. Along these lines we employ similar tests to see if
+the three-factor model can capture the return patterns observed in Tables II-V.
+A. Multi-factor Time Series Tests
+Fama and French (1996) argue that many of the CAPM average-return anomalies are related,
+and that they are captured by the three-factor model in Fama and French (1993). In the model,
+RM −RF is the excess return on a proxy for the market portfolio, SMB is the difference between
+the return on a portfolio of small stocks and the return on a portfolio of large stocks, and HML is
+the difference between the return on a portfolio comprised of high book-to-market stocks and the
+return on a portfolio comprised of low book-to-market stocks. HML is the value premium; high
+book-to-market stocks are value stocks, and low book-to-market stocks are growth stocks. SMB
+is the size premium.9
+Believers in the three-factor model suggest that it is an equilibrium pricing model in the
+the spirit of Merton’s (1973) intertemporal capital asset pricing model (ICAPM). In an ICAPM
+framework investors care about market risk, but they also care about hedging against more spe-
+ciﬁc aspects of their investment consumption decisions. For example, investors may wish to
+hedge against the relative prices of consumption goods. In this view of the three-factor model,
+SMB and HML are viewed as portfolios that proxy for factors that are of special hedging concern
+to investors, and βi, si, and hi are factor loadings or sensitivities, and E(RMt) −RFt, E(SMBt),
+E(HMLt) are expected risk premiums. The main testable implication of the model in this setting
+is that αi = 0 for all assets. We test this hypothesis using a formulation of the Hotelling t2 test
+(GRS (1989)). Extensions of the model (see, for example, Carhart (1997)) add a momentum
+factor to this model, included to capture the medium-term continuation of returns documented
+in Jegadeesh and Titman (1993). UMD represents the momentum premium; it is the difference
+9See Fama and French (1996) for details on the construction of these factors.
+13
+
+--- PAGE 16 ---
+between the return on a portfolio comprised of stocks with high returns from t −12 to t −2 and
+the return on a portfolio comprised of stocks with low returns from t −12 to t −2.
+Table VI reports estimates of three and four-factor time-series regressions for monthly excess
+returns on ﬁve equal-weight portfolios formed on dispersion in analysts’ forecasts. The estimated
+intercepts indicate that the three-factor model leaves a large negative unexplained return for the
+portfolio of stocks in the highest dispersion quintile. The loadings indicate that low dispersion
+stocks behave like big, value stocks (they load less on SMB but heavily on HML), while high
+dispersion stocks behave like small, value stocks. An important point to mention, however, is
+that these loadings give a potentially misleading picture of the risk characteristics of these stocks,
+because they are highly variable. For example, in results not reported here, we ﬁnd that in the
+sample period from 1983-1999, high dispersion stocks load very heavily on HML, while low
+dispersion stocks load more on growth. However, in the year 2000 these patterns were strongly
+reversed, as high dispersion stocks behaved very much like growth stocks.
+Insert
+Table
+VI
+Here
+The GRS-test rejects the hypothesis that the three-factor model explains the average returns on
+the 5 dispersion quintiles. The rejection of the three factor model is testimony to the explanatory
+power of the regressions (the average of the 5 regression R2 is .932), so that even small intercepts
+are distinguishable from zero. Note, however, that the intercept on the high dispersion quintile is
+a non-trivial .58 percent.
+Table VI also reports estimates of the four-factor time-series regression for monthly excess
+returns on the dispersion quintiles. Again, the estimated intercepts indicate that the model leaves
+a large negative unexplained return for the portfolio of stocks in the highest dispersion quintile.
+Meanwhile, the estimated intercept on the lowest dispersion quintile is positive and marginally
+signiﬁcant. The pattern of loadings is identical to the pattern in Table VI except that the stocks in
+the highest dispersion quintile now behave like small, distressed losers (they load more on SMB,
+HML, and less on UMD). This lowers the negative unexplained return for the portfolio of stocks
+in the highest decile, but the model still predicts higher post-formation returns on these stocks.
+The GRS-test again rejects the hypothesis that the four-factor model explains the average returns
+14
+
+--- PAGE 17 ---
+on the dispersion quintiles. Thus it appears that neither model can account for the return patterns
+displayed in Tables II-V.
+B. Explaining Dispersion
+In this section, we run a series of Fama and MacBeth (1973) cross-sectional regressions in order
+to illustrate the relation between dispersion in analysts’ forecasts and various fundamentals. We
+also explore how dispersion in forecasts is distinct from other common measures of risk, such as
+standard deviation of returns, market β, earnings variability, etc. The goal is to determine what
+exactly makes dispersion in analysts’ forecasts such an important valuation indicator.
+Speciﬁcally, we attempt to disentangle the effect of dispersion in analysts’ forecasts from
+stock fundamentals and additional measures of risk by performing a series of yearly cross-
+sectional regressions of dispersion (measured 7 months before the end of the ﬁscal year) on
+various lagged ﬁrm characteristics. Aside from the ﬁscal year-end lagged values of market capi-
+talization, book-to-market ratio, sales-to-assets ratio, and debt-to-book ratio, we include momen-
+tum (the return from t −12 months to t −2 months), market β (estimated using the past 36 to 60
+months of data), residual coverage, the standard deviation of daily returns over the past 250 days
+(lagged one month), the average adjusted volume over the past 250 days (lagged one month),
+the average adjusted turnover over the past 250 days (lagged one month), the mean age of the
+forecasts, and a measure of earnings variability (σ(eps)). Residual coverage is the residual from
+yearly regressions of ln(1+ analyst coverage) on ln(M) and ln(B/M). A ﬁrm’s adjusted volume
+is the daily volume from the last 250 days, divided by the mean volume of the ﬁrm’s exchange;
+adjusted turnover is deﬁned similarly. Finally, σ(eps) is the standard deviation of earnings per
+share, divided by the absolute value of mean earnings per share over the past ﬁve years; σ(eps)
+is lagged one year. We run the regressions yearly, rather than monthly, because the dispersion
+measures for each stock are highly autocorrelated.
+The results, reported in Table VII, cast doubt on the interpretation of dispersion in analysts’
+forecasts as a proxy for risk. Dispersion is strongly positively related to market β, earnings vari-
+15
+
+--- PAGE 18 ---
+ability, and standard deviation of past returns. Since these variables are commonly used measures
+of risk, we expect them to be positively related to returns. Therefore, the negative relation be-
+tween dispersion and future returns is hard to explain within a traditional risk-based framework.
+Conﬁrming the evidence presented in Tables II-IV, dispersion is positively related to BE/ME,
+and negatively related to size and momentum. Additionally, dispersion is positively related to
+leverage, turnover, and volume, but negatively related to sales and the mean age of the forecasts.
+Controlling for ﬁrm size, we ﬁnd that dispersion is positively correlated with analyst coverage,
+indicating that there is a high demand for additional opinions in situations where earnings are
+difﬁcult to forecast. Based on these results, we feel that the correct interpretation of dispersion in
+analyst earnings forecasts is as a proxy for differences in opinion among investors. For example,
+turnover is often used as a proxy for differences of opinion, and we ﬁnd these two measures to
+be strongly positively related in our cross-sectional regressions.
+Insert Table VII
+Here
+IV. Robustness Checks
+In order to ascertain that the persistently high returns we have documented thus far are not caused
+by a statistical ﬂuke or an obvious explanation, we employ additional trading strategies and re-
+gression tests to demonstrate robustness.
+A. Lag in portfolio formation
+We try waiting several months before assigning stocks to portfolios. The rationale for this is that
+even though I/B/E/S updates earnings forecasts frequently, the updates may not become available
+to the general public until much later. As shown in Figure 1, when the lag gets longer, returns
+clearly drop, as information becomes stale—prices on stocks in the portfolio may have already
+fallen due to selling by disappointed optimists. If the lag is longer than ﬁve months, the return
+difference is no longer statistically signiﬁcant, even for the lowest market-capitalization quintile.
+Insert
+Figure
+1
+Here
+16
+
+--- PAGE 19 ---
+B. Different holding periods
+We also try holding a stock in the portfolio for longer than one month. At the end of each month,
+stocks are ranked into deciles based on the dispersion in analyst earnings per share forecasts and
+assigned into portfolios without a lag. The stocks are then held in the portfolio for T months,
+with 1/T-th of each portfolio reinvested monthly. Portfolio returns are equal-weighted.
+Figure 2 shows the results of the strategy for different holding periods. For relatively short
+holding periods, the results are similar to that of the one-month holding strategy. This is because
+essentially the same stocks are selected by both strategies every month due to persistence in
+analyst forecast dispersions. However, for longer holding periods, returns of this strategy are
+lower because stocks remaining in the portfolio too long may no longer satisfy the portfolio
+selection criteria.
+Insert
+Figure
+2
+Here
+C. Sorting based on dispersion in two-years-ahead earnings forecasts
+Here we sort stocks based on the dispersion in the following ﬁscal year’s earnings forecasts (not
+reported here). There are fewer observations of the two-years-ahead earnings forecasts in I/B/E/S,
+and, therefore, slightly fewer stocks in each portfolio. Still, because the current and the next ﬁscal
+year’s earnings-per-share forecasts are highly correlated, the forecast dispersions are also highly
+correlated, and the results are similar, although the return differential is somewhat lower.
+D. Sub-period analysis
+We calculate mean monthly returns for the portfolio for the sub-periods 1983-1991 and 1992-
+2000. As reported in Table VIII, the return differential is signiﬁcant for all size quintiles for
+the period of 1983-1991. For the 1992-2000 time period, it is signiﬁcant only for the smallest
+size quintile. As can be seen from the second part of the table, average dispersions of stocks in
+portfolios have also decreased in the later time period. This indicates that the overall magnitude of
+17
+
+--- PAGE 20 ---
+the disagreement has declined, possibly because investors have become better at valuing stocks.
+At the same time, trading costs have come down, and ﬁrm-related information has become more
+readily available. All these factors may have contributed to the decline in the return differential
+over time.
+Insert Table VIII
+Here
+E. Evaluation of other explanations
+Hong, Lim, and Stein (2000) suggest that negative momentum in stock returns–the empirical
+ﬁnding that past losers continue to earn below normal returns in the future–is caused by the slow
+price adjustment to negative information. They empirically document that negative momentum is
+more pronounced for stocks that have lower analyst coverage, after controlling for other factors
+which inﬂuence the amount of analyst coverage, such as size, covariance with the market, and
+the book-to-market ratio.
+Though we have shown that momentum cannot explain away low returns of high-dispersion
+portfolios, we nonetheless check whether analyst coverage is a factor. As seen from Table VII,
+residual analyst coverage is positively correlated with dispersion in analysts’ forecasts, indicating
+that there is a higher demand for expert opinions when existing information is difﬁcult to interpret.
+This implies that the results described here can not be explained by the slow information diffusion
+theory. Since high-dispersion stocks tend to have higher analyst coverage compared to other
+stocks, we expect that after controlling for effect of analyst coverage, our results will be even
+stronger.
+Another concern is that the relative recency of the forecasts may be inﬂuencing the relation
+between forecast dispersion and future returns. In particular, since our tests form portfolios (at
+each date) that combine forecasts made immediately before the current date with those made up
+to a year before the current date, dispersion may be caused by the more recent forecasts that
+contain new information being combined with the old forecasts that contain no such information.
+In results not reported here, we calculate the mean age of the forecasts that we use in Tables
+II-V, and ﬁnd that high-dispersion portfolios on average do indeed contain slightly more recent
+18
+
+--- PAGE 21 ---
+forecasts than low-dispersion portfolios. However, when we include the mean age of the fore-
+casts in our regressions to explain dispersion (see Table VII), it is insigniﬁcant. Moreover, as
+mentioned earlier, our main argument as to why difference of opinions arise and inﬂuence prices
+does not depend on whether investors are asymmetrically informed or simply differ in the way
+they interpret the same information.
+Our ﬁnal robustness check addresses the possibility that by scaling the standard deviation of
+analysts’ forecasts by the mean forecast, our results may simply be due to a denominator ef-
+fect whereby the mean forecast is strongly positively related to future returns and thus drives
+our results. To address this possibility, we run Fama and MacBeth (1973) cross-sectional re-
+gressions each month on all securities in the intersection of CRSP, Compustat, and I/B/E/S from
+January 1980 to December 2000. The setup is analogous to that in Grinblatt and Moskowitz
+(1999), and provides a robustness check on our prior results by allowing us to avoid specifying
+breakpoints, and avoid weighting stocks by size. Speciﬁcally, we regress the cross-section of
+individual stock returns at time t on a constant, market β,10 size (log of market capitalization at
+t −1), ln(BE/ME) (as deﬁned in Table IV), a stock’s past-year return (ret−12:2), the one-month
+past return (ret−1:1), a stock’s long-run past return (ret−36:−13), residual coverage, turnover, the
+1-month lag of dispersion in analysts’ forecasts, the 1-month lag of the standard deviation in
+analysts’ forecasts, and the 1-month lag of the mean analyst forecasts. Residual coverage is
+the residual from monthly regressions of ln(1+ analyst coverage) on ln(ME) and ln(BE/ME),
+and is included to address the concerns raised above that coverage may be driving our results.
+Turnover is the adjusted average turnover from the last 250 days (lagged one month); a ﬁrm’s ad-
+justed turnover is turnover divided by the mean turnover of the ﬁrm’s exchange. The one-month
+past return variable is included to control for liquidity and microstructure effects documented by
+Jegadeesh (1990) that cause a short-term reversal in individual stock returns. The long-run past
+return variable is simply the return from t −36 to t −13, and is included to capture the three- to
+ﬁve-year reversal effect documented by DeBondt and Thaler (1985).
+10We assign post-ranking β’s according to the procedure in Fama and French (1992).
+19
+
+--- PAGE 22 ---
+Since one can argue that turnover is another measure of differences of opinion (see, for ex-
+ample, Harris and Raviv (1993) and Lee and Swaminathan (2000)), and since turnover has been
+shown to predict returns (Lee and Swaminathan (2000), we include this variable in our regres-
+sions to test if turnover subsumes dispersion. Turnover is also the single most important ex-
+planatory variable for our measure of dispersion (see Table VII), making such a test an important
+robustness check on our prior results.
+Table IX shows the results of the Fama and MacBeth (1973) cross-sectional regressions, in-
+cluding speciﬁcations with and without residual coverage, turnover, and the past-return variables.
+The coefﬁcient on the dispersion variable is strongly negative in all of the speciﬁcations, in line
+with the patterns observed in Tables II-V. This result is robust to changes in the date at which
+dispersion is measured. Including size, book-to-market, and various momentum variables on the
+right-hand side of the regression controls for many of the previously documented anomalies in
+the literature, but does not capture the effect of dispersion in analysts’ forecasts. Similarly, the
+inclusion of turnover does not drive out the dispersion effect; in fact, dispersion remains signiﬁ-
+cant, while turnover is not.11 The regression results conﬁrm previous ﬁndings in this paper: there
+is a strong negative effect of dispersion in analysts’ forecasts on future returns. In addition, Table
+IX demonstrates that coverage and scaling effects are not driving these results, since the standard
+deviation of analyst forecasts is negative and signiﬁcant in all of the speciﬁcations, while the
+mean forecast is not.
+Insert
+Table
+IX
+Here
+V. Potential Explanations
+As mentioned in Section III, we feel that the correct interpretation of dispersion in analysts’
+forecasts is as a proxy for differences of opinion among investors. Our results clearly reject the
+notion that dispersion can be viewed as a proxy for risk, since the relation between dispersion
+11When we use unadjusted turnover in place of our measure of turnover, dispersion is still strongly negatively
+signiﬁcant, but turnover is negative and signiﬁcant as well. When we extend the horizon of our dependent variable
+to twelve months instead of one, as in Lee and Swaminathan (2000), we ﬁnd that both dispersion and unadjusted
+turnover are strongly negatively signiﬁcant.
+20
+
+--- PAGE 23 ---
+and future returns is strongly negative. Returning to the hypotheses laid out in Section I, we feel
+that our results provide support for the predictions of the price-optimism model of Miller (1977).
+In this section we explore this theory in greater depth.
+First of all, some of the evidence presented in sections II-IV can also be used to evaluate the
+Miller (1977) model. For example, the ﬁnding (in Table II) that the return differential between
+low and high dispersion stocks is strongest in small stocks is consistent with Miller’s (1977)
+model, since these stocks are likely to be the ones that are hardest to short and least likely to have
+traded options. There is also an asymmetry in the return differential that is consistent with the
+Miller (1977) story; as noted earlier, in Table II we see that 68.4% of the overall spread comes
+from the short-side of the trade. This is to be expected, since the Miller (1977) story stresses the
+fact that high-dispersion stocks will underperform; the converse, that low dispersion stocks will
+outperform, need not be true. Indeed, the estimated intercepts (the “alphas”) in Table VI support
+this claim. The three and four-factor alphas are strongly negative for the high-dispersion quintiles;
+meanwhile, the alphas are positive and insigniﬁcant for low dispersion stocks in the three-factor
+model, and positive and marginally signiﬁcant for low dispersion stocks in the four-factor model.
+One of the implications of Miller’s (1977) hypothesis is that convergence of prices down to
+fundamental values should coincide with the resolution of uncertainty. When uncertainty about
+the stock value is resolved, prices come down to reﬂect the unbiased view, leading to low returns
+on the high dispersion stocks. Evidence in Scherbina (2001) supports this idea. She shows that
+11 to 33 percent of the return differential between the low- and high-dispersion stocks falls on
+a 3-day window around the earnings announcement dates for smaller stocks (for smaller stocks
+more information gets revealed on the earnings announcement dates, while for larger ﬁrms infor-
+mation is available more steadily throughout the year).12 She also shows that higher dispersion
+in analysts’ forecasts leads to lower cumulative abnormal returns in the three-day window around
+the earnings announcements dates.
+12See Chari, Jagannathan, and Ofer (1988)
+21
+
+--- PAGE 24 ---
+Our sub-period analysis in Table VIII also supports the Miller (1977) theory. In it we see
+that the average return differential between the low- and high-dispersion stocks has declined in
+the later part of the sample, becoming insigniﬁcant for all but the smallest size quintile. This is
+to be expected in a Miller (1977) world for the following reasons. First of all, short-sale costs
+have come down over time, resulting in less binding short-sale constraints. At the same time,
+ﬁrm-related information processing and availability have improved, perhaps explaining the lower
+levels of disagreement we ﬁnd today.
+Additionally, Table IV indicates that future returns on growth stocks are more sensitive to
+the differences of opinion about the ﬁrms’ expected earnings, consistent with Miller’s (1977)
+theory. This is because a given degree of dispersion in an earnings forecast translates into a higher
+amount of disagreement about the underlying value for a growth stock than a value stock. For
+growth ﬁrms, equity value is based more on the business strategy and the hard-to-quantify value
+of research and development than on the book value of assets in place. Therefore, uncertainty
+about current earnings projected forward gives a further magniﬁed uncertainty about the value of
+the growth stock. This in turn gives rise to the increased magnitude of the divergence in opinion.
+Given that high short-sale costs are the main impediment to the revelation of negative in-
+formation, Miller’s (1977) effect should be more pronounced for stocks that are more difﬁcult
+to short-sell. However, evidence relating returns to short-sale costs is not as strong. Scherbina
+(2001) argues that high dispersion stocks in the S&P 500 index should not earn lower returns,
+because these stocks should be very cheap to short-sell. However, she still ﬁnds that stocks in
+the lowest dispersion quintile of the S&P 500 index outperform stocks in the highest dispersion
+quintile by 0.48 percent per month (a signiﬁcant difference at the 10 percent level). Further-
+more, Scherbina (2001) investigates whether various proxies for short-sale costs (such as ﬂoat
+and turnover) predict future returns, and ﬁnds only a weak relation between proxies for short-sale
+costs and future returns. However, this result is likely due to the noisiness of the proxies used.
+Indeed, evidence of a link between short-sale costs and future stocks returns is mounting. For
+example, using more direct proxies for short-sale costs, Lamont and Thaler (2001), Jones and
+22
+
+--- PAGE 25 ---
+Lamont (2001), and D’Avolio (2001) all present evidence that high short-sale costs can lead to
+lower future returns, consistent with Miller’s (1977) model of price-optimism.
+As mentioned earlier, given boundedly rational investors and limited arbitrage, any friction
+that prevents the revelation of negative opinions will produce the basic result that we ﬁnd in the
+data. Analysts, who comprise an important channel of information to the market, are often re-
+luctant to make low earnings-per-share forecasts or issue “sell” recommendations. McNichols
+and O’Brien (1997) argue that pessimistic analysts prefer to stop covering the stock. This self-
+censoring is due to analysts’ incentive structure. Analysts rely on ﬁrm management for tips about
+future earnings and risk being cut off when they voice pessimism about a ﬁrm’s prospects. Addi-
+tionally, analysts earn a percentage on commissions from stock sales and get rewarded whenever
+their employer wins lucrative investment banking deals, which furthers their incentives to follow
+stocks for which they have an optimistic outlook.
+The self-censoring of pessimistic analysts creates an upward bias in consensus earnings-per-
+share forecasts. This bias is higher the larger the initial magnitude of disagreement about the
+ﬁrm’s earnings. The following argument shows the causality involved. It is natural to assume
+that the more spread-out the earnings estimates, the lower will be the cut-off point below which
+analysts will not issue forecasts. Suppose that the true underlying distribution of analyst earnings
+is normal with mean µ and standard deviation σ, and the cut-off point is µ −kσ, where k is a
+constant identical for all analysts and ﬁrms. The observed distribution of the forecasts will be
+a truncated normal distribution, with a mean higher than the true mean by σ φ(k)
+Φ(k) where φ(·)
+and Φ(·) are the P.D.F. and the C.D.F. of a standard normal distribution, respectively.13 This
+shows that the bias in the mean reported forecast increases with the dispersion of the underlying
+distribution. If stocks are priced correctly with respect to the mean reported earnings forecast,
+they will be more overvalued the higher the amount of disagreement about the ﬁrm’s earnings.
+This argument is similar in spirit to Miller’s (1977) argument, except that the friction that prevents
+revelation of negative opinions is the incentive structure of analysts. Again, if investors who use
+13Proof is available upon request.
+23
+
+--- PAGE 26 ---
+earnings forecasts are fully rational, they should be able to infer the true mean of the distribution
+by taking into account the self-selection in analyst coverage.
+We ﬁnd strong support in the data for the conjecture that the upward bias in consensus earn-
+ings forecasts is positively related to forecast dispersion. Forecast error in a quarterly earnings-
+per-share forecast is deﬁned as the realized minus the forecasted value. Historically, analysts
+have been too optimistic, so the errors are on average negative. We run a pooled time-series
+and cross-sectional regression of the quarterly forecast errors on standard deviation in quarterly
+earnings per share forecasts.14
+FEit = α0 +α1dispit +εit
+(1)
+α0: Zero is used
+α1: One is used
+The regression coefﬁcients (with the t-statistics in parenthesis) are: α0 = −0.019 (−4.68) and
+α1 = −0.727 (−33.42). The adjusted R2 for the regression is 4.5 percent. The negative intercept
+indicates that on average analysts have been too optimistic in their earnings forecasts. The highly
+signiﬁcant negative t-statistic on forecast dispersion indicate that there is indeed a strong positive
+relationship between optimism in consensus forecasts and uncertainty surrounding the stock’s
+earnings per share.
+VI. Summary and Conclusions
+In this paper we provide evidence that stocks with higher dispersion in analysts’ earnings fore-
+casts earn signiﬁcantly lower future returns than otherwise similar stocks. Our results clearly
+reject the notion that dispersion in forecasts can be viewed as a proxy for risk, since the relation
+between dispersion and future returns is negative. Further, we present evidence that standard
+multi-factor risk-based explanations cannot account for this relation. We feel that the correct
+interpretation of dispersion in analysts’ forecasts is as a proxy for differences in opinion about
+14Means and standard deviations in quarterly and annual earnings forecasts are calculated from the Detail History
+dataset for the date immediately preceding the earnings announcement date.
+24
+
+--- PAGE 27 ---
+a stock. We show that our results are consistent with the hypothesis that prices will reﬂect the
+optimistic view whenever investors with the lowest valuations do not trade.
+Further, although Miller’s (1977) theory focuses on short-sale costs as the reason that in-
+vestors with the lowest valuations do not trade, we argue that any friction that prevents the rev-
+elation of negative opinions will produce the negative relation between dispersion and future
+returns that we document in this paper. To this end, we demonstrate that the incentive structure of
+analysts could serve as another such friction. Due to this incentive structure, analysts prefer not
+to issue forecasts when they are sufﬁciently pessimistic. This creates an upward bias in consensus
+forecasts. The bias increases with dispersion in the underlying forecasts. It would be interesting
+to isolate the importance of this effect on upward price bias. Recently, investors have started to
+rely more heavily on unofﬁcial and largely anonymous “whisper” forecasts, which are available
+from several internet sites.15 These forecasts should not be censored in the same way as analyst
+forecasts because people making them do not have similar incentives. By comparing the pre-
+and post-“whisper” samples, it would be possible to identify the relationship between forecast
+censoring and price bias. Perhaps, the increased reliance on non-analyst forecasts could also help
+to explain why the return differential between the low- and high-dispersion stocks has declined
+in later years.
+15Beneish, Bagnoli, and Watts (1999) document that stock prices reﬂect “whisper” forecasts rather than analyst
+forecasts.
+25
+
+--- PAGE 28 ---
+References
+Ackert, Lucy F., and George Athanassakos, 1997, Prior uncertainty, analyst bias, and subsequent
+abnormal returns, The Journal of Financial Research 20, 263–273.
+Beneish, M., M. Bagnoli, and S. Watts, 1999, Whisper forecasts of quarterly earnings per share,
+Journal of Accounting and Economics 28, 75 – 96.
+Carhart, Mark M., 1997, On persistence in mutual fund performance, The Journal of Finance 52.
+Chari, V., R. Jagannathan, and A. Ofer, 1988, Seasonality of Security Returns. The Case of
+Earnings Announcements, Journal of Financial Economics 21, 101 – 121.
+Chen, J., H. Hong, and J. Stein, 2001, Breadth of ownership and stock returns, Working paper.
+Cragg, John, and Burton Malkiel, 1982, Expectations and the structure of share prices. (Univer-
+sity of Chicago Press Chicago).
+Daniel, Kent D., David Hirshleifer, and Avanidhar Subrahmanyam, 2001, Overconﬁdence, arbi-
+trage, and equilibrium asset pricing, The Journal of Finance 56, 921 – 966.
+D’Avolio, Gene, 2001, The market for borrowing stock, Working paper.
+DeBondt, Werner F. M., and Richard H. Thaler, 1985, Does the stock market overreact?, The
+Journal of Finance 40, 793–808.
+Diamond, D., and R. Verrecchia, 1987, Constraints on Short-Selling and Asset Price Adjustment
+to Private Information, Journal of Financial Economics 18, 277 – 311.
+Doukas, John A., Chansong (Francis) Kim, and Christos Pantzalis, 2000, A test for the alter-
+native explanations of the value/glamour stock returns performance: evidence from analysts’
+forecasts, Working paper.
+Fama, Eugene F., and Kenneth R. French, 1992, The cross-section of expected stock returns, The
+Journal of Finance 46, 427 – 466.
+26
+
+--- PAGE 29 ---
+Fama, Eugene F., and Kenneth R. French, 1993, Common risk factors in the returns of stocks and
+bonds, Journal of Financial Economics 33, 3 – 56.
+Fama, Eugene F., and Kenneth R. French, 1996, Multifactor explanations of asset pricing anoma-
+lies, The Journal of Finance 51, 55 – 84.
+Fama, Eugene F., and James MacBeth, 1973, Risk, return and equilibrium: empirical tests, Jour-
+nal of Political Economy 51, 55 – 84.
+Gebhardt, William R., Charles M. C. Lee, and Bhaskaran Swaminathan, 2001, A test of efﬁciency
+of a given portfolio, Journal of Accounting Research (forthcoming).
+Gervais, Simon, J. B. Heaton, and Terrance Odean, 2000, Capital budgeting in the presence of
+managerial overconﬁdence and optimism, Working paper.
+Gibbons, Michael R., Stephen A. Ross, and Jay Shanken, 1989, A test of efﬁciency of a given
+portfolio, Econometrica 57, 1121 – 1152.
+Goetzmann, William N., and Massimo Massa, 2001, Heterogeneity of trade and stock returns:
+evidence from index fund investors, Yale ICF Working Paper No. 00-28.
+Grinblatt, Mark, and Tobias Moskowitz, 1999, Do industries explain momentum?, The Journal
+of Finance 54, 1249 – 1290.
+Gromb, D., and D. Vayanos, 2001, Equilibrium and welfare in markets with ﬁnancially con-
+strained arbitrageurs, Manuscript.
+Harris, M., and A. Raviv, 1993, Differences of opinion make a horse race, Review of Financial
+Studies 6, 475–506.
+Hong, Harrison, Terence Lim, and Jeremy Stein, 2000, Bad news travels slowly: size, analyst
+coverage, and the proﬁtability of momentum strategies, The Journal of Finance 55, 265 – 295.
+Hong, Harrison, and Jeremy Stein, 2000, Differences of opinion, rational arbitrage and market
+crashes, Working paper.
+27
+
+--- PAGE 30 ---
+Jarrow, Robert, 1980, Heterogeneous expectations, restrictions on short sales and equilibrium
+asset prices, The Journal of Finance 35, 1105–1114.
+Jegadeesh, Narasimhan, 1990, Evidence of predictable behavior of security returns, The Journal
+of Finance 45, 881–898.
+Jegadeesh, Narasimham, and Sheridan Titman, 1993, Returns to buying winners and selling
+losers: implications for stock market efﬁciency, The Journal of Finance 48, 65 – 91.
+Jegadeesh, Narasimham, and Sheridan Titman, 2001, Proﬁtability of momentum strategies: an
+evaluation of alternative explanations, The Journal of Finance 56, 699 – 720.
+Jones, Charles M., and Owen A. Lamont, 2001, Short sale constraints and stock returns, Working
+paper.
+Lamont, Owen A., and Richard H. Thaler, 2001, Can the market add and subtract? Mispricing in
+tech stock carve-outs, Working paper.
+LaPorta, Rafael, 1996, Expectations and the cross-section of stock returns, The Journal of Fi-
+nance 51, 1715–1742.
+Lee, C. M. C., and B. Swaminathan, 2000, Price momentum and trading volume, The Journal of
+Finance 55, 2017–2069.
+Mayshar, Joram, 1982, On divergence of opinion and imperfections in capital markets, American
+Economic Review 73, 114–128.
+McNichols, M., and P. O’Brien, 1997, Self-selection and analyst coverage, Journal of Accounting
+Research 353, 167–199.
+Merton, Robert C., 1973, An intertemporal capital asset pricing model, Econometrica 41, 867–
+887.
+Merton, Robert C., 1987, A simple model of capital market equilibrium with incomplete infor-
+mation, The Journal of Finance 42, 483–510.
+28
+
+--- PAGE 31 ---
+Miller, E., 1977, Risk, uncertainty, and divergence of opinion, The Journal of Finance 32, 1151–
+1168.
+Morris, S., 1996, Speculative investor behavior and learning, Journal of Financial Economics
+111, 1111–1133.
+Scherbina, Anna, 2001, Stock prices and differences of opinion: empirical evidence that prices
+reﬂect optimism, Working paper, Kellogg School of Management, Northwestern University.
+Shleifer, A., and R. Vishny, 1997, The limits of arbitrage, The Journal of Finance 52, 35–55.
+Viswanathan,
+S.,
+2000,
+Strategic trading,
+heterogeneous beliefs and short constraints,
+Manuscript.
+Williams, J., 1977, Capital asset prices with heterogeneous opinion, Journal of Financial Eco-
+nomics pp. 219–277.
+29
+
+--- PAGE 32 ---
+-0.50
+0.00
+0.50
+1.00
+1.50
+2.00
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+Lag (in months)
+Return differential (in %)
+Figure 1. Robustness Checks: Lags in Portfolio Formation. At the end of each month, all
+stocks in the I/B/E/S universe are ranked into deciles based on dispersion in analysts’ earnings
+per share forecasts (deﬁned as the ratio of the standard deviation to the absolute value of the
+mean forecast). Stocks in each dispersion decile are assigned into equal-weighted portfolios
+with a certain lag and held in the portfolio for one month. The difference in returns between
+the lowest- and highest-decile portfolios is calculated. The chart below plots the mean monthly
+return differential, with the broken lines indicating the 95% conﬁdence interval (adjusted for
+autocorrelation).
+30
+
+--- PAGE 33 ---
+-0.50
+0.00
+0.50
+1.00
+1.50
+2.00
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+Holding period (in months)
+Return differential (in %)
+Figure 2. Robustness Checks: Holding Periods. At the end of each month, stocks are ranked
+into deciles based on dispersion in analysts’ earnings per share forecasts and assigned into port-
+folios without a lag. The stocks are then held in the portfolio for T months, with 1/T-th of
+each portfolio reinvested monthly. Portfolio returns are equal-weighted. The difference in re-
+turns between the lowest- and highest-decile portfolios is calculated. The chart below plots the
+mean monthly return differential, with the broken lines indicating the 95% conﬁdence interval
+(adjusted for autocorrelation).
+31
+
+--- PAGE 34 ---
+Table I
+Summary Statistics on Analyst Coverage: 1/76-12/00
+Descriptive statistics for NYSE, AMEX, and Nasdaq stocks during the period from January 1976
+to December 2000. Panel A reports statistics for all stocks, while Panel B limits the sample to
+only eligible stocks. A stock is “eligible” to be included in our analysis if it has a 1 (ﬁscal)
+year I/B/E/S earnings estimate, is covered by 2 or more analysts, and has a price greater than 5$.
+Panels C and D report the same statistics as in Panels A and B for January 1983, and breaks the
+sample down by size decile (formed using NYSE-based market capitalization deciles).
+Summary Statistics for 1976-2000
+Panel A: All CRSP Stocks
+Panel B: Eligible Stocks
+Number
+Percentage
+Number
+Mean
+of
+Mean Size
+of Firms
+of
+Mean Size
+No. of
+Date
+Firms
+(Millions)
+Eligible
+Firms
+(Millions)
+Estimates
+197601
+5065
+184.6
+12.8
+650
+910.2
+6.47
+197912
+4781
+267.5
+29.2
+1395
+621.5
+7.47
+198212
+5438
+305.6
+31.9
+1735
+766.0
+8.78
+198512
+6227
+362.4
+35.4
+2203
+938.5
+9.95
+198812
+6798
+408.6
+34.0
+2309
+1094.1
+9.82
+199112
+6643
+610.1
+35.5
+2361
+1590.1
+9.23
+199412
+8029
+633.8
+40.7
+3269
+1423.9
+8.26
+199712
+8839
+1241.2
+46.8
+4140
+2473.1
+7.19
+200012
+7823
+2032.9
+40.5
+3166
+4740.6
+7.79
+Summary Statistics by Size for 198301
+Panel C: All CRSP Stocks
+Panel D: Eligible Stocks
+Number
+Percentage
+Number
+Mean
+NYSE
+of
+Mean Size
+of Firms
+of
+Mean Size
+No. of
+Breakpoints
+Firms
+(Millions)
+Eligible
+Firms
+(Millions)
+Estimates
+Decile 1
+2969
+15.2
+4.1
+123
+34.1
+2.76
+Decile 2
+517
+61.2
+31.9
+165
+62.7
+3.39
+Decile 3
+406
+96.9
+50.5
+205
+97.8
+3.81
+Decile 4
+323
+151.5
+69.3
+224
+151.0
+4.90
+Decile 5
+258
+229.4
+79.1
+204
+229.2
+6.79
+Decile 6
+231
+343.3
+84.0
+194
+343.9
+8.26
+Decile 7
+191
+528.5
+89.0
+170
+526.8
+11.22
+Decile 8
+173
+809.1
+89.0
+154
+809.9
+13.60
+Decile 9
+160
+1381.2
+92.5
+148
+1366.2
+16.91
+Decile 10
+165
+5709.0
+92.1
+152
+5079.4
+19.59
+32
+
+--- PAGE 35 ---
+Table II
+Portfolio Returns by Size and Dispersion in Analysts’ Forecasts
+Each month stocks are sorted in ﬁve groups based on the level of market capitalization as of
+the third Thursday of the previous month. Stocks in each size group are then sorted into ﬁve
+additional groups based on dispersion in analyst earnings forecasts for the previous month.
+Dispersion is deﬁned as the ratio of the standard deviation of analysts’ current-ﬁscal-year annual
+earnings per share forecasts to the absolute value of the mean forecast, as reported in the I/B/E/S
+Summary History ﬁle. Stocks with a mean forecast of zero are assigned to the highest dispersion
+groups, and stocks with a price less than 5$ are excluded from the sample. Stocks are held for
+one month, and portfolio returns are equal-weighted. The time period considered is February
+1983 through December 2000. The table reports average monthly portfolio returns; t-statistics in
+parentheses are adjusted for autocorrelation.
+Returns
+Size Quintiles
+Dispersion
+small
+large
+All
+Quintiles
+S1
+S2
+S3
+S4
+S5
+Stocks
+D1 (low)
+1.52
+1.45
+1.50
+1.51
+1.48
+1.48
+D2
+1.12
+1.40
+1.41
+1.18
+1.35
+1.36
+D3
+0.99
+1.20
+1.32
+1.11
+1.36
+1.23
+D4
+0.76
+1.07
+1.18
+1.33
+1.33
+1.12
+D5 (high)
+0.14
+0.56
+0.83
+1.03
+1.20
+0.69
+D1-D5
+1.37a
+0.89a
+0.67b
+0.48
+0.29
+0.79a
+t-statistic
+(5.98)
+(3.12)
+(2.41)
+(1.55)
+(0.94)
+(2.88)
+a,b,c Statistically signiﬁcant at the 1, 5, and 10 percent levels, respectively
+Average Dispersion
+Size Quintiles
+Dispersion
+All
+Quintiles
+S1
+S2
+S3
+S4
+S5
+Stocks
+D1 (low)
+0.010
+0.011
+0.012
+0.014
+0.014
+0.012
+D2
+0.039
+0.033
+0.030
+0.028
+0.025
+0.030
+D3
+0.081
+0.062
+0.053
+0.047
+0.039
+0.053
+D4
+0.172
+0.125
+0.103
+0.086
+0.067
+0.105
+D5 (high)
+1.256
+0.963
+0.813
+0.722
+0.462
+0.852
+33
+
+--- PAGE 36 ---
+Table III
+Portfolio Returns by NYSE Market Capitalization Deciles
+Each month stocks in each NYSE-based market capitalization decile (which is determined as
+of the third Thursday of the previous month) are sorted into ﬁve groups based on dispersion
+in analyst earnings forecasts for the previous month. Dispersion is deﬁned as the ratio of the
+standard deviation of analysts’ current-ﬁscal-year annual earnings per share forecasts to the
+absolute value of the mean forecast, as reported in the I/B/E/S Summary History ﬁle. Stocks
+with a mean forecast of zero are assigned to the highest dispersion groups, and stocks with a
+price less than 5$ are excluded from the sample. Stocks are held for one month, and portfolio
+returns are equal-weighted. Only portfolios in the largest seven deciles are reported since there
+are fewer than eight stocks on average within each size/dispersion portfolio for size deciles 1-3.
+The time period considered is February 1983 through December 2000. The table reports average
+monthly portfolio returns; t-statistics in parentheses are adjusted for autocorrelation.
+Returns
+NYSE market capitalization deciles
+Dispersion
+4
+5
+6
+7
+8
+9
+10
+Quintiles
+average number of stocks in each portfolio
+(27)
+(47)
+(68)
+(91)
+(119)
+(149)
+(189)
+D1 (low)
+1.21
+1.22
+1.34
+1.42
+1.50
+1.47
+1.45
+D2
+1.41
+1.51
+1.26
+1.39
+1.38
+1.18
+1.31
+D3
+1.38
+1.31
+1.41
+1.04
+1.30
+1.16
+1.20
+D4
+0.72
+0.91
+0.96
+1.11
+0.88
+1.08
+1.18
+D5 (high)
+0.61
+0.53
+0.33
+0.32
+0.49
+0.64
+1.03
+D1-D5
+0.60
+0.69c
+1.01a
+1.09a
+1.01a
+0.84b
+0.41
+t-statistic
+(1.48)
+(1.86)
+(3.08)
+(3.61)
+(3.93)
+(2.33)
+(1.49)
+a,b,c Statistically signiﬁcant at the 1, 5, and 10 percent levels, respectively
+34
+
+--- PAGE 37 ---
+Table IV
+Portfolio Returns by Size, Book-to-Market, and Dispersion
+Each month stocks are sorted into three groups based on the level of market capitalization at the
+end of the previous month. Each size group is then sorted into three book-to-market groups. The
+book-to-market ratio is computed by matching the yearly BE ﬁgure for all ﬁscal years ending
+in calendar year t −1 to returns starting in July of year t; this ﬁgure is then divided by market
+capitalization at month t −1 to form the book-to-market ratio, so that the book-to-market ratio is
+updated each month. Each size and book-to-market group is further sorted into three dispersion
+groups. Dispersion is deﬁned as the ratio of the standard deviation of analysts’ current-ﬁscal-year
+annual earnings per share forecasts to the absolute value of the mean forecast, as reported in the
+I/B/E/S Summary History ﬁle. Stocks with a mean forecast of zero are assigned to the highest
+dispersion groups, and stocks with a price less than 5$ are excluded from the sample. Stocks are
+held for one month, and portfolio returns are equal-weighted. The sample period is February
+1983 through December 2000; t-statistics in parentheses are adjusted for autocorrelation.
+Returns
+Low Book-to-Market
+Medium Book-to-Market
+High Book-to-Market
+Dispersion
+Small
+Medium
+Large
+Small
+Medium
+Large
+Small
+Medium
+Large
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+low
+1.35
+1.42
+1.40
+1.64
+1.50
+1.32
+1.50
+1.58
+1.42
+medium
+1.27
+1.40
+1.20
+1.29
+1.11
+1.27
+1.13
+1.46
+1.37
+high
+0.73
+1.28
+1.38
+0.67
+0.86
+1.12
+0.70
+1.10
+1.34
+low-high
+0.63b
+0.14
+0.02
+0.96a
+0.64b
+0.21
+0.80a
+0.48
+0.08
+t-statistic
+(2.10)
+(0.47)
+(0.06)
+(4.09)
+(2.37)
+(0.96)
+(4.09)
+(1.70)
+(0.25)
+a,b,c Statistically signiﬁcant at the 1, 5, and 10 percent levels, respectively
+Average Dispersion
+Low Book-to-Market
+Medium Book-to-Market
+High Book-to-Market
+Dispersion
+Small
+Medium
+Large
+Small
+Medium
+Large
+Small
+Medium
+Large
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+low
+0.04
+0.03
+0.02
+0.05
+0.03
+0.02
+0.10
+0.04
+0.03
+medium
+0.08
+0.05
+0.03
+0.09
+0.05
+0.04
+0.21
+0.11
+0.07
+high
+0.49
+0.34
+0.20
+0.56
+0.37
+0.26
+1.04
+0.86
+0.59
+35
+
+--- PAGE 38 ---
+Table V
+Portfolio Returns by Size, Momentum, and Dispersion
+Each month stocks are sorted into three groups based on the level of market capitalization at the
+end of the previous month. Each size group is then sorted into three momentum groups; momen-
+tum is computed based on past returns from t-12 to t-2, where “Losers” is an equal-weighted
+portfolio of stocks in the worst-performing 33 percent. Each size and momentum group is further
+sorted into three dispersion groups. Dispersion is deﬁned as the ratio of the standard deviation of
+analysts’ current-ﬁscal-year annual earnings per share forecasts to the absolute value of the mean
+forecast, as reported in the I/B/E/S Summary History ﬁle. Stocks with a mean forecast of zero
+are assigned to the highest dispersion groups, and stocks with a price less than 5$ are excluded
+from the sample. Stocks are held for one month, and portfolio returns are equal-weighted. The
+sample period is February 1983 through December 2000; t-statistics in parentheses are adjusted
+for autocorrelation.
+Returns
+Losers
+Winners
+Dispersion
+Small
+Medium
+Large
+Small
+Medium
+Large
+Small
+Medium
+Large
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+low
+0.92
+1.02
+1.27
+1.29
+1.45
+1.36
+1.79
+1.79
+1.54
+medium
+0.47
+0.69
+1.12
+1.11
+1.32
+1.18
+1.84
+1.80
+1.58
+high
+0.09
+0.63
+0.93
+0.82
+1.22
+1.06
+1.56
+1.81
+1.73
+low-high
+0.82a
+0.40
+0.35
+0.48a
+0.23
+0.30
+0.23
+-0.02
+-0.19
+t-statistic
+(3.65)
+(1.56)
+(1.46)
+(2.76)
+(1.12)
+(1.61)
+(1.17)
+(-0.10)
+(-0.83)
+a,b,c Statistically signiﬁcant at the 1, 5, and 10 percent levels, respectively
+Average Dispersion
+Losers
+Winners
+Dispersion
+Small
+Medium
+Large
+Small
+Medium
+Large
+Small
+Medium
+Large
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+Cap
+low
+0.10
+0.05
+0.03
+0.04
+0.03
+0.02
+0.03
+0.02
+0.02
+medium
+0.21
+0.10
+0.06
+0.09
+0.05
+0.04
+0.06
+0.15
+0.04
+high
+1.18
+0.85
+0.55
+0.61
+0.33
+0.22
+0.39
+0.28
+0.25
+36
+
+--- PAGE 39 ---
+Table VI
+Time Series Tests of Three and Four-Factor Models for Dispersion Equal-Weight Quintiles
+This table reports estimates of the Fama-French three factor model, as well as a four factor model,
+E(Rit −RFt) = biM (RM −RF)+siSMLt +hiHMLt +miUMDt, for monthly excess returns on the
+equal-weight dispersion quintiles. RM −RF is the CRSP NYSE/AMEX/Nasdaq value weight
+index. HML and SMB are created using the same methodology as Fama and French (1996).
+UMD represents the momentum premium; it is the difference between the return on a portfolio
+comprised of stocks with high returns from t −12 to t −2 and the return on a portfolio comprised
+of stocks with low returns from t −12 to t −2. The dispersion equal-weight quintiles are formed
+as in Table II. The sample period is February 1983 to December 2000. Stocks with a price less
+than 5$ are excluded from the sample, and t-statistics (Newey-adjusted) are in parentheses.
+Factor Sensitivities
+Portfolio
+Alpha (%)
+Market
+SMB
+HML
+UMD
+Adj. R2 (%)
+D1 (low dispersion)
+0.13
+1.06
+0.32
+0.26
+88.42
+(0.88)
+(39.78)
+(3.17)
+(2.83)
+0.27
+1.06
+0.33
+0.21
+-0.13
+89.18
+(2.14)
+(43.33)
+(4.17)
+(2.50)
+(-2.01)
+D2
+0.03
+1.06
+0.40
+0.22
+92.64
+(0.30)
+(44.13)
+(5.76)
+(2.95)
+0.17
+1.06
+0.41
+0.17
+-0.12
+93.35
+(1.57)
+(56.96)
+(7.98)
+(2.44)
+(-2.81)
+D3
+-0.07
+1.08
+0.49
+0.15
+95.08
+(-0.82)
+(42.71)
+(6.59)
+(2.91)
+0.09
+1.07
+0.51
+0.09
+-0.14
+95.94
+(1.26)
+(52.92)
+(9.46)
+(1.98)
+(-4.12)
+D4
+-0.18
+1.11
+0.67
+0.14
+96.47
+(-2.56)
+(52.79)
+(12.74)
+(3.31)
+-0.03
+1.10
+0.68
+0.08
+-0.14
+97.17
+(-0.40)
+(63.19)
+(19.12)
+(2.00)
+(-5.21)
+D5 (high dispersion)
+-0.58
+1.15
+0.88
+0.13
+93.74
+(-4.78)
+(38.53)
+(16.16)
+(3.19)
+-0.35
+1.15
+0.91
+0.05
+-0.20
+94.92
+(-2.62)
+(45.66)
+(26.12)
+(1.11)
+(-5.18)
+GRS(3F)=
+5.51
+GRS(4F)=
+2.62
+37
+
+--- PAGE 40 ---
+Table VII
+FM Regressions of Dispersion in Analysts’ Forecasts on Lagged Firm Characteristics
+Fama-Macbeth (1973) cross-sectional regressions are run every ﬁscal year from 1983 to 2000; dispersion in analysts’
+forecasts is regressed on various lagged ﬁrm characteristics. Analysts’ forecasts are measured 7 months before the
+end of the ﬁscal year. β is estimated using the past 36 to 60 months of data. M is the lagged ﬁscal year end market
+cap. B/M is the lagged ﬁscal year end book to market ratio. R−12,:2 is the return from t −12 months to t −2
+months. RCov is the residual from yearly regressions of ln(1+ analyst coverage) on ln(M) and ln(B/M). σ(R) is
+the std. dev. of daily returns over the past 250 days (lagged one month). Vol is the average adjusted daily volume
+from the last 250 days (lagged one month); a ﬁrm’s adjusted volume is volume divided by the mean volume of the
+ﬁrm’s exchange. Turn is the adjusted average turnover from the last 250 days (lagged one month); a ﬁrm’s adjusted
+turnover is turnover divided by the mean turnover of the ﬁrm’s exchange. D/B is the lagged ﬁscal year end debt to
+book ratio. S/A is the lagged ﬁscal year end sales to assets ratio. σ(eps) is the std. dev. of earnings per share divided
+by the absolute value of mean earnings per share over the past ﬁve years; σ(eps) is lagged one year. Age is the mean
+age of the forecasts. Newey-West t-statistics are in parentheses. Stocks with a price below $5 are excluded.
+β
+lnM
+lnB/M
+R−12:−2
+RCov
+σ(R)
+Vol
+Turn
+lnD/B
+lnS/A
+σ(eps)
+Age
+0.131
+(4.49)
+-0.046
+(-6.59)
+0.075
+(3.26)
+-0.309
+(-5.22)
+0.135
+(4.86)
+0.141
+(4.95)
+0.005
+(2.99)
+0.044
+(8.20)
+0.039
+(3.00)
+-0.034
+(-4.25)
+0.005
+(2.71)
+-0.023
+(-1.37)
+0.112
+-0.025
+0.058
+-0.282
+0.114
+(3.81)
+(-7.19)
+(2.66)
+(-5.40)
+(5.67)
+-0.030
+0.005
+0.089
+-0.221
+0.087
+0.185
+(-1.41)
+(0.81)
+(3.29)
+(-6.04)
+(5.07)
+(3.66)
+0.080
+-0.028
+0.059
+-0.295
+0.089
+0.002
+0.039
+(2.51)
+(-6.98)
+(2.53)
+(-5.78)
+(4.33)
+(1.79)
+(3.42)
+0.067
+-0.030
+0.032
+-0.288
+0.088
+0.002
+0.046
+0.039
+-0.031
+0.004
+-0.020
+(1.90)
+(-7.85)
+(1.55)
+(-6.23)
+(3.86)
+(1.24)
+(3.23)
+(2.23)
+(-3.30)
+(2.89)
+(-0.80)
+38
+
+[TRUNCATED at 80000 chars — 42 total pages]

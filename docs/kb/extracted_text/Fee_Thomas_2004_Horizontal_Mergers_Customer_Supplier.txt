@@ -1,0 +1,1116 @@
+
+--- PAGE 1 ---
+ Electronic copy available at: http://ssrn.com/abstract=384900 
+ 
+ 
+ 
+ 
+ 
+Sources of Gains in Horizontal Mergers: Evidence from Customer, Supplier, and 
+Rival Firms 
+ 
+ 
+C. Edward Fee 
+Department of Finance 
+Eli Broad College of Business 
+Michigan State University 
+East Lansing, MI  48824-1121 
+ (517) 353-2920 
+fee@bus.msu.edu 
+ 
+Shawn Thomas 
+Katz Graduate School of Business 
+University of Pittsburgh 
+Pittsburgh, PA 15260 
+(412) 648-1648 
+shthomas@katz.pitt.edu 
+ 
+This draft: September 12, 2003 
+ 
+Abstract:  We investigate the upstream and downstream product-market effects of a 
+large sample of horizontal mergers and acquisitions from 1980-1997.  We construct a 
+dataset that identifies the corporate customers, suppliers, and rivals of the firms initiating 
+horizontal mergers and use this dataset to examine announcement-related stock market 
+revaluations and post-merger changes in operating performance.  We find little evidence 
+consistent with increased monopolistic collusion.  However, we do find evidence 
+consistent with improved productive efficiency and buying power as sources of gains to 
+horizontal mergers.  The nature of the buying power gains, i.e., rents from monopsonistic 
+collusion or improved purchasing efficiency, is also investigated. 
+ 
+Keywords: Mergers, Acquisitions, Collusion, and Buying Power 
+ 
+JEL classification: G34; D43; L41 
+ 
+We thank Murillo Campello, Charlie Hadlock, Jun-Koo Kang, Ken Lehn, Anil Makhija, 
+Mike Ryngaert, an anonymous referee, and seminar participants at the University of 
+Arkansas, the University of Kansas, the University of Pittsburgh, and the 2003 Western 
+Finance Association Meeting for helpful comments and suggestions.  We thank Jeremy 
+Kopp and Hong-Yan Li for excellent research assistance.  Any errors remain our own. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 2 ---
+ Electronic copy available at: http://ssrn.com/abstract=384900 
+ 
+1
+1. Introduction 
+ 
+Managers of firms undertaking horizontal mergers and acquisitions often cite improved 
+productive efficiency as the primary source of anticipated gains to mergers.1  Improved 
+efficiency in production and/or distribution may arise from greater realization of economies of 
+scale, elimination of overlapping facilities, etc.  On the other hand, antitrust authorities 
+frequently posit that horizontal mergers enable the merging firms to gain at the expense of 
+customers and suppliers by allowing the merging firms an opportunity to engage in 
+anticompetitive collusion.  For instance, merged firms may more easily collude with rival firms 
+to restrict output to monopoly levels and raise prices at the expense of their customers (see 
+Stigler, 1964).  Similarly, merged firms may collude with rivals to restrict aggregate purchases to 
+monopsony levels and thereby lower input prices at the expense of their suppliers (see Robinson, 
+1933).   
+ 
+It should be noted that merging firms may gain from pooling their purchasing, without 
+necessarily engaging in anticompetitive monopsonistic collusion with rivals.  For instance, 
+merging firms may realize purchasing efficiencies if they can reduce their input usage or obtain 
+quantity discounts from suppliers.  Merging firms may also be able to use their combined 
+purchasing to induce suppliers to compete on price to sell to the combined firm.  Further, if the 
+supplier industry is not already competitive, then pooled purchasing and the competition that it 
+induces may allow the merging firms to effectively countervail anticompetitive practices 
+upstream, as noted by Galbraith (1952) and Snyder (1996).  If the most efficient suppliers are 
+likely to win such price competitions, then the result is a more efficient allocation of industry 
+resources post-merger.  This is in clear contrast to the efficiency implications of anticompetitive 
+                                                 
+1 While our sample includes both mergers and tender offers, for expository purposes, we refer to all deals as mergers 
+in this paper. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 3 ---
+ 
+2
+collusion. 
+ 
+The gains from increased buying power and/or anticompetitive collusion are not mutually 
+exclusive of improved productive efficiency; however, gains from buying power and/or 
+monopolistic collusion are distinct from efficiency gains in that they are expected to not only 
+affect the post-merger performance of the merging firms but also the performance of other firms 
+that share a product-market relationship with the merging firms.  In this paper, we investigate the 
+relative importance of buying power (both the anticompetitive monopsonistic variety and the 
+efficiency increasing variety) and monopolistic collusion as sources of gains to mergers.  We 
+construct a dataset that identifies the important corporate customers, suppliers, and rivals of a 
+large sample of firms that announced horizontal mergers and acquisitions between 1980 and 
+1997.  This approach, originally suggested by Eckbo (1983), allows us to examine both the 
+valuation impact at announcement and subsequent changes in operating performance for firms 
+both upstream and downstream of the merged firms.2  To our knowledge, no previous paper has 
+examined the effects of horizontal mergers on actual corporate customers and suppliers in a large 
+sample setting. 
+ 
+As in previous studies that examine anticompetitive collusion as a motivation for 
+mergers, we find evidence that rival firms experience positive abnormal returns at merger 
+announcements but do not experience negative abnormal returns when antitrust authorities 
+challenge the mergers.  This pattern of abnormal returns appears inconsistent with the conjecture 
+that the market views gains to mergers as largely stemming from anticipated increased collusive 
+activity (of either the monopolistic or monopsonistic variety).3  We also document insignificant 
+                                                 
+2 Eckbo writes, “In principle, one could discriminate between the collusion and efficiency theories by examining the 
+abnormal returns to the merging firms’ corporate customers and suppliers of inputs.” 
+3 We use the terms “monopolistic collusion” and “monopsonistic collusion” to refer to anticompetitive collusion in 
+the output and input markets, respectively.  To our knowledge, none of the mergers in our sample resulted in only 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 4 ---
+ 
+3
+stock price reactions for customer firms at merger announcements and negligible post-merger 
+changes in customer operating performance.  These results hold even for those corporate 
+customers that appear to be particularly reliant on the merging firms for their purchases.  Taken 
+together, the findings for rivals and customers suggest increased anticompetitive collusion is not 
+a significant source of gains to the mergers in our sample.  
+ 
+We find that, on average, suppliers experience significant declines in cash flow margins 
+immediately subsequent to downstream mergers.  This result suggests that some form of buying 
+power is an important source of gains in horizontal mergers.  However, this finding alone does 
+not allow us to determine whether the gains are related to anticompetitive or to efficiency-
+increasing manifestations of buying power.  To gain additional insight into the nature of these 
+purchasing gains, we examine the effects of mergers on different types of suppliers (e.g., retained 
+vs. terminated) and in different industry contexts (e.g., concentrated vs. fragmented).  This 
+analysis yields several interesting results.   
+ 
+We find that the net effect of a merger on a particular supplier appears to depend heavily 
+on the supplier's ability to retain its product-market relationship with the merged entity.  
+Specifically, those suppliers that are terminated subsequent to a customer merger experience 
+negative and significant abnormal returns at the merger announcement and significant cash-flow 
+deterioration post-merger.  In contrast, those firms that are retained as suppliers experience 
+significant gains in market share and insignificant abnormal returns or changes in operating 
+performance.  These results suggest that merging firms may realize gains by pitting their pre-
+existing suppliers against one another in a price competition to remain suppliers post-merger.  
+Given that winning suppliers do not appear to suffer, we interpret these results as more consistent 
+                                                                                                                                                             
+one surviving industry firm.  Thus, we may have alternatively chosen the terms “oligopolistic collusion” and 
+“oligopsonistic collusion.”  
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 5 ---
+ 
+4
+with efficiency-increasing buying power than monopsonistic collusion since all suppliers would 
+likely be expected to suffer negative effects under the formation of an effective monopsony. 
+ 
+Multivariate analysis confirms the above asymmetric effects of mergers on suppliers’ 
+operating performance, and also reveals other interesting cross-sectional patterns in the effects of 
+mergers on supplier firms.  In particular, suppliers that are relatively more reliant on the merging 
+firms for sales revenue (i.e., suppliers that face potentially higher costs of switching output to 
+another industry or customer) experience significantly larger reductions in cash flow margins 
+subsequent to the merger.  Additionally, buying power effects are more pronounced when the 
+merging firms operate in industries that are relatively concentrated.  Moreover, greater 
+concentration in the suppliers' industry is also associated with larger reductions in cash flow 
+margins for suppliers.  The regressions also confirm anecdotal evidence that, in our sample 
+period, buying power effects are particularly important in mergers among retailers.  Finally, for 
+the subsample of deals in which the merging firms operate in concentrated industries, we find 
+that supplier post-merger cash flow reductions are significantly related to merging firm post-
+merger cash flow increases (and cost of good sold reductions), which is consistent with increased 
+buying power representing a significant source of gains to mergers in these settings.   
+ 
+Interestingly, the above patterns are strongly evident in supplier operating performance 
+changes but not nearly as evident in announcement period abnormal returns.  One explanation 
+for this seeming inconsistency is that the market anticipates that the observed operating 
+performance changes will be temporary in nature.  That is, the market anticipates that in the long 
+run, upstream firms might undertake strategic actions such as mergers of their own to counteract 
+the buying power effects of downstream consolidation.  Consistent with this explanation, we 
+generally find the strongest evidence of supplier operating performance changes in the year 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 6 ---
+ 
+5
+immediately following the merger, with less significant changes in subsequent years. 
+This paper proceeds as follows.  In Section 2, we develop the hypotheses to be tested.  
+We describe our sample construction and methodology in Section 3.  We report results in Section 
+4 and offer a concluding discussion in Section 5. 
+ 
+2. Hypothesis Development and Related Literature 
+Table 1 describes the potential sources of gains to horizontal mergers and details the 
+predicted effects of events increasing the probability of a merger on the merging firms as well as 
+their rivals, customers, and suppliers.4  Although the various gains are not entirely mutually 
+exclusive, in general, each source of gains has a different implication as to how the respective 
+firms are expected to be affected by the merger.  We exploit this fact to help distinguish gains 
+coming purely from improvements in productive efficiency from those coming from buying 
+power or monopolistic collusion. 
+Reductions in production, distribution, marketing, and other costs that arise from greater 
+realization of economies of scale, elimination of overlapping facilities, etc., are commonly given 
+as sources of gains to horizontal mergers.5  We refer to the idea that the gains to mergers reflect 
+such anticipated improvements as “the productive efficiency hypothesis.”  To aid exposition and 
+help distinguish among the various sources of gains that we consider, we refer to all merger 
+gains that do not come at the expense of firms sharing a product-market relationship with the 
+merging firms as productive efficiency gains.  Note that efficiency gains in purchasing activities 
+                                                 
+4 These predictions apply to anticipated changes in operating performance following mergers as well as stock market 
+reactions to events that increase the probability of a merger.  Predictions under the productive efficiency and 
+monopolistic collusion hypotheses, particularly those related to merging firms and rivals, are from Eckbo (1983) and 
+Eckbo and Weir (1985).  The predicted stock market reactions to an event that decreases the probability of a merger 
+are generally of the opposite sign. 
+5 Clearly, horizontal mergers could also be motivated by the gains to replacing inefficient management or to 
+exploiting a temporary misvaluation of an industry competitor. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 7 ---
+ 
+6
+are not included in productive efficiency gains as we have defined this term. 
+As outlined in Table 1, the main prediction of the productive efficiency hypothesis is that 
+of positive announcement returns and increases in post-merger cash flow margins for merging 
+firms.  The implications for rival firms are unclear.  Rivals’ stock prices may rise on a merger 
+announcement if the stock market infers that industry participants are undervalued or that rivals 
+may realize efficiency gains through future mergers of their own.  Alternatively, rivals may 
+experience negative effects if the merging firms gain a competitive advantage that rivals are not 
+expected to replicate.  Customers would likely either benefit, if some of the cost savings are 
+passed along in lower prices, or be unaffected.  Given the distinctions that we are making 
+between improved purchasing efficiency and improved efficiency in other areas of operation, 
+suppliers would not be directly affected if the sole source of gains to horizontal mergers is 
+improved productive efficiency as we have defined it.6  
+  Existing evidence on the importance of productive efficiency as a source of gains to 
+mergers comes largely from papers that examine announcement effects on merging firms and 
+subsequent changes in merging-firm operating performance.  As catalogued in Bruner (2002), 
+many previous papers have documented positive revaluations for horizontal merger 
+announcements.  However, empirical evidence on changes in cash flows around horizontal 
+mergers is mixed; e.g., see Ravenscraft and Scherer (1987), Healy, Palepu, and Ruback (1992), 
+Ghosh (2001), and Heron and Lie (2002). 
+As in Stigler (1964), horizontal mergers may allow the merged firms to more easily 
+collude with rival firms to restrict output to monopoly levels and thus raise prices at the expense 
+                                                 
+6 While suppliers are not expected to be directly affected under the productive efficiency hypothesis, suppliers may 
+indirectly benefit from improved downstream efficiency.  For instance, all else equal, improved merging-firm 
+efficiency may provide the merging firms a competitive advantage over their rivals and increase sales which would 
+require greater input purchases.  Of course, this assumes that the supplier does not lose an equal amount of revenue 
+due to reduced purchases from the rivals of the merging firms. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 8 ---
+ 
+7
+of their customers.  We refer to this idea as “the monopolistic collusion hypothesis.”  Under the 
+monopolistic collusion hypothesis, we would expect that merging firms and rivals would benefit 
+and customers would suffer since the primary result of an effective monopoly is reduced output 
+and increased prices.7  While a reduction in downstream production and input use could 
+negatively affect suppliers, the importance of these effects is unclear. 
+Eckbo (1983) and Stillman (1983) point out that a positive reaction by rivals to merger 
+announcements is not, by itself, sufficient evidence to accept the monopolistic collusion 
+hypothesis.  As we outline in Table 1, such a reaction is also possible under the productive 
+efficiency hypothesis if the market believes that the rivals can also realize efficiency gains 
+through future takeovers, a possibility supported by the findings of Song and Walkling (2000).  
+However, to the extent that an antitrust challenge lowers the probability of merger completion, 
+challenge announcements should negatively affect rivals’ stock prices under the collusion 
+hypothesis, a prediction that is inconsistent with the data in Eckbo (1983).8  Note that our data 
+allow us to distinguish between the productive efficiency and the monopolistic collusion 
+hypotheses by separating out the effects of mergers on those firms expected to be most directly 
+affected by the collusive activity, i.e., customers.  In the interest of updating the findings of prior 
+studies, we report rivals’ reactions to merger announcements and challenges. 
+With regards to the upstream effects of horizontal mergers, both economic theory and 
+                                                 
+7 Rival firms would be expected to suffer if the merger permits the merging firms to engage in predatory pricing 
+following the merger.  Under certain assumptions, the abnormal returns to bidders may be informative in 
+determining the relevance of the hypotheses.  In particular, both collusion hypotheses would likely predict positive 
+returns to both bidders and targets, as well as positive combined returns.  Consider, for example, the case of an 
+industry consisting of one potential target and two identical potential acquirers that are engaged in costless bidding.  
+Because the gains to collusion are largely output-price related and do not reflect any productive synergies, even the 
+losing bidder will realize such gains.  Neither potential acquirer would have any incentive to bid more than the 
+initial target value plus the anticipated gains to the target under the new pricing structure.  This positive externality 
+implies that shareholders of the winning bidder and those of both the target and the losing bidder will be able to 
+realize gains in the values of their holdings.  We thank the referee for bringing this possibility to our attention. 
+8 Other studies that utilize a similar approach include Stillman (1983), Eckbo (1985, 1992), Eckbo and Weir (1985), 
+and Schumann (1993). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 9 ---
+ 
+8
+anecdotal evidence suggest that there are several channels through which combined purchasing 
+may lead to merger gains as a result of lower input prices.  We refer to the general idea that 
+merging firms can combine their purchasing activities and obtain lower input prices as the 
+“buying power hypothesis.”  Unlike monopolistic collusion, buying power may be either 
+efficiency increasing or efficiency decreasing, as described below.  For this reason, we discuss 
+several variations of the general buying power hypothesis.  While these hypotheses have several 
+predictions in common, as we outline in Table 1, we rely on somewhat subtle but important 
+differences in the predictions of the respective hypotheses for suppliers to help ascertain which, 
+if any, are consistent with the data. 
+Under all forms of the buying power hypothesis, the gains to the merging firms come, at 
+least in part, at the expense of some their upstream suppliers.  A recent example of a merger in 
+which buying power was expected to lead to substantial cost savings was the Hewlett-
+Packard/Compaq deal.  A significant portion of the estimated $2.5 to $3 billion in annual savings 
+was expected to come from more aggressive dealings with suppliers.  An analyst following the 
+firm post-merger described the change in tactics by saying, “H-P beats up its suppliers on 
+price… They used to be the nice guy, but now they play rough.”9  As we explain below, “playing 
+rough” is quite different from “playing unfairly” and cannot in and of itself be taken as evidence 
+of anticompetitive behavior. 
+We refer to the idea that horizontal mergers increase anticompetitive upstream behavior 
+as the “monopsonistic collusion hypothesis.”  Under this hypothesis, we would expect rivals to 
+benefit and suppliers to suffer since the primary implication of monopsonistic collusion is 
+                                                 
+9 See “One year later, Hewlett-Packard, Compaq offer role model for mega-mergers” by Crayton Harrison (The 
+Dallas Morning News, May 4, 2003). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 10 ---
+ 
+9
+enhanced coordination among industry competitors to obtain lower input prices.10  The effect of 
+mergers on customers under this hypothesis, if any, would tend to be negative.  The reason for 
+this prediction is that a true monopsonist would generally not pass cost savings along to 
+consumers.  If the output market is perfectly competitive, then the monopsonist will sell its 
+reduced output (as a result of reduced input purchases) at the market price.  As Blair and 
+Harrison (1993) describe, absent competition in the output market, a monopsonist will have 
+power in the output market and thus its reduced output will, all else equal, raise prices and harm 
+customers. 
+Merging firms and their rivals are more likely to establish an effective monopsony when 
+they face a supplier industry that is fragmented and competitive.  However, supplier industries 
+are often not perfectly competitive and suppliers may exercise market power of their own.  In 
+these circumstances, increased downstream buying power need not be economically harmful and 
+may actually increase efficiency as in Galbraith’s (1952) theory of countervailing power.  For 
+instance, if upstream firms are colluding to restrict output and keep prices above competitive 
+levels prior to the merger, then the increased purchasing power accompanying combined 
+purchasing may induce members of the upstream cartel to break ranks and compete on price.   
+Merging firms may realize purchasing efficiencies if they can reduce their per-unit input 
+usage or obtain quantity discounts from suppliers.  We refer to the idea that merger-induced 
+increased buying power permits firms to gain purchasing efficiencies or to countervail an 
+anticompetitive upstream industry as the “purchasing efficiency/countervailing power 
+hypothesis.”  Under this hypothesis, the effect of mergers on suppliers could be either positive or 
+                                                 
+10 An alternative hypothesis to monopsonistic collusion is that mergers increase the likelihood of anticompetitive 
+upstream behavior, (e.g., forcing suppliers to charge higher prices to rivals, or to not sell to rivals, etc.), as the 
+Federal Trade Commission charged in its 1996 complaint against Toys ‘R’ Us.  Under this alternate hypothesis, 
+returns to rivals would be negative rather than positive. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 11 ---
+ 
+10
+negative, depending upon how the efficiencies are gained.  For example, total profits in the 
+supplier industry could actually increase, all else equal, if production is switched to lower cost 
+producers even though output prices fall.  The prediction of this hypothesis with regards to rivals 
+is indeterminate.  If rivals can also gain lower input prices following the merger, then the effects 
+are positive.  If not, then rival firms may be at a competitive disadvantage.  The effect of mergers 
+on customers under the purchasing efficiency/countervailing power hypothesis depends on the 
+extent to which the cost savings are passed along, and hence is also unclear, but probably biased 
+towards the positive side. 
+Recent theoretical models (see, e.g., Snyder, 1996, Gal-Or, 1999, and Inderst and Wey, 
+2002) and anecdotal evidence both suggest that the effects of increased buying power on supplier 
+firms may be somewhat asymmetric.  If the merging firms pit their pre-existing suppliers against 
+one another in a price competition to remain suppliers post-merger, then the most efficient 
+suppliers are likely to win this competition.  For example, Staples executives are quoted in 
+relation to their announced intention to buy Office Depot in 1997 that “all the (supplier) 
+relationships we have now are open to change and renegotiation.”11  In a specific example, prior 
+to their proposed merger, Staples bought pencil sharpeners from Panasonic while Office Depot 
+bought them from Hunt Manufacturing.  These respective suppliers inferred from statements by 
+Staples management that only the supplier which submitted the lowest bid would be retained.  
+Staples and Office Depot expected to cut their combined input prices by nearly $150 million per 
+year through such enhanced supplier competition. 
+If the above type of tournament were common, then the purchasing efficiency/ 
+countervailing power hypothesis would predict asymmetric effects on suppliers.  On balance, 
+suppliers that are retained might not be harmed by the merging firms' increased buying power; 
+                                                 
+11 See “Inside the Staples deal:  Chaos upstream” by Roger Lowenstein (The Wall Street Journal, March 20, 1997). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 12 ---
+ 
+11
+i.e., they may sell a higher quantity but at a lower price.  On the other hand, those suppliers that 
+lose the bidding competition might suffer.  While some individual suppliers might be expected to 
+experience net gains in response to merging firm purchasing efficiencies or exercise of 
+countervailing power, it is relatively less likely that any suppliers would benefit under 
+monopsonistic collusion.  Under classical stories of monopsony, the firms forming the 
+monopsony simply offer the monopsony price regardless of supplier identity. 
+ 
+Many of the previous papers examining the product-market effects of horizontal mergers 
+have relied on changes in product prices around mergers for inferences.  Thus, these papers are 
+often limited to specific industries or clinical settings for which price data can be obtained.  For 
+example, Knapp (1990) and Kim and Singal (1993) present evidence relating to airline mergers 
+while Prager and Hannan (1998) present evidence from bank mergers, Barton and Sherman 
+(1984) present evidence from the microfilm market, and Chipty and Snyder (1999) present 
+evidence from the cable television industry.12 
+Our approach of inferring the implications of mergers by examining the effects on 
+customers and suppliers is not entirely new.  However, most previous studies have employed this 
+approach in intra-industry or clinical settings, as in the price data studies.  For instance, Mullin, 
+Mullin, and Mullin (1995) examine the market reaction of customers to various events associated 
+with the U.S. Steel dissolution suit that began in 1911 and Mullin and Mullin (1997) examine the 
+reaction of customers to U.S Steel’s 1906 acquisition (by long-term lease) of Great Northern 
+Railway’s iron ore properties.  Bittlingmayer and Hazlett (2000) examine the effects of antitrust 
+actions against Microsoft on portfolios of firms that produce complements or substitutes for 
+Microsoft’s products.  In a recent paper, Karceski, Ongena, and Smith (2003) examine the 
+reaction of borrowers to banking mergers.  
+                                                 
+12 For evidence on the importance of buying power in the pharmaceutical industry, see Ellison and Snyder (2001). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 13 ---
+ 
+12
+ 
+The only other paper we are aware of that examines the reactions of customers and 
+suppliers to merger announcements in a large cross-sectional setting is a recent study by Shahrur 
+(2002).  While we identify individual companies with actual product-market relationships, 
+Shahrur uses the benchmark input-output matrices for the U.S. economy to identify upstream and 
+downstream industries.  We view the two approaches as complementary in the sense that the 
+input-output approach is able to identify a large pool of potential customers and suppliers while 
+our approach is able to identify those individual firms that have actual, significant product-
+market relationships with the merging firms.13  An additional methodological difference between 
+the papers is that we examine changes in operating performance as well as stock price reactions.  
+While the two papers are in agreement on a number of points, there are some significant 
+differences in the conclusions drawn as regards the importance of buying power.  In particular, 
+Shahrur (2002) documents negative average abnormal returns to suppliers on takeover 
+announcements but positive returns to suppliers for the subset of deals in which merging firm 
+combined abnormal returns are positive.  He interprets this finding as evidence against what he 
+refers to as the buyer power hypothesis.  The analysis in the present paper, however, suggests 
+that some forms of buying power are in fact important. 
+ 
+3. Data 
+3.1. Sample Construction 
+ 
+Our sample of horizontal mergers is drawn from the universe of mergers and acquisitions 
+proposed between January 1, 1980 and December 31, 1997 and included in the Securities Data 
+                                                 
+13 Given the effects of horizontal mergers are probably greatest on direct competitors, current customers, and current 
+suppliers, differences between our papers’ conclusions discussed below may reflect the differences in our respective 
+samples.  For instance, a merger between two regional firms would not be expected to have a large impact on rivals 
+that operate in another region.  While our sample of rivals is subject to this same weakness, our customer and 
+supplier samples are not.  Eckbo (1983) avoids this problem by examining cases in which antitrust complaints state 
+explicitly that the merging firms operate nationally.  
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 14 ---
+ 
+13
+Corporation (SDC) M&A database.14  We include in our sample all deals that meet the following 
+criteria: 
+1. The bidder did not previously own a majority interest in the target and was seeking to 
+obtain a majority interest through the transaction.  
+2. The announcement date of the proposed merger or tender offer can be determined via a 
+search of newswires and newspapers archived in Dow Jones Interactive.15 
+3. The bidder and target are both domestic, publicly traded firms with sufficient data in 
+CRSP to calculate announcement period abnormal returns. 
+4. The bidder and target are not financial or regulated firms (primary CRSP SIC code not 
+6000-6999, 4000-4099, 4500-4599, or 4800-4999). 
+5. The bidder and target have data available in Compustat on both a consolidated and 
+industry-segment basis (active and research files). 
+6. The bidder and target report at least one industry segment each with the same four-digit 
+SIC code (excluding financial and regulated industries). 
+There are 554 proposed transactions that met the sample formation criteria, and summary 
+statistics for these deals are presented in Table 2.  As reported in Panel A, there is considerable 
+heterogeneity in the frequency and magnitude of deals by year.  Given the distinctions that are 
+often drawn regarding merger and acquisition activity in the 1980s versus the 1990s, we note that 
+roughly two-thirds of our sample observations are from the 1990s.  The average ratio of target 
+firm market value of equity to bidding firm market value of equity (both reported in 1997 
+                                                 
+14 We choose to end our sample in 1997 because we require three years of post-merger operating performance for 
+sample firms and because a change in segment reporting standards effective for 1998 makes segment definitions 
+potentially inconsistent before and after the change. 
+15 The search terms are “(bidder name or target name) and (merg$ or acqui$ or bid or offer)”.  To facilitate the 
+calculation of announcement period abnormal returns, we exclude deals for which the only public information about 
+the deal is an article reporting that an offer had been rejected. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 15 ---
+ 
+14
+dollars) is 45% for our sample of deals.  As reported in Panel B, we aggregate deals into broad 
+industries based on the four-digit SIC code of the overlapping segments and using the industry 
+definitions of Fama and French (1997).16  The industries with the most merger activity over our 
+sample period are energy, business services, retail, healthcare, electronic equipment, and 
+wholesale.  Mergers in these industries account for 51.26% of the mergers in our sample. 
+Panel C further describes characteristics of the deals in our sample.  From newswire 
+searches we determine whether the deal was completed, whether there was a bid for the target in 
+the 6 months preceding the announcement of our sample deal, and whether the deal was 
+challenged by the antitrust authorities.17  There are 391 deals that were eventually completed.  In 
+10.47% of all deals, the target had received a previous offer or had entertained merger talks with 
+another party.  Regulatory authorities challenged 39 of the deals on antitrust grounds.  For each 
+transaction we also collect data from SDC on the proposed consideration (cash, stock, mixed), 
+the deal attitude (hostile or friendly), and any toehold (pre-offer ownership stake in the target) 
+held by the bidder.18  The most frequent method of payment in the deals was bidder stock 
+(44.40% of deals).  Bidders had toeholds in 11.84% of the deals and the average pre-offer 
+ownership stake in the target for these deals was 12.96%. 
+                                                 
+16 The merging firms in our sample are quite focused, with over 65% of bidders and 77% of targets reporting only 
+one industry segment.  In the cases such that more than one segment overlaps, we identify the industry in which the 
+merging firms have the largest combined sales.   
+17 To determine if there was a previous bid for the target, we search for stories in the six-months before the merger 
+announcement date that indicate that the company was in merger talks or received a takeover proposal.  We define a 
+deal as challenged if the Justice Department or Federal Trade Commission brought suit or threatened to sue to block 
+the deal, or if the firms voluntarily restructured the deal or entered into a consent agreement to satisfy regulatory 
+demands.  The search terms that we use to identify challenged mergers are “(bidder name or target name) and (ftc or 
+federal trade or justice or hart$ or antitrust)”.   As a check on the accuracy of our procedure to identify challenged 
+deals, we cross-reference our results with the FTC and Justice Department’s joint “Annual Report to Congress 
+Pursuant to Subsection (j) of the Clayton Act Hart-Scott-Rodino Antitrust Improvements Act of 1976” for fiscal 
+year 1997 (twentieth report).  Our news search is able to accurately identify every case in which a deal in our sample 
+for that year was mentioned in the report.  We are unable to secure these reports for every year in our sample, but 
+this check provides us with confidence in the accuracy of our news-searching algorithm. 
+18 Information on toeholds is not reliably available from SDC prior to 1984.  For deals that were missing this 
+information from SDC, we relied on announcement stories to determine the existence and size of any toehold. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 16 ---
+ 
+15
+     
+3.2. Identifying Corporate Suppliers, Customers, and Rivals 
+ 
+FASB No. 14 required firms to report certain financial information for any industry 
+segment that comprised more than 10% of consolidated yearly sales, assets, or profits between 
+1977 and 1997.19  In addition, the identity of any customer representing more than 10% of the 
+total sales of a firm had to be disclosed, as well as the segment that was primarily responsible for 
+these sales.  This customer information is contained in the Compustat industry segment files, but 
+not in an immediately usable format.  What is generally listed is an abbreviation of the 
+customer’s name, which can vary across reporting firms and years.  For example, in 1987 Dean 
+Foods Co. lists customer American Stores Co. as “AMER STORES” while Advo Inc. lists 
+American Stores Co. as “AM STR.”   
+ 
+To link the customer abbreviations with full company data, we use the following 
+procedure.  First, using an algorithm that compares the number and order of the letters in the 
+abbreviation to those in the company names listed on CRSP (historical name structure), we 
+identify the four company names from CRSP that most likely to correspond to the abbreviation.  
+In cases in which visual inspection determines there is an almost certain, distinct match, we link 
+the abbreviation with the CRSP name and permanent identification number.  In several instances 
+there is more than one company name that appears to correspond with the abbreviation, and in 
+these cases we identify the customers using the Compustat industry segment information.  For 
+example, Grist Mill Co., a manufacturer of fruit snacks and granola products, lists as its 1997 
+customers the abbreviations “LUCKY,” “KROGER CO,” “GRT A&P TEA,” and “SAFEWAY 
+INC.”  Our matching program produces Lucky Chance Mining Company Inc., Lucky Lanes Inc. 
+(a bowling center), and Lucky Stores Inc. (which reports food stores as its only industry segment 
+                                                 
+19 Effective 1998, SFAS No. 131 now governs required segment disclosures. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 17 ---
+ 
+16
+for 1997) as potential matches for “LUCKY.”  It seems unlikely that a mining company would 
+be a large customer of a food producer, and given that Lucky Lanes Inc. ceased operations in 
+1979, we link “LUCKY” with Lucky Stores Inc. in our database.  Finally, for those abbreviations 
+that still lack matches using the above methods, we use the Directory of Corporate Affiliations to 
+determine if the reason that we were unable to find a match for a particular abbreviation is 
+because the abbreviation corresponds to a subsidiary of a publicly traded firm.  For example, for 
+instances in which abbreviations for Burger King (previously a wholly owned subsidiary of 
+Pillsbury Co.) are given as a customer between 1980 and 1987, we match these abbreviations 
+with Pillsbury Co.  
+ 
+It should be noted that while there is some discretion involved in matching customer 
+abbreviations with firm identities, we are conservative in concluding that an abbreviation is in 
+fact a match.  While we code some firms as probable matches, we choose to exclude these firms 
+from the analysis if it is not possible to confirm the firm is a match by comparing the 
+abbreviation to previous years' customer descriptions or by using the above-mentioned 
+references.  We choose this conservative approach because we feel the potential costs of 
+misidentifying non-customer firms as customers are greater than the potential costs of failing to 
+identify a limited number of actual customers. 
+ 
+We use the resulting database to identify customers of the merging firms in our sample 
+and then invert the database to identify suppliers.  We include in our supplier sample all firms 
+listing either the bidder or target as a customer in either of the two fiscal year ends prior to the 
+merger announcement date.  We only include customers of the merging firms’ overlapping 
+segments in the analysis since these are the customers who would most likely be directly affected 
+by the merging firms’ increased market power.  For the average deal in our sample, we identify 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 18 ---
+ 
+17
+1.09 supplier firms and 0.40 customer firms with the necessary data to calculate announcement 
+period abnormal returns.   
+ 
+The nature of the reporting requirements suggests that the suppliers identified will 
+generally be smaller than the merging firms and the customers will generally be larger than the 
+merging firms.  Indeed, the mean supplier market capitalization is $326.6 million, the mean 
+combined market capitalization of the merging firms is $2.8 billion, and the mean customer 
+market capitalization is $19.4 billion.  This implies that the database may be more optimally 
+suited to testing the buying power hypotheses than the monopolistic collusion hypothesis (i.e., 
+the relative importance of the product-market relationship is probably greater for the suppliers 
+we identify than it is for the customers).  However, we believe that there is still considerable 
+information content in the customer data and hence analyze both the customer and supplier data. 
+ 
+The data we use to identify industry rivals for the merging firms is also from the 
+Compustat industry segment files.  We identify rivals as any firms, besides the bidder and target, 
+which report at least one segment for the year before the merger in a four-digit SIC code industry 
+group in which the bidder and target overlap.20  For the average deal in our sample, we identify 
+75.55 rival firms with the necessary data to calculate announcement period abnormal returns. 
+ 
+3.3. Calculating Announcement Period Abnormal Returns 
+ 
+We use standard event study methodology to calculate abnormal returns for the bidder 
+and the target as well as any firm identified as a rival, supplier, or customer of the bidder or 
+target.  The market model parameters are estimated over the 200-trading-day period starting at 
+day –240 relative to the announcement date.  We require at least 100 trading days over the 
+                                                 
+20 There are several instances where firms identified as suppliers are also identified as rivals.  Most of these cases 
+arise for mergers involving integrated petroleum firms.  Therefore, we exclude from the supplier database any firm 
+that is also listed as an industry rival. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 19 ---
+ 
+18
+estimation window for a firm to be included in the sample.  Cumulative abnormal returns are 
+calculated over the three-day window centered on the announcement date and all tests of 
+significance are performed using standardized prediction errors.21  As in Bradley, Desai, and 
+Kim (1988), we calculate abnormal returns for the value-weighted portfolio of the bidder and 
+target as a measure of total combined gains to the merging firms, and we adjust these returns for 
+any pre-merger stake in the target held by the bidder. 
+ 
+To facilitate examination of cross-sectional differences, we treat each rival, customer, and 
+supplier as one observation in the calculation of abnormal returns.   However, the returns to 
+rivals and, to a lesser extent, customers and suppliers for a given transaction may be correlated.22  
+Thus, we also report results treating all rivals, customers, and suppliers, respectively, as equally-
+weighted portfolios for a given transaction. 
+ 
+3.4. Measuring Changes in Operating Performance 
+ 
+  We use a matching-firm approach to facilitate comparisons of industry-adjusted pre- 
+and post-merger operating performance and to control for mean reversion in operating 
+                                                 
+21 Given concerns about the effects of information leakage on our results, we also estimate abnormal returns over a 
+window designed to capture any leakage.  For each target, we identify two dates: an agreement (announcement) date 
+for the deal in our sample and a leakage date.  The leakage date for the target is the first mention that the target 
+might be a deal candidate.  We find this date by going back six months from the announcement date to identify any 
+stories that indicate that the target received a takeover proposal, was involved in merger talks, or considered putting 
+itself up for sale.  If we find such a story, we go back an additional six months looking for any prior stories.  We 
+take as the leakage date the date of the earliest such story that does not come more than a year before the 
+announcement of our sample deal.  Combined abnormal returns to the merging firms over the window from the leak 
+date until one day after the announcement date are 3.62% versus 3.06% over the three-day announcement window.  
+Thus, by using the announcement window we are somewhat understating the overall gains to the deals.  However, 
+given potential concerns regarding calculating supplier, customer, and rival abnormal returns over long windows 
+that might include confounding events, we report results for merging firms (and suppliers, customers, and rivals) 
+using only the three-day window around the announcement of our sample deal.  
+22 Mergers might be expected to routinely follow periods of significantly positive abnormal returns (runups) or 
+significantly negative abnormal returns (declining industries), and these return patterns are likely to be similar 
+among suppliers, merging firms, customers, and rivals.  This would impart a systematic bias in our market model 
+intercepts for each of the firms we examine, and would overstate the correlations between the abnormal returns of 
+the various firms.  Thus, we also calculate abnormal returns by replacing the estimated market model intercept with 
+the risk-free rate multiplied by one minus the beta from the market model; e.g., see Houston and Ryngaert (1997).  
+Results using these alternative abnormal returns are nearly identical to those reported in the paper. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 20 ---
+ 
+19
+performance measures.  The operating performance changes are only examined for merging 
+firms that complete their transactions and the respective customers and suppliers of these firms.  
+Matching firms are chosen for each of the merging firms and their suppliers and customers on 
+the basis of industry, asset size, and prior operating performance along the lines suggested by 
+Barber and Lyon (1996) and implemented by Loughran and Ritter (1997).   
+ 
+The specific matching algorithm is as follows.  We first identify all firms on Compustat 
+that are not in our sample (i.e., a bidder, target, supplier, or customer) and that have cash flow 
+(defined as operating income before depreciation, item 13) to sales (item 12) data available for 
+the same years as our sample firms (i.e., we require that matching firms have data available for 
+the same time window around the merger as our sample firms).  From these firms, we identify 
+those firms with the same two-digit SIC code as our sample firm, asset size at the end of year -1 
+relative to the merger between 25% and 200% of the sample firm, and cash flow to sales between 
+90% and 110% of the sample firm.  From these firms we choose as the matching firm the 
+company with the cash flow to sales ratio closest to that of our sample firm.  If there is no 
+matching firm available that meets these criteria, we relax the industry screen to require only a 
+match of the one-digit SIC code.  If there is still no match, we eliminate the industry matching 
+requirement and match on size and performance.  Finally, if there is no match after eliminating 
+the industry matching requirement, we eliminate the size requirement and match purely on 
+performance.  Of the 1,311 firms that we seek matches for, 932 have matches at the two-digit 
+level, 248 at the one-digit level, 114 using size and performance, and 17 using only performance.  
+ 
+Our primary measure of operating performance is the cash flow to sales ratio.23  We 
+                                                 
+23 Because of merger-related accounting practices, we believe this a more informative measure than cash flow to 
+book assets.   As an alternate measure of operating performance, we consider the cash flow to market value of assets 
+measure of Healy, Palepu, and Ruback (1992).  However, several recent papers have pointed out potential 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 21 ---
+ 
+20
+calculate this ratio for our sample firms and for the matching firms for one year prior to the 
+merger and for each of the three years following the year in which the merger is completed.  For 
+bidders and targets, we sales-weight each firm’s ratio in the year prior to the merger to estimate 
+pre-merger combined performance.  We weight the performance measure for the respective 
+matching firms of the bidder and target in a similar fashion in all years to create a benchmark 
+measure.  For each year, we define the industry-adjusted performance measure as the sample 
+firm’s ratio minus the benchmark ratio.  Due to skewness and the potential influence of outliers 
+when using accounting ratios, we follow Loughran and Ritter (1997) and focus on median 
+values. 
+ 
+4.  Empirical Results 
+4.1. Merging Firms 
+ 
+In Panel A of Table 3, we report the announcement period abnormal returns for the 
+merging firms in our sample.  For our entire sample, we document a positive average combined 
+abnormal return to the bidder and target of 3.06% over the three-day announcement window.  
+This is significant at the 1% confidence level using a t-test on standardized prediction errors, and 
+a sign test indicates that significantly more firms experience positive (368) than negative (186) 
+combined returns.  This finding of positive average combined returns is consistent with the bulk 
+of previous research on mergers and acquisitions (see Bruner, 2002, for a summary of the 
+evidence).  Also consistent with previous research, we document that the gains to the merger are 
+limited to target shareholders.  Target shareholders experience a positive 18.77% revaluation on 
+the announcement date (significant at the 1% level), while bidders experience a -0.58% return 
+                                                                                                                                                             
+complications in using this measure; see, e.g., Kaplan, Mitchell, and Wruck (1997), Ghosh (2001), and Heron and 
+Lie (2002).  In particular, this measure may be biased upwards by systematic post-merger stock price declines. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 22 ---
+ 
+21
+(significant at the 10% level).24   
+ 
+We also report in Panel A of Table 3 results for several subsamples of deals for which 
+product-market effects are expected to be prominent.  To gauge the effect of mergers in 
+concentrated industries, we identify a subsample of deals for which the pre-merger industry 
+Herfindahl Index is greater than 2000.25   The Herfindahl Index is calculated as the sum of the 
+squared market shares of the firms that operate a business segment in the industry.  A higher 
+Herfindahl indicates greater industry concentration.  For example, an industry in which there are 
+five market participants each with equal market share corresponds to an industry Herfindahl of 
+2000.  We also identify those deals that result in a significant change in industry concentration as 
+indicated by a merger-induced change in the industry Herfindahl Index that exceeds 100 (∆ 
+Industry Herf.>100).  Finally, we also examine the subset of challenged mergers since these are 
+the transactions identified by regulatory authorities as potentially anti-competitive.  All three 
+subsamples of mergers tell roughly the same story with regards to announcement effects on 
+bidders and targets.  Combined-firm gains are significantly positive and in the 3% to 5% range 
+for all subsamples.  Target gains are always significantly positive while bidder gains are 
+indistinguishable from zero in all cases.   
+ 
+Industry-adjusted operating performance changes for merging firms are presented in 
+Panel B of Table 3.  We report changes from the year prior to the merger to each of the three 
+years following the merger, as well as for the median of the three-year post-merger period.26  
+                                                 
+24 As outlined in footnote 7, the absence of positive bidder returns suggests the merging firms' gains are not expected 
+to stem from the capture of monopoly or monopsony rents. 
+25 Market concentrations are calculated for the industry in which the bidder and target have an overlapping segment 
+in the year prior to the merger.  These measures are calculated on a segment level basis at the four-digit SIC code 
+level.  In the cases such that the bidder and target overlap in more than one industry, the statistics apply to the 
+industry in which they have the largest combined sales.  
+26 When only two years of post-merger performance is available, post-merger performance will be the average of 
+year +1 and year +2.  When only one year of post-merger performance is available, post-merger performance is 
+simply year +1 performance. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 23 ---
+ 
+22
+Significance levels for performance changes are calculated using a Wilcoxon signed-rank test.   
+We find evidence of significant operating performance improvements for merging firms in the 
+two subsamples related to industry concentration but not for all mergers as a group.  For those 
+deals in concentrated industries, merging firms experience statistically and economically 
+significant improvements in cash flow margins (Year –1 to Median Post-Merger) of 1.00%.  For 
+those deals that result in a significant change in industry concentration, this change is 0.91%.27  
+Mergers challenged by antitrust authorities do not lead to improvements in operating 
+performance, which is perhaps consistent with concessions being granted to antitrust authorities 
+to win approval of the mergers, which mitigate the gains to the deals. 
+We note that the changes in cash flow margins are most pronounced for the year 
+immediately subsequent to the merger and appear to be relatively temporary in nature.  This 
+pattern might be expected if the improvements in merging firm performance are related to 
+increases in market power that prompts the affected firms to undertake countervailing actions, 
+e.g., upstream or downstream consolidation.  Along these lines, news articles suggest that the 
+series of large mergers among defense contractors in our sample period put a good deal of 
+pressure on these firms’ suppliers, causing the suppliers to seek mergers in response.28  
+Similarly, price pressure due to supermarket mergers reportedly was a driving factor leading to 
+subsequent consolidation in the dairy industry.29 
+In an effort to better identify the ultimate sources of the cash flow gains to merging firms, 
+we also examine changes in several other operating performance measures, including: cost of 
+                                                 
+27 The results for the two industry concentration subsamples are not completely independent.  Each subsample has 
+115 deals and 60 deals are common to both subsamples. 
+28 See “Rohr CFO Cites Industry Consolidation Pressure” by Steven M. Sears (Dow Jones News Service, September 
+11, 1997). 
+29 See “Supermarket Consolidation Forcing Merger Strategies in Dairy Industry” by Paul Schnitt (KRTBN Knight-
+Ridder Tribune Business News: The Sacramento Bee, November 14, 1999). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 24 ---
+ 
+23
+goods sold to sales; selling, general, and administrative expenses to sales; net working capital to 
+sales; and, employees to sales.  To conserve space, we only report limited results from this 
+analysis.  As can be seen from Panel C of Table 3, firms in the industry concentration 
+subsamples experience significant reductions in industry-adjusted cost of goods sold to sales 
+consistent with increased buying power resulting in reduced input costs.  Otherwise, there are no 
+significant changes in any of the other performance measures for the entire sample or the 
+subsamples. 30  
+ 
+4.2. Rivals 
+ 
+Evidence on the abnormal returns to rivals on merger announcements is presented in 
+Table 4.  Panel A presents abnormal returns for rival portfolios at merger announcement and 
+Panel B presents abnormal returns to rivals on announcement of regulatory action.  As previous 
+authors have indicated (see, e.g., McAfee and Williams, 1988), it may be difficult to detect the 
+effects of a merger on a rival if that rival operates in multiple lines of business.  Thus, we 
+perform our analysis on both the overall group of rivals as well as on those rivals conducting 
+business in only one four-digit SIC code industry (referred to as “single-segment rivals”).  We 
+present results for rival portfolios comprised of single-segment rivals only, as well as rival 
+portfolios comprised of single- and multiple-segment rivals.  Consistent with Eckbo (1983), we 
+find that for our entire sample of deals, rivals exhibit stock price increases on merger 
+announcements.  We observe positive and significant stock price reactions in the three 
+subsamples (challenged mergers, mergers in concentrated industries, and mergers resulting in 
+                                                 
+30 These results are available from the authors upon request. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 25 ---
+ 
+24
+large changes in industry concentration) as well.31   These positive returns to rivals may reflect 
+either expected gains to anticompetitive collusion or efficiency.  Notably, the size and statistical 
+significance of the abnormal returns to rivals are generally greater for the tests using portfolios of 
+single-segment rivals.32 
+ 
+We report evidence on the returns to rivals on announcements of regulatory action in 
+Panel B of Table 4.  If the positive returns in Panel A reflect an expectation by the market that 
+collusion among industry rivals is more likely, then an announcement that the merger is being 
+blocked by antitrust authorities should result in a negative reaction for rivals as outlined in Eckbo 
+(1983).  The Hart-Scott-Rodino Antitrust Improvements Act of 1976 requires that parties 
+engaged in significant mergers file their plans in advance with regulatory authorities.  Hence, 
+regulators are aware at an early stage of many mergers that, prior to the Act, they would have 
+had to sue to cancel after the fact.  Thus, regulators and firms are frequently able to negotiate 
+changes in the terms of mergers before the fact, thereby preventing many lawsuits.  Defining an 
+event date for antitrust actions settled in this manner is difficult.  Thus, we restrict our attention 
+to the eleven deals in our sample for which regulators either sued to block the deals or the 
+merging firms announced they were canceling the deals due to regulatory reasons.  We refer to 
+these deals as “blocked” deals. 
+Consistent with the findings of Eckbo (1983), we do not find negative average abnormal 
+returns to rivals on challenge dates for the sample of all blocked deals or for either of the 
+                                                 
+31 Song and Walkling (2000) find that the response of rivals to merger announcements depends upon the degree to 
+which the announcement is unanticipated.  Thus, we create a subsample of mergers that are potentially the least 
+anticipated.  This subsample includes only deals where there are no pre-merger leaks of information or rumors 
+concerning the potential acquisition of the target, and for which there is no other acquisition in the same four-digit 
+SIC code as the sample transaction in the year prior to the announcement.  Returns to rivals of deals that meet the 
+criteria for the surprise subsample are positive and similar to the other reported subsamples. 
+32 Schuman (1993) finds that small rivals experience positive abnormal returns while large rivals experience 
+insignificant abnormal returns.  We document a similar pattern of returns.  Specifically, rivals with small market 
+share (less than 5%) have abnormal returns of 0.40% (significant at the 5% level) and rivals with large market share 
+(greater than 5%) have abnormal returns of 0.02% (insignificant). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 26 ---
+ 
+25
+concentration-related subsamples, a result that is generally inconsistent with the collusion 
+hypotheses.  In fact, in some cases the returns to rivals are significantly positive.  We are not sure 
+as to the reason for the positive returns in these cases.  One possibility is that the market believes 
+that, being stymied in acquiring one target, a bidder may try again by choosing a different, 
+perhaps smaller, target in the same industry.  We are hesitant, however, to draw any strong 
+conclusions because of the small sample of blocked deals. 
+ 
+4.3. Customers 
+ 
+As we outline in Table 1, the monopolistic collusion hypothesis unambiguously predicts 
+that horizontal mergers will have negative effects on corporate customers.  Table 5 presents 
+results for the customers of merging firms.  For the entire sample of deals with customers, we 
+find no evidence that customers experience negative stock market reactions at announcement, 
+nor changes in industry-adjusted operating performance subsequent to upstream mergers.  This 
+result is strongly inconsistent with the monopolistic collusion hypothesis.  This result also 
+suggests that customers are not generally harmed significantly by monopsonistic collusion since 
+a monopsonist would lower output which, absent a perfectly competitive output market, would 
+increase prices.  Further, this result suggests that the corporate customers in our sample do not 
+realize significant benefits in the form of cost savings passed along by merging firms. 
+Table 5 also presents results for customers for several subsets of mergers where product-
+market effects are expected to be most evident.  Mergers in concentrated industries or mergers 
+that increase concentration significantly do not appear to negatively impact customer firms.33  
+We also examine the effect of a merger on those customers that appear particularly reliant on the 
+                                                 
+33 The small sample sizes for some of the cuts, particularly challenged mergers, are due to the nature of the reporting 
+requirements; i.e., challenged mergers are likely to be between large firms, and these firms are less likely to have 
+any customers representing at least 10% of their sales. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 27 ---
+ 
+26
+merging firms for inputs and, hence, might face high costs of switching their purchases to other 
+firms.  We define reliant customers as firms for which purchases from the bidder and/or target 
+represent more than 5% of cost of goods sold.  Even among these reliant customers, we find no 
+negative effects of upstream mergers.   Regressions (unreported) explaining customer firm 
+abnormal returns and changes in operating performance reveal no significant relationship 
+between these variables and returns to merging firms, changes in merging firm cash flows, deal 
+characteristics, or customer firm characteristics (e.g., reliant customer).34 
+The results for customers complement those for rivals in rejecting the monopolistic 
+collusion hypothesis.  While we interpret these results as an indication that horizontal mergers do 
+not generally have anticompetitive downstream effects, they alternatively may suggest that the 
+U. S. regulatory regime is effective at deterring anticompetitive mergers.35 
+ 
+4.4. Suppliers: Univariate Results 
+ 
+Univariate evidence on the effects of mergers on upstream firms is presented in Table 6.  
+Panels A and B present abnormal returns results for individual suppliers and supplier portfolios, 
+respectively.  Panels C and D present operating performance results for individual suppliers and 
+supplier portfolios, respectively.  Individual suppliers experience an average abnormal return of  
+-0.30% at announcement which is not distinguishable from zero; however, a sign test reveals that 
+significantly more individual suppliers experience negative reactions than positive.  For the 
+entire sample, individual suppliers and supplier portfolios have negative industry-adjusted 
+changes in cash flow to sales around the merger.  We note that these changes are statistically 
+                                                 
+34 These results are available upon request from the authors. 
+35 Eckbo (1992) finds little evidence consistent with anticompetitive collusion in a sample of mergers in Canada that 
+occurred under a relatively lax antitrust regime, suggesting that regulatory overhang may not be the primary 
+explanation for similar findings for U.S. firms. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 28 ---
+ 
+27
+significant (for individual suppliers) at conventional levels only for the first year subsequent to 
+the merger.  This pattern is similar to that observed for the merging firms themselves; i.e., in 
+those instances in which operating performance improvements for the merging firms are 
+documented, these improvements appear temporary in nature.  Additionally, small, negative 
+stock price changes for suppliers may be interpreted as evidence that the market expects that the 
+buying power effects will be mitigated in the longer term. 
+Results for the subsamples of deals are also reported in Table 6.  In addition to the 
+previously defined subsamples, we also introduce an additional subset of deals.  Based on a 
+systematic Dow Jones Interactive news search for stories mentioning buying power effects in the 
+context of our sample deals, it is apparent that many of these mergers took place in industries 
+that meet the retail classification of Fama and French (1997).36 For example, in the context of the 
+acquisition of Broadway Stores by Federated Department Stores, a consultant is quoted as 
+saying, “Bigger size gives you greater buying power with vendors… Larger chains are more 
+feasible than smaller ones.”37  Thus, we examine results for the suppliers of merging retailers 
+separately. 
+The abnormal returns results for the various deal subsets weakly suggest that buying 
+power may be an important factor for some types of deals.  For instance, sign tests reveal that 
+deals in concentrated industries, deals that result in a significant increase in concentration, and 
+deals that are subsequently challenged by antitrust authorities lead to significantly more 
+individual suppliers experiencing negative reactions than positive.  However, none of the average 
+abnormal returns for the deal subsamples are significant at conventional levels.   
+                                                 
+36 The search terms are “bidder name and target name and (merg$ or acqui$) and (buying power or buyer power or 
+purchasing power or supplier$ or saving$ or reduction$)”.  The following SIC codes comprise the Fama and French 
+(1997) retail classification: 5200-5736, 5900-5999. 
+37 See “Macy’s Buying Emporium” by Tom Abate (San Francisco Examiner, August 15, 1995). 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 29 ---
+ 
+28
+Operating performance effects appear larger in the deal subsamples than for the entire 
+sample of deals.  For example, mergers that increase concentration and mergers in the retail 
+industry are associated with significant negative changes in operating performance for suppliers.  
+Again, these operating performance changes seem most pronounced for the period immediately 
+following the merger. 
+ 
+The final two columns of Table 6 introduce two new subsamples not previously 
+described.  These subsamples are based on supplier characteristics expected to influence the 
+effect of a downstream merger on a particular supplier.  First, we identify those suppliers that 
+operate in relatively concentrated industries.  Theory suggests that this concentration could 
+permit profits in excess of those in perfectly competitive industries.  Thus, the potential for 
+pressuring suppliers to reduce prices is perhaps greater in these contexts.  Portfolios of suppliers 
+that operate in concentrated industries do experience significantly more negative reactions than 
+positive reactions which is weakly consistent with suppliers in concentrated industries being 
+more susceptible to the countervailing effects of downstream mergers.  However, neither the 
+magnitude of the supplier reaction nor the reactions of individual suppliers significantly support 
+this conclusion.  The operating performance results support the countervailing power hypothesis.  
+Suppliers in concentrated industries experience significant reductions in cash flows subsequent 
+to the downstream mergers.  Interestingly, the changes in operating performance for this 
+subsample are most pronounced for the period from year -1 to year +3 in contrast to the other 
+subsamples where operating performance changes are more pronounced for the years 
+immediately surrounding the deal. 
+ 
+As detailed in Table 1, merging firms may realize purchasing efficiencies by pitting their 
+suppliers in a price competition to sell to the combined firm and thereby generally switching 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 30 ---
+ 
+29
+their purchasing from less efficient to more efficient suppliers.  If this sort of competition is 
+prevalent, then the purchasing efficiency/countervailing power hypothesis would predict an 
+asymmetric effect of mergers on suppliers.  As a concrete example of such asymmetries, articles 
+that appear in the business press near the time that the Compaq/ Hewlett-Packard deal was 
+announced indicated that suppliers of HP might be winners and suppliers of Compaq might be 
+losers when the two firms consolidated their purchasing.38   
+ 
+We identify those suppliers that appear to be terminated following completion of a deal 
+based on Compustat industry segment data from year +1 relative to the merger.  The figures in 
+the last column of Table 6 indicate that those individual suppliers that diminish in importance 
+following the merger experience significant negative abnormal returns.  Further, a sign test 
+reveals that significantly more individual suppliers that depart post-merger experience negative 
+abnormal returns around the merger announcement than experience positive abnormal returns.  
+The median change in industry-adjusted cash flow to sales for the suppliers that are listed before 
+but not after the merger is –1.85%, and is significant at the 5% level.  Again, these results 
+suggest that buying power effects may be, in part, influenced by supplier industry and firm 
+characteristics, which is somewhat inconsistent with buying power gains stemming from 
+monopsonistic collusion. 
+ 
+4.5. Suppliers: Multivariate Results 
+Table 7 presents multivariate regressions that explain individual supplier abnormal 
+returns and changes in median industry-adjusted operating performance.  Given the strength of 
+the operating performance results relative to the abnormal returns results above, we devote the 
+                                                 
+38 For example, see “H-P, Compaq merger may cause grief in Asia—Outsourcing consolidation, job cuts are 
+expected” by Terho Uimonen (The Asian Wall Street Journal, Sept. 6, 2001).  
+ 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 31 ---
+ 
+30
+bulk of our multivariate analysis to explaining operating performance changes.  A regression 
+explaining supplier abnormal returns is included for completeness and to confirm the univariate 
+results above. 
+The dependent variable for columns (1)-(5) of Table 7 is the Year -1 to Post-Merger 
+Median change in cash flow to sales.  In column (1), we include as an independent variable the 
+fraction of total supplier sales that are to the bidder and target.  The estimated coefficient on this 
+variable is negative and significant.  This result is exactly what one would expect under the 
+buying power hypothesis if this variable is, as constructed, a good measure of how reliant the 
+supplier is on the merging firms for sales revenues, and hence, supplier switching costs. 
+ 
+In column (2), we add a binary variable (Terminated Supplier) that takes a value of one if 
+a supplier is terminated post-merger.  Consistent with the univariate results, terminated suppliers 
+experience significantly greater cash flow reductions post-merger than retained suppliers.  
+Column (3) adds our indicators for significant downstream industry concentration as well as for 
+mergers that result in a significant increase in downstream concentration.  This column also adds 
+an indicator variable that takes a value of one if the supplier firm's industry has a Herfindahl 
+Index greater than 2000.  As in the univariate results, suppliers seem to suffer more when they 
+operate in relatively concentrated industries, e.g., when there are greater initial supplier rents for 
+the merging firms to capture.  The coefficient on downstream concentration is negative and 
+significant while the coefficient on a merger-induced increase in downstream concentration is 
+negative but not significant. 
+ 
+In column (4) we add two variables related to the characteristics of the deal.  The first of 
+these is a binary variable indicating whether the merger took place in the retail industry.  
+Consistent with the anecdotal evidence that buying power effects are significant in retail 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 32 ---
+ 
+31
+mergers, retail mergers are associated with more negative changes in supplier operating 
+performance, all else equal.  The second variable, which indicates whether a deal was 
+challenged, is positive but not significant.  This is perhaps not too surprising since the upstream 
+effects of mergers have not traditionally been the major concern of U.S. antitrust authorities.39 
+Finally, in column (5), we add to the regression a measure of the change in operating 
+performance for the merging firms.  If the merging firms retain a large portion of their buying 
+power savings, one might expect this variable to be negatively related to supplier operating 
+performance.  On the other hand, if buying power savings are largely passed along to ultimate 
+consumers, one would expect little or no correlation.  More consistent with the latter possibility, 
+the coefficient on this variable is small and insignificant (t=0.10).  This finding suggests that, in 
+most cases, any increased buying power associated with horizontal mergers probably enhances 
+ultimate consumer welfare. 
+The results of a regression explaining supplier abnormal returns are reported in column 
+(6) of Table 7.  Since announcement period stock returns will be related to the probability that a 
+given deal is eventually completed, we control for the likelihood of completion by estimating 
+this probability from a logit regression and including the predicted probability in the abnormal 
+returns regression.  The independent variables used to predict the probability of completion were 
+deal consideration, deal attitude, magnitude of a toehold on the part of the bidder, and the 
+presence of a competing bid.   In short, none of the independent variables (including merging 
+firm abnormal returns) are significant in column (6) except the intercept.  This result is quite 
+consistent with the supplier stock return results reported above and may suggest that the market 
+does not expect the buying power effects to be sustainable. 
+ 
+ 
+                                                 
+39 See OECD (1999) for evidence that European regulators are much more concerned with these effects, however. 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 33 ---
+ 
+32
+4.6. Supplier Subsample Regressions 
+In Table 7, we find no association between supplier operating performance changes and 
+merging firm operating performance changes, a result that is perhaps consistent with merging 
+firms passing along the majority of any buying power gains to their ultimate customers.  In Table 
+8 we further investigate the empirical validity of this interpretation by examining results for 
+several of the previously defined subsamples.   
+The results for the subsamples are, in general, similar to those for the full sample with all but 
+one (Industry Herf.>2000) variable that is significant in Table 7 also significant (and of the same 
+sign) in at least one specification of Table 8.  However, the subsample analysis does produce one 
+very interesting finding.  Specifically, changes in supplier cash flow margins are significantly 
+negatively associated with changes in merging firm cash flow margins for the subsample of deals 
+that occur in concentrated industries, which is consistent with gains to the merging firms coming 
+at least in part at the expense of suppliers.  Further, a regression of the change in supplier cash 
+flow margins against the change in merging firms cost of goods sold to sales ratios and the other 
+control variables reported in column (5) reveals a significant positive relation for the Industry 
+Herf.>2000 subsample.  Taken together, these results suggest that reduced input costs (coming at 
+the expense of suppliers) are an important source of the gains to merging firms in concentrated 
+industries, and, moreover, that merging firms are able to retain some of the cost savings rather 
+than passing them along to ultimate customers.  Given anticompetitive collusion is facilitated by 
+industry concentration, this result might be interpreted as evidence of monopsonistic collusion.  
+However, the lack of significant negative effects on customers casts some doubt on this 
+interpretation.    
+ 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+--- PAGE 34 ---
+ 
+33
+4.7. Further Evidence on Supplier Retention 
+Given the demonstrated importance of remaining a supplier post-merger, we examine the 
+determinants of supplier retention and performance differences between retained and terminated 
+suppliers.  Panel A of Table 9 presents the results of a logit regression that explains supplier 
+retention.  The dependent variable takes a value of one if the supplier is retained and zero 
+otherwise.  Being a supplier to only the target firm (as opposed to being a supplier to only the 
+bidding firm) significantly reduces the probability that the supplier will continue to supply the 
+merged firms.  Suppliers who list both the bidder and target are more likely to remain post-
+merger than those listing only one of the two.  Also, suppliers that consistently supplied either 
+the bidder or the target for each of the two years prior to the merger are more likely to remain as 
+suppliers to the merged firm.  The fraction of sales to the bidder and target is positively related to 
+the probability of remaining as a supplier.  All else equal, concentration in the supplier industry 
+does not appear to influence the probability that a particular supplier remains.   
+ 
+The results of Panel B describe the economic effects of the retention decision on 
+suppliers.  While terminated suppliers experience more negative abnormal returns than retained 
+suppliers, the difference in abnormal returns at the merger announcement is not significant.  We 
+also examine changes in median industry-adjusted cash flow to sales for retained and terminated 
+suppliers.  While retained suppliers experience negligible changes in operating performance, 
+terminated suppliers experience significant deterioration in cash flows.  The difference in cash 
+flow to sales changes between retained and terminated suppliers is 2.31% and this difference is 
+highly significant.  Finally, we examine changes in relative post-merger market share for 
+suppliers, where post-merger market share is calculated from year -1 to year +2 relative to the 
+merger.  For those suppliers that are retained, the average change in market share over the three 
+Electronic copy available at: https://ssrn.com/abstract=384900
+
+[TRUNCATED at 80000 chars — 52 total pages]

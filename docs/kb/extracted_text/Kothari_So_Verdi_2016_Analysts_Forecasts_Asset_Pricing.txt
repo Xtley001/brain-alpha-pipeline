@@ -1,0 +1,1353 @@
+
+--- PAGE 1 ---
+	  
+ 
+ 
+Analysts’ Forecasts and Asset Pricing: A Survey 
+ 
+ 
+ 
+ 
+ 
+SP Kothari* 
+Eric So 
+ Rodrigo Verdi 
+Massachusetts Institute of Technology 
+Sloan School of Management 
+ 
+ 
+ 
+ 
+ 
+Abstract 
+ 
+This survey reviews the literature on sell-side analysts’ forecasts and its implications for 
+asset pricing. We review the literature on the supply and demand forces shaping analysts’ 
+forecasting decisions as well as the implications of the information they produce for both 
+the cash flow and the discount rate components of security returns. Analysts’ forecasts 
+bring prices in line with the expectations they embody, consistent with the notion that 
+analysts’ forecast contain information about future cash flows. However, analysts’ 
+forecasts exhibit predictable biases and the market appears to underreact to the 
+information in forecasts and not fully filter the biases in the forecasts.  Analyst forecasts 
+are also helpful in estimating expected returns on securities, but evidence on the relation 
+between analysts’ forecasts and expected returns is still scarce. We conclude by 
+identifying unanswered questions and offering suggestions for future research. 
+	  
+ 
+March 2016 
+ 
+ 
+ 
+ 
+________________________ 
+*Contact: SP Kothari, kothari@mit.edu. We appreciate the very helpful suggestions from Gus DeFranco, 
+Greg Miller, Heidi Packard, Will Powley, Charles Wasley, and Peter Wysocki. We also thank Jinhwan Kim 
+for excellent research assistance. All errors are our own. 
+ 
+ 
+
+--- PAGE 2 ---
+	  
+	  
+	  
+1	  
+1.0 Introduction 
+ 
+This survey reviews the literature on sell-side analysts’ forecasts and their 
+implications for asset pricing. Analysts are information intermediaries who gather, 
+analyze, and produce information for the investment community. As a result, analysts’ 
+forecasts have the potential to influence asset prices by conveying information about 
+future cash flows as well as the discount rates applied to future cash flows. We discuss 
+the implications of the information produced by analysts for both the cash flow and the 
+discount rate components of security returns. In doing so, we identify unanswered 
+questions and offer suggestions for future research.  
+Understanding how analysts influence (and are influenced by) market prices is 
+predicated on a detailed understanding of the information analysts produce and their 
+incentives to convey accurate and unbiased information. These dimensions jointly shape 
+the information transmitted to investors, the timing of information transmission, and the 
+extent to which market participants rely on analysts as information intermediaries. Thus 
+we begin by reviewing the literature on the supply and demand forces shaping the 
+properties of analysts’ outputs. A	   key	   insight	   from	   Section	   2	   is	   that	   the	   influence	  
+analysts’	   forecasts	   have	   on	   asset	   prices	   depends	   upon	   both	   the	   nature	   of	  
+information	  they	  produce	  and	  their	  incentives	  to	  convey	  it	  accurately	  and	  without	  
+bias.  
+Analyst information is potentially useful for asset pricing because it provides 
+essential inputs for security valuation. For example, earnings forecasts provide estimates 
+of expected cash flows; stock recommendations and price targets can be useful in 
+identifying mispriced stocks; dispersion in analysts’ forecasts can be used to identify 
+
+--- PAGE 3 ---
+	  
+	  
+	  
+2	  
+appropriate discount rates; and long-term growth forecasts can serve as benchmarks for 
+calculating expected growth rates. All of these are relevant parameters in asset pricing 
+models. In this sense, analyst research and asset pricing are closely intertwined.  
+Our survey proceeds by looking at the relation between analysts’ forecasts and 
+both the cash flow and discount rate components of asset prices. Specifically, Section 3 
+reviews the literature on analysts’ forecasts and their implications for cash flow news. We 
+begin with early evidence on the use of analysts’ forecasts as a proxy for the market’s 
+expectations of future earnings and the extent to which analysts’ forecast revisions 
+convey information about future cash flows. We then examine whether the market’s 
+response to analysts’ forecasts is timely and complete. We conclude Section 3 with 
+evidence on whether market prices unravel predictable biases in analysts’ forecasts, or 
+whether prices behave as if market participants fixate on analysts’ forecasts with biases 
+embedded in them. Collectively, the evidence suggests that while investors appear to 
+recognize predictable sources of bias, they fail to fully reflect these biases into market 
+prices in a timely fashion. 
+Section 4 focuses on the implications of analysts’ forecasts for expected returns. 
+We first summarize the evidence on the use of analysts’ forecasts in estimating expected 
+returns. We proceed with a discussion of classical asset pricing models where analysts 
+play no role in affecting expected returns. We then introduce information frictions that 
+allow analysts to influence expected returns. We focus on two types of frictions: (i) 
+information uncertainty and (ii) information asymmetry and liquidity. A central 
+conclusion of Section 4 is that analysts’ forecasts are helpful in mitigating both types of 
+frictions. Consequently, analysts’ forecasts influence asset prices through several 
+
+--- PAGE 4 ---
+	  
+	  
+	  
+3	  
+channels (beyond cash flow expectations), and are thus relevant to a wide array of capital 
+market studies on prices, expected returns, and liquidity.   
+  
+A picture emerging from our survey is that, while extensive evidence identifies 
+sources of cross-sectional and time-series variation in analysts’ forecast bias and 
+accuracy, the answer to how forecast properties influence expected returns is not clear. 
+We find limited evidence on (i) the channels through which analyst forecast properties 
+impact expected returns, (ii) the direction of these effects, and (iii) how the various 
+properties --such as bias, accuracy, timeliness, and intensity-- interact. Understanding 
+these effects is crucial for assessing the efficacy of regulation, internal controls, and 
+media scrutiny aimed at curtailing predictable biases and inaccuracies in analysts’ 
+forecasts.   
+Another fruitful area of research will be a deeper dive into modeling analysts’ 
+beliefs over firms’ future performance. As we discuss in Section 2, as researchers we 
+observe analysts’ forecasts, which reflect a potentially biased indication of analysts’ 
+underlying expectations. Most prior research in this area explores the biased component 
+of analysts’ forecasts, while relatively little research sheds light on the formation of the 
+non-biased component. Much research focuses on the directional impact of analysts’ 
+employment incentives on forecast bias and accuracy, but it typically stops short of using 
+the predictable links to study analysts’ beliefs over firms’ future cash flows. 
+Understanding how analysts form and revise their true expectations over future earnings 
+is crucial to how information about firm performance is disseminated to investors. 
+Last, a broader challenge for this area is the difficulty of obtaining exogenous 
+variation in the properties of analysts’ forecasts that could be used to make casual 
+
+--- PAGE 5 ---
+	  
+	  
+	  
+4	  
+inferences. Generally speaking, prior studies examine the link between market outcomes 
+and analysts’ forecasts without accounting for analysts’ decision to initiate coverage and 
+provide a forecast. Because of the first-stage selection problem underlying analysts’ 
+coverage decisions, it is difficult to attribute observable effects of forecast properties to 
+the forecasts themselves versus to the underlying incentives that prompted the initial 
+forecasting decision. As we briefly discuss in Section 2, asset pricing attributes (e.g., 
+trading volume and stock liquidity) influence analysts’ coverage decisions, which in turn 
+influence how analysts’ forecasts affect prices. In the spirit of isolating exogenous 
+variations in forecast properties, we also survey the recent literature on regulation (e.g., 
+Regulation Fair Disclosure and Global Settlement) as examples of avenues to study the 
+sources of bias in analysts’ forecasts and their implications for asset prices.  
+ 
+Before we proceed, we note that, due to the focus on asset pricing, our survey is 
+not designed as a comprehensive review of the role analysts play in capital markets. We 
+refer the interested reader to Givoly and Lakonishok (1984), Schipper (1991), Brown 
+(1993), Bradshaw (2011), and Ramnath, Rock, and Shane (2008), Beyer et al. (2010) for 
+related reviews of the literature on analysts. Even within the asset-pricing framework, we 
+restrict our focus to equity prices and as a result do not survey work on other securities 
+(e.g., bond pricing).1 
+	  
+ 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+1 See, for example, De Franco, Vasvari, Wittenberg-Moerman (2009) for early evidence on the role of bond 
+analysts. 
+
+--- PAGE 6 ---
+	  
+	  
+	  
+5	  
+2.0 Properties of analysts’ forecasts 
+As in any industry, supply and demand forces shape the properties of analysts’ 
+outputs, forecasts and stock recommendations.  The survey focuses on analysts’ forecasts 
+with a limited discussion of recommendations. While the realization of earnings at 
+earnings announcements provides a natural benchmark for studying variation in the bias, 
+accuracy, and timeliness of analysts’ forecasts, the open-ended nature of 
+recommendations makes them less useful for evaluating analysts’ performance and their 
+implications for asset prices. 
+Two properties of analysts’ forecasts have received considerable attention in the 
+literature: (1) forecast accuracy and (2) forecast bias. Accuracy generally refers to the 
+absolute difference between the analysts’ forecast and the realization of an output 
+whereas bias generally refers to the signed difference between them. Forecast accuracy 
+and bias are a function of the complexity of the task, the skill level of the analyst, and 
+incentives facing the analyst (e.g., effort). Complexity undermines accuracy whereas skill 
+enhances accuracy. Further, incentives can influence both the accuracy and bias in 
+forecasts.  
+Understanding the drivers of cross-sectional and time-series variation in analysts’ 
+forecast accuracy and bias is important because the information content of analysts’ 
+forecasts is, of course, dependent on the extent to which analyst information is unbiased 
+and precise (i.e., the first and second moment properties of errors in analysts’ outputs). 
+Bias and accuracy influence market prices as well as researchers’ inferences. To the 
+extent that market participants identify predictable variation in analyst accuracy, market 
+prices respond more strongly to credible forecasts. Similarly, to the extent that market 
+
+--- PAGE 7 ---
+	  
+	  
+	  
+6	  
+participants anticipate variation in forecast bias, researchers can improve estimates of 
+earnings expectations by estimating the component of forecast bias that is unanticipated 
+by market participants. On the other hand, to the extent that these weights are imperfect, 
+understanding the predictive component of analysts’ errors could also yield predictable 
+patterns in stock returns (assuming that the expectation errors will eventually be corrected 
+in the future) (see Elgers et al., 2003; Bradshaw et al., 2001; Frankel and Lee, 1998; and 
+So, 2013). 
+Before we proceed, we note that an implicit assumption underlying papers that 
+study analysts’ forecasts is that firms already receive analyst coverage in the first place. 
+This is important because prior research shows coverage decisions are a function of the 
+relative costs and benefits shared among several market participants, including firms, 
+analysts and investors. For instance, analysts face strong economic incentives to follow 
+firms that are expected to establish reputational credibility, yield higher salaries, secure 
+investment-banking business, and generate trading revenue for his/her employer. At the 
+same time, analysts must balance a series of considerations including resource 
+constraints, and opportunity costs, as well as catering to firms’ and users’ objective 
+functions, among others.2  
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+2 The literature on the determinants of analyst coverage is extensive and beyond the scope of this paper. 
+Among different features affecting the decision to cover a firm, early research focused on firm 
+characteristics such as institutional holdings, firm size, and return variability (e.g., Bhushan, 1989; O’Brien 
+and Bhushan, 1990). Subsequent studies have placed a greater emphasis on the role of the costs of 
+acquiring information. Some studies document a positive association between analyst following and firms’ 
+disclosures (e.g., Lang and Lundholm, 1996; Healy et al., 1999; Hope, 2003a, 2003b; Lang et al., 2004; De 
+Franco et al., 2011) whereas other research documents a positive relation between firm complexity (an 
+inverse proxy for disclosure) and analyst following (e.g., Barth et al., 2001; Kirk, 2011; Lehavy et al., 
+2011). Another stream of the literature examines the link between investment banking incentives and 
+analysts coverage decisions (e.g., Dunbar, 2000; Krigman et. al., 2001; Bradley et al., 2003; Cliff and 
+Denis, 2004; Ljungqvist et. al., 2006; O'Brien et al., 2005; James and Karceski, 2006; McNichols et al., 
+2007; Clarke et al., 2007). 
+
+--- PAGE 8 ---
+	  
+	  
+	  
+7	  
+The implication of this literature for asset pricing is that the factors driving 
+analysts’ decisions to cover a firm are likely to capture direct properties of asset prices 
+such as trading volume, volatility, information asymmetry, etc. as well as factors 
+correlated with it (e.g., firm size, the presence of institutional investors, etc.). Further, the 
+decision to cover a firm is not only influenced by asset prices but also has the potential to 
+influence asset prices. Regarding the latter, Kelly and Ljungvist (2012) show that 
+exogenous coverage terminations lead to a reduction in prices and an increase in expected 
+returns due to increased adverse selection risk. As a result, because the factors driving the 
+first-stage selection problem underlying analysts’ coverage decisions are likely to be 
+correlated with the factors driving variation in the propertied of analysts’ forecasts, it is 
+difficult to attribute observable effects of forecast properties to the forecasts themselves 
+versus to the underlying incentives that drove the initial forecasting decision.  
+ 
+2.1 Forecast accuracy 
+Forecast accuracy is perhaps the single most important attribute of the quality of 
+an analyst’s output.  Naturally, it has attracted tremendous attention in the literature and 
+in practice. A substantial portion of the existing literature on analysts’ forecasts focuses 
+on how and to what extent information processing costs, experience, and employment 
+incentives impact the accuracy of analysts’ forecasts.   
+Several characteristics are associated with the accuracy of analysts’ forecasts. For 
+example, forecast accuracy decreases with measures of uncertainty such as firm 
+complexity and volatility in earnings and returns (Kross, Ro, and Schroeder (1990), Lang 
+and Lundholm (1996)) and when firm performance is transitory (Heflin, Subramanyam, 
+
+--- PAGE 9 ---
+	  
+	  
+	  
+8	  
+and Zhang (2003)). Forecast accuracy is also negatively associated with forecast horizon, 
+as it is harder to forecast more distant firm performance (Sinha, Brown, and Das (1997), 
+Clement (1999), Brown and Mohd (2003)). In addition, factors such as analysts’ ability, 
+available resources, and portfolio complexity also significantly influence forecast 
+accuracy. For example, Clement (1999) shows that forecast accuracy is increasing with 
+experience (a proxy for ability) and employer size (a proxy for available resources) and 
+decreasing with the number of firms and industries followed (a proxy for portfolio 
+complexity). 
+Another stream of research studies whether compensation incentives motivate 
+analysts to provide accurate forecasts. Forecast accuracy and Institutional Investor “All-
+Star” status are positively associated, which in turn is likely to influence analysts’ 
+compensation and career prospects (e.g., Stickel, 1992; Groysberg, Healy, and Maber 
+2011). The evidence, however, seems to collectively document that compensation does 
+not materially influence forecast accuracy. One explanation for this evidence is that 
+analysts’ employers, such as investment banks, do not rely on forecast accuracy as a first-
+order determinant of annual compensation because it is easy for analysts to free ride off 
+of the forecasts of competing analysts.  Due to the ease of mimicking other analysts’ 
+behavior, forecast accuracy is a noisy signal about analysts’ ability and/or effort relative 
+to other outcomes such as motivating or securing investment banking business.  
+Despite the lack of evidence for an impact of accuracy on analyst compensation, 
+research documents a strong relation between analysts’ accuracy and other career 
+outcomes (e.g., Mikhail et al. 1999; Hong et al. 2000; Wu and Zang, 2009; and 
+Groysberg et al., 2011). For example, Groysberg et al. (2011) use proprietary 
+
+--- PAGE 10 ---
+	  
+	  
+	  
+9	  
+compensation data from a prominent investment bank to document that inaccurate 
+analysts are more likely to move to lower status banks or exit the I/B/E/S database, a sign 
+of “termination”; but find no evidence of a relation between forecast accuracy and 
+compensation. Overall the evidence suggests that small deviations in accuracy have a 
+minimal impact on analyst compensation, but large (negative) forecast inaccuracy can 
+affect analyst wealth by increasing the probability of dismissal.  
+Overall, forecast accuracy appears to be a firm characteristic influenced by firm-
+level attributes such as the riskiness of its investments, firm size, and temporary shocks.  
+By contrast, forecast accuracy is less of an analyst-specific attribute likely because 
+analysts can free ride off of other analysts’ forecasts.  Still, accuracy of an analyst’s 
+forecasts influences his/her career success, especially when it stands out positively or 
+negatively.   
+	  
+2.2 Forecast bias 
+ 
+Another attribute of analysts’ forecasts that has attracted attention is whether they 
+exhibit a bias.  The source of bias could trace to information supplied by management or 
+analysts’ own economic motivations. We discuss the evidence and potential sources of 
+bias in analysts’ forecasts in this section.  Prior literature documents various sources of 
+bias in analysts’ forecasts of earnings and in their recommendations (e.g., Michaely and 
+Womack (1999), McNichols and O’Brien (1997), and Groysberg, Healy, Maber (2011)). 
+A central theme in this literature is that forecast bias varies in the cross-section and over 
+forecast horizon (e.g., long-term forecasts are generally too high whereas short-term 
+
+--- PAGE 11 ---
+	  
+	  
+	  
+10  
+forecast are too low). Below we discuss the key mechanisms driving the variation in bias 
+that is related to forecast-horizon and in the cross-section. 
+A variety of economic temptations facing analysts introduce cross-sectional 
+variation in analyst bias. For instance, in exchange for a favorable coverage of deals that 
+the analysts’ employer underwrites, analysts might be rewarded for maintaining existing 
+or possibly attracting new underwriting business.3 Similarly, analysts might ingratiate 
+themselves to management by optimistically biasing their earnings forecasts in order to 
+gain access to private information. In both instances, the lure of a good relationship with 
+management might motivate analysts to optimistically bias their forecasts. Motivated by 
+this intuition, a significant part of the literature investigates the extent to which the 
+optimistic bias in analysts’ forecasts is explained by analysts’ incentives to appease 
+management and generate revenues for investment banks.  
+ 
+ A commonly cited source of bias is analysts’ incentives to gain access to  
+management by issuing forecasts that conform to managers’ preferences. Francis and 
+Philbrick (1993) study firms with negative buy/sell recommendations and show that 
+analysts who do not provide a recommendation are more likely to issue optimistic 
+earnings forecasts. The study interprets this result as evidence that analysts generate bias 
+in their forecasts to distinguish themselves from competing analysts (who previously 
+provided unfavorable recommendations), in hopes of receiving access to management as 
+part of a quid pro quo arrangement. Similarly, Das et al. (1998) find that analysts produce 
+more optimistic earnings forecasts for firms with less predictable earnings. The study 
+interprets this finding as evidence that when earnings are less predictable, analysts 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+3 Related, Hayes (1998) and Irvine (2000) demonstrate that analysts’ desire to generate trading 
+commissions for their employers creates an incentive for analysts to bias their forecasts. 
+
+--- PAGE 12 ---
+	  
+	  
+	  
+11  
+optimistically bias their earnings forecasts to ensure access to management’s private 
+information (see also Chen and Matsumoto, 2006; Mayew, 2008).4 A related stream of 
+research links investment banking affiliation to analysts’ incentive to curry favor with 
+management in order to have superior access to information, and finds that affiliated 
+analysts are systematically overoptimistic relative to non-affiliated ones (e.g., Hunton and 
+McEwen, 1997; Lin and McNichols, 1998; Michaely and Womack, 1999; Dechow et al., 
+2000; Agrawal and Chen, 2008).  
+ 
+Recently, research has begun to examine the role social and professional networks 
+play in influencing the accuracy and bias of the information analysts supply to investors. 
+Westphal and Clement (2008) show that managers invest in, and leverage, personal 
+relationships with analysts to deter them from conveying negative information. This 
+points to a reciprocal relationship where managers and analysts perform favors for one 
+another. Cohen, Frazzini, and Malloy (2010) show that shared backgrounds, as measured 
+by education ties, serve as a conduit of information between managers and analysts and 
+that these shared backgrounds result in less biased analysts’ forecasts and more profitable 
+investment recommendations in the pre- Regulation Fair Disclosure era (and it is still the 
+case in the UK where Regulation Fair Disclosure restrictions do not apply). Related 
+evidence in Brochet, Miller, and Srinivasan (2014) shows that analysts tend to initiate 
+coverage of firms when they have a past relationship with the firms’ management and 
+these past relationships are associated with higher forecast accuracy. Overall, these 
+studies suggest an influence of social and professional networks in both informing, and  
+compromising the integrity of, analysts’ outputs.   
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+4 Eames and Glover (2003), however, point out that the findings of Das et al. (1998) are likely due to the 
+failure to control for the level of earnings. That is, the association between analysts’ forecast error and 
+earnings predictability is no longer significant once the level of earnings is controlled for. 
+
+--- PAGE 13 ---
+	  
+	  
+	  
+12  
+While we observe economic incentives facing analysts to bias their forecasts, we 
+would naturally also expect offsetting forces such as reputational concerns that would 
+rein in such bias. With respect to reputation, some studies find limited evidence of biased 
+forecasts leading to more profitable investment banking deals for the analysts’ employers 
+(e.g., Krigman et al. 2001; Ljungqvist et al. 2006; Cowen et al. 2006; Clarke et al. 2007, 
+Kolasinski and Kothari 2008). Rather, these studies suggest that analysts are sufficiently 
+concerned with their reputation as credible information intermediaries to be motivated to 
+issue unbiased, accurate forecasts.  
+Second, managers’ preference for optimistically biased forecasts appears to be 
+contextual or timing-specific. For instance, optimistic earnings forecasts are more 
+difficult to beat and evidence shows that meeting or beating targets are important 
+managerial objectives (e.g., Burgstahler and Dichev, 1997; Degeorge et al., 1999, Brown 
+2001; Kasznik and McNichols, 2002; Matsumoto 2002; Bartov et al., 2002).5 Hence, if 
+analysts indeed seek to appease management, we might expect analysts’ forecasts to be 
+pessimistic sometimes. Consistent with this intuition, by examining the intertemporal 
+patterns of forecast bias, Richardson et al. (2004) and Ke and Yu (2006) document that 
+managers seem to prefer initially optimistic forecasts, but also prefer to have the 
+optimistic forecasts “walked down” prior to earnings announcements to beatable levels. 
+Similarly Hilary and Hsu (2013) document evidence that analysts who consistently “low 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+5 See also, Graham et al (2005) for survey evidence on managers’ perceptions of analysts’ targets and the 
+potential price impact of beating analysts’ targets. 
+
+--- PAGE 14 ---
+	  
+	  
+	  
+13  
+ball” forecasts (to curry favor with management by providing beatable targets) have 
+better career prospects and better access to management’s private information.6  
+ 
+Last, some studies depart from the incentives-based explanations to analysts’ 
+forecast bias and exploit how the cognitive limitations of analysts may affect forecast 
+bias. Many studies show that analyst do not fully and rationally incorporate publicly 
+available data (e.g., Lys and Sohn 1990; Abarbanell, 1991; Abarbanell and Bernard, 
+1992). Further, Sedor (2002) suggests that optimism in analysts’ annual earnings 
+forecasts are in part explained by their reactions to causal narratives that managers 
+employ when communicating about enhancing future firm performance.  
+ 
+Collectively, research in this area shows that analysts’ forecasts are often biased 
+as a result of analysts’ career concerns, compensation incentives and desire to maintain 
+reciprocal relationships. The interaction between analysts’ incentives and management’s 
+preference for the nature of bias creates both cross-sectional and intertemporal variation 
+in both the sign and magnitude of forecast bias. Future research will benefit from a 
+deeper understanding of how litigation risk and sector-wide demands for analysts and 
+their employers impact the information they supply to investors. 
+ 
+2.3 Role of regulation 
+Before we conclude section 2, we briefly discuss the role of regulation on 
+analysts’ behavior.7  As we discussed above, firm and analyst characteristics, as well as 
+incentives,	  influence	  the properties of analysts’ forecasts. In particular, we highlight two 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+6 This explanation is consistent with the findings of Hong and Kubik (2003) who document annual 
+forecasts to be optimistic on average whereas Matsumoto (2002) finds quarterly forecasts to be on average 
+pessimistic. 
+7 For comprehensive reviews, see Mehran and Stulz (2007), Ramnath, Rock, and Shane (2008),, and Koch, 
+Lefanowicz, and Robinson (2013). 
+
+--- PAGE 15 ---
+	  
+	  
+	  
+14  
+sources of conflict of interest: (1) an incentive to maintain investment banking 
+relationships and (2) a desire to maintain access to private managerial information. 
+Regulatory responses such as Regulation Fair Disclosure (Reg FD) and the Global 
+Settlement (NASD 2711 and NYSE 472) took place in the early 2000’s to mitigate these 
+potential conflicts of interests.  
+Specifically, Reg FD was intended to ‘level the playing field’ by curtailing 
+selective disclosure, so that analysts or institutional investors could no longer receive 
+value-relevant information before others (i.e., smaller investors). A potential downside of 
+Reg FD, however, is that it escalates the cost of analysts’ services, which could lead to 
+unintended consequences regarding the flow of information into the market. That is, if 
+restricting private access to managerial information imposes a sufficient cost on analysts’ 
+information production process, the overall amount of information available to investors 
+may decline, which in turn may deteriorate information flows post-Reg FD. 
+Acknowledging this cost-benefit tension, academic work has focused on Reg 
+FD’s influence on the quantity and quality of analysts’ services as well as their 
+implications to investor welfare. For instance, studies have shown that analysts’ forecasts 
+have become less precise (Gintschel and Markov, 2004; Agrawal, Chadha, and Chen, 
+2006), analysts’ forecast dispersion has increased (Bailey et al., 2003; Mohanram and 
+Sunder, 2006), and analyst coverage has declined (Mohanram and Sunder, 2006). The 
+results collectively suggest that private communications with managers were an 
+important input for analysts in their production of information. Curbing private 
+communication hence adversely affects financial markets by reducing both the quantity 
+and quality of information provided by analysts. 
+
+--- PAGE 16 ---
+	  
+	  
+	  
+15  
+On the other hand, studies have also shown that Reg FD indeed leveled the 
+playing field among market participants (Eleswarapu, Thompson, and Venkataraman, 
+2004; Bushee, Matsumoto, and Miller, 2004; Chiyachantana, Jiang, Taechapiroontong, 
+and Wood 2004; Ke, Petroni, and Yu, 2008). For example, Chiyachantana et al. (2004) 
+document that informed trading around earnings announcements declined post-Reg FD, 
+whereas Ke et al. (2008) find a decline in abnormal trading by transient institutional 
+investors prior to a bad news break after the introduction of the new regulation. These 
+studies collectively suggest that the informed investors' loss of private information 
+created a more equitable information environment between informed and uninformed 
+investors.  
+With respect to Global Settlement, a stream of work investigated the effects of 
+separating the investment-banking department and its research unit (i.e., Global 
+Settlement, NASD 2711, and NYSE 472). These studies show that recommendations 
+generally become more pessimistic post-regulation (Barber, Lehavy, McNichols, and 
+Trueman, 2006; Kadan, Madureira, Wang, and Zach, 2009; Clarke, Khorana, Patel, and 
+Rau; 2011). There is mixed evidence, however, on the regulation’s effect on analyst 
+coverage. Boni (2006) shows that the ten firms that agreed to the Global Settlement 
+reduced coverage post-regulation, whereas Kolasinski (2006) concludes that regulatory 
+restrictions did not adversely impact analyst coverage prior to equity issuances when 
+conflicts of interest are potentially heightened. 
+	  
+3.0 Analysts’ Forecasts and Cash Flow News 
+
+--- PAGE 17 ---
+	  
+	  
+	  
+16  
+ 
+In this section, we discuss evidence showing the information content of analysts’ 
+forecasts, i.e., evidence that they convey cash flow news to the market. We begin with 
+early evidence on the use of analysts’ forecasts as a proxy for the market’s expectations 
+of future earnings (a proxy for future cash flows). This is important because correctly 
+assessing the influence of analyst-supplied cash flow news on asset prices hinges on the 
+quality of the proxy for the market’s expectations of cash flows. We proceed to a 
+discussion of the literature on the information content of analysts’ forecasts – namely the 
+market reaction to changes in analysts’ forecast (i.e., forecast revisions). We then turn 
+our attention to examining whether the stock price response to analysts’ forecast is 
+immediate and unbiased. This discussion primarily reviews the evidence on whether the 
+market over-, under-, or unbiasedly reacts to analyst-provided cash flow news. We 
+conclude this section with evidence on whether investors unravel predictable biases in 
+analysts’ forecasts when impounding news of cash flow revisions.  
+ 
+3.1 Analyst earnings forecasts as a proxy for market expectations for earnings 
+ 
+Conceptually, news (or information) is thought to be the unexpected component 
+of a release, whether financial report or analyst forecast.  Quantifying the amount of cash 
+flow news contained in any type of cash flow announcement requires a sound proxy for 
+(unobservable) cash flow expectations. Motivated by this requirement, early studies 
+investigate whether analyst earnings forecasts could serve as a proxy for the market’s 
+expectations of future earnings (e.g., Elton and Gruber (1972), Barefield and Comiskey 
+(1975), Brown and Rozeff (1978), Fried and Givoly (1982), Brown, Griffin, Hagerman, 
+and Zmijewski (1987)).	   While	   still	   debated,	   since	   Fried	   and	   Givoly	   (1982)	   the	  
+
+--- PAGE 18 ---
+	  
+	  
+	  
+17  
+industry	   standard	   has	   been	   to	   use	   analysts'	   forecasts	   as	   a	   proxy	   for	   market	  
+expectatoins,	  given	  their	  superiority	  in	  time-­‐series	  models	  (see Bradshaw, 2011).8   
+ 
+ 
+3.2 Information content of analyst earnings forecast revisions 
+ 
+Having established that analysts’ forecasts proxy for the market’s expectations 
+about future cash flows, subsequent researchers investigate whether and to what extent 
+revisions in analysts’ forecasts contain news that moves contemporaneous stock prices. 
+Analysts’ forecast revisions are a significant source of cash flow information in financial 
+markets. Unlike (quarterly) earnings announcements, analysts’ forecast revisions do not 
+have a predetermined periodicity; they occur throughout the quarter. A higher frequency 
+of analysts’ earnings forecast revisions results in timely updates about cash flow 
+information to investors. Moreover, to the extent that analysts’ forecasts reflect both 
+public information and the analysts’ private information, earnings forecast revisions serve 
+to disseminate a valuable source of private information otherwise unattainable through 
+public signals.  
+Recognizing this importance, researchers have documented a robust positive 
+relation between market prices and analysts’ forecast revisions  (e.g., Griffin (1976), 
+Givoly and Lakonishok (1979); Elton et al. (1981); Imhoff and Lobo (1984)).  More 
+recently, studies such as Lys and Sohn (1990), Asquith, Mikhail, and Au (2005), and 
+Frankel, Kothari, and Weber (2006) confirm that revisions in analyst earnings forecasts 
+not only incorporate publicly observed signals, but also provide new information to 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+8 See also Lev (1989) and Kothari (2001) for overviews of this literature. 
+
+--- PAGE 19 ---
+	  
+	  
+	  
+18  
+investors. That is, prices, trading activity, and liquidity all change around analysts’ 
+forecast revisions.9  
+While these studies find that market prices move in the direction of the forecast 
+revisions (i.e., prices increase subsequent to upward revisions in earnings forecasts), the 
+evidence for “response incompleteness” of market prices to analysts’ forecast revisions 
+(i.e., the degree to which the market under- or overreacts to the forecast revision) is 
+muted. Such evidence is important for our understanding of the price discovery process 
+and asset pricing in general. If reactions were complete, i.e., unbiased, then forecast 
+revisions would only have short-term implications for stock prices. In contrast, if the 
+market reaction is not complete, price drifts or reversals with respect to forecast revisions 
+would be predictable. The following subsection reviews the literature that investigates the 
+degree of completeness in market responses to analysts’ forecast revisions, and the 
+determinants that drive the heterogeneity in the market reaction. 
+    
+3.3 Do investors fully react to analysts’ forecast revisions? 
+ 
+The extent to which market prices efficiently incorporate information has been a 
+central theme of investigation in asset pricing for many years (e.g., Fama (1970)). In this 
+subsection, we review the literature investigating how analysts’ forecast revisions are 
+incorporated into prices. In an informationally efficient market, analysts’ forecast 
+revisions, like any other observable value-relevant signal, are price in a timely and 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+9 Our attention is primarily given to analyst earnings forecasts but related research on the information 
+content of analysts’ recommendations also exists. For example, Bradley, Clarke, Lee, and Ornthanalai 
+(2014) document significant information content in analysts’ recommendations using high-frequency data. 
+Further, Cornett, Tehranian, and Yalcin (2007) document that analysts’ recommendation changes become 
+less informative post-FD as it became more difficult for analysts to access value-relevant private 
+information from managers.  
+
+--- PAGE 20 ---
+	  
+	  
+	  
+19  
+unbiased fashion. Put differently, initial price reactions to analysts’ forecast revisions are 
+not able to predict subsequent returns. On the other hand, to the extent the market 
+underreacts to analysts’ forecast revisions, prices would follow a predictable drift 
+subsequent to the forecast. In addition, any conclusions drawn from such evidence will 
+depend on whether the underreaction is driven by (i) investors’ information processing 
+biases, i.e., investors’ ability to interpret analysts’ forecasts in an unbiased fashion and/or 
+(ii) market frictions, i.e., the severity of market microstructure and trading costs might 
+prevent arbitrageurs who might understand and seek to capitalize on the investors’ biased 
+processing of analysts’ forecasts that results in security mispricing.10   
+Givoly and Lakonishok (1980) is the first study to show that market prices 
+initially underreact to forecast revisions, resulting in short-term return drift. Subsequent 
+studies such as Stickel (1991) and Chan et al. (1996) confirm that market prices indeed 
+initially underreact to analysts’ forecast revisions, causing predictable drifts in stock 
+prices. Stickel (1991), for example, demonstrates that the initial underreaction takes 
+significant time to correct, resulting in long-term return predictability. Specifically, the 
+study shows that firms whose consensus forecast have been recently revised upward tend 
+to earn higher abnormal returns over the next 3 to 12 months than firms whose consensus 
+forecast has been recently revised downward.  
+The initial underreaction to analysts’ forecast revisions is often viewed as 
+stemming from two broad reasons. First, market frictions that could potentially influence 
+the information diffusion process. A poor information environment, for example, can 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+10 This line of argument, known as limits to arbitrage, appears, for instance, in Barber et al. (2001).  They 
+show that stock returns following analyst recommendation signals are dependent on the frequency of 
+rebalancing, highlighting the importance of transaction costs in explaining the drift in returns following 
+analyst recommendations. 
+ 
+
+--- PAGE 21 ---
+	  
+	  
+	  
+20  
+inhibit the efficiency with which prices absorb available information, and thus cause a 
+gradual, delayed price response to analysts’ forecast revisions. Second, investors’ 
+information processing biases with respect to specific attributes of the analysts’ forecast 
+revision (e.g., analyst reputation) might themselves cause a delayed price response.  
+Gleason and Lee (2003), for example, jointly study how the above two channels 
+influences the dissemination of analysts’ forecast revision information. Specifically, they 
+find that post-revision drift (1) decreases with analyst reputation, (2) increases with 
+revision quantity, and (3) decreases with the number of analysts following. The paper 
+further points out that even after controlling for various firm characteristic known to be 
+associated with expected returns, the market still appears to underreact to revisions. 
+Specifically,	  investors	  appear	  to	  react	  more	  strongly	  to	  star	  analysts,	  compared	  to	  
+less	  well-­‐known	  analysts	  and	  analysts	  from	  smaller	  brokerage	  houses.11 Collectively, 
+the paper concludes that while certain analyst and firm characteristics enhance the 
+dissemination process of forecast revision information, market prices overall do not seem 
+to completely understand the subtler aspects (e.g., analysts’ reputation) of analysts’ 
+forecast revisions. 
+ 
+Other studies investigate the above two channels in isolation (e.g., Stickel,1992; 
+Park and Stice (2000); Zhang (2006); Bonner, Hugon, and Walther (2007); Hui and 
+Yueng (2013)). Zhang (2006), for example, investigates how information uncertainty 
+(proxied by firm size, age, analyst coverage, dispersion in analysts’ forecasts, return 
+volatility, and cash flow volatility) influences post-revision drifts. Zhang (2006) finds 
+that lower information uncertainty enables investors to react more completely to analysts’ 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+11 “Innovative” revisions are those that provide new information and do not merely move toward the 
+consensus. 
+
+--- PAGE 22 ---
+	  
+	  
+	  
+21  
+forecast revisions, resulting in lower post-revision drifts. On the other hand, Hui and 
+Yeung (2013) focus on the properties of analysts’ forecasts and show that investors do 
+not fully understand the implied persistence of industry wide analysts’ forecasts.12 
+In sum, the literature shows that: (1) investors tend to underreact to analysts’ 
+forecast revisions and (2) the underreaction is a function of both the information 
+environment and analysts’ forecast characteristics. On the latter point, the extent to which 
+investors impound forecast revisions into prices is a function of (i) information 
+processing biases and (ii) market frictions. 
+ 
+3.4 Do investors unravel predictable biases in analysts’ forecasts? 
+Section 2 reviewed the underlying determinants that drive biases in analysts’ 
+forecasts. Biases can be conscious, in the sense that analysts’ self-interest might drive 
+some of the biases, or unconscious, in the case of cognitive information-processing 
+biases.  In this section, we investigate i) to what extent market prices are able to rationally 
+unravel these biases and ii) the factors that influence whether investors unravel analysts’ 
+forecast biases. 
+Evidence on whether investors unravel predictable biases in analysts’ forecasts 
+has been mixed due, in part, to differences in research methodologies and settings. On the 
+one hand, Hughes, Liu, and Su (2008) find evidence suggesting market prices fail to 
+incorporate predictable biases in analyst forecasts. Specifically, they find that a strategy 
+of sorting firms by predicted errors fails to generate abnormal returns, which they 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+12 A related stream of work identifies how investors weight specific firm or analyst characteristics that are 
+predictive of analysts’ forecast errors. For instance, Clement and Tse (2003) find that investors respond 
+more strongly to longer horizon forecasts, which are known to be less accurate, than shorter horizon 
+forecasts because investors are generally more uncertain about earnings earlier in the year. 
+
+--- PAGE 23 ---
+	  
+	  
+	  
+22  
+interpret as market efficiency with respect to predictable analyst errors. On the other 
+hand, So (2013) highlights an important methodological limitation in the way Hughes et 
+al. (2008) and other related studies calculate the predicted component of analyst errors.13 
+So (2013) introduces an alternative approach. By showing profitable investment 
+strategies based on the new measure of predicted analyst errors, he provides evidence of a 
+market that is naïvely fixated on analysts’ forecasts. In a similar vein, Frankel and Lee 
+(1998) present indirect evidence consistent with market prices failing to incorporate the 
+predictable component of analyst errors. They show this by demonstrating that their 
+valuation model’s performance in predicting the cross-section of stock returns improves 
+when the predictable component of analyst errors is taken into account. 
+More broadly, studies in the “anomalies” literature suggest that investors naively 
+fixate on analysts’ forecasts (Abarbanell and Bernard (1992), Dechow and Sloan (1997), 
+Bradshaw, Richardson and Sloan (2001)). The underlying motivation behind these 
+studies is to offer a potential explanation for well-known stock market anomalies such as 
+the post-earnings announcement drift (Ball and Brown (1968)), the value anomaly (Basu 
+(1977), Fama and French (1992)), and the accruals anomaly (Sloan (1996)). 14 
+Specifically, these studies investigate whether investors’ fixation on biased analyst 
+signals is responsible for anomalous returns. For example, Abarbanell and Bernard 
+(1992) show that markets’ naïve fixation on analysts’ forecasts explains up to half of the 
+post-earnings announcement drift anomaly, and Dechow and Sloan (1997) show that bias 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+13 The traditional approach involves regressing realized forecast errors on observable, lagged firm 
+characteristics. To the extent that these firm characteristics correlate with unobservable inputs to analyst 
+forecasts such as analysts’ incentive misalignment or private information, biases in the methodology 
+emerge. Examples of other studies that use the traditional approach include, for examples, Ali, Klein, and 
+Rosenfeld (1992), Elgers and Murray (1992), Lo and Elgers (1998), Frankel and Lee (1998). 
+14 See Richardson, Tuna, and Wysocki (2010) for a recent survey of this literature. 
+
+--- PAGE 24 ---
+	  
+	  
+	  
+23  
+in analysts’ forecasts of future earnings growth explain over half of the returns to 
+contrarian investment strategies. 
+ 
+Lastly, a stream of research investigates how investor characteristics influence 
+how they might unravel analysts’ biases. For instance, Bonner, Walther, and Young 
+(2003) show that sophisticated investors appear to have a better understanding of the 
+factors that drive forecast accuracy than do unsophisticated investors. Similarly, 
+Malmendier and Shanthikumar (2007) show that small investors, compared with large 
+investors, are more naïve about analyst recommendations, which are over-optimistic due 
+to underwriting incentives. More recently, Hilary and Hsu (2013) find evidence that 
+institutional investors are better at unraveling consistent analyst errors (i.e., errora that are 
+inaccurate with low standard deviation) compared to retail investors.  
+ 
+Overall this literature suggests that investors partially unravel the biases in 
+analysts’ forecasts, and that partial unraveling results in predictable stock prices. Further, 
+the degree to which investors’ unravel predictable biases in analysts’ forecasts is a 
+function of firm, analyst, and investor characteristics. Future research would benefit from 
+a detailed understanding of the drivers of this variation, such as behavioral biases and 
+capital constraints. 
+ 
+4.0 Analysts’ outputs and expected returns 
+In this section, we discuss channels through which analysts’ forecasts are linked 
+to expected returns. Before we proceed, we preface this discussion by noting that while 
+the implications of analysts’ forecasts to cash flows is clear, and the empirical evidence is 
+vast, the links between analysts’ forecasts and expected returns are less established. We 
+
+--- PAGE 25 ---
+	  
+	  
+	  
+24  
+review the literature below but note that the current state of literature presents an 
+promising opportunity for future research.  
+We begin this section with a discussion of the use of analysts’ forecasts in 
+developing expected return proxies within a valuation framework. We then proceed to a 
+discussion of the relation between analysts’ forecasts and expected returns in an asset-
+pricing framework, focusing on (i) the effect of analysts’ forecasts on information 
+uncertainty and (ii) the effect of analysts’ forecasts on information asymmetry and 
+liquidity.  
+ 
+4.1 Use of earnings forecasts in estimating expected returns 
+Analysts’ forecasts influence expected returns as well as facilitate the estimation 
+of expected return proxies. In this sub-section, we focus on the latter (Section 4.2 focuses 
+on the former). We begin with an earnings-based valuation model to obtain an estimate of 
+firm-value that is independent of price. Then, by comparing the valuation to observed 
+market price, one may estimate the discount rate investors place on future earnings as a 
+proxy for the firm’s expected return. 
+A central goal of valuation analysis is to incorporate the latest information about 
+the amount, timing, and uncertainty of expected future cash flows in developing estimates 
+of firm value, which may be compared against prevailing market prices. Under classical 
+valuation models (e.g., the dividend discount model), the fundamental value of a firm is 
+defined as the present value of its expected future dividends. Using these approaches, 
+firm value can be expressed as a function of two central inputs (i) its expected future 
+
+--- PAGE 26 ---
+	  
+	  
+	  
+25  
+dividends and (ii) the discount rate applied to the firm’s future dividends. More 
+specifically, firm value at time t can be expressed as: 
+𝑉𝑎𝑙𝑢𝑒! =
+!!(!!!!)
+(!!!!)!
+!
+!!!
+ 
+ 
+ 
+ 
+ 
+ 
+(1) 
+where 𝐸!(𝐷!!!) is the firm’s expected future dividends based on all information 
+available in period t and 𝑟! is the (constant) market discount rate applied to future 
+dividends.  
+A key challenge in implementing the dividend discount model shown in Equation 
+(1) is the need to forecast the stream of firms’ future dividends, particularly among firms 
+that do not issue dividends. Recognition of this issue gave rise to valuation models that 
+rely on the “clean surplus relation” (Ohlson (1995)), which states that changes in a firm’s 
+book value must be attributable to either earnings or dividends. That is: 
+𝐵! = 𝐵!!! + 𝐸! −𝐷!  
+ 
+ 
+ 
+(2) 
+where 𝐵! denotes a firm’s book value, 𝐸! is the firm’s earnings in period t, and 𝐷! is 
+the firm’s dividends in period t. Rearranging the clean surplus relation, dividends for 
+period t can be expressed as: 
+𝐷! = 𝐸! −(𝐵! −𝐵!!!). 
+ 
+ 
+ 
+(3) 
+Substituting Equation (3) into Equation (1), firm value can be expressed as  
+𝑉𝑎𝑙𝑢𝑒! =
+[!!!(!!!!!!!)]
+(!!!!)!
++
+[!!!!!(!!!!!!!)]
+(!!!!)!
++
+[!!!!!(!!!!!!!!!)]
+(!!!!)!
++ ⋯ 
+(4) 
+Equation (4) relates to valuation analysis using the “Q model” from Tobin (1969), which 
+relies on forecasting firms’ ability to generate value, i.e., cash flows in excess of the cost 
+of capital, rather than their stream of future dividend payments. Valuation analysis using 
+the Q model compares the market value of a firm to the replacement value of its physical 
+assets.  
+
+--- PAGE 27 ---
+	  
+	  
+	  
+26  
+Like the Q model, researchers commonly implement Equation (4) by estimating a 
+firm’s future residual income. The notion of residual income captures the idea that 
+expected future accounting rates of return that exceed the firms’ costs of obtaining capital 
+create economic value.  These expected earnings represent cash flows that exceed the 
+costs of acquiring assets and thus create value for shareholders. Using this intuition, a 
+substantial literature in economics, finance, and accounting operationalizes valuation 
+analysis using a residual income model, where residual income (RI) refers to a firm’s 
+earnings minus the required rate of return on equity multiplied by the beginning-of-period 
+book value: 
+𝑅𝐼! = 𝐸! −𝑟!𝐵!!!. 
+ 
+ 
+ 
+ 
+(5) 
+Substituting Equation (4) into (5) expresses firm value as a function of a firm’s 
+book value and forecasted earnings-per-share. More specifically, the residual income 
+model re-expresses firm value as: 
+𝑉𝑎𝑙𝑢𝑒! = 𝐵! +
+!![ !"#!!!!!! !!!!!!]
+(!!!!)!
+!
+!!!
+ 
+ 
+ 
+ 
+(6) 
+where 𝑅𝑂𝐸!!! is the return on book equity corresponding to period t+i. The 
+application of clean surplus accounting shifts the focus of valuation exercises from 
+forecasting dividends to forecasting earnings.  
+Both academics and practitioners commonly use these valuation models because, 
+as illustrated in Equation (6), they provide estimates of firm-value by inputting forecasts 
+of future earnings, current book values, and discount rates. By replacing firm value with 
+the market price of a firms’ equity and using analysts’ forecasts to proxy for expected 
+future earnings, prior research demonstrates how to derive the implicit discount rate (e.g., 
+Gebhardt, Lee, and Swaminathan, 2001; Easton, 2004; Easton and Mohanan, 2005; and 
+
+--- PAGE 28 ---
+	  
+	  
+	  
+27  
+Guay, Kothari, and Shu, 2011). These estimates can be informative to investors in 
+predicting future returns as well as to corporate managers in making internal capital 
+investment decisions.  
+The estimated discount rate is commonly referred to as a firm’s implied cost-of-
+capital (ICC). ICCs have gained appeal in recent decades, first in accounting, and now 
+increasingly in finance, as a proxy for firm’s expected return. These studies suggest that 
+ICCs offer an alternative approach for implementing empirical asset-pricing tests (see 
+Easton and Sommers (2007) for a review of the accounting literature on ICCs). In 
+finance, ICCs have been used to test the Intertemporal CAPM (Pástor et al. (2008)), 
+international asset-pricing models (Lee et al. (2009)), and the pricing of default risk 
+(Chava and Purnanandam (2010)). 
+The ability of ICCs to proxy for expected returns hinges upon several key 
+assumptions, including whether analysts’ forecasts accurately reflect the market’s 
+expectation of earnings. Given the predictable and recurring nature of analysts’ biases 
+discussed in Sections 2 and 3, prior research attempts to refine ICCs as a proxy of 
+expected returns by removing predictable biases in analysts’ forecasts (e.g., Easton and 
+Monahan (2005), Easton (2009), Hou et al. (2012), Larocque (2013)). Similarly, Guay, 
+Kothari, and Shu (2011) show that sluggishness in analysts’ forecast revisions create 
+biased ICC estimates. They develop techniques to mitigate this form of bias. Collectively, 
+these studies show that analysts’ forecasts can facilitate the estimation of firm-level 
+expected returns using an implied cost of capital approach while they also point to a need 
+to recognize and address the impact of predictable variation in the biases, inaccuracies, 
+and timeliness of analysts’ forecasts. 
+
+--- PAGE 29 ---
+	  
+	  
+	  
+28  
+ 
+4.2 Analysts’ forecasts and models of expected returns 
+Valuation is a function of two unobservables: risk and cash flows.  Models show 
+that uncertainty surrounding these unobservables affects valuation. Analysts, as 
+information intermediaries, can influence the uncertainty around estimates of risk and 
+cash flows through their output (forecasts, recommendations, and qualitative discussion).  
+We begin with a classical model that ignores uncertainty. We then overlay uncertainty 
+about the parameters and examine the role analysts’ outputs plays in reducing 
+uncertainty. 
+ 
+In classic asset pricing models such as the CAPM, the expected return of an asset 
+is a function of the covariance between the firm’s return and the return of the market, 
+commonly referred to as the firm’s “beta.” The model implicitly assumes that the investor 
+knows the covariance between the firm’s returns and the market. In other words, there is 
+no “information uncertainty” about the firms’ beta. Further, because investors have 
+homogenous beliefs, there is no source of risk arising from information asymmetry 
+among market participants. As a result, in such a model there is little opportunity for 
+analysts to influence the expected return of a stock by supplying information to the 
+market.   
+Subsequent studies relax the assumption of no information uncertainty by 
+acknowledging that the beta parameter needs to be estimated, and such uncertainty 
+introduces so-called “estimation” risk (e.g., Brown (1979), Barry and Brown (1984), 
+Brown (1985), Coles and Loewenstein (1988)). More recently, researchers have linked 
+the estimation risk literature to corporate disclosure (Hughes, Liu and Liu (2007); 
+
+--- PAGE 30 ---
+	  
+	  
+	  
+29  
+Lambert, Leuz and Verrecchia (2007)). The idea is that firms’ disclosures are imperfect 
+signals about future cash flows and, as a result, better disclosures can reduce expected 
+returns via a reduction in the (the estimation of) firm beta. As discussed in Lambert et al. 
+(2007) this effect is non-diversifiable because it manifests through the covariance of a 
+firm’s cash flows and the market cash flows (i.e., it lowers the “cash flow” beta).  
+The insights from the estimation risk literature have implications for the literature 
+on analysts’ forecast because analysts, by supplying information into the market, can alter 
+the extent of information uncertainty in the markets. Specifically, the literature on 
+estimation risk predicts that firms with richer information sets due to analysts’ 
+information production have lower expected returns because analysts’ forecasts reduce 
+estimation risk, which translates to a lower beta.  
+Another stream of literature relaxes the assumption that investors have 
+homogenous beliefs and exploits the extent to which information asymmetry between 
+investors gives rise to a source of priced risk. For example, Easley and O’Hara (2004) 
+study a model of asymmetric information and argue that information asymmetry is a 
+source of non-diversifiable risk. Lambert, Leuz and Verrecchia (2011) argue that the 
+effect in Easley and O’Hara (2004) is diversifiable in models of perfect competition, but 
+show that information asymmetry is a source of non-diversifiable risk in markets with 
+imperfect competition. 15 A related stream of research uses a rational expectations 
+equilibrium framework that links information asymmetry to asset prices by lowering 
+demand from uninformed traders (e.g., Grossman and Stiglitz (1980), Hellwig (1980), 
+Admati (1985), and Wang (1993)).  
+The relation between analyst’s information production and expected returns via 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+15 See Armstrong et al. (2011) and Akins, Ng and Verdi (2012) for empirical evidence. 
+
+--- PAGE 31 ---
+	  
+	  
+	  
+30  
+changes in information asymmetry, however, is more subtle. On one hand, by supplying 
+previously privately information into the public domain, analysts’ forecasts can reduce 
+information asymmetry. This would predict analyst-supplied information to reduce 
+expected returns due to a reduction in information asymmetry. On the other hand, 
+analysts are compensated based on their ability to garner trading commissions and thus 
+may cater to large institutional investors. To the extent that analysts provide selective 
+access to their reports, analysts could also exacerbate information asymmetry among 
+market participants, which would increase expected returns. 
+ 
+4.3 Empirical evidence 
+Evidence on the link between analysts’ forecasts and expected returns is relatively 
+scarce. One potential explanation for this scarcity is that the expected link between 
+analysts’ forecasts and asset prices is ambiguous, given two potentially offsetting effects 
+from uncertainty and asymmetry as discussed above. Additionally, other forces such as 
+market mispricing and trading frictions potentially confound the empirical link between 
+analysts’ outputs and market prices (e.g., Miller (1977), Diether, Malloy, and Scherbina 
+(2002)). 
+In the context of Reg FD, some studies directly test the information uncertainty 
+vs. information asymmetry mechanisms by investigating changes in cost of capital as a 
+proxy for expected returns around the regulation’s passage. Consistent with the argument 
+that Reg FD increased the information acquisition costs for analysts, Gomes, Gorton, and 
+Madureira (2007) document a decrease in the information environment (i.e., higher 
+analysts’ forecast errors and higher volatility) for small firms, causing a higher cost of 
+
+--- PAGE 32 ---
+	  
+	  
+	  
+31  
+capital after the passage of Reg FD. The authors interpret this result as Reg FD restricting 
+analysts’ private access to managerial information and thereby choosing to produce less 
+information (i.e., higher information uncertainty), which in turn adversely affected small 
+firms.  
+In contrast, consistent with the argument that Reg FD reduced information 
+asymmetry by leveling the playing field, Chen, Dhaliwal, and Xie (2010) document that 
+the cost of capital for medium and large firms declined after the passage of the new 
+regime. This suggests that prior to Reg FD analysts, especially in big firms, selectively 
+provided information to large investors and that this channel was reduced subsequent to 
+the new regulation.  
+In a similar vein, other studies show that analysts increase liquidity by mitigating 
+information asymmetry among investors. For example, Brennan and Subrahmanyam 
+(1995), Easley, O’Hara, and Paperman (1998), and Roulstone (2003) show that analysts 
+create a more equitable information environment among investors by publicly disclosing 
+information that would otherwise be costly to process. Similarly, Chung, Elder, and Kim 
+(2010) suggest that analyst help mitigate information asymmetry between firms and 
+investors by serving a governance role, deterring corporate wrongdoing. On the other 
+hand, studies such as Irvine, Lipson, and Puckett (2007), Juergens and Linsey (2009), and 
+Christophe, Ferri, and Hsieh (2010) suggest that analysts may also increase adverse 
+selection risk among investors by sharing information privately with preferred clientele 
+ahead of publicly releasing their forecasts or recommendations.  
+Last, an influential study by Diether, Malloy and Scherbina (2002) investigates 
+the relation between analysts’ forecast dispersion and the cross-section of future returns, 
+
+--- PAGE 33 ---
+	  
+	  
+	  
+32  
+and finds that analysts’ forecast dispersion is negatively associated with future returns. 
+The authors interpret this result as differences in opinion driving overvaluation in the 
+stock (a theory set forth by Miller (1977)).16 Other studies attribute the findings in 
+Diether et al. (2002) to trading costs (Sadka and Scherbina (2007)) and to financial 
+distress (Avramov et. al. (2009)). Regardless of whether forecast dispersion captures 
+information uncertainty or asymmetry (in the form of disagreement) among analysts or a 
+correlated factor (e.g., trading costs or distress risk) reflecting fundamental risk (and as a 
+result information risk), the evidence seems inconsistent with the argument that analysts’ 
+forecast dispersion is associated with priced information risk. 
+ 
+5.0 Conclusions 
+This survey reviews the literature on sell-side analysts’ forecasts and their 
+implications for asset pricing. Section 2 reviews the literature on the supply and demand 
+forces shaping analysts’ forecasting decisions, noting that research on the impact of 
+analyst forecasts on asset prices needs to account for the information analysts produce, 
+which firms they cover, and their incentives to convey accurate and unbiased 
+information. Section 3 reviews the literature on analyst forecasts and their implications 
+for cash flow news, which highlights both instantaneous and delayed reactions to 
+analysts’ forecasts as well as the role of market over- versus under-reaction. Section 4 
+reviews the literature on analyst forecasts’ implications for expected returns.  
+Despite a substantial literature on the intersection of analysts’ forecasts and asset 
+pricing, the specific mechanisms through which analysts’ forecasts influence asset prices, 
+	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  
+16 See also Ang et al. (2006) for initial evidence and Stambaugh, Yu and Yuan (2015) for more recent 
+evidence of a similar pattern using idiosyncratic volatility and the cross section of returns.  
+
+--- PAGE 34 ---
+	  
+	  
+	  
+33  
+and expected returns in particular, are still not entirely clear. We identify unanswered 
+questions and offer suggestions for future research to better understand the channels 
+through which analysts’ forecasts influence expected returns, the formation of analysts’ 
+beliefs, and techniques to causally link forecasts to market outcomes.  
+Before we conclude, we note that it has been over 20 years since Schipper (1991) 
+highlighted a disproportionate focus within academic research on analysts’ forecasts, 
+largely because of the availability of analyst forecast data and the use of this data within 
+studies of earnings news (see Bradshaw (2011) for a similar remark). In our view, this 
+disproportion remains despite the proliferation of new data sources and technologies, 
+such as textual analysis, that afford researchers the ability to paint a more complete view 
+of the information analysts themselves convey to the market. We encourage future 
+research to help fill this void and, in doing so, enhance our understanding of how 
+information supplied by analysts gets reflected in market prices.	  
+
+--- PAGE 35 ---
+	  
+	  
+	  
+34  
+References 
+Abarbanell JS. 1991 Do analysts’ earnings forecasts incorporate information in prior 
+stock price changes? J. Account. Econ. 14(2):147–165 
+Abarbanell JS, Bernard VL. 1992. Tests of analysts’ overreaction/underreaction to 
+earnings information as an explanation for anomalous stock price behavior. J. 
+Finance 47(3):1181–1207 
+Admati AR. 1985. A noisy rational expectations equilibrium for multi-asset securities 
+markets. Econometrica. 53(3):629–58 
+Agrawal A, Chadha S, Chen MA. 2006. Who is aAfraid of Reg FD? The behavior and 
+performance of sell-­‐side analysts following the SEC’s Fair Disclosure rules. J. Bus. 
+79(6):2811–34 
+Agrawal A, Chen MA. 2008. Do analyst conflicts matter? Evidence from stock 
+recommendations. J. Law Econ. 51(3):503–537 
+Akins BK, Ng J, Verdi RS. 2012. Investor competition over information and the pricing 
+of information asymmetry. Account. Rev. 87(1):35–58 
+Ali A, Klein A, Rosenfeld J. 1992. Analysts’ use of information about permanent and 
+transitory earnings components in forecasting annual EPS. Account. Rev. 67(1):183–
+198 
+Ang A, Hodrick RJ, Xing Y, Zhang X. 2006. The cross-section of volatility and expected 
+returns. J. Finance. 61(1):259–299 
+Armstrong CS, Core JE, Taylor DJ, Verrecchia RE. 2011. When does information 
+asymmetry affect the cost of capital? J. Account. Res. 49(1):1–40 
+Asquith P, Mikhail MB, Au AS. 2005. Information content of equity analyst reports. J. 
+Financ. Econ. 75(2):245–282 
+Avramov D, Chordia T, Jostova G, Philipov A. 2009. Dispersion in analysts’ earnings 
+forecasts and credit rating. J. Financ. Econ. 91(1):83–101 
+Bailey W, Li H, Mao CX, Zhong R. 2003. Regulation Fair Disclosure and earnings 
+information: Market, analyst, and corporate responses. J. Finance. 53(6):2487–2514 
+Ball R, Brown P. 1968. An empirical evaluation of income Numbers. J. Account. Res. 
+6(2):159–178 
+
+--- PAGE 36 ---
+	  
+	  
+	  
+35  
+Barber B, Lehavy R, McNichols M, Trueman B. 2001. Can investors profit from the 
+prophets?  Security analyst recommendations and stock returns. J. Finance 56:531–
+563 
+Barber BM, Lehavy R, McNichols M, Trueman B. 2006. Buys, holds, and sells: The 
+distribution of investment banks’ stock ratings and the implications for the 
+profitability of analysts' recommendations. J. Account. Econ. 41(1-2):87–117 
+Barefield R, Comiskey E. 1975. The accuracy of analysts’ forecasts of earnings per 
+share. J. Bus. Res. 3(3):241-251 
+Barry CB, Brown SJ. 1984. Differential information and the small firm effect. J. Financ. 
+Econ. 13(2):283-294 
+Barry CB, Brown SJ. 1985. Differential information and security market equilibrium. J. 
+Finac. Quant. Anal. 20(4):407–422 
+Barth M, Kasznik R, McNichols M. 2001. Analyst coverage and intangible assets. J. 
+Account. Res. 39(1):1-34 
+Bartov E, Givoly D, Hayn C. 2002. The rewards to meeting or beating earnings 
+expectations. J. Account. Econ. 33(2):173–204 
+Basu S. 1977. Investment performance of common stocks in relation to their price-
+earnings ratios: A test of the efficient market hypothesis. J. Finance. 32(3):663–682 
+Beyer, A, Cohen, DA, Lys TZ, Walther BR. 2010. The financial reporting environment: 
+Review of the recent literature. J. Account. Econ. 50(2):296-343 
+Bhushan R. 1989. Firm characteristics and analyst following. J. Account. Econ. 11(2-
+3):255–274  
+Boni, L., 2006. Analyzing the analysts after the global settlement. In: Fuchita, Y., Litan, 
+R.E. (Eds.), Financial Gatekeepers: Can They Protect Investors? Brookings 
+Institution Press and the Nomura Institute of Capital Markets Research 
+Bonner SE, Hugon A, Walther BR. 2007. Investor reaction to celebrity analysts: The case 
+of earnings forecast revisions. J. Account. Res. 45(3):481–513 
+Bonner SE, Walther BR, Young SM. 2003. Sophistication-related differences in investors’ 
+models of the relative accuracy of analysts' forecast revisions. Account. Rev. 
+78(3):679–706 
+Bradley DJ, Clarke J, Lee S, Ornthanalai C. 2014. Are analysts’ recommendations 
+informative? Intraday evidence on the impact of time stamp delays. J. Finance. 
+69(2):645–673 
+
+--- PAGE 37 ---
+	  
+	  
+	  
+36  
+Bradley DJ, Jordan BD, Ritter JR, 2003. The quiet period goes out with a bang. J. 
+Finance 58(1) 1–36 
+Bradshaw MT. 2011. Analysts’ Forecasts: What do we know after decades of work? 
+Work. Pap. http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1880339 
+Bradshaw MT, Richardson SA, Sloan RG. 2001. Do analysts and auditors use 
+information in accruals? J. Account. Res. 39(1):45–74 
+Brennan MJ, Subrahmanyam A. 1995. Investment analysis and price formation in 
+securities markets. J. Financ. Econ. 38(3):361–381 
+Brochet F, Miller GS, Srinivasan S. 2014. Do analysts follow managers who switch 
+companies? An analysis of relationships in the capital markets. Account. Rev. 
+89(2):451–482 
+Brown LD. 1993. Earnings forecasting research: its implications for capital markets 
+research. Int. J. Forecasting 9(3):295−320 
+Brown LD. 2001. A temporal analysis of earnings surprises: profits versus losses. J. 
+Account. Res. 39(2):221–241 
+Brown LD, Hagerman RL, Griffin PA. Zmijewski ME. 1987. Security analyst superiority 
+relative to univariate time-series models in forecasting quarterly earnings. J. 
+Account. Econ. 9(1):61–87 
+Brown LD, Mohd E. 2003. The predictive value of analyst characteristics. J. Account. 
+Audit. Finance 18(4):625–647 
+Brown LD, Rozeff M. 1978. The superiority of analyst forecasts as measures of 
+expectations: evidence from earnings. J. Finance 33(1):1–16 
+Brown SJ. 1979. The effect of estimation risk on capital market equilibrium. J. Financ. 
+Quant. Anal. 14 (2):215-220 
+Brennan MJ, Subrahmanyam A. 1995. Investment analysis and price formation in 
+securities markets. J. Financ. Econ. 38(3):361–381 
+Burgstahler D, Dichev I. 1997. Earnings management to avoid earnings decreases and 
+losses. J. Account. Econ. 24(1):99–126 
+Bushee BJ, Matsumoto DA, Miller GS. 2004. Managerial and investor responses to 
+disclosure regulation: The case of Reg FD and conference calls. Account. Rev. 
+79(3):617–43 
+
+--- PAGE 38 ---
+	  
+	  
+	  
+37  
+Chava S, Purnanandam A. 2010. Is default risk negatively related to stock returns? Rev. 
+Financ. Stud. 23(6): 2523–2559 
+Chen Z, Dhaliwal DS, Xie H. 2010. Regulation fair disclosure and the cost of equity 
+capital. Rev. Account. Stud. 15(1):106–144 
+Chen S, Matsumoto DA. 2006. Favorable versus unfavorable recommendations: The 
+impact on analyst access to management-provided information. J. Account. Res. 
+44(4):657–689  
+Chan LK, Jegadeesh N, Lakonishok J. 1996. Momentum strategies. J. Finance 
+51(6):1681-1713 
+Chiyachantana CN, Jiang CX, Taechapiroontong N, Wood R a. 2004. The impact of 
+regulation fair disclosure on information asymmetry and trading: An intraday 
+analysis. Financ. Rev. 39(4):549–577 
+Christophe SE, Ferri MG, Hsieh J. 2010. Informed trading before analyst downgrades: 
+Evidence from short sellers. J. Financ. Econ. 95(1): 85–106 
+Chung KH, Elder J, Kim, J-C. 2010. Corporate governance and liquidity. J. Financ. 
+Quant. Anal. 45(02):265–291 
+Clarke J, Khorana A, Patel A, Rau PR. 2007. The impact of all-star analyst job changes 
+on their coverage choices and investment banking deal flow. J. Financ. Econ., 
+84(3):713–737 
+Clarke JE, Khorana A, Patel A, Rau PR. 2011. Independents’ day? Analyst behavior 
+surrounding the Global Settlement. Ann. Financ. 7(4):529–547 
+Clement MB. 1999. Analyst forecast accuracy: do ability, resources, and portfolio 
+complexity matter? J. Account. Econ. 27(3):285–303 
+Clement MB, Tse SY. 2003. Do investors respond to analysts’ forecast revisions as if 
+forecast accuracy is all that matters? Account. Rev., 78(1):227–249 
+Cliff MT, Denis DJ. 2004. Do initial public offering firms purchase analyst coverage with 
+underpricing? J. Finance 59(6):2871–2901 
+Cohen L, Frazzini A, Malloy C. 2010. Sell-side school ties. J. Finance. 65(4):1409–1437 
+Coles J. Loewenstein U. 1988. Equilibrium pricing and portfolio composition in the 
+presence of uncertain parameters. J. Financ. Econ. 22(2):279-303 
+
+--- PAGE 39 ---
+	  
+	  
+	  
+38  
+Cornett MM, Tehranian H, Yalçin A. 2007. Regulation fair disclosure and the market’s 
+reaction to analyst investment recommendation changes. J. Bank. Financ. 
+31(3):567–588 
+Cowen A, Groysberg B, Healy P. 2006. Which types of analyst firms are more optimistic? 
+J. Account. Econ. 41(1-2): 119–146 
+Das S, Levine CB, Sivaramakrishnan K. 1998. Earnings predictability and bias in 
+analysts’ earnings forecasts. Account. Rev. 73(2): 277–294 
+Degeorge, F., Patel, J., Zeckhauser, R., 1999. Earnings management to exceed thresholds. 
+J. Bus. 72 (1), 1–33. 
+De Franco G., Kothari SP, Verdi RS. 2011. The benefits of financial statement 
+comparability. J. Account. Res. 49(4): 895–931  
+De Franco G, Vasvari FP, Wittenberg-Moerman R. 2009. The Informational Role of 
+Bond Analysts. J. Account. Res. 47(5): 1201–1248 
+Dechow PM, Hutton AP, Sloan RG. 2000. The relation between analysts’ forecasts of 
+long-term earnings growth and stock price performance following equity offerings. 
+Contemp. Account. Res. 17(1): 1–32 
+Dechow PM, Sloan RG. 1997. Returns to contrarian investment strategies: Tests of naive 
+expectations hypotheses. J. Financ. Econ. 43(1): 3–27 
+Diether K, Malloy C, Scherbina A. 2002. Differences of opinion and the cross section of 
+stock returns. J. Finance 57(5): 2113–2141 
+Dunbar C. 2000. Factors affecting investment bank initial public offering market share. J. 
+Financ. Econ. 55(1):3–41 
+Eames MJ, Glover SM. 2003. Earnings predictability and the direction of analysts’ 
+earnings forecast errors. Account. Rev. 78(3):707–724 
+Easley D, O’Hara M. 2004. Information and the cost of capital. J. Finance 59(4):1553–
+1583  
+Easley D, O’Hara M, Paperman J. 1998. Financial analysts and information based trade. J. 
+Finan. Mark. 1(2):175–201 
+Easton PD. 2004. PE Ratios, PEG ratios, and estimating the implied expected rate of 
+return on equity capital. Account. Rev. 79(1):73–95 
+Easton PD. 2009. Estimating the cost of capital implied by market and accounting data. 
+Found. Trends Financ. 241-364 
+
+--- PAGE 40 ---
+	  
+	  
+	  
+39  
+ 
+Easton, PD, Monahan S. 2005. An evaluation of accounting based measures of expected 
+returns. Account. Rev. 80(2):501–538 
+Easton PD, Sommers GA. 2007. Effect of analysts’ optimism on estimates of the 
+expected rate of return implied by earnings forecasts. J. Account. Res. 45(5):983–
+1015 
+Elgers P, Murray D. 1992. The relative and complementary performance of analyst and 
+security-price-based measures of expected earnings. J. Account. Econ. 15 (2–
+3):303–316 
+Elgers PT, Lo MH, Pfeiffer RJ. 2003. Analysts’ vs. investors’ weightings of accruals in 
+forecasting annual earnings. J Account. Public Pol. 22(3):255-280 
+Eleswarapu VR, Thompson R, Venkataraman K. 2004. The Impact of Regulation Fair 
+Disclosure: Trading Costs and Information Asymmetry. J. Financ. Quant. Anal. 
+39(02):209-225 
+Elton EJ, and Gruber MJ. 1972. Earnings estimates and the accuracy of expectational 
+data. Manag. Sci. 18(8):409-424 
+ 
+Elton EJ, Gruber MJ, Gultekin M. 1981. Expectations and share prices. Manag. Sci. 27 
+(9):975-987 
+Fama, EF. 1970. Efficient capital markets: a review of theory and empirical work. J. 
+Finance 25(2):383–417 
+Fama E, French K. 1992. The cross-section of expected stock returns. J. Finance. 
+47(2):427–465 
+Francis J, Philbrick D. 1993. Analysts’ decisions as products of a multi-task environment. 
+J. Account. Res. 31(2):216–230 
+Frankel R, Kothari SP, Weber J. 2006. Determinants of the informativeness of analyst 
+research. J. Account. Econ. 41(1-2):29–54  
+Frankel R, Lee, CMC. 1998. Accounting valuation, market expectation, and cross-
+sectional stock returns. J. Account. Econ. 25(3):283–319 
+Fried D, Givoly D. 1982. Financial anaysts’ forecasts of earnings - A better surrogate for 
+market expectations. J. Account. Econ. 4(2):85–107 
+Gebhardt WR, Lee CMC, Swaminathan B. 2001. Toward an implied cost of capital. J. 
+Account. Res. 39(1):135–176 
+
+--- PAGE 41 ---
+	  
+	  
+	  
+40  
+Gintschel A, Markov S. 2004. The effectiveness of Regulation FD. J. Account. Econ. 
+37(3):293–314 
+Gleason CA, Lee CMC. 2003. Analyst forecast revisions and market price discovery. 
+Account. Rev. 78(1):193–225 
+Givoly D, Lakonishok J. 1979. The information content of financial analysts' forecasts of 
+earnings. J. Account. Econ. 1(3):165-185 
+ 
+Givoly D, Lakonishok J. 1980. Financial analysts' forecast of earnings: The value to 
+investors. J. Bank. Finance 4(3):221-233 
+ 
+Givoly D, Lakonishok J. 1984, Properties of analysts’ forecasts of earnings: A review and 
+analysis of the research. J. Account. Lit. 3(1):117-152 
+Gomes A, Gorton G, Madureira L. 2007. SEC Regulation Fair Disclosure, information, 
+and the cost of capital. J. Corp. Financ. 13(2-3):300–334 
+Graham, JR. Harvey, CR. and Rajgopal, S. 2005. The economic implications of corporate 
+financial reporting. J. Account. Econ. 40: 3-73. 
+Griffin P. 1976. Competitive information in the stock market: An empirical study of 
+earnings, dividends, and analysts' forecasts. J. Finance 31(2):631-650 
+Grossman SJ, Stiglitz J. 1980. On the impossibility of informationally efficient markets. 
+Am. Econ. Rev. 70(3):393–408 
+Groysberg B, Healy PM, Maber DA. 2011. What drives sell-side analyst compensation at 
+high-status investment banks? J. Account. Res. 49 (4):969-1000 
+Guay WR, Kothari SP, Shu S. 2011. Properties of implied cost of capital using analysts’ 
+forecasts. Aust. J. Manag. 36(2):125-149 
+Hayes RM. 1998. The impact of trading commission incentives on analysts’ stock 
+coverage decisions and earnings forecasts. J. Account. Res. 36(2):299–320 
+Healy PM, Hutton AP, Palepu KG. 1999. Stock Performance and Intermediation Changes 
+Surrounding Sustained Increases in Disclosure. Contemp. Account. Res. 16(3):485–
+520  
+Heflin F, Subramanyam KR, Zhang Y. 2003. Regulation FD and the financial 
+information environment: early evidence. Account. Rev. 78(1):1–37 
+Hellwig MF. 1980. On the aggregation of information in competitive markets. J. Econ. 
+Theory. 22(3):477–98 
+
+[TRUNCATED at 80000 chars — 46 total pages]

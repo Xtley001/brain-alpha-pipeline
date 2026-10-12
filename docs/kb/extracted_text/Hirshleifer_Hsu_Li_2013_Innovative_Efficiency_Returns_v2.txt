@@ -1,0 +1,1220 @@
+
+--- PAGE 1 ---
+Electronic copy available at: http://ssrn.com/abstract=1799675
+ 
+ 
+ 
+ 
+ 
+INNOVATIVE EFFICIENCY AND STOCK RETURNS* 
+ 
+ 
+ 
+David Hirshleifera 
+ 
+Po-Hsuan Hsub 
+ 
+Dongmei Lic 
+ 
+ 
+ 
+February 2012 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+* We thank James Ang, Jan Bena, Frederick Bereskin, Lorenzo Garlappi, Joao Gomes, Bronwyn Hall, 
+Zoran Ivković, Danling Jiang, Josef Lakonishok, Michael Lemmon, Xiaoji Lin, Alfred Liu, Siew 
+Hong Teoh, Allan Timmermann, Sheridan Titman, Rossen Valkanov, Neng Wang, Lu Zhang, Lu 
+Zheng, an anonymous referee, Bill Schwert (the editor), and seminar and conference participants at the 
+American Finance Association Annual Meeting 2012 (Chicago, IL), UC San Diego, the CRSP Forum 
+2010 (Chicago, IL), Florida State University, the European Finance Association Annual Meeting 2011 
+(Stockholm, Sweden), California State University at Fullerton, the 2011 Q Group conference, and the 
+University of Minnesota for valuable discussions and comments. We also thank Lu Zhang for sharing 
+the investment and profitability factor returns. 
+ 
+a Paul Merage School of Business, University of California, Irvine.  
+b School of Economics and Finance and School of Business, University of Hong Kong  
+c Rady School of Management, University of California, San Diego.  
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 2 ---
+Electronic copy available at: http://ssrn.com/abstract=1799675
+ 
+ 
+INNOVATIVE EFFICIENCY AND STOCK RETURNS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+We find that innovative efficiency (IE), patents or citations scaled by R&D, is a strong 
+positive predictor of future returns after controlling for firm characteristics and risk. The IE-
+return relation is associated with the loading on a mispricing factor, and the high Sharpe ratio 
+of the Efficient Minus Inefficient (EMI) portfolio suggests that mispricing plays an important 
+role. Further tests based upon attention and uncertainty proxies suggest that limited attention 
+contributes to the effect. The high weight of the EMI portfolio return in the tangency portfolio 
+suggests that IE captures incremental pricing effects relative to well-known factors. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Keywords: innovative efficiency, limited attention 
+ 
+JEL Classification: G12, G14, O3
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 3 ---
+Electronic copy available at: http://ssrn.com/abstract=1799675
+1 
+ 
+1. Introduction 
+ 
+Recent studies have provided evidence suggesting that owing to limited investor attention, 
+prices do not fully and immediately impound the arrival of relevant public information, 
+especially when such information is less salient or arrives during a period of low investor 
+attention (e.g., Klibanoff, Lamont, and Wizman 1998; Huberman and Regev 2001; DellaVigna 
+and Pollet 2009; Hirshleifer, Lim, and Teoh 2009; Hou, Peng, and Xiong 2009). Several papers 
+have therefore argued that limited attention results in underreaction and return predictability. 
+Theoretical models also predict that limited investor attention affects stock prices and can cause 
+market underreaction (Hirshleifer and Teoh 2003; Hirshleifer, Lim, and Teoh 2011; Peng and 
+Xiong 2006).  
+These studies consider the processing of news about current performance such as earnings 
+announcements. However, we would expect investors to have even greater difficulty processing 
+information that is less tangible, and about firms whose future prospects are highly uncertain. For 
+example, information about the prospects of new technologies or other innovations should be 
+especially hard to process, because the significance of such news depends upon strategic options 
+and major shifts in industrial organizational structure.1 If so, there will on average be price drift 
+after the arrival of non-salient public news about the prospects for firms’ innovations. In other 
+words, on average there will be positive (negative) abnormal returns after good (bad) news.  
+In this study, we examine the relation between innovative efficiency and subsequent 
+operating performance as well as stock returns. By innovative efficiency, we mean a firm’s 
+ability to generate patents and patent citations per dollar of R&D (research and development) 
+investment. The denominator, R&D, measures resource input to innovation. Patents and citations 
+                                                 
+1 For example, a firm may not invest in converting approved patents to final products immediately upon approval 
+owing to capital budget constraints, extent of competition, and market demand. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 4 ---
+2 
+ 
+are measures of innovative output, since innovations are usually officially introduced to the 
+public in the form of approved patents. U.S. firms have increasingly recognized the necessity to 
+patent their innovations and hence have been especially active in patenting activities since the 
+early 1980s (Hall and Ziedonis 2001; Hall 2005) owing to the creation of the Court of Appeals 
+for the Federal Circuit (CAFC) in 1982 and several well-documented patent lawsuits (e.g., the 
+Kodak-Polaroid case). Patents are thus the most important measure of contemporary firms’ 
+innovative output (Griliches 1990); they are actively traded in intellectual property markets (Lev 
+2001). 
+A firm’s past innovative efficiency can be less salient to investors than explicitly forward-
+looking information about the prospects for the particular R&D projects that the firm is 
+undertaking. For example, investors devote considerable attention to analyst reports and news 
+articles 
+about 
+the 
+potential 
+outcomes 
+of 
+clinical 
+phase 
+trials 
+conducted 
+by 
+a 
+biotech/pharmaceutical firm; historical performance of past R&D efforts receives less media 
+attention. According to Kahneman and Lovallo (1993), people tend to consider the judgment or 
+decision problem they are facing as unique, and in consequence, “neglect the statistics of the past 
+in evaluating current plans.” Kahneman and Lovallo call a focus on the uniqueness of the 
+problem the ‘inside view,’ and a focus on relevant statistical performance data from previous 
+trials the ‘outside view.’ An excessive focus on the inside view implies that people will tend to 
+be overoptimistic about prospects for success when they neglect unfavorable non-salient 
+statistical information; and tend to be less optimistic, and perhaps over-pessimistic about the 
+prospects of success, when they neglect favorable statistical information.2  
+                                                 
+2 Lovallo and Kahneman (2003) emphasize that the inside view tends to promote overoptimism on the part of 
+managers because they are required to weave scenarios, imagine events, or gauge their own levels of ability and 
+control, all of which are susceptible to organizational pressure and cognitive biases such as overoptimism, 
+anchoring, and competitor neglect. The argument for optimism of managers does not necessarily extend to stock 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 5 ---
+3 
+ 
+Furthermore, there is extensive evidence that individuals pay less attention to, and place less 
+weight upon, information that is harder to process (see, e.g., the review of Song and Schwarz 
+2010). As argued above, information about innovations is hard to process, because it requires 
+developing and applying a theory of how the economic fundamentals of a firm or its industry are 
+changing. It also requires an analysis of the road from patents to final products on the market, the 
+profit of which can be highly uncertain and long deferred. We would expect such hard-to-process 
+information to be underweighted unless there is some offsetting effect (such as high salience). 
+These considerations suggest that investors will underreact to the information content in 
+innovative efficiency because of the difficulty evaluating the economic implications of patents 
+and patent citations. If so, then firms that are more efficient in innovations will be undervalued 
+relative to firms that are less efficient in innovations. Therefore, we expect a positive relation 
+between innovative efficiency and future stock returns and operating performance. 
+An alternative argument for why innovative efficiency would predict higher future returns 
+derives from the q-theory (Cochrane 1991, 1996; Liu, Whited, and Zhang 2009). Firms with 
+higher innovative efficiency tend to be more profitable and have higher return on assets. All else 
+equal, the q-theory implies that higher profitability predicts higher returns because a high return 
+on assets indicates that these assets were purchased by the firm at a discount (i.e., that they carry 
+a high risk premium).  
+Specifically, suppose that the market for capital being purchased by a firm is competitive and 
+efficient. When a firm makes an R&D expenditure to purchase innovative capital, the price it 
+pays will be appropriately discounted for risk. For concreteness, we can think for an example of 
+                                                                                                                                                             
+investors, who have much less of a personal attachment to the firm’s projects. In any case, our focus is on how the 
+degree of optimism/pessimism varies with statistical performance information, rather than the overall average 
+degree of optimism. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 6 ---
+4 
+ 
+a firm that acquires a high-tech target at a competitive market price.3 In this scenario, a firm will 
+on average achieve higher ‘return’ (large number of patents, resulting in high cash flows) on its 
+innovative expenditures as fair compensation if its purchased innovative capital is highly risky, 
+and will receive low return if capital is relatively low-risk. Past innovative efficiency is therefore 
+a proxy for risk, so firms that have high past innovative efficiency (IE) should subsequently be 
+productive in patenting (Dierickx and Cool 1989) and earn higher profits and stock returns.4 In 
+other words, q-theory also predicts a positive IE-return relation. 
+To test our key hypothesis that innovative efficiency is positively associated with 
+contemporaneous stock market valuation, and positively predicts future operating performance, 
+market valuation, and stock returns, we use two measures of innovative efficiency in year t: 
+patents granted in year t scaled by R&D capital in year t – 2 (Patents/RDC), and adjusted patent 
+citations received in year t by patents granted in years t – 1 to t – 5 scaled by the sum of R&D 
+expenses in years t – 3 to t – 7 (Citations/RD). The lag between the innovative input (R&D) and 
+output (patents) reflects the average two-year application-grant lag (Section 3.1 provides more 
+details). These IE measures are in general not highly correlated with other innovation-related 
+return and operating performance predictors, such as R&D-to-market equity (Chan, Lakonishok, 
+and Sougiannis 2001), significant R&D growth (Eberhart, Maxwell, and Siddique 2004), 
+patents-to-market equity and change in adjusted patent citations scaled by average total assets 
+(Gu 2005). Therefore, the IE measures potentially contain useful incremental information. 
+Fama-MacBeth (1973) regressions show that a higher IE measure (using a logarithmic 
+                                                 
+3 Firms that make acquisitions can, under appropriate circumstances, book part of the expenditure as ‘in process 
+R&D.’ 
+4 There are other possible rational risk arguments consistent with a positive relation between past innovative 
+efficiency and future stock returns. A high level of innovative activity, even if successful in the past, is likely to be 
+associated with greater economic uncertainty and possession of real options, and therefore high risk and expected 
+return; see, e.g., Greenwood and Jovanovic (1999), Berk, Green, and Naik (2004), Hsu (2009), Pastor and Veronesi 
+(2009), Garleanu, Kogan, and Panageas (2011), and Garleanu, Panageas, and Yu (2011). 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 7 ---
+5 
+ 
+transform of IE) predicts significantly higher return on assets (ROA) and cash flows (CF) over 
+the next year after extensive controls.5 We also find that both current and lagged IE are 
+significantly positively associated with equity market-to-book (MTB) using Fama-MacBeth 
+regressions that control for abnormal earnings, R&D tax shields, R&D-to-book equity, RDG, 
+Patents/ME, ∆APC, AD/ME, CapEx/ME, and industry (see footnote 5 for definitions of control 
+variables).  
+Furthermore, there is a significantly positive relation between the two IE measures and future 
+stock returns using Fama-MacBeth regressions that control for various possible industry 
+variables and return predictors, including RD/ME, RDG, Patents/ME, ∆APC, size, book-to-
+market equity (BTM), momentum, CapEx/ME, AD/ME, ROA, asset growth, net stock issues, 
+and institutional ownership. These findings support our hypotheses that innovative efficiency 
+contains distinct information about future operating performance and market valuation that is 
+incremental to that of other innovation measures and firm characteristics. 
+Portfolio analysis confirms the significantly positive relation between IE and future 
+operating performance as well as stock returns. We sort firms with non-missing IE measures into 
+three IE portfolios (Low, Middle, and High) based on the 33rd and 66th percentiles of the IE 
+measures, and find that the high IE groups in general have the highest ROA, cash flows, 
+earnings, and profit margin averaged over the subsequent five years. The monthly value-
+weighted size-adjusted returns in excess of the one-month Treasury bill rate for the IE portfolios 
+increase monotonically with IE: 49, 86, and 90 basis points for the low, middle, and high 
+Patents/RDC portfolios, respectively, and 59, 81, and 85 basis points for the low, middle, and 
+                                                 
+5 These tests control for ROA (CF), change in ROA (CF), R&D-to-market equity (RD/ME), significant R&D growth 
+(RDG), patents-to-market equity (Patents/ME), change in adjusted patent citations scaled by total assets (∆APC), 
+advertising expenditures scaled by market equity (AD/ME), capital expenditures scaled by market equity 
+(CapEx/ME), and industry. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 8 ---
+6 
+ 
+high Citations/RD portfolios, respectively.  
+The risk-adjusted returns of the IE portfolios also increase monotonically with IE. 
+Specifically, the monthly value-weighted alphas estimated from the Carhart (1997) four-factor 
+model for the low, middle, and high Patents/RDC portfolios are –19, 22, and 27 basis points, 
+respectively, and the monthly Carhart alphas for the low, middle, and high Citations/RD 
+portfolios are –9, 14, and 26 basis points, respectively. Furthermore, the positive alphas of the 
+high IE portfolios are statistically significant at the 1% level, which indicates that high IE firms 
+are undervalued relative to the Carhart model benchmark. In unreported results, we find the 
+difference in the Carhart alphas between the high and low IE portfolios is also statistically 
+significant at the 1% level for both IE measures.  
+These patterns are similar for alphas estimated from the Fama-French (1993) three-factor 
+model and the investment-based three-factor model (Chen, Novy-Marx, and Zhang 2011). In 
+addition, the high IE portfolio generally has lower loadings than the low IE portfolio on the 
+market factor, suggesting that high IE firms are actually less risky than low IE firms. 
+To examine whether the financing-based mispricing factor UMO (Undervalued Minus 
+Overvalued; Hirshleifer and Jiang 2010) helps explain the IE effect, we add UMO to the Carhart 
+model and the investment-based model. We find the alphas estimated from these augmented 
+models for the high IE portfolios remain significantly positive at the 1% level. This evidence 
+indicates that the IE effect is incremental to the mispricing effect as captured by UMO. In 
+addition, the alphas estimated from these augmented models also increase monotonically with 
+IE. In unreported results, we find the difference in the alphas estimated from these two 
+augmented models between the high and low IE portfolios is also statistically significant at the 
+1% level for both IE measures.  
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 9 ---
+7 
+ 
+If the IE-return relation represents a market inefficiency driven by psychological constraints 
+such as limited attention, we expect to observe greater return predictability among stocks with 
+low investor attention and among hard-to-value stocks. To test this hypothesis, we use size and 
+analyst coverage as proxies for attention to a stock (Hong, Lim, and Stein 2000) and firm age, 
+turnover, and idiosyncratic volatility as proxies for valuation uncertainty (Kumar 2009).6 We 
+expect a stronger IE effect among firms with small market capitalization, low analyst coverage 
+(AC), young age, high turnover, and high idiosyncratic volatility (IVOL).  
+The Fama-MacBeth subsample regressions provide supporting evidence. The average IE 
+slopes among low attention and hard-to-value stocks are in general statistically significant and 
+are substantially larger than those among high attention and easy-to-value stocks, which often are 
+insignificant. For example, the slope on Citations/RD is 0.08% (t = 2.21) in low AC firms, but 
+only 0.05% (t = 1.65) in high AC firms. Similarly, the slope on Citations/RD is 0.11% (t = 3.26) 
+in young firms, but only 0.02% (t = 0.91) in old firms. In addition, the slope on Citations/RD is 
+0.08% (t = 2.08) in high IVOL firms, but only 0.03% (t = 1.34) in low IVOL firms. Although the 
+cross-subsample differences in the IE slopes are not always statistically significant, their 
+magnitudes are economically substantial. 
+To further examine if the IE-based return predictability is driven by risk, mispricing, or both, 
+we construct a factor-mimicking portfolio for innovative efficiency, EMI (Efficient Minus 
+Inefficient), based on Patents/RDC (EMI1) and on Citations/RD (EMI2) following the procedure 
+in Fama and French (1993). Specifically, at the end of June of year t from 1982 to 2007, we sort 
+firms independently into two size groups (small “S” or big “B”) based on the NYSE median size 
+breakpoint at the end of June of year t, and three IE groups (low “L”, middle “M”, or high “H”) 
+                                                 
+6 Other measures of investor attention are related to these variables. For example, Fang and Peress (2009) report that 
+media coverage increases in firm size and analyst coverage. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 10 ---
+8 
+ 
+based on the 33rd and 66th percentiles of IE in year t – 1. The intersection of these portfolios 
+forms six size-IE portfolios (S/L, S/M, S/H, B/L, B/M, and B/H). Value-weighted monthly 
+returns on these six portfolios are computed from July of year t to June of year t + 1. The EMI 
+factor is computed as (S/H+B/H)/2–(S/L+B/L)/2.   
+We find that these two EMI factors are not highly correlated with well-known factors such as 
+the market, size, value and momentum factors (Carhart 1997), the investment and ROE factors 
+(Chen et al. 2011), and the UMO factor (Hirshleifer and Jiang 2010). The correlations between 
+the EMI factors and these well-known factors range from –0.15 to 0.13.  
+In addition, we construct four innovation-related factors based on RD/ME, RDG, 
+Patents/ME, and ∆APC, respectively, following the same method in constructing the EMI 
+factors. We find that the EMI factors are not highly correlated with these four factors, except for 
+the Patents/ME factor. The correlations between the EMI factors and the RD/ME, RDG, and 
+∆APC factors range from 0.07 to 0.36. The correlation with the Patents/ME factor is 0.66 for 
+EMI1 and 0.52 for EMI2. 
+The average monthly return of the EMI1 factor is 0.41%, which is higher than that of the size 
+factor (0.07%), the value factor (0.37%), the investment factor (0.36%), the RDG factor (0.21%), 
+the Patents/ME factor (0.31%), and the ∆APC factor (0.00%). Furthermore, EMI1 offers an ex 
+post Sharpe ratio, 0.23, which is higher than that of all the above factors except the mispricing 
+factor (0.27). The EMI2 factor has similar but slightly lower average monthly return (0.26%) and 
+ex post Sharpe ratio (0.15). The high level of the equity premium is a well-known puzzle for 
+rational asset pricing theory (Mehra and Prescott 1985). Therefore, on the face of it, the high ex 
+post Sharpe ratios associated with the EMI factors also suggest that the IE-return relation can be 
+too strong to be entirely explained by rational risk premia. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 11 ---
+9 
+ 
+Adding EMI1 to the Fama-French three factors increases the ex post Sharpe ratio of the 
+tangency portfolio from 0.29 to 0.39 with a weight of 42% on EMI1. Even when all of the above 
+factors are included, the weight on EMI1 in the tangency portfolio is 22%, which is substantially 
+higher than that of any of the other factors. Adding EMI2 to the Fama-French three factors 
+increases the ex post Sharpe ratio of the tangency portfolio from 0.29 to 0.34 with a weight of 
+33% on EMI2. Even when all of the above factors are included, the weight on EMI2 in the 
+tangency portfolio is 15.65%, which is higher than that of any of the other factors except the 
+mispricing factor (17.22%) and the market factor (16.00%). These findings imply the IE-return 
+relation captures return predictability effects above and beyond those captured by the other well-
+known factors and the four innovation-related factors we construct.  
+Our study offers a new innovation-related measure, IE, which is contemporaneously 
+associated with market valuation, and predicts future operating performance and stock returns. 
+Existing studies relating to innovation and the stock market focus on the effects of either the 
+input (R&D) or the output (patents) of innovation separately. (The relevant papers in this 
+literature are discussed in Section 2.) Our paper differs in focusing on innovative efficiency as a 
+ratio of innovative output to input, based on the idea that efficiency should be highly value 
+relevant. We find that the predictive power of innovative efficiency is incremental to that of 
+other innovation-related variables such as R&D intensity, significant R&D growth, patent 
+counts, and citations. We also examine whether the IE effect is driven by risk or mispricing, and 
+explore how the IE effect interacts with proxies for limited attention and valuation uncertainty. 
+ 
+2. Innovative input, output, and efficiency 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 12 ---
+10 
+ 
+Existing studies have examined the effect of innovative input or output separately on 
+operating performance, market valuation, and stock returns. On the input side, several studies 
+have shown that expensing or capitalization of R&D contains valuation-relevant information.  
+Lev and Sougiannis (1996) estimate the R&D capital of a large sample of public companies and 
+adjust the reported earnings and book values of sample firms for the R&D capitalization. They 
+find that such adjustments are value-relevant to investors and show a significant association 
+between firms' R&D capital to market equity and subsequent stock returns. Lev, Sarath, and 
+Sougiannis (2005) examine consequences of R&D reporting biases. They detect undervaluation 
+of conservatively reporting firms and overvaluation of aggressively reporting firms. These 
+misvaluations appear to be corrected when the reporting biases reverse from conservative to 
+aggressive and vice versa. They interpret this evidence as consistent with investor cognitive 
+biases. 
+R&D intensity has also been shown to predict higher level and volatility of future operating 
+performance and stock returns. For example, Chan, Lakonishok, and Sougiannis (2001) find that 
+firms with higher R&D-to-sales (R&D/Sales) or R&D-to-market equity (R&D/ME) experience 
+higher future earnings growth. Furthermore, R&D/ME predicts higher stock returns, while 
+R&D/Sales does not. They interpret this evidence as indicating that investors are overpessimistic 
+about the prospects of beaten-down R&D-intensive firms.  
+Several studies also show that growth in R&D predicts future stock returns. Lev, Sarath, and 
+Sougiannis (2005) and Penman and Zhang (2002) show a positive association between current or 
+recent changes in R&D investment and subsequent abnormal returns. Eberhart, Maxwell, and 
+Siddique (2004, 2008) report significantly positive abnormal operating performance and 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 13 ---
+11 
+ 
+abnormal stock returns following substantial R&D increases. They interpret this evidence as 
+indicating that investors underreact to the benefits that derive from R&D increases.  
+Several studies seek to distinguish between risk versus mispricing as explanations for R&D-
+related abnormal returns. Chambers, Jennings, and Thompson (2002) provide evidence 
+suggesting that the positive association between R&D investment levels and abnormal returns 
+comes from missing risk factors rather than mispricing. However, they do not rule out mispricing 
+as an alternative explanation, especially for the abnormal returns associated with R&D growth. 
+Li (2011) shows that the return predictability of R&D intensity only exists in financially 
+constrained firms, and that this return predictability is robust to measures of R&D intensity. This 
+evidence suggests that risk associated with financial constraints plays a role in the R&D-return 
+relation. 
+On the innovative output side, several studies have shown that patents and citations also 
+contain valuation-relevant information. For example, Gu (2005) finds that changes in adjusted 
+patent citations scaled by total assets are positively associated with firms’ future earnings and 
+stock returns. Matolcsy and Wyatt (2008) find that industry-level technological progress, 
+measured with patent count or journal citations, is positively associated with contemporaneous 
+market valuation and future firm-level earnings. Pandit, Wasley, and Zach (2011) find that firms’ 
+patent citations positively correlate with future operating performance.7  
+Overall, these studies indicate an important role of innovations in explaining operating 
+performance, market valuation, and stock returns. However, their focus is on the effects of either 
+                                                 
+7 Other studies provide further related findings. Griliches (1990) finds that both R&D expenses and patents are 
+positively associated with market capitalization. Lerner (1994) shows that patent count is positively related to 
+market values in a sample of U.S. biotechnology start-up firms. Deng, Lev, and Narin (1999) find that in a small 
+sample of innovative companies, patent count and patent citations are positively associated with subsequent market-
+to-book ratios and stock returns. Lanjouw and Schankerman (2004) find that patent capital is positively associated 
+with contemporaneous stock market valuations of firms. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 14 ---
+12 
+ 
+innovative input or output separately. Our purpose here is to explore the relevance for firm value 
+of innovative efficiency; intuitively, we expect it to matter not just whether the firm attempts to 
+innovate, and not just whether it produces innovative output, but whether it is able to attain this 
+output at a reasonable cost. Measuring innovative efficiency inherently requires exploiting the 
+information in innovative input and output taken together. We discuss the detailed difference 
+between our IE measures and the measures used in the literature in the next section.  
+Furthermore, we examine the incremental effect of the IE measures after controlling for 
+numerous measures of innovative input and output such as R&D intensity, significant R&D 
+growth, patents intensity, and change in citations intensities. As discussed in the introduction, we 
+also explore whether risk or mispricing drives the predictability of IE.  
+ 
+3. The data, the innovative efficiency measures, and summary statistics 
+3.1. The data and the innovative efficiency measures 
+Our sample consists of firms in the intersection of Compustat, CRSP (Center for Research in 
+Security Prices), and the NBER patent database. We obtain accounting data from Compustat and 
+stock returns data from CRSP. All domestic common shares trading on NYSE, AMEX, and 
+NASDAQ with accounting and returns data available are included except financial firms, which 
+have four-digit standard industrial classification (SIC) codes between 6000 and 6999 (finance, 
+insurance, and real estate sectors). Following Fama and French (1993), we exclude closed-end 
+funds, trusts, American Depository Receipts, Real Estate Investment Trusts, units of beneficial 
+interest, and firms with negative book value of equity. To mitigate backfilling bias, we require 
+firms to be listed on Compustat for two years before including them in our sample. For some of 
+our tests, we also obtain analyst coverage data from the Institutional Brokers Estimate System 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 15 ---
+13 
+ 
+(IBES) and institutional ownership data from the Thomson Reuters Institutional (13f) Holdings 
+data set.  
+Patent-related data are from the updated NBER patent database originally developed by Hall, 
+Jaffe, and Trajtenberg (2001).8 The database contains detailed information on all U.S. patents 
+granted by the U.S. Patent and Trademark Office (USPTO) between January 1976 and December 
+2006: patent assignee names, firms’ Compustat-matched identifiers, the number of citations 
+received by each patent, the number of citations excluding self-citations received by each patent, 
+application dates, grant dates, and other details. Patents are included in the database only if they 
+are eventually granted by the USPTO by the end of 2006. The NBER patent database contains 
+two time placers for each patent: its application date and grant date. To prevent any potential 
+look-ahead bias, we choose the grant date as the effective date of each patent, and measure firm 
+i’s innovation output in year t as the number of patents granted to firm i in year t (“patents”). 
+We use two proxies for IE: patents granted scaled by R&D capital (Patents/RDC) and 
+adjusted patent citations scaled by R&D expenses (Citations/RD). Specifically, Patents/RDC is 
+defined as the ratio of firm i’s patents granted in year t (Patentsi,t) scaled by its R&D capital [the 
+five-year cumulative R&D expenses assuming an annual depreciation rate of 20% as in Chan, 
+Lakonishok, and Sougiannis (2001) and Lev, Sarath, and Sougiannis (2005)] in fiscal year 
+ending in year t – 2: 
+Patentsi,t / (R&Di,t–2 + 0.8∗R&Di,t–3 + 0.6∗R&Di,t–4 + 0.4∗R&Di,t–5 + 0.2∗R&Di,t–6 ),  
+where R&Di,t–2  denotes firm i’s R&D expenses in fiscal year ending in year t – 2, and so on. We 
+set missing R&D to zero in computing the denominator. We allow a two-year gap between R&D 
+capital and patents granted as it takes, on average, two years for the USPTO to grant a patent 
+application (Hall, Jaffe, and Trajtenberg 2001).  
+                                                 
+8 The updated NBER patent database is available at https://sites.google.com/site/patentdataproject/Home/downloads. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 16 ---
+14 
+ 
+The use of cumulative R&D expenses as the denominator in this IE measure is premised on 
+R&D expenses over the preceding five years all contributing to successful patent applications 
+filed in year t – 2 (which are approved in year t with the two-year application-grant lag). In 
+unreported results, we find assuming only contemporaneous R&D expenses contributing to 
+successful patent applications generates similar results. Although this patents-based IE measure 
+shares the numerator with the patents-to-book equity ratio used in Deng, Lev, and Narin (1999), 
+these two measures differ conceptually. The patents-to-book equity ratio used in Deng et al. 
+(1999) is a patent intensity measure, while our patents-based IE measure reflects efficiency of 
+R&D in the form of patents granted per unit of R&D investment, which we think is more 
+relevant for valuation purpose than patent intensity. 
+Since the number of citations made to a firm’s patents can better reflect those patents’ 
+technological or economic significance, the other proxy of IE, Citations/RD, is based on 
+citations. A patent’s technological or economic significance would ideally be measured using all 
+citations it receives from the grant date through the end of the sample, since it takes time for a 
+patent to be cited.9 However, to make sure the IE measure is fully observable to investors at the 
+time of their investments, we follow the literature by using the citations received in the year 
+before the forecast period by a firm’s patents that were granted over the previous five years. 
+Specifically, we define Citations/RD in year t as the adjusted number of citations occurring in 
+year t to firm i’s patents granted over the previous five years scaled by the sum of corresponding 
+R&D expenses: 
+      Citations
+RD
+=
+∑
+∑
+ 
+Nt-j
+k=1
+5
+j=1
+𝐶𝑖𝑘
+𝑡−𝑗
+൫R&Di,t-3 + R&Di,t-4 + R&Di,t-5 + R&Di,t-6 + R&Di,t-7 ൯ , 
+                                                 
+9 See, e.g., Trajtenberg (1990); Harhoff, Narin, Scherer, and Vopel (1999); Hall, Jaffe, and Trajtenberg (2005). 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 17 ---
+15 
+ 
+where 𝐶𝑖𝑘
+𝑡−𝑗 is the number of citations received in year t by patent k, granted in year t – j (j = 1, 2, 
+3, 4, 5) scaled by the average number of citations received in year t by all patents of the same 
+subcategory granted in year t – j, and Nt – j is the total number of patents granted in year t – j to 
+firm i.10 This method for adjusting citations follows Gu (2005) and Pandit, Wasley, and Zach 
+(2011) and helps control for citation propensity attributed to differences in technology fields, 
+grant year, and citing year (the year in which the citations  occur). In addition, the five-year 
+period used in computing the firm-level adjusted citations is roughly consistent with prior 
+findings that technology cycles measured by the duration of the benefits of R&D spending are 
+approximately five years in most industries (Lev and Sougiannis 1996). 
+The denominator, the sum of R&D expenses in years t – 3 to t – 7, is premised on only 
+contemporaneous R&D expenses contributing to successful patent applications and a two-year 
+application-grant lag. For example, for patents granted in year t – 1, we assume the associated 
+innovative input is R&D expenses incurred in year t – 3. We also set missing R&D to zero in 
+computing the denominator. 
+This citations-based IE measure differs from the measure in Gu (2005) in two main respects. 
+First, Gu (2005) uses the change in scaled adjusted citations as the return predictor. Second, Gu 
+(2005) scales this change by average total assets. In contrast, our IE measure is the level of 
+adjusted citations scaled by innovative input (R&D investment). Thus, the measure in Gu (2005) 
+captures changes in citation activity, whereas our citations-based IE measure captures the 
+efficiency of R&D expenditure in generating citations.  
+                                                 
+10 Patent subcategory is based on the technology classification system of the USPTO. A brief description of selected 
+subcategories is as follows: 14 (organic compounds), 21 (communications), 22 (computer hardware and software), 
+23 (computer peripherals), and 24 (information storage). More details are provided in the updated NBER patent 
+database. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 18 ---
+16 
+ 
+Similarly, this IE measure also differs from the citation intensity measure in Deng et al. 
+(1999) which is defined as the total number of citations received in a given year (t) by a firm's 
+patents that were granted in the previous five years (t – 1 to t – 5), divided by the average 
+number of citations occurring in year t to all U.S. patents granted in the previous five years. This 
+is similar to the numerator of our IE measure, Citations/RD, but with a different method for 
+adjusting citations to address spurious effects. A key difference is that their measure focuses on 
+innovative output, whereas our measure focuses on the efficiency with which innovative 
+expenditures are used to generate that output.  
+We construct these two IE measures for each year from 1981 to 2006. The sample period 
+starts in 1981 to ensure the quality of R&D expenditure data. Since the accounting treatment of 
+R&D expenses reporting is standardized in 1975 (Financial Accounting Standards Board 
+Statement No. 2), the estimate of R&D capital starts in 1979 to allow for a full five-year period 
+with reliable R&D expenditure data. Furthermore, the two-year application-grant lag makes 1981 
+the first year for the patents-based IE measure, Patents/RDC. To make the results comparable, 
+we use the same sample period for the other citations-based IE measure, Citations/RD.  
+ 
+3.2. Summary statistics 
+Table 1 reports the pooled mean, standard deviation, 25th percentile, median, and 75th 
+percentile of the two IE measures for selected innovation-intensive two-digit SIC industries. We 
+observe significant variation in industrial innovative efficiency. Transportation equipment 
+industry outperforms all the other industries. The average Patents/RDC and Citations/RD for this 
+industry are 2.11 and 10.66, respectively. In contrast, on average it costs more for biotech and 
+pharmaceutical industry to create patents and citations; the average Patents/RDC and 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 19 ---
+17 
+ 
+Citations/RD for this industry are 0.49 and 2.57, respectively. These statistics suggest that it is 
+important to control for industry effects in examining the relation between IE and subsequent 
+operating performance and stock returns.  
+Table 2 reports summary statistics of IE portfolios and correlations between firms’ IE 
+measures and other characteristics. At the end of June of year t, we form three portfolios based 
+on the 33rd and 66th percentiles of IE measured in year t – 1 for the two IE measures separately. 
+Panel A reports the average annual number of firms and median values of characteristics of these 
+portfolios as characteristics are highly skewed within each portfolio.11  
+The average number of firms in the low, middle, and high Patents/RDC portfolios is 574, 
+274, and 424, respectively, while the average number of firms in the low, middle, and high 
+Citations/RD portfolios is 531, 313, and 422, respectively. Moreover, the median market equity 
+of the low, middle, and high Patents/RDC portfolios is $42.55 million, $626.79 million, and 
+$215.45 million, respectively. The median market equity of the low, middle, and high 
+Citations/RD portfolios is $47.08 million, $466.93 million, and $248.28 million, respectively. 
+Overall, firms with non-missing Patents/RDC or Citations/RD cover 55% of total U.S. market 
+equity, so this is an economically meaningful set of firms to study. 
+There are significant variations in the two IE measures across the IE groups. The median 
+Patents/RDC and Citations/RD for the high Patents/RDC group are 0.41 and 1.14, respectively. 
+In contrast, the counterparts of these statistics are zero for the low Patents/RDC group. Similarly, 
+the median Patents/RDC and Citations/RD for the high Citations/RD group are 0.28 and 1.72, 
+respectively, while the counterparts of these statistics are zero for the low Citations/RD group.  
+                                                 
+11 All characteristics are for the year prior to the ranking year except market equity and momentum, which are 
+measured at the end of June of the ranking year. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 20 ---
+18 
+ 
+To check the relevance of our IE measures in capturing the long-run effect of a firm’s 
+patents, we also compute citations and self-citations to a firm’s patents occurring from the grant 
+year through the sample end 2006, which we term ‘resulting citations’ and ‘resulting self-
+citations’, respectively. We find the median resulting citations, resulting citations excluding self-
+citations, and resulting self-citations (all scaled by R&D capital two years prior to the grant year) 
+increase across the low, middle, and high IE groups based on Patents/RDC or Citations/RD. In 
+other words, our IE measures are positively related to the long-run effect of a firm’s R&D 
+investment. 
+Panel A also reports other characteristics including R&D expenditure, R&D-to-market 
+equity (RD/ME), patents-to-market equity (PAT/ME), change in adjusted patent citations scaled 
+by assets (∆APC), book-to-market ratio (BTM), net stock issues, asset growth, capital 
+expenditure scaled by lagged assets (CapEx/Assets), momentum, and institutional ownership. 
+RD/ME is R&D expenditures divided by year-end market equity. PAT/ME is patents granted 
+divided by year-end market equity. BTM is book equity over year-end market equity. Net stock 
+issues (NS) is the change in the natural log of split-adjusted shares outstanding. Asset growth 
+(AG) is the change in total assets divided by lagged total assets. Momentum is the prior six-
+month returns (with one-month gap between the holding period and the current month; see, e.g., 
+Hou, Peng, and Xiong 2009). Institutional ownership (IO) is the fraction of a firm’s shares 
+outstanding owned by institutional investors.  
+High IE firms do not spend most on R&D or have the highest R&D intensity. For example, 
+for Patents/RDC, the middle IE portfolio spends most on R&D ($28.5 million) while the high 
+(low) IE portfolio spends $7.37 ($2.00) million. The R&D intensity (RD/ME) of the high IE 
+portfolio is 3.98%, which is lower than that of the low IE portfolio (5.37%). These patterns hold 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 21 ---
+19 
+ 
+for the IE portfolios based on Citations/RD, suggesting that greater R&D spending does not 
+necessarily lead to higher innovative efficiency.  
+In addition, for both IE measures, patent intensity and ∆APC increase across the IE 
+portfolios. For the other characteristics, the high IE portfolio has lower BTM, higher AG, higher 
+CapEx/Assets, higher momentum, and higher IO than the low IE portfolio. Panel B of Table 2 
+reports each IE portfolio’s return on asset (ROA), cash flows, earnings, and profit margin in the 
+formation year (year t) and geometric average growth rates and simple averages of these 
+operating performance measures over the subsequent five years (year t + 1 to year t + 5).12 
+The results indicate that high IE portfolios generally provide the highest operating 
+performance measures averaged over the five post-formation years. Such an IE-related variation 
+in future profitability suggests a positive univariate relation between innovative efficiency and 
+subsequent operating performance that we examine further in Section 4.1.  
+Panel C of Table 2 reports the pairwise Pearson correlation coefficients among the IE 
+measures and other characteristics. The two IE measures are positively and significantly 
+correlated (0.09).13 They are also significantly positively correlated with Resulting 
+citations/RDC. Specifically, the correlation between Patents/RDC (Citations/RD) and Resulting 
+citations/RDC is 0.83 (0.14). In unreported results, we find the Spearman rank correlation 
+between Resulting citations/RDC and IE is 0.92 for Patents/RDC and 0.61 for Citations/RD. The 
+                                                 
+12 For ROA, cash flows, and profit margin, we report pooled medians in year t. The geometric average growth rates 
+and simple averages of these measures over the subsequent five years are computed based on these pooled medians. 
+For earnings, we report time-series mean of earnings per dollar invested in year t in each IE portfolio from a value-
+weighted buy-and-hold strategy. The geometric average growth rates and simple averages of earnings over the 
+subsequent five years are computed based on these numbers. ROA is income before extraordinary items plus 
+interest expenses scaled by lagged total assets. Following Zhang (2006), we measure cash flows as income before 
+extraordinary items minus total accruals (i.e., changes in current assets plus changes in short-term debt and minus 
+changes in cash, changes in current liabilities, and depreciation expenses) divided by average total assets. Profit 
+margin is the sum of income before extraordinary items, interest expenses, and total income taxes divided by sales. 
+Earnings is operating income before depreciation. 
+13 The nonparametric (Spearman) correlation between Patents/RDC and Citations/RD is 0.63 with statistical 
+significance. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 22 ---
+20 
+ 
+high rank correlations suggest that our IE measures are potential predictors of long-run citation 
+performance of a firm’s patents, and therefore can contain value-relevant information. In 
+addition, the two IE measures are negatively correlated with RD/ME and are positively 
+correlated with PAT/ME and ∆APC, consistent with the idea of innovative efficiency. 
+Furthermore, the correlations between the IE measures and RD/ME, PAT/ME, ∆APC, Size and 
+BTM are low in magnitude (though sometimes statistically significant). Therefore the proposed 
+IE measures potentially contain independent information. 
+ 
+4. The association of innovative efficiency with operating performance and market 
+valuation 
+4.1. Operating performance and innovative efficiency 
+To examine more carefully the relation of innovative efficiency with subsequent operating 
+performance, we conduct the following annual Fama-MacBeth (1973) cross-sectional 
+regressions: 
+𝑂𝑃𝑖,𝑡+1 = 𝛼0 + 𝛼1 ln൫1 + 𝐼𝐸𝑖,𝑡൯+ 𝛼2 ln ቆ1 + 𝐴𝐷𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ
++ 𝛼3 ln ቆ1 + 𝐶𝑎𝑝𝐸𝑥𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ+𝛼4𝑂𝑃𝑖,𝑡 + 𝛼5∆𝑂𝑃𝑖,𝑡+ ෍𝛾𝑗𝐼𝑛𝑑𝑢𝑠𝑡𝑟𝑦𝑗          (1)
+48
+𝑗=1
+ 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 23 ---
+21 
+ 
+ 𝑂𝑃𝑖,𝑡+1 = 𝛼0 + 𝛼1 ln൫1 + 𝐼𝐸𝑖,𝑡൯+ 𝛼2 ln ቆ1 + 𝐴𝐷𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ
++ 𝛼3 ln ቆ1 + 𝐶𝑎𝑝𝐸𝑥𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ+𝛼4 𝑂𝑃𝑖,𝑡 + 𝛼5 ∆𝑂𝑃𝑖,𝑡+ 𝛼6 ln ቆ1 + 𝑅𝐷𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ+ 𝛼7 𝑅𝐷𝐺𝑖,𝑡
++ 𝛼8 ln ቆ1 + 𝑃𝐴𝑇𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ + 𝛼9∆𝐴𝑃𝐶𝑖,𝑡+ ෍𝛾𝑗𝐼𝑛𝑑𝑢𝑠𝑡𝑟𝑦𝑗,                                    (2)
+48
+𝑗=1
+ 
+where OPi,t+1 is firm i’s operating performance in year t + 1 (ROA or cash flows), ln(1+IE) is the 
+natural log of one plus IE (Patents/RDC or Citations/RD), ln(1+AD/ME) is the natural log of one 
+plus advertising expenditure to year-end market equity (ME), ln(1+CapEx/ME) is the natural log 
+of one plus capital expenditure to ME, ∆OPi,t is the change in operating performance between 
+year t and year t – 1,  ln(1+RD/ME) is the natural log of one plus R&D to ME, RDG is a dummy 
+variable that equals 1 for significant R&D growth as defined in Eberhart et al. (2004) and 0 
+otherwise, ln(1+PAT/ME) is the natural log of one plus patents to ME, ∆APC is the change in 
+adjusted patent citations scaled by average total assets between years t and t – 1 as in Gu (2005), 
+and Industryj  is a dummy variable that equals 1 for the industry that firm i belongs to and 0 
+otherwise based on Fama and French’s (1997) 48 industry classifications. 
+As the distributions of IE measures are highly skewed and are often zero, we use ln(1+IE) in 
+the regression.14 Since R&D intensity and patent intensity are sometimes zero as well, we also 
+use ln(1+RD/ME) and ln(1+PAT/ME) in the regression. We control for advertising expenditure 
+and capital expenditure because they are found to explain operating performance (e.g., Lev and 
+Sougiannis 1996; Pandit, Wasley, and Zach 2011). Following Gu (2005) and Pandit, Wasley, and 
+Zach (2011), we include operating performance in the model to accommodate persistence in 
+operating performance. We also control for change in operating performance to accommodate 
+                                                 
+14 The logarithmic transformation follows Lerner (1994), who uses the natural log of one plus patent count as the 
+main explanatory variable for biotechnology firm value.  
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 24 ---
+22 
+ 
+the mean reversion in profitability (e.g., Fama and French 2000). Both here and in Section 4.2, 
+we winsorize all variables at the 1% and 99% levels to reduce the influence of outliers (Beaver 
+and Ryan 2000), and standardize all independent variables to zero mean and one standard 
+deviation to facilitate the comparison of the economic magnitudes of effects.15 Table 3 reports 
+the time-series average slopes and intercepts and corresponding t-statistics from the annual cross-
+sectional regressions specified in equations (1) and (2). We measure IE by Patents/RDC in Panel 
+A and by Citations/RD in Panel B. The results indicate a significantly positive relation between 
+both IE measures and future ROA and cash flows for both specifications. Specifically, a one 
+standard deviation increase in ln(1+Patents/RDC) raises subsequent ROA (cash flows) by 0.52% 
+(0.43%) in specification (1) and 0.45% (0.49%) in specification (2). Similarly, a one standard 
+deviation increase in ln(1+Citations/RD) raises subsequent ROA (cash flows) by 0.56% (0.41%) 
+in specification (1) and 0.43% (0.31%) in specification (2). All these effects are significant at the 
+1%. 
+Consistent with the literature, the slopes on the other innovation-related variables are mostly 
+positive and statistically significant. In particular, ln(1+RD/ME) significantly predicts higher 
+ROA and cash flows, while RDG significantly predicts higher cash flows. Although the slopes 
+on ln(1+PAT/ME) are sometimes negative, they are insignificant. The slopes on ∆APC are 
+significantly positive for ROA and cash flows. In unreported results, we find all four of these 
+innovation-related variables predict higher ROA and cash flows with 5% significance if they are 
+included in the regressions one at a time.  
+In addition, both advertising expenditure and capital expenditure positively correlate with 
+subsequent ROA and cash flows with statistical significance. All these findings suggest that both 
+                                                 
+15 ROA, cash flow, and market-to-book equity (MTB) contain extreme values in our sample. For example, MTB can 
+be extreme owing to low book value firms. The maximum MTB in the sample is 783.  
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 25 ---
+23 
+ 
+intangible and tangible investment benefit future profitability. The significantly positive slopes 
+on ROA (cash flows) and the significantly negative slopes on change in ROA (cash flows) 
+confirm both persistence and mean reversion in operating performance. Together these results 
+suggest that both IE measures contain incremental information about firms’ future operating 
+performance.  
+ 
+4.2. Market valuation and innovative efficiency 
+ 
+We next examine whether the stock market fully reflects the information contained in IE by 
+adapting an accounting-based asset valuation model developed in Ohlson (1995) and used by 
+Sougiannis (1994), among others, to inspect whether R&D expenses explain market valuation in 
+addition to reported earnings.16 Specifically, we run the following annual Fama-MacBeth (1973) 
+cross-sectional regressions:  
+ln൫𝑀𝑇𝐵𝑖,𝑡൯= 𝛼0 + 𝛼1 ln൫1 + 𝐼𝐸𝑖,𝑡൯+ 𝛼2 ln൫1 + 𝐼𝐸𝑖,𝑡–1൯+ 𝛼3 𝑅𝐷𝐺𝑖,𝑡+ 𝛼4 ln ቆ1 + 𝑃𝐴𝑇𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ 
++ 𝛼5∆𝐴𝑃𝐶𝑖,𝑡+ 𝛼6
+𝑅𝐷𝑖,𝑡
+𝐵𝐸𝑖,𝑡
++ 𝛼7
+1
+𝐵𝐸𝑖,𝑡
++ 𝛼8
+𝐸𝑖,𝑡
+𝐵(1 −𝜏𝑖,𝑡) −𝑟𝑡𝐵𝐸𝑖,𝑡−1
+𝐵𝐸𝑖,𝑡
++ 𝛼9
+𝜏𝑖,𝑡𝑅𝐷𝑖,𝑡
+𝐵𝐸𝑖,𝑡
+ + 𝛼10 ln ቆ1 + 𝐴𝐷𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ + 𝛼11 ln ቆ1 + 𝐶𝑎𝑝𝐸𝑥𝑖,𝑡
+𝑀𝐸𝑖,𝑡
+ቇ 
++ ෍𝛾𝑗𝐼𝑛𝑑𝑢𝑠𝑡𝑟𝑦𝑗,                                                                                             (3)
+48
+𝑗=1
+ 
+where ln൫𝑀𝑇𝐵𝑖,𝑡൯ denotes the natural log of firm i’s equity market-to-book ratio in year t, 𝐵𝐸𝑖,𝑡 
+is firm i’s book value of equity in year t, 𝐸𝑖,𝑡
+𝐵 is firm i’s earnings after extraordinary items less 
+preferred dividends and before expensing R&D expenses, 𝜏𝑖,𝑡 is tax rate (total tax expenses 
+                                                 
+16 Other studies using an Ohlson-based model include Amir (1993) and Barth, Beaver, and Landsman (1998). 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 26 ---
+24 
+ 
+divided by pretax book income) for firm i in year t, and 𝑟𝑡 is the one-year Treasury bill rate in 
+year t. All the other independent variables are defined in Section 4.1.  
+Table 4 reports the time-series average slopes and corresponding t-statistics from the annual 
+cross-sectional regressions specified in Equation (3). We measure IE by Patents/RDC in Panel A 
+and by Citations/RD in Panel B. As a comparison, we also report results from alternative 
+specifications that excludes lagged IE and/or the following three innovation-related variables: 
+RDG, ln(1+PAT/ME), and ∆APC. The results indicate that both current and lagged IE measures 
+are positively associated with the natural log of market-to-book ratio, regardless of whether we 
+control for the other innovation-related variables. A one standard deviation increase in ln(1+IE) 
+is associated with an increase in contemporaneous ln(MTB) of 1.90% to 6.35% with t-statistics 
+of at least 4.65. This evidence suggests that the stock market recognizes the value of innovative 
+efficiency and accords higher valuations to more efficient firms.  
+However, there is also an indication that the market does not seem to fully reflect the effect 
+of innovative efficiency. As shown in Table 4, there is a significantly positive relation between 
+both IE measures and the subsequent ln(MTB) in all specifications. For example, in the full 
+specification as described in Equation (3), a one standard deviation increase in ln(1+IEi,t-1) is 
+associated with a subsequent increase in ln(1+MTBi,t) by 4.52% (t = 10.93) for Patents/RDC and 
+by 1.48% (t = 2.97) for Citations/RD. This evidence suggests that market underreaction to IE is 
+substantial.  
+ 
+5. Predictability of returns based upon innovative efficiency 
+5.1. Fama-MacBeth regression results 
+In this subsection, we examine the ability of IE to predict returns using monthly Fama-
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 27 ---
+25 
+ 
+MacBeth (1973) cross-sectional regressions to control for other characteristics that can predict 
+returns and make sure that any relation between stock returns and IE measures is not driven by 
+familiar effects or industry characteristics. For each month from July of year t to June of year t + 
+1, we regress monthly returns net of the one-month Treasury bill rate of individual stocks on 
+ln(1+IE) of year t – 1 and other control variables including ln(1+RD/ME), a dummy for 
+significant R&D growth (RDG), ln(1+PAT/ME), ∆APC, size, book-to-market ratio, momentum, 
+ln(1+AD/ME), ln(1+CapEx/ME), ROA, asset growth, net stock issues, institutional ownership, 
+and industry dummies based on Fama and French’s (1997) 48 industries.17  
+All control variables are measured in the fiscal year ending in year t – 1 except size and 
+momentum which are measured at the end of June of year t. The definitions of all control 
+variables are detailed in Section 3. Following Gu (2005), we use the quartile rank instead of the 
+raw value of ∆APC in the regressions. Following Fama and French (1992), we allow for a 
+minimum six-month lag between stock returns and the control variables to ensure the accounting 
+variables are fully observable. Since the USPTO full discloses patents granted in weekly Official 
+Gazette of the United States Patent and Trademark Office, our IE measures are also fully 
+observable to the public. We winsorize all independent variables at the 1% and 99% levels, and 
+standardize all independent variables to zero mean and one standard deviation.  
+Table 5 reports the time-series average slopes and corresponding t-statistics from series of 
+monthly cross-sectional regressions with and without the four additional innovation-related 
+control variables (RD/ME, RDG, PAT/ME, and ∆APC) for both IE measures. In all 
+specifications, the slopes on the IE measures are significantly positive, ranging from 0.04% to 
+                                                 
+17 On the capital investment effect, see, e.g., Lyandres, Sun, and Zhang (2008) and Polk and Sapienza (2009). On the 
+asset growth effect, see, e.g., Cooper, Gulen, and Schill (2008). On the net stock issuance effect, see, e.g., Daniel 
+and Titman (2006), Fama and French (2008), and Pontiff and Woodgate (2008). Similar results are obtained in 
+Fama-MacBeth regressions without industry dummies. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 28 ---
+26 
+ 
+0.11% with t-statistics ranging from 1.81 to 5.13. The magnitudes of the IE slopes are similar to 
+those of the slopes on PAT/ME and ∆APC, ranging from 0.05% to 0.07%. Although the slopes 
+on RD/ME and RDG (0.13% and 0.12%, respectively) are larger than that on IE measures, the 
+slopes on RDG are not significant.18 Furthermore, we find in Section 7 that after size adjustment, 
+the factor that is based upon Patents/RDC offers a higher average return and a higher ex post 
+Sharpe ratio than the RD/ME and RDG factors. The innovative efficiency factor based on 
+Citations/RD also offers a higher ex post Sharpe ratio than the RD/ME and RDG factors. 
+The slopes on the control variables are in general consistent with the literature. Firms with 
+higher RD/ME, higher PAT/ME, higher ∆APC, smaller size, higher book-to-market ratio, higher 
+AD/ME, lower CapEx/ME, higher ROA, lower asset growth, lower net stock issuance, and 
+higher institutional ownership provide significantly higher future stock returns. The slope on 
+momentum is insignificant.  
+These results indicate that innovative efficiency provides incremental value-related 
+information. Furthermore, the IE effect is commensurate with the effects of significant R&D 
+growth, patent-to-market ratio, and change in adjusted patent citations.  Overall, these findings 
+indicate that the explanatory power of IE is distinct from, and robust to the inclusion of, other 
+commonly known return predictors and innovation-related variables. 
+ 
+5.2. Portfolio tests 
+In this subsection, we examine the ability of IE to predict portfolio returns and whether the 
+IE effect is explained by risk or mispricing. At the end of June of year t, we sort firms 
+independently into two size groups (small “S” or big “B”) based on the NYSE median size 
+                                                 
+18 The slope on RDG is significantly positive, consistent with Eberhart et al. (2004), when the regression does not 
+include the correlated innovation-related independent variables (unreported test).  
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 29 ---
+27 
+ 
+breakpoint and three IE groups (low “L”, middle “M”, or high “H”) based on the 33rd and 66th 
+percentiles of IE for each of the two IE measures. Size is the market value of equity at the end of 
+June of year t, and IE is measured in year t – 1.19 The intersection forms six size-IE portfolios 
+(S/H, B/H, S/M, B/M, S/L, and B/L).  
+We hold these portfolios over the next twelve months (July of year t to June of year t + 1) 
+and compute value-weighted monthly returns of the six portfolios. We then calculate monthly 
+size-adjusted returns of the low, middle, and high IE portfolios using the formulas (S/L + B/L)/2, 
+(S/M + B/M)/2, and (S/H + B/H)/2, respectively. 
+Table 6 shows that average monthly size-adjusted portfolio return net of the one-month 
+Treasury bill rate (excess returns) increases monotonically with IE for both IE measures. 
+Specifically, for Patents/RDC, the monthly size-adjusted excess returns on the low, middle, and 
+high IE portfolios are 49 basis points (t = 1.48), 86 basis points (t = 2.78), and 90 basis points (t 
+= 2.79), respectively. For Citations/RD, the monthly size-adjusted excess returns on the low, 
+middle, and high IE portfolios are 59 basis points (t = 1.86), 81 basis points (t = 2.78), and 85 
+basis points (t = 2.65), respectively. Furthermore, the return spread between the high and low IE 
+portfolios is significant at the 1% level for both IE measures (unreported test). 
+We also examine whether the size-adjusted returns of the IE portfolios is captured by risk 
+factor models, such as the Carhart (1997) four-factor model or the investment-based three-factor 
+model (Chen, Novy-Marx, and Zhang 2011), by regressing the time-series of size-adjusted 
+portfolio excess returns on corresponding factor returns.20 The Carhart model includes the 
+market factor (MKT), the size factor (SMB), the value factor (HML), and the momentum factor 
+                                                 
+19 Although the IE measures in year t – 1 are fully observable at the end of year t – 1, we form IE portfolios at the 
+end of June of year t to make the portfolio results comparable to prior studies. In unreported tables, we form IE 
+portfolios at the end of February of year t and obtain similar results. 
+20 We obtain similar results in unreported tests using the Fama-French (1993) three-factor model. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 30 ---
+28 
+ 
+(MOM). The investment-based factor model consists of MKT, the investment factor (INV), and 
+the return on equity factor (ROE). MKT is the return on the value-weighted 
+NYSE/AMEX/NASDAQ portfolio minus the one-month Treasury bill rate. SMB, HML, and 
+MOM are returns on the factor-mimicking portfolios associated with the size effect, the value 
+effect, and the momentum effect. INV and ROE are returns on the factor-mimicking portfolios 
+associated with the negative relation between capital investment and stock returns and the 
+positive relation between profitability and stock returns.21  
+There is debate about the extent to which these factors capture risk versus mispricing, but 
+controlling for them provides a more conservative test of whether the innovative efficiency effect 
+comes from mispricing. For example, Balakrishnan, Bartov, and Faurel (2010) report that the 
+level of profits predicts individual stock returns (even after controlling for earnings surprise). 
+Hirshleifer, Lim, and Teoh (2011) provide a model in which profitability predicts returns 
+because of imperfect rationality.  
+Table 6 shows that the risk-adjusted returns of the IE portfolios also increase monotonically 
+with IE for both IE measures. Specifically, the monthly value-weighted alphas estimated from 
+the Carhart model for the low, middle, and high Patents/RDC portfolios are –19, 22, and 27 basis 
+points, respectively. The monthly value-weighted alphas estimated from the investment-based 
+model for the low, middle, and high Patents/RDC portfolios are 10, 39, and 50 basis points, 
+respectively. Similarly, the monthly Carhart alphas for the low, middle, and high Citations/RD 
+portfolios are –9, 14, and 26 basis points, respectively. The monthly investment-based alphas for 
+the low, middle, and high Citations/RD portfolios are 17, 25, and 49 basis points, respectively. 
+Furthermore, the positive alphas of the high IE portfolios are statistically significant at the 
+                                                 
+21 We obtain the Carhart (1997) four factors returns and the one-month Treasury bill rate from Kenneth French’s 
+website: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/.  
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 31 ---
+29 
+ 
+1% level, suggesting that high IE firms are undervalued. In unreported results, we find the 
+difference in the alphas between the high and low IE portfolios is also statistically significant at 
+the 1% level for both IE measures. In addition, the high and low IE portfolios have similar 
+loadings on various risk factors, indicating that the high returns provided by high IE firms cannot 
+be simply attributed to systematic risk. 
+If the IE-return relation is caused by limited investor attention, it reflects market mispricing. 
+Several authors have suggested that there is commonality in mispricing (e.g., Daniel, Hirshleifer, 
+and Subrahmanyam 2001 and Barberis and Shleifer 2003). For example, if investors do not fully 
+impound information about correlated shifts in innovative efficiency (arising, e.g., from 
+technological change), we would expect a degree of commonality in the mispricing of innovative 
+efficiency. 
+To examine whether a proposed measure of commonality in mispricing helps capture the IE 
+effect, we augment the Carhart model and the investment-based model by adding the mispricing 
+factor (UMO, Undervalued Minus Overvalued) of Hirshleifer and Jiang (2010).22 The UMO 
+factor is the returns to a zero-investment portfolio that goes long on firms with debt repurchases 
+or equity repurchases and short on firms with IPOs, SEOs, and debt issuances over the past 24 
+months. The authors interpret the new issue/repurchase activities as managers’ response to 
+overvaluation/undervaluation of their firms and provide evidence suggesting the UMO loadings 
+proxy for the common component of a stock’s mispricing.  
+Table 7 shows that adding UMO to the Carhart model reduces the alphas for the three IE 
+portfolios for both IE measures. Specifically, the monthly alphas estimated from the augmented 
+model are reduced to –13, 14, and 22 basis points for the low, middle, and high Patents/RDC 
+portfolios, respectively, and to –5, 4, and 24 basis points for the low, middle, and high 
+                                                 
+22 We obtain UMO factor returns from Danling Jiang’s website: http://mailer.fsu.edu/~djiang/. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 32 ---
+30 
+ 
+Citations/RD portfolios, respectively.  However, the alphas of the high IE portfolios remain 
+significant at the 1% level.  
+In unreported tests, we find that the differences in these alphas between the high and low IE 
+portfolios are also significant at the 1% level. In addition, the loadings on UMO are negative for 
+low IE portfolio, but positive for high IE portfolio. This suggests that low (high) IE firms are 
+overvalued (undervalued), although the loadings on UMO are sometimes insignificant.  
+Adding UMO to the investment-based model does not have a big effect on the alphas of the 
+IE portfolios. The alphas estimated from the augmented investment-based model for the high IE 
+portfolios remain significantly positive; the alphas from the augmented model for the high 
+Patents/RDC and high Citations/RD portfolios are 50 (t = 3.68) and 51 (t = 3.84), respectively. 
+The alphas estimated from these augmented models also increase monotonically with IE. The 
+loadings on UMO are insignificant, possibly because the INV and ROE factors are subject to 
+dual interpretations as risk or mispricing.     
+Overall, these findings suggest that the IE effect is incremental to existing risk or mispricing 
+factors. 
+ 
+6. Limited attention, valuation uncertainty, and the strength of return predictability 
+based upon innovative efficiency 
+To test our proposed hypothesis that limited investor attention leads to a positive IE-return 
+relation, we conduct the same Fama-MacBeth regressions as in Section 5.1 within subsamples 
+split by size and analyst coverage as proxies for investor attention to a stock.23 Firms with 
+                                                 
+23 Size is market equity, while analyst coverage is the average monthly number of analysts providing current fiscal 
+year earnings estimates, averaged over the previous year. The Pearson and Spearman correlation coefficients 
+between size and analyst coverage are 0.37 and 0.75, respectively. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 33 ---
+31 
+ 
+smaller size and lower analyst coverage receive less attention from investors, and therefore 
+should have more sluggish short-term stock price reactions to the information contained in 
+innovative efficiency, and greater predictability of stock returns. Hong, Lim, and Stein (2000) 
+test the information-diffusion model of Hong and Stein (1999) and report that the profitability of 
+momentum strategies decreases with size and analyst coverage. In a theoretical paper on limited 
+attention and stock prices, Hirshleifer and Teoh (2003) propose both size and analyst coverage 
+measures as proxies for investor attention. Evidence on stock return lead-lags suggests that 
+information diffuses gradually across between large and small firms, and between firms that are 
+followed by different numbers of analysts (Brennan, Jegadeesh, and Swaminathan 1993; Hong, 
+Torous, and Valkanov 2007; Hou 2007; Cohen and Frazzini 2008).  
+Also, consistent with size being a proxy for investor attention, Chambers and Penman (1984) 
+and Bernard and Thomas (1989) find that post-earning announcement drift, an anomaly in which 
+market prices underreact to earnings surprises, is strongest among small firms. Furthermore, the 
+accrual anomaly, wherein market prices do not seem to fully reflect the information contained in 
+cash flows versus accruals, is also stronger among small firms (Mashruwala, Rajgopal, and 
+Shevlin 2006).  
+Analyst stock coverage is often used as a proxy for analyst and/or investor attention. Irvine 
+(2003) shows a rise in liquidity following initiation of analyst coverage of a stock. Bushee and 
+Miller (2007) show that small firms that hire an investor relations firm subsequently experience 
+increased analyst following, suggesting that investor relations expenditures succeed in increasing 
+investor attention. Koester, Lundholm, and Soliman (2010) find that positive extreme earnings 
+surprises are associated with low analyst following, and that the analysts who are following such 
+firms are busier following a greater number of other firms. They further suggest that managers 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 34 ---
+32 
+ 
+engineer such surprises to attract attention, and show that after such surprises analyst following 
+increases. Andrade, Bian, and Burch (2010) propose that information dissemination mitigates 
+equity bubbles, and find that lower analyst coverage leads to greater price drop in reaction to the 
+securities transaction tax increase in China in 2007. 
+At the end of June of year t, we construct three size subsamples (micro, small, and big) based 
+on the 20th and 50th percentiles of NYSE firms’ size and two analyst coverage subsamples based 
+on the median of analyst coverage calculated at the end of year t – 1.24 Within these subsamples, 
+we then conduct monthly Fama-MacBeth cross-sectional regressions as in Section 5.1. For 
+brevity, Table 8 reports the time-series average slopes on IE only and corresponding t-statistics 
+from these subsample regressions. 
+Panel A shows that the IE-return relation is stronger among firms with smaller size and 
+lower analyst coverage for both IE measures. In the “IE only” specification that does not include 
+the other innovation-related variables (RD/ME, RDG, PAT/ME, and ∆APC), the average IE 
+slopes among low attention stocks are always significant at the 1% level and are larger than those 
+among high attention stocks. For example, the slopes on Patents/RDC are 0.09% (t = 3.58), 
+0.09% (t = 3.17), and 0.05% (t = 2.07) for micro, small, and big firms, respectively. Similarly, 
+the slopes on Citations/RD are 0.13% (t = 4.42), 0.09% (t = 2.81), and 0.04% (t = 1.49) for 
+micro, small, and big firms, respectively. This evidence shows that the positive IE effect is not 
+limited in micro firms. In addition, the IE slope is also larger in the low analyst coverage (AC) 
+subsample than that in the high AC subsample, although the difference across the AC 
+subsamples is not substantial. For example, the slopes on Citations/RD are 0.10% (t = 3.07) and 
+0.07% (t = 2.72) for the low and high AC subsamples, respectively. 
+                                                 
+24 We define micro stocks as the stocks below the 20th percentile of NYSE firms’ size following Fama and French 
+(2008). 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 35 ---
+33 
+ 
+Similar patterns are found in the “Augmented” specification which controls for the four 
+innovation-related variables listed above. For example, the average IE slopes on Citations/RD 
+are 0.07% (t = 2.34), 0.07% (t = 1.80), and 0.02% (t = 0.61) for micro, small, and big firms, 
+respectively, and are 0.08% (t = 2.21) and 0.05% (t = 1.65) for low AC and high AC firms, 
+respectively. Although the cross-subsample differences in the IE slopes are not always 
+statistically significant, their magnitudes are economically substantial. These contrasts tend to 
+support the hypothesis that limited investor attention leads to a positive IE-return relation.   
+To further evaluate the effect of limited attention on the IE-return relation, we perform 
+Fama-MacBeth regressions within subsamples formed on valuation uncertainty (VU). Past 
+literature has reported stronger behavioral biases among stocks or portfolios with higher VU.25 
+We expect the IE-return relation to be stronger among firms with more valuation uncertainty, 
+which place a greater cognitive burden on investor attention.  
+Following Kumar (2009), we use three measures of VU: firm age, turnover, and 
+idiosyncratic volatility (IVOL).26 Firm age is the number of years listed on Compustat with non-
+missing price data. Turnover is the average monthly turnover over the prior year, and the 
+monthly turnover is the number of shares traded during a month divided by the number of shares 
+outstanding at the end of the month.27 IVOL is the standard deviation of the residuals from 
+regressing daily stock return on daily CRSP value-weighted index return (the market return) over 
+                                                 
+25 According to Einhorn (1980), overconfidence is greater in decision tasks involving greater uncertainty and less 
+reliable feedback. Chan, Lakonishok, and Sougiannis (2001) find that the value effect (which is often interpreted as 
+a behavioral anomaly) is stronger among firms with high R&D, for which valuation uncertainty is likely to be 
+higher. Mashruwala, Rajgopal, and Shevlin (2006) find that the accrual anomaly is stronger among firms with high 
+idiosyncratic volatility. This is consistent with greater misperceptions about such firms, or with high volatility being 
+a barrier to arbitrage. Teoh, Yang, and Zhang (2009) also report that four financial anomalies are stronger among 
+firms with lower R-squares. In a test of the model of Daniel, Hirshleifer, and Subrahmanyam (2001), Kumar (2009) 
+reports greater individual investor trading biases among stocks with greater valuation uncertainty.  
+26 The turnover has alternatively been used as a proxy of investor attention in Hou, Peng, and Xiong (2009), so its 
+interpretation is necessarily mixed. However, the other two measures of VU, firm age and idiosyncratic volatility, 
+are not subject to the concern of dual-interpretations. 
+27 Following the literature, e.g., LaPlante and Muscarella (1997) and Hou (2007), we divide the NASDAQ volume 
+by a factor of two. 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 36 ---
+34 
+ 
+a maximum of 250 days. 
+We interpret firms with younger age, higher turnover, or higher idiosyncratic volatility as 
+having higher valuation uncertainty. We form two age and two IVOL subsamples based on the 
+medians of these measures at the end of year t – 1, and two turnover subsamples based on the 
+median of turnover at the end of June of year t. Within each VU subsample, we conduct the same 
+Fama-MacBeth regressions as were performed in the attention subsamples (Panel A).  
+Panel B of Table 8 shows a stronger IE-return relation in subsamples with higher valuation 
+uncertainty. For example, in the “Augmented” specification, the slopes on Patents/RDC are 0.07 
+(t = 1.96), 0.08 (t = 2.74), and 0.07 (t = 3.18) in the young age, high turnover, and high IVOL 
+subsamples, respectively. In contrast, these slopes are only –0.00 (t = –0.63), –0.00 (t = –0.91), 
+and 0.02 (t = 0.59) in the old age, low turnover, and low IVOL subsamples, respectively. This 
+sharp contrast holds for Citations/RD across the age and IVOL subsamples, but not for across the 
+turnover subsamples. For example, in the “Augmented” specification, the slopes on Citations/RD 
+are 0.11 (t = 3.26), 0.07 (t = 2.37), and 0.08 (t = 2.08) in the young age, high turnover, and high 
+IVOL subsamples, respectively. In contrast, these slopes are 0.02 (t = 0.91), 0.06 (t = 1.79), and 
+0.03 (t = 1.34) in the old age, low turnover, and low IVOL subsamples, respectively. 
+Furthermore, the differences in IE slopes across the age subsamples are statistically 
+significant with t-statistics of at least 2.03 (unreported results). Although the differences in IE 
+slopes across the IVOL subsamples are not always statistically significant, their magnitudes are 
+substantial. These generally sharp contrasts across valuation uncertainty subsamples are robust to 
+measures of IE and model specifications, suggesting that the IE-return relation is more likely to 
+be driven by behavioral biases.  
+ 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+--- PAGE 37 ---
+35 
+ 
+7. The EMI (Efficient Minus Inefficient) factors 
+To further examine if the IE-return relation is driven by risk or mispricing (or both) and 
+whether IE reflects commonality in returns not fully captured by existing factors, we construct a 
+factor-mimicking portfolio for innovative efficiency, EMI (Efficient Minus Inefficient), based on 
+Patents/RDC (EMI1) and on Citations/RD (EMI2) following the procedure in Fama and French 
+(1993). At the end of June of year t from 1982 to 2007, we sort firms independently into two size 
+groups (small “S” or big “B”) based on the NYSE median size breakpoint at the end of June of 
+year t and three IE groups (low “L”, middle “M”, or high “H”) based on the 33rd and 66th 
+percentiles of IE in year t – 1. The intersection of these portfolios forms six size-IE portfolios 
+(S/L, S/M, S/H, B/L, B/M, and B/H).  
+Value-weighted monthly returns on these six portfolios are computed from July of year t to 
+June of year t + 1. The EMI factor is computed as (S/H + B/H)/2 – (S/L + B/L)/2, i.e., the 
+difference between the average of the value-weighted returns on the two high IE portfolios (S/H 
+and B/H) and the average of the value-weighted returns on the two low IE portfolios (S/L and 
+B/L). These return series track return comovement associated with innovative efficiency, 
+regardless of whether the comovement is associated with any risk premium or mispricing. 
+Fig. 1 plots the two EMI factors returns and the market factor (MKT) returns on a per annum 
+basis from 1982 to 2008. While the market factor return is negative for eight out of 27 years, the 
+EMI1 (EMI2) factor return is negative for only four (six) years. Moreover, the EMI factors also 
+appear to be a good hedge against market downturns; the EMI factor returns are almost always 
+positive in those years in which the market factor returns are negative. For example, the market 
+factor returns in 1984, 1987, 1990, 1994, 2000, 2001, 2002, and 2008 are –6.12%, –3.55%,          
+–13.00%, –4.50%, –16.10%, –14.63%, –22.15%, and –20.68%, respectively. In contrast, the 
+Electronic copy available at: https://ssrn.com/abstract=1799675
+Electronic copy available at: https://ssrn.com/abstract=1799675
+
+[TRUNCATED at 80000 chars — 62 total pages]

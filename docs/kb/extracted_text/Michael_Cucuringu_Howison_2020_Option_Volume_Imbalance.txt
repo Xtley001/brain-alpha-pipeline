@@ -1,0 +1,2802 @@
+
+--- PAGE 1 ---
+OPTION VOLUME IMBALANCE AS A PREDICTOR FOR EQUITY
+MARKET RETURNS
+A PREPRINT
+Nikolas Michael†∗, Mihai Cucuringu†‡⊙and Sam Howison‡
+†Department of Statistics, University of Oxford, 24-29 St Giles’, Oxford OX1 3LB, UK.
+‡Mathematical Institute, University of Oxford, Andrew Wiles Building, Woodstock Rd, Oxford OX2 6GG.
+⊙The Alan Turing Institute, 96 Euston Rd, London NW1 2DB.
+∗Corresponding author. Email: nikolas.michael@kellogg.ox.ac.uk
+January 2022
+ABSTRACT
+We investigate the use of the normalized imbalance between option volumes corresponding to positive
+and negative market views, as a predictor for directional price movements in the spot market. Via
+a nonlinear analysis, and using a decomposition of aggregated volumes into ﬁve distinct market
+participant classes, we ﬁnd strong signs of predictability of excess market overnight returns. The
+strongest signals come from Market-Maker volumes. Among other ﬁndings, we demonstrate that most
+of the predictability stems from high-implied-volatility option contracts, and that the informational
+content of put option volumes is greater than that of call options.
+Keywords: Options; Implied Volatility; Informational Role of Option Volume; Market Prediction; Market Microstruc-
+ture; Signal Analysis; Quantitative Trading Strategies; Options Applications
+Contents
+1. Introduction .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+2
+2. Motivation and the Option Volume Imbalance.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+3
+2.1
+Related literature . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2.2
+Option Volume Imbalance
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3. NASDAQ data sets .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+5
+3.1
+Descriptive Analysis of the Market.
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4. Evaluation methods .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+9
+4.1
+P&L Regression.
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+5. Main Empirical Results .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+14
+5.1
+Alternative Weighting Schemes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+5.2
+Multi-factor analysis and stability analysis across time
+. . . . . . . . . . . . . . . . . . . . . . . . .
+18
+6. Inﬂuence of options features on OVI predictability
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+19
+7. Extensions
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+24
+7.1
+Short-term versus long-term price persistence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+arXiv:2201.09319v1  [q-fin.ST]  23 Jan 2022
+
+--- PAGE 2 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+7.2
+Difference between Buys and Sells . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+7.3
+Additional features from the NOTO data set . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+25
+7.4
+Cross-Impact analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+8. Conclusion and future research directions .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+29
+A. Financial Deﬁnitions
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+32
+B. Approximation of trade ﬂow between MPCs .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+32
+C. OVI of different Market Participant Classes: Additional Results
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+33
+D. Broader Scope Analysis: Additional results .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+36
+E. Intra-day patterns.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+41
+1
+Introduction
+Since the opening of the CBOE in 1973, derivative markets have been a prominent presence in the ﬁnancial system,
+and have grown rapidly ever since. According to BIS estimates [Bank for International Settlements, 2021], the total
+global nominal amount outstanding for derivatives for the second half of 2020 amounts to USD 582 tn of which 7 tn are
+equity-linked Options1. The latter is accounted for by multiple option exchanges across the world, including CBOE, the
+CME group, Nasdaq, and Eurex. Equity options are appealing to traders due to the higher leverage they offer, as well as
+the absence of restrictions such as the uptick rule. The limited downside risk of a long put position as opposed to a
+short futures position in the stock, and the hedging opportunities, are also attractive to investors.
+Naturally, derivative markets are strongly intertwined with the spot markets. It has been argued that, due to informed
+trading, option markets lead the spot market (e.g [Black, 1975]). In particular, an interesting line of research is
+concerned with the information content of signed option volumes. A trader who (either from private information or
+by using predictive models) expects a spot-price rise can take a long call position or a short put position, while a
+trader who takes a short call position or a long put position may expect a price fall instead. Therefore, aggregating the
+signed volumes into these two categories of positive and negative signals yields a metric of the discrepancy in trader
+anticipation. Our main question is whether this discrepancy can act as a predictor for the direction of future price
+movements in the spot market.
+To this end, we consider a decomposition of the trade ﬂow into positive and negative “signals” (deﬁned below), and
+use their normalized difference as a predictor for future stock returns. We refer to this metric as the Option Volume
+Imbalance (OVI). We employ two data sets, from the NOM and PHLX option exchanges, which dis-aggregate the
+daily option volume into 10-minute buckets, distinguishing between ﬁve different market participants and between call
+and put options. Although our analysis simply makes use of the aggregate volumes rather than, say, order book data, it
+still yields signiﬁcant results.
+Similar research usually uses either customer data or generally non-market maker data, without distinguishing between
+classes of market participants. In this paper, a special emphasis is placed into the decomposition between different
+classes of traders (or market participant classes), and especially that of Market Makers. While this may create an
+instance of double counting orders for both sides of a trade, it provides an insight on how the same transactions can be
+used from different angles, to provide trading signals of varying performances. Furthermore, this shows that on a purely
+speculative level, only certain classes can produce a positive signal under this analysis. If for example Customers are at
+least partially successful in their speculative ability, this should translate into a ﬁnancial signal that produces positive
+returns. On the other hand, Market Makers who proﬁt in other ways (e.g spreads) would not be expected to provide a
+positive signal, but rather a negative one, reﬂecting the speculative ability of all those who trade with them.
+Furthermore, we empirically assess how the predictive power of OVI varies based on different values of the options’
+Greeks, and other characteristics. We compare the two different exchanges, and provide a qualitative description of
+certain intraday patterns we observe. Lastly, we investigate the cross-sectional effects of this metric, by modeling the
+interactions across the various assets using a directed network.
+Throughout the paper, we use the cumulative Proﬁt and Loss (P&L) and Sharpe Ratio as measures of predictability
+in future returns. However, as we consider multiple types of OVI (e.g different market participants), we also wish
+to consider their total predictive power. This motivates us to formulate a novel regression approach which directly
+1By comparison the global total GDP was estimated by the World Bank to be USD 88 tn [World Bank, 2021].
+2
+
+--- PAGE 3 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+maximizes the cumulative P&L, which we refer to as P&L regression. Unlike other research of this type, which usually
+tests the relationship between covariates and future returns by considering t or R2 values, our approach is not limited
+to linear relationships and can deal effectively with correlated features. We summarize our main contributions as follows.
+Summary of main contributions
+The main contribution of our work is an analysis of the Option Volume
+Imbalance (OVI), and in particular its relationship with the future price of the underlying equity/ETF, as follows. (1)
+We provide evidence that the OVI metric exhibits predictive power on directional overnight price movements for the
+underlyings. (2) We show, by the analysis of the OVIs of different market participants, that they bring different
+information to the market; this segmentation is novel in the literature. (3) We analyze of the effect of various Option
+Features on the capacity of the OVI to predict future equity returns. (4) Finally, we provide evidence of cross-impact
+within the universe of underlying equity/ETF assets.
+As a secondary theme, we also consider a short high-level overview of the two markets, showing how most of the
+activity comes from Market Makers and Customers. We also provide an approximation of how option volume ﬂows
+between the different market participants.
+Paper outline
+The remainder of the paper is organized as follows. In Section 2 we give an overview of related
+literature, and deﬁne the Option Volume Imbalance metric (OVI). In Section 3, we describe the data sets used in our
+analysis. In Section 4, we discuss the evaluation methods used subsequently. In Section 5, using volumes from different
+market participants, we show the predictive power of the OVI for the future returns in the spot market. In Section 6, we
+see the effects of various option features, such as the Greeks, on the predictive power of the OVI metric. In Section 7,
+we extend our analysis by comparing the two data sets (from different exchanges), we consider results for longer time
+horizons as well as some intraday variants of the OVI-based strategies. In Section 7.4, we check for cross-impact
+effects, using a network model. Lastly, we summarize our conclusions and detail future research directions in Section 8.
+Additional numerical results are deferred to the Supplementary Material.
+2
+Motivation and the Option Volume Imbalance
+2.1
+Related literature
+Traditionally, derivative markets have been used for hedging purposes, and have been shown to play a role in reducing the
+risk of portfolios. However, the high leverage offered by options has led to the suggestion that they play an additional
+role as an avenue for informed trading ([Black, 1975] and [Grossman, 1977]). A theoretical model was provided
+by [Easley et al., 1998], showing that under certain reasonable conditions, informed traders choose to capitalize on
+their private information by trading in both the stock and the options market. Under this model, informed trading
+is more prevalent when the liquidity and leverage of the option markets are sufﬁciently high. Furthermore, under
+[Biais and Hillion, 2015]’s model, the introduction of options reduces the informational efﬁciency of the market, making
+it harder for market makers to distinguish the information content of trades, as the option market becomes a more
+attractive avenue for informed traders.
+The early empirical investigation [Manaster and Rendleman, 1982], focused on the opportunity signals appearing
+whenever implied option prices from the Black-Scholes (BS) model differed signiﬁcantly from observed prices,
+speculated that there was information in the option prices not reﬂected in the stock markets. This was extended
+by [Bhattacharya, 1987] to intraday prices, with a pseudo-American BS model for the implied options, supporting
+and extending the results of [Manaster and Rendleman, 1982]. They used a number of different holding periods for
+equities, with most intraday strategies resulting in losses due to transactions costs, even though they do report proﬁts in
+the overnight holding case.
+Under the sequential information arrival model of [Copeland, 1976], volumes can be used as a proxy for the rate of
+information arrival. Based on that, [Anthony, 1988] showed that call volumes lead stock volumes, which indicates the
+presence of informed traders in the options market. Challenging these results, [Stephan and Whaley, 1990] showed
+empirically that the stock market leads the option market by at least 15 minutes, rather than vice versa. It was
+observed by [Easley et al., 1998] that, while price changes in the stock market lead the option volumes, as articulated
+by [Stephan and Whaley, 1990], the results are quite different if one aggregates volumes into positive (call buys and put
+sells) and negative (call sells and put buys) ﬂows. They rejected the hypothesis that these aggregated volumes hold no
+information about the spot market. This led to research based on option ﬂow volume or option imbalance, i.e. features
+proportional to the difference between volumes corresponding to positive and negative ﬂow.
+3
+
+--- PAGE 4 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+One of the most important studies focusing on the decomposition to positive and negative ﬂows, was
+[Xiaoyan et al., 2008], who showed that the signed option volume, (which they referred to as demand for volatil-
+ity) was correlated with the realized volatility, and that market makers responded to imbalances by raising the spreads, in
+order to shield themselves from informed traders. According to the ﬁndings of [Schlag and Stoll, 2005], signed option
+volumes have some predictive power of short-term returns, which however reverse at longer timescales, in contrast to
+the predictive power they found in futures. Later on, [Pan and Poteshman, 2006] used put/call ratios from the opening
+of new buyer-initiated options, and showed their predictive power for future stock returns. They concluded that the
+source of predictability was primarily informed trading, by differentiating between publicly and non-publicly available
+data. Furthermore, they showed that deep out-of-the-money options had the highest predictive power, as well as data
+that came from customers who traded using full-service brokerage houses; in contrast, ﬁrm proprietary trades had no
+predictive power.
+Another option volume ﬂow metric was deﬁned by [Hu, 2014], who used delta-adjusted volumes and showed its
+signiﬁcant predictive power for stock returns. The sign of the resulting coefﬁcients did not reverse for longer horizons,
+as also observed earlier by [Pan and Poteshman, 2006]. Furthermore, they found that the predictability of future returns
+is stronger for assets with a higher ratio of informed traders, low analyst coverage, large bid-ask spreads, small market
+capitalization, and low institutional ownership.
+Another promising metric proposed was the Option to Stock volume ratio (O/S), ﬁrst constructed by [Roll et al., 2010],
+who concluded that the cross-sectional and time-series variation of this metric reﬂected the presence of informed trading.
+The predictive power of this metric for future returns was empirically veriﬁed by [Johnson and So, 2012], and was
+shown to be stronger when short-sale constraints were higher. [Ge et al., 2016] compared the different signed option
+volumes by using the O/S ratio and concluded that there was no signiﬁcant difference in predictive power between long
+and short positions, thereby speculating that the source of predictability was the embedded leverage common to the two
+positions, while the short-sale costs played no signiﬁcant role. Later, [Lin and Lu, 2015] decomposed the O/S metric
+into eight distinct ratios, differentiating between open and close, buy and sell, and calls and puts. Noticing how the
+informational content in both long and short positions was similar, they concluded that the most important channel of
+predictability was the embedded leverage in the options market.
+A more recent study was [Chan et al., 2015], regarding the interplay between returns and net volume (buyer-initiated
+minus seller-initiated) across stock, call and put markets. They found that it was the stock net volume that led the spot
+and option quote-price revisions, while the net option volumes had no effect. However, both net ﬂows seemed to be
+negatively auto-correlated, perhaps indicating the effect of inventory control.
+The hypothesis that informed trading is the source of predictability deriving from the option market is strengthened
+by studies focusing on eventful dates. For example, [Amin and Lee, 1997] found that around announcement days,
+both the proﬁtability and the effective bid-ask spread of options increased. [Lin et al., 2013] provided conclusive
+evidence that, prior to any type of corporate analyst events, both the skew and spread of implied volatility become
+signiﬁcant predictors, especially in liquid markets. It has been conjectured that this is due to analyst tipping (analysts
+give traders tips on upcoming information). For example, [Cao et al., 2005] investigated the effect of option volumes
+prior to takeover and merger announcements. They found that the lagged call option imbalance (the difference between
+buyer and seller initiated volumes) is not a signiﬁcant predictor for next day returns, but that this was not the case for
+pre-announcement periods. They also showed that short-term out-of-the-money options experienced the largest increase
+in trading volume during these periods.
+Lastly, [Goncalves-Pinto et al., 2020], contrary to previous research, argued that the main driving force behind the
+predictive power of option prices stems from price pressure and not from informed trading, as the predictive power was
+not lowered when considering option contracts with zero volumes for a speciﬁc day.
+2.2
+Option Volume Imbalance
+Denote by Nd the number of assets whose options were traded on ﬁnancial day d, and Ci,d denote the number of
+different option contracts corresponding to the ith asset. Given day d and asset i, let Ti,j,d,m and Vi,j,d,m denote the
+number of trades and volume for option contract j by investors of market participant class m. ”Number of trades” refers
+to the total number of transactions (regardless of their size), while volume refers to the total number of option contracts
+traded. Also let P option
+i,j,d
+denote the average of opening and closing price of option contract j for day d.
+As [Easley et al., 1998] observed, while the option volumes do not reliably predict movements in the stock market, this
+changes when one considers the volumes of positive and negative signals separately. Positive signals include call buys
+and put sells, while negative signals include call sells and put buys. If a trader (with or without private information)
+predicts a positive movement in the price of the underlying, they can opt to enter into either or both of a long call
+position and a short put position. Conversely, if predicting a downward movement, they can take either or both of a
+4
+
+--- PAGE 5 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+long put position and a short call position2. Thus, we deﬁne
+V Up,F
+i,j,d,m = V Call Buy,F
+i,j,d,m
++ V Put Sell,F
+i,j,d,m
+and V Down,F
+i,j,d,m = V Call Sell,F
+i,j,d,m
++ V Put Buy,F
+i,j,d,m
+,
+to be the volumes corresponding to speculation for upwards and downwards movement respectively. We similarly
+deﬁne
+T Up,F
+i,j,d,m = T Call Buy,F
+i,j,d,m
++ T Put Sell,F
+i,j,d,m
+and T Down,F
+i,j,d,m = T Call Sell,F
+i,j,d,m
++ T Put Buy,F
+i,j,d,m
+,
+to be the number of trades corresponding to speculation for upwards and downwards movement respectively. Note
+that F will be used to encode different ﬁlters we apply to the transaction data before running different experiments
+(deliberately left general).
+Therefore, using the volume of Call-Buy/Sell and Put-Sell/Buy transactions as positive and negative directional signals
+respectively, and normalizing by the total volume, we deﬁne the Option Volume Imbalance (OVI) for asset i and market
+participant class m (for day d) as
+OVI[F]
+i,d,m =
+PCi,d
+j=1
+
+XUp,F
+i,j,d,m −XDown,F
+i,j,d,m
+
+PCi,d
+j=1
+
+XUp,F
+i,j,d,m + XDown,F
+i,j,d,m
+,
+(1)
+where X denotes a generic ﬂow variable 3. We will mostly be using the volume-based OVI, which is deﬁned by setting
+X = V , i.e XUp,F
+i,j,d,m = V Up,F
+i,j,d,m and XDown,F
+i,j,d,m = V Down,F
+i,j,d,m . The normalization ensures that OVI lies in the interval
+[−1, 1], so that the OVI of different assets can still be directly compared, independent of the asset’s liquidity or market
+cap.
+Note that each transaction is double-counted, from the perspective of both parties. For example, if a Customer buys a
+call option from a Market Maker, with the intention of creating a long position, it is counted both as a Customer-Buy
+and a Market Maker-Sell transaction. More details regarding the data set are given in Section 3.
+One potential shortcoming of volume-based OVI, is that more weight could be given to option contracts with lower
+prices (e.g deep OTM options) as they are sometimes transacted in larger volumes. To ameliorate this concern, we can
+deﬁne alternative OVI features by using the total number of trades (which we refer to as trade-based OVI) by setting X
+= T, i.e XUp,F
+i,j,d,m = T Up,F
+i,j,d,m and XDown,F
+i,j,d,m = T Down,F
+i,j,d,m . We also deﬁne the nominal volume-based OVI, by weighting the
+volume by the option price, i.e set XUp,F
+i,j,d,m = P Option
+i,j,d V Up,F
+i,j,d,m and XDown,F
+i,j,d,m = P Option
+i,j,d V Down,F
+i,j,d,m . Nominal-volume based
+OVI explicitly gives more weight to higher cost trades, thus preventing low-cost options from having a disproportionate
+inﬂuence 4.
+Our OVI-based approach is similar in spirit to, but slightly different from the put-to-call volume ratio, that was used
+by [Pan and Poteshman, 2006]; those authors restricted their analysis to Open-Buy transactions (see appendix for
+deﬁnition) and showed how the put-to-call ratio is a negative predictor for the price movement of the underlying. Since
+our data set splits transactions based on Market Participant, we do not need to restrict to Open-Buy transactions. Instead,
+by using (1), all of the available types of transaction are used to construct a metric, for each Market Participant Class.
+Importantly, unlike other similar studies in this area, we do not make a linearity assumption between OVI and future
+returns. In contrast, our analysis uses the sign of the OVI as a directional predictor for subsequent price movements,
+by making a hypothetical transaction in the corresponding direction. If a signiﬁcant proﬁt (or loss) is made from this
+transaction, then we conclude that the OVI contains signiﬁcant information about the future spot market returns.
+3
+NASDAQ data sets
+Data sets Description
+We consider two data sets, from the Nasdaq Option Market (NOTO) and Nasdaq PHLX
+(PHOTO) exchanges. The data sets provide information about the aggregate option volumes for the period 02 Jan
+2015–31 Dec 2019. For each day in this range, we are given a time series of intraday updates from the exchange,
+disseminated at 10-minute intervals, detailing the total cumulative volume of options transacted up to that intraday time
+2This excludes customers who trade in the options market to hedge an existing stock position, and customers who trade option
+straddles and other more complicated strategies. The latter poses no issue as the two types of volumes cancel each other out, while,
+unfortunately, we are unable to identify customers purchasing options for hedging purposes.
+3Note that for this deﬁnition we deﬁne 0/0 = 0, i.e when the total volume is equal to 0, the OVI is also equal to 0.
+4Note that the choice of sign in (1) is arbitrary; depending on the market participant, the OVI can be either positively or negatively
+correlated with future spot returns. The choice of signs, was made in accordance to the intuition of positive and negative news, as
+characterizations of Call-Buys,Put-Sells and Call-Sells,Put-Buys respectively.
+5
+
+--- PAGE 6 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+point. As the market opens at 9:30 ET, the ﬁrst report is disseminated at 9:40 ET, and the last report at 16:00 ET (a
+total of 39 intraday time points). We are also given a daily summary report containing the total daily option volume for
+each contract. In the daily report, we are also given its low, high, opening and closing price, its open interest, and total
+electronic volume, as well as the total volume for the speciﬁc exchange. Aggregate volumes are further broken down
+into ﬁve different market participant classes (hereafter MPCs) which are: Firm (Proprietary Trades), Brokers, Market
+Makers, Customers, and Professional Customers. Deﬁnitions for these are given in Appendix A.
+Furthermore, for each MPC other than Market Makers, volumes are further decomposed into four parts based on the
+type of transaction and intention of the agent: Opening Buy, Opening Sell, Closing Buy and Closing Sell (deﬁnitions
+are given in Appendix A) . In Table 1, we give a summary of the main notation used throughout the paper, some of
+which is deﬁned later on.
+D
+:
+Number of days covered by the data set.
+Nd
+:
+Number of assets, whose option contracts were traded on day d.
+Ci,d
+:
+Number of option contracts traded for asset i on day d.
+Ii,d
+:
+Number of option contracts corresponding to asset i traded on day d.
+P open
+i,d
+:
+Opening price of underlying asset i, on day d.
+P close
+i,d
+:
+Closing price of underlying asset i, on day d.
+P option
+i,j,d
+:
+Average of opening and closing price of option contract j for underlying asset i, on day d.
+OVI[F]
+i,d,m
+:
+OVI of MPC m for asset i on day d.
+fi,d
+:
+Raw return of asset i on day d (overnight returns, unless otherwise speciﬁed).
+˜fi,d
+:
+Excess Market Return, of asset i on day d (overnight returns, unless otherwise speciﬁed).
+si,d
+:
+Signal observed on day d for asset i’s price movement.
+P&Ld
+:
+Proﬁt and Loss for portfolio at day d
+SR
+:
+Sharpe Ratio performance metric of the portfolio for the time span of D days
+PPD
+:
+Proﬁt Per Dollar performance metric of the portfolio for the time span of D days
+Vi,j,d,m
+:
+Option volume (total number of contracts traded) of jth option contract of the ith asset on day d, by
+investors of MPC m
+Ti,j,d,m
+:
+Option trades (total number of transactions) of jth option contract of the ith asset on day d, by
+investors of MPC m
+g
+:
+activation function for P&L regression
+L
+:
+Objective function for P&L regression.
+h
+:
+Smooth proxy for the absolute value (used for P%L regression).
+l
+:
+Window Length for sliding window.
+Table 1: Main Notation Used
+3.1
+Descriptive Analysis of the Market.
+In the rest of this Section, we show some preliminary analysis for the two data sets, including an analysis of the
+interaction between different MPCs. The purpose of this section is twofold; ﬁrst the analysis in itself is novel and
+some interesting observations are noted. Second, these observations will help us interpret the results of the subsequent
+sections.
+In Figure 1, we show summary statistics (on a daily basis) for the trades in the two data sets, disaggregated by trade
+type and MPC as deﬁned in appendix A. Although NOTO has a higher average trade count across MPCs, the aggregates
+of the two data sets are qualitatively similar. In particular, for both data sets call options have a higher median volume
+than put options and the most prevalent MPCs are Market Makers and Customers. Firms and Professional Customers
+have a very small median volume. However, when it comes to nominal value per trade for the PHOTO data set, Firms
+have by far the highest ratio compared with other MPCs. Overall, we expect the OVI of Market Makers and Customers
+to be the most informative, as the OVI of the other MPCs is constructed from fewer transactions and thus more likely to
+be noisy (this is conﬁrmed in Section 5, where we observe higher performance for Market Maker and Customers OVI).
+To complement the overview of Figure 1, we also show the ﬂow between different MPCs, i.e how much they trade
+with each other. Denote by f
+NFm1,m2, the average trade ﬂow from MPC m1 (as a seller) to MPC m2 (as a buyer),
+6
+
+--- PAGE 7 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+0
+50000
+100000
+150000
+200000
+Call
+Put
+Buy
+Sell
+Firm
+Broker
+M_Maker
+Customer
+P_Customer
+Opening
+Closing
+Median trades per category
+Dataset
+PHOTO
+NOTO
+Median Number of Trades
+0
+500000
+1000000
+1500000
+Call
+Put
+Buy
+Sell
+Firm
+Broker
+M_Maker
+Customer
+P_Customer
+Opening
+Closing
+Median volume traded per category
+Dataset
+PHOTO
+NOTO
+Median Volume Traded
+0e+00
+1e+06
+2e+06
+3e+06
+4e+06
+Call
+Put
+Buy
+Sell
+Firm
+Broker
+M_Maker
+Customer
+P_Customer
+Opening
+Closing
+Median nominal value per category
+Dataset
+PHOTO
+NOTO
+Median Nominal Value Traded
+0
+50
+100
+150
+200
+Call
+Put
+Buy
+Sell
+Firm
+Broker
+M_Maker
+Customer
+P_Customer
+Opening
+Closing
+Median nominal value per category
+Dataset
+PHOTO
+NOTO
+Median Nominal Value per Trade
+Figure 1: Breakdown of the two data sets into their various constituents: The plots show the median daily number
+of trades (top-left), median daily volume traded (top-right) and median nominal value traded (bottom-left) and the
+average nominal size per trade (bottom-right) which is the ratio between the values of the ﬁrst and third quantities. The
+whiskers indicate the Inter-quartile Range across days for each constituent.
+which represents the median percentage of trades that correspond to these MPCs. The full transaction details are
+not available, thus we can approximate it by inspecting the 10-minute intraday aggregate volume reports, and then
+interpreting and matching the ﬂow between different MPCs. For details see Appendix B. The heatmap of the median
+ﬂow for the two data sets is shown in Figure 2, differentiating between call and put options. Once again, the two data
+sets display many similarities in their ﬂow structure. Firstly, in both cases the call and put ﬂow structures are very
+similar. Second, whenever a ﬂow from MPC m1 to m2 (f
+NFm1,m2) is relatively high, the reverse ﬂow (f
+NFm2,m1) also
+tends to be relatively high. In addition, a very large proportion of the ﬂow includes either an (Ordinary) Customer
+and/or a Market Maker in the transaction. In both cases, the ﬂow between Brokers and Customers is much higher than
+between Brokers and Market Makers, but in the case of PHOTO the difference is much higher.
+The proportion of trades involving the Firms MPC is much higher for PHOTO in comparison to NOTO. The opposite
+is true for Market Makers, where higher proportion for NOTO, and sharing a signiﬁcant proportion of the ﬂow with
+Professional Customers Opening.
+In both data sets, Firms and Professional Customers trade mostly with Market Makers, while for Brokers their ﬂow
+with Customers is larger than for Market Makers.
+Correlation of Volume and OVI
+The correlation between PHOTO and NOTO option volume (P
+m
+P
+j V PHOTO
+i,j,d,m
+and P
+m
+P
+j V NOTO
+i,j,d,m) ranges between 0.00 to 0.93, for different assets. The correlation between the total volume
+for different MPCs (P
+i
+P
+j Vi,j,d,m for different m) are also naturally quite high, ranging between 0.8 −1.0. More
+interestingly, in Figure 3 we plot the median (across days) correlations between the OVI features built using the data
+from the ﬁve MPCs 5. Unsurprisingly (as trades are double-counted), there is a strong correlation between the volume-
+and trade-based OVI when they correspond to the same MPC. More importantly, for both data sets (Ordinary) Customers
+have a high negative correlation, of around −0.6, with Market Makers and Brokers, and a low negative correlation, of
+5Note that the correlation map is very similar across days, with each entry having a standard deviation of 0.05 or less, aross days.
+Also note that for this analysis the Spearman correlation was chosen for its simplicity and ability to identify nonlinear relationships
+(the Pearson correlations were, however, very similar).
+7
+
+--- PAGE 8 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+0.04
+0
+0.01
+0
+0.01
+0.01
+0
+0
+0
+0
+0.02
+0.01
+0
+0.01
+0
+0.02
+0
+0
+0.01
+0.01
+0.02
+0
+0.02
+0.08
+0.03
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0.02
+0.01
+0.02
+0
+0.07
+0.13
+0.05
+0
+0
+0.01
+0
+0.05
+0
+0.09
+0.02
+0.01
+0
+0
+0
+0.02
+0.05
+0
+0.08
+0.03
+0.01
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+0.000
+0.025
+0.050
+0.075
+0.100
+0.125
+Proportion
+Transaction Flow − PHOTO Call Options
+0
+0
+0
+0
+0.02
+0.01
+0
+0
+0
+0
+0
+0
+0
+0.01
+0
+0
+0
+0
+0
+0
+0.01
+0
+0.03
+0.05
+0.01
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0.02
+0.01
+0.03
+0
+0.18
+0.14
+0.04
+0.02
+0
+0.01
+0
+0.04
+0
+0.09
+0.02
+0.01
+0
+0
+0.01
+0
+0.03
+0
+0.1
+0.03
+0.01
+0
+0
+0
+0
+0
+0
+0.02
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+0.00
+0.05
+0.10
+0.15
+Proportion
+Transaction Flow − NOTO Call Options
+0.04
+0
+0.01
+0
+0.01
+0.01
+0
+0
+0
+0
+0.02
+0.01
+0
+0.01
+0
+0.02
+0
+0
+0.01
+0.01
+0.02
+0
+0.02
+0.08
+0.03
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0.02
+0.01
+0.02
+0
+0.07
+0.13
+0.05
+0
+0
+0.01
+0
+0.05
+0
+0.09
+0.02
+0.01
+0
+0
+0
+0.02
+0.05
+0
+0.08
+0.03
+0.01
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+0.000
+0.025
+0.050
+0.075
+0.100
+0.125
+Proportion
+Transaction Flow − PHOTO Put Options
+0
+0
+0
+0
+0.02
+0.01
+0
+0
+0
+0
+0
+0
+0
+0.01
+0
+0
+0
+0
+0
+0
+0.01
+0
+0.03
+0.04
+0.01
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0.02
+0.01
+0.04
+0
+0.18
+0.14
+0.04
+0.02
+0
+0.01
+0
+0.04
+0
+0.09
+0.02
+0.01
+0
+0
+0.01
+0
+0.03
+0
+0.1
+0.03
+0.01
+0
+0
+0
+0
+0
+0
+0.02
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+Firm.Opening
+Firm.Closing
+Broker.Opening
+Broker.Closing
+Market.Maker
+Customer.Opening
+Customer.Closing
+P.Customer.Opening
+P.Customer.Closing
+0.00
+0.05
+0.10
+0.15
+Proportion
+Transaction Flow − NOTO Put Options
+Figure 2: An approximation of the volume ﬂow between MPCs (see (20) for the approximation). The rows/columns
+correspond to the Buyer/Seller side of transactions respectively. Cell values show the median of the approximated ﬂow
+proportion between the two participants (to 2 dp), with red highlighting indicating high proportions.
+around −0.20 with Firms. We also observe a weak correlation, of around 0.2, between Market Makers and Brokers for
+the PHOTO data set, as well as a weak correlation, of around −0.2 between Market Makers and Professional Customers
+for the NOTO data set. The rest of the correlations are below 0.1 in magnitude. Therefore, we should keep in mind the
+strong multicollinearity present in the OVI features (which later on brings up the need for a regularization term in the
+P&L regression Section 4.1).
+Principal Component Analysis
+We carry out PCA to investigate the intrinsic dimensionality of the option volumes
+and OVI observed for the PHOTO data set. In Figure 4, we plot the cumulative percentage of variance explained
+for volumes and each type of OVI. For volumes, the ﬁrst principal component explains 59% of variance, with the 12
+ﬁrst components explaining more than 90%. In Figure 5, we show a scree plot for the ﬁrst few principal components
+corresponding to PHOTO option volumes. For all OVIs, more than 100 principal components are required to explain
+50% of the variance. MPCs with lower daily volumes require fewer principal components, with Professional Customers
+requiring just 107 components, while Customers require 211 components. Thus, using option volumes to construct OVI
+signiﬁcantly increases the intrinsic dimensionality of the data set. This could potentially be an indication that OVI is a
+better metric in determining asset-speciﬁc returns, when compared to option volumes (which have a very low intrinsic
+dimensionality).
+Overall, we see that PHOTO and NOTO are similar in terms of the trade breakdown, while the breakdowns between
+call and put options are almost identical. We see that the major MPCs are Customers and Market Makers, while all the
+OVIs are highly interconnected. On the other hand, the higher intrinsic dimensionality observed from the OVI is further
+motivation for its use instead of the option volumes themselves.
+8
+
+--- PAGE 9 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+ 1.00 0.88
+ 1.00
+ 0.05
+ 0.06
+ 1.00
+ 0.08
+ 0.08
+ 0.80
+ 1.00
+−0.06
+−0.06
+ 0.17
+ 0.18
+ 1.00
+−0.03
+−0.03
+ 0.18
+ 0.23
+ 0.82
+ 1.00
+−0.16
+−0.15
+−0.63
+−0.57
+−0.59
+−0.54
+ 1.00
+−0.15
+−0.16
+−0.55
+−0.66
+−0.57
+−0.68
+ 0.81
+ 1.00
+ 0.00
+ 0.00
+ 0.00
+ 0.00
+−0.08
+−0.08
+−0.02
+−0.02
+ 1.00
+ 0.00
+ 0.00
+ 0.00
+ 0.00
+−0.08
+−0.08
+−0.02
+−0.02
+ 0.91
+ 1.00
+Firm_Volume
+Firm_Trades
+Broker_Volume
+Broker_Trades
+Market.Maker_Volume
+Market.Maker_Trades
+Customer_Volume
+Customer_Trades
+Professional.Customer_Volume
+Professional.Customer_Trades
+Firm_Volume
+Firm_Trades
+Broker_Volume
+Broker_Trades
+Market.Maker_Volume
+Market.Maker_Trades
+Customer_Volume
+Customer_Trades
+Professional.Customer_Volume
+Professional.Customer_Trades
+−1.0
+−0.5
+0.0
+0.5
+1.0
+Spearman Correlation
+PHOTO
+ 1.00 0.85
+ 1.00
+ 0.02
+ 0.03
+ 1.00
+ 0.04
+ 0.05
+ 0.82
+ 1.00
+−0.08
+−0.07
+ 0.06
+ 0.07
+ 1.00
+−0.03
+−0.04
+ 0.08
+ 0.08
+ 0.78
+ 1.00
+−0.19
+−0.18
+−0.37
+−0.35
+−0.60
+−0.53
+ 1.00
+−0.19
+−0.21
+−0.36
+−0.40
+−0.53
+−0.63
+ 0.82
+ 1.00
+−0.03
+−0.03
+−0.06
+−0.06
+−0.19
+−0.20
+−0.03
+−0.03
+ 1.00
+−0.03
+−0.04
+−0.05
+−0.07
+−0.17
+−0.23
+−0.03
+−0.03
+ 0.81
+ 1.00
+Firm_Volume
+Firm_Trades
+Broker_Volume
+Broker_Trades
+Market.Maker_Volume
+Market.Maker_Trades
+Customer_Volume
+Customer_Trades
+Professional.Customer_Volume
+Professional.Customer_Trades
+Firm_Volume
+Firm_Trades
+Broker_Volume
+Broker_Trades
+Market.Maker_Volume
+Market.Maker_Trades
+Customer_Volume
+Customer_Trades
+Professional.Customer_Volume
+Professional.Customer_Trades
+−1.0
+−0.5
+0.0
+0.5
+1.0
+Spearman Correlation
+NOTO
+Figure 3: OVI Correlation Map: Plot of the median (across days) Spearman correlation between the OVI (trades and
+volume based) of different MPCs.
+0.00
+0.25
+0.50
+0.75
+1.00
+0
+400
+800
+1200
+Princiapal Component
+Cumulative Percentage of Variance Explained
+Type
+Total Volume
+Firm OVI
+Broker OVI
+Market Maker OVI
+Customer OVI
+P. Customer OVI
+Figure 4: Volume and OVI Principal Components: This plot shows the cumulative percentage of variance captured by
+principal components for Volume and the different OVI of each MPC.
+4
+Evaluation methods
+In the subsequent sections, we investigate how the different OVI features can be used as predictors for the daily returns
+of the corresponding underlying assets. Underlying assets include mostly stocks, but also a selection of 11 ETFs. We
+obtain stock and ETF return data for NYSE from the Center for Research in Security Prices (CRSP) database.
+Proﬁt and Loss (P&L) and related performance measures
+Let P open
+i,d
+and P close
+i,d
+denote the opening and closing
+price for asset i at day d. We deﬁne the following return types 6 for asset i:
+Daily Close to Close Returns (CL tmCL): f CL tmCL
+i,d
+=
+P close
+i,d+1 −P close
+i,d
+P close
+i,d
+,
+Daily Open to Close Returns (tmOP tmCL): f tmOP tmCL
+i,d
+=
+P close
+i,d+1 −P open
+i,d+1
+P open
+i,d+1
+,
+Daily Overnight Returns (CL tmOP): f CL tmOP
+i,d
+=
+P open
+i,d+1 −P close
+i,d
+P close
+i,d
+.
+6Note that all returns considered are adjusted for splits and dividends
+9
+
+--- PAGE 10 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+0.0
+0.2
+0.4
+0.6
+PC01
+PC02
+PC03
+PC04
+PC05
+PC06
+PC07
+PC08
+PC09
+PC10
+PC11
+PC12
+PC13
+PC14
+PC15
+PC16
+PC17
+PC18
+PC19
+PC20
+PC21
+PC22
+PC23
+PC24
+PC25
+PC26
+PC27
+PC28
+PC29
+PC30
+Principal Component
+Percentage of Variance Explained
+Figure 5: Volume Scree Plot: This plot shows the percentage of variance captured by the ﬁrst few principal components
+for total option volume (for the PHOTO data set).
+Whenever considering returns for any of the above types, unless speciﬁed otherwise, we use the overnight CL tmOP
+returns. In this case we drop the superscripts and simply write fi,d. Also denote the market-excess returns for asset i at
+day d 7
+efi,d = fi,d −fSPY,d,
+where fSPY,d denotes the future return of the S&P-500 index. The S&P-500 index is a widely-used proxy for market
+returns, due to its wide range of large-cap ﬁrms and quarterly updates. Considering market excess returns, allows us to
+consider a market neutral study, by considering price movements relative to the market price movement. We will refer
+to market excess returns as EMR, and to raw returns as RR.
+Generally, we are interested in predicting directional movement of future prices. We denote by si,d ∈R the observed
+signal, on day d, for the future price of asset i. Note that si,d as deﬁned here is deliberately left general and could be
+either some observed variable or the output of a predictive model. However, in the context of this paper, this will be
+either a single OVI metric or a linear combination of several OVI metrics (as seen later in this section). Then, the sign
+of this signal is used to select the direction in which to make a hypothetical transaction in the underlying, with + and −
+corresponding to buy and sell respectively. We also specify the size of the trade (the ’bet size’), denoted by bi,d in one
+of various ways described below; this quantity may be used to express one’s degree of conﬁdence in the predictive
+power of the signal. A sequence of such trades constitutes a strategy. To assess the performance obtained using a series
+of signals, we consider the (excess-returns-adjusted) Proﬁt and Loss (P&L) metric deﬁned by
+P&Ld =
+Nd
+X
+i=1
+bi,d × efi,d × sign (si,d) ,
+(2)
+The P&L is the difference in proﬁt or loss that would have been earned, had we invested bi,d units of currency (in our
+case dollars) in comparison to making an equivalent transaction in the benchmark SPY ETF (which is tracking the
+S&P-500 index). Note that the idea of P&L described here may not derive from a strategy that is executable in practice
+(for example, there may be liquidity or timing constraints); nor, given the existence of transaction costs (which we do
+not take into account here), does it show the realistic return obtained from the strategy. Instead, this metric is a measure
+of predictability across a number of stocks based on the predictor s.
+The P&L is deﬁned above for each day d, and this gives a vector P&L = (P&L1, P&L2, . . . , P&LD−1) of daily P&L’s
+which measures the outcome of the hypothetical strategy over the whole time horizon. A measure of the long-term
+performance of a strategy is the annualized Sharpe Ratio (hereafter SR) [Sharpe, 1994], deﬁned as
+SR = mean(P&L) ×
+√
+252
+sd(P&L)
+.
+(3)
+Lastly, we deﬁne the P&L per dollar traded (PPD) as
+PPD =
+PD−1
+d=1 P&Ld
+PD−1
+d=1 Bd
+,
+(4)
+7Using Risk-Adjusted return using the Fama and French 3-factor model ([Fama and French, 1993]) does not signiﬁcantly change
+the results.
+10
+
+--- PAGE 11 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+where Bd = PNd
+i=1 bi,d is the total bet size for day d.
+When assessing whether a hypothetical strategy is signiﬁcantly proﬁtable, we use a test with the null hypothe-
+sis H0 : SR = 0. We make use of this test throughout the paper, by conducting a test in the same fashion as
+[Bailey and Lopez de Prado, 2014], which takes into account the non-normality of returns. In particular, we use the
+test statistic
+SR(P&L)
+q
+1−skewness(P&L)∗SR(P&L)+(kurtosis(P&L)−1)∗(SR(P&L)∗2)/4
+T −1
+,
+where the denominator term is based on the estimate provided by [Bao, 2008], for the variance of the Sharpe Ratio.
+Whenever comparing the SRs of two different strategies, we need to test the hypothesis of the form of H0 : SR1 = SR2.
+For that purpose we use the hypothesis test of [Ledoit and Wolf, 2008]. To adjust for the non-normality of returns,
+they use a studentized bootstrap test on the residuals of a VAR model (ia a circular block approach) to adjust for the
+non-normality of returns.
+Quantile rank portfolios
+The P&L (17) only uses the sign of the observed signal (for example, the OVI), and does
+not take into account its magnitude. Naturally, a larger magnitude for the signal should entail a higher conﬁdence in the
+prediction. To that end, for each MPC and each day, we split underlying assets into 5 groups, in two different ways.
+For each ﬁnancial day, we divide the underlying assets into ﬁve quantile buckets on the basis of the magnitude (strength)
+of the corresponding option-market signal, |si,d|. We denote by QB1 the group of assets with the 20% of weakest signals,
+and so on up to QB5, which corresponds to the 20% strongest signals. Our ﬁrst split of the equities is simply into the ﬁve
+quantile buckets QB1–QB5, and we refer to this as Quantile-Ranked buckets. For the second and main split, all groups
+contain equities corresponding to different percentages of the strongest signals, with the ﬁrst corresponding to all 100%
+of signals and the ﬁfth to just the strongest 20% signals. In particular we deﬁne Q1 = QB1∪QB2∪QB3∪QB4∪QB5,
+Q2 = QB1∪QB2∪QB3∪QB4, and so on; we refer to it as a quantile ranked group.
+We assess performance of the P&Ls of strategies based on OVI-based signals using a number of different bet weighting
+schemes, where the bet size (ie., capital) allocated to each equity (equation (17)) depends either on the liquidity of the
+asset in the option market for that ﬁnancial day (as measured by traded volume) or on the magnitude of its signal (OVI).
+Bet-size weighting schemes
+We now discuss the bet-size term bi,d of (2), by discussing a number of different betting
+schemes. Naturally, we can naively allocate equal capital to all the equities traded (we refer to this as the Uniform
+Weighting Scheme). However, we could take into account our conﬁdence in the used signals, by basing the bet scheme
+either on the magnitude of the signal or the liquidity of the option contract (as for more liquid assets, the OVI is
+calculated using more transaction data). In each case, we ﬁrst deﬁne a “raw” bet size b′
+i,d for each equity on the basis of
+an appropriate measure of the market, and set
+bi,d =
+b′
+i,d
+P
+j b′
+j,d
+.
+In this way we ensure comparability of schemes by betting a total of 1 dollar, distributed across all the underlying
+assets for which trading is indicated, each day. This way, the cumulative P&L (17) has the interpretation of being the
+cumulative percentage return.
+• Uniform Weighting Scheme. Here b′
+i,d = 1, ∀i, d. In this case we do not differentiate between the different
+underlying assets, allocating equal capital to each asset i with si,d̸ = 0.
+• Imbalance Weighting Scheme.
+Here b′
+i,d = |sh
+i,d|. Using this betting scheme is equivalent to using the
+signal si,d instead of just its sign as in (17). As higher-magnitude signals (for example, higher OVI magnitude)
+indicate a higher conﬁdence level, this weighting scheme allows us to incorporate our prediction conﬁdence in
+the bet size. Splitting equities into quantile rank portfolios is an alternative way to differentiate based on the
+magnitude of the signals, but using this scheme allows us to use the whole portfolio, without splitting into
+groups.
+• (Nominal) Volume Weighting Scheme. Here the bet size is set to b′
+i,d = log(1 + PCi,d
+j=1 Vi,j,d,m), or
+b′
+i,t = log(1 + PCi,d
+j=1 Pi,j,dVi,j,d,m) for the nominal volume case (depending on the MPC m). The (nominal)
+volume is used as a proxy for option liquidity in order to de-emphasize illiquid cases. The log transformation
+is applied to soften the signiﬁcant differences in volumes between different contracts.
+• Relative Volume Weighting Scheme. Here the bet size is set to b′
+i,d = log(1 + PCi,d
+j=1
+Vi,j,d,m
+OIi,j,d ) (depending
+on the MPC m), where OIi,j,d is the open interest for option contract j (of asset i). One issue with the volume
+11
+
+--- PAGE 12 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+weighting scheme, is that equities with lower volumes in the option market, will tend to get a lower weight,
+even when their liquidity is relatively high. The relative volume weighting scheme, takes this shortcoming into
+account, by normalizing volumes by the open interest of each contract.
+Unless speciﬁed otherwise, we will be using a Uniform Weighting Scheme.
+4.1
+P&L Regression.
+In our analysis, we consider several variants of OVI, based on different option transaction types (Buys, Sells or
+both), data sets (PHOTO, NOTO or both) and MPCs. We are also interested in analyzing the joint predictive power
+of such OVI features, in explaining future returns. Usually a linear method is employed (OLS or LASSO Regres-
+sion), and the corresponding t or p-values are used to compare the explanatory power of different covariates (e.g
+[Pan and Poteshman, 2006]).
+However, a linear model is only suitable for ﬁnding linear relationships. Furthermore, the objective function of OLS
+regression is based on the euclidean distance between observed and ﬁtted values. Such an objective function can be
+unsuitable for directional predictions (as predicting the direction is an inherently nonlinear problem). A predictor that is
+successful in capturing the signs of future returns, may be deemed uninformative with respect to the euclidean distance.
+In the case of linear models, while a predictor’s sign may match the observations perfectly, we may still observe a small
+corresponding R2 value. Finally, some of the options corresponding to an asset may not be traded at all on a given
+day, meaning that the OVI can be zero for a large number of days. Linear methods are also unable to deal with feature
+sparsity, as they are unable to ignore zero-valued features. Indeed, while OLS regression is able to show that all of the
+OVIs are signiﬁcant predictors for future returns, the corresponding R2 values are quite low (check section 1 in the
+Supplementary Material) and it is hard to distinguish between the explanatory power of the different OVIs.
+For these reasons, we suggest a novel method for regressing the future returns against different variables (in our case,
+different variants of OVI), where we directly set an objective function equal to the cumulative P&L (17), thus searching
+a combination of covariates which maximizes the net proﬁt. Equivalently, we can minimize the negative P&L. Inspired
+by the popular LASSO regression [Tibshirani, 1996], we also impose an ℓ1 penalty term on the objective function. This
+allows us to a distinguish between signiﬁcant and non-signiﬁcant covariates, by penalizing large coefﬁcient values
+for the latter. Similar previous research has optimized the Sharpe Ratio by including it in the objective function for
+portfolio optimization problems such as [Zhang et al., 2020] and [Cao et al., 2020], but in this case we are looking to
+combine multiple features for the forecasting of future returns for different assets.
+Suppose that we have a total of K variants of OVI. Denote by Ai,d,k the kth type of feature/OVI, for asset i at day d
+(e.g Ai,d,k = OVI[F]
+i,d,m for some MPC m and some restrictions F). In this case, we deﬁne a signal which is a linear
+combination of the different OVI
+si,d(β; A) = β0 +
+K
+X
+k=1
+βkAi,d,k,
+(5)
+for some vector β = (β0, . . . , βK). The goal is to choose β, in a way which maximizes the proﬁt of a strategy based on
+the signal in (5). In particular, we look for a vector β, which maximizes the total P&L (denoted as PL) deﬁned as
+PL(β; A, f) =
+D−1
+X
+d=1
+P&Ld =
+D−1
+X
+d=1
+ N
+X
+i=1
+bi,d(β; A)fi,dsign (si,d(β; A))
+!
+.
+(6)
+Thus, we look for an objective function which incorporates the total P&L. In order to use gradient methods, we require
+a smooth objective function. The sign function used in (6) is not smooth, therefore we wish to substitute it with a
+differentiable activation function g : R →R, such as
+g(x; α1) = 2
+
+1
+1 + e−α1x −1
+2
+
+, α1 > 0.
+(7)
+This is equivalent to the tanh function for α1 = 2, and for large α1 it converges pointwise to the sign function. We can
+get rid of the sign function by choosing a bet size, similar to the uniform scheme
+bi,d(β; A) =
+|g (si,d(β; A)) |
+P
+j |g (sj,d(β; A)) |.
+(8)
+Therefore, Equation (6) can be rewritten as
+PL(β; A, f) =
+D−1
+X
+d=1
+P&Ld =
+D−1
+X
+d=1
+ N
+X
+i=1
+1
+P
+j |g (sj,d(β; A)) |fi,dg (si,d(β; A))
+!
+.
+(9)
+12
+
+--- PAGE 13 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+This brings another differentiability issue with the absolute value function, which is used twice, one for the bet sizes (8),
+and for the ℓ1 regularization term, which is non-differentiable at 0. There exist many methods to circumvent this, but
+we shall make use of one of the simpler ones, which is to replace these functions with a smooth approximation, in the
+same spirit as how we used the modiﬁed sigmoid. We use the function h, deﬁned as
+h(x; α2) =
+p
+x2 + α2, α2 > 0,
+(10)
+for some small value of α2. In summary, the objective function to be minimized, takes the form
+L(β; A, f, q, α1, α2, λ) = −
+D−1
+X
+d=1
+ N
+X
+i=1
+1
+P
+j h (g (sj,d(β; A)))fi,dg (si,d(β; A))
+!
++ λ
+K
+X
+k=1
+h(βk; α2).
+(11)
+To minimize (11), we employ the ADAM algorithm [Kingma and Ba, 2014]8. The derivative of the objective function
+is given by
+∂L
+∂βk
+= −
+D−1
+X
+d=1
+N
+X
+i=1
+fi,d
+ 
+1
+P
+j h (g (sj,d(β; A)))
+∂g (si,d(β))
+∂βk
+−
+g (si,d(β))
+ 
+1
+P
+j h (g (sj,d(β; A)))
+!2
+N
+X
+j=1
+h′(g (sj,d(β)))∂g (si,d(β))
+∂βk
+
++ λ
+ 1 −1(k=0)
+
+h′(βk),
+where
+∂g (si,d(β))
+∂βk
+= g′
+ 
+β0 +
+K
+X
+k=1
+Ai,d,kβk
+!
+Ai,d,k.
+(12)
+Equivalently, written in vector form, this amounts to
+∂L
+∂β = −
+D−1
+X
+d=1
+N
+X
+i=1
+fi,d
+1
+P
+j h (g (sj,d(β; A)))
+∂g (si,d(β))
+∂β
++
+D−1
+X
+d=1
+
+
+N
+X
+i=1
+fi,dg (si,d(β))
+ 
+1
+P
+j h (g (sj,d(β; A)))
+!2
+
+
+
+N
+X
+j=1
+h′(g (sj,d(β)))∂sj,d(β)
+∂β
+
+
++ λ [0, h′(β1), . . . , h′(βK)]T .
+Lastly, once the algorithm converges and a vector ˆβ is obtained, we rescale the coefﬁcients, so that the non-intercept
+coefﬁcients have a total absolute value of one, i.e
+˜β =
+ˆβ
+PK
+k=1 | ˆβk|
+.
+Since β only affects the P&L only through the signal s (see (5)), rescaling all of the coefﬁcients, does not affect the
+objective function if we are using the sign function. Note however, that due to using the proxy tanh function, there is in
+fact a small difference that is caused by the rescaling.
+As already mentioned, this method has various advantages over the standard linear regression, as it is for example,
+better able to uncover monotonic relationships than standard linear regression. The disadvantage is that unlike OLS, the
+minimization of Equation (11) does not have a closed-form solution nor is it convex, and we are also burdened with the
+choice of λ. On the other hand, the magnitude of the ﬁtted coefﬁcient β has a direct interpretation as the weighting
+factor that contributes in making the buy/sell/neutral decision.
+Throughout the rest of the paper, signals si,d will either be equal to a particular type of OVI or take the form (5). In the
+ﬁrst case the strategy does not require any parameters, and so remains the same throughout the whole evaluation period.
+In the second case, the model could be trained on more recent data, via a sliding-window approach.
+In particular, we set a window size l of 500 trading days (about 2 years), a testing window size of T = 100 days9. A
+window at day d, contains the range of days {d −l + 1, . . . , d}. For each window, we regress the future returns against
+8Using the ADAM optimizer, requires choosing two parameters, the so-called moment parameters. For this paper, we use the
+recommended values given in the original paper (0.9 and 0.999).
+9Note that choosing different l and T, does not signiﬁcantly alter results.
+13
+
+--- PAGE 14 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+the OVI features, using the P&L regression described above, to obtain coefﬁcients {β(d−l+1):d
+k
+}K
+k=1. After obtaining
+the ﬁtted coefﬁcients {β(d−l+1):d
+k
+}K
+k=1, we calculate the P&L in (9) using the days in the testing set for the window at
+day d
+Testd = {d + 1, . . . , d + T},
+i.e PL({β(d−l+1):d
+k
+}K
+k=1; A[·,Test,·], f[·,Test], q, α1, α2). This is an out-of-sample metric, with the direct interpretation of
+being the hypothetical proﬁt one would make in 100 days of trading by following such a strategy (in the absence of
+trading costs).
+5
+Main Empirical Results
+2015
+2016
+2017
+2018
+2019
+2020
+−0.04
+0.00
+0.02
+0.04
+0.06
+Firm
+fret1_EMR_CL_tmOP EMR_fret_CLOP
+dates
+Cumulative P&L
+Q1 , PPD =  −0.2 , SR =  −0.24 , n =  333
+Q2 , PPD =  0.1 , SR =  0.17 , n =  267
+Q3 , PPD =  0.2 , SR =  0.22 , n =  219
+Q4 , PPD =  0.2 , SR =  0.24 , n =  217
+Q5 , PPD =  0.2 , SR =  0.24 , n =  217
+2015
+2016
+2017
+2018
+2019
+2020
+−0.15
+−0.10
+−0.05
+0.00
+Broker
+fret1_EMR_CL_tmOP EMR_fret_CLOP
+dates
+Cumulative P&L
+Q1 , PPD =  −1 , SR =  −2.44 , n =  877
+Q2 , PPD =  −1 , SR =  −2.42 , n =  703
+Q3 , PPD =  −1.2 , SR =  −2.54 , n =  528
+Q4 , PPD =  −1.1 , SR =  −2.29 , n =  379
+Q5 , PPD =  −1 , SR =  −2.13 , n =  369
+2015
+2016
+2017
+2018
+2019
+2020
+−0.30
+−0.20
+−0.10
+0.00
+M.Maker
+fret1_EMR_CL_tmOP EMR_fret_CLOP
+dates
+Cumulative P&L
+Q1 , PPD =  −1.4 , SR =  −4.02 , n =  886
+Q2 , PPD =  −1.7 , SR =  −4.2 , n =  709
+Q3 , PPD =  −1.9 , SR =  −4.42 , n =  532
+Q4 , PPD =  −1.8 , SR =  −3.88 , n =  356
+Q5 , PPD =  −1.7 , SR =  −3.55 , n =  313
+2015
+2016
+2017
+2018
+2019
+2020
+0.00
+0.05
+0.10
+0.15
+0.20
+Customer
+fret1_EMR_CL_tmOP EMR_fret_CLOP
+dates
+Cumulative P&L
+Q1 , PPD =  1.2 , SR =  3.2 , n =  1048
+Q2 , PPD =  1.4 , SR =  3.46 , n =  839
+Q3 , PPD =  1.5 , SR =  3.4 , n =  630
+Q4 , PPD =  1.5 , SR =  3.2 , n =  421
+Q5 , PPD =  1.2 , SR =  2.66 , n =  363
+2015
+2016
+2017
+2018
+2019
+2020
+0.00
+0.05
+0.10
+0.15
+P.Customer
+fret1_EMR_CL_tmOP EMR_fret_CLOP
+dates
+Cumulative P&L
+Q1 , PPD =  0.7 , SR =  0.98 , n =  158
+Q2 , PPD =  1 , SR =  1.35 , n =  127
+Q3 , PPD =  1.1 , SR =  1.44 , n =  115
+Q4 , PPD =  1.1 , SR =  1.42 , n =  115
+Q5 , PPD =  1.1 , SR =  1.42 , n =  115
+2015
+2016
+2017
+2018
+2019
+2020
+−0.3
+−0.2
+−0.1
+0.0
+0.1
+0.2
+MPCs Comparison
+fret1_EMR_CL_tmOP EMR_fret_CLOP
+dates
+Cumulative P&L
+Firm , PPD =  0.2 , SR =  0.22 , n =  219
+Broker , PPD =  −1.2 , SR =  −2.54 , n =  528
+M.Maker , PPD =  −1.9 , SR =  −4.42 , n =  532
+Customer , PPD =  1.5 , SR =  3.4 , n =  630
+P.Customer , PPD =  1.1 , SR =  1.44 , n =  115
+Figure 6: Cumulative P&L plot - Overnight Returns: This ﬁgure shows the cumulative P&L by following a uniform
+scheme - one-day holding period strategy, for the ﬁve QR groups Q1-Q5 and each MPC, for overnight returns
+(EMR CL tmOP). Also given, are SR (the Annualized Sharpe Ratio), daily PPD (Proﬁt per dollar in basis points), and
+n (the average number of assets in the portfolios). The ﬁrst ﬁve subplots show the 5 QR groups for each MPC, while the
+last subplot corresponds to using the 3rd QR group for each MPC.
+In this section, we assess the predictive power of OVI against the future returns across different MPCs, across differet
+return types (overnight,intraday and close to close) for the PHOTO data set, and by using different betting schemes.
+Comparison across market participant classes
+We consider the OVI for each of the 5 MPCs seperately by using
+their sign as the signal for future returns (si,d = OVIi,d,m for each m). We then evaluate their corresponding P&L using
+Equation (17), for their excess market overnight returns (EMR CL tmOP), and for different quantile ranked groups
+(Q1-Q5) built as described in Section 4. In particular, we plot the time series for the cumulative P&L incurred over the
+period 2015-2019 in Figure 6.
+The highest performance is observed for Market Makers, where the cumulative returns are between 17% and 25% and
+annualized SRs lie between 3.5 and 4.4 depending on the quantile rank portfolio used. The second best performance
+14
+
+--- PAGE 15 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+is observed for Customers, whose cumulative P&L display a clear upwards trend, and SRs with magnitudes in the
+range 2.7–3.5. Strong positive signals are also observed for Brokers, with SRs between 2.1 and2.5. Lastly, Professional
+Customers display a downwards trend with SRs of magnitude 1–1.4. For Firms, while the total P&L is slightly positive,
+there does not appear to be a clear upwards trend, with SRs very close to 0. Note that there seems to be a trend shift
+happening after 2018 for Firms, from a somewhat upward trend to a downward trend (a trend shift can also be noticed
+for other MPCs).
+0.34
+0.01
+0
+0
+0.22
+0.36
+0
+0
+0
+0.28
+0.34
+0
+0
+0
+0.43
+0.34
+0
+0
+0
+0.46
+0.34
+0
+0
+0
+0.46
+Firm
+Broker
+Market.Maker
+Customer
+Professional.Customer
+Q1
+Q2
+Q3
+Q4
+Q5
+Quantile.Rank
+Market.Participant
+0.00
+0.25
+0.50
+0.75
+1.00
+p−value
+(a) SR Test: Uniform Scheme (Cumulative QR Groups)
+0.56
+0.93
+0.97
+0.08
+0.45
+0.66
+0.77
+0.02
+0
+0.36
+0.7
+0.13
+0
+0
+0.37
+0.7
+0.08
+0
+0
+0.37
+0.31
+0
+0
+0
+0.37
+Firm
+Broker
+Market.Maker
+Customer
+Professional.Customer
+QR1
+QR2
+QR3
+QR4
+QR5
+Quantile.Rank
+Market.Participant
+0.00
+0.25
+0.50
+0.75
+1.00
+p−value
+(b) SR Test: Uniform Scheme (QR buckets)
+Figure 7: Sharpe Ratio Signiﬁcance tests: The grid shows the p-value for the signiﬁcance of the SR for different OVIs.
+The coloring shows the signiﬁcance level for the strategies, where red denotes statistically signiﬁcant returns associated
+with that strategy (either positive or negative). Sub-ﬁgure(a) uses the cumulative QR groups where as sub-ﬁgure(b) uses
+the (distinct) quantile buckets.
+In Figure 7(a), we report the p-values obtained when running a signiﬁcance test for the SRs corresponding to excess
+market CL tmOP returns. The tests for Brokers, Market Makers, and Customers are rejected with a p-value of 0 (up to
+2 decimal places) across all quantile ranks. Firm and Professional Customers have p-values close to 0.5 across all ranks.
+Thus, in the span of ﬁve years, we observe a clear signal from three out of ﬁve of the MPCs, with the Market Maker
+achieving a return of about 30% in a period of 5 years. The two participants without a clear signal are also the MPCs
+with the lowest mean volume per day (see Figure 1), which partly accounts for the reduced performance. The clearest
+signals come from Market Makers, followed by Customers, which have on average the highest volume per day. These
+observations clearly mark the OVI as holding predictive power for future returns. Note that this veriﬁes the ﬁndings of
+the earlier study [Xiaoyan et al., 2008], who report that the informational context of Customer volumes is higher than
+Firm volumes.
+Quantile rank portfolios
+For all MPCs except Firms, the best performing portfolio is Q3 both in terms of PPD and
+in terms of SR. The worst performing portfolio in terms of PPD is Q1, which in most cases has a noticeably worse
+performance than other QR groups. In terms of SR, the worst performing portfolio is either Q1 (all assets) or Q5 (top
+20% of strongest signals) depending on the MPC. Therefore, the strategies of taking into account all the non-zero OVIs,
+or only considering a very small subset of the strongest signals, are both outclassed by following a portfolio consisting
+of the top 60% or 80% of the highest-magnitude OVIs.
+The same analysis is carried out for quantile ranked buckets. In Figure 7(b), it becomes apparent that across MPCs,
+lower QR Buckets highly outperform the higher buckets, with QB1 being almost uninformative. For both Market
+Makers and Customers, QB2-QB5 appear to be the most signiﬁcant. Overall, this conﬁrms that not only is the sign of
+the OVI informative on future returns, but that the predictability observed is stronger for higher magnitudes of the OVI,
+which justiﬁes using the OVIs as signals.
+Comparison across Return Modes
+In Figure 8, the cumulative P&L corresponding to each type of return is shown,
+when using the Market Maker OVI.
+The highest predictability is clearly observed for the the overnight (CL tmOP) returns, followed by the close-to-close
+(CL tmCL), and then by the open-to-close (tmOP tmCL) returns. Close-to-close return is a combination of the other
+two types of returns, with most of its predictability stemming from the overnight returns rather than the next-day returns.
+Using market excess returns, results in higher returns as shown by higher SRs, but raw returns also give signiﬁcant
+results across MPCs and quantile rank groups.
+15
+
+--- PAGE 16 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+2015
+2016
+2017
+2018
+2019
+2020
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+RR_CL_tmCL
+fret1_RR_CL_tmCL Market.Maker
+dates
+Cumulative P&L
+Q1 , PPD =  −2.1 , SR =  −2.19 , n =  886
+Q2 , PPD =  −2.6 , SR =  −2.47 , n =  709
+Q3 , PPD =  −2.9 , SR =  −2.44 , n =  532
+Q4 , PPD =  −2.6 , SR =  −2.01 , n =  356
+Q5 , PPD =  −2.4 , SR =  −1.87 , n =  313
+2015
+2016
+2017
+2018
+2019
+2020
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+RR_CL_tmOP
+fret1_RR_CL_tmOP Market.Maker
+dates
+Cumulative P&L
+Q1 , PPD =  −1.6 , SR =  −2.86 , n =  886
+Q2 , PPD =  −1.8 , SR =  −2.95 , n =  709
+Q3 , PPD =  −2 , SR =  −3.15 , n =  532
+Q4 , PPD =  −2 , SR =  −2.88 , n =  356
+Q5 , PPD =  −1.8 , SR =  −2.63 , n =  313
+2015
+2016
+2017
+2018
+2019
+2020
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+RR_tmOP_tmCL
+fret1_RR_tmOP_tmCL Market.Maker
+dates
+Cumulative P&L
+Q1 , PPD =  −0.5 , SR =  −0.68 , n =  886
+Q2 , PPD =  −0.8 , SR =  −0.94 , n =  709
+Q3 , PPD =  −0.8 , SR =  −0.87 , n =  532
+Q4 , PPD =  −0.7 , SR =  −0.61 , n =  356
+Q5 , PPD =  −0.6 , SR =  −0.56 , n =  313
+2015
+2016
+2017
+2018
+2019
+2020
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+EMR_CL_tmCL
+fret1_EMR_CL_tmCL Market.Maker
+dates
+Cumulative P&L
+Q1 , PPD =  −2 , SR =  −2.72 , n =  886
+Q2 , PPD =  −2.6 , SR =  −3.1 , n =  709
+Q3 , PPD =  −2.9 , SR =  −3.08 , n =  532
+Q4 , PPD =  −2.6 , SR =  −2.46 , n =  356
+Q5 , PPD =  −2.5 , SR =  −2.29 , n =  313
+2015
+2016
+2017
+2018
+2019
+2020
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+EMR_CL_tmOP
+fret1_EMR_CL_tmOP Market.Maker
+dates
+Cumulative P&L
+Q1 , PPD =  −1.4 , SR =  −4.02 , n =  886
+Q2 , PPD =  −1.7 , SR =  −4.2 , n =  709
+Q3 , PPD =  −1.9 , SR =  −4.42 , n =  532
+Q4 , PPD =  −1.8 , SR =  −3.88 , n =  356
+Q5 , PPD =  −1.7 , SR =  −3.55 , n =  313
+2015
+2016
+2017
+2018
+2019
+2020
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+EMR_tmOP_tmCL
+fret1_EMR_tmOP_tmCL Market.Maker
+dates
+Cumulative P&L
+Q1 , PPD =  −0.6 , SR =  −0.91 , n =  886
+Q2 , PPD =  −0.9 , SR =  −1.24 , n =  709
+Q3 , PPD =  −0.9 , SR =  −1.16 , n =  532
+Q4 , PPD =  −0.8 , SR =  −0.83 , n =  356
+Q5 , PPD =  −0.7 , SR =  −0.79 , n =  313
+Figure 8: Cumulative P&L plot - Market Maker: This shows the cumulative P&L from following a Uniform Weighting
+Scheme - one-day holding period strategy, for the ﬁve quantile rank groups Q1-Q5, using the OVI of Market Makers for
+six different types of returns. Also given, are SR (the Annualized Sharpe Ratio), PPD (Proﬁt per dollar in basis points),
+and n(the average number of assets in the portfolios).
+Comparison across OVI types
+Throughout this section we have been using the Volume-based OVI. In Figure 11,
+we compare the different types of OVI (for Q3 quantiles, Uniform Weighting Scheme) across MPCs. Trade-based
+OVI has the lowest performance for Brokers (signiﬁcantly lower than both volume and nominal volume based OVI),
+Market Makers (signiﬁcantly lower than volume based OVI) and Customers (signiﬁcantly lower than nominal volume
+based OVI), and therefore seems as a less suitable feature, than the others. This is expected as it is naturally the least
+informative of the three types of features, compared to volume and nominal volume. Volume-based OVI scores the
+highest (in magnitude) SR for Market Makers and Brokers, and the difference with the other two types for Market
+Makers is signiﬁcant when running a pairwise SR Difference test.
+5.1
+Alternative Weighting Schemes
+In this subsection, we compare the Uniform Weighting Scheme with the alternative schemes deﬁned in the previous
+section. We use the Market Maker OVI, and record the P&L corresponding to excess market overnight returns
+Equation (17). In Figure 9, we carry out a SR difference test to compare the performance of different weighting schemes
+for the overnight returns with the uniform scheme. In Figure 10 we plot the cumulative P&L for excess market overnight
+returns obtained by following a strategy for each of the different weighting schemes, for the Market Maker OVI.
+Imbalance Weighting Scheme
+In most cases across MPCs and quantile rank groups, when performing pairwise SR
+difference tests between the Uniform and Imbalance Weighting Schemes, the hypothesis is not rejected, and if we
+correct for multiple testing, none of the hypothesis’ is rejected. However, as seen in Figure 9, the SRs corresponding to
+the Imbalance Scheme are slightly higher than those for the Uniform Weighting Scheme, for all quantile rank groups
+for Brokers and Customers, as well as Q2, Q4 and Q5 for Market Makers. Therefore, this suggests that the Imbalance
+Weighting Scheme is a better way to incorporate the information embedded in the OVI, than a simple uniform scheme.
+16
+
+--- PAGE 17 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+0 
+0.3 *
+0.24 
+0.04 
+−0.1 
+0.01 
+0.14 
+−0.1 
+0.06 
+−0.03 
+0 
+0.01 
+−0.14 
+0.05 
+0 
+0 
+0 
+0 
+−0.02 
+0 
+0 
+0 
+0 
+0 
+0 
+Firm
+Broker
+M.Maker
+Customer
+P.Customer
+Q1
+Q2
+Q3
+Q4
+Q5
+Quantile.Rank
+Market.Participant
+−2
+−1
+0
+1
+2
+difference
+Imbalance vs Uniform Strategy
+(Significance codes:  0 *** 0.001 ** 0.01 * 0.05 )
+0.3 
+−0.32 
+−0.56 *
+−0.58 *
+0.17 
+0.23 
+−0.39 
+−0.46 *
+−0.63 *
+0.17 
+0.34 
+−0.51 *
+−0.6 *
+−0.82 **
+0.16 
+0.34 
+−0.35 
+−0.31 
+−0.67 *
+0.16 
+0.34 
+−0.32 
+−0.36 
+−0.52 
+0.16 
+Firm
+Broker
+M.Maker
+Customer
+P.Customer
+Q1
+Q2
+Q3
+Q4
+Q5
+Quantile.Rank
+Market.Participant
+−2
+−1
+0
+1
+2
+difference
+Volume vs Uniform Strategy
+(Significance codes:  0 *** 0.001 ** 0.01 * 0.05 )
+−0.39 
+0.13 
+−0.67 *
+−0.49 
+−0.17 
+−0.1 
+0.04 
+−0.86 **
+−0.47 
+−0.57 
+−0.09 
+−0.04 
+−0.85 **
+−0.51 
+−0.06 
+−0.03 
+0.11 
+−0.46 
+−0.77 *
+−0.13 
+−0.03 
+0.1 
+−0.55 *
+−0.66 
+−0.13 
+Firm
+Broker
+M.Maker
+Customer
+P.Customer
+Q1
+Q2
+Q3
+Q4
+Q5
+Quantile.Rank
+Market.Participant
+−2
+−1
+0
+1
+2
+difference
+Nominal Volume vs Uniform Strategy
+(Significance codes:  0 *** 0.001 ** 0.01 * 0.05 )
+0.3 
+−0.35 
+−0.54 *
+−0.63 *
+−0.04 
+0.32 
+−0.42 
+−0.41 
+−0.67 *
+−0.1 
+0.48 
+−0.49 
+−0.52 *
+−0.81 **
+0.02 
+0.48 
+−0.31 
+−0.22 
+−0.79 *
+0.04 
+0.48 
+−0.25 
+−0.19 
+−0.57 
+0.04 
+Firm
+Broker
+M.Maker
+Customer
+P.Customer
+Q1
+Q2
+Q3
+Q4
+Q5
+Quantile.Rank
+Market.Participant
+−2
+−1
+0
+1
+2
+difference
+Relative Volume vs Uniform Strategy
+(Significance codes:  0 *** 0.001 ** 0.01 * 0.05 )
+Figure 9: Sharpe Ratio Difference Tests for different betting scheme: Cells colored red (resp. blue) denote that the
+scheme considered outperforms (resp. is outperformed) by the Uniform Weighting Scheme. The signiﬁcance level is
+also given after the number of stars (1-3), if applicable.
+2015
+2016
+2017
+2018
+2019
+2020
+−0.25
+−0.15
+−0.05
+0.00
+Uniform
+fret1_EMR_CL_tmOP 
+dates
+Cumulative P&L
+Q1 , PPD =  −1.4 , Sharpe =  −4.03 , nrInstr =  886
+Q2 , PPD =  −1.7 , Sharpe =  −4.21 , nrInstr =  709
+Q3 , PPD =  −1.9 , Sharpe =  −4.46 , nrInstr =  532
+Q4 , PPD =  −1.8 , Sharpe =  −3.93 , nrInstr =  355
+Q5 , PPD =  −1.7 , Sharpe =  −3.66 , nrInstr =  312
+2015
+2016
+2017
+2018
+2019
+2020
+−0.25
+−0.15
+−0.05
+0.00
+Imbalance
+fret1_EMR_CL_tmOP 
+dates
+Cumulative P&L
+Q1 , PPD =  −1.7 , Sharpe =  −4.45 , nrInstr =  886
+Q2 , PPD =  −1.8 , Sharpe =  −4.46 , nrInstr =  709
+Q3 , PPD =  −1.9 , Sharpe =  −4.43 , nrInstr =  532
+Q4 , PPD =  −1.8 , Sharpe =  −3.94 , nrInstr =  355
+Q5 , PPD =  −1.7 , Sharpe =  −3.66 , nrInstr =  312
+2015
+2016
+2017
+2018
+2019
+2020
+−0.25
+−0.15
+−0.05
+0.00
+Volume
+fret1_EMR_CL_tmOP 
+dates
+Cumulative P&L
+Q1 , PPD =  −1.4 , Sharpe =  −3.3 , nrInstr =  886
+Q2 , PPD =  −1.7 , Sharpe =  −3.66 , nrInstr =  709
+Q3 , PPD =  −1.8 , Sharpe =  −3.46 , nrInstr =  532
+Q4 , PPD =  −1.6 , Sharpe =  −2.9 , nrInstr =  355
+Q5 , PPD =  −1.6 , Sharpe =  −2.68 , nrInstr =  312
+2015
+2016
+2017
+2018
+2019
+2020
+−0.25
+−0.15
+−0.05
+0.00
+Nominal Volume
+fret1_EMR_CL_tmOP 
+dates
+Cumulative P&L
+Q1 , PPD =  −1.2 , Sharpe =  −3.12 , nrInstr =  886
+Q2 , PPD =  −1.6 , Sharpe =  −3.51 , nrInstr =  709
+Q3 , PPD =  −1.7 , Sharpe =  −3.49 , nrInstr =  532
+Q4 , PPD =  −1.8 , Sharpe =  −3.08 , nrInstr =  355
+Q5 , PPD =  −1.6 , Sharpe =  −2.75 , nrInstr =  312
+2015
+2016
+2017
+2018
+2019
+2020
+−0.30
+−0.20
+−0.10
+0.00
+Relative Volume
+fret1_EMR_CL_tmOP 
+dates
+Cumulative P&L
+Q1 , PPD =  −1.5 , Sharpe =  −3.4 , nrInstr =  886
+Q2 , PPD =  −1.8 , Sharpe =  −3.73 , nrInstr =  709
+Q3 , PPD =  −2 , Sharpe =  −3.6 , nrInstr =  532
+Q4 , PPD =  −1.8 , Sharpe =  −2.97 , nrInstr =  355
+Q5 , PPD =  −1.8 , Sharpe =  −2.88 , nrInstr =  312
+2015
+2016
+2017
+2018
+2019
+2020
+−0.6
+−0.5
+−0.4
+−0.3
+−0.2
+−0.1
+0.0
+IV−Volume
+fret1_EMR_CL_tmOP 
+dates
+Cumulative P&L
+Q1 , PPD =  −1.8 , Sharpe =  −3.09 , nrInstr =  886
+Q2 , PPD =  −2.4 , Sharpe =  −3.51 , nrInstr =  709
+Q3 , PPD =  −3.1 , Sharpe =  −3.75 , nrInstr =  532
+Q4 , PPD =  −3.6 , Sharpe =  −3.14 , nrInstr =  355
+Q5 , PPD =  −3.9 , Sharpe =  −2.95 , nrInstr =  312
+Figure 10: Cumulative Returns for Different Betting Schemes: This shows the cumulative EMR CL tmOP returns P&L
+by following the different betting schemes with one-day holding period. The OVI used is for Market Makers, and the
+ﬁve quantile rank portfolios Q1-Q5. Each portfolio Q-k corresponds to considering the assets corresponding to the
+(20k) % highest OVIs in absolute value, for six different target returns. Also given, are Sharpe (the Annualized Sharpe
+Ratio), PPD (Proﬁt per dollar in basis points), and nrInstr (the average number of assets used on the portfolio).
+17
+
+--- PAGE 18 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+−2
+−1
+0
+1
+Firm
+Broker
+M.Maker
+Customer
+P.Customer
+MPC
+Sharpe_Ratio
+Metric
+Volume
+Trades
+Nominal Volume
+Figure 11: Comparison across OVI types: For each MPC, the SR corresponding to EMR CL tmOP returns are shown,
+for each OVI type (as deﬁned in Section 2.2). We use a uniform betting scheme, Q3 strategy for each are shown for each
+OVI type.
+Furthermore, as seen in the cumulative plot Figure 10(e), we can clearly see that the quantile rank groups are more
+indistinguishable (both in terms of SR and PPD) in comparison with the Uniform Scheme, especially for Q1-Q3. In
+addition, the 5th QR group is the worst performing, despite being one of the highest performing groups for the other
+weighting schemes.
+Volume-Weighting Scheme
+In Figure 9, it can be seen that in most cases, both the Volume and Nominal Volume
+Weighting Schemes are outperformed by the Uniform Weighting Scheme both in terms of SR as well as PPD. The
+Relative Volume Scheme, is also outperformed by the Uniform Scheme in terms of SR, but slightly outclasses it in terms
+of PPD. In addition it outclasses the other two schemes in terms of both SR and PPD, for most of the QR Groups. The
+lower SRs are a result of higher variability introduced when incorporating volume into the betting scheme. However,
+none of the volume betting schemes seems to be suitable in replacing the uniform betting scheme. Note, that deﬁning
+a weighting scheme based on the raw option volume (without the log transform), the sqrt-transformed volume, or
+the liquidity of the underlying, also fails to outperform the uniform scheme, even though the raw-Volume Weighting
+Scheme does outperform it in terms of PPD (but has a very high variability).
+5.2
+Multi-factor analysis and stability analysis across time
+In predicting future overnight returns, using the signal given by the sign of the Market Maker OVI, has reulted in the
+highest performance. The Market Maker signal can be written as
+s1
+i,d = OVIPHOTO
+i,d,M.Maker.
+(13)
+In this subsection we evaluate the joint predictive power of the OVI corresponding to the ﬁve different market participants
+(K=5) using the P&L regression method described in Section 4, to predict the future EMR CL tmOP return, by using a
+signal of the form
+s2
+i,d (β) = β0 + β1OVIPHOTO
+i,d,Firm + β2OVIPHOTO
+i,d,Broker + β3OVIPHOTO
+i,d,MarketMaker + β4OVIPHOTO
+i,d,Customer + β5OVIPHOTO
+i,d,P.Customer. (14)
+We regress in a sliding window manner and record the evolution of the normalized coefﬁcients during 2016-2019,
+as shown in Figure 12. Note that at each time point, the coefﬁcient of Market Maker OVI dominates, by having a
+magnitude of 0.3-0.75. Generally, the Market Maker OVI seems to have a higher weight for the later years, which
+is partly due to the coefﬁcients of Broker and Customer OVI shrinking in magnitude. Firms show mostly negative
+coefﬁcients, with low magnitude for the entire 5-year period. Interestingly, the OVI for Professional Customers has a
+consistently negative coefﬁcient throughout the 5-year period, with a relatively high magnitude. Since the volumes of
+Professional Customers are quite low (i.e the OVI is equal to zero in most cases), the high coefﬁcient does not disrupt
+the model (which would have not been possible if we used a linear regression model). On the other hand, as seen in
+the correlation map in Figure 3, the OVI for Professional Customers is not correlated with the other features, which
+potentially shows that additional information is brought when it is used in conjunction with Market Makers’ OVI.
+Since such a method results in a coefﬁcient vector dominated by the Market Maker’s OVI, it is worth comparing the
+performance of s1 and s2, when using the bet sizes Equation (8). The two strategies give similar mean in-sample PPDs
+with 1.50bps and 1.57bps respectively. However, using s1 results in a slightly higher out-of-sample mean PPD of
+1.33bps compared to 1.25bps for s2, indicating some overﬁtting in the second case.
+18
+
+--- PAGE 19 ---
+Option Volume Imbalance as a predictor for equity market returns
+A PREPRINT
+−0.6
+−0.3
+0.0
+0.3
+2016
+2017
+2018
+2019
+Normalised Coefficient
+OVI
+Firm
+Brokers
+Market_Makers
+Customers
+Professional_Customers
+Window Length = 500; Step Size = 50; Test Period Length = 100
+ eta = 0.01; lambda = 0.01; alpha = 10; alpha_2 = 1e−05
+ Average In−of−Sample PPD = 1.57 bp ; Average Out−of−Sample PPD = 1.25 bp
+Evolution of regression coefficients for Different Market Participants
+Figure 12: Multiple-factor regression for different MPCs: The line graphs, show the evolution of the coefﬁcients
+in equation (14), ﬁtted using the P&L regression for M2 across time, as indicated by the plotted points. Note that
+coefﬁcients are normalized to have a total ℓ1 norm equal to 1 (excluding the intercept term).
+6
+Inﬂuence of options features on OVI predictability
+In the previous section, we showed how the OVI can be used as a predictor for next day returns. In this section, we
+investigate which options carry most of the predictability, by segmenting options according to the value of certain option
+features, namely a subset of the “Greeks”: moneyness, maturity, and implied volatility; we calculate all of these features
+in a standard Black–Scholes model without dividends. One might naturally expect option moneyness, being a measure
+of the relative sizes of the spot and strike prices, to inﬂuence OVI predictability. Indeed, [Pan and Poteshman, 2006]
+and [Ge et al., 2016] both ﬁnd that the highest predictability over comparatively long timescales stems from volumes of
+OTM options, which is attributed to the relatively high leverage that they offer speculative traders targeting (or hedging)
+large price moves over these timescales. Here, however, we consider next-day returns, and we expect ATM options
+returns to be more informative, as they offer a more geared return from small price moves than OTM options. On the
+other hand, ITM options’ intrinic value, results in a higher price, hindering the high leverage advantage offered by the
+option market, and resulting in relatively low volumes.
+Note that there is not a one-to-one map between moneyness and other Greeks; while the Greeks are related in various
+ways, different Greeks can serve to segment the universe of options in different ways. For example, Γ is highly
+correlated with the absolute value of moneyness, while ∆depends monotonically on moneyness. As we see below, this
+enables us to consider a range of perspectives.
+For each day, we divide the option contracts into four disjoint buckets, based on the quantiles of the feature in question.
+The ﬁrst bucket contains options corresponding to the lowest 25% of values for that feature, and so on up to the 4th
+bucket, which contains options corresponding to the highest 25%. The OVI pipeline described in the previous sections
+is then applied to each bucket separately, and the performance of the resulting buckets is compared. For each feature,
+we run the pairwise SR difference test between the four buckets (at the 5% level). We only follow this process for
+Brokers, Market Makers and Customers, as they are the MPCs whose OVI was concluded to be a signiﬁcant predictor
+of future returns.
+19
+
+[TRUNCATED at 80000 chars — 43 total pages]

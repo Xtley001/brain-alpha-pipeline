@@ -1,0 +1,2304 @@
+
+--- PAGE 1 ---
+ 
+ 
+A MULTIPLE LENDER APPROACH TO UNDERSTANDING SUPPLY AND 
+SEARCH IN THE EQUITY LENDING MARKET* 
+Adam C. Kolasinski 
+University of Washington Business School 
+adamkola@u.washington.edu 
+ 
+Adam V. Reed 
+Kenan-Flagler Business School, University of North Carolina 
+adam_reed@unc.edu 
+ 
+Matthew C. Ringgenberg 
+Kenan-Flagler Business School, University of North Carolina 
+matthew_ringgenberg@unc.edu 
+ 
+ 
+ABSTRACT 
+Although a large body of research has investigated the effects of short sale constraints, 
+very little is understood about the origin of these constraints in the one-trillion-dollar 
+equity lending market.  Using a unique database comprising data from twelve lenders, we 
+find significant dispersion in share loan fees across lenders, and we find that the 
+dispersion is increasing in share loan demand and various proxies for search costs, 
+including a stock’s illiquidity and the number of small lenders making loans.  These 
+findings are consistent with the existence of search frictions between share borrowers and 
+lenders, as Duffie, Garleanu, and Pedersen (2002) suggest.  We further analyze the effect 
+of search frictions by examining the response of shorting cost to exogenous shocks in 
+demand.  We find that for stocks with moderate demand, loan fees are largely insensitive 
+to demand shocks.  However, for stocks with high demand, an increase in demand triples 
+the already higher abnormal loan fees.  Our findings help reconcile seemingly conflicting 
+findings in the literature regarding the existence of both small and large effects of shifts 
+in demand on price.  We highlight the importance of search costs by showing that the 
+various parameters in firms’ share loan supply schedules are closely related to cross-
+sectional differences in search costs.  We conclude that short sale constraints could be 
+slackened by the reintroduction of a central clearinghouse of share loans, which would 
+reduce search costs. 
+                                                          
+* The authors thank Robert Battalio, Darrell Duffie, Nicolae Garleanu, Jennifer Huang, David Musto, Lasse 
+Pedersen, and seminar participants at the American Finance Association Conference, Barclays Global 
+Investors, the Consortium for Financial Economics and Accounting Conference, the European Finance 
+Association Conference, the IIROC-DeGroote Conference on Market Structure, Texas A&M, the 
+University of Oregon’s Institutional Asset Management Conference, the University of Virginia, and the 
+University of Washington.  We are grateful for financial support from the Q Group.  Our data provider 
+made this work possible and provided invaluable advice over the course of numerous discussions.  Finally, 
+we thank William Frohnhoefer for providing institutional details. 
+
+--- PAGE 2 ---
+ 
+1 
+ 
+Short sale constraints motivate a large body of theoretical research in asset pricing.  In 
+addition, a growing body of empirical work confirms that these constraints have an economically 
+meaningful impact.1  While this research suggests that short sale constraints are important, 
+relatively few empirical studies attempt to explain the variation of short sale constraints across 
+stocks, and even fewer seek to provide a motivation for the origin of these constraints. 
+Short sale constrains can take many forms, but one of the most important is the fee that 
+short sellers pay to borrow shares in the equity lending market.  Despite its one-trillion-dollar 
+size, relatively little known about this market because transactions are usually only visible to the 
+two parties directly involved.  Furthermore, the equity loan databases employed in the existing 
+literature are provided by individual equity lenders, so researchers have not had an opportunity to 
+draw conclusions about market-wide characteristics.  As a result, a number of important 
+questions remain unanswered.  How much short selling can take place before borrowing shares 
+becomes expensive?  What causes borrowing to become expensive?  What are the characteristics 
+of the share lending supply curve?  And, finally, how much variation in fees could a borrower 
+expect to see across multiple lenders?  We find that the answers to these questions are all related 
+to the presence of search frictions in the equity lending market. 
+The general dearth of empirical research on the equity lending market is inherently linked 
+to its opacity, and one of the primary goals of this paper is to analyze the effects of this opacity.  
+In one of the few theoretical models of the equity loan market, Duffie, Garleanu, and Pedersen 
+                                                          
+1 The theoretical literature on short selling includes Miller (1977), Hong and Stein (1999), and Diamond and 
+Verrecchia (1987), and empirical work demonstrating the significant economic impact of  short sale constraints 
+includes Geczy, Musto, and Reed (2002), Ofek and Richardson (2003), Asquith, Pathak, and Ritter (2005), and Cao, 
+Dhaliwal, Kolasinski, and Reed (2007). 
+
+--- PAGE 3 ---
+ 
+2 
+ 
+(2002; hereafter DGP) suggest that search frictions, which result from opacity, give share lenders 
+market power, allowing them to charge fees to short sellers.  We examine this model empirically 
+in a number of ways.  We identify significant dispersion in loan fees, which is consistent with the 
+existence of search frictions in the share loan market.  In addition, using stock characteristics that 
+DGP suggest as proxies for search frictions, we show that search frictions are related to loan fee 
+dispersion.  Finally, we find that loan fee dispersion sharply increases as the average loan fee 
+moves from moderate to high levels, consistent with DGP’s hypothesis that search frictions are 
+related to the costs of short selling.  However, the relation between the average fee and the 
+dispersion in fees is not monotonic: dispersion is also high when the average fee is abnormally 
+low, resulting in a U-shaped pattern. 
+We also examine how search frictions allow lenders to change their prices in response to 
+exogenous shifts in demand.  In the existing literature, some controversy exists regarding the 
+way demand affects prices;  some researchers find that lending fees are unresponsive to increases 
+in quantity (e.g., Christoffersen, Geczy, Musto, and Reed (2007)), whereas others find that large 
+positive shifts in the demand for share loans can be manifested in increased lending fees (e.g., 
+Cohen, Diether, and Malloy (2006)).  We resolve this apparent paradox by using a nonlinear 
+two-stage least squares method to estimate the share loan supply schedule, and we find that it is 
+non-linear.  Most of the time, when the demand for share loans is moderate, the slope of the 
+supply schedule is nearly flat, and lending fees are largely insensitive to quantity demanded, 
+consistent with the results of Christoffersen et al.  However, large positive shocks to demand 
+tend to drive quantity into the upward sloping region, where the lending fee is indeed highly 
+sensitive to the quantity demanded, consistent with Cohen et al.  To further investigate the 
+
+--- PAGE 4 ---
+ 
+3 
+ 
+relation between the supply curve and search frictions, we relate the supply curve parameters to 
+several proxies of search frictions.  We conclude that both the level of the loan fee and its 
+sensitivity to quantity demanded are a function of search frictions, further validating the DGP 
+claim that search frictions are at the root of short sale constraints. 
+The results of this research have important policy implications.  Because search frictions 
+have a significant impact on lending fees, it follows that a reduction in these frictions would 
+loosen short sale constraints.  One way to reduce search frictions is to introduce a central 
+clearinghouse for share loans, such as the NYSE lending post that was abandoned in the 1930s.  
+Furthermore, there is evidence that short sale constraints reduce market efficiency (e.g., Asquith, 
+Pathak and Ritter (2005) and Boehmer, Jones and Zhang (2008)).  Taken together, these results 
+suggest that centralizing the share loan market could significantly improve stock market 
+efficiency. 
+Our findings also have broader implications for opaque financial markets.  The 
+theoretical models we use to motivate our empirical tests need not be limited to the equity 
+lending market.  Insofar as their underlying assumptions of agent heterogeneity, search frictions, 
+and the lack of centralized price quoting are consistent with the institutional details of other over-
+the-counter markets, our results are generalizable to those contexts. 
+The remainder of this paper proceeds as follows.  Section I examines the search cost 
+literature and explores the applicability of search cost models to the equity lending market, with 
+a particular focus on the ability of search frictions to generate short sale constraints, and the 
+
+--- PAGE 5 ---
+ 
+4 
+ 
+resulting empirical implications.  Section II describes the databases used in this study, and 
+section III characterizes our findings.  Section IV presents our summary and conclusion. 
+ 
+I. 
+Search Frictions and the Share Lending Market 
+A. Specialness, Search Frictions, and Price Dispersion 
+DGP present a dynamic model in which search frictions limit the frequency at which 
+share lenders and borrowers are able to find one another.  Thus lenders, if they have some 
+bargaining power, are able to charge a lending fee to short sellers that is equal to some fraction 
+of the surplus short sellers believe they can gain.  Short sellers are willing to pay the fee because 
+if they refuse, they might not be able to find another lender and thus would have to forgo their 
+surplus.  Over time, this lending fee declines to zero as short sellers drive down prices to their 
+long-run equilibrium values.  The magnitude of the lending fee, often termed specialness, is 
+increasing in lenders’ bargaining power, increasing in frictions in the share lending market, and 
+increasing in demand for share loans.  While the DGP model is derived in the context of IPOs, 
+the authors indicate that it would produce similar results in the event of a shock to the demand 
+for short selling. 
+In our investigation of the role of search frictions in the share loan market, we first turn to 
+the industrial organization literature on price dispersion.  When there is heterogeneity in seller 
+costs, models in which buyers must search sequentially for a seller generally yield a positive 
+relation between average prices, price dispersion across sellers, and search costs (Reinganum, 
+
+--- PAGE 6 ---
+ 
+5 
+ 
+1979; Sirri and Tufano, 1998; Duffie, Garleanu, and Pedersen, 2006; Baye, Morgan, and 
+Scholten, 2006).  The DGP model does not predict dispersion in fees across lenders because it 
+assumes no heterogeneity in lenders' costs of providing share loans (DGP assume lenders’ costs 
+are zero).  However, in practice it is likely that some heterogeneity in lenders' costs does exist, so 
+if search frictions drive specialness, we would expect an increased average level of specialness to 
+be associated with increased dispersion in specialness across lenders.  Using data from multiple 
+lenders, we compute dispersion in specialness across lenders for a given stock at a given point in 
+time.2  We then examine the relation of this dispersion to the average specialness in a given day, 
+as well as investigating other proxies for search costs. 
+ 
+B. The Share Loan Supply Curve 
+While search frictions are constant in the DGP model, they are not likely to be so in 
+practice.  As DGP point out, these frictions are likely to be close to zero when demand for loans 
+is low.  In this case, brokers have more lenders than borrowers among their clients, so matching 
+is nearly costless.  In addition, brokers have the ability to contact different lenders for 
+information about availability and pricing, and most of the time the lenders with whom they have 
+an existing relationship have an ample supply of most stocks.  However, anecdotal evidence 
+indicates that certain stocks may not be available from all lenders, and in these cases we would 
+                                                          
+2 One natural way to understand the DGP model in the context of heterogeneous search costs is thinking terms of 
+local monopolies.  Search frictions give each lender a local monopoly because borrowers have greater difficulty 
+finding the lenders’ competitors.  When share loan demand is high, search frictions increase the monopoly power of 
+lenders.  Furthermore, if there is heterogeneity among lenders, each will have a different monopoly price, so as 
+search frictions increase, we expect more price dispersion. 
+
+--- PAGE 7 ---
+ 
+6 
+ 
+expect brokers to search for shares.  The existence of third-party lenders, or ―finders‖ as in 
+Fabozzi (1997), is evidence for this.  In Figure 1 we show the structure of these relationships. 
+The supply of easily obtainable loans is thus more likely to be exhausted if there is a 
+large shock to the demand for share loans; in such a case, searching for shares will become more 
+difficult and costly.  Accordingly, just as search frictions lead to increases in specialness, we 
+expect the share loan supply curve to have a positive slope when demand is high. 
+On the other hand, if a loan program for a particular stock involves certain fixed costs, 
+then the marginal cost of share loans is likely decreasing at very low levels of quantity, inducing 
+a downward slope in the left-hand portion of the share loan supply schedule.  The presence of 
+fixed costs also likely lowers the number of willing lenders when demand is low, potentially 
+giving these lenders some monopoly power.  As share loan demand increases from very low to 
+moderate levels, we expect the number of lenders to increase, thereby reducing monopoly power 
+and yielding a downward slope in the left-hand portion of the share loan supply schedule.  We 
+thus expect the share loan supply schedule to be non-monotonic, with a downward slope at low 
+quantity levels, a relatively flat slope for moderate quantities, and an upward slope at high 
+quantity levels. 
+ 
+II. Data 
+A. Loan Quantity and Lending Fees 
+
+--- PAGE 8 ---
+ 
+7 
+ 
+The data provider for our study is both a market maker in the equity loan market and a 
+data aggregator for major equity lenders.  In its role as a market maker, the firm intermediates 
+loans by borrowing from one party and lending to another.  As such, our data provider also 
+contributes its own transactions to the database.  More importantly for the purposes of this paper, 
+in its role as a data aggregator our data provider collects information about equity loan market 
+conditions from several equity lenders.  In particular, the firm provides current and historical 
+stock loan market rates based on live data feeds from equity lenders.  These lenders contribute 
+current and historical data about their own loan portfolios in exchange for access to this market-
+wide information. 
+Our database consists of historical loan portfolios from twelve lenders.  As shown in 
+Table I, the lenders providing data are direct lenders, agent lenders, retail brokers, broker dealers, 
+and hedge funds.  The principal owners of the shares that are lent (both directly and through 
+agents) are retail brokerages, pension plans, insurance companies, and mutual funds.  These 
+market participants represent 36% of the securities lenders by number.3  In most of the analyses 
+that follow, including the estimation of the supply schedule, we use the sum of outstanding share 
+loans by all lenders, normalized by total shares outstanding, to form our measure of market loan 
+quantity. 
+We use two separate databases: one database comprises 5,042,056 observations of 
+individual loan transactions from September 26, 2003, to May 9, 2007, while the other comprises 
+1,511,874 observations of loan transactions aggregated to the stock-day level over the period 
+                                                          
+3 State Street’s publicly available white paper, ―Lending, Liquidity, and Capital Market-Based Finance,‖ indicates 
+that there were 33 dealers in the equity lending market as of 2001. 
+
+--- PAGE 9 ---
+ 
+8 
+ 
+September 26, 2003, to December 31, 2007.  The database of individual loan transactions 
+includes the number of shares, the daily loan rate, and several identification variables.  The loans 
+involve 6,972 unique U.S. equities.  The median loan length is 23 days, and the median loan 
+value is $317,135.  
+The loan rate is the interest paid on the borrower’s collateral, also known as the rebate 
+rate.  The relative scarcity of a particular stock is measured in terms of its specialness, or the 
+difference between its loan rate and the market’s prevailing, or benchmark, loan rate.  Our data 
+provider computes specialness at the aggregate level, and we use this in reporting the aggregate 
+results (Tables VII and VIII). 
+To calculate the dispersion in loan fees, we need a loan-specific measure of specialness.  
+However, each lender may have a different benchmark rate.  Based on D’Avolio (2002) and 
+Geczy, Musto, and Reed (2002), we take the benchmark rate to be the federal funds rate minus a 
+10–20 basis point spread for each lender.  We use the mode of the distribution of loan fees above 
+the federal funds rate to identify each lender’s spread (the difference between the loan rate and 
+the benchmark), by loan size category.4  The median spread is 16 basis points, and the spread has 
+a relatively large range: the 25th percentile is 1 basis point and the 75th percentile is 50 basis 
+points.  Among loans above $100,000, the interquartile range is 0–25 basis points. 
+ 
+B. Lender Relationships 
+                                                          
+4 As in D’Avolio (2002) and Geczy, Musto, and Reed (2002), loan-size break points are categorized as small (loans 
+below $100,000), medium (loans between $100,000 and $1,000,000), and large (loans above $1,000,000). 
+
+--- PAGE 10 ---
+ 
+9 
+ 
+We also examine the extent to which lenders have relationships with multiple borrowers.  
+For each stock on each day, we count the number of transactions made by a given lender.  
+Because borrowers consolidate orders to take advantage of volume discounts and thereby 
+minimize transaction costs, each transaction in a given stock on a given day is likely to represent 
+a unique borrower.  The number of transactions for each lender, therefore, serves as a proxy for 
+the number of unique borrowers, or ―relationships,‖ that a lender has on a given day. 
+In Table II we report descriptive statistics on the time series of each lender’s 
+relationships.  Interestingly, we find significant variation across lenders in the mean number of 
+relationships, with the average number of relationships per day ranging between 1.01 and 9.92.  
+Furthermore, there is a dynamic aspect to the number of relationships: the mean and median are 
+well below the maximum for most firms.  To take one example, for lender #7 the maximum 
+number of relationships is 232, but the mean number of relationships is only 5.06, and the 
+median is 2.  Although our notion of searching across lenders is only a qualitative one, the 
+disparity we find between the maximums versus the means and medians is consistent with the 
+view that borrowers search for shares across large numbers of lenders when the shares they seek 
+are scarce.  Furthermore, the cross-sectional variation in the number of relationships is consistent 
+with the existence of heterogeneity in search costs. 
+ 
+C. Data Compilation 
+Because we analyze the share loan supply schedule on a stock-by-stock basis, we 
+aggregate daily data on loan fees and quantities to the stock level.  To this dataset we add daily 
+
+--- PAGE 11 ---
+ 
+10 
+ 
+stock prices and shares outstanding for each firm, using CRSP data for the period 2003–2007.  
+We use Compustat data to calculate daily values for the book-to-market and price-to-earnings 
+ratios. 
+We winsorize the resulting database at the 1st and 99th percentiles and filter our database 
+to include only those firms with at least 250 observations.  After this filter is applied, 586,435 
+observations remain in the database.  In Table III we report summary statistics for the final 
+sample.  The average specialness is highly right-skewed, with a mean value of 0.37, a standard 
+deviation of 1.36, and a skewness of 5.86.  In addition, the average loan quantity as a percentage 
+of shares outstanding is also highly right-skewed. 
+ 
+D. Search Frictions, Lender Relationships, and the Number of Small and Large Lenders 
+To measure the difficulty of finding lenders for a particular stock, we count the number 
+of lenders that make at least one loan in each stock over the course of the calendar year.  We then 
+split the lenders into two groups: large and small.  Large lenders are those whose average loan 
+size, for all stocks, is larger than the average for the full sample, while, conversely, small 
+lenders’ average loan size is smaller than the average.  When the number of small lenders is high 
+for a given stock over the course of a year and the number of large lenders low, the stock likely 
+has higher search frictions, because borrowers are frequently forced to move beyond the large 
+lender base to seek out small lenders, which are presumably more costly to find. 
+ 
+
+--- PAGE 12 ---
+ 
+11 
+ 
+E. Instruments  
+To identify the share loan supply schedule, we must use variables that affect the demand 
+for loans but not the supply.  Potential instruments can be found in the extensive literature 
+examining the relation of short selling to various signals that forecast returns.  Cao, Dhaliwal, 
+Reed, and Kolasinski (2007) show that short interest is higher after negative earnings surprises 
+and lower after positive ones; Christophe, Ferri, and Angel (2004) find that short selling depends 
+on earnings surprises in general.  A number of studies also show that short interest is positively 
+related to discretionary accruals (Cao, Dhaliwal, Reed, and Kolasinski, 2007; Zhang and Cready, 
+2004; Hirshleifer, Teoh, and Yu, 2006).  Accordingly, we consider earnings surprises and 
+discretionary accruals to be two potential instruments for share lending demand. 
+Dechow, Hutton, Meulbroek, and Sloan (2001) find that various price to fundamental 
+ratios, such as market-to-book and price-to-earnings (P/E), are related to short interest.  
+Moreover Boehme, Danielson, and Sorescu (2006) find that dispersion in analyst forecasts is 
+positively related to short interest, as suggested by Diether, Malloy, and Scherbina (2002).  
+Finally, since negative momentum tends to forecast negative abnormal returns (Jegadeesh and 
+Titman, 1993), momentum is another possible instrument.  Hence, we consider the following 
+variables as possible instruments for short interest: earnings surprises, discretionary accruals, 
+market-to-book ratio, P/E ratio, analyst dispersion, and momentum. 
+We define earnings surprises, market-to-book ratio, and momentum as in Cao, Dhaliwal, 
+Reed, and Kolasinski (2007), and we define discretionary accruals as in Sloan (1996).  We 
+calculate P/E as the stock price over twelve-month trailing fully diluted earnings per share less 
+
+--- PAGE 13 ---
+ 
+12 
+ 
+extraordinary items as of the end of the quarter.  (We only include the P/E ratio when earnings 
+per share are positive, since a negative P/E ratio is difficult to interpret.)  Analyst dispersion is 
+defined as in Diether, Malloy, and Scherbina (2002), and momentum is defined as returns over 
+the prior six-month period.  We winsorize each variable at the 1st and 99th percentile to prevent 
+outliers from influencing our results. 
+As noted above, to be a valid instrument for our study a variable must be related to share 
+loan demand but unrelated to share loan supply.  It is unclear a priori whether any of the 
+proposed instruments meets the latter restriction.  To assess the variables in that regard, we 
+determine whether each one affects institutional holdings.  Because institutions comprise the 
+majority of share lenders (Fabozzi, 1997), we assume that a variable that does not affect 
+institutional holdings is unlikely to affect share loan supply.  We find that neither earnings 
+surprises, nor discretionary accruals, nor analyst forecast dispersion affects institutional holdings, 
+and therefore we consider them valid instruments for the purposes of this study. 
+ 
+III. Results 
+We use two distinct empirical techniques to investigate the role of search costs in the 
+equity lending market.  First, we empirically verify that the generic predictions of sequential 
+search cost models hold for the equity loan market—that is, that search costs are positively 
+correlated with price dispersion and the level of prices.  We then estimate the share loan supply 
+curve and show that search costs are closely connected to its parameters.  
+
+--- PAGE 14 ---
+ 
+13 
+ 
+ 
+A. Search frictions in the share loan market 
+Duffie, Garleanu, and Pedersen (2002) describe the prevalence of search frictions in the 
+opaque equity lending market.  To empirically examine the role that search frictions play, we 
+exploit the unique advantage of our database: its inclusion of multiple lenders.  We conduct two 
+sets of tests.  First, in section A.1 below we confirm that loan fee dispersion is associated with 
+various proxies for search frictions.  This test validates the notion, suggested by the industrial 
+organization search cost literature, that price dispersion is associated with search frictions.  We 
+then demonstrate in section A.2 that the loan fee level, or specialness, is a function of dispersion 
+in loan fees in the time series, thereby supporting DGP's assertion that search frictions contribute 
+to the costs of short selling. 
+ 
+A.1. Dispersion and Search Costs 
+One of the most relevant empirical predictions of sequential search cost models is that 
+increases in search costs will be associated with increases in price dispersion.  To test whether 
+this prediction holds for our data, we first identify appropriate proxies for search costs.  Based on 
+DGP’s description of the determinants of search costs in the equity lending market, we select 
+market capitalization, liquidity, and ownership concentration as measures of these costs.  In 
+addition, we include several variables meant to capture DGP’s concept of special activity, 
+including unexpected earnings, divergence of analyst estimates, and discretionary accruals.  All 
+
+--- PAGE 15 ---
+ 
+14 
+ 
+of these are proxies for an unusually high number of loans, which could lead to increases in 
+search costs.  As noted above, we also include variables for the number of small and large 
+lenders active in the lending market for each stock. 
+For each stock-day we calculate each lender’s average specialness.  We define Cross-
+Lender Dispersion as the standard deviation of average lender specialness across lenders for each 
+stock-day.  The results, presented in Table IV, are largely consistent with the prediction that 
+increases in search costs are associated with increases in price dispersion.  We find that market 
+capitalization does play a role.  The statistically negative coefficient on Size in all three model 
+specifications indicates that larger firms have less price dispersion, which is consistent with 
+D’Avolio (2002) and Geczy, Musto, and Reed (2002), who find that larger firms are more widely 
+held and held in larger quantities by equity lenders, and as a result, their stock is easier to 
+borrow.  In other words, loans in large, and presumably widely-held, stocks are associated with 
+lower search costs and lower price dispersion.  Further evidence for this is seen in the 
+statistically positive coefficient on another proxy for search costs, Number of Small Lenders.  A 
+clear picture emerges: as stocks’ scarcity increases, borrowers are forced to search beyond large 
+lenders, and since it can be costly for firms to find smaller lenders, the scarce stocks exhibit 
+increased price dispersion. 
+Finally, we find a strong effect from liquidity, as suggested by DGP.  As a measure of 
+liquidity, we use the bid-ask spread as a percentage of the closing mid-price on that day.  We 
+find that the bid-ask spread has a positive and statistically significant effect, implying that less-
+liquid firms are more likely to be associated with high levels of price dispersion.  However, when 
+
+--- PAGE 16 ---
+ 
+15 
+ 
+we control for average loan fee and average loan fee squared in models 2 and 3, respectively, we 
+find that the positive effect of bid-ask spread on price dispersion does indeed disappear.  In other 
+words, the fee charged by lenders already accounts for the search costs for illiquid stocks.  
+Overall, this evidence confirms that loan fee dispersion is related to search frictions. 
+ 
+A.2. Specialness and Dispersion 
+Building on the search cost literature’s prediction that price dispersion is driven by search 
+frictions, which was validated in the previous section, we now investigate whether loan fee levels 
+are related to search frictions.  A connection between the level of price dispersion and the cost of 
+borrowing supports the hypothesis that search frictions drive short sale constraints.  As a 
+measure of the market-wide loan fee, we use specialness.  This measure captures market 
+variation in the difficulty of borrowing shares, and it can potentially alleviate concerns about 
+stock- and lender-specific characteristics of loan pricing. 
+As in the previous section, we use Cross-Lender Dispersion to measure price dispersion, 
+where Cross-Lender Dispersion is once again calculated as the standard deviation of average 
+loan fees across lenders in a given stock for a given day.  The standard deviations for each stock-
+day observation are then organized by market-wide specialness deciles; we report the average of 
+the standard deviations for each decile in Table V.  We also compute a measure of dispersion 
+within each lender, specifically, the standard deviation of the lender’s loans in each stock for 
+each day.  We then take the average of these within-lender standard deviations by market-wide 
+
+--- PAGE 17 ---
+ 
+16 
+ 
+specialness category.  Another variable, In-Lender Dispersion, captures the extent to which 
+lenders charge different prices to different clients. 
+Interestingly, for Cross-Lender Dispersion the results are not monotonic: there is a 
+pattern of decreasing dispersion for very low specialness categories and then increasing 
+dispersion as specialness goes from moderate to high (Table V, Panel A).  Furthermore, as 
+expected, the level of price dispersion—and therefore search frictions—influences the ability of 
+lenders to charge higher lending fees.  These results are statistically significant, as confirmed by 
+the regression results in Panel B that indicate that a 1% increase in market specialness increases 
+Cross-Lender Dispersion by 0.2066.  The mere fact that lenders have upward-sloping supply 
+schedules when scarcity is high does not, by itself, imply that Cross-Lender Dispersion will be 
+higher in high-scarcity environments.  However, the result is consistent with search models, 
+validating the importance of search costs in this opaque market.  Taken together, the patterns in 
+price dispersion across lenders in section A.1 and this section provide evidence that costly search 
+contributes to specialness. 
+The results for In-Lender Dispersion as a function of specialness also are non-monotonic 
+(Table V, Panel A).  There is a pattern of decreasing dispersion from low to moderate 
+specialness, and a pattern of increasing dispersion from moderate to high specialness.  
+Regression results support this pattern: market-wide specialness squared is a statistically strong 
+predictor of In-Lender Dispersion.  This pattern is consistent with the notion that lenders have 
+monopoly power both when scarcity is high and when it is low, and thus under these conditions 
+lenders are better able to price-discriminate.  When scarcity is low, borrowers are not searching 
+
+--- PAGE 18 ---
+ 
+17 
+ 
+for securities and thus are not comparing prices, so lenders have more pricing power.  On the 
+other hand, when scarcity is high, borrowers face search costs.  As the difficulty of finding 
+shares increases, lenders who do make loans have more pricing power.  Finally, if mild scarcity 
+drives borrowers to search around for shares but these borrowers can easily find alternatives, the 
+pricing power of the lenders is diminished.  Overall, our results constitute strong evidence that 
+specialness is related to search frictions. 
+ 
+B.  Modeling the Share Loan Supply Curve 
+Presumably, short sale constraints arise as short sellers’ demand for share loans 
+increases.5  However, not all increases in share loan demand lead to increases in loan fees 
+(Christoffersen, Geczy, Musto, and Reed, 2007).  So the question remains, how much must 
+demand increase before loan fees increase? 
+As a first pass, we conduct a simple experiment, modeled on that of D’Avolio (2002), in 
+which we plot specialness (or excess loan fee) as a function of quantity loaned (Figure 2).  To 
+account for persistent differences in loan quantity across securities, we calculate relative quantity 
+loaned.  In other words, quantity is measured as the rank of normalized loan quantity, defined as 
+the number of shares lent divided by total shares outstanding.  We find that specialness mildly 
+declines in loan quantity at low levels of the latter, but when loan quantity is above the 70th 
+percentile, specialness increases sharply in loan quantity.  The changing sensitivity of specialness 
+                                                          
+5 D’Avolio (2002) shows a positive correlation between short interest and loan fees. 
+
+--- PAGE 19 ---
+ 
+18 
+ 
+to quantity has practical importance for borrowers: Upward shifts in the quantity demanded do 
+not necessarily increase loan prices and may even decrease them in some cases. 
+This initial approach is inherently limited, however.  The supply schedule cannot be 
+mapped out correctly using prices and quantities unless the supply curve does not shift during the 
+measurement period.  To trace out the supply curve more carefully, we turn to a two-stage 
+regression approach, similar to that of Angrist, Graddy, and Imbens (2000).  Specifically, we use 
+exogenous shifts in the demand for equity loans as a means to identify the supply curve.  As seen 
+in section A, there is good reason to believe that the share loan supply curve may not be linear.  
+To allow for this possibility, we employ a nonlinear technique that builds on the linear approach 
+of Angrist, Graddy, and Imbens. 
+We test the validity of our instruments for share loan demand in section B.1 below.  In 
+section B.2 we describe our technique for estimating the share loan supply curve and present our 
+results.  Finally, in section B.3, we examine the relation of the parameters of individual stocks’ 
+share loan supply curves to firm-level characteristics. 
+ 
+B.1. Instruments for Share Loan Demand 
+In section II we identified several variables from the extant literature that are likely to be 
+related to the demand for share loans.  We noted that to be a valid instrument for our study these 
+variables must be unrelated to share loan supply.  Since variables that do not affect institutional 
+holdings are very unlikely to affect share loan supply, we look specifically for variables that 
+
+--- PAGE 20 ---
+ 
+19 
+ 
+affect short sellers’ trading and their demand for share loans, without affecting institutional 
+investors’ trading and their supply of share loans. 
+For each of the stocks in our sample, we obtain quarterly data from Thompson Financial 
+on institutional share holdings from 2002 to 2007.  We take the sum of the shares held by 
+institutions and divide this by total shares outstanding to obtain institutional holdings (insthld) as 
+of the first available report date after the quarterly earnings announcement date.  To test whether 
+our instruments affect institutional holdings, we run the following panel data regression: 
+insthld =+sue + accruals +3P/E +4market-to-book   
+ 
+ 
++5analyst + 6momentum +7log(MktCap)+                                               (1) 
+We include firm fixed effects and use panel-corrected standard errors clustered by firm, 
+making them robust to heteroskedasticity and within-firm serial correlation.  As a control, we 
+include the log of a firm’s market capitalization as of the fiscal quarter end, log(MktCap), to 
+account for institutional investors’ preference for large stocks.  Finally, we exclude firm-quarter 
+observations in which earnings per share are negative. 
+We find that earnings surprises (sue), discretionary accruals (accruals), and analyst 
+dispersion (analyst) do not individually have a statistically significant effect on institutional 
+holdings at even the 10% level (Table VI).  In addition, an F-test fails to reject the null 
+hypothesis that their coefficients are jointly equal to zero.  Hence, we conclude that they are 
+related to demand but not supply and therefore are valid instruments.  In contrast, the P/E ratio, 
+market-to-book, and momentum are all individually and jointly significant. 
+
+--- PAGE 21 ---
+ 
+20 
+ 
+To ensure that our results for earnings surprises, discretionary accruals, and analyst 
+dispersion do not change when we add observations with negative earnings per share, we re-run 
+the above model on a broader sample of data, excluding only the P/E ratio as an explanatory 
+variable.  As before, the coefficients on earnings surprises, discretionary accruals, and analyst 
+dispersion are all individually and jointly statistically indistinguishable from zero.  Based on this 
+evidence, we choose earnings surprises, discretionary accruals, and analyst dispersion as 
+instruments. 
+ 
+B.2. Estimating the Share Loan Supply Schedule 
+Using these valid instruments, we estimate the share loan supply curve, which allows us 
+to determine the influence of short sellers’ demand for share loans on the price of loans and the 
+extent to which increases in loan prices are related to search frictions.  We estimate a supply 
+schedule separately for each stock because this allows us to study the relation of the parameters 
+of the schedule to individual firm characteristics.  While this disaggregated approach could be 
+costly in terms of the precision of the supply curve coefficient estimates, the richness of the 
+database permits such an approach.  The quantity and specialness variables used in the study are 
+aggregate statistics reflecting the input of twelve different lenders, and this diversity reduces the 
+need for pooling, since a primary motivation for the formation of portfolios in the context of 
+daily stock prices is to reduce the noisiness of individual stock estimates. 
+To conduct cross-sectional comparisons of supply curves, we must ensure that our supply 
+curve parameters are comparable across stocks.  We therefore standardize each stock’s quantity 
+
+--- PAGE 22 ---
+ 
+21 
+ 
+by first dividing each stock’s quantity of loans by shares outstanding.  This removes the effect of 
+stock price on quantity, which would likely be sufficient for an estimation using market-wide 
+quantity.  However, since our lenders hold only a segment of the lendable supply of each stock, 
+and since that segment may vary by stock, we need to further normalize each stock’s quantity.  
+Thus, we standardize each stock’s quantity variable by subtracting the mean and dividing by the 
+standard deviation of each stock’s loan quantity as a percentage of shares outstanding.  We label 
+this standardized value of share loan quantity Q.  Standardizing quantity also allows us to make 
+meaningful comparisons of our stock-specific supply curve parameter estimates. 
+Because the quantity of shares lent and the lending fee are equilibrium values that result 
+from the interaction of supply and demand, we must use a simultaneous-equations approach to 
+estimate the share loan supply schedule, that is, the relation between the quantity supplied and 
+the lending fee.  To identify the supply schedule, we need instruments for quantity demanded, 
+specifically, variables that affect demand but not supply.  We have already identified several 
+such instruments, including earnings surprises (sue), discretionary accruals (accruals), and 
+dispersion in analyst forecasts (analyst).  The use of accounting variables as instruments presents 
+a challenge: Q has a daily frequency, whereas the frequency of earnings surprises and 
+discretionary accruals is quarterly.  However, because the abnormal returns that normally follow 
+earnings surprises (Bernard and Thomas, 1990) and high discretionary accruals (Sloan, 1996) 
+persist for at least 120 days, we can assume that these variables continue to affect share loan 
+demand on a daily basis for up to 120 days after an earnings announcement. 
+
+--- PAGE 23 ---
+ 
+22 
+ 
+Having identified a set of instruments, we can represent the share loan demand and 
+supply schedules as the following limited information system, with the supply schedule (3) as the 
+identified equation:  
+Q = γ0 + γ1F + γ2sue + γ3accruals + γ4analyst+ γ5fedfunds + η                                     (2) 
+F = α + β1Q + β2Q2 + β3fedfunds + ε                                                                              (3) 
+where Q is loan quantity and F is the lending fee.  We estimate equation (3) for each stock using 
+the nonlinear least squares procedure suggested by Wooldridge (2002).6  We then aggregate our 
+results to obtain a market-wide interpretation of parameter estimates by calculating the cross-
+sectional means and medians of the coefficient estimates for the combined sample of stocks 
+(Table VII). 
+Consistent with a U-shaped supply curve (Figure 3), both the mean and median 
+coefficient estimates on the quadratic term are positive.  For most of the sample, shifts in demand 
+are associated with only a small change in price.  For example, an increase in standardized loan 
+quantity from the 25th percentile to the 75th percentile is associated with a price change of only 
+0.0320% (an increase from 0.2111% to 0.2431%).  However, at high quantity values, a one-
+standard-deviation increase in demand increases abnormal loan fees from 1.83% to 5.55%.  This 
+finding helps reconcile seemingly conflicting findings in the literature, which has shown shifts in 
+demand to have both small and large effects on price.  Since quantity is standardized, the mean 
+parameter estimates imply that the average firm’s supply curve slopes downward until quantity 
+reaches a point that is 0.2297 standard deviations below the mean [−0.2297 = −0.4942 / 
+                                                          
+6 We stress that we are not running what Wooldridge calls ―the forbidden regression,‖ but rather the more involved, 
+unbiased procedure he describes (2002: 236–237). 
+
+--- PAGE 24 ---
+ 
+23 
+ 
+(2*1.0755)].  Assuming a federal funds rate of 2% and substituting the mean parameter estimates 
+into equation (3), we see that the expected specialness at this minimum point equals 0.20%.7 
+Simple t-tests of the means of the coefficient estimates generally fail to reject the null 
+hypothesis that they equal zero.  The mean of the quadratic term coefficient is significant, but 
+only at the 10% level.  This lack of strong statistical significance may at first glance cast doubt 
+upon our central hypotheses.  However, the lack of statistical significance of coefficient estimate 
+means can have several interpretations.  It may be the case that the coefficient estimates are 
+tightly clustered and centered around zero; this interpretation would in fact cast doubt on our 
+hypotheses.  Alternatively, each stock may have significant coefficient estimates that vary widely 
+from stock to stock, so the cross-sectional distribution identifies no statistical pattern.  Finally, 
+the distribution of coefficient estimates may in fact be centered significantly above (or below) 
+zero, but skewness, kurtosis, or other deviation from the normal distribution causes the t-test to 
+have lower power. 
+To allow stocks to have widely different parameter estimates and still determine whether 
+slopes are, on average, statistically important, we estimate the p-values of the parameters for 
+each stock and examine the cross-sectional distribution of these p-values.  Specifically, we 
+conduct a Fisher test of combined probability, also known as the chi-square test, to determine 
+whether the cross-sectional distribution of the p-values differs significantly from a uniform zero-
+one distribution.  Under the null hypothesis that specialness is generally invariant to quantity 
+demanded and a low p-value estimate for any stock is due simply to chance, we expect p-values 
+                                                          
+7 Due to the highly right-skewed distribution of standardized loan quantity, the mean is well above the median.  The 
+mean of standardized loan quantity is zero, which falls in the 77th percentile of the distribution (Figure 3).    
+
+--- PAGE 25 ---
+ 
+24 
+ 
+to be uniformly distributed between zero and one.  We reject the null at the 1% level of 
+significance for all parameter estimates.  In other words, although the parameters of the supply 
+curve vary widely from stock to stock, they tend to be statistically different from zero in the 
+cross-section.  This provides evidence that quantity demanded does have statistically important 
+linear and nonlinear effects on specialness. 
+To determine whether the distribution of the quadratic term coefficient estimates is 
+centered above zero, we conduct a nonparametric Wilcoxon signed-rank test, which unlike the t-
+test makes no assumptions about normality.  We reject the null hypothesis that the coefficient 
+estimates are centered around zero at the 1% significance level.  Together with our finding that 
+the mean and median of the quadratic term coefficient estimates are positive, this constitutes 
+strong evidence that quadratic terms tend to be positive in the cross-section, which in turn 
+implies that the share loan supply curve tends to be U-shaped, as hypothesized. 
+In addition to the quadratic specification discussed above, we examine several other 
+possible specifications for the loan supply schedule, including piecewise linear models with one 
+structural break and with two structural breaks.  The results for the models are not qualitatively 
+different, and they support the existence of the U-shaped supply curve discussed above. 
+ 
+B.3. Cross-Sectional Patterns in Supply Curves 
+Given the supply curve parameter estimates, we further test the importance of search 
+costs in the equity lending market by examining the relation between the supply curve 
+
+--- PAGE 26 ---
+ 
+25 
+ 
+parameters and various firm characteristics.  Specifically, we run the following cross-sectional 
+regressions for each coefficient estimate: 
+estimate = α + β1(log(MktCap)) + β2(bid-ask spread) + β3(Number of Small Lenders)  
+ 
++ β4(Number of  Large Lenders) + β5(analyst) + β6(insthld) +  
+ 
+where the dependent variables are the stock-specific parameter estimates from equation (3), 
+estimated in the previous section  The stock is the unit of observation for these regressions.  The 
+independent variables are defined as follows: log(MktCap) is the log of market capitalization; 
+bid-ask spread is the bid-ask spread measured as a percentage of the closing mid-price; Number 
+of Small Lenders and Number of Large Lenders are the number of small and large lenders in the 
+stock as defined in section II; analyst is the dispersion in analyst estimates as defined in section 
+II; and insthld is the percentage of shares held by institutions.  We run the regressions on the full 
+sample of firms as well as on three subsamples (small, medium, and large firms). 
+The results, shown in Table VIII, further support the importance of search costs in the 
+equity lending market.  The first row of Panel A shows the relation of the constant term of the 
+supply curve estimates to the firm characteristics discussed above.  The coefficient on the log of 
+the market capitalization is negative and statistically significant, indicating that large firms tend 
+to have lower specialness.  Since DGP assert that larger size is associated with lower search 
+costs, our results support the hypothesis that increased search costs lead to higher specialness.  
+The number of small lenders is also positively and significantly associated with a higher constant 
+term. A similar result holds for the subsample of small firms (Panel B).  Because the number of 
+small lenders in a stock is likely to be correlated with search costs (see section II above), this 
+
+--- PAGE 27 ---
+ 
+26 
+ 
+finding also supports the hypothesis that greater search costs lead to higher average specialness.  
+Moreover, the number of large lenders is negatively associated with search costs, although the 
+effect is only statistically significant for the subsample of large firms (Panel D).  Interestingly, 
+increased bid-ask spreads are generally related to a lower constant term, which runs contrary to 
+the search costs hypothesis.  However, the effect appears to be attributable to the sample of small 
+firms (Panel B).8 
+For the full sample, firm characteristics do not generally have a significant effect on 
+either the linear or quadratic quantity parameters of the supply curve.  The two exceptions are the 
+number of small lenders and institutional holdings.  The number of small lenders makes 
+specialness more sensitive to quantity demanded in the linear term.  This result supports the idea 
+that stocks lent more frequently by small lenders have higher search costs, so lenders take 
+advantage of their increased pricing power in these stocks.  Similarly, institutional holdings 
+makes specialness less sensitive to quantity demanded in the quadratic term, which supports the 
+view that lenders have less pricing power in stocks that are widely held by institutions and, 
+presumably, by lenders.  
+ 
+IV. Conclusion 
+In this study we have explored the role of search costs in the equity lending market.  
+Drawing on Duffie, Garleanu, and Pedersen (2002), we relate search costs, average price levels, 
+                                                          
+8 As a robustness check, we verified that our results are not sensitive to controlling for a dummy variable that takes 
+the value 1 if a firm participated in the Regulation SHO pilot program and 0 otherwise (results available upon 
+request).  See http://www.sec.gov/spotlight/shopilot.htm or Diether, Lee, and Werner (2007) for more information. 
+
+--- PAGE 28 ---
+ 
+27 
+ 
+and price dispersion and in so doing confirm that search plays an important role in the equity 
+lending market.  Specifically, we document a positive relation between price dispersion in 
+lending fees, the average level of fees, and proxies for search costs.  We also show that the share 
+loan supply schedule is non-monotonic: it slopes downward when quantity is low and upward 
+when quantity, and search costs, are high.  Most of the time, however, it is relatively flat, 
+reflecting the very low sensitivity of specialness to quantity.  We further reinforce the 
+importance of search costs by demonstrating that the parameters of individual stocks’ share loan 
+supply schedules are related to firm characteristics that proxy for search costs. 
+Knowledge about patterns in lending fees has important and practical implications for 
+investors.  Based on our findings, short sellers will be able to more accurately predict fees for 
+trades they are considering and better evaluate the competitiveness of fees they have paid in the 
+past.  Furthermore, principal owners will be able to predict the revenue to be generated from 
+various equity lenders when considering an equity lending strategy.  Similarly, these owners will 
+be able to better evaluate the performance of existing lending programs. 
+Regulators have recently been interested in removing barriers to short selling in an 
+attempt to increase market quality.9  Our research suggests that search costs in the equity lending 
+market represent significant barriers to short sellers and that, at least theoretically, a reduction in 
+the barriers would be straightforward.  Search costs could be reduced, or possibly eliminated, by 
+the creation of a central reporting mechanism for share availability and loan pricing, such as the 
+                                                          
+9 The Security and Exchange Commission’s Regulation SHO prohibited the use of price tests for short selling after 
+December 2006 (SEC, 2007). 
+
+--- PAGE 29 ---
+ 
+28 
+ 
+NYSE lending post that was eliminated in the 1930s.10  To date, the equity loan market remains 
+relatively opaque despite the increasing accessibility of electronic networks. 
+Finally, in this paper we demonstrate that, as a whole, lenders do indeed benefit from an 
+opaque equity lending market.  Difficulty in finding shares gives lenders the ability to set 
+different prices, and to set higher prices.  This is, in effect, one reason that the large and 
+important equity loan market is opaque: lenders benefit—sometimes significantly—from search 
+costs. 
+                                                          
+10 According to the search cost literature, the welfare effects of a central clearing house are highly dependent on 
+institutional details (see, e.g., Rosenthal, 1980; Varian, 1980; and Baye and Morgan, 2001). 
+
+--- PAGE 30 ---
+ 
+29 
+ 
+REFERENCES 
+Angrist, J., K. Graddy and G. Imbens, 2000. "The Interpretation of Instrumental Variables 
+Estimators in Simultaneous Equations Models with an Application to the Demand for 
+Fish," The Review of Economic Studies, 67(3), 499-527. 
+Asquith, P., P. Pathak and J. Ritter, 2005, "Short Interest, Institutional Ownership, and Stock 
+Returns," Journal of Financial Economics, 78, 243-276. 
+Baye, M., John Morgan and Patrick Scholten. 2006.  ―Information, Search, and Price 
+Dispersion.‖  Forthcoming in Handbook on Economics and Information Systems 
+(Elsevier, T. Hendershott, ed.) 
+Bernard, V., and J. Thomas, 1990. ―Evidence That Stock Prices Do Not Fully Reflect the 
+Implications of Current Earnings for Future Earnings,‖ The Journal of Accounting and 
+Economics, 13, 305-340. 
+Boehme, R., B. Danielsen, and S. Sorescu, 2006, ―Short Sale Constraints, Short-sale constraints, 
+dispersion of opinion and overvaluation,‖ Journal of Financial and Quantitative Analysis, 
+41(2), 455-487.  
+Boehmer, E., C. Jones and X. Zhang, 2008, ―Shackling the Short Sellers: The 2008 Shorting 
+Ban‖, Texas A&M Working Paper. 
+Cao, B., D. Dhaliwal, A. Kolasinski and A. Reed, 2007.  ―Bears and Numbers: Investigating 
+How Short Sellers Exploit and Affect Earnings-Based Pricing Anomalies.‖ University of 
+Washington Working Paper. 
+Christoffersen, S., C. Geczy, D. Musto and A. Reed, 2007, ―Vote Trading and Information 
+Aggregation,‖ Journal of Finance, 62(6), 2897 - 2929. 
+Christophe, S., M. Ferri, and J. Angel, 2004, ―Short-Selling Prior to Earnings Announcements,‖ 
+Journal of Finance, 59, 1845-1875. 
+Cohen, L., K. Diether, and C. Malloy, 2007, ―Supply and Demand Shifts in the Shorting 
+Market," Journal of Finance, 62(5), 2061-2096. 
+D’Avolio, Gene, 2002, ―The market for borrowing stock,‖ Journal of Financial Economics, 66, 
+271-306. 
+Dechow, P., A. Hutton, L. Meulbroek, R. Sloan, 2001, ―Short Interest, Fundamental Analysis 
+and Market Efficiency,‖ Journal of Financial Economics, 61, 77-106. 
+
+--- PAGE 31 ---
+ 
+30 
+ 
+Diamond, D., and R. Verrecchia, 1987, ―Constraints on short-selling and asset price adjustment 
+to private information,‖ Journal of Financial Economics, 18, 277–311. 
+Diether, K., K. Lee, and I. Werner, 2007, ―It’s SHO Time! Short-sale Price Tests and Market 
+Quality,‖ 2007, Journal of Finance, forthcoming.  
+Diether, K., C. Malloy, and A. Scherbina, 2002, "Differences of Opinion and the Cross-Section 
+of Stock Returns,‖ Journal of Finance, 57, 2113-2141. 
+Duffie, D., N. Garleanu, and L. Pedersen, 2002, "Securities Lending, Shorting, and Pricing," 
+Journal of Financial Economics, 66, 307-339. 
+Duffie, D., N. Garleanu, and L. Pedersen, 2006, " Valuation in Over-the-Counter Markets,‖ 
+Stanford University Working Paper. 
+Fama, Eugene D., and James D. MacBeth, 1973, ―Risk, Return, and Equilibrium: Empirical 
+Tests‖, The Journal of Political Economy, 81, 607-636. 
+Fabozzi, F., 1997, Securities Lending and Repurchase Agreements, Frank J. Fabozzi Associates, 
+New Hope Pennsylvania. 
+Geczy, C., D. Musto, and A. Reed, 2002, ―Stocks are Special Too: An Analysis of the Equity 
+Lending Market,‖ Journal of Financial Economics, 66, 241-269.  
+Hirshleifer, D., S. Teoh, and J. Yu, 2007, ―Do short-sellers arbitrage accrual-based return 
+anomalies? Working Paper. 
+Hong, H., and J. Stein, 1999, ―A Unified Theory of Underreaction, Momentum Trading and 
+Overreaction in Asset Markets,‖ Journal of Finance, 54, 2143-2184. 
+Titman, S. and N. Jegadeesh, 1993, ―Returns to Buying Winners and Selling Losers: 
+Implications for Stock Market Efficiency,‖ Journal of Finance, 48(1), 65-91.  
+Miller, E., 1977, ―Risk, Uncertainty, and Divergence of Opinion,‖ Journal of Finance, 32, 1151–
+1168. 
+Ofek, E. and M. Richardson, 2003, ―DotCom Mania: The Rise and Fall of Internet Stock Prices,‖ 
+Journal of Finance, 58, 1113-1138.  
+Reinganum, J.F., 1979. ―A Simple Model of Equilibrium Price Dispersion.‖ Journal of Political 
+Economy, 87, 851-858. 
+Reed, Adam V. 2007, Costly Short-Selling and Stock Price Reactions to Earnings 
+Announcements, Working Paper, University of North Carolina. 
+
+--- PAGE 32 ---
+ 
+31 
+ 
+Securities and Exchange Commission, 2007, ―Regulation SHO and Rule 10a-1‖, Release No. 34-
+55970, File No. S7-21-06. 
+Sloan, R. G., 1996. ―Do Stock Prices Fully Reflect Information in Accruals and Cash Flows 
+about Future Earnings?‖ Accounting Review, 71, 289-315. 
+Sirri, Erik R., and Peter Tufano, 1998, ―Costly search and mutual fund flows,‖ Journal of 
+Finance 53, 1589-1622. 
+State Street Corporation, 2001, ―Securities Lending, Liquidity, and Capital Market-Based 
+Finance,‖ white paper. 
+Wooldridge, J. Econometric Analysis of Cross Section and Panel Data. MIT Press, 2002, pp. 
+236-237. 
+Zhang, Y. and W. Cready., 2004, ―Do Speculative Short Sellers Detect Earnings Management?‖ 
+Papers and Proceedings of the American Accounting Association Meetings.
+
+--- PAGE 33 ---
+32 
+Figure 1 
+Structure of Equity Lending Market 
+Figure 1 indicates how hedge funds HF1 through HFN1 can be clients of multiple prime brokers PB1 through PBN2.  These 
+prime brokers have relationships with multiple securities lenders L1 through LN3.  The relationships with lenders can be thought 
+of as regular (bold line), occasional (solid line), or infrequent (dashed line). 
+ 
+ 
+
+--- PAGE 34 ---
+33 
+Figure 2 
+Specialness as a Function of Trade Quantity in 2006 
+Trade quantity is divided by Outstanding Shares in order to account for persistent differences in loan quantities across securities.  
+For each firm, these relative quantities are then assigned to a decile based on their position relative to other trade quantities for 
+that firm and year.  The figure plots the average specialness across all firms for each decile.  Specialness, in percent, is calculated 
+by first identifying the prevailing rate and then subtracting this benchmark from each loan’s rate. 
+  
+ 
+0.80
+0.85
+0.90
+0.95
+1.00
+1.05
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Specialness
+Trade Quantity / Outstanding Shares
+(grouped into deciles)
+
+--- PAGE 35 ---
+34 
+Figure 3 
+The Share Loan Supply Curve for the Average Stock 
+Loan quantity is divided by the number of shares outstanding, and then demeaned and normalized by standard deviation in order 
+to account for persistent differences in loan quantities across securities.  Specialness, in percent, is calculated by first identifying 
+the prevailing rate and then subtracting this benchmark from each loan’s rate.  The supply curve is then estimated for each stock 
+using a non-linear two-stage least squares approach.  Details of the supply curve estimation technique are presented in Section 
+III.B of the text.  The figure is constructed from the cross-sectional means of these estimates (shown in Table VII).  The dashed 
+lines represent the 25th and 75th percentiles of standardized quantity, and the figure is plotted between the 10th and the 90th 
+percentile. 
+ 
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+-0.5
+-0.3
+-0.1
+0.2
+0.4
+Specialness
+Standardized Loan Quantity
+25%
+75%
+
+--- PAGE 36 ---
+35 
+Table I 
+Equity Lending Database Statistics 
+Table I presents summary statistics for the equity lending database.  The database covers September 26th, 2003 through May 9th, 2007 (for 
+certain lenders the coverage is a subset of this time period).  Number of Loans is the average number of loans made in each stock on a daily 
+basis.  Rebate Rate is the rebate rate on cash collateral for securities on loan.  The database is discussed in detail in Section II of the text. 
+ 
+ 
+ 
+Number of Loans 
+(stock / day) 
+ 
+Rebate Rate 
+(in percent) 
+Firm ID 
+Lender Type 
+Description 
+Mean 
+Median 
+ 
+Mean 
+Median 
+1 
+Broker Dealer 
+Broker Dealers box to other broker dealer, some lending to hedge funds 
+2.85 
+1.00 
+ 
+1.63 
+1.55 
+2 
+Broker Dealer 
+Retail Brokerage Accounts lent to broker-dealers 
+1.28 
+1.00 
+ 
+2.65 
+1.50 
+3 
+Broker Dealer 
+Broker Dealer box to other broker-dealers, conduit trades 
+2.02 
+1.00 
+ 
+4.13 
+4.25 
+4 
+Direct Lender 
+Hedge fund assets lent directly to broker dealers 
+9.92 
+8.00 
+ 
+0.78 
+1.08 
+5 
+Broker Dealer 
+Broker Dealers box to other broker-dealers, conduit trades 
+1.25 
+1.00 
+ 
+2.47 
+2.00 
+6 
+Broker Dealer 
+Broker Dealers box to other broker dealer, some lending to hedge funds 
+5.74 
+4.00 
+ 
+4.20 
+4.30 
+7 
+Broker Dealer 
+Broker Dealers box to other broker dealer, some lending to hedge funds 
+5.07 
+2.00 
+ 
+2.53 
+1.75 
+8 
+Direct Lender 
+Mutual Fund assets direct to broker-dealers 
+1.87 
+1.00 
+ 
+3.19 
+3.15 
+9 
+Broker Dealer 
+Hedge Fund, Pension Plans assets lent directly to other hedge funds or broker 
+dealers, some conduit trades 
+3.27 
+2.00 
+ 
+4.60 
+5.15 
+10 
+Direct Lender 
+Hedge Fund assets lent directly to broker dealers. 
+1.01 
+1.00 
+ 
+2.58 
+1.00 
+11 
+Agent Lender 
+Endowments, Pension Plan assets lent to broker-dealers 
+1.43 
+1.00 
+ 
+4.33 
+4.75 
+12 
+Agent Lender 
+Institutional assets lent to broker dealers 
+2.42 
+1.00 
+ 
+2.27 
+1.02 
+
+--- PAGE 37 ---
+36 
+Table II 
+Number of Relationships by Lender 
+Table II provides summary statistics detailing the average number of loan transactions 
+that were completed for each stock on a given day by a given lender.  Specifically, for 
+each lender the number of relationships is calculated by first counting the number of 
+transactions that the lender participates in for each stock in the database on a 
+particular day (e.g., lending firm 1 lends shares of firm A on four separate occasions 
+on July 1st).  Then, this number is averaged across all stocks and then across all dates 
+to give the number of relationships for that lender. 
+ 
+ 
+Number of Relationships 
+Lending  
+Firm ID 
+Percent of 
+Observations 
+Mean 
+Median 
+Maximum 
+1 
+16.10% 
+2.84 
+1 
+225 
+2 
+7.86% 
+1.27 
+1 
+26 
+3 
+6.85% 
+2.02 
+1 
+31 
+4 
+0.07% 
+9.92 
+8 
+204 
+5 
+3.52% 
+1.25 
+1 
+39 
+6 
+31.39% 
+5.74 
+4 
+136 
+7 
+6.63% 
+5.06 
+2 
+232 
+8 
+17.92% 
+1.87 
+1 
+102 
+9 
+0.83% 
+3.27 
+2 
+40 
+10 
+0.30% 
+1.01 
+1 
+2 
+11 
+4.95% 
+1.43 
+1 
+101 
+12 
+3.58% 
+2.41 
+1 
+75 
+ 
+
+--- PAGE 38 ---
+37 
+Table III 
+Summary Statistics of Instruments and Short Sale Variables 
+Table III contains summary statistics for the short sale transaction variables and the 
+instrument variables used in the two-stage regression analyses for the period 
+September 26th, 2003 through May 9th, 2007.  The short sale transaction variables are 
+filtered to include only those firms with at least 250 observations in the database.  
+Market Capitalization, in billions, is computed using data from CRSP.  The Federal 
+Funds Rate is the effective rate available in the H.15 statistical release from the 
+Federal Reserve.  The construction of the instruments is discussed in detail in Section 
+II of the text. 
+Variable 
+N 
+Mean 
+Median 
+Standard 
+Deviation 
+Skewness 
+ 
+ 
+ 
+ 
+ 
+ 
+Market Capitalization ($ Billions) 
+578,018 
+12.5 B 
+3.5 B 
+30.8 B 
+6.5445 
+ 
+ 
+ 
+ 
+ 
+ 
+Federal Funds Rate (in percent) 
+1,322 
+3.2189 
+3.2700 
+1.6580 
+-0.0889 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Instruments 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Discretionary Accruals 
+8,925 
+0.0608 
+0.0041 
+0.8491 
+20.0765 
+ 
+ 
+ 
+ 
+ 
+ 
+Dispersion of Analyst Estimates 
+8,838 
+0.1002 
+0.0271 
+0.6326 
+35.4391 
+ 
+ 
+ 
+ 
+ 
+ 
+Earnings Surprise  
+8,925 
+-0.0106 
+-0.0186 
+1.0372 
+-0.0429 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Short Sale Transactions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aggregate Specialness (in percent) 
+586,435 
+0.3736 
+0.0420 
+1.3665 
+5.8600 
+ 
+ 
+ 
+ 
+ 
+ 
+Loan Quantity / Outstanding Shares 
+578,022 
+0.0494% 
+0.0112% 
+0.1611% 
+7.5424 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+--- PAGE 39 ---
+38 
+Table IV 
+Determinants of Price Dispersion 
+Table IV examines the relation between the standard deviation of the loan fee 
+(specialness) and various firm characteristics.  Log(MktCap) is the log of market 
+capitalization from CRSP.  The Number of Small (Large) Lenders variable represents 
+the mean number of small (large) lenders who dealt in a particular stock over the 
+entire sample period.  Earnings Surprise, Dispersion of Analyst Estimates, and 
+Discretionary Accruals are discussed in Section II.D of the text.  Bid – Ask Spread is 
+measured as a percentage of the closing mid-price on each day.  All data is weekly; to 
+obtain data at a weekly frequency, the variables are calculated as the time-series mean 
+of daily observations.  T-statistics are below the reported parameter estimates in italics 
+and were calculated using standard errors clustered at the firm level with weekly fixed 
+effects.  *** indicates significance at the 1% level, ** indicates significance at the 5% 
+level, and * indicates significant at the 10% level. 
+ 
+Model 
+Explanatory Variable 
+(1) 
+(2) 
+(3) 
+ 
+ 
+ 
+ 
+Intercept 
+1.2187*** 
+0.5627*** 
+0.4406*** 
+ 
+(9.13) 
+(7.96) 
+ 
+(6.03) 
+Log(MktCap) 
+-0.0745*** 
+-0.0318*** 
+-0.0231*** 
+ 
+ (-9.57) 
+( -7.47) 
+ 
+(-5.47) 
+Number of Small Lenders 
+0.2499*** 
+0.1116*** 
+0.0854*** 
+ 
+(8.34) 
+(7.37) 
+ 
+(6.59) 
+Number of Large Lenders 
+0.0187 
+0.0231*** 
+0.0187** 
+ 
+(1.19) 
+(2.69) 
+ 
+(2.00) 
+Discretionary Accruals 
+0.0073 
+-0.0031 
+-0.0070 
+ 
+(0.86) 
+(-0.47) 
+ 
+(-0.91) 
+Dispersion of Analyst Estimates 
+0.0058 
+0.0006 
+-0.0022 
+ 
+(1.53) 
+(0.17) 
+ 
+(-0.51) 
+Earnings Surprise 
+-0.0034 
+-0.0001 
+-0.0007 
+ 
+(-0.79) 
+(-0.04) 
+ 
+(-0.24) 
+Bid – Ask Spread 
+35.8493*** 
+2.7381 
+-4.2390 
+ 
+(3.56) 
+(0.56) 
+ 
+(-0.87) 
+ 
+Mean Loan Fee 
+ 
+0.1694*** 
+0.2562*** 
+ 
+ 
+(9.18) 
+ 
+(8.51) 
+Mean Loan Fee Squared 
+ 
+ 
+  -0.0055*** 
+ 
+ 
+ 
+ 
+(-3.41) 
+N 
+81,563 
+81,563 
+81,563 
+ 
+ 
+ 
+ 
+
+--- PAGE 40 ---
+39 
+Table V 
+Price Dispersion 
+Variations in lending fees (specialness) are calculated as the standard deviation of 
+each lender’s price for a given security and day.  Cross Lender Dispersion is the 
+average standard deviation of lender’s average prices.  Specifically, for each stock and 
+day we calculate each lender’s average specialness and take the standard deviation of 
+the sample of lenders’ averages.  The standard deviations are then organized by 
+market-wide specialness deciles and averaged.  In Lender Dispersion is the standard 
+deviation of a particular lender’s loans in each stock every day and we take the 
+average of these in lender standard deviations by specialness deciles.  Panel A shows 
+a graph of cross lender and in lender price dispersion as a function of scarcity, while 
+Panel B shows the Fama and MacBeth (1973) style regression results from models of 
+price dispersion on market wide specialness.  Each regression is on a firm by firm 
+basis, and Fama and MacBeth (1973) style T-statistics are below the parameter 
+estimates in italics.  **indicates significance at the 1% level, and *indicates 
+significance at the 5% level. 
+Panel A: Price Dispersion 
+ 
+Panel B: Price Dispersion Regressions 
+ 
+ 
+Dependent Variable 
+Explanatory 
+ 
+Cross Lender Dispersion 
+ 
+In Lender Dispersion 
+Variable 
+ 
+(1) 
+(2) 
+(3) 
+ 
+(1) 
+(2) 
+(3) 
+Intercept 
+ 
+0.4852*** 
+0.0357*** 
+0.8250*** 
+ 
+0.4852*** 
+0.1708*** 
+0.3056*** 
+ 
+ 
+(2.78) 
+(2.69) 
+(9.11) 
+ 
+(2.78) 
+(8.63) 
+(5.68) 
+Market Specialness 
+ 
+0.2066*** 
+ 
+ 
+ 
+0.2066*** 
+ 
+ 
+ 
+ 
+(2.65) 
+ 
+ 
+ 
+(2.65) 
+ 
+ 
+Market Specialness 
+Rank 
+ 
+ 
+0.0054*** 
+-0.1783*** 
+ 
+ 
+0.0209*** 
+-0.0500*** 
+ 
+ 
+ 
+(14.02) 
+(-7.12) 
+ 
+ 
+(8.56) 
+(-3.25) 
+Market Specialness 
+Rank Squared 
+ 
+ 
+ 
+0.0216*** 
+ 
+ 
+ 
+0.0068*** 
+ 
+ 
+ 
+ 
+(10.52) 
+ 
+ 
+ 
+(5.80) 
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Scarcity (in Specialness Deciles)
+Cross Lender and In Lender Price Dispersion
+Cross Lender Dispersion
+In Lender Dispersion
+
+--- PAGE 41 ---
+40 
+ Table VI 
+Effect of Candidate Instrumental Variables on Institutional Ownership 
+Table VI displays the results of a panel data regression of quarterly institutional 
+holdings (as a percentage of shares outstanding) on various candidate instruments for 
+the period 2002-2008.  Variables are defined in Section III.B of the text.  T-statistics 
+are below the reported parameter estimates in italics and were calculated using panel-
+corrected standard errors clustered at the firm level with firm fixed effects.  *** 
+indicates significance at the 1% level, ** indicates significance at the 5% level, and * 
+indicates significant at the 10% level. 
+Explanatory  
+ 
+Model 
+Variable 
+ 
+(1) 
+ 
+(2) 
+ 
+ 
+ 
+ 
+ 
+Discretionary Accruals 
+ 
+-0.1210 
+ 
+-0.2490 
+ 
+ 
+(-0.56) 
+ 
+(-1.32) 
+ 
+ 
+ 
+ 
+ 
+Dispersion of Analyst Estimates 
+ 
+0.0590 
+ 
+-0.0100 
+ 
+ 
+(0.36) 
+ 
+(-0.15) 
+ 
+ 
+ 
+ 
+ 
+Earnings Surprise 
+ 
+-0.0340 
+ 
+-0.0610 
+ 
+ 
+(-0.52) 
+ 
+(-1.11) 
+ 
+ 
+ 
+ 
+ 
+Log(MktCap) 
+ 
+12.5930*** 
+ 
+12.0940*** 
+ 
+ 
+(31.33) 
+ 
+(39.27) 
+ 
+ 
+ 
+ 
+ 
+Market / Book 
+ 
+-0.4780*** 
+ 
+-0.2380*** 
+ 
+ 
+(-6.55) 
+ 
+(-5.41) 
+ 
+ 
+ 
+ 
+ 
+Momentum 
+ 
+-0.0040*** 
+ 
+-0.0040*** 
+ 
+ 
+(-4.00) 
+ 
+(-4.00) 
+ 
+ 
+ 
+ 
+ 
+Price / Earnings 
+ 
+-0.0050** 
+ 
+ 
+ 
+ 
+(-2.50) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+N 
+ 
+39,466 
+ 
+54,020 
+ 
+ 
+ 
+ 
+ 
+R2 
+ 
+0.84 
+ 
+0.84 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 42 ---
+41 
+Table VII 
+Estimation of the Share Loan Supply Curve 
+Table VII shows the results of the second stage regressions of loan fee, F, on quantity, 
+Q according to the model: 
+
+
+
+
+
+
+
+
+
+
+fedfunds
+Q
+Q
+F
+3
+2
+2
+1
+ˆ
+ˆ
+ 
+where Qˆ is the fitted value of Q from the first stage regression.  The regressions are 
+done individually for each of the 930 firms in the sample, and we present the cross-
+sectional mean and median of the resulting estimates.  The T-Test p-values are 
+calculated using Fama and MacBeth (1973) style T-statistics, while the Wilcoxon p-
+values are calculated using a Wilcoxon signed-rank test.  The final column contains 
+the p-values from a Fisher chi-square test of the p-values from the second stage 
+regression.  *** indicates significance at the 1% level, ** indicates significance at the 
+5% level, and * indicates significant at the 10% level. 
+Explanatory Variable 
+ 
+Mean 
+Coefficient 
+Estimates 
+ 
+Median 
+Coefficient 
+Estimates 
+ 
+T-Test 
+P-Value 
+ 
+Wilcoxon 
+P-Value 
+ 
+Fisher 
+Test 
+P-Value 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+α (Intercept) 
+ 
+0.0402 
+ 
+-0.0986 
+ 
+0.85 
+ 
+0.00*** 
+ 
+0.00*** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β1 (Quantity) 
+ 
+0.4942 
+ 
+-0.0668 
+ 
+0.23 
+ 
+0.04** 
+ 
+0.00*** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β2 (Quantity Squared) 
+ 
+1.0755 
+ 
+0.0270 
+ 
+0.06* 
+ 
+0.00*** 
+ 
+0.00*** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β3 (Federal Funds Rate) 
+ 
+0.1085 
+ 
+0.0469 
+ 
+0.01*** 
+ 
+0.00*** 
+ 
+0.00*** 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 43 ---
+42 
+Table VIII 
+Cross-sectional Sensitivity of Share Loan Supply Curve to Firm Characteristics 
+The coefficients estimates from Table VII are regressed on various firm characteristics in order to analyze the sensitivity of the lending market to individual 
+firm traits.  Log(MktCap) is the log of market capitalization from CRSP.  The Number of Small (Large) Lender Relationships variable represents the mean 
+number of small (large) lenders who dealt in a particular stock over the entire sample period.  Analyst Dispersion is discussed in Section II.D of the text.  Bid 
+– Ask Spread is measured as a percentage of the closing mid-price on each day.  Institutional Holdings are from the CDA/Spectrum 13f Institutional Holdings 
+database.  T-statistics are below the reported parameter estimates in italics and were calculated using standard errors clustered at the firm level.  *** indicates 
+significance at the 1% level, ** indicates significance at the 5% level, and * indicates significant at the 10% level. 
+Dependent 
+Variable 
+Intercept 
+Log (MktCap) 
+Number of 
+Small Lenders 
+Number of 
+Large Lenders 
+Analyst 
+Dispersion 
+Bid - Ask 
+Spread 
+Institutional 
+Holdings 
+Panel A: All Firms 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+α (Intercept) 
+9.4774* 
+-0.4308* 
+1.641** 
+-0.4207 
+0.5555 
+-8.6155*** 
+-1.6104 
+ 
+(1.80) 
+(-1.92) 
+(2.23) 
+(-0.89) 
+(0.81) 
+(-2.92) 
+(-1.36) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β1 (Qty) 
+-10.4564 
+0.2743 
+2.5089* 
+0.4403 
+-1.9287 
+5.8208 
+-3.4860 
+ 
+(-1.03) 
+(0.63) 
+(1.76) 
+(0.48) 
+(-1.45) 
+(1.02) 
+(-1.52) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β2 (Qty2) 
+-12.4419 
+0.2725 
+3.0912 
+1.6262 
+-1.4025 
+9.3003 
+-6.9357** 
+ 
+(-0.88) 
+(0.45) 
+(1.56) 
+(1.29) 
+(-0.76) 
+(1.18) 
+(-2.18) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β3 (Fed Funds) 
+-1.2162 
+0.0172 
+0.0242 
+0.1446 
+-0.2369 
+2.4150 
+0.1722 
+ 
+ 
+(-1.23) 
+(0.41) 
+(0.18) 
+(1.64) 
+(-1.84) 
+(4.38) 
+(0.78) 
+Panel B: Small Firms 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+α (Intercept) 
+17.6450 
+-1.0155 
+4.1132* 
+-0.4637 
+0.3646 
+-14.4918** 
+-1.5880 
+ 
+(0.56) 
+(-0.70) 
+(1.92) 
+(-0.42) 
+(0.28) 
+(-2.18) 
+(-0.50) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β1 (Qty) 
+14.9330 
+-0.5915 
+-0.7606 
+-0.1170 
+-2.3419* 
+9.1815 
+-2.7067 
+ 
+(0.43) 
+(-0.37) 
+(-0.32) 
+(-0.10) 
+(-1.65) 
+(1.26) 
+(-0.77) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β2 (Qty2) 
+42.2160 
+-2.1378 
+1.3074 
+2.1076 
+-1.3543 
+10.3115 
+-9.8274** 
+ 
+(0.94) 
+(-1.03) 
+(0.42) 
+(1.34) 
+(-0.73) 
+(1.08) 
+(-2.13) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β3 (Fed Funds) 
+0.6455 
+-0.0842 
+-0.2381 
+0.1844 
+-0.2490 
+4.0812*** 
+0.5835 
+ 
+ 
+(0.11) 
+(-0.31) 
+(-0.60) 
+(0.90) 
+(-1.04) 
+(3.30) 
+(0.98) 
+
+--- PAGE 44 ---
+43 
+Table VIII (continued) 
+Dependent 
+Variable 
+Intercept 
+Log(MktCap) 
+Number of 
+Small Lenders 
+Number of 
+Large Lenders 
+Analyst 
+Dispersion 
+Bid - Ask 
+Spread 
+Institutional 
+Holdings 
+Panel C: Medium Firms 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+α (Intercept) 
+8.4954 
+-0.3590 
+0.4189 
+0.0994 
+0.3519 
+-2.0915 
+-2.1531*** 
+ 
+(1.16) 
+(-1.06) 
+(1.14) 
+(0.44) 
+(0.79) 
+(-1.30) 
+(-3.64) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β1 (Qty) 
+64.6458** 
+-3.3540** 
+2.9736* 
+1.0311 
+-0.7081 
+-5.1535 
+-0.1450 
+ 
+(2.02) 
+(-2.28) 
+(1.85) 
+(1.05) 
+(-0.37) 
+(-0.73) 
+(-0.06) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β2 (Qty2) 
+5.6992 
+-0.1280 
+-0.9200 
+-0.3161 
+-0.3400 
+-1.3465 
+0.7035 
+ 
+(0.31) 
+(-0.15) 
+(-0.99) 
+(-0.56) 
+(-0.31) 
+(-0.33) 
+(0.47) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β3 (Fed Funds) 
+2.6187 
+-0.1490 
+0.1490 
+0.0387 
+-0.0619 
+0.1968 
+0.3243 
+ 
+ 
+(0.95) 
+(-1.18) 
+(1.08) 
+(0.46) 
+(-0.37) 
+(0.33) 
+(1.46) 
+Panel D: Large Firms 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+α (Intercept) 
+-5.4580 
+0.4240 
+0.4134 
+-1.5176** 
+0.3220 
+-0.0617 
+-1.2174 
+ 
+(-0.66) 
+(1.23) 
+(0.49) 
+(-1.97) 
+(0.21) 
+(-0.01) 
+(-0.87) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β1 (Qty) 
+-17.469 
+0.6223 
+4.1878 
+0.0738 
+0.3484 
+-2.7525 
+-7.8744 
+ 
+(-0.54) 
+(0.46) 
+(1.26) 
+(0.02) 
+(0.06) 
+(-0.13) 
+(-1.43) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β2 (Qty2) 
+-27.4668 
+0.2701 
+6.3016 
+5.1679 
+-0.7523 
+-6.5398 
+-9.2254 
+ 
+(-0.55) 
+(0.13) 
+(1.23) 
+(1.10) 
+(-0.08) 
+(-0.20) 
+(-1.09) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+β3 (Fed Funds) 
+1.2987 
+-0.0857** 
+0.0612 
+0.2595*** 
+-0.0390 
+-0.3163 
+-0.1638 
+ 
+ 
+(1.27) 
+(-1.99) 
+(0.59) 
+(2.70) 
+(-0.20) 
+(-0.47) 
+(-0.94) 
+ 

@@ -1,0 +1,1067 @@
+
+--- PAGE 1 ---
+In Search of Attention∗
+Zhi Da†, Joseph Engelberg‡ and Pengjie Gao§
+First Draft: March 1, 2009
+This Draft: December 7, 2010
+Abstract
+We propose a new and direct measure of investor attention using search frequency in Google
+(SVI). In a sample of Russell 3000 stocks from 2004 to 2008, we ﬁnd that SVI (1) is correlated
+with but diﬀerent from existing proxies of investor attention; (2) captures investor attention in
+a more timely fashion and (3) likely measures the attention of retail investors. An increase in
+SVI predicts higher stock prices in the next two weeks and an eventual price reversal within
+the year. It also contributes to the large ﬁrst-day return and long-run underperformance of
+IPO stocks. Our results provide direct support for Barber and Odean’s (2008) price pressure
+hypothesis and highlight the usefulness of search data which can reveal investor interests.
+∗We thank Nick Barberis, Robert Battalio, Andriy Bodnaruk, Zhiwu Chen, Jennifer Conrad, Shane Corwin, Mark
+Greenblatt, Campbell Harvey (the editor), David Hirshleifer, Kewei Hou, Byoung-Hyoun Hwang, Ryan Israelsen,
+Ravi Jagannathan, Robert Jennings, Gabriele Lepori, Dong Lou, Tim Loughran, Mark Seasholes, Ernst Schaum-
+burg, Paul Schultz, Ann Sherman, Sophie Shive, Avanidhar Subrahmanyam, Paul Tetlock, Heather Tookes, Annette
+Vissing-Jorgensen, Mitch Warachka, Yu Yuan, an anonymous associate editor, two anonymous referees and seminar
+participants at AQR Capital Management, HEC Montreal, Purdue University, Singapore Management University,
+UC-Irvine, UNC-Chapel Hill, University of Georgia, University of Hong Kong, University of Oklahoma, University of
+Notre Dame, Fifth Yale Behavioral Science Conference, the 2009 NBER market microstructure meeting, Macquarie
+Global Quant Conference, 2009 CQA academic competition, 2010 AFA, 2010 Crowell Memorial Prize Paper Com-
+petition, and CPER European Summer Symposia for helpful comments and discussions. We thank Frank Russell
+and Company for providing us with the historical Russell 3000 index membership data, Dow Jones & Company for
+providing us with the news data, and Market System Incorporated for providing us with the Dash-5 data. We are
+grateful to Robert Battalio, Hyunyoung Choi, Amy Davison and Paul Tetlock for their assistance with some of the
+data used in this study. We are responsible for remaining errors.
+†Finance Department, Mendoza College of Business, University of Notre Dame. E-mail: zda@nd.edu; Tel: (574)
+631-0354.
+‡Finance Department, Kenan-Flagler Business School, University of North Carolina at Chapel Hill.
+E-mail:
+joseph_engelberg@kenan-ﬂagler.unc.edu; Tel: (919) 962-6889.
+§Finance Department, Mendoza College of Business, University of Notre Dame. E-mail: pgao@nd.edu; Tel: (574)
+631-8048.
+
+--- PAGE 2 ---
+“What information consumes is rather obvious: it consumes the attention of its
+recipients. Hence, a wealth of information creates a poverty of attention and a need to
+allocate that attention eﬃciently among the overabundance of information sources that
+might consume it.”
+– Herbert Simon, Nobel Laureate in Economics
+1
+Introduction
+Traditional asset pricing models assume that information is instantaneously incorporated into prices
+when it arrives. This assumption requires investors allocate suﬃcient attention to the asset. In
+reality, attention is a scare cognitive resource (Kahneman, 1973), and investors have limited atten-
+tion. Recent studies provide a theoretical framework in which limited attention can aﬀect asset
+pricing statics as well as dynamics.1
+When testing theories of attention, empiricists face a substantial challenge: we do not have
+direct measures of investor attention.
+We have indirect proxies for investor attention such as
+extreme returns (Barber and Odean, 2008); trading volume (Barber and Odean, 2008; Gervais,
+Kaniel, and Mingelgrin, 2001; and Hou, Peng, and Xiong, 2008); news and headlines (Barber and
+Odean, 2008; and Yuan, 2008); advertising expense (Chemmanur and Yan, 2009; Grullon, Kanatas,
+and Weston, 2004; and Lou, 2008); and price limits (Seasholes and Wu, 2007). These proxies make
+the critical assumption that if a stock’s return or turnover was extreme or its name was mentioned
+in the news media, then investors should have paid attention to it. However, return or turnover can
+be driven by factors unrelated to investor attention and a news article in the Wall Street Journal
+does not guarantee attention unless investors actually read it. This is especially true in the so-called
+information age where “a wealth of information creates a poverty of attention.”
+In this paper, we propose a novel and direct measure of investor attention using aggregate search
+frequency in Google and then revisit the relation between investor attention and asset prices. We
+use aggregate search frequency in Google as a measure of attention for several reasons.
+First,
+internet users commonly use a search engine to collect information, and Google continues to be the
+favorite. In February of 2009, Google accounted for 72.1 percent of all search queries performed in
+the United States.2 Thus the search volume reported by Google is likely to be representative of the
+1See for example, Merton (1987), Sims (2003), Hirshleifer and Teoh (2003) and Peng and Xiong (2006).
+2Source: Hitwise (http://www.hitwise.com/press-center/hitwiseHS2004/google-searches-feb-09.php)
+1
+
+--- PAGE 3 ---
+internet search behavior of the general population. Second, and more critically, search is a revealed
+attention measure: if you search for a stock in Google, you are undoubtedly paying attention
+to it. Therefore, aggregate search frequency in Google is a direct and unambiguous measure of
+attention. For instance, Google’s Chief Economist Hal Varian recently suggested that search data
+has the potential to describe interest in a variety of economic activities in real time. Choi and
+Varian (2009) support this claim by providing evidence that search data can predict home sales,
+automotive sales and tourism. In a recent study, Ginsberg et al. (2008) found that search data
+for forty-ﬁve terms related to inﬂuenza predicted ﬂu outbreaks one to two weeks before Centers
+for Disease Control and Prevention (CDC) reports. The authors conclude that, “harnessing the
+collective intelligence of millions of users, Google web search logs can provide one of the most timely,
+broad-reaching inﬂuenza monitoring systems available today.”
+Google makes public the Search Volume Index (SVI) of search terms via its product Google
+Trends (http://www.google.com/trends). Weekly SVI for a search term is the number of searches
+for that term scaled by its time-series average. Figure 1 plots the weekly SVI of the two search
+terms “diet” and “cranberry” during the period from January 2004 to February 2009. The news
+reference volumes are also plotted in the bottom of the ﬁgure. SVI appears to capture attention
+well.
+The SVI on “diet” falls during the holiday season and spikes at the beginning of the year.
+This is consistent with the notion that individuals pay less attention to dieting during the holidays
+(November and December) but more attention in January as part of a New Year’s resolution.
+The SVI on “cranberry”spikes in November and December, coinciding with the Thanksgiving and
+Christmas holidays.
+In order to measure attention paid towards particular stocks, we examine the SVI for stock ticker
+symbols (e.g., “AAPL”for Apple Computer and “MSFT”for Microsoft). After obtaining the SVI
+associated with stock ticker symbols for all Russell 3000 stocks, we proceed in three steps. First, we
+investigate how SVI is related to existing attention measures. We ﬁnd the time series correlations
+between (log) SVI and alternative weekly measures of attention such as extreme return, turnover
+and news are positive on average but the level of the correlation is low. In a vector autoregression
+(VAR) framework, we ﬁnd that (log) SVI actually leads alternative measures such as extreme
+returns and news, consistent with the notion that investors may start to pay attention to a stock in
+anticipation of a news event. When we focus on our main variable, abnormal SVI (ASVI), deﬁned as
+2
+
+--- PAGE 4 ---
+(log) SVI during the current week minus the (log) median SVI during the previous eight weeks, we
+ﬁnd that the majority of the time-series and cross-sectional variation in ASVI remain unexplained
+by alternative measures of attention. We also ﬁnd that a stock’s SVI has little correlation with a
+news-based measure of investor sentiment.
+Second, we ask the question: whose attention is SVI capturing?
+Consistent with intuition,
+we ﬁnd strong evidence that SVI captures the attention of individual/retail investors. Using retail
+order execution from SEC Rule 11Ac1-5 (Dash-5) reports, we establish a strong and direct link be-
+tween SVI changes and trading by retail investors. Interestingly, across diﬀerent market centers, the
+same increase in SVI leads to greater individual trading in the market center that typically attracts
+less sophisticated retail investors (i.e., Madoﬀ) than in the market center that attracts more sophis-
+ticated retail investors (i.e., NYSE for NYSE stocks and Archipelago for NASDAQ stocks). This
+diﬀerence suggests that SVI likely captures the attention of less-sophisticated individual investors.
+Third, having established the fact that SVI captures retail investor attention we test the atten-
+tion theory of Barber and Odean (2008). Barber and Odean (2008) argue that individual investors
+are net buyers of attention-grabbing stocks and thus an increase in individual investor attention
+results in temporary positive price pressure. The reasoning behind the argument goes as follows.
+When individual investors are buying they have to choose from a large set of available alternatives.
+However, when they are selling, they can only sell what they own. This means that shocks to retail
+attention should, on average, lead to net buying from these uninformed traders. Under Barber and
+Odean (2008), a positive Abnormal SVI (ASVI) should predict higher stock prices temporarily and
+price reversals in the long run. Furthermore, we expect to ﬁnd stronger attention-induced price
+pressure among stocks where individual investor attention matters the most.
+Our empirical results which deploy ASVI as a measure of retail attention strongly support the
+hypotheses of Barber and Odean (2008).
+Among our sample of Russell 3000 stocks, stocks that
+experienced an increase in ASVI this week are associated with an outperformance of more than
+30 basis points (bps) on a characteristic-adjusted basis during the subsequent two weeks. This
+initial positive price pressure is almost completely reversed by the end of the year. In addition,
+we ﬁnd such price pressure to be stronger among Russell 3000 stocks that are traded more by
+individual investors. The fact that we document strong price pressure associated with SVI even
+after controlling for a battery of alternative attention measures highlights the incremental value of
+3
+
+--- PAGE 5 ---
+SVI. In fact, ASVI is the only variable that predicts both a signiﬁcant initial price increase and the
+subsequent price reversal.
+A natural venue to test the retail attention hypothesis is a stock’s initial public oﬀering (IPO).
+IPOs follow the pattern predicted by the attention-induced price pressure hypothesis. As studied in
+Loughran and Ritter (1995, 2002), among many others, IPOs usually experience temporarily high
+returns followed by longer-run reversal. Moreover, many authors have suggested these two stylized
+features of IPO returns are related to the behavior of retail investors (Ritter and Welch (2002),
+Ljungqvist, Nanda and Singh (2006) and Cook, Kieschnick and Van Ness (2006)). Because search
+volume exists prior to the IPO while other trading-based measures do not, SVI oﬀers a unique
+opportunity to empirically study the impact of retail investor attention on IPO returns.
+We ﬁnd considerable evidence that retail attention - as measured by search volume - is related
+to IPO ﬁrst-day returns and subsequent return reversal.
+First, we ﬁnd that searches related to
+IPO stocks increase by almost 20 percent during the IPO week. The jump in SVI indicates a surge
+in public attention consistent with the marketing role of IPOs documented by Demers and Lewellen
+(2003). When we compare the group of IPOs that experience large positive ASVI during the week
+prior to the IPO to the group of IPOs that experience smaller ASVI, we ﬁnd that the former group
+outperforms the latter by 6 percent during the ﬁrst day after the IPO and the outperformance is
+statistically signiﬁcant. We also document signiﬁcant long-run return reversals among IPO stocks
+that experience large increases in search prior to their IPOs and large ﬁrst-day returns after their
+IPOs. These patterns are conﬁrmed using cross-sectional regressions after taking into account a
+comprehensive list of IPO characteristics, aggregate market sentiment, and an alternative attention
+measure —media coverage —as discussed in Liu, Sherman and Zhang (2009). Our results, however,
+are diﬀerent from those in Liu, Sherman and Zhang (2009) who ﬁnd that increased pre-IPO investor
+attention as measured by media coverage does not lead to price reversal or underperformance in the
+long run. The diﬀerence in these two paper’s ﬁndings highlights the subtleties between news-based
+and search-based measures of investor attention.
+The rest of the paper is organized as follows. Section 2 describes data sources and how we
+construct the aggregate Google search volume index (SVI) variable. Section 3 compares our SVI
+measure to alternative proxies of investor attention and examines additional factors that drive our
+SVI measure. Section 4 provides direct evidence that SVI captures the attention of retail investors.
+4
+
+--- PAGE 6 ---
+Section 5 tests the price pressure hypothesis of Barber and Odean (2008) in various settings. Section
+6 concludes.
+2
+Data and Sample Construction
+Google Trends provides data on search term frequency dating back to January 2004.
+For our
+analysis, we download the weekly search volume index (SVI) for individual stocks. To make the
+data collection and cleaning task manageable, we focus on stocks in the Russell 3000 index for
+most of the paper. The Russell 3000 index contains the 3,000 largest companies, representing more
+than 90 percent of the total U.S. equity market capitalization. We obtain the membership of the
+Russell 3000 index directly from Frank Russell and Company. To minimize survivorship bias and
+the impact of index addition and deletion, we examine all 3,606 stocks that were ever included in
+the index during our sampling period from January 2004 to June 2008. As Russell 3000 stocks
+are relatively large stocks, our results are less likely to be aﬀected by bid-ask bounce. To further
+alleviate market microstructure related concerns, we exclude stock / week observations when the
+market price is less than three dollars when testing the attention-induced price pressure hypothesis.
+Our next empirical choice concerns the identiﬁcation of a stock in Google. A search engine
+user may search for a stock in Google using either its ticker or company name. Identifying search
+frequencies by company name may be problematic for two reasons. First, investors may search the
+company name for reasons unrelated to investing. For example, one may search “Best Buy”in order
+to do online shopping rather than to collect ﬁnancial information about the ﬁrm. This problem
+is more severe if the company name has multiple meanings (e.g. “Apple”or “Amazon”). Second,
+diﬀerent investors may search the same ﬁrm using several variations of its name. For example,
+American Airlines is given a company name of “AMR Corp.” in CRSP. However, investors may
+search for the company in Google using any one of the following: “AMR Corp”, “AMR”, “AA”or
+“American Airlines”.
+Searching for a stock using its ticker is less ambiguous. If an investor is searching “AAPL”
+(the ticker for Apple Computer Inc.) in Google, it is more likely that she is interested in ﬁnancial
+information about the stock of Apple Inc. Since we are interested in studying the impact of investor
+attention on trading and asset pricing, this is precisely the group of people whose attention we would
+5
+
+--- PAGE 7 ---
+like to capture. Since a ﬁrm’s ticker is always uniquely assigned, identifying a stock using its ticker
+also avoids the problem of multiple reference names.
+For these reasons, we choose to identify a
+stock using its ticker for the majority of our study. The only exception is when we examine IPO
+stocks. Because the ticker is not widely available prior to the IPO, we search for the company using
+its company name.
+We are cautious about using tickers with a generic meaning such as “GPS”, “DNA”, “BABY”,
+“A”, “B”, and “ALL”. We manually go through all the Russell stock tickers in our sample and ﬂag
+such “noisy”tickers. These tickers are usually associated with abnormally high SVIs that may have
+nothing to do with investor attention to the stocks with these ticker symbols. While we report the
+results using all tickers to avoid subjectivity in sample construction, we conﬁrm that our results
+are robust to the exclusion of these “noisy”tickers (about 7 percent of all Russell 3000 stocks).
+Panel B of Figure 1 plots the SVI of Apple’s ticker (AAPL) against that of Microsoft (MSFT).
+Two interesting observations emerge from this ﬁgure. First, we observe spikes in the SVI of “AAPL”
+in the beginning of a year. These spikes are consistent with increasing public attention coming from
+(1) the MacWorld conference which is held during the ﬁrst week of January and (2) awareness of
+the company after receiving Apple products as holiday gifts. Second, SVIs are correlated with but
+remain diﬀerent from news coverage. These two observations again support our argument that SVI
+indeed captures investor attention and is diﬀerent from existing proxies of attention.
+To collect data on all stocks in the Russell 3000, we employ a webcrawling program that inputs
+each ticker and uses the Google Trends’option to download the SVI data into a CSV ﬁle.3 We do
+this for all 3,606 stocks in our sample. This generates a total of 834,627 ﬁrm-week observations.
+Unfortunately, Google Trends does not return a valid SVI for some of our queries. If a ticker is
+rarely searched, Google Trends will return a 0 value for that ticker’s SVI.4 Of our 834,627 ﬁrm-week
+observations, 468,413 have valid (non-zero) SVI.
+For comparison, we also collect two other types of SVI. First, we collect SVIs based on company
+3To increase the response speed, Google currently calculates SVI from a random subset of the actual historical
+search data. This is why SVIs on the same search term might be slightly diﬀerent when they are downloaded at
+diﬀerent points in time. We believe that the impact of such sampling error is small for our study and should bias
+against ﬁnding signiﬁcant results. When we download the SVIs several times and compute their correlation, we ﬁnd
+the correlations to be usually above 97%. In addition, we also ﬁnd if we restrict our analysis to a subset of SVIs
+where the sampling error standard deviation is low, we get stronger results.
+4The truncation issue almost certainly works against us as we analyze price pressure in this paper.
+As our
+empirical results suggest, price pressure is typically stronger among small stocks. These are precisely the set of stocks
+that will, on average, have less search and be removed from the sample via Google’s truncation.
+6
+
+--- PAGE 8 ---
+name (Name_SVI ). We have two independent research assistants report how they would search
+for each company based on the company name in CRSP. Where there are diﬀerences between the
+reports, we use Google Insights “related search”feature to determine which query is most common.5
+Unlike SVI, Name_SVI is clearly aﬀected by subjectivity. Second, we collect SVIs based on the
+main product of the company (PSVI). To identify the main product, we follow the steps described
+in Da, Engelberg and Gao (2010). We begin by gathering data on ﬁrm products from Nielsen Media
+Research (NMR) which tracks television advertising for ﬁrms. NMR provides us a list of all ﬁrms
+which advertised a product on television during our sample period between 2004 and 2008. We
+hand-match the set of ﬁrms covered in NMR to our Russell 3000 stock sample. For each ﬁrm we
+select its most popular product as measured by the number of ads in the Nielsen database. Then,
+we consider how the main product might be searched in Google. We do this again by having two
+independent research assistants report how they would search for each product. Where there are
+diﬀerences between the reports, we use Google Insights “related search”feature to determine which
+query is most common.
+Our main news data come from the Dow Jones archive and consist of all Dow Jones News
+Service articles and Wall Street Journal articles about Russell 3000 ﬁrms over our sample period.
+Each article in the dataset is indexed by a set of tickers which we date-match to CRSP. A News
+observation at the weekly (monthly) level in our dataset corresponds to a ﬁrm having an article
+in the archive during that week (month). To disentangle news from coverage (or less important
+stories from more important ones), we follow Tetlock (2010) and introduce a variable called Chunky
+News which requires that a particular story have multiple messages (i.e., the story is not released
+all at once but in multiple “chunks”). According to Tetlock (2010), “...stories consisting of more
+newswire messages are more likely to be timely, important, and thorough.” Finally, because the
+Dow Jones archive does not index (by ticker) a company’s news media coverage prior to its initial
+public oﬀering, we manually searched Factiva to obtain the media coverage attributes for the IPO
+sample.
+We collect all initial public oﬀerings (IPOs) of common stocks completed between January 2004
+5For each term entered into Google Insights (http://www.google.com/insights/) it returns ten “top searches”
+related to the term.
+According to Google, “Top searches refer to search terms with the most signiﬁcant level of
+interest. These terms are related to the term you’ve entered. . . our system determines relativity by examining searches
+that have been conducted by a large group of users preceding the search term you’ve entered, as well as after."
+7
+
+--- PAGE 9 ---
+and December 2007 in the United States from the Thompson Financial / Reuters Securities Data
+Corporation (SDC) new issue database. We exclude all unit oﬀerings, close-end funds, real estate
+investment trusts (REITs) , American Deposit Receipts (ADRs), limited partnerships and all stocks
+where the ﬁnal oﬀering price is below ﬁve dollars. We also require the stock’s common shares to
+be traded on the NYSE, AMEX or NASDAQ exchange with a valid close-price within ﬁve days of
+the date of the IPO.
+We obtain the original SEC Rule 11Ac1-5 (Dash-5) monthly reports from Market System Incor-
+porated (MSI, now a subsidiary of Thomson Financial / Reuters), which aggregates the monthly
+Dash-5 reports provided by all market centers in the US and provides various transaction cost and
+execution quality statistics based on the Dash-5 reports. The main variables of interest from the
+MSI database include the number of shares executed and the number of orders executed by each
+market center.
+Other variables are constructed from standard data sources. Price and volume related variables
+are obtained from CRSP; accounting information is obtained from COMPUSTAT; and analyst
+information is obtained from I/B/E/S.
+3
+What Drives SVI?
+In this section, we examine what drives SVI and compare SVI to other common proxies of atten-
+tion. We ﬁrst present simple contemporaneous correlations among (log) SVI and other variables
+of interest measurable at a weekly frequency in Table 1. These correlations are ﬁrst computed in
+time series for each stock with a minimum of one year of data and then averaged across stocks.
+The other variables of interest include the following: Name_SVI is the aggregate search fre-
+quency based on company name. Absolute Abn Ret is the absolute value of the concurrent week
+characteristic-adjusted abnormal return following Daniel, Grinblatt, Titman, and Wermers (1997,
+DGTW hereafter).
+This characteristic-adjustment procedure captures whether a stock outper-
+forms average stocks with similar book-to-market, size and past return characteristics. Abnormal
+Turnover is standardized abnormal turnover as in Chordia, Huh and Subrahmanyam (2007), which
+removes time trends and seasonalities in the raw share turnover time series. News refers to the
+number of news stories in the Dow Jones archive in the concurrent week. ChunkyNews refers to the
+8
+
+--- PAGE 10 ---
+number of news stories with multiple story codes in the Dow Jones archive in the concurrent week.
+Following Tetlock (2007), we construct media-based stock-level sentiment measures. For each stock
+in each week, we gather all the news articles about the stock recorded in the Dow Jones archive,
+and identify words with “negative sentiment”. We count the total number of words over the entire
+collection of news articles about the stock (excluding so-called “stop words”) within that week,
+and count the total number of “negative sentiment”words. Then we take the ratio of the number
+of “negative sentiment”words to the total number of words to get the fraction of negative words.
+Frac_Neg_H4 is the fraction when “negative sentiment”words are deﬁned using the Harvard IV-4
+dictionary and Frac_Neg_LM is the fraction when “negative sentiment” words are identiﬁed in
+Loughran and McDonald (2010).
+In general, the correlations between SVI and other variables of interest are low. The correlation
+between log SVI and log Name_SVI is about 9%.
+Again, this is because people may search
+company name for many reasons such as gathering product information, looking for store location
+or looking for a job while people who search for stock tickers are interested in ﬁnancial information
+about the stock. In addition, diﬀerent people may use diﬀerent search terms when they search for
+a company which introduces more noise to Name_SVI.
+Extreme returns and trading volume are popular measures of investor attention.
+Although
+they have a correlation of more than 30% with each other, their correlation with SVI is positive
+but small.
+For example, the correlation between Absolute Abn Ret and log(SVI) is 5.9%, and
+the correlation between Abnormal Turnover and log(SVI) is 3.5%. Such low correlation may be
+attributed to the fact that both return and turnover are equilibrium outcomes and are functions of
+many other economic factors in addition to investor attention.
+News media coverage is another popular measure of investor attention. Anecdotal evidence
+presented in Figure 1 clearly indicates a positive correlation between SVI and news. We conﬁrm
+this positive correlation on average between SVI and news coverage (news) and news events (chunky
+news). These correlations are low, ranging from 3.5% (chunky news) to 5.0% (news). There are
+several reasons for such low correlations. First, overall newspaper coverage is surprisingly low.
+Fang and Peress (2009) report that over 25% of NYSE stocks are not featured in the press in a
+typical year. The number is even higher for NASDAQ stocks (50%). While SVI measures investor
+attention continuously over the year, news coverage of a typical ﬁrm is sporadic. Second, news
+9
+
+--- PAGE 11 ---
+coverage does not guarantee attention unless investors actually read it, and the same amount of
+news coverage may generate a diﬀerent amount of investor attention across diﬀerent stocks. Even
+if a surge in SVI is completely triggered by a news event, SVI carries additional useful information
+about the amount of attention the news event ultimately generates among investors.
+Another variable of interest is investor sentiment, which according to Baker and Wurgler (2007),
+is broadly deﬁned as “a belief about future cash ﬂows and investment risks that is not justiﬁed by
+the facts at hand.”A priori, it is not clear how investor attention and sentiment should be related
+to each other. On the one hand, because attention is a necessary condition for generating sentiment,
+increased investor attention, especially that coming from “noise”traders prone to behavioral biases,
+will likely lead to stronger sentiment. On the other hand, increased attention paid to genuine news
+may speed up the incorporation of information into prices and attenuate sentiment. Empirically,
+extreme negative sentiment can be captured by counting the fraction of “negative sentiment”words
+in the news articles about a company. When we examine the time-series correlation between SVI
+and such sentiment measures (Frac_Neg_H4 and Frac_Neg_LM ), we again ﬁnd the correlation
+to be on the lower end, ranging from 1.4% to 2.3%.
+We then examine the weekly lead-lag relation among measures of attention using a vector
+autoregression (VAR). For this exercise, we only include variables that are observable at a weekly
+frequency. The four variables include Log(SVI), the natural logarithm of weekly SVI; Log(turnover),
+the natural logarithm of weekly turnover; Absolute Abnormal Return, the absolute value of the
+concurrent week DGTW abnormal return; and Log(1+Chunky News), the natural logarithm of one
+plus the number of chunky news during that week. Note that we deﬁne all four variables using
+only contemporaneous information within the week so that no spurious lead-lag relation will be
+generated because of variable construction. We run the VAR for each stock with at least two years
+of weekly data. We include both a constant and a time trend in the VAR. The VAR coeﬃcients
+are then averaged across stocks and reported in Table 2 with the associated p-values. To account
+for both time-series and cross-sectional correlation in the error terms, these p-values are computed
+using a block bootstrap procedure under the null hypothesis that all VAR coeﬃcients are zero. We
+start with the panel of residuals from the VAR and construct 10,000 bootstrapped panels. In the
+time series dimension, we block-bootstrap with replacement using a block length of 23 weeks to
+preserve the autocorrelation structure in the error terms. In the cross-sectional dimension, we also
+10
+
+--- PAGE 12 ---
+bootstrap with replacement. We repeat the VAR estimation in each bootstrapped panel, which
+allows us to build up the empirical distribution of the VAR. Overall, our block bootstrap procedure
+is similar to those used by Bessembinder, Maxwell, and Venkataraman (2006). A simple reverse
+Fama and MacBeth method that does not account for cross-autocorrelations in error terms produces
+even smaller p-values.6
+We ﬁnd that SVI leads the other three attention proxies. The coeﬃcients on lagged log(SVI)
+are all positive and are statistically signiﬁcant when we have current-week Log(turnover), Absolute
+Abnormal Return and Log(1+Chunky News) as the dependent variables. These positive coeﬃcients
+suggest that SVI captures investor attention in a more timely fashion than extreme returns or news.
+This is not surprising: to the extent that investors trade only after paying attention to a stock and
+their trading causes price pressure persisting over a week, SVI could lead turnover and extreme
+returns. In addition, since investors may start to pay attention to a stock and search in Google
+well ahead of a pre-scheduled news event (e.g. an earnings announcement), SVI could also lead
+news-related variables. In the other direction, we ﬁnd lagged Log(turnover) and Log(1+Chunky
+News) to be signiﬁcantly but negatively related to current-week Log(SVI). This is likely due to
+mean-reversion in SVI after major news and high turnover during which SVI spikes.
+We also
+ﬁnd lagged Absolute Abnormal Return to be signiﬁcantly and positively related to current-week
+Log(SVI), consistent with the idea that investors continue to pay more attention to a stock after a
+week of extreme returns.
+Finally, we examine the relation between SVI and other proxies of attention in a set of regres-
+sions. Our key variable of interest in the paper —Abnormal SVI (ASVI) —is deﬁned as:
+ASV It = log (SV It) −log [Med (SV It−1, ..., SV It−8)] ,
+(1)
+where log (SV It) is the logarithm of SVI during week t, and log [Med (SV It−1, ..., SV It−8)] is the
+logarithm of the median value of SVI during the prior eight weeks.7
+Intuitively, the median over a
+longer time window captures the “normal”level of attention in a way that is robust to recent jumps.
+ASVI also has the advantage that time trends and other low-frequency seasonalities are removed.
+6The reverse Fama-MacBeth regression carries out time-series regressions ﬁrst, then takes the cross-sectional
+average of coeﬃcients from the ﬁrst-stage regressions.
+7Our main results are robust to the length of the rolling window (4 weeks, 6 weeks, 10 weeks, etc.).
+11
+
+--- PAGE 13 ---
+A large positive ASVI clearly represents a surge in investor attention and can be compared across
+stocks in the cross-section.
+We report panel regression results in Table 3 where the dependent variable is always ASVI. All
+regressions reported in this table contain week ﬁxed-eﬀects, and the standard errors are clustered
+by ﬁrm. We conﬁrm that the ASVI is positively related to both the size of the stock, extreme stock
+returns and abnormal turnover. Comparing regressions 1 and 2, we ﬁnd that the Chunky News
+Dummy is more important in driving ASVI than the News Dummy, suggesting that the occurrence
+of news (rather than news coverage) matters. The regression coeﬃcient on Log(Chunky News Last
+Year) is negative and signiﬁcant, suggesting that a stock with lots of recent news coverage is less
+likely to receive “unexpected” attention. Finally, the R2 of these regressions is only about 3.3
+percent, suggesting that existing proxies of attention only explain a small fraction of the variation
+in the ASVI. It is also possible that some variation in ASVI could also be driven by measurement
+error and other noise. However, noise is likely to bias against us ﬁnding any reliable results.
+4
+SVI and Individual Investors
+Whose attention is captured by SVI? Intuitively, people who search ﬁnancial information related
+to a stock in Google are more likely to be individual or retail investors since institutional investors
+have access to more sophisticated information services such as Reuters or Bloomberg.8
+In this
+section, we provide direct evidence that changes in investor attention measured by SVI are indeed
+related to trading by individual investors.
+Traditionally, trade size from the ISSM and TAQ databases are used to identify retail investor
+transactions (see Easley and O’Hara, 1987, for a theoretical justiﬁcation and Lee and Radhakr-
+ishna, 2000; Hvidkjaer, 2008; Barber, Odean and Zhu, 2008, among others for empirical evidence).
+However, after decimalization in 2001, order splitting strategies became prominent (see Caglio and
+Mayhew, 2008). Hvidkjaer (2008) shows that retail trade identiﬁcation becomes ineﬀective after
+2001 and provides a detailed discussion of this issue. Because our sample of SVI begins in January
+2004, we are not able to infer retail investor stock transactions directly from TAQ using trade size.
+8For example, we ﬁnd that there is a signiﬁcant jump in weekly SVI of about 10% (t-statistic > 9 ) for stocks
+picked by Jim Cramer on CNBC’s Mad Money. Engelberg, Sasseville and Williams (2010) argue that it is primarily
+individual investors whose attention the show captures.
+12
+
+--- PAGE 14 ---
+Instead, we obtain retail orders and trades directly from Dash-5 monthly reports. Since 2001,
+by Rule 11Ac1-5 and Regulation 605, the United States Security and Exchange Commission (SEC)
+requires every market center to make public monthly reports concerning the “covered orders”they
+received for execution.
+The “covered orders” primarily come from individual / retail investors
+because they exclude any orders for which the customer requests special handling for execution.
+There should be few institutional orders because institutions typically use so-called “not-held-
+orders” which are precluded from the Dash-5 reporting requirement. In addition, all order sizes
+greater than 10,000 shares are not presented in the Dash-5 data. This further reduces the likelihood
+of having any institutional orders in the Dash-5 data.9 Boehmer, Jennings and Wei (2007) provide
+additional background on the Dash-5 data including details about trading volume, number of orders,
+and transaction costs (by diﬀerent market centers as well as aggregated across market centers). To
+save space, we do not repeat their analysis here and direct interested readers to their paper.
+For our purposes, we only consider the subset of “covered orders” that are market and mar-
+ketable limit orders which are more likely to be retail orders demanding liquidity. The information
+contained in the Dash-5 reports includes number of shares traded, number of orders received, and
+various dimensions of execution quality by order size and stock. Speciﬁcally, the monthly Dash-5
+reports disaggregate the trading statistics into four categories: (1) 100 —499 shares; (2) 500 —1,999
+shares; (3) 2000 —4,999 shares; and (4) 5,000 —9,999 shares.
+The Dash-5 reports allow us to compute monthly changes in orders and turnover from individual
+investors. We then relate these changes to monthly changes in SVI in Table 4.
+Monthly SVI is
+computed by aggregating weekly SVIs assuming daily SVI is constant within the week. We consider
+several alternative proxies of attention as control variables: Log(Market Cap) is the logarithm of
+the prior month-end (t-1) market capitalization; RET(t) is the monthly return from the current
+month (t); |RET(t)| is the absolute value of the return of the stock during month (t); Chunky News
+Dummy is equal to one if there is at least one chunky news story in the Dow Jones archive during
+month (t) and zero otherwise; and Advert. Expense/Sales is the latest advertisement expenditure to
+sales ratio available from COMPUSTAT prior to month (t), where we set advertisement expenditure
+equal to zero if advertisement expenditure is missing in COMPUSTAT.
+9Interested readers are encouraged to consult SEC Regulation 605 for the reporting requirements of participating
+market centers. Harris (2003. p.82) has a detailed discussion of “not-held-orders”.
+13
+
+--- PAGE 15 ---
+We also control for other stock characteristics that might be related to turnover.
+B/M is the
+book to market value of equity, where the book value of equity is from the latest available accounting
+statement and the market value of equity is the month-end close price times the number of shares
+outstanding at the end of month (t-1); Non-institutional Holding is one minus the percentage of
+stocks held by all S34-ﬁling institutional shareholders at the end of quarter (Q-1); Return Volatility
+is the standard deviation of the individual stock return estimated from daily returns during quarter
+(Q-1); ∆[log(Turnover)] is the diﬀerence between the natural logarithm of total stock turnover
+reported by CRSP in month (t-2) and month (t-1); RET(t-1) is the one-month return prior to
+current month t; RET[t-13, t-2] is the cumulative stock return between months (t-13) and (t-2);
+and RET[t-36, t-14] is the cumulative stock return between months (t-36) and (t-14).
+In Panel A of Table 4, we examine changes in individual trading across all markets centers.
+We ﬁrst consider the smaller order size categories (100 —1,999 shares) in the Dash-5 reports which
+are more likely to capture retail transactions. When we measure changes in individual trading
+as changes in the number of orders (in logarithm), we ﬁnd that a one-percent increase in SVI
+leads to a 0.0925 percent increase in individual orders (regression 1). This positive correlation is
+statistically signiﬁcant at the 1 percent level after controlling for alternative proxies of attention
+and other trading-related stock characteristics.
+It is not too surprising that several alternative
+proxies of attention are also signiﬁcant because they might be mechanically related to trading. For
+example, trading can correlate with absolute returns or market capitalization via price impact, and
+trading can correlate with news if news coverage is triggered by abnormal trading. In regression 2,
+we measure changes in individual trading by changes in turnover (in logarithm) and ﬁnd a similar
+relation between the change in individual trading and the change in SVI. Finally, we use all order
+size categories (100 — 9,999 shares) in the Dash-5 reports.
+We ﬁnd almost identical results as
+reported in regressions 3 and 4 in Panel A of Table 4, and we therefore use all order size categories
+hereafter.
+Although retail traders are thought to be, on average, uninformed, we do not rule out the
+possibility that some individual traders may be informed. Empirical evidence oﬀered by Battalio
+(1997), Battalio, Greene and Jennings (1997), and Bessembinder (2003) suggests that retail orders
+from diﬀerent individual investors may be routed to and executed at diﬀerent market centers based
+on the information content in the orders. Therefore, retail orders from less-informed individual
+14
+
+--- PAGE 16 ---
+investors are often routed to and executed at market centers that pay for order ﬂow. One well-
+known market center is the now defunct MadoﬀSecurities LLC (Madoﬀ). In contrast, orders from
+more informed investors often go to the New York Stock Exchange (NYSE) for NYSE stocks and
+Archipelago for NASDAQ stocks. These venues do not pay for order ﬂow and they are typically
+the execution venues of last resort. As a result, by examining the change in individual trading
+at diﬀerent market centers separately, we can make inferences about which groups of individual
+investor attention SVI may capture.
+Our working hypothesis is that, for uninformed investor
+clienteles, we are more likely to see a large increase in order number and share volume for a similar
+magnitude change in SVI.
+We repeat our regressions separately for Madoﬀand NYSE/Archipelago in Panel B of Table 4.
+Interestingly, we ﬁnd the correlation between the change in individual trading and the change in SVI
+is much stronger at Madoﬀ. After controlling for alternative proxies of attention and other trading-
+related stock characteristics, a 1 percent increase in SVI translates to a 0.264 percent increase in
+individual orders and a 0.297 percent increase in individual turnover at Madoﬀ(regressions 1 and 2).
+Such an increase in individual trading is much higher than the average increase across all market
+centers as reported in Panel A (where the corresponding increases are 0.103 percent and 0.131
+percent). In contrast, the same 1 percent increase in SVI only translates to a 0.092 percent increase
+in individual orders and a 0.104 percent increase in individual turnover at NYSE/Archipelago
+(regressions 3 and 4). Finally, we directly examine the diﬀerence in retail trading between Madoﬀ
+and NYSE/Archipelago using a matched sample in regressions 5 and 6. Each month, we focus
+on a set of stocks that are traded on both Madoﬀand NYSE/Archipelago. We create a dummy
+variable Madoﬀwhich takes value the value one for all observations from Madoﬀand zero for all
+observations from NYSE/Archipelago. In this matched sample, we ﬁnd that a 1 percent increase
+in SVI leads to a 0.109 percent greater increase in individual orders and a 0.0951 percent greater
+increase in individual turnover at Madoﬀand these additional increases are statistically signiﬁcant.
+It is interesting to note that the news variable actually correlates with the trading at NYSE/ARCH
+more than that at Madoﬀ, suggesting that the news variable may not be capturing the attention
+of less informed retail investors.
+In sum, our results suggest that SVI captures the attention of individual investors.
+In the
+following section, we will explore how the attention from these retail investors can aﬀect asset
+15
+
+--- PAGE 17 ---
+prices.
+5
+SVI and Price Pressure
+As seen from Figure 1, attention can vary considerably over time. How does a sharp increase in
+retail attention aﬀect stock returns? Barber and Odean (2008) argue that buying allows individuals
+to choose from a large set alternatives while selling does not.
+For retail traders who rarely short,
+selling a stock requires individuals to have already owned the stock.
+Therefore, the Barber and
+Odean (2008) model predicts attention shocks will lead to net buying by retail traders.
+Because
+retail traders are uninformed on average, this will lead to temporarily higher returns.
+To the
+extent that ASVI is a direct measure of retail attention, we can directly test the price pressure
+hypothesis of Barber and Odean (2008). Speciﬁcally, we expect large abnormal SVI (ASVI) to
+result in increased buying pressure that pushes up stock prices temporarily. We ﬁrst investigate
+such price pressure in the context of a cross-section of Russell 3000 stocks and then in the context
+of IPOs. Given the lack of trading data prior to the IPO, trade-based measures of attention are
+unavailable. Thus, SVI oﬀers a unique opportunity to empirically study the impact of retail investor
+attention on IPO returns.
+5.1
+Russell 3000 Stock Sample
+We ﬁrst investigate the empirical relation between ASVI and future stock returns for Russell 3000
+stocks in our sample. We use a Fama-MacBeth (1973) cross-sectional regression to account for time-
+speciﬁc economy-wide shocks. Each week, we regress future DGTW abnormal returns (measured
+in basis points,or bps) at diﬀerent horizons on ASVI and other control variables. The regression
+coeﬃcients are then averaged over time and standard errors are computed using the Newey-West
+(1985) formula with eight lags.
+All variables are cross-sectionally demeaned (so the regression
+intercept is zero) and independent variables are also standardized (so the regression coeﬃcient on
+a variable can be interpreted as the eﬀect of a one standard deviation change in that variable).
+These regression results are reported in Table 5.
+In column 1, the dependent variable is next week’s DGTW abnormal return.
+We ﬁnd strong
+evidence of positive price pressure following an increase in individual attention as measured by
+16
+
+--- PAGE 18 ---
+ASVI. A one-standard-deviation increase in ASVI leads to a signiﬁcant positive price change of
+18.7 bps among Russell 3000 stocks.
+Moreover, this result holds primarily in two important
+cross-sections of the data. First, if price increases reﬂects price pressure due to individual buying
+activity, we would expect it to be stronger among small stocks which are typically associated with
+larger price impact. This is exactly what we ﬁnd in the data. We ﬁnd a signiﬁcant and negative
+coeﬃcient on the interaction term between Log Market Cap and ASVI. This negative coeﬃcient
+suggests larger price increase following an increase in ASVI among smaller Russell 3000 stocks. In
+fact, we conﬁrm through both a portfolio sorting exercise and regression analysis that the positive
+price pressure is only present among the smaller half of our Russell 3000 stock sample. These
+additional results are reported in the Internet Appendix.
+Second, we would expect price pressure to be stronger among stocks that are traded more by
+individual investors. We measure retail trading directly using Percent Dash-5 V olume, deﬁned as
+the ratio between Dash-5 trading volume and the total trading volume during the previous month.
+We ﬁnd the interaction between this retail trading measure and ASVI is signiﬁcant in predicting
+ﬁrst-week abnormal returns, which suggests stronger price increase among stocks traded mainly by
+retail investors, again supporting the price pressure hypothesis of Barber and Odean (2008).
+Note that the positive, signiﬁcant coeﬃcient on ASVI in column 1 is obtained after controlling
+for alternative measures of investor attention. Among these alternative attention measures, we
+ﬁnd a signiﬁcant positive coeﬃcient on abnormal turnover, consistent with the high-volume return
+premium documented in Gervais, Kaniel, and Mingelgrin (2001). We also observe weak incremental
+predictive power on the Chunky News Dummy which measures whether there is a news event in
+the current week. The weak predictive power is not due to the use of a dummy variable. In fact,
+if we replace the dummy news variable with a continuous news variable, the regression coeﬃcient
+ceases to be signiﬁcant.
+When we examine the abnormal returns in weeks 2 to 4 (columns 2-4 in Table 5), we ﬁnd
+the incremental predictive power of ASVI to persist in week 2 before disappearing afterwards. A
+one-standard-deviation increase in ASVI leads to a signiﬁcant positive price change of 14.9 bps in
+week 2 then the regression coeﬃcient drops to 3.85 bps in week 3 and becomes negative (-1.6 bps)
+in week 4, indicating a price reversal.
+17
+
+--- PAGE 19 ---
+While the positive coeﬃcient on ASVI in column 1 is consistent with the price pressure hypoth-
+esis, it could also simply reﬂect positive fundamental information about the ﬁrm which is captured
+by ASVI in a more timely basis. For example suppose a company announces an innovation in its
+product to which consumers react positively. Such a positive reaction immediately translates into
+a higher SVI as people start to search the company stock, which “predicts”a later price increase
+as this positive news get gradually incorporated into the stock price.
+We have two pieces of evidence that argue against such a hypothesis.
+First, we directly test
+this information story by controlling for the SVI on the main product of the company (PSVI). We
+deﬁne abnormal product SVI (APSVI) in the same way as ASVI. For stocks without valid APSVI,
+we set APSVI to be zero.
+If the information story is true, we would expect an even bigger positive coeﬃcient on APSVI
+which subsumes the predictive power of ASVI when we include APSVI in the regression. This is
+not true in regression 1: the coeﬃcient on ASVI is still positive and signiﬁcant. Interestingly, the
+regression coeﬃcient on APSVI is in fact negative although its magnitude is small (a -2.5 bps price
+drop for an one standard deviation increase in APSVI).
+The second distinguishing feature between the price pressure hypothesis and the information-
+based alternative is the prediction for long-run returns. If an initial price increase is due to tempo-
+rary price pressure, we would expect it to revert in the long run. If, however, the initial price increase
+reﬂects fundamental information about the ﬁrm, then no long-run reversal would be expected.
+We examine long-run returns in regression 5. Following Barber and Odean (2008), we skip
+the ﬁrst month and look at the returns from week 5 to week 52. We ﬁnd a negative coeﬃcient
+of -28.9 bps on ASVI, similar to the magnitude of total initial price pressure in the ﬁrst two
+weeks, suggesting that the initial price pressure is almost entirely reversed in one year. However,
+the negative coeﬃcient is marginally insigniﬁcant (t-value = 1.69).
+This is not too surprising,
+given our short ﬁve-and-a-half-year sample, we do not have too many independent 48-week return
+observations so the regression coeﬃcient is unlikely to be signiﬁcant after the Newey-West (1985)
+autocorrelation correction.
+However, the regression results reported in the Internet Appendix
+suggest such reversals are signiﬁcant among the smaller half of the Russell 3000 stocks.
+Overall,
+it is important to note that ASVI seems to be the only measure of attention that predicts both the
+initial price increase and later long-run price reversal. The existence of long-run reversal is more
+18
+
+--- PAGE 20 ---
+consistent with the price pressure hypothesis than the information hypothesis.
+Table 6 reports the results of several robustness checks. Panel A and B report the regression
+results for the sampling period from January 2004 to May 2006 and the sampling period from June
+2006 to June 2008, respectively. May 2006 is an interesting cutoﬀpoint since that was when Google
+Trends data ﬁrst became available to the public as a “Google Labs” product.10 The regression
+results are qualitatively similar in the two sub-sampling periods although slightly stronger in the
+second. Panel C of Table 6 reports the regression results after we exclude the “noisy”tickers such
+as “GPS”, “DNA”, “BABY”, “A”, “B”, and “ALL.”Panel C shows that removing these “noisy”
+tickers hardly changes our regression results.
+To summarize, we ﬁnd increases in ASVI predict increases in returns in the following two weeks,
+especially among small stocks and those traded by retail investors. Moreover, this initial price pres-
+sure is almost completely reversed in one year. This pattern is not driven by alternative measures
+of attention and is less consistent with an alternative explanation based on fundamental informa-
+tion contained in SVI. Overall, our evidence provides evidence for the price pressure hypothesis of
+Barber and Odean (2008).
+5.2
+Initial Public Oﬀerings (IPO) Sample
+A natural venue to examine the eﬀect of retail attention on asset prices is a stock’s initial public
+oﬀering (IPO). There are two stylized facts about IPO returns. First, IPOs on average have large
+ﬁrst-day returns (see Loughran and Ritter, 2002). Second, IPOs exhibit long-run underperformance
+(Loughran and Ritter, 1995; Brav, Geczy, and Gompers, 2000).
+Barber and Odean’s (2008) attention-induced price pressure hypothesis naturally applies to
+IPOs because IPO stocks are likely to grab retail attention surrounding the time of going public.
+For the set of IPO stocks that receive more retail attention prior to the time of going public, these
+IPOs are likely to experience greater retail buying pressure when trading starts. Since it is usually
+diﬃcult to short-sell IPOs, buying pressure from the retail investors can contribute to higher ﬁrst-
+day returns. Subsequently, for the set of IPO stocks bid up by retail investors, when the price
+pressures induced by excess, retail demand dissipates, stock prices eventually reverse, resulting in
+long-run underperformance.
+10This can be seen by typing “Google Trends”itself into Google Trends.
+19
+
+--- PAGE 21 ---
+Higher ﬁrst-day IPO returns and subsequent long-run underperformance are also consistent with
+the sentiment-based explanations of Ritter and Welch (2002), Ljungqvist, Nanda and Singh (2006)
+and Cook, Kieschnick and Van Ness (2006). For example, Ljungqvist, Nanda and Singh (2006) and
+Ritter and Welch (2002) conjecture that the over-enthusiasm of retail investors may drive up an
+IPO’s ﬁrst-day return, and eventually overpriced IPOs revert to fundamental value which causes
+long-run underperformance. There are some circumstances in which researchers have been able
+to obtain the pre-IPO valuation of retail investors as a measure of retail investor sentiment. For
+example, using a novel dataset with valuations of a set of “when-issue”IPOs from the “grey market”
+in several continental European countries, Cornelli, Goldreich, and Ljungqvist (2006) ﬁnd that pre-
+IPO valuations are positively correlated with ﬁrst-day IPO returns, and negatively correlated with
+IPO performance up to one year after going public.
+There are a couple of reasons to think that retail investor attention and retail investor sentiment
+are positively related. First, attention is a necessary condition to generate sentiment. For a retail
+investor to develop sentiment and become overly enthusiastic about a forthcoming IPO, he has to
+ﬁrst allocate attention to the IPO. Second, retail investors are more likely to be “sentiment”traders
+suﬀering from various behavioral biases.
+We again measure retail attention prior to the IPO using abnormal SVI variable (ASVI). Because
+there is no ticker widely available prior to the IPO, we use the company name provided by the
+Security Data Corporation (SDC) to search for the stock in Google Trends in order to obtain the
+SVI. For the sample of IPOs from 2004 to 2007, we are able to identify 185 IPOs with suﬃcient
+searches so their SVIs are not missing.11
+We ﬁrst conﬁrm that there are signiﬁcant changes in SVI around the time of the IPO. Panel
+A of Figure 2 illustrates the cross-sectional mean and median of the SVI (in logarithm) around
+the IPO week (week 0). We observe a signiﬁcant upward trend in SVI starting two to three weeks
+prior to the IPO week, and there is a signiﬁcant jump in SVI during the IPO week, regardless of
+whether we measure SVI by sample mean or median. Panel B of Figure 2 conﬁrms the pattern
+using abnormal SVI (ASVI) around the IPO week. The SVI on an IPO stock jumps by 20 percent
+11From the SDC new issues database, we can identify 571 common share IPOs traded initially on NYSE, AMEX
+or NASDAQ. There are two reasons why we cannot obtain valid SVI values from Google Trends for some IPO stocks.
+First, individuals may not use the SDC company name to search for the stock in Google. Second, Google Trends
+truncates the output and returns missing values for SVIs with insuﬃcient searches.
+20
+
+--- PAGE 22 ---
+(using the mean) during the IPO week, reﬂecting a surge in retail attention toward the stock. This
+surge in retail attention is consistent with the marketing role of IPOs documented by Demers and
+Lewellen (2003). Interestingly, the shift in retail investor’s attention is not permanent. The SVI
+reverts to its pre-IPO level two to three weeks after the IPO.
+Second, we examine the relation between increased attention prior to the IPO and the ﬁrst-day
+IPO return. Panel A of Figure 3 summarizes the main results. Consistent with the attention-
+induced price pressure hypothesis, the set of IPOs with low ASVI during the week prior to the IPO
+have ﬁrst-day average returns of 10.90 percent while the set of IPOs with high ASVI have much
+higher ﬁrst-day average returns of 16.98 percent. The diﬀerence between the two average ﬁrst-day
+returns is about 6.08 percent. Both t-tests and nonparametric Wilcoxon tests indicate that the
+diﬀerence is statistically signiﬁcant at the 1 percent level.
+We formalize the analysis using regressions in Table 7. Regressions allow us to control for IPO
+characteristics and other variables that are related to ﬁrst-day IPO returns. In all regressions, the
+dependent variable is the individual IPO’s ﬁrst-day return, computed as the ﬁrst CRSP available
+closing price divided by the oﬀering price minus one.
+In addition to ASVI, we examine three
+variables shown in prior literature to have strong predictive power for the ﬁrst-day IPO return.
+The ﬁrst variable is Media, deﬁned as the logarithm of the number of news articles recorded by
+the Factiva (using company name as the search criteria) between one day after ﬁling date and
+one day before IPO date, normalized by the days between ﬁling day and IPO day. Both Cook,
+Kieschnick and Van Ness (2006) and Liu, Sherman and Zhang (2009) show that this alternative
+measure of attention also predicts ﬁrst-day IPO return, though they diﬀer in their interpretation of
+the eﬀect of pre-IPO media coverage. The second variable is Price Revision, deﬁned as the ratio of
+the oﬀering price divided by the median of the ﬁling price. As suggested by Hanley (1993), a larger
+revision of the oﬀering price is also associated with a higher ﬁrst-day return. Finally, it is well
+known that IPOs come in waves (see Ibbotson and Jaﬀe, 1975; Ritter, 1984; Lowry and Schwert,
+2002, among others), so aggregate positive market sentiment could drive both SVI and ﬁrst-day
+IPO returns. While our sampling period from 2004 to 2007 is generally considered a “cold”period
+for IPO activity, we still control for the impact of time-varying aggregate market sentiment using
+the third additional variable, DSENT, developed in Baker and Wurgler (2006). DSENT is the
+Baker-Wurgler monthly investor sentiment change (orthogonal to macro variables) at the month
+21
+
+--- PAGE 23 ---
+when the ﬁrm goes to public, obtained from Jeﬀrey Wurgler’s website. In contrast to Media and
+Price Revision which are IPO-speciﬁc, DSENT is an aggregate market-level variable.
+We also control for a comprehensive list of ﬁrm- and industry-level characteristics in Table 7.
+Log(Oﬀering Size) is the logarithm of oﬀering size, where the oﬀering size is deﬁned as the oﬀering
+price multiplied by the number of shares oﬀered.
+Log(Age) is the logarithm of years between
+the ﬁrm’s founding year and the year of IPO, where the ﬁrm age is obtained from Jay Ritter’s
+website and supplemented by hand-collected information from various sources. Log(Asset Size) is
+the logarithm of ﬁrm’s total assets prior to IPO. CM Underwriter Ranking is the Carter-Manaster
+ranking of lead underwriter (Carter and Manaster, 1990), obtained from Jay Ritter’s website. VC
+Backing is a binary indicator variable taking value of one if the IPO is backed by a venture capital
+ﬁrm, and zero otherwise. Secondary Share Overhang is deﬁned as the secondary shares oﬀered
+/ (IPO share oﬀered + secondary share oﬀered). Past Industry Return is the Fama-French 48-
+industry portfolio return corresponding to the industry classiﬁcation of the IPO at the time of
+public oﬀering.
+Regression 1 in Table 7 conﬁrms that ASVI, on a stand-alone basis, strongly predicts ﬁrst-day
+IPO return. The regression coeﬃcient of 0.275 suggests that one standard deviation increase in
+ASVI (0.168) leads to a 4.62% (= 0.168 x 0.275) higher ﬁrst-day return. While regression 2 conﬁrms
+the predictive power of the news variable, Media, as documented in Liu, Sherman and Zhang (2009),
+ASVI seems to be a better predictor than Media in terms of a more signiﬁcant regression coeﬃcient
+and a higher R2. Regression 3 shows that Price Revision is by far the strongest predictor of the
+ﬁrst-day return. A single Price Revision variable explains more than 23% of the variation in ﬁrst-
+day returns across IPOs in our sample. Finally, regression 4 suggests that changes in aggregate
+market sentiment does not seem to drive ﬁrst-day IPO returns, which is not too surprising given
+that our sample period coincides with a relatively cold period for IPOs.
+Regressions 4 - 8 in Table 7 control for other IPO characteristics, and the predictive power of
+all four variables remain. In particular, in regression 5, the regression coeﬃcient on ASVI drops
+slightly to 0.203, but remains highly signiﬁcant.
+Finally, when we include all four variables in
+regression 9, we ﬁnd ASVI drives out Media, although this comes from an increase in Media’s
+standard error rather than a decrease in it’s point estimate in the full speciﬁcation. Nevertheless,
+when all variables are included in the full speciﬁcation (column 9), the only stock-speciﬁc attention
+22
+
+--- PAGE 24 ---
+measure which predicts ﬁrst-day returns is ASVI. Moreover, the regression coeﬃcient on ASVI is
+0.189, which measures the incremental predictive power of ASVI. Even after controlling for almost
+all existing variables aﬀecting ﬁrst-day returns,one standard deviation increase in ASVI still leads
+to a 3.18% (=0.168 x 0.189) higher ﬁrst-day return.
+Third, we examine the relation between increased retail attention prior to the IPO and the long-
+run performance of the IPO. Panel B of Figure 3 summarizes the main ﬁndings. The ﬁgure plots
+the mean and median of the market capitalization and book to market equity matched portfolio
+adjusted cumulative IPO returns from weeks 5 to 52 after the IPO. The choice of this return horizon
+is consistent with Figure 2 which shows that retail investor attention level largely reverts to the
+pre-IPO level by the end of week 4.12 We focus on the IPOs that experience large ﬁrst-day returns
+and further divide them into two portfolios based on ASVI prior to the IPO. This ﬁgure illustrates
+that IPOs with large ﬁrst-day returns driven by investor attention indeed underperform ﬁrms with
+similar market capitalizations and book to market equity ratios. In contrast, IPOs experiencing
+large ﬁrst-day returns without large increases in their SVI prior to IPO do not experience post-
+issuance return reversal. The diﬀerence between the two average ﬁrst-day returns is about 9.11
+percent. Both t-tests and nonparametric Wilcoxon tests indicate that the diﬀerence is statistically
+signiﬁcant at the 1 percent level.
+We formalize the analysis using cross-sectional regressions in Table 8 where we include the
+same control variables as in Table 7. Panel A reports the results when the dependent variable
+is the cumulative IPO raw return from week 5 to 52 post-IPO. In regression 1, we ﬁnd that
+neither ASVI nor ﬁrst-day return alone predict long-run IPO underperformance. Interestingly, the
+interaction between ASVI and ﬁrst-day return does (as seen in regression 2). This is consistent
+with our conjecture that for IPOs with high ﬁrst-day returns that also experienced increases in
+retail investor attention, the high ﬁrst-day returns are partly driven by “price pressure” and will
+revert in the long run. In addition, the interaction term between the ﬁrst-day return and Media,
+Price Revision, and DSENT are not signiﬁcant in regressions 3 to 5. As we have shown, SVI more
+likely captures the attention of individual retail investors while Price Revision and Media capture
+12We also experiment skipping the ﬁrst three months after the IPO to take into account the market making and
+price stabilization eﬀorts by lead underwriters in that period (see Ellis, Michaely, and O’Hara, 2000 and Corwin,
+Harris, and Lipson, 2002). The results are qualitatively similar.
+23
+
+--- PAGE 25 ---
+other aspects of the IPO price-setting process.13 The insigniﬁcance of the oﬀering price revision
+variable suggests that it is individual investor attention (not that of institutions) that contributes
+to the high ﬁrst-day IPO return which is eventually reversed in the long-run.
+We also repeat the regression analysis using adjusted long-run stock returns post-IPO. Panel
+B of Table 8 reports the results where the dependent variable is the cumulative IPO raw return
+adjusted by cumulative industry returns over the same horizon. In Panel C, the cumulative IPO
+raw return is adjusted by the cumulative return of a size and book to market matched portfolio
+(excluding IPO stocks issued in the past ﬁve years). These return adjustments hardly change our
+main conclusion. The regression coeﬃcient on the interaction term between ASVI and ﬁrst-day
+return is always negative and signiﬁcant, conﬁrming the existence of long-run underperformance
+among IPOs with high ﬁrst-day returns that also experienced increases in retail investor attention
+prior to the IPO.
+To summarize, two interesting empirical results arise from the analysis of IPO stocks. First,
+we ﬁnd that ASVI has strong incremental predictive power for the ﬁrst-day IPO return. Second,
+ASVI also predicts long-run underperformance among IPO stocks with high ﬁrst-day returns. The
+results are consistent with the price pressure hypothesis as described in Barber and Odean (2008).
+Finally, we discuss an alternative interpretation of ASVI’s predictability for IPO returns. It
+could be that market participants have an expectation of IPO ﬁrst-day returns and that they search
+a lot (a little) prior to the IPO when they expect ﬁrst-day return to be high (low). Therefore, higher
+expected ﬁrst-day returns cause higher ASVI (i.e., the “anticipation hypothesis”), not the other
+way around (i.e., the “attention hypothesis”).
+There are two pieces of evidence that suggest the “anticipation hypothesis”cannot fully explain
+our results. First, we directly measure market expectations of ﬁrst-day returns using IPO SCOOP.
+IPO SCOOP is an independent research ﬁrm (not aﬃliated with underwriters) that surveys Wall
+Street investment professionals and provides a rating-based forecast of a forthcoming IPO’s ﬁrst-
+13In a related study, Liu, Sherman and Zhang (2009) investigate pre-IPO media coverage by counting newspaper
+articles written before an IPO. They interpret article counts as reﬂecting an increase in demand from genuine (as
+opposed to temporary, sentiment-driven) investors. Consistent with this interpretation, they ﬁnd that increases in
+pre-IPO media coverage are positively related to ﬁrst-day returns, but do not lead to price reversal. In contrast,
+our pre-IPO ASVI is likely to serve as a direct measure of less-sophisticated retail investor attention which does not
+persist after the IPO (see Figure 2). In another words, the clienteles studied in these two papers may be diﬀerent
+which leads to diﬀerent predictions for post-IPO returns. For example, in a study of retail and institutional investors
+participation of Taiwan IPO market, Chiang, Qian and Sherman (2010) provides evidence that while institutional
+investors behave optimally in the bidding of IPOs, retail investors behave suboptimally.
+24
+
+--- PAGE 26 ---
+day performance.14
+Then, we rerun the regressions in Table 7 including IPO SCOOP’s rating-
+based forecast of ﬁrst-day return.
+The results are reported in the Internet Appendix.
+We ﬁnd
+that while market expectations clearly predict ﬁrst-day returns, ASVI’s predictability for ﬁrst-day
+returns remains economically and statistically signiﬁcant. In fact, the point estimate and statistical
+signiﬁcance of ASVI hardly change. In addition, we ﬁnd neither the IPO SCOOP ratings nor its
+interaction with ﬁrst-day returns have any predictability for post-IPO returns.
+Second, while it’s possible that expectations about ﬁrst-day returns explain the correlation
+between ASVI and ﬁrst-day returns, it does not explain ASVI’s predictability for IPO’s return
+reversal.
+It seems less reasonable to believe that investors, anticipating a return reversal of an
+IPO, search more for it before the IPO. In contrast, the “attention hypothesis” explains ASVI’s
+predictability for both ﬁrst-day returns and long-run reversals. In our view, while we certainly
+cannot rule out the “anticipation
+hypothesis”, the “attention hypothesis” is a more consistent
+explanation of the evidence.
+6
+Conclusion
+Existing measures of investor attention such as turnover, extreme returns, news and advertising
+expense are indirect proxies. In contrast, we propose a new and direct measure of investor attention
+using search frequency in Google (SVI) in this paper. In a sample of Russell 3000 stocks from 2004
+to 2008, we ﬁrst show that SVI is correlated with but diﬀerent from existing proxies of investor
+attention.
+We also provide evidence that SVI captures the attention of retail investors.
+Because
+SVI is a direct measure of individual attention, we use it to test the attention-induced price pressure
+hypothesis of Barber and Odean (2008). We ﬁnd that an increase in SVI for Russell 3000 stocks
+predicts higher stock prices in the next two weeks and an eventual price reversal within the year.
+It also contributes to the large ﬁrst-day return and long-run underperformance for a sample of IPO
+stocks.
+Beyond testing theories of attention, this paper also illustrates the usefulness of search data
+in ﬁnancial applications.
+To our knowledge this is the ﬁrst paper to utilize a large database of
+14It turns out that the IPO SCOOP rating is indeed a powerful predictor of ﬁrst-day returns. For example, our
+sample of IPOs with below-median ratings have ﬁrst-day return of 7.07%, while IPOs with above-median ratings
+have ﬁrst-day returns of 26.08%.
+25
+
+--- PAGE 27 ---
+internet search volume in ﬁnance.
+As empiricists, we rarely observe the aggregate interest of
+investors other than via equilibrium outcomes such as volume and return.
+Search volume is an
+objective way to reveal and quantify the interests of investors and therefore should have many other
+potential applications in ﬁnance. We leave those for future research.
+26
+
+--- PAGE 28 ---
+References
+Baker, Malcolm, and Jeﬀrey Wurgler, 2006, Investor sentiment and the cross-section of stock re-
+turns, Journal of Finance 61, 1645-1680.
+Baker, Malcolm, and Jeﬀrey Wurgler, 2007, Investor Sentiment in the Stock Market, Journal of
+Economic Perspectives 21, 129-151.
+Barber, Brad M., and Terrance Odean, 2008, All That Glitters: The Eﬀect of Attention and News
+on the Buying Behavior of Individual and Institutional Investors, Review of Financial Studies 21(2),
+785-818.
+Barber, Brad M., Terrance Odean, and Ning Zhu, 2009, Do Retail Trades Move Markets? , Review
+of Financial Studies 21(1), 151-186.
+Battalio, Robert, 1997, Third Market Broker-Dealers: Cost Competitors or Cream Skimmers?
+Journal of Finance 52 (1), 341-352.
+Battalio, Robert, Jason Greene and Robert Jennings, 1997, How do Competing Specialists and
+Preferencing Dealers Aﬀect Market Quality? Review of Financial Studies 10, 969-993.
+Bessembinder, Hendrik, 2003, Selection Biases and Cross-Market Trading Cost Comparisons, Work-
+ing Paper, University of Utah.
+Bessembinder, Hendrik, William Maxwell, and Kumar Venkataraman, 2006, Market transparency,
+liquidity externalities, and institutional trading costs in corporate bonds, Journal of Financial
+Economics 82, 251-288.
+Boehmer, E., R. Jennings, and L. Wei, 2007, Public Disclosure and Private Decisions: Equity
+Market Execution Quality and Order Routing. Review of Financial Studies 20:315—58
+Brav, Alon, Christopher Geczy, Paul A. Gompers, 2000, Is the abnormal return following equity
+issuances anomalous?, Journal of Financial Economics 56 (2), 209-249.
+Caglio, Cecilia and Stewart Mayhew, 2008, Equity Trading and the Allocation of Market Revenue
+Data, Working Paper, U.S. Securities and Exchange Commission.
+Carter, Richard B., and Steve Manaster, 1990, Initial public oﬀerings and underwriter repuation,
+Journal of Finance 45, 1045 —1067.
+Chiang, Yao-Min, Yiming Qian, and Ann E. Sherman, 2010, Endogenous Entry and Partial Adjust-
+ment in IPO Auctions: Are Institutional Investors Better Informed?, Review of Financial Studies,
+Forthcoming.
+Chemmanur, Thomas and An Yan, 2009, Advertising, attention, and stock returns, Working Paper,
+Boston College and Fordham University.
+27
+
+--- PAGE 29 ---
+Choi, Hyunyoung and Hal Varian, 2009, Predicting the Present with Google Trends, Working
+Paper, Google Inc.
+Chordia, Tarun, Sahn-Wook Huh, and Avanidhar Subrahmanyam, 2007, The Cross-Section of
+Expected Trading Activity, Review of Financial Studies 20, 709-740.
+Cornelli, Francesca, David Goldreich, and Alexander Ljungqvist, 2006, Investor Sentiment and
+Pre-IPO Markets, Journal of Finance 61, 1187-1216.
+Corwin, Shane, Jeﬀrey H. Harris, and Marc L. Lipson, The development of secondary market
+liquidity for NYSE-listed IPOs, Journal of Finance 59(5), 2339-2373.
+Cook, Douglas O., Robert Kieschnick, and Robert A. Van Ness, 2006, On the marketing of IPOs,
+Journal of Financial Economics 82, 35-61.
+Da, Zhi, Joseph Engelberg, and Pengjie Gao, 2010, In search of earnings predictabilty, Working
+Paper, University of Notre Dame and University of North Carolina at Chapel Hill.
+Daniel, Kent D., Mark Grinblatt, Sheridan Titman and Russ Wermers, 1997, Measuring Mutual
+Fund Performance with Characteristic-Based Benchmarks, Journal of Finance 52, 1035-1058.
+Demers, Elizabeth, and Katharina Lewellen, 2003, The marketing role of IPOs: evidence from
+internet stocks, Journal of Financial Economics 68, 413-437.
+Easley, David, and Maureen O’Hara, 1987, Price, trade size, and information in securities markets,
+Journal of Financial Economics 19, 69-90.
+Ellis, Katrina, Roni Michaely, and Maureen O’Hara, 2000, When the underwriter is the market
+maker: An examination of trading in the IPO aftermarket, Journal of Finance 55(3), 1039—1074.
+Engelberg, Joseph, Caroline Sasseville, and Jared Williams, 2010, Market madness? The case of
+mad money, Management Science, forthcoming.
+Fama, Eugene F., and James D. MacBeth, 1973, Risk Return and Equilibrium: Empirical Tests,
+Journal of Political Economy 81, 607—636.
+Fang, Lily, and Joel Peress, 2009, Media Coverage and the Cross-section of Stock Returns, Journal
+of Finance forthcoming.
+Gervais, Simon, Ron Kaniel and Dan H. Mingelgrin, 2001, The high-volume return premium,
+Journal of Finance 56, 877—919.
+Grullon, Gustavo, George Kanatas, and James P. Weston, 2004, Advertising, Breath of Ownership,
+and Liquidity, Review of Financial Studies 17, 439-461.
+28
+
+--- PAGE 30 ---
+Hou, Kewei, Lin Peng and Wei Xiong, 2008, A tale of two anomalies: The implications of investor
+attention for price and earnings momentum, Working Paper, Ohio State University and Princeton
+University.
+Ginsberg, Jeremy, Matthew H. Mohebbi, Rajan S. Patel, Lynnette Brammer, Mark S. Smolinski,
+and Larry Brilliant, 2009, Detecting inﬂuenza epidemics using search engine query data, Nature
+457, 1012-1014.
+Hanley, Kathleen Weiss, 1993, The underpricing of initial public oﬀerings and the partial adjustment
+phenomenon, Journal of Financial Economics 34, 231-250.
+Harris, Larry, 2003, Trading and Exchanges: Market Microstructure for Practitioners, Oxford Uni-
+versity Press.
+Hirshleifer, David, and Siew Hong Teoh, 2003, Limited Attention, Information Disclosure, and
+Financial Reporting, Journal of Accounting and Economics 36, 337-386.
+Hvidkjaer, Soeren, 2008, Small Trades and the Cross-Section of Stock Returns, Review of Financial
+Studies 21(3), 1123-1151.
+Ibbotson, Rorger, and Jeﬀrey F. Jaﬀe, 1975, ‘Hot issue’markets, Journal of Finance 30, 10267 —
+1042.
+Kahneman, Daniel, 1973, Attention and Eﬀort, Prentice-Hall, Englewood Cliﬀs, NJ.
+Lee, Charles M. C. and Balkrishna Radhakrishna, 2000, Inferring investor behavior: Evidence from
+TORQ data, Journal of Financial Markets 3(2), 83-111.
+Liu, Laura, Ann E. Sherman, and Yong Zhang, 2009, the role of media in initial public oﬀerings,
+Working Paper, DePaul University and Hong Kong University of Science and Technology.
+Ljungqvist, Alexander, Vikram Nanda, and Raj Singh, 2006, Hot markets, investor sentiment, and
+IPO pricing, Journal of Business 79, 1667-1702.
+Lou, Dong, 2008, Attracting Investor Attention through Advertising, Working Paper, Yale Univer-
+sity.
+Loughran, Tim, and Bill McDonald, 2010, When is a liability not a liability? Textual analysis,
+dictionaries, and 10-Ks, Journal of Finance, forthcoming.
+Loughran, Tim and Jay Ritter, 1995, The New Issues Puzzle, Journal of Finance 50 (2), 23-51.
+Loughran, Tim and Jay Ritter, 2002, Why Don’t Issuers Get Upset About Leaving Money on the
+Table in IPOs?, Review of Financial Studies 15 (2), 413-443.
+Lowry, Michelle, and G. William Schwert, 2002, IPO market cycle: Bubbles or sequential learning?,
+Journal of Finance 57, 1171 —1200.
+29
+
+--- PAGE 31 ---
+Merton, Robert C., 1987, A Simple Model of Capital Market Equilibrium with Incomplete Infor-
+mation, Journal of Finance 42 (3), 483-510.
+Newey, Whitney and Kenneth West, 1987, A Simple Positive Semi-deﬁnite, Heteroskedasticity and
+Autocorrelation Consistent Covariance Matrix,”Econometrica 55, 703-708.
+Peng, Lin and Wei Xiong, 2006, Investor Attention, Overconﬁdence and Category Learning, Journal
+of Financial Economics 80, 563-602.
+Ritter, Jay R., 1984, The ‘hot issue’market of 1980, The Journal of Business 57, 215 —240.
+Ritter, Jay R., Ivo Welch, 2002, A Review of IPO Activity, Pricing, and Allocations, Journal of
+Finance 57(4), 1795-1828.
+Seasholes, Mark S., and Guojun Wu, 2007, Predictable behavior, proﬁts, and attention, Journal of
+Empirical Finance 14, 590 - 610.
+Sims, Christopher A., 2003, Implications of Rational Inattention, Journal of Monetary Economics
+50, 665-690.
+Tetlock, Paul C., 2007, Giving Content to Investor Sentiment: The Role of Media in the Stock
+Market, Journal of Finance 62, 1139-1168.
+Tetlock, Paul C., 2010, Does Public Financial News Resolve Asymmetric Information?, Review of
+Financial Studies 23, 3520-3557.
+Yuan, Yu, 2008, Attention and trading, Working Paper, University of Iowa.
+30
+
+--- PAGE 32 ---
+31 
+ 
+Figure 1: Illustrations of Google Trends Search 
+ 
+Panel A represents the graphical output for a Google Trends’ search of the terms “diet, cranberry.”  The graph plots weekly 
+aggregate search frequency (SVI) for both “diet” and “cranberry.”  SVI for “diet” is the weekly search volume for “diet” 
+scaled by the average search volume of “diet”, while the SVI for “cranberry” is the weekly search volume for “cranberry” 
+scaled by the average search volume of “diet.” Panel B represents the graphical output for a Google Trends search of the 
+terms “MSFT, AAPL.”  The graph plots weekly SVI for both “MSFT” and “AAPL.”  The SVI for “MSFT” is the weekly 
+search volume for “MSFT” scaled by the average search volume of “MSFT” while the SVI for “AAPL” is the weekly search 
+volume for “AAPL” scaled by the average search volume of “MSFT.” 
+ 
+Panel A: Google Trends Search for “diet” and “cranberry”. 
+ 
+Panel B: Google Trends Search for “MSFT, AAPL” 
+ 
+
+[TRUNCATED at 80000 chars — 50 total pages]

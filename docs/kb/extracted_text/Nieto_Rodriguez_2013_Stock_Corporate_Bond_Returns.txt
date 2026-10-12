@@ -1,0 +1,1289 @@
+
+--- PAGE 1 ---
+ Electronic copy available at: http://ssrn.com/abstract=2386043 
+ 
+ 
+1 
+ 
+ 
+Correlation between Individual Stock and Corporate Bond Returns 
+Belén Nieto 
+Rosa Rodríguez 
+ 
+December 2013 
+ 
+ 
+ABSTRACT 
+ 
+This paper studies the correlations between individual bond and stock returns issued by the 
+same firm using Trading Reporting and Compliance Engine prices. We employ panel data 
+to analyze the determinants of the variation in estimated dynamic correlations using 
+macroeconomic cycle indicators, firm risk measures, and specific bond characteristics. The 
+results show that the correlations vary both over time and cross-sectionally. Specifically, 
+aggregate factors approximating economic growth are not related to changes in 
+correlations, but correlations decrease with negative expectations about future aggregate 
+risks, although only for firms with a low default probability. However, the correlations are 
+higher when the stock idiosyncratic risk and/or firm financial leverage increases. In 
+contrast, the relation between correlations and the systematic stock risk is negative. 
+ 
+JEL Classification: G12, G14 
+Keywords: individual corporate bonds, stock–bond return correlation, idiosyncratic risk, 
+economic cycles. 
+ 
+ 
+We thank Alfonso Novales, Gonzalo Rubio and seminar participants at the 2012 Workshop 
+in Public Policy Design: Financial System Perspectives and the Crisis, the 2012 Financial 
+Engineering and Banking Society Conference, and the 19th Finance Forum (2011) for 
+helpful comments and suggestions that have improved the contents of the paper. Belén 
+Nieto and Rosa Rodriguez acknowledge financial support from the Ministry of Economics 
+and Competitiveness, respectively, through grants ECO2012-34268 and ECO2012-36559. 
+Financial support from Generalitat Valenciana grant PrometeoII/2013/015 is also 
+acknowledged by Belén Nieto. We assume full responsibility for any remaining errors. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 2 ---
+ Electronic copy available at: http://ssrn.com/abstract=2386043 
+ 
+ 
+2 
+ 
+1. Introduction 
+The correlation between bonds and stocks has been widely investigated, but only at the 
+aggregate level. In other words, most of the previous research consists of analyzing the 
+comovements in the two markets as a whole, and mostly regarding government bonds. The 
+results from these studies do not provide consistent conclusions; they depend on the 
+methodology employed, the sample period, and/or the country. Thus, papers using data 
+before the 1990s find a small but positive long-term correlation between stocks and 
+Treasury bonds (e.g., Shiller and Beltratti, 1992; Campbell and Ammer, 1993).  The equity 
+and bond markets have behaved very differently since the late 1990s, displaying mostly a 
+negative correlation between themselves.1 The literature offers theoretical explanations for 
+both signs.2 In any case, there is no doubt that this correlation is time varying. Gulko 
+(2002), Illmanen (2003), Connolly, Stivers, and Sun (2005), and Baele, Bekaert, and 
+Inghelbrecht (2010) document that the stock–Treasury bond correlation exhibits positive 
+values in stable periods and decreases significantly in subsequent crisis periods. This 
+finding is justified by the “flight to safety” effect, where investors’ risk aversion increases 
+during recessions, shifting investments from stocks to bonds.3 That is, contrary to what 
+occurs in expansions, bonds are viewed as hedge instruments in recessions. In any case, the 
+question of what drives the stock–bond correlation remains open, as shown by the profuse 
+amount of research employing different methodologies surrounding this issue.4 
+                                                 
+1 D’Addona and Kind (2006) show negative correlations for all G7 countries in the subsample after 1995 and 
+Baele, Bekaert, and Inghelbrecht (2010) find strong variability in the US stock–bond market correlation that 
+drops by up to 60% in one five-year interval in their sample.  
+2 On the one hand, under the present value models, it is possible justify a negative or zero correlation between 
+bonds and stocks because variables that anticipate future economic growth could affect the stock prices 
+positively (via higher expected dividends) but do not have an effect on bond prices. On the other hand, a 
+positive correlation could also be expected, given that variables in the discount rate (interest rates and risk 
+premium) are negatively related to both the prices of stocks and the prices of bonds. 
+3 This argument also justifies the application of the external habit model of Campbell and Cochrane (1999) to 
+bond pricing, as in the work of Wachter (2006) or Baele, Bekaert, and Inghelbrecht (2010).   
+4 We can find papers ranging from econometric developments for measuring the comovements between bond 
+and stock markets or for testing the flight to quality hypothesis (Baur and Lucey, 2009; Panchenko and Wu, 
+2009) and papers that show the importance of uncertainty in the stock market in explaining the time variation 
+of this correlation (Connolly, Stivers, and Sun, 2005) to papers that propose a common model for pricing 
+stocks and bonds (or a common factor model for the returns) to generate the correlation (Koijen, Lustig, and 
+Nieuwerburgh, 2012; Baele, Bekaert, and Inghelbrecht, 2010). The paper of Baker and Wurgler (2012) relays 
+a similar idea, where the authors study whether bond and stock returns are predictable using the same 
+variables to assess the causes of the comovement patterns. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 3 ---
+ 
+ 
+3 
+ 
+Research papers regarding the comovements between stocks and corporate bonds 
+are scarce and consist mainly of analyzing whether a variable related to one security is 
+relevant in determining a characteristic about the other security. An accepted conclusion is 
+that equity volatility contains relevant information for explaining or predicting credit 
+spreads, as shown by Campbell and Taskler (2003), Cremers, Driessen, Maenhout, and 
+Weinbaum (2008), and Zhang, Zhou, and Zhu (2009). 
+Our paper contributes by studying the correlation between individual stock and 
+corporate bond returns to identify what variables explain correlation variability. The goal of 
+understanding whether the two main financing securities of a firm are correlated or not and 
+why has important implications for both corporate finance and portfolio investment 
+decisions. From the corporate finance perspective, evidence about the reactions of stock 
+and bond prices to either idiosyncratic or systematic news is certainly relevant for dynamic 
+capital structure decisions over the economic cycle. A key issue of capital structure is to 
+understand how and why capital structure choice varies with macroeconomic conditions 
+and with firm-specific characteristics. In addition, the market value of the leverage ratio is 
+affected by the correlation between the numerator and the denominator. Therefore, 
+analyzing how this correlation changes both throughout the economic cycle and with the 
+firm’s particular idiosyncratic situation would help in choosing dynamically optimal 
+leverage ratios. From the portfolio management perspective, this study may also contribute 
+by identifying new diversification possibilities. In the case of negative or very low 
+correlations, the combination of bonds and stocks issued by the same firm should reduce 
+the investment portfolio’s total risk. 
+To the best of our knowledge, this is the first paper with this aim. Schaefer and 
+Strebulaev (2008) analyze the sensitivity of corporate bond returns to changes in equity 
+returns (also referred to as the hedge ratio) under the structural model of Merton (1974). 
+They show that the estimated hedge ratios are positive and statistically significant and 
+increase with firm risk. This finding is consistent with one of our empirical results. 
+However, their paper does not consider either dynamic correlations or covariances and their 
+analysis is reduced to variables within the selected model. On the other hand, Kwan (1996) 
+studies the correlation between individual stock returns and changes in bond yields 
+calculated from the bid prices of bonds quoted by Bloomberg. Kwan finds a negative 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 4 ---
+ 
+ 
+4 
+ 
+correlation that could be driven by firm-specific information more related to the mean than 
+to the variance of the firm’s underlying assets. In contrast, our paper directly uses bond 
+returns computed from transaction prices available in the Trading Reporting and 
+Compliance Engine (TRACE) database, to which all members must report over-the-counter 
+(OTC) corporate bond transactions in the secondary market. Therefore, our analysis is not 
+affected by selection bias, employs effectively informative prices, and compares the 
+movements of two homogeneously computed variables: the returns on the two securities. 
+We first estimate dynamic correlations between a set of individual stock and bond 
+returns using three alternative methodologies: a rolling sample correlation, a dynamic 
+conditional correlation (DCC) model such as Engle’s (2002), and a corrected version of the 
+DCC model that incorporates a non-synchronous trading adjustment that follows the initial 
+proposal of Engle, Kane, and Noh (1996). Second, we investigate the sources of the 
+variation behind the correlations dynamics in both the cross-sectional and time series 
+dimensions, using panel data analysis. We consider a large set of potentially explanatory 
+variables that include macroeconomic and financial aggregate factors related to economic 
+cycles, variables representing both the operational and financial risks of the issuer, and 
+variables representing bond characteristics or proxies for the specific risk of bondholders. 
+Our results suggest that correlations between individual bond and stock returns are, 
+on average, small but very different, depending on the stock–bond pair, and they are also 
+clearly time varying, showing persistence. The analysis of the potential determinants 
+reveals that the correlations do not respond to cycle indicators related to macroeconomic 
+growth but diminish when negative expectations are measured with aggregate risk 
+indicators, such as the volatility of consumption growth or the default spread. We also find 
+that the correlation diminishes as the systematic stock risk (beta) increases. Hence, bonds 
+and stocks of the same firm become increasingly different the greater the uncertainty in the 
+overall economy and the higher the stock’s systematic risk. This finding suggests that it 
+would be possible to obtain diversification benefits by combining stock and bonds issued 
+by the same firm in the investment portfolio at the right moment in time; total portfolio risk 
+will be especially lower in bad economic moments and for firms with stocks highly 
+sensitive to changes in the stock market. Indeed, this is consistent with the evidence 
+reported by Levy and Hennessy (2007), who show that relatively less constrained firms 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 5 ---
+ 
+ 
+5 
+ 
+exhibit countercyclical variations in outstanding debt and procyclical variations in 
+outstanding equity. In contrast, the correlation increases with the firm’s specific risk. 
+Therefore, the final diversification effect will then depend on the relative importance of 
+non-systematic firm risk relative to the firm risk associated with aggregate factors. 
+The finding of a positive relation between the bond–stock correlation and the firm’s 
+specific risk supports the foundation of structural models in which both financial securities 
+represent the same productive assets and then both react in the same direction to common 
+shocks. Especially relevant is the role of the leverage ratio in explaining correlations, 
+particularly for firms with a high probability of default. This result could be useful for 
+capital structure decisions because a corporate decision regarding debt (equity) will affect 
+the market leverage ratio not only through the numerator (denominator), but also through 
+the market value of equity (debt). Then, the speed of adjustment toward target leverage 
+should be greater for firms and moments with positive correlation. Consistently, Byoun 
+(2008) finds that the speed of adjustment is higher for firms with market debt ratios above 
+their target, and lower for firms with market debt ratios below their target level and binding 
+financial constraints. 
+The remainder of the paper is organized as follows. Section 2 theoretically justifies 
+the existence of a non-zero correlation between bond and stock returns and summarizes 
+related empirical findings. Section 3 describes the data. Section 4 explains the 
+methodologies and the results for the dynamic estimation of the correlations. In Section 5, 
+we analyze the determinants of bond–stock correlations, using panel data techniques. 
+Section 6 presents a series of robustness checks. We conclude the paper in Section 7. 
+2. Bond–stock return comovements: Theory and empirical insights 
+Structural models for pricing corporate debt, starting with Merton’s (1974), hold the idea of 
+a non-zero correlation between stock and bond returns. Although these models are known 
+to do a poor job explaining bond prices, they can be used to reasonably predict the common 
+variation in the equity and debt returns for the same firm (e.g., Schaefer and Strebulaev, 
+2008). Structural models are based on the fact that the value of the equity and the debt of 
+the same firm can be written as functions of firm value. Therefore, these values (and thus 
+their returns) must be correlated. More specifically, let B be the market value of the debt of 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 6 ---
+ 
+ 
+6 
+ 
+a firm i that promises to pay D on date T and let S be the market value of the same firm’s 
+equity. Suppose that both values can be written as a function of the value of the firm, V, at 
+time t: ܵ
+௜௧ൌ݂
+ሺܸ௜௧, ݐሻ;       ܤ௜௧ൌܨሺܸ௜௧, ݐሻ                                                  (1) 
+ 
+Any change in the firm value will affect both the equity and the debt value as  
+ௗௌ೔೟
+ௗ௏೔೟ൌ݂
+௏ሺܸ௜௧, ݐሻ         and        
+ௗ஻೔೟
+ௗ௏೔೟ൌܨ௏ሺܸ௜௧, ݐሻ,                                          (2) 
+where the subscripts on f and F denote partial derivatives. 
+ 
+We can transform the equations in (2) to obtain the return on equity, ܴ
+௜௧
+ௌ, and the 
+return on debt, ܴ
+௜௧
+஻, respectively: 
+ௗௌ೔೟
+ௌ೔೟ൌ
+௙ೇሺ௏೔೟,௧ሻௗ௏೔೟
+ௌ೔೟௏೔೟ܸ
+௜௧↔ ܴ
+௜௧
+ௌൌ
+௙ೇሺ௏೔೟,௧ሻ
+ௌ೔೟ܴ
+௜௧
+௏ܸ
+௜௧                                             (3) 
+ௗ஻೔೟
+஻೔೟ൌ
+ிೇሺ௏೔೟,௧ሻௗ௏೔೟
+஻೔೟௏೔೟ܸ
+௜௧↔ ܴ
+௜௧
+஻ൌ
+ிೇሺ௏೔೟,௧ሻ
+஻೔೟ܴ
+௜௧
+௏ܸ
+௜௧,                                             (4) 
+where ܴ
+௜௧
+௏ represents the return on firm value. Combining (3) and (4), we obtain ܴ
+௜௧
+ௌൌ
+௙ೇሺ௏೔೟,௧ሻ/ௌ೔೟
+ிೇሺ௏೔೟,௧ሻ/஻೔೟ܴ
+௜௧
+஻ .                                                     (5) 
+ 
+Equation (5) says that the equity and bond returns are related by the elasticity of the 
+equity value with respect to the debt value to changes in firm value, supporting the idea of 
+non-zero correlations. 
+Many empirical studies rely on this point to analyze whether a variable related to 
+one security is relevant in determining a characteristic about the other security. The most 
+researched relation in this sense is the effect of the volatility of equity on the bond.5 
+Campbell and Taskler (2003) show that increases in corporate bond yields are associated 
+with upward trends in idiosyncratic equity volatility. Cremers, Driessen, Maenhout, and 
+Weinbaum (2008) focus on implied volatility from individual options on the equity, since 
+unlike realized volatility is a forward-looking measure of the investors’ perception of risk 
+                                                 
+5 One extensively analyzed issue in the opposite direction involves the effect of bond rating changes on stock 
+returns (Holthausen and Leftwich, 1992; Barron, Clare, and Thomas, 1997; Abad-Romero and Robles, 2006).  
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 7 ---
+ 
+ 
+7 
+ 
+for explaining credit spreads. The authors find that individual implied volatility can explain 
+one-third of the variation of credit spreads with a positive coefficient while, however, the 
+implied volatility of an option on an equity index is negatively related to individual credit 
+spreads. This finding reveals the opposite perspective from which the correlation between 
+stocks and bonds must be addressed for aggregate or individual analysis. Finally, Zhang, 
+Zhou, and Zhu (2009) revisit the relation between individual equity volatility and credit 
+spreads by studying the benefits of using high-frequency equity returns for the 
+identification of jumps in volatility, on the one hand, and measuring credit spreads from 
+credit default swaps, on the other. Their results indicate that volatility risk and jump risk 
+predict spread variations with a positive but non-linear relationship. In all of these papers 
+the foundation is the same: The stocks and bonds represent the productive assets of a firm. 
+The specific relation between stock and bond returns requires imposing conditions 
+that allow specification of the functional form of the elasticity in (5). Under the simplest 
+structural model, that of Merton (1974), the sole assumption that the firm value follows a 
+diffusion process with constant instantaneous volatility and a standard Brownian motion 
+implies that this elasticity is 
+௙ೇሺ௏೔೟,௧ሻ/ௌ೔೟
+ிೇሺ௏೔೟,௧ሻ/஻೔೟ൌ
+௙ೇሺ௏೔೟,௧ሻ/ௌ೔೟
+൫ଵି௙ೇሺ௏೔೟,௧ሻ൯/஻೔೟ൌ
+థሺ௫೔೟ሻ
+ଵିథሺ௫೔೟ሻ
+஻೔೟
+ௌ೔೟                                     (6) 
+where 
+߶ 
+ 
+is 
+the 
+cumulative 
+standard 
+normal 
+distribution 
+at 
+ݔ୧௧ൌሾ݈݋݃ ሺܸ௜௧ܦ௜ሻ൅ሺݎ௧൅ሺߪ௜
+ଶ2ሻ
+⁄
+ሻ߬
+⁄
+ሿ/ߪ௜√߬, r is the risk-free rate, σ is the volatility of 
+firm returns, and ߬ൌܶ
+െݐ is the time until the maturity of the debt. Therefore, this model 
+predicts a positive correlation between bond and equity returns.6 
+Additionally, as indicated in (6), this sensitivity can vary for firms with different 
+volatilities, quasi leverage ratios, or time until debt maturity. All of these variables 
+determine ߶ሺݔ௜௧ሻ, on the one hand, but they also conversely affect the equity value and the 
+debt value, on the other hand. Therefore—and a priori—the final effect on elasticity is 
+ambiguous. 
+                                                 
+6 The idea that changes in firm value produce changes in the same direction in both the equity and debt values 
+is common in structural models; the positive correlation implied by equation (6) is not exclusively derived 
+from the Merton model. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 8 ---
+ 
+ 
+8 
+ 
+To gain insight into how the cross-sectional differences between firm characteristics 
+affect the elasticity, we simulate the paths for the equity and debt values under Merton’s 
+model, using a grid of values for the three parameters of the model.7 We find that Merton’s 
+model implies equity–bond elasticity (equity–bond return covariance) increasing with the 
+quasi leverage ratio, firm volatility, and time to maturity.8 However, our simulations also 
+show that this is not the case for the correlation; the increment in leverage or firm volatility 
+has a higher impact on the volatility of the bond return than on the covariance between the 
+two returns, decreasing the correlation. In contrast, independent of firm volatility and 
+leverage, the correlation increases with bond maturity. These results are illustrated in 
+Figure 1 for the two extreme values of firm volatility.9 
+[Figure 1] 
+Regarding the time series dimension, the literature indicates that both equity risk 
+premium and credit spreads are countercyclical.10 Thus, recent theoretical models for 
+pricing risky debt recognize the importance of macroeconomic factors for generating 
+cyclical movements, as those of Hackbarth, Miao, and Morellec (2006) and Chen, Collin-
+Dufresne, and Goldstein (2009). However, the fact that both equity risk premium and bond 
+risk premium increase in bad times is necessary but not enough to justify a higher 
+correlation during recessions than during expansions. The proposal by Bhamra, Kuehn, and 
+Strebulaev (2010) goes a step ahead by modeling simultaneously the prices of both assets 
+such that it is possible to understand their common response to changes in economic 
+conditions. The model combines the cross-sectional implications of structural models with 
+                                                 
+7 For the leverage ratio and time to maturity, we assume a range of values between the minimum and 
+maximum values observed in our sample data, between one and 30 years for the maturity and between 0.01 
+and 0.8 for the leverage ratio. For the firm volatility case, we follow Schaefer and Strebulaev (2008) and 
+choose a range sufficiently wide for picking reasonable values of this parameter: between 10% and 50%. 
+8 Our results are consistent with the simulations of Schaefer and Strebulaev (2008). Other studies underlying 
+equity–debt elasticity are those of Campello, Cheng, and Zhang (2008) and Elkamhi and Ericsson (2008). 
+Although the aim of these papers is different, an intermediate step by Campello, Cheng, and Zhang (2008) is 
+the estimation of the relation between equity–debt elasticity and variables that potentially affect it. They find 
+that this elasticity is not constant but positively affected by stock return volatility and negatively affected by 
+the risk-free rate.  
+9 The results and specific details of these simulations are available upon request.  
+10 On the equity side, all intertemporal pricing models, starting with Merton’s (1973) model, are defined to 
+capture this observed pattern in the price of risk. On the side of debt prices, Giesecke, Longstaff, Schaefer, 
+and Strebulaev (2011), using an extensive data set from 1866, conclude that corporate default rates are only 
+moderately related to business cycles and that macroeconomic indicators are not useful for explaining 
+changes in credit spreads. Gilchrist and Zakrajsek (2012) show that the ability of credit spreads to forecast 
+economic cycles is mainly due to an unexpected default component.  
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 9 ---
+ 
+ 
+9 
+ 
+the time series variability of the bond and stock expected returns implied by an 
+intertemporal capital asset pricing model (CAPM). In the model, macroeconomic risks 
+affect both assets by means of the recursive preferences assumed for the representative 
+agent. For the debt value, changes in the economic conditions are reflected in the price of 
+the Arrow–Debreu default claim, assuming a positive correlation between the Brownian 
+motion in earnings and aggregate consumption, the price of the Arrow–Debreu claim is 
+higher in bad times, reducing market debt value more and then increasing the credit spread 
+more in those moments. In the case of equity, the macroeconomic risk has two effects. On 
+the one hand, the marginal rate of substitution is higher in bad times, with a direct effect on 
+expected equity returns. On the other hand, the increase on the price of the Arrow–Debreu 
+default claim can have a positive effect on equity value since shareholders no longer have 
+to pay coupons in the case of default. Moreover, if the model incorporates the possibility of 
+a dynamic capital structure, this positive effect is increased because of the benefits of 
+refinancing options for shareholders. Therefore, although the model implies that both 
+equity and the bond risk premium are countercyclical, the correlation between them would 
+be negative if the opposite effect that the risk-neutral probability of default plays in the 
+price of the two assets is predominant. 
+The aim of our paper is to analyze how the correlation between stock and bond 
+moves and what variables are responsible for such variations in time and across different 
+firms and/or specific bond characteristics. It must be noted that our study does not test any 
+particular model for pricing risky debt. The previous discussion about the implications of 
+some models on the correlation is just to generate predictions in terms of theoretical 
+support. Next, the empirical results will either confirm these predictions or not. 
+3. Data 
+We employ the transaction database TRACE that compiles information about all corporate 
+bond transactions. It is a system by which all members must report any OTC corporate 
+transaction in the secondary market following the rules approved by the Security and 
+Exchange Commission in January 2001. The actual reporting started in July 2002, with the 
+dissemination of all trades in bonds with an initial issuance above $1 billion and in the 50 
+highest-yield bonds. In March 2003 the dissemination was extended to trades in bonds with 
+an initial issuance above $100 million and a rating of at least A-. Finally, the dissemination 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 10 ---
+ 
+ 
+10 
+ 
+was completed in October 2004, with 99% of all trades reported in real time.11 The increase 
+in the quantity and quality of the information provided by the TRACE system has been 
+reflected in the increasing number of research papers studying the U.S. corporate bond 
+market with these data. However (although expected), these papers are mainly focused on 
+market transparency and liquidity. On one hand, the implementation of the new system 
+provides the opportunity to analyze improvements on market transparency and, on the other 
+hand, the new database provides intraday information that allows liquidity measures and 
+their components to be estimated more efficiently (e.g., Edwards, Harris, and Piwoward, 
+2007; Bessembinder, Maxwell, and Venkaraman, 2006; Goldstein,  Hotchkiss, and Sirri, 
+2007; Dick-Nielsen, Feldhütter, and  Lando, 2012).  
+Although we are not going to benefit from the dissemination of the intraday 
+information in TRACE, this database allows us to identify exactly the last trade in each day 
+and thus to match this close price to the corresponding close price in the stock market. We 
+collect all transactions regarding bonds issued by the firms on the Standard & Poor’s (S&P) 
+100 Index and, after applying the filters proposed by Dick-Nielsen (2009) to eliminate 
+erroneous reports, we save the daily close prices.12 The daily close prices for the stocks of 
+the firms on the S&P 100 are similarly collected from the Center for Research in Security 
+Prices (CRSP). Next, some filters reduce the final number of bonds in our sample. First, we 
+only use bonds with fixed coupon rates, non-callable, non-putable, non-sinking funds, and 
+non-convertible bonds to avoid simultaneity effects on their prices. Second, we eliminate 
+bonds that do not fulfill both the criteria of having at least three years of data available and 
+10 liquidity observations per month.13 This results in a final sample of 467 bond issues of 
+72 firms. 
+[Table 1] 
+Table 1 provides descriptive statistics comparing our selected bonds to the whole 
+population in TRACE database. The first panel shows the distribution of issuers and issues 
+by industry. In both cases the most representative industry for bond issuers is the industrial 
+                                                 
+11 As of July 2005, real time means that trades must be reported within 15 minutes.   
+12 We would like to thank Jens Dick-Nielsen for his help in answering all our doubts about the 
+implementation of the filters. 
+13 If the latter condition is not reached, we relax this constraint to observe at least 30 observations in the 
+quarter in which the month belongs.  
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 11 ---
+ 
+ 
+11 
+ 
+group; 76 % of issuers in our sample and 65 % in TRACE belong to this group. Regarding 
+bond issues, as expected, 67% of all bonds in TRACE are issued by financial firms. In our 
+sample, bonds belonging to industrial and financial firms represent similar percentages of 
+the whole sample (54% and 43%, respectively). In any case, the second panel in Table 1 
+shows that there are no major differences in yield, coupon, maturity, and Treasury Spread, 
+on average, between our selected sample and the whole database, although standard 
+deviations are generally larger in TRACE, given that the variety of issues is higher. Finally, 
+the number of issues per issuer is slightly lower in our sample (six, compared to eight for 
+the whole database), but in both cases the number of issues per firm is higher in the 
+financial sector. 
+The sample period is from July 2002 to December 2009, which promises substantial 
+time series variation since it includes the last part of an expansion cycle (2002–2006) and 
+the recent and dramatic economic crisis (2007–2009). 
+Daily returns obtained from the daily prices of stock and bonds are used to estimate 
+a series of dynamic correlation for each stock–bond return pair. Therefore, 467 correlations 
+are estimated and analyzed. Once again, studies about which model provides the best 
+estimate for the correlation between aggregate stock and bond returns are abundant, 
+whereas that is not the case for individual corporate bond–stock comovements. Therefore, 
+instead of assuming a determined model for the correlations, we estimate the correlations 
+with purely data-driven methods in the next section. After that, we attempt to explain their 
+cross-sectional and time series variations with variables that can potentially do so. 
+4. Bond–stock correlation estimation 
+The dynamics of time-varying correlations between financial variables have been 
+extensively studied in the literature. The most employed estimation methods are versions of 
+multivariate generalized autoregressive conditional heteroskedasticity (GARCH) models.14 
+However, the estimation of GARCH models becomes intractable when the number of series 
+being modeled is high. The DCC model of Engle (2002) deals with this problem by 
+employing the decomposition of the covariance into volatilities and correlations. Then, the 
+estimation can be done in two steps: In the first step, the volatility of each asset is estimated 
+                                                 
+14 For a survey of multivariate GARCH models, see Bauwens, Laurent, and Rombouts (2006). 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 12 ---
+ 
+ 
+12 
+ 
+and, in the second step, the estimation of the dynamic correlation is obtained from the 
+dynamic covariance of the standardized returns. Next we briefly describe the method. 
+ 
+Let  ݎ௧ be the vector of N returns. The conditional covariance matrix in a DCC 
+model can be decomposed as 
+ߑ௧ൌܦ௧߁௧ܦ௧, 
+where ܦ௧ is a diagonal matrix, with the square root of the variances on the diagonal, and ߁௧ 
+is the correlation matrix. We assume GARCH(1,1) processes for the first-step estimation of 
+the individual conditional variances. 
+By dividing the returns by their conditional standard deviation, ݖ௧ൌܦ௧ି
+ଵݎ௧, we can 
+write the matrix of the correlations of row returns as 
+߁௧ൌ݀݅ܽ݃
+ሺܳ
+௧ሻିଵ/ଶ  ܳ
+௧ ݀݅ܽ݃
+ሺܳ
+௧ሻିଵ/ଶ      
+    
+ 
+(7) 
+and the elements of Q can be estimated by assuming again a GARCH(1,1) specification: 
+ݍ௜௝,௧ൌߩ௜௝൅ߙ൫ݖ௜,௧ିଵݖ௝,௧ିଵെߩ௜௝൯൅ߚሺݍ௜௝,௧ିଵെߩ௜௝ሻ,                        (8) 
+where ߩ௜௝ is the long-run average correlation. Finally, the conditional correlation is 
+ߩ௜௝,௧ൌ
+௤೔ೕ,೟
+ඥ௤೔೔,೟௤ೕೕ,೟.                                                     (9) 
+One important problem with individual bond prices of daily frequency is series 
+discontinuities because of the lack of transactions on some days. Consequently, some bond 
+returns are generated during more than one day. This non-synchronicity problem between 
+bond and stock returns can bias the estimation of the correlation between them. We treat 
+this problem in two ways. 
+The first approach consists of homogenizing the bond and the stock price series by 
+eliminating in both of them the days without prices in the bond sample. Then the returns are 
+computed as if the prices were consecutive, but adjusting them by dividing by the number 
+of days between prices: 
+ଵ
+௛ቂ݈݋݃ቀ
+௣೟
+௣೟ష೓ቁቃ. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 13 ---
+ 
+ 
+13 
+ 
+The second approach admits and incorporates the fact that sometimes the 
+information disclosure process takes more than one day. We compute standard bond and 
+stock log returns, ݈݋݃ቀ
+௣೟
+௣೟ష೓ቁ, for all days with prices in the bond sample. We follow and 
+extend the proposal of Engle, Kane, and Noh (1996), originally developed for the gaps 
+during weekends in GARCH-type models, for the case of any h-day gaps between prices in 
+the estimation of both the individual conditional variances and the conditional correlation:15 
+ߪ௜௧
+ଶൌ݄
+௧
+ఋ൬݄௧ି௛ି
+ఋቀሺ1 െߙെߚሻߪ௜
+ଶ൅ߙݎ௜௧ି௛
+ଶ
+൅ߚߪ௜௧ି௛
+ଶ
+ቁ൰,                  (10) 
+ݍ௜௝,௧ൌ݄
+௧
+ఋቀߩଵଶ൅݄
+௧ି௛ି
+ఋ൫ߙ൫ݖ௜,௧ି௛ݖ௝,௧ି௛െߩଵଶ൯൅ߚሺݍ௜௝,௧ି௛െߩଵଶሻ൯ቁ .       (11) 
+This specification captures how the variances and the correlation can slow down or 
+speed up when gaps due to non-trading days occur, where δ is the speed parameter. If 
+prices are consecutive, h = 1, the model is the standard DCC. When h > 1, the effect of the 
+non-trading problem will depend on the relation between ht  and ht-h and on the value of δ. 
+We call correlations estimated using this adjusted DCC-GARCH procedure DCCD 
+correlations. 
+ 
+The DCC and DCCD specifications are used for estimating the daily conditional 
+correlation for each pair of stock–bond returns by the quasi maximum likelihood method. 
+The frequency histograms of the parameters of equations (8) and (11) are displayed in 
+Figure 2. 
+ 
+ 
+ 
+ 
+ 
+[Figure 2] 
+The estimated values for the parameter associated with the short-term shocks are 
+concentrated in the whereabouts of zero in both the DCC and DCCD estimations, but the 
+DCCD model produces higher dispersion. More specifically, the medians (first and third 
+quartiles) are 0.012 (-0.005, 0.030) and 0.014 (-0.083, 0.486), respectively. The two 
+histograms for the persistence parameter indicate that the correlation is relatively persistent, 
+although there are cases with β < 0. The median values for the DCC and DCCD estimates 
+are 0.679 and 0.5696, and the first and third quartiles are (0.281, 0.904) and (0.006, 0.869), 
+respectively. Finally, regarding the parameter for the power of the number of days without  
+                                                 
+15 For this estimation we incorporate the weekend and holiday days in our sample period.   
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 14 ---
+ 
+ 
+14 
+ 
+a price in the DCCD specification, its estimated value is lower than one, in absolute value, 
+for 344 out of 467 stock–bond pair returns. This indicates that, generally, the non-trading 
+adjustment will reduce the effect of both the shock and the persistence terms in the forecast 
+of the next period correlation. However, it is also true that δ takes on very high values in 
+some cases. We return to this fact later. 
+ 
+From daily correlations obtained by the DCC and DCCD models, we compute the 
+average correlation within each month for having monthly series, since it is the available 
+frequency of the explanatory variables that we employ in the next analysis. Additionally, 
+we compute monthly sample correlations by using a rolling and overlapped window of 
+three months of daily returns, as do Andersson, Krylova, and Vähämaa (2008) and 
+Demiralp and Hein (2010). 
+It must be noted that we are not interested in finding the best method for estimating 
+dynamic correlations between stock and bond returns. We employ three different methods to 
+check the robustness of the conclusions about what variables are related to the cross-
+sectional and time series behaviors of these correlations. For that reason, we do not compare 
+performance between the three alternatives. However, some kind of comparison between 
+estimates can be helpful. The high number of estimated correlations impedes their individual 
+analysis. Instead, we compare the three estimates in cross-sectional terms by analyzing the 
+distribution of the first, second, and third quartiles of the 467 correlations in Table 2. After 
+that, differences in the time series dynamics of the three estimates are commented on 
+throughout select representative cases displayed in Figures 3 and 4. 
+[Table 2] 
+Looking at the median value of the 467 correlations, we find the three estimation 
+methods to be very similar. Density is concentrated around zero but the dispersion range is 
+wide, as indicated by the minimum, the maximum, and the standard deviation. Moreover, 
+the high values for kurtosis indicate that the distribution of median values has thicker tails 
+than the normal distribution, mainly in the DCCD case. In contrast, panels regarding the 
+first and third quartiles indicate that the sample correlations are much more volatile than the 
+two estimated correlations based on GARCH specifications, as shown by the range of 
+dispersion in the mean and median between the quartiles. However, the negative skewness 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 15 ---
+ 
+ 
+15 
+ 
+and excess kurtosis of the first quartile in the case of DCCD denote that this method 
+produces more extreme negative values for the correlation. Finally, the last panel in Table 2 
+reports information about the first autocorrelation of the monthly series. The two DCC 
+methods produce monthly correlations with similar levels of persistence; at the mean, the 
+autocorrelation is approximately 0.2 for both methods. As expected, the sample correlation 
+estimation produces series that are much more persistent because of the overlapping 
+procedure employed in this case.16 
+[Figure 3] 
+Figure 3 shows two examples of the time pattern of the sample and DCC estimated 
+correlations. The graphs indicate the name of the firm issuer and the identification number 
+of the specific bond issue in the stock–bond pair. The selection of these two examples 
+obeys the following criteria: i) The correlations involve firms in the two most 
+representative industries classes in our sample. Campbell Soup belongs to the most 
+representative industry sub-group (no. 10, manufacturing, in industry group 1, industrial) 
+and CIT Group is in the second most represented sub-group (no. 21, credit/financing, from 
+industry group 2, financial).17 ii) Given the discontinuities in the bond data and since our 
+sample period is relatively short, with only one change in the economic cycle, the 
+correlations involve  bonds with transaction prices in most of the days in our sample period 
+and that specifically were alive during the crisis period. As shown in Figure 3, sample and 
+DCC estimations show the same long-run mean. Therefore, differences between the 
+variables that determine the cross section of the correlations between the two estimation 
+methods in the next section are not expected. The long-run mean of correlation is low in 
+both graphs but, while it is around 0.1 for the financial firm, both the sample and DCC 
+correlations are negative in most months in the case of the manufacturing firm. Regarding 
+temporal dynamics, the sample and DCC estimates show increases and decreases at similar 
+times, but the sample estimation is much more volatile. This difference could produce 
+inconsistencies in the conclusion about the relation between the correlations and the 
+economic cycle in the next section, depending on the estimation method employed. Based 
+                                                 
+16 If we also use an overlapped window of three months, as in the sample case, for computing the monthly 
+correlation from daily DCC correlations, the first-order autocorrelation of the series is 0.644 at the mean and 
+0.621 at the median.    
+17 The 151 and 73 stock–bond correlations involve firms in industry sub-groups 10 and 21, respectively. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 16 ---
+ 
+ 
+16 
+ 
+only on the visual representation provided by Figure 3, it seems that the correlations are not 
+related to economic moments. 
+[Figure 4] 
+ 
+Figure 4 compares standard DCC and adjusted DCC estimations for non-trading 
+days. In this case, the selection of the correlations displayed is based on the differential 
+elements between the two methods: the number of days without a price between two 
+consecutive observed prices (h) and its power parameter (δ). The top graph displays the 
+correlation for the bond with the minimum gap between prices at the mean: 1.45 days.18 As 
+expected, DCC and DCCD correlations are very close to each other. In contrast, the central 
+graph displays the correlations regarding the bond with the maximum gap between prices at 
+the mean: 2.89 days. In this case, DCC and DCCD are more different in months in which 
+the number of days without a price is especially high. The difference between the two 
+correlations is remarkable in November 2005, where the bond shows 13 consecutive days 
+without trades. In this case, the DCCD estimation is more moderated than the DCC 
+estimation because of the low value of δ. Now we return to the histogram for δ in Figure 2. 
+There are 43 correlations for which the DCCD estimation produces very high values for δ, 
+in the range between 32 and 53 approximately. The question is, although these estimates 
+maximize the likelihood, do such high values produce economically reasonable dynamic 
+correlations? The answer is yes and the bottom graph in Figure 4 proves it. This graph 
+represents the DCC and DCCD estimates for the most extreme case: δ = 53.04. The high 
+value for the power parameter upwardly adjusts the standard DCC during practically all the 
+months, independent of the values of h. However, the dynamics of the two estimated 
+correlations follow the same temporal pattern and the magnitude of the adjustment is 
+moderated. 
+5. The determinants of the correlations 
+5.1. Explanatory variables 
+In this section we analyze the cross-sectional and time series variations of the correlations 
+previously estimated with panel data regression analysis. To do so, we include macro 
+variables, firm-specific variables, and bond-specific variables in the model. The selection of 
+                                                 
+18 The mean gap between prices is higher than one in all cases because we include weekends.   
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 17 ---
+ 
+ 
+17 
+ 
+these explanatory variables corresponds to both theoretical insights and empirical findings 
+in the literature. 
+In the group of macroeconomic or state variables, we consider different cycle 
+indicators based on both the financial and real sides of the economy. Specifically, we use 
+four variables indicating economic growth: the gross domestic product (GDP) growth rate 
+(ΔGDP), the industrial production index (IPI) growth rate (ΔIPI), the aggregate 
+consumption growth rate (Δc), and a dummy for crisis (NBER). We employ a group of 
+variables related to uncertainty in both the real and financial markets that are expected to 
+anticipate recessions: the volatility of the aggregate consumption growth rate (σc), the 
+volatility of market return (σSP), the implied volatility computed from prices of options 
+written on the S&P index (VIX), and a default spread (Default). We also include the term 
+structure of interest rates (Term) as an indicator of future good conditions. The short-term 
+interest rate (TBill) is considered since both the theoretical model and the empirical 
+evidence provided by Campello, Cheng, and Zhang (2008) indicate that increases in the 
+risk-free rate can produce decreases in the correlation between the two assets. 
+As we argued before, the value of the firm, which is indirectly related to its risk, is a 
+common determinant of firm bond and stock returns. To approximate the risk of a firm’s 
+stocks, we consider total risk (σTot), systematic risk (β), and idiosyncratic risk (σId). The 
+group of variables representing the financial component of firm risk includes the leverage 
+ratio (Lev) and the default probability (Default Prob). As measures of firm operational risk 
+we use industry dummy variables (Ind1 and Ind2) and the unlevered beta (βUN). Finally, 
+since Jensen and Meckling (1976) and Myers (1977), we know that incentive conflicts 
+between equity and debt holders increase the firm’s cost of debt. A partial solution to this 
+problem is to restrict the actions of the firm’s equity holders by adding debt covenants. For 
+that reason we also use a covenant indicator (Cov) as a proxy of financial risk for each 
+bond. 
+To control for bond characteristics regarding the interest rate risk, we use the 
+coupon level (coupon) and the time to maturity (time). Finally, given the importance of 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 18 ---
+ 
+ 
+18 
+ 
+illiquidity risk in both the stock and bond returns, we consider the measure of illiquidity 
+proposed by Amihud (2002) for both assets in each pair.19 
+All data for the construction of these variables are collected from the CRSP 
+database, the U.S. Federal Reserve, and Compustat. The details about the specific data 
+sources, the computation or estimation methodologies for constructing the variables, and 
+their descriptive statistics can be found in the Appendix. 
+5.2. Panel estimation 
+The main focus of this paper is the analysis of the variation of stock–bond return 
+correlation on both a time series and cross-sectional basis. To this extent, we conduct a 
+regression analysis using panel data estimation techniques. To be consistent with the 
+estimation of the dynamic correlations, we admit potential persistence in the dependent 
+variable and run the regression 
+              ݕ௜௧ൌߙݕ௜௧ିଵ൅ݔ௜௧
+ᇱߚ൅ߝ௜௧,  
+ 
+ 
+(12) 
+where ݕ௜௧ is the correlation for the bond–stock return pair i and month t and ݔ௜௧ is the vector 
+of exogenous variables, which includes state variables, firm-specific risk variables, and 
+bond-specific risk or characteristic variables. 
+To deal with the potential fixed effects in the error term, equation (12) is 
+differentiated and estimated by the system generalized method of moments (GMM), 
+initially proposed by Arellano and Bover (1995) and later developed by Blundell and Bond 
+(1998). In relation to the difference GMM estimator proposed by Arellano and Bond 
+(1991), the system GMM has the advantage of also exploiting the information contained in 
+the data in levels by including a new set of moment conditions regarding the untransformed 
+data (levels) while retaining the original Arellano–Bond conditions for the transformed 
+(differenced) equation. In addition, this methodology allows including time-invariant 
+regressors in the model, which would disappear in the difference GMM.20 
+                                                 
+19 The main advantage of Amihud’s illiquidity ratio is that it can be easily computed using daily data during 
+long periods of time. Moreover, Hasbrouck (2009) shows that, at least for US data, Amihud’s ratio better 
+approximates Kyle’s lambda relative to competing measures of illiquidity. 
+20 This is precisely the case of some of our explanatory variables, such as bond coupon and firm industry, 
+which have no time dimension.  
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 19 ---
+ 
+ 
+19 
+ 
+The estimation requires the selection of instruments, which implies deciding how 
+many instruments to use and controlling for the validity of the selection. Natural candidate 
+instruments are the first lag (and the first differenced lag) of dependent variables but it is 
+possible to employ more lags and to also include the explanatory variables or their lags as 
+additional instruments. Using longer lags and/or more instrumental variables introduces 
+more information and thus improves the efficiency of the estimation. However, numerous 
+papers (Sargan, 1958; Bowsher, 2002; Roodman, 2009b) show that too many instruments 
+can induce estimation problems, such as difficulty calculating the inverse of the estimated 
+variance matrix, potential bias in the two-step estimated standard errors, or weakness in the 
+test for overidentifying restrictions (Hansen, 1982). The first problem can be resolved by 
+performing a generalized inverse. The bias in the standard errors can be controlled by using 
+the correction proposed by Windmeijer (2005), which produces robust GMM estimators, as 
+shown in simulations. However, the potential weakness in the Hansen test has no reliable 
+solution. Therefore, there is a tradeoff between whether or not to increase the number of 
+instruments. After several empirical estimations comparing the performance of the models, 
+we decide to employ lags of the dependent variable to instrument the system GMM and to 
+consider all explanatory variables as strictly exogenous. Regarding the number of lags, we 
+adopt two alternatives. To be parsimonious, the first includes the minimum number of lags 
+such that the set of instruments is not potentially invalid. We use the autocorrelation test of 
+Arellano and Bond and the Hansen test, defined below, to determine the validity of the 
+instruments. To control for the lack of information when too few lags are employed, the 
+second alternative is to estimate the model by collapsing the instrument set following 
+Roodman (2009b). Collapsing the instrument set allows all possible lags to be employed 
+but reduces the standard number of moment conditions by linear combinations. This 
+method conveys slightly less information than the standard one while embodying the same 
+expectation in the moment condition set. In both options, we compute standard errors 
+applying the Windmeijer correction for robust estimators. 
+Regarding the validity of the chosen instruments, two tests can be used. The first, 
+due to Arellano and Bond (1991), tests the null of the absence of autocorrelation in the 
+idiosyncratic error term of the model. The test is applied to the residuals in differences. By 
+definition, these residuals present first-order serial correlation. In fact, this indicates that the 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 20 ---
+ 
+ 
+20 
+ 
+assumption of a dynamic model is correct. Thus, the first-order serial correlation in levels is 
+analyzed by looking at the second-order correlation in differences. If the null of no 
+correlation is rejected, then the second lag of the dependent variable is potentially an 
+invalid instrument and three or more lags would be needed. 
+Despite the persistence in the residuals, a set of valid instruments must also be 
+assumed to be exogenous to conclude the validity of the system GMM. In an attempt to 
+verify this assumption, the Sargan (1958) or Hansen (1982) test can be applied. In both 
+cases, the null is that the set of sample moment conditions holds, which is tested by a 
+quadratic form statistic that is asymptotically chi-square distributed and the unique 
+difference is the weighting matrix. The Hansen test proposes an optimal weighting matrix 
+that can be estimated in a two-step procedure. The problem with this test is that it is 
+weakened by instrument proliferation. In contrast, the Sargan test is not weakened because 
+of a high number of instruments but the weighting matrix that it employs is a consistent 
+estimator of the covariance matrix of the errors only under homoskedasticity. Otherwise, 
+the Sargan test tends to over-reject the null. Therefore, a theoretically superior 
+overidentifying restrictions test is based on the Hansen statistic from a two-step estimate. In 
+any case, we provide both tests for all our estimated models. 
+We estimate the parameters of equation (12) by the two-step system GMM 
+employing as the dependent variable each of the three groups of the estimated correlations: 
+the DCC, DCCD, and rolling sample. Tables 3 to 5 show the results.21 
+As indicated in equation (9), we only include the first lag of the correlation as an 
+independent variable. We check that an autoregressive process of first order is sufficient for 
+capturing the persistence in DCC and DCCD estimates. For the sample correlations, more 
+lags may be needed, but for the sake of homogeneity in comparisons and to be 
+parsimonious in the number of instruments, we choose to include only one lag of the 
+dependent variable for all cases. 
+                                                 
+21 Estimations have been run using the Stata xtabond2 procedure developed by Roodman (2009a), whom we 
+would like to thank for sharing this useful tool with researchers. We also obtain ordinary least squares, within-
+groups, and difference GMM estimate and the results are robust and are available upon request. We choose to 
+provide only system GMM results following Flannery and Watson (2012), who find that this is the best panel 
+estimation methodology, based on their results for simulations of specifications of different panel lengths that 
+include potential issues such as serial correlation and highly autocorrelated exogenous variables. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 21 ---
+ 
+ 
+21 
+ 
+The vector of exogenous variables (ݔ௜௧) includes a priori all the variables described 
+in Section 5.1. However, the results provided here only refer to models that include a subset 
+of the variables. The selection of the models follows two criteria: i) A variable is excluded 
+from the model if it is either irrelevant in any of the three sets of correlations analyzed or ii) 
+if its information is already contained in another explanatory variable. Thus, by running 
+successive regressions using different combinations of variables, we obtain the following 
+general results, which allow us to discard some explanatory variables: 
+1. Regarding the group of state or macroeconomic variables, GDP growth, IPI growth, 
+consumption growth,22 and the volatility of the market index are not useful in 
+explaining the variation in correlations and the information in short-term interest 
+rates or the NBER dummy variable is already included in the term spread and/or 
+default spread. 
+2. In the group of variables related to stockholder risk, standard betas and unlevered 
+betas are highly correlated, although the results regarding unlevered betas are more 
+stable; its relation with correlations is negative, despite the method used for 
+estimating taxes (see the Appendix), assuming the CAPM or the Fama–French 
+(1993) model. Consequently, we show the results only for unlevered market beta. In 
+addition, the total risk and the idiosyncratic risk share an important part of common 
+information and the former is not significant when the non-systematic risk is 
+considered in the model. 
+3. None of the illiquidity measures for either the stock or the bond in the pair is 
+significantly related to the correlations; nor does the coupon level or the covenant 
+indicator contain relevant information about correlations. 
+The results for the sample, DCC, and DCCD estimates are displayed in Tables 3, 
+4a, and 5, respectively. Table 4b show the DCC results again, but collapsing the instrument 
+set following Roodman (2009b).23 All tables report the estimated slopes and two-step 
+robust p-values (in parentheses) based on the Windmeijer (2005) correction. The number of 
+                                                 
+22 This result is compatible with the conclusion of Giesecke, Longstaff, Schaefer, and Strebulaev (2011), that 
+macroeconomic indicators are not useful for explaining changes in credit spreads. 
+23 The estimations in Table 3 and 5 are also repeated by collapsing the instruments set. However, since the 
+results are qualitatively the same we only report the DCC collapsed case. In any case, results are available 
+upon request.  
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 22 ---
+ 
+ 
+22 
+ 
+instruments is reported at the top of each column. Different-order Arellano–Bond, Sargan, 
+and Hansen tests are reported in the bottom rows. Based on the Arellano–Bond and Hansen 
+tests, we use the second lag of the dependent variables in Tables 4a and 5, while the 
+instruments are lags from five to seven for the sample correlations. 
+[Tables 3, 4a, 4b and 5] 
+The results are quite robust for the different methods employed for estimating 
+correlations and also compared to the collapsed instrument set case. Therefore we discuss 
+the results in Tables 3 to 5 as a whole. Starting with the global specification point of view, 
+we find that the null of the absence of second-order autocorrelation is not rejected by the 
+Arellano–Bond test for correlations estimated with DCC and DCCD methods. For this 
+reason, the system GMM instruments the endogenous variable with two lags in Tables 4a 
+and 5 and with more than two lags in the collapsing case in Table 4b. In the case of the 
+sample correlation, an AR(5) specification is needed for no serial correlation in the 
+residuals and thus lags of five and up are valid instruments. Comparisons between different 
+sets of instruments by the differences in the Hansen test indicate that lags from five to 
+seven are appropriate. The Hansen test does not reject the null that the overidentifying 
+restrictions are valid for all different models and the three estimated groups of correlations. 
+The exception is in Table 4b for the collapsed instrumentation, where the null is rejected for 
+all models at the 5% significance level. Finally, the Sargan test rejects the null for all 
+models in all four tables. The comparison between the Hansen and Sargan statistic values 
+suggests that the weighting matrix in the Sargan statistic undervalues the error covariance 
+matrix. In other words, it seems that the assumption of homoskedastic errors is in 
+appropriate and the weighting matrix in the Sargan statistic is not optimal, making 
+problematic inference from using a chi-squared distribution. 
+Regarding the estimates of the model parameters and starting with the 
+autoregressive component, it is clearly significant in all cases showing higher values in the 
+case of the sample correlations. This fact confirms the adequacy of the selection of a 
+dynamic GMM model. With respect to the set of state variables, the most consistent result 
+refers to the volatility of consumption growth. Its relation with the stock–bond correlation 
+is negative and highly significant for all models in Tables 4a, 4b, and 5. In the case of the 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 23 ---
+ 
+ 
+23 
+ 
+sample correlations, their relation with the consumption volatility is weaker but is also 
+significant in models that do not include Term or Default spreads. Therefore, it seems that 
+the aggregate consumption risk determines not only stock prices but also bond prices, being 
+a relevant factor for explaining the correlation between the two assets. This result would be 
+in favor of consumption-based models simultaneously pricing stock and corporate bonds, 
+as that of Bhamra, Kuehn, and Strebulaev (2010). Curiously enough, Augustin and 
+Tédongap (2011) also find that an important part of the variability of sovereign credit 
+default swaps can be explained by the volatility of aggregate consumption growth. The 
+negative sign indicates that the correlation is higher for low values of the aggregate 
+consumption risk; then, a macroeconomic negative shock, measured by an increase in 
+consumption volatility, conversely affects the bond and stock returns, decreasing the 
+correlation between them. 
+The other variables representing economic cycles produce less stable results but 
+point to a similar conclusion. Generally speaking, negative expectations, as indicated by the 
+aggregate default spread, are also significantly related to a decrease in correlations. This 
+result is consistent with the evidence reported by Chiang and Li (2009), although they use 
+corporate bond and stock market indices. The relation between correlations and the Term 
+spread is not stable, with both the parameter sign and the significance changing depending 
+on the model. Finally, VIX is a weak explanatory variable that is only significant in some 
+models with a positive sign, in general. We return to this finding later. 
+Summarizing the results regarding all the variables that convey information about 
+the economic cycles, we find that stocks and bonds issued by the same firm react 
+differently depending on the type of news. News about macroeconomic growth (IPI growth, 
+consumption growth, or GDP growth) does not explain the correlations’ variability and 
+only news regarding risk can be associated with correlations. The negative sign of this 
+association indicates that good news from aggregate risk indicators could be interpreted as 
+a signal of an increase in the firm value and thus both the equity and debt values would 
+increase, producing an increment in the correlation between their returns. However, bad 
+news would affect the two assets asymmetrically, probably because of the different 
+sensitivities of stocks and bonds to aggregate risk shocks. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 24 ---
+ 
+ 
+24 
+ 
+Regarding variables with firm-specific information, again the risk variables are the 
+most related to changes in the correlations. For the three correlation estimate sets and the 
+different system instrumentations, we find that the higher the idiosyncratic risk, the more 
+the stock–bond correlation increases. With the exception of the sample correlations, the 
+same is also true for the leverage ratio. These findings are consistent with previous 
+empirical evidence confirming that the relation between the two assets strengthens as issuer 
+risk increases (Campbell and Taskler, 2003; Campello, Cheng and Zhang, 2008; Schaefer 
+and Strebulaev, 2008). Our results therefore agree with structural models, since they 
+suggest that the equity–bond return covariance increases with these firm measures of risk. 
+However, our results also indicate that Merton’s (1974) specific model is not appropriate 
+for measuring the correlation between these two assets; remember that the model 
+simulations produce opposite results between leverage and firm volatility. On the other 
+hand, the firm probability of default is not generally related to the correlations. 
+Other variables that also approximate the firm risks lead to different conclusions. 
+Systematic operational risk, measured by unlevered beta, is strong and negatively related to 
+correlations estimated with GARCH-type models. This result also holds, although more 
+weakly, in the case of sample correlations. It suggests that, in contrast to the idiosyncratic 
+risk, increases in the systematic risk (especially in its operational component) are 
+incorporated in the stock price but not in the bond price, thereby reducing the correlation. 
+Finally, we also find that the type of industry appears to be an important 
+determinant of the correlation; the correlation is higher for utility firms than for the other 
+two industries and is significantly reduced for industrial firms. In addition, for some 
+correlation estimates and certain models, the correlation is higher when the bond’s time to 
+maturity is longer. 
+6. Robustness 
+6.1. Fama–MacBeth estimation 
+To ensure the reasonableness of our conclusion from the panel data estimation in the 
+previous section, we run cross-sectional regressions each month and compute estimates and 
+standard errors following Fama and MacBeth (1973). The results are shown in Table 6. In 
+this case, the state variables cannot be included in the regression and we consider all 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 25 ---
+ 
+ 
+25 
+ 
+possible combinations of the variables with cross-sectional dispersion. Different model 
+estimations allow us to confirm the lack of relevance for the following variables: the 
+covenant indicator, the coupon level, and the bond and stock illiquidity measures. These are 
+therefore not included in the models shown in Table 6. 
+ 
+[Table 6] 
+ 
+All the conclusions from the panel data estimation can be again extracted from the 
+Fama–MacBeth estimation results. Idiosyncratic risk and leverage are positively related to 
+correlations; the higher the unlevered market betas, the lower the correlations will be; and 
+correlations are higher when the bond time to maturity is longer and for firms in the utility 
+sector. In addition, we now find that the firm default probability is relevant in determining 
+the correlation with a positive sign in some cases. Therefore, we can conclude that 
+increases in specific (non-systematic) firm risk are contemporaneously associated with 
+increases in the correlation between the firm’s bond and stock returns. 
+6.2. Interactions 
+The previous results show inconsistencies in the relation between stock–bond correlations 
+and some explanatory variables. For example, the parameter of VIX is significant, 
+depending on the model, and the relation between correlations and firm default probability 
+appears irrelevant in the panel estimation case but relevant when the relation is estimated 
+by the Fama–MacBeth method. It is possible that these inconsistencies are related to 
+potential interactions between the economic cycle and the risk position of individual firms. 
+In this section we analyze this possibility with the theoretical support of a model that 
+combines the time series and cross-sectional dimensions of the problem: the intertemporal 
+structural model proposed by Bhamra Kuehn and Strebulaev (2010). 
+Under this model, the sources of risk for both  the firm’s stocks and bonds are 
+aggregate consumption and the individual firm’s earnings. On the one hand, negative 
+changes in the next period’s consumption growth or a negative revision in expectations 
+about consumption growth in the future increases the price of risk, which would have 
+negative consequences for both the stock and the bond. On the other hand, firm earnings 
+volatility is responsible of the price of the default claim; while an increase in firm risk 
+would have a negative effect on bond price, its effect on the stock price is a priori 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 26 ---
+ 
+ 
+26 
+ 
+ambiguous because it is also affected by the call structure of the equity value. Moreover, 
+these two sources of risk are positively correlated.24 
+With this framework in mind, we would expect interactions between state or 
+aggregate variables and variables related to firm risk. To analyze if this is the case, we split 
+the sample of firms into two subsamples on the base of the firm default probability. 
+Specifically, each month in our sample period we classify a firm as having a high 
+probability of default if its probability of default is higher than the 75th percentile for the 
+cross-sectional distribution of that month. Otherwise, the firm is in the low (normal) default 
+probability subsample. We adopt this method of splitting the sample because it produces 
+the highest differences in the mean level of default probability between the subsamples. In 
+addition, this division produces the most symmetric distribution of firms: the median 
+number of firms in each subsample is exactly the same.25 After that, the number of stock–
+bond correlations in each subsample depends on the number of bonds belonging to each 
+firm and, of course, on the specific month. On average, over time, the number of 
+correlations is 165 in the high default probability subsample and 300 in the low default 
+probability subsample, with a maximum of 239 firms in the former subsample in November 
+2008. Then, we repeat the panel model estimations for each subsample separately.26 The 
+estimated results are reported in Tables 7 and 8 for the low and high default probability 
+subsamples, respectively. 
+[Tables 7 and 8] 
+The results confirm our suspicion of interaction between aggregate cycle indicators 
+and the firm’s specific position of risk. The most important difference between the results 
+in Tables 7 and 8 is the role of state variables in determining the time dynamics of 
+correlations. When the probability of default is low, the volatility of consumption growth is 
+again clear and negatively related to the correlations and increases in the aggregate default 
+spread are also related to decreases in the correlations. However, for firms with a high 
+probability of default, the volatility of consumption loses its importance (it is only 
+                                                 
+24 The estimations in Bhamra. Kuehn and Strebulaev (2010) produce a correlation of 20% between the 
+Brownian motion in the consumption growth dynamics and the systematic shocks to the firm’s earnings 
+growth.   
+25 Other alternative divisions generate very asymmetric number of firms in the two subsamples.     
+26 In this case, we only present the results related to DCC estimates and collapsing instruments. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 27 ---
+ 
+ 
+27 
+ 
+significant for some models and at 10% level) and the aggregate default is not relevant. In 
+addition, the division of the sample confirms that the Term spread has no explanatory 
+power. Therefore, the conclusion that increases in aggregate risk reduce the stock–bond 
+correlation only holds for assets issued by firms with no extreme values of specific risk. 
+Regarding variables representing cross-sectional dispersion, on the one hand, and 
+consistent with results for the whole sample, we find that the idiosyncratic stock risk and 
+the leverage ratio are both positively related to correlations in both subsamples. However, 
+the role of financial leverage seems to be more important than the idiosyncratic risk in the 
+subsample of firms with a high probability of default. Therefore, we can again conclude 
+that increases in variables related to firm-specific risk are associated with increases in the 
+correlation. On the other hand, estimates for the unlevered beta are negative and significant 
+in both subsamples, although they are higher in absolute value and have lower standard 
+errors in the sub-group of firms with a high probability of default. Understanding that the 
+systematic risk is measured as the sensitivity of the stock to changes in an aggregate risk 
+factor, its negative relation with the correlations could be justified in the same way as the 
+effect of the state variables. 
+Other differences between results in Tables 7 and 8 are that the dummy associated 
+with the financial sector (industry 2) is only significant in the high default probability 
+subsample and the bond time to maturity only matters if the firm is in the low default 
+probability subsample. These results explain the instability in the t-statistics of these two 
+variables for the whole sample. 
+One final and interesting result is associated with VIX. We find that it does not 
+contain information about the variability of correlations in the subsample of firms with a 
+low probability of default but it turns out to be very important for firms with a high 
+probability of default, where it explains correlations with a positive sign. The VIX variable 
+is an ex ante measure of stock market risk computed from option prices on the S&P index. 
+That is, VIX is a proxy for the aggregate stock market risk. However, contrary to our 
+previous argumentation, increases in VIX seem to push down the prices on both stock and 
+bond assets. To determine the reasons behind this disturbing result and taking into account 
+the fact that our sample period is relatively short and includes the recent crisis, we analyze 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 28 ---
+ 
+ 
+28 
+ 
+the serial correlation between VIX and the cross-sectional average of the idiosyncratic 
+stock risk. We find that in our sample period the correlation between the proxy for the 
+whole stock market’s risk and the average of the variables measuring firm idiosyncratic 
+risks is 0.885. Moreover, the firms with the highest probability of default are also those 
+with the highest idiosyncratic risk. Therefore, in this context, it is not surprising that the 
+correlation between stock and bond returns increases when VIX increases. 
+Finally, it is important to point out that the whole specification of the models 
+improves when they are estimated in the two subsamples separately. In the case of firms 
+with a low probability of default, the overidentifying restrictions tests are not rejected with 
+either the Hansen or Sargan statistics, indicating that all models are appropriately specified 
+and suggesting no problems of heteroskedasticity in the residuals. In the case of firms with 
+a high probability of default, both statistics are also considerably lower than the case of the 
+whole sample in Table 4b and the null is not rejected for the Hansen test at standard 
+significance levels or for the Sargan test at the 1% level. 
+7. Summary and conclusions 
+The correlation between bond and stock returns at the aggregate market level is a widely 
+investigated topic. However, papers seeking to explain the commonality between the bond 
+and stock returns of assets issued by the same firm are scarce, maybe because of the lack of 
+a continuous and reliable database for corporate bond transaction prices. We attempt to 
+cover this gap by estimating and analyzing the dynamics of the correlations between 
+individual stock and bond returns. We employ corporate bond transaction prices from 
+TRACE, a system by which all members must report OTC corporate transactions in the 
+secondary market as of July 2002. 
+The first part of the paper estimates the correlation series for each stock–bond pair 
+in our sample, using different approaches: a rolling window sample correlation, a DCC 
+model, and a variation of the previous model to incorporate the non-synchronous trading 
+problem. Our results indicate that the correlations between individual bond and stock 
+returns are small, on average, but definitively time varying. The dynamics in the 
+correlations are reasonably well captured by models showing persistence, and non-trading 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 29 ---
+ 
+ 
+29 
+ 
+adjustments can have an important effect on the correlation dynamics for relatively illiquid 
+bonds. 
+The aim of the second part of the paper is to identify the sources of the variability of 
+these correlations over time and across firms and/or bond issues. For this purpose we 
+consider a large set of potential explanatory variables, including economic cycle indicators, 
+different measures of issuer risk, and also characteristics regarding the specific bond 
+contract. We employ both panel data analysis and the Fama–MacBeth cross-sectional 
+estimation methodology. 
+We find interesting and quite robust results regarding the three sets of estimated 
+correlations, the two alternative estimation methods, and for different model specifications 
+and/or instrumentations. Variables approximating macroeconomic growth, such as IPI 
+growth, aggregate consumption growth, the term structure spread, or the dummy NBER 
+cycle indicator, are not related to the correlations. Only variables representing aggregate 
+risk can explain the correlation variability. Specifically, increases in the volatility of 
+consumption growth or in the aggregate default premium are related to decreases in the 
+correlations, but only for normal levels of firm risk measured by the firm probability of 
+default. Therefore, it seems that aggregate sources of risk affect individual corporate bond 
+and stock prices in opposite directions (or, alternatively, affect stock prices but not bond 
+prices), although their effect is only present when the firm probability of default is not 
+highly extreme. On the one hand, some measures of firm risk are significantly related to 
+changes in the correlations. The effect of these firm variables changes depending on the 
+type of risk. While the correlation increases with the idiosyncratic risk or risk not 
+associated to aggregate risk factors, it decreases when the systematic risk and, specifically, 
+operational systematic risk increases. That is, variables such as the leverage ratio or the 
+non-systematic component of stock volatility are positively related to correlations. This, 
+therefore, indicates the same direction of the reactions of both stock and bond prices to 
+increases in this type of risk, consistent with the structural model prediction of a positive 
+correlation since both financial assets represent the same productive assets. However, an 
+increase in the systematic component of firm stock return variability, measured as the 
+unlevered market beta, is associated with a reduction in the correlation between the returns 
+of stocks and bonds, probably because it negatively affects stock prices but has no effect on 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 30 ---
+ 
+ 
+30 
+ 
+bond prices. This result holds for all firms, independent of their level of default probability. 
+Finally, in general terms, neither variables related to liquidity regarding any of the two 
+assets nor the characteristics of the bond issue, such as bondholder protection or the coupon 
+level (or the maturity when the firm’s risk is high), determine changes in the correlations. 
+An interesting and surprising result from our analysis is that the information content 
+in the expectation about stock market risk (VIX) is closely related to the average of the 
+non-systematic component of firm risk, especially when firms have a high specific risk. 
+Then, we also find that VIX explains correlations with a positive sign precisely for these 
+highly risky firms. 
+Our results have important practical implications. On the one hand, for the 
+investment portfolio management framework, they suggest new diversification 
+possibilities. We find that the correlation between the bond and stock returns issued by the 
+same firm decreases as some measures of risk increase. For example, the combination of 
+the two assets in the same portfolio can reduce the global risk in moments of high stock 
+systematic risk or before increases in the aggregate consumption risk and/or aggregate 
+default risk in the case of firms with standard levels of default probability. In contrast, the 
+benefits of such diversification are reduced when the firm has high levels of idiosyncratic 
+risk, especially if the firm is highly leveraged. On the other hand, our results can also be 
+useful from a corporate finance perspective. They suggest that some corporate decisions 
+that increment a firm’s specific risk, such as an increase in the leverage ratio, can reduce 
+firm value not only via equity value but also via debt value. Therefore, the identification of 
+the moments when a firm stock–bond correlation is positive and the level of this correlation 
+can help firm managers in choosing dynamically optimal leverage ratios. 
+ 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+--- PAGE 31 ---
+ 
+ 
+31 
+ 
+References 
+Abad-Romero P. and M. D. Robles. 2006. Risk and return around bond rating changes: 
+New evidence from the Spanish stock market. Journal of Business Finance & 
+Accounting 33(5–6): 885–908. 
+Amihud, Y. 2002. Illiquidity and stock returns: Cross-section and time-series effects. 
+Journal of Financial Markets 5 (1): 31–56. 
+Andersson, M., E. Krylova, and S. Vähämaa. 2008. Why does the correlation between 
+stock and bond returns vary over time? Applied Financial Economics 18(2): 139–
+151.Arellano, M. and S. Bond. 1991. Some tests of specification for panel data: 
+Monte Carlo evidence and an application to employment equations. Review of 
+Economic Studies 58, 277–297. 
+Arellano, M. and O. Bover. 1995. Another look at the instrumental variables estimation of 
+error components models. Journal of Econometrics 68: 29–51. 
+Augustin, P. and R. Tédongap. 2011. Sovereign credit risk: Consumption strikes again. 
+Working paper, available at 
+http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1713454. 
+Baele, L., G. Bekaert and K. Inghelbrecht. 2010. The determinants of stock and bond return 
+comovements. The Review Financial Studies 23 (6): 2374-2428. 
+Baker, M. and J. Wurgler. 2012. Comovement and predictability relationships between 
+bonds and the cross-section of stocks. Review of Asset Pricing Studies 2(1): 57–87. 
+Barron, M. J., A. D. Clare and S. H. Thomas. 1997. The effect of bond rating changes and 
+new ratings on UK stock returns. Journal of Business Finance & Accounting 24(3–
+4): 497–509. 
+Baur, D. and B. Lucey. 2009. Flights and contagion—An empirical analysis of stock–bond 
+correlations. Journal of Financial Stability 5(4): 339–352. 
+Bauwens, L., Laurent, S., and J. V. K. Rombouts. 2006. Multivariate GARCH models: A 
+survey. Journal of Applied Econometrics 21: 79–109 
+Bessembinder, H., W. Maxwell and K. Venkaraman. 2006. Market transparency, liquidity 
+externalities, and institutional trading costs in corporate bonds. Journal of Financial 
+Economics 82: 251–288. 
+Bhamra, H. S., L. Kuehn, and I. A. Strebulaev. 2010. The levered equity risk premium and 
+credit spreads: A unified framework. Review of Financial Studies 23(2): 645–703. 
+Binsbergen, J., J. Graham and J. Yang. 2010. The cost of debt. Journal of Finance 65(6): 
+2089–2136. 
+Blundell, R. and S. Bond. 1998. Initial conditions and moment restrictions in dynamic 
+panel data models. Journal of Econometrics 87: 11–143. 
+Electronic copy available at: https://ssrn.com/abstract=2386043
+
+[TRUNCATED at 80000 chars — 53 total pages]
