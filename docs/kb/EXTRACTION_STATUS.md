@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,060/4,060 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,141/4,141 candidates)**
 
 ---
 
@@ -11,14 +11,14 @@
 
 | Pillar | Total Materials | Deep Extracts Done (15+ Verbatim Extracts) | Shallow KBs | Pending |
 |---|---|---|---|---|
-| **1. Options & Volatility Surface** | 20 | 11 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020) | 0 | 9 |
+| **1. Options & Volatility Surface** | 20 | 14 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020, Carr-Madan 2001, BTZ 2009 x2) | 0 | 6 |
 | **2. Risk Models & Systematic Factors** | 12 | 6 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015) | 0 | 6 |
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 7 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979) | 0 | 12 |
 | **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **54 Deep-Extracted Materials (21 Deep KBs)** | **0** | **35** |
+| **TOTAL** | **89** | **57 Deep-Extracted Materials (22 Deep KBs)** | **0** | **32** |
 
 ---
 
@@ -35,9 +35,9 @@
 | 06 | `Bakshi_Kapadia_Madan_Skew_Laws.txt` | `docs/kb/options/bakshi_kapadia_madan_skew_kurtosis.md` | `brain_generators/options/bakshi_kapadia_madan_skew.py` | Included above | ✅ DONE |
 | 07 | `Garleanu_Pedersen_Demand_Based_Option_Pricing.txt` | `docs/kb/options/garleanu_pedersen_demand_pricing.md` | `brain_generators/options/garleanu_pedersen_demand.py` | 20 extracts (86 cands) | ✅ DONE |
 | 08 | `Garleanu_Pedersen_Poteshman_2009_Demand_Based_Option_Pricing_v2.txt` | `docs/kb/options/garleanu_pedersen_demand_pricing.md` | `brain_generators/options/garleanu_pedersen_demand.py` | Included above | ✅ DONE |
-| 09 | `Carr_Madan_2001_Theory_of_Volatility_Trading.txt` | `docs/kb/options/carr_madan_2001_vol_trading.md` | — | 0 | ⏳ PENDING |
-| 10 | `Bollerslev_Tauchen_Zhou_2009_Expected_Returns_Variance_Risk_Premia.txt` | `docs/kb/options/btz_2009_vrp.md` | — | 0 | ⏳ PENDING |
-| 11 | `Bollerslev_Tauchen_Zhou_2009_Variance_Risk_Premia_v2.txt` | `docs/kb/options/btz_2009_vrp_v2.md` | — | 0 | ⏳ PENDING |
+| 09 | `Carr_Madan_2001_Theory_of_Volatility_Trading.txt` | `docs/kb/options/carr_madan_bollerslev_vrp.md` | `brain_generators/options/bollerslev_vrp_dynamics.py` | 21 extracts (81 cands) | ✅ DONE |
+| 10 | `Bollerslev_Tauchen_Zhou_2009_Expected_Returns_Variance_Risk_Premia.txt` | `docs/kb/options/carr_madan_bollerslev_vrp.md` | `brain_generators/options/bollerslev_vrp_dynamics.py` | Included above | ✅ DONE |
+| 11 | `Bollerslev_Tauchen_Zhou_2009_Variance_Risk_Premia_v2.txt` | `docs/kb/options/carr_madan_bollerslev_vrp.md` | `brain_generators/options/bollerslev_vrp_dynamics.py` | Included above | ✅ DONE |
 | 12 | `Michael_Cucuringu_Howison_2020_Option_Volume_Imbalance.txt` | `docs/kb/options/ni_pearson_pinning_cucuringu_flow.md` | `brain_generators/options/ni_pearson_pinning.py` | 21 extracts (93 cands) | ✅ DONE |
 | 13 | `Ni_Pearson_Poteshman_2005_Stock_Price_Pinning_Option_Expiration.txt` | `docs/kb/options/ni_pearson_pinning_cucuringu_flow.md` | `brain_generators/options/ni_pearson_pinning.py` | Included above | ✅ DONE |
 | 14 | `Delisle_Lee_Mauck_2011_Short_Sellers_Option_Traders.txt` | `docs/kb/options/bali_hovakimian_delisle_vol_spreads.md` | `brain_generators/options/bali_hovakimian_vol_spread.py` | Included above | ✅ DONE |

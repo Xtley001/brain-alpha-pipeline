@@ -74,6 +74,7 @@ from brain_generators.options.bali_hovakimian_vol_spread import generate_bali_ho
 from brain_generators.options.garleanu_pedersen_demand import generate_garleanu_pedersen_demand_candidates
 from brain_generators.options.bakshi_kapadia_madan_skew import generate_bakshi_kapadia_madan_skew_candidates
 from brain_generators.options.ni_pearson_pinning import generate_ni_pearson_pinning_candidates
+from brain_generators.options.bollerslev_vrp_dynamics import generate_bollerslev_vrp_dynamics_candidates
 # Sentiment
 from brain_generators.sentiment.bernard_thomas_sue import generate_bernard_thomas_sue_candidates
 from brain_generators.sentiment.gleason_lee_revision_speed import generate_sentiment_p1_candidates
@@ -349,6 +350,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     options_gpp  = generate_garleanu_pedersen_demand_candidates()
     options_bkm  = generate_bakshi_kapadia_madan_skew_candidates()
     options_npp  = generate_ni_pearson_pinning_candidates()
+    options_btz  = generate_bollerslev_vrp_dynamics_candidates()
 
     # ── Sentiment pillar (3 modules) ────────────────────────────────────────
     sentiment_sue  = generate_bernard_thomas_sue_candidates()
@@ -372,7 +374,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     sc_p1       = generate_production_network_p1_candidates()
 
     # ── Merge per pillar ────────────────────────────────────────────────────
-    options_cands   = options_xzz + options_pcr + options_vrp + options_bali + options_gpp + options_bkm + options_npp + options_legacy
+    options_cands   = options_xzz + options_pcr + options_vrp + options_bali + options_gpp + options_bkm + options_npp + options_btz + options_legacy
     sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_legacy
     risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_legacy
     short_cands     = short_p0 + short_p1 + short_legacy
