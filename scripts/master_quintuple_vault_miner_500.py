@@ -80,6 +80,7 @@ from brain_generators.options.institutional_surface_treatise import generate_ins
 from brain_generators.sentiment.bernard_thomas_sue import generate_bernard_thomas_sue_candidates
 from brain_generators.sentiment.gleason_lee_revision_speed import generate_sentiment_p1_candidates
 from brain_generators.sentiment.tetlock_media_pessimism import generate_sentiment_p2_candidates
+from brain_generators.sentiment.modern_pead_dynamics import generate_modern_pead_dynamics_candidates
 # Risk Models
 from brain_generators.risk_models.frazzini_pedersen_bab_exact import generate_frazzini_pedersen_bab_candidates
 from brain_generators.risk_models.ang_idiovol_anomaly import generate_risk_model_p1_candidates
@@ -356,10 +357,11 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     options_btz  = generate_bollerslev_vrp_dynamics_candidates()
     options_treatise = generate_institutional_surface_treatise_candidates()
 
-    # ── Sentiment pillar (3 modules) ────────────────────────────────────────
+    # ── Sentiment pillar (4 modules) ────────────────────────────────────────
     sentiment_sue  = generate_bernard_thomas_sue_candidates()
     sentiment_rev  = generate_sentiment_p1_candidates()
     sentiment_med  = generate_sentiment_p2_candidates()
+    sentiment_pead = generate_modern_pead_dynamics_candidates()
 
     # ── Risk model pillar (5 modules — 100% complete) ───────────────────────
     risk_bab    = generate_frazzini_pedersen_bab_candidates()
@@ -381,7 +383,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
 
     # ── Merge per pillar ────────────────────────────────────────────────────
     options_cands   = options_xzz + options_pcr + options_vrp + options_bali + options_gpp + options_bkm + options_npp + options_btz + options_treatise + options_legacy
-    sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_legacy
+    sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_pead + sentiment_legacy
     risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_aabc + risk_swmc + risk_legacy
     short_cands     = short_p0 + short_p1 + short_legacy
     fund_cands      = fund_p0 + fund_p1 + fund_kak + sc_p0 + sc_p1 + fund_legacy
