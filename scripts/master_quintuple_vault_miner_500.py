@@ -98,6 +98,8 @@ from brain_generators.fundamental.fundamental_p0_combined import generate_fundam
 from brain_generators.fundamental.fundamental_p1_innovation import generate_fundamental_p1_candidates
 from brain_generators.fundamental.kakushadze_101_direct import generate_kakushadze_framework_candidates
 from brain_generators.fundamental.grinold_fabozzi_active_alphas import generate_grinold_fabozzi_active_alphas
+# Quantitative Frameworks / Meta-Alphas
+from brain_generators.frameworks.tulchinsky_prado_meta_alphas import generate_tulchinsky_prado_meta_alphas
 # Supply Chain
 from brain_generators.supply_chain.menzly_ozbas_lead_lag import generate_supply_chain_p0_candidates
 from brain_generators.supply_chain.production_network_p1_shocks import generate_production_network_p1_candidates
@@ -381,11 +383,12 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     short_p1     = generate_short_interest_p1_candidates()
     short_staley = generate_staley_short_risk_alphas()
 
-    # ── Fundamental + Innovation + Supply Chain (5 modules — 100% complete) ─
+    # ── Fundamental + Innovation + Supply Chain + Frameworks (6 modules — 100% complete) ─
     fund_p0      = generate_fundamental_p0_candidates()
     fund_p1      = generate_fundamental_p1_candidates()
     fund_kak     = generate_kakushadze_framework_candidates()
     fund_grinold = generate_grinold_fabozzi_active_alphas()
+    fund_meta    = generate_tulchinsky_prado_meta_alphas()
     sc_p0        = generate_supply_chain_p0_candidates()
     sc_p1        = generate_production_network_p1_candidates()
 
@@ -394,7 +397,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_pead + sentiment_asq + sentiment_mood + sentiment_legacy
     risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_aabc + risk_swmc + risk_legacy
     short_cands     = short_p0 + short_p1 + short_staley + short_legacy
-    fund_cands      = fund_p0 + fund_p1 + fund_kak + fund_grinold + sc_p0 + sc_p1 + fund_legacy
+    fund_cands      = fund_p0 + fund_p1 + fund_kak + fund_grinold + fund_meta + sc_p0 + sc_p1 + fund_legacy
 
     total = len(options_cands)+len(sentiment_cands)+len(risk_cands)+len(short_cands)+len(fund_cands)
     log.info(

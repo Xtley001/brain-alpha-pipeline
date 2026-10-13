@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,682/4,682 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,718/4,718 candidates)**
 
 ---
 
@@ -17,8 +17,8 @@
 | **4. Short Interest & Securities Lending** | 11 | 11 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002, Staley 1997, ERR 2018) | 0 | 0 (100% COMPLETE) 🏆 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 13 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013 x2, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006, GK 1995/2020, Fabozzi 2010, Kruger 2007) | 0 | 0 (100% COMPLETE) 🏆 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) 🏆 |
-| **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **81 Deep-Extracted Materials (30 Deep KBs)** | **0** | **8** |
+| **7. Quantitative Frameworks & Modern AI** | 8 | 8 (Kakushadze 101 Alphas, Tulchinsky 2020, López de Prado 2018, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 0 (100% COMPLETE) 🏆 |
+| **TOTAL** | **89** | **89 Deep-Extracted Materials (31 Deep KBs)** | **0** | **0 (100% COMPLETE) 🏆🏆🏆** |
 
 ---
 
@@ -145,8 +145,8 @@
 | # | Raw Text File | KB Markdown File | Generator File | Depth | Status |
 |---|---|---|---|---|---|
 | 82 | `Kakushadze_101_Formulaic_Alphas.txt` | `docs/kb/frameworks/kakushadze_101_alphas.md` | `brain_generators/fundamental/kakushadze_101_direct.py` | 20 extracts (101 cands) | ✅ DONE |
-| 83 | `Tulchinsky_Finding_Alphas_WorldQuant.txt` | `docs/kb/frameworks/tulchinsky_finding_alphas.md` | — | 0 | ⏳ PENDING |
-| 84 | `Lopez_de_Prado_AFML.txt` | `docs/kb/frameworks/lopez_de_prado_afml.md` | — | 0 | ⏳ PENDING |
+| 83 | `Tulchinsky_Finding_Alphas_WorldQuant.txt` | `docs/kb/frameworks/tulchinsky_lopez_de_prado_afml.md` | `brain_generators/frameworks/tulchinsky_prado_meta_alphas.py` | 22 extracts (36 cands) | ✅ DONE |
+| 84 | `Lopez_de_Prado_AFML.txt` | `docs/kb/frameworks/tulchinsky_lopez_de_prado_afml.md` | `brain_generators/frameworks/tulchinsky_prado_meta_alphas.py` | Included above | ✅ DONE |
 | 85 | `Guo_Huang_Gao_2026_AQuA_Self_Improving_Trading_Agents.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | 20 extracts (Blueprint) | ✅ DONE |
 | 86 | `Han_Zhang_Li_2026_QuantaAlpha_Evolutionary_LLM_Alpha_Mining.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | Included above | ✅ DONE |
 | 87 | `Tang_Yin_Chen_2026_AlphaAgentEvo_Self_Evolving_Agentic_RL.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | Included above | ✅ DONE |
