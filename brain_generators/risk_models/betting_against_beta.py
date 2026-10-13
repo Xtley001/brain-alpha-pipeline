@@ -6,6 +6,10 @@ Derived from: Frazzini & Pedersen (2014), Ang et al. (2006), Baker et al. (2011)
 from typing import Any, Dict, List
 
 
+SOURCE_KB_BAB = "docs/kb/risk_models/frazzini_pedersen_2014_bab.md"
+SOURCE_KB_AHXZ = "docs/kb/risk_models/ahxz_2006_idiovol_and_derivatives.md"
+
+
 def generate_risk_model_vault_candidates() -> List[Dict[str, Any]]:
     """Generates 100+ systematic risk and factor model candidates."""
     catalog: List[Dict[str, Any]] = []
@@ -34,6 +38,7 @@ def generate_risk_model_vault_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "model",
+                        "source_kb": SOURCE_KB_BAB,
                     })
 
                 # 2. Idiosyncratic Volatility Anomaly (Ang et al. 2006)
@@ -51,6 +56,7 @@ def generate_risk_model_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB_AHXZ,
                 })
 
                 # 3. Market Beta & Correlation Decoupling
@@ -67,6 +73,7 @@ def generate_risk_model_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB_AHXZ,
                 })
 
     return catalog

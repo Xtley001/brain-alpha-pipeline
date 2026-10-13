@@ -11,6 +11,9 @@ Derived from:
 from typing import Any, Dict, List
 
 
+SOURCE_KB = "docs/kb/short_interest/cohen_diether_malloy_2007_shorting.md"
+
+
 def generate_short_interest_vault_candidates() -> List[Dict[str, Any]]:
     """Generates 100+ institutional short interest and lending dynamics candidates."""
     catalog: List[Dict[str, Any]] = []
@@ -41,6 +44,7 @@ def generate_short_interest_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "short_interest",
+                    "source_kb": SOURCE_KB,
                 })
 
                 # -------------------------------------------------------------
@@ -62,6 +66,7 @@ def generate_short_interest_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "short_interest",
+                    "source_kb": SOURCE_KB,
                 })
 
                 # -------------------------------------------------------------
@@ -82,6 +87,7 @@ def generate_short_interest_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "short_interest",
+                    "source_kb": SOURCE_KB,
                 })
 
     return catalog

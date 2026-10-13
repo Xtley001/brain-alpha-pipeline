@@ -32,6 +32,9 @@ Papers:
 from typing import Any, Dict, List
 
 
+SOURCE_KB = "docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md"
+
+
 def generate_sentiment_p2_candidates() -> List[Dict[str, Any]]:
     """
     Media sentiment, search attention, Baker-Wurgler, and analyst coverage generators.
@@ -71,6 +74,7 @@ def generate_sentiment_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -99,6 +103,7 @@ def generate_sentiment_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -129,6 +134,7 @@ def generate_sentiment_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -157,6 +163,7 @@ def generate_sentiment_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -185,6 +192,7 @@ def generate_sentiment_p2_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "analyst",
+                        "source_kb": SOURCE_KB,
                     })
 
     return catalog

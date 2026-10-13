@@ -11,6 +11,9 @@ These complete the risk models pillar generators — all paper-derived formulas.
 from typing import Any, Dict, List
 
 
+SOURCE_KB = "docs/kb/risk_models/easley_vpin_lucca_fomc_blitz_black.md"
+
+
 def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
     """
     Risk model P2 generators — VPIN, FOMC drift, structural breaks, vol effect.
@@ -54,6 +57,7 @@ def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -81,6 +85,7 @@ def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -112,6 +117,7 @@ def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -142,6 +148,7 @@ def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "model",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -172,6 +179,7 @@ def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -204,6 +212,7 @@ def generate_risk_model_p2_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "model",
+                    "source_kb": SOURCE_KB,
                 })
 
     return catalog

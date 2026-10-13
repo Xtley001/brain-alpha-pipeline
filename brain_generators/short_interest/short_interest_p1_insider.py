@@ -31,6 +31,9 @@ Papers:
 from typing import Any, Dict, List
 
 
+SOURCE_KB = "docs/kb/short_interest/cmp_2012_insider_routine_opportunistic.md"
+
+
 def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
     """
     Insider trading + lending market P1 generators.
@@ -68,6 +71,7 @@ def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -96,6 +100,7 @@ def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -125,6 +130,7 @@ def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -152,6 +158,7 @@ def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -182,6 +189,7 @@ def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "short_interest",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -213,6 +221,7 @@ def generate_short_interest_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "short_interest",
+                    "source_kb": SOURCE_KB,
                 })
 
     return catalog

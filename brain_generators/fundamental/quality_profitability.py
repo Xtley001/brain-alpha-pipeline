@@ -11,6 +11,9 @@ Derived from:
 from typing import Any, Dict, List
 
 
+SOURCE_KB = "docs/kb/fundamental/novy_marx_piotroski_cooper_titman_p0.md"
+
+
 def generate_fundamental_vault_candidates() -> List[Dict[str, Any]]:
     """Generates 100+ institutional fundamental quality & capital discipline candidates."""
     catalog: List[Dict[str, Any]] = []
@@ -41,6 +44,7 @@ def generate_fundamental_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
                 # -------------------------------------------------------------
@@ -62,6 +66,7 @@ def generate_fundamental_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
                 # -------------------------------------------------------------
@@ -83,6 +88,7 @@ def generate_fundamental_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
                 # -------------------------------------------------------------
@@ -97,11 +103,12 @@ def generate_fundamental_vault_candidates() -> List[Dict[str, Any]]:
                         f"group_neutralize(rank(- ts_decay_linear(capex / (assets + 0.001), {d})) * rank(ts_decay_linear(gross_profit / (assets + 0.001), {d})), {g.lower()}), "
                         f"-1)"
                     ),
-                    "hypothesis": f"Low Capex intensity interacting with high gross profitability isolates capital-efficient compounders ({u}).",
+                    "hypothesis": f"Low Capex intensity interacting with gross profitability isolates capital-efficient compounders ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     return catalog

@@ -4,30 +4,22 @@ Tulchinsky et al. — Finding Alphas (WorldQuant Book)
 Grinold & Kahn — Active Portfolio Management
 Lopez de Prado — Advances in Financial Machine Learning
 
-Papers: These are FRAMEWORK papers — they don't produce signals directly but define
-the operator vocabulary, construction rules, and evaluation criteria for BRAIN alphas.
+Papers: These are FRAMEWORK papers — they define the operator vocabulary,
+construction rules, and evaluation criteria for BRAIN alphas.
 
 This generator extracts the highest-yield DIRECT EXPRESSIONS from Kakushadze's 101
 formulaic alphas and maps them to BRAIN operators, plus key constructions from the
 WorldQuant book (Tulchinsky) around neutralization and dataset usage.
-
-Key Kakushadze Alphas Selected (highest cross-sectional predictive power):
-  Alpha #1:  (-1 * correlation(rank(ts_delta(log(volume), 2)), rank(close/open*volume), 6))
-  Alpha #6:  (-1 * correlation(open, volume, 10))
-  Alpha #14: (-1 * rank(ts_delta(returns, 3))) * correlation(open, volume, 10)
-  Alpha #22: (-1 * ts_delta(correlation(high, volume, 5), 5)) * rank(ts_std_dev(close, 20))
-  Alpha #30: (rank(1.0 - sign(sign(close - ts_delay(close,1)) + sign(open - ts_delay(open,2))))
-               * (1.0 - rank(volume/adv20)))
-  Alpha #61: rank(open - ts_mean(vwap, 10)) < rank(correlation(close, adv150, 49))
-  Alpha #101: (close - open) / (high - low + 0.001) → covers the daily range signal
 """
 from typing import Any, Dict, List
+
+SOURCE_KB = "docs/kb/frameworks/kakushadze_101_alphas.md"
 
 
 def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
     """
     Kakushadze 101 Formulaic Alphas + Tulchinsky/Grinold-Kahn framework signals.
-    Direct operator-level translations to BRAIN.
+    Direct operator-level translations to BRAIN with source_kb links.
     """
     catalog: List[Dict[str, Any]] = []
 
@@ -60,6 +52,7 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -82,6 +75,7 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                 "neutralization": g,
                 "decay": 5,
                 "category": "fundamental",
+                "source_kb": SOURCE_KB,
             })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -106,13 +100,13 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                 "neutralization": g,
                 "decay": 5,
                 "category": "fundamental",
+                "source_kb": SOURCE_KB,
             })
 
     # ─────────────────────────────────────────────────────────────────────────
     # KAKUSHADZE ALPHA #101: Daily Range Signal
     # (close - open) / (high - low + 0.001)
     # Normalized daily close vs open; position within daily range.
-    # Closes in upper range = momentum day; lower range = reversal day.
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -133,6 +127,7 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -147,7 +142,7 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                 "expression": (
                     f"trade_when(volume > adv20 * 0.60, "
                     f"group_neutralize("
-                    f"rank(1.0 - sign(sign(close - ts_delay(close, 1)) + sign(ts_delay(close, 1) - ts_delay(close, 2)) + sign(ts_delay(close, 2) - ts_delay(close, 3)))) * "
+                    f"rank(1.0 - sign(sign(close - ts_delay(close, 1)) + sign(ts_delay(close, 1) - ts_delay(close, 2)))) * "
                     f"(1.0 - rank(volume / adv20)), {g.lower()}), -1)"
                 ),
                 "hypothesis": (
@@ -158,13 +153,13 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                 "neutralization": g,
                 "decay": 5,
                 "category": "fundamental",
+                "source_kb": SOURCE_KB,
             })
 
     # ─────────────────────────────────────────────────────────────────────────
     # TULCHINSKY (WorldQuant Finding Alphas): Momentum Universe Neutralization
     # Key insight: neutralizing by subindustry dramatically improves IC stability.
     # Also: cross-sectional momentum within universe (not raw price momentum).
-    # The book's core lesson: rank() >> raw signal for robustness.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for window in [21, 63, 126]:
@@ -185,14 +180,12 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                     "neutralization": "SUBINDUSTRY",
                     "decay": d,
                     "category": "fundamental",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
     # GRINOLD & KAHN: IC-Based Signal Decay (Active Portfolio Management)
     # G&K: optimal alpha decay follows the IC decay curve of the raw signal.
-    # For most annual factor signals: IC halves in 60-90 days.
-    # This generator tests decay parameter sweeps around the G&K optimal range.
-    # Used as meta-signal: test earnings surprise with GK-optimal decay curves.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for gk_decay in [30, 45, 60, 90]:
@@ -212,6 +205,7 @@ def generate_kakushadze_framework_candidates() -> List[Dict[str, Any]]:
                 "neutralization": "SUBINDUSTRY",
                 "decay": gk_decay,
                 "category": "analyst",
+                "source_kb": SOURCE_KB,
             })
 
     return catalog

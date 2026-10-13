@@ -16,6 +16,8 @@ Extended to: tenor variants, normalized smirk (÷ ATM vol level), smirk slope ch
 """
 from typing import Any, Dict, List
 
+SOURCE_KB = "docs/kb/options/xing_zhang_zhao_2010_smirk.md"
+
 
 def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
     """
@@ -61,13 +63,13 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 2: Normalized Smirk (÷ ATM vol level, Paper Eq. 2 variant)
     # normalized_smirk = (IV_put - IV_call) / IV_mean
     # Normalization removes the vol-level effect, isolating pure shape information.
-    # This is more robust across high-vol and low-vol regimes.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -94,12 +96,11 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 3: Time-Scaled Smirk (× sqrt(T/252) — annualizing the tenor)
-    # Annualizing smirk allows cross-tenor comparison. Paper finds smirk
-    # predictability peaks at 30d but persists to 90d.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -127,12 +128,11 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 4: Smirk Change Momentum (delta_smirk over 5d and 10d windows)
-    # The RATE OF CHANGE of smirk steepening is a leading indicator of when
-    # informed traders start loading up on OTM puts — timing the information arrival.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -159,13 +159,11 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": 14,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 5: Term Structure of Smirk (30d smirk - 90d smirk)
-    # When short-dated smirk is MUCH steeper than long-dated, informed traders
-    # anticipate an imminent (near-term) catalyst, not long-term uncertainty.
-    # This term structure signal has higher precision but shorter holding period.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -193,13 +191,11 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "options",
+                    "source_kb": SOURCE_KB,
                 })
-
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 6: SKEW x Low Turnover (Paper Eq.3 Interaction, Section V.B p.23)
-    # "Informed traders choose options when stock market is illiquid."
-    # Smirk is STRONGEST in low-turnover stocks. Paper test: SKEW x TURNOVER → negative.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -220,15 +216,15 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                             f"Illiquid stocks = informed traders prefer options = cleaner smirk signal. "
                             f"t={t}d, {u}."
                         ),
-                        "universe": u, "neutralization": g, "decay": d,
+                        "universe": u,
+                        "neutralization": g,
+                        "decay": d,
                         "category": "options",
-                        "source_kb": "docs/kb/options/xing_zhang_zhao_2010_smirk.md",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 7: SKEW x Earnings Gate (Section IV, Table 5, p.19-20)
-    # "Firms with the steepest smirks are those with the WORST earnings shocks next quarter."
-    # FM coeff on SKEW predicting SUE: -0.033 to -0.045, significant all horizons.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -251,15 +247,15 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                             f"XZZ2010 Table5: smirk x negative_SUE = double-confirmed bad earnings. "
                             f"Paper coeff SKEW->SUE: -0.033 to -0.045. t={t}d, {u}."
                         ),
-                        "universe": u, "neutralization": g, "decay": d,
+                        "universe": u,
+                        "neutralization": g,
+                        "decay": d,
                         "category": "options",
-                        "source_kb": "docs/kb/options/xing_zhang_zhao_2010_smirk.md",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 8: SKEW x High Option OI (Footnote 8 Double-Sort, p.15)
-    # "Long-short strategy works BETTER for firms with more option trading."
-    # Gate: high OI = actively traded options = cleaner informed signal.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -279,9 +275,11 @@ def generate_xing_zhang_zhao_smirk_candidates() -> List[Dict[str, Any]]:
                             f"XZZ2010 Fn8: double-sort confirms smirk stronger with high option OI. "
                             f"Active options = cleaner informed flow. t={t}d, {u}."
                         ),
-                        "universe": u, "neutralization": g, "decay": d,
+                        "universe": u,
+                        "neutralization": g,
+                        "decay": d,
                         "category": "options",
-                        "source_kb": "docs/kb/options/xing_zhang_zhao_2010_smirk.md",
+                        "source_kb": SOURCE_KB,
                     })
 
     return catalog

@@ -6,6 +6,10 @@ Derived from: Ball & Brown (1968), Bernard & Thomas (1990), Diether et al. (2002
 from typing import Any, Dict, List
 
 
+SOURCE_KB_PEAD = "docs/kb/sentiment/bernard_thomas_1990_pead_sue.md"
+SOURCE_KB_GLEASON = "docs/kb/sentiment/gleason_lee_2002_revision.md"
+
+
 def generate_sentiment_vault_candidates() -> List[Dict[str, Any]]:
     """Generates 100+ highly diversified sentiment & analyst revision candidates."""
     catalog: List[Dict[str, Any]] = []
@@ -32,6 +36,7 @@ def generate_sentiment_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "sentiment",
+                    "source_kb": SOURCE_KB_PEAD,
                 })
 
                 # 2. Target Price Revision x Earnings Surprise Synergy
@@ -49,6 +54,7 @@ def generate_sentiment_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "sentiment",
+                    "source_kb": SOURCE_KB_PEAD,
                 })
 
                 # 3. Dynamic Attention Focus x Revisions
@@ -66,6 +72,7 @@ def generate_sentiment_vault_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "sentiment",
+                    "source_kb": SOURCE_KB_GLEASON,
                 })
 
     return catalog
