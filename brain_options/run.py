@@ -528,14 +528,14 @@ async def run_batch(
         log.warning(f"Only {remaining} simulations left today; shrinking batch size from {batch_size} to {remaining}.")
         batch_size = remaining
     # --- End guard ---
-log.info(f"[SIM QUOTA] Used {used}/{1802} sims – {remaining} remaining today.")
-if remaining < 100:
-    send_telegram_emergency_alert(
-        f"⚠️ Only {remaining} BRAIN simulations left today – consider pausing new jobs.",
-        config=config,
-        db=store,
-    )
-try:
+    log.info(f"[SIM QUOTA] Used {used}/{1802} sims – {remaining} remaining today.")
+    if remaining < 100:
+        send_telegram_emergency_alert(
+            f"⚠️ Only {remaining} BRAIN simulations left today – consider pausing new jobs.",
+            config=config,
+            db=store,
+        )
+    try:
         evaluated = store.load_evaluated_expressions()
     except Exception as e:
         log.error("Failed to load evaluated expressions in run_batch: %s", e, exc_info=True)
