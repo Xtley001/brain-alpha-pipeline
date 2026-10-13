@@ -65,17 +65,27 @@ from brain_generators.risk_models.betting_against_beta import generate_risk_mode
 from brain_generators.short_interest.lending_dynamics import generate_short_interest_vault_candidates
 from brain_generators.fundamental.quality_profitability import generate_fundamental_vault_candidates
 
-# ── P0: Paper-faithful generators (extracted from 90 research materials) ───
+# ── P0/P1/P2: Paper-faithful generators (90 research materials — full extraction) ──
+# Options
 from brain_generators.options.xing_zhang_zhao_smirk import generate_xing_zhang_zhao_smirk_candidates
 from brain_generators.options.pan_poteshman_pcr_informed import generate_pan_poteshman_pcr_candidates
 from brain_generators.options.carr_wu_vrp import generate_options_vrp_surface_candidates
+# Sentiment
 from brain_generators.sentiment.bernard_thomas_sue import generate_bernard_thomas_sue_candidates
 from brain_generators.sentiment.gleason_lee_revision_speed import generate_sentiment_p1_candidates
+from brain_generators.sentiment.tetlock_media_pessimism import generate_sentiment_p2_candidates
+# Risk Models
 from brain_generators.risk_models.frazzini_pedersen_bab_exact import generate_frazzini_pedersen_bab_candidates
 from brain_generators.risk_models.ang_idiovol_anomaly import generate_risk_model_p1_candidates
+from brain_generators.risk_models.risk_model_p2_vpin_fomc import generate_risk_model_p2_candidates
+# Short Interest + Insider
 from brain_generators.short_interest.short_interest_p0_combined import generate_short_interest_p0_candidates
+from brain_generators.short_interest.short_interest_p1_insider import generate_short_interest_p1_candidates
+# Fundamental + Innovation
 from brain_generators.fundamental.fundamental_p0_combined import generate_fundamental_p0_candidates
+from brain_generators.fundamental.fundamental_p1_innovation import generate_fundamental_p1_candidates
 from brain_generators.fundamental.kakushadze_101_direct import generate_kakushadze_framework_candidates
+# Supply Chain
 from brain_generators.supply_chain.menzly_ozbas_lead_lag import generate_supply_chain_p0_candidates
 
 
@@ -310,14 +320,14 @@ def get_current_qualified_count(db_url: str) -> int:
 
 def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     """
-    Builds the full candidate matrix from ALL generators — 90-paper extraction.
+    FULL 90-paper extraction vault. All 14 paper-faithful generator modules.
     Pillars:
-      Options:        XZZ Smirk | Pan-Poteshman PCR | Carr-Wu VRP | legacy
-      Sentiment:      Bernard-Thomas SUE | Gleason-Lee revisions | legacy
-      Risk Models:    Frazzini-Pedersen BAB | AHXZ Idiovol | legacy
-      Short Interest: CDM demand-shift | ERR informed | APR float/inst | legacy
-      Fundamental:    Novy-Marx GPA | Piotroski | Cooper AG | Kakushadze 101 | legacy
-      Supply Chain:   Menzly-Ozbas lead-lag | Barrot shock (in fund_cands)
+      Options:        XZZ Smirk | PCR Informed | Carr-Wu VRP | legacy
+      Sentiment:      SUE/PEAD | Revisions | Media/Attention | legacy
+      Risk Models:    BAB | AHXZ Idiovol | VPIN/FOMC | legacy
+      Short Interest: CDM/ERR/APR | Insider/Lending | legacy
+      Fundamental:    GPA/F-Score/AG | Innovation | Kakushadze 101 | legacy
+      Supply Chain:   Menzly-Ozbas | Barrot
     """
     # ── Legacy skeletons (backward compat) ─────────────────────────────────
     options_legacy    = generate_options_vault_candidates()
@@ -326,38 +336,41 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     short_legacy      = generate_short_interest_vault_candidates()
     fund_legacy       = generate_fundamental_vault_candidates()
 
-    # ── Paper-faithful generators ───────────────────────────────────────────
-    # Options pillar
+    # ── Options pillar (3 modules) ──────────────────────────────────────────
     options_xzz  = generate_xing_zhang_zhao_smirk_candidates()
     options_pcr  = generate_pan_poteshman_pcr_candidates()
     options_vrp  = generate_options_vrp_surface_candidates()
 
-    # Sentiment pillar
+    # ── Sentiment pillar (3 modules) ────────────────────────────────────────
     sentiment_sue  = generate_bernard_thomas_sue_candidates()
     sentiment_rev  = generate_sentiment_p1_candidates()
+    sentiment_med  = generate_sentiment_p2_candidates()
 
-    # Risk model pillar
+    # ── Risk model pillar (3 modules) ───────────────────────────────────────
     risk_bab    = generate_frazzini_pedersen_bab_candidates()
     risk_ivol   = generate_risk_model_p1_candidates()
+    risk_vpin   = generate_risk_model_p2_candidates()
 
-    # Short interest pillar
+    # ── Short interest + insider pillar (2 modules) ─────────────────────────
     short_p0    = generate_short_interest_p0_candidates()
+    short_p1    = generate_short_interest_p1_candidates()
 
-    # Fundamental + Supply Chain pillar
+    # ── Fundamental + Innovation + Supply Chain (4 modules) ─────────────────
     fund_p0     = generate_fundamental_p0_candidates()
+    fund_p1     = generate_fundamental_p1_candidates()
     fund_kak    = generate_kakushadze_framework_candidates()
     sc_p0       = generate_supply_chain_p0_candidates()
 
     # ── Merge per pillar ────────────────────────────────────────────────────
     options_cands   = options_xzz + options_pcr + options_vrp + options_legacy
-    sentiment_cands = sentiment_sue + sentiment_rev + sentiment_legacy
-    risk_cands      = risk_bab + risk_ivol + risk_legacy
-    short_cands     = short_p0 + short_legacy
-    fund_cands      = fund_p0 + fund_kak + sc_p0 + fund_legacy
+    sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_legacy
+    risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_legacy
+    short_cands     = short_p0 + short_p1 + short_legacy
+    fund_cands      = fund_p0 + fund_p1 + fund_kak + sc_p0 + fund_legacy
 
     total = len(options_cands)+len(sentiment_cands)+len(risk_cands)+len(short_cands)+len(fund_cands)
     log.info(
-        "FULL VAULT — Options=%d | Sentiment=%d | Risk=%d | SI=%d | Fund+SC=%d | TOTAL=%d",
+        "FULL 90-PAPER VAULT — Opt=%d | Sent=%d | Risk=%d | SI=%d | Fund+SC=%d | TOTAL=%d",
         len(options_cands), len(sentiment_cands), len(risk_cands),
         len(short_cands), len(fund_cands), total
     )
