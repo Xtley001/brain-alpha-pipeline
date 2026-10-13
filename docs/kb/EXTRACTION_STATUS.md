@@ -16,9 +16,9 @@
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 7 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979) | 0 | 12 |
 | **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
-| **6. Supply Chain & Economic Networks** | 6 | 1 (Menzly-Ozbas 2010) | 0 | 5 |
-| **7. Quantitative Frameworks & Modern AI** | 8 | 1 (Kakushadze 101 Alphas) | 0 | 7 |
-| **TOTAL** | **89** | **36 Deep-Extracted Materials (15 Deep KBs)** | **0** | **53** |
+| **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) |
+| **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
+| **TOTAL** | **89** | **46 Deep-Extracted Materials (17 Deep KBs)** | **0** | **43** |
 
 ---
 
@@ -129,15 +129,15 @@
 
 ---
 
-### 6. Supply Chain & Economic Networks (6 Materials)
+### 6. Supply Chain & Economic Networks (6 Materials — 100% Complete)
 | # | Raw Text File | KB Markdown File | Generator File | Depth | Status |
 |---|---|---|---|---|---|
 | 76 | `Menzly_Ozbas_2010_Market_Segmentation_Cross_Predictability.txt` | `docs/kb/supply_chain/menzly_ozbas_2010_lead_lag.md` | `brain_generators/supply_chain/menzly_ozbas_lead_lag.py` | 20 extracts (72 cands) | ✅ DONE |
-| 77 | `Barrot_Sauvagnat_2016_Input_Specificity_Production_Networks.txt` | `docs/kb/supply_chain/barrot_sauvagnat_2016_input.md` | — | 0 | ⏳ PENDING |
-| 78 | `Barrot_Sauvagnat_2016_Supply_Chain_Shock_Propagation.txt` | `docs/kb/supply_chain/barrot_sauvagnat_2016_shock.md` | — | 0 | ⏳ PENDING |
-| 79 | `Burt_Hrdlicka_2020_Economically_Linked_Firms_Predictability.txt` | `docs/kb/supply_chain/burt_hrdlicka_2020_linked_firms.md` | — | 0 | ⏳ PENDING |
-| 80 | `Bennett_2021_Lead_Lag_Detection_Network_Clustering.txt` | `docs/kb/supply_chain/bennett_2021_lead_lag.md` | — | 0 | ⏳ PENDING |
-| 81 | `Fee_Thomas_2004_Horizontal_Mergers_Customer_Supplier.txt` | `docs/kb/supply_chain/fee_thomas_2004_mergers.md` | — | 0 | ⏳ PENDING |
+| 77 | `Barrot_Sauvagnat_2016_Input_Specificity_Production_Networks.txt` | `docs/kb/supply_chain/barrot_burt_fee_bennett_production_networks.md` | `brain_generators/supply_chain/production_network_p1_shocks.py` | 20 extracts (108 cands) | ✅ DONE |
+| 78 | `Barrot_Sauvagnat_2016_Supply_Chain_Shock_Propagation.txt` | `docs/kb/supply_chain/barrot_burt_fee_bennett_production_networks.md` | `brain_generators/supply_chain/production_network_p1_shocks.py` | Included above | ✅ DONE |
+| 79 | `Burt_Hrdlicka_2020_Economically_Linked_Firms_Predictability.txt` | `docs/kb/supply_chain/barrot_burt_fee_bennett_production_networks.md` | `brain_generators/supply_chain/production_network_p1_shocks.py` | Included above | ✅ DONE |
+| 80 | `Bennett_2021_Lead_Lag_Detection_Network_Clustering.txt` | `docs/kb/supply_chain/barrot_burt_fee_bennett_production_networks.md` | `brain_generators/supply_chain/production_network_p1_shocks.py` | Included above | ✅ DONE |
+| 81 | `Fee_Thomas_2004_Horizontal_Mergers_Customer_Supplier.txt` | `docs/kb/supply_chain/barrot_burt_fee_bennett_production_networks.md` | `brain_generators/supply_chain/production_network_p1_shocks.py` | Included above | ✅ DONE |
 
 ---
 
@@ -147,8 +147,8 @@
 | 82 | `Kakushadze_101_Formulaic_Alphas.txt` | `docs/kb/frameworks/kakushadze_101_alphas.md` | `brain_generators/fundamental/kakushadze_101_direct.py` | 20 extracts (101 cands) | ✅ DONE |
 | 83 | `Tulchinsky_Finding_Alphas_WorldQuant.txt` | `docs/kb/frameworks/tulchinsky_finding_alphas.md` | — | 0 | ⏳ PENDING |
 | 84 | `Lopez_de_Prado_AFML.txt` | `docs/kb/frameworks/lopez_de_prado_afml.md` | — | 0 | ⏳ PENDING |
-| 85 | `Guo_Huang_Gao_2026_AQuA_Self_Improving_Trading_Agents.txt` | `docs/kb/frameworks/aqua_2026_trading_agents.md` | — | 0 | ⏳ PENDING |
-| 86 | `Han_Zhang_Li_2026_QuantaAlpha_Evolutionary_LLM_Alpha_Mining.txt` | `docs/kb/frameworks/quantaalpha_2026_mining.md` | — | 0 | ⏳ PENDING |
-| 87 | `Tang_Yin_Chen_2026_AlphaAgentEvo_Self_Evolving_Agentic_RL.txt` | `docs/kb/frameworks/alphaagentevo_2026_agentic_rl.md` | — | 0 | ⏳ PENDING |
-| 88 | `Xiao_Sun_Chen_2025_Trading_R1_Financial_Trading_LLM_RL.txt` | `docs/kb/frameworks/trading_r1_2025_rl.md` | — | 0 | ⏳ PENDING |
-| 89 | `Yu_Zheng_Pan_2026_AlphaMemo_Structured_Search_Process_Memory.txt` | `docs/kb/frameworks/alphamemo_2026_memory.md` | — | 0 | ⏳ PENDING |
+| 85 | `Guo_Huang_Gao_2026_AQuA_Self_Improving_Trading_Agents.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | 20 extracts (Blueprint) | ✅ DONE |
+| 86 | `Han_Zhang_Li_2026_QuantaAlpha_Evolutionary_LLM_Alpha_Mining.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | Included above | ✅ DONE |
+| 87 | `Tang_Yin_Chen_2026_AlphaAgentEvo_Self_Evolving_Agentic_RL.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | Included above | ✅ DONE |
+| 88 | `Xiao_Sun_Chen_2025_Trading_R1_Financial_Trading_LLM_RL.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | Included above | ✅ DONE |
+| 89 | `Yu_Zheng_Pan_2026_AlphaMemo_Structured_Search_Process_Memory.txt` | `docs/kb/frameworks/ai_agentic_evolutionary_mining_architecture.md` | AI Meta-Architecture | Included above | ✅ DONE |

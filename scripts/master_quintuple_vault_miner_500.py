@@ -87,6 +87,7 @@ from brain_generators.fundamental.fundamental_p1_innovation import generate_fund
 from brain_generators.fundamental.kakushadze_101_direct import generate_kakushadze_framework_candidates
 # Supply Chain
 from brain_generators.supply_chain.menzly_ozbas_lead_lag import generate_supply_chain_p0_candidates
+from brain_generators.supply_chain.production_network_p1_shocks import generate_production_network_p1_candidates
 
 
 def send_tg_message(token: str, chat_id: str, html_text: str):
@@ -360,13 +361,14 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     fund_p1     = generate_fundamental_p1_candidates()
     fund_kak    = generate_kakushadze_framework_candidates()
     sc_p0       = generate_supply_chain_p0_candidates()
+    sc_p1       = generate_production_network_p1_candidates()
 
     # ── Merge per pillar ────────────────────────────────────────────────────
     options_cands   = options_xzz + options_pcr + options_vrp + options_legacy
     sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_legacy
     risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_legacy
     short_cands     = short_p0 + short_p1 + short_legacy
-    fund_cands      = fund_p0 + fund_p1 + fund_kak + sc_p0 + fund_legacy
+    fund_cands      = fund_p0 + fund_p1 + fund_kak + sc_p0 + sc_p1 + fund_legacy
 
     total = len(options_cands)+len(sentiment_cands)+len(risk_cands)+len(short_cands)+len(fund_cands)
     log.info(
