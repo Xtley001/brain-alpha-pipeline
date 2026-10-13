@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,640/4,640 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,682/4,682 candidates)**
 
 ---
 
@@ -15,10 +15,10 @@
 | **2. Risk Models & Systematic Factors** | 12 | 12 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015, AABC 2014, BBW 2011, Savor-Wilson 2013, Nieto-Rodriguez 2013, Merton 1974) | 0 | 0 (100% COMPLETE) 🏆 |
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 19 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979, CJL 1996, Fink 2020, Harshita 2018, Martineau 2021, AMA 2005, Loh-Stulz 2018, Floropoulos 2018, BB 1968, DMS 2002, BO 2008, EGN 2007, SB 2022) | 0 | 0 (100% COMPLETE) 🏆 |
 | **4. Short Interest & Securities Lending** | 11 | 11 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002, Staley 1997, ERR 2018) | 0 | 0 (100% COMPLETE) 🏆 |
-| **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
+| **5. Fundamental, Quality & Capital Allocation** | 13 | 13 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013 x2, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006, GK 1995/2020, Fabozzi 2010, Kruger 2007) | 0 | 0 (100% COMPLETE) 🏆 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) 🏆 |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **78 Deep-Extracted Materials (29 Deep KBs)** | **0** | **11** |
+| **TOTAL** | **89** | **81 Deep-Extracted Materials (30 Deep KBs)** | **0** | **8** |
 
 ---
 
@@ -123,9 +123,9 @@
 | 70 | `Kogan_Papanikolaou_Seru_Stoffman_2017_Technological_Innovation.txt` | `docs/kb/fundamental/hirshleifer_2013_innovative_efficiency.md` | `brain_generators/fundamental/fundamental_p1_innovation.py` | Included above | ✅ DONE |
 | 71 | `Lee_Swaminathan_2000_Price_Momentum_Trading_Volume.txt` | `docs/kb/fundamental/hirshleifer_2013_innovative_efficiency.md` | `brain_generators/fundamental/fundamental_p1_innovation.py` | Included above | ✅ DONE |
 | 72 | `Sias_Starks_Titman_2006_Changes_Institutional_Ownership.txt` | `docs/kb/fundamental/hirshleifer_2013_innovative_efficiency.md` | `brain_generators/fundamental/fundamental_p1_innovation.py` | Included above | ✅ DONE |
-| 73 | `Kruger_2007_Persistence_in_Mutual_Fund_Performance.txt` | `docs/kb/fundamental/kruger_2007_fund_persistence.md` | — | 0 | ⏳ PENDING |
-| 74 | `Fabozzi_Quantitative_Equity_Investing.txt` | `docs/kb/fundamental/fabozzi_quant_equity.md` | — | 0 | ⏳ PENDING |
-| 75 | `Grinold_Kahn_Active_Portfolio_Management.txt` | `docs/kb/fundamental/grinold_kahn_active_portfolio.md` | — | 0 | ⏳ PENDING |
+| 73 | `Kruger_2007_Persistence_in_Mutual_Fund_Performance.txt` | `docs/kb/fundamental/grinold_fabozzi_kruger_active_quant.md` | `brain_generators/fundamental/grinold_fabozzi_active_alphas.py` | 22 extracts (42 cands) | ✅ DONE |
+| 74 | `Fabozzi_Quantitative_Equity_Investing.txt` | `docs/kb/fundamental/grinold_fabozzi_kruger_active_quant.md` | `brain_generators/fundamental/grinold_fabozzi_active_alphas.py` | Included above | ✅ DONE |
+| 75 | `Grinold_Kahn_Active_Portfolio_Management.txt` | `docs/kb/fundamental/grinold_fabozzi_kruger_active_quant.md` | `brain_generators/fundamental/grinold_fabozzi_active_alphas.py` | Included above | ✅ DONE |
 
 ---
 
