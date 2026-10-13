@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,522/4,522 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,582/4,582 candidates)**
 
 ---
 
@@ -13,12 +13,12 @@
 |---|---|---|---|---|
 | **1. Options & Volatility Surface** | 20 | 20 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020, Carr-Madan 2001, BTZ 2009 x2, Nonejad 2013, Natenberg 2015, Sinclair 2008 & 2010, Derman 2016, Bennett 2014) | 0 | 0 (100% COMPLETE) 🏆 |
 | **2. Risk Models & Systematic Factors** | 12 | 12 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015, AABC 2014, BBW 2011, Savor-Wilson 2013, Nieto-Rodriguez 2013, Merton 1974) | 0 | 0 (100% COMPLETE) 🏆 |
-| **3. Sentiment, PEAD & Analyst Revisions** | 19 | 14 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979, CJL 1996, Fink 2020, Harshita 2018, Martineau 2021, AMA 2005, Loh-Stulz 2018, Floropoulos 2018) | 0 | 5 |
+| **3. Sentiment, PEAD & Analyst Revisions** | 19 | 19 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979, CJL 1996, Fink 2020, Harshita 2018, Martineau 2021, AMA 2005, Loh-Stulz 2018, Floropoulos 2018, BB 1968, DMS 2002, BO 2008, EGN 2007, SB 2022) | 0 | 0 (100% COMPLETE) 🏆 |
 | **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) 🏆 |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **74 Deep-Extracted Materials (27 Deep KBs)** | **0** | **15** |
+| **TOTAL** | **89** | **76 Deep-Extracted Materials (28 Deep KBs)** | **0** | **13** |
 
 ---
 
@@ -78,14 +78,14 @@
 | 37 | `Tetlock_Media_Sentiment_JF.txt` | `docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md` | `brain_generators/sentiment/tetlock_media_pessimism.py` | 20 extracts (24 cands) | ✅ DONE |
 | 38 | `Barber_Odean_2008_All_That_Glitters_Attention_News.txt` | `docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md` | `brain_generators/sentiment/pead_revision.py` | Included above | ✅ DONE |
 | 39 | `Da_Engelberg_Gao_2011_In_Search_of_Attention.txt` | `docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md` | `brain_generators/sentiment/tetlock_media_pessimism.py` | 20 extracts (12 cands) | ✅ DONE |
-| 40 | `Edmans_Garcia_Norli_2007_Sports_Sentiment_Stock_Returns.txt` | `docs/kb/sentiment/edmans_garcia_norli_2007_sports.md` | — | 0 | ⏳ PENDING |
+| 40 | `Edmans_Garcia_Norli_2007_Sports_Sentiment_Stock_Returns.txt` | `docs/kb/sentiment/edmans_silver_bazarova_behavioral_expectations.md` | `brain_generators/sentiment/edmans_silver_mood_expectations.py` | 20 extracts (60 cands) | ✅ DONE |
 | 41 | `Baker_Wurgler_2006_Investor_Sentiment_Stock_Returns.txt` | `docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md` | `brain_generators/sentiment/tetlock_media_pessimism.py` | 20 extracts (8 cands) | ✅ DONE |
 | 42 | `Asquith_Mikhail_Au_2005_Information_Content_Equity_Analyst_Reports.txt` | `docs/kb/sentiment/asquith_loh_stulz_floropoulos_analysts.md` | `brain_generators/sentiment/asquith_loh_stulz_analyst_signals.py` | 20 extracts (72 cands) | ✅ DONE |
 | 43 | `Givoly_Lakonishok_1979_Analyst_Forecasts.txt` | `docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md` | `brain_generators/sentiment/tetlock_media_pessimism.py` | 20 extracts (54 cands) | ✅ DONE |
 | 44 | `Kothari_So_Verdi_2016_Analysts_Forecasts_Asset_Pricing.txt` | `docs/kb/sentiment/tetlock_da_kothari_givoly_media_sentiment.md` | `brain_generators/sentiment/tetlock_media_pessimism.py` | 20 extracts (48 cands) | ✅ DONE |
 | 45 | `Loh_Stulz_2018_Is_Sell_Side_Research_More_Valuable_in_Bad_Times.txt` | `docs/kb/sentiment/asquith_loh_stulz_floropoulos_analysts.md` | `brain_generators/sentiment/asquith_loh_stulz_analyst_signals.py` | Included above | ✅ DONE |
 | 46 | `Floropoulos_2018_Informativeness_Short_Long_Term_Analyst_Forecasts.txt` | `docs/kb/sentiment/asquith_loh_stulz_floropoulos_analysts.md` | `brain_generators/sentiment/asquith_loh_stulz_analyst_signals.py` | Included above | ✅ DONE |
-| 47 | `Silver_Bazarova_2022_Price_Expectations_Financial_Markets.txt` | `docs/kb/sentiment/silver_bazarova_2022_expectations.md` | — | 0 | ⏳ PENDING |
+| 47 | `Silver_Bazarova_2022_Price_Expectations_Financial_Markets.txt` | `docs/kb/sentiment/edmans_silver_bazarova_behavioral_expectations.md` | `brain_generators/sentiment/edmans_silver_mood_expectations.py` | Included above | ✅ DONE |
 | 48 | `Ball_Brown_1968_Accounting_Income_PEAD.txt` | `docs/kb/sentiment/bernard_thomas_1990_pead_sue.md` | `brain_generators/sentiment/bernard_thomas_sue.py` | Included above | ✅ DONE |
 | 49 | `Fink_2020_Review_of_PEAD.txt` | `docs/kb/sentiment/cjl_fink_harshita_martineau_pead.md` | `brain_generators/sentiment/modern_pead_dynamics.py` | Included above | ✅ DONE |
 | 50 | `Harshita_Singh_Yadav_2018_PEAD_Market_Efficiency.txt` | `docs/kb/sentiment/cjl_fink_harshita_martineau_pead.md` | `brain_generators/sentiment/modern_pead_dynamics.py` | Included above | ✅ DONE |
