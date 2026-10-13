@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,141/4,141 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,222/4,222 candidates)**
 
 ---
 
@@ -11,20 +11,20 @@
 
 | Pillar | Total Materials | Deep Extracts Done (15+ Verbatim Extracts) | Shallow KBs | Pending |
 |---|---|---|---|---|
-| **1. Options & Volatility Surface** | 20 | 14 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020, Carr-Madan 2001, BTZ 2009 x2) | 0 | 6 |
+| **1. Options & Volatility Surface** | 20 | 20 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020, Carr-Madan 2001, BTZ 2009 x2, Nonejad 2013, Natenberg 2015, Sinclair 2008 & 2010, Derman 2016, Bennett 2014) | 0 | 0 (100% COMPLETE) 🏆 |
 | **2. Risk Models & Systematic Factors** | 12 | 6 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015) | 0 | 6 |
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 7 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979) | 0 | 12 |
 | **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
-| **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) |
+| **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) 🏆 |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **57 Deep-Extracted Materials (22 Deep KBs)** | **0** | **32** |
+| **TOTAL** | **89** | **62 Deep-Extracted Materials (23 Deep KBs)** | **0** | **27** |
 
 ---
 
 ## 📋 Comprehensive Ledger of All 89 Materials
 
-### 1. Options & Volatility Surface (20 Materials)
+### 1. Options & Volatility Surface (20 Materials) — 100% COMPLETE 🏆
 | # | Raw Text File | KB Markdown File | Generator File | Depth | Status |
 |---|---|---|---|---|---|
 | 01 | `Xing_Zhang_Zhao_Volatility_Smirk.txt` | `docs/kb/options/xing_zhang_zhao_2010_smirk.md` | `brain_generators/options/xing_zhang_zhao_smirk.py` | 20 extracts (284 cands) | ✅ DONE |
@@ -42,11 +42,11 @@
 | 13 | `Ni_Pearson_Poteshman_2005_Stock_Price_Pinning_Option_Expiration.txt` | `docs/kb/options/ni_pearson_pinning_cucuringu_flow.md` | `brain_generators/options/ni_pearson_pinning.py` | Included above | ✅ DONE |
 | 14 | `Delisle_Lee_Mauck_2011_Short_Sellers_Option_Traders.txt` | `docs/kb/options/bali_hovakimian_delisle_vol_spreads.md` | `brain_generators/options/bali_hovakimian_vol_spread.py` | Included above | ✅ DONE |
 | 15 | `Nonejad_2013_Realized_Volatility_Structural_Breaks.txt` | `docs/kb/risk_models/easley_vpin_lucca_fomc_blitz_black.md` | `brain_generators/risk_models/risk_model_p2_vpin_fomc.py` | 20 extracts (8 cands) | ✅ DONE |
-| 16 | `Natenberg_Option_Volatility_and_Pricing.txt` | `docs/kb/options/natenberg_option_vol_pricing.md` | — | 0 | ⏳ PENDING |
-| 17 | `Sinclair_Volatility_Trading.txt` | `docs/kb/options/sinclair_volatility_trading.md` | — | 0 | ⏳ PENDING |
-| 18 | `Sinclair_Positional_Option_Trading.txt` | `docs/kb/options/sinclair_positional_option.md` | — | 0 | ⏳ PENDING |
-| 19 | `Derman_Miller_The_Volatility_Smile.txt` | `docs/kb/options/derman_miller_volatility_smile.md` | — | 0 | ⏳ PENDING |
-| 20 | `Bennett_Trading_Volatility.txt` | `docs/kb/options/bennett_trading_volatility.md` | — | 0 | ⏳ PENDING |
+| 16 | `Natenberg_Option_Volatility_and_Pricing.txt` | `docs/kb/options/natenberg_sinclair_derman_bennett_vol_treatise.md` | `brain_generators/options/institutional_surface_treatise.py` | 25 extracts (81 cands) | ✅ DONE |
+| 17 | `Sinclair_Volatility_Trading.txt` | `docs/kb/options/natenberg_sinclair_derman_bennett_vol_treatise.md` | `brain_generators/options/institutional_surface_treatise.py` | Included above | ✅ DONE |
+| 18 | `Sinclair_Positional_Option_Trading.txt` | `docs/kb/options/natenberg_sinclair_derman_bennett_vol_treatise.md` | `brain_generators/options/institutional_surface_treatise.py` | Included above | ✅ DONE |
+| 19 | `Derman_Miller_The_Volatility_Smile.txt` | `docs/kb/options/natenberg_sinclair_derman_bennett_vol_treatise.md` | `brain_generators/options/institutional_surface_treatise.py` | Included above | ✅ DONE |
+| 20 | `Bennett_Trading_Volatility.txt` | `docs/kb/options/natenberg_sinclair_derman_bennett_vol_treatise.md` | `brain_generators/options/institutional_surface_treatise.py` | Included above | ✅ DONE |
 
 ---
 
