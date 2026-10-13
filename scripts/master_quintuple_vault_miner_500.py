@@ -102,6 +102,7 @@ from brain_generators.fundamental.kakushadze_101_direct import generate_kakushad
 from brain_generators.fundamental.grinold_fabozzi_active_alphas import generate_grinold_fabozzi_active_alphas
 # Quantitative Frameworks / Meta-Alphas
 from brain_generators.frameworks.tulchinsky_prado_meta_alphas import generate_tulchinsky_prado_meta_alphas
+from brain_generators.frameworks.evolutionary_alpha_mutator import generate_evolutionary_mutator_candidates
 # Supply Chain
 from brain_generators.supply_chain.menzly_ozbas_lead_lag import generate_supply_chain_p0_candidates
 from brain_generators.supply_chain.production_network_p1_shocks import generate_production_network_p1_candidates
@@ -420,10 +421,9 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
             interleaved.append(risk_cands[i])
         if i < len(short_cands):
             interleaved.append(short_cands[i])
-        if i < len(fund_cands):
-            interleaved.append(fund_cands[i])
-
-    return interleaved
+    mutator_cands = generate_evolutionary_mutator_candidates()
+    log.info("PREPENDING %d EVOLUTIONARY MUTATOR CANDIDATES TO FRONT OF QUEUE.", len(mutator_cands))
+    return mutator_cands + interleaved
 
 
 async def run_quintuple_vault_miner(target_count: int = 100):
