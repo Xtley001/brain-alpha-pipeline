@@ -426,7 +426,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     return interleaved
 
 
-async def run_quintuple_vault_miner():
+async def run_quintuple_vault_miner(target_count: int = 100):
     config = OptionsConfig.from_env()
     store = OptionsStore()
 
@@ -439,7 +439,7 @@ async def run_quintuple_vault_miner():
 
     log.info("=" * 80)
     log.info("MASTER QUINTUPLE-VAULT AUTONOMOUS ALPHA MINER LAUNCHED")
-    log.info("TARGET: 500 QUALIFIED ALPHAS (100 per dataset vertical)")
+    log.info("TARGET: %d QUALIFIED ALPHAS (Safely Banked to PostgreSQL)", target_count)
     log.info("PILLARS: Options | Sentiment | Risk Models | Short Interest | Fundamentals")
     log.info("PARALLEL WORKERS: 4 Simulation Slots with Session Auto-Recovery")
     log.info("=" * 80)
@@ -477,10 +477,25 @@ async def run_quintuple_vault_miner():
     candidates, dups_removed = deduplicate_candidate_pool(candidates)
     if dups_removed > 0:
         log.info("AST Canonicalizer: Filtered out %d duplicate/commutative candidates from pool.", dups_removed)
-    target_count = 500
     current_qualified = get_current_qualified_count(config.database_url)
     log.info("Enqueued %d candidates across all 5 vaults. Current Qualified: %d / %d",
              len(candidates), current_qualified, target_count)
+
+    start_time = time.time()
+    send_tg_message(
+        token=config.telegram_bot_token,
+        chat_id=config.telegram_chat_id,
+        html_text=(
+            f"🚀 <b>AUTONOMOUS 100-ALPHA MINER STARTED</b>\n\n"
+            f"• <b>Target:</b> <code>{target_count} Qualified Alphas</code>\n"
+            f"• <b>Initial Bank:</b> <code>{current_qualified} Alphas</code>\n"
+            f"• <b>Candidate Pool:</b> <code>{len(candidates)} Candidates</code>\n"
+            f"• <b>Workers:</b> <code>4 Parallel Async Slots</code>\n"
+            f"• <b>Governance:</b> <b>Zero Auto-Submissions</b> (Banked in DB)\n"
+            f"• <b>Alert Cadence:</b> Real-time on every pass + Hourly Heartbeats\n\n"
+            f"<i>Resilience engine active: auto-reconnect on network/Wi-Fi drops.</i>"
+        ),
+    )
 
     queue: asyncio.Queue[Dict[str, Any]] = asyncio.Queue()
     for c in candidates:
@@ -523,15 +538,16 @@ async def run_quintuple_vault_miner():
             )
 
             metrics = None
-            for net_attempt in range(5):
+            for net_attempt in range(10):
                 try:
                     metrics = await client.simulate_one(expr, settings)
                     if metrics is not None:
                         break
                 except Exception as net_err:
-                    log.warning("[Worker %d | WIFI-RETRY %d] Network error: %s. Sleeping 5s...",
-                                worker_id, net_attempt + 1, net_err)
-                    await asyncio.sleep(5.0)
+                    backoff = min(30.0, 3.0 * (net_attempt + 1))
+                    log.warning("[Worker %d | WIFI-RETRY %d/10] Network hiccup: %s. Backing off %.1fs...",
+                                worker_id, net_attempt + 1, net_err, backoff)
+                    await asyncio.sleep(backoff)
 
             if metrics is None:
                 log.warning("[Worker %d] Simulation returned None for %s; skipping.", worker_id, arch)
@@ -683,8 +699,49 @@ async def run_quintuple_vault_miner():
 
             queue.task_done()
 
+    async def hourly_heartbeat():
+        try:
+            while current_qualified < target_count:
+                await asyncio.sleep(3600)
+                elapsed_hours = (time.time() - start_time) / 3600.0
+                yield_pct = (current_qualified / max(1, eval_count)) * 100.0
+                send_tg_message(
+                    token=config.telegram_bot_token,
+                    chat_id=config.telegram_chat_id,
+                    html_text=(
+                        f"⏱️ <b>HOURLY MINING HEARTBEAT</b> (T+{elapsed_hours:.1f}h)\n\n"
+                        f"• <b>Progress:</b> <b>{current_qualified} / {target_count} QUALIFIED</b>\n"
+                        f"• <b>Simulations Evaluated:</b> <code>{eval_count}</code>\n"
+                        f"• <b>Qualification Yield:</b> <code>{yield_pct:.2f}%</code>\n"
+                        f"• <b>Remaining to Goal:</b> <code>{max(0, target_count - current_qualified)}</code>\n"
+                        f"• <b>Pipeline Status:</b> 🟢 <b>Operational & Resilient</b>\n\n"
+                        f"<i>Zero submissions — alphas safely secured in PostgreSQL.</i>"
+                    ),
+                )
+        except asyncio.CancelledError:
+            pass
+
+    heartbeat_task = asyncio.create_task(hourly_heartbeat())
     workers = [asyncio.create_task(worker(i + 1)) for i in range(4)]
-    await asyncio.gather(*workers)
+    try:
+        await asyncio.gather(*workers)
+    finally:
+        heartbeat_task.cancel()
+
+    duration_h = (time.time() - start_time) / 3600.0
+    send_tg_message(
+        token=config.telegram_bot_token,
+        chat_id=config.telegram_chat_id,
+        html_text=(
+            f"🏆 <b>100 QUALIFIED ALPHAS GOAL ACHIEVED!</b>\n\n"
+            f"• <b>Total Qualified:</b> <b>{current_qualified} / {target_count} Alphas</b>\n"
+            f"• <b>Total Simulations:</b> <code>{eval_count}</code>\n"
+            f"• <b>Duration:</b> <code>{duration_h:.2f} hours</code>\n"
+            f"• <b>Vault Storage:</b> PostgreSQL <code>options_alphas</code>\n"
+            f"• <b>Submissions:</b> <b>0 submitted (Ready for review)</b>.\n\n"
+            f"<i>Session completed cleanly. Standing by for instructions.</i>"
+        ),
+    )
 
     log.info("=" * 80)
     log.info("QUINTUPLE-VAULT MINING SESSION COMPLETED: %d / %d QUALIFIED BANKED.", current_qualified, target_count)
@@ -692,9 +749,15 @@ async def run_quintuple_vault_miner():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Master Quintuple-Vault Alpha Miner")
+    parser.add_argument("--target", type=int, default=int(os.environ.get("MINER_TARGET", "100")),
+                        help="Target count of qualified alphas to bank (default: 100)")
+    args = parser.parse_args()
     try:
-        asyncio.run(run_quintuple_vault_miner())
+        asyncio.run(run_quintuple_vault_miner(target_count=args.target))
     except KeyboardInterrupt:
         log.info("Mining interrupted by user.")
     except Exception as e:
         log.error("Fatal error in quintuple-vault miner: %s", e)
+
