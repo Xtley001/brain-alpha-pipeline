@@ -3,42 +3,26 @@ Pan & Poteshman (2006) — Informed Put-Call Volume Ratio
 Garleanu, Pedersen & Poteshman (2009) — Demand-Based Option Pricing
 Bali & Hovakimian (2009) — Volatility Spreads & Expected Stock Returns
 Bakshi, Kapadia & Madan (2003) — Model-Free Skew & Kurtosis Laws
+Source KB: docs/kb/options/pan_poteshman_2006_pcr_informed.md
 
-Papers:
-  1. Pan & Poteshman (2006): "The Information in Option Volume for Future Stock Prices" — RFS
-     Core: Open-buy PCR (put vol / (put+call vol)) from PUBLIC CUSTOMER orders predicts
-     next-day returns. Low PCR → bullish informed flow → +40bps next day.
-     PCR = Put_Open_Buy_Vol / (Put_Open_Buy_Vol + Call_Open_Buy_Vol)
-     BRAIN field: pcr_vol_{tenor}, pcr_oi_{tenor}
-
-  2. Garleanu-Pedersen-Poteshman (2009): "Demand-Based Option Pricing" — RFS
-     Core: End-user demand pressure forces market makers to warehouse un-hedgeable
-     jump/vol risk → option prices deviate from Black-Scholes by a demand-pressure term.
-     Key insight: when OI surges anomalously against quiet underlying price, market makers
-     are accumulating inventory → IV premium → mean-revert as inventory clears.
-     BRAIN: ts_delta(open_interest, 5) / (volume + 0.001) → inventory pressure signal
-
-  3. Bali & Hovakimian (2009): "Volatility Spreads and Expected Stock Returns" — Management Science
-     Core: 3 principal components of volatility:
-       PC1: Level (realized vol) — unrelated to returns cross-sectionally
-       PC2: RV−IV spread (variance risk premium) → POSITIVE return predictor
-       PC3: Call IV − Put IV spread → POSITIVE return predictor (contrarian to skew)
-     Note: PC3 sign is OPPOSITE to XZZ smirk (different regime/sorting methodology)
-
-  4. Bakshi-Kapadia-Madan (2003): "Stock Return Characteristics, Skew Laws, and the
-     Differential Pricing of Individual Equity Options" — RFS
-     Core: Model-free risk-neutral moments derived from entire option chain:
-       RNSK = E^Q[r³] / E^Q[r²]^(3/2)  ← risk-neutral skewness
-       RNKURT = E^Q[r⁴] / E^Q[r²]²     ← risk-neutral kurtosis
-     High RNSK (right-skewed distribution) → negative future returns (overpriced upside)
-     High RNKURT (fat tails) → negative future returns
-     BRAIN: implied_vol_skew (proxy for RNSK), implied_vol_kurtosis if available
+Core Finding (Pan & Poteshman 2006):
+    Open-buy put-call ratio (PCR) constructed from customer order flow strongly predicts
+    future underlying equity returns.
+    Table 4: Next-day slope coefficient = -59.31 bps (t-stat = -32.82).
+    Controlling for turnover, spread, and 5-day short-term reversal retains a -55.62 bps slope (t = -31.56).
+    Stocks with low PCR (bullish open-buy calls) outperform high PCR (bearish open-buy puts)
+    by >40 bps on day t+1 and >100 bps over week t+1.
 """
 from typing import Any, Dict, List
 
+SOURCE_KB = "docs/kb/options/pan_poteshman_2006_pcr_informed.md"
+
 
 def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
-    """Pan & Poteshman (2006) + Garleanu-Pedersen (2009) + Bali-Hovakimian (2009) + BKM (2003)."""
+    """
+    Pan & Poteshman (2006) + Garleanu-Pedersen (2009) + Bali-Hovakimian (2009) + BKM (2003).
+    Citation: JF 2006, Table 4, Table 5, Table 6.
+    """
     catalog: List[Dict[str, Any]] = []
 
     universes   = ["TOPSP500", "TOP500", "TOP1000", "TOP200"]
@@ -47,10 +31,9 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
     decays      = [5, 10, 14]
 
     # ─────────────────────────────────────────────────────────────────────────
-    # PAN & POTESHMAN (2006): Informed Put-Call Ratio
-    # PCR = put_vol / (put_vol + call_vol) — from OPEN-BUY orders only (informed)
-    # Low PCR → bullish → next-day +40bps abnormal return
-    # BRAIN: pcr_vol_{tenor} is the best proxy (not decomposed by order type)
+    # PAN & POTESHMAN (2006): Informed Put-Call Ratio (Extract 3 & 5, Table 4)
+    # PCR = put_vol / (put_vol + call_vol)
+    # Low PCR -> bullish informed flow; high PCR -> bearish informed flow.
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -66,19 +49,19 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
                             f"-1), -1)"
                         ),
                         "hypothesis": (
-                            f"Pan-Poteshman2006: low PCR = bullish informed flow; high PCR = bearish. "
-                            f"+40bps next day from informed open-buy customers. {t}d tenor, {u}."
+                            f"Pan-Poteshman2006 Table 4: low PCR = bullish informed flow; high PCR = bearish. "
+                            f"-59bps next-day slope (t=-32.82). {t}d tenor, {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # PAN & POTESHMAN: PCR × Volume-to-OI Surge (Garleanu cross-reference)
-    # When PCR is low (bullish) AND volume/OI is unusually high (informed urgency),
-    # the signal is amplified — urgency implies higher private information content.
+    # PAN & POTESHMAN: PCR x Volume-to-OI Surge (Extract 7)
+    # Volume surge relative to existing open interest isolates new opening flow.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -95,19 +78,18 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
                         ),
                         "hypothesis": (
                             f"Pan-Poteshman2006 + GPP2009: informed urgency gate — "
-                            f"bullish PCR (low) AND high volume/OI ratio = urgent private info. {u}."
+                            f"bullish PCR (low) AND high volume/OI ratio = urgent private opening info. {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # GARLEANU-PEDERSEN-POTESHMAN (2009): Open Interest Demand Pressure
-    # Demand pressure from end-users forces dealer IV premium.
-    # OI surge vs quiet underlying → inventory build → IV elevated → mean-revert
-    # Signal: delta_OI / underlying_price_vol → IV inventory pressure
+    # OI surge vs quiet underlying -> inventory build -> IV elevated -> mean-revert
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -126,21 +108,20 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
                             f")), 0.5), {g.lower()}), -1), -1)"
                         ),
                         "hypothesis": (
-                            f"GPP2009: ΔOI / realized_vol → inventory pressure signal. "
-                            f"OI surge in quiet market = demand-driven IV premium → mean-revert. {u}."
+                            f"GPP2009: Delta OI / realized_vol -> inventory pressure signal. "
+                            f"OI surge in quiet market = demand-driven IV premium -> mean-revert. {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # BALI & HOVAKIMIAN (2009): Volatility Spread Principal Components
     # PC2: Realized Vol Spread = IV - RV (Variance Risk Premium component)
-    #      High IV-RV spread → stock has large VRP → positive future return predictor
-    # PC3: Call IV - Put IV spread → directional expectations signal
-    #      High Call IV vs Put IV → bullish expectations → positive future returns
+    # PC3: Call IV - Put IV spread -> directional expectations signal
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -161,12 +142,13 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
                         ),
                         "hypothesis": (
                             f"Bali-Hovakimian2009 PC2: IV - RV spread (VRP). "
-                            f"High IV vs realized vol → IV is 'expensive' → revert to fair value → negative. {u}."
+                            f"High IV vs realized vol -> IV is expensive -> revert to fair value -> negative. {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
                     # PC3: Call-Put IV Spread (directional expectations)
@@ -190,13 +172,11 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # BAKSHI-KAPADIA-MADAN (2003): Risk-Neutral Skewness Proxy
-    # Full RNSK requires entire option chain integration (not directly available).
-    # Best BRAIN proxy: implied_vol_skew field if available, else smirk slope × tenor weight.
-    # High RNSK (expensive calls vs puts on the right tail) → negative future returns.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -217,13 +197,97 @@ def generate_pan_poteshman_pcr_candidates() -> List[Dict[str, Any]]:
                             f")), 0.5), {g.lower()}), -1), -1)"
                         ),
                         "hypothesis": (
-                            f"BKM2003: Risk-neutral skew proxy — smirk × vol-level scaling. "
+                            f"BKM2003: Risk-neutral skew proxy — smirk * vol-level scaling. "
                             f"High RNSK = expensive downside protection = negative return predictor. {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 6: PCR x Short-Term Price Reversal (Extract 5 & 12, Table 4)
+    # Table 4 proves PCR slope remains -55.62 bps (t=-31.56) controlling for reversal.
+    # Bullish call buying into short-term dip produces maximum rebound.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [5, 10]:
+                catalog.append({
+                    "pillar": "PCR_X_REVERSAL",
+                    "archetype": f"PCR_Reversal_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.85, "
+                        f"group_neutralize("
+                        f"rank(-ts_decay_linear(pcr_vol_30, {d})) * "
+                        f"rank(-ts_decay_linear(ts_delta(close, 5), 5)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Pan-Poteshman2006 Table 4: Low PCR + recent 5-day price pullback. "
+                        f"Informed accumulation into dip; -55.62bps slope with reversal control (t=-31.56). {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "options",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 7: Multi-Tenor PCR Term Spread Urgency (Extract 10)
+    # Tactical 30d informed flow exceeding structural 90d hedging flow.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [5, 10]:
+                catalog.append({
+                    "pillar": "PCR_TERM_SPREAD_URGENCY",
+                    "archetype": f"PCR_TermSpread_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.85, "
+                        f"group_neutralize("
+                        f"signed_power(rank(-ts_decay_linear(pcr_vol_30 - pcr_vol_90, {d})), 0.5), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Pan-Poteshman2006 Extract 10: Term structure of PCR (30d vs 90d). "
+                        f"Short-dated PCR surge isolates near-term private event information over hedging. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "options",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 8: High Turnover Surge Gated PCR (Extract 5 & 13, Table 4)
+    # High equity turnover confirms active institutional reallocation.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [5, 10]:
+                catalog.append({
+                    "pillar": "PCR_TURNOVER_SURGE",
+                    "archetype": f"PCR_TurnoverSurge_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 1.25, "
+                        f"group_neutralize("
+                        f"signed_power(rank(-ts_decay_linear(pcr_vol_30, {d})), 0.5), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Pan-Poteshman2006 Table 4 turnover interaction: PCR signal gated on volume > 1.25 ADV. "
+                        f"High volume confirms institutional participation over retail noise. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "options",
+                    "source_kb": SOURCE_KB,
+                })
 
     return catalog

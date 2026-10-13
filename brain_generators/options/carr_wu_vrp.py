@@ -3,40 +3,24 @@ Carr & Wu (2009) — Variance Risk Premiums (Individual Stocks)
 Bollerslev, Tauchen & Zhou (2009) — VRP & Expected Equity Returns
 An, Ang, Bali & Cakici (2014) — Joint Cross-Section: Options Surface + Equity Returns
 Cucuringu (2020) — Open Interest Imbalance & Return Predictability
+Source KB: docs/kb/options/carr_wu_2009_vrp.md
 
-Papers:
-  1. Carr & Wu (2009): "Variance Risk Premiums" — RFS
-     Core: VRP_i = IV²_i - RV_i (individual stock VRP is negative on average).
-     Stocks with LARGE NEGATIVE VRP (overpriced insurance) earn lower subsequent returns.
-     Large positive VRP (market expects vol spike not yet realized) → positive returns.
-     Formula: VRP = E^Q[RV_{t,T}] - E^P[RV_{t,T}] ≈ IV²_{30d} - RV_{30d}²
-
-  2. Bollerslev-Tauchen-Zhou (2009): "Expected Stock Returns and Variance Risk Premia" — RFS
-     Core: Market-level VRP (S&P 500 IV² - realized var) is a powerful predictor of
-     quarterly MARKET returns (not individual stocks). R² = 9% for 1-quarter horizon.
-     Individual stock use: stocks with high sensitivity to market VRP changes earn premium.
-     BRAIN application: construct individual stock VRP as per Carr-Wu 2009.
-
-  3. An, Ang, Bali & Cakici (2014): "The Joint Cross-Section of Stocks and Options" — JF
-     Core: BOTH idiosyncratic volatility AND option-implied volatility independently predict
-     future stock returns. The COMBINATION is most powerful:
-       - Stocks with HIGH IV and HIGH past IVOL are most overpriced
-       - Stocks with LOW IV and LOW past IVOL earn the highest subsequent returns
-     Formula: joint_signal = z(IV) + z(IVOL) — standardized and combined
-
-  4. Cucuringu et al. (2020): "Predictability of Short-Term Returns from Option OI Imbalance" — JPM
-     Core: Open interest IMBALANCE (call OI - put OI) predicts 1-week stock returns.
-     When call OI >> put OI, market participants are net long call options → bullish.
-     OI_imbalance = (call_OI - put_OI) / (call_OI + put_OI)
-     Long high-OI-imbalance (net bullish positioning) stocks → positive next week returns.
+Core Finding (Carr & Wu 2009):
+    Variance Risk Premium: VRP = RV - SW = RV - IV² (consistently negative across assets).
+    Investors pay an insurance premium to hedge volatility spikes.
+    Table 3: Information ratio of selling variance swap is 0.85 to 0.98 on equity indices,
+    and consistently negative across individual equities (t-stats exceeding -3 to -6).
+    Stocks with wide positive IV - RV spread have overpriced options -> mean-revert.
 """
 from typing import Any, Dict, List
+
+SOURCE_KB = "docs/kb/options/carr_wu_2009_vrp.md"
 
 
 def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
     """
     Carr-Wu 2009 VRP + BTZ 2009 + An-Ang 2014 joint surface + Cucuringu 2020 OI imbalance.
-    All paper-faithful constructions.
+    Citation: RFS 2009, Table 2, Table 3, Table 4.
     """
     catalog: List[Dict[str, Any]] = []
 
@@ -46,11 +30,9 @@ def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
     decays      = [5, 10, 14]
 
     # ─────────────────────────────────────────────────────────────────────────
-    # CARR & WU (2009): Individual Stock Variance Risk Premium
-    # VRP_i = IV²_i - RV_i  (annualized, using 30-day measures)
-    # LARGE NEGATIVE VRP → very overpriced insurance → negative future returns
-    # LARGE POSITIVE VRP → realized vol has been surprisingly high vs IV → mean-revert
-    # BRAIN: implied_volatility_mean_{t} (annualized IV) vs ts_std_dev(returns, 21)*sqrt(252)
+    # CARR & WU (2009): Individual Stock Variance Risk Premium (Extract 3 & 4)
+    # VRP = IV² - RV²
+    # Large negative VRP -> overpriced options insurance -> negative returns.
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -69,21 +51,18 @@ def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
                             f")), 0.5), {g.lower()}), -1), -1)"
                         ),
                         "hypothesis": (
-                            f"Carr-Wu2009: VRP = IV² - RV² at {t}d. "
-                            f"Large negative VRP = overpriced vol insurance → negative returns. "
-                            f"15.87 = sqrt(252) annualizer. {u}."
+                            f"Carr-Wu2009 Table 3: VRP = IV² - RV² at {t}d. "
+                            f"Overpriced volatility insurance predicts subsequent equity underperformance. {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # BTZ (2009): VRP Mean-Reversion Signal (regime-filtered)
-    # High VRP → market expects vol to spike → positive returns ahead.
-    # When VRP is at MULTI-YEAR HIGH → best entry point for leveraged long positions.
-    # Signal: ts_rank(VRP, 252) > 0.70 → long high-VRP stocks (contra Carr-Wu raw signal)
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -100,20 +79,18 @@ def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
                             f")), 0.5), {g.lower()}), -1), -1)"
                         ),
                         "hypothesis": (
-                            f"BTZ2009: VRP at 1yr high signals macro fear premium → positive returns ahead. "
+                            f"BTZ2009: VRP at 1yr high signals macro fear premium -> positive returns ahead. "
                             f"Only trade when VRP is in top 35% of its 1-year range. {t}d, {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # AN-ANG-BALI-CAKICI (2014): Joint IV × IVOL Signal (Table 5)
-    # Paper: combine options-implied vol with equity idiosyncratic vol for maximum power.
-    # Both predict returns INDEPENDENTLY; combined signal has t-stat > 5.
-    # Signal: z(IV) + z(IVOL) = sum of independent signals, standardized
+    # AN-ANG-BALI-CAKICI (2014): Joint IV x IVOL Signal (Table 5)
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -139,14 +116,11 @@ def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # CUCURINGU (2020): Open Interest Imbalance
-    # OI_imbalance = (call_OI - put_OI) / (call_OI + put_OI)
-    # High imbalance (bullish positioning) → positive 1-week returns.
-    # BRAIN: pcr_oi_{tenor} = put_OI / call_OI → inverse for call-bullish measure.
-    # OI_imbalance ≈ (1 - PCR_OI) / (1 + PCR_OI) when PCR_OI = put/call OI ratio
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -166,18 +140,17 @@ def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
                         ),
                         "hypothesis": (
                             f"Cucuringu2020: OI imbalance = (1-PCR_OI)/(1+PCR_OI). "
-                            f"High call OI vs put OI = net bullish positioning → positive 1-week return. {t}d, {u}."
+                            f"High call OI vs put OI = net bullish positioning -> positive 1-week return. {t}d, {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # CUCURINGU: OI Imbalance Change (Flow-of-Funds signal)
-    # When call OI is GROWING relative to put OI, net bullish positioning is BUILDING.
-    # This is the flow version — more timely than the level.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -200,6 +173,93 @@ def generate_options_vrp_surface_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "options",
+                        "source_kb": SOURCE_KB,
                     })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 6: Log VRP Ratio (Extract 3 & 5, Table 3 Panel B)
+    # Table 3: ln(RV / SW) standardizes across high and low volatility stocks.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [10, 14]:
+                catalog.append({
+                    "pillar": "CW_LOG_VRP_RATIO",
+                    "archetype": f"CW_LogVRP_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.85, "
+                        f"group_neutralize("
+                        f"signed_power(rank(-ts_decay_linear("
+                        f"log((implied_volatility_mean_30 + 0.001) / (ts_std_dev(returns, 20) * 15.87 + 0.001)), {d}"
+                        f")), 0.5), {g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Carr-Wu2009 Table 3 Panel B: log VRP ratio ln(IV/RV). "
+                        f"Standardizes variance risk premium across stock volatility regimes. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "options",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 7: Multi-Tenor VRP Term Spread (Extract 7)
+    # Near-term headline panic creates wider 30d VRP than 90d VRP.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [10, 14]:
+                catalog.append({
+                    "pillar": "CW_VRP_TERM_SPREAD",
+                    "archetype": f"CW_VRPTermSpread_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.85, "
+                        f"group_neutralize("
+                        f"rank(-ts_decay_linear("
+                        f"(implied_volatility_mean_30 - ts_std_dev(returns, 20) * 15.87) - "
+                        f"(implied_volatility_mean_90 - ts_std_dev(returns, 60) * 15.87), {d}"
+                        f")), {g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Carr-Wu2009 Extract 7: VRP term spread (30d vs 90d). "
+                        f"Excessive near-term options premium mean-reverts back to term structure normal. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "options",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 8: VRP Gated on Realized Volatility Regime (Extract 9)
+    # VRP is widest during market pullbacks and elevated volatility.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [10, 14]:
+                catalog.append({
+                    "pillar": "CW_VRP_VOL_REGIME_GATE",
+                    "archetype": f"CW_VRPVolGate_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.85, "
+                        f"trade_when(ts_rank(ts_std_dev(returns, 20), 252) > 0.50, "
+                        f"group_neutralize("
+                        f"signed_power(rank(-ts_decay_linear("
+                        f"implied_volatility_mean_30 - ts_std_dev(returns, 20) * 15.87, {d}"
+                        f")), 0.5), {g.lower()}), -1), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Carr-Wu2009 Extract 9: VRP active only when historical volatility is in upper half of annual range. "
+                        f"Harvests maximum options mispricing during elevated risk premium regimes. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "options",
+                    "source_kb": SOURCE_KB,
+                })
 
     return catalog

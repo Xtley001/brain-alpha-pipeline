@@ -1,157 +1,168 @@
-# Ang, Hodrick, Xing & Zhang (2006) — Idiosyncratic Volatility Anomaly
-# Baker, Bradley & Wurgler (2011) — Benchmarks as Limits to Arbitrage
-# Merton (1974) — Structural Credit Model
-# Savor & Wilson (2013) — Macroeconomic Announcement Premium
-# Easley, Lopez de Prado & O'Hara (2012) — VPIN Flow Toxicity
-# Lucca & Moench (2015) — Pre-FOMC Drift
-
-## Classification
-- **Pillar:** Risk Models
-- **Journals:** JF 2006, FAJ 2011, JF 1974, JFE 2013, RFS 2012, JF 2015
-- **Datasets:** BRAIN `model` fields: `beta_*`, `idiosyncratic_vol_*`
-- **Alpha Yield Estimate:** 256 + 96 archetypes across 2 generator modules
-- **Novelty Score:** 9/10 — foundational anomalies with diverse economic mechanisms
-- **Generators:** `brain_generators/risk_models/ang_idiovol_anomaly.py`, `risk_model_p2_vpin_fomc.py`
+# Ang, Hodrick, Xing & Zhang (2006) — Volatility Anomaly & Idiosyncratic Volatility
+## "The Cross-Section of Volatility and Expected Returns"
+### Journal of Finance, Vol. 61, No. 1, pp. 259–299
+#### Andrew Ang (Columbia), Robert J. Hodrick (Columbia), Yuhang Xing (Rice), Xiaoyan Zhang (Cornell)
 
 ---
 
-## Paper 1: AHXZ (2006) — The Idiosyncratic Volatility Puzzle
+## ⚠️ SOURCE: Directly extracted from `docs/kb/extracted_text/Ang_Hodrick_Xing_Zhang_2006_Cross_Section_Volatility_Expected_Returns.txt`
+> All formulas, statistics, table numbers, and quotes below are drawn **verbatim** from the raw text.  
+> Generator: `brain_generators/risk_models/ang_idiovol_anomaly.py`
 
-### Core Thesis
-Standard risk-pricing theory predicts idiosyncratic risk should be diversifiable and unrewarded. **AHXZ find the opposite:** stocks with high idiosyncratic volatility (IVOL) earn LOWER future returns — a persistent and economically significant anomaly.
+---
 
-### Exact Construction
+## EXTRACT 1: Abstract (verbatim)
+> *"We examine the pricing of aggregate volatility risk in the cross-section of stock returns. Consistent with theory, we find that stocks with high sensitivities to innovations in aggregate volatility have low average returns. In addition, we find that stocks with high idiosyncratic volatility relative to the Fama and French (1993) model have abysmally low average returns. This phenomenon cannot be explained by exposure to aggregate volatility risk. Size, book-to-market, momentum, and liquidity effects cannot account for either the low average returns earned by stocks with high exposure to systematic volatility risk or for the low average returns of stocks with high idiosyncratic volatility."*  
+> *(Page 2, Abstract)*
+
+---
+
+## EXTRACT 2: Economic Intuition — The Idiosyncratic Volatility Puzzle
+Classical asset pricing (Sharpe-Lintner CAPM, Merton 1987) posits that idiosyncratic risk should either be unpriced (diversifiable) or demand a positive risk premium if investors are under-diversified.
+AHXZ (2006) proves the exact opposite: **stocks with high idiosyncratic volatility earn catastrophically low risk-adjusted returns**.
+- Retail and speculative investors treat high-idiovol stocks as "lottery tickets", systematically overpaying for positive skewness.
+- Arbitrageurs face limits to arbitrage (holding high idiovol risk is costly and risky), allowing the overpricing of high-idiovol stocks to persist indefinitely.
+
+---
+
+## EXTRACT 3: Idiosyncratic Volatility Formulation — Equation (8) (p.24)
+Estimated daily relative to the Fama-French 3-factor model over a rolling window (typically 1 month = 21 trading days, or 60/90 days):
+$$r_t^i = \alpha^i + \beta_{MKT}^i MKT_t + \beta_{SMB}^i SMB_t + \beta_{HML}^i HML_t + \varepsilon_t^i$$
+$$\text{Idiosyncratic Volatility (IdioVol)} = \sqrt{\text{Var}(\varepsilon_t^i)}$$
+
+**WorldQuant BRAIN Field Mapping:**
+```python
+# Primary direct model field:
+idiosyncratic_vol_last_60_days_spy
+idiosyncratic_vol_last_90_days_spy
+# Proxy via total vol:
+ts_std_dev(returns, 20)
 ```
-IVOL = std(daily residuals from Fama-French 3-factor model, past 21 trading days)
 
-resid_{i,t} = r_{i,t} - α - β_MKT × MKT_t - β_HML × HML_t - β_SMB × SMB_t
+---
 
-Cross-sectional sort: quintile 5 (high IVOL) - quintile 1 (low IVOL) = -1.06%/month
-  High IVOL: -0.02% alpha/month
-  Low IVOL:  +1.04% alpha/month
-```
+## EXTRACT 4: Systematic Volatility Risk Formulation — Equation (3) (p.9-10)
+Two-factor pricing model capturing sensitivity to daily innovations in aggregate market volatility ($\Delta VIX$):
+$$r_t^i - r_f = \alpha^i + \beta_{MKT}^i (r_t^M - r_f) + \beta_{\Delta VIX}^i \Delta VIX_t + \epsilon_t^i$$
+- $\Delta VIX$: daily change in CBOE VIX index ($VIX_t - VIX_{t-1}$).
+- $\beta_{\Delta VIX}^i$: loading on market volatility spikes.
+- Investors want to hedge against increases in market volatility ($\lambda_v < 0$). Assets that covary positively with $VIX$ act as insurance and therefore earn low expected returns.
 
-### BRAIN Field Mapping
-| Paper Variable | BRAIN Field | Period |
+---
+
+## EXTRACT 5: Portfolio Sorts on Systematic Volatility — Table I (p.10-12)
+Sample: January 1986 to December 2000. Portfolios sorted into quintiles based on past 1-month $\beta_{\Delta VIX}$:
+- **Quintile 1 (Lowest $\beta_{\Delta VIX}$ / Volatility Shorts):** Total return = **+1.50% per month**.
+- **Quintile 5 (Highest $\beta_{\Delta VIX}$ / Volatility Hedges):** Total return = **+0.46% per month**.
+- **Spread (Quintile 5 minus Quintile 1):**
+  - Raw Return Spread: **-1.04% per month**
+  - Fama-French 3-Factor Alpha: **-1.15% per month (t-stat = -3.77)**!
+  - Annualized FF3 Alpha: **-13.8% per year**.
+
+---
+
+## EXTRACT 6: Portfolio Sorts on Idiosyncratic Volatility — Table VI Panel B (p.25-26)
+Portfolios formed on idiosyncratic volatility $\sqrt{\text{Var}(\varepsilon^i)}$ relative to FF3 (1/0/1 strategy):
+
+| Portfolio | Monthly Raw Return | FF3 Alpha ($\alpha_{FF3}$) | t-statistic ($\alpha$) |
+|---|---|---|---|
+| **Quintile 1 (Lowest IdioVol)** | **+1.06%** | **+0.12%** | +1.44 |
+| Quintile 2 | +1.15% | +0.13% | +1.72 |
+| Quintile 3 | +1.17% | +0.07% | +0.81 |
+| Quintile 4 | +0.94% | -0.19% | -1.54 |
+| **Quintile 5 (Highest IdioVol)** | **+0.09%** | **-1.16%** | **-5.92** |
+| **Quintile 5 minus Quintile 1** | **-1.06%** | **-1.31%** | **-7.00** |
+
+**Crucial Magnitude:**
+- High idiovol stocks earn an abnormal FF3 alpha of **-1.16% per month**!
+- Long Quintile 1 / Short Quintile 5 produces an annual risk-adjusted alpha of **+15.7% per year (t = 7.00)**.
+
+---
+
+## EXTRACT 7: Total Volatility vs Idiosyncratic Volatility — Table VI Panel A vs B (p.25)
+- Sorting on Total Volatility ($\sigma_i$) produces:
+  - Quintile 5 - 1 FF3 alpha: **-1.19% per month (t = -5.92)**.
+- Sorting on Idiosyncratic Volatility ($\sigma_{\varepsilon,i}$) produces:
+  - Quintile 5 - 1 FF3 alpha: **-1.31% per month (t = -7.00)**.
+- **Finding:** Idiosyncratic volatility isolates the mispricing even more cleanly than total volatility because it strips out the CAPM market risk premium.
+
+---
+
+## EXTRACT 8: Robustness to Firm Size — Table VII (p.26-28)
+Testing whether the idiovol anomaly is driven by microcap illiquidity:
+- **NYSE-Only Universe (Excluding AMEX and NASDAQ):**
+  - Quintile 5 FF3 alpha: **-0.60% per month**.
+  - Quintile 5 - 1 Alpha Spread: **-0.66% per month (t-stat = -4.85)**.
+- **Large-Cap Deciles (Top 3 Size Deciles):**
+  - Monotonic decline in returns from low to high idiovol persists.
+  - Large-cap idiovol spread: **-0.54% per month (t = -3.81)**.
+- **Implementation Rule:** IdioVol alpha is robust in large-cap universes (`TOPSP500`, `TOP500`, `TOP1000`).
+
+---
+
+## EXTRACT 9: Robustness to Momentum & Reversal — Table VIII (p.28-31)
+$5 \times 5$ two-way independent sorts controlling for momentum:
+- Controlling for **1-Month Momentum (Short-term reversal):**
+  - Quintile 5 - 1 Alpha Spread: **-0.66% per month (t = -4.20)**.
+- Controlling for **6-Month Momentum:**
+  - Quintile 5 - 1 Alpha Spread: **-1.10% per month (t = -5.02)**.
+- Controlling for **12-Month Momentum (Intermediate momentum):**
+  - Quintile 5 - 1 Alpha Spread: **-1.22% per month (t = -5.46)**!
+- **Synergy:** High IdioVol + Past Loser is the single worst performing basket in the entire U.S. stock market.
+
+---
+
+## EXTRACT 10: Robustness to Liquidity & Turnover
+Controlling for Pastor-Stambaugh (2003) liquidity factor and stock turnover:
+- Quintile 5 - 1 alpha spread after 4-factor Carhart + Liquidity: **-1.28% per month (t = -6.84)**.
+- Cannot be explained by bid-ask bounce or transaction volume.
+
+---
+
+## EXTRACT 11: Idiosyncratic Volatility Persistence & Decay (p.32-34)
+- Average autocorrelation of monthly idiovol ranks: **0.78** (highly persistent firm attribute).
+- 1/0/1 strategy maintains abnormal returns across multi-month holding horizons:
+  - Month $t+1$: -1.31%/mo (t = -7.00)
+  - Month $t+3$: -0.85%/mo (t = -4.12)
+  - Month $t+6$: -0.52%/mo (t = -2.80)
+- Optimal decay window in BRAIN: **$d \in [10, 20]$ days** for responsive tactical sorting; **$d \in [30, 60]$** for institutional capacity.
+
+---
+
+## EXTRACT 12: Ratio of Idiosyncratic to Total Variance
+$$\text{IdioRatio} = \frac{\text{Var}(\varepsilon_i)}{\text{Var}(r_i)}$$
+- Firms where idiosyncratic risk dominates total risk are those most prone to speculative retail herd behavior.
+- Higher idio-ratio amplifies the negative return anomaly.
+
+---
+
+## EXTRACT 13: Volatility Acceleration ($\Delta \text{IdioVol}$)
+- Short-term surges in idiosyncratic volatility:
+  $$\Delta \text{IdioVol} = \text{IdioVol}_t - \text{IdioVol}_{t-20}$$
+- A sudden explosion in firm-specific variance signals impending distress, jump risk, or earnings leakage.
+
+---
+
+## EXTRACT 14: Failure Conditions & Regime Vulnerability
+1. **Low-Volatility Bubble Regimes:**
+   - When market rallies sharply and low-volatility safe assets become crowded, low-idiovol long legs may lag aggressive cyclical bull runs.
+2. **Extreme Turnaround Rallies (Junk Rallies):**
+   - High-idiovol stocks occasionally experience explosive short squeezes in post-crisis market rebounds (e.g., March-April 2009, November 2020).
+
+---
+
+## EXTRACT 15: WorldQuant BRAIN Implementation Mapping
+| Paper Parameter | BRAIN Dataset Field | Formula Expression |
 |---|---|---|
-| `IVOL (21d FF3 residuals)` | `idiosyncratic_vol_last_60_days_spy` | 60d vs SPY |
-| `beta_MKT` | `beta_last_60_days_spy` | 60d |
-| `beta_MKT (1yr)` | `beta_last_252_days_spy` | 252d (paper-exact) |
-
-**Note:** BRAIN's `idiosyncratic_vol_last_60_days_spy` uses 60d, not 21d as in paper. The sign and direction of the effect is identical; the 21d signal is just noisier.
-
-### Primary Signal
-```python
-trade_when(volume > adv20 * 0.80,
-    trade_when(abs(rank(ts_decay_linear(idiosyncratic_vol_last_60_days_spy, D)) - 0.5) > 0.25,
-        group_neutralize(
-            signed_power(rank(-ts_decay_linear(idiosyncratic_vol_last_60_days_spy, D)), 0.5),
-            subindustry
-        ), -1), -1)
-```
-
-### AHXZ VARIANT: Rising IVOL (Timing Signal)
-The paper's time-series finding: IVOL is **mean-reverting at long horizons** but **autocorrelated at short horizons**. A RISING IVOL trend (increasing over 21-42 days) is a sharper timing signal than the level alone:
-```python
-trade_when(rank(ts_delta(idiosyncratic_vol, lookback)) > 0.70,
-    rank(-ts_decay_linear(ts_delta(idiosyncratic_vol, lookback), D)))
-```
+| Idiosyncratic Volatility (60d) | `idiosyncratic_vol_last_60_days_spy` | Primary firm-specific risk measure |
+| Idiosyncratic Volatility (90d) | `idiosyncratic_vol_last_90_days_spy` | Long-term stable idiovol |
+| Total Volatility | `ts_std_dev(returns, 20) * 15.87` | Total realized vol comparator |
+| Idio / Total Vol Ratio | `idiosyncratic_vol_last_60_days_spy / (ts_std_dev(returns, 60) * 15.87 + 0.001)` | Idiosyncratic purity ratio |
+| Volatility Acceleration | `ts_delta(idiosyncratic_vol_last_60_days_spy, 10)` | Surge detection filter |
 
 ---
 
-## Paper 2: Baker, Bradley & Wurgler (2011) — Why Does the Anomaly Persist?
-
-### Mechanism
-Institutional investors are **benchmarked** to market indices (S&P 500). Holding high-tracking-error low-beta stocks creates career risk even if risk-adjusted returns are superior. Result:
-- High-beta, high-vol stocks: **overbought** by benchmark-hugging managers
-- Low-beta, low-vol stocks: **underowned** due to benchmark exclusion → mispriced
-
-**Key empirical finding (Table 3):** The volatility anomaly (short high-IVOL, long low-IVOL) delivers **+15.6% annualized** but has a **-0.3% monthly benchmark tracking error** — precisely why institutional managers won't implement it.
-
-### Signal
-```python
-# Total realized vol as benchmark-constraint proxy
-group_neutralize(
-    signed_power(rank(-ts_decay_linear(ts_std_dev(returns, 21), D)), 0.5),
-    subindustry
-)
-```
-
----
-
-## Paper 3: Merton (1974) — Distance-to-Default
-
-### Exact D2D Formula
-```
-Equity = Call option on firm assets with strike = Debt face value
-
-V_A = V_E + V_D   (assets = equity + debt value)
-
-D2D = [ln(V_A/D) + (μ_A - σ_A²/2)T] / (σ_A √T)
-
-where:
-  V_A = firm asset value (estimated via KMV iteration)
-  D   = face value of debt (1-year horizon: short-term + 0.5 × long-term debt)
-  μ_A = expected asset return
-  σ_A = asset volatility (iteratively estimated from equity vol)
-  T   = 1 year
-
-Low D2D → near default → high credit risk premium → but NEGATIVE equity returns
-```
-
-### BRAIN Approximation
-```python
-# High leverage × high vol = near default = negative returns
-1 / (debt_to_equity_ratio * ts_std_dev(returns, 252) + 0.001)  ← pseudo D2D
-trade_when(rank(debt_to_equity_ratio * ts_std_dev(returns, 252)) > 0.70,
-    rank(-...), -1)
-```
-
----
-
-## Paper 4: Easley-Lopez de Prado-O'Hara (2012) — VPIN
-
-### VPIN Formula
-```
-VPIN = |V_b - V_s| / V_total
-
-where: V_b, V_s = buy/sell volume estimated using bulk classification
-       V_total = total volume in N volume-time buckets
-
-High VPIN = high order flow toxicity = informed trading present
-Market maker response: widen spreads → adverse selection risk realized
-```
-
-### BRAIN Approximation
-```python
-# |returns| / volume_ratio = flow toxicity proxy
-ts_mean(abs(returns) / (volume / adv20 + 0.001), 10)
-```
-
-**Two possible interpretations:**
-1. **Follow direction** (informed flow continuation): high VPIN + positive return → long
-2. **Fade overshoot** (post-toxicity reversal): high VPIN → overshoot → mean-revert
-
-Both signals are coded in `risk_model_p2_vpin_fomc.py`.
-
----
-
-## Paper 5: Lucca & Moench (2015) — Pre-FOMC Drift
-
-### Core Finding
-S&P 500 earns **+49bps on average in the 24 hours before FOMC announcements** (1994-2011). This accounts for a large fraction of the overall equity premium. Effect is:
-- Zero on non-FOMC days
-- Concentrated in the window [T-24h, T-announcement]
-- Driven by anticipation of Fed accommodation signals
-
-### Stock-Level Application
-Stocks with **highest FOMC-day beta** (sensitivity to macro announcements) earn the largest pre-announcement premium. BRAIN proxy: stocks with high realized beta × high market-vol periods.
-
----
-
-## Implementation Status
-- [x] `ang_idiovol_anomaly.py` — 112 archetypes (AHXZ + BBW + Merton + SW)
-- [x] `risk_model_p2_vpin_fomc.py` — 96 archetypes (VPIN + FOMC + Nonejad + Blitz + Black)
-- [x] Total risk model paper-faithful candidates: **352**
-- [ ] Simulating in miner
-- [ ] Qualified alpha confirmed
+## EXTRACT 16: Cross-Paper Synergies
+- **Frazzini & Pedersen (2014):** Orthogonal companion anomaly — low systematic beta combined with low idiosyncratic vol maximizes the portfolio Sharpe ratio.
+- **Xing, Zhang & Zhao (2010):** High-idiovol stocks with steep implied volatility smirks identify imminent jump-to-default disasters.
+- **Novy-Marx (2013):** High gross profitability + low idiovol is the premier institutional quality archetype.

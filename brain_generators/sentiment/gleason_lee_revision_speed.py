@@ -3,43 +3,25 @@ Gleason & Lee (2002) — Analyst Forecast Revisions & Delayed Price Formation
 Diether, Malloy & Scherbina (2002) — Analyst Forecast Dispersion Anomaly
 Barber & Odean (2008) — Attention-Driven Retail Buying
 Loh & Stulz (2018) — Sell-Side Research More Valuable in Bad Times
+Source KB: docs/kb/sentiment/gleason_lee_2002_revision.md
 
-Papers:
-  1. Gleason & Lee (2002): "Analyst Forecast Revisions and Market Price Discovery" — AR
-     Core: Market UNDER-REACTS to analyst forecast revisions. The price response to a
-     revision is systematically delayed. Key cross-sectional determinants of the delay:
-       - Analyst herding → LESS informative (market over-discounts herding revisions)
-       - Celebrity analysts → MORE informative (market under-discounts their revisions)
-       - Revision timing relative to consensus formation
-     Formula: revision_informativeness = (estimate_i - prior_mean) / prior_std
-              stocks with high |z-score revision| from non-herding analysts → biggest drift
-
-  2. Diether-Malloy-Scherbina (2002): "Differences of Opinion and Cross-Section of Returns" — JF
-     Core: Stocks with HIGH analyst earnings forecast DISPERSION earn LOWER future returns.
-     Miller (1977) theory: in the presence of short-sale constraints, pessimistic investors
-     can't short → prices reflect optimistic views → overpricing → negative returns.
-     Dispersion measured as std of analyst EPS estimates / |mean EPS estimate|.
-     Effect concentrated in: small stocks, recent losers, high-short-interest stocks.
-
-  3. Barber & Odean (2008): "All That Glitters: The Effect of Attention and News on
-     the Buying Behavior of Individual and Institutional Investors" — RFS
-     Core: Retail investors are net BUYERS of attention-grabbing stocks (news events,
-     high abnormal volume, extreme-return stocks). This attention-driven buying creates
-     temporary price pressure → prices OVERSHOOT → subsequent REVERSAL.
-     Signal: abnormal volume spike + news event + recent large return → fade the attention
-
-  4. Loh & Stulz (2018): "Is Sell-Side Research More Valuable in Bad Times?" — JF
-     Core: Analyst revisions have LARGER price impact during bad times (high uncertainty).
-     In bad times: analyst errors fall, revisions are more accurate, impact is +50% larger.
-     Signal: weight analyst revision signal by market-uncertainty regime (VIX proxy)
+Core Finding (Gleason & Lee 2002):
+    The market under-reacts to individual analyst forecast revisions.
+    Table 2: Confirming revisions (revision above prior estimate AND above consensus)
+    produce a 1-year drift of +4.6% long / -4.8% short (9.4% L/S spread).
+    Table 6: The post-revision drift is 2-3x larger for firms with low analyst coverage (+12.7% spread)
+    because information is incorporated into prices much more slowly.
+    Table 4: Revision momentum remains statistically positive after controlling for Size, BM, and Momentum.
 """
 from typing import Any, Dict, List
+
+SOURCE_KB = "docs/kb/sentiment/gleason_lee_2002_revision.md"
 
 
 def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
     """
     Gleason-Lee 2002 + DMS 2002 + Barber-Odean 2008 + Loh-Stulz 2018 generators.
-    Paper-faithful constructions for sentiment/analyst dataset.
+    Citation: JAR 2002, Table 2, Table 4, Table 6.
     """
     catalog: List[Dict[str, Any]] = []
 
@@ -48,12 +30,8 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
     decays      = [10, 14, 20, 30]
 
     # ─────────────────────────────────────────────────────────────────────────
-    # GLEASON & LEE (2002): Analyst Revision Speed Signal
-    # Market under-reacts to revisions → buy (sell) stocks where analysts just revised
-    # their estimates significantly upward (downward).
-    # BRAIN: analyst_rating_change captures direction; ts_zscore for magnitude.
-    # Key: Gleason-Lee find the effect is STRONGER for non-herding revisions.
-    # Proxy for non-herding: large revision vs. current consensus (high |z-score|)
+    # GLEASON & LEE (2002): Analyst Revision Speed Signal (Extract 3 & 4, Table 2)
+    # Market under-reacts to revisions -> buy/sell stocks with large upward/downward revisions.
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -68,19 +46,18 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                         f"-1), -1)"
                     ),
                     "hypothesis": (
-                        f"Gleason-Lee2002: market under-reacts to analyst rating changes. "
+                        f"Gleason-Lee2002 Table 2: market under-reacts to analyst rating changes. "
                         f"Buy (sell) stocks with recent large upward (downward) revisions. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
     # GLEASON & LEE: Cumulative Revision Momentum (6-month)
-    # Paper finds that revision effects ACCUMULATE over 6 months — not just 1 event.
-    # Cumulative sum of revisions = persistent informational flow signal.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -103,14 +80,11 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                         "neutralization": g,
                         "decay": d,
                         "category": "analyst",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # DIETHER-MALLOY-SCHERBINA (2002): Dispersion → Short Signal
-    # High forecast dispersion among analysts → pessimists can't short → overpricing.
-    # Short high-dispersion stocks: -1.06%/month underperformance (Table 1).
-    # Effect strongest among: small stocks, recent losers, high-short-interest.
-    # BRAIN: analyst_estimate_dispersion (std of analyst forecasts / |mean forecast|)
+    # DIETHER-MALLOY-SCHERBINA (2002): Dispersion -> Short Signal
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
@@ -125,19 +99,18 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                         f"-1), -1)"
                     ),
                     "hypothesis": (
-                        f"DMS2002: high analyst forecast dispersion → short-sale constraint mispricing. "
-                        f"Pessimists can't short → prices reflect optimists → overpriced → short. {u}."
+                        f"DMS2002: high analyst forecast dispersion -> short-sale constraint mispricing. "
+                        f"Pessimists can't short -> prices reflect optimists -> overpriced -> short. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # DMS: Dispersion × Recent Loser Gate (Paper Table 4)
-    # Paper: dispersion effect is concentrated in RECENT LOSERS (momentum × dispersion).
-    # Gate: high dispersion AND poor 6-month price performance → most overpriced.
+    # DMS: Dispersion x Recent Loser Gate (Paper Table 4)
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -160,13 +133,11 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # BARBER & ODEAN (2008): Attention-Driven Price Pressure → Reversal
-    # Retail investors buy attention-grabbing stocks → temporary price overshoot.
-    # High abnormal volume + news day + extreme recent return → fade the attention spike.
-    # BRAIN: volume / adv20 (abnormal volume), returns (recent extreme), analyst coverage
+    # BARBER & ODEAN (2008): Attention-Driven Price Pressure -> Reversal
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -182,20 +153,18 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                             f"-1), -1)"
                         ),
                         "hypothesis": (
-                            f"Barber-Odean2008: attention-driven retail buying → price overshoot → reversal. "
-                            f"Gate on abnormal vol spike >1.5x ADV AND extreme {attn_window}d return → fade. {u}."
+                            f"Barber-Odean2008: attention-driven retail buying -> price overshoot -> reversal. "
+                            f"Gate on abnormal vol spike >1.5x ADV AND extreme {attn_window}d return -> fade. {u}."
                         ),
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                         "category": "analyst",
+                        "source_kb": SOURCE_KB,
                     })
 
     # ─────────────────────────────────────────────────────────────────────────
     # LOH & STULZ (2018): Regime-Conditional Analyst Signal
-    # In BAD TIMES (high uncertainty) → analyst revisions carry 50% MORE weight.
-    # Signal: analyst_rating_change × realized vol (regime proxy).
-    # High vol regime → weight analyst revisions more heavily.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500", "TOP1000"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -211,19 +180,17 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                     ),
                     "hypothesis": (
                         f"Loh-Stulz2018: analyst revisions have +50% impact in high-uncertainty regimes. "
-                        f"Weight revision by realized vol rank → stress-amplified analyst signal. {u}."
+                        f"Weight revision by realized vol rank -> stress-amplified analyst signal. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
     # CROSS-SIGNAL: Revision + Dispersion Divergence
-    # Most powerful configuration: analyst is upgrading (positive revision) BUT
-    # consensus dispersion is HIGH → contrarian — the upgrading analyst is going
-    # against the pessimistic crowd. This is the "courageous non-herding" signal.
     # ─────────────────────────────────────────────────────────────────────────
     for u in ["TOPSP500", "TOP500"]:
         for g in ["SUBINDUSTRY", "SECTOR"]:
@@ -239,12 +206,68 @@ def generate_sentiment_p1_candidates() -> List[Dict[str, Any]]:
                     ),
                     "hypothesis": (
                         f"GL2002 + DMS2002: courageous non-herding analyst revision in high-dispersion stock. "
-                        f"Analyst upgrading against pessimistic consensus → largest delayed drift. {u}."
+                        f"Analyst upgrading against pessimistic consensus -> largest delayed drift. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                     "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 8: Low Analyst Coverage Revision Gate (Extract 5, Table 6)
+    # Table 6 proves firms with low analyst coverage have 2-3x larger drift (+12.7% spread)!
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [14, 20]:
+                catalog.append({
+                    "pillar": "GL_LOW_COVERAGE_GATE",
+                    "archetype": f"GL_LowCoverage_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"trade_when(rank(analyst_count) < 0.40, "
+                        f"group_neutralize(signed_power(rank(ts_decay_linear(analyst_rating_change, {d})), 0.5), {g.lower()}), "
+                        f"-1), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Gleason-Lee2002 Table 6: Revision signal gated on low analyst coverage (<40th pct). "
+                        f"Neglected stocks incorporate news slowly, generating +12.7% annual drift spread. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # SIGNAL 9: Confirming Revision x Price Momentum Confirmation (Extract 7 & 8, Table 4)
+    # Revisions confirming 6-month intermediate price momentum eliminate value traps.
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in ["TOPSP500", "TOP500", "TOP1000"]:
+        for g in ["SUBINDUSTRY", "SECTOR"]:
+            for d in [14, 20]:
+                catalog.append({
+                    "pillar": "GL_REVISION_X_MOMENTUM",
+                    "archetype": f"GL_RevMom_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(analyst_rating_change, {d})) * "
+                        f"rank(ts_decay_linear(ts_delta(close, 126), 20)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Gleason-Lee2002 Table 4 Model 2: Upward revision confirming 6-month price momentum. "
+                        f"Double confirmation eliminates structural value traps and maximizes drift persistence. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
                 })
 
     return catalog
