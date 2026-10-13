@@ -84,6 +84,7 @@ from brain_generators.sentiment.tetlock_media_pessimism import generate_sentimen
 from brain_generators.risk_models.frazzini_pedersen_bab_exact import generate_frazzini_pedersen_bab_candidates
 from brain_generators.risk_models.ang_idiovol_anomaly import generate_risk_model_p1_candidates
 from brain_generators.risk_models.risk_model_p2_vpin_fomc import generate_risk_model_p2_candidates
+from brain_generators.risk_models.an_ang_bali_bbw_anomaly import generate_an_ang_bali_bbw_candidates
 # Short Interest + Insider
 from brain_generators.short_interest.short_interest_p0_combined import generate_short_interest_p0_candidates
 from brain_generators.short_interest.short_interest_p1_insider import generate_short_interest_p1_candidates
@@ -359,10 +360,11 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     sentiment_rev  = generate_sentiment_p1_candidates()
     sentiment_med  = generate_sentiment_p2_candidates()
 
-    # ── Risk model pillar (3 modules) ───────────────────────────────────────
+    # ── Risk model pillar (4 modules) ───────────────────────────────────────
     risk_bab    = generate_frazzini_pedersen_bab_candidates()
     risk_ivol   = generate_risk_model_p1_candidates()
     risk_vpin   = generate_risk_model_p2_candidates()
+    risk_aabc   = generate_an_ang_bali_bbw_candidates()
 
     # ── Short interest + insider pillar (2 modules) ─────────────────────────
     short_p0    = generate_short_interest_p0_candidates()
@@ -378,7 +380,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     # ── Merge per pillar ────────────────────────────────────────────────────
     options_cands   = options_xzz + options_pcr + options_vrp + options_bali + options_gpp + options_bkm + options_npp + options_btz + options_treatise + options_legacy
     sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_legacy
-    risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_legacy
+    risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_aabc + risk_legacy
     short_cands     = short_p0 + short_p1 + short_legacy
     fund_cands      = fund_p0 + fund_p1 + fund_kak + sc_p0 + sc_p1 + fund_legacy
 
