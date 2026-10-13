@@ -30,6 +30,8 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from brain_options.core.ast_canonicalizer import deduplicate_candidate_pool
+
 os.makedirs("logs", exist_ok=True)
 
 try:
@@ -472,6 +474,9 @@ async def run_quintuple_vault_miner():
     log.info("Loaded %d reference PnL vectors into correlation firewall.", len(ref_pnls))
 
     candidates = build_quintuple_vault_matrix()
+    candidates, dups_removed = deduplicate_candidate_pool(candidates)
+    if dups_removed > 0:
+        log.info("AST Canonicalizer: Filtered out %d duplicate/commutative candidates from pool.", dups_removed)
     target_count = 500
     current_qualified = get_current_qualified_count(config.database_url)
     log.info("Enqueued %d candidates across all 5 vaults. Current Qualified: %d / %d",

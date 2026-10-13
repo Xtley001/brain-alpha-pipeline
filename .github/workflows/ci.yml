@@ -33,3 +33,7 @@ jobs:
       - name: Run Pytest Suite
         run: |
           python -m pytest tests/ -v
+
+      - name: Run Pipeline Orchestration & Traceability Audit
+        run: |
+          python scripts/verify_pipeline_orchestration.py
