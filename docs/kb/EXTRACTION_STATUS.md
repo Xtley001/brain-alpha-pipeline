@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,582/4,582 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,640/4,640 candidates)**
 
 ---
 
@@ -14,11 +14,11 @@
 | **1. Options & Volatility Surface** | 20 | 20 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020, Carr-Madan 2001, BTZ 2009 x2, Nonejad 2013, Natenberg 2015, Sinclair 2008 & 2010, Derman 2016, Bennett 2014) | 0 | 0 (100% COMPLETE) 🏆 |
 | **2. Risk Models & Systematic Factors** | 12 | 12 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015, AABC 2014, BBW 2011, Savor-Wilson 2013, Nieto-Rodriguez 2013, Merton 1974) | 0 | 0 (100% COMPLETE) 🏆 |
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 19 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979, CJL 1996, Fink 2020, Harshita 2018, Martineau 2021, AMA 2005, Loh-Stulz 2018, Floropoulos 2018, BB 1968, DMS 2002, BO 2008, EGN 2007, SB 2022) | 0 | 0 (100% COMPLETE) 🏆 |
-| **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
+| **4. Short Interest & Securities Lending** | 11 | 11 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002, Staley 1997, ERR 2018) | 0 | 0 (100% COMPLETE) 🏆 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) 🏆 |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **76 Deep-Extracted Materials (28 Deep KBs)** | **0** | **13** |
+| **TOTAL** | **89** | **78 Deep-Extracted Materials (29 Deep KBs)** | **0** | **11** |
 
 ---
 
@@ -98,7 +98,7 @@
 |---|---|---|---|---|---|
 | 52 | `Cohen_Diether_Malloy_2007_Shorting_Demand_Supply.txt` | `docs/kb/short_interest/cohen_diether_malloy_2007_shorting.md` | `brain_generators/short_interest/short_interest_p0_combined.py` | 20 extracts (224 cands) | ✅ DONE |
 | 53 | `Engelberg_Reed_Ringgenberg_2012_Informed_Shorts.txt` | `docs/kb/short_interest/cohen_diether_malloy_2007_shorting.md` | `brain_generators/short_interest/lending_dynamics.py` | Included above | ✅ DONE |
-| 54 | `Engelberg_Reed_Ringgenberg_2018_Short_Selling_Risk.txt` | `docs/kb/short_interest/cohen_diether_malloy_2007_shorting.md` | `brain_generators/short_interest/lending_dynamics.py` | Included above | ✅ DONE |
+| 54 | `Engelberg_Reed_Ringgenberg_2018_Short_Selling_Risk.txt` | `docs/kb/short_interest/staley_short_selling_risk.md` | `brain_generators/short_interest/staley_short_selling_risk.py` | 22 extracts (58 cands) | ✅ DONE |
 | 55 | `Rapach_Ringgenberg_Zhou_2016_Short_Interest_Returns.txt` | `docs/kb/short_interest/cohen_diether_malloy_2007_shorting.md` | `brain_generators/short_interest/lending_dynamics.py` | Included above | ✅ DONE |
 | 56 | `Asquith_Pathak_Ritter_2005_Short_Interest_Ownership.txt` | `docs/kb/short_interest/cohen_diether_malloy_2007_shorting.md` | `brain_generators/short_interest/lending_dynamics.py` | Included above | ✅ DONE |
 | 57 | `Chen_Hong_Stein_2002_Breadth_of_Ownership.txt` | `docs/kb/short_interest/cmp_2012_insider_routine_opportunistic.md` | `brain_generators/short_interest/short_interest_p1_insider.py` | 20 extracts (18 cands) | ✅ DONE |
@@ -106,7 +106,7 @@
 | 59 | `Cohen_Malloy_Pomorski_2012_Decoding_Inside_Information.txt` | `docs/kb/short_interest/cmp_2012_insider_routine_opportunistic.md` | `brain_generators/short_interest/short_interest_p1_insider.py` | 20 extracts (18 cands) | ✅ DONE |
 | 60 | `Lakonishok_Lee_2001_Are_Insider_Trades_Informative.txt` | `docs/kb/short_interest/cmp_2012_insider_routine_opportunistic.md` | `brain_generators/short_interest/short_interest_p1_insider.py` | 20 extracts (24 cands) | ✅ DONE |
 | 61 | `Fried_2024_Insider_Trading_Against_Corporation.txt` | `docs/kb/short_interest/cmp_2012_insider_routine_opportunistic.md` | `brain_generators/short_interest/short_interest_p1_insider.py` | 20 extracts (12 cands) | ✅ DONE |
-| 62 | `Staley_The_Art_of_Short_Selling.txt` | `docs/kb/short_interest/staley_art_of_short_selling.md` | — | 0 | ⏳ PENDING |
+| 62 | `Staley_The_Art_of_Short_Selling.txt` | `docs/kb/short_interest/staley_short_selling_risk.md` | `brain_generators/short_interest/staley_short_selling_risk.py` | Included above | ✅ DONE |
 
 ---
 

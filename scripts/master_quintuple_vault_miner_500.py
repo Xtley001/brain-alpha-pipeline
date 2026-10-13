@@ -92,6 +92,7 @@ from brain_generators.risk_models.savor_wilson_merton_credit import generate_sav
 # Short Interest + Insider
 from brain_generators.short_interest.short_interest_p0_combined import generate_short_interest_p0_candidates
 from brain_generators.short_interest.short_interest_p1_insider import generate_short_interest_p1_candidates
+from brain_generators.short_interest.staley_short_selling_risk import generate_staley_short_risk_alphas
 # Fundamental + Innovation
 from brain_generators.fundamental.fundamental_p0_combined import generate_fundamental_p0_candidates
 from brain_generators.fundamental.fundamental_p1_innovation import generate_fundamental_p1_candidates
@@ -374,9 +375,10 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     risk_aabc   = generate_an_ang_bali_bbw_candidates()
     risk_swmc   = generate_savor_wilson_merton_credit_candidates()
 
-    # ── Short interest + insider pillar (2 modules) ─────────────────────────
-    short_p0    = generate_short_interest_p0_candidates()
-    short_p1    = generate_short_interest_p1_candidates()
+    # ── Short interest + insider pillar (3 modules — 100% complete) ─────────
+    short_p0     = generate_short_interest_p0_candidates()
+    short_p1     = generate_short_interest_p1_candidates()
+    short_staley = generate_staley_short_risk_alphas()
 
     # ── Fundamental + Innovation + Supply Chain (4 modules) ─────────────────
     fund_p0     = generate_fundamental_p0_candidates()
@@ -389,7 +391,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     options_cands   = options_xzz + options_pcr + options_vrp + options_bali + options_gpp + options_bkm + options_npp + options_btz + options_treatise + options_legacy
     sentiment_cands = sentiment_sue + sentiment_rev + sentiment_med + sentiment_pead + sentiment_asq + sentiment_mood + sentiment_legacy
     risk_cands      = risk_bab + risk_ivol + risk_vpin + risk_aabc + risk_swmc + risk_legacy
-    short_cands     = short_p0 + short_p1 + short_legacy
+    short_cands     = short_p0 + short_p1 + short_staley + short_legacy
     fund_cands      = fund_p0 + fund_p1 + fund_kak + sc_p0 + sc_p1 + fund_legacy
 
     total = len(options_cands)+len(sentiment_cands)+len(risk_cands)+len(short_cands)+len(fund_cands)
