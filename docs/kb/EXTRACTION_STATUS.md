@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (3,605/3,605 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (3,805/3,805 candidates)**
 
 ---
 
@@ -11,14 +11,14 @@
 
 | Pillar | Total Materials | Deep Extracts Done (15+ Verbatim Extracts) | Shallow KBs | Pending |
 |---|---|---|---|---|
-| **1. Options & Volatility Surface** | 20 | 3 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009) | 0 | 17 |
+| **1. Options & Volatility Surface** | 20 | 5 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011) | 0 | 15 |
 | **2. Risk Models & Systematic Factors** | 12 | 6 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015) | 0 | 6 |
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 7 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979) | 0 | 12 |
 | **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **46 Deep-Extracted Materials (17 Deep KBs)** | **0** | **43** |
+| **TOTAL** | **89** | **48 Deep-Extracted Materials (18 Deep KBs)** | **0** | **41** |
 
 ---
 
@@ -30,7 +30,7 @@
 | 01 | `Xing_Zhang_Zhao_Volatility_Smirk.txt` | `docs/kb/options/xing_zhang_zhao_2010_smirk.md` | `brain_generators/options/xing_zhang_zhao_smirk.py` | 20 extracts (284 cands) | ✅ DONE |
 | 02 | `Pan_Poteshman_Option_Volume.txt` | `docs/kb/options/pan_poteshman_2006_pcr_informed.md` | `brain_generators/options/pan_poteshman_pcr_informed.py` | 16 extracts (384 cands) | ✅ DONE |
 | 03 | `Carr_Wu_Variance_Risk_Premiums.txt` | `docs/kb/options/carr_wu_2009_vrp.md` | `brain_generators/options/carr_wu_vrp.py` | 16 extracts (372 cands) | ✅ DONE |
-| 04 | `Bali_Hovakimian_Volatility_Spreads.txt` | `docs/kb/options/bali_hovakimian_2009_spreads.md` | — | 0 | ⏳ PENDING |
+| 04 | `Bali_Hovakimian_Volatility_Spreads.txt` | `docs/kb/options/bali_hovakimian_delisle_vol_spreads.md` | `brain_generators/options/bali_hovakimian_vol_spread.py` | 20 extracts (92 cands) | ✅ DONE |
 | 05 | `Bakshi_Kapadia_Madan_2003_RFS.txt` | `docs/kb/options/bakshi_kapadia_madan_2003_rfs.md` | — | 0 | ⏳ PENDING |
 | 06 | `Bakshi_Kapadia_Madan_Skew_Laws.txt` | `docs/kb/options/bkm_skew_laws.md` | — | 0 | ⏳ PENDING |
 | 07 | `Garleanu_Pedersen_Demand_Based_Option_Pricing.txt` | `docs/kb/options/garleanu_pedersen_demand_pricing.md` | — | 0 | ⏳ PENDING |
@@ -40,7 +40,7 @@
 | 11 | `Bollerslev_Tauchen_Zhou_2009_Variance_Risk_Premia_v2.txt` | `docs/kb/options/btz_2009_vrp_v2.md` | — | 0 | ⏳ PENDING |
 | 12 | `Michael_Cucuringu_Howison_2020_Option_Volume_Imbalance.txt` | `docs/kb/options/mch_2020_option_imbalance.md` | — | 0 | ⏳ PENDING |
 | 13 | `Ni_Pearson_Poteshman_2005_Stock_Price_Pinning_Option_Expiration.txt` | `docs/kb/options/npp_2005_pinning.md` | — | 0 | ⏳ PENDING |
-| 14 | `Delisle_Lee_Mauck_2011_Short_Sellers_Option_Traders.txt` | `docs/kb/options/dlm_2011_shorts_options.md` | — | 0 | ⏳ PENDING |
+| 14 | `Delisle_Lee_Mauck_2011_Short_Sellers_Option_Traders.txt` | `docs/kb/options/bali_hovakimian_delisle_vol_spreads.md` | `brain_generators/options/bali_hovakimian_vol_spread.py` | Included above | ✅ DONE |
 | 15 | `Nonejad_2013_Realized_Volatility_Structural_Breaks.txt` | `docs/kb/risk_models/easley_vpin_lucca_fomc_blitz_black.md` | `brain_generators/risk_models/risk_model_p2_vpin_fomc.py` | 20 extracts (8 cands) | ✅ DONE |
 | 16 | `Natenberg_Option_Volatility_and_Pricing.txt` | `docs/kb/options/natenberg_option_vol_pricing.md` | — | 0 | ⏳ PENDING |
 | 17 | `Sinclair_Volatility_Trading.txt` | `docs/kb/options/sinclair_volatility_trading.md` | — | 0 | ⏳ PENDING |
