@@ -5,6 +5,7 @@ Papers:
      Implications of Current Earnings for Future Earnings" — JAE 13(4): 305-340
   2. Chan, Jegadeesh & Lakonishok (1996): "Momentum Strategies" — JF 51(5): 1681-1713
 Source KB: docs/kb/sentiment/bernard_thomas_1990_pead_sue.md
+WorldQuant Master Recalibration: docs/kb/sentiment/worldquant_brain_sentiment_master_recalibration.md
 
 Core Finding (BT 1990):
     Stock prices systematically under-react to quarterly earnings surprises.
@@ -17,6 +18,12 @@ Core Finding (BT 1990):
     Table 5 Regression (Eq 9):
         AR = 5.38 * SUE_{t-1} + 1.46 * SUE_{t-2} + 0.53 * SUE_{t-3} - 1.56 * SUE_{t-4}
     Estimated abnormal return: 18% annualized in the first quarter post-announcement.
+
+Live Verified BRAIN Fields:
+    snt1_d1_earningssurprise: Standardized Unexpected Earnings (SUE), verified in DB (ID 58gVPJln, Sharpe 1.63)
+    snt1_d1_netearningsrevision: Net analyst earnings revision momentum (ID 1YZvdAqJ, Sharpe 1.34)
+    snt1_d1_dtstsespe: Analyst forecast dispersion / disagreement standard deviation
+    rp_css_earnings: RavenPack composite sentiment score for earnings releases
 """
 from typing import Any, Dict, List
 
@@ -26,63 +33,66 @@ SOURCE_KB = "docs/kb/sentiment/bernard_thomas_1990_pead_sue.md"
 def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
     """
     Bernard & Thomas (1990) / Chan-Jegadeesh-Lakonishok (1996):
-    Standardized Unexpected Earnings (SUE), PEAD persistence, and seasonal autocorrelation models.
+    Standardized Unexpected Earnings (SUE), PEAD persistence, double-decay smoothing,
+    and RavenPack news dual-confirmation models.
     Citation: JAE 1990, Table 1, Table 2, Table 5.
     """
     catalog: List[Dict[str, Any]] = []
 
-    universes   = ["TOPSP500", "TOP500", "TOP1000", "TOP3000"]
-    neut_groups = ["SUBINDUSTRY", "SECTOR", "MARKET"]
-    decays      = [10, 14, 20, 30]
+    universes   = ["TOP1000", "TOP500", "TOPSP500"]
+    neut_groups = ["SUBINDUSTRY", "SECTOR"]
+    decays      = [8, 10, 12, 15]
 
     # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 1: Pure SUE — Standardized Unexpected Earnings (Extract 4 & 7, Table 5)
-    # SUE = (Q_t - Q_{t-4} - delta) / sigma(UE)
-    # BRAIN equivalent: earnings_surprise smoothed with linear decay
+    # SIGNAL 1: Double-Decayed SUE x Reversion Momentum (Production Proven: Sharpe 1.63, ID 58gVPJln)
+    # SUE smoothed with double linear decay and interacted with price mean-reversion
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
             for d in decays:
-                catalog.append({
-                    "pillar": "PEAD_SUE",
-                    "archetype": f"PEAD_SUE_d{d}_{u}_{g}",
-                    "expression": (
-                        f"trade_when(volume > adv20 * 0.80, "
-                        f"trade_when(abs(rank(ts_decay_linear(earnings_surprise, {d})) - 0.5) > 0.20, "
-                        f"group_neutralize(signed_power(rank(ts_decay_linear(earnings_surprise, {d})), 0.5), {g.lower()}), "
-                        f"-1), -1)"
-                    ),
-                    "hypothesis": (
-                        f"BT1990 Table 2: Post-earnings-announcement drift on earnings_surprise (SUE proxy). "
-                        f"Market under-reacts to earnings: drift persists for 60+ trading days. {u}."
-                    ),
-                    "universe": u,
-                    "neutralization": g,
-                    "decay": d,
-                    "category": "analyst",
-                    "source_kb": SOURCE_KB,
-                })
+                for lookback in [20, 30, 40]:
+                    catalog.append({
+                        "pillar": "PEAD_SUE_DOUBLE_DECAY",
+                        "archetype": f"PEAD_SUE_DoubleDecay_d{d}_lb{lookback}_{u}_{g}",
+                        "expression": (
+                            f"trade_when(volume > adv20 * 0.80, "
+                            f"group_neutralize("
+                            f"rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, {d}), 3)) * "
+                            f"rank(-ts_delta(close, 3) / (ts_std_dev(close, {lookback}) + 0.001)), "
+                            f"{g.lower()}), -1)"
+                        ),
+                        "hypothesis": (
+                            f"BT1990 Table 2 & 5: Double linear decay on snt1_d1_earningssurprise (SUE) "
+                            f"interacted with short-term return reversion normalized by {lookback}d volatility. {u}."
+                        ),
+                        "universe": u,
+                        "neutralization": g,
+                        "decay": d,
+                        "category": "analyst",
+                        "source_kb": SOURCE_KB,
+                    })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 2: SUE x Price Momentum (Extract 12, CJL 1996 Sec. III)
-    # Dual confirmation: positive earnings surprise + positive intermediate price momentum.
+    # SIGNAL 2: SUE x RavenPack News Tone Dual Confirmation
+    # Fundamental earnings surprise confirmed by machine-readable news sentiment
     # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500", "TOP1000"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20]:
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12]:
                 catalog.append({
-                    "pillar": "PEAD_DUAL_CONFIRM",
-                    "archetype": f"PEAD_DualConfirm_d{d}_{u}_{g}",
+                    "pillar": "PEAD_DUAL_NEWS_CONFIRM",
+                    "archetype": f"PEAD_DualNewsConfirm_d{d}_{u}_{g}",
                     "expression": (
                         f"trade_when(volume > adv20 * 0.80, "
                         f"group_neutralize("
-                        f"rank(ts_decay_linear(earnings_surprise, {d})) * "
-                        f"rank(ts_sum(returns, 126) - ts_sum(returns, 5)), "
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(ts_decay_linear(rp_css_earnings, 5)) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
                         f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"CJL1996: Dual confirmation — positive earnings surprise + positive 6m price momentum. "
-                        f"Both independently predict; combined signal strongest. {u}."
+                        f"CJL1996 + Tulchinsky Ch. 22: Dual confirmation between snt1_d1_earningssurprise and "
+                        f"RavenPack rp_css_earnings sentiment. Eliminates accounting noise via NLP tone. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -92,23 +102,25 @@ def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 3: Analyst Revision Momentum (CJL 1996 Sec. III.B)
-    # Revisions systematically continue upward after positive earnings releases.
+    # SIGNAL 3: SUE x Net Analyst Revision Momentum (Production Proven: Sharpe 1.34, ID 1YZvdAqJ)
     # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500", "TOP1000"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20, 30]:
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12, 15]:
                 catalog.append({
-                    "pillar": "PEAD_REVISION_MOMENTUM",
-                    "archetype": f"PEAD_RevMom_d{d}_{u}_{g}",
+                    "pillar": "PEAD_SUE_X_REVISION",
+                    "archetype": f"PEAD_SUExRev_d{d}_{u}_{g}",
                     "expression": (
                         f"trade_when(volume > adv20 * 0.80, "
-                        f"group_neutralize(signed_power(rank(ts_decay_linear(ts_sum(analyst_rating_change, 63), {d})), 0.5), "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(ts_decay_linear(snt1_d1_netearningsrevision, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
                         f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"CJL1996: 3-month cumulative analyst rating revision momentum — "
-                        f"analysts systematically revise upward after positive earnings. Drift up to 6m. {u}."
+                        f"CJL1996 Sec. III: SUE reinforced by net consensus earnings revisions (snt1_d1_netearningsrevision). "
+                        f"Analysts revise upward following positive surprises, extending PEAD drift. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -118,24 +130,26 @@ def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 4: PEAD Persistence Delayed to Next Quarter (Extract 2 & 6, Table 2)
-    # A large fraction of drift is delayed until quarter t+1's announcement.
+    # SIGNAL 4: PEAD Volume Surge Reallocation Gate (Extract 11)
+    # Institutional reallocation after earnings manifests in heavy volume (> 1.20 ADV)
     # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [5, 10]:
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12]:
                 catalog.append({
-                    "pillar": "PEAD_NEXT_QUARTER_DRIFT",
-                    "archetype": f"PEAD_NextQ_d{d}_{u}_{g}",
+                    "pillar": "PEAD_VOLUME_SURGE",
+                    "archetype": f"PEAD_VolSurge_d{d}_{u}_{g}",
                     "expression": (
                         f"trade_when(volume > adv20 * 0.80, "
-                        f"trade_when(abs(rank(ts_decay_linear(ts_delay(earnings_surprise, 63), {d})) - 0.5) > 0.20, "
-                        f"group_neutralize(rank(ts_decay_linear(ts_delay(earnings_surprise, 63), {d})), {g.lower()}), "
-                        f"-1), -1)"
+                        f"group_neutralize("
+                        f"rank(volume / (adv20 + 1)) * "
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"BT1990 Table 2: 25-30% of PEAD is delayed until NEXT quarter announcement window. "
-                        f"Use 63-day lagged earnings surprise to position before subsequent release. {u}."
+                        f"BT1990 Extract 11: PEAD weighted by institutional volume surge (volume / adv20). "
+                        f"Heavy volume confirms institutional conviction behind earnings surprise. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -146,23 +160,25 @@ def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
 
     # ─────────────────────────────────────────────────────────────────────────
     # SIGNAL 5: SUE x Low Analyst Dispersion Gate (Extract 13, DMS 2002 Link)
-    # High-consensus surprises have cleaner, higher-information drift.
+    # High-consensus surprises have cleaner, higher-information drift
     # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20]:
+    for u in universes[:2]:
+        for g in neut_groups:
+            for d in [10, 12]:
                 catalog.append({
                     "pillar": "PEAD_LOW_DISPERSION_GATE",
                     "archetype": f"PEAD_LowDisp_d{d}_{u}_{g}",
                     "expression": (
                         f"trade_when(volume > adv20 * 0.80, "
-                        f"trade_when(rank(analyst_estimate_dispersion) < 0.30, "
-                        f"group_neutralize(signed_power(rank(ts_decay_linear(earnings_surprise, {d})), 0.5), {g.lower()}), "
-                        f"-1), -1)"
+                        f"trade_when(rank(ts_decay_linear(snt1_d1_dtstsespe, 10)) < 0.40, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1), -1)"
                     ),
                     "hypothesis": (
-                        f"BT1990 + DMS2002: PEAD signal gated on low analyst dispersion. "
-                        f"High-consensus earnings surprises have cleaner PEAD; high-dispersion stocks confound. {u}."
+                        f"BT1990 + DMS2002: SUE signal gated on low analyst dispersion (snt1_d1_dtstsespe < 40th pct). "
+                        f"High-consensus earnings surprises produce cleaner, lower-drawdown PEAD. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -172,25 +188,24 @@ def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 6: Autoregressive Multi-Lag SUE Momentum (Extract 3 & 7, Table 5 Eq 9)
-    # Paper Eq. (9) regression: 5.38*SUE_t + 1.46*SUE_{t-63} - 1.56*SUE_{t-252}
-    # Weights directly mirror the empirical autocorrelation coefficients of earnings!
+    # SIGNAL 6: Autoregressive Multi-Lag SUE Composite (Extract 3 & 7, Table 5 Eq 9)
     # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500", "TOP1000"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20]:
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 14]:
                 catalog.append({
                     "pillar": "PEAD_AUTOREGRESSIVE_LAGS",
                     "archetype": f"PEAD_AutoregressiveLags_d{d}_{u}_{g}",
                     "expression": (
                         f"trade_when(volume > adv20 * 0.80, "
                         f"group_neutralize("
-                        f"rank(ts_decay_linear(0.70 * earnings_surprise + 0.30 * ts_delay(earnings_surprise, 63), {d})), "
+                        f"rank(ts_decay_linear(0.70 * snt1_d1_earningssurprise + 0.30 * ts_delay(snt1_d1_earningssurprise, 63), {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
                         f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"BT1990 Table 5 Eq (9): Autoregressive SUE composite reflecting lags 1 and 2 autocorrelation. "
-                        f"Positively combines current surprise with prior quarter surprise. {u}."
+                        f"BT1990 Table 5 Eq (9): Autoregressive SUE composite reflecting lags 1 and 2 autocorrelation (+0.34, +0.19). "
+                        f"Combines current earnings surprise with prior quarter surprise. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -200,82 +215,25 @@ def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 7: SUE x Immediate Price Jump Confirmation (Extract 12, Table 2)
-    # Requires immediate 5-day price confirmation: eliminates value traps where positive
-    # headline surprise hides deteriorations in revenue or guidance.
+    # SIGNAL 7: SUE x Implied Volatility Smirk Interaction (Production Proven: ID 88PAROJo)
     # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500", "TOP1000"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20]:
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12]:
                 catalog.append({
-                    "pillar": "PEAD_PRICE_CONFIRMATION",
-                    "archetype": f"PEAD_PriceConfirm_d{d}_{u}_{g}",
+                    "pillar": "PEAD_SUE_X_VOL_SMIRK",
+                    "archetype": f"PEAD_SUExVolSmirk_d{d}_{u}_{g}",
                     "expression": (
                         f"trade_when(volume > adv20 * 0.80, "
                         f"group_neutralize("
-                        f"rank(ts_decay_linear(earnings_surprise, {d})) * "
-                        f"rank(ts_decay_linear(ts_delta(close, 5), 5)), "
+                        f"rank(ts_decay_linear((implied_volatility_call_30 - implied_volatility_put_30) / (implied_volatility_mean_30 + 0.001), 10)) * "
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
                         f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"BT1990 Table 2: SUE confirmed by positive 5-day post-announcement price return. "
-                        f"Filters out guidance cuts and headline accounting artifacts. {u}."
-                    ),
-                    "universe": u,
-                    "neutralization": g,
-                    "decay": d,
-                    "category": "analyst",
-                    "source_kb": SOURCE_KB,
-                })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 8: SUE x Announcement Volume Surge Gate (Extract 11)
-    # Institutional reallocation after earnings manifests in heavy volume (> 1.25 ADV).
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500", "TOP1000"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20]:
-                catalog.append({
-                    "pillar": "PEAD_VOLUME_SURGE",
-                    "archetype": f"PEAD_VolSurge_d{d}_{u}_{g}",
-                    "expression": (
-                        f"trade_when(volume > adv20 * 1.25, "
-                        f"group_neutralize("
-                        f"signed_power(rank(ts_decay_linear(earnings_surprise, {d})), 0.5), "
-                        f"{g.lower()}), -1)"
-                    ),
-                    "hypothesis": (
-                        f"BT1990 Extract 11: PEAD gated on institutional volume surge (>1.25 ADV20). "
-                        f"High volume confirms institutional buying rather than retail noise. {u}."
-                    ),
-                    "universe": u,
-                    "neutralization": g,
-                    "decay": d,
-                    "category": "analyst",
-                    "source_kb": SOURCE_KB,
-                })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # SIGNAL 9: Lag-4 Seasonal Mean-Reversion Hedge (Extract 3 & 7, Table 1 & Table 5)
-    # Table 1: Lag-4 autocorrelation is -0.24 across all 37 industries.
-    # Fading extreme positive surprises from 4 quarters ago (252 trading days)
-    # harvests the systematic seasonal mean-reversion.
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in ["TOPSP500", "TOP500", "TOP1000"]:
-        for g in ["SUBINDUSTRY", "SECTOR"]:
-            for d in [14, 20]:
-                catalog.append({
-                    "pillar": "PEAD_SEASONAL_LAG4_REVERSAL",
-                    "archetype": f"PEAD_Lag4Reversal_d{d}_{u}_{g}",
-                    "expression": (
-                        f"trade_when(volume > adv20 * 0.80, "
-                        f"group_neutralize("
-                        f"rank(-ts_decay_linear(ts_delay(earnings_surprise, 252), {d})), "
-                        f"{g.lower()}), -1)"
-                    ),
-                    "hypothesis": (
-                        f"BT1990 Table 1 & 5: Lag-4 autocorrelation is -0.24 across all 37 industries. "
-                        f"Fading extreme positive surprises from 1 year prior harvests seasonal mean-reversion. {u}."
+                        f"BT1990 + Xing-Zhang-Zhao (2010): Earnings surprise confirmed by call-put implied volatility smirk. "
+                        f"Informed options flow validates institutional conviction in PEAD continuation. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -285,3 +243,10 @@ def generate_bernard_thomas_sue_candidates() -> List[Dict[str, Any]]:
                 })
 
     return catalog
+
+
+if __name__ == "__main__":
+    cands = generate_bernard_thomas_sue_candidates()
+    print(f"Generated {len(cands)} Bernard & Thomas SUE candidates.")
+    print("Sample expression:")
+    print(cands[0]["expression"])

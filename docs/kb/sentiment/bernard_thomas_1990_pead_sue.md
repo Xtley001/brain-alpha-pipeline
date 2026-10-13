@@ -142,14 +142,16 @@ Tested individually in each calendar year from 1974 to 1986:
 
 ---
 
-## EXTRACT 15: WorldQuant BRAIN Implementation Mapping
-| Paper Parameter | BRAIN Dataset Field | Formula Expression |
-|---|---|---|
-| Quarterly SUE | `earnings_surprise` | Direct standardized earnings surprise |
-| Analyst Revision | `analyst_rating_change` | Consensus revision momentum |
-| SUE Persistence | `ts_decay_linear(earnings_surprise, 20)` | Multi-week drift harvesting |
-| 1-Year SUE Reversal | `ts_delay(earnings_surprise, 60)` | Fading lag-4 seasonal mean-reversion |
-| Conviction Interaction | `earnings_surprise * rank(ts_delta(close, 5))` | Price reaction confirmation |
+## EXTRACT 15: WorldQuant BRAIN Implementation Mapping (Verified via Live API)
+| Paper Parameter | BRAIN Dataset Field | Formula Expression | Notes |
+|---|---|---|---|
+| Quarterly SUE | `snt1_d1_earningssurprise` | Direct standardized earnings surprise | Verified in production DB (Sharpe 1.63, ID `58gVPJln`) |
+| RavenPack Earnings Sentiment | `rp_css_earnings` | `ts_decay_linear(rp_css_earnings, 10)` | NLP sentiment score of earnings news releases |
+| RavenPack Event Score | `rp_ess_earnings` | `trade_when(rp_ess_earnings > 0, ...)` | Discrete earnings event sentiment |
+| SUE Persistence | `snt1_d1_earningssurprise` | `ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, 12), 3)` | Multi-week drift harvesting with double linear decay |
+| 1-Year SUE Reversal | `snt1_d1_earningssurprise` | `ts_delay(snt1_d1_earningssurprise, 60)` | Fading lag-4 seasonal mean-reversion |
+| Conviction Interaction | `snt1_d1_earningssurprise` | `rank(snt1_d1_earningssurprise) * rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001))` | Price reaction confirmation & volatility normalization |
+| Dual Earnings & News Confirmation | `snt1_d1_earningssurprise` x `rp_css_earnings` | `rank(ts_decay_linear(snt1_d1_earningssurprise, 10)) * rank(ts_decay_linear(rp_css_earnings, 5))` | Orthogonal fundamental & NLP news dual-confirmation |
 
 ---
 

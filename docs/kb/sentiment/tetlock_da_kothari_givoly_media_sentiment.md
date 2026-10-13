@@ -9,7 +9,7 @@
 
 **Pillar:** Sentiment / Analyst Dynamics  
 **Target Module:** `brain_generators/sentiment/tetlock_media_pessimism.py`  
-**BRAIN Fields:** `returns`, `volume`, `adv20`, `idiosyncratic_vol_last_60_days_spy`, `analyst_count`, `analyst_rating_change`, `close`
+**BRAIN Fields (Verified via Live API):** `rp_css_earnings`, `rp_css_revenue`, `rp_css_ptg`, `nws18_ssc`, `scl12_sentiment`, `scl12_buzz`, `snt_value`, `snt_buzz`, `snt1_d1_netearningsrevision`, `returns`, `volume`, `adv20`, `close`
 
 ---
 
@@ -101,10 +101,10 @@ This research compendium establishes the quantitative foundation for non-fundame
 ### Extract 19: Givoly & Lakonishok (1979) Investment Policy Implementation
 > "The existence of abnormal returns in post-revision periods can be utilized by investors. An investor holding a portfolio of companies that have recently had an upward revision of at least 5% earns an annualized abnormal return of over 10% after adjusting for market risk." (pp. 182-183)
 
-### Extract 20: Mathematical Synthesis & BRAIN Alpha Mapping
+### Extract 20: Mathematical Synthesis & BRAIN Alpha Mapping (Verified via Live API)
 > Synthesis for WorldQuant BRAIN:
-> 1. Tetlock (2007) Mean Reversion: Fade negative volume shocks (`volume > adv20 * 1.30` and `returns < 0`).
-> 2. Da et al. (2011) Search Attention: Fade volume spikes when returns are flat (`abs(returns) < 0.40`).
-> 3. Baker-Wurgler (2006) Regime: Long high idiosyncratic volatility stocks only when market vol is in top quintile (`ts_rank(ts_std_dev(returns, 21), 252) > 0.70`).
-> 4. Kothari et al. (2016) Coverage: Long stocks with positive 63-day analyst coverage delta (`ts_delta(analyst_count, 63)`).
-> 5. Givoly & Lakonishok (1979) Revision Drift: Long cumulative multi-week analyst rating upgrades (`ts_sum(analyst_rating_change, 63)`).
+> 1. Tetlock (2007) Media Sentiment Reversion: Fade negative media shocks using machine-readable RavenPack composite sentiment: `group_neutralize(rank(-ts_delta(rp_css_earnings, 3)) * rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), subindustry)`.
+> 2. Da et al. (2011) & Barber-Odean (2008) Retail Buzz Reversal: Fade extreme social media buzz when sentiment peaks: `trade_when(rank(scl12_buzz) > 0.80, group_neutralize(rank(-ts_decay_linear(scl12_sentiment, 3)), subindustry), -1)`.
+> 3. Top-Line Revenue News Tone (Jegadeesh-Livnat 2006): Long stocks with positive revenue news tone: `group_neutralize(rank(ts_decay_linear(rp_css_revenue, 10)) * rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), subindustry)`.
+> 4. Baker-Wurgler (2006) Regime: Long high idiosyncratic volatility stocks when market volatility is elevated: `trade_when(rank(ts_std_dev(returns, 20)) > 0.60, group_neutralize(rank(ts_decay_linear(snt1_d1_netearningsrevision, 5)), subindustry), -1)`.
+> 5. Givoly & Lakonishok (1979) Revision Drift: Long cumulative multi-week analyst rating upgrades: `group_neutralize(rank(ts_decay_linear(snt1_d1_netearningsrevision, 12)) * rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), subindustry)`.

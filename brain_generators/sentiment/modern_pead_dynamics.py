@@ -1,24 +1,29 @@
 """
 Chan, Jegadeesh & Lakonishok (1996), Fink (2020), Harshita et al. (2018) & Martineau (2021)
+Modern PEAD Microstructure, Revenue Surprises & Attention Frictions
 Source KB: docs/kb/sentiment/cjl_fink_harshita_martineau_pead.md
+WorldQuant Master Recalibration: docs/kb/sentiment/worldquant_brain_sentiment_master_recalibration.md
 
 Key Institutional Empirical Findings:
 1. Chan, Jegadeesh & Lakonishok (1996, Journal of Finance):
-   - Price momentum (15.4%/yr, t=4.49) and SUE earnings momentum (6.8%/yr, t=3.63) are distinct and non-redundant.
+   - Price momentum and SUE earnings momentum are distinct and non-redundant.
    - In two-way sorts, high SUE outperforms low SUE by 4.2% to 6.1% per year within every prior-return quintile.
-   - Earnings momentum does not experience long-term reversal, reflecting permanent cash-flow news.
 2. Fink (2020, Graz WP / Survey of 222 PEAD papers):
-   - SUE drift averages ~4% per quarter historically and is inversely related to firm size.
    - Revenue surprises produce stronger and more durable drift than cost-cutting expense surprises (Jegadeesh & Livnat 2006).
    - Investor attention clutter (high announcement volume days) increases delayed response and subsequent drift.
 3. Harshita, Singh & Yadav (2018, TEL):
-   - Standardized unexpected earnings: SUE = (EPS_{t} - EPS_{t-4}) / Price.
    - Extreme decile spread (P10 - P1) equals +4.8% (t=7.80 Fama-MacBeth).
-   - SUE * Value interaction is positive and strong (omega_4 = +0.07, t=3.16).
-   - SUE * Beta interaction is negative (omega_2 = -0.05 to -0.15, t=-1.66 to -2.60), confirming cleaner drift in low-beta stocks.
+   - Low-beta stocks experience less speculative noise and more persistent drift.
 4. Martineau (2021, Critical Finance Review):
-   - Simple linear 60-day SUE drift has dissipated in mega-caps since 2006; prices reflect earnings 6x faster.
-   - Surviving alpha requires conditioning on attention shocks, revenue quality, and short-horizon execution windows.
+   - Simple linear 60-day SUE drift has dissipated in mega-caps; prices reflect earnings 6x faster.
+   - Surviving alpha requires short-horizon execution windows, attention shocks, and revenue quality.
+
+Live Verified BRAIN Fields:
+    snt1_d1_earningssurprise: Standardized Unexpected Earnings (SUE)
+    rp_css_revenue: RavenPack composite sentiment score for revenue news
+    rp_css_earnings: RavenPack composite sentiment score for earnings news
+    snt1_d1_netearningsrevision: Net analyst earnings revision momentum score
+    snt1_d1_dtstsespe: Analyst forecast dispersion / disagreement standard deviation
 """
 from typing import Any, Dict, List
 
@@ -33,25 +38,26 @@ def generate_modern_pead_dynamics_candidates() -> List[Dict[str, Any]]:
     """
     catalog: List[Dict[str, Any]] = []
 
-    universes = ["TOPSP500", "TOP500", "TOP1000", "TOP2000"]
-    neut_groups = ["SUBINDUSTRY", "SECTOR", "MARKET"]
-    decays = [5, 10, 20]
+    universes   = ["TOP1000", "TOP500", "TOPSP500"]
+    neut_groups = ["SUBINDUSTRY", "SECTOR"]
+    decays      = [5, 8, 10, 12]
 
     # ─────────────────────────────────────────────────────────────────────────
     # 1. Chan, Jegadeesh & Lakonishok (1996): Dual Momentum (Price + SUE)
-    # Composite of intermediate price momentum and fundamental operating income surprise
+    # Composite of intermediate price momentum and fundamental SUE surprise
     # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
+    for u in universes:
         for g in neut_groups:
-            for d in [10, 20]:
+            for d in [10, 12]:
                 catalog.append({
                     "pillar": "CJL_DUAL_MOMENTUM",
-                    "archetype": f"CJL_Dual_Momentum_{u}_{g}_d{d}",
+                    "archetype": f"CJL_DualMomentum_d{d}_{u}_{g}",
                     "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
                         f"group_neutralize("
-                        f"rank(ts_decay_linear(returns, 126)) * 0.5 + "
-                        f"rank(ts_delta(ebitda / (close * sharesout + 1e-4), 60)) * 0.5, "
-                        f"{g.lower()})"
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(ts_decay_linear(returns, 126) - ts_decay_linear(returns, 5)), "
+                        f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
                         f"Chan, Jegadeesh & Lakonishok (1996) Table III: Price momentum and earnings surprise momentum (SUE) "
@@ -65,50 +71,54 @@ def generate_modern_pead_dynamics_candidates() -> List[Dict[str, Any]]:
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # 2. Fink (2020) & Jegadeesh-Livnat: Revenue Surprise vs Cost Reduction Quality
-    # Top-line sales expansion creates more persistent drift than operating expense cuts
+    # 2. Fink (2020) & Jegadeesh-Livnat: Revenue Surprise Quality vs Earnings Tone
+    # Top-line revenue sentiment creates more persistent drift than cost cuts
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
-            catalog.append({
-                "pillar": "FINK_REVENUE_SURPRISE_QUALITY",
-                "archetype": f"Fink_Revenue_Surprise_Quality_{u}_{g}",
-                "expression": (
-                    f"group_neutralize("
-                    f"rank(ts_delta(sales, 60) / (assets + 1e-4)) - "
-                    f"rank(ts_delta(operating_expense, 60) / (assets + 1e-4)), "
-                    f"{g.lower()})"
-                ),
-                "hypothesis": (
-                    f"Fink (2020) Observation 15 & Jegadeesh & Livnat (2006): Revenue surprises provide durable signals "
-                    f"of market demand expansion that generate stronger and more persistent post-earnings drift than cost cuts. {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 20,
-                "category": "fundamental",
-                "source_kb": SOURCE_KB,
-            })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # 3. Harshita, Singh & Yadav (2018): Value-SUE Interaction
-    # SUE interacted with high book-to-price ratio (omega_4 = +0.07, t=3.16)
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
-        for g in neut_groups:
-            for d in [10, 15]:
+            for d in [8, 10, 12]:
                 catalog.append({
-                    "pillar": "HARSHITA_VALUE_SUE_INTERACTION",
-                    "archetype": f"Harshita_Value_SUE_{u}_{g}_d{d}",
+                    "pillar": "FINK_REVENUE_QUALITY_SPREAD",
+                    "archetype": f"Fink_RevQualitySpread_d{d}_{u}_{g}",
                     "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
                         f"group_neutralize("
-                        f"rank(ts_delta(net_income / (close * sharesout + 1e-4), 60)) * "
-                        f"rank(book_to_price), "
-                        f"{g.lower()})"
+                        f"rank(ts_decay_linear(rp_css_revenue, {d}) - ts_decay_linear(rp_css_earnings, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"Harshita, Singh & Yadav (2018) Table 2: The PEAD-SUE relationship is significantly magnified "
-                        f"in value stocks (omega_4 = 0.07, t=3.16), creating large fundamental valuation re-ratings. {u}."
+                        f"Fink (2020) Obs. 15 & Jegadeesh & Livnat (2006): Revenue sentiment spread (rp_css_revenue - rp_css_earnings) "
+                        f"isolates top-line commercial demand expansion, generating superior post-announcement drift. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "news",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # 3. Harshita, Singh & Yadav (2018): Low-Beta SUE Persistence
+    # Negative interaction between market volatility / beta and SUE drift
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12]:
+                catalog.append({
+                    "pillar": "HARSHITA_LOW_VOL_SUE",
+                    "archetype": f"Harshita_LowVolSUE_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(-ts_std_dev(returns, 20)) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Harshita et al. (2018) Table 2: Low-volatility / low-beta stocks have less speculative noise, "
+                        f"allowing fundamental earnings drift to compound cleanly without abrupt whipsaws. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
@@ -118,85 +128,59 @@ def generate_modern_pead_dynamics_candidates() -> List[Dict[str, Any]]:
                 })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # 4. Harshita, Singh & Yadav (2018): Low-Beta SUE Persistence
-    # Negative interaction between market beta and SUE drift (omega_2 = -0.05 to -0.15)
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
-        for g in neut_groups:
-            catalog.append({
-                "pillar": "HARSHITA_LOW_BETA_SUE",
-                "archetype": f"Harshita_Low_Beta_SUE_{u}_{g}",
-                "expression": (
-                    f"group_neutralize("
-                    f"rank(ts_delta(ebitda / (assets + 1e-4), 60)) * "
-                    f"rank(-ts_corr(returns, group_mean(returns, 1, market), 60)), "
-                    f"{g.lower()})"
-                ),
-                "hypothesis": (
-                    f"Harshita, Singh & Yadav (2018) Table 2: Low systematic beta isolates fundamental cash flow drift "
-                    f"from market beta noise (negative SUE x Beta interaction, t=-1.66 to -2.60). {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 20,
-                "category": "analyst",
-                "source_kb": SOURCE_KB,
-            })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # 5. Fink (2020) & Hirshleifer: Investor Clutter & Attention Distraction
+    # 4. Fink (2020) & Hirshleifer: Investor Clutter & Attention Distraction
     # High volume trading day interacted with earnings surprise and volatility reduction
     # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:2]:
+    for u in universes:
         for g in neut_groups:
-            catalog.append({
-                "pillar": "FINK_ATTENTION_CLUTTER_DRIFT",
-                "archetype": f"Fink_Attention_Clutter_{u}_{g}",
-                "expression": (
-                    f"trade_when(volume > adv20 * 1.25, "
-                    f"group_neutralize("
-                    f"rank(ts_delta(net_income, 60) / (assets + 1e-4)) * "
-                    f"ts_rank(-ts_std(returns, 20), 40), "
-                    f"{g.lower()}), "
-                    f"-1)"
-                ),
-                "hypothesis": (
-                    f"Fink (2020) Observation 19 & Hirshleifer et al. (2009): Clutter and high announcement volume "
-                    f"distract investors, blunting the immediate reaction and generating protracted post-earnings drift. {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 15,
-                "category": "sentiment",
-                "source_kb": SOURCE_KB,
-            })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # 6. Martineau (2021): Fast Post-Earnings Discovery Acceleration
-    # Capturing immediate post-earnings convergence in broad market universes
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[1:]:
-        for g in neut_groups:
-            for d in [3, 5]:
+            for d in [10, 12]:
                 catalog.append({
-                    "pillar": "MARTINEAU_FAST_DRIFT_CONVERGENCE",
-                    "archetype": f"Martineau_Fast_Drift_{u}_{g}_d{d}",
+                    "pillar": "FINK_ATTENTION_CLUTTER_DRIFT",
+                    "archetype": f"Fink_AttentionClutter_d{d}_{u}_{g}",
                     "expression": (
-                        f"trade_when(volume > adv20 * 0.95, "
+                        f"trade_when(volume > adv20 * 1.20, "
                         f"group_neutralize("
-                        f"rank(ts_decay_linear(returns, 5)) * "
-                        f"rank(ts_delta(ebitda / (close * sharesout + 1e-4), 60)), "
-                        f"{g.lower()}), "
-                        f"-1)"
+                        f"rank(volume / (adv20 + 1)) * "
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
                     ),
                     "hypothesis": (
-                        f"Martineau (2021) Section 3: Modern price discovery accelerates 6x faster; capturing surviving drift "
-                        f"requires short execution windows (decay 3-5 days) with volume confirmation in non-mega-cap stocks. {u}."
+                        f"Fink (2020) Observation 19 & Hirshleifer et al. (2009): Clutter and high announcement volume "
+                        f"distract investors, blunting the immediate reaction and generating protracted post-earnings drift. {u}."
                     ),
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
-                    "category": "sentiment",
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # 5. Martineau (2021): Fast Post-Earnings Discovery Acceleration
+    # Capturing immediate short-horizon drift (decay 5 days) with volume execution filter
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in universes:
+        for g in neut_groups:
+            for d in [5, 8]:
+                catalog.append({
+                    "pillar": "MARTINEAU_FAST_DRIFT_CONVERGENCE",
+                    "archetype": f"Martineau_FastDrift_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.85, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * "
+                        f"rank(-ts_delta(close, 2) / (ts_std_dev(close, 10) + 0.001)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Martineau (2021) Section 3: Modern price discovery accelerates rapidly; capturing surviving drift "
+                        f"requires short execution windows (decay 5-8 days) with volume confirmation. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
                     "source_kb": SOURCE_KB,
                 })
 

@@ -337,7 +337,7 @@ def get_current_qualified_count(db_url: str) -> int:
         return 0
 
 
-def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
+def build_quintuple_vault_matrix(pillar: str = "all") -> List[Dict[str, Any]]:
     """
     FULL 90-paper extraction vault. All 14 paper-faithful generator modules.
     Pillars:
@@ -409,6 +409,22 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
         len(short_cands), len(fund_cands), total
     )
 
+    if pillar == "sentiment":
+        log.info("🎯 [PILLAR SPRINT] Focusing 100%% on Sentiment & Alternative Data Pillar: %d candidates.", len(sentiment_cands))
+        return sentiment_cands
+    elif pillar == "options":
+        log.info("🎯 [PILLAR SPRINT] Focusing 100%% on Options Volatility Pillar: %d candidates.", len(options_cands))
+        return options_cands
+    elif pillar == "risk":
+        log.info("🎯 [PILLAR SPRINT] Focusing 100%% on Risk Model Pillar: %d candidates.", len(risk_cands))
+        return risk_cands
+    elif pillar == "short":
+        log.info("🎯 [PILLAR SPRINT] Focusing 100%% on Short Interest Pillar: %d candidates.", len(short_cands))
+        return short_cands
+    elif pillar == "fundamental":
+        log.info("🎯 [PILLAR SPRINT] Focusing 100%% on Fundamental Pillar: %d candidates.", len(fund_cands))
+        return fund_cands
+
     # Interleave round-robin across all 5 verticals for balanced slot usage
     interleaved: List[Dict[str, Any]] = []
     max_len = max(len(options_cands), len(sentiment_cands), len(risk_cands), len(short_cands), len(fund_cands))
@@ -426,7 +442,7 @@ def build_quintuple_vault_matrix() -> List[Dict[str, Any]]:
     return mutator_cands + interleaved
 
 
-async def run_quintuple_vault_miner(target_count: int = 100):
+async def run_quintuple_vault_miner(target_count: int = 100, pillar: str = "all"):
     config = OptionsConfig.from_env()
     store = OptionsStore()
 
@@ -473,7 +489,7 @@ async def run_quintuple_vault_miner(target_count: int = 100):
             pass
     log.info("Loaded %d reference PnL vectors into correlation firewall.", len(ref_pnls))
 
-    candidates = build_quintuple_vault_matrix()
+    candidates = build_quintuple_vault_matrix(pillar=pillar)
     candidates, dups_removed = deduplicate_candidate_pool(candidates)
     if dups_removed > 0:
         log.info("AST Canonicalizer: Filtered out %d duplicate/commutative candidates from pool.", dups_removed)
@@ -753,9 +769,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Master Quintuple-Vault Alpha Miner")
     parser.add_argument("--target", type=int, default=int(os.environ.get("MINER_TARGET", "100")),
                         help="Target count of qualified alphas to bank (default: 100)")
+    parser.add_argument("--pillar", type=str, default="all",
+                        choices=["all", "sentiment", "options", "risk", "short", "fundamental"],
+                        help="Target pillar to focus on (default: all)")
     args = parser.parse_args()
     try:
-        asyncio.run(run_quintuple_vault_miner(target_count=args.target))
+        asyncio.run(run_quintuple_vault_miner(target_count=args.target, pillar=args.pillar))
     except KeyboardInterrupt:
         log.info("Mining interrupted by user.")
     except Exception as e:

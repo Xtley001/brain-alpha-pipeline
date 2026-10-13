@@ -88,11 +88,11 @@ def wait_for_connectivity(config: OptionsConfig, max_wait_sec: int = 3600) -> bo
     return False
 
 
-def run_supervisor(target: int = 100):
+def run_supervisor(target: int = 100, pillar: str = "all"):
     config = OptionsConfig.from_env()
     log.info("=" * 80)
     log.info("STARTING RESILIENT 100-ALPHA MINER SUPERVISOR")
-    log.info("Target: %d Qualified Alphas | Zero Submissions | PC Fault-Tolerant", target)
+    log.info("Target: %d Qualified Alphas | Pillar: %s | Zero Submissions | PC Fault-Tolerant", target, pillar.upper())
     log.info("=" * 80)
 
     consecutive_crashes = 0
@@ -111,11 +111,11 @@ def run_supervisor(target: int = 100):
             log.warning("Wi-Fi / Internet is offline before process launch. Waiting for reconnection...")
             wait_for_connectivity(config)
 
-        log.info("Spawning miner process: python scripts/master_quintuple_vault_miner_500.py --target %d", target)
+        log.info("Spawning miner process: python scripts/master_quintuple_vault_miner_500.py --target %d --pillar %s", target, pillar)
         start_ts = time.time()
 
         proc = subprocess.Popen(
-            [sys.executable, "scripts/master_quintuple_vault_miner_500.py", "--target", str(target)],
+            [sys.executable, "scripts/master_quintuple_vault_miner_500.py", "--target", str(target), "--pillar", str(pillar)],
             cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         )
 
@@ -177,5 +177,8 @@ def run_supervisor(target: int = 100):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Resilient 100-Alpha Mining Supervisor")
     parser.add_argument("--target", type=int, default=100, help="Target count of qualified alphas (default: 100)")
+    parser.add_argument("--pillar", type=str, default="all",
+                        choices=["all", "sentiment", "options", "risk", "short", "fundamental"],
+                        help="Target pillar to focus on (default: all)")
     args = parser.parse_args()
-    run_supervisor(target=args.target)
+    run_supervisor(target=args.target, pillar=args.pillar)

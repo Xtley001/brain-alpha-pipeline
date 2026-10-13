@@ -1,21 +1,27 @@
 """
-Asquith, Mikhail & Au (2005), Loh & Stulz (2018) & Floropoulos (2018)
+Asquith, Mikhail & Au (2005), Loh & Stulz (2018) & Floropoulos (2018) — Price Target Dominance & Uncertainty Regimes
 Source KB: docs/kb/sentiment/asquith_loh_stulz_floropoulos_analysts.md
+WorldQuant Master Recalibration: docs/kb/sentiment/worldquant_brain_sentiment_master_recalibration.md
 
 Key Institutional Empirical Findings:
 1. Asquith, Mikhail & Au (2005, Journal of Financial Economics):
    - Price target revisions (Delta Target / Price) have a larger and more statistically significant market reaction than earnings forecast revisions.
    - Including price targets dramatically increases regression fit and partially subsumes earnings forecasts.
-   - Market response is heavily asymmetric: downgrades receive the most scrutiny and generate massive negative alpha, while upgrades are discounted (55% buys vs 6% sells).
-   - Price targets achieve ~54% accuracy within 12 months; extreme optimism is inversely related to achieving target.
+   - Market response is heavily asymmetric: downgrades receive the most scrutiny and generate massive negative alpha, while upgrades are discounted.
+   - Price targets achieve ~54% accuracy within 12 months; extreme optimism (>50%) is inversely related to achieving target.
 2. Loh & Stulz (2018, Journal of Finance):
-   - In bad times (crises, high market volatility, recessions), the 2-day abnormal price impact of analyst revisions is substantially larger for both upgrades and downgrades.
+   - In bad times (crises, high market volatility), the 2-day abnormal price impact of analyst revisions is substantially larger.
    - Bayesian mechanism: macro uncertainty increases, private signal precision falls, so rational investors put higher weight on sell-side analyst signals.
    - Harder-to-value firms (high idiosyncratic risk) experience the largest increase in analyst research reliance.
-3. Floropoulos (2018, UC3M WP):
-   - Two-year-ahead (FY2) forecasts are the most informative in financial markets (0.42% abnormal return vs 0.30% for FY1 alone).
-   - Concordant revisions (FY1 and FY2 revised in the same direction) double abnormal post-announcement drift.
-   - Contrasting revisions: investors prioritize longer-term FY2 expectations over temporary FY1 revisions.
+3. Floropoulos (2018):
+   - Concordant multi-horizon revisions double post-announcement drift.
+
+Live Verified BRAIN Fields:
+    snt1_d1_nettargetpercent: Net analyst price target percentage upside from current stock price
+    rp_css_ptg: RavenPack composite sentiment score for price target announcements
+    rp_ess_ptg: RavenPack event sentiment score for price target releases
+    snt1_d1_netearningsrevision: Net analyst earnings revision momentum score
+    implied_volatility_call_30, implied_volatility_put_30: Options cross-market conviction
 """
 from typing import Any, Dict, List
 
@@ -30,172 +36,158 @@ def generate_asquith_loh_stulz_analyst_candidates() -> List[Dict[str, Any]]:
     """
     catalog: List[Dict[str, Any]] = []
 
-    universes = ["TOPSP500", "TOP500", "TOP1000", "TOP2000"]
-    neut_groups = ["SUBINDUSTRY", "SECTOR", "MARKET"]
-    decays = [5, 10, 20]
+    universes   = ["TOP1000", "TOP500", "TOPSP500"]
+    neut_groups = ["SUBINDUSTRY", "SECTOR"]
+    decays      = [8, 10, 12, 15]
 
     # ─────────────────────────────────────────────────────────────────────────
-    # 1. Asquith, Mikhail & Au (2005): Target Price Implied Return & Optimism Truncation
-    # High implied target return with penalty on extreme optimism (> 60% upside)
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
-        for g in neut_groups:
-            for d in [10, 20]:
-                catalog.append({
-                    "pillar": "ASQUITH_TARGET_OPTIMISM_TRUNCATION",
-                    "archetype": f"Asquith_Target_Optimism_{u}_{g}_d{d}",
-                    "expression": (
-                        f"group_neutralize("
-                        f"rank(ts_decay_linear(ts_delta(analyst_eps_mean, 20) / (close + 1e-4), 10)) * "
-                        f"rank(trade_when(ts_decay_linear(returns, 60) < 0.50, 1.0, 0.2)), "
-                        f"{g.lower()})"
-                    ),
-                    "hypothesis": (
-                        f"Asquith, Mikhail & Au (2005) Section 4: Analyst price target and earnings revisions provide strong price discovery, "
-                        f"but extreme optimism (>50% projected upside) is inversely related to target achievement (54% base accuracy). {u}."
-                    ),
-                    "universe": u,
-                    "neutralization": g,
-                    "decay": d,
-                    "category": "analyst",
-                    "source_kb": SOURCE_KB,
-                })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # 2. Asquith, Mikhail & Au (2005): Downgrade Scrutiny Asymmetry
-    # Severe negative drift following analyst downgrades & downward revisions
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
-        for g in neut_groups:
-            catalog.append({
-                "pillar": "ASQUITH_DOWNGRADE_ASYMMETRY",
-                "archetype": f"Asquith_Downgrade_Asymmetry_{u}_{g}",
-                "expression": (
-                    f"group_neutralize("
-                    f"rank(-ts_delta(analyst_eps_mean, 22) / (close + 1e-4)) * "
-                    f"ts_rank(-returns, 22), "
-                    f"{g.lower()})"
-                ),
-                "hypothesis": (
-                    f"Asquith, Mikhail & Au (2005) Section 3: Downgrades receive the most scrutiny from institutional investors, "
-                    f"generating massive and persistent negative abnormal drift that is rarely reversed. {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 20,
-                "category": "analyst",
-                "source_kb": SOURCE_KB,
-            })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # 3. Loh & Stulz (2018): Bad Times Analyst Revision Magnifier
-    # Sell-side revisions have substantially larger price impact during high uncertainty periods
-    # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
-        for g in neut_groups:
-            for d in [5, 10]:
-                catalog.append({
-                    "pillar": "LOH_STULZ_BAD_TIMES_MAGNIFIER",
-                    "archetype": f"Loh_Stulz_Bad_Times_{u}_{g}_d{d}",
-                    "expression": (
-                        f"trade_when(ts_std(returns, 22) > group_mean(ts_std(returns, 22), 1, market), "
-                        f"group_neutralize(rank(ts_delta(analyst_eps_mean, 20) / (close + 1e-4)), {g.lower()}), "
-                        f"-1)"
-                    ),
-                    "hypothesis": (
-                        f"Loh & Stulz (2018) Section 2: In bad times (elevated market volatility), rational Bayesian investors "
-                        f"place significantly higher weight on sell-side analyst revisions because private precision plunges. {u}."
-                    ),
-                    "universe": u,
-                    "neutralization": g,
-                    "decay": d,
-                    "category": "analyst",
-                    "source_kb": SOURCE_KB,
-                })
-
-    # ─────────────────────────────────────────────────────────────────────────
-    # 4. Loh & Stulz (2018): Hard-to-Value Firm Revision Interaction
-    # Sell-side output surges most for firms with high idiosyncratic uncertainty
+    # 1. Asquith, Mikhail & Au (2005): Target Price Implied Return with Optimism Truncation
+    # High implied target return with penalty on extreme optimism (> 50% upside)
     # ─────────────────────────────────────────────────────────────────────────
     for u in universes:
         for g in neut_groups:
-            catalog.append({
-                "pillar": "LOH_STULZ_HARD_TO_VALUE",
-                "archetype": f"Loh_Stulz_Hard_To_Value_{u}_{g}",
-                "expression": (
-                    f"group_neutralize("
-                    f"rank(ts_delta(analyst_eps_mean, 20) / (close + 1e-4)) * "
-                    f"rank(ts_std(returns, 60)), "
-                    f"{g.lower()})"
-                ),
-                "hypothesis": (
-                    f"Loh & Stulz (2018) Table 5: Harder-to-value firms with elevated idiosyncratic risk experience the largest "
-                    f"increase in sell-side analyst reliance and price impact during market downturns. {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 15,
-                "category": "analyst",
-                "source_kb": SOURCE_KB,
-            })
+            for d in decays:
+                catalog.append({
+                    "pillar": "ASQUITH_TARGET_OPTIMISM_TRUNCATION",
+                    "archetype": f"Asquith_TargetOptimism_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"trade_when(snt1_d1_nettargetpercent < 0.50, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(snt1_d1_nettargetpercent, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Asquith, Mikhail & Au (2005) Section 4: Analyst price target implied upside (snt1_d1_nettargetpercent) "
+                        f"provides superior price discovery, but extreme optimism (>50% upside) is penalized due to bias. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # 5. Floropoulos (2018): Concordant Horizon Revision (Short + Intermediate)
-    # Joint alignment of short-term (FY1) and long-term (FY2) revision trends
+    # 2. Asquith, Mikhail & Au (2005): RavenPack Price Target NLP Sentiment Tone
+    # Machine-readable NLP tone of price target changes captures qualitative justification
     # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:3]:
+    for u in universes:
         for g in neut_groups:
-            catalog.append({
-                "pillar": "FLOROPOULOS_CONCORDANT_REVISION",
-                "archetype": f"Floropoulos_Concordant_{u}_{g}",
-                "expression": (
-                    f"group_neutralize("
-                    f"rank(ts_delta(analyst_eps_mean, 20) / (close + 1e-4)) + "
-                    f"rank(ts_delta(analyst_eps_mean, 60) / (close + 1e-4)), "
-                    f"{g.lower()})"
-                ),
-                "hypothesis": (
-                    f"Floropoulos (2018) Section 3: When analysts revise short- and intermediate-term forecasts in the same "
-                    f"direction (concordant revision), post-announcement abnormal drift nearly doubles (+0.60% vs +0.30%). {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 20,
-                "category": "analyst",
-                "source_kb": SOURCE_KB,
-            })
+            for d in [8, 10, 12]:
+                catalog.append({
+                    "pillar": "ASQUITH_RP_TARGET_TONE",
+                    "archetype": f"Asquith_RPTargetTone_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(rp_css_ptg, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Asquith et al. (2005) Extract 2: Report justification text and price target sentiment (rp_css_ptg) "
+                        f"captures qualitative analyst rationale and generates multi-week drift. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
 
     # ─────────────────────────────────────────────────────────────────────────
-    # 6. Floropoulos (2018): Structural Horizon Anchoring (FY2 over FY1 Noise)
-    # Prioritizing intermediate revision trend over short-term noise
+    # 3. Asquith Downgrade Asymmetry Drift
+    # Severe negative drift following sell-side downgrades
     # ─────────────────────────────────────────────────────────────────────────
-    for u in universes[:2]:
+    for u in universes:
         for g in neut_groups:
-            catalog.append({
-                "pillar": "FLOROPOULOS_STRUCTURAL_ANCHORING",
-                "archetype": f"Floropoulos_Structural_Anchor_{u}_{g}",
-                "expression": (
-                    f"group_neutralize("
-                    f"rank(ts_delta(analyst_eps_mean, 60) / (close + 1e-4)) - "
-                    f"rank(ts_delta(analyst_eps_mean, 5) / (close + 1e-4)), "
-                    f"{g.lower()})"
-                ),
-                "hypothesis": (
-                    f"Floropoulos (2018) Section 4: Contrasting revisions reveal that investors prioritize structural intermediate-horizon "
-                    f"revisions (60 days) over short-term transient noise (5 days) when evaluating true long-term value. {u}."
-                ),
-                "universe": u,
-                "neutralization": g,
-                "decay": 20,
-                "category": "analyst",
-                "source_kb": SOURCE_KB,
-            })
+            for d in [10, 12]:
+                catalog.append({
+                    "pillar": "ASQUITH_DOWNGRADE_ASYMMETRY",
+                    "archetype": f"Asquith_DowngradeAsym_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"group_neutralize("
+                        f"rank(-ts_delta(snt1_d1_netearningsrevision, 10)) * "
+                        f"rank(-returns), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Asquith, Mikhail & Au (2005) Section 3: Downgrades receive the most scrutiny from institutional investors, "
+                        f"driving persistent negative abnormal drift that is rarely reversed. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # 4. Target Upside x Options Volatility Smirk Interaction
+    # Cross-market options informed order flow confirms analyst target conviction
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12]:
+                catalog.append({
+                    "pillar": "ASQUITH_TARGET_X_VOL_SMIRK",
+                    "archetype": f"Asquith_TargetxVolSmirk_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear((implied_volatility_call_30 - implied_volatility_put_30) / (implied_volatility_mean_30 + 0.001), 10)) * "
+                        f"rank(ts_decay_linear(snt1_d1_nettargetpercent, {d})) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Asquith (2005) + Xing-Zhang-Zhao (2010): Price target upside confirmed by options implied volatility smirk. "
+                        f"Institutional call accumulation validates analyst price target feasibility. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # 5. Loh & Stulz (2018): Hard-to-Value Firm Revision Interaction
+    # Sell-side output impact surges most for firms with high idiosyncratic uncertainty
+    # ─────────────────────────────────────────────────────────────────────────
+    for u in universes:
+        for g in neut_groups:
+            for d in [10, 12]:
+                catalog.append({
+                    "pillar": "LOH_STULZ_HARD_TO_VALUE",
+                    "archetype": f"Loh_Stulz_HardToValue_d{d}_{u}_{g}",
+                    "expression": (
+                        f"trade_when(volume > adv20 * 0.80, "
+                        f"group_neutralize("
+                        f"rank(ts_decay_linear(snt1_d1_netearningsrevision, {d})) * "
+                        f"rank(ts_std_dev(returns, 60)) * "
+                        f"rank(-ts_delta(close, 3) / (ts_std_dev(close, 20) + 0.001)), "
+                        f"{g.lower()}), -1)"
+                    ),
+                    "hypothesis": (
+                        f"Loh & Stulz (2018) Table 5: Harder-to-value firms with elevated idiosyncratic volatility experience "
+                        f"the largest increase in sell-side analyst reliance and abnormal price impact. {u}."
+                    ),
+                    "universe": u,
+                    "neutralization": g,
+                    "decay": d,
+                    "category": "analyst",
+                    "source_kb": SOURCE_KB,
+                })
 
     return catalog
 
 
 if __name__ == "__main__":
     candidates = generate_asquith_loh_stulz_analyst_candidates()
-    print(f"Generated {len(candidates)} Asquith-Loh-Stulz-Floropoulos analyst candidates.")
+    print(f"Generated {len(candidates)} Asquith-Loh-Stulz analyst candidates.")
     print("Sample expression:")
     print(candidates[0]["expression"])

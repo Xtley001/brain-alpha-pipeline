@@ -39,11 +39,14 @@ $$INNOV_{i,j,t} = \frac{F_{i,j,t} - \text{CONS}_{i,t-1}}{P_{i,t-1}}$$
 - **Confirming Revision:** $\text{sign}(REV_{i,j,t}) == \text{sign}(INNOV_{i,j,t})$.
 - **Conflicting Revision:** $\text{sign}(REV_{i,j,t}) \ne \text{sign}(INNOV_{i,j,t})$.
 
-**WorldQuant BRAIN Field Mapping:**
+**WorldQuant BRAIN Field Mapping (Verified via Live API):**
 ```python
-analyst_rating_change        # Proxy for direction and magnitude of revision
-analyst_count                # Number of covering analysts (coverage proxy)
-analyst_estimate_dispersion  # Dispersion across forecasts (disagreement proxy)
+snt1_d1_netearningsrevision     # Net consensus earnings revision score (verified in ID 1YZvdAqJ)
+snt1_d1_dtstsespe               # Analyst forecast dispersion / disagreement standard deviation (DMS 2002)
+snt1_d1_dynamicfocusrank        # Dynamic institutional coverage and focus ranking
+anl4_total_rec                  # Number of contributing analyst recommendations (coverage breadth proxy)
+fscore_momentum                 # Composite momentum metric focused on recent analyst estimate revisions
+composite_factor_score_derivative # Revision momentum intraday derivative
 ```
 
 ---
