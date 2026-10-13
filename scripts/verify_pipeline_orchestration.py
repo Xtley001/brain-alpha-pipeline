@@ -118,7 +118,7 @@ def run_orchestration_audit():
     kb_files = []
     for root, _, files in os.walk("docs/kb"):
         for f in files:
-            if f.endswith(".md") and f not in ("AGENT_INSTRUCTIONS.md", "EXTRACTION_STATUS.md", "kb_index.md"):
+            if f.endswith(".md") and f not in ("AGENT_INSTRUCTIONS.md", "EXTRACTION_STATUS.md", "kb_index.md", "SURGICAL_EXTRACTION_AND_ORCHESTRATION_MASTER_PLAN.md"):
                 kb_files.append(os.path.join(root, f).replace("\\", "/"))
 
     print(f"  Total Research KB Documents: {len(kb_files)}")
