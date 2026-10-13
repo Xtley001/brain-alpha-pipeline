@@ -3,7 +3,7 @@
 > **Target:** 89 Research Papers & Frameworks across 7 Pillars  
 > **Standard:** 15–25 Paper-Exact Extracts per KB | 20–50+ Archetypes per Generator | Zero Hallucinations | 100% Traceability  
 > **Last Updated:** 2026-10-13  
-> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,300/4,300 candidates)**
+> **Pipeline Verification:** `python scripts/verify_pipeline_orchestration.py` -> **100.0% Traceability (4,369/4,369 candidates)**
 
 ---
 
@@ -12,13 +12,13 @@
 | Pillar | Total Materials | Deep Extracts Done (15+ Verbatim Extracts) | Shallow KBs | Pending |
 |---|---|---|---|---|
 | **1. Options & Volatility Surface** | 20 | 20 (XZZ 2010, Pan-Poteshman 2006, Carr-Wu 2009, Bali-Hovakimian 2009, Delisle 2011, GPP 2009 x2, BKM 2003 x2, NPP 2005, MCH 2020, Carr-Madan 2001, BTZ 2009 x2, Nonejad 2013, Natenberg 2015, Sinclair 2008 & 2010, Derman 2016, Bennett 2014) | 0 | 0 (100% COMPLETE) 🏆 |
-| **2. Risk Models & Systematic Factors** | 12 | 8 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015, AABC 2014, BBW 2011) | 0 | 4 |
+| **2. Risk Models & Systematic Factors** | 12 | 12 (BAB 2014, AHXZ 2006, Blitz 2007, Black 1972, Easley 2012, Lucca 2015, AABC 2014, BBW 2011, Savor-Wilson 2013, Nieto-Rodriguez 2013, Merton 1974) | 0 | 0 (100% COMPLETE) 🏆 |
 | **3. Sentiment, PEAD & Analyst Revisions** | 19 | 7 (BT 1990, GL 2002, Tetlock 2007, DEG 2011, BW 2006, KSV 2016, GL 1979) | 0 | 12 |
 | **4. Short Interest & Securities Lending** | 11 | 9 (CDM 2007, ERR 2012, RRZ 2016, APR 2005, CMP 2012, LL 2001, Fried 2024, KRR 2013, CHS 2002) | 0 | 2 |
 | **5. Fundamental, Quality & Capital Allocation** | 13 | 9 (Novy-Marx 2013, Piotroski 2000, Cooper 2008, Titman 2004, Hirshleifer 2013, CDM 2013, KPSS 2017, Lee-Swam 2000, Sias 2006) | 0 | 4 |
 | **6. Supply Chain & Economic Networks** | 6 | 6 (Menzly-Ozbas 2010, Barrot-Sauvagnat 2016 x2, Burt-Hrdlicka 2021, Fee-Thomas 2004, Bennett 2021) | 0 | 0 (100% COMPLETE) 🏆 |
 | **7. Quantitative Frameworks & Modern AI** | 8 | 6 (Kakushadze 101 Alphas, AQuA 2026, QuantaAlpha 2026, AlphaAgentEvo 2026, Trading-R1 2025, AlphaMemo 2026) | 0 | 2 |
-| **TOTAL** | **89** | **64 Deep-Extracted Materials (24 Deep KBs)** | **0** | **25** |
+| **TOTAL** | **89** | **67 Deep-Extracted Materials (25 Deep KBs)** | **0** | **22** |
 
 ---
 
@@ -62,9 +62,9 @@
 | 27 | `Easley_Lopez_de_Prado_OHara_2012_Flow_Toxicity_VPIN.txt` | `docs/kb/risk_models/easley_vpin_lucca_fomc_blitz_black.md` | `brain_generators/risk_models/risk_model_p2_vpin_fomc.py` | 20 extracts (44 cands) | ✅ DONE |
 | 28 | `Easley_Lopez_de_Prado_OHara_2012_Flow_Toxicity_VPIN_v2.txt` | `docs/kb/risk_models/easley_vpin_lucca_fomc_blitz_black.md` | `brain_generators/risk_models/risk_model_p2_vpin_fomc.py` | Included above | ✅ DONE |
 | 29 | `Lucca_Moench_2015_Pre_FOMC_Announcement_Drift.txt` | `docs/kb/risk_models/easley_vpin_lucca_fomc_blitz_black.md` | `brain_generators/risk_models/risk_model_p2_vpin_fomc.py` | 20 extracts (8 cands) | ✅ DONE |
-| 30 | `Savor_Wilson_2013_Macroeconomic_Risk_Announcements.txt` | `docs/kb/risk_models/savor_wilson_2013_announcements.md` | — | 0 | ⏳ PENDING |
-| 31 | `Nieto_Rodriguez_2013_Stock_Corporate_Bond_Returns.txt` | `docs/kb/risk_models/nieto_rodriguez_2013_bonds.md` | — | 0 | ⏳ PENDING |
-| 32 | `Merton_1974_Pricing_Corporate_Debt_Structural_Model.txt` | `docs/kb/risk_models/merton_1974_distance_default.md` | — | 0 | ⏳ PENDING |
+| 30 | `Savor_Wilson_2013_Macroeconomic_Risk_Announcements.txt` | `docs/kb/risk_models/savor_wilson_nieto_merton_credit.md` | `brain_generators/risk_models/savor_wilson_merton_credit.py` | 21 extracts (69 cands) | ✅ DONE |
+| 31 | `Nieto_Rodriguez_2013_Stock_Corporate_Bond_Returns.txt` | `docs/kb/risk_models/savor_wilson_nieto_merton_credit.md` | `brain_generators/risk_models/savor_wilson_merton_credit.py` | Included above | ✅ DONE |
+| 32 | `Merton_1974_Pricing_Corporate_Debt_Structural_Model.txt` | `docs/kb/risk_models/savor_wilson_nieto_merton_credit.md` | `brain_generators/risk_models/savor_wilson_merton_credit.py` | Included above | ✅ DONE |
 
 ---
 
