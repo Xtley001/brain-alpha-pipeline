@@ -21,7 +21,7 @@ The repository maintainers acknowledge receipt within 48 hours and provide remed
 ## Scope
 
 - Pipeline orchestration code in `.github/workflows/` and `scripts/`
-- Modular Python libraries in `brain_libraries/`
+- Modular Python libraries distributed via PyPI and developed in [Xtley001/brain-libraries](https://github.com/Xtley001/brain-libraries)
 - Credential masking and database connection handling across `brain_core` and `brain_store`
 
 Excludes misconfiguration of third-party services (e.g. exposed PostgreSQL databases, leaked API keys in local untracked `.env` files).

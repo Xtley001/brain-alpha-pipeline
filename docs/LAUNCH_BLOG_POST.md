@@ -29,7 +29,7 @@ Instead of a monolithic script, we divided alpha generation into 7 decoupled lay
 
 ```mermaid
 graph TD
-    BC[brain-core] --> BS[brain-store]
+    BC[brain-alpha-core] --> BS[brain-store]
     BC --> BD[brain-decorrelator]
     BC --> BO[brain-options]
     BC --> BSe[brain-sentiment]
@@ -48,7 +48,7 @@ graph TD
     BRM --> BSyn
 ```
 
-- **`brain-core`**: The foundational type contract (`AlphaCandidate`), AST deduplicator that detects identical expressions even with different whitespace or commutative terms, and multi-provider LLM tiering.
+- **`brain-alpha-core`**: The foundational type contract (`AlphaCandidate`), AST deduplicator that detects identical expressions even with different whitespace or commutative terms, and multi-provider LLM tiering.
 - **`brain-store`**: Dual-mode persistence engine. Automatically leverages Neon PostgreSQL with connection pooling when online, and falls back to local zero-config JSON/CSV file storage offline.
 - **`brain-decorrelator`**: Strategy-agnostic plugin engine that transforms alpha expressions along 6 orthogonal axes to break correlation ($|\rho| < 0.70$) while retaining Sharpe.
 - **`brain-options`**: Options alpha engine (ValueScore: 6.0) codifying 30 mathematical archetypes across Implied Volatility surfaces, skew, term structure, and straddle breakevens.
@@ -184,14 +184,19 @@ For comprehensive mathematical derivations, operator formulations, and platform 
 
 The entire suite is MIT-licensed and available on GitHub and PyPI:
 
-- **GitHub:** [https://github.com/Xtley001/brain-alpha-pipeline](https://github.com/Xtley001/brain-alpha-pipeline)
-- **PyPI Packages:** `brain-core`, `brain-store`, `brain-decorrelator`, `brain-options`, `brain-sentiment`, `brain-risk-model`, `brain-synthesis`
+- **Pipeline Repository:** [https://github.com/Xtley001/brain-alpha-pipeline](https://github.com/Xtley001/brain-alpha-pipeline)
+- **Modular Libraries Repository:** [https://github.com/Xtley001/brain-libraries](https://github.com/Xtley001/brain-libraries)
+- **PyPI Packages:** `brain-alpha-core`, `brain-store`, `brain-decorrelator`, `brain-options`, `brain-sentiment`, `brain-risk-model`, `brain-synthesis`
 
-If you are researching alphas on WorldQuant BRAIN, star the repository on GitHub and test the CLI:
+If you are researching alphas on WorldQuant BRAIN, star the repository on GitHub and test the unified CLI:
 
 ```bash
-python brain_libraries/cli.py generate --domain all
-python brain_libraries/cli.py apex
+# Install the entire suite from PyPI
+pip install brain-synthesis
+
+# Generate candidates across all domains or trigger apex meta-synthesis
+brain generate --domain all
+brain apex
 ```
 
 Feedback, pull requests, and additional decorrelation axis plugins are welcome.

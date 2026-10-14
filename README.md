@@ -2,13 +2,13 @@
 
 Autonomous WorldQuant BRAIN alpha discovery, simulation, orthogonalization, and reserve vault pipeline.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/Xtley001/brain-alpha-pipeline/run.yml?label=discovery)](https://github.com/Xtley001/brain-alpha-pipeline/actions)
-[![Libraries CI](https://img.shields.io/github/actions/workflow/status/Xtley001/brain-alpha-pipeline/libraries-ci.yml?label=libraries)](https://github.com/Xtley001/brain-alpha-pipeline/actions/workflows/libraries-ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/Xtley001/brain-alpha-pipeline/ci.yml?branch=main&label=pipeline%20ci)](https://github.com/Xtley001/brain-alpha-pipeline/actions)
+[![Libraries CI](https://img.shields.io/github/actions/workflow/status/Xtley001/brain-libraries/ci.yml?branch=main&label=libraries%20ci)](https://github.com/Xtley001/brain-libraries/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![PyPI](https://img.shields.io/pypi/v/brain-synthesis)](https://pypi.org/project/brain-synthesis/)
+[![PyPI](https://img.shields.io/pypi/v/brain-synthesis?label=PyPI%20Suite)](https://pypi.org/project/brain-synthesis/)
 
-`brain-alpha-pipeline` is an institutional quantitative alpha research pipeline and modular library suite for WorldQuant BRAIN. It mines high-value, uncrowded data categories—Options Analytics (ValueScore: 6.0), Systematic Risk Models (ValueScore: 7.0), and Analyst Sentiment (ValueScore: 8.0)—while applying 6-axis orthogonal decorrelation to guarantee sub-0.70 correlation against existing platform submissions. State is persisted in Neon PostgreSQL with zero-config local fallback. For the full quantitative methodology and mathematical specifications, see the [whitepaper](./docs/institutional_sentiment_and_risk_canon.md).
+`brain-alpha-pipeline` is an institutional quantitative alpha research pipeline and autonomous mining system for WorldQuant BRAIN. It mines high-value, uncrowded data categories—Options Analytics (ValueScore: 6.0), Systematic Risk Models (ValueScore: 7.0), and Analyst Sentiment (ValueScore: 8.0)—while applying 6-axis orthogonal decorrelation to guarantee sub-0.70 correlation against existing platform submissions. State is persisted in Neon PostgreSQL with zero-config local fallback. For the full quantitative methodology and mathematical specifications, see the [whitepaper](./docs/institutional_sentiment_and_risk_canon.md).
 
 ## Quickstart
 
@@ -55,49 +55,47 @@ graph TD
 
 ```
 brain-alpha-pipeline/
-├── brain_libraries/          # 7 standalone pip-installable packages
-│   ├── brain_core/           # Type contracts, AST deduplication, config
-│   ├── brain_store/          # PostgreSQL + local JSON/CSV persistence
-│   ├── brain_decorrelator/   # 6-axis orthogonal decorrelation engine
-│   ├── brain_options/        # Options IV surface & breakeven generator
-│   ├── brain_sentiment/      # PEAD & analyst revision diffusion engine
-│   ├── brain_risk_model/     # Systematic factor premia & BAB engine
-│   └── brain_synthesis/      # Tri-factor apex meta-synthesis & unified CLI
+├── brain_generators/         # Domain alpha generation engines
+├── brain_options/            # Options analytics runner & strategies
+├── brain_risk_model/         # Risk models & BAB strategies
+├── brain_sentiment/          # PEAD & analyst revision strategies
+├── brain_synthesis/          # Cross-factor synthesis coordinator
 ├── scripts/                  # Standalone 24/7 vault miner & backtest utilities
 ├── docs/                     # Extended whitepapers, guides & articles
 │   ├── articles/             # 5-part WorldQuant BRAIN Masterclass series
 │   └── HOW_IT_WORKS.md       # Pipeline architecture & simulation lifecycle
-└── .github/workflows/        # Continuous discovery & release automations
+├── tests/                    # Pipeline integration test suite (104 tests)
+└── .github/workflows/        # Continuous discovery & mining automations
 ```
+
+> **Note:** The underlying 7 modular quantitative libraries ([`brain-alpha-core`](https://pypi.org/project/brain-alpha-core/), [`brain-store`](https://pypi.org/project/brain-store/), [`brain-decorrelator`](https://pypi.org/project/brain-decorrelator/), [`brain-options`](https://pypi.org/project/brain-options/), [`brain-sentiment`](https://pypi.org/project/brain-sentiment/), [`brain-risk-model`](https://pypi.org/project/brain-risk-model/), and [`brain-synthesis`](https://pypi.org/project/brain-synthesis/)) are developed and maintained in the dedicated [Xtley001/brain-libraries](https://github.com/Xtley001/brain-libraries) repository and published to PyPI.
 
 ## Data Categories & Coverage
 
-| Package | Category ID | ValueScore | Theoretical Foundation | Core Field Examples |
-|---|---|:---:|---|---|
-| [`brain-options`](./brain_libraries/brain_options) | `option` | **6.0** | Sinclair (2010), Bali (2008), Xing et al. (2010) | `implied_volatility_call_30`, `put_breakeven`, `forward_price` |
-| [`brain-sentiment`](./brain_libraries/brain_sentiment) | `sentiment` | **8.0** | Chan et al. (1996), Bernard & Thomas (1989) | `snt1_d1_netearningsrevision`, `snt1_d1_earningssurprise` |
-| [`brain-risk-model`](./brain_libraries/brain_risk_model) | `model` | **7.0** | Frazzini & Pedersen (2014), Ang et al. (2006) | `beta_last_60_days_spy`, `correlation_last_60_days_spy` |
-| [`brain-synthesis`](./brain_libraries/brain_synthesis) | `hybrid` | **8.0+** | Orthogonal Tri-Factor Confluence | Cross-dataset composite formulations |
+| Package | Category ID | ValueScore | Theoretical Foundation | Core Field Examples | PyPI Status |
+|---|---|:---:|---|---|:---:|
+| [`brain-options`](https://pypi.org/project/brain-options/) | `option` | **6.0** | Sinclair (2010), Bali (2008), Xing et al. (2010) | `implied_volatility_call_30`, `put_breakeven`, `forward_price` | `v0.1.0` |
+| [`brain-sentiment`](https://pypi.org/project/brain-sentiment/) | `sentiment` | **8.0** | Chan et al. (1996), Bernard & Thomas (1989) | `snt1_d1_netearningsrevision`, `snt1_d1_earningssurprise` | `v0.1.0` |
+| [`brain-risk-model`](https://pypi.org/project/brain-risk-model/) | `model` | **7.0** | Frazzini & Pedersen (2014), Ang et al. (2006) | `beta_last_60_days_spy`, `correlation_last_60_days_spy` | `v0.1.0` |
+| [`brain-synthesis`](https://pypi.org/project/brain-synthesis/) | `hybrid` | **8.0+** | Orthogonal Tri-Factor Confluence | Cross-dataset composite formulations | `v0.1.0` |
 
 ## Workflows
 
 | Workflow | Trigger | Purpose |
 |---|---|---|
 | [`run.yml`](.github/workflows/run.yml) | 48× daily + manual | Discovers and simulates alpha candidates on WorldQuant BRAIN |
-| [`drip.yml`](.github/workflows/drip.yml) | 3× daily (scheduled) | Submits 1 qualified orthogonal alpha from reserve vault to BRAIN |
+| [`mine_options.yml`](.github/workflows/mine_options.yml) | Scheduled / Dispatch | Dedicated Options category alpha mining worker |
+| [`mine_sentiment.yml`](.github/workflows/mine_sentiment.yml) | Scheduled / Dispatch | Dedicated Sentiment category alpha mining worker |
+| [`mine_risk_model.yml`](.github/workflows/mine_risk_model.yml) | Scheduled / Dispatch | Dedicated Risk Model category alpha mining worker |
 | [`health.yml`](.github/workflows/health.yml) | Hourly | Transmits Telegram health heartbeat and discovery funnel telemetry |
 | [`daily_digest.yml`](.github/workflows/daily_digest.yml) | Daily at 23:00 UTC | Generates end-of-day summary of simulated, qualified, and reserve alphas |
-| [`libraries-ci.yml`](.github/workflows/libraries-ci.yml) | Push / PR | Runs test matrix across all 7 modular libraries (86 unit tests) |
-| [`release.yml`](.github/workflows/release.yml) | Tag push (`v*`) | Builds and publishes distribution packages to PyPI |
+| [`ci.yml`](.github/workflows/ci.yml) | Push / PR | Runs end-to-end pipeline test suite and orchestration verification |
 
 ## Testing
 
 ```bash
-# Run test suite across all 7 modular libraries (86 tests)
-python brain_libraries/test_all.py
-
-# Or run pytest directly
-pytest --import-mode=importlib brain_libraries/*/tests -v
+# Run complete pipeline test suite (104 tests)
+pytest tests/ -v
 ```
 
 ## Security

@@ -10,15 +10,16 @@ cd brain-alpha-pipeline
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
-pip install -e ./brain_libraries/brain_core -e ./brain_libraries/brain_store -e ./brain_libraries/brain_decorrelator -e ./brain_libraries/brain_options -e ./brain_libraries/brain_sentiment -e ./brain_libraries/brain_risk_model -e ./brain_libraries/brain_synthesis
 ```
+
+> **Note on Modular Libraries:** To contribute to the 7 standalone quantitative libraries (`brain-alpha-core`, `brain-store`, `brain-decorrelator`, `brain-options`, `brain-sentiment`, `brain-risk-model`, `brain-synthesis`), see the dedicated repository at [Xtley001/brain-libraries](https://github.com/Xtley001/brain-libraries).
 
 ## Running Tests
 
-Verify the complete test suite across all 7 libraries:
+Verify the complete pipeline integration test suite (104 tests):
 
 ```bash
-python brain_libraries/test_all.py
+pytest tests/ -v
 ```
 
 ## Pull Request Guidelines
