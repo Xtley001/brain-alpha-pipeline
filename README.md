@@ -7,9 +7,9 @@ Autonomous WorldQuant BRAIN alpha discovery, simulation, orthogonalization, and 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/brain-synthesis?label=PyPI%20Suite)](https://pypi.org/project/brain-synthesis/)
-[![Total Suite Downloads](https://img.shields.io/badge/total%20downloads-1.5k%2B%20across%20suite-blue)](https://github.com/Xtley001/brain-libraries#package-index)
+[![Total Suite Downloads](https://img.shields.io/badge/total%20downloads-3.0k%2B%20across%20suite-blue)](https://github.com/Xtley001/brain-libraries#package-index)
 
-`brain-alpha-pipeline` is an institutional quantitative alpha research pipeline and autonomous mining system for WorldQuant BRAIN. It mines high-value, uncrowded data categories—Options Analytics (ValueScore: 6.0), Systematic Risk Models (ValueScore: 7.0), and Analyst Sentiment (ValueScore: 8.0)—while applying 6-axis orthogonal decorrelation to guarantee sub-0.70 correlation against existing platform submissions. State is persisted in Neon PostgreSQL with zero-config local fallback. For the full quantitative methodology and mathematical specifications, see the [whitepaper](./docs/institutional_sentiment_and_risk_canon.md).
+`brain-alpha-pipeline` is an institutional quantitative alpha research pipeline and autonomous mining system for WorldQuant BRAIN. It mines high-value, uncrowded data categories—Options Analytics (ValueScore: 6.0), Systematic Risk Models (ValueScore: 7.0), and Analyst Sentiment (ValueScore: 8.0)—while applying 10-axis orthogonal decorrelation, AST-diff motif mining, and asymmetric veto memory to guarantee sub-0.70 correlation against existing platform submissions. Synthesizes multi-asset alphas via Hierarchical Risk Parity (HRP) and dynamic market regime detection. State is persisted in Neon PostgreSQL with zero-config local fallback. For the full quantitative methodology and mathematical specifications, see the [whitepaper](./docs/institutional_sentiment_and_risk_canon.md).
 
 ## Quickstart
 
