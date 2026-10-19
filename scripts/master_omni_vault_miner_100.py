@@ -5,7 +5,7 @@ Target: Bank 100 QUALIFIED Alphas into PostgreSQL options_alphas.
 
 Key Capabilities:
 1. Multi-Dataset Breadth across High-Points & Virgin Datasets:
-   - Virgin March 2026 Sentiment (snt1_d1_sentlevel, snt1_w1_moodscoreweekly)
+   - Institutional Model Valuation & Risk Metrics (model51, model16)
    - Options Volatility Surface & Skew Smirk (implied_volatility_put, call, mean_skew)
    - Calendar Term Structure & Volatility Risk Premiums
    - Call Breakeven & Put Floor Contraction
@@ -313,46 +313,46 @@ def build_omni_candidate_matrix() -> List[Dict[str, Any]]:
     for u in prime_universes + ["TOP1000"]:
         for g in neut_groups:
             for d in [8, 10, 12, 15]:
-                # P11: Daily Sentiment Level x Momentum
+                # P11: Analyst Upward Revisions x Momentum (analyst4)
                 for win in [10, 15, 20]:
                     catalog.append({
-                        "pillar": "P11_SENTLEVEL",
-                        "archetype": f"P11_SentLevel_Mom{win}_d{d}_{u}_{g}",
-                        "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(snt1_d1_sentlevel, {d})) * rank(ts_delta(close, {win}) / (ts_std_dev(close, 30) + 0.001)), {g.lower()}), -1)",
-                        "hypothesis": f"Virgin March 2026 daily composite sentiment confirmed by {win}d momentum ({u}).",
+                        "pillar": "P11_ANALYST_REV",
+                        "archetype": f"P11_AnalystRev_Mom{win}_d{d}_{u}_{g}",
+                        "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(anl4_adxqfv110_pu - anl4_adxqfv110_down, {d})) * rank(ts_delta(close, {win}) / (ts_std_dev(close, 30) + 0.001)), {g.lower()}), -1)",
+                        "hypothesis": f"Analyst net upward revisions confirmed by {win}d momentum ({u}).",
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                     })
 
-                # P12: Weekly Mood Score x Liquidity Shock
+                # P12: Analyst Consensus Harmony x Liquidity Shock (analyst4)
                 catalog.append({
-                    "pillar": "P12_MOODSCORE",
-                    "archetype": f"P12_MoodWeekly_d{d}_{u}_{g}",
-                    "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(snt1_w1_moodscoreweekly, {d})) * rank(volume / (adv20 + 0.001)), {g.lower()}), -1)",
-                    "hypothesis": f"Virgin March 2026 weekly mood confirmed by volume velocity ({u}).",
+                    "pillar": "P12_ANALYST_HARMONY",
+                    "archetype": f"P12_AnalystHarmony_d{d}_{u}_{g}",
+                    "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(anl4_afv4_dts_spe / (abs(anl4_afv4_eps_high) + 0.01), {d})) * rank(volume / (adv20 + 0.001)), {g.lower()}), -1)",
+                    "hypothesis": f"Analyst consensus harmony confirmed by volume velocity ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                 })
 
-                # P13: Virgin Dual-Sentiment Cross (0 platform competition)
+                # P13: Model Pentagon Surface Acceleration x Quality (model16)
                 catalog.append({
-                    "pillar": "P13_COMPOSITE_CROSS",
-                    "archetype": f"P13_Cross_SentMood_d{d}_{u}_{g}",
-                    "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(snt1_d1_sentlevel, {d})) * rank(ts_decay_linear(snt1_w1_moodscoreweekly, {d})), {g.lower()}), -1)",
-                    "hypothesis": f"Composite daily sentiment x weekly mood cross interaction ({u}).",
+                    "pillar": "P13_MODEL_ACCEL",
+                    "archetype": f"P13_ModelAccel_d{d}_{u}_{g}",
+                    "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(fscore_surface_accel, {d})) * rank(ts_decay_linear(fscore_bfl_quality, {d})), {g.lower()}), -1)",
+                    "hypothesis": f"Model style surface acceleration x accounting quality synergy ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                 })
 
-                # P15: Cross-Synergy Virgin Sentiment x SUE surprise
+                # P15: Cross-Synergy Analyst Upgrade Ratio x F-Score Quality
                 catalog.append({
-                    "pillar": "P15_SENT_SUE",
-                    "archetype": f"P15_SentSUE_d{d}_{u}_{g}",
-                    "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(snt1_d1_sentlevel, {d})) * rank(ts_decay_linear(snt1_d1_earningssurprise, {d})), {g.lower()}), -1)",
-                    "hypothesis": f"Virgin composite sentiment x SUE surprise synergy ({u}).",
+                    "pillar": "P15_ANALYST_QUALITY",
+                    "archetype": f"P15_AnalystQuality_d{d}_{u}_{g}",
+                    "expression": f"trade_when(volume > adv20 * 0.8, group_neutralize(rank(ts_decay_linear(anl4_adxqfv110_pu / (anl4_adxqfv110_numest + 1.0), {d})) * rank(ts_decay_linear(fscore_bfl_quality, {d})), {g.lower()}), -1)",
+                    "hypothesis": f"Analyst upgrade ratio x balance sheet quality synergy ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
@@ -420,23 +420,23 @@ def build_omni_candidate_matrix() -> List[Dict[str, Any]]:
         for g in neut_groups:
             for d in [8, 10, 12, 14]:
                 for pwr in [0.5, 0.7]:
-                    # Non-linear concave rank product on VWAP catchup (Tuned 3qVx5q90 / QPKjgzdw)
+                    # Non-linear concave rank product on VWAP catchup (analyst4)
                     catalog.append({
                         "pillar": "TUNED_VWAP_CONCAVE",
                         "archetype": f"Tuned_VWAP_p{int(pwr*10)}_d{d}_{u}_{g}",
-                        "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(signed_power(rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * rank((vwap - close) / (close + 0.001)), {pwr}), {g.lower()}), -1)",
-                        "hypothesis": f"Concave-transformed SUE x VWAP deviation catchup ({u}, power={pwr}).",
+                        "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(signed_power(rank(ts_decay_linear(anl4_adxqfv110_pu - anl4_adxqfv110_down, {d})) * rank((vwap - close) / (close + 0.001)), {pwr}), {g.lower()}), -1)",
+                        "hypothesis": f"Concave-transformed Analyst revision x VWAP deviation catchup ({u}, power={pwr}).",
                         "universe": u,
                         "neutralization": g,
                         "decay": d,
                     })
 
-                    # Tuned SUE x Revision x Liquidity Product (Tuned e7QKvXVN / wpbGPKAY)
+                    # Tuned Revision x Quality x Liquidity Product (analyst4 + model16)
                     catalog.append({
                         "pillar": "TUNED_REV_LIQUIDITY",
                         "archetype": f"Tuned_RevLiq_p{int(pwr*10)}_d{d}_{u}_{g}",
-                        "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(signed_power(rank(ts_decay_linear(snt1_d1_earningssurprise, {d})) * rank(ts_decay_linear(snt1_d1_netearningsrevision, {d})) * rank(volume / (adv20 + 0.001)), {pwr}), {g.lower()}), -1)",
-                        "hypothesis": f"Concave-transformed SUE x Revision x Volume Shock ({u}, power={pwr}).",
+                        "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(signed_power(rank(ts_decay_linear(anl4_adxqfv110_pu - anl4_adxqfv110_down, {d})) * rank(ts_decay_linear(fscore_bfl_quality, {d})) * rank(volume / (adv20 + 0.001)), {pwr}), {g.lower()}), -1)",
+                        "hypothesis": f"Concave-transformed Analyst revision x Balance sheet quality x Volume Shock ({u}, power={pwr}).",
                         "universe": u,
                         "neutralization": g,
                         "decay": d,

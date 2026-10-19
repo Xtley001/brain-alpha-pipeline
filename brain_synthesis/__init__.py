@@ -1,6 +1,6 @@
 """
 Cross-Category Tri-Factor Synthesis Package.
-Fuses Options Derivatives, Analyst Sentiment, and Systematic Risk Models.
+Fuses Top 3 Categories: Model Risk & Valuation, Options Derivatives, and Analyst Estimates.
 """
 from brain_synthesis.apex_generator import ApexCandidate, generate_apex_candidates
 

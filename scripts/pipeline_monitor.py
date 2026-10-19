@@ -321,15 +321,14 @@ def build_report(opt: Dict, sent: Dict, risk: Dict, actions: List[str]) -> str:
         f"<b>Cloud Pipeline Health Digest</b> -- {ts}",
         "",
         f"{oi} <b>Options Cloud</b>: {opt.get('last_conclusion', 'N/A').upper()} (Slot 1)",
-        f"{si} <b>Sentiment Cloud</b>: {sent.get('last_conclusion', 'N/A').upper()} (Slot 2)",
-        f"{ri} <b>Risk Model Cloud</b>: {risk.get('last_conclusion', 'N/A').upper()} (Slot 3)",
+        f"{ri} <b>Risk Model Cloud</b>: {risk.get('last_conclusion', 'N/A').upper()} (Slot 2)",
     ]
     if issues:
         lines += ["", "<b>Issues Detected:</b>"] + [f"  - {i}" for i in issues[:8]]
     if actions:
         lines += ["", "<b>Auto-Actions Taken:</b>"] + [f"  + {a}" for a in actions]
     if not issues and not actions:
-        lines += ["", "All 3 cloud slots nominal and fully saturated."]
+        lines += ["", "All cloud slots nominal and fully saturated."]
     return "\n".join(lines)
 
 
@@ -339,8 +338,7 @@ def build_report(opt: Dict, sent: Dict, risk: Dict, actions: List[str]) -> str:
 
 CLOUD_WORKFLOWS = [
     ("mine_options.yml", "Options (option8/9)"),
-    ("mine_sentiment.yml", "Sentiment (sentiment1/2)"),
-    ("mine_risk_model.yml", "Risk Model (model51/52)"),
+    ("mine_risk_model.yml", "Risk Model (model51/16)"),
 ]
 
 def run_cycle() -> None:
@@ -374,7 +372,6 @@ def run_cycle() -> None:
                 log.error("Failed to trigger %s: %s", wf_file, exc)
 
     opt = workflow_results.get("mine_options.yml", {})
-    sent = workflow_results.get("mine_sentiment.yml", {})
     risk = workflow_results.get("mine_risk_model.yml", {})
 
     # 2 -- Push uncommitted changes if any

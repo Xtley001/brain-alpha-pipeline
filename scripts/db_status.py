@@ -1,5 +1,6 @@
 import sys
 sys.path.insert(0, '.')
+import brain_options.core.dns_fallback
 import psycopg
 from brain_options.config import OptionsConfig
 

@@ -1,4 +1,4 @@
-name: Cloud Miner - Sentiment (sentiment1/2)
+name: Cloud Miner - Analyst (analyst4)
 
 on:
   workflow_dispatch:
@@ -11,17 +11,17 @@ on:
         description: "Timeout budget in minutes"
         required: false
         default: "345"
-#  schedule:
-#    # Runs every 6 hours — each job mines continuously for 5h45m
-#    - cron: "15 */6 * * *"
+  schedule:
+    # Runs every 6 hours at minute 20 (staggered: options=:00, analyst=:20, risk_model=:45)
+    - cron: "20 */6 * * *"
 
 concurrency:
-  group: cloud-miner-sentiment
+  group: cloud-miner-analyst
   cancel-in-progress: true
 
 jobs:
-  mine-sentiment:
-    name: Mine Sentiment Alphas (1-Slot Cloud)
+  mine-analyst:
+    name: Mine Analyst Alphas (analyst4 dataset)
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -58,9 +58,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Cloud Sentiment Miner
+      - name: Run Cloud Analyst Miner
         run: |
           python scripts/cloud_multi_miner.py \
-            --category sentiment \
+            --category analyst \
             --candidates ${{ github.event.inputs.candidates || '9999' }} \
             --timeout-mins ${{ github.event.inputs.timeout_mins || '345' }}

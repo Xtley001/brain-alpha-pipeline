@@ -12,7 +12,7 @@ Key Optimizations:
    - Options smirk (implied_volatility_put, call, mean) across tenors 60, 90, 120, 150, 180, 270, 360
    - Breakeven convexity (call_breakeven, put_breakeven, forward_price)
    - Volume/OI surge (pcr_vol, pcr_oi)
-   - Active Sentiment (snt1_d1_nettargetpercent, snt1_d1_dtstsespe, snt1_d1_dynamicfocusrank, snt1_d1_earningssurprise, snt1_d1_netearningsrevision)
+   - Analyst Estimates & Revisions (anl4_adxqfv110_pu, anl4_adxqfv110_down, anl4_afv4_dts_spe)
 3. Industrial Platform Firewalls & Safety:
    - Pairwise correlation |rho| <= 0.62 vs all 23 submitted production baselines.
    - 100% PASS on platform checks (/alphas/{id}/check).
@@ -360,34 +360,34 @@ def build_fitness_boosted_catalog() -> List[Dict[str, Any]]:
     for u in ["TOPSP500", "TOP500", "TOP200"]:
         for g in neut_groups:
             for d in [8, 12, 16]:
-                # Target price revision momentum
+                # Analyst consensus upward revision momentum (analyst4)
                 catalog.append({
-                    "pillar": "TARGET_PRICE_REV",
-                    "archetype": f"TargetPriceRev_d{d}_{u}_{g}",
-                    "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(snt1_d1_nettargetpercent, {d})) * rank(ts_decay_linear(snt1_d1_earningssurprise, {d})), {g.lower()}), -1)",
-                    "hypothesis": f"Analyst target revision confirmed by SUE surprise ({u}).",
+                    "pillar": "ANALYST_CONSENSUS_REV",
+                    "archetype": f"AnalystConsensusRev_d{d}_{u}_{g}",
+                    "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(anl4_adxqfv110_pu - anl4_adxqfv110_down, {d})) * rank(ts_decay_linear(analyst_revision_rank_derivative, {d})), {g.lower()}), -1)",
+                    "hypothesis": f"Analyst net upward revisions confirmed by revision momentum derivative ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                 })
 
-                # Forecast dispersion contraction (low dispersion = higher quality)
+                # Forecast dispersion contraction (analyst4: low dispersion = higher quality)
                 catalog.append({
                     "pillar": "FORECAST_DISPERSION",
                     "archetype": f"ForecastDispersion_d{d}_{u}_{g}",
-                    "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(- ts_decay_linear(snt1_d1_dtstsespe, {d})) * rank(volume / (adv20 + 0.001)), {g.lower()}), -1)",
+                    "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(- ts_decay_linear(anl4_afv4_dts_spe / (abs(anl4_afv4_eps_high) + 0.01), {d})) * rank(volume / (adv20 + 0.001)), {g.lower()}), -1)",
                     "hypothesis": f"Forecast dispersion contraction confirmed by liquidity volume ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,
                 })
 
-                # Institutional attention focus x Revision
+                # Analyst upgrade concentration x Coverage (analyst4)
                 catalog.append({
-                    "pillar": "INSTITUTIONAL_FOCUS",
-                    "archetype": f"InstFocus_d{d}_{u}_{g}",
-                    "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(snt1_d1_dynamicfocusrank, {d})) * rank(ts_decay_linear(snt1_d1_netearningsrevision, {d})), {g.lower()}), -1)",
-                    "hypothesis": f"Institutional dynamic focus rank x revision momentum ({u}).",
+                    "pillar": "ANALYST_UPGRADE_RATIO",
+                    "archetype": f"AnalystUpgradeRatio_d{d}_{u}_{g}",
+                    "expression": f"trade_when(volume > adv20 * 0.85, group_neutralize(rank(ts_decay_linear(anl4_adxqfv110_pu / (anl4_adxqfv110_numest + 1.0), {d})) * rank(ts_decay_linear(anl4_adxqfv110_numest, {d})), {g.lower()}), -1)",
+                    "hypothesis": f"Analyst upgrade ratio confirmed by institutional coverage breadth ({u}).",
                     "universe": u,
                     "neutralization": g,
                     "decay": d,

@@ -178,7 +178,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Resilient 100-Alpha Mining Supervisor")
     parser.add_argument("--target", type=int, default=100, help="Target count of qualified alphas (default: 100)")
     parser.add_argument("--pillar", type=str, default="all",
-                        choices=["all", "sentiment", "options", "risk", "short", "fundamental"],
+                        choices=["all", "options", "risk", "analyst", "short", "fundamental", "top3"],
                         help="Target pillar to focus on (default: all)")
     args = parser.parse_args()
     run_supervisor(target=args.target, pillar=args.pillar)

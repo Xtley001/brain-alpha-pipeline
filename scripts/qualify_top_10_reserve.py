@@ -205,22 +205,22 @@ TOP_10_CANDIDATES = [
         "neutralization": "SUBINDUSTRY",
         "decay": 8,
     },
-    # 3. Sentiment PEAD Sluggish Revision Drift
+    # 3. Analyst Consensus Net Upward Revision (analyst4)
     {
-        "category": "sentiment",
-        "archetype": "PEAD_Sluggish_Revision_Drift",
-        "hypothesis": "Post-earnings net earnings revisions with double decay capture sluggish institutional re-weighting.",
-        "expression": "group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_netearningsrevision, 12), 3)), subindustry)",
+        "category": "analyst",
+        "archetype": "Analyst_Net_Upward_Revisions",
+        "hypothesis": "Post-earnings analyst net revisions with double decay capture sluggish institutional re-weighting.",
+        "expression": "group_neutralize(rank(ts_decay_linear(ts_decay_linear(anl4_adxqfv110_pu - anl4_adxqfv110_down, 12), 3)), subindustry)",
         "universe": "TOP2000",
         "neutralization": "SUBINDUSTRY",
         "decay": 12,
     },
-    # 4. Sentiment SUE Conviction Shock
+    # 4. Analyst Consensus Low Dispersion (analyst4)
     {
-        "category": "sentiment",
-        "archetype": "SUE_Earnings_Surprise_Conviction",
-        "hypothesis": "Material earnings surprise shocks filtered by volume isolate post-announcement drift.",
-        "expression": "trade_when(volume > adv20 * 0.7, group_neutralize(rank(ts_decay_linear(ts_decay_linear(snt1_d1_earningssurprise, 10), 3)), sector), -1)",
+        "category": "analyst",
+        "archetype": "Analyst_Consensus_Harmony_Low_Dispersion",
+        "hypothesis": "Low forecast standard deviation relative to mean EPS captures consensus harmony and institutional underperformance of disputed names.",
+        "expression": "trade_when(volume > adv20 * 0.7, group_neutralize(rank(-ts_decay_linear(ts_decay_linear(anl4_afv4_dts_spe / (abs(anl4_afv4_eps_high) + 0.01), 10), 3)), sector), -1)",
         "universe": "TOP2000",
         "neutralization": "SECTOR",
         "decay": 10,
@@ -255,12 +255,12 @@ TOP_10_CANDIDATES = [
         "neutralization": "SUBINDUSTRY",
         "decay": 8,
     },
-    # 8. Sentiment Analyst Consensus Revision vs Price Dispersion
+    # 8. Model Pentagon Surface Acceleration (model16)
     {
-        "category": "sentiment",
-        "archetype": "Sentiment_Consensus_Target_Revision",
-        "hypothesis": "Ratio of analyst target price to close price smoothed over 10d captures fundamental under-reaction.",
-        "expression": "trade_when(volume > adv20 * 0.7, group_neutralize(rank(ts_decay_linear(snt1_d1_targetprice / close, 10)), subindustry), -1)",
+        "category": "model",
+        "archetype": "Model_Pentagon_Surface_Acceleration",
+        "hypothesis": "Acceleration in composite style surface combined with balance sheet quality captures fundamental turnaround momentum.",
+        "expression": "trade_when(volume > adv20 * 0.7, group_neutralize(rank(ts_decay_linear(fscore_surface_accel * fscore_bfl_quality, 10)), subindustry), -1)",
         "universe": "TOP2000",
         "neutralization": "SUBINDUSTRY",
         "decay": 10,

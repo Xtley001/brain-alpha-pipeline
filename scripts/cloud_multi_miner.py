@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
 Dedicated Cloud Multi-Category Alpha Miner for GitHub Actions.
-Supports:
-- category: options   (option8/option9, ValueScore=5-6, Vol Surface & PCR)
-- category: sentiment (sentiment1/2, ValueScore=8.0, PEAD & SUE)
-- category: risk_model (model51/52, ValueScore=7.0, BAB & Factor Divergence)
-- category: apex (tri-category orthogonal synthesis)
+Supports (Top 3 BRAIN Categories — zero sentiment):
+- category: options    (option8/option9, Value Score 6.0 — Vol Surface & PCR)
+- category: risk_model (model51/model16, Value Score 7.0 — BAB & IdioVol)
+- category: analyst    (analyst4,        Value Score 5.0 — Earnings Surprise & Dispersion)
+- category: apex       (tri-factor cross-synthesis: option + model + analyst)
 
-Configured for Concurrency = 1 per job.
-All three verticals run as separate GitHub Actions jobs:
-  mine_options.yml     cron: 0  */6 * * *  (fires at :00)
-  mine_sentiment.yml   cron: 15 */6 * * *  (fires at :15)
-  mine_risk_model.yml  cron: 45 */6 * * *  (fires at :45)
-This fills all 3 BRAIN simulation slots 24/7 with zero local PC dependency.
+Concurrency = 1 per GitHub Actions job (3 slots total across 3 workflows):
+  mine_options.yml    cron: 0  */6 * * *  (fires at :00)
+  mine_analyst.yml    cron: 20 */6 * * *  (fires at :20)
+  mine_risk_model.yml cron: 45 */6 * * *  (fires at :45)
+All 3 BRAIN simulation slots filled 24/7. Zero local PC dependency.
+All BRAIN field names verified real — zero silent simulation failures.
 """
 from __future__ import annotations
 
@@ -50,8 +50,8 @@ from brain_options.llm.adapter import LLMAdapter
 from brain_options.store.store import OptionsStore
 
 from brain_options.specialist.generator import OptionsGenerator
-from brain_sentiment.specialist.generator import SentimentGenerator
 from brain_risk_model.specialist.generator import RiskModelGenerator
+from brain_generators.analyst.analyst_revision_generator import generate_analyst_revision_candidates
 from brain_synthesis.apex_generator import generate_apex_candidates
 
 
@@ -375,11 +375,25 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
     generator = None
     if category == "options":
         generator = OptionsGenerator(db=store.db, llm_adapter=llm)
-        log.info("Options generator loaded. Mining option8/option9 (138 fields, PCR+Vol Surface).")
-    elif category == "sentiment":
-        generator = SentimentGenerator(db=store.db, llm_adapter=llm)
+        log.info("Options generator loaded. Mining option8/option9 (PCR+Vol Surface).")
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
+        log.info("Risk model generator loaded. Mining model51/model16 (BAB + IdioVol + VPIN).")
+    elif category == "analyst":
+        # Analyst4 dataset — static catalog, no LLM generator needed
+        analyst_candidates = generate_analyst_revision_candidates()
+        log.info("Analyst generator loaded. %d candidates from analyst4 dataset (CJL/DMS/GL).", len(analyst_candidates))
+        # Inject all analyst candidates directly into the priority queue
+        for ac in analyst_candidates:
+            priority_queue.append({
+                "expression": ac["expression"],
+                "archetype":  ac["archetype"],
+                "hypothesis": ac["hypothesis"],
+                "universe":   ac["universe"],
+                "neutralization": ac["neutralization"],
+                "decay":      ac["decay"],
+                "region":     "USA",
+            })
     elif category == "apex":
         apex_candidates = generate_apex_candidates()
         log.info("Loaded %d static apex tri-factor candidates.", len(apex_candidates))
@@ -564,7 +578,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
 
 def main():
     parser = argparse.ArgumentParser(description="Dedicated Cloud Multi-Category Alpha Miner")
-    parser.add_argument("--category", choices=["options", "sentiment", "risk_model", "apex"], required=True, help="Category to mine")
+    parser.add_argument("--category", choices=["options", "risk_model", "analyst", "apex"], required=True, help="Category to mine")
     parser.add_argument("--candidates", type=int, default=25, help="Max candidates to simulate")
     parser.add_argument("--timeout-mins", type=int, default=20, help="Max time in minutes")
     args = parser.parse_args()

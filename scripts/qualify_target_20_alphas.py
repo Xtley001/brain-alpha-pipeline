@@ -41,7 +41,7 @@ from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 from brain_options.core.correlation import compute_correlation
 from brain_options.store.store import OptionsStore
 
-from brain_sentiment.specialist.templates import generate_template_candidates as gen_sentiment_candidates
+from brain_synthesis.apex_generator import generate_apex_candidates
 from brain_risk_model.specialist.templates import generate_template_candidates as gen_risk_candidates
 from brain_options.specialist.templates import generate_template_candidates as gen_options_candidates
 
@@ -196,25 +196,25 @@ def gather_all_candidate_pool(db_url: str) -> List[Dict[str, Any]]:
     seen_expressions: Set[str] = set()
     candidate_pool: List[Dict[str, Any]] = []
 
-    # 1. Add deterministic Bivariate Sentiment candidates (High Sharpe, Liquidity Armor, Turnover < 15%)
+    # 1. Add deterministic Top 3 Tri-Factor Synthesis candidates (Model 7.0 + Option 6.0 + Analyst 5.0)
     try:
-        sent_cands = gen_sentiment_candidates()
-        for c in sent_cands:
+        apex_cands = generate_apex_candidates()
+        for c in apex_cands:
             if c.expression not in seen_expressions:
                 seen_expressions.add(c.expression)
                 candidate_pool.append({
                     "expression": c.expression,
-                    "archetype": c.archetype,
+                    "archetype": c.name,
                     "hypothesis": c.hypothesis,
                     "universe": c.universe,
                     "neutralization": c.neutralization,
                     "decay": c.decay,
-                    "category": "sentiment",
+                    "category": "top3_synthesis",
                     "known_alpha_id": None,
                 })
-        log.info("Loaded %d deterministic Bivariate Sentiment candidates.", len(candidate_pool))
+        log.info("Loaded %d deterministic Tri-Factor Synthesis candidates.", len(candidate_pool))
     except Exception as e:
-        log.warning("Could not load sentiment templates: %s", e)
+        log.warning("Could not load synthesis templates: %s", e)
 
     # 2. Add deterministic Bivariate Risk Model candidates (BAB, Idiosyncratic Decoupling, Beta Divergence)
     try:

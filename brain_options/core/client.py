@@ -9,6 +9,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Optional
 import requests
+import brain_options.core.dns_fallback
 
 log = logging.getLogger("brain_options.client")
 
@@ -142,6 +143,37 @@ class BrainClient:
             self.authenticate()
         return self._session
 
+    def _patch_wqb_session(self, session) -> None:
+        """Patches WQBSession to prevent aggressive re-authentication on 429 rate limits."""
+        import types
+        import time
+        from requests import Session
+
+        def safe_auth_request(sess_self, method=None, url=None, *args, **kwargs):
+            try:
+                r = Session.request(sess_self, "GET", "https://api.worldquantbrain.com/users/self", timeout=5)
+                if r.status_code == 200:
+                    return r
+            except Exception:
+                pass
+
+            res = None
+            for attempt in range(4):
+                try:
+                    res = Session.request(sess_self, "POST", "https://api.worldquantbrain.com/authentication", auth=sess_self.wqb_auth)
+                    if res.status_code in (200, 201):
+                        return res
+                    elif res.status_code == 429:
+                        wait_s = int(res.headers.get("Retry-After", 10)) + 1
+                        time.sleep(wait_s)
+                    else:
+                        time.sleep(2)
+                except Exception:
+                    time.sleep(2)
+            return res
+
+        session.auth_request = types.MethodType(safe_auth_request, session)
+
     def authenticate(self, force: bool = False) -> None:
         import wqb
 
@@ -158,6 +190,7 @@ class BrainClient:
                         self._session = wqb.WQBSession((self.username, self.password))
                         for k, v in cached["cookies"].items():
                             self._session.cookies.set(k, v)
+                        self._patch_wqb_session(self._session)
                         log.info("Successfully resumed BRAIN session from PostgreSQL cluster cache for %s (Zero 429 risk).", self.username)
                         return
                     else:
@@ -168,6 +201,7 @@ class BrainClient:
         # 2. Perform genuine authentication
         log.info("Authenticating fresh session with WorldQuant BRAIN for %s...", self.username)
         self._session = wqb.WQBSession((self.username, self.password))
+        self._patch_wqb_session(self._session)
         test_resp = self._session.get("https://api.worldquantbrain.com/users/self", timeout=10)
         if test_resp.status_code != 200:
             err_msg = f"WorldQuant BRAIN authentication failed for {self.username}: {test_resp.status_code} {test_resp.text}"
@@ -197,6 +231,7 @@ class BrainClient:
     async def simulate_one(self, expression: str, settings: SimSettings) -> SimMetrics:
         async with self.semaphore:
             self._active_sims += 1
+            await asyncio.sleep(1.0)
             log.info("Acquired simulation slot (%d/%d in-flight) for: %s", self._active_sims, self.max_concurrent_sims, expression[:50])
             try:
                 session = self._get_session()
@@ -204,8 +239,9 @@ class BrainClient:
 
                 resp = None
                 for attempt in range(5):
+                    session = self._get_session()
                     try:
-                        resp = await asyncio.wait_for(session.simulate(payload), timeout=420.0)
+                        resp = await asyncio.wait_for(session.simulate(payload), timeout=180.0)
                         status_c = getattr(resp, "status_code", 200)
                         if resp is not None and status_c in (429, 500, 502, 503, 504):
                             wait_s = 15.0 if status_c == 429 else 5.0 * (attempt + 1)
@@ -217,7 +253,7 @@ class BrainClient:
                         if resp is not None:
                             break
                     except asyncio.TimeoutError:
-                        log.warning("Simulation attempt %d timed out after 420s for: %s", attempt + 1, expression[:40])
+                        log.warning("Simulation attempt %d timed out after 180s for: %s", attempt + 1, expression[:40])
                     except Exception as e:
                         log.warning("Simulation attempt %d failed: %s", attempt + 1, e)
                         err_str = str(e).lower()
@@ -235,48 +271,19 @@ class BrainClient:
                     log.error("BRAIN session token expired during batch for %s! Attempting auto-reauth...", self.username)
                     try:
                         self.authenticate(force=True)
-                        resp = await asyncio.wait_for(session.simulate(payload), timeout=240.0)
+                        session = self._get_session()
+                        resp = await asyncio.wait_for(session.simulate(payload), timeout=180.0)
                     except Exception as reauth_err:
                         log.error("Auto-reauth failed: %s", reauth_err)
-                        try:
-                            from brain_options.core.notifier import send_telegram_emergency_alert
-                            send_telegram_emergency_alert(
-                                error_summary=f"BRAIN session token expired mid-batch for {self.username}. Auto-reauth failed: {reauth_err}",
-                                context="BRAIN Session Expired",
-                                db=self.db,
-                                cooldown_minutes=30,
-                            )
-                        except Exception:
-                            pass
 
                 # Check for non-200 simulation submit API error
                 if resp is not None and getattr(resp, "status_code", 200) >= 400:
                     status_code = getattr(resp, "status_code", "unknown")
                     log.error("Simulation submit returned non-200 (%s) for %s: %s", status_code, expression[:50], getattr(resp, 'text', '')[:100])
-                    try:
-                        from brain_options.core.notifier import send_telegram_emergency_alert
-                        send_telegram_emergency_alert(
-                            error_summary=f"Simulation submit returned HTTP {status_code} for {expression[:40]}: {getattr(resp, 'text', '')[:100]}",
-                            context="BRAIN Sim API Error",
-                            db=self.db,
-                            cooldown_minutes=60,
-                        )
-                    except Exception:
-                        pass
                     return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, f"HTTP_{status_code}", {})
 
                 if resp is None:
                     log.error("Simulation returned None (timeout/failure across all attempts) for expression: %s", expression)
-                    try:
-                        from brain_options.core.notifier import send_telegram_emergency_alert
-                        send_telegram_emergency_alert(
-                            error_summary=f"Simulation result fetch returned null after all retries for: {expression[:50]}",
-                            context="BRAIN Sim Result Null",
-                            db=self.db,
-                            cooldown_minutes=60,
-                        )
-                    except Exception:
-                        pass
                     return SimMetrics(None, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "ERROR", {})
 
                 metrics = parse_brain_sim_response(resp)

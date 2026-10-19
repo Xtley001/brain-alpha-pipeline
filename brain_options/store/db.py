@@ -23,6 +23,7 @@ import math
 import re
 import time
 from typing import Any, Dict, List, Optional, Set
+import brain_options.core.dns_fallback
 from brain_options.core.client import SimMetrics, SimSettings
 from brain_options.specialist.templates import OptionCandidate
 
@@ -1918,14 +1919,18 @@ class OptionsDatabase:
                 expires_at = EXCLUDED.expires_at,
                 updated_at = CURRENT_TIMESTAMP;
         """
-        try:
-            with self._get_connection() as conn:
-                with conn.cursor() as cur:
-                    cur.execute(sql, (key, token, json.dumps(cookies), expires_in_seconds))
-                conn.commit()
-            log.info("Saved BRAIN session to cluster cache (TTL=%ds).", expires_in_seconds)
-        except Exception as e:
-            log.warning("Failed to save session cache: %s", e)
+        for attempt in range(2):
+            try:
+                with self._get_connection() as conn:
+                    with conn.cursor() as cur:
+                        cur.execute(sql, (key, token, json.dumps(cookies), expires_in_seconds))
+                    conn.commit()
+                log.info("Saved BRAIN session to cluster cache (TTL=%ds).", expires_in_seconds)
+                break
+            except Exception as e:
+                if attempt == 0:
+                    continue
+                log.warning("Failed to save session cache: %s", e)
 
     # ------------------------------------------------------------------
     # cluster_run_lock
