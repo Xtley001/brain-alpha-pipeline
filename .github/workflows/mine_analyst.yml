@@ -10,10 +10,10 @@ on:
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "345"
+        default: "170"
   schedule:
-    # Runs every 6 hours at minute 20 (staggered: options=:00, analyst=:20, risk_model=:45)
-    - cron: "20 */6 * * *"
+    # Runs on alternating 3h rapid cycle (staggered with Apex at 3,9,15,21)
+    - cron: "20 0,6,12,18 * * *"
 
 concurrency:
   group: cloud-miner-analyst
@@ -23,7 +23,7 @@ jobs:
   mine-analyst:
     name: Mine Analyst Alphas (analyst4 dataset)
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 180
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -63,4 +63,4 @@ jobs:
           python scripts/cloud_multi_miner.py \
             --category analyst \
             --candidates ${{ github.event.inputs.candidates || '9999' }} \
-            --timeout-mins ${{ github.event.inputs.timeout_mins || '345' }}
+            --timeout-mins ${{ github.event.inputs.timeout_mins || '170' }}

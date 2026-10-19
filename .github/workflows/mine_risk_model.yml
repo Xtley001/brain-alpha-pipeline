@@ -10,10 +10,10 @@ on:
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "345"
+        default: "170"
   schedule:
-    # Runs every 6 hours at minute 45 (staggered from options at :00)
-    - cron: "45 */6 * * *"
+    # Runs every 3 hours at minute 45 (staggered from options at :00)
+    - cron: "45 */3 * * *"
 
 concurrency:
   group: cloud-miner-risk-model
@@ -23,7 +23,7 @@ jobs:
   mine-risk-model:
     name: Mine Risk Model Alphas (1-Slot Cloud)
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 180
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -63,4 +63,4 @@ jobs:
           python scripts/cloud_multi_miner.py \
             --category risk_model \
             --candidates ${{ github.event.inputs.candidates || '9999' }} \
-            --timeout-mins ${{ github.event.inputs.timeout_mins || '345' }}
+            --timeout-mins ${{ github.event.inputs.timeout_mins || '170' }}
