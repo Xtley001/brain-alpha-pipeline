@@ -371,6 +371,8 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
         if pnl:
             ref_pnls[aid] = pnl
 
+    priority_queue: List[Dict[str, Any]] = []
+
     # 3. Initialize generator based on category
     generator = None
     if category == "options":
@@ -403,7 +405,6 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
     candidates_evaluated = 0
     start_time = time.time()
     max_duration_sec = timeout_mins * 60
-    priority_queue: List[Dict[str, Any]] = []
     background_eval_tasks: set[asyncio.Task] = set()
 
     while candidates_evaluated < max_candidates:
@@ -432,6 +433,9 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             neut = cand_obj.neutralization
             decay = cand_obj.decay
             region = getattr(cand_obj, "region", "USA")
+        elif category == "analyst":
+            log.info("All analyst candidates evaluated.")
+            break
         else:
             cand_obj = generator.generate_candidate()
             expr = cand_obj.expression

@@ -59,3 +59,14 @@ def test_apex_cross_category_synthesis():
     assert sample.value_score >= 6.0
     assert "group_neutralize(" in sample.expression
     assert "subindustry" in sample.expression.lower() or "sector" in sample.expression.lower()
+
+
+def test_analyst_revision_candidates():
+    from brain_generators.analyst.analyst_revision_generator import generate_analyst_revision_candidates
+    candidates = generate_analyst_revision_candidates()
+    assert len(candidates) == 252
+    sample = candidates[0]
+    assert sample["category"] == "analyst"
+    assert "group_neutralize(" in sample["expression"]
+    assert sample["decay"] in (5, 10, 15, 20)
+
