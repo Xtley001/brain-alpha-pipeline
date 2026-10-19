@@ -1,9 +1,9 @@
 name: BRAIN Daily Digest
 
 on:
-#  schedule:
-#    # 22:50 UTC daily = 23:50 WAT (11:50 PM WAT end-of-day digest)
-#    - cron: "50 22 * * *"
+  schedule:
+    # 22:50 UTC daily = 23:50 WAT (11:50 PM WAT end-of-day digest)
+    - cron: "50 22 * * *"
   workflow_dispatch: {}
 
 concurrency:
