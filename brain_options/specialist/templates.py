@@ -158,7 +158,7 @@ class OptionCandidate:
     decorrelation_attempts: int = 0
     operator_name: Optional[str] = None
     archetype: str = ""
-    universe: str = "TOP3000"
+    universe: str = "TOPSP500"
     neutralization: str = "SUBINDUSTRY"
     decay: int = 18
     family: str = "Options"
@@ -185,7 +185,7 @@ def generate_high_capacity_candidates() -> list[OptionCandidate]:
     tenors = [30, 60, 90, 120, 150, 180, 270, 360]
     decays = [14, 18, 22]
     groups = ["subindustry", "sector", "industry"]
-    universes = ["TOP3000", "TOP2000"]
+    universes = ["TOPSP500", "TOP500"]
 
     # 1. ARCHETYPE 1: Asymmetric Put Breakeven Contraction & Floors
     for t in tenors:

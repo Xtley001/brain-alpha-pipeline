@@ -26,7 +26,7 @@ class ApexCandidate:
     expression: str
     name: str
     hypothesis: str
-    universe: str = "TOP3000"
+    universe: str = "TOPSP500"
     neutralization: str = "SUBINDUSTRY"
     decay: int = 15
     category: str = "top3_tri_factor"
@@ -44,7 +44,7 @@ def generate_apex_candidates() -> List[ApexCandidate]:
       Analyst:   earnings_surprise, analyst_estimate_dispersion, analyst_count
     """
     candidates: List[ApexCandidate] = []
-    universes = ["TOP3000", "TOP2000", "TOP1000"]
+    universes = ["TOPSP500", "TOP500"]
     groups = ["subindustry", "sector"]
     decays = [10, 12, 15]
 

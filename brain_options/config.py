@@ -61,7 +61,7 @@ class OptionsConfig:
     database_url: str | None = None
 
     # Operational settings
-    universe: str = "TOP3000"
+    universe: str = "TOPSP500"
     delay: int = 1
     max_candidates_per_run: int = 10
     run_time_budget_seconds: int = 480
