@@ -339,20 +339,20 @@ async def evaluate_candidate_qualification(
         return False
 
 
-async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int):
+async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int, concurrency: int = 3):
     config = OptionsConfig.from_env()
     store = OptionsStore()
     llm = LLMAdapter(config)
     client = BrainClient(
         username=config.brain_username,
         password=config.brain_password,
-        max_concurrent_sims=1,
+        max_concurrent_sims=concurrency,
         db=store.db,
     )
 
     log.info("=" * 70)
-    log.info("STARTING CLOUD MULTI-MINER: Category=%s | Batch=%d | Timeout=%dm", category.upper(), max_candidates, timeout_mins)
-    log.info("Concurrency: 1 (Reserved Single-Slot Mode to prevent collisions with Local PC)")
+    log.info("STARTING HIGH-SPEED CLOUD MULTI-MINER: Category=%s | Batch=%d | Timeout=%dm | Concurrency=%d Slots",
+             category.upper(), max_candidates, timeout_mins, concurrency)
     log.info("=" * 70)
 
     # 1. Authenticate with WorldQuant BRAIN (resumes PostgreSQL cluster session cache)
@@ -373,19 +373,37 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
 
     priority_queue: List[Dict[str, Any]] = []
 
-    # 3. Initialize generator based on category
+    # 3. Initialize generator & seed priority candidates based on category
     generator = None
+    apex_candidates: List[Any] = []
+
     if category == "options":
         generator = OptionsGenerator(db=store.db, llm_adapter=llm)
-        log.info("Options generator loaded. Mining option8/option9 (PCR+Vol Surface).")
+        log.info("Options generator loaded. Mining option8/option9 (PCR + Vol Surface).")
+        # Inoculate priority queue with Near-Miss Convex Sweeps on TOPSP500 (mL6wvmP6 Base)
+        for d in [12, 15, 18, 20, 22, 25]:
+            for p in [1.0, 1.5, 2.0]:
+                for delta_win in [8, 10, 12]:
+                    for neut in ["SECTOR", "SUBINDUSTRY"]:
+                        priority_queue.append({
+                            "expression": (
+                                f"trade_when(volume > adv20 * 0.70, "
+                                f"group_neutralize(signed_power(rank(-ts_decay_linear(ts_delta(pcr_oi_30, {delta_win}), 5)) - 0.5, {p}), {neut.lower()}), "
+                                f"-1)"
+                            ),
+                            "archetype": f"PutOI_Convex_d{d}_w{delta_win}_p{p}_{neut}",
+                            "hypothesis": f"Near-miss optimization of 1.05 Sharpe Put OI Buildup on TOPSP500 with decay {d}, power {p}, delta {delta_win}.",
+                            "universe": "TOPSP500",
+                            "neutralization": neut,
+                            "decay": d,
+                            "region": "USA",
+                        })
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
-        log.info("Risk model generator loaded. Mining model51/model16 (BAB + IdioVol + VPIN).")
+        log.info("Risk model generator loaded. Mining model51/model16 (BAB + Unsystematic Risk + Momentum Derivatives).")
     elif category == "analyst":
-        # Analyst4 dataset — static catalog, no LLM generator needed
         analyst_candidates = generate_analyst_revision_candidates()
-        log.info("Analyst generator loaded. %d candidates from analyst4 dataset (CJL/DMS/GL).", len(analyst_candidates))
-        # Inject all analyst candidates directly into the priority queue
+        log.info("Analyst generator loaded. %d verified candidates from analyst4 dataset (CJL/DMS/GL).", len(analyst_candidates))
         for ac in analyst_candidates:
             priority_queue.append({
                 "expression": ac["expression"],
@@ -398,7 +416,17 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             })
     elif category == "apex":
         apex_candidates = generate_apex_candidates()
-        log.info("Loaded %d static apex tri-factor candidates.", len(apex_candidates))
+        log.info("Loaded %d verified Apex Tri-Factor candidates (model51 + option8/9 + analyst4).", len(apex_candidates))
+        for ac in apex_candidates:
+            priority_queue.append({
+                "expression": ac.expression,
+                "archetype":  ac.name,
+                "hypothesis": ac.hypothesis,
+                "universe":   ac.universe,
+                "neutralization": ac.neutralization,
+                "decay":      ac.decay,
+                "region":     getattr(ac, "region", "USA"),
+            })
     else:
         raise ValueError(f"Unknown category: {category}")
 
@@ -407,14 +435,62 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
     max_duration_sec = timeout_mins * 60
     background_eval_tasks: set[asyncio.Task] = set()
 
-    while candidates_evaluated < max_candidates:
-        if time.time() - start_time > max_duration_sec:
-            log.info("Time budget (%d mins) reached. Wrapping up cloud batch.", timeout_mins)
-            break
+    # Async Queue for concurrent worker pool
+    work_queue: asyncio.Queue[Dict[str, Any]] = asyncio.Queue()
+    stop_event = asyncio.Event()
+    counter_lock = asyncio.Lock()
 
-        # Pull next candidate (priority near-miss sweep first, then generator)
-        if priority_queue:
-            cand_obj = priority_queue.pop(0)
+    # Feeder coroutine: maintains queue depth
+    async def feeder_loop():
+        # First push all pre-seeded priority candidates
+        for cand in priority_queue:
+            if cand["expression"] not in known_exprs:
+                known_exprs.add(cand["expression"])
+                await work_queue.put(cand)
+
+        # Then continuously feed from generator as queue empties
+        while not stop_event.is_set():
+            if work_queue.qsize() < 20:
+                if generator is not None:
+                    try:
+                        c = generator.generate_candidate()
+                        expr = c.expression
+                        if expr not in known_exprs:
+                            known_exprs.add(expr)
+                            await work_queue.put({
+                                "expression": expr,
+                                "archetype": getattr(c, "archetype", None) or getattr(c, "archetype_name", "general"),
+                                "hypothesis": getattr(c, "hypothesis", ""),
+                                "universe": getattr(c, "universe", "TOPSP500"),
+                                "neutralization": getattr(c, "neutralization", "SUBINDUSTRY"),
+                                "decay": getattr(c, "decay", 18),
+                                "region": getattr(c, "region", "USA"),
+                            })
+                    except Exception as gen_err:
+                        log.debug("Feeder generator error: %s", gen_err)
+            await asyncio.sleep(0.5)
+
+    # Worker coroutine: concurrent simulation consumer
+    async def worker_loop(worker_id: int):
+        nonlocal candidates_evaluated
+        while not stop_event.is_set():
+            if time.time() - start_time > max_duration_sec:
+                log.info("Worker #%d: Time budget (%d mins) reached.", worker_id, timeout_mins)
+                stop_event.set()
+                break
+
+            async with counter_lock:
+                if candidates_evaluated >= max_candidates:
+                    stop_event.set()
+                    break
+
+            try:
+                cand_obj = await asyncio.wait_for(work_queue.get(), timeout=2.0)
+            except asyncio.TimeoutError:
+                if stop_event.is_set() or (work_queue.empty() and generator is None and not priority_queue):
+                    break
+                continue
+
             expr = cand_obj["expression"]
             arch = cand_obj["archetype"]
             hyp = cand_obj["hypothesis"]
@@ -422,172 +498,170 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int)
             neut = cand_obj["neutralization"]
             decay = cand_obj["decay"]
             region = cand_obj.get("region", "USA")
-        elif category == "apex":
-            if not apex_candidates:
-                break
-            cand_obj = apex_candidates.pop(0)
-            expr = cand_obj.expression
-            arch = cand_obj.name
-            hyp = cand_obj.hypothesis
-            universe = cand_obj.universe
-            neut = cand_obj.neutralization
-            decay = cand_obj.decay
-            region = getattr(cand_obj, "region", "USA")
-        elif category == "analyst":
-            log.info("All analyst candidates evaluated.")
-            break
-        else:
-            cand_obj = generator.generate_candidate()
-            expr = cand_obj.expression
-            arch = getattr(cand_obj, "archetype", None) or getattr(cand_obj, "archetype_name", "general")
-            hyp = getattr(cand_obj, "hypothesis", "")
-            universe = getattr(cand_obj, "universe", "TOP3000")
-            neut = getattr(cand_obj, "neutralization", "SUBINDUSTRY")
-            decay = getattr(cand_obj, "decay", 18)
-            region = getattr(cand_obj, "region", "USA")
 
-        if expr in known_exprs:
-            continue
-        known_exprs.add(expr)
+            # Fast local pre-screening
+            ok, reason = pre_screen_expression(expr)
+            if not ok:
+                log.warning("[-] Pre-screening rejected expression (%s): %s", reason, expr[:60])
+                work_queue.task_done()
+                continue
 
-        # Fast local pre-screening
-        ok, reason = pre_screen_expression(expr)
-        if not ok:
-            log.warning("[-] Pre-screening rejected expression (%s): %s", reason, expr[:60])
-            continue
+            async with counter_lock:
+                candidates_evaluated += 1
+                current_num = candidates_evaluated
 
-        candidates_evaluated += 1
-        settings = SimSettings(
-            region=region,
-            universe=universe,
-            delay=1,
-            decay=decay,
-            neutralization=neut,
-            truncation=0.05,
-            pasteurization=True,
-        )
-
-        log.info("[%s Sim #%d/%d] Simulating %s (decay=%d, u=%s, r=%s)...", category.upper(), candidates_evaluated, max_candidates, arch, decay, universe, region)
-        try:
-            metrics = await client.simulate_one(expr, settings)
-        except Exception as e:
-            log.warning("Simulation exception: %s", e)
-            await asyncio.sleep(2.0)
-            continue
-
-        if not metrics or not metrics.is_valid:
-            await asyncio.sleep(1.0)
-            continue
-
-        log.info(
-            "[%s Sim #%d] %s | Sharpe=%.2f | Fitness=%.2f | TO=%.1f%% | Margin=%.1fbps | DD=%.1f%% | %s",
-            category.upper(), candidates_evaluated, metrics.alpha_id, metrics.sharpe, metrics.fitness,
-            metrics.turnover * 100, metrics.margin * 10000, metrics.max_drawdown * 100, arch
-        )
-
-        # Gate 1: Performance Gate
-        fitness_threshold = 0.70 if category == "options" else 1.00
-        passed_gate1 = (
-            metrics.sharpe >= 1.25
-            and metrics.fitness >= fitness_threshold
-            and 0.01 <= metrics.turnover <= 0.70
-            and metrics.margin >= 0.0008
-            and metrics.max_drawdown <= 0.35
-        )
-
-        # Log to options_evaluations table for live telemetry and health checks
-        log_candidate_evaluation(
-            db_url=config.database_url,
-            expr=expr,
-            arch=arch,
-            src=f"cloud_{category}",
-            stage="STAGE0",
-            status="PASS" if passed_gate1 else "FAIL",
-            metrics=metrics,
-        )
-
-        # Reinforcement Learning MAB Update: Record operator reward
-        if store.db:
-            try:
-                rew = float(metrics.sharpe) if metrics.sharpe is not None else 0.0
-                store.db.record_strategy_operator_reward(
-                    strategy_name=f"cloud_{category}",
-                    operator_name=arch,
-                    parameter_name="decay",
-                    parameter_val=str(decay),
-                    reward=rew,
-                    success=passed_gate1,
-                )
-            except Exception as rl_err:
-                log.debug("Failed to record strategy operator reward: %s", rl_err)
-
-        if passed_gate1:
-            log.info("[+] Candidate %s passed Gate 1! Spawning async Gate 2 & Gate 3 verification pipeline...", metrics.alpha_id)
-            eval_task = asyncio.create_task(
-                evaluate_candidate_qualification(
-                    client=client,
-                    metrics=metrics,
-                    expr=expr,
-                    arch=arch,
-                    hyp=hyp,
-                    universe=universe,
-                    neut=neut,
-                    decay=decay,
-                    category=category,
-                    config=config,
-                    ref_pnls=ref_pnls,
-                )
+            settings = SimSettings(
+                region=region,
+                universe=universe,
+                delay=1,
+                decay=decay,
+                neutralization=neut,
+                truncation=0.05,
+                pasteurization=True,
             )
-            background_eval_tasks.add(eval_task)
-            eval_task.add_done_callback(background_eval_tasks.discard)
 
-        # Convex Surface Near-Miss Sweep: If Sharpe in [1.05, 1.24] and Fitness meets threshold, generate micro-sweeps
-        elif (
-            1.05 <= metrics.sharpe < 1.25
-            and metrics.fitness >= (0.40 if category == "options" else 0.65)
-            and 0.01 <= metrics.turnover <= 0.70
-            and len(priority_queue) < 15
-        ):
-            log.info("[⚡] Near-Miss detected for %s (Sharpe=%.2f, Fit=%.2f). Enqueuing convex surface gradient mutations...", metrics.alpha_id, metrics.sharpe, metrics.fitness)
-            for d_shift in (-3, 3):
-                new_d = max(5, decay + d_shift)
-                priority_queue.append({
-                    "expression": expr,
-                    "archetype": arch,
-                    "hypothesis": f"{hyp} [Convex Sweep d={new_d}]",
-                    "universe": universe,
-                    "neutralization": neut,
-                    "decay": new_d,
-                    "region": region,
-                })
-            alt_neut = "SECTOR" if neut.upper() == "SUBINDUSTRY" else "SUBINDUSTRY"
-            priority_queue.append({
-                "expression": expr,
-                "archetype": arch,
-                "hypothesis": f"{hyp} [Convex Sweep neut={alt_neut}]",
-                "universe": universe,
-                "neutralization": alt_neut,
-                "decay": decay,
-                "region": region,
-            })
+            log.info("[%s W#%d Sim #%d/%d] Simulating %s (decay=%d, u=%s)...",
+                     category.upper(), worker_id, current_num, max_candidates, arch, decay, universe)
+
+            try:
+                metrics = await client.simulate_one(expr, settings)
+            except Exception as e:
+                log.warning("Simulation exception in worker #%d: %s", worker_id, e)
+                work_queue.task_done()
+                await asyncio.sleep(1.0)
+                continue
+
+            if not metrics or not metrics.is_valid:
+                work_queue.task_done()
+                await asyncio.sleep(0.5)
+                continue
+
+            log.info(
+                "[%s W#%d Sim #%d] %s | Sharpe=%.2f | Fitness=%.2f | TO=%.1f%% | Margin=%.1fbps | DD=%.1f%% | %s",
+                category.upper(), worker_id, current_num, metrics.alpha_id, metrics.sharpe, metrics.fitness,
+                metrics.turnover * 100, metrics.margin * 10000, metrics.max_drawdown * 100, arch
+            )
+
+            # Gate 1: Performance Gate
+            fitness_threshold = 0.70 if category == "options" else 1.00
+            passed_gate1 = (
+                metrics.sharpe >= 1.25
+                and metrics.fitness >= fitness_threshold
+                and 0.01 <= metrics.turnover <= 0.70
+                and metrics.margin >= 0.0008
+                and metrics.max_drawdown <= 0.35
+            )
+
+            # Log to DB
+            log_candidate_evaluation(
+                db_url=config.database_url,
+                expr=expr,
+                arch=arch,
+                src=f"cloud_{category}",
+                stage="STAGE0",
+                status="PASS" if passed_gate1 else "FAIL",
+                metrics=metrics,
+            )
+
+            # RL MAB Reward
+            if store.db:
+                try:
+                    rew = float(metrics.sharpe) if metrics.sharpe is not None else 0.0
+                    store.db.record_strategy_operator_reward(
+                        strategy_name=f"cloud_{category}",
+                        operator_name=arch,
+                        parameter_name="decay",
+                        parameter_val=str(decay),
+                        reward=rew,
+                        success=passed_gate1,
+                    )
+                except Exception as rl_err:
+                    log.debug("Failed to record strategy operator reward: %s", rl_err)
+
+            # Gate 1 Pass -> Spawn Async Gate 2 & 3
+            if passed_gate1:
+                log.info("[+] Candidate %s passed Gate 1! Spawning async Gate 2 & Gate 3 verification pipeline...", metrics.alpha_id)
+                eval_task = asyncio.create_task(
+                    evaluate_candidate_qualification(
+                        client=client,
+                        metrics=metrics,
+                        expr=expr,
+                        arch=arch,
+                        hyp=hyp,
+                        universe=universe,
+                        neut=neut,
+                        decay=decay,
+                        category=category,
+                        config=config,
+                        ref_pnls=ref_pnls,
+                    )
+                )
+                background_eval_tasks.add(eval_task)
+                eval_task.add_done_callback(background_eval_tasks.discard)
+
+            # Near-Miss Sweep: If Sharpe in [1.00, 1.24], enqueue convex mutations immediately
+            elif 1.00 <= metrics.sharpe < 1.25 and metrics.fitness >= (0.40 if category == "options" else 0.60):
+                log.info("[⚡] Near-Miss detected for %s (Sharpe=%.2f, Fit=%.2f). Enqueuing convex surface gradient mutations...",
+                         metrics.alpha_id, metrics.sharpe, metrics.fitness)
+                for d_shift in (-3, 3):
+                    new_d = max(5, decay + d_shift)
+                    mut_expr = expr
+                    if mut_expr not in known_exprs:
+                        known_exprs.add(mut_expr)
+                        await work_queue.put({
+                            "expression": mut_expr,
+                            "archetype": arch,
+                            "hypothesis": f"{hyp} [Convex d={new_d}]",
+                            "universe": "TOPSP500",
+                            "neutralization": neut,
+                            "decay": new_d,
+                            "region": region,
+                        })
+                alt_neut = "SECTOR" if neut.upper() == "SUBINDUSTRY" else "SUBINDUSTRY"
+                if expr not in known_exprs:
+                    await work_queue.put({
+                        "expression": expr,
+                        "archetype": arch,
+                        "hypothesis": f"{hyp} [Convex neut={alt_neut}]",
+                        "universe": "TOPSP500",
+                        "neutralization": alt_neut,
+                        "decay": decay,
+                        "region": region,
+                    })
+
+            work_queue.task_done()
+
+    # Launch feeder and worker tasks concurrently
+    feeder_task = asyncio.create_task(feeder_loop())
+    worker_tasks = [asyncio.create_task(worker_loop(i + 1)) for i in range(concurrency)]
+
+    await asyncio.gather(*worker_tasks, return_exceptions=True)
+    stop_event.set()
+    feeder_task.cancel()
 
     if background_eval_tasks:
         log.info("[*] Waiting for %d in-flight qualification evaluation tasks to complete...", len(background_eval_tasks))
         await asyncio.gather(*background_eval_tasks, return_exceptions=True)
 
     log.info("=" * 70)
-    log.info("CLOUD MINER COMPLETE: %d evaluated.", candidates_evaluated)
+    log.info("HIGH-SPEED CLOUD MINER COMPLETE: %d evaluated in %d slots.", candidates_evaluated, concurrency)
     log.info("=" * 70)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Dedicated Cloud Multi-Category Alpha Miner")
     parser.add_argument("--category", choices=["options", "risk_model", "analyst", "apex"], required=True, help="Category to mine")
-    parser.add_argument("--candidates", type=int, default=25, help="Max candidates to simulate")
-    parser.add_argument("--timeout-mins", type=int, default=20, help="Max time in minutes")
+    parser.add_argument("--candidates", type=int, default=9999, help="Max candidates to simulate")
+    parser.add_argument("--timeout-mins", type=int, default=115, help="Max time in minutes (default: 115m for 2h runner)")
+    parser.add_argument("--concurrency", type=int, default=3, help="Concurrent simulation slots (default: 3)")
     args = parser.parse_args()
 
-    asyncio.run(run_cloud_miner(category=args.category, max_candidates=args.candidates, timeout_mins=args.timeout_mins))
+    asyncio.run(run_cloud_miner(
+        category=args.category,
+        max_candidates=args.candidates,
+        timeout_mins=args.timeout_mins,
+        concurrency=args.concurrency
+    ))
 
 
 if __name__ == "__main__":

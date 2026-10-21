@@ -10,10 +10,14 @@ on:
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "170"
+        default: "115"
+      concurrency:
+        description: "Concurrent simulation slots"
+        required: false
+        default: "3"
   schedule:
-    # Runs every 3 hours at minute 45 (staggered from options at :00)
-    - cron: "45 */3 * * *"
+    # Staggered 2h relay: fires at 03:00, 09:00, 15:00, 21:00 UTC
+    - cron: "0 3,9,15,21 * * *"
 
 concurrency:
   group: cloud-miner-risk-model
@@ -21,9 +25,9 @@ concurrency:
 
 jobs:
   mine-risk-model:
-    name: Mine Risk Model Alphas (1-Slot Cloud)
+    name: Mine Risk Model Alphas (3-Slot High-Speed Cloud)
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 125
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -45,7 +49,7 @@ jobs:
       GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      BRAIN_MAX_CONCURRENT_SIMS: "1"
+      BRAIN_MAX_CONCURRENT_SIMS: "3"
 
     steps:
       - uses: actions/checkout@v4
@@ -63,4 +67,5 @@ jobs:
           python scripts/cloud_multi_miner.py \
             --category risk_model \
             --candidates ${{ github.event.inputs.candidates || '9999' }} \
-            --timeout-mins ${{ github.event.inputs.timeout_mins || '170' }}
+            --timeout-mins ${{ github.event.inputs.timeout_mins || '115' }} \
+            --concurrency ${{ github.event.inputs.concurrency || '3' }}

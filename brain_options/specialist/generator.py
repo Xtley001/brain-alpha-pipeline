@@ -96,7 +96,7 @@ class OptionsGenerator:
                 generation_source="template",
                 decay=15,
                 neutralization="SECTOR",
-                universe="TOP3000",
+                universe="TOPSP500",
             ),
             OptionCandidate(
                 expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 8), 5)), sector)",
@@ -105,7 +105,7 @@ class OptionsGenerator:
                 generation_source="template",
                 decay=12,
                 neutralization="SECTOR",
-                universe="TOP3000",
+                universe="TOPSP500",
             ),
             OptionCandidate(
                 expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 12), 6)), sector)",
@@ -114,7 +114,7 @@ class OptionsGenerator:
                 generation_source="template",
                 decay=14,
                 neutralization="SECTOR",
-                universe="TOP3000",
+                universe="TOPSP500",
             ),
             OptionCandidate(
                 expression="trade_when(volume > adv20 * 0.8, group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)), sector), -1)",
@@ -123,7 +123,7 @@ class OptionsGenerator:
                 generation_source="template",
                 decay=18,
                 neutralization="SECTOR",
-                universe="TOP3000",
+                universe="TOPSP500",
             ),
             OptionCandidate(
                 expression="group_neutralize(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)), subindustry)",
@@ -132,7 +132,7 @@ class OptionsGenerator:
                 generation_source="template",
                 decay=16,
                 neutralization="SUBINDUSTRY",
-                universe="TOP3000",
+                universe="TOPSP500",
             ),
             OptionCandidate(
                 expression="group_neutralize(signed_power(rank(-ts_decay_linear(ts_delta(pcr_oi_30, 10), 5)) - 0.5, 1.5), sector)",
@@ -141,7 +141,7 @@ class OptionsGenerator:
                 generation_source="template",
                 decay=15,
                 neutralization="SECTOR",
-                universe="TOP3000",
+                universe="TOPSP500",
             ),
         ]
         all_candidates = (

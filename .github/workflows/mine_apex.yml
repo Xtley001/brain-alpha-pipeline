@@ -10,10 +10,14 @@ on:
       timeout_mins:
         description: "Timeout budget in minutes"
         required: false
-        default: "170"
+        default: "115"
+      concurrency:
+        description: "Concurrent simulation slots"
+        required: false
+        default: "3"
   schedule:
-    # Runs on alternating 3h rapid cycle (staggered with Analyst at 0,6,12,18)
-    - cron: "20 3,9,15,21 * * *"
+    # Staggered 2h relay: fires at 04:00, 10:00, 16:00, 22:00 UTC
+    - cron: "0 4,10,16,22 * * *"
 
 concurrency:
   group: cloud-miner-apex
@@ -21,9 +25,9 @@ concurrency:
 
 jobs:
   mine-apex:
-    name: Mine Apex Tri-Factor Alphas (1-Slot Cloud)
+    name: Mine Apex Tri-Factor Alphas (3-Slot High-Speed Cloud)
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 125
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -45,7 +49,7 @@ jobs:
       GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      BRAIN_MAX_CONCURRENT_SIMS: "1"
+      BRAIN_MAX_CONCURRENT_SIMS: "3"
 
     steps:
       - uses: actions/checkout@v4
@@ -58,9 +62,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Cloud Apex Tri-Factor Miner
+      - name: Run Cloud Apex Miner
         run: |
           python scripts/cloud_multi_miner.py \
             --category apex \
             --candidates ${{ github.event.inputs.candidates || '9999' }} \
-            --timeout-mins ${{ github.event.inputs.timeout_mins || '170' }}
+            --timeout-mins ${{ github.event.inputs.timeout_mins || '115' }} \
+            --concurrency ${{ github.event.inputs.concurrency || '3' }}
