@@ -46,6 +46,8 @@ log = logging.getLogger("cloud_miner")
 from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 from brain_options.core.correlation import compute_correlation
+from brain_options.core.validator import validate_expression
+from brain_options.specialist.convex_mutator import ConvexNearMissMutator
 from brain_options.llm.adapter import LLMAdapter
 from brain_options.store.store import OptionsStore
 
@@ -246,17 +248,8 @@ def log_candidate_evaluation(
 
 
 def pre_screen_expression(expr: str) -> Tuple[bool, str]:
-    """Fast local syntactic and structural filter before submitting to BRAIN."""
-    clean = expr.strip()
-    if clean.count("(") != clean.count(")"):
-        return False, "Unbalanced parentheses"
-    if len(clean) < 10:
-        return False, "Expression too short"
-    if ",," in clean or "(," in clean or ",)" in clean:
-        return False, "Malformed comma syntax"
-    if "rank(rank(" in clean:
-        return False, "Redundant nested rank"
-    return True, "OK"
+    """Strict local AST and verified field validator."""
+    return validate_expression(expr)
 
 
 async def evaluate_candidate_qualification(
@@ -312,6 +305,13 @@ async def evaluate_candidate_qualification(
             category=category,
         )
 
+        # Cache newly qualified PnL vector into PostgreSQL DB
+        if store.db:
+            try:
+                store.db.save_alpha_pnl(metrics.alpha_id, cand_pnl)
+            except Exception as cache_err:
+                log.debug("Failed to cache alpha PnL to DB: %s", cache_err)
+
         # Telegram Alert (with robust HTML escaping to prevent parse errors)
         safe_expr = html.escape(expr)
         safe_arch = html.escape(arch)
@@ -349,6 +349,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
         max_concurrent_sims=concurrency,
         db=store.db,
     )
+    mutator = ConvexNearMissMutator(db=store.db)
 
     log.info("=" * 70)
     log.info("STARTING HIGH-SPEED CLOUD MULTI-MINER: Category=%s | Batch=%d | Timeout=%dm | Concurrency=%d Slots",
@@ -362,14 +363,27 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
         log.error("Failed to authenticate with WorldQuant BRAIN: %s", auth_err)
         return
 
-    # 2. Pre-fetch reference PnLs for correlation gate
+    # 2. Pre-fetch reference PnLs for correlation gate (PostgreSQL DB Cache first <50ms!)
     ref_alpha_ids, known_exprs = load_reference_pnls(config.database_url)
     ref_pnls: Dict[str, Dict[str, float]] = {}
-    log.info("Pre-fetching PnL for %d portfolio reference alphas...", len(ref_alpha_ids))
-    for aid in ref_alpha_ids:
-        pnl = await client.get_alpha_pnl(aid)
-        if pnl:
-            ref_pnls[aid] = pnl
+
+    if store.db:
+        try:
+            ref_pnls = store.db.get_all_cached_alpha_pnls()
+        except Exception as e:
+            log.warning("Could not load cached PnLs from DB: %s", e)
+
+    missing_aids = [aid for aid in ref_alpha_ids if aid not in ref_pnls]
+    if missing_aids:
+        log.info("Fetching PnL for %d un-cached portfolio reference alphas...", len(missing_aids))
+        for aid in missing_aids:
+            pnl = await client.get_alpha_pnl(aid)
+            if pnl:
+                ref_pnls[aid] = pnl
+                if store.db:
+                    store.db.save_alpha_pnl(aid, pnl)
+    else:
+        log.info("All %d reference alpha PnLs loaded instantly from DB cache (<50ms). Zero API wait.", len(ref_pnls))
 
     priority_queue: List[Dict[str, Any]] = []
 
@@ -599,35 +613,26 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                 background_eval_tasks.add(eval_task)
                 eval_task.add_done_callback(background_eval_tasks.discard)
 
-            # Near-Miss Sweep: If Sharpe in [1.00, 1.24], enqueue convex mutations immediately
+            # Near-Miss Sweep: If Sharpe in [1.00, 1.24], generate 5-axis convex surface gradient mutations
             elif 1.00 <= metrics.sharpe < 1.25 and metrics.fitness >= (0.40 if category == "options" else 0.60):
-                log.info("[⚡] Near-Miss detected for %s (Sharpe=%.2f, Fit=%.2f). Enqueuing convex surface gradient mutations...",
+                log.info("[⚡] Near-Miss detected for %s (Sharpe=%.2f, Fit=%.2f). Launching 5-axis convex optimizer...",
                          metrics.alpha_id, metrics.sharpe, metrics.fitness)
-                for d_shift in (-3, 3):
-                    new_d = max(5, decay + d_shift)
-                    mut_expr = expr
-                    if mut_expr not in known_exprs:
-                        known_exprs.add(mut_expr)
-                        await work_queue.put({
-                            "expression": mut_expr,
-                            "archetype": arch,
-                            "hypothesis": f"{hyp} [Convex d={new_d}]",
-                            "universe": "TOPSP500",
-                            "neutralization": neut,
-                            "decay": new_d,
-                            "region": region,
-                        })
-                alt_neut = "SECTOR" if neut.upper() == "SUBINDUSTRY" else "SUBINDUSTRY"
-                if expr not in known_exprs:
-                    await work_queue.put({
-                        "expression": expr,
-                        "archetype": arch,
-                        "hypothesis": f"{hyp} [Convex neut={alt_neut}]",
-                        "universe": "TOPSP500",
-                        "neutralization": alt_neut,
-                        "decay": decay,
-                        "region": region,
-                    })
+                mutations = mutator.generate_convex_sweeps(
+                    expr=expr,
+                    archetype=arch,
+                    hypothesis=hyp,
+                    universe=universe,
+                    neutralization=neut,
+                    decay=decay,
+                    sharpe=metrics.sharpe,
+                    fitness=metrics.fitness,
+                    region=region,
+                )
+                for mut in mutations:
+                    m_expr = mut["expression"]
+                    if m_expr not in known_exprs:
+                        known_exprs.add(m_expr)
+                        await work_queue.put(mut)
 
             work_queue.task_done()
 

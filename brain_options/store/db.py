@@ -320,6 +320,24 @@ CREATE TABLE IF NOT EXISTS pipeline_alerts_log (
 
 CREATE INDEX IF NOT EXISTS idx_alerts_log_context_fired
     ON pipeline_alerts_log(context, fired_at DESC);
+
+-- ============================================================
+-- TABLE 10: alpha_pnl_cache
+-- Purpose: Persistent daily return vectors for all qualified
+--   and submitted alphas. Allows instant <50ms single-query PnL
+--   loading for correlation checking, eliminating BRAIN API
+--   HTTP timeouts on /recordsets/pnl during miner startup.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS alpha_pnl_cache (
+    alpha_id      VARCHAR(64) PRIMARY KEY,
+    daily_returns JSONB NOT NULL,
+    record_count  INTEGER DEFAULT 0,
+    created_at    TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_alpha_pnl_cache_id
+    ON alpha_pnl_cache(alpha_id);
 """
 
 
@@ -696,6 +714,57 @@ class OptionsDatabase:
             )
         log.info("Database schema initialized (tables and migrations applied).")
 
+
+    # ------------------------------------------------------------------
+    # alpha_pnl_cache — read / write path
+    # ------------------------------------------------------------------
+
+    def save_alpha_pnl(self, alpha_id: str, daily_returns: Dict[str, float]) -> bool:
+        """Saves daily return series vector to alpha_pnl_cache table."""
+        if not self.database_url or not alpha_id or not daily_returns:
+            return False
+        sql = """
+            INSERT INTO alpha_pnl_cache (alpha_id, daily_returns, record_count, updated_at)
+            VALUES (%s, %s, %s, NOW())
+            ON CONFLICT (alpha_id) DO UPDATE SET
+                daily_returns = EXCLUDED.daily_returns,
+                record_count = EXCLUDED.record_count,
+                updated_at = NOW();
+        """
+        try:
+            with self._get_connection() as conn:
+                if conn is None:
+                    return False
+                with conn.cursor() as cur:
+                    cur.execute(sql, (alpha_id, json.dumps(daily_returns), len(daily_returns)))
+                conn.commit()
+            return True
+        except Exception as e:
+            log.warning("Failed to cache PnL for %s in database: %s", alpha_id, e)
+            return False
+
+    def get_all_cached_alpha_pnls(self) -> Dict[str, Dict[str, float]]:
+        """Loads all cached reference alpha PnLs in a single SQL query (<50ms)."""
+        if not self.database_url:
+            return {}
+        sql = "SELECT alpha_id, daily_returns FROM alpha_pnl_cache WHERE daily_returns IS NOT NULL;"
+        pnls: Dict[str, Dict[str, float]] = {}
+        try:
+            with self._get_connection() as conn:
+                if conn is None:
+                    return pnls
+                with conn.cursor() as cur:
+                    cur.execute(sql)
+                    rows = cur.fetchall()
+                    for aid, ret_json in rows:
+                        if isinstance(ret_json, str):
+                            pnls[aid] = json.loads(ret_json)
+                        elif isinstance(ret_json, dict):
+                            pnls[aid] = ret_json
+            log.info("Loaded %d reference alpha PnL vectors from PostgreSQL cache (<50ms).", len(pnls))
+        except Exception as e:
+            log.warning("Failed to load cached PnLs from DB: %s", e)
+        return pnls
 
     # ------------------------------------------------------------------
     # options_evaluations — write path
