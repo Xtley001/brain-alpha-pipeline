@@ -264,6 +264,7 @@ async def evaluate_candidate_qualification(
     category: str,
     config: Any,
     ref_pnls: Dict[str, Dict[str, float]],
+    db: Any = None,
 ) -> bool:
     """Decoupled Gate 2 & Gate 3 verification pipeline executed asynchronously."""
     try:
@@ -306,9 +307,10 @@ async def evaluate_candidate_qualification(
         )
 
         # Cache newly qualified PnL vector into PostgreSQL DB
-        if store.db:
+        target_db = db or getattr(client, "db", None)
+        if target_db:
             try:
-                store.db.save_alpha_pnl(metrics.alpha_id, cand_pnl)
+                target_db.save_alpha_pnl(metrics.alpha_id, cand_pnl)
             except Exception as cache_err:
                 log.debug("Failed to cache alpha PnL to DB: %s", cache_err)
 
@@ -608,6 +610,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                         category=category,
                         config=config,
                         ref_pnls=ref_pnls,
+                        db=store.db,
                     )
                 )
                 background_eval_tasks.add(eval_task)
