@@ -19,12 +19,12 @@ def test_validator_valid_expressions():
     assert valid1 is True, f"Failed: {reason1}"
 
     # 2. Real option8 field expression
-    expr2 = "group_neutralize(rank(opt_implied_volatility_call_30 - opt_implied_volatility_put_30), subindustry)"
+    expr2 = "group_neutralize(rank(implied_volatility_call_30 - implied_volatility_put_30), subindustry)"
     valid2, reason2 = validate_expression(expr2)
     assert valid2 is True, f"Failed: {reason2}"
 
-    # 3. Real model51 field expression
-    expr3 = "group_neutralize(-rank(unsystematic_risk_last_60_days_spy), subindustry)"
+    # 3. Real model51 field expression — correct name without _spy suffix
+    expr3 = "group_neutralize(-rank(unsystematic_risk_last_60_days), subindustry)"
     valid3, reason3 = validate_expression(expr3)
     assert valid3 is True, f"Failed: {reason3}"
 
@@ -77,10 +77,18 @@ def test_validator_hallucinated_fields():
     assert v is False
     assert "analyst_estimate_dispersion" in r
 
+    # Reject wrong field name with _spy suffix for model51 fields
+    v, r = validate_expression("group_neutralize(-rank(unsystematic_risk_last_60_days_spy), subindustry)")
+    assert v is False, f"Expected rejection of wrong field name but got: {r}"
+
+    # Reject completely made-up unknown token — CRITICAL: strict mode must catch any unknown field
+    v, r = validate_expression("group_neutralize(rank(made_up_field_xyz_123), subindustry)")
+    assert v is False, f"LOOPHOLE: unknown token passed validation! reason={r}"
+    assert "made_up_field_xyz_123" in r
+
     # Reject idiosyncratic_vol_last_60_days_spy
     v, r = validate_expression("group_neutralize(-rank(idiosyncratic_vol_last_60_days_spy), subindustry)")
     assert v is False
-    assert "idiosyncratic_vol_last_60_days_spy" in r
 
 
 def test_convex_near_miss_mutator_generation():

@@ -2,7 +2,7 @@
 Tri-Category Apex Cross-Synthesis Engine.
 Orthogonally fuses WorldQuant BRAIN's Top 3 Highest Value-Score Categories:
 - Leg 1: Model Risk & Valuation (model51/model16, Value Score: 7.0)
-  -> Verified real fields: beta_last_60_days_spy, beta_last_90_days_spy, unsystematic_risk_last_60_days_spy
+  -> Verified real fields: beta_last_60_days_spy, beta_last_90_days_spy, unsystematic_risk_last_60_days
 - Leg 2: Options Derivatives & Surface Flow (option8/option9, Value Score: 6.0)
   -> Verified real fields: call_breakeven_60, put_breakeven_60, forward_price_60,
                           implied_volatility_call_30, implied_volatility_put_30, pcr_oi_all
@@ -85,7 +85,7 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                     f"group_neutralize(rank("
                     f"0.45 * rank(-ts_decay_linear({iv_skew}, {d})) + "
                     f"0.35 * rank(ts_decay_linear({sue_expr}, {d})) - "
-                    f"0.20 * rank(ts_decay_linear(unsystematic_risk_last_60_days_spy, {d}))"
+                    f"0.20 * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
                     f"), {g})"
                 )
                 candidates.append(ApexCandidate(
@@ -93,7 +93,7 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                     name=f"Apex2_Skew_Surprise_Confluence_d{d}_{u}_{g.upper()}",
                     hypothesis=(
                         "Tri-Factor: put-vs-call IV skew inversion (options flow) + SUE surprise "
-                        "(analyst signal) - unsystematic_risk_last_60_days_spy (model risk penalty). "
+                        "(analyst signal) - unsystematic_risk_last_60_days (model risk penalty). "
                         "Long flat-skew, high-surprise, low-idiosyncratic-noise equities."
                     ),
                     universe=u,
@@ -133,7 +133,7 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                     f"group_neutralize(signed_power(rank("
                     f"0.40 * rank(ts_decay_linear({put_floor}, {d})) + "
                     f"0.35 * rank(ts_decay_linear({sue_expr}, {d})) - "
-                    f"0.25 * rank(ts_decay_linear(unsystematic_risk_last_60_days_spy, {d}))"
+                    f"0.25 * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
                     f"), 1.5), {g})"
                 )
                 candidates.append(ApexCandidate(
@@ -141,7 +141,7 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                     name=f"Apex4_PutFloor_SUE_Conviction_d{d}_{u}_{g.upper()}",
                     hypothesis=(
                         "Tri-Factor with tail power weighting: forward_price > put_breakeven floor + "
-                        "positive SUE surprise - unsystematic risk. High-conviction compound signal."
+                        "positive SUE surprise - unsystematic_risk_last_60_days. High-conviction compound signal."
                     ),
                     universe=u,
                     neutralization=g.upper(),

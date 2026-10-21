@@ -99,19 +99,28 @@ def validate_expression(expr: str) -> Tuple[bool, str]:
     if not ("group_neutralize(" in clean or "group_rank(" in clean):
         return False, "Expression must contain group_neutralize or group_rank"
 
-    # 4. Strict Field Name Verification
-    # Extract all lowercase identifier tokens
-    tokens = re.findall(r"\b[a-z][a-z0-9_]*\b", clean)
-    for t in tokens:
-        # Ignore numbers, operators, standard primitives, and group values
-        if t in ALLOWED_OPERATORS or t in STANDARD_PRIMITIVES:
-            continue
-        # Check against verified fields
-        if VERIFIED_FIELDS and t not in VERIFIED_FIELDS:
-            # Check if it's a known invalid hallucinated field
-            if t in ("earnings_surprise", "analyst_estimate_dispersion", "analyst_count",
-                     "analyst_rating_change", "idiosyncratic_vol_last_60_days_spy",
-                     "consensus_eps", "consensus_net_profit"):
-                return False, f"Unverified/hallucinated BRAIN field detected: '{t}'"
+    # 4. STRICT Field Name Verification — zero tolerance policy.
+    # Any identifier token not in the verified whitelist, operator set, or standard
+    # primitives is IMMEDIATELY rejected. This closes ALL silent simulation failure paths.
+    if VERIFIED_FIELDS:
+        tokens = re.findall(r"\b[a-z][a-z0-9_]*\b", clean)
+        for t in tokens:
+            if t in ALLOWED_OPERATORS or t in STANDARD_PRIMITIVES:
+                continue
+            # Numeric-only suffixes from split formatting (e.g., "0", "001") won't match [a-z] start
+            if t not in VERIFIED_FIELDS:
+                return False, f"Unverified BRAIN field '{t}' — not in data/brain_fields_exact.json whitelist (1502 fields)"
+    else:
+        # Fallback: whitelist file failed to load, reject known hallucinations at minimum
+        log.warning("VERIFIED_FIELDS is empty — field whitelist not loaded! Falling back to known-bad list only.")
+        tokens = re.findall(r"\b[a-z][a-z0-9_]*\b", clean)
+        KNOWN_HALLUCINATIONS = {
+            "earnings_surprise", "analyst_estimate_dispersion", "analyst_count",
+            "analyst_rating_change", "idiosyncratic_vol_last_60_days_spy",
+            "consensus_eps", "consensus_net_profit", "analyst_count_change",
+        }
+        for t in tokens:
+            if t in KNOWN_HALLUCINATIONS:
+                return False, f"Known hallucinated BRAIN field detected: '{t}'"
 
     return True, "OK"
