@@ -47,7 +47,7 @@ from brain_options.config import OptionsConfig
 from brain_options.core.client import BrainClient, SimMetrics, SimSettings
 from brain_options.core.correlation import compute_correlation
 from brain_options.core.validator import validate_expression
-from brain_options.specialist.convex_mutator import ConvexNearMissMutator
+from brain_options.specialist.convex_mutator import ConvexNearMissMutator, _wrap_neutralize_with_signed_power
 from brain_options.llm.adapter import LLMAdapter
 from brain_options.store.store import OptionsStore
 
@@ -414,6 +414,38 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                             "decay": d,
                             "region": "USA",
                         })
+
+        # Inoculate 1.19 Sharpe Near-Miss Volatility Skew Steepness Shock on TOPSP500
+        seed_skew = (
+            "trade_when(abs(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5) > 0.35, "
+            "group_neutralize(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)), subindustry), -1)"
+        )
+        for thresh in ["0.28", "0.32", "0.35", "0.38", "0.42"]:
+            t_expr = seed_skew.replace("> 0.35", f"> {thresh}")
+            for d in [4, 5, 6, 8]:
+                priority_queue.append({
+                    "expression": t_expr,
+                    "archetype": f"SkewSteepness_t{thresh}_d{d}",
+                    "hypothesis": f"Near-miss sweep of 1.19 Sharpe Vol Skew with thresh={thresh}, decay={d}.",
+                    "universe": "TOPSP500",
+                    "neutralization": "SUBINDUSTRY",
+                    "decay": d,
+                    "region": "USA",
+                })
+        for p in [1.25, 1.5, 2.0]:
+            wrapped_skew = _wrap_neutralize_with_signed_power(seed_skew, p)
+            if wrapped_skew:
+                for d in [4, 5, 6]:
+                    priority_queue.append({
+                        "expression": wrapped_skew,
+                        "archetype": f"SkewSteepness_Power{p}_d{d}",
+                        "hypothesis": f"Tail power concentration p={p} of 1.19 Sharpe Vol Skew, decay={d}.",
+                        "universe": "TOPSP500",
+                        "neutralization": "SUBINDUSTRY",
+                        "decay": d,
+                        "region": "USA",
+                    })
+
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
         log.info("Risk model generator loaded. Mining model51/model16 (BAB + Unsystematic Risk + Momentum Derivatives).")
@@ -442,6 +474,39 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                 "neutralization": ac.neutralization,
                 "decay":      ac.decay,
                 "region":     getattr(ac, "region", "USA"),
+            })
+
+        # Inoculate 1.14 Sharpe / 0.96 Fitness Apex Tri-Factor Breakthrough Seeds with Tail Power
+        seed_apex = (
+            "trade_when(volume > adv20 * 0.75, group_neutralize(rank(0.45 * "
+            "rank(ts_decay_linear(((call_breakeven_60 - forward_price_60) / (close + 0.001)), 8)) + "
+            "0.35 * rank(ts_decay_linear(((anl4_af_eps_value - anl4_afv4_eps_mean) / (anl4_afv4_dts_spe + 0.001)), 8)) - "
+            "0.20 * rank(ts_decay_linear(beta_last_60_days_spy, 8))), subindustry), -1)"
+        )
+        for p in [1.25, 1.5, 1.75, 2.0]:
+            wrapped_apex = _wrap_neutralize_with_signed_power(seed_apex, p)
+            if wrapped_apex:
+                for d in [6, 8, 10, 12]:
+                    priority_queue.append({
+                        "expression": wrapped_apex,
+                        "archetype": f"Apex1_Power{p}_d{d}",
+                        "hypothesis": f"Apex Tri-Factor Tail Power p={p} decay={d} targeting >1.25 Sharpe.",
+                        "universe": "TOPSP500",
+                        "neutralization": "SUBINDUSTRY",
+                        "decay": d,
+                        "region": "USA",
+                    })
+        for hurdle in ["0.85", "1.0", "1.15"]:
+            gated = seed_apex.replace("volume > adv20 * 0.75", f"volume > adv20 * {hurdle}")
+            wrapped = _wrap_neutralize_with_signed_power(gated, 1.5)
+            priority_queue.append({
+                "expression": wrapped or gated,
+                "archetype": f"Apex1_Gated{hurdle}_Power1.5_d8",
+                "hypothesis": f"Apex Tri-Factor Gated hurdle={hurdle} + Power 1.5",
+                "universe": "TOPSP500",
+                "neutralization": "SUBINDUSTRY",
+                "decay": 8,
+                "region": "USA",
             })
     else:
         raise ValueError(f"Unknown category: {category}")
