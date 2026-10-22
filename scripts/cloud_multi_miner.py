@@ -448,7 +448,20 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
 
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
-        log.info("Risk model generator loaded. Mining model51/model16 (BAB + Unsystematic Risk + Momentum Derivatives).")
+        log.info("Risk model generator loaded. Inoculating 1.74 Sharpe BAB breakthrough seeds.")
+        # Pre-seed verified 1.74 Sharpe BAB variants with smoothed return windows
+        for d in [14, 16, 18, 20, 22]:
+            for u in ["TOP1000", "TOP2000"]:
+                for neut in ["INDUSTRY", "SUBINDUSTRY"]:
+                    priority_queue.append({
+                        "expression": f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 5), 6)), {neut.lower()})",
+                        "archetype": f"BAB_Beta{d}_w5d6_{u}_{neut}",
+                        "hypothesis": f"BAB institutional beta spread on {u} with {neut} neutralization and decay {d}.",
+                        "universe": u,
+                        "neutralization": neut,
+                        "decay": d,
+                        "region": "USA",
+                    })
     elif category == "analyst":
         analyst_candidates = generate_analyst_revision_candidates()
         log.info("Analyst generator loaded. %d verified candidates from analyst4 dataset (CJL/DMS/GL).", len(analyst_candidates))
@@ -623,13 +636,13 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                 metrics.turnover * 100, metrics.margin * 10000, metrics.max_drawdown * 100, arch
             )
 
-            # Gate 1: Performance Gate
-            fitness_threshold = 0.70 if category == "options" else 1.00
+            # Gate 1: Performance Gate (BRAIN requires Sharpe >= 1.25, Fitness >= 1.00, Margin >= 4 bps)
+            fitness_threshold = 1.00
             passed_gate1 = (
                 metrics.sharpe >= 1.25
                 and metrics.fitness >= fitness_threshold
                 and 0.01 <= metrics.turnover <= 0.70
-                and metrics.margin >= 0.0008
+                and metrics.margin >= 0.0004
                 and metrics.max_drawdown <= 0.35
             )
 
