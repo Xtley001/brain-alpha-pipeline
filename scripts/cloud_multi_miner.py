@@ -415,31 +415,15 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                             "region": "USA",
                         })
 
-        # Inoculate 1.19 Sharpe Near-Miss Volatility Skew Steepness Shock on TOPSP500
-        seed_skew = (
-            "trade_when(abs(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5) > 0.35, "
-            "group_neutralize(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)), subindustry), -1)"
-        )
-        for thresh in ["0.28", "0.32", "0.35", "0.38", "0.42"]:
-            t_expr = seed_skew.replace("> 0.35", f"> {thresh}")
-            for d in [4, 5, 6, 8]:
-                priority_queue.append({
-                    "expression": t_expr,
-                    "archetype": f"SkewSteepness_t{thresh}_d{d}",
-                    "hypothesis": f"Near-miss sweep of 1.19 Sharpe Vol Skew with thresh={thresh}, decay={d}.",
-                    "universe": "TOPSP500",
-                    "neutralization": "SUBINDUSTRY",
-                    "decay": d,
-                    "region": "USA",
-                })
-        for p in [1.25, 1.5, 2.0]:
-            wrapped_skew = _wrap_neutralize_with_signed_power(seed_skew, p)
-            if wrapped_skew:
-                for d in [4, 5, 6]:
+        # Inoculate 1.28 Sharpe Breakthrough Volatility Skew Steepness on TOPSP500
+        for thresh in ["0.24", "0.26", "0.28", "0.32"]:
+            for p in [1.5, 2.0]:
+                expr = f"trade_when(abs(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5) > {thresh}, group_neutralize(signed_power(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5, {p}), subindustry), -1)"
+                for d in [12, 14, 16, 18, 20]:
                     priority_queue.append({
-                        "expression": wrapped_skew,
-                        "archetype": f"SkewSteepness_Power{p}_d{d}",
-                        "hypothesis": f"Tail power concentration p={p} of 1.19 Sharpe Vol Skew, decay={d}.",
+                        "expression": expr,
+                        "archetype": f"SkewSteepness_t{thresh}_p{p}_d{d}",
+                        "hypothesis": f"Breakthrough Vol Skew with thresh={thresh}, power={p}, decay={d}.",
                         "universe": "TOPSP500",
                         "neutralization": "SUBINDUSTRY",
                         "decay": d,
@@ -453,15 +437,16 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
         for d in [14, 16, 18, 20, 22]:
             for u in ["TOP1000", "TOP2000"]:
                 for neut in ["INDUSTRY", "SUBINDUSTRY"]:
-                    priority_queue.append({
-                        "expression": f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 5), 6)), {neut.lower()})",
-                        "archetype": f"BAB_Beta{d}_w5d6_{u}_{neut}",
-                        "hypothesis": f"BAB institutional beta spread on {u} with {neut} neutralization and decay {d}.",
-                        "universe": u,
-                        "neutralization": neut,
-                        "decay": d,
-                        "region": "USA",
-                    })
+                    for (rw, rd) in [(5, 6), (8, 6), (10, 8)]:
+                        priority_queue.append({
+                            "expression": f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, {rw}), {rd})), {neut.lower()})",
+                            "archetype": f"BAB_Beta{d}_w{rw}d{rd}_{u}_{neut}",
+                            "hypothesis": f"BAB institutional beta spread on {u} with {neut} neutralization and decay {d}.",
+                            "universe": u,
+                            "neutralization": neut,
+                            "decay": d,
+                            "region": "USA",
+                        })
     elif category == "analyst":
         analyst_candidates = generate_analyst_revision_candidates()
         log.info("Analyst generator loaded. %d verified candidates from analyst4 dataset (CJL/DMS/GL).", len(analyst_candidates))
