@@ -53,8 +53,8 @@ from brain_options.store.store import OptionsStore
 
 from brain_options.specialist.generator import OptionsGenerator
 from brain_risk_model.specialist.generator import RiskModelGenerator
-from brain_generators.analyst.analyst_revision_generator import generate_analyst_revision_candidates
-from brain_synthesis.apex_generator import generate_apex_candidates
+from brain_generators.analyst.analyst_revision_generator import generate_analyst_revision_candidates, AnalystGenerator
+from brain_synthesis.apex_generator import generate_apex_candidates, ApexGenerator
 
 
 def send_tg_message(token: str, chat_id: str, html_text: str):
@@ -441,6 +441,24 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                         "region": "USA",
                     })
 
+        # Inoculate Vol Skew + Put-Call Flow interaction on TOPSP500 and TOP1000
+        # (Verified fields: implied_volatility_mean_skew_30 (option8), pcr_vol_30 (option9), pcr_oi_30 (option9))
+        for u in ["TOPSP500", "TOP1000"]:
+            for pcr_f in ["pcr_vol_30", "pcr_oi_30"]:
+                for d in [14, 16, 18, 22]:
+                    for thresh in ["0.15", "0.20", "0.25"]:
+                        skew_flow = f"rank(-ts_delta(implied_volatility_mean_skew_30, 8)) * rank({pcr_f} - ts_mean({pcr_f}, 20))"
+                        expr = f"trade_when(abs(rank(ts_decay_linear({skew_flow}, 6)) - 0.5) > {thresh}, group_neutralize(rank(ts_decay_linear({skew_flow}, 6)), subindustry), -1)"
+                        priority_queue.append({
+                            "expression": expr,
+                            "archetype": f"SkewFlow_{pcr_f}_{u}_t{thresh}_d{d}",
+                            "hypothesis": f"Vol Skew and Put-Call flow interaction with {pcr_f} on {u}, decay={d}, thresh={thresh} targeting Fitness >= 1.00.",
+                            "universe": u,
+                            "neutralization": "SUBINDUSTRY",
+                            "decay": d,
+                            "region": "USA",
+                        })
+
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
         log.info("Risk model generator loaded. Inoculating 1.74 Sharpe BAB breakthrough seeds.")
@@ -475,8 +493,9 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                             "region": "USA",
                         })
     elif category == "analyst":
+        generator = AnalystGenerator(db=store.db, llm_adapter=llm)
         analyst_candidates = generate_analyst_revision_candidates()
-        log.info("Analyst generator loaded. %d verified candidates from analyst4 dataset (CJL/DMS/GL).", len(analyst_candidates))
+        log.info("Analyst generator loaded. %d verified candidates from analyst4 dataset (CJL/DMS/GL/PEAD).", len(analyst_candidates))
         for ac in analyst_candidates:
             priority_queue.append({
                 "expression": ac["expression"],
@@ -488,6 +507,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                 "region":     "USA",
             })
     elif category == "apex":
+        generator = ApexGenerator(db=store.db, llm_adapter=llm)
         apex_candidates = generate_apex_candidates()
         log.info("Loaded %d verified Apex Tri-Factor candidates (model51 + option8/9 + analyst4).", len(apex_candidates))
         for ac in apex_candidates:
