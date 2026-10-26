@@ -140,7 +140,18 @@ def load_reference_pnls(db_url: str) -> Tuple[List[str], Dict[str, Dict[str, flo
                         ref_alpha_ids.append(r[0])
                     if r[1]:
                         known_exprs.add(r[1].strip())
-        log.info("Loaded %d reference alpha IDs and %d known expressions from DB.", len(ref_alpha_ids), len(known_exprs))
+
+                # Also load recently evaluated (archetype, expression) from options_evaluations
+                # to prevent burning simulation slots repeating identical failed runs
+                try:
+                    cur.execute("SELECT DISTINCT archetype, expression FROM options_evaluations WHERE created_at >= NOW() - INTERVAL '5 days' AND expression IS NOT NULL;")
+                    for ar, ex in cur.fetchall():
+                        if ex and ar:
+                            known_exprs.add(f"{ar}::{ex.strip()}")
+                except Exception as eval_err:
+                    log.debug("Could not load recent evaluations for deduplication: %s", eval_err)
+
+        log.info("Loaded %d reference alpha IDs and %d known expressions/archetypes from DB.", len(ref_alpha_ids), len(known_exprs))
     except Exception as e:
         log.error("CRITICAL: Failed to load reference alphas from DB — correlation gate will run BLIND: %s", e)
         # Abort rather than run with empty correlation reference (risk of qualifying correlated alphas)
@@ -433,7 +444,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
         log.info("Risk model generator loaded. Inoculating 1.74 Sharpe BAB breakthrough seeds.")
-        # Pre-seed verified 1.74 Sharpe BAB variants with smoothed return windows
+        # 1. Base BAB variants with smoothed return windows
         for d in [14, 16, 18, 20, 22]:
             for u in ["TOP1000", "TOP2000"]:
                 for neut in ["INDUSTRY", "SUBINDUSTRY"]:
@@ -442,6 +453,22 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                             "expression": f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, {rw}), {rd})), {neut.lower()})",
                             "archetype": f"BAB_Beta{d}_w{rw}d{rd}_{u}_{neut}",
                             "hypothesis": f"BAB institutional beta spread on {u} with {neut} neutralization and decay {d}.",
+                            "universe": u,
+                            "neutralization": neut,
+                            "decay": d,
+                            "region": "USA",
+                        })
+        # 2. Conviction-Gated BAB variants to reduce turnover from 46% to ~28-32% (lifts Fitness >= 1.05)
+        for d in [16, 18, 22, 26]:
+            for thresh in ["0.10", "0.15", "0.20"]:
+                for u in ["TOP1000"]:
+                    for neut in ["INDUSTRY", "SUBINDUSTRY"]:
+                        inner_bab = f"rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 5), 6))"
+                        gated_expr = f"trade_when(abs({inner_bab} - 0.5) > {thresh}, group_neutralize({inner_bab}, {neut.lower()}), -1)"
+                        priority_queue.append({
+                            "expression": gated_expr,
+                            "archetype": f"BAB_Gated{thresh}_d{d}_{u}_{neut}",
+                            "hypothesis": f"Conviction-gated BAB thresh={thresh} decay={d} to cut turnover below 30% and push Fitness >= 1.05.",
                             "universe": u,
                             "neutralization": neut,
                             "decay": d,
@@ -474,38 +501,39 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                 "region":     getattr(ac, "region", "USA"),
             })
 
-        # Inoculate 1.14 Sharpe / 0.96 Fitness Apex Tri-Factor Breakthrough Seeds with Tail Power
+        # Inoculate 1.14 Sharpe / 0.96 Fitness Apex Tri-Factor Breakthrough Seeds with Tail Power on TOPSP500 & TOP1000
         seed_apex = (
             "trade_when(volume > adv20 * 0.75, group_neutralize(rank(0.45 * "
             "rank(ts_decay_linear(((call_breakeven_60 - forward_price_60) / (close + 0.001)), 8)) + "
             "0.35 * rank(ts_decay_linear(((anl4_af_eps_value - anl4_afv4_eps_mean) / (anl4_afv4_dts_spe + 0.001)), 8)) - "
             "0.20 * rank(ts_decay_linear(beta_last_60_days_spy, 8))), subindustry), -1)"
         )
-        for p in [1.25, 1.5, 1.75, 2.0]:
-            wrapped_apex = _wrap_neutralize_with_signed_power(seed_apex, p)
-            if wrapped_apex:
-                for d in [6, 8, 10, 12]:
-                    priority_queue.append({
-                        "expression": wrapped_apex,
-                        "archetype": f"Apex1_Power{p}_d{d}",
-                        "hypothesis": f"Apex Tri-Factor Tail Power p={p} decay={d} targeting >1.25 Sharpe.",
-                        "universe": "TOPSP500",
-                        "neutralization": "SUBINDUSTRY",
-                        "decay": d,
-                        "region": "USA",
-                    })
-        for hurdle in ["0.85", "1.0", "1.15"]:
-            gated = seed_apex.replace("volume > adv20 * 0.75", f"volume > adv20 * {hurdle}")
-            wrapped = _wrap_neutralize_with_signed_power(gated, 1.5)
-            priority_queue.append({
-                "expression": wrapped or gated,
-                "archetype": f"Apex1_Gated{hurdle}_Power1.5_d8",
-                "hypothesis": f"Apex Tri-Factor Gated hurdle={hurdle} + Power 1.5",
-                "universe": "TOPSP500",
-                "neutralization": "SUBINDUSTRY",
-                "decay": 8,
-                "region": "USA",
-            })
+        for u in ["TOPSP500", "TOP1000"]:
+            for p in [1.25, 1.5, 1.75, 2.0]:
+                wrapped_apex = _wrap_neutralize_with_signed_power(seed_apex, p)
+                if wrapped_apex:
+                    for d in [6, 8, 10, 12]:
+                        priority_queue.append({
+                            "expression": wrapped_apex,
+                            "archetype": f"Apex1_{u}_Power{p}_d{d}",
+                            "hypothesis": f"Apex Tri-Factor on {u} Tail Power p={p} decay={d} targeting >1.25 Sharpe.",
+                            "universe": u,
+                            "neutralization": "SUBINDUSTRY",
+                            "decay": d,
+                            "region": "USA",
+                        })
+            for hurdle in ["0.80", "0.90", "1.05"]:
+                gated = seed_apex.replace("volume > adv20 * 0.75", f"volume > adv20 * {hurdle}")
+                wrapped = _wrap_neutralize_with_signed_power(gated, 1.5)
+                priority_queue.append({
+                    "expression": wrapped or gated,
+                    "archetype": f"Apex1_{u}_Gated{hurdle}_Power1.5_d8",
+                    "hypothesis": f"Apex Tri-Factor on {u} Gated hurdle={hurdle} + Power 1.5",
+                    "universe": u,
+                    "neutralization": "SUBINDUSTRY",
+                    "decay": 8,
+                    "region": "USA",
+                })
     else:
         raise ValueError(f"Unknown category: {category}")
 
@@ -523,8 +551,9 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
     async def feeder_loop():
         # First push all pre-seeded priority candidates
         for cand in priority_queue:
-            if cand["expression"] not in known_exprs:
-                known_exprs.add(cand["expression"])
+            cand_key = f"{cand.get('archetype', '')}::{cand['expression'].strip()}"
+            if cand_key not in known_exprs and cand["expression"] not in known_exprs:
+                known_exprs.add(cand_key)
                 await work_queue.put(cand)
 
         # Then continuously feed from generator as queue empties
