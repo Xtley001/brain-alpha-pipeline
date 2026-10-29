@@ -461,37 +461,73 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
 
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
-        log.info("Risk model generator loaded. Inoculating 1.74 Sharpe BAB breakthrough seeds.")
-        # 1. Base BAB variants with smoothed return windows
+        log.info("Risk model generator loaded. CONVICTION-GATED BAB ONLY mode — targeting Turnover < 30%%, Fitness >= 1.05.")
+        # Priority 1: Conviction-Gated BAB — forces trade_when(abs(rank - 0.5) > thresh) to cut turnover
+        # from 46% to ~28-32%, mathematically pushing Fitness from 0.98 -> >= 1.05.
+        # TOP1000 ONLY. TOP2000 and ungated BAB removed to eliminate queue dilution.
         for d in [14, 16, 18, 20, 22]:
-            for u in ["TOP1000", "TOP2000"]:
+            for thresh in ["0.08", "0.10", "0.12", "0.15", "0.18", "0.20"]:
                 for neut in ["INDUSTRY", "SUBINDUSTRY"]:
                     for (rw, rd) in [(5, 6), (8, 6), (10, 8)]:
+                        inner = f"rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, {rw}), {rd}))"
+                        gated = f"trade_when(abs({inner} - 0.5) > {thresh}, group_neutralize({inner}, {neut.lower()}), -1)"
                         priority_queue.append({
-                            "expression": f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, {rw}), {rd})), {neut.lower()})",
-                            "archetype": f"BAB_Beta{d}_w{rw}d{rd}_{u}_{neut}",
-                            "hypothesis": f"BAB institutional beta spread on {u} with {neut} neutralization and decay {d}.",
-                            "universe": u,
+                            "expression": gated,
+                            "archetype": f"BAB_Gated_d{d}_t{thresh}_w{rw}r{rd}_TOP1000_{neut}",
+                            "hypothesis": (
+                                f"Conviction-gated BAB: thresh={thresh}, decay={d}, return_window=({rw},{rd}), TOP1000, {neut}. "
+                                f"Cuts turnover from 46% to ~28-32%, pushing Fitness from 0.98 to >= 1.05."
+                            ),
+                            "universe": "TOP1000",
                             "neutralization": neut,
                             "decay": d,
                             "region": "USA",
                         })
-        # 2. Conviction-Gated BAB variants to reduce turnover from 46% to ~28-32% (lifts Fitness >= 1.05)
-        for d in [16, 18, 22, 26]:
+        # Priority 2: Gated BAB with signed_power tail transform (adds nonlinearity to lift Sharpe > 1.25)
+        for d in [14, 16, 18, 20]:
             for thresh in ["0.10", "0.15", "0.20"]:
-                for u in ["TOP1000"]:
+                for p in [1.5, 2.0]:
                     for neut in ["INDUSTRY", "SUBINDUSTRY"]:
-                        inner_bab = f"rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 5), 6))"
-                        gated_expr = f"trade_when(abs({inner_bab} - 0.5) > {thresh}, group_neutralize({inner_bab}, {neut.lower()}), -1)"
+                        inner = f"rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 5), 6))"
+                        gated_power = (
+                            f"trade_when(abs({inner} - 0.5) > {thresh}, "
+                            f"group_neutralize(signed_power({inner} - 0.5, {p}), {neut.lower()}), -1)"
+                        )
                         priority_queue.append({
-                            "expression": gated_expr,
-                            "archetype": f"BAB_Gated{thresh}_d{d}_{u}_{neut}",
-                            "hypothesis": f"Conviction-gated BAB thresh={thresh} decay={d} to cut turnover below 30% and push Fitness >= 1.05.",
-                            "universe": u,
+                            "expression": gated_power,
+                            "archetype": f"BAB_GatedPower_d{d}_t{thresh}_p{p}_TOP1000_{neut}",
+                            "hypothesis": (
+                                f"Conviction-gated BAB with signed_power tail: thresh={thresh}, power={p}, decay={d}, TOP1000, {neut}. "
+                                f"Nonlinear tail amplification targeting Sharpe > 1.25 with Fitness >= 1.05."
+                            ),
+                            "universe": "TOP1000",
                             "neutralization": neut,
                             "decay": d,
                             "region": "USA",
                         })
+        # Priority 3: Gated BAB + IdioVol interaction (dual-factor to lift signal quality)
+        for d in [14, 16, 18]:
+            for thresh in ["0.12", "0.15", "0.18"]:
+                for neut in ["SUBINDUSTRY"]:
+                    inner_bab = f"rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 5), 6))"
+                    inner_ivol = f"rank(-ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
+                    combined = f"rank(0.65 * {inner_bab} + 0.35 * {inner_ivol})"
+                    gated_dual = (
+                        f"trade_when(abs({combined} - 0.5) > {thresh}, "
+                        f"group_neutralize(signed_power({combined} - 0.5, 1.5), {neut.lower()}), -1)"
+                    )
+                    priority_queue.append({
+                        "expression": gated_dual,
+                        "archetype": f"BAB_IVol_Dual_d{d}_t{thresh}_TOP1000_{neut}",
+                        "hypothesis": (
+                            f"Dual-factor gated BAB+IdioVol: 65% BAB + 35% unsystematic_risk, thresh={thresh}, decay={d}, TOP1000. "
+                            f"Blending beta neutralization with idiosyncratic risk targeting Sharpe > 1.25, Fitness >= 1.05."
+                        ),
+                        "universe": "TOP1000",
+                        "neutralization": neut,
+                        "decay": d,
+                        "region": "USA",
+                    })
     elif category == "analyst":
         generator = AnalystGenerator(db=store.db, llm_adapter=llm)
         analyst_candidates = generate_analyst_revision_candidates()
