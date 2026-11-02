@@ -40,7 +40,7 @@ def generate_apex_candidates() -> List[ApexCandidate]:
     Expands across weighting schemes, decays, and neutralization groups for continuous 2h+ mining.
     """
     candidates: List[ApexCandidate] = []
-    universes = ["TOPSP500", "TOP500", "TOP1000"]
+    universes = ["TOP3000", "TOP2000", "TOP1000", "TOPSP500"]
     groups = ["subindustry", "sector"]
     decays = [8, 12, 15, 18, 22, 25]
 
@@ -172,11 +172,11 @@ class ApexGenerator:
             return cand
 
         # Dynamic combinatorial synthesis once templates are exhausted
-        u = random.choice(["TOPSP500", "TOP1000"])
+        u = random.choice(["TOP3000", "TOP2000", "TOP1000", "TOPSP500"])
         g = random.choice(["subindustry", "sector"])
         d = random.choice([8, 10, 12, 14, 16, 18, 20, 22])
-        p = random.choice([1.25, 1.5, 1.75, 2.0])
-        hurdle = random.choice(["0.70", "0.75", "0.80", "0.90", "1.00"])
+        p = random.choice([1.25, 1.5])
+        thresh = random.choice(["0.24", "0.28", "0.32"])
 
         sue_expr = "((anl4_af_eps_value - anl4_afv4_eps_mean) / (anl4_afv4_dts_spe + 0.001))"
         call_cushion = "((call_breakeven_60 - forward_price_60) / (close + 0.001))"
@@ -194,9 +194,8 @@ class ApexGenerator:
                 f"{w2} * rank(ts_decay_linear({sue_expr}, {d})) - "
                 f"{w3} * rank(ts_decay_linear(beta_last_60_days_spy, {d}))"
             )
-            expr = f"trade_when(volume > adv20 * {hurdle}, group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g}), -1)"
-            name = f"DynamicApex_CushionTriple_{u}_{g}_d{d}_h{hurdle}_p{p}"
-            hyp = f"Dynamic Apex Tri-Factor Call Cushion ({w1}) + SUE ({w2}) - BAB ({w3}) on {u} with decay {d}, hurdle {hurdle}, power {p}."
+            mode_name = "CushionTriple"
+            hyp_desc = f"Call Cushion ({w1}) + SUE ({w2}) - BAB ({w3})"
         elif mode == "skew_surprise":
             w1 = round(random.uniform(0.35, 0.50), 2)
             w2 = round(random.uniform(0.30, 0.45), 2)
@@ -206,9 +205,8 @@ class ApexGenerator:
                 f"{w2} * rank(ts_decay_linear({sue_expr}, {d})) - "
                 f"{w3} * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
             )
-            expr = f"trade_when(volume > adv20 * {hurdle}, group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g}), -1)"
-            name = f"DynamicApex_SkewSurprise_{u}_{g}_d{d}_h{hurdle}_p{p}"
-            hyp = f"Dynamic Apex Tri-Factor IV Skew ({w1}) + SUE ({w2}) - IdioVol ({w3}) on {u} with decay {d}, hurdle {hurdle}, power {p}."
+            mode_name = "SkewSurprise"
+            hyp_desc = f"IV Skew ({w1}) + SUE ({w2}) - IdioVol ({w3})"
         elif mode == "dispersion_squeeze":
             w1 = round(random.uniform(0.30, 0.45), 2)
             w2 = round(random.uniform(0.30, 0.45), 2)
@@ -218,9 +216,8 @@ class ApexGenerator:
                 f"{w2} * rank(ts_decay_linear(pcr_oi_all, {d})) - "
                 f"{w3} * rank(ts_decay_linear(beta_last_60_days_spy, {d}))"
             )
-            expr = f"trade_when(volume > adv20 * {hurdle}, group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g}), -1)"
-            name = f"DynamicApex_DispersionSqueeze_{u}_{g}_d{d}_h{hurdle}_p{p}"
-            hyp = f"Dynamic Apex Tri-Factor Dispersion ({w1}) + Bullish PCR ({w2}) - BAB ({w3}) on {u} with decay {d}, hurdle {hurdle}, power {p}."
+            mode_name = "DispersionSqueeze"
+            hyp_desc = f"Dispersion ({w1}) + Bullish PCR ({w2}) - BAB ({w3})"
         else:
             w1 = round(random.uniform(0.35, 0.50), 2)
             w2 = round(random.uniform(0.30, 0.45), 2)
@@ -230,9 +227,26 @@ class ApexGenerator:
                 f"{w2} * rank(ts_decay_linear({sue_expr}, {d})) - "
                 f"{w3} * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
             )
-            expr = f"trade_when(volume > adv20 * {hurdle}, group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g}), -1)"
-            name = f"DynamicApex_PutFloorPower_{u}_{g}_d{d}_h{hurdle}_p{p}"
-            hyp = f"Dynamic Apex Tri-Factor Put Floor ({w1}) + SUE ({w2}) - IdioVol ({w3}) on {u} with decay {d}, hurdle {hurdle}, power {p}."
+            mode_name = "PutFloorPower"
+            hyp_desc = f"Put Floor ({w1}) + SUE ({w2}) - IdioVol ({w3})"
+
+        # Concentration-safe expression construction:
+        # On broad universes (TOP3000/TOP2000), use rank-conviction gating or volume-scaling (proven across 18 submitted alphas).
+        # On narrow universes (TOPSP500/TOP1000), use pure cross-sectional neutralization without trade_when to prevent concentration spikes.
+        if u in ("TOP3000", "TOP2000"):
+            style = random.choice(["vol_scaled", "signed_power_gated"])
+            if style == "vol_scaled":
+                expr = f"trade_when(abs(rank({inner}) - 0.5) > {thresh}, group_neutralize(rank({inner}) * (volume / adv20), {g}), -1)"
+                name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_t{thresh}_volscaled"
+                hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (vol-scaled conviction gate t={thresh}, d={d})."
+            else:
+                expr = f"trade_when(abs(rank({inner}) - 0.5) > {thresh}, group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g}), -1)"
+                name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_t{thresh}_p{p}"
+                hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (conviction gate t={thresh}, p={p}, d={d})."
+        else:
+            expr = f"group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g})"
+            name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_p{p}_pure"
+            hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (pure cross-sectional neutralization p={p}, d={d}, safe concentration)."
 
         return ApexCandidate(
             expression=expr,

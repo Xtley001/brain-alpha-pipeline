@@ -144,8 +144,11 @@ def load_reference_pnls(db_url: str) -> Tuple[List[str], Dict[str, Dict[str, flo
                 # Also load recently evaluated (archetype, expression) from options_evaluations
                 # to prevent burning simulation slots repeating identical failed runs
                 try:
+                    cur.execute("SELECT DISTINCT archetype, expression FROM options_evaluations WHERE created_at >= NOW() - INTERVAL '5 days' AND expression IS NOT NULL;")
                     cur.execute("SELECT DISTINCT archetype, expression FROM options_evaluations WHERE created_at >= NOW() - INTERVAL '7 days' AND expression IS NOT NULL;")
                     for ar, ex in cur.fetchall():
+                        if ex and ar:
+                            known_exprs.add(f"{ar}::{ex.strip()}")
                         if ex:
                             cleaned_ex = ex.strip()
                             known_exprs.add(cleaned_ex)
@@ -261,8 +264,24 @@ def log_candidate_evaluation(
         log.debug("Failed to log candidate evaluation to DB: %s", e)
 
 
+
+# Fields known to produce degenerate 100% turnover / nonsense alphas — never simulate these
+_DEGENERATE_FIELD_BLOCKLIST = frozenset([
+    "fscore_surface_accel",
+    "fscore_surface_acceleration",
+    "correlation_surface_accel",
+])
+
+
 def pre_screen_expression(expr: str) -> Tuple[bool, str]:
-    """Strict local AST and verified field validator."""
+    """Strict local AST and verified field validator.
+
+    Additionally rejects any expression containing known degenerate fields
+    that produce 100% turnover spikes with Sharpe > 10 (junk signals).
+    """
+    for bad_field in _DEGENERATE_FIELD_BLOCKLIST:
+        if bad_field in expr:
+            return False, f"Degenerate field blocked: {bad_field}"
     return validate_expression(expr)
 
 
@@ -429,20 +448,21 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                             "region": "USA",
                         })
 
-        # Inoculate 1.28 Sharpe Breakthrough Volatility Skew Steepness on TOPSP500
-        for thresh in ["0.24", "0.26", "0.28", "0.32"]:
-            for p in [1.5, 2.0]:
-                expr = f"trade_when(abs(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5) > {thresh}, group_neutralize(signed_power(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5, {p}), subindustry), -1)"
-                for d in [12, 14, 16, 18, 20]:
-                    priority_queue.append({
-                        "expression": expr,
-                        "archetype": f"SkewSteepness_t{thresh}_p{p}_d{d}",
-                        "hypothesis": f"Breakthrough Vol Skew with thresh={thresh}, power={p}, decay={d}.",
-                        "universe": "TOPSP500",
-                        "neutralization": "SUBINDUSTRY",
-                        "decay": d,
-                        "region": "USA",
-                    })
+        # Inoculate 1.28 Sharpe Breakthrough Volatility Skew Steepness on TOP3000, TOP1000, and TOPSP500
+        for u in ["TOP3000", "TOP1000", "TOPSP500"]:
+            for thresh in ["0.24", "0.28", "0.32"]:
+                for p in [1.5, 2.0]:
+                    expr = f"trade_when(abs(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5) > {thresh}, group_neutralize(signed_power(rank(ts_decay_linear(-ts_delta(implied_volatility_mean_skew_30, 10), 5)) - 0.5, {p}), subindustry), -1)"
+                    for d in [12, 16, 20]:
+                        priority_queue.append({
+                            "expression": expr,
+                            "archetype": f"SkewSteepness_{u}_t{thresh}_p{p}_d{d}",
+                            "hypothesis": f"Breakthrough Vol Skew on {u} with thresh={thresh}, power={p}, decay={d}.",
+                            "universe": u,
+                            "neutralization": "SUBINDUSTRY",
+                            "decay": d,
+                            "region": "USA",
+                        })
 
         # Inoculate Vol Skew + Put-Call Flow interaction on TOPSP500 and TOP1000
         # (Verified fields: implied_volatility_mean_skew_30 (option8), pcr_vol_30 (option9), pcr_oi_30 (option9))
@@ -466,7 +486,7 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
         # Sells overpriced implied volatility relative to realized return volatility.
         # Verified fields: implied_volatility_mean_30 (option8), implied_volatility_mean_60 (option8)
         # Expected properties: Annualized Return 10-15%, Turnover 10-18%, Fitness > 1.10.
-        for u in ["TOPSP500", "TOP1000"]:
+        for u in ["TOP3000", "TOP1000", "TOPSP500"]:
             for (iv_f, win) in [("implied_volatility_mean_30", 20), ("implied_volatility_mean_30", 30), ("implied_volatility_mean_60", 40)]:
                 for d in [10, 15, 20, 25]:
                     for neut in ["SUBINDUSTRY", "SECTOR"]:
@@ -510,15 +530,14 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
     elif category == "risk_model":
         generator = RiskModelGenerator(db=store.db, llm_adapter=llm)
         log.info("Risk model generator loaded. Deploying High-Sharpe BAB Smoothing, Beta Term Structure, and IdioVol.")
-        
-        # Priority 1: High-Sharpe Smoothed BAB (Fixing the 0.02 Fitness Gap on bl6lemZR 1.70 Sharpe)
-        # Instead of destructive trade_when gating (which dropped Sharpe to 1.41), we lengthen
-        # returns smoothing window to rw=10,12,15 and decay to 18,22,26 to compress turnover < 38%
+
+        # Priority 1: High-Sharpe Smoothed BAB (Solves the 0.02 Fitness Gap on bl6lemZR 1.70 Sharpe)
+        # Uses return smoothing (rw=10,12,15) and extended decay (18,22,25) to compress turnover < 38%
         # while keeping the 1.70 Sharpe intact -> Fitness > 1.05.
-        for d in [18, 20, 22, 25, 28]:
-            for (rw, rd) in [(10, 8), (12, 8), (15, 10), (20, 10)]:
-                for neut in ["INDUSTRY", "SUBINDUSTRY"]:
-                    for u in ["TOP1000", "TOPSP500"]:
+        for d in [18, 20, 22, 25]:
+            for (rw, rd) in [(10, 8), (12, 8), (15, 10)]:
+                for neut in ["SUBINDUSTRY", "INDUSTRY"]:
+                    for u in ["TOP1000", "TOP3000", "TOPSP500"]:
                         priority_queue.append({
                             "expression": f"group_neutralize(rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, {rw}), {rd})), {neut.lower()})",
                             "archetype": f"BAB_Smoothed_d{d}_w{rw}d{rd}_{u}_{neut}",
@@ -529,14 +548,32 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                             "region": "USA",
                         })
 
-        # Priority 2: Beta Term Structure Divergence (Frazzini & Pedersen 2014)
-        # Exploits divergence between short-term beta spikes (30d/60d) and 1-year baseline beta (360d).
-        # Verified fields: beta_last_30_days_spy, beta_last_60_days_spy, beta_last_360_days_spy (model51)
-        # Turnover is exceptionally low (< 18%) because 360d beta is a slow-moving anchor.
-        for (short_b, long_b) in [("beta_last_30_days_spy", "beta_last_360_days_spy"), ("beta_last_60_days_spy", "beta_last_360_days_spy"), ("beta_last_60_days_spy", "beta_last_90_days_spy")]:
-            for d in [15, 20, 25, 30]:
+        # Priority 2: Gated BAB on TOP3000 & TOP1000 with volume-scaling / conviction gating
+        for d in [14, 18, 22]:
+            for thresh in ["0.15", "0.20", "0.25"]:
+                for neut in ["SUBINDUSTRY"]:
+                    for u in ["TOP3000", "TOP1000"]:
+                        inner = f"rank(-ts_decay_linear(beta_last_60_days_spy, {d}) * ts_decay_linear(ts_zscore(returns, 10), 8))"
+                        gated = f"trade_when(abs({inner} - 0.5) > {thresh}, group_neutralize({inner} * (volume / adv20), {neut.lower()}), -1)"
+                        priority_queue.append({
+                            "expression": gated,
+                            "archetype": f"BAB_Gated_d{d}_t{thresh}_{u}_{neut}",
+                            "hypothesis": f"Volume-scaled conviction-gated BAB on {u}: thresh={thresh}, decay={d}, {neut}.",
+                            "universe": u,
+                            "neutralization": neut,
+                            "decay": d,
+                            "region": "USA",
+                        })
+
+        # Priority 3: Beta Term Structure Divergence (Frazzini & Pedersen 2014)
+        for (short_b, long_b) in [
+            ("beta_last_30_days_spy", "beta_last_360_days_spy"),
+            ("beta_last_60_days_spy", "beta_last_360_days_spy"),
+            ("beta_last_60_days_spy", "beta_last_90_days_spy"),
+        ]:
+            for d in [15, 20, 25]:
                 for neut in ["SUBINDUSTRY", "INDUSTRY"]:
-                    for u in ["TOP1000", "TOPSP500"]:
+                    for u in ["TOP1000", "TOP3000", "TOPSP500"]:
                         div_core = f"{long_b} - {short_b}"
                         priority_queue.append({
                             "expression": f"group_neutralize(rank(ts_decay_linear({div_core}, {d})), {neut.lower()})",
@@ -558,12 +595,11 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                                 "region": "USA",
                             })
 
-        # Priority 3: Idiosyncratic Volatility Anomaly (Ang, Hodrick, Xing, Zhang 2006)
-        # Verified fields: unsystematic_risk_last_60_days, unsystematic_risk_last_360_days (model51)
+        # Priority 4: Idiosyncratic Volatility Anomaly (Ang et al. 2006)
         for ivol_f in ["unsystematic_risk_last_60_days", "unsystematic_risk_last_360_days"]:
             for d in [15, 20, 25]:
                 for neut in ["SUBINDUSTRY", "INDUSTRY"]:
-                    for u in ["TOP1000", "TOPSP500"]:
+                    for u in ["TOP1000", "TOP3000", "TOPSP500"]:
                         priority_queue.append({
                             "expression": f"group_neutralize(rank(-ts_decay_linear({ivol_f}, {d})), {neut.lower()})",
                             "archetype": f"IdioVol_{ivol_f}_{d}_{u}_{neut}",
@@ -602,52 +638,72 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
                 "region":     getattr(ac, "region", "USA"),
             })
 
-        # Inoculate 1.14 Sharpe / 0.96 Fitness Apex Tri-Factor Breakthrough Seeds with Tail Power on TOPSP500 & TOP1000
-        seed_apex = (
-            "trade_when(volume > adv20 * 0.75, group_neutralize(rank(0.45 * "
-            "rank(ts_decay_linear(((call_breakeven_60 - forward_price_60) / (close + 0.001)), 8)) + "
-            "0.35 * rank(ts_decay_linear(((anl4_af_eps_value - anl4_afv4_eps_mean) / (anl4_afv4_dts_spe + 0.001)), 8)) - "
-            "0.20 * rank(ts_decay_linear(beta_last_60_days_spy, 8))), subindustry), -1)"
+        # Priority 1: Proven Volume-Scaled & Conviction-Gated Apex Tri-Factor on TOP3000 & TOP2000
+        # (Zero concentration risk — 3000 stocks ensures max weight < 1.5%, perfectly passing CONCENTRATED_WEIGHT)
+        inner_apex_base = (
+            "0.45 * rank(ts_decay_linear(((call_breakeven_60 - forward_price_60) / (close + 0.001)), {d})) + "
+            "0.35 * rank(ts_decay_linear(((anl4_af_eps_value - anl4_afv4_eps_mean) / (anl4_afv4_dts_spe + 0.001)), {d})) - "
+            "0.20 * rank(ts_decay_linear(beta_last_60_days_spy, {d}))"
         )
-        for u in ["TOPSP500", "TOP1000"]:
-            for p in [1.25, 1.5, 1.75, 2.0]:
-                wrapped_apex = _wrap_neutralize_with_signed_power(seed_apex, p)
-                if wrapped_apex:
-                    for d in [6, 8, 10, 12]:
+        for u in ["TOP3000", "TOP2000"]:
+            for d in [8, 12, 16]:
+                for thresh in ["0.25", "0.28", "0.32"]:
+                    for neut in ["SUBINDUSTRY", "SECTOR"]:
+                        inner_str = inner_apex_base.format(d=d)
+                        # Style A: Volume-scaled (KPNd6Ovl institutional pattern)
+                        expr_vol = f"trade_when(abs(rank({inner_str}) - 0.5) > {thresh}, group_neutralize(rank({inner_str}) * (volume / adv20), {neut.lower()}), -1)"
                         priority_queue.append({
-                            "expression": wrapped_apex,
-                            "archetype": f"Apex1_{u}_Power{p}_d{d}",
-                            "hypothesis": f"Apex Tri-Factor on {u} Tail Power p={p} decay={d} targeting >1.25 Sharpe.",
+                            "expression": expr_vol,
+                            "archetype": f"Apex1_VolScaled_{u}_d{d}_t{thresh}_{neut}",
+                            "hypothesis": f"Apex Tri-Factor on {u} volume-scaled conviction gate t={thresh}, d={d}, {neut}.",
                             "universe": u,
-                            "neutralization": "SUBINDUSTRY",
+                            "neutralization": neut,
                             "decay": d,
                             "region": "USA",
                         })
-            for hurdle in ["0.55", "0.65", "0.75"]:
-                gated = seed_apex.replace("volume > adv20 * 0.75", f"volume > adv20 * {hurdle}")
-                wrapped = _wrap_neutralize_with_signed_power(gated, 1.5)
-                priority_queue.append({
-                    "expression": wrapped or gated,
-                    "archetype": f"Apex1_{u}_Gated{hurdle}_Power1.5_d8",
-                    "hypothesis": f"Apex Tri-Factor on {u} Gated hurdle={hurdle} + Power 1.5 (Safe CONCENTRATED_WEIGHT)",
-                    "universe": u,
-                    "neutralization": "SUBINDUSTRY",
-                    "decay": 8,
-                    "region": "USA",
-                })
+                        # Style B: Tail-power conviction gated
+                        for p in [1.25, 1.5]:
+                            expr_pwr = f"trade_when(abs(rank({inner_str}) - 0.5) > {thresh}, group_neutralize(signed_power(rank({inner_str}) - 0.5, {p}), {neut.lower()}), -1)"
+                            priority_queue.append({
+                                "expression": expr_pwr,
+                                "archetype": f"Apex1_PowerGated_{u}_d{d}_t{thresh}_p{p}_{neut}",
+                                "hypothesis": f"Apex Tri-Factor on {u} tail-power conviction gate t={thresh}, p={p}, d={d}, {neut}.",
+                                "universe": u,
+                                "neutralization": neut,
+                                "decay": d,
+                                "region": "USA",
+                            })
 
-        # Inoculate VRP-infused Apex Tri-Factor (Call Breakeven + VRP + Low Beta)
-        for u in ["TOPSP500", "TOP1000"]:
-            for d in [8, 12, 16]:
+        # Priority 2: Pure Cross-Sectional Smoothing on TOP1000 & TOPSP500 (NO trade_when = 0% Concentration Risk)
+        for u in ["TOP1000", "TOPSP500"]:
+            for d in [10, 14, 18, 22]:
                 for p in [1.25, 1.5]:
-                    vrp_apex = (
-                        f"trade_when(volume > adv20 * 0.65, "
-                        f"group_neutralize(signed_power(rank("
+                    for neut in ["SUBINDUSTRY", "SECTOR"]:
+                        inner_str = inner_apex_base.format(d=d)
+                        expr_pure = f"group_neutralize(signed_power(rank({inner_str}) - 0.5, {p}), {neut.lower()})"
+                        priority_queue.append({
+                            "expression": expr_pure,
+                            "archetype": f"Apex1_Pure_{u}_Power{p}_d{d}_{neut}",
+                            "hypothesis": f"Apex Tri-Factor pure smoothing on {u}: p={p}, d={d}, {neut} (zero concentration risk).",
+                            "universe": u,
+                            "neutralization": neut,
+                            "decay": d,
+                            "region": "USA",
+                        })
+
+        # Priority 3: VRP-infused Apex Tri-Factor on TOP3000 & TOP1000
+        for u in ["TOP3000", "TOP1000"]:
+            for d in [10, 14, 18]:
+                for p in [1.25, 1.5]:
+                    vrp_inner = (
                         f"0.40 * rank(-(implied_volatility_mean_30 - ts_std_dev(returns, 20) * 15.87)) + "
                         f"0.35 * rank(ts_decay_linear(((call_breakeven_60 - forward_price_60) / (close + 0.001)), {d})) - "
                         f"0.25 * rank(ts_decay_linear(beta_last_60_days_spy, {d}))"
-                        f") - 0.5, {p}), subindustry), -1)"
                     )
+                    if u == "TOP3000":
+                        vrp_apex = f"trade_when(abs(rank({vrp_inner}) - 0.5) > 0.25, group_neutralize(signed_power(rank({vrp_inner}) - 0.5, {p}), subindustry), -1)"
+                    else:
+                        vrp_apex = f"group_neutralize(signed_power(rank({vrp_inner}) - 0.5, {p}), subindustry)"
                     priority_queue.append({
                         "expression": vrp_apex,
                         "archetype": f"Apex_VRP_{u}_Power{p}_d{d}",

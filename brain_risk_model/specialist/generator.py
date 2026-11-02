@@ -57,12 +57,12 @@ class RiskModelGenerator:
 
         # Multi-Armed Bandit prior weights across risk model archetypes
         self.archetype_priors: dict[str, float] = {
-            "betting_against_beta": 0.30,
-            "low_risk_engine": 0.20,
-            "beta_divergence": 0.15,
-            "surface_acceleration": 0.15,
+            "betting_against_beta": 0.35,
+            "low_risk_engine": 0.25,
+            "beta_divergence": 0.20,
             "gross_profitability": 0.10,
-            "blitz_volatility": 0.10,
+            "surface_acceleration": 0.05,
+            "blitz_volatility": 0.05,
         }
 
     def get_current_weights(self) -> dict[str, float]:
