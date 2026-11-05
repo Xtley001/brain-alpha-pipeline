@@ -81,7 +81,7 @@ class ConvexNearMissMutator:
                     "expression": expr,
                     "archetype": f"{archetype}_d{new_d}",
                     "hypothesis": f"{hypothesis} [Convex Decay Sweep d={new_d}]",
-                    "universe": "TOPSP500" if universe != "TOPSP500" else universe,
+                    "universe": universe,
                     "neutralization": neutralization,
                     "decay": new_d,
                     "region": region,
@@ -90,32 +90,34 @@ class ConvexNearMissMutator:
 
         # ── Axis 2: Power Concentration (Tail conviction amplification via balanced AST) ──
         if "signed_power(" not in expr and "group_neutralize(" in expr:
-            for p in [1.5, 2.0]:
+            for p in [1.25, 1.5, 2.0]:
                 p_expr = _wrap_neutralize_with_signed_power(expr, p)
                 if p_expr:
                     mutations.append({
                         "expression": p_expr,
                         "archetype": f"{archetype}_Power{p}",
                         "hypothesis": f"{hypothesis} [Convex Tail Power p={p} Concentration]",
-                        "universe": "TOPSP500",
+                        "universe": universe,
                         "neutralization": neutralization,
                         "decay": decay,
                         "region": region,
                         "mutation_axis": "power",
                     })
 
-        # ── Axis 3: Universe Restriction to TOPSP500 ──
-        if universe != "TOPSP500":
-            mutations.append({
-                "expression": expr,
-                "archetype": f"{archetype}_TOPSP500",
-                "hypothesis": f"{hypothesis} [TOPSP500 Large-Cap Liquidity Shield]",
-                "universe": "TOPSP500",
-                "neutralization": neutralization,
-                "decay": decay,
-                "region": region,
-                "mutation_axis": "universe",
-            })
+        # ── Axis 3: Universe Exploration (Broad Liquidity vs Precision) ──
+        target_universes = ["TOP3000", "TOP2000", "TOP1000"]
+        for target_u in target_universes:
+            if target_u != universe:
+                mutations.append({
+                    "expression": expr,
+                    "archetype": f"{archetype}_{target_u}",
+                    "hypothesis": f"{hypothesis} [Convex Universe Shift to {target_u}]",
+                    "universe": target_u,
+                    "neutralization": neutralization,
+                    "decay": decay,
+                    "region": region,
+                    "mutation_axis": "universe",
+                })
 
         # ── Axis 4: Neutralization Tier Swap (SUBINDUSTRY <-> SECTOR) ──
         alt_neut = "SECTOR" if neutralization.upper() == "SUBINDUSTRY" else "SUBINDUSTRY"
@@ -127,39 +129,51 @@ class ConvexNearMissMutator:
                 "expression": neut_expr,
                 "archetype": f"{archetype}_{alt_neut}",
                 "hypothesis": f"{hypothesis} [Convex Neutralization Swap to {alt_neut}]",
-                "universe": "TOPSP500",
+                "universe": universe,
                 "neutralization": alt_neut,
                 "decay": decay,
                 "region": region,
                 "mutation_axis": "neutralization",
             })
 
-        # ── Axis 5: Liquidity Volume & Conviction Gating (trade_when) ──
+        # ── Axis 5: Liquidity Volume Gating (trade_when) ──
         if "trade_when(" not in expr:
-            gated_expr = f"trade_when(volume > adv20 * 0.75, {expr}, -1)"
-            mutations.append({
-                "expression": gated_expr,
-                "archetype": f"{archetype}_VolGated",
-                "hypothesis": f"{hypothesis} [Liquidity Gated volume > adv20 * 0.75]",
-                "universe": "TOPSP500",
-                "neutralization": neutralization,
-                "decay": decay,
-                "region": region,
-                "mutation_axis": "liquidity_gate",
-            })
-        elif "volume > adv20 * 0.75" in expr:
-            for hurdle in ["0.90", "1.05", "1.20"]:
-                alt_gated = expr.replace("volume > adv20 * 0.75", f"volume > adv20 * {hurdle}")
+            if universe in ("TOPSP500", "TOP500"):
+                gated_expr = f"trade_when(abs(rank({expr}) - 0.5) > 0.30, {expr}, -1)"
                 mutations.append({
-                    "expression": alt_gated,
-                    "archetype": f"{archetype}_VolGated{hurdle.replace('.', '')}",
-                    "hypothesis": f"{hypothesis} [Liquidity Gated volume > adv20 * {hurdle}]",
-                    "universe": "TOPSP500",
+                    "expression": gated_expr,
+                    "archetype": f"{archetype}_ConvGated",
+                    "hypothesis": f"{hypothesis} [Conviction Gated rank distance > 0.30]",
+                    "universe": universe,
                     "neutralization": neutralization,
                     "decay": decay,
                     "region": region,
                     "mutation_axis": "liquidity_gate",
                 })
+            else:
+                gated_expr = f"trade_when(volume > adv20 * 0.75, {expr}, -1)"
+                mutations.append({
+                    "expression": gated_expr,
+                    "archetype": f"{archetype}_VolGated",
+                    "hypothesis": f"{hypothesis} [Liquidity Gated volume > adv20 * 0.75]",
+                    "universe": universe,
+                    "neutralization": neutralization,
+                    "decay": decay,
+                    "region": region,
+                    "mutation_axis": "liquidity_gate",
+                })
+        elif "volume > adv20 * 0.75" in expr and universe in ("TOPSP500", "TOP500"):
+            safe_expr = expr.replace("volume > adv20 * 0.75", f"abs(rank({expr}) - 0.5) > 0.30")
+            mutations.append({
+                "expression": safe_expr,
+                "archetype": f"{archetype}_SafeConvGated",
+                "hypothesis": f"{hypothesis} [Safe Conviction Gating on {universe}]",
+                "universe": universe,
+                "neutralization": neutralization,
+                "decay": decay,
+                "region": region,
+                "mutation_axis": "liquidity_gate",
+            })
 
         log.info("[⚡ CONVEX MUTATOR] Generated %d targeted gradient mutations for %s.", len(mutations), archetype)
         return mutations

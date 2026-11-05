@@ -434,19 +434,21 @@ async def run_cloud_miner(category: str, max_candidates: int, timeout_mins: int,
             for p in [1.0, 1.5, 2.0]:
                 for delta_win in [8, 10, 12]:
                     for neut in ["SECTOR", "SUBINDUSTRY"]:
-                        priority_queue.append({
-                            "expression": (
-                                f"trade_when(volume > adv20 * 0.70, "
-                                f"group_neutralize(signed_power(rank(-ts_decay_linear(ts_delta(pcr_oi_30, {delta_win}), 5)) - 0.5, {p}), {neut.lower()}), "
-                                f"-1)"
-                            ),
-                            "archetype": f"PutOI_Convex_d{d}_w{delta_win}_p{p}_{neut}",
-                            "hypothesis": f"Near-miss optimization of 1.05 Sharpe Put OI Buildup on TOPSP500 with decay {d}, power {p}, delta {delta_win}.",
-                            "universe": "TOPSP500",
-                            "neutralization": neut,
-                            "decay": d,
-                            "region": "USA",
-                        })
+                        for thresh in ["0.25", "0.28"]:
+                            inner_pcr = f"-ts_decay_linear(ts_delta(pcr_oi_30, {delta_win}), 5)"
+                            priority_queue.append({
+                                "expression": (
+                                    f"trade_when(abs(rank({inner_pcr}) - 0.5) > {thresh}, "
+                                    f"group_neutralize(signed_power(rank({inner_pcr}) - 0.5, {p}), {neut.lower()}), "
+                                    f"-1)"
+                                ),
+                                "archetype": f"PutOI_Convex_d{d}_w{delta_win}_p{p}_t{thresh}_{neut}",
+                                "hypothesis": f"Near-miss optimization of Put OI Buildup on TOPSP500 with decay {d}, power {p}, delta {delta_win}, conviction gate {thresh}.",
+                                "universe": "TOPSP500",
+                                "neutralization": neut,
+                                "decay": d,
+                                "region": "USA",
+                            })
 
         # Inoculate 1.28 Sharpe Breakthrough Volatility Skew Steepness on TOP3000, TOP1000, and TOPSP500
         for u in ["TOP3000", "TOP1000", "TOPSP500"]:
