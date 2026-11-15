@@ -40,9 +40,9 @@ def generate_apex_candidates() -> List[ApexCandidate]:
     Expands across weighting schemes, decays, and neutralization groups for continuous 2h+ mining.
     """
     candidates: List[ApexCandidate] = []
-    universes = ["TOP3000", "TOP2000", "TOP1000", "TOPSP500"]
+    universes = ["TOPSP500", "TOP1000", "TOP500", "TOP2000"]
     groups = ["subindustry", "sector"]
-    decays = [8, 12, 15, 18, 22, 25]
+    decays = [8, 10, 12, 14, 16]
 
     # Pre-built verified field sub-expressions
     sue_expr = "((anl4_af_eps_value - anl4_afv4_eps_mean) / (anl4_afv4_dts_spe + 0.001))"
@@ -58,12 +58,15 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                 # Apex 1: Institutional Accumulation Triple
                 # Call Breakeven Cushion (45%) + SUE Earnings Surprise (35%) - SPY Beta (20%)
                 # ─────────────────────────────────────────────────────────────
-                expr_apex1 = (
-                    f"group_neutralize(rank("
+                inner1 = (
                     f"0.45 * rank(ts_decay_linear({call_cushion}, {d})) + "
                     f"0.35 * rank(ts_decay_linear({sue_expr}, {d})) - "
                     f"0.20 * rank(ts_decay_linear(beta_last_60_days_spy, {d}))"
-                    f"), {g})"
+                )
+                expr_apex1 = (
+                    f"trade_when(abs(rank({inner1}) - 0.5) > 0.30, "
+                    f"group_neutralize(signed_power(rank({inner1}) * (volume / adv20) - 0.5, 1.25), {g}), "
+                    f"-1)"
                 )
                 candidates.append(ApexCandidate(
                     expression=expr_apex1,
@@ -82,12 +85,15 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                 # Apex 2: Volatility Skew & Earnings Surprise Confluence
                 # IV Skew Inversion (45%) + SUE Surprise (35%) - Unsystematic Risk (20%)
                 # ─────────────────────────────────────────────────────────────
-                expr_apex2 = (
-                    f"group_neutralize(rank("
+                inner2 = (
                     f"0.45 * rank(-ts_decay_linear({iv_skew}, {d})) + "
                     f"0.35 * rank(ts_decay_linear({sue_expr}, {d})) - "
                     f"0.20 * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
-                    f"), {g})"
+                )
+                expr_apex2 = (
+                    f"trade_when(abs(rank({inner2}) - 0.5) > 0.30, "
+                    f"group_neutralize(signed_power(rank({inner2}) * (volume / adv20) - 0.5, 1.25), {g}), "
+                    f"-1)"
                 )
                 candidates.append(ApexCandidate(
                     expression=expr_apex2,
@@ -106,12 +112,15 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                 # Apex 3: Analyst Dispersion Compression & Put-Call Flow
                 # Low Dispersion (40%) - Put/Call Ratio (35%) - SPY Beta (25%)
                 # ─────────────────────────────────────────────────────────────
-                expr_apex3 = (
-                    f"group_neutralize(rank("
+                inner3 = (
                     f"-0.40 * rank(ts_decay_linear(anl4_afv4_dts_spe, {d})) - "
                     f"0.35 * rank(ts_decay_linear(pcr_oi_all, {d})) - "
                     f"0.25 * rank(ts_decay_linear(beta_last_60_days_spy, {d}))"
-                    f"), {g})"
+                )
+                expr_apex3 = (
+                    f"trade_when(abs(rank({inner3}) - 0.5) > 0.30, "
+                    f"group_neutralize(signed_power(rank({inner3}) * (volume / adv20) - 0.5, 1.25), {g}), "
+                    f"-1)"
                 )
                 candidates.append(ApexCandidate(
                     expression=expr_apex3,
@@ -127,22 +136,25 @@ def generate_apex_candidates() -> List[ApexCandidate]:
                 ))
 
                 # ─────────────────────────────────────────────────────────────
-                # Apex 4: Put Breakeven Floor & SUE Conviction Armor
-                # Put Floor Cushion (40%) + High SUE (35%) - Unsystematic Risk (25%)
+                # Apex 4: Put Breakeven Floor & SUE Conviction Armor (YP1lrmql Archetype)
+                # Put Floor Cushion (43%) + High SUE (34%) - Unsystematic Risk (23%)
                 # ─────────────────────────────────────────────────────────────
+                inner4 = (
+                    f"0.43 * rank(ts_decay_linear({put_floor}, {d})) + "
+                    f"0.34 * rank(ts_decay_linear({sue_expr}, {d})) - "
+                    f"0.23 * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
+                )
                 expr_apex4 = (
-                    f"group_neutralize(signed_power(rank("
-                    f"0.40 * rank(ts_decay_linear({put_floor}, {d})) + "
-                    f"0.35 * rank(ts_decay_linear({sue_expr}, {d})) - "
-                    f"0.25 * rank(ts_decay_linear(unsystematic_risk_last_60_days, {d}))"
-                    f"), 1.5), {g})"
+                    f"trade_when(abs(rank({inner4}) - 0.5) > 0.32, "
+                    f"group_neutralize(signed_power(rank({inner4}) * (volume / adv20) - 0.5, 1.25), {g}), "
+                    f"-1)"
                 )
                 candidates.append(ApexCandidate(
                     expression=expr_apex4,
                     name=f"Apex4_PutFloor_SUE_Conviction_d{d}_{u}_{g.upper()}",
                     hypothesis=(
-                        "Tri-Factor with tail power weighting: forward_price > put_breakeven floor + "
-                        "positive SUE surprise - unsystematic_risk_last_60_days. High-conviction compound signal."
+                        "Tri-Factor with tail power weighting (YP1lrmql family): forward_price > put_breakeven floor + "
+                        "positive SUE surprise - unsystematic_risk_last_60_days with rank conviction gating. High-conviction compound signal."
                     ),
                     universe=u,
                     neutralization=g.upper(),
@@ -230,23 +242,11 @@ class ApexGenerator:
             mode_name = "PutFloorPower"
             hyp_desc = f"Put Floor ({w1}) + SUE ({w2}) - IdioVol ({w3})"
 
-        # Concentration-safe expression construction:
-        # On broad universes (TOP3000/TOP2000), use rank-conviction gating or volume-scaling (proven across 18 submitted alphas).
-        # On narrow universes (TOPSP500/TOP1000), use pure cross-sectional neutralization without trade_when to prevent concentration spikes.
-        if u in ("TOP3000", "TOP2000"):
-            style = random.choice(["vol_scaled", "signed_power_gated"])
-            if style == "vol_scaled":
-                expr = f"trade_when(abs(rank({inner}) - 0.5) > {thresh}, group_neutralize(rank({inner}) * (volume / adv20), {g}), -1)"
-                name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_t{thresh}_volscaled"
-                hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (vol-scaled conviction gate t={thresh}, d={d})."
-            else:
-                expr = f"trade_when(abs(rank({inner}) - 0.5) > {thresh}, group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g}), -1)"
-                name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_t{thresh}_p{p}"
-                hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (conviction gate t={thresh}, p={p}, d={d})."
-        else:
-            expr = f"group_neutralize(signed_power(rank({inner}) - 0.5, {p}), {g})"
-            name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_p{p}_pure"
-            hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (pure cross-sectional neutralization p={p}, d={d}, safe concentration)."
+        # Institutional rank-conviction gating with volume-scaled power concentration (proven by YP1lrmql)
+        # Prevents CONCENTRATED_WEIGHT failures and elevates Fitness >= 1.00 by eliminating noisy middle churn.
+        expr = f"trade_when(abs(rank({inner}) - 0.5) > {thresh}, group_neutralize(signed_power(rank({inner}) * (volume / adv20) - 0.5, {p}), {g}), -1)"
+        name = f"DynamicApex_{mode_name}_{u}_{g}_d{d}_t{thresh}_p{p}"
+        hyp = f"Dynamic Apex Tri-Factor {hyp_desc} on {u} (conviction gate t={thresh}, p={p}, d={d}, volume-scaled)."
 
         return ApexCandidate(
             expression=expr,

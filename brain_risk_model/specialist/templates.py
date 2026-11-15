@@ -113,7 +113,7 @@ def compile_risk_model_invariant(expr: str, default_decay: int = 15, default_gro
 def generate_template_candidates() -> List[RiskModelCandidate]:
     """Generates deterministic institutional systematic risk alpha expressions with Bivariate Interactions and Liquidity Armor."""
     candidates: List[RiskModelCandidate] = []
-    universes = ["TOP3000", "TOP2000"]
+    universes = ["TOPSP500", "TOP1000", "TOP2000"]
     groups = ["subindustry", "sector"]
     decays = [12, 14, 16]
 

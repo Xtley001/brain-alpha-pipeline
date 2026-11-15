@@ -16,7 +16,7 @@ class RiskStrategyMetadata:
     category: str = "model"
     theory_summary: str = ""
     academic_references: list[str] = field(default_factory=list)
-    preferred_universes: list[str] = field(default_factory=lambda: ["TOP3000", "TOP2000", "TOP1000"])
+    preferred_universes: list[str] = field(default_factory=lambda: ["TOPSP500", "TOP1000", "TOP2000"])
     preferred_neutralizations: list[str] = field(default_factory=lambda: ["SUBINDUSTRY", "SECTOR"])
     preferred_decays: list[int] = field(default_factory=lambda: [10, 12, 15, 20])
 
