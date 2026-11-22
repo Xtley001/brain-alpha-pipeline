@@ -40,8 +40,10 @@ ALPHAS_MASTER_DOSSIER.md
 alphas_export_*
 # Options Pipeline Data — all local data files excluded; source of truth is Neon DB
 /data/
+!data/ref_pnls_cache.json
 brain_options/data/*.csv
 brain_options/data/*.json
+!brain_options/data/ref_pnls_cache.json
 brain_options/data/*.jsonl
 brain_options/data/pnl_series/
 /brain_libraries/brain_store/data/

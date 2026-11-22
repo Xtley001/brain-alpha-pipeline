@@ -552,6 +552,7 @@ class OptionsDatabase:
     def __init__(self, database_url: Optional[str]):
         self.database_url = database_url
         self._pool: Optional[ConnectionPool] = None
+        self._is_available: bool = True
         if self.database_url:
             url = self.database_url
             if url.startswith("postgres://"):
@@ -560,19 +561,19 @@ class OptionsDatabase:
                 try:
                     self._pool = ConnectionPool(
                         conninfo=url,
-                        min_size=1,
+                        min_size=0,
                         max_size=10,
                         open=True,
-                        timeout=15.0,
+                        timeout=5.0,
                         kwargs={
-                            "connect_timeout": 15,
+                            "connect_timeout": 5,
                             "keepalives": 1,
                             "keepalives_idle": 30,
                             "keepalives_interval": 10,
                             "keepalives_count": 5,
                         },
                     )
-                    log.info("PostgreSQL connection pool initialized (min=1, max=10).")
+                    log.info("PostgreSQL connection pool initialized (min=0, max=10).")
                 except Exception as pool_err:
                     log.error("Connection pool initialization failed, falling back to direct connection: %s", pool_err)
                     self._pool = None
@@ -590,9 +591,8 @@ class OptionsDatabase:
 
     @contextmanager
     def _get_connection(self):
-        if not self.database_url:
-            yield None
-            return
+        if not self.database_url or not getattr(self, "_is_available", True):
+            raise ConnectionError("PostgreSQL database is currently offline or quota exceeded.")
 
         if self._pool is not None:
             with self._pool.connection() as conn:
@@ -633,6 +633,24 @@ class OptionsDatabase:
         Guarded so it only executes once per process.
         """
         if OptionsDatabase._schema_initialized:
+            return
+
+        # Fast ping check: if DB is unreachable or quota exceeded, bypass schema execution
+        try:
+            with self._get_connection() as conn:
+                if conn is not None:
+                    with conn.cursor() as cur:
+                        cur.execute("SELECT 1;")
+        except Exception as ping_err:
+            log.warning("PostgreSQL DB unreachable on ping (%s); disabling DB pool for this process.", ping_err)
+            self._is_available = False
+            if self._pool is not None:
+                try:
+                    self._pool.close()
+                except Exception:
+                    pass
+                self._pool = None
+            OptionsDatabase._schema_initialized = True
             return
 
         migration_failures: list = []
